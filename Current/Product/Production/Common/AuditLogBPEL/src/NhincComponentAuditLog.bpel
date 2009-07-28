@@ -1,0 +1,1930 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhincComponentAuditLog"
+    targetNamespace="urn:gov:hhs:fha:nhinc:common:auditlogbpel/nhinccomponentauditlog"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:common:auditlogbpel/nhinccomponentauditlog" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" 
+    xmlns:audit="http://nhinc.services.com/schema/auditmessage" 
+    xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+    xmlns:auditlog="urn:gov:hhs:fha:nhinc:common:auditlog" 
+    xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" location="Interfaces/wsdl/NhincComponentAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" location="Interfaces/wsdl/NhincComponentAuditLogDte.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AuditRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" partnerLinkType="tns:AuditRepositoryManager" partnerRole="AuditRepositoryManagerPortTypeRole"/>
+        <partnerLink name="NhinAuditLogDtePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" partnerLinkType="tns:NhincComponentAuditLogDte" partnerRole="NhincComponentAuditLogDtePortTypeRole"/>
+        <partnerLink name="PropertyAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="NhincInteralAuditRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" myRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="GetAuditServicePropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+        <variable name="GetAuditServicePropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+        <variable name="LogEntityUnsubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityUnsubscribeRequestMessage"/>
+        <variable name="LogEntityNotifyRespRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityNotifyRespRequestMessage"/>
+        <variable name="LogEntityCdcNotifyRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityCdcNotifyRequestMessage"/>
+        <variable name="LogEntityDocNotifyRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityDocNotifyRequestMessage"/>
+        <variable name="LogEntityCdcSubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityCdcSubscribeRequestMessage"/>
+        <variable name="LogEntityDocSubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEntityDocSubscribeRequestMessage"/>
+        <variable name="LogSubscribeRespRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubscribeRespRequestMessage"/>
+        <variable name="LogUnsubscribeRespRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogUnsubscribeRespRequestMessage"/>
+        <variable name="LogNhinUnsubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinUnsubscribeRequestMessage"/>
+        <variable name="LogNhinNotifyRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinNotifyRequestMessage"/>
+        <variable name="LogNhinSubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubscribeRequestMessage"/>
+        <variable name="LogSubjectReidentResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectReidentRespEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectReidentRespEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="TransformSubjectReidentResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformSubjectReidentResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubjectReidentResponseToGenericAuditRequestMessage"/>
+        <variable name="LogSubjectReidentResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentResponseMessage"/>
+        <variable name="LogSubjectReidentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectReidentEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectReidentEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="TransformSubjectReidentRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformSubjectReidentRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubjectReidentRequestToGenericAuditRequestMessage"/>
+        <variable name="LogSubjectReidentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentRequestMessage"/>
+        <variable name="TransformAckToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformAckToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformAckToGenericAuditRequestMessage"/>
+        <variable name="TransformFindAuditEventsToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformFindAuditEventsToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformFindAuditEventsToGenericAuditRequestMessage"/>
+        <variable name="TransformDocRetrieveResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformDocRetrieveResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformDocRetrieveResponseToGenericAuditRequestMessage"/>
+        <variable name="TransformDocRetrieveRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformDocRetrieveRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformDocRetrieveRequestToGenericAuditRequestMessage"/>
+        <variable name="TransformAdhocQueryResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformAdhocQueryResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformAdhocQueryResponseToGenericAuditRequestMessage"/>
+        <variable name="TransformSubjectRevokedToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformSubjectRevokedToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubjectRevokedToGenericAuditRequestMessage"/>
+        <variable name="TransformSubjectRevisedToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformSubjectRevisedToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubjectRevisedToGenericAuditRequestMessage"/>
+        <variable name="TransformAdhocQueryRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformAdhocQueryRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformAdhocQueryRequestToGenericAuditRequestMessage"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+        <variable name="TransformSubjectAddedToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+        <variable name="TransformSubjectAddedToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubjectAddedToGenericAuditRequestMessage"/>
+        <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+        <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+        <variable name="LogAuditQueryEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogAuditQueryEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogFindAuditEventsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogFindAuditEventsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogFindAuditEventsRequestMessage"/>
+        <variable name="LogDocRetrieveResultsEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetrieveResultsEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogDocRetrieveResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetrieveResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogDocRetrieveResultRequestMessage"/>
+        <variable name="LogDocRetreiveEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetreiveEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogDocRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogDocRetrieveRequestMessage"/>
+        <variable name="LogAdhocQueryResultEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogAdhocQueryResultEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogAdhocQueryResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogAdhocQueryResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogAdhocQueryResultRequestMessage"/>
+        <variable name="LogSubjectAckEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectAckEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+        <variable name="LogSubjectRevokedEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectRevokedEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogSubjectRevokedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectRevokedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevokedRequestMessage"/>
+        <variable name="LogSubjectRevisedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectRevisedEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectRevisedEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogSubjectRevisedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevisedRequestMessage"/>
+        <variable name="LogAdhocQueryEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogAdhocQueryEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogAdhocQueryOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogAdhocQueryIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogAdhocQueryRequestMessage"/>
+        <variable name="LogSubjectAddEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectAddEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+        <variable name="LogSubjectAddedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogSubjectAddedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectAddedRequestMessage"/>
+    </variables>
+    <sequence>
+        <pick name="PickAuditMessages" createInstance="yes">
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectAdded" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectAddedIn">
+                <sequence name="LogSubjectAddSeq">
+                    <assign name="LogSubjectAddSeq-AssignPropertyAccessorInputForAuditCheck">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogSubjectAddSeq-InvokePropertyForAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogSubjectAddSeq-IfAuditLogEnabled">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogSubjectAddSeq-IfAuditEnabledSequence">
+                            <assign name="LogSubjectAddSeq-AssignAuditDteInput">
+                                <copy>
+                                    <from variable="LogSubjectAddedIn" part="LogSubjectAddedRequest"/>
+                                    <to variable="TransformSubjectAddedToGenericAuditIn" part="TransformSubjectAddedToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectAddSeq-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubjectAddedToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubjectAddedToGenericAuditIn" outputVariable="TransformSubjectAddedToGenericAuditOut">
+                            </invoke>
+                            <assign name="LogSubAdd-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubAdd-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogAddSub-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubAdd-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="LogSubjectAdd-AssignAuditReposInput">
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                                <copy>
+                                    <from>$TransformSubjectAddedToGenericAuditOut.GenericAuditResponse/audit:AuditMessage</from>
+                                    <to>$LogSubjectAddEventIn.LogEventRequest/audit:AuditMessage</to>
+                                </copy>
+                                <copy>
+                                    <from>$TransformSubjectAddedToGenericAuditOut.GenericAuditResponse/auditlog:direction</from>
+                                    <to>$LogSubjectAddEventIn.LogEventRequest/auditlog:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>$TransformSubjectAddedToGenericAuditOut.GenericAuditResponse/auditlog:interface</from>
+                                    <to>$LogSubjectAddEventIn.LogEventRequest/auditlog:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectAdd" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectAddEventIn" outputVariable="LogSubjectAddEventOut"/>
+                            <assign name="AssignSubjectAddResp">
+                                <copy>
+                                    <from variable="LogSubjectAddEventOut" part="LogEventResponse"/>
+                                    <to variable="LogSubjectAddedOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="IfAuditTurnedOffSeq">
+                                <assign name="AssignMessagetoResponse">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogSubjectAddedOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectAdd" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectAdded" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectAddedOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogAdhocQuery" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogAdhocQueryIn">
+                <sequence name="LogAdhocQuerySeq">
+                    <assign name="LogAdhocQuery-AssignPropForAuditCk">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogAdhocQuery-InvokePropForAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut">
+                        <sxt:trace>
+                            <sxt:log level="info" location="onComplete">
+                                <from>concat('Audit Process Enabled = ', $GetPropertyOut.GetPropertyResponse/propacc:propertyValue)</from>
+                            </sxt:log>
+                        </sxt:trace>
+                    </invoke>
+                    <if name="LogAdhocQuery-IfAuditReq">
+                        <condition>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</condition>
+                        <sequence name="LogAdhocQuery-AuditTrueSequence">
+                            <assign name="LogAdhocQuery-AssignDteInput">
+                                <copy>
+                                    <from variable="LogAdhocQueryIn" part="LogAdhocQueryRequest"/>
+                                    <to variable="TransformAdhocQueryRequestToGenericAuditIn" part="TransformAdhocQueryRequestToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAdhocQuery-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformAdhocQueryRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformAdhocQueryRequestToGenericAuditIn" outputVariable="TransformAdhocQueryRequestToGenericAuditOut"/>
+                            <assign name="LogAdhocQuery-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAdhocQuery-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogAdhocQuery-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAdhocQuery-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogAdhocQuery">
+                                <copy>
+                                    <from variable="TransformAdhocQueryRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogAdhocQueryEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogAdhocQuery" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogAdhocQueryEventIn" outputVariable="LogAdhocQueryEventOut"/>
+                            <assign name="AssignAdhocQueryResp">
+                                <copy>
+                                    <from variable="LogAdhocQueryEventOut" part="LogEventResponse"/>
+                                    <to variable="LogAdhocQueryOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogAdhocQ-AuditOffSeq">
+                                <assign name="LogAdhocQ-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogAdhocQueryOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogAdhocQuery" partnerLink="NhincInteralAuditRepositoryPL" operation="LogAdhocQuery" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogAdhocQueryOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectRevised" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectRevisedIn">
+                <sequence name="LogSubjectRevisedSeq">
+                    <assign name="LogSubjectRevisedSeq-AssignPropForAuditCk">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogSubjectRevisedSeq-InvokePropForAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogSubjectRevisedSeq-IfAuditEnabled">
+                        <condition>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</condition>
+                        <sequence name="LogSubjectRevised-AuditTrueSeq">
+                            <assign name="LogSubjectRevised-AssignDteInput">
+                                <copy>
+                                    <from variable="LogSubjectRevisedIn" part="LogSubjectRevisedRequest"/>
+                                    <to variable="TransformSubjectRevisedToGenericAuditIn" part="TransformSubjectRevisedToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectRevised-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubjectRevisedToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubjectRevisedToGenericAuditIn" outputVariable="TransformSubjectRevisedToGenericAuditOut"/>
+                            <assign name="LogSubjectRevised-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectRevised-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogSubjectRevised-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectRevised-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogSubjectRevised">
+                                <copy>
+                                    <from variable="TransformSubjectRevisedToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogSubjectRevisedEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectRevised" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectRevisedEventIn" outputVariable="LogSubjectRevisedEventOut"/>
+                            <assign name="AssignSubjectRevisedResp">
+                                <copy>
+                                    <from variable="LogSubjectRevisedEventOut" part="LogEventResponse"/>
+                                    <to variable="LogSubjectRevisedOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogSubRevised-AuditOffSeq">
+                                <assign name="LogSubRevised-AssignAuditOffmessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogSubjectRevisedOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectRevised" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectRevised" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectRevisedOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectRevoked" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectRevokedIn">
+                <sequence name="LogSubjectRevokedSeq">
+                    <assign name="LogSubRevoked-AssignPropInput">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogSubRevoked-InvokePropAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogSubRevoked-IfAuditTrue">
+                        <condition>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</condition>
+                        <sequence name="LogSubRevoked-AuditTrueSeq">
+                            <assign name="LogSubRevoked-AssignDteInput">
+                                <copy>
+                                    <from variable="LogSubjectRevokedIn" part="LogSubjectRevokedRequest"/>
+                                    <to variable="TransformSubjectRevokedToGenericAuditIn" part="TransformSubjectRevokedToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubRevoked-InvokeDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubjectRevokedToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubjectRevokedToGenericAuditIn" outputVariable="TransformSubjectRevokedToGenericAuditOut"/>
+                            <assign name="LogSubRevoked-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubRevoked-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogSubRevoked-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubRevoked-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogSubjectRevoked">
+                                <copy>
+                                    <from variable="TransformSubjectRevokedToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogSubjectRevokedEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectRevoked" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectRevokedEventIn" outputVariable="LogSubjectRevokedEventOut"/>
+                            <assign name="AssignSubjectRevokedResp">
+                                <copy>
+                                    <from variable="LogSubjectRevokedEventOut" part="LogEventResponse"/>
+                                    <to variable="LogSubjectRevokedOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogSubRevoked-AuditOffSeq">
+                                <assign name="LogSubRevoked-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogSubjectRevokedOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectRevoked" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectRevoked" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectRevokedOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinSubjectDiscoveryAckIn">
+                <sequence name="LogSubjectAckSeq">
+                    <assign name="LogAck-AssignPropAuditChkInput">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogAck-InvokePropAuditChk" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogAck-IfAuditTrue">
+                        <condition>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</condition>
+                        <sequence name="LogAck-AuditTrueSeq">
+                            <assign name="LogAck-AssignDte">
+                                <copy>
+                                    <from variable="LogNhinSubjectDiscoveryAckIn" part="LogNhinSubjectDiscoveryAckRequest"/>
+                                    <to variable="TransformAckToGenericAuditIn" part="TransformAckToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAck-InvokeDte" partnerLink="NhinAuditLogDtePL" operation="TransformAckToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformAckToGenericAuditIn" outputVariable="TransformAckToGenericAuditOut"/>
+                            <assign name="LogSubAck-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubAck-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogSubAck-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubAck-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogSubjectAck">
+                                <copy>
+                                    <from variable="TransformAckToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogSubjectAckEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectAck" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectAckEventIn" outputVariable="LogSubjectAckEventOut"/>
+                            <assign name="AssignSubjectAckResp">
+                                <copy>
+                                    <from variable="LogSubjectAckEventOut" part="LogEventResponse"/>
+                                    <to variable="LogNhinSubjectDiscoveryAckOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogAck-AuditOffSeq">
+                                <assign name="LogAck-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogNhinSubjectDiscoveryAckOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectAck" partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinSubjectDiscoveryAckOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogAdhocQueryResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogAdhocQueryResultIn">
+                <sequence name="LogAdhocQueryResultSeq">
+                    <assign name="LogAdhocQueryResp-AssignPropAuditChck">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="AdhocQueryResp-InvokeAuditChk" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogAdhocQueryResp-IfAuditTrue">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="AdhocQueryResp-AuditTrueSeq">
+                            <assign name="AdhocQueryResp-AssignDteInput">
+                                <copy>
+                                    <from variable="LogAdhocQueryResultIn" part="LogAdhocQueryResultRequest"/>
+                                    <to variable="TransformAdhocQueryResponseToGenericAuditIn" part="TransformAdhocQueryResponseToGenericAuditResponse"/>
+                                </copy>
+                            </assign>
+                            <invoke name="AdhocQueryResp-InvokeDte" partnerLink="NhinAuditLogDtePL" operation="TransformAdhocQueryResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformAdhocQueryResponseToGenericAuditIn" outputVariable="TransformAdhocQueryResponseToGenericAuditOut"/>
+                            <assign name="LogAdhocQueryResp-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAdhocQueryResp-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogAdhocQueryResp-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAdhocQueryResp-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogAdhocQueryResult">
+                                <copy>
+                                    <from variable="TransformAdhocQueryResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogAdhocQueryResultEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogAdhocQueryResult" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogAdhocQueryResultEventIn" outputVariable="LogAdhocQueryResultEventOut"/>
+                            <assign name="AssignAdhocQueryResultResp">
+                                <copy>
+                                    <from variable="LogAdhocQueryResultEventOut" part="LogEventResponse"/>
+                                    <to variable="LogAdhocQueryResultOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="AdhocQResp-AuditOffSeq">
+                                <assign name="AdhocQResp-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogAdhocQueryResultOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogAdhocQueryResult" partnerLink="NhincInteralAuditRepositoryPL" operation="LogAdhocQueryResult" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogAdhocQueryResultOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogDocRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogDocRetrieveIn">
+                <sequence name="LogDocRetrieveSeq">
+                    <assign name="LogDocRetrive-AssignPropAuditChk">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogDocRetrieve-InvokePropAuditChek" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogDocRetrieve-IfAuditTrue">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogDocRetrieve-AuditTrueSeq">
+                            <assign name="LogDocRetrieve-AssignAuditDteInput">
+                                <copy>
+                                    <from variable="LogDocRetrieveIn" part="LogDocRetrieveRequest"/>
+                                    <to variable="TransformDocRetrieveRequestToGenericAuditIn" part="TransformDocRetrieveRequestToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetrieve-InvokeDte" partnerLink="NhinAuditLogDtePL" operation="TransformDocRetrieveRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformDocRetrieveRequestToGenericAuditIn" outputVariable="TransformDocRetrieveRequestToGenericAuditOut"/>
+                            <assign name="LogDocRetrieve-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetrieve-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogDocRetrieve-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetrieve-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogDocRetrieve">
+                                <copy>
+                                    <from variable="TransformDocRetrieveRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogDocRetreiveEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogDocRetrieve" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogDocRetreiveEventIn" outputVariable="LogDocRetreiveEventOut"/>
+                            <assign name="AssignDocRetreiveResp">
+                                <copy>
+                                    <from variable="LogDocRetreiveEventOut" part="LogEventResponse"/>
+                                    <to variable="LogDocRetrieveOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogDocRet-AuditOffSeq">
+                                <assign name="LogDocRet-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogDocRetrieveOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogDocRetrieve" partnerLink="NhincInteralAuditRepositoryPL" operation="LogDocRetrieve" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogDocRetrieveOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogDocRetrieveResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogDocRetrieveResultIn">
+                <sequence name="LogDocRetrieveResultSeq">
+                    <assign name="LogDocRetriveResult-AssignPropAuditChkInput">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogDocRetriveResult-InvokepropChkAudit" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogDocRetriveResult-IfAuditTrue">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogDocRetriveResult-AuditTrueSeq">
+                            <assign name="LogDocRetriveResult-AssignAuditDteInput">
+                                <copy>
+                                    <from variable="LogDocRetrieveResultIn" part="LogDocRetrieveResultRequest"/>
+                                    <to variable="TransformDocRetrieveResponseToGenericAuditIn" part="TransformDocRetrieveResponseToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetriveResult-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformDocRetrieveResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformDocRetrieveResponseToGenericAuditIn" outputVariable="TransformDocRetrieveResponseToGenericAuditOut"/>
+                            <assign name="LogDocRetriveResult-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetriveResult-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogDocRetriveResult-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogDocRetriveResult-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogDocRetrieveResult">
+                                <copy>
+                                    <from variable="TransformDocRetrieveResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogDocRetrieveResultsEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogDocRetrieveResult" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogDocRetrieveResultsEventIn" outputVariable="LogDocRetrieveResultsEventOut"/>
+                            <assign name="AssignDocRetreiveResultsResp">
+                                <copy>
+                                    <from variable="LogDocRetrieveResultsEventOut" part="LogEventResponse"/>
+                                    <to variable="LogDocRetrieveResultOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogDocRetResult-AuditOffSeq">
+                                <assign name="LogDocRetResult-AssignAuditOffMess">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogDocRetrieveResultOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogDocRetrieveResult" partnerLink="NhincInteralAuditRepositoryPL" operation="LogDocRetrieveResult" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogDocRetrieveResultOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogFindAuditEvents" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogFindAuditEventsIn">
+                <sequence name="LogAuditQuerySeq">
+                    <assign name="LogAuditQuery-AssignAuditChkInput">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogAuditQuery-InvokePropChkAudit" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogAuditQuery-IfAuditTrue">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogAuditQuery-AuditTrueSeq">
+                            <assign name="LogAuditQuery-AssignDteInput">
+                                <copy>
+                                    <from variable="LogFindAuditEventsIn" part="LogFindAuditEventsRequest"/>
+                                    <to variable="TransformFindAuditEventsToGenericAuditIn" part="TransformFindAuditEventsToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAuditQuery-InvokeDte" partnerLink="NhinAuditLogDtePL" operation="TransformFindAuditEventsToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformFindAuditEventsToGenericAuditIn" outputVariable="TransformFindAuditEventsToGenericAuditOut"/>
+                            <assign name="LogAuditQuery-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAuditQuery-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogAuditQuery-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogAuditQuery-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AssignLogAuditQuery">
+                                <copy>
+                                    <from variable="TransformFindAuditEventsToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogAuditQueryEventIn" part="LogEventRequest"/>
+                                </copy>
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogAuditQuery" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogAuditQueryEventIn" outputVariable="LogAuditQueryEventOut"/>
+                            <assign name="AssignLogAuditQueryResp">
+                                <copy>
+                                    <from variable="LogAuditQueryEventOut" part="LogEventResponse"/>
+                                    <to variable="LogFindAuditEventsOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogAuditQ-AuditOffSeq">
+                                <assign name="LogAuditQ-AssignAuditOffMessage">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogFindAuditEventsOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogAuditQuery" partnerLink="NhincInteralAuditRepositoryPL" operation="LogFindAuditEvents" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogFindAuditEventsOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectReident" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectReidentIn">
+                <sequence name="LogSubjectReidentReqSeq">
+                    <assign name="LogSubjectReidentReqSeq-AssignPropertyAccessorInputForAuditCheck">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogSubjectReidentReqSeq-InvokePropertyForAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogSubjectReidentReqSeq-IfAuditLogEnabled">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogSubjectReidentReqSeq-IfAuditEnabledSequence">
+                            <assign name="LogSubjectReidentReqSeq-AssignAuditDteInput">
+                                <copy>
+                                    <from variable="LogSubjectReidentIn" part="LogSubjectReidentRequest"/>
+                                    <to variable="TransformSubjectReidentRequestToGenericAuditIn" part="TransformSubjectReidentRequestToGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectReidentReqSeq-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubjectReidentRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubjectReidentRequestToGenericAuditIn" outputVariable="TransformSubjectReidentRequestToGenericAuditOut">
+                            </invoke>
+                            <assign name="LogSubReidentReq-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubReidentReq-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogReidentReqSub-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubReidentReq-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="LogSubjectReidentReq-AssignAuditReposInput">
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubjectReidentRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogSubjectReidentEventIn" part="LogEventRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectReidentReq" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectReidentEventIn" outputVariable="LogSubjectReidentEventOut"/>
+                            <assign name="AssignSubjectReidentReqResp">
+                                <copy>
+                                    <from variable="LogSubjectReidentEventOut" part="LogEventResponse"/>
+                                    <to variable="LogSubjectReidentOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogReientReq-TurnedOffSeq">
+                                <assign name="AssignLogReientReq-MessagetoResponse">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogSubjectReidentOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectReidentReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectReident" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectReidentOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectReidentResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectReidentResultIn">
+                <sequence name="LogSubjectReidentRespSeq">
+                    <assign name="LogSubjectReidentRespSeq-AssignPropertyAccessorInputForAuditCheck">
+                        <copy>
+                            <from>'gateway'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                        </copy>
+                        <copy>
+                            <from>'serviceAuditRepository'</from>
+                            <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                        </copy>
+                    </assign>
+                    <invoke name="LogSubjectReidentRespSeq-InvokePropertyForAuditCheck" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                    <if name="LogSubjectReidentRespSeq-IfAuditLogEnabled">
+                        <condition>'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue</condition>
+                        <sequence name="LogSubjectReidentRespSeq-IfAuditEnabledSequence">
+                            <assign name="LogSubjectReidentRespSeq-AssignAuditDteInput">
+                                <copy>
+                                    <from variable="LogSubjectReidentResultIn" part="LogSubjectReidentResponse"/>
+                                    <to variable="TransformSubjectReidentResponseToGenericAuditIn" part="TransformSubjectReidentResponseTpGenericAuditRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubjectReidentRespSeq-InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubjectReidentResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubjectReidentResponseToGenericAuditIn" outputVariable="TransformSubjectReidentResponseToGenericAuditOut">
+                            </invoke>
+                            <assign name="LogSubReidentResp-AssignPropForHC">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubReidentResp-InvokePropAccessorHC" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="LogReidentRespSub-AssignConnMgrInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'auditrepository'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="LogSubReidentResp-InvokeConnMgr" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="LogSubjectReidentResp-AssignAuditReposInput">
+                                <copy>
+                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                    <to partnerLink="AuditRepositoryPL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubjectReidentResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                    <to variable="LogSubjectReidentRespEventIn" part="LogEventRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubjectReidentResp" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubjectReidentRespEventIn" outputVariable="LogSubjectReidentRespEventOut"/>
+                            <assign name="AssignSubjectReidentRespResp">
+                                <copy>
+                                    <from variable="LogSubjectReidentRespEventOut" part="LogEventResponse"/>
+                                    <to variable="LogSubjectReidentResultOut" part="LogEventResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                        <else>
+                            <sequence name="LogReientResp-TurnedOffSeq">
+                                <assign name="AssignLogReientResp-MessagetoResponse">
+                                    <copy>
+                                        <from>'Audit Service is not enabled'</from>
+                                        <to>$LogSubjectReidentResultOut.LogEventResponse/nccommon:message</to>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                        </else>
+                    </if>
+                    <reply name="ReplyLogSubjectReidentResp" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubjectReidentResult" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubjectReidentResultOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinSubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinSubscribeRequestIn">
+                <scope name="LogNhinSubscribeReqScope">
+                    <variables>
+                        <variable name="LogNhinSubscribeEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubscribeEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformNhinSubscribeRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformNhinSubscribeRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformNhinSubscribeRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogNhinSubscribeRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogNhinSubscribeReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogNhinSubscribeRequestIn" part="LogNhinSubscribeRequest"/>
+                                        <to variable="TransformNhinSubscribeRequestToGenericAuditIn" part="TransformNhinSubscribeRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformNhinSubscribeRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformNhinSubscribeRequestToGenericAuditIn" outputVariable="TransformNhinSubscribeRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformNhinSubscribeRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogNhinSubscribeEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogNhinSubscribeEventIn" outputVariable="LogNhinSubscribeEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogNhinSubscribeEventOut" part="LogEventResponse"/>
+                                        <to variable="LogNhinSubscribeRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogNhinSubscribeRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogNhinSubscribeReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinSubscribeRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinSubscribeRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinNotifyRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinNotifyRequestIn">
+                <scope name="LogNhinNotifyReqScope">
+                    <variables>
+                        <variable name="LogNhinNotifyReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinNotifyReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformNhinNotifyRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformNhinNotifyRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformNhinNotifyRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogNhinNotifyRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogNhinNotifyReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogNhinNotifyRequestIn" part="LogNhinNotifyRequest"/>
+                                        <to variable="TransformNhinNotifyRequestToGenericAuditIn" part="TransformNhinNotifyRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformNhinNotifyRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformNhinNotifyRequestToGenericAuditIn" outputVariable="TransformNhinNotifyRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformNhinNotifyRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogNhinNotifyReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogNhinNotifyReqEventIn" outputVariable="LogNhinNotifyReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogNhinNotifyReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogNhinNotifyRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogNhinNotifyRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogNhinNotifyReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinNotifyRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinNotifyRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinUnsubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinUnsubscribeRequestIn">
+                <scope name="LogNhinUnsubscribeReqScope">
+                    <variables>
+                        <variable name="LogNhinUnsubscribeEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinUnsubscribeEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformNhinUnsubscribeRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformNhinUnsubscribeRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformNhinUnsubscribeRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogNhinUnsubscribeRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogNhinUnsubscribeReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogNhinUnsubscribeRequestIn" part="LogNhinUnsubscribeRequest"/>
+                                        <to variable="TransformNhinUnsubscribeRequestToGenericAuditIn" part="TransformNhinUnsubscribeRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformNhinUnsubscribeRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformNhinUnsubscribeRequestToGenericAuditIn" outputVariable="TransformNhinUnsubscribeRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformNhinUnsubscribeRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogNhinUnsubscribeEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogNhinUnsubscribeEventIn" outputVariable="LogNhinUnsubscribeEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogNhinUnsubscribeEventOut" part="LogEventResponse"/>
+                                        <to variable="LogNhinUnsubscribeRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogNhinUnsubscribeRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogNhinUnsubscribeReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogNhinUnsubscribeRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogNhinUnsubscribeRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogUnsubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogUnsubscribeRespRequestIn">
+                <scope name="LogUnsubscribeRespReqScope">
+                    <variables>
+                        <variable name="LogUnsubscribeRespReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogUnsubscribeRespReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformUnsubscribeResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformUnsubscribeResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformUnsubscribeResponseToGenericAuditRequestMessage"/>
+                        <variable name="LogUnsubscribeRespRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogUnsubscribeRespReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogUnsubscribeRespRequestIn" part="LogUnsubscribeRespRequest"/>
+                                        <to variable="TransformUnsubscribeResponseToGenericAuditIn" part="TransformUnsubscribeResponseToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformUnsubscribeResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformUnsubscribeResponseToGenericAuditIn" outputVariable="TransformUnsubscribeResponseToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformUnsubscribeResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogUnsubscribeRespReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogUnsubscribeRespReqEventIn" outputVariable="LogUnsubscribeRespReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogUnsubscribeRespReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogUnsubscribeRespRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogUnsubscribeRespRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogUnsubscribeRespReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogUnsubscribeRespRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogUnsubscribeRespRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubscribeRespRequestIn">
+                <scope name="LogSubscribeRespReqScope">
+                    <variables>
+                        <variable name="LogSubscribeRespReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubscribeRespReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformSubscribeResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformSubscribeResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformSubscribeResponseToGenericAuditRequestMessage"/>
+                        <variable name="LogSubscribeRespRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogSubscribeRespReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogSubscribeRespRequestIn" part="LogSubscribeRespRequest"/>
+                                        <to variable="TransformSubscribeResponseToGenericAuditIn" part="TransformSubscribeResponseToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformSubscribeResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformSubscribeResponseToGenericAuditIn" outputVariable="TransformSubscribeResponseToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformSubscribeResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogSubscribeRespReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogSubscribeRespReqEventIn" outputVariable="LogSubscribeRespReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogSubscribeRespReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogSubscribeRespRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogSubscribeRespRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogSubscribeRespReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogSubscribeRespRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogSubscribeRespRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityDocSubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityDocSubscribeRequestIn">
+                <scope name="LogEntityDocSubscribeReqScope">
+                    <variables>
+                        <variable name="LogEntityDocSubReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityDocSubReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityDocSubscribeRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityDocSubscribeRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityDocSubscribeRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityDocSubscribeRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityDocSubscribeReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityDocSubscribeRequestIn" part="LogmEntityDocSubscribeRequest"/>
+                                        <to variable="TransformEntityDocSubscribeRequestToGenericAuditIn" part="TransformEntityDocSubscribeRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityDocSubscribeRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityDocSubscribeRequestToGenericAuditIn" outputVariable="TransformEntityDocSubscribeRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityDocSubscribeRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityDocSubReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityDocSubReqEventIn" outputVariable="LogEntityDocSubReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityDocSubReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityDocSubscribeRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityDocSubscribeRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityDocSubscribeReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityDocSubscribeRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityDocSubscribeRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityCdcSubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityCdcSubscribeRequestIn">
+                <scope name="LogEntityCdcSubscribeReqScope">
+                    <variables>
+                        <variable name="LogEntityCdcSubReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityCdcSubReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityCdcSubscribeRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityCdcSubscribeRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityCdcSubscribeRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityCdcSubscribeRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityCdcSubscribeReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityCdcSubscribeRequestIn" part="LogEntityCdcSubscribetRequest"/>
+                                        <to variable="TransformEntityCdcSubscribeRequestToGenericAuditIn" part="TransformEntityCdcSubscribeRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityCdcSubscribeRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityCdcSubscribeRequestToGenericAuditIn" outputVariable="TransformEntityCdcSubscribeRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityCdcSubscribeRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityCdcSubReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityCdcSubReqEventIn" outputVariable="LogEntityCdcSubReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityCdcSubReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityCdcSubscribeRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityCdcSubscribeRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityCdcSubscribeReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityCdcSubscribeRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityCdcSubscribeRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityDocNotifyRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityDocNotifyRequestIn">
+                <scope name="LogEntityDocNotifyReqScope">
+                    <variables>
+                        <variable name="LogEntityDocNotifyReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityDocNotifyReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityDocNotifyRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityDocNotifyRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityDocNotifyRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityDocNotifyRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityDocNotifyReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityDocNotifyRequestIn" part="LogEntityDocNotifyRequest"/>
+                                        <to variable="TransformEntityDocNotifyRequestToGenericAuditIn" part="TransformEntityDocNotifyRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityDocNotifyRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityDocNotifyRequestToGenericAuditIn" outputVariable="TransformEntityDocNotifyRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityDocNotifyRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityDocNotifyReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityDocNotifyReqEventIn" outputVariable="LogEntityDocNotifyReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityDocNotifyReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityDocNotifyRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityDocNotifyRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityDocNotifyReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityDocNotifyRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityDocNotifyRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityCdcNotifyRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityCdcNotifyRequestIn">
+                <scope name="LogEntityCdcNotifyReqScope">
+                    <variables>
+                        <variable name="LogEntityCdcNotifyReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityCdcNotifyReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityCdcNotifyRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityCdcNotifyRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityCdcNotifyRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityCdcNotifyRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityCdcNotifyReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityCdcNotifyRequestIn" part="LogEntityCdcNotifyRequest"/>
+                                        <to variable="TransformEntityCdcNotifyRequestToGenericAuditIn" part="TransformEntityCdcNotifyRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityCdcNotifyRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityCdcNotifyRequestToGenericAuditIn" outputVariable="TransformEntityCdcNotifyRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityCdcNotifyRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityCdcNotifyReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityCdcNotifyReqEventIn" outputVariable="LogEntityCdcNotifyReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityCdcNotifyReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityCdcNotifyRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityCdcNotifyRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityCdcNotifyReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityCdcNotifyRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityCdcNotifyRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityNotifyRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityNotifyRespRequestIn">
+                <scope name="LogEntityNotifyRespReqScope">
+                    <variables>
+                        <variable name="LogEntityNotifyRespReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityNotifyRespReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityNotifyResponseToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityNotifyResponseToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityNotifyResponseToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityNotifyRespRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityNotifyRespReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityNotifyRespRequestIn" part="LogEntityNotifyRespRequest"/>
+                                        <to variable="TransformEntityNotifyResponseToGenericAuditIn" part="TransformEntityNotifyResponseToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityNotifyResponseToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityNotifyResponseToGenericAuditIn" outputVariable="TransformEntityNotifyResponseToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityNotifyResponseToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityNotifyRespReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityNotifyRespReqEventIn" outputVariable="LogEntityNotifyRespReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityNotifyRespReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityNotifyRespRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityNotifyRespRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityNotifyRespReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityNotifyRespRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityNotifyRespRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityUnsubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityUnsubscribeRequestIn">
+                <scope name="LogEntityUnsubscribeReqScope">
+                    <variables>
+                        <variable name="LogEntityUnsubscribeReqEventOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogEntityUnsubscribeReqEventIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:LogEventRequestMessage"/>
+                        <variable name="TransformEntityUnsubscribeRequestToGenericAuditOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:GenericAuditMessage"/>
+                        <variable name="TransformEntityUnsubscribeRequestToGenericAuditIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" messageType="tns:TransformEntityUnsubscribeRequestToGenericAuditRequestMessage"/>
+                        <variable name="LogEntityUnsubscribeRequestOut" messageType="tns:LogEventResponseMessage"/>
+                    </variables>
+                    <sequence name="LogEntityUnsubscribeReqSeq">
+                        <assign name="AssignGetAuditServiceProp">
+                            <copy>
+                                <from>'serviceAuditRepository'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetAuditServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAuditServiceProp" partnerLink="PropertyAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetAuditServicePropIn" outputVariable="GetAuditServicePropOut"/>
+                        <if name="IfAuditServiceEnabled">
+                            <condition>$GetAuditServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="AuditServiceEnabledSeq">
+                                <assign name="AssignAuditDte">
+                                    <copy>
+                                        <from variable="LogEntityUnsubscribeRequestIn" part="LogEntityUnsubscribeRequest"/>
+                                        <to variable="TransformEntityUnsubscribeRequestToGenericAuditIn" part="TransformEntityUnsubscribeRequestToGenericAuditRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditDte" partnerLink="NhinAuditLogDtePL" operation="TransformEntityUnsubscribeRequestToGenericAudit" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" portType="tns:NhincComponentAuditLogDtePortType" inputVariable="TransformEntityUnsubscribeRequestToGenericAuditIn" outputVariable="TransformEntityUnsubscribeRequestToGenericAuditOut"/>
+                                <assign name="AssignGetHcid">
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHcid" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignGetAuditRepoEndPtInfo">
+                                    <copy>
+                                        <from>'auditrepository'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetAuditRepoEndPtInfo" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAuditRepo">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AuditRepositoryPL"/>
+                                    </copy>
+                                    <copy>
+                                        <from variable="TransformEntityUnsubscribeRequestToGenericAuditOut" part="GenericAuditResponse"/>
+                                        <to variable="LogEntityUnsubscribeReqEventIn" part="LogEventRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAuditRepo" partnerLink="AuditRepositoryPL" operation="LogEvent" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="LogEntityUnsubscribeReqEventIn" outputVariable="LogEntityUnsubscribeReqEventOut"/>
+                                <assign name="AssignAuditResp">
+                                    <copy>
+                                        <from variable="LogEntityUnsubscribeReqEventOut" part="LogEventResponse"/>
+                                        <to variable="LogEntityUnsubscribeRequestOut" part="LogEventResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="AuditServiceDisabledSeq">
+                                    <assign name="AssignAuditServiceDisabled">
+                                        <copy>
+                                            <from>'Audit Service is not enabled'</from>
+                                            <to>$LogEntityUnsubscribeRequestOut.LogEventResponse/nccommon:message</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="ReplyLogEntityUnsubscribeReq" partnerLink="NhincInteralAuditRepositoryPL" operation="LogEntityUnsubscribeRequest" portType="tns:NhincComponentInternalAuditRepositoryPortType" variable="LogEntityUnsubscribeRequestOut"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+        </pick>
+    </sequence>
+</process>

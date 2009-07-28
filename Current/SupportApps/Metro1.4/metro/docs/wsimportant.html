@@ -1,0 +1,879 @@
+
+<html>
+
+  <HEAD>
+    
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- Wsimport Ant Task
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      Wsimport Ant Task 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="inactive">
+          <a href="UsersGuide.html">Users Guide</a>
+        </td>
+        <td class="active">
+          <a>Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="jaxws-tools.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsimport.html">
+            <span>Wsimport </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsimportant.html">
+            <span class="active">Wsimport Ant Task </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsgen.html">
+            <span>Wsgen </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsgenant.html">
+            <span>Wsgen Ant Task </span>
+          </a>
+        </li>
+        <li>
+          <a href="apt.html">
+            <span>Apt </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <h2>Contents</h2>
+    <ol class="toc">
+
+      <li>1. 
+        <a href="#Overview">Overview</a>
+      </li>
+      <ol class="toc"></ol>
+
+
+      <li>2. 
+        <a href="#Using_Wsimport_Task">Using Wsimport Task</a>
+      </li>
+      <ol class="toc"></ol>
+
+
+      <li>3. 
+        <a href="#Running_on_JDK_6">Running on JDK 6</a>
+      </li>
+      <ol class="toc"></ol>
+
+
+      <li>4. 
+        <a href="#Examples">Examples</a>
+      </li>
+      <ol class="toc"></ol>
+
+
+    </ol>
+
+    <a name="Overview">
+      <h2>
+        <a href="#Overview">1.</a> Overview
+				
+      </h2>
+    </a>
+
+    
+    <p>The 
+      <code>wsimport</code>
+        generates JAX-WS portable artifacts, such as:
+        
+      <br>
+    
+    
+    
+    <ul>
+        
+      <li>Service Endpoint Interface (SEI)</li>
+        
+      <li>Service</li>
+        
+      <li>Exception class mapped from wsdl:fault (if
+            any)
+        </li>
+        
+      <li>Async Reponse Bean derived from response wsdl:message (if any)
+        </li>
+        
+      <li>JAXB generated value types (mapped java classes from schema types)
+        </li>
+    
+    </ul>
+
+
+
+
+    <a name="Using_Wsimport_Task">
+      <h2>
+        <a href="#Using_Wsimport_Task">2.</a> Using Wsimport Task
+				
+      </h2>
+    </a>
+ 
+    <p>
+    To use this wsimport task, a 
+      <code>&lt;taskdef&gt;</code> element needs to be
+    added to the project as given below:
+    
+ 
+    <pre class="ant-example">&lt;taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport"&gt;<br>&#160;&lt;classpath
+&#160;&#160;&#160; path="jaxws.classpath"/&gt;<br>&lt;/taskdef&gt;<br></pre>
+
+
+    <p>where 
+      <code>jaxws.classpath</code> is a reference to a 
+      <a href="http://ant.apache.org/manual/using.html#path">path-like structure</a>,
+    defined elsewhere in the build environment, and contains the list of
+    classes required by the JAX-WS tools.
+    
+
+
+
+    <pre>&lt;wsimport
+    wsdl="..."
+    destdir="directory for generated class files"
+    sourcedestdir="directory for generated source files"
+    keep="true|false"
+    extension="true|false"
+    verbose="true|false"
+    wsdlLocation="..."
+    catalog="catalog file"
+    package="package name"
+    binding="..."
+    quiet="true|false"
+    xadditionalHeaders="true|false"
+    xauthfile="authorization file"
+    xdebug="true|false"
+    xNoAddressingDatabinding="true|false"
+    xnocompile="true|false"
+    &lt;binding dir="..." includes="..." /&gt;
+    &lt;arg value="..."/&gt;
+    &lt;xjcarg value="..."/&gt;
+    &lt;xmlcatalog refid="another catalog file"/&gt;
+&lt;/wsimport&gt;
+</pre>
+ 
+    <h3>Environment Variables</h3>
+
+      
+    <ul>
+
+        
+      <li>
+          
+        <a href="http://wiki.apache.org/ant/TheElementsOfAntStyle">ANT_OPTS</a> - command-line arguments that should be passed to the JVM. For
+              example, you can define system properties or set the maximum Java heap
+              size here.
+        
+      </li>
+
+      
+    </ul>
+
+ 
+    <h3>Parameter Attributes</h3>
+     
+    <p>
+       
+      <code>wsimport</code> supports the following parameter attributes.
+    
+ 
+    <table border="1" cellspacing="2" cellpadding="2">
+    
+      <tbody>
+        
+        <tr valign="top">
+            
+          <td bgcolor="#ffffbd">
+                
+            <p>
+              <b>Attribute</b>
+            
+          </td>
+            
+          <td bgcolor="#ffffbd">
+                
+            <p>
+              <b>Description</b>
+            
+          </td>
+            
+          <td bgcolor="#ffffbd">
+                
+            <p>
+              <b>Required</b>
+            
+          </td>
+            
+          <td bgcolor="#ffffbd">
+                
+            <p>
+              <b>Command line</b>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>wsdl</code>
+            
+          </td>
+            
+          <td>
+                
+            <p>WSDL file
+          </td>
+            
+          <td>
+                
+            <p>Yes
+          </td>
+            
+          <td>
+                
+            <p>WSDL location
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>destdir</code>
+            
+          </td>
+            
+          <td>
+                
+            <p>Specify where to place output generated classes
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to current working directory
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-d</code>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <pre>sourcedestdir</pre>
+            
+          </td>
+            
+          <td>
+                
+            <p>Specify where to place generated source code files, keep is turned
+                    on with this option
+                
+            
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to current working directory
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-s</code>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>keep</code>
+            
+          </td>
+            
+          <td>
+                
+            <p>Keep generated source code files, tunred on with sourcedestdir option
+              <br>
+                
+            
+            
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-keep</code>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>verbose</code>
+            
+          </td>
+            
+          <td>
+                
+            <p>Output messages about what the compiler is doing
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-verbose</code>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>binding</code>
+            
+          </td>
+            
+          <td>
+                
+            <p>Specify external JAX-WS or JAXB binding files or additional schema files (Each 
+              <code>
+                    &lt;file&gt;</code>
+                    must have its own 
+              <code>-b</code>)
+            
+          </td>
+            
+          <td>
+                
+            <p>No. No defaults.
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-b</code>
+            
+          </td>
+        
+        </tr>
+       
+        <tr valign="top">
+            
+          <td>
+                
+            <p>
+              <code>extension
+                <br>
+                
+              </code>
+            
+            
+          </td>
+            
+          <td>
+                
+            <p>allow vendor extensions (functionality not specified by the
+                    specification). Use of extensions may result in applications that are
+                    not portable or may not interoperate with other implementations
+              <br>
+                
+            
+            
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+                
+            <p>
+              <code>-extension</code>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>wsdllocation</code>
+            <br>
+            
+          </td>
+            
+          <td>The wsdl URI passed thru this
+                option will be used to set the value of 
+            <code>@WebService.wsdlLocation</code>
+                and 
+            <code>@WebServiceClient.wsdlLocation</code> annotation elements
+                on the generated SEI
+                and Service interface
+            <br>
+            
+          </td>
+            
+          <td>
+                
+            <p>No. Defaults to the wsdl URL passed to wsdl attribute.
+          </td>
+
+            
+          <td>
+            <code>-wsdllocation</code>
+            <br>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>catalog</code>
+            <br>
+            
+          </td>
+            
+          <td>Specify catalog file to resolve
+                external entity references, it supports TR9401, XCatalog, and OASIS XML
+                Catalog format. Additionally, ant xmlcatalog type can be used to
+                resolve entities, see 
+            <b>catalog</b> sample and
+                
+            <a href="catalog-support.html">documentation on catalog</a>.
+            <br>
+            
+          </td>
+            
+          <td>
+                
+            <p>No. No defaults.
+          </td>
+
+            
+          <td>
+                
+            <catalog>
+              <code>-catalog</code>
+            </catalog>
+                
+            <br>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>package</code>
+            <br>
+            
+          </td>
+            
+          <td>Specifies the target package</td>
+            
+          <td>
+                
+            <p>No. It default to the WSDL/Schema targetNamespace to package mapping as defined by the JAXB 2.1 spec.
+          </td>
+            
+          <td>
+            <code>-p</code>
+            <br>
+            
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>target</code>
+          </td>
+            
+          <td>Generate code as per the given JAXWS
+                specification version. version 2.0 will generate compliant code for JAXWS
+                2.0 spec.
+            </td>
+            
+          <td>
+                
+            <p>No. Defaults to 2.0
+          </td>
+            
+          <td>
+            <code>-target</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>quiet</code>
+          </td>
+            
+          <td>Suppress wsimport output</td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+            <code>-quiet</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>xadditionalHeaders</code>
+          </td>
+            
+          <td>Map headers not bound to request or response message to Java method parameterst</td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+            <code>-XadditionalHeaders</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>xauthfile</code>
+          </td>
+            
+          <td>File to carry authorization information in the format http://username:password@example.org/stock?wsdl.</td>
+            
+          <td>
+                
+            <p>No. Defaults to $HOME/.metro/auth
+          </td>
+            
+          <td>
+            <code>-Xauthfile</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>xdebug</code>
+          </td>
+            
+          <td>Print debug information</td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+            <code>-quiet</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>xNoAddressingDatabinding</code>
+          </td>
+            
+          <td>Enable binding of W3C EndpointReferenceType to Java</td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+            <code>-quiet</code>
+          </td>
+        
+        </tr>
+        
+        <tr valign="top">
+            
+          <td>
+            <code>xnocompile</code>
+          </td>
+            
+          <td>Do not compile generated Java files</td>
+            
+          <td>
+                
+            <p>No. Defaults to false.
+          </td>
+            
+          <td>
+            <code>-Xnocompile</code>
+          </td>
+        
+        </tr>
+
+    
+      </tbody>
+
+    </table>
+ 
+    <h3>Nested Elements</h3>
+
+ 
+    <div class="nested-elements">
+     
+      <p>
+         
+        <code>wsimport</code> supports the following nested element parameters.
+     
+      
+      <h4>binding</h4>
+
+     
+      <p>To specify more than one external binding file at the same time, use a
+         nested
+         
+        <code>&lt;binding&gt;</code> element, which has the same syntax as
+
+         
+        <a href="http://jakarta.apache.org/ant/manual/CoreTypes/fileset.html">
+
+             
+          <code>
+                 &lt;fileset&gt;</code>
+         
+        </a>.
+     
+      
+     
+      <h4>arg</h4>
+
+     
+      <p>Additional command line arguments passed to the 
+        <code>wsimport</code>. For details
+         about the syntax, see
+
+         
+        <a href="http://ant.apache.org/manual/using.html#arg">the relevant
+             section</a> in the Ant manual. This nested element can be used to
+         specify various options not natively supported in the
+         
+        <tt>wsimport</tt>
+         Ant task. For example, currently
+         there is no native support for
+         the following
+         
+        <tt>wsimport</tt> command-line options:
+
+     
+      
+     
+      <ul>
+
+         
+        <li>
+             
+          <tt>-XdisableSSLHostnameVerification</tt>
+
+         
+        </li>
+     
+      </ul>
+     This nested element can be used to pass the -X command-line options directly like "-XadditionalHeaders". To use any of these features from the
+         
+      <tt>wsimport&gt;</tt> Ant task, you
+         must specify the appropriate nested &lt;
+         
+      <tt>arg</tt>&gt; elements.
+
+     
+      <h4>xjcarg</h4>
+     
+      <p>The usage is similar to &amp;arg&gt; nested element, except that these arguments are directly passed to the XJC tool (JAXB Schema Compiler), which will be used for compiling the schema referenced in the wsdl.
+        For details about the syntax, see
+         
+        <a href="http://ant.apache.org/manual/using.html#arg">the relevant section</a> in the Ant manual.
+     
+      
+
+     
+      <h4>xmlcatalog</h4>
+	  
+      <p>The 
+        <a href="http://ant.apache.org/manual/CoreTypes/xmlcatalog.html">xmlcatalog</a> element is used to resolve entities when parsing schema documents.
+      
+     
+    </div>
+
+
+
+    <a name="Running_on_JDK_6">
+      <h2>
+        <a href="#Running_on_JDK_6">3.</a> Running on JDK 6
+				
+      </h2>
+    </a>
+    
+    <p>
+      <b>To run on JDK 6 follow these 
+        <a href="jaxws-tools.html#running_on_jdk6">instructions</a>.
+      </b>
+    
+
+
+
+    <a name="Examples">
+      <h2>
+        <a href="#Examples">4.</a> Examples
+				
+      </h2>
+    </a>
+
+    <pre>&lt;wsimport&#160;
+&#160;&#160;&#160;&#160; destdir=""
+&#160;&#160;&#160;&#160; debug="true"
+&#160;&#160;&#160;&#160; wsdl="AddNumbers.wsdl"
+&#160;&#160;&#160;&#160; binding="custom.xml"/&gt;</pre>
+    
+    <p>The above example generates client-side artifacts for 
+      <code>AddNumbers.wsdl</code>,
+        stores 
+      <code>.class</code> files in the 
+      <code></code>
+        directory using the 
+      <code>custom.xml</code> customization file. The
+        classpath used is 
+      <code>xyz.jar</code> and compiles with debug
+        information on.
+    
+    <pre>&lt;wsimport
+	keep="true"
+	sourcedestdir=""
+	destdir=""
+	extension="true"
+	wsdl="AddNumbers.wsdl"&gt;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xjcarg value="-cp"/&gt;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xjcarg file="path/to/fluent-api.jar" /&gt;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160; &lt;xjcarg value="-Xfluent-api"/&gt;
+&lt;/wsimport&gt;</pre>
+    
+    <p>The above example shows how to generates artifacts for 
+      <code>AddNumbers.wsdl</code>
+        while passing options to JAXB xjc tool for XML Schema to Java compilation using your JAXB plugin.
+        Note extension attribute which is set to true. You need to set this to use JAXB
+        plugins.
+    
+
+    
+    <p>Multiple JAX-WS and JAXB binding files can be specified using 
+      <code>-b</code>
+        option and they can be used to customize various things like package
+        names, bean names, etc. More information on JAX-WS and JAXB binding
+        files can be found in the 
+      <a href="customizations.html">customization
+        documentation</a>.
+    
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

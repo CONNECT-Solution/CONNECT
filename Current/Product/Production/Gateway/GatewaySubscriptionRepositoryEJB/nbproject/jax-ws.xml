@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="GatewaySubscriptionRepository">
+      <implementation-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionRepository</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionRepository.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentSubscriptionRepository.wsdl</local-wsdl-file>
+      <service-name>NhincComponentSubscriptionRepositoryService</service-name>
+      <port-name>NhincComponentSubscriptionRepositoryPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentsubscriptionrepository</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+    <service name="GatewaySubscriptionReferenceRepository">
+      <implementation-class>gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionReferenceRepository</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubscriptionReferenceRepository.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentSubscriptionReferenceRepository.wsdl</local-wsdl-file>
+      <service-name>NhincComponentSubscriptionReferenceRepositoryService</service-name>
+      <port-name>NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentsubscriptionreferencerepository</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

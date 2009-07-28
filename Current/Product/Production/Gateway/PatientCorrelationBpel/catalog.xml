@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelation.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelation.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
+</catalog>

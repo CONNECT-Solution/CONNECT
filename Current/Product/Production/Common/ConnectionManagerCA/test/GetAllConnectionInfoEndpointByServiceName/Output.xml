@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <ns3:ConnectionInfoEndpoints xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:jbi="http://java.sun.com/xml/ns/jbi/wsdl-11-wrapper" xmlns:msgns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns2="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>West Virginia Health Information Network</description>
+          <homeCommunityId>2.16.840.1.113883.3.74</homeCommunityId>
+          <name>West VA</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://www.wvhin-onc3.com:5889/webservices/service/WVHIN_WS</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>The North Carolina Healthcare Information and Communications Alliance, Inc. (NCHICA)</description>
+          <homeCommunityId>1.3.18.103</homeCommunityId>
+          <name>NCHICA</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nchica.ibmhsp.net:444/ICServices_Web/api/SubjectDiscoveryQuery</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Kaiser Permanante</description>
+          <homeCommunityId>1.3.6.1.4.1.26580</homeCommunityId>
+          <name>Kaiser Permanante</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://uatdmzweb11.kp.org/services/NHIN2_GatewayServicesSoap/SubjectDiscovery</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Federal VA region</description>
+          <homeCommunityId>2.16.840.1.113883.3.200</homeCommunityId>
+          <name>Federal Agency - VA</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://dvanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the CHIC RHIO</description>
+          <homeCommunityId>1.3.6.1.4.1.31523</homeCommunityId>
+          <name>Community Health Information Collaborative (CHIC)</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nhingate1.rhio.net/services/SubjectDiscovery</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Federal IHS region</description>
+          <homeCommunityId>2.16.840.1.113883.3.210</homeCommunityId>
+          <name>Federal Agency - IHS</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://ihsnhie.fedsconnect.org:9081/PIXConsumer_Soap11</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>HealthLink RHIO is HIEx of wright state university,Dayton,OH</description>
+          <homeCommunityId>urn:oid;1.3.6.1.4.1.21302</homeCommunityId>
+          <name>Wright State</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://WSNHIE1.fedsconnect.org:9081/PIXConsumer_Soap11</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange of edvirginia</description>
+          <homeCommunityId>2.16.840.1.113883.3.190</homeCommunityId>
+          <name>MedVirginia</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://medvirginia.ibmhsp.net:450/ICServices_Web/api/SubjectDiscoveryQuery</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the healthbridge</description>
+          <homeCommunityId>2.16.840.1.113883.3.183</homeCommunityId>
+          <name>healthbridge</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nhin.healthbridge.org/nhinsubjectdiscovery/service</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Cleveland Clinic region</description>
+          <homeCommunityId>2.16.840.1.113883.3.192</homeCommunityId>
+          <name>Cleveland Clinic</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://appserver2.ng-nhin.com/nghie/PIXConsumer</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange of Lovelace</description>
+          <homeCommunityId>2.16.840.1.113883.4.318</homeCommunityId>
+          <name>Lovelace</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://www.nmhic.org/nhin2/services/GatewayServices</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Tennessee region</description>
+          <homeCommunityId>2.16.840.1.113883.3.166.4</homeCommunityId>
+          <name>CareSpark</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://csnhintiapps03.cgifederal.com:6151/SubjectDiscoveryRespondingGatewayService/SubjectDiscoveryRespondingGatewayPort</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>New York Clinical Information Exchange (NYCLIX)</description>
+          <homeCommunityId>2.16.840.1.113883.3.195</homeCommunityId>
+          <name>NYeC - NYCLIX</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nhin.nyclix.org/nhin2/services/GatewayServices</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Federal SSA region</description>
+          <homeCommunityId>2.16.840.1.113883.3.184</homeCommunityId>
+          <name>Federal Agency - SSA</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://ssanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Delaware Region</description>
+          <homeCommunityId>2.16.840.1.113883.3.185</homeCommunityId>
+          <name>Delaware Health Information Network</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://test03.denhin.net/SubjectDiscoveryService</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Federal DoD region.</description>
+          <homeCommunityId>2.16.840.1.113883.3.198</homeCommunityId>
+          <name>Federal Agency - DoD</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://mhsnhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange of LongBeach</description>
+          <homeCommunityId>2.16.840.1.113883.3.188</homeCommunityId>
+          <name>Longbeach</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://lbnh.memorialcare.org/nhin2/services/GatewayServices</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Bloomington Hospital region</description>
+          <homeCommunityId>2.16.840.1.113883.13.25</homeCommunityId>
+          <name>Bloomington Hospital</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nhinhealthlinc.org/nhinsubjectdiscovery/service</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>Health Information Exchange in the Regenstrief Institute, Inc.</description>
+          <homeCommunityId>1.3.6.1.4.1.12009.6.1</homeCommunityId>
+          <name>Regenstrief Institute, Inc.</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/SubjectDiscovery</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+      <ns3:connectionInfoEndpoint>
+        <ns3:homeCommunity>
+          <description>LIPIX is an independent not-for-profit corporation established to develop a Regional Health Information Organization (RHIO), aka a Health Information Exchange (HIE), on Long Island.</description>
+          <homeCommunityId>2.16.840.1.113883.3.176</homeCommunityId>
+          <name>NYeC - LIPIX</name>
+        </ns3:homeCommunity>
+        <ns3:serviceConnectionInfoEndpoints>
+          <ns3:serviceConnectionInfoEndpoint>
+            <ns3:serviceName>subjectdiscovery</ns3:serviceName>
+            <EPR>
+              <EndpointReference>
+                <ns2:Address>https://nhin2.lipixportal.org/Services/HS.IHE.PIXv3.Manager.Services.cls</ns2:Address>
+                <ns2:ServiceName xmlns:pix="urn:ihe:iti:pixv3:2007" PortName="PIXConsumer_Port_Soap11">pix:PIXConsumer_Service</ns2:ServiceName>
+              </EndpointReference>
+            </EPR>
+          </ns3:serviceConnectionInfoEndpoint>
+        </ns3:serviceConnectionInfoEndpoints>
+      </ns3:connectionInfoEndpoint>
+    </ns3:ConnectionInfoEndpoints>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

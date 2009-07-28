@@ -1,0 +1,65 @@
+---[HTTP request]---
+cache-control: no-cache
+content-type: text/xml; charset=utf-8
+connection: keep-alive
+host: localhost:9080
+soapaction: 
+content-length: 510
+accept: text/xml, text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+user-agent: Java/1.6.0_05
+pragma: no-cache
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:wsdlissue:schema:sample">
+  <soapenv:Body>
+    <urn:SampleOperationInput>
+      <urn:inputParam>?string?</urn:inputParam>
+    </urn:SampleOperationInput>
+  </soapenv:Body>
+</soapenv:Envelope>
+--------------------
+Retrieving business entities from UDDI using find_business web service call.
+---[HTTP response 200]---
+<?xml version='1.0' encoding='UTF-8'?><SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><SampleOperationOutput xmlns="urn:gov:hhs:fha:nhinc:wsdlissue:schema:sample" xmlns:jbi="http://java.sun.com/xml/ns/jbi/wsdl-11-wrapper" xmlns:msgns="urn:gov:hhs:fha:nhinc:wsdlissue:wsdl:sample"><outputParam>test</outputParam></SampleOperationOutput></SOAP-ENV:Body></SOAP-ENV:Envelope>
+--------------------
+MEX0008:Failed to parse metadata returned from server at file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl using protocol SOAP_1_2. Continuing attempts.
+MEX0008:Failed to parse metadata returned from server at file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl using protocol SOAP_1_1. Continuing attempts.
+MEX0008:Failed to parse metadata returned from server at file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl/mex using protocol SOAP_1_2. Continuing attempts.
+MEX0008:Failed to parse metadata returned from server at file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl/mex using protocol SOAP_1_1. Continuing attempts.
+Failed to retrieve the UDDI Inquiry Web Service port.  Error: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+Failed to call 'find_business' web service on the NHIN UDDI server.  Errror: Failed to retrieve the UDDI Inquiry Web Service port.  Error: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+Run Method: Unexpected Exception: Failed to call 'find_business' web service on the NHIN UDDI server.  Errror: Failed to retrieve the UDDI Inquiry Web Service port.  Error: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+java.lang.Exception: Failed to call 'find_business' web service on the NHIN UDDI server.  Errror: Failed to retrieve the UDDI Inquiry Web Service port.  Error: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.retrieveBusinessesInfoFromUDDI(SampleServiceHelper.java:79)
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.retrieveFromUDDIServer(SampleServiceHelper.java:96)
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.run(SampleServiceHelper.java:104)
+Caused by: java.lang.Exception: Failed to retrieve the UDDI Inquiry Web Service port.  Error: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.getUDDIInquiryWebService(SampleServiceHelper.java:42)
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.retrieveBusinessesInfoFromUDDI(SampleServiceHelper.java:65)
+        ... 2 more
+Caused by: javax.xml.ws.WebServiceException: Failed to access the WSDL at: file:/C:/projects/nhinc/Current/Product/Production/Tutorials/WSDLClientFileIssue/SampleService3EJB/src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl. It failed with: 
+        C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified).
+        at com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser.tryWithMex(RuntimeWSDLParser.java:162)
+        at com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser.parse(RuntimeWSDLParser.java:144)
+        at com.sun.xml.ws.client.WSServiceDelegate.parseWSDL(WSServiceDelegate.java:264)
+        at com.sun.xml.ws.client.WSServiceDelegate.<init>(WSServiceDelegate.java:227)
+        at com.sun.xml.ws.client.WSServiceDelegate.<init>(WSServiceDelegate.java:175)
+        at com.sun.xml.ws.spi.ProviderImpl.createServiceDelegate(ProviderImpl.java:104)
+        at javax.xml.ws.Service.<init>(Service.java:56)
+        at org.uddi.v3_service.UDDIService.<init>(UDDIService.java:46)
+        at gov.hhs.fha.nhinc.wsdlissue.sample.SampleServiceHelper.getUDDIInquiryWebService(SampleServiceHelper.java:31)
+        ... 3 more
+Caused by: java.io.FileNotFoundException: C:\projects\nhinc\Current\Product\Production\Tutorials\WSDLClientFileIssue\SampleService3EJB\src\conf\xml-resources\web-service-references\uddi_v3_service\wsdl\uddi_v3_service.wsdl (The system cannot find the path specified)
+        at java.io.FileInputStream.open(Native Method)
+        at java.io.FileInputStream.<init>(FileInputStream.java:106)
+        at java.io.FileInputStream.<init>(FileInputStream.java:66)
+        at sun.net.www.protocol.file.FileURLConnection.connect(FileURLConnection.java:70)
+        at sun.net.www.protocol.file.FileURLConnection.getInputStream(FileURLConnection.java:161)
+        at java.net.URL.openStream(URL.java:1009)
+        at com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser.createReader(RuntimeWSDLParser.java:805)
+        at com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser.resolveWSDL(RuntimeWSDLParser.java:262)
+        at com.sun.xml.ws.wsdl.parser.RuntimeWSDLParser.parse(RuntimeWSDLParser.java:129)
+        ... 10 more

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-check-SubjectDiscoveryDataTransforms" depends="wsimport-init">
+        <condition property="wsimport-service-SubjectDiscoveryDataTransforms.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubdisctransforms/NhincComponentSubDiscTransforms.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-SubjectDiscoveryDataTransforms" depends="wsimport-init,wsimport-service-check-SubjectDiscoveryDataTransforms" unless="wsimport-service-SubjectDiscoveryDataTransforms.notRequired">
+        <property name="service-wsdl-SubjectDiscoveryDataTransforms" location="${meta.inf}/xml-resources/web-services/SubjectDiscoveryDataTransforms/wsdl/NhincComponentSubDiscTransforms.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-SubjectDiscoveryDataTransforms}" catalog="catalog.xml"/>
+        <property name="targetLocation-SubjectDiscoveryDataTransforms" location="${meta.inf}/wsdl/SubjectDiscoveryDataTransforms"/>
+        <property name="sourceLocation-SubjectDiscoveryDataTransforms" location="${meta.inf}/xml-resources/web-services/SubjectDiscoveryDataTransforms/wsdl/"/>
+        <copy todir="${targetLocation-SubjectDiscoveryDataTransforms}">
+            <fileset dir="${sourceLocation-SubjectDiscoveryDataTransforms}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-SubjectDiscoveryDataTransforms" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubdisctransforms"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscoveryDataTransforms"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

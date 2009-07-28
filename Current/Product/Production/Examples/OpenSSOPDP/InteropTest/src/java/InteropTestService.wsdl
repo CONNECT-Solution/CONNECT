@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="InteropTestService" targetNamespace="urn:gov:hhs:fha:nhinc:interoptestservice"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:interoptestservice" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:it="urn:gov:hhs:fha:nhinc:interoptestschema">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:interoptestschema" schemaLocation="./InteropTestSchema.xsd" />
+        </xsd:schema>
+    </types>
+    <message name="RunTestRequestMessage">
+        <part name="RunTestInput" element="it:RunTestInput" />
+    </message>
+    <message name="RunTestResponseMessage">
+        <part name="RunTestOutput" element="it:RunTestOutput" />
+    </message>
+    <portType name="InteropTestServicePortType">
+        <operation name="RunTest">
+            <input name="RunTestRequest" message="tns:RunTestRequestMessage"/>
+            <output name="RunTestResponse" message="tns:RunTestResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="InteropTestServiceBinding" type="tns:InteropTestServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RunTest">
+            <soap:operation soapAction="urn:RunTest"/>
+            <input name="RunTestRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="RunTestResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="InteropTestServiceService">
+        <port name="InteropTestServicePort" binding="tns:InteropTestServiceBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/InteropTestServiceService/InteropTestServicePort"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="InteropTestService">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="InteropTestServicePortTypeRole" portType="tns:InteropTestServicePortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_05" class="java.beans.XMLDecoder"> 
+ <object class="gov.hhs.fha.nhinc.minimpi.Patients"> 
+  <void method="add"> 
+   <object class="gov.hhs.fha.nhinc.minimpi.Patient"> 
+    <void property="dateOfBirth"> 
+     <string>19430413</string> 
+    </void> 
+    <void property="gender"> 
+     <string>M</string> 
+    </void> 
+    <void property="identifiers"> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>1000000</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.3.6.1.4.1.21302</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>fake9001</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.3.6.1.4.1.12009.6.1</string> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <void property="firstName"> 
+      <string>Joseph</string> 
+     </void> 
+     <void property="lastName"> 
+      <string>Bengalfan</string> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="gov.hhs.fha.nhinc.minimpi.Patient"> 
+    <void property="dateOfBirth"> 
+     <string>19990627</string> 
+    </void> 
+    <void property="gender"> 
+     <string>M</string> 
+    </void> 
+    <void property="identifiers"> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>1000001</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.3.6.1.4.1.21302</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>D123401</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>2.16.840.1.113883.3.198</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>123-45-6789</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>2.16.840.1.113883.4.1</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.minimpi.Identifier"> 
+       <void property="id"> 
+        <string>fake1000</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.3.6.1.4.1.12009.6.1</string> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <void property="firstName"> 
+      <string>Gallow</string> 
+     </void> 
+     <void property="lastName"> 
+      <string>Younger</string> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

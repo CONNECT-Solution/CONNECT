@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxyunsubscriptionmanagementment" xmlns:ns10="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" xmlns:ns11="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxysubjectdiscovery" xmlns:ns12="urn:ihe:iti:xds-b:2007" xmlns:ns13="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns14="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxysubscriptionmanagement" xmlns:ns15="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" xmlns:ns16="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" xmlns:ns17="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" xmlns:ns18="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" xmlns:ns19="urn:ihe:iti:pixv3:2007" xmlns:ns2="http://docs.oasis-open.org/wsn/bw-2" xmlns:ns20="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery" xmlns:ns3="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:ns4="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhincproxydocretrieve" xmlns:ns5="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxynotification" xmlns:ns6="urn:gov:hhs:fha:nhinc:nhincproxydocquery" xmlns:ns7="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxydocquery" xmlns:ns8="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhincproxyauditquery" xmlns:ns9="http://services.nhin.com/wsdl/auditlogquery" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>NhincProxyCA</name>
+            <description>Represents the Service Assembly of NhincProxyCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NotificationSubscriptionManagerRole_partnerRole" service-name="ns1:NhinHiemUnsubscribePL"/>
+                <provider endpoint-name="SubscriptionManagerPort" service-name="ns2:SubscriptionManagerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxyDocRetrievePortSoap11" service-name="ns3:NhincProxyDocRetrieve"/>
+                <provider endpoint-name="NhincProxyDocRetrievePortTypeRole_myRole" service-name="ns4:NhincProxyDocRetrievePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NotificationConsumerRole_partnerRole" service-name="ns5:NhinNotifyPL"/>
+                <provider endpoint-name="NotificationConsumerPort" service-name="ns2:NotificationConsumerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxyDocQueryPortSoap11" service-name="ns6:NhincProxyDocQuery"/>
+                <provider endpoint-name="NhincProxyDocQueryPortTypeRole_myRole" service-name="ns7:NhincProxyDocQueryPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AuditLogQueryRole_partnerRole" service-name="ns8:NhinAuditQueryPL"/>
+                <provider endpoint-name="AuditLogQuery" service-name="ns9:findAuditEvents"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxySubjectDiscoveryPortSoap11" service-name="ns10:NhincProxySubjectDiscovery"/>
+                <provider endpoint-name="NhincProxySubjectDiscoveryPortTypeRole_myRole" service-name="ns11:NhincProxySubjectDiscoveryPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="RespondingGateway_Retrieve_Role_partnerRole" service-name="ns4:NhinDocRetrievePL"/>
+                <provider endpoint-name="RespondingGateway_Retrieve_Port_Soap11" service-name="ns12:RespondingGateway_Retrieve_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns8:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns4:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns7:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns5:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns11:ConnectionMgrPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns14:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns1:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns13:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxyNotificationConsumerPortSoap11" service-name="ns15:NhincProxyNotificationConsumer"/>
+                <provider endpoint-name="NhincProxyNotificationConsumerPortTypeRole_myRole" service-name="ns5:NhinProxyNotifyPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentSubDiscTransformsPortTypeRole_partnerRole" service-name="ns11:SubDiscDataTransformsPL"/>
+                <provider endpoint-name="NhincComponentSubDiscTransformsBindingSoap11" service-name="ns16:NhincComponentSubDiscTransforms"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxySubscriptionManagerPortSoap11" service-name="ns17:NhincProxySubscriptionManager"/>
+                <provider endpoint-name="NhincProxySubscriptionManagerPortTypeRole_myRole" service-name="ns1:NhincProxyUnsubscribePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NotificationProducerRole_partnerRole" service-name="ns14:NhinSubscribePL"/>
+                <provider endpoint-name="NotificationProducerPort" service-name="ns2:NotificationProducerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns8:NhincAuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns4:AuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns7:AuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns5:NhincAuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns11:AuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns14:NhincAuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" service-name="ns1:NhincAuditRepositoryPL"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns18:NhincComponentInternalAuditRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="PIXConsumer_Role_partnerRole" service-name="ns11:NhinSubjectDiscoveryPL"/>
+                <provider endpoint-name="PIXConsumer_Port_Soap11" service-name="ns19:PIXConsumer_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxyAuditLogQueryPortSoap11" service-name="ns20:NhincProxyAuditLogQuery"/>
+                <provider endpoint-name="NhincProxyAuditLogQueryPortTypeRole_myRole" service-name="ns8:NhincProxyAuditQueryPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="RespondingGateway_Query_Role_partnerRole" service-name="ns7:NhinDocQueryPL"/>
+                <provider endpoint-name="RespondingGateway_Query_Port_Soap11" service-name="ns12:RespondingGateway_Query_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincProxyNotificationProducerPortSoap11" service-name="ns17:NhincProxyNotificationProducer"/>
+                <provider endpoint-name="NhincProxyNotificationProducerPortTypeRole_myRole" service-name="ns14:NhinProxySubscribePL"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

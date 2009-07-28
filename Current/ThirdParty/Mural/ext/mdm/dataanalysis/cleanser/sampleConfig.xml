@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataAnalysisRules xmlns="http://www.sun.com/schema/DI"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.sun.com/schema/DI
+DataAnalysisSchema.xsd">
+    
+    <cleansingRules> 
+        <!-- Declare all the fields -->
+        <cleansingVariable  objectdefFilePath="./object.xml" validateType="false" validateNull = "false" validateLength="false" DBconnection="./DBTEST"
+                            goodFilePath ="./good.txt" badFilePath="./bad.txt" startcounter='1' />
+        
+        <varList>
+            <!-- Global or local variables to do local concatinations or any other operations -->
+            <var name = "name" default="PatientView.FirstName"  />
+            <var name = "secondname" default="PatientView.LastName"  />
+            
+        </varList>
+        <ruleList>
+            <!-- Rule -1 -->
+            
+            <!-- <rule>
+                <validateDBField>
+                    
+                    <field name=":[name]" action="truncate"/>
+                    <field name=":[age]" action="reject"/>
+                    <field name=":[address]" action="reject"/>
+                </validateDBField>
+                
+            </rule>-->
+            
+            <!-- Rule 2 -->
+            <rule>
+                <dataLength fieldName="PatientView.FirstName" len="9" more='false'/>
+                
+                
+            </rule>
+            <rule>
+                <if>
+                    <!--if the condition is true replace the field value to Male-->
+                    <condition>
+                        <dataLength fieldName=":[name]" len="7" more='true'/>
+                    </condition>
+                    <then>
+                        <assign fieldName= ":[name]" value='newName' />
+                    </then>
+                    <else>
+                        <if>
+                            <condition>
+                                <dataLength fieldName=":[name]" len="5" more='true'/>
+                            </condition>
+                            <then>
+                                <assign fieldName= ":[name]" value='newName1' />
+                            </then>
+                        </if>   
+                    </else>
+                </if>
+                
+                
+            </rule>
+            <!--<rule>
+                <executeJava fieldName =":[name]" className="testcls" jarFilePath="C:\\ETL\\testClass\\dist\\testClass.jar" methodName="show">
+                    <parameters>
+                        <parameter>
+                            <parameter-name>str</parameter-name>
+                            <parameter-type>java.lang.String</parameter-type>
+                            <parameter-value>He is</parameter-value>
+                        </parameter>
+                    </parameters>
+                </executeJava>
+            </rule>-->
+            
+        </ruleList>
+    </cleansingRules>
+    <profilingRules>
+        <!-- 
+        startFrom : The start from attribute is a counter to specify from which record we have to start
+                       ,it's an optional attrib ,if not defined then it will start from begining  
+        profileSize: How many records to profile in one go.
+        DBconnection : Connection String
+        reportFilePath : The location to save the profiling report.
+        objectdefFilePath : The object definition file location , This will give list of the fields.
+        
+        -->
+        <profilerVariable startFrom = '1' profileSize ='10000' DBconnection="DBTEST" 
+                          reportFilePath="./Report" objectdefFilePath = "./object.xml" />
+        <!-- Declare all the field list to profile --> 
+        <varList>
+            <var name = "name" default="PatientView.FirstName"  />
+            <var name = "secondname" default="PatientView.LastName"  />
+            <!--<var name = "age" default="PatientView.Age"  />
+            <var name = "address" default="PatientView.Address.City"  />
+            <var name = "sex" default="PatientView.Gender"  />
+            <var name = "SSN" default="PatientView.SSN"  />-->
+        </varList>
+        <!-- For simple frequency analysis on Mumtiple DB fields and order the record based on the field -->
+        <SimpleFrequencyAnalysis>
+            <fields>
+                <field fieldName=":[name]"/>
+                <field fieldName=":[secondname]"/> 
+            </fields>
+            <sortorder fieldName=":[name]" increasing="true"/>
+            <threshold value ='1' more= "true" />
+        </SimpleFrequencyAnalysis>
+        
+        <!-- Select one DB field and add condition for profiling -->
+        <ConstrainedFrequencyAnalysis>
+            <fields>
+                <field fieldName=":[name]"/>
+            </fields>
+            <ruleList>
+                <rule>
+                    <dataLength fieldName=":[name]" len='2' more="true"></dataLength>
+                </rule>
+            </ruleList>
+        </ConstrainedFrequencyAnalysis> 
+        
+        <!-- profile Top N patterns  -->
+        <PatternFrequencyAnalysis>
+            <config noofpatterns="1" increasing="true"/>
+            <fields>
+                <field fieldName=":[name]"/>
+                <field fieldName=":[secondname]"/>
+            </fields>
+        </PatternFrequencyAnalysis> 
+    </profilingRules>
+    
+    
+</dataAnalysisRules>
+
+

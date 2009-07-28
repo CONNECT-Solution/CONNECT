@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="LWestbergD630V" name="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactoryTest" tests="1" time="4.18" timestamp="2009-05-27T00:40:19">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.boot.library.path" value="C:\Java\jdk1.6.0_13\jre\bin" />
+    <property name="java.vm.version" value="11.3-b02" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="user.country" value="US" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.os.patch.level" value="Service Pack 1" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="user.dir" value="C:\projects\NHINC\Current\Product\Production\Adapters\General\AdapterPIPProxy" />
+    <property name="java.runtime.version" value="1.6.0_13-b03" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="java.endorsed.dirs" value="C:\Java\jdk1.6.0_13\jre\lib\endorsed" />
+    <property name="os.arch" value="x86" />
+    <property name="java.io.tmpdir" value="C:\Users\WESTBE~1\AppData\Local\Temp\" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="user.variant" value="" />
+    <property name="os.name" value="Windows Vista" />
+    <property name="sun.jnu.encoding" value="Cp1252" />
+    <property name="java.library.path" value="C:\Java\jdk1.6.0_13\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;c:\batch;C:\Java\jdk1.6.0_13\bin;C:\GlassFishESB\netbeans\java2\ant\bin;c:\GlassFishESB\glassfish\bin;c:\Cygwin\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files\Common Files\Roxio Shared\DLLShared\;C:\Program Files\IDM Computer Solutions\UltraEdit-32;C:\Program Files\Subversion\bin;c:\jad;C:\Program Files\MySQL\MySQL Server 5.0\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\QuickTime\QTSystem\;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\projects\NHINC\Current\ThirdParty\OpenSSO\ssoAdminTools\opensso\bin" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="50.0" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="os.version" value="6.0" />
+    <property name="user.home" value="C:\Users\westbergl" />
+    <property name="user.timezone" value="" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="file.encoding" value="Cp1252" />
+    <property name="java.specification.version" value="1.6" />
+    <property name="user.name" value="westbergl" />
+    <property name="java.class.path" value="C:\GlassFishESB\netbeans\java2\ant\patches\72080.jar;C:\GlassFishESB\netbeans\java2\ant\patches\ant-42275.jar;C:\GlassFishESB\netbeans\java2\ant\lib\ant.jar;C:\GlassFishESB\netbeans\java2\ant\lib\ant-junit.jar;C:\projects\NHINC\Current\ThirdParty\SpringFramework\spring.jar;C:\GlassFishESB\glassfish\lib\NhincHL7JaxbLib.jar;C:\projects\NHINC\Current\Product\Production\Common\NhincLib\build\classes;C:\projects\NHINC\Current\Product\Production\Common\NhincLib\src;C:\projects\NHINC\Current\Product\Production\Common\NhincLib\src\conf;C:\projects\NHINC\Current\ThirdParty\log4j\commons-logging-1.1.1.jar;C:\projects\NHINC\Current\ThirdParty\log4j\log4j-1.2.15.jar;C:\projects\NHINC\Current\Product\Production\Adapters\General\AdapterPIPProxy\build\classes;C:\projects\NHINC\Current\Product\Production\Adapters\General\AdapterPIPProxy\src;C:\GlassFishESB\netbeans\platform9\modules\ext\junit-4.5.jar;C:\projects\NHINC\Current\Product\Production\Adapters\General\AdapterPIPProxy\build\test\classes;C:\projects\NHINC\Current\Product\Production\Adapters\General\AdapterPIPProxy\test" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.home" value="C:\Java\jdk1.6.0_13\jre" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="user.language" value="en" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="java.version" value="1.6.0_13" />
+    <property name="java.ext.dirs" value="C:\Java\jdk1.6.0_13\jre\lib\ext;C:\Windows\Sun\Java\lib\ext" />
+    <property name="sun.boot.class.path" value="C:\Java\jdk1.6.0_13\jre\lib\endorsed\webservices-api.jar;C:\Java\jdk1.6.0_13\jre\lib\resources.jar;C:\Java\jdk1.6.0_13\jre\lib\rt.jar;C:\Java\jdk1.6.0_13\jre\lib\sunrsasign.jar;C:\Java\jdk1.6.0_13\jre\lib\jsse.jar;C:\Java\jdk1.6.0_13\jre\lib\jce.jar;C:\Java\jdk1.6.0_13\jre\lib\charsets.jar;C:\Java\jdk1.6.0_13\jre\classes" />
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="file.separator" value="\" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="sun.desktop" value="windows" />
+    <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86" />
+  </properties>
+  <testcase classname="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactoryTest" name="testAdapterPIPProxyObjectFactory" time="4.078" />
+  <system-out><![CDATA[Begin testAdapterPIPProxyObjectFactory
+log4j: Hierarchy threshold set to [ALL].
+log4j: Parsing for [root] with value=[ALL, C, R].
+log4j: Level token is [ALL].
+log4j: Category root set to ALL
+log4j: Parsing appender named "C".
+log4j: Parsing layout options for "C".
+log4j: Setting property [conversionPattern] to [[%d{M/d/yyyy}, %d{HH:mm:ss:SSS}] %-5p  %-20.20c{1}  %m%n].
+log4j: End of parsing for "C".
+log4j: Setting property [threshold] to [ALL].
+log4j: Parsed "C" options.
+log4j: Parsing appender named "R".
+log4j: Parsing layout options for "R".
+log4j: Setting property [conversionPattern] to [[%d{M/d/yyyy}, %d{HH:mm:ss:SSS}] %-5p  %-20.20c{1}  %m%n].
+log4j: End of parsing for "R".
+log4j: Setting property [threshold] to [ALL].
+log4j: Setting property [file] to [C:/GlassFishESB/glassfish/NHIE-Gateway.log].
+log4j: Setting property [maxFileSize] to [5000KB].
+log4j: Setting property [maxBackupIndex] to [10].
+log4j: setFile called: C:/GlassFishESB/glassfish/NHIE-Gateway.log, true
+log4j: setFile ended
+log4j: Parsed "R" options.
+log4j: Finished configuring.
+[5/26/2009, 18:40:21:903] INFO   mlApplicationContext  Refreshing org.springframework.context.support.FileSystemXmlApplicationContext@2f729e: display name [org.springframework.context.support.FileSystemXmlApplicationContext@2f729e]; startup date [Tue May 26 18:40:21 MDT 2009]; root of context hierarchy
+[5/26/2009, 18:40:21:951] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:952] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:953] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:953] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:953] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:953] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:954] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:958] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:959] TRACE  CollectionFactory     Creating [java.util.concurrent.ConcurrentHashMap]
+[5/26/2009, 18:40:21:992] INFO   BeanDefinitionReader  Loading XML bean definitions from file [C:\projects\nhinc\Current\Product\Production\Common\Properties\ComponentProxyConfig.xml]
+[5/26/2009, 18:40:21:996] DEBUG  efaultDocumentLoader  Using JAXP provider [com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl]
+[5/26/2009, 18:40:22:040] TRACE  ggableSchemaResolver  Trying to resolve XML entity with public id [null] and system id [http://www.springframework.org/schema/beans/spring-beans-2.5.xsd]
+[5/26/2009, 18:40:22:040] DEBUG  ggableSchemaResolver  Loading schema mappings from [META-INF/spring.schemas]
+[5/26/2009, 18:40:22:046] DEBUG  ggableSchemaResolver  Loaded schema mappings: {http://www.springframework.org/schema/lang/spring-lang-2.5.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/lang/spring-lang.xsd=org/springframework/scripting/config/spring-lang-2.5.xsd, http://www.springframework.org/schema/context/spring-context-2.5.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/jms/spring-jms-2.5.xsd=org/springframework/jms/config/spring-jms-2.5.xsd, http://www.springframework.org/schema/context/spring-context.xsd=org/springframework/context/config/spring-context-2.5.xsd, http://www.springframework.org/schema/aop/spring-aop.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/util/spring-util-2.0.xsd=org/springframework/beans/factory/xml/spring-util-2.0.xsd, http://www.springframework.org/schema/util/spring-util-2.5.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd, http://www.springframework.org/schema/tool/spring-tool-2.0.xsd=org/springframework/beans/factory/xml/spring-tool-2.0.xsd, http://www.springframework.org/schema/tx/spring-tx-2.0.xsd=org/springframework/transaction/config/spring-tx-2.0.xsd, http://www.springframework.org/schema/tool/spring-tool-2.5.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/tx/spring-tx-2.5.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans-2.0.xsd=org/springframework/beans/factory/xml/spring-beans-2.0.xsd, http://www.springframework.org/schema/jms/spring-jms.xsd=org/springframework/jms/config/spring-jms-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans-2.5.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd, http://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-2.5.xsd, http://www.springframework.org/schema/jee/spring-jee.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/tool/spring-tool.xsd=org/springframework/beans/factory/xml/spring-tool-2.5.xsd, http://www.springframework.org/schema/tx/spring-tx.xsd=org/springframework/transaction/config/spring-tx-2.5.xsd, http://www.springframework.org/schema/jee/spring-jee-2.0.xsd=org/springframework/ejb/config/spring-jee-2.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.0.xsd=org/springframework/aop/config/spring-aop-2.0.xsd, http://www.springframework.org/schema/aop/spring-aop-2.5.xsd=org/springframework/aop/config/spring-aop-2.5.xsd, http://www.springframework.org/schema/jee/spring-jee-2.5.xsd=org/springframework/ejb/config/spring-jee-2.5.xsd, http://www.springframework.org/schema/lang/spring-lang-2.0.xsd=org/springframework/scripting/config/spring-lang-2.0.xsd, http://www.springframework.org/schema/util/spring-util.xsd=org/springframework/beans/factory/xml/spring-util-2.5.xsd}
+[5/26/2009, 18:40:22:049] DEBUG  ggableSchemaResolver  Found XML schema [http://www.springframework.org/schema/beans/spring-beans-2.5.xsd] in classpath: org/springframework/beans/factory/xml/spring-beans-2.5.xsd
+[5/26/2009, 18:40:22:101] DEBUG  nitionDocumentReader  Loading bean definitions
+[5/26/2009, 18:40:22:126] DEBUG  BeanDefinitionReader  Loaded 2 bean definitions from location pattern [C:\projects\nhinc\Current\Product\Production\Common\Properties\ComponentProxyConfig.xml]
+[5/26/2009, 18:40:22:126] INFO   mlApplicationContext  Bean factory for application context [org.springframework.context.support.FileSystemXmlApplicationContext@2f729e]: org.springframework.beans.factory.support.DefaultListableBeanFactory@1315415
+[5/26/2009, 18:40:22:126] DEBUG  mlApplicationContext  2 beans defined in org.springframework.context.support.FileSystemXmlApplicationContext@2f729e: display name [org.springframework.context.support.FileSystemXmlApplicationContext@2f729e]; startup date [Tue May 26 18:40:21 MDT 2009]; root of context hierarchy
+[5/26/2009, 18:40:22:138] DEBUG  tListableBeanFactory  Ignoring bean class loading failure for bean 'nhinhiemsubscribe'
+org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy] for bean with name 'nhinhiemsubscribe' defined in file [C:\projects\nhinc\Current\Product\Production\Common\Properties\ComponentProxyConfig.xml]; nested exception is java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1141)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:222)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:505)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:362)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:140)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:84)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactory.<clinit>(AdapterPIPProxyObjectFactory.java:43)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactoryTest.testAdapterPIPProxyObjectFactory(AdapterPIPProxyObjectFactoryTest.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+	at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:515)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1031)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:888)
+Caused by: java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:211)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:385)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1138)
+	... 31 more
+[5/26/2009, 18:40:22:142] DEBUG  tListableBeanFactory  Ignoring bean class loading failure for bean 'nhinhiemsubscribe'
+org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy] for bean with name 'nhinhiemsubscribe' defined in file [C:\projects\nhinc\Current\Product\Production\Common\Properties\ComponentProxyConfig.xml]; nested exception is java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1141)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:222)
+	at org.springframework.context.support.AbstractApplicationContext.registerBeanPostProcessors(AbstractApplicationContext.java:563)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:365)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:140)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:84)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactory.<clinit>(AdapterPIPProxyObjectFactory.java:43)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactoryTest.testAdapterPIPProxyObjectFactory(AdapterPIPProxyObjectFactoryTest.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+	at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:515)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1031)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:888)
+Caused by: java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:211)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:385)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1138)
+	... 31 more
+[5/26/2009, 18:40:22:401] DEBUG  mlApplicationContext  Unable to locate MessageSource with name 'messageSource': using default [org.springframework.context.support.DelegatingMessageSource@1c6d11a]
+[5/26/2009, 18:40:22:404] DEBUG  mlApplicationContext  Unable to locate ApplicationEventMulticaster with name 'applicationEventMulticaster': using default [org.springframework.context.event.SimpleApplicationEventMulticaster@98bbf6]
+[5/26/2009, 18:40:22:405] DEBUG  tListableBeanFactory  Ignoring bean class loading failure for bean 'nhinhiemsubscribe'
+org.springframework.beans.factory.CannotLoadBeanClassException: Cannot find class [gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy] for bean with name 'nhinhiemsubscribe' defined in file [C:\projects\nhinc\Current\Product\Production\Common\Properties\ComponentProxyConfig.xml]; nested exception is java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1141)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1177)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:222)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeansOfType(DefaultListableBeanFactory.java:303)
+	at org.springframework.context.support.AbstractApplicationContext.getBeansOfType(AbstractApplicationContext.java:947)
+	at org.springframework.context.support.AbstractApplicationContext.registerListeners(AbstractApplicationContext.java:701)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:377)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:140)
+	at org.springframework.context.support.FileSystemXmlApplicationContext.<init>(FileSystemXmlApplicationContext.java:84)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactory.<clinit>(AdapterPIPProxyObjectFactory.java:43)
+	at gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyObjectFactoryTest.testAdapterPIPProxyObjectFactory(AdapterPIPProxyObjectFactoryTest.java:55)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+	at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:515)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1031)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:888)
+Caused by: java.lang.ClassNotFoundException: gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeWebServiceProxy
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:307)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:301)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:252)
+	at org.springframework.util.ClassUtils.forName(ClassUtils.java:211)
+	at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:385)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1138)
+	... 33 more
+[5/26/2009, 18:40:22:443] INFO   tListableBeanFactory  Pre-instantiating singletons in org.springframework.beans.factory.support.DefaultListableBeanFactory@1315415: defining beans [adapterpip,nhinhiemsubscribe]; root of factory hierarchy
+[5/26/2009, 18:40:22:444] TRACE  mlApplicationContext  Publishing event in context [org.springframework.context.support.FileSystemXmlApplicationContext@2f729e]: org.springframework.context.event.ContextRefreshedEvent[source=org.springframework.context.support.FileSystemXmlApplicationContext@2f729e: display name [org.springframework.context.support.FileSystemXmlApplicationContext@2f729e]; startup date [Tue May 26 18:40:21 MDT 2009]; root of context hierarchy]
+[5/26/2009, 18:40:23:504] DEBUG  tListableBeanFactory  Creating shared instance of singleton bean 'adapterpip'
+[5/26/2009, 18:40:23:505] DEBUG  tListableBeanFactory  Creating instance of bean 'adapterpip'
+[5/26/2009, 18:40:23:526] DEBUG  tListableBeanFactory  Eagerly caching bean 'adapterpip' to allow for resolving potential circular references
+[5/26/2009, 18:40:23:527] DEBUG  tListableBeanFactory  Finished creating instance of bean 'adapterpip'
+End testAdapterPIPProxyObjectFactory
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

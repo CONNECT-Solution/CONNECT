@@ -1,0 +1,15 @@
+!contents -R2 -g -p -f -h
+
+|dbfit|
+|dbfit.fixture|
+
+!|DatabaseEnvironment|oracle|
+|Connect|${DBHOST}|${DBUSER}|${DBPASSWORD}|
+
+Clear all entries for these 3 Provider Files from the Message Log
+!|DatabaseEnvironment|
+
+|Execute|delete from MESSAGE_LOG where FILE_NAME like 'vip_provider%fntest%'|
+
+!|DatabaseEnvironment|
+|commit|

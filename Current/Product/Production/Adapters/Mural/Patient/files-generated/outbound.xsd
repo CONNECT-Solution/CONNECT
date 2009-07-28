@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Generated XSD for Patient
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified">
+<xsd:element name="OutMsg">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element ref="SBR" minOccurs="1" maxOccurs="1"/>
+</xsd:sequence>
+<xsd:attribute name="Event" use="required">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="ADD"/><xsd:enumeration value="UPD"/><xsd:enumeration value="MRG"/><xsd:enumeration value="UMRG"/><xsd:enumeration value="DEA"/><xsd:enumeration value="REA"/></xsd:restriction>
+</xsd:simpleType>
+</xsd:attribute>
+<xsd:attribute name="ID" type="xsd:string" use="required"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="SBR">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element ref="SystemObject" minOccurs="0" maxOccurs="unbounded"/>
+<xsd:element ref="Patient" minOccurs="0" maxOccurs="1"/>
+</xsd:sequence>
+<xsd:attribute name="EUID" type="xsd:string" use="required"/>
+<xsd:attribute name="Status" type="xsd:string" use="optional"/>
+<xsd:attribute name="CreateFunction" type="xsd:string" use="optional"/>
+<xsd:attribute name="CreateUser" type="xsd:string" use="optional"/>
+<xsd:attribute name="UpdateSystem" type="xsd:string" use="optional"/>
+<xsd:attribute name="ChildType" type="xsd:string" use="optional"/>
+<xsd:attribute name="CreateSystem" type="xsd:string" use="optional"/>
+<xsd:attribute name="UpdateDateTime" type="xsd:string" use="optional"/>
+<xsd:attribute name="CreateDateTime" type="xsd:string" use="optional"/>
+<xsd:attribute name="UpdateFunction" type="xsd:string" use="optional"/>
+<xsd:attribute name="RevisionNumber" type="xsd:string" use="optional"/>
+<xsd:attribute name="UpdateUser" type="xsd:string" use="optional"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="SystemObject">
+<xsd:complexType>
+<xsd:attribute name="SystemCode" type="xsd:string" use="required"/>
+<xsd:attribute name="LID" type="xsd:string" use="required"/>
+<xsd:attribute name="Status" type="xsd:string" use="required"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="Patient">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element ref="Alias" minOccurs="0" maxOccurs="unbounded"/>
+<xsd:element ref="Address" minOccurs="0" maxOccurs="unbounded"/>
+<xsd:element ref="Phone" minOccurs="0" maxOccurs="unbounded"/>
+</xsd:sequence>
+<xsd:attribute name="PatientId" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PersonCatCode" type="xsd:string"	use="optional"/>
+<xsd:attribute name="FirstName" type="xsd:string"	use="required"/>
+<xsd:attribute name="FirstName_Std" type="xsd:string"	use="optional"/>
+<xsd:attribute name="FirstName_Phon" type="xsd:string"	use="optional"/>
+<xsd:attribute name="MiddleName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="LastName" type="xsd:string"	use="required"/>
+<xsd:attribute name="LastName_Std" type="xsd:string"	use="optional"/>
+<xsd:attribute name="LastName_Phon" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Suffix" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Title" type="xsd:string"	use="optional"/>
+<xsd:attribute name="SSN" type="xsd:string"	use="required"/>
+<xsd:attribute name="DOB" type="xsd:date"	use="required"/>
+<xsd:attribute name="Death" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Gender" type="xsd:string"	use="required"/>
+<xsd:attribute name="MStatus" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Race" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Ethnic" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Religion" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Language" type="xsd:string"	use="optional"/>
+<xsd:attribute name="SpouseName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="MotherName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="MotherMN" type="xsd:string"	use="optional"/>
+<xsd:attribute name="FatherName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Maiden" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PobCity" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PobState" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PobCountry" type="xsd:string"	use="optional"/>
+<xsd:attribute name="VIPFlag" type="xsd:string"	use="optional"/>
+<xsd:attribute name="VetStatus" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Status" type="xsd:string"	use="optional"/>
+<xsd:attribute name="DriverLicense" type="xsd:string"	use="optional"/>
+<xsd:attribute name="DriverLicenseSt" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Dod" type="xsd:date"	use="optional"/>
+<xsd:attribute name="DeathCertificate" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Nationality" type="xsd:string"	use="optional"/>
+<xsd:attribute name="Citizenship" type="xsd:string"	use="optional"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="Alias">
+<xsd:complexType>
+<xsd:attribute name="AliasId" type="xsd:string"	use="optional"/>
+<xsd:attribute name="FirstName" type="xsd:string"	use="required"/>
+<xsd:attribute name="MiddleName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="LastName" type="xsd:string"	use="required"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="Address">
+<xsd:complexType>
+<xsd:attribute name="AddressId" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressType" type="xsd:string"	use="required"/>
+<xsd:attribute name="AddressLine1" type="xsd:string"	use="required"/>
+<xsd:attribute name="AddressLine1_HouseNo" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressLine1_StDir" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressLine1_StName" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressLine1_StPhon" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressLine1_StType" type="xsd:string"	use="optional"/>
+<xsd:attribute name="AddressLine2" type="xsd:string"	use="optional"/>
+<xsd:attribute name="City" type="xsd:string"	use="optional"/>
+<xsd:attribute name="StateCode" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PostalCode" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PostalCodeExt" type="xsd:string"	use="optional"/>
+<xsd:attribute name="County" type="xsd:string"	use="optional"/>
+<xsd:attribute name="CountryCode" type="xsd:string"	use="optional"/>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="Phone">
+<xsd:complexType>
+<xsd:attribute name="PhoneId" type="xsd:string"	use="optional"/>
+<xsd:attribute name="PhoneType" type="xsd:string"	use="required"/>
+<xsd:attribute name="Phone" type="xsd:string"	use="required"/>
+<xsd:attribute name="PhoneExt" type="xsd:string"	use="optional"/>
+</xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

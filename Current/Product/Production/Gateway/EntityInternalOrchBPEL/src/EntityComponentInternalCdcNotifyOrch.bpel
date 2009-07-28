@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="EntityComponentInternalCdcNotifyOrch"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:entityinternalorchbpel:entitycomponentinternalcdcnotifyorch"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:entityinternalorchbpel:entitycomponentinternalcdcnotifyorch" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
+    xmlns:nccommonsubcdc="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" 
+    xmlns:subdte="urn:gov:hhs:fha:nhinc:common:subscriptiondte" 
+    xmlns:nccommonsub="urn:gov:hhs:fha:nhinc:common:subscription" 
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
+    <import namespace="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" location="Interfaces/wsdl/EntityComponentInternalCdcNotifyOrch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" location="Interfaces/wsdl/NhincComponentInternalSubscriptionDte.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" location="Interfaces/wsdl/NhincProxyNotificationConsumer.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" location="Interfaces/wsdl/NhincComponentSubscriptionRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="SubscriptionDtePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" partnerLinkType="tns:NhincComponentInternalSubscriptionDte" partnerRole="NhincComponentInternalSubscriptionDtePortTypeRole"/>
+        <partnerLink name="SubscriptionRepoPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" partnerLinkType="tns:NhincComponentSubscriptionRepository" partnerRole="NhincComponentSubscriptionRepositoryPortTypeRole"/>
+        <partnerLink name="NhincNotifyProxyPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" partnerLinkType="tns:NhincProxyNotificationConsumer" partnerRole="NhincProxyNotificationConsumerPortTypeRole"/>
+        <partnerLink name="EntityCdcNotifyPL" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" partnerLinkType="tns:EntityComponentInternalCdcNotifyOrch" myRole="EntityComponentInternalCdcNotifyOrchPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="CdcNotifyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" messageType="tns:CdcNotifyRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveEntityCdcNotify" createInstance="yes" partnerLink="EntityCdcNotifyPL" operation="CdcNotify" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" portType="tns:EntityComponentInternalCdcNotifyOrchPortType" variable="CdcNotifyIn"/>
+        <scope name="ProcessCdcNotifyScope">
+            <variables>
+                <variable name="CdcNotifyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" messageType="tns:CdcNotifyResponseMessage"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultCdcNotifySeq">
+                        <assign name="AssignCdcNotifyFault">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'EntityComponentInternalCdcNotifyOrch.bpel - A system fault was encounterd processing a Document Notify message. Fault detials follow...'</from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'Internal Gateway Error'</from>
+                                <to>$CdcNotifyOut.CdcNotifyResponse/nccommon:message</to>
+                            </copy>
+                        </assign>
+                        <reply name="ReplyCdcNotifyFault" partnerLink="EntityCdcNotifyPL" operation="CdcNotify" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" portType="tns:EntityComponentInternalCdcNotifyOrchPortType" variable="CdcNotifyOut"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="ProcessCdcNotifySeq">
+                <forEach name="ForEachNotificationMessage" parallel="no" counterName="NotifyMsgCtr">
+                    <startCounterValue>1</startCounterValue>
+                    <finalCounterValue>count($CdcNotifyIn.CdcNotifyRequest/nccommonentity:notify/nccommonsubcdc:NotificationMessage)</finalCounterValue>
+                    <scope name="ProcessNotifyMessageScope">
+                        <variables>
+                            <variable name="RetrieveByCriteriaOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:RetrieveByCriteriaResponse"/>
+                            <variable name="RetrieveByCriteriaIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:RetrieveByCriteriaRequest"/>
+                            <variable name="CreateSubscriptionCriteriaOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformEntityNotifyCdcBioPackageToSubscriptionCriteriaResponseMessage"/>
+                            <variable name="CreateSubscriptionCriteriaIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformEntityNotifyCdcBioPackageToSubscriptionCriteriaRequestMessage"/>
+                        </variables>
+                        <sequence name="ProcessNotifyMessageSeq">
+                            <assign name="AssignCreateSubscriptionCriteria">
+                                <copy>
+                                    <from>$CdcNotifyIn.CdcNotifyRequest/nccommonentity:notify/nccommonsubcdc:NotificationMessage[$NotifyMsgCtr]</from>
+                                    <to>$CreateSubscriptionCriteriaIn.TransformEntityNotifyCdcBioPackageToSubscriptionCriteria/subdte:NotifyCdcBioPackage/nccommonsubcdc:NotificationMessage</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeCreateSubscriptionCriteria" partnerLink="SubscriptionDtePL" operation="TransformEntityNotifyCdcBioPackageToSubscriptionCriteria" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="CreateSubscriptionCriteriaIn" outputVariable="CreateSubscriptionCriteriaOut"/>
+                            <assign name="AssignSubscriptionLookup">
+                                <copy>
+                                    <from>$CreateSubscriptionCriteriaOut.TransformEntityNotifyCdcBioPackageToSubscriptionCriteria/nccommonsub:SubscriptionCriteria</from>
+                                    <to variable="RetrieveByCriteriaIn" part="subscriptionCriteria"/>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeSubscriptionLookup" partnerLink="SubscriptionRepoPL" operation="RetrieveByCriteria" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" portType="tns:NhincComponentSubscriptionRepositoryPortType" inputVariable="RetrieveByCriteriaIn" outputVariable="RetrieveByCriteriaOut"/>
+                            <forEach name="ForEachSubscription" parallel="no" counterName="SubItemCtr">
+                                <startCounterValue>1</startCounterValue>
+                                <finalCounterValue>count($RetrieveByCriteriaOut.subscriptionItems/nccommonsub:subscriptionItem)</finalCounterValue>
+                                <scope name="ProcessSubItemScope">
+                                    <variables>
+                                        <variable name="CreateNhinNotifyCdcBioPackageOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateNhinNotifyCdcBioPackageResponseMessage"/>
+                                        <variable name="CreateNhinNotifyCdcBioPackageIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateNhinNotifyCdcBioPackageRequestMessage"/>
+                                        <variable name="NotifyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" messageType="tns:NotifyRequestMessage"/>
+                                    </variables>
+                                    <sequence name="ProcessSubItemSeq">
+                                        <assign name="AssignCreateNhinNotify">
+                                            <copy>
+                                                <from>$RetrieveByCriteriaOut.subscriptionItems/nccommonsub:subscriptionItem[$SubItemCtr]
+                                                    <sxed:editor>
+                                                        <sxed:predicate path="$RetrieveByCriteriaOut.subscriptionItems/nccommonsub:subscriptionItem[$SubItemCtr]" source="from"/>
+                                                    </sxed:editor>
+                                                </from>
+                                                <to>$CreateNhinNotifyCdcBioPackageIn.CreateNhinNotifyCdcBioPackageRequest/nccommonsub:SubscriptionItem</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$CdcNotifyIn.CdcNotifyRequest/nccommonentity:notify</from>
+                                                <to>$CreateNhinNotifyCdcBioPackageIn.CreateNhinNotifyCdcBioPackageRequest/subdte:notify</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeCreateNhinNotify" partnerLink="SubscriptionDtePL" operation="CreateNhinNotifyCdcBioPackage" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="CreateNhinNotifyCdcBioPackageIn" outputVariable="CreateNhinNotifyCdcBioPackageOut"/>
+                                        <empty name="Policy_Placeholder"/>
+                                        <assign name="AssignNotifyProxy">
+                                            <copy>
+                                                <from>$CdcNotifyIn.CdcNotifyRequest/nccommonentity:assertion</from>
+                                                <to>$NotifyIn.NotifyRequest/nccommonproxy:assertion</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$RetrieveByCriteriaOut.subscriptionItems/nccommonsub:subscriptionItem[$SubItemCtr]/nccommonsub:Subscriber/nccommonsub:NotificationConsumerEndpointAddress</from>
+                                                <to>$NotifyIn.NotifyRequest/nccommonproxy:nhinTargetSystem/nccommon:url</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$RetrieveByCriteriaOut.subscriptionItems/nccommonsub:subscriptionItem[$SubItemCtr]/nccommonsub:Subscribee/nccommonsub:Community/nccommonsub:Id</from>
+                                                <to>$NotifyIn.NotifyRequest/nccommonproxy:assertion/nccommon:userInfo/nccommon:org/nccommon:homeCommunityId</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$CreateNhinNotifyCdcBioPackageOut.CreateNhinNotifyCdcBioPackageResponse/wsnt:Notify/wsnt:NotificationMessage</from>
+                                                <to>$NotifyIn.NotifyRequest/wsnt:Notify/wsnt:NotificationMessage</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeNotifyProxy" partnerLink="NhincNotifyProxyPL" operation="Notify" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" portType="tns:NhincProxyNotificationConsumerPortType" inputVariable="NotifyIn"/>
+                                    </sequence>
+                                </scope>
+                            </forEach>
+                        </sequence>
+                    </scope>
+                </forEach>
+                <assign name="AssignEntityCdcNotifyResp">
+                    <copy>
+                        <from>'Successfully processed cdc notify message'</from>
+                        <to>$CdcNotifyOut.CdcNotifyResponse/nccommon:message</to>
+                    </copy>
+                </assign>
+                <reply name="ReplyEntityCdcNotify" partnerLink="EntityCdcNotifyPL" operation="CdcNotify" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" portType="tns:EntityComponentInternalCdcNotifyOrchPortType" variable="CdcNotifyOut"/>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

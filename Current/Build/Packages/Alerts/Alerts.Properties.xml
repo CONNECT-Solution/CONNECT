@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.Properties">
+
+  <property name="Alerts.ReportAppenderFilePath" value="${Common.TempDirectory}\Alerts.xml" />
+  <property name="Alerts.Message.CCList" value="jay.flowers@agilex.com;kieran.dunne@agilex.com;brian.mowbray@agilex.com;greg.pfister@agilex.com;scott.smith@agilex.com"/>
+
+  <strings id="Alerts.TargetListId">
+		<string value="Alerts.DiskSpace"/>
+    <!--<string value="Alerts.Tracker"/>-->
+  </strings>
+
+  <property name="Alerts.TargetListRefId" value="Alerts.TargetListId"/>
+
+  <include buildfile="${PackagesDirectory}\Alerts\BuildTime\BuildTime.Script.xml"/>
+  <include buildfile="${PackagesDirectory}\Alerts\DoneUserStories\DoneUserStories.Script.xml"/>
+  <include buildfile="${PackagesDirectory}\Alerts\UnitTests\UnitTests.Script.xml"/>
+	<include buildfile="${PackagesDirectory}\Alerts\Diskspace\DiskSpace.Script.xml"/>
+  <!--<include buildfile="${PackagesDirectory}\Alerts\Tracker\Tracker.Script.xml"/>-->
+
+  <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + ' Nightly Build'}">
+    <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.DoneUserStories')}"/>
+  </if>
+
+  <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName}">
+    <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.UnitTests')}"/>
+    <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.BuildTime')}"/>
+    <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.DoneUserStories')}"/>
+    <if test="${file::exists(PackagesDirectory + '\Simian\Simian.Properties.xml')}">
+      <include buildfile="${PackagesDirectory}\Alerts\Simian\Simian.Script.xml"/>
+      <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.Simian')}"/>
+    </if>
+  </if>
+
+</project>

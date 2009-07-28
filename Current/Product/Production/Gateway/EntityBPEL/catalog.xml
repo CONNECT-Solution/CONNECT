@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="Interfaces/wsdl/EntitySubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntitySubjectDiscovery.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentSubDiscTransforms.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentSubDiscTransforms.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincProxySubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxySubjectDiscovery.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityDocRetrieve.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityDocRetrieve.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalDocRetrieveOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalDocRetrieveOrch.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincProxyAuditLogQuery.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxyAuditLogQuery.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentAggregator.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentAggregator.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalAuditRepository.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalSubscribeOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalSubscribeOrch.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalCdcSubscribeOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalCdcSubscribeOrch.wsdl"/>
+    <system systemId="Interfaces/wsdl/rw-2.wsdl" uri="nb-uri:Interfaces#src/wsdl/rw-2.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityNotificationConsumer.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityNotificationConsumer.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalNotifyOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalNotifyOrch.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalCdcNotifyOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalCdcNotifyOrch.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntitySubscriptionManagement.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntitySubscriptionManagement.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntityComponentInternalUnsubscribeOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalUnsubscribeOrch.wsdl"/>
+</catalog>

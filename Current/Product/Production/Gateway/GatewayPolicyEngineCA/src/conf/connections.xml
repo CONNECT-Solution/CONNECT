@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" xmlns:ns2="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" xmlns:ns3="http://enterprise.netbeans.org/bpel/GatewayPolicyEngineFacadeBPEL/NhincComponentInternalPolicyEngineFacade" xmlns:ns4="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns6="urn:gov:hhs:fha:nhinc:adapterpolicyengine" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>GatewayPolicyEngineCA</name>
+            <description>Represents the Service Assembly of GatewayPolicyEngineCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NhincInternalComponentPolicyEngineTransformPort" service-name="ns1:NhincComponentInternalPolicyEngineTransformService"/>
+                <provider endpoint-name="javaee_NhincInternalComponentPolicyEngineTransformPort" service-name="ns1:NhincComponentInternalPolicyEngineTransformService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalPolicyEngineFacadePort" service-name="ns2:NhincComponentInternalPolicyEngineFacadeService"/>
+                <provider endpoint-name="NhincComponentInternalPolicyEngineFacadePortTypeRole_myRole" service-name="ns3:NhinInternalPolicyEngineFacadePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns3:NhincConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns4:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" service-name="ns3:NhinPropertyAccessorPL"/>
+                <provider endpoint-name="NhincComponentPropAccessorPort" service-name="ns5:NhincComponentPropAccessor"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEnginePortTypeRole_partnerRole" service-name="ns3:AdapterPolicyEnginePL"/>
+                <provider endpoint-name="AdapterPolicyEnginePortSoap11" service-name="ns6:AdapterPolicyEngine"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincInternalComponentPolicyEngineTransformRole_partnerRole" service-name="ns3:NhincInternalPolicyEngineTransformPL"/>
+                <provider endpoint-name="NhincInternalComponentPolicyEngineTransformPort" service-name="ns1:NhincComponentInternalPolicyEngineTransformService"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

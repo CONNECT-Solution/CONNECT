@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-check-NhincDocQuery" depends="wsimport-init">
+        <condition property="wsimport-client-NhincDocQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincdocquery/NhincDocQuery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-NhincDocQuery" depends="wsimport-init,wsimport-client-check-NhincDocQuery" unless="wsimport-client-NhincDocQuery.notRequired">
+        <property name="wsdl-NhincDocQuery" location="${meta.inf}/xml-resources/web-service-references/NhincDocQuery/wsdl/NhincDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincDocQuery}" catalog="catalog.xml"/>
+    </target>
+    <target name="wsimport-client-clean-NhincDocQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincdocquery"/>
+    </target>
+    <target name="wsimport-service-check-DocQuery" depends="wsimport-init">
+        <condition property="wsimport-service-DocQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007/RespondingGateway_Query_Service.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-DocQuery" depends="wsimport-init,wsimport-service-check-DocQuery" unless="wsimport-service-DocQuery.notRequired">
+        <property name="service-wsdl-DocQuery" location="${meta.inf}/xml-resources/web-services/DocQuery/wsdl/NhinDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-DocQuery}" catalog="catalog.xml"/>
+        <property name="targetLocation-DocQuery" location="${meta.inf}/wsdl/DocQuery"/>
+        <property name="sourceLocation-DocQuery" location="${meta.inf}/xml-resources/web-services/DocQuery/wsdl/"/>
+        <copy todir="${targetLocation-DocQuery}">
+            <fileset dir="${sourceLocation-DocQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhincDocQuery"/>
+    <target name="wsimport-client-compile" depends="wsimport-client-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

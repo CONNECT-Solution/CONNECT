@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.DiskSpace.Script">
+
+	<property name="DiskSpaceThreshold" value="2"/>
+
+  <target name="Alerts.DiskSpace">
+
+		<property name="DiskSpace.C" value="${drive::get-avalible-space('c:\') / 1024 / 1024 / 1024}"/>
+    <property name="DiskSpace.D.Check" value="${drive::get-type('d:\') == 'Fixed'}"/>
+		<property name="DiskSpace.D" value="${drive::get-avalible-space('d:\') / 1024 / 1024 / 1024}" if="${DiskSpace.D.Check}"/>
+
+    <echo message="DiskSpace on C is ${DiskSpace.C}"/>
+    <if test="${DiskSpace.D.Check}">
+		<echo message="DiskSpace on D is ${DiskSpace.D}"/>
+    </if>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <ifthenelse test="${int::parse(DiskSpaceThreshold) > int::parse(DiskSpace.C) or (bool::parse(DiskSpace.D.Check) and int::parse(DiskSpaceThreshold) > int::parse(DiskSpace.D))}">
+      <then>
+        <call target="Alerts.DiskSpace.GenerateWarning"/>
+        <call target="Alerts.SendMessage"/>
+      </then>
+    </ifthenelse>
+  </target>
+
+  <target name="Alerts.DiskSpace.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetProject} ${CCNetLabel}: Running out of disk space!" />
+
+    <property name="DiskSpace.D.Message" value=""/>
+    <if test="${DiskSpace.D.Check}">
+      <property name="DiskSpace.D.Message" value=" and ${DiskSpace.D} Gigs left avalible on the d:\ drive"/>
+    </if>
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetProject} ${CCNetLabel}</a>
+            </p>
+
+            <p>Build Master,</p>
+            <p>Please take note that there are ${DiskSpace.C} Gigs left avalible on the c:\ drive${DiskSpace.D.Message}.</p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+	<script language="C#" prefix="drive" >
+		<imports>
+			<import namespace="System.IO" />
+		</imports>
+
+		<code>
+			<![CDATA[
+         [Function("get-avalible-space")]
+         public static long GetAvalibleSpace(string drive)
+         {
+                 return new DriveInfo(drive).AvailableFreeSpace;
+         }
+         
+         [Function("get-type")]
+         public static String GetType(string drive)
+         {
+                 return new DriveInfo(drive).DriveType.ToString();
+         }
+      ]]>
+		</code>
+	</script>
+	
+</project>

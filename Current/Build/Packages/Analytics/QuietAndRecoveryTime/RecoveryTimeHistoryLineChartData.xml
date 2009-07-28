@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\RecoveryTimeHistoryLineXAxis.xml">
+  <!ENTITY Duration SYSTEM   "..\..\..\Artifacts\RecoveryTimeHistoryDurations.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>Recovery Time Duration</string>
+      &Duration;
+    </row>
+  </chart_data>
+
+  <chart_type>line</chart_type>
+  <axis_category skip='20' />
+
+  <draw>
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>mintues</text>
+  </draw>
+</chart>

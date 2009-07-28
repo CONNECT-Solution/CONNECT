@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:adaptermpimanager" xmlns:ns10="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns11="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns12="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" xmlns:ns13="urn:gov:hhs:fha:nhinc:adapters:adaptersubjectdiscoverybpel:adaptersubjectdiscovery" xmlns:ns14="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterauditquery" xmlns:ns15="http://enterprise.netbeans.org/bpel/AdapterBPEL/AdapterDocProvideAndRegister" xmlns:ns16="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterdocretrieve" xmlns:ns17="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapternotify" xmlns:ns18="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adaptersubscription" xmlns:ns19="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterunsubscribe" xmlns:ns2="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" xmlns:ns3="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" xmlns:ns4="urn:gov:hhs:fha:nhinc:adapterdocretrieve" xmlns:ns5="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" xmlns:ns6="urn:gov:hhs:fha:nhinc:adapterauditlogquery" xmlns:ns7="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" xmlns:ns8="urn:gov:hhs:fha:nhinc:adapternotificationconsumer" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="AdapterMpiManagerPortTypeBindingPort" interface-name="ns1:AdapterMpiManagerPortType" name="endpoint1" service-name="ns1:AdapterMpiManagerService"/>
+        <endpoint endpoint-name="AuditRepositoryManagerPort" interface-name="ns2:AuditRepositoryManagerPortType" name="endpoint2" service-name="ns2:AuditRepositoryManagerService"/>
+        <endpoint endpoint-name="EntitySubjectDiscoveryPortSoap11" interface-name="ns3:EntitySubjectDiscoveryPortType" name="endpoint3" service-name="ns3:EntitySubjectDiscovery"/>
+        <endpoint endpoint-name="AdapterDocRetrievePortSoap11" interface-name="ns4:AdapterDocRetrievePortType" name="endpoint4" service-name="ns4:AdapterDocRetrieve"/>
+        <endpoint endpoint-name="AdapterInternalSubDiscoveryAnnouncePortSoap11" interface-name="ns5:AdapterInternalSubDiscoveryAnnouncePortType" name="endpoint5" service-name="ns5:AdapterInternalSubDiscoveryAnnounce"/>
+        <endpoint endpoint-name="AdapterAuditLogQueryPortSoap11" interface-name="ns6:AdapterAuditLogQueryPortType" name="endpoint6" service-name="ns6:AdapterAuditLogQuery"/>
+        <endpoint endpoint-name="AdapterNotificationProducerPortSoap11" interface-name="ns7:AdapterNotificationProducerPortType" name="endpoint7" service-name="ns7:AdapterNotificationProducer"/>
+        <endpoint endpoint-name="AdapterNotificationConsumerPortSoap11" interface-name="ns8:AdapterNotificationConsumerPortType" name="endpoint8" service-name="ns8:AdapterNotificationConsumer"/>
+        <endpoint endpoint-name="AdapterSubscriptionManagerPortSoap11" interface-name="ns7:AdapterSubscriptionManagerPortType" name="endpoint9" service-name="ns7:AdapterSubscriptionManager"/>
+        <endpoint endpoint-name="DocumentRepository_Port_Soap" interface-name="ns9:DocumentRepository_PortType" name="endpoint10" service-name="ns9:DocumentRepository_Service"/>
+        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns10:NhincComponentConnectionManagerPortType" name="endpoint11" service-name="ns10:NhincComponentConnectionManager"/>
+        <endpoint endpoint-name="NhincComponentPropAccessorPort" interface-name="ns11:NhincComponentPropAccessorPortType" name="endpoint12" service-name="ns11:NhincComponentPropAccessor"/>
+        <endpoint endpoint-name="AdapterDocProvideAndRegisterPortTypeBindingPortSoap11" interface-name="ns12:AdapterDocProvideAndRegisterPortType" name="endpoint13" service-name="ns12:AdapterDocProvideAndRegisterService"/>
+        <endpoint display-name="AdapterIntSubDiscAnnouncePL" endpoint-name="AdapterInternalSubDiscoveryAnnouncePortTypeRole_myRole" file-path="AdapterSubjectDiscovery.bpel" interface-name="ns5:AdapterInternalSubDiscoveryAnnouncePortType" name="endpoint14" process-name="AdapterSubjectDiscovery" service-name="ns13:AdapterIntSubDiscAnnouncePL"/>
+        <endpoint display-name="MpiManagerPL" endpoint-name="AdapterMpiManagerPortTypeRole_partnerRole" file-path="AdapterSubjectDiscovery.bpel" interface-name="ns1:AdapterMpiManagerPortType" name="endpoint15" process-name="AdapterSubjectDiscovery" service-name="ns13:MpiManagerPL"/>
+        <endpoint display-name="EntitySubjectDiscoveryPL" endpoint-name="EntitySubjectDiscoveryPortTypeRole_partnerRole" file-path="AdapterSubjectDiscovery.bpel" interface-name="ns3:EntitySubjectDiscoveryPortType" name="endpoint16" process-name="AdapterSubjectDiscovery" service-name="ns13:EntitySubjectDiscoveryPL"/>
+        <endpoint display-name="AdapterAuditQueryPL" endpoint-name="AdapterAuditLogQueryPortTypeRole_myRole" file-path="AdapterAuditQuery.bpel" interface-name="ns6:AdapterAuditLogQueryPortType" name="endpoint17" process-name="AdapterAuditQuery" service-name="ns14:AdapterAuditQueryPL"/>
+        <endpoint display-name="AdapterDocProvideAndRegisterPL" endpoint-name="AdapterDocProvideAndRegisterPortTypeRole_myRole" file-path="AdapterDocProvideAndRegister.bpel" interface-name="ns12:AdapterDocProvideAndRegisterPortType" name="endpoint18" process-name="AdapterDocProvideAndRegister" service-name="ns15:AdapterDocProvideAndRegisterPL"/>
+        <endpoint display-name="AdapterDocRetrievePL" endpoint-name="AdapterDocRetrievePortTypeRole_myRole" file-path="AdapterDocRetrieve.bpel" interface-name="ns4:AdapterDocRetrievePortType" name="endpoint19" process-name="AdapterDocRetrieve" service-name="ns16:AdapterDocRetrievePL"/>
+        <endpoint display-name="AdapterNotifyPL" endpoint-name="AdapterNotificationConsumerPortTypeRole_myRole" file-path="AdapterNotify.bpel" interface-name="ns8:AdapterNotificationConsumerPortType" name="endpoint20" process-name="AdapterNotify" service-name="ns17:AdapterNotifyPL"/>
+        <endpoint display-name="AdapterSubscriptionPL" endpoint-name="AdapterNotificationProducerPortTypeRole_myRole" file-path="AdapterSubscription.bpel" interface-name="ns7:AdapterNotificationProducerPortType" name="endpoint21" process-name="AdapterSubscription" service-name="ns18:AdapterSubscriptionPL"/>
+        <endpoint display-name="AdapterUnsubscribePL" endpoint-name="AdapterSubscriptionManagerPortTypeRole_myRole" file-path="AdapterUnsubscribe.bpel" interface-name="ns7:AdapterSubscriptionManagerPortType" name="endpoint22" process-name="AdapterUnsubscribe" service-name="ns19:AdapterUnsubscribePL"/>
+        <endpoint display-name="AuditRepositoryPL" endpoint-name="AuditRepositoryManagerPortTypeRole_partnerRole" file-path="AdapterAuditQuery.bpel" interface-name="ns2:AuditRepositoryManagerPortType" name="endpoint23" process-name="AdapterAuditQuery" service-name="ns14:AuditRepositoryPL"/>
+        <endpoint display-name="AdapterDocRegisterPL" endpoint-name="DocumentRepository_Role_partnerRole" file-path="AdapterDocProvideAndRegister.bpel" interface-name="ns9:DocumentRepository_PortType" name="endpoint24" process-name="AdapterDocProvideAndRegister" service-name="ns15:AdapterDocRegisterPL"/>
+        <endpoint display-name="PropAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="AdapterDocProvideAndRegister.bpel" interface-name="ns11:NhincComponentPropAccessorPortType" name="endpoint25" process-name="AdapterDocProvideAndRegister" service-name="ns15:PropAccessorPL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="AdapterDocProvideAndRegister.bpel" interface-name="ns10:NhincComponentConnectionManagerPortType" name="endpoint26" process-name="AdapterDocProvideAndRegister" service-name="ns15:ConnectionManagerPL"/>
+        <endpoint display-name="AdapterComponentDocRetrievePL" endpoint-name="DocumentRepository_Role_partnerRole" file-path="AdapterDocRetrieve.bpel" interface-name="ns9:DocumentRepository_PortType" name="endpoint27" process-name="AdapterDocRetrieve" service-name="ns16:AdapterComponentDocRetrievePL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="AdapterDocRetrieve.bpel" interface-name="ns10:NhincComponentConnectionManagerPortType" name="endpoint28" process-name="AdapterDocRetrieve" service-name="ns16:ConnectionManagerPL"/>
+        <endpoint display-name="PropertyAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="AdapterDocRetrieve.bpel" interface-name="ns11:NhincComponentPropAccessorPortType" name="endpoint29" process-name="AdapterDocRetrieve" service-name="ns16:PropertyAccessorPL"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="AdapterSubjectDiscoveryBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="AdapterCA-AdapterSubjectDiscoveryBPEL" unit-name="AdapterSubjectDiscoveryBPEL" unknown="false" x="163" y="303">
+            <provides endpoint="endpoint14"/>
+            <consumes endpoint="endpoint15"/>
+            <consumes endpoint="endpoint16"/>
+        </service-engine-service-unit>
+        <service-engine-service-unit artifacts-zip="AdapterBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="AdapterCA-AdapterBPEL" unit-name="AdapterBPEL" unknown="false" x="132" y="464">
+            <provides endpoint="endpoint17"/>
+            <provides endpoint="endpoint18"/>
+            <provides endpoint="endpoint19"/>
+            <provides endpoint="endpoint20"/>
+            <provides endpoint="endpoint21"/>
+            <provides endpoint="endpoint22"/>
+            <consumes endpoint="endpoint23"/>
+            <consumes endpoint="endpoint24"/>
+            <consumes endpoint="endpoint25"/>
+            <consumes endpoint="endpoint26"/>
+            <consumes endpoint="endpoint27"/>
+            <consumes endpoint="endpoint28"/>
+            <consumes endpoint="endpoint29"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="AdapterCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="1806">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/service[@name='AdapterAuditLogQuery']/port[@name='AdapterAuditLogQueryPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
+                </port>
+                <port x="67" y="434">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/service[@name='DocumentRepository_Service']/port[@name='DocumentRepository_Port_Soap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint10"/>
+                    <provides endpoint="endpoint10"/>
+                </port>
+                <port x="67" y="276">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/service[@name='AdapterDocProvideAndRegisterService']/port[@name='AdapterDocProvideAndRegisterPortTypeBindingPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint13"/>
+                    <provides endpoint="endpoint13"/>
+                </port>
+                <port x="67" y="1620">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/service[@name='AdapterDocRetrieve']/port[@name='AdapterDocRetrievePortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="1527">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/service[@name='AdapterNotificationConsumer']/port[@name='AdapterNotificationConsumerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint8"/>
+                    <provides endpoint="endpoint8"/>
+                </port>
+                <port x="67" y="1434">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterNotificationProducer']/port[@name='AdapterNotificationProducerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint7"/>
+                    <provides endpoint="endpoint7"/>
+                </port>
+                <port x="67" y="355">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterSubscriptionManager']/port[@name='AdapterSubscriptionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint9"/>
+                    <provides endpoint="endpoint9"/>
+                </port>
+                <port x="67" y="1341">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService']/port[@name='AuditRepositoryManagerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint11"/>
+                    <provides endpoint="endpoint11"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor']/port[@name='NhincComponentPropAccessorPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint12"/>
+                    <provides endpoint="endpoint12"/>
+                </port>
+                <port x="67" y="1248">
+                    <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/service[@name='AdapterInternalSubDiscoveryAnnounce']/port[@name='AdapterInternalSubDiscoveryAnnouncePortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="67" y="1155">
+                    <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/service[@name='AdapterMpiManagerService']/port[@name='AdapterMpiManagerPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="1062">
+                    <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery']/port[@name='EntitySubjectDiscoveryPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint9" provider="endpoint22" state="unchanged"/>
+        <connection consumer="endpoint15" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint23" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint4" provider="endpoint19" state="unchanged"/>
+        <connection consumer="endpoint26" provider="endpoint11" state="unchanged"/>
+        <connection consumer="endpoint28" provider="endpoint11" state="unchanged"/>
+        <connection consumer="endpoint5" provider="endpoint14" state="unchanged"/>
+        <connection consumer="endpoint24" provider="endpoint10" state="unchanged"/>
+        <connection consumer="endpoint27" provider="endpoint10" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint20" state="unchanged"/>
+        <connection consumer="endpoint13" provider="endpoint18" state="unchanged"/>
+        <connection consumer="endpoint16" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint21" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint17" state="unchanged"/>
+        <connection consumer="endpoint25" provider="endpoint12" state="unchanged"/>
+        <connection consumer="endpoint29" provider="endpoint12" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/portType[@name='AdapterAuditLogQueryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/portType[@name='DocumentRepository_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/portType[@name='AdapterDocProvideAndRegisterPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/portType[@name='AdapterDocRetrievePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/portType[@name='AdapterNotificationConsumerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='AdapterNotificationProducerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='AdapterSubscriptionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/portType[@name='AdapterInternalSubDiscoveryAnnouncePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/portType[@name='AdapterMpiManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='EntitySubjectDiscoveryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/portType[@name='AdapterAuditLogQueryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/portType[@name='DocumentRepository_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/portType[@name='AdapterDocProvideAndRegisterPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/portType[@name='AdapterDocRetrievePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/portType[@name='AdapterNotificationConsumerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='AdapterNotificationProducerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='AdapterSubscriptionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/portType[@name='AdapterInternalSubDiscoveryAnnouncePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/portType[@name='AdapterMpiManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='EntitySubjectDiscoveryPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/binding[@name='AdapterAuditLogQueryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/binding[@name='DocumentRepository_Binding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/binding[@name='AdapterDocProvideAndRegisterPortTypeBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/binding[@name='AdapterDocRetrieveBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/binding[@name='AdapterNotificationConsumerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='AdapterNotificationProducerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='AdapterSubscriptionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/binding[@name='AdapterInternalSubDiscoveryAnnounceBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/binding[@name='AdapterMpiManagerPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='EntitySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/binding[@name='AdapterAuditLogQueryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/binding[@name='DocumentRepository_Binding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/binding[@name='AdapterDocProvideAndRegisterPortTypeBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/binding[@name='AdapterDocRetrieveBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/binding[@name='AdapterNotificationConsumerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='AdapterNotificationProducerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='AdapterSubscriptionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/binding[@name='AdapterInternalSubDiscoveryAnnounceBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/binding[@name='AdapterMpiManagerPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='EntitySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/service[@name='AdapterAuditLogQuery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/service[@name='DocumentRepository_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/service[@name='AdapterDocProvideAndRegisterService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/service[@name='AdapterDocRetrieve'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/service[@name='AdapterNotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterNotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterSubscriptionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/service[@name='AdapterInternalSubDiscoveryAnnounce'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/service[@name='AdapterMpiManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/AdapterSubjectDiscoveryBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl#xpointer(/definitions/service[@name='AdapterAuditLogQuery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/service[@name='DocumentRepository_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl#xpointer(/definitions/service[@name='AdapterDocProvideAndRegisterService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl#xpointer(/definitions/service[@name='AdapterDocRetrieve'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl#xpointer(/definitions/service[@name='AdapterNotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterNotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl#xpointer(/definitions/service[@name='AdapterSubscriptionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl#xpointer(/definitions/service[@name='AdapterInternalSubDiscoveryAnnounce'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterMpiManager.wsdl#xpointer(/definitions/service[@name='AdapterMpiManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterSubjectDiscoveryBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

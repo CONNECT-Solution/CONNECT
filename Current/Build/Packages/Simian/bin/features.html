@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <title>Simian: Features</title>
+    </head>
+
+    <body>
+        <h3>Features</h3>
+        <p>Simian version runs under any Java2 1.4 or higher
+        <a href="http://www.java.com/en/index.jsp" target="_blank"> Java Virtual Machine (JVM)</a> and any Dot Net 1.1
+        or higher environment, meaning Simian can be run on anything from windows, macOS and linux to zOS.</p>
+
+        <p>The distribution contains everything you need to be up and running in minutes:</p>
+        <ul>
+            <li>Application .jar file</li>
+            <li>Application .exe file</li>
+            <li>Full HTML Documentation (including <a href="installation.html">Installation Guide</a>)</li>
+            <li><a href="installation.html#checksyle">Checkstyle Plugin</a></li>
+            <li><a href="installation.html#ant">Ant Task</a></li>
+            <li><a href="installation.html#cli">Command line Interface</a></li>
+            <li><a href="installation.html#intellij">Simple IntelliJ Integration</a></li>
+            <li><a href="javadoc/index.html">Programmatic Interface</a></li>
+        </ul>
+
+        <p>Aslak Hellesoy has kindly donated a <a href="http://www.maven.org/" target="_blank">Maven plugin</a>.</p>
+
+        <p>Neil Bartlett has kindly donated an <a href="http://www.integility.com/simianui.html" target="_blank">Eclipse
+        plugin</a>.</p>
+
+        <p>Simian fully supports the following languges:
+        <ul>
+            <li>Java</li>
+            <li>C#</li>
+            <li>C++</li>
+            <li>C</li>
+            <li>Objective-C</li>
+            <li>JavaScript (ECMAScript)</li>
+            <li>COBOL, ABAP</li>
+            <li>Ruby</li>
+            <li>Lisp</li>
+            <li>SQL</li>
+            <li>Visual Basic</li>
+        </ul></p>
+
+        <p>with partial support for the following languages:
+        <ul>
+            <li>JSP</li>
+            <li>ASP</li>
+            <li>HTML</li>
+            <li>XML</li>
+        </ul></p>
+
+        <p>If the file is not of a supported type, it is treated as plain text. This means that you can usually run
+        Simian on just about any type of human-readable file with good results.</p>
+
+        <p>Ignores whitespace, curly braces, comments, imports, includes, package declarations, etc.</p>
+
+        <p>Supports the following processing options:<br><br>
+        <table border="2">
+            <tr><th>option</th><th>languages</th><th>default</th><th>possible values</th><th>description</th></tr>
+            <tr><td>formatter</td><td>all</td><td>none</td><td>plain, xml, emacs, vs (visual studio), yaml</td><td>Specifies the format in which processing results will be produced.</td></tr>
+            <tr><td>threshold</td><td>all</td><td>6</td> <td>integer >= 2</td><td>Matches will contain at least the specified number of lines.</td></tr>
+            <tr><td>language</td><td>n/a</td><td>none</td><td>java, c#, cs, csharp, c, c++, cpp, cplusplus, js, javascript, cobol, abap, rb, ruby, vb, jsp, html, xml</td><td>Assumes all files are in the specified language</td></tr>
+            <tr><td>failOnDuplication</td><td>all</td><td>true</td><td>boolean</td><td>Causes the checker to fail the current process if duplication is detected</td></tr>
+            <tr><td>reportDuplicateText</td><td>all</td><td>false</td><td>boolean</td><td>Prints the duplicate text in reports</td></tr>
+            <tr><td>ignoreBlocks</td><td>all</td><td>none</td><td>string</td><td>Ignores all lines between specified START/END markers</td></tr>
+            <tr><td>ignoreCurlyBraces</td><td>Java, C#, C, C++, JavaScript, Ruby</td><td>false</td><td>boolean</td><td>Curly braces are ignored.</td></tr>
+            <tr><td>ignoreIdentifiers</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby</td><td>false</td><td>boolean</td><td>Completely ignores all identfiers.</td></tr>
+            <tr><td>ignoreIdentifierCase</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby</td><td>true</td><td>boolean</td><td>Matches identifiers irrespective of case. Eg. <tt>MyVariableName</tt> and <tt>myvariablename</tt> would both match.</td></tr>
+            <tr><td>ignoreRegions</td> <td >C#</td><td>false</td><td>boolean</td><td>Ignore lines between #region/#endregion.</td></tr>
+            <tr><td>ignoreStrings</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby, SQL</td><td>false</td><td>boolean</td><td><tt>MyVariable</tt> and <tt>myvariable</tt>would both match.</td></tr>
+            <tr><td>ignoreStringCase</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby, SQL</td><td>true</td><td>boolean</td><td><tt>"Hello, World"</tt> and <tt>"HELLO, WORLD"</tt> would both match.</td></tr>
+            <tr><td>ignoreNumbers</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby, SQL</td><td>false</td><td>boolean</td><td><tt>int x = 1;</tt> and <tt>int x = 576;</tt> would both match.</td></tr>
+            <tr><td>ignoreCharacters</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby</td><td>false</td><td>boolean</td><td><tt>'A'</tt> and <tt>'Z'</tt>would both match.</td></tr>
+            <tr><td>ignoreCharacterCase</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby</td><td>true</td><td>boolean</td><td><tt>'A'</tt> and <tt>'a'</tt>would both match.</td></tr>
+            <tr><td>ignoreLiterals</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby, SQL</td><td>false</td><td>boolean</td><td><tt>'A'</tt>, <tt>"one"</tt> and <tt>27.8</tt>would all match.</td></tr>
+            <tr><td>ignoreSubtypeNames</td><td >Java, C</td> <td>false</td> <td>boolean</td><td><tt>BufferedReader</tt>, <tt>StringReader</tt> and <tt>Reader</tt> would all match.</td></tr>
+            <tr><td>ignoreModifiers</td><td>Java, C#, C, C++, JavaScript</td> <td>true</td><td>boolean</td><td><tt>public</tt>, <tt>protected</tt>, <tt>static</tt>, etc.</td></tr>
+            <tr><td>ignoreVariableNames</td><td>Java, C</td> <td>false</td><td>boolean</td><td>Completely ignores variable names (field, parameter and local). Eg. <tt>int foo = 1;</tt> and <tt>int bar = 1</tt> would both match</td></tr>
+            <tr><td>balanceParentheses</td><td>Java, C#, C, C++, JavaScript, COBOL, Ruby, SQL</td><td>false</td><td>boolean</td><td>Ensures that expressions inside parenthesis that are split across multiple physical lines are considered as one.</td></tr>
+            <tr><td>balanceCurlyBraces</td><td>Ruby</td> <td>false</td><td>boolean</td><td>Ensures that expressions inside curly braces that are split across multiple physical lines are considered as one.</td></tr>
+            <tr><td>balanceSquareBrackets</td><td>Java, C#, C, C++, JavaScript, Ruby</td><td>false</td><td>boolean</td><td>Ensures that expressions inside square brackets that are split across multiple physical lines are considered as one. Defaults to false.</td></tr>
+        </table>
+
+        <p>Recognises the following file extensions/language options:<br><br>
+        <table border="2">
+            <tr><th>language</th><th>extensions</th></tr>
+            <tr><td>java</td><td>java</td></tr>
+            <tr><td>c sharp</td><td>cs, c#, csharp</td></tr>
+            <tr><td>c</td><td>c, h, m</td></tr>
+            <tr><td>cpp</td><td>cpp, c++, hpp, cplusplus</td></tr>
+            <tr><td>ruby</td><td>rb, ruby</td></tr>
+            <tr><td>cobol</td><td>cobol</td></tr>
+            <tr><td>abap</td><td>abap</td></tr>
+            <tr><td>xml</td><td>xml, xsl, xsd</td></tr>
+            <tr><td>jsp</td><td>jsp</td></tr>
+            <tr><td>asp</td><td>asp</td></tr>
+            <tr><td>javascript</td><td>js, javascript</td></tr>
+            <tr><td>html</td><td>html, htm</td></tr>
+            <tr><td>vb</td><td>vb, bas, cls, frm</td></tr>
+            <tr><td>lisp</td><td>lisp, lsp</td></tr>
+            <tr><td>text</td><td>this is the default when no appropriate language can be determined</td></tr>
+        </table>
+        </p>
+
+        <h3>Sample Output</h3>
+        <p>Here is an example of the standard output produced by Simian (version 2.0.3) when run against the JDK
+        1.4.2_03 source code:</p>
+        <p><pre>Similarity Analyser 2.1.2 - http://www.redhillconsulting.com.au/products/simian/index.html
+Copyright (c) 2003-04 RedHill Consulting, Pty. Ltd.  All rights reserved.
+Simian is not free unless used solely for non-commercial or evaluation purposes.
+{ignoreCurlyBraces=true, ignoreModifiers=true, ignoreStringCase=true, threshold=9}
+Loading (recursively) *.java from /var/tmp/jdksrc
+Found 9 duplicate lines in the following files:
+ Between lines 65 and 76 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicSliderUI.java
+ Between lines 71 and 82 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthSliderUI.java
+Found 9 duplicate lines in the following files:
+ Between lines 37 and 49 in /var/tmp/jdksrc/com/sun/java/swing/plaf/motif/MotifCheckBoxMenuItemUI.java
+ Between lines 43 and 55 in /var/tmp/jdksrc/com/sun/java/swing/plaf/motif/MotifRadioButtonMenuItemUI.java
+ Between lines 36 and 48 in /var/tmp/jdksrc/com/sun/java/swing/plaf/motif/MotifMenuItemUI.java
+Found 9 duplicate lines in the following files:
+ Between lines 391 and 435 in /var/tmp/jdksrc/org/apache/xml/dtm/ref/DTMDocumentImpl.java
+ Between lines 1533 and 1577 in /var/tmp/jdksrc/org/apache/xml/dtm/ref/dom2dtm/DOM2DTM.java
+Found 9 duplicate lines in the following files:
+ Between lines 1744 and 1758 in /var/tmp/jdksrc/javax/swing/plaf/metal/MetalFileChooserUI.java
+ Between lines 1995 and 2009 in /var/tmp/jdksrc/com/sun/java/swing/plaf/windows/WindowsFileChooserUI.java
+ Between lines 849 and 863 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/GTKFileChooserUI.java
+Found 9 duplicate lines in the following files:
+ Between lines 47 and 59 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicMenuBarUI.java
+ Between lines 55 and 67 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthMenuBarUI.java
+...
+Found 285 duplicate lines in the following files:
+ Between lines 42 and 599 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicTableUI.java
+ Between lines 43 and 600 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthTableUI.java
+Found 285 duplicate lines in the following files:
+ Between lines 471 and 1123 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicComboPopup.java
+ Between lines 468 and 1120 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthComboPopup.java
+Found 334 duplicate lines in the following files:
+ Between lines 1950 and 2461 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthTabbedPaneUI.java
+ Between lines 2199 and 2710 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicTabbedPaneUI.java
+Found 384 duplicate lines in the following files:
+ Between lines 739 and 1660 in /var/tmp/jdksrc/com/sun/java/swing/plaf/gtk/SynthListUI.java
+ Between lines 710 and 1631 in /var/tmp/jdksrc/javax/swing/plaf/basic/BasicListUI.java
+Found 435 duplicate lines in the following files:
+ Between lines 84 and 545 in /var/tmp/jdksrc/org/apache/xalan/res/XSLTErrorResources_ko.java
+ Between lines 121 and 579 in /var/tmp/jdksrc/org/apache/xalan/res/XSLTErrorResources.java
+Found 68412 duplicate lines in 3143 blocks in 953 files
+Processed a total of 414712 significant (1295861 raw) lines in 4136 files
+Processing time: 24.916sec</pre></p>
+
+        <p>To see the full results* for the JDK 1.4.2_03 source code, download either the <a href="jdk1.4.2_03.log">350k
+        plain text</a> or a <a href="jdk1.4.2_03.log.zip">43k compressed</a> version.</p>
+
+        <p>* Results may vary depending on factors such as hardware used, number of duplicate lines, etc.</p>
+
+        <hr>
+        <p align="center"><font size=".5">Java and all Java-based marks are trademarks or registered trademarks of Sun
+        Microsystems, Inc. in the United States and other countries.</br ><br />
+
+        .NET and all .NET-based marks are trademarks or registered trademarks of Microsoft&reg; in the United States and
+        other countries.<br /><br />
+
+        Copyright (c) 2003-07 RedHill Consulting Pty. Ltd.  All rights reserved.</p>
+    </body>
+</html>

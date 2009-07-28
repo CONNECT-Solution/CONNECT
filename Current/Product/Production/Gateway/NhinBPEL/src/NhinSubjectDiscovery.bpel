@@ -1,0 +1,1058 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhinSubjectDiscovery"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinsubjectdiscovery"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinsubjectdiscovery" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" 
+    xmlns:hl7="urn:hl7-org:v3" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+    xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:ncadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
+    xmlns:audit="urn:gov:hhs:fha:nhinc:common:auditlog" 
+    xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" >
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201301orch" location="Interfaces/wsdl/NhincComponentInternalSubDiscovery201301Orch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" location="Interfaces/wsdl/AdapterSubjectDiscovery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" location="Interfaces/wsdl/NhincComponentSubDiscTransforms.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201302orch" location="Interfaces/wsdl/NhincComponentInternalSubDiscovery201302Orch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" location="Interfaces/wsdl/NhincSubjectDiscovery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentInternalSubDiscovery201309Orch" location="Interfaces/wsdl/NhincComponentInternalSubDiscovery201309Orch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" location="Interfaces/wsdl/NhincComponentInternalSubDiscovery201303Orch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="SubDiscDataTransformsPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" partnerLinkType="tns:NhincComponentSubDiscTransforms" partnerRole="NhincComponentSubDiscTransformsPortTypeRole"/>
+        <partnerLink name="ConnectionMgrPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="NhincComponentInternalSubDiscovery201301OrchPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201301orch" partnerLinkType="tns:NhincComponentInternalSubDiscovery201301Orch" partnerRole="NhincComponentInternalSubDiscovery201301OrchPortTypeRole"/>
+        <partnerLink name="AdapterSubDiscPL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" partnerLinkType="tns:AdapterSubjectDiscovery" partnerRole="AdapterSubjectDiscoveryPortTypeRole"/>
+        <partnerLink name="NhincComponentInternalSubDiscovery201302OrchPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201302orch" partnerLinkType="tns:NhincComponentInternalSubDiscovery201302Orch" partnerRole="NhincComponentInternalSubDiscovery201302OrchPortTypeRole"/>
+        <partnerLink name="NhincComponentInternalSubDiscovery201303OrchPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" partnerLinkType="tns:NhincComponentInternalSubDiscovery201303Orch" partnerRole="NhincComponentInternalSubDiscovery201303OrchPortTypeRole"/>
+        <partnerLink name="AuditRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" partnerRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+        <partnerLink name="NhincComponentInternalSubDiscovery201309OrchPL" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentInternalSubDiscovery201309Orch" partnerLinkType="tns:NhincComponentInternalSubDiscovery201309Orch" partnerRole="NhincComponentInternalSubDiscovery201309OrchPortTypeRole"/>
+        <partnerLink name="NhincSubjectDiscoveryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" partnerLinkType="tns:NhincSubjectDiscovery" myRole="NhincSubjectDiscoveryPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="PIX201309In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage"/>
+        <variable name="PIX201304In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage"/>
+        <variable name="PIX201303In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage"/>
+        <variable name="PIX201302In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"/>
+        <variable name="PIX201301In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"/>
+    </variables>
+    <sequence>
+        <pick name="HandleSubDiscoveryMessageSeq" xmlns:tns="urn:ihe:iti:pixv3:2007" createInstance="yes">
+            <onMessage partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201301In">
+                <scope name="Handle201301Scope">
+                    <variables>
+                        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectAddedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectAddedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectAddedRequestMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="AdapterPIX201301Out" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"/>
+                        <variable name="AdapterPIX201301In" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"/>
+                        <variable name="GetHcidPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                        <variable name="GetHcidPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                        <variable name="AgencyConnectionEndptOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                        <variable name="AgencyConnectionEndptIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                        <variable name="SubDiscPassThroughPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscPassThroughPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="SubDiscEnablePropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscEnablePropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="AnnounceNewPatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201301orch" messageType="tns:AnnounceNewPatientResponseMessage"/>
+                        <variable name="AnnounceNewPatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201301orch" messageType="tns:AnnounceNewPatientRequestMessage"/>
+                        <variable name="PIX201301Out" messageType="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201301Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201301Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <bpel:from>'NhinSubjectDiscovery.bpel - A system fault was encounterd processing a 201301 message. Fault detials follow...'</bpel:from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <bpel:from variable="systemFault201301Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201301FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201301Out" part="PIX201301Response"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201301Fault" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201301Out"/>
+                                <exit name="ExitAfter201301FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201301Seq">
+                        <sequence name="Log201301ReqSeq">
+                            <assign name="AssignAudit201301Req">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onComplete">
+                                        <bpel:from>'Complete Assign201301 to Audit'</bpel:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:interface</to>
+                                </copy>
+                                <copy>
+                                    <from variable="PIX201301In" part="PIX201301Request"/>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:message</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201301Req" partnerLink="AuditRepositoryPL" operation="LogSubjectAdded" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectAddedIn" outputVariable="LogSubjectAddedOut">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onComplete">
+                                        <bpel:from>'Complete Invoke Audit20301'</bpel:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </invoke>
+                        </sequence>
+                        <assign name="AssignSubDiscEnabledProp">
+                            <copy>
+                                <from>'serviceSubjectDiscovery'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeSubDiscEnblProp" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscEnablePropIn" outputVariable="SubDiscEnablePropOut"/>
+                        <if name="IfSubDiscEnabled">
+                            <condition>true() = $SubDiscEnablePropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                            <sequence name="SubDiscEnabledSeq">
+                                <assign name="AssignCheckSubDiscPassthrough">
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'subjectDiscoveryPassthrough'</from>
+                                        <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeCheckSubDiscPassthrough" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscPassThroughPropIn" outputVariable="SubDiscPassThroughPropOut"/>
+                                <if name="IfNotPassthrough">
+                                    <condition>false() = $SubDiscPassThroughPropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                                    <sequence name="NoPassthroughSeq">
+                                        <assign name="AssignNhincCompIntSubDiscOrchIn">
+                                            <copy>
+                                                <from>$PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV</from>
+                                                <to>$AnnounceNewPatientIn.AnnounceNewPatientRequest/hl7:PRPA_IN201301UV</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$PIX201301In.PIX201301Request/hl7:assertion</from>
+                                                <to>$AnnounceNewPatientIn.AnnounceNewPatientRequest/hl7:assertion</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeNhincCompIntSubDisc201301Orch" partnerLink="NhincComponentInternalSubDiscovery201301OrchPL" operation="AnnounceNewPatient" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201301orch" portType="tns:NhincComponentInternalSubDiscovery201301OrchPortType" inputVariable="AnnounceNewPatientIn" outputVariable="AnnounceNewPatientOut"/>
+                                        <assign name="Assign201301Resp">
+                                            <copy>
+                                                <from variable="AnnounceNewPatientOut" part="AnnounceNewPatientResponse"/>
+                                                <to variable="PIX201301Out" part="PIX201301Response"/>
+                                            </copy>
+                                        </assign>
+                                    </sequence>
+                                    <else>
+                                        <sequence name="AgencyPassthrough">
+                                            <assign name="AssignGetHomeCommunityId">
+                                                <copy>
+                                                    <from>'gateway'</from>
+                                                    <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyFile</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'localHomeCommunityId'</from>
+                                                    <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyName</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetHcidPropIn" outputVariable="GetHcidPropOut"/>
+                                            <assign name="AssignPassthroughConnLookup">
+                                                <copy>
+                                                    <from>'adaptersubdiscoverypassthrough'</from>
+                                                    <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$GetHcidPropOut.GetPropertyResponse/propacc:propertyValue</from>
+                                                    <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokePassthroughConnLookup" partnerLink="ConnectionMgrPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="AgencyConnectionEndptIn" outputVariable="AgencyConnectionEndptOut"/>
+                                            <assign name="AssignAdapterSubDiscInput">
+                                                <copy>
+                                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $AgencyConnectionEndptOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                                    <to partnerLink="AdapterSubDiscPL"/>
+                                                </copy>
+                                                <copy>
+                                                    <from>$PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV</from>
+                                                    <to>$AdapterPIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$PIX201301In.PIX201301Request/hl7:assertion</from>
+                                                    <to>$AdapterPIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:assertion</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeAdapterSubDisc" partnerLink="AdapterSubDiscPL" operation="PIXConsumer_PRPA_IN201301UV" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" portType="tns:AdapterSubjectDiscoveryPortType" inputVariable="AdapterPIX201301In" outputVariable="AdapterPIX201301Out"/>
+                                            <assign name="AssignAdapterSubDiscOutput">
+                                                <copy>
+                                                    <from variable="AdapterPIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                                                    <to variable="PIX201301Out" part="PIX201301Response"/>
+                                                </copy>
+                                            </assign>
+                                        </sequence>
+                                    </else>
+                                </if>
+                            </sequence>
+                            <else>
+                                <sequence name="SubDiscNotSupported">
+                                    <assign name="AssignSubDiscDisabledResp">
+                                        <sxt:trace>
+                                            <sxt:log level="info" location="onStart">
+                                                <from>'Subject Discovery is not supported'</from>
+                                            </sxt:log>
+                                        </sxt:trace>
+                                        <copy>
+                                            <from>$PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:id</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                        </copy>
+                                        <copy>
+                                            <from>string($PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>string($PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'Warning - Subject Discovery Not Supported'</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeNotSupportedAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                    <assign name="Assign201301NotSupportedInfo">
+                                        <copy>
+                                            <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                            <to variable="PIX201301Out" part="PIX201301Response"/>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <sequence name="Log201301RespSeq">
+                            <assign name="AssignAudit201301Resp">
+                                <copy>
+                                    <from>'Outbound'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201301In.PIX201301Request/hl7:assertion</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from variable="PIX201301Out" part="PIX201301Response"/>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201301In.PIX201301Request/hl7:PRPA_IN201301UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion/nccommon:uniquePatientId</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201301Resp" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubjectDiscoveryAckIn" outputVariable="LogNhinSubjectDiscoveryAckOut"/>
+                            <reply name="Reply201301" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201301Out"/>
+                        </sequence>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201302In">
+                <scope name="Handle201302Scope">
+                    <variables>
+                        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectRevisedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectRevisedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevisedRequestMessage"/>
+                        <variable name="AnnounceRevisedPatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201302orch" messageType="tns:AnnounceRevisedPatientResponseMessage"/>
+                        <variable name="AnnounceRevisedPatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201302orch" messageType="tns:AnnounceRevisedPatientRequestMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="AdapterPIX201302Out" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
+                        <variable name="AdapterPIX201302In" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"/>
+                        <variable name="GetHcidPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                        <variable name="GetHcidPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                        <variable name="AgencyConnectionEndptOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                        <variable name="AgencyConnectionEndptIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                        <variable name="SubDiscPassThroughPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscPassThroughPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="SubDiscEnablePropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscEnablePropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="PIX201302Out" messageType="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201302Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201302Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <bpel:from>'NhinSubjectDiscovery.bpel - A system fault was encounterd processing a 201302 message. Fault detials follow...'</bpel:from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <bpel:from variable="systemFault201302Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201302FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201302Out" part="PIX201302Response"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201302Fault" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201302Out"/>
+                                <exit name="ExitAfter201302FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201302Seq">
+                        <sequence name="Log201302ReqSeq">
+                            <assign name="Assign201302Req">
+                                <copy>
+                                    <from variable="PIX201302In" part="PIX201302Request"/>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:message</to>
+                                </copy>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201302Req" partnerLink="AuditRepositoryPL" operation="LogSubjectRevised" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectRevisedIn" outputVariable="LogSubjectRevisedOut"/>
+                        </sequence>
+                        <assign name="AssignSubDiscEnabledProp">
+                            <copy>
+                                <from>'serviceSubjectDiscovery'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeSubDiscEnblProp" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscEnablePropIn" outputVariable="SubDiscEnablePropOut"/>
+                        <if name="IfSubDiscEnabled">
+                            <condition>true() = $SubDiscEnablePropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                            <sequence name="SubDiscEnabledSeq">
+                                <assign name="AssignCheckSubDiscPassthrough">
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'subjectDiscoveryPassthrough'</from>
+                                        <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeCheckSubDiscPassthrough" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscPassThroughPropIn" outputVariable="SubDiscPassThroughPropOut"/>
+                                <if name="IfNotPassthrough">
+                                    <condition>false() = $SubDiscPassThroughPropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                                    <sequence name="NoPassthroughSeq">
+                                        <assign name="AssignNhincCompIntSubDiscOrchIn">
+                                            <copy>
+                                                <from>$PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV</from>
+                                                <to>$AnnounceRevisedPatientIn.AnnounceRevisedPatientRequest/hl7:PRPA_IN201302UV</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$PIX201302In.PIX201302Request/hl7:assertion</from>
+                                                <to>$AnnounceRevisedPatientIn.AnnounceRevisedPatientRequest/hl7:assertion</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeInvokeNhincCompIntSubDisc201302Orch" partnerLink="NhincComponentInternalSubDiscovery201302OrchPL" operation="AnnounceRevisedPatient" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201302orch" portType="tns:NhincComponentInternalSubDiscovery201302OrchPortType" inputVariable="AnnounceRevisedPatientIn" outputVariable="AnnounceRevisedPatientOut"/>
+                                        <assign name="Assign201302Resp">
+                                            <copy>
+                                                <from variable="AnnounceRevisedPatientOut" part="AnnounceRevisedPatientResponse"/>
+                                                <to variable="PIX201302Out" part="PIX201302Response"/>
+                                            </copy>
+                                        </assign>
+                                    </sequence>
+                                    <else>
+                                        <sequence name="AgencyPassthroughSeq">
+                                            <assign name="AssignGetHomeCommunityId">
+                                                <copy>
+                                                    <from>'gateway'</from>
+                                                    <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyFile</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'localHomeCommunityId'</from>
+                                                    <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyName</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetHcidPropIn" outputVariable="GetHcidPropOut"/>
+                                            <assign name="AssignPassthroughConnLookup">
+                                                <copy>
+                                                    <from>'adaptersubdiscoverypassthrough'</from>
+                                                    <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$GetHcidPropOut.GetPropertyResponse/propacc:propertyValue</from>
+                                                    <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokePassthroughConnLookup" partnerLink="ConnectionMgrPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="AgencyConnectionEndptIn" outputVariable="AgencyConnectionEndptOut"/>
+                                            <assign name="AssignAdapterSubDiscInput">
+                                                <copy>
+                                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $AgencyConnectionEndptOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                                    <to partnerLink="AdapterSubDiscPL"/>
+                                                </copy>
+                                                <copy>
+                                                    <from>$PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV</from>
+                                                    <to>$AdapterPIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$PIX201302In.PIX201302Request/hl7:assertion</from>
+                                                    <to>$AdapterPIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:assertion</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeAdapterSubDisc" partnerLink="AdapterSubDiscPL" operation="PIXConsumer_PRPA_IN201302UV" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" portType="tns:AdapterSubjectDiscoveryPortType" inputVariable="AdapterPIX201302In" outputVariable="AdapterPIX201302Out"/>
+                                            <assign name="AssignAdapterSubDiscOutput">
+                                                <copy>
+                                                    <from variable="AdapterPIX201302Out" part="PIXConsumer_PRPA_IN201302UVResponse"/>
+                                                    <to variable="PIX201302Out" part="PIX201302Response"/>
+                                                </copy>
+                                            </assign>
+                                        </sequence>
+                                    </else>
+                                </if>
+                            </sequence>
+                            <else>
+                                <sequence name="SubDiscNotSupported">
+                                    <assign name="AssignSubDiscDisabledResp">
+                                        <sxt:trace>
+                                            <sxt:log level="info" location="onStart">
+                                                <from>'Subject Discovery is not support'</from>
+                                            </sxt:log>
+                                        </sxt:trace>
+                                        <copy>
+                                            <from>$PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:id</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                        </copy>
+                                        <copy>
+                                            <from>string($PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>string($PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'Warning - Subject Discovery Not Supported'</from>
+                                            <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeNotSupportedAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                    <assign name="Assign201302NotSupportedInfo">
+                                        <copy>
+                                            <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                            <to variable="PIX201302Out" part="PIX201302Response"/>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <sequence name="Log201302RespSeq">
+                            <assign name="AssignAudit201302Resp">
+                                <copy>
+                                    <from>$PIX201302In.PIX201302Request/hl7:assertion</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from variable="PIX201302Out" part="PIX201302Response"/>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                                </copy>
+                                <copy>
+                                    <from>'Outbound'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201302In.PIX201302Request/hl7:PRPA_IN201302UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion/nccommon:uniquePatientId</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201302Resp" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubjectDiscoveryAckIn" outputVariable="LogNhinSubjectDiscoveryAckOut"/>
+                        </sequence>
+                        <reply name="Reply201302" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201302Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201303In">
+                <scope name="Handle201303Scope">
+                    <variables>
+                        <variable name="RevokePatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" messageType="tns:RevokePatientResponseMessage"/>
+                        <variable name="RevokePatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" messageType="tns:RevokePatientRequestMessage"/>
+                        <variable name="Adapter201303UVOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
+                        <variable name="Adapter201303UVIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage"/>
+                        <variable name="GetAdapterConnInfoOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                        <variable name="GetAdapterConnInfoIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                        <variable name="GetLocalHcidOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                        <variable name="GetLocalHcidIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                        <variable name="GetSDPassthruOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="GetSDPassthruIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="GetSubDiscServicePropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="GetSubDiscServicePropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="LogNhin201303AckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhin201303AckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectRevokedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectRevokedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevokedRequestMessage"/>
+                        <variable name="PIX201303Out" messageType="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201303Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201303Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <bpel:from>'NhinSubjectDiscovery.bpel - A system fault was encounterd processing a 201303 message. Fault detials follow...'</bpel:from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <bpel:from variable="systemFault201303Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201303FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201303Out" part="PIX201303Response"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201303Fault" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201303Out"/>
+                                <exit name="ExitAfter201303FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201303Seq">
+                        <assign name="AssignAudit201303">
+                            <copy>
+                                <from>$PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:message/hl7:PRPA_IN201303UV</to>
+                            </copy>
+                            <copy>
+                                <from>$PIX201303In.PIX201303Request/hl7:assertion</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:message/hl7:assertion</to>
+                            </copy>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Nhin'</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeAudit201303" partnerLink="AuditRepositoryPL" operation="LogSubjectRevoked" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectRevokedIn" outputVariable="LogSubjectRevokedOut"/>
+                        <assign name="AssignSubDiscEnblProp">
+                            <copy>
+                                <from>'serviceSubjectDiscovery'</from>
+                                <to>$GetSubDiscServicePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetSubDiscServicePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeSubDiscEnblProp" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetSubDiscServicePropIn" outputVariable="GetSubDiscServicePropOut"/>
+                        <if name="IfSubDiscEnabled">
+                            <condition>$GetSubDiscServicePropOut.GetPropertyBooleanResponse/propacc:propertyValue = true()</condition>
+                            <sequence name="SubDiscEnabledSeq">
+                                <assign name="AssignCheckSubDiscPassthrough">
+                                    <copy>
+                                        <from>'subjectDiscoveryPassthrough'</from>
+                                        <to>$GetSDPassthruIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetSDPassthruIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeCheckSubDiscPassthrough" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetSDPassthruIn" outputVariable="GetSDPassthruOut"/>
+                                <if name="IfNotPassthrough">
+                                    <condition>$GetSDPassthruOut.GetPropertyBooleanResponse/propacc:propertyValue = false()</condition>
+                                    <sequence name="NoPassthroughSeq">
+                                        <assign name="AssignNhincCompIntSubDiscOrchIn">
+                                            <copy>
+                                                <from variable="PIX201303In" part="PIX201303Request"/>
+                                                <to variable="RevokePatientIn" part="RevokePatientRequest"/>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeNhincCompIntSubDiscOrchIn" partnerLink="NhincComponentInternalSubDiscovery201303OrchPL" operation="RevokePatient" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" portType="tns:NhincComponentInternalSubDiscovery201303OrchPortType" inputVariable="RevokePatientIn" outputVariable="RevokePatientOut"/>
+                                        <assign name="Assign201303Resp">
+                                            <copy>
+                                                <from variable="RevokePatientOut" part="RevokePatientResponse"/>
+                                                <to variable="PIX201303Out" part="PIX201303Response"/>
+                                            </copy>
+                                        </assign>
+                                    </sequence>
+                                    <else>
+                                        <sequence name="AgencyPassthroughSeq">
+                                            <assign name="AssignGetHomeCommunityId">
+                                                <copy>
+                                                    <from>'localHomeCommunityId'</from>
+                                                    <to>$GetLocalHcidIn.GetPropertyRequest/propacc:propertyName</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>'gateway'</from>
+                                                    <to>$GetLocalHcidIn.GetPropertyRequest/propacc:propertyFile</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetLocalHcidIn" outputVariable="GetLocalHcidOut"/>
+                                            <assign name="AssignPassthroughConnLookup">
+                                                <copy>
+                                                    <from>'adaptersubdiscoverypassthrough'</from>
+                                                    <to>$GetAdapterConnInfoIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$GetLocalHcidOut.GetPropertyResponse/propacc:propertyValue</from>
+                                                    <to>$GetAdapterConnInfoIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokePassthroughConnLookup" partnerLink="ConnectionMgrPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetAdapterConnInfoIn" outputVariable="GetAdapterConnInfoOut"/>
+                                            <assign name="AssignAdapterSubDisc">
+                                                <copy>
+                                                    <from variable="PIX201303In" part="PIX201303Request"/>
+                                                    <to variable="Adapter201303UVIn" part="PIXConsumer_PRPA_IN201303UVRequest"/>
+                                                </copy>
+                                                <copy>
+                                                    <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetAdapterConnInfoOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                                    <to partnerLink="AdapterSubDiscPL"/>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeAdapterSubDisc" partnerLink="AdapterSubDiscPL" operation="PIXConsumer_PRPA_IN201303UV" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" portType="tns:AdapterSubjectDiscoveryPortType" inputVariable="Adapter201303UVIn" outputVariable="Adapter201303UVOut"/>
+                                            <assign name="AssignAdapterSubDiscResp">
+                                                <copy>
+                                                    <from variable="Adapter201303UVOut" part="PIXConsumer_PRPA_IN201303UVResponse"/>
+                                                    <to variable="PIX201303Out" part="PIX201303Response"/>
+                                                </copy>
+                                            </assign>
+                                        </sequence>
+                                    </else>
+                                </if>
+                            </sequence>
+                            <else>
+                                <sequence name="SubDiscNotSupportedSeq">
+                                    <assign name="AssignSubDiscDisabledResp">
+                                        <sxt:trace>
+                                            <sxt:log level="warning" location="onStart">
+                                                    <from>'201303 Messages are currently not supported by the Gateway'</from>
+                                                </sxt:log>
+                                        </sxt:trace>
+                                            <copy>
+                                            <from>$PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:id</from>
+                                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                        </copy>
+                                            <copy>
+                                            <from>string($PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                        </copy>
+                                            <copy>
+                                            <from>string($PIX201303In.PIX201303Request/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                        </copy>
+                                            <copy>
+                                                <from>'Warning - Subject Discovery Revoke Not Supported'</from>
+                                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="InvokeNotSupportedAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                    <assign name="Assign201303NotSupported">
+                                        <copy>
+                                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                                    <to variable="PIX201303Out" part="PIX201303Response"/>
+                                            </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <assign name="AssignAudit201303Ack">
+                            <copy>
+                                <from>$PIX201303In.PIX201303Request/hl7:assertion</from>
+                                <to>$LogNhin201303AckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                            </copy>
+                            <copy>
+                                <from variable="PIX201303Out" part="PIX201303Response"/>
+                                <to>$LogNhin201303AckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                            </copy>
+                            <copy>
+                                <from>'Outbound'</from>
+                                <to>$LogNhin201303AckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Nhin'</from>
+                                <to>$LogNhin201303AckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeAudit201303Ack" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhin201303AckIn" outputVariable="LogNhin201303AckOut"/>
+                        <reply name="Reply201303" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201303Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201304In">
+                <scope name="Handle201304Scope">
+                    <variables>
+                        <variable name="PIX201304Out" messageType="tns:PIXConsumer_PRPA_IN201304UVResponseMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201304Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201304Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <bpel:from>'NhinSubjectDiscovery.bpel - A system fault was encounterd processing a 201304 message. Fault detials follow...'</bpel:from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <bpel:from variable="systemFault201304Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201304FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201304Out" part="PIX201304Response"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201304Fault" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201304Out"/>
+                                <exit name="ExitAfter201304FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201304Seq">
+                        <assign name="Assign201304Resp">
+                            <sxt:trace>
+                                <sxt:log level="warning" location="onStart">
+                                    <from>'201304 Messages are currently not supported by the Gateway'</from>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>$PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201304In.PIX201304Request/hl7:PRPA_IN201304UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                            <copy>
+                                <from>'Warning - 201304 Messages are not supported'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                        </assign>
+                        <invoke name="Invoke201304NotSupportedAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="Assign201304NotSupportedInfo">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="PIX201304Out" part="PIX201304Response"/>
+                            </copy>
+                        </assign>
+                        <reply name="Reply201304" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201304Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201309In">
+                <scope name="Handle201309Scope">
+                    <variables>
+                        <variable name="GetRealIdentOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentInternalSubDiscovery201309Orch" messageType="tns:GetRealIdentResponseMessage"/>
+                        <variable name="GetRealIdentIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentInternalSubDiscovery201309Orch" messageType="tns:GetRealIdentRequestMessage"/>
+                        <variable name="CreateFault201310Out" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateFault201310ResponseMessage"/>
+                        <variable name="CreateFault201310In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateFault201310RequestMessage"/>
+                        <variable name="LogSubjectReidentResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectReidentResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentResponseMessage"/>
+                        <variable name="LogSubjectReidentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectReidentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentRequestMessage"/>
+                        <variable name="AdapterPIX201309Out" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVResponseMessage"/>
+                        <variable name="AdapterPIX201309In" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage"/>
+                        <variable name="GetHcidPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                        <variable name="GetHcidPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                        <variable name="AgencyConnectionEndptOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                        <variable name="AgencyConnectionEndptIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                        <variable name="SubDiscPassThroughPropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscPassThroughPropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="SubDiscEnablePropOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanResponseMessage"/>
+                        <variable name="SubDiscEnablePropIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyBooleanRequestMessage"/>
+                        <variable name="PIX201309Out" messageType="tns:PIXConsumer_PRPA_IN201309UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catchAll>
+                            <sequence name="SD201309FaultSeq">
+                                   <assign name="Assign201309Fault">
+                                        <copy>
+                                            <from>$PIX201309In.PIX201309Request/hl7:PRPA_IN201309UV/hl7:receiver/hl7:device/hl7:id/@root</from>
+                                            <to>$CreateFault201310In.CreateFault201310Request/hl7:senderOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$PIX201309In.PIX201309Request/hl7:PRPA_IN201309UV/hl7:sender/hl7:device/hl7:id/@root</from>
+                                            <to>$CreateFault201310In.CreateFault201310Request/hl7:receiverOID</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeCreate201310FaultHandler" partnerLink="SubDiscDataTransformsPL" operation="CreateFault201310" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateFault201310In" outputVariable="CreateFault201310Out"/>
+                                    <assign name="Assign201310FaultHandlerOut">
+                                        <copy>
+                                            <from variable="CreateFault201310Out" part="CreateFault201310Response"/>
+                                            <to>$PIX201309Out.PIX201309Response/hl7:PRPA_IN201310UV</to>
+                                        </copy>
+                                    </assign>
+                                 <reply name="ReplyNhinSubDisc201309Fault" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201309Out"/>
+                                <exit name="ExitAfter201309FaultReturn"/>
+                           </sequence>
+                        </catchAll>
+                    </faultHandlers>
+                    <sequence name="Process201309Seq">
+                        <assign name="AssignLog201309Req">
+                            <copy>
+                                <from variable="PIX201309In" part="PIX201309Request"/>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:message</to>
+                            </copy>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Nhin'</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeLog201309Req" partnerLink="AuditRepositoryPL" operation="LogSubjectReident" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectReidentIn" outputVariable="LogSubjectReidentOut"/>
+                        <assign name="AssignSubDiscEnabledProp">
+                            <copy>
+                                <from>'serviceSubjectDiscovery'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                            </copy>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$SubDiscEnablePropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeSubDiscEnblProp" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscEnablePropIn" outputVariable="SubDiscEnablePropOut"/>
+                        <if name="IfSubDiscEnabled">
+                            <condition>true() = $SubDiscEnablePropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                                    <sequence name="SubDiscEnabledSeq">
+                                        <assign name="AssignCheckSubDiscPassthrough">
+                                            <copy>
+                                                <from>'gateway'</from>
+                                                <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyFile</to>
+                                            </copy>
+                                            <copy>
+                                                <from>'subjectDiscoveryPassthrough'</from>
+                                                <to>$SubDiscPassThroughPropIn.GetPropertyBooleanRequest/propacc:propertyName</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeCheckSubDiscPassthrough" partnerLink="PropAccessorPL" operation="GetPropertyBoolean" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="SubDiscPassThroughPropIn" outputVariable="SubDiscPassThroughPropOut"/>
+                                        <if name="IfNotPassthrough">
+                                            <condition>false() = $SubDiscPassThroughPropOut.GetPropertyBooleanResponse/propacc:propertyValue</condition>
+                                            <sequence name="NoPassthroughSeq">
+                                                <assign name="AssignNhincCompIntSubDiscOrchIn">
+                                                    <copy>
+                                                        <from variable="PIX201309In" part="PIX201309Request"/>
+                                                        <to variable="GetRealIdentIn" part="GetRealIdentRequest"/>
+                                                    </copy>
+                                                </assign>
+                                                <invoke name="InvokeInvokeNhincCompIntSubDisc201309Orch" partnerLink="NhincComponentInternalSubDiscovery201309OrchPL" operation="GetRealIdent" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/NhincComponentInternalSubDiscovery201309Orch" portType="tns:NhincComponentInternalSubDiscovery201309OrchPortType" inputVariable="GetRealIdentIn" outputVariable="GetRealIdentOut"/>
+                                                <assign name="Assign201309Resp">
+                                                    <copy>
+                                                        <from>$GetRealIdentOut.GetRealIdentResponse/hl7:PRPA_IN201310UV</from>
+                                                        <to>$PIX201309Out.PIX201309Response/hl7:PRPA_IN201310UV</to>
+                                                    </copy>
+                                                </assign>
+                                            </sequence>
+                                            <else>
+                                                <sequence name="AgencyPassthrough">
+                                                    <assign name="AssignGetHomeCommunityId">
+                                                        <copy>
+                                                            <from>'gateway'</from>
+                                                            <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyFile</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>'localHomeCommunityId'</from>
+                                                            <to>$GetHcidPropIn.GetPropertyRequest/propacc:propertyName</to>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetHcidPropIn" outputVariable="GetHcidPropOut"/>
+                                                    <assign name="AssignPassthroughConnLookup">
+                                                        <copy>
+                                                            <from>'adaptersubdiscoverypassthrough'</from>
+                                                            <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$GetHcidPropOut.GetPropertyResponse/propacc:propertyValue</from>
+                                                            <to>$AgencyConnectionEndptIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="InvokePassthroughConnLookup" partnerLink="ConnectionMgrPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="AgencyConnectionEndptIn" outputVariable="AgencyConnectionEndptOut"/>
+                                                    <assign name="AssignAdapterSubDiscInput">
+                                                        <copy>
+                                                            <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $AgencyConnectionEndptOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                                            <to partnerLink="AdapterSubDiscPL"/>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$PIX201309In.PIX201309Request/hl7:PRPA_IN201309UV</from>
+                                                            <to>$AdapterPIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:PRPA_IN201309UV</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$PIX201309In.PIX201309Request/hl7:assertion</from>
+                                                            <to>$AdapterPIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:assertion</to>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="InvokeAdapterSubDisc" partnerLink="AdapterSubDiscPL" operation="PIXConsumer_PRPA_IN201309UV" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubjectdiscovery" portType="tns:AdapterSubjectDiscoveryPortType" inputVariable="AdapterPIX201309In" outputVariable="AdapterPIX201309Out"/>
+                                                    <assign name="AssignAdapterSubDiscOutput">
+                                                        <copy>
+                                                            <from>$AdapterPIX201309Out.PIXConsumer_PRPA_IN201309UVResponse/hl7:PRPA_IN201310UV</from>
+                                                            <to>$PIX201309Out.PIX201309Response/hl7:PRPA_IN201310UV</to>
+                                                        </copy>
+                                                    </assign>
+                                                </sequence>
+                                            </else>
+                                        </if>
+                                        <assign name="AssignLog201309Resp">
+                                            <copy>
+                                                <from>'Outbound'</from>
+                                                <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:direction</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$GetRealIdentOut.GetRealIdentResponse/hl7:PRPA_IN201310UV</from>
+                                                <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:message/hl7:PRPA_IN201310UV</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$GetRealIdentOut.GetRealIdentResponse/hl7:assertion</from>
+                                                <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:assertion</to>
+                                            </copy>
+                                            <copy>
+                                                <from>'Nhin'</from>
+                                                <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:interface</to>
+                                            </copy>
+                                        </assign>
+                                        <invoke name="InvokeLog201309Resp" partnerLink="AuditRepositoryPL" operation="LogSubjectReidentResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectReidentResultIn" outputVariable="LogSubjectReidentResultOut"/>
+                                    </sequence>
+                            <else>
+                                <sequence name="SubDiscNotSupported">
+                                    <assign name="Assign201309NotSupportedInfo">
+                                        <copy>
+                                            <from>$PIX201309In.PIX201309Request/hl7:PRPA_IN201309UV/hl7:receiver/hl7:device/hl7:id/@root</from>
+                                            <to>$CreateFault201310In.CreateFault201310Request/hl7:senderOID</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$PIX201309In.PIX201309Request/hl7:PRPA_IN201309UV/hl7:sender/hl7:device/hl7:id/@root</from>
+                                            <to>$CreateFault201310In.CreateFault201310Request/hl7:receiverOID</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeCreate201310Fault" partnerLink="SubDiscDataTransformsPL" operation="CreateFault201310" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateFault201310In" outputVariable="CreateFault201310Out"/>
+                                    <assign name="Assign201310FaultOut">
+                                        <copy>
+                                            <from variable="CreateFault201310Out" part="CreateFault201310Response"/>
+                                            <to>$PIX201309Out.PIX201309Response/hl7:PRPA_IN201310UV</to>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <reply name="Reply201309" partnerLink="NhincSubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" portType="tns:NhincSubjectDiscoveryPortType" variable="PIX201309Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+        </pick>
+    </sequence>
+</process>

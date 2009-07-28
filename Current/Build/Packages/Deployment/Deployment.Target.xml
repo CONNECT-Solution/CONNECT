@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Deployment" xmlns="http://nant.sf.net/schemas/nant.xsd" basedir="Deployment">
+
+  <property name="Deployment.WebPathRoot" value="/${ProjectName}-${ProjectCodeLineName}/Artifacts" readonly="true"/>
+  
+  <!--
+	The following properties should be specified in the calling script.
+  
+  <property name="Deployment.SourceFileName" value="TraCHIIPI.tar" />
+  <property name="Deployment.SourceDir"	value="${ProductionDirectory}\lib" />
+  <property name="Deployment.TargetDir"	value="${Common.ArtifactDirectoryPath}" />
+  <property name="Deployment.TargetFile"	value="${DeploymentTargetDir}\${DeploymentFileName}" />
+  <property name="Deployment.FileWebPath"	value="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}/${DeploymentFileName}" />
+  <property name="Deployment.FileWebName"	value="${CCNetLabel} ${DeploymentFileName}" />
+  
+  -->
+  
+  <target name="Deployment.PublishFile">
+    <call target="Private.Deployment.CopyDeplymentToPublicationDir" />
+    <call target="Deployment.PublishLink" />
+  </target>
+  
+  <target name="Deployment.PublishLink">
+    <call target="Private.Deployment.EchoDeploymentFileWebName" />
+    <call target="Deployment.EchoDeploymentFileWebPath" />
+  </target>
+
+  <target name="Deployment.PublishFileSilently">
+    <call target="Private.Deployment.CopyDeplymentToPublicationDir" />
+    <call target="Deployment.EchoDeploymentWebPath" />
+  </target>
+
+  <target name="Deployment.EchoDeploymentWebPath" >
+    <echo message="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}" level="Info"/>
+  </target>
+
+	<target name="Deployment.EchoDeploymentArtifactPath" >
+		<echo message="${Common.ArtifactDirectoryPath}" level="Info"/>
+	</target>
+
+  <target name="Private.Deployment.EchoDeploymentFileWebName" >
+    <echo message="${Deployment.FileWebName}" level="Info"/>
+  </target>
+  
+  <target name="Deployment.EchoDeploymentFileWebPath" >
+    <echo message="${Deployment.FileWebPath}" level="Info"/>
+  </target>
+
+  <target name="Private.Deployment.CopyDeplymentToPublicationDir" >
+    <mkdir if="${directory::exists(Deployment.TargetDir) == false}" dir="${Deployment.TargetDir}" />
+    <copy file="${Deployment.SourceDir}/${Deployment.SourceFileName}" tofile="${Deployment.TargetDir}/${Deployment.TargetFile}" />
+  </target>
+
+  <target name="Deployment.PublishZip">
+    <mkdir if="${directory::exists(Deployment.TargetDir) == false}" dir="${Deployment.TargetDir}" />
+    <zip zipfile="${Deployment.TargetDir}/${Deployment.ZipFileName}">
+      <fileset refid="Deployment.ZipFileSet" />
+    </zip>
+
+    <call target="Deployment.PublishLink"/>
+  </target>
+  <target name="Deployment.CommitZip">
+		<copy file="${Deployment.TargetDir}/${Deployment.ZipFileName}" tofile="${Deployment.SVNDir}\${ZipFileName}"/>
+
+<exec program="svn" workingdir="${Deployment.SVNDir}" verbose="true">
+  <arg line="commit" /> 
+  <arg line='-m "Modified by build script in build ${CCNetLabel}"' /> 
+  <arg line="--non-interactive" /> 
+  <arg line="--username build01" /> 
+  <arg line="--password g5Xu6uxu" /> 
+  </exec>
+  </target>
+  <target name="Deployment.SetUp">
+    <call target="Deployment.EchoDeploymentWebPath" />
+		<call target="Deployment.EchoDeploymentArtifactPath"/>
+  </target>
+
+  <target name="Deployment.TearDown">
+  </target>
+  
+</project>

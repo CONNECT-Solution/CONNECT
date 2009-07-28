@@ -1,0 +1,18 @@
+
+This is database cleanup before the test is run...
+
+!|DatabaseEnvironment|
+
+|Execute|Delete * from blah|
+
+!|DatabaseEnvironment|
+|commit|
+
+
+This is where the main part of the test goes
+
+!|DatabaseEnvironment|
+
+|Query|Select * from blah|
+|one|two|three|
+|1|2|3|

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" xmlns:ns10="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer" xmlns:ns11="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" xmlns:ns12="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" xmlns:ns13="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhincproxydocretrieve" xmlns:ns14="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxydocquery" xmlns:ns15="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxynotification" xmlns:ns16="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxysubjectdiscovery" xmlns:ns17="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxyunsubscriptionmanagementment" xmlns:ns2="urn:ihe:iti:pixv3:2007" xmlns:ns3="urn:ihe:iti:xds-b:2007" xmlns:ns4="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" xmlns:ns6="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" xmlns:ns7="urn:gov:hhs:fha:nhinc:nhincproxydocquery" xmlns:ns8="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" xmlns:ns9="http://docs.oasis-open.org/wsn/bw-2" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint1" service-name="ns1:NhincComponentInternalAuditRepositoryService"/>
+        <endpoint endpoint-name="PIXConsumer_Port_Soap11" interface-name="ns2:PIXConsumer_PortType" name="endpoint2" service-name="ns2:PIXConsumer_Service"/>
+        <endpoint endpoint-name="RespondingGateway_Query_Port_Soap11" interface-name="ns3:RespondingGateway_Query_PortType" name="endpoint3" service-name="ns3:RespondingGateway_Query_Service"/>
+        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint4" service-name="ns4:NhincComponentConnectionManager"/>
+        <endpoint endpoint-name="NhincComponentSubDiscTransformsBindingSoap11" interface-name="ns5:NhincComponentSubDiscTransformsPortType" name="endpoint5" service-name="ns5:NhincComponentSubDiscTransforms"/>
+        <endpoint endpoint-name="NhincProxyDocRetrievePortSoap11" interface-name="ns6:NhincProxyDocRetrievePortType" name="endpoint6" service-name="ns6:NhincProxyDocRetrieve"/>
+        <endpoint endpoint-name="NhincProxyDocQueryPortSoap11" interface-name="ns7:NhincProxyDocQueryPortType" name="endpoint7" service-name="ns7:NhincProxyDocQuery"/>
+        <endpoint endpoint-name="NhincProxySubjectDiscoveryPortSoap11" interface-name="ns8:NhincProxySubjectDiscoveryPortType" name="endpoint8" service-name="ns8:NhincProxySubjectDiscovery"/>
+        <endpoint endpoint-name="SubscriptionManagerPort" interface-name="ns9:SubscriptionManager" name="endpoint9" service-name="ns9:SubscriptionManagerService"/>
+        <endpoint endpoint-name="NotificationConsumerPort" interface-name="ns9:NotificationConsumer" name="endpoint10" service-name="ns9:NotificationConsumerService"/>
+        <endpoint endpoint-name="NotificationProducerPort" interface-name="ns9:NotificationProducer" name="endpoint11" service-name="ns9:NotificationProducerService"/>
+        <endpoint endpoint-name="NhincProxyNotificationConsumerPortSoap11" interface-name="ns10:NhincProxyNotificationConsumerPortType" name="endpoint12" service-name="ns10:NhincProxyNotificationConsumer"/>
+        <endpoint endpoint-name="NhincProxySubscriptionManagerPortSoap11" interface-name="ns11:NhincProxySubscriptionManagerPortType" name="endpoint13" service-name="ns11:NhincProxySubscriptionManager"/>
+        <endpoint endpoint-name="NhincProxyNotificationProducerPortSoap11" interface-name="ns11:NhincProxyNotificationProducerPortType" name="endpoint14" service-name="ns11:NhincProxyNotificationProducer"/>
+        <endpoint endpoint-name="NhincComponentInternalSubscriptionDtePort" interface-name="ns12:NhincComponentInternalSubscriptionDtePortType" name="endpoint15" service-name="ns12:NhincComponentInternalSubscriptionDteService"/>
+        <endpoint endpoint-name="RespondingGateway_Retrieve_Port_Soap" interface-name="ns3:RespondingGateway_Retrieve_PortType" name="endpoint16" service-name="ns3:RespondingGateway_Retrieve_Service"/>
+        <endpoint display-name="NhincProxyDocRetrievePL" endpoint-name="NhincProxyDocRetrievePortTypeRole_myRole" file-path="NhincProxyDocRetrieve.bpel" interface-name="ns6:NhincProxyDocRetrievePortType" name="endpoint17" process-name="NhincProxyDocRetrieve" service-name="ns13:NhincProxyDocRetrievePL"/>
+        <endpoint display-name="NhincProxyDocQueryPL" endpoint-name="NhincProxyDocQueryPortTypeRole_myRole" file-path="NhinProxyDocQuery.bpel" interface-name="ns7:NhincProxyDocQueryPortType" name="endpoint18" process-name="NhinProxyDocQuery" service-name="ns14:NhincProxyDocQueryPL"/>
+        <endpoint display-name="NhinProxyNotifyPL" endpoint-name="NhincProxyNotificationConsumerPortTypeRole_myRole" file-path="NhinProxyNotification.bpel" interface-name="ns10:NhincProxyNotificationConsumerPortType" name="endpoint19" process-name="NhinProxyNotification" service-name="ns15:NhinProxyNotifyPL"/>
+        <endpoint display-name="NhincProxySubjectDiscoveryPL" endpoint-name="NhincProxySubjectDiscoveryPortTypeRole_myRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns8:NhincProxySubjectDiscoveryPortType" name="endpoint20" process-name="NhinProxySubjectDiscovery" service-name="ns16:NhincProxySubjectDiscoveryPL"/>
+        <endpoint display-name="NhincProxyUnsubscribePL" endpoint-name="NhincProxySubscriptionManagerPortTypeRole_myRole" file-path="NhinProxyUnsubscriptionManagement.bpel" interface-name="ns11:NhincProxySubscriptionManagerPortType" name="endpoint21" process-name="NhinProxyUnsubscriptionManagement" service-name="ns17:NhincProxyUnsubscribePL"/>
+        <endpoint display-name="AuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhincProxyDocRetrieve.bpel" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint22" process-name="NhincProxyDocRetrieve" service-name="ns13:AuditRepositoryPL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhincProxyDocRetrieve.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint23" process-name="NhincProxyDocRetrieve" service-name="ns13:ConnectionManagerPL"/>
+        <endpoint display-name="NhinDocRetrievePL" endpoint-name="RespondingGateway_Retrieve_Role_partnerRole" file-path="NhincProxyDocRetrieve.bpel" interface-name="ns3:RespondingGateway_Retrieve_PortType" name="endpoint24" process-name="NhincProxyDocRetrieve" service-name="ns13:NhinDocRetrievePL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhinProxyDocQuery.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint25" process-name="NhinProxyDocQuery" service-name="ns14:ConnectionManagerPL"/>
+        <endpoint display-name="NhinDocQueryPL" endpoint-name="RespondingGateway_Query_Role_partnerRole" file-path="NhinProxyDocQuery.bpel" interface-name="ns3:RespondingGateway_Query_PortType" name="endpoint26" process-name="NhinProxyDocQuery" service-name="ns14:NhinDocQueryPL"/>
+        <endpoint display-name="AuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhinProxyDocQuery.bpel" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint27" process-name="NhinProxyDocQuery" service-name="ns14:AuditRepositoryPL"/>
+        <endpoint display-name="NhincAuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhinProxyNotification.bpel" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint28" process-name="NhinProxyNotification" service-name="ns15:NhincAuditRepositoryPL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhinProxyNotification.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint29" process-name="NhinProxyNotification" service-name="ns15:ConnectionManagerPL"/>
+        <endpoint display-name="NhinNotifyPL" endpoint-name="NotificationConsumerRole_partnerRole" file-path="NhinProxyNotification.bpel" interface-name="ns9:NotificationConsumer" name="endpoint30" process-name="NhinProxyNotification" service-name="ns15:NhinNotifyPL"/>
+        <endpoint display-name="SubDiscDataTransformsPL" endpoint-name="NhincComponentSubDiscTransformsPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns5:NhincComponentSubDiscTransformsPortType" name="endpoint31" process-name="NhinProxySubjectDiscovery" service-name="ns16:SubDiscDataTransformsPL"/>
+        <endpoint display-name="ConnectionMgrPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint32" process-name="NhinProxySubjectDiscovery" service-name="ns16:ConnectionMgrPL"/>
+        <endpoint display-name="NhinSubjectDiscoveryPL" endpoint-name="PIXConsumer_Role_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns2:PIXConsumer_PortType" name="endpoint33" process-name="NhinProxySubjectDiscovery" service-name="ns16:NhinSubjectDiscoveryPL"/>
+        <endpoint display-name="AuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint34" process-name="NhinProxySubjectDiscovery" service-name="ns16:AuditRepositoryPL"/>
+        <endpoint display-name="AuditLogPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhinProxyUnsubscriptionManagement.bpel" interface-name="ns1:NhincComponentInternalAuditRepositoryPortType" name="endpoint35" process-name="NhinProxyUnsubscriptionManagement" service-name="ns17:AuditLogPL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhinProxyUnsubscriptionManagement.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint36" process-name="NhinProxyUnsubscriptionManagement" service-name="ns17:ConnectionManagerPL"/>
+        <endpoint display-name="NhinHiemUnsubscribePL" endpoint-name="NotificationSubscriptionManagerRole_partnerRole" file-path="NhinProxyUnsubscriptionManagement.bpel" interface-name="ns9:SubscriptionManager" name="endpoint37" process-name="NhinProxyUnsubscriptionManagement" service-name="ns17:NhinHiemUnsubscribePL"/>
+        <endpoint display-name="HiemDtePL" endpoint-name="NhincComponentInternalSubscriptionDtePortTypeRole_partnerRole" file-path="NhinProxyUnsubscriptionManagement.bpel" interface-name="ns12:NhincComponentInternalSubscriptionDtePortType" name="endpoint38" process-name="NhinProxyUnsubscriptionManagement" service-name="ns17:HiemDtePL"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="NhincProxyBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="NhincProxyCA-NhincProxyBPEL" unit-name="NhincProxyBPEL" unknown="false" x="239" y="99">
+            <provides endpoint="endpoint17"/>
+            <provides endpoint="endpoint18"/>
+            <provides endpoint="endpoint19"/>
+            <provides endpoint="endpoint20"/>
+            <provides endpoint="endpoint21"/>
+            <consumes endpoint="endpoint22"/>
+            <consumes endpoint="endpoint23"/>
+            <consumes endpoint="endpoint24"/>
+            <consumes endpoint="endpoint25"/>
+            <consumes endpoint="endpoint26"/>
+            <consumes endpoint="endpoint27"/>
+            <consumes endpoint="endpoint28"/>
+            <consumes endpoint="endpoint29"/>
+            <consumes endpoint="endpoint30"/>
+            <consumes endpoint="endpoint31"/>
+            <consumes endpoint="endpoint32"/>
+            <consumes endpoint="endpoint33"/>
+            <consumes endpoint="endpoint34"/>
+            <consumes endpoint="endpoint35"/>
+            <consumes endpoint="endpoint36"/>
+            <consumes endpoint="endpoint37"/>
+            <consumes endpoint="endpoint38"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="NhincProxyCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="1224">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="1145">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService']/port[@name='NhincComponentInternalAuditRepositoryPortTypeBindingPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="132">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalSubscriptionDteService']/port[@name='NhincComponentInternalSubscriptionDtePort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint15"/>
+                    <provides endpoint="endpoint15"/>
+                </port>
+                <port x="67" y="1066">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms']/port[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="987">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/service[@name='NhincProxyDocQuery']/port[@name='NhincProxyDocQueryPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint7"/>
+                    <provides endpoint="endpoint7"/>
+                </port>
+                <port x="67" y="908">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/service[@name='NhincProxyDocRetrieve']/port[@name='NhincProxyDocRetrievePortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
+                </port>
+                <port x="67" y="527">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationConsumer']/port[@name='NhincProxyNotificationConsumerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint12"/>
+                    <provides endpoint="endpoint12"/>
+                </port>
+                <port x="67" y="829">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery']/port[@name='NhincProxySubjectDiscoveryPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint8"/>
+                    <provides endpoint="endpoint8"/>
+                </port>
+                <port x="67" y="448">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationProducer']/port[@name='NhincProxyNotificationProducerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint14"/>
+                    <provides endpoint="endpoint14"/>
+                </port>
+                <port x="67" y="369">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxySubscriptionManager']/port[@name='NhincProxySubscriptionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint13"/>
+                    <provides endpoint="endpoint13"/>
+                </port>
+                <port x="67" y="750">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Query_Service']/port[@name='RespondingGateway_Query_Port_Soap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Retrieve_Service']/port[@name='RespondingGateway_Retrieve_Port_Soap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint16"/>
+                    <provides endpoint="endpoint16"/>
+                </port>
+                <port x="67" y="606">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service']/port[@name='PIXConsumer_Port_Soap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="290">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationConsumerService']/port[@name='NotificationConsumerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint10"/>
+                    <provides endpoint="endpoint10">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port state="deleted" x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationProducerService']/port[@name='NotificationProducerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint11"/>
+                    <provides endpoint="endpoint11">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+                <port x="67" y="211">
+                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='SubscriptionManagerService']/port[@name='SubscriptionManagerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint9"/>
+                    <provides endpoint="endpoint9">
+                        <hostname-verifier xmlns="http://www.sun.com/jbi/httpbc/ssl/hostname_verifier" verification="false"/>
+                    </provides>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint37" provider="endpoint9" state="unchanged"/>
+        <connection consumer="endpoint6" provider="endpoint17" state="unchanged"/>
+        <connection consumer="endpoint30" provider="endpoint10" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint18" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint20" state="unchanged"/>
+        <connection consumer="endpoint24" provider="endpoint16" state="new"/>
+        <connection consumer="endpoint23" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint25" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint29" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint32" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint36" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint12" provider="endpoint19" state="unchanged"/>
+        <connection consumer="endpoint31" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint13" provider="endpoint21" state="unchanged"/>
+        <connection consumer="endpoint22" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint27" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint28" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint34" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint35" provider="endpoint1" state="unchanged"/>
+        <connection consumer="endpoint33" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint26" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint38" provider="endpoint15" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalSubscriptionDtePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/portType[@name='NhincProxyDocQueryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/portType[@name='NhincProxyDocRetrievePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/portType[@name='NhincProxyNotificationConsumerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='NhincProxyNotificationProducerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='NhincProxySubscriptionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/portType[@name='RespondingGateway_Query_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/portType[@name='RespondingGateway_Retrieve_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='PIXConsumer_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='NotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='NotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='SubscriptionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalSubscriptionDtePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/portType[@name='NhincProxyDocQueryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/portType[@name='NhincProxyDocRetrievePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/portType[@name='NhincProxyNotificationConsumerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='NhincProxyNotificationProducerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/portType[@name='NhincProxySubscriptionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/portType[@name='RespondingGateway_Query_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/portType[@name='RespondingGateway_Retrieve_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='PIXConsumer_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='NotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='NotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/portType[@name='SubscriptionManager'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalSubscriptionDteBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/binding[@name='NhincProxyDocQueryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/binding[@name='NhincProxyDocRetrieveBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/binding[@name='NhincProxyNotificationConsumerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='NhincProxyNotificationProducerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='NhincProxySubscriptionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/binding[@name='RespondingGateway_Query_Binding_Soap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/binding[@name='RespondingGateway_Retrieve_Binding_Soap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='PIXConsumer_Binding_Soap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='NotificationConsumerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='NotificationProducerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='SubscriptionManagerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalSubscriptionDteBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/binding[@name='NhincProxyDocQueryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/binding[@name='NhincProxyDocRetrieveBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/binding[@name='NhincProxyNotificationConsumerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='NhincProxyNotificationProducerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/binding[@name='NhincProxySubscriptionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/binding[@name='RespondingGateway_Query_Binding_Soap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/binding[@name='RespondingGateway_Retrieve_Binding_Soap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='PIXConsumer_Binding_Soap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='NotificationConsumerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='NotificationProducerBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/binding[@name='SubscriptionManagerBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalSubscriptionDteService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/service[@name='NhincProxyDocQuery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/service[@name='NhincProxyDocRetrieve'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxySubscriptionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Query_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Retrieve_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationConsumerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationProducerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='SubscriptionManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalSubscriptionDte.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalSubscriptionDteService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl#xpointer(/definitions/service[@name='NhincProxyDocQuery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyDocRetrieve.wsdl#xpointer(/definitions/service[@name='NhincProxyDocRetrieve'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxyNotificationConsumer.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationConsumer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxyNotificationProducer'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubscriptionManagement.wsdl#xpointer(/definitions/service[@name='NhincProxySubscriptionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocQuery.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Query_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinDocRetrieve.wsdl#xpointer(/definitions/service[@name='RespondingGateway_Retrieve_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationConsumerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='NotificationProducerService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubscription.wsdl#xpointer(/definitions/service[@name='SubscriptionManagerService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="778"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

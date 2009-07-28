@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:uddi-org:v3_service" xmlns:ns2="urn:gov:hhs:fha:nhinc:wsdlissue:wsdl:sample" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>SampleService1CA</name>
+            <description>Represents the Service Assembly of SampleService1CA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="javaee_UDDI_Custody_Port" service-name="ns1:UDDI_Service"/>
+                <provider endpoint-name="UDDI_Custody_Port" service-name="ns1:UDDI_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="SampleServicePort" service-name="ns2:SampleServiceService"/>
+                <provider endpoint-name="javaee_SampleServicePort" service-name="ns2:SampleServiceService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="javaee_UDDI_Publication_Port" service-name="ns1:UDDI_Service"/>
+                <provider endpoint-name="UDDI_Publication_Port" service-name="ns1:UDDI_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="javaee_UDDI_Security_Port" service-name="ns1:UDDI_Service"/>
+                <provider endpoint-name="UDDI_Security_Port" service-name="ns1:UDDI_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="javaee_UDDI_Subscription_Port" service-name="ns1:UDDI_Service"/>
+                <provider endpoint-name="UDDI_Subscription_Port" service-name="ns1:UDDI_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="javaee_UDDI_Inquiry_Port" service-name="ns1:UDDI_Service"/>
+                <provider endpoint-name="UDDI_Inquiry_Port" service-name="ns1:UDDI_Service"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

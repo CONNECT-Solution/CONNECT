@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhinDocRetrieve"
+    targetNamespace="urn:gov:hhs:fha:nhinc:nhinbpel:nhindocretrieve"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhinbpel:nhindocretrieve" 
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:ncadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
+    xmlns:nhinccommonintorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
+    xmlns:auditlog="urn:gov:hhs:fha:nhinc:common:auditlog">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adapterdocretrieve" location="Interfaces/wsdl/AdapterDocRetrieve.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" location="Interfaces/wsdl/NhincComponentInternalDocRetrieveOrch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincdocretrieve" location="Interfaces/wsdl/NhincDocRetrieve.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionMgrPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="AdapterDocRetrievePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" partnerLinkType="tns:AdapterDocRetrieve" partnerRole="AdapterDocRetrievePortTypeRole"/>
+        <partnerLink name="InternalDocRetrievePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" partnerLinkType="tns:NhincComponentInternalDocRetrieveOrch" partnerRole="NhincComponentInternalDocRetrieveOrchPortTypeRole"/>
+        <partnerLink name="AuditLogRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" partnerRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+        <partnerLink name="NhincDocRetrievePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve" partnerLinkType="tns:NhincDocRetrieve" myRole="NhincDocRetrievePortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="LogDocRetrieveResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetrieveResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogDocRetrieveResultRequestMessage"/>
+        <variable name="LogDocRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+        <variable name="LogDocRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogDocRetrieveRequestMessage"/>
+        <variable name="Nhinc_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveResponse"/>
+        <variable name="Nhinc_CrossGatewayRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveNhinDocRetrieve" createInstance="yes" partnerLink="NhincDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:ihe="urn:ihe:iti:xds-b:2007" portType="tns:NhincDocRetrievePortType" variable="Nhinc_CrossGatewayRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve"/>
+        <assign name="AssignAuditReposDRReq">
+            <sxt:trace>
+                <sxt:log level="info" location="onStart">
+                    <from>'Begin NhinDocRetrieve - Input Message is:'</from>
+                </sxt:log>
+                <sxt:log level="info" location="onStart">
+                    <from variable="Nhinc_CrossGatewayRetrieveIn"/>
+                </sxt:log>
+            </sxt:trace>
+            <copy>
+                <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/ihe:RetrieveDocumentSetRequest</from>
+                <to>$LogDocRetrieveIn.LogDocRetrieveRequest/auditlog:message/ihe:RetrieveDocumentSetRequest</to>
+            </copy>
+            <copy>
+                <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/nhinccommonintorch:assertion</from>
+                <to>$LogDocRetrieveIn.LogDocRetrieveRequest/auditlog:message/auditlog:assertion</to>
+            </copy>
+            <copy>
+                <from>'Inbound'</from>
+                <to>$LogDocRetrieveIn.LogDocRetrieveRequest/auditlog:direction</to>
+            </copy>
+            <copy>
+                <from>'Nhin'</from>
+                <to>$LogDocRetrieveIn.LogDocRetrieveRequest/auditlog:interface</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeAuditReposDRReq" partnerLink="AuditLogRepositoryPL" operation="LogDocRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogDocRetrieveIn" outputVariable="LogDocRetrieveOut"/>
+        <scope name="NhinDocRetrieveScope">
+            <variables>
+                <variable name="Internal_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" messageType="tns:RespondingGateway_CrossGatewayRetrieveResponse"/>
+                <variable name="Internal_CrossGatewayRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" messageType="tns:RespondingGateway_CrossGatewayRetrieveRequest"/>
+                <variable name="Adapter_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveResponseMessage"/>
+                <variable name="Adapter_CrossGatewayRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                <variable name="PassthroughEnabled" type="xsd:boolean"/>
+                <variable name="DocRetrieveEnabled" type="xsd:boolean"/>
+                <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultSeq">
+                        <assign name="AssignErrorInfo">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <bpel:from>'NhinDocRetrieve BPEL - A system fault was encountered processing a document retrieve message. Fault details follow...'</bpel:from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <bpel:from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure'</from>
+                                <to>$Nhinc_CrossGatewayRetrieveOut.CrossGatewayRetrieveResponse/rs:RegistryResponse/@status</to>
+                            </copy>
+                        </assign>
+                        <reply name="ReplyNhinDocRetrieveFromFault" partnerLink="NhincDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" portType="tns:NhincDocRetrievePortType" variable="Nhinc_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve"/>
+                        <exit name="ExitAfterFault"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="NhinDocRetrieveSeq">
+                <assign name="AssignEnabledLookupInput">
+                    <copy>
+                        <from>'gateway'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                    </copy>
+                    <copy>
+                        <from>'serviceDocumentRetrieve'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeDocRetrieveSupportedFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                <assign name="AssignSupportedFlag">
+                    <copy>
+                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</from>
+                        <to variable="DocRetrieveEnabled"/>
+                    </copy>
+                </assign>
+                <if name="IfDocRetrieveEnabled">
+                    <condition>$DocRetrieveEnabled</condition>
+                    <sequence name="DocRetrieveEnabledSeq">
+                        <assign name="AssignGetPassthroughFlagInput">
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                            </copy>
+                            <copy>
+                                <from>'documentRetrievePassthrough'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetPassthroughFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                        <assign name="AssignPassthroughFlag">
+                            <copy>
+                                <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue = 'true'</from>
+                                <to variable="PassthroughEnabled"/>
+                            </copy>
+                        </assign>
+                        <if name="IfPassthrough">
+                            <condition>$PassthroughEnabled</condition>
+                            <sequence name="PassthroughSeq">
+                                <assign name="AssignGetHomeCommunityInput">
+                                    <copy>
+                                        <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyFile</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/propacc:propertyName</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                <assign name="AssignConnectionMangerPassthroughInput">
+                                    <copy>
+                                        <from>$GetPropertyOut.GetPropertyResponse/propacc:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'adapterdocretrievepassthrough'</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/conninfo:homeCommunityWithServiceName/conninfo:serviceName</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeConnectionManagerForPassthrough" partnerLink="ConnectionMgrPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignAdapterDocQueryInput">
+                                    <copy>
+                                        <from>bpel:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/conninfo:serviceConnectionInfoEndpoints/conninfo:serviceConnectionInfoEndpoint/nccommon:EPR/nccommon:EndpointReference)</from>
+                                        <to partnerLink="AdapterDocRetrievePL"/>
+                                    </copy>
+                                    <copy>
+                                        <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/ihe:RetrieveDocumentSetRequest</from>
+                                        <to>$Adapter_CrossGatewayRetrieveIn.RespondingGateway_CrossGatewayRetrieveRequest/ihe:RetrieveDocumentSetRequest</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/nhinccommonintorch:assertion</from>
+                                        <to>$Adapter_CrossGatewayRetrieveIn.RespondingGateway_CrossGatewayRetrieveRequest/ncadapter:assertion</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeAdapterDocRetrieve" partnerLink="AdapterDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" portType="tns:AdapterDocRetrievePortType" inputVariable="Adapter_CrossGatewayRetrieveIn" outputVariable="Adapter_CrossGatewayRetrieveOut"/>
+                                <assign name="AssignDocRetrieveResponse">
+                                    <copy>
+                                        <from variable="Adapter_CrossGatewayRetrieveOut" part="RespondingGateway_CrossGatewayRetrieveResponse"/>
+                                        <to variable="Nhinc_CrossGatewayRetrieveOut" part="CrossGatewayRetrieveResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="NotPassthroughSeq">
+                                    <assign name="AssignInternalDocRetrieveInput">
+                                        <copy>
+                                            <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/ihe:RetrieveDocumentSetRequest</from>
+                                            <to>$Internal_CrossGatewayRetrieveIn.RetrieveDocumentSetRequest/ihe:RetrieveDocumentSetRequest</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/nhinccommonintorch:assertion</from>
+                                            <to>$Internal_CrossGatewayRetrieveIn.RetrieveDocumentSetRequest/nhinccommonintorch:assertion</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeInternalDocRetrieve" partnerLink="InternalDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" portType="tns:NhincComponentInternalDocRetrieveOrchPortType" inputVariable="Internal_CrossGatewayRetrieveIn" outputVariable="Internal_CrossGatewayRetrieveOut"/>
+                                    <assign name="AssignInternalDocRetrieveOutput">
+                                        <copy>
+                                            <from variable="Internal_CrossGatewayRetrieveOut" part="RetrieveDocumentSetResponse"/>
+                                            <to variable="Nhinc_CrossGatewayRetrieveOut" part="CrossGatewayRetrieveResponse"/>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                    </sequence>
+                    <else>
+                        <assign name="AssignEmptyResponse">
+                            <copy>
+                                <from>'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success'</from>
+                                <to>$Nhinc_CrossGatewayRetrieveOut.CrossGatewayRetrieveResponse/rs:RegistryResponse/@status</to>
+                            </copy>
+                            <copy>
+                                <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/ihe:RetrieveDocumentSetRequest/ihe:DocumentRequest/ihe:HomeCommunityId</from>
+                                <to>$Nhinc_CrossGatewayRetrieveOut.CrossGatewayRetrieveResponse/ihe:DocumentResponse/ihe:HomeCommunityId</to>
+                            </copy>
+                        </assign>
+                    </else>
+                </if>
+            </sequence>
+        </scope>
+        <assign name="AssignAuditLogDRResp">
+            <copy>
+                <from>$Nhinc_CrossGatewayRetrieveIn.CrossGatewayRetrieveRequest/nhinccommonintorch:assertion</from>
+                <to>$LogDocRetrieveResultIn.LogDocRetrieveResultRequest/auditlog:message/auditlog:assertion</to>
+            </copy>
+            <copy>
+                <from variable="Nhinc_CrossGatewayRetrieveOut" part="CrossGatewayRetrieveResponse"/>
+                <to>$LogDocRetrieveResultIn.LogDocRetrieveResultRequest/auditlog:message/ihe:RetrieveDocumentSetResponse</to>
+            </copy>
+            <copy>
+                <from>'Outbound'</from>
+                <to>$LogDocRetrieveResultIn.LogDocRetrieveResultRequest/auditlog:direction</to>
+            </copy>
+            <copy>
+                <from>'Nhin'</from>
+                <to>$LogDocRetrieveResultIn.LogDocRetrieveResultRequest/auditlog:interface</to>
+            </copy>
+        </assign>
+        <invoke name="InvokeAuditReposDRRes" partnerLink="AuditLogRepositoryPL" operation="LogDocRetrieveResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogDocRetrieveResultIn" outputVariable="LogDocRetrieveResultOut"/>
+        <reply name="ReplyNhinDocRetrieve" partnerLink="NhincDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:ihe="urn:ihe:iti:xds-b:2007" portType="tns:NhincDocRetrievePortType" variable="Nhinc_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincdocretrieve">
+            <sxt:trace>
+                <sxt:log level="info" location="onStart">
+                    <from>'End NhinDocRetrieve - Response Message is:'</from>
+                </sxt:log>
+                <sxt:log level="info" location="onStart">
+                    <from variable="Nhinc_CrossGatewayRetrieveOut"/>
+                </sxt:log>
+            </sxt:trace>
+        </reply>    
+    </sequence>
+</process>

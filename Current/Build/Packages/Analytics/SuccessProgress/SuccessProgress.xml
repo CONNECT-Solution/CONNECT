@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE chart [
+  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\SuccessProgressXAxis.xml">
+  <!ENTITY Success SYSTEM   "..\..\..\Artifacts\SuccessProgressSuccessful.xml">
+  <!ENTITY Fail SYSTEM      "..\..\..\Artifacts\SuccessProgressFailed.xml">
+  <!ENTITY Exception SYSTEM "..\..\..\Artifacts\SuccessProgressException.xml">
+]>
+<chart>
+
+  <chart_data>
+    <row>
+      <null/>
+      &XAxis;
+    </row>
+    <row>
+      <string>Success</string>
+      &Success;
+      </row>
+    <row>
+      <string>Fail</string>
+      &Fail;
+      </row>
+    <row>
+      <string>Exception</string>
+      &Exception;
+      </row>
+  </chart_data>
+
+  <chart_type>line</chart_type>
+  <axis_category skip='100' />
+  <series_color>
+    <color>7bcf15</color>
+    <color>D13535</color>
+    <color>000000</color>
+  </series_color>
+
+  <draw>
+    <text color='000000' rotation='-90' size='35' x='5' y='275' width='200' height='80' h_align='center'>Count</text>
+  </draw>
+</chart>

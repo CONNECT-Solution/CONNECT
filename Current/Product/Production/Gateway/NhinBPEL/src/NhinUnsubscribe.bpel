@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhinUnsubscribe"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinunsubscribe"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinunsubscribe" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:propertyaccess" xmlns:ns1="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns5="http://docs.oasis-open.org/wsn/b-2" xmlns:ns6="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns8="urn:gov:hhs:fha:nhinc:common:hiemauditlog" xmlns:ns9="urn:gov:hhs:fha:nhinc:common:auditlog">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincsubscription" location="Interfaces/wsdl/NhincSubscription.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="Interfaces/wsdl/rw-2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" location="Interfaces/wsdl/NhincComponentSubscriptionRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" location="Interfaces/wsdl/AdapterSubscriptionManagement.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AuditLogPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" partnerRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="SubRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" partnerLinkType="tns:NhincComponentSubscriptionRepository" partnerRole="NhincComponentSubscriptionRepositoryPortTypeRole"/>
+        <partnerLink name="AdapterUnsubscribePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" partnerLinkType="tns:AdapterSubscriptionManager" partnerRole="AdapterSubscriptionManagerPortTypeRole"/>
+        <partnerLink name="NhincUnsubscribePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" partnerLinkType="tns:NhincHiemUnsubscribe" myRole="NhincHiemUnsubscribeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="UnsubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:UnsubscribeRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveNhincUnsubscribe" createInstance="yes" partnerLink="NhincUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:SubscriptionManager" variable="UnsubscribeIn"/>
+        <scope name="ProcessUnsubscribeScope">
+            <variables>
+                <variable name="LogUnsubscribeRespRequestOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                <variable name="LogUnsubscribeRespRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogUnsubscribeRespRequestMessage"/>
+                <variable name="LogNhinUnsubscribeRequestOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                <variable name="LogNhinUnsubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinUnsubscribeRequestMessage"/>
+                <variable name="AdapterUnsubscribeServiceName" type="xsd:string"/>
+                <variable name="DeleteSubscriptionOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:DeleteSubscriptionResponse"/>
+                <variable name="DeleteSubscriptionIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:DeleteSubscriptionRequest"/>
+                <variable name="AdapterUnsubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:UnsubscribeResponseMessage"/>
+                <variable name="AdapterUnsubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:UnsubscribeRequestMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                <variable name="Supported" type="xsd:boolean"/>
+                <variable name="Passthrough" type="xsd:boolean"/>
+                <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                <variable name="UnsubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:UnsubscribeResponseMessage">
+                    <sxed:editor></sxed:editor>
+                </variable>
+            </variables>
+            <faultHandlers>
+                <catch>
+                    <sequence name="UnsubscribeFaultSeq">
+                        <assign name="AssignFaultInfo">
+                            <copy>
+                                <from>'Fault occurred processing Unsubscribe'</from>
+                                <to>$UnsubscribeOut.UnsubscribeResponse/xsd:string
+                                    <sxed:editor>
+                                        <sxed:pseudoComp parentPath="$UnsubscribeOut.UnsubscribeResponse" type="xsd:string" qName="xsd:string" source="to"/>
+                                    </sxed:editor>
+                                </to>
+                            </copy>
+                        </assign>
+                        <reply name="ReplyFault" partnerLink="NhincUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:SubscriptionManager" variable="UnsubscribeOut"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="ProcessUnsubscribeSeq">
+                <assign name="AssignLogNhinUnsubscribeRequestInput">
+                    <copy>
+                        <from>$UnsubscribeIn.UnsubscribeRequest/ns4:Unsubscribe</from>
+                        <to>$LogNhinUnsubscribeRequestIn.LogNhinUnsubscribeRequest/ns8:message/ns4:Unsubscribe</to>
+                    </copy>
+                    <copy>
+                        <from>$UnsubscribeIn.UnsubscribeRequest/ns6:assertion</from>
+                        <to>$LogNhinUnsubscribeRequestIn.LogNhinUnsubscribeRequest/ns8:message/ns6:assertion</to>
+                    </copy>
+                    <copy>
+                        <from>'Inbound'</from>
+                        <to>$LogNhinUnsubscribeRequestIn.LogNhinUnsubscribeRequest/ns9:direction</to>
+                    </copy>
+                    <copy>
+                        <from>'Nhin'</from>
+                        <to>$LogNhinUnsubscribeRequestIn.LogNhinUnsubscribeRequest/ns9:interface</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeLogNhinUnsubscribeRequest" partnerLink="AuditLogPL" operation="LogNhinUnsubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinUnsubscribeRequestIn" outputVariable="LogNhinUnsubscribeRequestOut">
+                    <sxt:trace>
+                        <sxt:log level="info" location="onComplete">
+                            <ns3:from>'NhinUnsubscribe.bpel - Completed logging of unsubscribe message received from remote gateway'</ns3:from>
+                        </sxt:log>
+                        <sxt:log level="warning" location="onComplete">
+                            <ns3:from variable="LogNhinUnsubscribeRequestOut"/>
+                        </sxt:log>
+                    </sxt:trace>
+                </invoke>
+                <assign name="AssignServiceUnsubscribeFlagInput">
+                    <copy>
+                        <from>'gateway'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                    </copy>
+                    <copy>
+                        <from>'serviceSubscription'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeServiceUnsubscribeFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                <assign name="AssignServiceUnsubscribeFlagOutput">
+                    <copy>
+                        <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue = 'true'</from>
+                        <to variable="Supported"/>
+                    </copy>
+                </assign>
+                <if name="IfServiceUnsubscribe">
+                    <condition>$Supported</condition>
+                    <sequence name="ServiceUnsubscribeSeq">
+                        <assign name="AssignGetPassthroughFlagInput">
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                            </copy>
+                            <copy>
+                                <from>'subscriptionPassthrough'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetPassthroughFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                        <assign name="AssignGetPassthroughFlagOuput">
+                            <copy>
+                                <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue = 'true'</from>
+                                <to variable="Passthrough"/>
+                            </copy>
+                        </assign>
+                        <if name="IfNotPassthrough">
+                            <condition>not($Passthrough)</condition>
+                            <sequence name="NotPassthroughSeq">
+                                <assign name="AssignDeleteSubscriptionInput">
+                                    <copy>
+                                        <from>$UnsubscribeIn.UnsubscribeRequest/ns4:Unsubscribe/ns4:subscriptionReference</from>
+                                        <to>$DeleteSubscriptionIn.deleteSubscriptionMessage/ns4:SubscriptionReference</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'adaptersubscriptionmanager'</from>
+                                        <to variable="AdapterUnsubscribeServiceName"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeDeleteSubscription" partnerLink="SubRepositoryPL" operation="DeleteSubscription" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" portType="tns:NhincComponentSubscriptionRepositoryPortType" inputVariable="DeleteSubscriptionIn" outputVariable="DeleteSubscriptionOut">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <ns3:from>'### Deleting Subscription'</ns3:from>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                </invoke>
+                            </sequence>
+                            <else>
+                                <sequence name="PassthroughSeq">
+                                    <assign name="AssignPassthroughServiceName">
+                                        <copy>
+                                            <from>'adaptersubscriptionmanagerpassthrough'</from>
+                                            <to variable="AdapterUnsubscribeServiceName"/>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                        <assign name="AssignGetHomeCommunityInput">
+                            <copy>
+                                    <from>'gateway'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                        </assign>
+                        <invoke name="InvokeGetHomeCommunity" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                        <assign name="AssignGetAdapterConnectionInput">
+                            <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                            <copy>
+                                <from variable="AdapterUnsubscribeServiceName"/>
+                                <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAdapterConnection" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                        <assign name="AssignAdapterPassthroughEndpoint">
+                            <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                        <to partnerLink="AdapterUnsubscribePL"/>
+                                </copy>
+                                <copy>
+                                    <from>$UnsubscribeIn.UnsubscribeRequest/ns4:Unsubscribe</from>
+                                        <to>$AdapterUnsubscribeIn.UnsubscribeRequest/ns5:Unsubscribe</to>
+                                </copy>
+                                <copy>
+                                    <from>$UnsubscribeIn.UnsubscribeRequest/ns6:assertion</from>
+                                        <to>$AdapterUnsubscribeIn.UnsubscribeRequest/ns7:assertion</to>
+                                </copy>
+                        </assign>
+                        <empty name="TODO_AuditLogBeforePassthrough"/>
+                        <invoke name="InvokeAdapterUnsubscribe" partnerLink="AdapterUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterSubscriptionManagerPortType" inputVariable="AdapterUnsubscribeIn" outputVariable="AdapterUnsubscribeOut"/>
+                        <assign name="AssignResponse">
+                            <copy>
+                                    <from variable="AdapterUnsubscribeOut" part="UnsubscribeResponse"/>
+                                        <to variable="UnsubscribeOut" part="UnsubscribeResponse"/>
+                                </copy>
+                        </assign>
+                    </sequence>
+                    <else>
+                        <sequence name="NoServiceSeq">
+                            <assign name="AssignUnsubscribeResponse">
+                                <copy>
+                                    <from>'Subscriptions not supported'</from>
+                                    <to>$UnsubscribeOut.UnsubscribeResponse/xsd:string
+                                        <sxed:editor>
+                                            <sxed:pseudoComp parentPath="$UnsubscribeOut.UnsubscribeResponse" type="xsd:string" qName="xsd:string" source="to"/>
+                                        </sxed:editor>
+                                    </to>
+                                </copy>
+                            </assign>
+                        </sequence>
+                    </else>
+                </if>
+                <assign name="AssignLogUnsubscribeRespRequestInput">
+                    <copy>
+                        <from variable="UnsubscribeOut" part="UnsubscribeResponse"/>
+                        <to>$LogUnsubscribeRespRequestIn.LogUnsubscribeRespRequest/ns8:message/ns5:UnsubscribeResponse</to>
+                    </copy>
+                    <copy>
+                        <from>$UnsubscribeIn.UnsubscribeRequest/ns6:assertion</from>
+                        <to>$LogUnsubscribeRespRequestIn.LogUnsubscribeRespRequest/ns8:message/ns8:assertion</to>
+                    </copy>
+                    <copy>
+                        <from>'Inbound'</from>
+                        <to>$LogUnsubscribeRespRequestIn.LogUnsubscribeRespRequest/ns9:direction</to>
+                    </copy>
+                    <copy>
+                        <from>'Nhin'</from>
+                        <to>$LogUnsubscribeRespRequestIn.LogUnsubscribeRespRequest/ns9:interface</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeLogUnsubscribeRespRequest" partnerLink="AuditLogPL" operation="LogUnsubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogUnsubscribeRespRequestIn" outputVariable="LogUnsubscribeRespRequestOut">
+                    <sxt:trace>
+                        <sxt:log level="info" location="onComplete">
+                            <ns3:from>'NhinUnsubscribe.bpel - Completed logging of unsubscribe response message returned to remote gateway'</ns3:from>
+                        </sxt:log>
+                        <sxt:log level="warning" location="onComplete">
+                            <ns3:from variable="LogUnsubscribeRespRequestOut"/>
+                        </sxt:log>
+                    </sxt:trace>
+                </invoke>
+                <reply name="ReplyNhincUnsubscribe" partnerLink="NhincUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:SubscriptionManager" variable="UnsubscribeOut"/>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

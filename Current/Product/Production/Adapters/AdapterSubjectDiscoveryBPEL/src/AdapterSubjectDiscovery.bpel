@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="AdapterSubjectDiscovery"
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapters:adaptersubjectdiscoverybpel:adaptersubjectdiscovery"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapters:adaptersubjectdiscoverybpel:adaptersubjectdiscovery" 
+    xmlns:hl7="urn:hl7-org:v3">
+    <import namespace="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" location="Interfaces/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptermpimanager" location="Interfaces/wsdl/AdapterMpiManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" location="Interfaces/wsdl/EntitySubjectDiscovery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="MpiManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" partnerLinkType="tns:AdapterMpiManager" partnerRole="AdapterMpiManagerPortTypeRole"/>
+        <partnerLink name="EntitySubjectDiscoveryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" partnerLinkType="tns:EntitySubjectDiscovery" partnerRole="EntitySubjectDiscoveryPortTypeRole"/>
+        <partnerLink name="AdapterIntSubDiscAnnouncePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" partnerLinkType="tns:AdapterInternalSubDiscoveryAnnounce" myRole="AdapterInternalSubDiscoveryAnnouncePortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="PIX201301Out" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"/>
+        <variable name="PIX201301In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"/>
+        <variable name="AddPatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" messageType="tns:AddPatientResponseMessage"/>
+        <variable name="AddPatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" messageType="tns:AddPatientRequestMessage"/>
+        <variable name="AnnounceNewPatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" messageType="tns:AnnounceNewPatientOperationResponseMessage"/>
+        <variable name="AnnounceNewPatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" messageType="tns:AnnounceNewPatientOperationRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveAnnounceNewPatient" createInstance="yes" partnerLink="AdapterIntSubDiscAnnouncePL" operation="AnnounceNewPatientOperation" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" portType="tns:AdapterInternalSubDiscoveryAnnouncePortType" variable="AnnounceNewPatientIn"/>
+        <assign name="AssignMpiManager">
+            <copy>
+                <from>$AnnounceNewPatientIn.AnnounceNewPatientRequest/hl7:PRPA_IN201301UV</from>
+                <to variable="AddPatientIn" part="AddPatientRequest"/>
+            </copy>
+        </assign>
+        <invoke name="InvokeMpiManager" partnerLink="MpiManagerPL" operation="AddPatient" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" portType="tns:AdapterMpiManagerPortType" inputVariable="AddPatientIn" outputVariable="AddPatientOut"/>
+        <assign name="AssignEntitySubjectDiscovery">
+            <copy>
+                <from variable="AnnounceNewPatientIn" part="AnnounceNewPatientRequest"/>
+                <to variable="PIX201301In" part="PIXConsumer_PRPA_IN201301UVRequest"/>
+            </copy>
+        </assign>
+        <invoke name="InvokeEntitySubjectDiscovery" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" inputVariable="PIX201301In" outputVariable="PIX201301Out"/>
+        <assign name="AssignAnnounceNewPatientResp">
+            <copy>
+                <from variable="PIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                <to variable="AnnounceNewPatientOut" part="AnnounceNewPatientResponse"/>
+            </copy>
+        </assign>
+        <reply name="ReplyAnnounceNewPatient" partnerLink="AdapterIntSubDiscAnnouncePL" operation="AnnounceNewPatientOperation" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" portType="tns:AdapterInternalSubDiscoveryAnnouncePortType" variable="AnnounceNewPatientOut"/>
+    </sequence>
+</process>

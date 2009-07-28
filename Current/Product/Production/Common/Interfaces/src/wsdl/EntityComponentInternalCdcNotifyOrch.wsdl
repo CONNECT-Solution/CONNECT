@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="EntityComponentInternalCdcNotifyOrch" targetNamespace="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch" 
+    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:entitycomponentinternalcdcnotifyorch">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="CdcNotifyRequestMessage">
+        <part name="CdcNotifyRequest" element="nccommonentity:NotifySubscribersOfCdcBioPackageRequest"/>
+    </message>
+    <message name="CdcNotifyResponseMessage">
+        <part name="CdcNotifyResponse" element="nccommon:Acknowledgement"/>
+    </message>
+    <portType name="EntityComponentInternalCdcNotifyOrchPortType">
+        <operation name="CdcNotify">
+            <input name="CdcNotifyRequest" message="tns:CdcNotifyRequestMessage"/>
+            <output name="CdcNotifyResponse" message="tns:CdcNotifyResponseMessage"/>
+        </operation>
+    </portType>
+    <wsdl:binding name="EntityComponentInternalCdcNotifyOrchBindingSoap11" 
+                type="tns:EntityComponentInternalCdcNotifyOrchPortType">
+        <soap:binding style="document" 
+                  transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="CdcNotify">
+            <soap:operation soapAction="urn:CdcNotify"/>
+            <wsdl:input name="CdcNotifyRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="CdcNotifyResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="EntityComponentInternalCdcNotifyOrchService">
+        <wsdl:port name="EntityComponentInternalCdcNotifyOrchPortSoap11" 
+               binding="tns:EntityComponentInternalCdcNotifyOrchBindingSoap11">
+            <soap:address 
+         location=
+            "http://localhost:${HttpDefaultPort}/NhinConnect/EntityComponentInternalCdcNotifyOrch"/>
+        </wsdl:port>
+    </wsdl:service>
+    <plnk:partnerLinkType name="EntityComponentInternalCdcNotifyOrch">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="EntityComponentInternalCdcNotifyOrchPortTypeRole" portType="tns:EntityComponentInternalCdcNotifyOrchPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

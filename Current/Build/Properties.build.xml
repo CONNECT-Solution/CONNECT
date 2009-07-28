@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE project [
+  <!ENTITY % entities SYSTEM "Entities.xml">
+
+  %entities;
+]>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Properties">
+
+  <property name="BuildServerHostName"        value="&HostName;"/>
+  <property name="BuildServerPort"            value="&Port;"/>
+  <property name="EmailHost"                  value="&EmailHost;"/>
+  <property name="LabelPrefix"								value="&LabelPrefix;"/>
+  
+  <property name="ProjectName"                value="&ProjectName;" />
+  <property name="ProjectCodeLineName"        value="&ProjectCodeLineName;" />
+  
+  <property name="ProjectsDirectory"          value="&ProjectsDirectory;" />
+  <property name="ProjectRootDirectory"       value="&ProjectRootDirectory;" />
+  <property name="ProjectCodeLineDirectory"   value="&ProjectCodeLineDirectory;" />
+  <property name="ProductDirectory"           value="&ProductDirectory;" />
+  <property name="ThirdPartyDirectory"        value="&ThirdPartyDirectory;" />
+  <property name="ProductionDirectory"        value="&ProductionDirectory;" />
+  <property name="BuildDirectory"             value="&BuildDirectory;" />
+  <property name="ArtifactRootDirectory"      value="&ArtifactRootDirectory;"/>
+  <property name="PackagesDirectory"          value="&PackagesDirectory;"/>
+  <property name="UnitTestDirectory"          value="&UnitTestDirectory;"/>
+  <property name="InstallDirectory"           value="&InstallDirectory;"/>
+
+  <property name="ProductDirectoryName"       value="&ProductDirectoryName;"/>
+  <property name="ThirdPartyDirectoryName"    value="&ThirdPartyDirectoryName;"/>
+  <property name="ProductionDirectoryName"    value="&ProductionDirectoryName;"/>
+  <property name="BuildDirectoryName"         value="&BuildDirectoryName;"/>
+  <property name="ArtifactRootDirectoryName"  value="&ArtifactRootDirectoryName;"/>
+  <property name="PackagesDirectoryName"      value="&PackagesDirectoryName;"/>
+  <property name="UnitTestDirectoryName"      value="&UnitTestDirectoryName;"/>
+  <property name="InstallDirectoryName"       value="&InstallDirectoryName;"/>
+  <property name="Common.Directory.Tools.Path" value="&Common.Directory.Tools.Path;"/>
+
+  <property name="NantBinPath" value="&NantBinPath;"/>
+  <property name="NantExePath" value="&NantExePath;"/>
+
+  <property name="webURL" value="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true"/>
+ 
+  <property name="Glassfish.ServiceName" value="domain1" overwrite="false"/>
+
+  <property name="Glassfish.HomeDir" value="${PackagesDirectory}\Glassfish\glassfish-ant-deploy" overwrite="false"/>
+  <property name="Glassfish.AntBuildFileName" value="${Glassfish.HomeDir}\build.xml" overwrite="false"/>
+  <property name="Glassfish.InstallDirectoryPath" value="c:\GlassfishESB\glassfish" overwrite="false"/>
+  <property name="Glassfish.OpenEsbInstallFilePath" value="\\athc-file1\Shared_Folders\Healthcare\NHIN\OpenESB\openesb.exe" overwrite="false"/>
+
+</project>

@@ -1,0 +1,40 @@
+!contents -R2 -g -p -f -h
+!|Import|
+|com.agilex|
+!define DBUSER {ESB}
+!define DBPASSWORD {esb99$}
+!define DBHOST {192.168.25.170:1521:TDSDEV}
+!define DTStamp {!sysdate(yyyyMMddhhmmss)}
+!define CurrentDate {!sysdate(dd-MMM-yy)}
+!define ArchivePath {Z:\wmpub\Test\archive\provider\fromVistar\}
+!define DestinationPath {V:\Test\Provider\fromVistar\}
+!define filePathAddress {V:\vistar\}
+
+|dbfit|
+|dbfit.fixture|
+
+!|DatabaseEnvironment|oracle|
+|Connect|${DBHOST}|${DBUSER}|${DBPASSWORD}|
+
+Delete All Message Log entries for Provider files with 'fntest' in filename
+!|DatabaseEnvironment|
+
+|Execute|delete from MESSAGE_LOG where FILE_NAME like 'vip_provider%fntest%'|
+
+!|DatabaseEnvironment|
+|commit|
+
+|!-IOFixture-!|
+|copy|${ArchivePath}provider_address_fntest.txt|${DestinationPath}vip_provider_address_fntest_${DTStamp}.txt|
+|exists|${DestinationPath}vip_provider_address_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_aoi_disorder_fntest.txt|${DestinationPath}vip_provider_aoi_disorder_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_aoi_modality_fntest.txt|${DestinationPath}vip_provider_aoi_modality_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_aoi_population_fntest.txt|${DestinationPath}vip_provider_aoi_population_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_demographics_fntest.txt|${DestinationPath}vip_provider_demographics_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_license_fntest.txt|${DestinationPath}vip_provider_license_fntest_${DTStamp}.txt|
+|copy|${ArchivePath}provider_specialty_fntest.txt|${DestinationPath}vip_provider_speciality_fntest_${DTStamp}.txt|
+
+Wait for files to process
+|!-IOFixture-!|
+|waitForFileExists|${filePathA}|${TimeoutInMilliseconds}|
+

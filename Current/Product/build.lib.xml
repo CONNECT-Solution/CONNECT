@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="build.lib.lib" default="none" basedir=".">
+
+  <import file="Properties.build.xml"/>
+  <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
+
+  <condition property="buildpropertiesfile" value="build.win.properties">
+    <os family="windows"/>
+  </condition>
+  <condition property="buildpropertiesfile" value="build.unix.properties">
+    <os family="unix"/>
+  </condition>
+  <property file="${ProductDirectory}/${buildpropertiesfile}"/> 
+
+  <path id="ant.contrib.task.classpath">
+    <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
+    <pathelement location="${ant.home}/lib/ivy-2.1.0-rc1.jar"/>
+    <pathelement location="${ant.home}/lib/bcel-5.1.jar"/>
+    <pathelement location="${ant.home}/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${ant.home}/lib/commons-logging-1.0.4.jar"/>
+  </path>
+
+  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <taskdef name="if" classname="net.sf.antcontrib.logic.IfTask">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <taskdef name="var" classname="net.sf.antcontrib.property.Variable">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <taskdef name="outofdate" classname="net.sf.antcontrib.logic.OutOfDate">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+    <classpath>
+      <pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar"/>
+    </classpath>
+  </taskdef>
+
+  <!-- 
+  ***** Properties used as params to this target *****
+  
+  <property name="target-to-call" value=""/>
+  
+  -->
+
+  <target name="call-target-in-isolation-if-out-of-date">
+    <echoxml file="${TempBuildFilePath}">
+      <project default="temp">
+        <import file="${ProductDirectory}\build.lib.xml" />
+        <target name="temp">
+          <property name="project-to-build" location="." />
+          <property name="target-to-call" value="${target-to-call}" />
+          <property name="base" value="${project-to-build}/lib" />
+          <property file="${project-to-build}/lib/nblibraries.properties" />
+          <property file="${project-to-build}/nbproject/project.properties" />
+          <antcall target="build-project-if-out-of-date" />
+        </target>
+      </project>
+    </echoxml>
+    <ant dir="." target="temp" inheritall="false" antfile="${TempBuildFilePath}" />
+  </target>
+  
+  <target name="clean-gen" if="is-gen-outofdate">
+    <echo message="Cleaning generated code..."/>
+    <delete dir="${build.generated.dir}"/>
+  </target>
+
+  <target name="clean-gen-if-out-of-date">
+    <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+
+    <property name="current-project" location="."/>
+
+    <echo message="Looking to see if ${current-project} generated code should be rebuilt."/>
+    <echo message="Checking:"/>
+    <echo message="${current-project}/${source.root}/**/*.wsdl"/>
+    <echo message="${current-project}/${source.root}/**/*.xsd"/>
+    <echo message="against:"/>
+    <echo message="${current-project}/${dist.file}"/>
+    
+    <outofdate verbose="true" property="is-gen-outofdate">
+      <sourcefiles>
+        <fileset dir="${current-project}" casesensitive="no">
+          <patternset>
+            <include name="${source.root}/**/*.wsdl"/>
+            <include name="${source.root}/**/*.xsd"/>
+          </patternset>
+        </fileset>
+      </sourcefiles>
+      <targetfiles path="${current-project}/${dist.file}"/>
+    </outofdate>
+
+    <echo message="It is ${is-gen-outofdate} that the generated code for the following is outofdate '${current-project}'."/>
+
+    <antcall target="clean-gen"/>
+  </target>
+
+  <!-- 
+  ***** Properties used as params to this target *****
+  
+  <property name="project-to-build" value=""/>
+  <property name="target-to-call" value=""/>
+  
+  -->
+  <target name="build-project-if-out-of-date" >
+    <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+
+    <echo message="Looking to see if ${project-to-build} should be built."/>
+    <echo message="Checking:"/>
+    <echo message="${project-to-build}/${source.root}/**/*"/>
+    <echo message="against:"/>
+    <echo message="${project-to-build}/${dist.file}"/>
+    <echo message="${javac.classpath}"/>
+
+    <if>
+      <isset property="javac.classpath" />
+      <then>
+
+        <var name="javac.classpath.exists" value="true"/>
+        <for delimiter=":;"  list="${javac.classpath}" param="jar.file">
+          <sequential>
+            <if>
+              <length string="@{jar.file}" trim="true" length="1" />
+              <then>
+              </then>
+              <else>
+                
+                <available property="@{jar.file}.exists" file="@{jar.file}"/>
+
+                <if>
+                  <isset property="@{jar.file}.exists" />
+                  <then>
+                    <echo message="It is true that this file exists: @{jar.file}."/>
+                  </then>
+                  <else>
+                    <echo message="It is false that this file exists: @{jar.file}."/>
+                    <var name="javac.classpath.exists" value="false"/>
+                  </else>
+                </if>
+              </else>
+            </if>
+          </sequential>
+        </for>
+
+        <echo message="All the files in javac.classpath exist: ${javac.classpath.exists}."/>
+      </then>
+      <else>
+        <property name="javac.classpath" value=""/>
+        <var name="javac.classpath.exists" value="true"/>
+        <echo message="javac.classpath was not set, setting it to ''."/>
+      </else>
+    </if>
+
+    <if>
+      <equals arg1="${javac.classpath.exists}" arg2="true" />
+      <then>
+        <outofdate verbose="true" force="${outofdate.force}" property="need.build">
+          <sourcefiles>
+            <pathelement path="${javac.classpath}"/>
+            <fileset dir="${project-to-build}" casesensitive="no">
+              <patternset>
+                <include name="${source.root}/**/*"/>
+              </patternset>
+            </fileset>
+          </sourcefiles>
+          <targetfiles path="${project-to-build}/${dist.file}"/>
+        </outofdate>
+      </then>
+      <else>
+        <property name="need.build" value="true"/>
+      </else>
+    </if>
+
+    <if>
+      <equals arg1="${need.build}" arg2="true" />
+      <then>
+        <echo message="Building ${project-to-build}"/>
+        <echo message="Calling target ${target-to-call}"/>
+        <ant
+          dir="${project-to-build}"
+          target="${target-to-call}"
+          inheritall="false"
+          antfile="${project-to-build}/build.xml"
+        />
+      </then>
+      <else>
+        <echo message="No need to build the following project, it is already uptodate: ${project-to-build}"/>
+      </else>
+    </if>
+  </target>
+  
+  <!-- 
+  ***** Properties used as params to this target *****
+  
+  <property name="project-to-build" value=""/>
+  <property name="host.output.dir" value=""/>
+  
+  -->
+  <target name="process-deps-jar-project">
+    <echoxml file="${ProductDirectory}/temp.xml">
+      <project default="temp">
+        <import file="${ProductDirectory}/build.lib.xml" />
+        <target name="temp">
+          <property name="project-to-build" value="${project-to-build}"/>
+          <property name="target-to-call" value="dist_se"/>
+          <property name="base" value="${project-to-build}/lib"/>
+          <property file="${project-to-build}/lib/nblibraries.properties"/>
+          <property file="${project-to-build}/nbproject/project.properties"/>
+          <antcall
+            target="build-project-if-out-of-date"
+          />
+        </target>
+      </project>
+    </echoxml>
+
+    <ant
+      dir="${project-to-build}"
+      target="temp"
+      inheritall="false"
+      antfile="${ProductDirectory}/temp.xml"
+    />
+    
+    <basename property="project.su.name" file="${project-to-build}"/>
+
+    <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+
+    <property name="project.su.dir" value="${host.output.dir}/../jbiServiceUnits/${project.su.name}"/>
+    <mkdir dir="${project.su.dir}"/>
+
+    <outofdate verbose="true">
+      <sourcefiles path="${dist.file}"/>
+      <targetfiles>
+        <fileset dir="${project.su.dir}">
+          <include name="**/*"/>
+        </fileset>
+      </targetfiles>
+      <sequential>
+        <unzip src="${dist.file}" dest="${project.su.dir}">
+          <patternset>
+            <include name="**/*.wsdl"/>
+            <include name="**/*.WSDL"/>
+            <include name="**/*.xsd"/>
+            <include name="**/*.XSD"/>
+            <include name="META-INF/jbi.xml"/>
+            <include name="META-INF/catalog.xml"/>
+          </patternset>
+        </unzip>
+        <touch>
+          <fileset dir="${project.su.dir}"/>
+        </touch>
+        <move file="${project.su.dir}/META-INF/jbi.xml" todir="${project.su.dir}"/>
+        <move todir="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}">
+          <fileset dir="${project.su.dir}/META-INF"/>
+        </move>
+      </sequential>
+    </outofdate>
+  </target>
+
+  <target name="process-list-of-deps-clean-projects">
+    <property name="host.project.dir" location="."/>
+    <xmltask source="${host.project.dir}/nbproject/build-impl.xml">
+      <call path="/project/target[@name='deps-clean']/ant">
+        <param name="ProjectBuildFilePath" path="@antfile"/>
+        <actions>
+
+          <echoxml file="${ProductDirectory}/temp.xml">
+            <project default="temp">
+              <target name="temp">
+                <dirname property="Project.Dir"  file="@{ProjectBuildFilePath}"/>
+                <ant 
+                  target="clean" 
+                  inheritall="false" 
+                  antfile="@{ProjectBuildFilePath}" 
+                  dir="${Project.Dir}"
+                />
+              </target>
+            </project>
+          </echoxml>
+
+          <ant
+            dir="${host.project.dir}"
+            target="temp"
+            inheritall="false"
+            antfile="${ProductDirectory}/temp.xml"
+          />
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+  
+  <target name="process-list-of-deps-jar-projects">
+    <property name="host.project.dir" location="."/>
+    <property name="host.output.dir" location="${src.dir}"/>
+    
+    <xmltask source="${host.project.dir}/nbproject/build-impl.xml">
+      <call path="/project/target[@name='deps-jar']/basename">
+        <param name="ProjectRef" path="@file"/>
+        <actions>
+
+          <echoxml file="${ProductDirectory}/temp.xml">
+            <project default="temp">
+              <import file="${ProductDirectory}/build.lib.xml" />
+              <target name="temp">
+                <property name="project-to-build" location="${host.project.dir}/@{ProjectRef}"/>
+                <property name="host.project.dir" value="${host.project.dir}"/>
+                <property name="host.output.dir"  value="${host.output.dir}"/>
+                <property file="${project-to-build}/nbproject/project.properties"/>
+                <antcall
+                  target="process-deps-jar-project"
+                />
+              </target>
+            </project>
+          </echoxml>
+
+          <ant
+            dir="@{ProjectRef}"
+            target="temp"
+            inheritall="false"
+            antfile="${ProductDirectory}/temp.xml"
+          />
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="process-list-of-deps-javaee-jar-projects">
+    <property name="host.project.dir" location="."/>
+    <property name="host.output.dir" location="${src.dir}"/>
+    
+    <xmltask source="${host.project.dir}/nbproject/build-impl.xml">
+      <call path="/project/target[@name='deps-javaee-jar']/basename">
+        <param name="ProjectRef" path="@file"/>
+        <actions>
+
+          <echoxml file="${ProductDirectory}/temp.xml">
+            <project default="temp">
+              <import file="${ProductDirectory}/build.lib.xml" />
+              <target name="temp">
+                <property name="project-to-build" location="${host.project.dir}/@{ProjectRef}"/>
+                <property name="host.project.dir" value="${host.project.dir}"/>
+                <property name="host.output.dir"  value="${host.output.dir}"/>
+                <property file="${project-to-build}/nbproject/project.properties"/>
+                <antcall
+                  target="process-deps-javaee-jar-project"
+                />
+            </target>
+          </project>
+        </echoxml>
+
+        <ant
+          dir="@{ProjectRef}"
+          target="temp"
+          inheritall="false"
+          antfile="${ProductDirectory}/temp.xml"
+        />
+      </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <!-- 
+  ***** Properties used as params to this target *****
+  
+  <property name="project-to-build" value=""/>
+  <property name="host.output.dir" value=""/>
+  
+  -->
+  <target name="process-deps-javaee-jar-project">
+    <echoxml file="${ProductDirectory}/temp.xml">
+      <project default="temp">
+        <import file="${ProductDirectory}/build.lib.xml" />
+        <target name="temp">
+          <property name="project-to-build" value="${project-to-build}"/>
+          <property name="target-to-call" value="dist"/>
+          <property name="base" value="${project-to-build}/lib"/>
+          <property file="${project-to-build}/lib/nblibraries.properties"/>
+          <property file="${project-to-build}/nbproject/project.properties"/>
+          <antcall
+            target="build-project-if-out-of-date"
+          />
+        </target>
+      </project>
+    </echoxml>
+
+    <ant
+      dir="${project-to-build}"
+      target="temp"
+      inheritall="false"
+      antfile="${ProductDirectory}/temp.xml"
+    />
+    
+    <basename property="project.su.name" file="${project-to-build}"/>
+    <property name="project.su.dir" value="${host.output.dir}/../jbiServiceUnits/${project.su.name}"/>
+    
+    <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+
+    <mkdir dir="${project.su.dir}"/>
+    <mkdir dir="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}"/>
+
+    <outofdate verbose="true">
+      <sourcefiles path="${dist.file}"/>
+      <targetfiles>
+        <fileset dir="${project.su.dir}">
+          <include name="**/*"/>
+        </fileset>
+        <fileset dir="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}">
+          <include name="catalog.xml"/>
+        </fileset>
+      </targetfiles>
+      <sequential>
+        <unzip src="${dist.file}" dest="${project.su.dir}">
+          <patternset>
+            <include name="**/*.wsdl"/>
+            <include name="**/*.WSDL"/>
+            <include name="**/*.xsd"/>
+            <include name="**/*.XSD"/>
+            <include name="META-INF/jbi.xml"/>
+          </patternset>
+        </unzip>
+
+        <touch>
+          <fileset dir="${project.su.dir}"/>
+        </touch>
+        
+        <unzip src="${dist.file}" dest="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}">
+          <patternset>
+            <include name="META-INF/catalog.xml"/>
+          </patternset>
+        </unzip>
+
+        <available 
+          property="meta-inf.exists" 
+          file="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}/catalog.xml"
+        />
+
+        <if>
+          <equals arg1="${meta-inf.exists}" arg2="true" />
+          <then>
+            <touch file="${host.output.dir}/../jbiServiceUnits/META-INF/${project.su.name}/catalog.xml"/>
+          </then>
+        </if>
+        
+        <echoxml file="${ProductDirectory}/temp.xml">
+          <project default="jbi-javaee-dist-part">
+            <target name="jbi-javaee-dist-part">
+              <property file="${host.project.dir}/nbproject/project.properties"/>
+              <property name="project.su.dir" value="${src.dir}/../jbiServiceUnits/${project.su.name}"/>
+              <jbi-javaee-dist
+                projectName="${project.su.name}"
+                subprojJar="$${reference.${project.su.name}.dist}"
+                subprojDir="$${project.${project.su.name}}"
+                suExtractDir="$${project.su.dir}"
+                subprojResource="$${resource.${project.su.name}}"
+              />
+            </target>
+          </project>
+        </echoxml>
+
+        <ant
+          dir="${host.project.dir}"
+          target="jbi-javaee-dist-part"
+          inheritall="false"
+          antfile="${ProductDirectory}/temp.xml"
+        />
+      </sequential>
+    </outofdate>
+  </target>
+  <target name="updateGFlibs">
+	<echo>Refreshing GlassFish/libs dir from working copy.</echo>
+	<echo>Building NhincCommonTypesLib</echo>
+	<ant dir="${ProductDirectory}\Production\Common\NhincCommonTypesLib" antfile="build.xml" inheritAll="true">
+		<target name="jar" />
+	</ant>
+	<echo>Building NhincSAMLCallbackLib</echo>
+	<ant dir="${ProductDirectory}\Production\Gateway\NhincSAMLCallbackLib" antfile="build.xml" inheritAll="true">
+		<target name="jar" />
+	</ant>
+
+	<echo>Updating ${ThirdPartyDirectory}/**/*.jar to ${glassfish.home}/lib/ </echo>
+	<copy todir="${glassfish.home}/lib" verbose="true">
+		<fileset dir="${ThirdPartyDirectory}">
+			<patternset>
+				<include name="c3po/*.jar" />
+				<include name="log4j/*.jar" />
+				<include name="HibernateLibraries/*.jar" />
+				<include name="MySQLDB/*.jar" />
+				<include name="XStream/*.jar" />
+				<include name="XStream/*.txt" />
+			</patternset>
+		</fileset>
+		<mapper type="flatten" />
+	</copy>
+
+  </target>
+</project>

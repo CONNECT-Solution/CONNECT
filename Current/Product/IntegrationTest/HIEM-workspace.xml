@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-workspace name="HIEM" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:project name="HIEM v2.1 - Agency Notify">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-AgencyNotify-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Agency Subscribe">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-AgencySubscribe-soapui-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Nhin Notify">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-NhinNotify-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Nhin Subscribe">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-NhinSubscribe-soapui-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Minimum Biosurveillance Dataset">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-MinimumBiosurveillanceDataset-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Nhin Unsubscribe">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1 - Nhin Unsubscribe-soapui-project.xml</con:project>
+  <con:project name="HIEM v2.1 - Agency Unsubscribe">C:/Projects/NHINC/Current/Product/IntegrationTest/HIEM v2.1-Agency Unsubscribe-soapui-project.xml</con:project>
+</con:soapui-workspace>

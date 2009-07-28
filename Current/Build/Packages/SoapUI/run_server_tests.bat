@@ -1,0 +1,1 @@
+nant /f:soapui.target.xml SoapUI.Deploy -D:location=server > test.log

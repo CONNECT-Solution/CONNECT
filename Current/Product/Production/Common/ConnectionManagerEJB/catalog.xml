@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl" uri="src/conf/xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/ConnectionManagerInfo.xsd" uri="src/conf/xml-resources/web-services/NhincComponentConnectionManager/schemas/nhinc/common/ConnectionManagerInfo.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/conf/xml-resources/web-services/NhincComponentConnectionManager/schemas/nhinc/common/NhincCommon.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="src/conf/xml-resources/web-services/NhincComponentConnectionManager/schemas/xmlsoap.org/addressing.xsd"/>
+</catalog>

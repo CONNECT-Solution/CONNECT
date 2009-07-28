@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<!-- ===================================================================== -->
+<!--                                                                       -->
+<!--  Log4j Configuration                                                  -->
+<!--                                                                       -->
+<!-- ===================================================================== -->
+
+<!-- $Id: log4j.xml,v 1.6 2005/11/08 22:28:40 nacharya Exp $ -->
+
+<!--
+   | For more configuration infromation and examples see the Jakarta Log4j
+   | owebsite: http://jakarta.apache.org/log4j
+ -->
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+  <!-- ================================= -->
+  <!-- Preserve messages in a local file -->
+  <!-- ================================= -->
+
+  <!-- Rolls by size ... will go back to rolling by date again soon -->
+  <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="./hl7.log"/>
+    <param name="Append" value="true"/>
+    <param name="Threshold" value="INFO"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+
+      <!-- The full pattern: Date MS Priority [Category] (Thread:NDC) Message\n
+      <param name="ConversionPattern" value="%d %-5r %-5p [%c] (%t:%x) %m%n"/>
+       -->
+    </layout>	    
+  </appender>
+  
+  <!-- This appender is used to mail error messages to administrators.  It requires
+    the JavaMail API.  To use it: 
+    1) download the JAF (http://java.sun.com/products/javabeans/glasgow/jaf.html)
+    2) download JavaMail (http://java.sun.com/products/javamail/)
+    3) put mail.jar and activation.jar in your classpath 
+    4) uncomment this appender 
+    5) set the To parameter to your email address
+    6) set the SMTPHost parameter to your SMTP server
+    7) add a reference to this appender in the appropriate logger 
+    -->     
+  <!-- <appender name="SMTP" class="org.apache.log4j.net.SMTPAppender">
+    <param name="Threshold" value="ERROR"/>
+    <param name="To" value="you@hapi_user_site.org"/>
+    <param name="From" value="validation@hapi.ca"/>
+    <param name="Subject" value="HL7 Validation Error"/>
+    <param name="SMTPHost" value="mailserver@hapi_user_site.org"/> 
+    <param name="BufferSize" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %m%nIn message: %x%n"/>
+    </layout>
+  </appender> -->
+ 
+  <appender name="VALIDATION_FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="./validation.log"/>
+    <param name="Append" value="true"/>
+    <param name="Threshold" value="INFO"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %m%nIn message: %x%n"/>
+    </layout>	    
+  </appender>
+   
+  <appender name="RAW_MESSAGE_FILE" class="org.apache.log4j.RollingFileAppender">
+    <param name="File" value="./raw_messages.log"/>
+    <param name="Append" value="true"/>
+    <param name="Threshold" value="INFO"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%m\r\n\r\n"/>
+    </layout>	    
+  </appender>
+   
+  <!-- ============================== -->
+  <!-- Append messages to the console -->
+  <!-- ============================== -->
+
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <param name="Threshold" value="DEBUG"/>
+    <param name="Target" value="System.out"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+      <param name="ConversionPattern" value="%-5p [%t:%c]: %m%n"/>
+    </layout>
+  </appender>
+  
+
+  <!-- ============================== -->
+  <!--       Define Loggers           -->
+  <!-- ============================== -->
+    
+  <logger name="ca.uhn.hl7v2.app.HL7ServerTestHelper" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+  </logger>	  
+
+  <logger name="ca.uhn.hl7v2.validation.error" additivity="false">
+        <level value="ERROR"/>
+        <!-- <appender-ref ref="SMTP"/> -->
+        <appender-ref ref="VALIDATION_FILE"/>
+  </logger>	
+  
+  <logger name="ca.uhn.hl7v2.validation.error.ProfileNotHL7CompliantException" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="FILE"/>
+  </logger>	  
+  
+  <!-- Raw messages.  Sub-categories are ca.uhn.hl7v2.raw.inbound and ca.uhn.hl7v2.raw.outbound -->
+  <logger name="ca.uhn.hl7v2.raw" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="RAW_MESSAGE_FILE"/>
+  </logger>	  
+  
+  <!-- ======================= -->
+  <!-- Setup the Root category -->
+  <!-- ======================= -->
+
+  <root>
+    <priority value="ERROR"/>
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+  </root>
+    
+
+
+  <!-- ====================== -->
+  <!-- More Appender examples -->
+  <!-- ====================== -->
+
+  <!-- A size based file rolling appender
+  <appender name="FILE" class="org.jboss.logging.appender.RollingFileAppender">
+    <param name="File" value="$./log/server.log"/>
+    <param name="Append" value="false"/>
+    <param name="MaxFileSize" value="500KB"/>
+    <param name="MaxBackupIndex" value="1"/>
+
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d %-5p [%c] %m%n"/>
+    </layout>	    
+  </appender>
+  -->
+
+  <!-- Buffer events and log them asynchronously
+  <appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="SMTP"/>
+  </appender>
+  -->
+
+  <!-- EMail events to an administrator
+  <appender name="SMTP" class="org.apache.log4j.net.SMTPAppender">
+    <param name="Threshold" value="ERROR"/>
+    <param name="To" value="admin@myhost.domain.com"/>
+    <param name="From" value="nobody@myhost.domain.com"/>
+    <param name="Subject" value="JBoss Sever Errors"/>
+    <param name="SMTPHost" value="localhost"/>
+    <param name="BufferSize" value="10"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="[%d{ABSOLUTE},%c{1}] %m%n"/>
+    </layout>
+  </appender>
+  -->
+
+  <!-- Syslog events
+  <appender name="SYSLOG" class="org.apache.log4j.net.SyslogAppender">
+    <param name="Facility" value="LOCAL7"/>
+    <param name="FacilityPrinting" value="true"/>
+    <param name="SyslogHost" value="localhost"/>
+  </appender>
+  -->
+
+  <!-- Log events to JMS (requires a topic to be created)
+  <appender name="JMS" class="org.apache.log4j.net.JMSAppender">
+    <param name="Threshold" value="ERROR"/>
+    <param name="TopicConnectionFactoryBindingName" value="java:/ConnectionFactory"/>
+    <param name="TopicBindingName" value="topic/MyErrorsTopic"/>
+  </appender>
+  -->
+
+</log4j:configuration>

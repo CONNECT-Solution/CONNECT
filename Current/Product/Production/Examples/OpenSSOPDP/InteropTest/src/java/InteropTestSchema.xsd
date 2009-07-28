@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:gov:hhs:fha:nhinc:interoptestschema"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:interoptestschema"
+    elementFormDefault="qualified">
+
+<xsd:complexType name="RunTestInputType" >
+    <xsd:sequence>
+        <xsd:element name="inputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="RunTestInput" type="tns:RunTestInputType" />
+
+<xsd:complexType name="RunTestOutputType" >
+    <xsd:sequence>
+        <xsd:element name="OutputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="RunTestOutput" type="tns:RunTestOutputType" />
+
+
+</xsd:schema>

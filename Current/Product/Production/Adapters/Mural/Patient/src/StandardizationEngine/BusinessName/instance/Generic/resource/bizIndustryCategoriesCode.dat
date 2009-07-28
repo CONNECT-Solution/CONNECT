@@ -1,0 +1,313 @@
+01001          Aerospace & Defense - Maintenance & Service                   
+01002          Aerospace & Defense - Major Diversified
+01003          Aerospace & Defense - Products
+02001          Automotive & Transport Equipment - Auto Manufacturers
+02001-02008    Automotive & Transport Equipment
+02002          Automotive & Transport Equipment - Auto Parts
+02003          Automotive & Transport Equipment - Motorcycles & Other Small-Engine Vehicles
+02004          Automotive & Transport Equipment - Pleasure Boats
+02005          Automotive & Transport Equipment - Rail & Trucking Equipment
+02006          Automotive & Transport Equipment - Recreational Vehicles
+02007          Automotive & Transport Equipment - Shipbuilding & Related Services
+02008          Automotive & Transport Equipment - Trucks, Buses & Other Vehicles
+03001          Banking - Banking & Financial Services
+04001          Chemicals - Agricultural Chemicals
+04001-04006    Chemicals
+04002          Chemicals - Basic & Intermediate Chemicals & Petrochemicals
+04003          Chemicals - Diversified Chemicals
+04004          Chemicals - Paints, Coatings & Other Finishing Products
+04005          Chemicals - Plastics & Fibers
+04006          Chemicals - Specialty Chemicals 
+05001          Computer Hardware - Computer Peripherals
+05001-05008    Computer Hardware     
+05002          Computer Hardware - Data Storage Devices
+05003          Computer Hardware - Diversified Computer Products
+05004          Computer Hardware - Electronic Business Equipment
+05005          Computer Hardware - Large-Scale Computers
+05006          Computer Hardware - Miscellaneous Computer-Based Systems
+05007          Computer Hardware - Networking & Communication Devices
+05008          Computer Hardware - Personal Computers
+06001          Computer Software & Services - Communications Software
+06001-06019    Computer Software & Services
+06002          Computer Software & Services - Computer Products Distribution & Support
+06003          Computer Software & Services - Corporate, Professional & Financial Software 
+06004          Computer Software & Services - Data Processing Software & Services
+06005          Computer Software & Services - Database & File Management Software
+06006          Computer Software & Services - Development Tools, Operating Systems & Utility Software
+06007          Computer Software & Services - Diversified Software
+06008          Computer Software & Services - Document Management Software
+06009          Computer Software & Services - Educational Software
+06010          Computer Software & Services - Engineering, Scientific & CAD/CAM Software 
+06011          Computer Software & Services - Entertainment & Games Software
+06012          Computer Software & Services - Information Technology Consulting Services
+06013          Computer Software & Services - Internet & Intranet Software & Services
+06014          Computer Software & Services - Manufacturing & Industrial Software
+06015          Computer Software & Services - Miscellaneous Computer Services 
+06016          Computer Software & Services - Multimedia Production, Graphics & Publishing Software
+06017          Computer Software & Services - Networking & Connectivity Software
+06018          Computer Software & Services - Other Application Software 
+06019          Computer Software & Services - Security Software & Services
+07001          Conglomerates - Conglomerates
+07002          Conglomerates - Trading Companies 
+08001          Consumer Products - Durables-Appliances
+08001-09007    Consumer Products
+08002          Consumer Products - Durables-Consumer Electronics
+08003          Consumer Products - Durables-Home Furnishings
+08004          Consumer Products - Durables-Housewares & Accessories
+08005          Consumer Products - Durables-Jewelry, Watches & Clocks
+08006          Consumer Products - Durables-Lawn & Garden Equipment & Small Tools & Accessories
+08007          Consumer Products - Durables-Miscellaneous Durable Consumer Goods
+08008          Consumer Products - Durables-Office & Business Furniture & Fixtures
+08009          Consumer Products - Durables-Photographic Equipment & Supplies 
+08010          Consumer Products - Durables-Professional Sports Gear & Apparel
+08011          Consumer Products - Durables-Sporting Goods 
+08012          Consumer Products - Durables-Toys, Games & Other Recreational Goods
+09001          Consumer Products - Non-Durables-Apparel-Clothing
+09002          Consumer Products - Non-Durables-Apparel-Footwear & Accessories
+09003          Consumer Products - Non-Durables-Business Forms & Other Office Supplies 
+09004          Consumer Products - Non-Durables-Cleaning Products
+09005          Consumer Products - Non-Durables-Luxury Goods 
+09006          Consumer Products - Non-Durables-Miscellaneous Non-Durable Consumer Goods 
+09007          Consumer Products - Non-Durables-Personal Care Products 
+10001          Diversified Services - Accounting, Bookkeeping, Collection & Credit Reporting 
+10002          Diversified Services - Advertising 
+10003          Diversified Services - Building Maintenance & Related Services
+10004          Diversified Services - Car & Truck Rental
+10005          Diversified Services - Charitable Organizations
+10006          Diversified Services - Child Care Services & Elementary & Secondary Schools 
+10007          Diversified Services - Colleges & Universities  
+10008          Diversified Services - Consumer Services
+10009          Diversified Services - Education & Training Services
+10010          Diversified Services - Foundations & Cultural Institutions
+10011          Diversified Services - Legal Services
+10012          Diversified Services - Management Consulting Services
+10013          Diversified Services - Market & Business Research Services
+10014          Diversified Services - Marketing & Public Relations Services
+10015          Diversified Services - Membership Organizations   
+10016          Diversified Services - Miscellaneous Business Services 
+10017          Diversified Services - Personal Services
+10018          Diversified Services - Printing, Photocopying & Graphic Design
+10019          Diversified Services - Security & Protection Products & Services
+10020          Diversified Services - Staffing, Outsourcing & Other Human Resources
+10021          Diversified Services - Technical & Scientific Research Services
+10022          Diversified Services - Telemarketing, Call Centers & Other Direct Marketing
+11001          Drugs - Biotechnology-Medicine   
+11001-11009    Drugs 
+11002          Drugs - Biotechnology-Research  
+11003          Drugs - Diagnostic Substances  
+11004          Drugs - Drug Delivery Systems  
+11005          Drugs - Drug Manufacturers-Major 
+11006          Drugs - Drug Manufacturers-Other 
+11007          Drugs - Drugs-Generic         
+11008          Drugs - Drugs & Sundries-Wholesale
+11009          Drugs - Vitamins, Nutritionals & Other Health-Related Products
+12001          Electronics & Miscellaneous Technology - Computer Boards, Cards & Connector Products
+12001-12012    Electronics & Miscellaneous Technology
+12002          Electronics & Miscellaneous Technology - Contract Electronics Manufacturing
+12003          Electronics & Miscellaneous Technology - Diversified Electronics 
+12004          Electronics & Miscellaneous Technology - Electronic Test & Measurement Instruments 
+12005          Electronics & Miscellaneous Technology - Electronics Distribution 
+12006          Electronics & Miscellaneous Technology - Miscellaneous Electronics 
+12007          Electronics & Miscellaneous Technology - Scientific & Technical Instruments 
+12008          Electronics & Miscellaneous Technology - Semiconductor-Broad Line
+12008-12012    Electronics & Miscellaneous Technology - Semiconductor
+12009          Electronics & Miscellaneous Technology - Semiconductor-Memory Chips 
+12010          Electronics & Miscellaneous Technology - Semiconductor-Specialized 
+12011          Electronics & Miscellaneous Technology - Semiconductor-Equipment & Materials
+12012          Electronics & Miscellaneous Technology - Semiconductor-Integrated Circuits
+13001          Energy - Integrated Oil & Gas
+13001-13007    Energy - Oil & Gas
+13002          Energy - Oil & Gas Equipment    
+13003          Energy - Oil & Gas Exploration & Production 
+13004          Energy - Oil & Gas Pipelines & Storage   
+13005          Energy - Oil & Gas Refining & Marketing 
+13006          Energy - Oil & Gas Services         
+13007          Energy - Petroleum Product Distribution 
+14001          Financial Services - Asset Management 
+14001-14012    Financial Services   
+14002          Financial Services - Closed-End Investment Funds 
+14003          Financial Services - Commercial Lending 
+14004          Financial Services - Consumer Loans    
+14005          Financial Services - Investment Banking & Brokerage 
+14006          Financial Services - Investment Firms
+14007          Financial Services - Leasing       
+14008          Financial Services - Miscellaneous Financial Services
+14009          Financial Services - Mortgage Banking & Related Services
+14010          Financial Services - Royalty Trusts
+14011          Financial Services - Services to Financial Companies 
+14012          Financial Services - Venture Capital Firms
+15001          Food, Beverage & Tobacco - Agricultural Operations & Products
+15001-15020    Food, Beverage & Tobacco
+15002          Food, Beverage & Tobacco - Agricultural Services
+15003          Food, Beverage & Tobacco - Agriculture - Biotechnology
+15004          Food, Beverage & Tobacco - Beverages - Bottlers & Wholesale Distributors 
+15005          Food, Beverage & Tobacco - Beverages - Brewers 
+15006          Food, Beverage & Tobacco - Beverages - Distillers 
+15007          Food, Beverage & Tobacco - Beverages - Soft Drinks 
+15008          Food, Beverage & Tobacco - Beverages - Wineries 
+15009          Food, Beverage & Tobacco - Canned & Frozen Foods  
+15010          Food, Beverage & Tobacco - Dairy Products   
+15011          Food, Beverage & Tobacco - Diversified Foods - Major 
+15012          Food, Beverage & Tobacco - Diversified Foods - Other 
+15013          Food, Beverage & Tobacco - Food Wholesale - to Grocers
+15014          Food, Beverage & Tobacco - Food Wholesale - to Restaurants
+15015          Food, Beverage & Tobacco - Grains, Breads & Cereals 
+15016          Food, Beverage & Tobacco - Meat Products    
+15017          Food, Beverage & Tobacco - Miscellaneous Food Products 
+15018          Food, Beverage & Tobacco - Other Processed & Packaged Goods 
+15019          Food, Beverage & Tobacco - Sugar & Confectionery 
+15020          Food, Beverage & Tobacco - Tobacco Products   
+16001          Health Products & Services - Health Care Plans
+16001-16010    Health Products & Services
+16002          Health Products & Services - Home Health Care
+16003          Health Products & Services - Hospitals 
+16004          Health Products & Services - Long-Term Care Facilities
+16005          Health Products & Services - Medical Appliances & Equipment
+16006          Health Products & Services - Medical Instruments & Supplies 
+16007          Health Products & Services - Medical Laboratories & Research 
+16008          Health Products & Services - Medical Practice Management & Services
+16009          Health Products & Services - Medical Products Distribution
+16010          Health Products & Services - Specialized Health Services
+17001          Insurance - Accident & Health Insurance
+17001-17007    Insurance               
+17002          Insurance - Insurance Brokers 
+17003          Insurance - Life Insurance      
+17004          Insurance - Multiline Insurance  
+17005          Insurance - Property & Casualty Insurance  
+17006          Insurance - Reinsurance                 
+17007          Insurance - Surety, Title & Miscellaneous Insurance 
+18001          Leisure - Adult Entertainment 
+18002          Leisure - Gambling Resorts & Casinos
+18003          Leisure - Gaming Activities     
+18004          Leisure - Gaming Equipment & Services 
+18005          Leisure - Lodging               
+18006          Leisure - Miscellaneous Entertainment 
+18007          Leisure - Professional Sports Teams & Organizations 
+18008          Leisure - Restaurants   
+18009          Leisure - Specialty Eateries & Catering Services 
+18010          Leisure - Sporting Activities   
+18011          Leisure - Travel Agencies, Tour Operators & Other Travel Services
+19001          Manufacturing - Agricultural Machinery 
+19001-19023    Manufacturing
+19002          Manufacturing - Construction, Mining & Other Heavy Machinery
+19003          Manufacturing - Diversified Machinery   
+19004          Manufacturing - Fluid Control Equipment, Pumps, Seals & Valves 
+19005          Manufacturing - Food Service Equipment 
+19006          Manufacturing - Glass & Clay Products
+19007          Manufacturing - Hardware & Fasteners  
+19008          Manufacturing - Industrial Automation Products & Industrial Controls
+19009          Manufacturing - Industrial Equipment & Products Distribution  
+19010          Manufacturing - Lighting & Other Fixtures
+19011          Manufacturing - Machine Tools, Components & Accessories 
+19012          Manufacturing - Material Handling Machinery  
+19013          Manufacturing - Metal Fabrication
+19014          Manufacturing - Miscellaneous & Diversified Industrial Products 
+19015          Manufacturing - Miscellaneous Electrical Products 
+19016          Manufacturing - Miscellaneous General & Special Machinery 
+19017          Manufacturing - Packaging & Containers   
+19018          Manufacturing - Paper & Paper Products
+19019          Manufacturing - Pollution & Treatment Controls & Filtration Products 
+19020          Manufacturing - Rubber & Plastic Products
+19021          Manufacturing - Textile Manufacturing  
+19022          Manufacturing - Turbines, Transformers & Other Electrical Generation Equipment 
+19023          Manufacturing - Wire & Cable      
+20001          Materials & Construction - Aggregates, Concrete & Cement
+20001-20011    Materials & Construction
+20002          Materials & Construction - Diversified Building Materials  
+20003          Materials & Construction - Engineering & Architectural Services  
+20004          Materials & Construction - Environmental Services   
+20005          Materials & Construction - Heavy Construction      
+20006          Materials & Construction - Lumber, Wood Production & Timber Operations 
+20007          Materials & Construction - Manufactured Buildings 
+20008          Materials & Construction - Miscellaneous Building Materials 
+20009          Materials & Construction - Plumbing & HVAC Equipment 
+20010          Materials & Construction - Specialty Contracting & Industrial Maintenance  
+20011          Materials & Construction - Waste Management & Recycling 
+21001          Media - Information Collection & Delivery Services
+21001-21014    Media
+21002          Media - Internet & Online Content Providers 
+21003          Media - Major Diversified   
+21004          Media - Motion Picture & Video Production & Distribution 
+21005          Media - Movie Theaters   
+21006          Media - Movie, Television & Music Production Services & Products 
+21007          Media - Music Production & Publishing   
+21008          Media - Publishing - Books
+21009          Media - Publishing - Newspapers   
+21010          Media - Publishing - Other        
+21011          Media - Publishing - Periodicals      
+21012          Media - Radio Broadcasting & Programming    
+21013          Media - Television Production, Programming & Distribution  
+21014          Media - TV Broadcasting       
+22001          Metals & Mining - Aluminum  
+22001-22010    Metals & Mining
+22002          Metals & Mining - Coal       
+22003          Metals & Mining - Copper
+22004          Metals & Mining - Diamonds & Other Precious Stones
+22005          Metals & Mining - Diversified Mining & Metals 
+22006          Metals & Mining - Gold & Silver & Other Precious Metals  
+22007          Metals & Mining - Industrial Minerals & Metals 
+22008          Metals & Mining - Metals & Alloys Distribution
+22009          Metals & Mining - Miscellaneous Mining & Metals Processing 
+22010          Metals & Mining - Steel Production 
+23001          Real Estate - Miscellaneous Real Estate Services 
+23001-23012    Real Estate
+23002          Real Estate - Property Investment & Management
+23003          Real Estate - Real Estate Development     
+23004          Real Estate - Diversified & Miscellaneous 
+23005          Real Estate - Health Care Facilities     
+23006          Real Estate - Hotel/Motel         
+23007          Real Estate - Industrial    
+23008          Real Estate - Mortgage Investment  
+23009          Real Estate - Office              
+23010          Real Estate - Residential  
+23011          Real Estate - Retail     
+23012          Real Estate - Residential Construction  
+24001          Retail - Auto Parts Retailing & Wholesale
+24001-24011    Retail
+24002          Retail - Building Materials & Gardening Supplies Retailing & Wholesale 
+24003          Retail - Clothing, Shoe & Accessory Retailing & Wholesaling
+24004          Retail - Consumer Electronics & Appliance Retailing 
+24005          Retail - Convenience Stores & Gas Stations   
+24006          Retail - Department Stores           
+24007          Retail - Discount & Variety Retailing   
+24008          Retail - Drug, Health & Beauty Product Retailing 
+24009          Retail - Grocery Retailing 
+24010          Retail - Home Furnishings & Housewares Retailing  
+24011          Retail - Non-Store Retailing     
+25001          Specialty Retail - Auto Dealers & Distributors 
+25002          Specialty Retail - Computer & Software Retailing 
+25003          Specialty Retail - Jewelry Retailing & Wholesale 
+25004          Specialty Retail - Miscellaneous Retail    
+25005          Specialty Retail - Miscellaneous Wholesale
+25006          Specialty Retail - Music, Video, Book & Entertainment Software Retailing & Dist.
+25007          Specialty Retail - Office Products Retailing & Distribution   
+25008          Specialty Retail - Sporting Goods Retailing 
+25009          Specialty Retail - Toy & Hobby Retailing & Wholesale
+26001          Telecommunications - Cable TV & Satellite Systems   
+26001-26011    Telecommunications 
+26002          Telecommunications - Communications Processing Equipment 
+26003          Telecommunications - Diversified Telecom Service Providers 
+26004          Telecommunications - Internet & Online Service Providers
+26005          Telecommunications - Local Telecom & Private Transmission Services 
+26006          Telecommunications - Long-Distance Carriers   
+26007          Telecommunications - Miscellaneous End-User Communications Services
+26008          Telecommunications - Miscellaneous Services to Communication Providers
+26009          Telecommunications - Switching & Transmission Equipment    
+26010          Telecommunications - Wireless Communications Services  
+26011          Telecommunications - Wireless, Satellite & Microwave Communications Equipment 
+27001          Transportation - Air Delivery, Freight & Parcel Services 
+27001-27008    Transportation 
+27002          Transportation - Air Services, Other             
+27003          Transportation - Airlines    
+27004          Transportation - Bus, Taxi & Other Passenger Services 
+27005          Transportation - Logistics & Other Transportation Services 
+27006          Transportation - Railroads 
+27007          Transportation - Shipping 
+27008          Transportation - Trucking  
+28001          Utilities - Alternative Energy Sources  
+28001-28006    Utilities
+28002          Utilities - Diversified Utilities    
+28003          Utilities - Electric Utilities    
+28004          Utilities - Gas Utilities       
+28005          Utilities - Independent Power Producers & Marketers  
+28006          Utilities - Water Utilities          

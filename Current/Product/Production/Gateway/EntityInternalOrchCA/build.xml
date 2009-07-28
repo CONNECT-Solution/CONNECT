@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<project name="" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
+    <description>Builds, tests, and runs the project .</description>
+    <import file="nbproject/build-impl.xml"/>
+		<import file="../../../build.lib.xml" />
+		<target name="build">
+			<property name="target-to-call" value="dist" />
+			<antcall target="call-target-in-isolation-if-out-of-date" />
+		</target>
+		<target name="clean-build" depends="clean,dist" />
+		<target name="clean-test" depends="clean,dist" />
+		<target name="build-test" depends="dist" />    
+
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      pre-init:                 called before initialization of project properties 
+      post-init:                called after initialization of project properties 
+      pre-compile:              called before javac compilation 
+      post-compile:             called after javac compilation 
+      pre-compile-single:       called before javac compilation of single file
+      post-compile-single:      called after javac compilation of single file
+      pre-dist:                 called before jar building 
+      post-dist:                called after jar building 
+      post-clean:               called after cleaning build products 
+
+    Example of pluging an obfuscator after the compilation could look like 
+
+        <target name="post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Other way how to customize the build is by overriding existing main targets.
+    The target of interest are: 
+
+      init-macrodef-javac:    defines macro for javac compilation
+      init-macrodef-debug:    defines macro for class debugging
+      do-dist:                jar archive building
+      run:                    execution of project 
+      javadoc-build:          javadoc generation 
+
+    Example of overriding the target for project execution could look like 
+
+        <target name="run" depends="<PROJNAME>-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that overridden target depends on jar target and not only on 
+    compile target as regular run target does. Again, for list of available 
+    properties which you can use check the target you are overriding in 
+    nbproject/build-impl.xml file. 
+
+    -->
+    <target name="-check-catd-context">
+        <condition property="no.catd.context">
+            <not>
+                <isset property="org.netbeans.modules.compapp.catd.context"/>
+            </not>
+        </condition>
+    </target>
+    <target name="-init-catd" if="no.catd.context">
+        <property name="org.netbeans.modules.compapp.catd.context" value=""/>
+    </target>
+    <target name="pre-init" depends="-check-catd-context,-init-catd"/>
+    
+    
+    <target name="deps-jar" depends="init" unless="${no.dependencies}">
+        <ant dir="${project.EntityInternalOrchBPEL}" target="dist_se" inheritall="false" antfile="${project.EntityInternalOrchBPEL}/build.xml"/>
+        <property name="EntityInternalOrchBPEL.su.name" value="EntityInternalOrchBPEL"/>
+        <unzip src="${reference.EntityInternalOrchBPEL.dist_se}" dest="${src.dir}/../jbiServiceUnits/${EntityInternalOrchBPEL.su.name}">
+            <patternset>
+                <include name="**/*.wsdl"/>
+                <include name="**/*.WSDL"/>
+                <include name="**/*.xsd"/>
+                <include name="**/*.XSD"/>
+                <include name="META-INF/jbi.xml"/>
+                <include name="META-INF/catalog.xml"/>
+            </patternset>
+        </unzip>
+        <property name="EntityInternalOrchBPEL.su.dir" value="${src.dir}/../jbiServiceUnits/${EntityInternalOrchBPEL.su.name}"/>
+        <move file="${EntityInternalOrchBPEL.su.dir}/META-INF/jbi.xml" todir="${EntityInternalOrchBPEL.su.dir}"/>
+        <move todir="${src.dir}/../jbiServiceUnits/META-INF/${EntityInternalOrchBPEL.su.name}">
+            <fileset dir="${EntityInternalOrchBPEL.su.dir}/META-INF"/>
+        </move>
+    </target>
+    
+    <target name="deps-clean" depends="init" unless="${no.dependencies}">
+        <ant dir="${project.EntityInternalOrchBPEL}" target="clean" inheritall="false" antfile="${project.EntityInternalOrchBPEL}/build.xml"/>
+    </target>
+        
+</project>

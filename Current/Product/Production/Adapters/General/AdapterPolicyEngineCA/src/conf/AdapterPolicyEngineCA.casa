@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator" xmlns:ns2="urn:gov:hhs:fha:nhinc:adapterpolicyengine" xmlns:ns3="urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns6="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns7="urn:gov:hhs:fha:nhinc:adapterpep" xmlns:ns8="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengine" xmlns:ns9="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineorchestrator" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="AdapterPolicyEngineOrchestratorPortSoap11" interface-name="ns1:AdapterPolicyEngineOrchestratorPortType" name="endpoint1" service-name="ns1:AdapterPolicyEngineOrchestrator"/>
+        <endpoint endpoint-name="AdapterPolicyEnginePortSoap11" interface-name="ns2:AdapterPolicyEnginePortType" name="endpoint2" service-name="ns2:AdapterPolicyEngine"/>
+        <endpoint endpoint-name="AdapterPolicyEngineTransformPortSoap11" interface-name="ns3:AdapterPolicyEngineTransformPortType" name="endpoint3" service-name="ns3:AdapterPolicyEngineTransform"/>
+        <endpoint endpoint-name="DocumentRegistry_Port_Soap" interface-name="ns4:DocumentRegistry_PortType" name="endpoint4" service-name="ns4:DocumentRegistry_Service"/>
+        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns5:NhincComponentConnectionManagerPortType" name="endpoint5" service-name="ns5:NhincComponentConnectionManager"/>
+        <endpoint endpoint-name="NhincComponentPropAccessorPort" interface-name="ns6:NhincComponentPropAccessorPortType" name="endpoint6" service-name="ns6:NhincComponentPropAccessor"/>
+        <endpoint endpoint-name="DocumentRepository_Port_Soap" interface-name="ns4:DocumentRepository_PortType" name="endpoint7" service-name="ns4:DocumentRepository_Service"/>
+        <endpoint endpoint-name="AdapterPEPPortSoap11" interface-name="ns7:AdapterPEPPortType" name="endpoint8" service-name="ns7:AdapterPEP"/>
+        <endpoint endpoint-name="javaee_AdapterPolicyEngineTransformPortSoap11" interface-name="ns3:AdapterPolicyEngineTransformPortType" name="endpoint9" service-name="ns3:AdapterPolicyEngineTransform"/>
+        <endpoint display-name="AdapterEnginePL" endpoint-name="AdapterPolicyEnginePortTypeRole_myRole" file-path="AdapterPolicyEngine.bpel" interface-name="ns2:AdapterPolicyEnginePortType" name="endpoint10" process-name="AdapterPolicyEngine" service-name="ns8:AdapterEnginePL"/>
+        <endpoint display-name="AdapterPolicyEngineOrchestratorPL" endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_myRole" file-path="AdapterPolicyEngineOrchestrator.bpel" interface-name="ns1:AdapterPolicyEngineOrchestratorPortType" name="endpoint11" process-name="AdapterPolicyEngineOrchestrator" service-name="ns9:AdapterPolicyEngineOrchestratorPL"/>
+        <endpoint display-name="AdapterPolicyEngineOrchestratorPL" endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_partnerRole" file-path="AdapterPolicyEngine.bpel" interface-name="ns1:AdapterPolicyEngineOrchestratorPortType" name="endpoint12" process-name="AdapterPolicyEngine" service-name="ns8:AdapterPolicyEngineOrchestratorPL"/>
+        <endpoint display-name="NhincPropAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="AdapterPolicyEngineOrchestrator.bpel" interface-name="ns6:NhincComponentPropAccessorPortType" name="endpoint13" process-name="AdapterPolicyEngineOrchestrator" service-name="ns9:NhincPropAccessorPL"/>
+        <endpoint display-name="NhincConnectionMgrPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="AdapterPolicyEngineOrchestrator.bpel" interface-name="ns5:NhincComponentConnectionManagerPortType" name="endpoint14" process-name="AdapterPolicyEngineOrchestrator" service-name="ns9:NhincConnectionMgrPL"/>
+        <endpoint display-name="AdapterPEPPL" endpoint-name="AdapterPEPPortTypeRole_partnerRole" file-path="AdapterPolicyEngineOrchestrator.bpel" interface-name="ns7:AdapterPEPPortType" name="endpoint15" process-name="AdapterPolicyEngineOrchestrator" service-name="ns9:AdapterPEPPL"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="AdapterPolicyEngineTransformEJB.jar" component-name="sun-javaee-engine" defined="true" description="Represents this Service Unit" internal="true" name="AdapterPolicyEngineCA-AdapterPolicyEngineTransformEJB" unit-name="AdapterPolicyEngineTransformEJB" unknown="false" x="81" y="99">
+            <provides endpoint="endpoint9"/>
+        </service-engine-service-unit>
+        <service-engine-service-unit artifacts-zip="AdapterPolicyEngineBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="AdapterPolicyEngineCA-AdapterPolicyEngineBPEL" unit-name="AdapterPolicyEngineBPEL" unknown="false" x="114" y="216">
+            <provides endpoint="endpoint10"/>
+            <provides endpoint="endpoint11"/>
+            <consumes endpoint="endpoint12"/>
+            <consumes endpoint="endpoint13"/>
+            <consumes endpoint="endpoint14"/>
+            <consumes endpoint="endpoint15"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="AdapterPolicyEngineCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="592">
+                    <link xlink:href="../jbiServiceUnits/AdapterPolicyEngineTransformEJB/META-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngineTransform']/port[@name='AdapterPolicyEngineTransformPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+                <port x="67" y="513">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl#xpointer(/definitions/service[@name='DocumentRegistry_Service']/port[@name='DocumentRegistry_Port_Soap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="434">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/service[@name='DocumentRepository_Service']/port[@name='DocumentRepository_Port_Soap'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint7"/>
+                    <provides endpoint="endpoint7"/>
+                </port>
+                <port x="67" y="355">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPEP.wsdl#xpointer(/definitions/service[@name='AdapterPEP']/port[@name='AdapterPEPPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint8"/>
+                    <provides endpoint="endpoint8"/>
+                </port>
+                <port x="67" y="276">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngine']/port[@name='AdapterPolicyEnginePortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngineOrchestrator']/port[@name='AdapterPolicyEngineOrchestratorPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor']/port[@name='NhincComponentPropAccessorPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint6"/>
+                    <provides endpoint="endpoint6"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint15" provider="endpoint8" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint11" state="unchanged"/>
+        <connection consumer="endpoint12" provider="endpoint11" state="unchanged"/>
+        <connection consumer="endpoint14" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint3" provider="endpoint9" state="unchanged"/>
+        <connection consumer="endpoint13" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint2" provider="endpoint10" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/AdapterPolicyEngineTransformEJB/META-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/portType[@name='AdapterPolicyEngineTransformPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl#xpointer(/definitions/portType[@name='DocumentRegistry_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/portType[@name='DocumentRepository_PortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPEP.wsdl#xpointer(/definitions/portType[@name='AdapterPEPPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/portType[@name='AdapterPolicyEnginePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl#xpointer(/definitions/portType[@name='AdapterPolicyEngineOrchestratorPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/portType[@name='AdapterPolicyEngineTransformPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/AdapterPolicyEngineTransformEJB/META-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/binding[@name='AdapterPolicyEngineTransformBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl#xpointer(/definitions/binding[@name='DocumentRegistry_Binding_Soap'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/binding[@name='DocumentRepository_Binding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPEP.wsdl#xpointer(/definitions/binding[@name='AdapterPEPBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/binding[@name='AdapterPolicyEngineBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl#xpointer(/definitions/binding[@name='AdapterPolicyEngineOrchestratorBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/binding[@name='AdapterPolicyEngineTransformBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/AdapterPolicyEngineTransformEJB/META-INF/wsdl/AdapterPolicyEngineTransform/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngineTransform'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl#xpointer(/definitions/service[@name='DocumentRegistry_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl#xpointer(/definitions/service[@name='DocumentRepository_Service'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPEP.wsdl#xpointer(/definitions/service[@name='AdapterPEP'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngine'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngineOrchestrator'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngineTransform'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/AdapterPolicyEngineBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalAuditRepository.wsdl"/>
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="Interfaces/wsdl/NhincComponentAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentAuditRepository.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentAuditLogDte.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentAuditLogDte.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
+</catalog>

@@ -1,0 +1,6 @@
+<EntityDescriptor
+    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+    entityID="ConnectOpenSSOPepEntity">
+    <XACMLAuthzDecisionQueryDescriptor WantAssertionsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    </XACMLAuthzDecisionQueryDescriptor>
+</EntityDescriptor>

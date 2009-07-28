@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.CCTray.Scripts">
+
+  <property name="CCTray.Install.FriendlyName" value="CCTray"/>
+  <property name="CCTray.Install.Path" value="C:\Program Files\CCTray"/>
+  <property name="CCTray.Installer.FileName" value="CCTraySetup.exe"/>
+  <property name="CCTray.Installer.FilePath" value="C:\TEMP\${CCTray.Installer.FileName}"/>
+  <property name="CCTray.Installer.Download.URL" value="http://${BuildServerHostName}/$ProjectName}-${ProjectCodeLineName}/default.aspx?_action_CCTrayDownload=true"/>
+  
+	<target name="Workspace.RequieredSoftware.CCTray">
+    <ifnot test="${directory::exists(CCTray.Install.Path)}" >
+      <call target="CCTray.DownloadAndInstall"/>
+    </ifnot>
+  </target>
+
+  <target name="CCTray.DownloadAndInstall">
+    <ask answer="Answer"
+           question="It looks like ${CCTray.Install.FriendlyName} is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+      <options>
+        <string value="Install"/>
+        <string value="Exit"/>
+      </options>
+    </ask>
+    <ifthenelse test="${Answer == 'Install'}">
+      <then>
+        <get
+          src="${CCTray.Installer.Download.URL}"
+          dest="${CCTray.Installer.FilePath}"
+          unless="${file::exists(CCTray.Installer.FilePath)}"
+          />
+        <exec 
+          workingdir="C:\TEMP" 
+          program="${CCTray.Installer.FilePath}" 
+          verbose="true"
+        />
+      </then>
+      <elseif if="${Answer == 'Exit'}">
+        <fail message="Please install ${CCTray.Install.FriendlyName} to ${CCTray.Install.Path}!" />
+      </elseif>
+    </ifthenelse>
+  </target>
+
+</project>

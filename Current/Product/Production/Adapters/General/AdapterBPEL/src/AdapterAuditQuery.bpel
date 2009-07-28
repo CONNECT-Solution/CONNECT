@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="AdapterAuditQuery"
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterauditquery"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterauditquery" 
+    xmlns:audit="http://nhinc.services.com/schema/auditmessage" 
+    xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+    <import namespace="urn:gov:hhs:fha:nhinc:adapterauditlogquery" location="Interfaces/wsdl/AdapterAuditLogQuery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" location="Interfaces/wsdl/NhincComponentAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AuditRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" partnerLinkType="tns:AuditRepositoryManager" partnerRole="AuditRepositoryManagerPortTypeRole"/>
+        <partnerLink name="AdapterAuditQueryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquery" partnerLinkType="tns:AdapterAuditLogQuery" myRole="AdapterAuditLogQueryPortTypeRole"/>
+    </partnerLinks>
+    <sequence>
+        <scope name="AuditQueryScope">
+            <variables>
+                <variable name="QueryAuditEventsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:QueryAuditEventsResponseMessage"/>
+                <variable name="QueryAuditEventsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" messageType="tns:QueryAuditEventsRequestMessage"/>
+                <variable name="FindAuditEventsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquery" messageType="tns:findAuditEventsResponseMessage"/>
+                <variable name="FindAuditEventsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquery" messageType="tns:findAuditEventsRequestMessage"/>
+            </variables>
+            <sequence name="AuditQuerySeq">
+                <receive name="ReceiveAdapterAuditQuery" createInstance="yes" partnerLink="AdapterAuditQueryPL" operation="findAuditEvents" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquery" portType="tns:AdapterAuditLogQueryPortType" variable="FindAuditEventsIn"/>
+                <assign name="AssignAuditRepository">
+                    <copy>
+                        <from>$FindAuditEventsIn.FindAuditEventsRequest/audit:FindAuditEvents</from>
+                        <to>$QueryAuditEventsIn.QueryAuditEventsRequest/audit:FindAuditEvents</to>
+                    </copy>
+                    <copy>
+                        <from>$FindAuditEventsIn.FindAuditEventsRequest/nccommonadapter:assertion</from>
+                        <to>$QueryAuditEventsIn.QueryAuditEventsRequest/nccommonadapter:assertion</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeAuditRepository" partnerLink="AuditRepositoryPL" operation="QueryAuditEvents" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" portType="tns:AuditRepositoryManagerPortType" inputVariable="QueryAuditEventsIn" outputVariable="QueryAuditEventsOut"/>
+                <assign name="AssignAuditResults">
+                    <copy>
+                        <from>$QueryAuditEventsOut.QueryAuditEventsResponse/nccommonadapter:findAuditEventResponse</from>
+                        <to variable="FindAuditEventsOut" part="FindAuditEventsResponse"/>
+                    </copy>
+                </assign>
+                <reply name="ReplyAdapterAuditQuery" partnerLink="AdapterAuditQueryPL" operation="findAuditEvents" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquery" portType="tns:AdapterAuditLogQueryPortType" variable="FindAuditEventsOut"/>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

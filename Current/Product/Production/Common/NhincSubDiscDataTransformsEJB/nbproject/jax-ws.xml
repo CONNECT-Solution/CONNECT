@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="SubjectDiscoveryDataTransforms">
+      <implementation-class>gov.hhs.fha.nhinc.subdiscdatatransforms.SubjectDiscoveryDataTransforms</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentSubDiscTransforms.wsdl</local-wsdl-file>
+      <service-name>NhincComponentSubDiscTransforms</service-name>
+      <port-name>NhincComponentSubDiscTransformsBindingSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentsubdisctransforms</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

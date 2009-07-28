@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <InboundChannels>
+        <channel>
+            <type>file</type>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+            <location>c:\dir\subdir\</location>
+            <additionalElements>
+                <element1>1 value</element1>
+                <SomeOtherElement>The otherValue</SomeOtherElement>
+            </additionalElements>
+        </channel>
+        <channel>
+            <type>queue</type>
+            <topic>nhinc:testTopic2</topic>
+            <location>c:\dir2\subdir2\</location>
+            <additionalElements>
+                <element2>2 value</element2>
+                <AnotherElement>AnotherValue</AnotherElement>
+            </additionalElements>
+        </channel>
+    </InboundChannels>
+    <OutboundChannels>
+        <channel>
+            <type/>
+            <topic/>
+            <location/>
+            <additionalElements>
+                <element/>
+            </additionalElements>
+        </channel>
+    </OutboundChannels>
+</Configuration>

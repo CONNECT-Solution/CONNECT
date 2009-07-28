@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Properties">
+
+  <property name="ProjectName"                value="NHINC" />
+  <property name="ProjectCodeLineName"        value="Current" />
+  <property name="ProductDirectoryName"       value='Product'    />
+  <property name="ThirdPartyDirectoryName"    value='ThirdParty' />
+  <property name="ProductionDirectoryName"    value='Production' />
+  <property name="BuildDirectoryName"         value='Build'      />
+  <property name="ArtifactRootDirectoryName"  value='Artifacts'  />
+  <property name="PackagesDirectoryName"      value='Packages'   />
+  <property name="UnitTestDirectoryName"      value='UnitTest'   />
+  <property name="InstallDirectoryName"       value='Install'    />
+  
+  <property name="ProjectsDirectory"          value="/Projects"                                                />
+  <property name="ProjectRootDirectory"       value="${ProjectsDirectory}/${ProjectName}"                      />
+  <property name="ProjectCodeLineDirectory"   value="${ProjectRootDirectory}/${ProjectCodeLineName}"           />
+  <property name="ProductDirectory"           value='${ProjectCodeLineDirectory}/${ProductDirectoryName}'      />
+  <property name="ThirdPartyDirectory"        value='${ProjectCodeLineDirectory}/${ThirdPartyDirectoryName}'   />
+  <property name="ProductionDirectory"        value='${ProductDirectory}/${ProductionDirectoryName}'           />
+  <property name="BuildDirectory"             value='${ProjectCodeLineDirectory}/${BuildDirectoryName}'        />
+  <property name="ArtifactRootDirectory"      value='${BuildDirectory}/${ArtifactRootDirectoryName}'           />
+  <property name="PackagesDirectory"          value='${BuildDirectory}/${PackagesDirectoryName}'               />
+  <property name="UnitTestDirectory"          value='${ProductDirectory}/${UnitTestDirectoryName}'             />
+  <property name="InstallDirectory"           value='${ProductDirectory}/${InstallDirectoryName}'              />
+  <property name="TempDirectory"              value='/Temp'                                                    />
+
+  <property name="TempBuildFilePath"              value='${ProductDirectory}/temp.xml'                                                    />
+
+</project>

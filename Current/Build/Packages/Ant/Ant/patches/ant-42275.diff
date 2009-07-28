@@ -1,0 +1,14 @@
+Index: src/main/org/apache/tools/ant/launch/Locator.java
+===================================================================
+--- src/main/org/apache/tools/ant/launch/Locator.java	(revision 700534)
++++ src/main/org/apache/tools/ant/launch/Locator.java	(working copy)
+@@ -275,7 +275,8 @@
+             path = decodeUri(uri);
+             String cwd = System.getProperty("user.dir");
+             int posi = cwd.indexOf(":");
+-            if ((posi > 0) && path.startsWith(File.separator)) {
++            if ((posi > 0) && path.startsWith(File.separator)
++                    /* #42275: UNC */ && !path.startsWith("\\\\")) {
+                path = cwd.substring(0, posi + 1) + path;
+             }
+         } catch (UnsupportedEncodingException exc) {

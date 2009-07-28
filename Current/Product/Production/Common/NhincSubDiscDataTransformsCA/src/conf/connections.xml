@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>NhincSubDiscDataTransformsCA</name>
+            <description>Represents the Service Assembly of NhincSubDiscDataTransformsCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NhincComponentSubDiscTransformsBindingSoap11" service-name="ns1:NhincComponentSubDiscTransforms"/>
+                <provider endpoint-name="javaee_NhincComponentSubDiscTransformsBindingSoap11" service-name="ns1:NhincComponentSubDiscTransforms"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

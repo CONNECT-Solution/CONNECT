@@ -1,0 +1,14 @@
+!|Import|
+|com.agilex|
+
+!|SFtpFixture|
+|connect|172.16.50.11|FTPAgilexHC|Ag1l3xHCFT3!|passphrase|
+|createDirectory|/Employee-Only/Jay/test/test|
+|directoryExists|/Employee-Only/Jay/test/test|
+|deleteDirectory|/Employee-Only/Jay/test/test|
+|directoryExists|/Employee-Only/Jay/test/test|is|false|
+|put|C:\temp\test.txt|/Employee-Only/Jay/test/test.txt|
+|fileExists|/Employee-Only/Jay/test/test.txt|
+|get|C:\temp\test\test.txt|/Employee-Only/Jay/test/test.txt|
+|deleteFile|/Employee-Only/Jay/test/test.txt|
+|fileExists|/Employee-Only/Jay/test/test.txt|is|false|

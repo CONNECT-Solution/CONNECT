@@ -1,0 +1,895 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="EntitySubjectDiscovery"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:entitybpel:entitysubjectdiscovery"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:hl7="urn:hl7-org:v3"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:entitybpel:entitysubjectdiscovery" 
+    xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:ncpc="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+    xmlns:audit="urn:gov:hhs:fha:nhinc:common:auditlog" 
+    xmlns:ncadapt="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
+    xmlns:xacml="urn:oasis:names:tc:xacml:2.0:context:schema:os" 
+    xmlns:ncomevent="urn:gov:hhs:fha:nhinc:common:eventcommon" 
+    xmlns:npolicydte="urn:gov:hhs:fha:nhinc:common:policyenginedte">
+    <import namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" location="Interfaces/wsdl/EntitySubjectDiscovery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" location="Interfaces/wsdl/NhincComponentSubDiscTransforms.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" location="Interfaces/wsdl/NhincProxySubjectDiscovery.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" location="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" location="Interfaces/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="SubDiscDataTransformsPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" partnerLinkType="tns:NhincComponentSubDiscTransforms" partnerRole="NhincComponentSubDiscTransformsPortTypeRole"/>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionMgrPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="PatientCorrelationPL" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" partnerLinkType="tns:PatientCorrelationFacadePartnerLinkType" partnerRole="PatientCorrelationPortTypeRole"/>
+        <partnerLink name="NhincProxySubjectDiscoveryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" partnerLinkType="tns:NhincProxySubjectDiscovery" partnerRole="NhincProxySubjectDiscoveryPortTypeRole"/>
+        <partnerLink name="AuditRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" partnerRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+        <partnerLink name="NhincInternalPolicyEnginePL" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" partnerLinkType="tns:NhincComponentInternalPolicyEngineFacade" partnerRole="NhincComponentInternalPolicyEngineFacadePortTypeRole"/>
+        <partnerLink name="EntitySubjectDiscoveryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" partnerLinkType="tns:EntitySubjectDiscovery" myRole="EntitySubjectDiscoveryPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="PIX201309In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage"/>
+        <variable name="PIX201304In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage"/>
+        <variable name="PIX201303In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage"/>
+        <variable name="PIX201302In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"/>
+        <variable name="PIX201301In" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"/>
+    </variables>
+    <sequence>
+        <pick name="ReceiveEnitySubDiscovery" createInstance="yes">
+            <onMessage partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201301In">
+                <scope name="Handle201301Scope">
+                    <variables>
+                        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectAddedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectAddedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectAddedRequestMessage"/>
+                        <variable name="GetLocalHCIDOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                        <variable name="GetLocalHCIDIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                        <variable name="RetrievePatientCorrelationsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsResponseMessage"/>
+                        <variable name="RetrievePatientCorrelationsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsRequestMessage"/>
+                        <variable name="GetAllCommunitiesOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAllCommunitiesResponseMessage"/>
+                        <variable name="GetAllCommunitiesIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAllCommunitiesRequestMessage"/>
+                        <variable name="ProxyPIX201301Out" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVProxyResponseMessage"/>
+                        <variable name="ProxyPIX201301In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201301UVProxyRequestMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="PIX201301Out" messageType="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201301Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201301Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'EntitySubjectDiscovery.bpel - A system fault was encounterd processing a 201301 message. Fault detials follow...'</from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <from variable="systemFault201301Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201301FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201301Fault" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201301Out"/>
+                                <exit name="ExitAfter201301FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201301Seq">
+                        <sequence name="Log201301ReqSeq">
+                            <assign name="AssigAudit201301Req">
+                                <copy>
+                                    <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:message/hl7:PRPA_IN201301UV</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:assertion</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:message/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Entity'</from>
+                                    <to>$LogSubjectAddedIn.LogSubjectAddedRequest/audit:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAuditLog201301" partnerLink="AuditRepositoryPL" operation="LogSubjectAdded" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectAddedIn" outputVariable="LogSubjectAddedOut">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onComplete">
+                                        <from>'Supposed to have called log201301.'</from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </invoke>
+                        </sequence>
+                        <assign name="AssignCreateInitialAck">
+                            <copy>
+                                <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                            <copy>
+                                <from>'Success'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                            <copy>
+                                <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCreateInitialAck" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="AssignInitResp">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="PIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                            </copy>
+                        </assign>
+                        <assign name="AssignGetLocalHomeCommunity">
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetLocalHCIDIn.GetPropertyRequest/propacc:propertyFile</to>
+                            </copy>
+                            <copy>
+                                <from>'localHomeCommunityId'</from>
+                                <to>$GetLocalHCIDIn.GetPropertyRequest/propacc:propertyName</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetLocalHomeCommunity" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetLocalHCIDIn" outputVariable="GetLocalHCIDOut"/>
+                        <if name="IfTargeted">
+                            <condition>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:NhinTargetCommunities</condition>
+                            <sequence name="TargetedSEq">
+                                <empty name="Empty1">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'Attempting Targeted Subject Discovery'</from>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                </empty>
+                                <forEach name="ForEachTarget" parallel="no" counterName="TargetCtr">
+                                    <startCounterValue>1</startCounterValue>
+                                    <finalCounterValue>count($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:NhinTargetCommunities/nccommon:nhinTargetCommunity)</finalCounterValue>
+                                    <scope name="CopyTargets">
+                                        <assign name="AssignCopyTargets">
+                                            <copy>
+                                                <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:NhinTargetCommunities/nccommon:nhinTargetCommunity[$TargetCtr]/nccommon:homeCommunity</from>
+                                                <to>$GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$TargetCtr]</to>
+                                            </copy>
+                                        </assign>
+                                    </scope>
+                                </forEach>
+                            </sequence>
+                            <else>
+                                <sequence name="BroadcastSeq">
+                                    <assign name="AssignGetAllCommunities">
+                                        <copy>
+                                            <from>'empty'</from>
+                                            <to>$GetAllCommunitiesIn.GetAllCommunitiesRequest/conninfo:emptyParam</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetAllCommunities" partnerLink="ConnectionMgrPL" operation="GetAllCommunities" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetAllCommunitiesIn" outputVariable="GetAllCommunitiesOut"/>
+                                </sequence>
+                            </else>
+                        </if>
+                        <forEach name="ForEachCommunity" parallel="no" counterName="CommunityCtr">
+                            <startCounterValue>1</startCounterValue>
+                            <finalCounterValue>count($GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity)</finalCounterValue>
+                            <scope name="EachCommunityScope">
+                                <variables>
+                                    <variable name="GetAAByHCIDOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAssigningAuthoritiesByHomeCommunityResponseMessage"/>
+                                    <variable name="GetAAByHCIDIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAssigningAuthoritiesByHomeCommunityRequestMessage"/>
+                                    <variable name="patientHasCorrelationsForRemoteCommunity" type="xsd:boolean"/>
+                                </variables>
+                                <sequence name="EachCommunitySeq">
+                                    <if name="IfNotLocalHcid">
+                                        <condition>$GetLocalHCIDOut.GetPropertyResponse/propacc:propertyValue != $GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$CommunityCtr]/nccommon:homeCommunityId</condition>
+                                        <sequence name="NotLocalHcidSeq">
+                                            <assign name="resetHasMappingsFlag">
+                                                <copy>
+                                                    <from>false()</from>
+                                                    <to variable="patientHasCorrelationsForRemoteCommunity"/>
+                                                </copy>
+                                            </assign>
+                                            <assign name="AssignRetreiveAAs">
+                                                <copy>
+                                                    <from>$GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$CommunityCtr]/nccommon:homeCommunityId</from>
+                                                    <to>$GetAAByHCIDIn.GetAssigningAuthoritiesByHomeCommunityRequest/conninfo:HomeCommunity/nccommon:homeCommunityId</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeRetreiveAAs" partnerLink="ConnectionMgrPL" operation="GetAssigningAuthoritiesByHomeCommunity" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetAAByHCIDIn" outputVariable="GetAAByHCIDOut"/>
+                                            <forEach name="ForEachAA" parallel="no" counterName="AACtr">
+                                                <startCounterValue>1</startCounterValue>
+                                                <finalCounterValue>count($GetAAByHCIDOut.GetAssigningAuthoritiesByHomeCommunityResponse/conninfo:assigningAuthoritiesId/nccommon:assigningAuthority)</finalCounterValue>
+                                                <scope name="EachAAScope">
+                                                    <sequence name="EachAASeq">
+                                                        <assign name="AssignRetrieveCorrelations">
+                                                            <copy>
+                                                                <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension)</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:SubjectIdentifier</to>
+                                                            </copy>
+                                                            <copy>
+                                                                <from>string($PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root)</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:AssigningAuthorityIdentifier</to>
+                                                            </copy>
+                                                            <copy>
+                                                                <from>$GetAAByHCIDOut.GetAssigningAuthoritiesByHomeCommunityResponse/conninfo:assigningAuthoritiesId/nccommon:assigningAuthority[$AACtr]/nccommon:assigningAuthorityId</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:TargetAssigningAuthority</to>
+                                                            </copy>
+                                                        </assign>
+                                                        <invoke name="InvokeRetrieveCorrelations" partnerLink="PatientCorrelationPL" operation="RetrievePatientCorrelations" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" portType="tns:PatientCorrelationFacadePortType" inputVariable="RetrievePatientCorrelationsIn" outputVariable="RetrievePatientCorrelationsOut"/>
+                                                        <assign name="AssignPatientHasCorrelations">
+                                                            <copy>
+                                                                <from>(count($RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier)>0) or $patientHasCorrelationsForRemoteCommunity</from>
+                                                                <to variable="patientHasCorrelationsForRemoteCommunity"/>
+                                                            </copy>
+                                                        </assign>
+                                                    </sequence>
+                                                </scope>
+                                            </forEach>
+                                            <if name="IfCorrelationDoesNotExist">
+                                                <condition>not($patientHasCorrelationsForRemoteCommunity)</condition>
+                                                <sequence name="Send201301Seq">
+                                                    <assign name="AssignSendToProxy">
+                                                        <sxt:trace>
+                                                            <sxt:log level="info" location="onComplete">
+                                                                <from>concat('Sending 201301 to Community: ', $GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$CommunityCtr]/nccommon:homeCommunityId)</from>
+                                                            </sxt:log>
+                                                        </sxt:trace>
+                                                        <copy>
+                                                            <from>$GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$CommunityCtr]/nccommon:homeCommunityId</from>
+                                                            <to>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:receiver/hl7:device/hl7:id/@root</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV</from>
+                                                            <to>$ProxyPIX201301In.PIXConsumer_PRPA_IN201301UVProxyRequest/hl7:PRPA_IN201301UV</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:assertion</from>
+                                                            <to>$ProxyPIX201301In.PIXConsumer_PRPA_IN201301UVProxyRequest/hl7:assertion</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$GetAllCommunitiesOut.HomeCommunities/nccommon:homeCommunity[$CommunityCtr]/nccommon:homeCommunityId</from>
+                                                            <to>$ProxyPIX201301In.PIXConsumer_PRPA_IN201301UVProxyRequest/hl7:nhinTargetSystem/nccommon:homeCommunity/nccommon:homeCommunityId</to>
+                                                        </copy>
+                                                    </assign>
+                                                    <invoke name="InvokeSendToProxy" partnerLink="NhincProxySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" portType="tns:NhincProxySubjectDiscoveryPortType" inputVariable="ProxyPIX201301In" outputVariable="ProxyPIX201301Out">
+                                                        <sxt:trace>
+                                                            <sxt:log level="info" location="onStart">
+                                                                <from variable="ProxyPIX201301In" part="PIXConsumer_PRPA_IN201301UVProxyRequest"/>
+                                                            </sxt:log>
+                                                        </sxt:trace>
+                                                    </invoke>
+                                                    <assign name="Assign201301Resp">
+                                                        <copy>
+                                                            <from variable="ProxyPIX201301Out" part="PIXConsumer_PRPA_IN201301UVProxyResponse"/>
+                                                            <to variable="PIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                                                        </copy>
+                                                    </assign>
+                                                </sequence>
+                                            </if>
+                                        </sequence>
+                                    </if>
+                                </sequence>
+                            </scope>
+                        </forEach>
+                        <sequence name="Log201301Resp">
+                            <assign name="AssignLog201301Resp">
+                                <copy>
+                                    <from variable="PIX201301Out" part="PIXConsumer_PRPA_IN201301UVResponse"/>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:assertion</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from>'Outbound'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Entity'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201301In.PIXConsumer_PRPA_IN201301UVRequest/hl7:PRPA_IN201301UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion/nccommon:uniquePatientId</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201301Resp" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubjectDiscoveryAckIn" outputVariable="LogNhinSubjectDiscoveryAckOut"/>
+                        </sequence>
+                        <reply name="Reply201301" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201301UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201301Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201302In">
+                <scope name="Handle201302Scope">
+                    <variables>
+                        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectRevisedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectRevisedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevisedRequestMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="PIX201302Out" messageType="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201302Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201302Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'EntitySubjectDiscovery.bpel - A system fault was encounterd processing a 201302 message. Fault detials follow...'</from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <from variable="systemFault201302Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201302FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201302Out" part="PIXConsumer_PRPA_IN201302UVResponse"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201302Fault" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201302Out"/>
+                                <exit name="ExitAfter201302FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201302Seq">
+                        <sequence name="Log201302ReqSeq">
+                            <assign name="AssignAudit201302Req">
+                                <copy>
+                                    <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:message/hl7:PRPA_IN201302UV</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:assertion</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:message/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Entity'</from>
+                                    <to>$LogSubjectRevisedIn.LogSubjectRevisedRequest/audit:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeAudit201302Req" partnerLink="AuditRepositoryPL" operation="LogSubjectRevised" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectRevisedIn" outputVariable="LogSubjectRevisedOut"/>
+                        </sequence>
+                        <assign name="AssignCreateNotSupportedAck">
+                            <copy>
+                                <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                            <copy>
+                                <from>'Receiving a 201302 from an Agency is not currently supported'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCreateNotSupportedAck" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="Assign201302Resp">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="PIX201302Out" part="PIXConsumer_PRPA_IN201302UVResponse"/>
+                            </copy>
+                        </assign>
+                        <sequence name="Log201302RespSeq">
+                            <assign name="Assign201302AuditResp">
+                                <copy>
+                                    <from variable="PIX201302Out" part="PIXConsumer_PRPA_IN201302UVResponse"/>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:assertion</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from>'Outbound'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Entity'</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                                </copy>
+                                <copy>
+                                    <from>$PIX201302In.PIXConsumer_PRPA_IN201302UVRequest/hl7:PRPA_IN201302UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension</from>
+                                    <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion/nccommon:uniquePatientId</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLog201302Resp" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubjectDiscoveryAckIn" outputVariable="LogNhinSubjectDiscoveryAckOut"/>
+                        </sequence>
+                        <reply name="Reply201302" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201302UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201302Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201303In">
+                <scope name="Handle201303Scope">
+                    <variables>
+                        <variable name="sendRevoke" type="xsd:boolean"/>
+                        <variable name="GetHcidByAAOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetHomeCommunityByAssigningAuthorityResponseMessage"/>
+                        <variable name="GetHcidByAAIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetHomeCommunityByAssigningAuthorityRequestMessage"/>
+                        <variable name="Proxy201303UVOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVProxyResponseMessage"/>
+                        <variable name="Proxy201303UVIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201303UVProxyRequestMessage"/>
+                        <variable name="RetrievePatientCorrelationsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsResponseMessage"/>
+                        <variable name="RetrievePatientCorrelationsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsRequestMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogNhinSubjectDiscoveryAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
+                        <variable name="LogSubjectRevokedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectRevokedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectRevokedRequestMessage"/>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="PIX201303Out" messageType="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201303Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201303Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'EntitySubjectDiscovery.bpel - A system fault was encounterd processing a 201303 message. Fault detials follow...'</from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <from variable="systemFault201303Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201303FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201303Out" part="PIXConsumer_PRPA_IN201303UVResponse"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201303Fault" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201303Out"/>
+                                <exit name="ExitAfter201303FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201303Seq">
+                        <assign name="AssignLog201303Req">
+                            <copy>
+                                <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:message/hl7:PRPA_IN201303UV</to>
+                            </copy>
+                            <copy>
+                                <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:assertion</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:message/hl7:assertion</to>
+                            </copy>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Entity'</from>
+                                <to>$LogSubjectRevokedIn.LogSubjectRevokedRequest/audit:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeLog201303Req" partnerLink="AuditRepositoryPL" operation="LogSubjectRevoked" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectRevokedIn" outputVariable="LogSubjectRevokedOut"/>
+                        <assign name="AssignCreateInitAck">
+                            <copy>
+                                <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                            <copy>
+                                <from>'Success'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCreateInitAck" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="AssignInit">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="PIX201303Out" part="PIXConsumer_PRPA_IN201303UVResponse"/>
+                            </copy>
+                        </assign>
+                        <assign name="AssignRetreiveCorrelations">
+                            <copy>
+                                <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension)</from>
+                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:SubjectIdentifier</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root)</from>
+                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:AssigningAuthorityIdentifier</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeRetreiveCorrelations" partnerLink="PatientCorrelationPL" operation="RetrievePatientCorrelations" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" portType="tns:PatientCorrelationFacadePortType" inputVariable="RetrievePatientCorrelationsIn" outputVariable="RetrievePatientCorrelationsOut"/>
+                        <forEach name="ForEachCorrelation" parallel="no" counterName="PatCorrCtr">
+                            <startCounterValue>1</startCounterValue>
+                            <finalCounterValue>count($RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier)</finalCounterValue>
+                            <scope name="RevokePatientScope">
+                                <variables>
+                                    <variable name="RemovePatientCorrelationOut" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RemovePatientCorrelationResponseMessage"/>
+                                    <variable name="RemovePatientCorrelationIn" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RemovePatientCorrelationRequestMessage"/>
+                                </variables>
+                                <sequence name="RevokePatientSeq">
+                                    <assign name="AssignGetHCIDFromAA">
+                                        <copy>
+                                            <from>false()</from>
+                                            <to variable="sendRevoke"/>
+                                        </copy>
+                                        <copy>
+                                            <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$PatCorrCtr]/nccommon:AssigningAuthorityIdentifier</from>
+                                            <to>$GetHcidByAAIn.GetHomeCommunityByAssigningAuthorityRequest/conninfo:AssigningAuthorities/nccommon:assigningAuthorityId</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetHCIDFromAA" partnerLink="ConnectionMgrPL" operation="GetHomeCommunityByAssigningAuthority" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetHcidByAAIn" outputVariable="GetHcidByAAOut"/>
+                                    <if name="IfTargeted">
+                                        <condition>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:NhinTargetCommunities</condition>
+                                        <forEach name="ForEachTarget" parallel="no" counterName="TargetCtr">
+                                            <startCounterValue>1</startCounterValue>
+                                            <finalCounterValue>count($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:NhinTargetCommunities)</finalCounterValue>
+                                            <scope name="CheckTargetsScope">
+                                                <if name="IfMatch">
+                                                    <condition>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:NhinTargetCommunities/nccommon:nhinTargetCommunity[$TargetCtr]/nccommon:homeCommunity/nccommon:homeCommunityId = $GetHcidByAAOut.GetHomeCommunityByAssigningAuthorityResponse/conninfo:HomeCommunity/nccommon:homeCommunityId</condition>
+                                                    <assign name="AssignSendFlag">
+                                                        <copy>
+                                                            <from>true()</from>
+                                                            <to variable="sendRevoke"/>
+                                                        </copy>
+                                                    </assign>
+                                                </if>
+                                            </scope>
+                                        </forEach>
+                                        <else>
+                                            <assign name="AssignFlagTrue">
+                                                <copy>
+                                                    <from>true()</from>
+                                                    <to variable="sendRevoke"/>
+                                                </copy>
+                                            </assign>
+                                        </else>
+                                    </if>
+                                    <if name="IfSendToProxy">
+                                        <condition>$sendRevoke = true()</condition>
+                                        <sequence name="SendToProxySeq">
+                                            <assign name="AssignNhinc201303Proxy">
+                                                <copy>
+                                                    <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:PRPA_IN201303UV</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:assertion</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:assertion</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$GetHcidByAAOut.GetHomeCommunityByAssigningAuthorityResponse/conninfo:HomeCommunity/nccommon:homeCommunityId</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:nhinTargetSystem/nccommon:homeCommunity/nccommon:homeCommunityId</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$PatCorrCtr]/nccommon:SubjectIdentifier</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$PatCorrCtr]/nccommon:AssigningAuthorityIdentifier</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$GetHcidByAAOut.GetHomeCommunityByAssigningAuthorityResponse/conninfo:HomeCommunity/nccommon:homeCommunityId</from>
+                                                    <to>$Proxy201303UVIn.PIXConsumer_PRPA_IN201303UVProxyRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeNhinc201303Proxy" partnerLink="NhincProxySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" portType="tns:NhincProxySubjectDiscoveryPortType" inputVariable="Proxy201303UVIn" outputVariable="Proxy201303UVOut"/>
+                                            <assign name="AssignRemoveCorrelation">
+                                                <copy>
+                                                    <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root)</from>
+                                                    <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[1]/nccommon:AssigningAuthorityIdentifier</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>string($PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension)</from>
+                                                    <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[1]/nccommon:SubjectIdentifier</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$PatCorrCtr]/nccommon:SubjectIdentifier</from>
+                                                    <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[2]/nccommon:SubjectIdentifier</to>
+                                                </copy>
+                                                <copy>
+                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$PatCorrCtr]/nccommon:AssigningAuthorityIdentifier</from>
+                                                    <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[2]/nccommon:AssigningAuthorityIdentifier</to>
+                                                </copy>
+                                            </assign>
+                                            <invoke name="InvokeRemoveCorrelation" partnerLink="PatientCorrelationPL" operation="RemovePatientCorrelation" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" portType="tns:PatientCorrelationFacadePortType" inputVariable="RemovePatientCorrelationIn" outputVariable="RemovePatientCorrelationOut"/>
+                                            <assign name="Assign201303Resp">
+                                                <copy>
+                                                    <from variable="Proxy201303UVOut" part="PIXConsumer_PRPA_IN201303UVProxyResponse"/>
+                                                    <to variable="PIX201303Out" part="PIXConsumer_PRPA_IN201303UVResponse"/>
+                                                </copy>
+                                            </assign>
+                                        </sequence>
+                                    </if>
+                                </sequence>
+                            </scope>
+                        </forEach>
+                        <assign name="Assign201303AuditResp">
+                            <copy>
+                                <from>$PIX201303In.PIXConsumer_PRPA_IN201303UVRequest/hl7:assertion</from>
+                                <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:assertion</to>
+                            </copy>
+                            <copy>
+                                <from variable="PIX201303Out" part="PIXConsumer_PRPA_IN201303UVResponse"/>
+                                <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:message/hl7:PIXConsumer_MCCI_IN000002UV01Request/hl7:MCCI_IN000002UV01</to>
+                            </copy>
+                            <copy>
+                                <from>'Outbound'</from>
+                                <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Entity'</from>
+                                <to>$LogNhinSubjectDiscoveryAckIn.LogNhinSubjectDiscoveryAckRequest/audit:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeLog201303Resp" partnerLink="AuditRepositoryPL" operation="LogNhinSubjectDiscoveryAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubjectDiscoveryAckIn" outputVariable="LogNhinSubjectDiscoveryAckOut"/>
+                        <reply name="Reply201303" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201303UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201303Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201304In">
+                <scope name="Handle201304Scope">
+                    <variables>
+                        <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                        <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                        <variable name="PIX201304Out" messageType="tns:PIXConsumer_PRPA_IN201304UVResponseMessage"/>
+                    </variables>
+                    <faultHandlers>
+                        <catch faultName="sxeh:systemFault" faultVariable="systemFault201304Var" faultMessageType="sxeh:faultMessage">
+                            <sequence name="SystemFault201304Seq">
+                                <assign name="AssignFaultAckDte">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'EntitySubjectDiscovery.bpel - A system fault was encounterd processing a 201304 message. Fault detials follow...'</from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <from variable="systemFault201304Var"/>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from>$PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>string($PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Error - Internal Gateway Error'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeFaultAckDte" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                                <assign name="Assign201304FaultInfo">
+                                    <copy>
+                                        <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="PIX201304Out" part="PIXConsumer_PRPA_IN201304UVResponse"/>
+                                    </copy>
+                                </assign>
+                                <reply name="ReplyNhinSubDisc201304Fault" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201304Out"/>
+                                <exit name="ExitAfter201304FaultReturn"/>
+                            </sequence>
+                        </catch>
+                    </faultHandlers>
+                    <sequence name="Process201304Seq">
+                        <assign name="AssignCreateNotSupportedAck">
+                            <copy>
+                                <from>$PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                            <copy>
+                                <from>'Receiving a 201304 from an Agency is not currently supported'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($PIX201304In.PIXConsumer_PRPA_IN201304UVRequest/hl7:PRPA_IN201304UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCreateNotSupportedAck" partnerLink="SubDiscDataTransformsPL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="Assign201304Resp">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="PIX201304Out" part="PIXConsumer_PRPA_IN201304UVResponse"/>
+                            </copy>
+                        </assign>
+                        <reply name="Reply201304" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201304UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201304Out"/>
+                    </sequence>
+                </scope>
+            </onMessage>
+            <onMessage partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201309In">
+                <scope name="HandleScope201309">
+                    <variables>
+                        <variable name="CheckPolicySubjectReidentificationOut" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyResponseMessage"/>
+                        <variable name="CheckPolicySubjectReidentificationIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectReidentificationRequestMessage"/>
+                        <variable name="LogSubjectReidentResultOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectReidentResultIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentResponseMessage"/>
+                        <variable name="LogSubjectReidentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                        <variable name="LogSubjectReidentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubjectReidentRequestMessage"/>
+                        <variable name="PIX201309UVOut" messageType="tns:PIXConsumer_PRPA_IN201309UVResponseMessage"/>
+                        <variable name="ProxyPIX201309Out" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVProxyResponseMessage"/>
+                        <variable name="ProxyPIX201309In" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" messageType="tns:PIXConsumer_PRPA_IN201309UVProxyRequestMessage"/>
+                    </variables>
+                    <sequence name="ProcessIfPermitSeq">
+                        <assign name="AssignLog201309Req">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from variable="PIX201309In" part="PIXConsumer_PRPA_IN201309UVRequest"/>
+                                </sxt:log>
+                                <sxt:log level="info" location="onComplete">
+                                    <from variable="LogSubjectReidentIn" part="LogSubjectReidentRequest"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Entity'</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:interface</to>
+                            </copy>
+                            <copy>
+                                <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:PRPA_IN201309UV</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:message/hl7:PRPA_IN201309UV</to>
+                            </copy>
+                            <copy>
+                                <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:assertion</from>
+                                <to>$LogSubjectReidentIn.LogSubjectReidentRequest/audit:message/hl7:assertion</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeLog201309Req" partnerLink="AuditRepositoryPL" operation="LogSubjectReident" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectReidentIn" outputVariable="LogSubjectReidentOut"/>
+                        <assign name="AssignCheckPolicy201309">
+                            <copy>
+                                <from variable="PIX201309In" part="PIXConsumer_PRPA_IN201309UVRequest"/>
+                                <to>$CheckPolicySubjectReidentificationIn.CheckPolicySubjectReidentificationRequest/ncomevent:message</to>
+                            </copy>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$CheckPolicySubjectReidentificationIn.CheckPolicySubjectReidentificationRequest/ncomevent:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Entity'</from>
+                                <to>$CheckPolicySubjectReidentificationIn.CheckPolicySubjectReidentificationRequest/ncomevent:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCheckPolicy201309" partnerLink="NhincInternalPolicyEnginePL" operation="CheckPolicySubjectReidentification" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" inputVariable="CheckPolicySubjectReidentificationIn" outputVariable="CheckPolicySubjectReidentificationOut"/>
+                        <if name="IfPolicyPermit">
+                            <condition>'Permit' = $CheckPolicySubjectReidentificationOut.CheckPolicyResponse/ncadapt:response/xacml:Result/xacml:Decision</condition>
+                            <sequence name="InvokeProxy201309Seq">
+                                <assign name="AssignProxy201309">
+                                    <copy>
+                                        <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:PRPA_IN201309UV</from>
+                                        <to>$ProxyPIX201309In.PIXConsumer_PRPA_IN201309UVProxyRequest/hl7:PRPA_IN201309UV</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:assertion</from>
+                                        <to>$ProxyPIX201309In.PIXConsumer_PRPA_IN201309UVProxyRequest/hl7:assertion</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:NhinTargetCommunities/nccommon:nhinTargetCommunity/nccommon:homeCommunity/nccommon:homeCommunityId</from>
+                                        <to>$ProxyPIX201309In.PIXConsumer_PRPA_IN201309UVProxyRequest/hl7:nhinTargetSystem/nccommon:homeCommunity/nccommon:homeCommunityId</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeNhincProxy201309" partnerLink="NhincProxySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" portType="tns:NhincProxySubjectDiscoveryPortType" inputVariable="ProxyPIX201309In" outputVariable="ProxyPIX201309Out"/>
+                                <assign name="AssignProxy201309Resp">
+                                    <copy>
+                                        <from variable="ProxyPIX201309Out" part="PIXConsumer_PRPA_IN201309UVProxyResponse"/>
+                                        <to>$PIX201309UVOut.PIXConsumer_PRPA_IN201309UVResponse/hl7:PRPA_IN201310UV</to>
+                                    </copy>
+                                </assign>
+                                <assign name="AssignLog201309Resp">
+                                    <copy>
+                                        <from>$PIX201309In.PIXConsumer_PRPA_IN201309UVRequest/hl7:assertion</from>
+                                        <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:assertion</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Outbound'</from>
+                                        <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:direction</to>
+                                    </copy>
+                                    <copy>
+                                        <from>'Entity'</from>
+                                        <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:interface</to>
+                                    </copy>
+                                    <copy>
+                                        <from>$PIX201309UVOut.PIXConsumer_PRPA_IN201309UVResponse/hl7:PRPA_IN201310UV</from>
+                                        <to>$LogSubjectReidentResultIn.LogSubjectReidentResponse/audit:message/hl7:PRPA_IN201310UV</to>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeLog201309Resp" partnerLink="AuditRepositoryPL" operation="LogSubjectReidentResult" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubjectReidentResultIn" outputVariable="LogSubjectReidentResultOut"/>
+                                <reply name="Reply201309" partnerLink="EntitySubjectDiscoveryPL" operation="PIXConsumer_PRPA_IN201309UV" portType="tns:EntitySubjectDiscoveryPortType" variable="PIX201309UVOut"/>
+                            </sequence>
+                        </if>
+                    </sequence>
+                </scope>
+            </onMessage>
+        </pick>
+    </sequence>
+</process>

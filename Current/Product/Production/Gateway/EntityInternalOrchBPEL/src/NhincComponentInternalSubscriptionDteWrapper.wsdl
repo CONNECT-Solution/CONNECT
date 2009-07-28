@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NhincComponentInternalSubscriptionDteWrapper" targetNamespace="http://enterprise.netbeans.org/bpel/NhincComponentInternalSubscriptionDteWrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/NhincComponentInternalSubscriptionDteWrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform">
+    <import location="Interfaces/wsdl/NhincComponentInternalSubscriptionDte.wsdl" namespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform"/>
+    <plnk:partnerLinkType name="NhincComponentInternalSubscriptionDteLinkType">
+        <plnk:role name="NhincComponentInternalSubscriptionDteRole" portType="ns:NhincComponentInternalSubscriptionDtePortType"/>
+    </plnk:partnerLinkType>
+</definitions>

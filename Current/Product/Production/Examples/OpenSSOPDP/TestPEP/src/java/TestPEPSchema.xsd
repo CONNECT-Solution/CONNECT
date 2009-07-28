@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:gov:hhs:fha:nhinc:testpepschema"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:testpepschema"
+    elementFormDefault="qualified">
+
+<xsd:complexType name="EnforceResourceInputType" >
+    <xsd:sequence>
+        <xsd:element name="inputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="EnforceResourceInput" type="tns:EnforceResourceInputType" />
+
+<xsd:complexType name="EnforceResourceOutputType" >
+    <xsd:sequence>
+        <xsd:element name="outputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="EnforceResourceOutput" type="tns:EnforceResourceOutputType" />
+
+
+</xsd:schema>

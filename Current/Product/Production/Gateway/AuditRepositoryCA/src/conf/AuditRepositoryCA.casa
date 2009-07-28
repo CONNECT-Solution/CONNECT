@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="AuditRepositoryManagerPort" interface-name="ns1:AuditRepositoryManagerPortType" name="endpoint1" service-name="ns1:AuditRepositoryManagerService"/>
+        <endpoint endpoint-name="javaee_AuditRepositoryManagerPort" interface-name="ns1:AuditRepositoryManagerPortType" name="endpoint2" service-name="ns1:AuditRepositoryManagerService"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="AuditRepositoryEJB.jar" component-name="sun-javaee-engine" defined="true" description="Represents this Service Unit" internal="true" name="AuditRepositoryCA-AuditRepositoryEJB" unit-name="AuditRepositoryEJB" unknown="false" x="-1" y="-1">
+            <provides endpoint="endpoint2"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="AuditRepositoryCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/AuditRepositoryEJB/META-INF/wsdl/AuditRepository/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService']/port[@name='AuditRepositoryManagerPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint1" provider="endpoint2" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/AuditRepositoryEJB/META-INF/wsdl/AuditRepository/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/AuditRepositoryEJB/META-INF/wsdl/AuditRepository/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/AuditRepositoryEJB/META-INF/wsdl/AuditRepository/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

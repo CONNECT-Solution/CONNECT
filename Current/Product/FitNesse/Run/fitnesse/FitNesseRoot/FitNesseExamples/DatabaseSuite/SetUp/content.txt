@@ -1,0 +1,10 @@
+!define DBUSER {portal}
+!define DBPASSWORD {oracle}
+!define DBHOST {localhost:1521:xe}
+
+!|Import|
+|dbfit|
+|dbfit.fixture|
+
+!|DatabaseEnvironment|oracle|
+|Connect|${DBHOST}|${DBUSER}|${DBPASSWORD}|

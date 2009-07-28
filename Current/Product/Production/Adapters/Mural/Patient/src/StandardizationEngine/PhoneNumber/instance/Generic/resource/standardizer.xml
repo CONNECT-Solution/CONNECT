@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- TODO: in absence of probability, default to 1 -->
+<standardizer conjunction="conjunction"  extraInformation="extraInformation">
+	<stateModel name="start">
+		<when inputSymbol="internationalPrefix" nextState="internationalNumber" outputSymbol="countryCode" probability=".2"/>
+        <when inputSymbol="areaCode" nextState="areaCode" outputSymbol="areaCode" probability=".8"/>
+
+		<state name="internationalNumber">
+			<when inputSymbol="areaCode" nextState="areaCode" outputSymbol="areaCode" probability="0.5"/>
+			<when inputSymbol="digitGroup" nextState="digitGroup" outputSymbol="phoneNumber" probability="0.5"/>
+		</state>
+
+		<state name="areaCode">
+			<when inputSymbol="digitGroup" nextState="digitGroup" outputSymbol="phoneNumber" probability="1"/>
+		</state>
+		
+		<state name="digitGroup">
+            <eof probability=".3"/>
+            <when inputSymbol="dash" nextState="digitGroup" probability=".1"/>
+            <when inputSymbol="digitGroup" nextState="digitGroup" outputSymbol="phoneNumber" probability=".3"/>
+            <when inputSymbol="extension" nextState="extension"  outputSymbol="extension" probability=".2"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".1"/>
+		</state>
+		
+		<state name="extension">
+            <eof probability=".8"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".2"/>
+		</state>
+	</stateModel>
+
+    <cleanser>
+        <uppercase/>
+
+        <replaceAll regex="([0-9]{3})([0-9]{3})([0-9]{4})" replacement="($1)$2-$3"/>
+        <replaceAll regex="([-(),])" replacement=" $1 "/>
+        <replaceAll regex="\+(\d+) -" replacement="+$1-"/>
+        <replaceAll regex="E?X[A-Z]*[.#]?\s*([0-9]+)" replacement="X $1"/>
+
+        <normalizeSpace/>
+    </cleanser>
+
+	<inputSymbols>
+		<inputSymbol name="areaCode">
+			<matchers>
+				<matcher>
+					<matchAllPatterns>
+						<pattern regex="\("/>
+						<pattern regex="[0-9]{3}"/>
+						<pattern regex="\)"/>
+					</matchAllPatterns>
+					<postProcessing>
+						<replaceAll regex="[()]" replacement=""/>
+					</postProcessing>
+				</matcher>
+			</matchers>
+		</inputSymbol>		
+		<inputSymbol name="dash">
+				<matchers>
+					<matcher>
+						<fixedString>-</fixedString>
+					</matcher>
+				</matchers>
+			</inputSymbol>
+		<inputSymbol name="digitGroup">
+			<matchers>
+				<matcher>
+					<pattern regex="[0-9]+"/>
+				</matcher>
+			</matchers>
+		</inputSymbol>
+		<inputSymbol name="extension">
+			<matchers>
+				<matcher>
+					<matchAllPatterns>
+                        <pattern regex="X"/>
+                        <pattern regex="[0-9]+"/>
+					</matchAllPatterns>
+                    <postProcessing>
+                        <replaceAll regex="[^0-9]" replacement=""/>
+                    </postProcessing>
+				</matcher>
+			</matchers>
+		</inputSymbol>
+		<inputSymbol name="internationalPrefix">
+			<matchers>
+				<matcher>
+                    <pattern regex="\+\d+"/>
+					<postProcessing>
+						<replace regex="\+" replacement=""/>
+					</postProcessing>
+				</matcher>
+			</matchers>
+		</inputSymbol>
+		<inputSymbol name="conjunction">
+			<matchers>
+				<matcher>
+					<fixedStrings>
+						<fixedString>AND</fixedString>
+						<fixedString>OR</fixedString>
+						<fixedString>AND/OR</fixedString>
+                        <fixedString>&amp;</fixedString>
+                        <fixedString>/</fixedString>
+					</fixedStrings>
+					<postProcessing>
+						<replace regex="&amp;" replacement="AND"/>
+					</postProcessing>
+				</matcher>
+			</matchers>
+		</inputSymbol>
+	</inputSymbols>
+
+	<outputSymbols>
+		<outputSymbol name="areaCode"/>
+		<outputSymbol name="phoneNumber">
+          <occurrenceConcatenator class="com.sun.inti.components.string.concatenate.SeparatorBasedStringConcatenator">
+              <property name="separator" value="-"/>
+          </occurrenceConcatenator>
+          <tokenConcatenator class="com.sun.inti.components.string.concatenate.SeparatorBasedStringConcatenator">
+              <property name="separator" value=" "/>
+          </tokenConcatenator>
+		</outputSymbol>
+		<outputSymbol name="extension"/>
+        <outputSymbol name="countryCode"/>
+        <outputSymbol name="conjunction"/>
+	</outputSymbols>
+</standardizer>

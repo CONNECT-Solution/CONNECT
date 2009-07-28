@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="NhincCommonTypesLib" default="default" basedir=".">
+    <description>Builds, tests, and runs the project NhincCommonTypesLib.</description>
+    <import file="nbproject/build-impl.xml"/>
+	<import file="../../../build.lib.xml" />
+<!--	
+	<target name="build">
+		<property name="target-to-call" value="jar" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+-->
+	<target name="build">
+		<antcall target="jar" />
+	</target>
+	<target name="clean-build" depends="clean,jar" />
+	<target name="clean-test" depends="clean,jar" />
+	<target name="build-test" depends="jar" />
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="NhincCommonTypesLib-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+<!-- ### BEGIN OUT OF DATE OVERRIDE ### -->
+<!-- The jar target has been overridden to only run if the source files are newer than the last jar file. 
+	 The original jar target was renamed to "internal-jar" so the entire jar process could be bypassed if a build would not be performed.
+	 ${dist.jar.dir} and ${dist.jar} variables were not available in this target so explicit values were used. -->
+	<target name="jar">
+		<outofdate verbose="true" >
+			<sourcefiles>
+				<fileset dir="../Interfaces/src">
+					<include name="**/*" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<filelist dir="dist">
+					<file name="NhincCommonTypesLib.jar" />
+				</filelist>
+			</targetfiles>
+			<sequential>
+				<echo message="*** NhincCommonTypesLib out of date - build triggered ***" />
+				<antcall target="internal-jar" />
+			</sequential>
+		</outofdate>
+	</target>
+
+    <target depends="init,compile,-pre-jar,-do-jar-with-manifest,-do-jar-without-manifest,-do-jar-with-mainclass,-do-jar-with-libraries,-post-jar" description="Build JAR." name="internal-jar"/>
+<!-- ### END OUT OF DATE OVERRIDE ### -->
+    
+    <target name="build-init">
+        <property name="build.generated.dir" value="build"/>
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="../../../lib" />
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+        <typedef classname="com.sun.tools.xjc.XJCTask" name="xjc" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig">
+            <classpath path="${libs.jaxb.classpath}"/>
+        </typedef>
+    </target>
+
+	<!-- Generate and compile classes from WSDL and schema files -->
+    <target name="-pre-compile" depends="build-init">
+        <echo message="Generating Code from WSDL..." />
+        <echo message="----------------------------" />
+		<for param="file">
+			<path>
+				<fileset dir="../Interfaces/src/wsdl">
+					<include name="*.wsdl" />
+					<exclude name="NhinUddiSubrV3PortType.wsdl" />
+					<exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
+					<exclude name="rw-2.wsdl" />
+					<exclude name="uddi_api_v3_binding.wsdl" />
+					<exclude name="uddi_api_v3_portType.wsdl" />
+					<exclude name="uddi_custody_v3_binding.wsdl" />
+					<exclude name="uddi_custody_v3_portType.wsdl" />
+					<exclude name="uddi_repl_v3_binding.wsdl" />
+					<exclude name="uddi_repl_v3_portType.wsdl" />
+					<exclude name="uddi_sub_v3_binding.wsdl" />
+					<exclude name="uddi_sub_v3_portType.wsdl" />
+					<exclude name="uddi_subr_v3_binding.wsdl" />
+					<exclude name="uddi_subr_v3_portType.wsdl" />
+					<exclude name="uddi_vs_v3_binding.wsdl" />
+					<exclude name="uddi_vs_v3_portType.wsdl" />
+					<exclude name="uddi_vscache_v3_binding.wsdl" />
+					<exclude name="uddi_vscache_v3_portType.wsdl" />
+					<!-- TODO: This one needs to be added - failing on some schema files that are referenced -->
+<!--					<exclude name="uddi_v3_service.wsdl" /> -->
+				</fileset>
+			</path>
+			<sequential>
+				<antcall target="processWsdl">
+					<param name="wsdl.file" value="@{file}" />
+				</antcall>
+			</sequential>
+		</for>
+
+		<!--
+		#
+		# The wsimport call above generates source files for all message types refernced from the WSDL files.
+		# Some of the types generated from wsimport are incorrect. The types generated from JAXB below overwrite
+		# the incorrect versions that were generated from wsimport so JAXB generation MUST follow wsimport. Do not
+		# change the order of these two steps.
+		#
+		-->
+        <echo message="Generating JAXB Classes from Schemas..." />
+        <echo message="---------------------------------------" />
+        <xjc destdir="${build.generated.dir}/wsimport/client" >
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${libs.jaxb.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema dir="../Interfaces/src/schemas">
+                <include name="nhinc/**/*.xsd"/>
+                <include name="docs.oasis-open.org/**/*.xsd"/>
+                <include name="ebRS/**/*.xsd"/>
+                <include name="ihe/**/*.xsd"/>
+                <include name="nhin/**/*.xsd"/>
+                <include name="oasis/**/*.xsd"/>
+                <include name="uddi/uddi_v3.xsd"/>
+                <include name="www.w3.org/**/*.xsd"/>
+                <include name="xmlsoap.org/**/*.xsd"/>
+            </schema>
+        </xjc>
+
+        <echo message="Compiling Generated Code..." />
+        <echo message="---------------------------" />
+		<javac srcdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries"/>
+    </target>
+
+    <!-- Copy the classes that resulted from compiling generated code to the classes directory -->
+    <target name="-pre-jar">
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries/"/>
+        </copy>
+    </target>
+    
+    <!-- Copy the jar file to the common library directory -->
+    <target name="-post-jar">
+<!--
+        <copy todir="../../../lib" overwrite="true">
+            <fileset dir="dist">
+				<include name="*.jar" />
+            </fileset>
+        </copy>
+-->
+        <copy file="${dist.jar}" todir="../../../lib" overwrite="true" />
+
+	    <echo message="Copying file to ${glassfish.home}/lib if newer. Making backup copy." />
+	    <basename property="distfile.jar" file="${dist.jar}" />
+	    <copy file="${glassfish.home}/lib/${distfile.jar}" tofile="${glassfish.home}/lib/${distfile.jar}.bak" verbose="true" failonerror="false" />
+	    <copy file="${dist.jar}" todir="${glassfish.home}/lib" verbose="true" failonerror="false" />
+    </target>
+
+    <!-- Common wsimport target -->
+    <target name="processWsdl">
+        <echo message="Performing wsimport for: ${wsdl.file}" />
+        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
+                  destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="false"
+                  wsdlLocation="file:${wsdl.file}" xnocompile="true" />
+    </target>
+</project>

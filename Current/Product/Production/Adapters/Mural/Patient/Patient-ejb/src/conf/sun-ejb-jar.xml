@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC 
+"-//Sun Microsystems, Inc.//DTD Application Server 9.0 EJB 3.0//EN" 
+"http://www.sun.com/software/appserver/dtds/sun-ejb-jar_3_0-0.dtd">
+<sun-ejb-jar>
+    <security-role-mapping>
+        <role-name>MasterIndex.Admin</role-name>
+        <group-name>MasterIndex.Admin</group-name>
+    </security-role-mapping>
+    
+    
+<security-role-mapping>
+	<role-name>MasterIndex.User</role-name>
+	<group-name>MasterIndex.User</group-name>
+</security-role-mapping>
+
+    
+    <enterprise-beans>
+        <unique-id>0</unique-id>
+        <ejb>
+            <ejb-name>MasterControllerEJB</ejb-name>
+            <pass-by-reference>false</pass-by-reference>
+            <ior-security-config>
+                <transport-config>
+                    <integrity>supported</integrity>
+                    <confidentiality>supported</confidentiality>
+                    <establish-trust-in-target>supported</establish-trust-in-target>
+                    <establish-trust-in-client>supported</establish-trust-in-client>
+                </transport-config>
+                <as-context>
+                    <auth-method>username_password</auth-method>
+                    <realm>default</realm>
+                    <required>true</required>
+                </as-context>
+                <sas-context>
+                    <caller-propagation>supported</caller-propagation>
+                </sas-context>
+            </ior-security-config>
+            <is-read-only-bean>false</is-read-only-bean>
+            <refresh-period-in-seconds>-1</refresh-period-in-seconds>
+            <gen-classes/>
+        </ejb>
+    </enterprise-beans>
+</sun-ejb-jar>

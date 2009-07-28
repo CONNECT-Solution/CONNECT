@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="scratch" default="test" >
+
+  <property name="CCNetBuildCondition" value="ForceBuild "/>
+  <property name="CCNetIntegrationStatus" value="Success"/>
+  <property name="CCNetLastIntegrationStatus" value="Success"/>
+  <property name="CCNetBuildDate" value="2008-08-04"/>
+  <property name="CCNetBuildTime" value="08:32:47"/>
+  <property name="CCNetArtifactDirectory" value="C:\Temp\CCNetArtifactDirectory"/>
+  <property name="CCNetWorkingDirectory" value="C:\Temp\CCNetWorkingDirectory"/>
+  
+  <property name="CCNetLabel" value="1.0.0.598"/>
+  <property name="CCNetProject" value="NHINC"/>
+  <property name="CCNetLogFilePath" value="C:\temp\log20080904154412Lbuild.1.0.0.749.xml"/>
+
+
+  <property name="JavaHome" value="C:\Java\jdk1.6.0_07" />
+  <property name="Compile.ConfigName" value="Debug"/>
+
+  <include buildfile="Properties.Build.xml"/>
+  <include buildfile="Common.Build.xml" />
+  <include buildfile="Custom.Build.xml" />
+
+  <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
+  <include buildfile="${PackagesDirectory}\SourceModificationReport\SourceModificationReport.Target.xml" />
+  <include buildfile="${PackagesDirectory}\Deployment\Deployment.Target.xml" />
+  <include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
+  <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
+  <include buildfile="${PackagesDirectory}\glassfish\glassfish.Target.xml" />
+  <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Target.xml" />
+  <include buildfile="${PackagesDirectory}\Alerts\Alerts.Target.xml" />
+
+  <target name="test">
+    <call target="Ant.SetUp" />
+    <exec program="${AntBat}" failonerror="true">
+      <environment refid="${Ant.Environment.RefId}" />
+      <arg line="clean-build -buildfile ${AntBuildFileName}" />
+
+      <arg line="-DProductVersion=${CCNetLabel}" />
+    </exec>
+	</target>
+
+</project>

@@ -1,0 +1,37 @@
+<!ENTITY HostName                 'build.nhiegateway.org' >
+<!ENTITY Port                     '21524'>
+<!ENTITY EmailHost                '127.0.0.1'>
+<!ENTITY LabelPrefix              '2.2.0.'>
+<!ENTITY ProjectName              'NHINC' >
+<!ENTITY ProjectCodeLineName      'Current' >
+<!ENTITY ProjectsDirectory        'c:\Projects' >
+
+<!ENTITY ProductDirectoryName         'Product'>
+<!ENTITY ThirdPartyDirectoryName      'ThirdParty' >
+<!ENTITY ProductionDirectoryName      'Production' >
+<!ENTITY BuildDirectoryName           'Build' >
+<!ENTITY ArtifactRootDirectoryName    'Artifacts' >
+<!ENTITY PackagesDirectoryName        'Packages' >
+<!ENTITY UnitTestDirectoryName        'UnitTest' >
+<!ENTITY InstallDirectoryName         'Install' >
+<!ENTITY Common.Directory.Tools.Name  'Tools' >
+
+<!ENTITY ProjectRootDirectory           '&ProjectsDirectory;\&ProjectName;' >
+<!ENTITY ProjectCodeLineDirectory       '&ProjectRootDirectory;\&ProjectCodeLineName;' >
+<!ENTITY ProductDirectory               '&ProjectCodeLineDirectory;\&ProductDirectoryName;' >
+<!ENTITY ThirdPartyDirectory            '&ProjectCodeLineDirectory;\&ThirdPartyDirectoryName;' >
+<!ENTITY ProductionDirectory            '&ProductDirectory;\&ProductionDirectoryName;' >
+<!ENTITY BuildDirectory                 '&ProjectCodeLineDirectory;\&BuildDirectoryName;' >
+<!ENTITY Common.Directory.Build.Path    '&ProjectCodeLineDirectory;\&BuildDirectoryName;' >
+<!ENTITY ArtifactRootDirectory          '&BuildDirectory;\&ArtifactRootDirectoryName;' >
+<!ENTITY PackagesDirectory              '&BuildDirectory;\&PackagesDirectoryName;' >
+<!ENTITY UnitTestDirectory              '&ProductDirectory;\&UnitTestDirectoryName;' >
+<!ENTITY InstallDirectory               '&ProductDirectory;\&InstallDirectoryName;' >
+<!ENTITY Common.Directory.Tools.Path    '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
+
+<!ENTITY BinariesDirectory              '&ProjectCodeLineDirectory;\Build\Deployment\Binaries' >
+
+<!ENTITY NantBinPath              '&BuildDirectory;\nAnt\bin' >
+<!ENTITY NantExePath              '&NantBinPath;\nant.exe' >
+
+<!ENTITY webURL                   'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>

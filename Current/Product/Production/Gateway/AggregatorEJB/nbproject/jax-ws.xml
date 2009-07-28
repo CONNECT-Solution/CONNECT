@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="NhincComponentAggregator">
+      <implementation-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentAggregator.wsdl</local-wsdl-file>
+      <service-name>NhincComponentAggregator</service-name>
+      <port-name>NhincComponentAggregatorPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentaggregator</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

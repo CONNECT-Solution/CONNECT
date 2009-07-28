@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="children">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="code-module">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="constraint-by" type="xs:string"/>
+	<xs:element name="database" type="xs:string"/>
+	<xs:element name="dateformat" type="xs:string"/>
+	<xs:element name="Configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="name"/>
+				<xs:element ref="database"/>
+				<xs:element ref="dateformat"/>
+				<xs:element ref="nodes" maxOccurs="unbounded"/>
+				<xs:element ref="relationships" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="hierarchy" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="field-type">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+        <xs:element name="fields">
+            <xs:complexType>
+                <xs:all>
+                    <xs:element ref="field-name"/>
+                    <xs:element ref="field-type"/>
+                    <xs:element ref="size" minOccurs="0"/>
+                    <xs:element ref="updateable"/>
+                    <xs:element ref="required"/>
+                    <xs:element ref="code-module" minOccurs="0"/>
+                    <xs:element ref="pattern" minOccurs="0"/>
+                    <xs:element ref="key-type"/>
+                    <xs:element ref="user-code" minOccurs="0"/>
+                    <xs:element ref="constraint-by" minOccurs="0"/>
+                    <xs:element ref="minimum-value" minOccurs="0"/>
+                    <xs:element ref="visible" minOccurs="0"/>
+                </xs:all>
+            </xs:complexType>
+        </xs:element>
+	<xs:element name="key-type" type="xs:boolean"/>
+	<xs:element name="minimum-value" type="xs:date"/>
+	<xs:element name="name" type="xs:string"/>
+	<xs:element name="nodes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="tag"/>
+				<xs:element ref="fields" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pattern">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<!-- multi-level object data model -->
+	<xs:element name="node">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element ref="node" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <!-- multi-level object data model -->
+	<xs:element name="hierarchy">
+    <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="node" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+	</xs:element>
+	<xs:element name="relationships">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="name" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="children" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="required" type="xs:boolean"/>
+	<xs:element name="size">
+		<xs:simpleType>
+			<xs:restriction base="xs:short"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="tag">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="updateable" type="xs:boolean"/>
+	<xs:element name="user-code" type="xs:string"/>
+	<xs:element name="visible" type="xs:boolean"/>
+</xs:schema>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/JAXBBindingExample/JAXBBindingLib/../../../Common/Interfaces/src/schemas/nhinc/common/PropertyAccess.xsd" uri="xml-resources/jaxb/PropertyAccess/PropertyAccess.xsd"/>
+</catalog>

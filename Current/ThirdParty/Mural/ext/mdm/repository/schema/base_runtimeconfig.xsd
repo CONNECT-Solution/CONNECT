@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="ModuleConfigType" abstract="true">
+		<xs:attribute name="module-name" type="xs:string" use="required"/>
+		<xs:attribute name="parser-class" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="BBEConfigType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element ref="ModuleConfig"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="parameterType">
+		<xs:sequence>
+			<xs:annotation>
+				<xs:documentation>parameter</xs:documentation>
+			</xs:annotation>
+			<xs:element name="description" minOccurs="0"/>
+			<xs:element name="parameter-name">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:whiteSpace value="preserve"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parameter-type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:enumeration value="java.lang.Long"/>
+						<xs:enumeration value="java.lang.Short"/>
+						<xs:enumeration value="java.lang.Byte"/>
+						<xs:enumeration value="java.lang.String"/>
+						<xs:enumeration value="java.lang.Integer"/>
+						<xs:enumeration value="java.lang.Boolean"/>
+						<xs:enumeration value="java.lang.Double"/>
+						<xs:enumeration value="java.lang.Float"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="parameter-value">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="ModuleConfig" type="ModuleConfigType" abstract="true"/>
+	<xs:annotation>
+		<xs:documentation>base runtime configuration XSD for BBE</xs:documentation>
+	</xs:annotation>
+</xs:schema>

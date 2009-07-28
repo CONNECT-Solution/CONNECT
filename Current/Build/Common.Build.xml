@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Common">
+  
+  <property name="Common.FilesToDelete" value="" overwrite="false"/>
+
+  <foreach item="File" property="Tools.Candidate">
+    <in>
+      <items>
+        <include name="${Common.Directory.Tools.Path}\**\*.exe"/>
+        <include name="${Common.Directory.Tools.Path}\**\*.bat"/>
+      </items>
+    </in>
+    <do>
+      <property name="Tools.${path::get-file-name-without-extension(Tools.Candidate)}.Bin" value="${path::get-directory-name(Tools.Candidate)}"/>
+      <property name="Tools.${path::get-file-name-without-extension(Tools.Candidate)}.Exe" value="${Tools.Candidate}"/>
+    </do>
+  </foreach>
+
+  <target name="Common.DeleteFiles">
+    <echo message="The property Common.FilesToDelete was not specified." if="${Common.FilesToDelete == ''}"/>
+    <foreach item="String" in="${Common.FilesToDelete}" delim=";" property="Private.Common.FileToDelete" unless="${Common.FilesToDelete == ''}">
+      <echo message="Attempting to delete ${Private.Common.FileToDelete}."/>
+      <delete verbose="true">
+        <fileset>
+          <include name="${Private.Common.FileToDelete}"/>
+        </fileset>
+      </delete>
+    </foreach>
+  </target>
+
+	<property name="CCNetLogsDirectoryPath" value="${BuildDirectory}\server\${CCNetProject}\Artifacts\buildlogs" />
+	<property name="CCNetLogMessageFilePath" value="${CCNetLogsDirectoryPath}\LogMessages.txt"/>
+
+	<property name="Common.ArtifactFolderName" value="${string::replace(CCNetBuildDate, '-', '')}${string::replace(CCNetBuildTime, ':', '')}"/>
+	<echo message="The ArtifactFolderName is ${Common.ArtifactFolderName}"/>
+	<property name="Common.ArtifactDirectoryPath" value="${ArtifactRootDirectory}\${Common.ArtifactFolderName}"/>
+
+	<property name="Common.ReportDirectory" value="${BuildDirectory}\Reports"/>
+	<property name="Common.TempDirectory" value="${BuildDirectory}\Temp"/>
+
+  <largeproperty name="NewLine">
+    <value>
+      <![CDATA[
+]]>
+    </value>
+  </largeproperty>
+  
+	<property name="Common.PropertiesFile" value="${Common.TempDirectory}\Properties.txt"/>
+	<target name="Common.CreatePropertiesFile">
+		<delete file="${Common.PropertiesFile}" if ="${file::exists(Common.PropertiesFile)}" />
+		<property name="Compile.ConfigName" value="Debug" overwrite="false"/>
+		<saveproperties file="${Common.PropertiesFile}" format="CommandLine" >
+      <property name="CCNetBuildCondition"/>
+      <property name="CCNetIntegrationStatus"/>
+      <property name="CCNetLabel"/>
+      <property name="CCNetLastIntegrationStatus"/>
+      <property name="CCNetProject"/>
+      <property name="CCNetBuildDate"/>
+      <property name="CCNetBuildTime"/>
+      <property name="CCNetArtifactDirectory"/>
+      <property name="CCNetWorkingDirectory"/>
+
+      <property name="BuildServerHostName"/>
+      <property name="BuildServerPort"/>
+      <property name="LabelPrefix"/>
+			<property name="EmailHost"/>
+			<property name="ProjectName"/>
+			<property name="ProjectCodeLineName"/>
+			<property name="ProjectsDirectory"/>
+			<property name="ProjectRootDirectory"/>
+			<property name="ProjectCodeLineDirectory"/>
+			<property name="ProductDirectory"/>
+			<property name="ThirdPartyDirectory"/>
+			<property name="ProductionDirectory"/>
+			<property name="BuildDirectory"/>
+
+      <property name="ProductDirectoryName"       />
+      <property name="ThirdPartyDirectoryName"    />
+      <property name="ProductionDirectoryName"    />
+      <property name="BuildDirectoryName"         />
+      <property name="ArtifactRootDirectoryName"  />
+      <property name="PackagesDirectoryName"      />
+      <property name="UnitTestDirectoryName"      />
+      <property name="InstallDirectoryName"       />
+      
+			<property name="Compile.ConfigName"/>
+			<property name="ArtifactRootDirectory" value="${ArtifactRootDirectory}"/>
+			<property name="NantExePath" value="${BuildDirectory}\nAnt\bin\nant.exe"/>
+			<property name="PackagesDirectory" value="${PackagesDirectory}"/>
+			<property name="Common.ArtifactDirectoryPath"/>
+			<property name="Common.ArtifactFolderName"/>
+			<property name="Common.ReportDirectory"/>
+			<property name="Common.TempDirectory"/>
+			<property name="UnitTestDirectory"/>
+			<property name="InstallDirectory"/>
+		</saveproperties>
+	</target>
+
+	<target name="Common.SetUp">
+		<!--<record name="${CCNetLogMessageFilePath}" level="Info" action="Start" autoflush="true"/>-->
+
+		<mkdir dir="${Common.ArtifactDirectoryPath}" unless="${directory::exists(Common.ArtifactDirectoryPath)}" verbose="true"/>
+
+    <delete dir="${Common.ReportDirectory}" if="${directory::exists(Common.ReportDirectory)}"/>
+    <mkdir dir="${Common.ReportDirectory}"/>
+
+    <delete dir="${Common.TempDirectory}" if="${directory::exists(Common.TempDirectory)}"/>
+    <mkdir dir="${Common.TempDirectory}"/>
+
+    <call target="Common.CreatePropertiesFile"/>
+  </target>
+
+	<target name="Common.TearDown">
+		<!--<record name="${CCNetLogMessageFilePath}" action="Stop" />
+		<record name="${CCNetLogMessageFilePath}" action="Close" />-->
+	</target>
+
+  <!--
+      Parameters
+  <property name="Common.ShowReport.XmlFile" value=""/>
+  <property name="Common.ShowReport.HtmlFile" value=""/>
+  <property name="Common.ShowReport.XslFile" value=""/>
+  <property name="Common.ShowReport.DetailsFilePath" value=""/>
+  -->
+  <target name="Common.ShowReport">
+    <delete file="${Common.ShowReport.HtmlFile}" if="${file::exists(Common.ShowReport.HtmlFile)}" />
+    <style in="${Common.ShowReport.XmlFile}" out="${Common.ShowReport.HtmlFile}" style="${Common.ShowReport.XslFile}"/>
+    <loadfile property="Common.ShowReport.Body" file="${Common.ShowReport.HtmlFile}" />
+    <largeproperty name="Common.ShowReport.Header">
+      <value expand="true" xml="false">
+        <![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<HTML>
+  <HEAD>
+              <title>Build Report</title>
+              <link type="text/css" rel="stylesheet" href="file://${BuildDirectory}\dashboard\cruisecontrol.css"/>
+  </HEAD>
+  <body>]]>
+      </value>
+    </largeproperty>
+    <property name="Common.ShowReport.Footer" value="&lt;/body&gt;&lt;/HTML&gt;"/>
+    <echo message="${Common.ShowReport.Header}${Common.ShowReport.Body}${Common.ShowReport.Footer}" file="${Common.ShowReport.HtmlFile}"/>
+
+    <loopthrough property="Image">
+      <items>
+        <xmlquery
+          file="${Common.ShowReport.HtmlFile}"
+          query="//img/@src"
+          />
+      </items>
+      <do>
+        <xmlpoke
+          file="${Common.ShowReport.HtmlFile}"
+          xpath="//img[@src = '${Image}']/@src"
+          value="file://${BuildDirectory}/${Image}"
+          />
+      </do>
+    </loopthrough>
+
+    <if test="${file::exists(Common.ShowReport.DetailsFilePath)}">
+      <loopthrough property="Image">
+        <items>
+          <xmlquery
+            file="${Common.ShowReport.DetailsFilePath}"
+            query="//img/@src"
+            />
+        </items>
+        <do>
+          <xmlpoke
+            file="${Common.ShowReport.DetailsFilePath}"
+            xpath="//img[@src = '${Image}']/@src"
+            value="file://${BuildDirectory}/${string::replace(string::replace(string::trim(Image), '&#xD;', ''), '&#xA;', '')}"
+            />
+        </do>
+      </loopthrough>
+
+      <xmlpoke
+        file="${Common.ShowReport.HtmlFile}"
+        xpath="//a[contains(@href, '/default.aspx?_action_')]/@href"
+        value="file://${Common.ShowReport.DetailsFilePath}"
+      />
+    </if>
+    
+    <asyncexec program="cmd" commandline='/C "${Common.ShowReport.HtmlFile}"' createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" />
+  </target>
+
+  <target name="Common.CreateCCTraySfx">
+    <largeproperty name="SfxConfig.Content">
+      <value expand="true" xml="false">
+        <![CDATA[;The comment below contains SFX script commands
+
+Path=cctray
+SavePath
+Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\cctray.exe.lnk" /y
+]]>
+      </value>
+    </largeproperty>
+
+    <xmlquery query='/cruisecontrol/project/@name' file='${BuildDirectory}\ccnetproject.xml' id='CCNetProjects' />
+    <property name='CCTrayProjects' value=''/>
+
+    <loopthrough property='CCNetProjectName'>
+      <items>
+        <xmlquery refid='CCNetProjects'/>
+      </items>
+      <do>
+        <largeproperty name="CCTrayProjects">
+          <value expand="true" xml="false">
+            <![CDATA[${CCTrayProjects}
+    <Project serverUrl="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem" projectName="${CCNetProjectName}" />]]>
+          </value>
+        </largeproperty>
+      </do>
+    </loopthrough>
+
+    <property name="SfxConfig.FilePath" value="${BuildDirectory}\SfxConfig.txt"/>
+    <echo message="${SfxConfig.Content}" file="${SfxConfig.FilePath}"/>
+
+    <largeproperty name="CCTraySettings.Content">
+      <value expand="true" xml="false">
+        <![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Projects>
+    ${CCTrayProjects}
+  </Projects>
+  <PollPeriodSeconds>5</PollPeriodSeconds>
+  <BuildTransitionNotification showBalloon="true">
+    <Sound>
+      <BrokenBuildSound>C:\Program Files\cctray\broken.wav</BrokenBuildSound>
+      <FixedBuildSound>C:\Program Files\cctray\fixed.wav</FixedBuildSound>
+      <StillFailingBuildSound>C:\Program Files\cctray\still-failing.wav</StillFailingBuildSound>
+      <StillSuccessfulBuildSound>C:\Program Files\cctray\still-successful.wav</StillSuccessfulBuildSound>
+    </Sound>
+    <BalloonMessages>
+      <BrokenBuildMessage>
+        <Caption>Broken build</Caption>
+        <Message>Recent checkins have broken the build</Message>
+      </BrokenBuildMessage>
+      <FixedBuildMessage>
+        <Caption>Fixed build</Caption>
+        <Message>Recent checkins have fixed the build</Message>
+      </FixedBuildMessage>
+      <StillFailingBuildMessage>
+        <Caption>Build still failing</Caption>
+        <Message>The build is still broken...</Message>
+      </StillFailingBuildMessage>
+      <StillSuccessfulBuildMessage>
+        <Caption>Build successful</Caption>
+        <Message>Yet another successful build!</Message>
+      </StillSuccessfulBuildMessage>
+    </BalloonMessages>
+  </BuildTransitionNotification>
+  <TrayIconDoubleClickAction>ShowStatusWindow</TrayIconDoubleClickAction>
+  <Icons>
+    <BrokenIcon />
+    <BuildingIcon />
+    <SuccessIcon />
+    <NotConnectedIcon />
+  </Icons>
+</Configuration>]]>
+      </value>
+    </largeproperty>
+
+		<property name="CCTraySettings.FileName" value="Settings.xml"/>
+    <property name="CCTraySettings.FilePath" value="${BuildDirectory}\${CCTraySettings.FileName}"/>
+    <echo message="${CCTraySettings.Content}" file="${CCTraySettings.FilePath}"/>
+
+    <property name="WinRarProgramPath" value="${environment::get-variable('ProgramFiles')}\winrar\winrar.exe" overwrite="false"/>
+    <property name="CCTraySetupExe.FilePath" value="${BuildDirectory}\dashboard\cctray\CCTraySetup.exe"/>
+
+    <property name="CCTrayZip.FilePath" value="${BuildDirectory}\dashboard\cctray\cctray.zip"/>
+    <if test="${file::exists(CCTrayZip.FilePath)}">
+      <delete file="${CCTraySetupExe.FilePath}" if="${file::exists(CCTraySetupExe.FilePath)}" />
+      <exec program="${WinRarProgramPath}"
+            commandline='s -ibck "${CCTrayZip.FilePath}" c -z"${SfxConfig.FilePath}"'
+            workingdir='${BuildDirectory}'
+            verbose='true'/>
+      <delete file='${CCTrayZip.FilePath}' if='${file::exists(CCTrayZip.FilePath)}' />
+      <move file='${BuildDirectory}\dashboard\cctray\cctray.exe' tofile='${CCTraySetupExe.FilePath}' />
+    </if>
+
+    <exec program="${WinRarProgramPath}"
+				  commandline='u -ibck -r "${CCTraySetupExe.FilePath}" ${CCTraySettings.FileName} c -z"${SfxConfig.FilePath}" -sfx'
+				  workingdir='${BuildDirectory}'/>
+
+		<delete file="${SfxConfig.FilePath}" />
+		<delete file="${CCTraySettings.FilePath}" />
+  </target>
+  
+  <script language="C#" prefix="list">
+    <code>
+      <![CDATA[                 
+					
+          private static System.Collections.Hashtable MasterTable = new System.Collections.Hashtable();
+          
+          [Function("create")]
+					public static string Create(string listName)
+          {
+            if (!MasterTable.Contains(listName))
+              MasterTable.Add(listName, new System.Collections.ArrayList());
+            return listName;
+          }
+          
+          [Function("destroy")]
+					public static string Destroy(string listName)
+          {
+            if (!MasterTable.Contains(listName))
+              MasterTable.Remove(listName);
+            return listName;
+          }
+          
+          [Function("contains")]
+					public static bool Contains(string listName, string item)
+          {
+            return ((System.Collections.ArrayList)MasterTable[listName]).Contains(item);
+          }
+          
+          [Function("add")]
+					public static void Add(string listName, string item)
+          {
+            ((System.Collections.ArrayList)MasterTable[listName]).Add(item);
+          }
+          
+          [Function("remove")]
+					public static void Remove(string listName, string item)
+          {
+            ((System.Collections.ArrayList)MasterTable[listName]).Remove(item);
+          }
+          
+          [Function("flatten")]
+          public static string Flatten(string listName)
+          {
+            System.Collections.ArrayList List = (System.Collections.ArrayList) MasterTable[listName];
+            if (List.Count == 0)
+                return string.Empty;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(List[0]);
+            for (int i = 1; i < List.Count; ++i)
+            {
+                builder.Append(",");
+                builder.Append(List[i]);
+            }
+            return builder.ToString();
+          }
+          
+			]]>
+    </code>
+  </script>
+
+</project>  

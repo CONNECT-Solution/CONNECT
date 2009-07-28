@@ -1,0 +1,497 @@
+   1Grove                   Grove         GR    GR          TY  
+   2Gully                   Gully         GLY   GLY         TY  
+   3Vale                    Vale          VALE  VALE        TY
+   4Nook                    NOOK          NOOK  NOOK        TY 
+   5Circuit                 Circuit       CCT   CCT         TY 
+   6Upper                   UPR           UPR   UPR         TY
+   7Ramble                  RMBL          RMBL  RMBL        TY  
+   8Heights                 Heights       HTS   HTS         TY
+   9Grange                  Grange        GRA   GRA         TY 
+  10Retreat                 RTT           RTT   RTT         TY
+  11Alley                   Alley         ALLY  ALLY        TYRU
+  12Alternate Route         Alt Rte       ALTR  ALTR        TYR 
+  13Wynd                    WYND          WYND  WYND        TY  
+  14Glen                    GLEN          GLEN  GLEN        TY                              
+  15Arcade                  Arcade        ARC   ARC         TYRU 
+  16Mews                    MEWS          MEWS  MEWS        TY  
+  17End                     END           END   END         TY 
+  18Anchorage               ANCG          ANCG  ANCG        TY                           
+  19Avenue                  AVE           AVE   AVE A       TYRU 
+  20Dale                    Dale          DALE  DALE        TY  
+  21Crossway                COWY          COWY  COWY        TY  
+  22Flat                    FLAT          FLAT  FLAT        TY  
+  23Crest                   CRST          CRST  CRST        TY
+  24Quay                    QY            QY    QY          TY                         
+  26Boulevard               Bvd           BVD   BVD         TY                               
+  33Business Route          Bus Rte       BsRt  BsRt        TYR                                
+  34Bypass                  Bypass        BYPA  BYPA        TYRU                               
+  48Causeway                Caus          CAUS  CAUSAH      TYRU                                
+  51Center                  Center        CTR   CTR DA      TYRU                              
+  56Circle                  Circle        CIR   CIR A       TYRU                                
+  67County Highway          County Hwy    CoHwy CoRdA       TYR                                 
+  69County Road             County Rd     CoRd  CoRdA       TYR                                 
+  70County Route            County Rte    CoRte CoRdA       TYR                                 
+  71Court                   Court         CT    CT  DA      TYRU                               
+  73Cove                    Cove          COVE  COVEAH      TYRU                               
+  76Crescent                Cres          CRES  CRESA       TYRU                               
+  77Crossing                CRSG          CRSG  CRSGA       TYRU                               
+  87Drive                   Drive         DR    DR  A       TYRU                                
+  94Expressway              EXP           EXP   EXP A       TYRU                                
+  99Farm-to-market Road     F-M Rd        FM    FM  A       TYR                               
+ 101Wharf                   Wharf         WHRF  WHRF        TY 
+ 102Lower                   LWR           LWR   LWR         TY  
+ 103Ridge                   RDGE          RDGE  RDGE        TY                              
+ 110Four-wheel Drive Trail  4wd Trl       4wd   4wd A       TYR                                
+ 112Freeway                 Freeway       FWY   FWY A       TYRU                                
+ 122Highway                 Highway       HWY   HWY A       TYRU                                
+ 133Interstate Highway      I-            I-    I-  A       TYR                                
+ 138Jeep Trail              Jeep Trl      JpTr  JpTrA       TYR                                 
+ 146Lane                    Lane          LANE  LANEA       TYRU                                
+ 151Loop                    Loop          LOOP  LOOPA       TYRU                               
+ 164Motorway                Mwy           MWY   MWYA        TYR                                 
+ 178Overpass                Ovps          Ovps  OvpsA       TYR                               
+ 179Park                    Park          PARK  PARKAD      TYRU                               
+ 180Parkway                 Pkwy          PKWY  PKWYA       TYRU                                
+ 185Pass                    Pass          PASS  PASSHA      TYRU                               
+ 187Path                    Path          PATH  PATHA       TYRU                               
+ 189Pike                    Pike          PIKE  PIKEA       TYRU                               
+ 192Place                   Pl            PL    PL  A       TYRU                               
+ 193Plaza                   Plaza         PLZA  PLZA        TYRU                                
+ 209Ramp                    Ramp          RAMP  RAMPA       TYR                                 
+ 223Road                    Road          RD    RDA         TYRU                               
+ 227Route                   Route         RTE   RTE A       TYR                                 
+ 228Row                     Row           ROW   ROW A       TYRU                               
+ 229Rue                     Rue           RUE   RUE A       TYR                               
+ 230Run                     Run           RUN   RUN A       TYRU                                
+ 240Service Road            Srv Rd        SrvRd SvRdA       TYR                                 
+ 248Skyway                  Skwy          Skwy  SkwyA       TYR                                 
+ 253Speedway                Spdwy         Spdwy SpwyA       TYR                                
+ 256Square                  Square        SQ    SQ  AD      TYRU                               
+ 257State Highway           State Hwy     SHWY  SHWYA       TYR                                 
+ 258State Road              State Rd      SRd   SRD A       TYR                                 
+ 259State Route             State Rte     SRTE  SRTEA       TYR                                
+ 263Street                  Street        ST    ST  A       TYRU                                
+ 268Terrace                 Tce           TCE   TCE AD      TYRU                               
+ 269Thoroughfare            Thor          THOR  THORHA      TYR                                
+ 270Throughway              Thwy          Thwy  ThwyA       TYR                                 
+ 272Township Highway        Twp Hwy       TwpHy TwHyA       TYR                                 
+ 273Township Road           Twp Rd        TwpRd TwHyA       TYR                                
+ 274Trafficway              Tfwy          Tfwy  TfwyA       TYR                                
+ 275Trail                   Trail         TRL   TRL A       TYR                                 
+ 278Tunel                   Tunel         Tun   Tun AB      TYR                                 
+ 279Tunnel                  Tunnel        Tunl  TunlAB      TYRU                               
+ 280Turnpike                Tpke          Tpke  TpkeA       TYRU                               
+ 281Underpass               UPAS          UPAS  UPASA       TYR                                
+ 282United States Highway   US Hwy        USHwy USHyA       TYR                                 
+ 283United States Route     US Rte        USRte USHyA       TYR                                 
+ 286Unnamed Road            Un Rd         UnRd  UnRdA       TYR                                
+ 289Via                     Via           Via   Via A       TYR                                
+ 291Walk                    Walk          WALK  WALKA       TYRU                               
+ 292Walkway                 Wlkwy         WKWY  WKWYA       TYR                                 
+ 293Wall                    Wall          WALL  WALLEA      TYR                               
+ 296Way                     Way           WAY   WAY A       TYRU                                
+ 302Natl Forest Develop RoadNFD           NFD   NFD A       TYR                                
+ 303Oval                    Oval          Oval  OvalEA      TYR                                
+ 304Estate                  Est           EST   EST         TYR                                 
+ 305Villa                   Vlla          VLLA  VLLA        TYR                                 
+ 306Driveway                Drwy          DRWY  DRWY        TYR                                 
+ 307Roadway                 Rdwy          RDWY  RDWY        TYR                            
+ 308Stravenue               Stra          Stra  Stra        TYR                                
+ 309Club                    Club          Club  ClubA       TYR                                 
+ 310Courts                  Cts           Cts   Cts A       TYR                                
+ 311Junction                Jnc           JNC   JNC A       TYR                                 
+ 312Landing                 Ldg           LDG   LDG A       TYR                                 
+ 313Lodge                   Ldge          LDGE  LDGEA       TYR                                 
+ 314Mall                    Mall          MALL  MALLA       TYR                                 
+ 315Manor                   Mnr           Mnr   Mnr A       TYR                                
+ 316Station                 Sta           Sta   Sta A       TYR                            
+ 317Village                 Vlg           Vlg   Vlg A       TYR                                
+ 318Corner                  Corner        CNR   CNR A       TYR                                
+ 319Common                  Common        CMMN  CMMNA       TYR                                 
+ 320Parish Road             Parish Road   ParRd PrRdA       TYR                                
+ 321EMS                     EMS           EMS   EMS A       TYR  
+ 324Close                   CL            CL    CL          TYR 
+ 325Parade                  Pde           PDE   PDE         TYR
+ 327Esplanade               Esp           ESP   ESP         TYR                                
+   1And                     &             &     &           AMR
+   2À                       À             À     À           AM                                 
+   1Airport                 Arpt          Arpt  Arpt        AUR                                 
+   2Attention               Attn          Attn  Attn        AUR                                 
+   3Avenues                 Avs           Avs   Avs         AUR                                 
+   4Beach                   Bch           Bch   Bch         AUR                                 
+   5Between                 Btwn          Btwn  Btwn        AUR                                 
+   6Borough                 Boro          Boro  Boro        AUR                                 
+   7Bridge                  Brdg          Brdg  Brdg        AUR                                 
+   8Broadway                Brwy          Brwy  Brwy        AUR                                 
+  10Court                   Ct            Ct    Ct          AUR                                 
+  11Dba                     Dba           Dba   Dba         AUR                                 
+  13Eight Mile              8 Mi          8 Mi  8 Mi        AUR                                 
+  14Eighteeen Mile          18mi          18mi  18mi        AUR                                 
+  15Eighteenth              18th          18th  18th        AUR                                 
+  16Eighth                  8th           8th   8th         AUR                                 
+  17Eleven Mile             11mi          11mi  11mi        AUR                                 
+  18Eleventh                11th          11th  11th        AUR                                 
+  19Estates                 Est           ESTS  ESTS        AUR                                 
+  20Fifteen Mi              15mi          15mi  15mi        AUR                                 
+  21Fifteenth               15th          15th  15th        AUR                                 
+  22Fifth                   5th           5th   5th         AUR                                 
+  23First                   1st           1st   1st         AUR                                 
+  24Five Corners            5 Co          5 Co  5 Co        AUR                                 
+  25Five Mile               5 Mi          5 Mi  5 Mi        AUR                                 
+  26Five Points             5 Pt          5 Pt  5 Pt        AUR                                 
+  27Five Town               5 To          5 To  5 To        AUR                                 
+  28Fort                    Fort          Fort  Fort        AUR                                 
+  29Four Corners            4 Co          4 Co  4 Co        AUR                                 
+  30Four Flags              4 Fg          4 Fg  4 Fg        AUR                                 
+  31Four Lane               4 Ln          4 Ln  4 Ln        AUR                                 
+  32Four Mile               4 Mi          4 Mi  4 Mi        AUR                                 
+  33Four Seasons            4 Sn          4 Sn  4 Sn        AUR                                 
+  34Fourteen Mile           14mi          14mi  14mi        AUR                                 
+  35Fourteenth              14th          14th  14th        AUR                                 
+  36Fourth                  4th           4th   4th         AUR                                 
+  37From                    From          From  From        AUR                                 
+  38Front                   Frnt          Frnt  Frnt        AUR                                 
+  39Garden                  Gdn           Gdn   Gdn         AUR                                 
+  41Half                    1/2           1/2   1/2         AUR                                 
+  43Hollow                  Hllw          Hllw  Hllw        AUR                                 
+  44Hwys                    Hwys          Hwys  Hwys        AUR                                 
+  45Industrial              Ind           Ind   Ind         AUR                                 
+  46Interchange             Ichg          Ichg  Ichg        AUR                                 
+  47International           Intl          Intl  Intl        AUR                                 
+  48Intersection            Intr          Intr  Intr        AUR                                 
+  49Isle                    Isle          Isle  Isle        AUR                                 
+  50J F Kennedy             JFK           JFK   JFK         AUR                                 
+  53Lake                    Lake          Lake  Lake        AUR                            
+  55M L King                MLK           MLK   MLK         AUR                                 
+  56Medical                 Med           Med   Med         AUR                                 
+  57Memorial                Mem           Mem   Mem         AUR                                 
+  58Mile                    Mile          Mile  Mile        AUR                                 
+  59Mount                   Mt            Mt    Mt          AUR                                 
+  60Mountain                Mtn           Mtn   Mtn         AUR                                 
+  61National                Natl          Natl  Natl        AUR                                 
+  62Near                    Near          Near  Near        AUR                                 
+  63Nine Mile               9 Mi          9 Mi  9 Mi        AUR                                 
+  64Nineteen Mile           19mi          19mi  19mi        AUR                                 
+  65Nineteenth              19th          19th  19th        AUR                                 
+  66Ninth                   9th           9th   9th         AUR                                 
+  70Office                  Off           OFF   OFF         AUR                                 
+  71One Mile                1 Mi          1 Mi  1 Mi        AUR                                 
+  72Outside Of              Outs          Outs  Outs        AUR                                 
+  74Park                    Park          Park  Park        AUR                                 
+  75Plains                  Plns          Plns  Plns        AUR                                 
+  76Point                   Pt            Pt    Pt          AUR                                 
+  77Professional            Prof          Prof  Prof        AUR                                 
+  78Roads                   Rds           Rds   Rds         AUR                                 
+  79Saint                   St            St    St          AUR                                 
+  80Second                  2nd           2nd   2nd         AUR                                 
+  81Seven Corners           7 Co          7 Co  7 Co        AUR                                 
+  82Seven Mile              7 Mi          7 Mi  7 Mi        AUR                                 
+  83Seventeen Mile          17mi          17mi  17mi        AUR                                 
+  84Seventeenth             17th          17th  17th        AUR                                 
+  85Seventh                 7th           7th   7th         AUR                                 
+  86Six Flags               6 Fg          6 Fg  6 Fg        AUR                                 
+  87Six Mile                6 Mi          6 Mi  6 Mi        AUR                                 
+  88Sixteen Mile            16mi          16mi  16mi        AUR                                 
+  89Sixteenth               16th          16th  16th        AUR                                 
+  90Sixth                   6th           6th   6th         AUR                                 
+  95Spring                  Spr           Spr   Spr         AUR                                 
+  96Streets                 Sts           Sts   Sts         AUR                                 
+  98Ten Mile                10mi          10mi  10mi        AUR                                 
+  99Tenth                   10th          10th  10th        AUR                                 
+ 100Third                   3rd           3rd   3rd         AUR                                 
+ 101Thirteen Mile           13mi          13mi  13mi        AUR                                 
+ 102Thirteenth              13th          13th  13th        AUR                                 
+ 103Three Mile              3 Mi          3 Mi  3 Mi        AUR                                 
+ 105Twelfth                 12th          12th  12th        AUR                                 
+ 106Twelve Mile             12mi          12mi  12mi        AUR                                 
+ 107Twentieth               20th          20th  20th        AUR                                 
+ 108Twenty Mile             20mi          20mi  20mi        AUR                                 
+ 109Twenty Three Mile       23mi          23mi  23mi        AUR                                 
+ 110Two Mile                2 Mi          2 Mi  2 Mi        AUR                                 
+ 111University              Univ          Univ  Univ        AUR                            
+ 113Valley                  Val           Val   Val         AUR                                 
+ 115Woods                   Wood          Wood  Wood        AUR                                 
+ 116US                      US            US    US          AUR                                 
+ 126Thirtieth               30th          30th  30th        AUR                                 
+ 127Fortieth                40th          40th  40th        AUR                                 
+ 128Fiftieth                50th          50th  50th        AUR                                 
+ 129Sixtieth                60th          60th  60th        AUR                                 
+ 130Seventieth              70th          70th  70th        AUR                                 
+ 131Eightieth               80th          80th  80th        AUR                                 
+ 132Ninetieth               90th          90th  90th        AUR                 
+ 201AUSTRALIAN CAPITOL TERR ACT           ACT   ACT A       AURU                                
+ 202NEW SOUTH WALS          NSW           NSW   NSW A       AURU                                
+ 203NORTHERN TERRITORY      NT            NT    NT  A       AURU                                
+ 204QUEENSLAND              QLD           QLD   QLD A       AURU                                
+ 205SOUTH AUSTRALIA         SA            SA    SA  A       AURU                                
+ 206TASMANIA                TAS           TAS   TAS A       AURU                                
+ 208VICTORIA                VIC           VIC   VIC A       AURU                                
+ 209WESTERN AUSTRALIA       WA            WA    WA  A       AURU   
+ 226Mi                      MI            MI    MI          AUR                             
+ 273And                     &             &     &           AUR                                 
+ 274Creek                   Crk           Crk   Crk         AUR                                 
+ 275Pavillion               Pavl          Pavl  Pavl        AUR                                 
+   1Air Force Base          AFB           AFB   AFB         BUC                                 
+   2Airport                 Arpt          Arpt  Arpt        BUC                                 
+   3Apartments              Apt           APT   APT         BUR                                 
+   4Arcade                  Arc           Arc   Arc         BUC                                 
+   5Bazaar                  Bazr          Bazr  Bazr        BUC                                 
+   6Building                Bldg          Bldg  Bldg        BUR                                 
+   7Business Park           Bspk          BsPk  BsPk        BUC                                 
+   8Center                  Ctr           Ctr   Ctr         BUR                                 
+   9Club                    Club          Club  Club        BUC                                 
+  10Collection              Cltn          Cltn  Cltn        BUC                                 
+  11Commons                 Comn          Comn  Cmmn        BUR                                 
+  12Complex                 Cplx          Cplx  Cplx        BUR                                 
+  13Condominiums            Cond          Cond  Cond        BUR                                 
+  14Connection              Cncn          Cncn  Cncn        BUC                                 
+  15Corners                 Cors          Cors  Cors        BUC                                 
+  16Courthouse              Cths          Cths  Cths        BUC                                 
+  17Courts                  Cts           Cts   Cts         BUC                                 
+  18Courtyard               Ctyd          Ctyd  Ctyd        BUC                                 
+  19Crossing                Xing          Xing  Xing        BUC                                 
+  20Crossroads              Xrds          Xrds  Xrds        BUC                                 
+  22Esplanade               Esp           Esp   Esp         BUC                                 
+  23Exchange                Exch          Exch  Exch        BUC                                 
+  24Festival                Fest          Fest  Fest        BUC                                 
+  25Galleria                Galr          Galr  Galr        BUC                                 
+  26Hall                    Hall          Hall  Hall        BUC                                 
+  27Home                    Home          Home  Home        BUC                                 
+  28Hospital                Hosp          Hosp  Hosp        BUC                                 
+  29Hotel                   Htl           Htl   Htl         BUC                                 
+  30House                   House         HSE   HSE         BUC                                 
+  31Industrial Park         Inpk          InPk  InPk        BUC                                 
+  32Inn                     Inn           Inn   Inn         BUC                                 
+  33Junction                Jct           Jct   Jct         BUC                                 
+  34Landing                 Lndg          Lndg  Lndg        BUC                                 
+  35Lodge                   Ldge          Ldge  Ldge        BUC                                 
+  36Mall                    Mall          Mall  Mall        BUC                                 
+  37Manor                   Mnr           Mnr   Mnr         BUC                                 
+  38Market                  Mkt           Mkt   Mkt         BUC                                 
+  40Motel                   Mtl           Mtl   Mtl         BUC                                 
+  41Naval Air Station       NAS           NAS   NAS         BUC                                 
+  42Office Park             OfPk          OfPk  OfPk        BUC                                 
+  43Outlet                  Otlt          Otlt  Otlt        BUC                                 
+  44Park                    Park          Park  Park        BUC                                 
+  45Pavillion               Pavl          Pavl  Pavl        BUC                                 
+  46Plantation              Plnt          Plnt  Plnt        BUC                                 
+  47Plaza                   Plz           Plz   Plz         BUC                                 
+  49Promenade               Prom          Prom  Prom        BUC                                 
+  50Quarters                Qtrs          Qtrs  Qtrs        BUR                                 
+  52Seven Corners           7 Co          7 Co  7 Co        BUC                                 
+  53Shopping Center         SHOP CNT      SC    SC          BUC                                 
+  54Square                  Sq            Sq    Sq          BUC                                 
+  55Station                 Sta           Sta   Sta         BUC                                 
+  56Suites                  Stes          Stes  Stes        BUR                                 
+  57Towers                  Twrs          Twrs  Twrs        BUR                                 
+  58Townhouse               TNHS          TNHS  TNHS        BUR                                 
+  59Trailer Park            Trpk          Trpk  Trpk        BUR                                 
+  60Villa                   Vlla          VLLA  VLLA        BUC                                 
+  61Village                 Vlg           Vlg   Vlg         BUC                                 
+  63Estates                 Ests          ESTS  ESTS        BUC                                 
+  64College                 Coll          Coll  Coll        BUC                              
+  66Projects                Proj          Proj  Proj        BUR  
+  67Resort                  Rsrt          Rsrt  Rsrt        BUR  
+  68University              Univ          Univ  Univ        BUR                      
+  69MARINE BERTH            MB            MB    MB          BUC
+  70FARM                    Farm          Farm  Farm        BUR  
+  71Hyperdome               Hyperdome     HDOM  HDOM        BU
+  72Barrack                 Barrack       BRAK  BRAK        BU   
+  73Property                Prop          PROP  PROP        BU  
+  74Homestead               HSTEAD        HSTD  HSTD        BU   
+  75Nursing home            Nursing Home  Nrsh  Nrsh        BU
+  76Village App             Vlg App       VGAP  VGAP        BU
+  77Lot                     LOT           LOT   LOT         BU                    
+   1North                   N             N     N           DRRU                                
+   2South                   S             S     S           DRRU                                
+   3East                    E             E     E           DRRU                                
+   4West                    W             W     W           DRRU                                
+   5Northeast               NE            NE    NE          DRRU                                
+   6Northwest               NW            NW    NW          DRRU                                
+   7Southeast               SE            SE    SE          DRRU                                
+   8Southwest               SW            SW    SW          DRRU 
+   9Lower                   LWR           LWR   LWR         DR 
+  10Upper                   UP            UP    UP          DR 
+  11Central                 CN            CN    CN          DR                             
+   1Care Of                 C/o           C/o   C/o         EIR                                 
+   1Extended                Extd          Ext   Extd        EXR                                 
+   2Extension               Extn          Ext   Extn        EXR                                 
+   3Loop                    Lp            Lp    Lp          EXR                                 
+   4Bypass                  Byp           Byp   Byp         EXR                                 
+   5Alternate               Alt           Alt   Alt         EXR                                 
+   6Business                Bus           Bus   Bus         EXR                                 
+   7Old                     Old           Old   Old         EXR                                 
+   8Spur                    Spur          Spur  Spur        EXR                                 
+   11/2                     1/2           1/2   1/2         FCR                                 
+   21/4                     1/4           1/4   1/4         FCR                                 
+   33/4                     3/4           3/4   3/4         FCR                                 
+   43/8                     3/8           3/8   3/8         FCR                                 
+   51/3                     1/3           1/3   1/3         FCR                                 
+   11St                     1St           1St   1St         OTR                                 
+   22Nd                     2Nd           2Nd   2Nd         OTR                                 
+   33Rd                     3Rd           3Rd   3Rd         OTR                                 
+   44Th                     4Th           4Th   4Th         OTR 
+   55Th                     5th           5th   5th         OTR                                
+   1Box                     Box           Bx    BX          BXR                                 
+   2General Delivery        GenDel        Gndl  Gndl        BXR                                 
+   3Post Office Box         PO Box        Bx    Bx          BXR                             
+   4Roadside Mail Box       RMB           Rmb   Rmb         BXR                              
+   5GPO BOX                 GPO BOX       GPO   GPO         BXR                              
+   6RSD                     RSD           RSD   RSD         BXR                             
+   7LOCKED BAG              Locked Bag    LocB  LocB        BXR                                 
+   8PRIVATE BAG             Private Bag   PBag  Pbag        BXR                                 
+   9CARE PO                 Care Po       CaPo  CaPo        BXR                               
+  10Community Mail Agent    CMA           Cma   Cma         BXR                                 
+  11Roadside Delivery       RMS           Rms   Rms         BXR                                 
+  12PMB                     PMB           Pmb   Pmb         BXR                         
+  13Community Mail bag      CMB           CMB   CMB         BXR                         
+  14Community Postal Agent  CPA           CPA   CPA         BXR                         
+  15Mail Service            MS            MS    MS          BXR 
+  16RA                      RA            RA    RA          BX                           
+   1Route                   Rt            Rt    RR          RRR                                 
+   2Rural Route             RR            RR    RR          RRR                                 
+   3Highway Contract Route  HCR           HC    HC          RRR                                 
+   4Star Route              SR            SR    HC          RRR                                 
+   5PSC                     PSC           PS    PS          RRR                                 
+   1Basement                Bsmt          B     B           WIR                                 
+   2Floor                   Floor         FL    FL          WIR                                 
+   3Interior                Inte          Inte  Inte        WIR                                 
+   4Rear                    Rear          Rear  Back        WIR                                 
+   5Side                    Side          Side  Side        WIR                                 
+   6Bottom                  Bottom        Botm  Botm        WIR                                 
+   7Middle                  Middle        Midl  Midl        WIR                                 
+   8Top                     Top           Top   Top         WIR                                 
+   9Lower                   Lowr          Lowr  Lowr        WIR                                 
+  10Upper                   UP            UP    UP          WIR                                 
+  11Front                   Frnt          Frnt  Frnt        WIR                                 
+  12Office                  Off           Off   Off         WIR                                 
+  13Level                   Level         L     L           WIR                                 
+  14Down                    Down          Down  Down        WIR                                 
+  15Up                      Up            Up    Uppr        WIR                                 
+  16Penthouse               PH            PTHS  PTHS        WIR                                 
+  17Upstairs                Uppr          Uppr  Uppr        WIR                                 
+  18Downstairs              Down          Down  Down        WIR                                 
+  19Right                   Right         Rght  Rght        WIR                                 
+  20Left                    Left          Left  Left        WIR                                 
+  21Lobby                   Lobby         Lbby  Lbby        WIR                               
+  22Lower Ground            LG            LG    LG          WIR                               
+  23Upper Ground            UG            UG    UG          WIR                         
+  24Mezzanine               M             M     M           WIR 
+  25Flat                    Flat          F     F           WI
+  26Ground                  G             G     G           WI 
+  27Warehouse               Warehouse     WE    WE          WI                      
+   3Apartment               Apt           Apt   Apt         WDR                                 
+   8Lot                     LOT           LOT   LOT         WDR                                 
+  11Room                    Room          RM    RM          WDR                                 
+  13Space                   Space         Space Sp          WDR                                 
+  14Stall                   Stall         SL    SL          WDR                                 
+  15Store                   Store         Store Stor        WDR                                 
+  16Studio                  Studio        STU   STU         WDR                                 
+  17Suite                   Suite         SE    SE          WDR                                 
+  18Suites                  Stes          Stes  Stes        WDR                                 
+  19Trailer                 Trlr          Trlr  Trlr        WDR                                 
+  20Unit                    Unit          U     U           WDR                                 
+  21#                       #             #     #           WDR                                 
+  22Bay                     Bay           Bay   Bay         WDR                                 
+  23Mobile Home             MH            MH    MH          WDR                                 
+  24Department              Dept          Dept  Dept        WDR                                 
+  25Hanger                  Hanger        Hngr  Hngr        WDR                                 
+  26Pier                    Pier          Pier  Pier        WDR                                 
+  27Slip                    Slip          Slip  Slip        WDR                                 
+  28Stop                    Stop          Stop  Stop        WDR                                 
+  29Shop                    Shop          SHOP  SHOP        WDR                     
+  30SHED                    Shed          SHED  SHED        WDR                     
+  31VILLA                   Vlla          VLLA  VLLA        WDR                     
+  32SITE                    Site          SITE  SITE        WDR
+  33Kiosk                   KSK           KSK   KSK         WD
+  34Maisonette              MSNT          MSNT  MSNT        WD
+  35Duplex                  DUP           DUP   DUP         WD
+  36Ward                    WARD          WARD  WARD        WD
+  37Van                     VAN           VAN   VAN         WD
+  38Cab                     CAB           CAB   CAB         WD
+  39Allotment               Allot         ALOT  ALOT        WD
+  40Cottage                 CTGE          CTGE  CTGE        WD 
+   1Mile Post               Mi            Mi    Mi          MPR                                 
+  01AUSTRALIAN CAPITOL TERR ACT           ACT   ACT A       SARU                                
+  02NEW SOUTH WALS          NSW           NSW   NSW A       SARU                                
+  03NORTHERN TERRITORY      NT            NT    NT  A       SARU                                
+  04QUEENSLAND              QLD           QLD   QLD A       SARU                                
+  05SOUTH AUSTRALIA         SA            SA    SA  A       SARU                                
+  06TASMANIA                TAS           TAS   TAS A       SARU                                
+  08VICTORIA                VIC           VIC   VIC A       SARU                                
+  09WESTERN AUSTRALIA       WA            WA    WA  A       SARU   
+ 215Hi                      HI            HI    HI          AUR                             
+ 280Annex                   Anx           Anx   Anx A       AUR                                 
+ 282Bend                    Bnd           Bnd   Bnd A       AUR                                 
+ 283Burg                    Bg            Bg    Bg  A       AUR                                 
+ 284Bluff                   Blf           Blf   Blf A       AUR                                 
+ 285Bottom                  Btm           Btm   Btm A       AUR                                 
+ 286Branch                  Br            Br    Br  A       AUR                                 
+ 287Brook                   Brk           Brk   Brk A       AUR                                 
+ 288Camp                    Cp            Cp    Cp  A       AUR                                 
+ 289Canyon                  Cyn           Cyn   Cyn A       AUR                                 
+ 290Cape                    Cpe           Cpe   Cpe A       AUR                                 
+ 291Corners                 CRNS          CNRS  CRNSA       AUR                                 
+ 292Cliffs                  Clfs          Clfs  ClfsA       AUR                                 
+ 293Club                    Club          Club  ClubA       AUR                                 
+ 294Course                  Crse          Crse  CrseA       AUR                                 
+ 295Courts                  Cts           Cts   Cts A       AUR                                 
+ 296Dale                    Dl            Dl    Dl  A       AUR                                 
+ 297Dam                     Dm            Dm    Dm  A       AUR                                 
+ 298Divide                  Dv            Dv    Dv  A       AUR                                 
+ 300Fall                    Fall          Fall  FallA       AUR                                 
+ 301Falls                   Fls           Fls   Fls A       AUR                                 
+ 302Ferry                   Fry           Fry   Fry A       AUR                                 
+ 303Field                   Fld           Fld   Fld A       AUR                                 
+ 304Fields                  Flds          Flds  FldsA       AUR                                 
+ 306Ford                    Frd           Frd   Frd A       AUR                                 
+ 307Forest                  Frst          Frst  FrstA       AUR                                 
+ 308Forge                   Frg           Frg   Frg A       AUR                                 
+ 309Fork                    Frk           Frk   Frk A       AUR                                 
+ 310Forks                   Frks          Frks  FrksA       AUR                                 
+ 312Gateway                 Gtwy          Gtwy  GtwyA       AUR                                 
+ 313Glen                    Gln           Gln   Gln A       AUR                                 
+ 314Green                   Grn           Grn   Grn A       AUR                      
+ 316Harbor                  Hbr           Hbr   Hbr A       AUR                                 
+ 317Haven                   Hvn           Hvn   Hvn A       AUR                                 
+ 318Hill                    Hl            Hl    Hl  A       AUR                                 
+ 319Hills                   Hls           Hls   Hls A       AUR                                 
+ 320Inlet                   Inlt          Inlt  InltA       AUR                                 
+ 321Junction                Jct           Jct   Jct A       AUR                                 
+ 324Key                     Ky            Ky    Ky  A       AUR                                 
+ 325Knolls                  Knls          Knls  KnlsA       AUR                                  
+ 328Locks                   Lcks          Lcks  LcksA       AUR                       
+ 330Loaf                    Lf            Lf    Lf  A       AUR                                 
+ 331Light                   Lgt           Lgt   Lgt A       AUR     
+ 333Manor                   Mnr           Mnr   Mnr A       AUR                                 
+ 334Meadows                 Mdws          Mdws  MdwsA       AUR                                 
+ 335Mill                    Ml            Ml    Ml  A       AUR                                 
+ 336Mills                   Mls           Mls   Mls A       AUR                                 
+ 337Mission                 Msn           Msn   Msn A       AUR                                 
+ 338Neck                    Nck           Nck   Nck A       AUR                                 
+ 339Orchard                 Orch          Orch  OrchA       AUR                                 
+ 340Pines                   Pnes          Pnes  PnesA       AUR                                 
+ 342Port                    Prt           Prt   Prt A       AUR                                 
+ 343Prairie                 Pr            Pr    Pr  A       AUR                                 
+ 344Radial                  Radl          Radl  RadlA       AUR                                 
+ 345Ranch                   Rnch          Rnch  RnchA       AUR                                 
+ 346Rapids                  Rpds          Rpds  RpdsA       AUR                                 
+ 347Ridge                   Rdg           Rdg   Rdg A       AUR                                 
+ 348Rest                    Rst           Rst   Rst A       AUR                                 
+ 349River                   Riv           Riv   Riv A       AUR                                 
+ 350Shoal                   Shl           Shl   Shl A       AUR                                 
+ 351Shoals                  Shls          Shls  ShlsA       AUR                                 
+ 352Shore                   Shr           Shr   Shr A       AUR                                 
+ 353Summit                  Smt           Smt   Smt A       AUR                                 
+ 355Spur                    Spur          Spur  SpurA       AUR                                 
+ 356Station                 Sta           Sta   Sta A       AUR                                 
+ 357Stream                  Strm          Strm  StrmA       AUR                                 
+ 358Trace                   Trce          Trce  TrceA       AUR                                 
+ 359Track                   Trak          Trak  TrakA       AUR                                 
+ 361Union                   Un            Un    Un  A       AUR                                 
+ 362Viaduct                 Via           Via   Via A       AUR                                 
+ 363View                    Vw            Vw    Vw  A       AUR                                 
+ 364Village                 Vlg           Vlg   Vlg A       AUR                                 
+ 365Ville                   Vl            Vl    Vl  A       AUR                                 
+ 367Wells                   Wls           Wls   Wls A       AUR
+   1Corner                  CNR           CNR   CNR         CN                                 

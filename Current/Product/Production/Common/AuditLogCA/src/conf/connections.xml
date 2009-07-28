@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:auditlogbpel/nhinccomponentauditlog" xmlns:ns3="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte" xmlns:ns4="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns6="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>AuditLogCA</name>
+            <description>Represents the Service Assembly of AuditLogCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" service-name="ns1:NhincComponentInternalAuditRepositoryService"/>
+                <provider endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_myRole" service-name="ns2:NhincInteralAuditRepositoryPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentAuditLogDtePortTypeRole_partnerRole" service-name="ns2:NhinAuditLogDtePL"/>
+                <provider endpoint-name="NhincComponentAuditLogDtePort" service-name="ns3:NhincComponentAuditLogDteService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AuditRepositoryManagerPortTypeRole_partnerRole" service-name="ns2:AuditRepositoryPL"/>
+                <provider endpoint-name="AuditRepositoryManagerPort" service-name="ns4:AuditRepositoryManagerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" service-name="ns2:ConnectionManagerPL"/>
+                <provider endpoint-name="NhincComponentConnectionManagerPortSoap11" service-name="ns5:NhincComponentConnectionManager"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" service-name="ns2:PropertyAccessorPL"/>
+                <provider endpoint-name="NhincComponentPropAccessorPort" service-name="ns6:NhincComponentPropAccessor"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

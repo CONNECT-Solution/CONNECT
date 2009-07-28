@@ -1,0 +1,6 @@
+!2 Purpose
+This suite holds symbolic links to the bug, regression, and development iteration suites.  This suite is executed by the continuous integration server, it should not be executed on your machine.  Please execute test on your machine from the .NhincRoot.LocalSuite.
+
+!define Portal.Url {http://192.168.25.187:9080/triservweb}
+
+!contents -R2 -g -p -f -h

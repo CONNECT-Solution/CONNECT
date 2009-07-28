@@ -1,0 +1,38 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:propertyaccess">
+  <soapenv:Body>
+    <urn:WritePropertyFileRequest>
+      <urn:propertyFile>testperiodic</urn:propertyFile>
+      <urn:properties>
+        <!--Zero or more repetitions:-->
+        <urn:property>
+          <urn:propertyName>CacheRefreshDuration</urn:propertyName>
+          <urn:propertyValue>10000</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property1</urn:propertyName>
+          <urn:propertyValue>Value1</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property2</urn:propertyName>
+          <urn:propertyValue>Value2</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property3</urn:propertyName>
+          <urn:propertyValue>Value3</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property4</urn:propertyName>
+          <urn:propertyValue>T</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property5</urn:propertyName>
+          <urn:propertyValue>t</urn:propertyValue>
+        </urn:property>
+        <urn:property>
+          <urn:propertyName>Property6</urn:propertyName>
+          <urn:propertyValue>TRUE</urn:propertyValue>
+        </urn:property>
+      </urn:properties>
+    </urn:WritePropertyFileRequest>
+  </soapenv:Body>
+</soapenv:Envelope>

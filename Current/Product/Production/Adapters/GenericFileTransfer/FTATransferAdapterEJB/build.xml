@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="FTATransferAdapterEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
+    <description>Builds, tests, and runs the project FTATransferAdapterEJB.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <import file="../../../../build.lib.xml" />
+		
+		<target name="build">
+			<property name="target-to-call" value="dist" />
+			<antcall target="call-target-in-isolation-if-out-of-date" />
+		</target>
+		
+		<target name="clean-build" depends="clean,dist" />
+		<target name="clean-test" depends="clean,dist" />
+		<target name="build-test" depends="dist" />
+
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		    <property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		    <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="dist"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		    <property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		    <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="dist-ear">
+            <property location="${build.dir}" name="dist.ear.dir"/>
+        </ant>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		    <property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		    <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
+
+    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumer" unless="wsimport-client-EntityNotificationConsumer.notRequired">
+<!--
+        <property name="wsdl-EntityNotificationConsumer" location="${meta.inf}/xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true"/>
+-->
+    </target>
+
+    <target name="wsimport-service-AdapterFTAService" depends="wsimport-init,wsimport-service-check-AdapterFTAService" unless="wsimport-service-AdapterFTAService.notRequired">
+        <property name="service-wsdl-AdapterFTAService" location="${meta.inf}/xml-resources/web-services/AdapterFTAService/wsdl/AdapterNotificationConsumer.wsdl"/>
+<!--
+        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterFTAService}" catalog="catalog.xml" extension="true" verbose="true" />
+-->
+        <property name="targetLocation-AdapterFTAService" location="${meta.inf}/wsdl/AdapterFTAService"/>
+        <property name="sourceLocation-AdapterFTAService" location="${meta.inf}/xml-resources/web-services/AdapterFTAService/wsdl/"/>
+        <copy todir="${targetLocation-AdapterFTAService}">
+            <fileset dir="${sourceLocation-AdapterFTAService}"/>
+        </copy>
+        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterFTAService/schemas"/>
+        </copy>
+    </target>
+    
+    <target name="wsimport-service-AdapterSubcriptionManagement" depends="wsimport-init,wsimport-service-check-AdapterSubcriptionManagement" unless="wsimport-service-AdapterSubcriptionManagement.notRequired">
+        <property name="service-wsdl-AdapterSubcriptionManagement" location="${meta.inf}/xml-resources/web-services/AdapterSubcriptionManagement/wsdl/AdapterSubscriptionManagement.wsdl"/>
+<!--
+        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubcriptionManagement}" catalog="catalog.xml" extension="true" verbose="true"/>
+-->
+        
+        <property name="targetLocation-AdapterSubcriptionManagement" location="${meta.inf}/wsdl/AdapterSubcriptionManagement"/>
+        <property name="sourceLocation-AdapterSubcriptionManagement" location="${meta.inf}/xml-resources/web-services/AdapterSubcriptionManagement/wsdl/"/>
+        <copy todir="${targetLocation-AdapterSubcriptionManagement}">
+            <fileset dir="${sourceLocation-AdapterSubcriptionManagement}"/>
+        </copy>
+        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubcriptionManagement/schemas"/>
+        </copy>
+    </target>
+    
+		<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+		        <nbundeploy failOnError="false" startServer="false"/>
+		</target>
+
+
+</project>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Analytics.UnitTests">
+
+  <fileset id="Analytics.UnitTests">
+    <include name="${PackagesDirectory}\Analytics\UnitTests\UnitTests.Statistics.xml"/>
+  </fileset>
+  
+  <property name="Analytics.UnitTests.Success" value="False"/>
+
+  <target name="Analytics.UnitTests">
+    <echo message="Generating UnitTests"/>
+    <property name="Analytics.XmlInputFileName" value="${Common.ArtifactDirectoryPath}\unittests.xml"/>
+    <property name="Analytics.XslFilePath" value="${PackagesDirectory}\Analytics\UnitTests\UnitTests.Publisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="UnitTestsContent.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.UnitTests"/>
+    <property name="Analytics.Append" value="true"/>
+    <call target="Analytics.CompileReport" failonerror="false"/>
+    <property name="Analytics.UnitTests.Success" value="True"/>
+  </target>
+
+  <fileset id="Analytics.UnitTestsCountsLineChartData">
+    <include name="${BuildDirectory}\Packages\Analytics\UnitTests\UnitTestsCountsLineChartData.xml"/>
+  </fileset>
+
+  <target name="Analytics.UnitTestsCountsLineChartData" if="${Analytics.UnitTests.Success}">
+    <property name="Analytics.UnitTests.Success" value="False"/>
+    <echo message="Generating UnitTestsCountsLineChartData"/>
+    <delete>
+      <fileset>
+        <include name="${ArtifactRootDirectory}\UnitTestsCountsHistoryLineXAxis.xml"/>
+        <include name="${ArtifactRootDirectory}\UnitTestsCountsHistoryTotal.xml"/>
+        <include name="${ArtifactRootDirectory}\UnitTestsCountsHistoryPassed.xml"/>
+        <include name="${ArtifactRootDirectory}\UnitTestsCountsHistoryIgnored.xml"/>
+        <include name="${ArtifactRootDirectory}\UnitTestsCountsHistoryFailed.xml"/>
+      </fileset>
+    </delete>
+    <property name="Analytics.XmlInputFileName" value="${BuildDirectory}\Packages\Analytics\UnitTests\UnitTests.Statistics.xml"/>
+    <property name="Analytics.XslFilePath" value="${BuildDirectory}\Packages\Analytics\UnitTests\UnitTestsCountsLineChartData.Publisher.xsl"/>
+    <property name="Analytics.XmlReportFileName" value="UnitTestsCountsHistoryLineXAxis.xml"/>
+    <property name="Analytics.CopyFileSetRefId" value="Analytics.UnitTestsCountsLineChartData"/>
+    <property name="Analytics.Append" value="false"/>
+
+    <property name="Analytics.UnitTestsCountsLineChartData.Data" value=""/>
+    <xmlpeek property="Analytics.UnitTestsCountsLineChartData.Data"
+      file="${BuildDirectory}\Packages\Analytics\UnitTests\UnitTests.Statistics.xml"
+      nodeindex="0"
+      xpath="/Builds/integration[position() > last()-200]"
+      failonerror="False"/>
+
+    <call if="${Analytics.UnitTestsCountsLineChartData.Data != ''}" target="Analytics.CompileReport"/>
+  </target>
+  
+</project>

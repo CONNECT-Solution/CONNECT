@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentdocumenttransform" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>DocumentTransformCA</name>
+            <description>Represents the Service Assembly of DocumentTransformCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NhincComponentDocumentTransformPortTypeBindingPort" service-name="ns1:NhincComponentDocumentTransformService"/>
+                <provider endpoint-name="javaee_NhincComponentDocumentTransformPortTypeBindingPort" service-name="ns1:NhincComponentDocumentTransformService"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="application" type="xs:string"/>
+	<xs:element name="appserver" type="xs:string"/>
+	<xs:element name="configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="appserver"/>
+				<xs:element ref="application"/>
+				<xs:element ref="output-folder"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="criteria">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dates"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dates">
+		<xs:complexType>
+			<xs:attribute name="type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="range"/>
+						<xs:enumeration value="today"/>
+						<xs:enumeration value="yesterday"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="from-date" type="xs:string" use="optional"/>
+			<xs:attribute name="to-date" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="disable" type="xs:boolean"/>
+	<xs:element name="MasterIndexReport">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="configuration"/>
+				<xs:element ref="reports"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="enable" type="xs:boolean"/>
+	<xs:element name="field">
+		<xs:complexType>
+			<xs:attribute name="path" type="xs:string" use="required"/>
+			<xs:attribute name="label" type="xs:string" use="required"/>
+			<xs:attribute name="width" type="xs:int" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="fields">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="field" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="output-file">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="output-folder" type="xs:string"/>
+	<xs:element name="report">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="enable"/>
+				<xs:element ref="output-file"/>
+				<xs:element ref="criteria"/>
+				<xs:element ref="fields"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="template" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="Assumed Match"/>
+						<xs:enumeration value="Potential Duplicate"/>
+						<xs:enumeration value="Merged"/>
+						<xs:enumeration value="Unmerged"/>
+						<xs:enumeration value="Deactivated"/>
+						<xs:enumeration value="Update"/>
+						<xs:enumeration value="Weekly Activity"/>
+						<xs:enumeration value="Monthly Activity"/>
+						<xs:enumeration value="Yearly Activity"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="reports">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="report" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

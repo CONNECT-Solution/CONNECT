@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE cruisecontrol [
+  <!ENTITY % entities SYSTEM "Entities.xml">
+
+  %entities;
+
+  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+        <users>
+          <user name="Jay Flowers"	group="buildmaster" address="jay.flowers@agilex.com"/>
+          <user name="Scott Smith"	group="buildmaster" address="scott.smith@agilex.com"/>
+          <user name="Kieran Dunne" group="buildmaster" address="kieran.dunne@agilex.com"/>
+					<user name="Brian Mowbray"			group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+          
+					<user name="flowersj"				group="developer" 	address="jay.flowers@agilex.com"/>
+					<user name="borsts"					group="developer" 	address="scott.borst@agilex.com"/>
+					<user name="dunnek"					group="developer" 	address="kieran.dunne@agilex.com"/>
+					<user name="mowbrayb"				group="developer" 	address="brian.mowbray@agilex.com"/>
+					<user name="pfisterg"				group="developer" 	address="greg.pfister@agilex.com"/>
+					<user name="rayj"						group="developer" 	address="jason.ray@agilex.com"/>
+					<user name="webbn"					group="developer" 	address="neil.webb@agilex.com"/>
+					<user name="westbergl"			group="developer" 	address="les.westberg@agilex.com"/>
+					<user name="valluripallis"	group="developer" 	address="svalluripalli@scenpro.com"/>
+					<user name="vickersv"				group="developer" 	address="vvickers@harris.com"/>
+					<user name="flynnm"					group="developer" 	address="mflynn02@harris.com"/>
+					<user name="hoppeschj"			group="developer" 	address="jhoppesc@harris.com"/>
+        </users>
+        <groups>
+          <group name="buildmaster" notification="change"/>
+        </groups>
+      </email>'>
+  <!ENTITY labeller '<labeller type="defaultlabeller">
+      <prefix>&LabelPrefix;</prefix>
+    </labeller>'>
+  <!ENTITY DevBuilding '<projectFilter
+               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName;">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY ScriptsBuilding '<projectFilter
+               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY ForceClean '<projectFilter
+                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+                project="&ProjectName;-&ProjectCodeLineName; Force Clean">
+             <exclusionFilters>
+               <activities>
+                 <activity>Building</activity>
+               </activities>
+             </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY NightlyBuilding '<projectFilter
+               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName; Nightly Build">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
+]>
+<cruisecontrol>
+
+  <project name="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+    <webURL>&webURL;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger type="intervalTrigger" seconds="90" />
+        <projectFilters>
+          &DevBuilding;
+          &NightlyBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &DevBuilding;
+          &NightlyBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
+      <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current/Build</trunkUrl>
+      <workingDirectory>&BuildDirectory;</workingDirectory>
+      <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+      <username>build</username>
+      <password>password</password>
+      <webUrlBuilder type="websvn">
+        <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+      </webUrlBuilder>
+    </sourcecontrol>
+    <labeller type="defaultlabeller">
+      <prefix>BuildScripts.</prefix>
+    </labeller>
+    <tasks>
+      <nullTask/>
+    </tasks>
+    <publishers>
+      <xmllogger />
+      &email;
+    </publishers>
+  </project>
+  <project name="&ProjectName;-&ProjectCodeLineName;">
+    <webURL>&webURL;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger type="intervalTrigger" seconds="90" />
+        <projectFilters>
+          &ScriptsBuilding;
+          &NightlyBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &NightlyBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol type="filtered">
+      <sourceControlProvider  type="svn" tagOnSuccess="true" autoGetSource="false" >
+        <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current</trunkUrl>
+        <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <username>build</username>
+        <password>password</password>
+        <webUrlBuilder type="websvn">
+          <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+        </webUrlBuilder>
+        <tagBaseUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/tags</tagBaseUrl>
+      </sourceControlProvider>
+      <exclusionFilters>
+        <pathFilter caseSensitive="false">
+          <pattern>/Track_B/trunk/NHINC/&ProjectCodeLineName;/Product/Production/Examples/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/AssemblyInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/ProjectInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/ProjectInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/**/*.*</pattern>
+        </pathFilter>
+
+      </exclusionFilters>
+    </sourcecontrol>
+    &labeller;
+    <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&BuildDirectory;\SourceModificationReports</path>
+      </modificationWriter>
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Triggered</target>
+        </targetList>
+
+        <buildTimeoutSeconds>8500</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&BuildDirectory;\Reports\*.xml</file>
+          <file>&BuildDirectory;\AntLogs\*.xml</file>
+          <file>&BuildDirectory;\TargetProcess\*.xml</file>
+        </files>
+      </merge>
+      <xslmerger>
+        <filepairs>
+          <filepair>
+            <xslfile>&PackagesDirectory;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&BuildDirectory;\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&PackagesDirectory;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&BuildDirectory;\SimianReport\SimianReport.xml</xmlfile>
+          </filepair>
+        </filepairs>
+      </xslmerger>
+      <xmllogger />
+      &email;
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
+  <project name="&ProjectName;-&ProjectCodeLineName; Force Clean">
+ 
+    <webURL>&webURL;</webURL>
+    <state type="state" />
+    <triggers/>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &DevBuilding;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol type="nullSourceControl" />
+    <labeller type="stateFileLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName;</project>
+    </labeller>
+    <tasks>
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>ForceClean</target>
+        </targetList>
+
+        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&BuildDirectory;\Reports\*.xml</file>
+        </files>
+      </merge>
+      <xmllogger />
+      &email;
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
+ 
+  <project name="&ProjectName;-&ProjectCodeLineName; Nightly Build">
+     <webURL>&webURL;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger type="scheduleTrigger" time="01:00" buildCondition="IfModificationExists" />
+        <projectFilters>
+          &ScriptsBuilding;
+          &DevBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &DevBuilding;
+          &ForceClean;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+  <sourcecontrol type="filtered">
+      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
+        <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current</trunkUrl>		          
+        <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <username>build</username>
+        <password>password</password>
+        <webUrlBuilder type="websvn">
+          <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+        </webUrlBuilder>
+        <tagBaseUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/tags</tagBaseUrl>
+		
+      </sourceControlProvider>
+      <exclusionFilters>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/AssemblyInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/ProjectInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/ProjectInfo.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductionDirectoryName;/Examples/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/*.*</pattern>
+        </pathFilter>
+        <pathFilter caseSensitive="false">
+	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+	  <pattern>**/&ProjectCodeLineName;/SupportApps/**/*.*</pattern>
+        </pathFilter>
+      </exclusionFilters>
+    </sourcecontrol>
+  
+    <labeller type="stateFileLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName;</project>
+    </labeller>
+    <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&BuildDirectory;\SourceModificationReports</path>
+      </modificationWriter>
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-D:nightly.build=true -listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Release</target>
+        </targetList>
+
+        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&BuildDirectory;\Reports\*.xml</file>
+          <file>&BuildDirectory;\AntLogs\*.xml</file>
+          <file>&BuildDirectory;\TargetProcess\*.xml</file>
+        </files>
+      </merge>
+      <xslmerger>
+        <filepairs>
+          <filepair>
+            <xslfile>&PackagesDirectory;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&BuildDirectory;\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&PackagesDirectory;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&BuildDirectory;\SimianReport\SimianReport.xml</xmlfile>
+          </filepair>
+        </filepairs>
+      </xslmerger>
+      <xmllogger />
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+        <users>
+          <user name="Jay Flowers"	  group="buildmaster" address="jay.flowers@agilex.com"/>
+          <user name="Scott Smith"	  group="buildmaster" address="scott.smith@agilex.com"/>
+          <user name="Kieran Dunne"   group="buildmaster" address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"	group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+
+          <user name="Greg Pfister"		group="manager" 	address="greg.pfister@agilex.com"/>
+
+          <user name="flowersj"				group="developer" 	address="jay.flowers@agilex.com"/>
+          <user name="smiths"  				group="developer" 	address="scott.smith@agilex.com"/>
+          <user name="borsts"					group="developer" 	address="scott.borst@agilex.com"/>
+          <user name="dunnek"					group="developer" 	address="kieran.dunne@agilex.com"/>
+          <user name="hudar"					group="developer" 	address="ron.huda@agilex.com"/>
+          <user name="mowbrayb"				group="developer" 	address="brian.mowbray@agilex.com"/>
+          <user name="pfisterg"				group="developer" 	address="greg.pfister@agilex.com"/>
+          <user name="rayj"						group="developer" 	address="jason.ray@agilex.com"/>
+          <user name="webbn"					group="developer" 	address="neil.webb@agilex.com"/>
+          <user name="westbergl"			group="developer" 	address="les.westberg@agilex.com"/>
+          <user name="valluripallis"	group="developer" 	address="svalluripalli@scenpro.com"/>
+          <user name="vickersv"				group="developer" 	address="vvickers@harris.com"/>
+          <user name="flynnm"					group="developer" 	address="mflynn02@harris.com"/>
+          <user name="hoppeschj"			group="developer" 	address="	jhoppesc@harris.com"/>
+        </users>
+        <groups>
+          <group name="buildmaster" notification="change"/>
+          <group name="manager"     notification="always"/>
+        </groups>
+      </email>
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
+  
+</cruisecontrol>

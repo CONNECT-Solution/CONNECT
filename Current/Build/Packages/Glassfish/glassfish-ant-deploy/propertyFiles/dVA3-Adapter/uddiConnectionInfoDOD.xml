@@ -1,0 +1,133 @@
+<UDDIConnectionInfo>
+  <businessEntities>
+    <businessEntity businessKey="uddi:nhinregistry:07ec6987-f062-4d84-9bab-ab3c6325804b">
+      <names>
+        <businessName>Department of Defense</businessName>
+      </names>
+      <descriptions>
+        <businessDescription>Health Information Exchange in the Federal DoD region.</businessDescription>
+      </descriptions>
+      <homeCommunityId>2.16.840.1.113883.3.198</homeCommunityId>
+      <federalHIE>false</federalHIE>
+      <publicKeyURI></publicKeyURI>
+      <businessServices>
+        <businessService serviceKey="uddi:nhinregistry:3e7c812f-8459-4306-9186-cf5407d712ba">
+          <names>
+            <name>Agency Subscription Service</name>
+          </names>
+          <uniformServiceName>agencysubscription</uniformServiceName>
+          <serviceVersion></serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://mhsnhie2.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:78e19762-08dc-4389-b1de-ca880026c0d8">
+          <names>
+            <name>Subscription Notification Service</name>
+          </names>
+          <descriptions>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
+          </descriptions>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://mhsnhie2.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:80cdf3eb-2e1b-4aa5-90ec-49169fff6a60">
+          <names>
+            <name>Subject Discovery Service</name>
+          </names>
+          <descriptions>
+            <description>Service to perform subject discovery over NHIN</description>
+          </descriptions>
+          <uniformServiceName>subjectdiscovery</uniformServiceName>
+          <serviceVersion>2.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://mhsnhie2.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:b4a7a4bd-a659-40dc-bfef-b91807ef24c4">
+          <names>
+            <name>Document Retrieve Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve document(s)</description>
+          </descriptions>
+          <uniformServiceName>documentretrieve</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://mhsnhie2.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:cf8feb26-d1ca-426c-8fcb-b3490ea358f3">
+          <names>
+            <name>Audit Log Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve audit events for a given date range</description>
+          </descriptions>
+          <uniformServiceName>auditquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://mhsnhie2.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:dedd6a5e-b89d-47b0-b596-e1f7dc737325">
+          <names>
+            <name>Notification Producer</name>
+          </names>
+          <descriptions>
+            <description>Service to receive subscription requests.</description>
+          </descriptions>
+          <uniformServiceName>notificationproducer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://mhsnhie2.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:f4820210-1a58-4d2f-a3b5-238b0e52d49f">
+          <names>
+            <name>Document Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to query for documents</description>
+          </descriptions>
+          <uniformServiceName>documentquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://mhsnhie2.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+      </businessServices>
+    </businessEntity>
+  </businessEntities>
+</UDDIConnectionInfo>

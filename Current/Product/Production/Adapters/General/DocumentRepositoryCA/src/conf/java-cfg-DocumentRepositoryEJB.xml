@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="urn:ihe:iti:xds-b:2007" name="DocumentRepositoryEJB">
+    <services>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_DocumentRegistry_Port_Soap12" interface-name="ns0:DocumentRegistry_PortType" service-name="ns0:DocumentRegistry_Service"/>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_DocumentRepository_Port_Soap12" interface-name="ns0:DocumentRepository_PortType" service-name="ns0:DocumentRepository_Service"/>
+    </services>
+</javaee-project>

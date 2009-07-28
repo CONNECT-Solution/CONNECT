@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filter  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="schema/filter.xsd">
+    
+    <exclusion-List  module-name="ExclusionFilter" 
+                     parser-class="com.sun.mdm.index.filter.ExclusionFilterCofig">
+        
+        <!-- Default list of value for all  sbr ,matching & blockings -->
+        <field  sbr="true" matching="true" blocking="true" >
+            <!-- Field for exclusion -->
+            <name></name>
+            <value>
+                <!-- Value to be excluded -->
+                <field-value></field-value>
+            </value>
+        </field>
+
+        <!-- Sample if using a file to define filter values -->
+        <field sbr="true" matching="true" blocking="false">
+            <!-- Field for exclusion -->
+            <name></name>
+            <value>
+                <file delimiter="|"> 
+                    <!-- File name containing list of excluded values -->
+                    <file-name></file-name> 
+                </file>
+            </value>
+        </field>
+          
+    </exclusion-List>
+</filter>

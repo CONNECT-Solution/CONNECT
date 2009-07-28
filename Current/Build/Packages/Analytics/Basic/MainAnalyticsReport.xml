@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!DOCTYPE statistics [
+  <!ENTITY content SYSTEM "..\..\..\Artifacts\MainAnalyticsReportContent.xml">
+]>
+<statistics>
+  &content;
+</statistics>

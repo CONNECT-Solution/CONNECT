@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <target name="wsgen-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsgen/service"/>
+        <mkdir dir="${build.generated.dir}/wsgen/service/resources/"/>
+        <mkdir dir="${build.generated.dir}/wsgen/binaries"/>
+        <taskdef name="wsgen" classname="com.sun.tools.ws.ant.WsGen">
+            <classpath path="${j2ee.platform.wsgen.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsgen-compile" depends="wsgen-PatientEJB">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsgen/service" classpath="${j2ee.platform.wsgen.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+    <target name="wsgen-PatientEJB" depends="wsgen-init, -do-compile">
+        <wsgen destdir="${build.generated.dir}/wsgen/binaries" sourcedestdir="${build.generated.dir}/wsgen/service" resourcedestdir="${build.generated.dir}/wsgen/service/resources/" xendorsed="true" keep="false" genwsdl="true" sei="com.sun.mdm.index.webservice.PatientEJB">
+            <classpath path="${java.home}/../lib/tools.jar:${classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
+        </wsgen>
+    </target>
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+</project>

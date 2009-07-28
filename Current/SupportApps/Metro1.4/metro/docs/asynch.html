@@ -1,0 +1,289 @@
+
+<html>
+
+  <HEAD>
+    
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- Asynchronous Client
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      Asynchronous Client 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="active">
+          <a>Users Guide</a>
+        </td>
+        <td class="inactive">
+          <a href="jaxws-tools.html">Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="UsersGuide.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="provider.html">
+            <span>Provider </span>
+          </a>
+        </li>
+        <li>
+          <a href="asyncprovider.html">
+            <span>AsyncProvider </span>
+          </a>
+        </li>
+        <li>
+          <a href="dispatch.html">
+            <span>Dispatch </span>
+          </a>
+        </li>
+        <li>
+          <a href="asynch.html">
+            <span class="active">Asynchronous Client </span>
+          </a>
+        </li>
+        <li>
+          <a href="handlers.html">
+            <span>Handler </span>
+          </a>
+        </li>
+        <li>
+          <a href="mtom-swaref.html">
+            <span>MTOM and Swaref </span>
+          </a>
+        </li>
+        <li>
+          <a href="soap12.html">
+            <span>SOAP 1.2 </span>
+          </a>
+        </li>
+        <li>
+          <a href="customizations.html">
+            <span>WSDL Customization </span>
+          </a>
+        </li>
+        <li>
+          <a href="annotations.html">
+            <span>Annotations </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsaddressing.html">
+            <span>WS-Addressing </span>
+          </a>
+        </li>
+        <li>
+          <a href="statefulWebservice.html">
+            <span>Stateful Webservice </span>
+          </a>
+        </li>
+        <li>
+          <a href="catalog-support.html">
+            <span>Catalog </span>
+          </a>
+        </li>
+        <li>
+          <a href="interop.html">
+            <span>Interoperability </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+    <p>This document describes how a client application can invoke a remote web service asynchronously. It can do so either by generating a static stub or using the Dispatch API.
+
+  
+    <h2>1. Asynchronous Invocation Using Static Stub</h2>
+
+  
+    <p>Client application should apply 
+      <code>jaxws:enableAsyncMapping</code>binding declaration to the WSDL file to generate asynchronous method in the service endpoint interface. Please refer to 
+      <a href="customizations.html#2.3_Asynchrony">async customization</a> for details on how this can be applied to the WSDL file.
+    
+
+  
+    <p>Lets look at the following WSDL excerpt:
+  
+    <pre>
+&lt;portType name="AddNumbersImpl"&gt;
+    &lt;operation name="addNumbers"&gt;
+      &lt;input message="tns:addNumbers"/&gt;
+      &lt;output message="tns:addNumbersResponse"/&gt;
+    &lt;/operation&gt;
+&lt;/portType&gt;
+&lt;binding name="AddNumbersImplBinding" type="tns:AddNumbersImpl"&gt;
+    &lt;soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/&gt;
+    &lt;operation name="addNumbers"&gt;
+      &lt;soap:operation soapAction=""/&gt;
+      &lt;input&gt;
+        &lt;soap:body use="literal"/&gt;&lt;/input&gt;
+      &lt;output&gt;
+        &lt;soap:body use="literal"/&gt;
+      &lt;/output&gt;
+    &lt;/operation&gt;
+&lt;/binding&gt;
+</pre>
+
+  
+    <p>In order to generate a service endpoint interface with asynchronous methods the following binding declaration file will be passed to 
+      <code>wsimport</code>:
+    
+  
+    <pre>
+&lt;bindings
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    wsdlLocaption="http://localhost:8080/jaxws-async/addnumbers?WSDL"
+    xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+    &lt;bindings node="wsdl:definitions"&gt;
+        &lt;package name="async.client"/&gt;
+        &lt;enableAsyncMapping&gt;true&lt;/enableAsyncMapping&gt;
+    &lt;/bindings&gt;
+&lt;/bindings&gt;
+</pre>
+
+  
+    <p>It produces the following service endpoint interface (annotations are removed from the synchronous method for better readability):
+  
+    <pre>
+    //synchronous method
+    public int addNumbers(int number1, int number2) throws java.rmi.RemoteException;
+    //async polling Method
+    public Response&lt;AddNumbersResponse&gt; addNumbers(int number1, int number2);
+    //async callback Method
+    public Future&lt;?&gt; addNumbers(int number1, int number2, AsyncHandler&lt;AddNumbersResponse&gt;);
+</pre>
+
+  
+    <h3>1.1 Async Polling</h3>
+  
+    <pre>
+    //async polling Method
+    public Response&lt;AddNumbersResponse&gt; addNumbers(int number1, int number2);
+</pre>
+
+  
+    <p>Typically a client application will invoke the async polling operation on the stub and check for a response on the returned 
+      <code>Response</code> object. The response is available when 
+      <code>Response.isDone</code> returns true.
+    
+  
+    <pre>
+        javax.xml.ws.Response&lt;AddNumbersResponse&gt; resp = port.addNumbersAsync(10, 20);
+        while(!resp.isDone()){
+           //do something
+        }
+        System.out.println("The sum is: " + resp.get().getReturn());
+        ...
+</pre>
+
+  
+    <h3>1.2 Async Callback</h3>
+  
+    <pre>
+    //async callback Method
+    public Future&lt;?&gt; addNumbers(int number1, int number2, AsyncHandler&lt;AddNumbersResponse&gt;);
+</pre>
+
+  
+    <p>Here the client application provides an 
+      <code>AsyncHandler</code> by implementing the 
+      <code>javax.xml.ws.AsyncHandler&lt;T&gt;</code> interface.
+    
+  
+    <pre>
+    /**
+     *
+     * Async callback handler
+     */
+    class AddNumbersCallbackHandler implements AsyncHandler&lt;AddNumbersResponse&gt; {
+        private AddNumbersResponse output;
+        /*
+         *
+         * @see javax.xml.ws.AsyncHandler#handleResponse(javax.xml.ws.Response)
+         */
+        public void handleResponse(Response&lt;AddNumbersResponse&gt; response) {
+            try {
+                output = response.get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        AddNumbersResponse getResponse(){
+            return output;
+        }
+    }
+</pre>
+
+  
+    <p>The async handler is then passed as the last parameter of the async callback method:
+  
+    <pre>
+    //instantiates the callback handler
+    AddNumbersCallbackHandler callbackHandler = new AddNumbersCallbackHandler();
+
+    //invoke the async callback method
+    Future&lt;?&gt; resp = port.addNumbersAsync(number1, number2, callbackHandler);
+    while(!resp.isDone()){
+           //do something
+    }
+    System.out.println("The sum is: " + callbackHandler .getResponse().getReturn());
+</pre>
+
+  
+    <h2>2. Asynchronous Invocation Using Dispatch</h2>
+
+  
+    <h2>For information on the Dispatch API and asynchronous invocations see 
+      <a href="dispatch.html">
+        <font size="3">Dispatch and Asynchronous Invocations</font>
+      </a>
+    </h2>
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

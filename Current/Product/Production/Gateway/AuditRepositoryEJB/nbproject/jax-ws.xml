@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="AuditRepository">
+      <implementation-class>gov.hhs.fha.nhinc.auditrepository.AuditRepository</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentAuditRepository.wsdl</local-wsdl-file>
+      <service-name>AuditRepositoryManagerService</service-name>
+      <port-name>AuditRepositoryManagerPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentauditrepository</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

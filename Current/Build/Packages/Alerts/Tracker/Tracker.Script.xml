@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.Tracker.Scripts">
+
+  <target name="Alerts.Tracker" unless="${Alerts.Developer.Name == 'Unknown'}">
+
+    <!--
+    1. One or more trackers with a note but the last note was not authored by the code submitter
+    2. No notes at all for one or more trackers
+    -->
+
+    <property name="NoNoteFound" value="False"/>
+    <regex input="${Alerts.Developer.Name}" pattern="\w(?'ModifiedDevName'\w+)"/>
+    <property name="TrackersWithOutNotes" value=""/>
+
+    <xmlquery 
+      file="${Alerts.BuildLog}" 
+      query="//TrackerQuery/Tracker/ID" 
+      id="Trackers" 
+    />
+
+    <loopthrough property="Tracker">
+      <items>
+        <xmlquery refid="Trackers"/>
+      </items>
+      <do>
+        
+        <property name="NoNoteOnThisTracker" value="False"/>
+        
+        <trycatch>
+          <try>
+            <xmlpeek 
+              file="${Alerts.BuildLog}" 
+              xpath="//TrackerQuery/Tracker[ID/text() = '${Tracker}']/LastNote" 
+              property="Note"
+            />
+            <regex input="${Note}" pattern="\((?'NoteAuthor'\w+)\)"/>
+          </try>
+          <catch property="Exception">
+            <echo level="Warning" message="We think this exception means that there is no note: ${Exception}"/>
+            <property name="NoNoteOnThisTracker" value="True"/>
+            <property name="NoNoteFound" value="True"/>
+          </catch>
+        </trycatch>
+
+        <echo message="It is ${NoNoteOnThisTracker} that no note was found on tracker ${Tracker}."/>
+
+        <ifnot test="${NoNoteOnThisTracker}">
+
+          <echo message="The author of the note is ${NoteAuthor}."/>
+
+          <switch value="${string::to-lower(NoteAuthor)}">
+            <case value="${string::to-lower(Alerts.Developer.Name)}" break="true">
+              <echo message="The author and the developer are the same person (Author=${NoteAuthor}, Developer=${Alerts.Developer.Name})."/>
+            </case>
+            <case value="${string::to-lower(ModifiedDevName)}" break="true">
+              <echo message="The author and the developer are the same person (Author=${NoteAuthor}, Developer=${ModifiedDevName})."/>
+            </case>
+            <default>
+              <echo message="The author and the developer are different people (Author=${NoteAuthor}, Developer=${Alerts.Developer.Name})."/>
+              <property name="NoNoteOnThisTracker" value="True"/>
+              <property name="NoNoteFound" value="True"/>
+            </default>
+          </switch>
+          
+        </ifnot>
+
+        <if test="${NoNoteOnThisTracker}">
+          <ifthenelse test="${TrackersWithOutNotes == ''}">
+            <then>
+              <property name="TrackersWithOutNotes" value="${Tracker}"/>
+            </then>
+            <else>
+              <property name="TrackersWithOutNotes" value="${TrackersWithOutNotes}, ${Tracker}"/>
+            </else>
+          </ifthenelse>
+        </if>
+      </do>
+    </loopthrough>
+
+    <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
+    <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
+
+    <if test="${NoNoteFound}">
+      <call target="Alerts.Tracker.GenerateWarning"/>
+      <call target="Alerts.SendMessage"/>
+    </if>
+  </target>
+
+  <target name="Alerts.Tracker.GenerateWarning">
+    <property name="Alerts.SendMessage.Subject" value="${CCNetLabel}: Did you add a note?" />
+
+    <largeproperty name="Alerts.SendMessage.Content">
+      <value expand="true" xml="true">
+        <html>
+          <head>
+          </head>
+          <body>
+            <p>${datetime::now()}</p>
+            <p>
+              <a href="${UrlToThisBuild}">${CCNetLabel}</a>
+            </p>
+            
+            <p>${Alerts.Developer.Name},</p>
+            <p>
+              When the build server picked up your tracker(s), it found that you had not written the last note.
+              If the build server has made a mistake, please ignore.  Otherwise, please remember to go back and add
+              a descriptive note to this/these tracker(s): ${TrackersWithOutNotes}.
+            </p>
+            <br/>
+            <p>Cheers,</p>
+            <p>Your pal, the build server.</p>
+            <br/>
+          </body>
+        </html>
+      </value>
+    </largeproperty>
+  </target>
+
+</project>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<topicConfigurations>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple" >SomeOtherTopic1</wsnt:Topic>  ]]></topic>
+		<description>nhin:SomeOtherTopic1</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+		<patientIdentifierSubscribeLocation>test subscribe location</patientIdentifierSubscribeLocation>
+		<patientIdentifierNotifyLocation>test notify location 1</patientIdentifierNotifyLocation>
+		<patientIdentifierFormat>HL7Encoded</patientIdentifierFormat>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple" >nhin:TopicWithPrefix</wsnt:Topic>  ]]></topic>
+		<description>nhin:SomeTopic</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Concrete" >parent/child</wsnt:Topic>  ]]></topic>
+		<description>nhin:parent/nhin:child</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Concrete" >parent/unsupportedchild</wsnt:Topic>  ]]></topic>
+		<description>nhin:parent/nhin:unsupportedchild</description>
+		<isSupported>false</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple" >UnsupportedTopic</wsnt:Topic>  ]]></topic>
+		<description>nhin:UnsupportedTopic</description>
+		<isSupported>false</isSupported>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple" >PatientCentricTopic</wsnt:Topic>  ]]></topic>
+		<description>nhin:PatientCentricTopic</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>true</isPatientCentric>
+		<isPatientRequired>true</isPatientRequired>
+		<patientIdentifierSubscribeLocation>//xpath</patientIdentifierSubscribeLocation>
+		<patientIdentifierNotifyLocation>//xpath</patientIdentifierNotifyLocation>
+		<patientIdentifierFormat>HL7Encoded</patientIdentifierFormat>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" Dialect="http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple" >SomeTopic</wsnt:Topic>  ]]></topic>
+		<description>SomeTopic - no prefix</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
+</topicConfigurations>

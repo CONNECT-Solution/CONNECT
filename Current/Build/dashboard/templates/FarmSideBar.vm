@@ -1,0 +1,12 @@
+<table width="100%">
+	#foreach ($link in $links)
+	<tr><td><a href="$link.Url" class="$link.LinkClass">$link.Text</a></td></tr>
+  #end
+  <tr>
+    <td>
+      <a title="Download and execute to deploy to internal test server."  href="Deployment/NHINC-Current-Deployment.exe" >
+        $projectName Deployment Application
+      </a>
+    </td>
+  </tr>
+</table>

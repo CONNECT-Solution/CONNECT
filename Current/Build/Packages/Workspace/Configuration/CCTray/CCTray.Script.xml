@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.CCTray.Configuration.Scripts">
+
+  <property name="CCTray.ConfigFilePath" value="${CCTray.Install.Path}\Settings.xml"/>
+  <property name="CCTray.ExeFilePath" value="${CCTray.Install.Path}\cctray.exe"/>
+  
+	<target name="Workspace.Configuration.CCTray">
+    <xmlquery query='/cruisecontrol/project/@name' file='${BuildDirectory}\ccnetproject.xml' id='CCNetProjects' />
+    <property name='CCTray.NeedRecycle' value='false'/>
+
+    <loopthrough property='CCNetProjectName'>
+      <items>
+        <xmlquery refid='CCNetProjects'/>
+      </items>
+      <do>
+        <property name='CCTray.ServerUrl' value='tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem'/>
+        <trycatch>
+          <try>
+            <xmlpeek
+              file='${CCTray.ConfigFilePath}'
+              property='trash'
+              xpath='/Configuration/Projects/Project[@serverUrl = "${CCTray.ServerUrl}" and @projectName = "${CCNetProjectName}"]'
+            />
+          </try>
+          <catch property='exception'>
+            <echo message='${exception}'/>
+            <property name='CCTray.NeedRecycle' value='true'/>
+            <largeproperty name="CCTrayProject">
+              <value expand="true" xml="true">
+                <Project serverUrl="${CCTray.ServerUrl}" projectName="${CCNetProjectName}" />
+              </value>
+            </largeproperty>
+            <xmlpoke
+              file='${CCTray.ConfigFilePath}'
+              xpath='/Configuration/Projects'
+              pokemode='Add'
+              value='${CCTrayProject}'
+            />
+          </catch>
+        </trycatch>
+      </do>
+    </loopthrough>
+
+    <if test="${CCTray.NeedRecycle}">
+      <exec program="taskkill" commandline="/IM cctray.exe /F /T" verbose="true" failonerror="false"/>
+    </if>
+
+    <property name="CCTrayNotRunning" value="running"/>
+    <property name="Running.CCTray.Instances" value=""/>
+    <exec
+      program="${NantBinPath}\Sysinternals\pslist.exe"
+      verbose="true"
+      commandline="/accepteula CCTray"
+      outputproperty="Running.CCTray.Instances"
+      failonerror="false"
+    />
+
+    <loglevel level="None">
+      <do>
+        <regex
+          input="${Running.CCTray.Instances}"
+          pattern="(?'CCTrayNotRunning'was not found)"
+          failonerror="false"
+        />
+      </do>
+    </loglevel>
+
+    <if test="${CCTrayNotRunning != 'running'}">
+      <asyncexec 
+        program="${CCTray.ExeFilePath}"
+        createnowindow="false" 
+        redirectoutput="false" 
+        useshellexecute="true" 
+        waitforexit="false" 
+      /> 
+    </if>
+  </target>
+
+</project>

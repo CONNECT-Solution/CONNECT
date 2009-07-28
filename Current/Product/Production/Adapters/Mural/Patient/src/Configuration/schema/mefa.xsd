@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="StandardizationConfig"/>
+				<xs:element ref="MatchingConfig"/>
+				<xs:element ref="MEFAConfig"/>
+				<xs:element ref="PhoneticEncodersConfig"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MEFAConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="block-picker"/>
+				<xs:element ref="pass-controller"/>
+				<xs:element ref="standardizer-api"/>
+				<xs:element ref="standardizer-config"/>
+				<xs:element ref="matcher-api"/>
+				<xs:element ref="matcher-config"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MatchingConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="match-system-object"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PhoneticEncodersConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="encoder" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StandardizationConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="standardize-system-object"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="block-picker">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="class-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="column-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="encoder">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="encoding-type"/>
+				<xs:element ref="encoder-implementation-class"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="encoder-implementation-class">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="encoding-type">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="free-form-texts-to-standardize">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="group" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="group">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="locale-field-name" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="locale-maps" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="unnormalized-source-fields" minOccurs="0"/>
+				<xs:element ref="normalization-targets" minOccurs="0"/>
+				<xs:element ref="unstandardized-source-fields" minOccurs="0"/>
+				<xs:element ref="standardization-targets" minOccurs="0"/>
+			</xs:sequence>
+			<xs:attribute name="standardization-type" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="domain-selector" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="concatenation-delimiter" type="xs:string" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="match-column">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="column-name"/>
+				<xs:element ref="match-type"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="match-columns">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="match-column" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="match-system-object">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="object-name"/>
+				<xs:element ref="match-columns"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="match-type">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="matcher-api">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="matcher-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="normalization-targets">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="target-mapping" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="object-name" type="xs:string"/>
+	<xs:element name="pass-controller">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="phoneticize-field">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="unphoneticized-source-field-name"/>
+				<xs:element ref="phoneticized-object-field-id" minOccurs="0"/>
+				<xs:element ref="phoneticized-target-field-name"/>
+				<xs:element ref="encoding-type"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="phoneticize-fields">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="phoneticize-field" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="phoneticized-object-field-id">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="FP"/>
+				<xs:enumeration value="LP"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="phoneticized-target-field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="source-mapping">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="unnormalized-source-field-name"/>
+				<xs:element ref="standardized-object-field-id"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="locale-codes">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="value" minOccurs="1" maxOccurs="1"/>
+				<xs:element ref="locale" minOccurs="1" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="standardization-targets">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="target-mapping" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="standardize-system-object">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="system-object-name"/>
+				<xs:element ref="structures-to-normalize"/>
+				<xs:element ref="free-form-texts-to-standardize"/>
+				<xs:element ref="phoneticize-fields"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="standardized-object-field-id">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="standardized-target-field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="standardizer-api">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="standardizer-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="class-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="structures-to-normalize">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="group" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="system-object-name" type="xs:string"/>
+	<xs:element name="target-mapping">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="standardized-object-field-id"/>
+				<xs:element ref="standardized-target-field-name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="unnormalized-source-field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="value">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="locale">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="locale-maps">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="locale-codes" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="unnormalized-source-fields">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="source-mapping" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="unphoneticized-source-field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="unstandardized-source-field-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="unstandardized-source-fields">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="unstandardized-source-field-name" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

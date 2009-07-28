@@ -1,0 +1,39 @@
+body {
+	margin: 2em;
+	font-family: georgia,serif;
+}
+
+div#dateFieldMsg {
+	font-size: 0.75em;
+}
+div#dateFieldMsg.error {
+	color: red;
+}
+input#dateField.error {
+	background-color: #FFC0CB;
+}
+
+fieldset {
+	padding-bottom: 1em;
+}
+label { display: inline; }
+#dayMask label { margin-right: 1em; }
+
+#holidays table {
+	font: 80%/1.5 "Lucida Grande", "Lucida Sans Unicode",verdana,lucida,arial,sans-serif;
+	border-collapse: collapse;
+	margin: 1em 0 2em;
+	background: #e3e3e3;
+}
+#holidays th {
+	border: 1px solid #666;
+	color: #fff;
+	background-color: #666;
+	font-weight: normal;
+}
+#holidays td {
+	border: 1px solid #666;
+	padding: 0.5em 1em;
+}
+div.hide { display: none; }
+div.show { display: block; }

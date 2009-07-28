@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="AdapterDocRetrieve"
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterdocretrieve"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterdocretrieve" xmlns:ns0="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns1="urn:ihe:iti:xds-b:2007" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:propertyaccess" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:ns4="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+    <import namespace="urn:gov:hhs:fha:nhinc:adapterdocretrieve" location="Interfaces/wsdl/AdapterDocRetrieve.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/AdapterComponentDocRepositoryWrapper" location="AdapterComponentDocRepositoryWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:ihe:iti:xds-b:2007" location="Interfaces/wsdl/AdapterComponentDocRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AdapterComponentDocRetrievePL" xmlns:tns="http://enterprise.netbeans.org/bpel/AdapterComponentDocRepositoryWrapper" partnerLinkType="tns:DocumentRepository_LinkType" partnerRole="DocumentRepository_Role"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="PropertyAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="AdapterDocRetrievePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" partnerLinkType="tns:AdapterDocRetrieve" myRole="AdapterDocRetrievePortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="Adapter_CrossGatewayRetrieveOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveResponseMessage"/>
+        <variable name="Adapter_CrossGatewayRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" messageType="tns:RespondingGateway_CrossGatewayRetrieveRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveAdapterDocQuery" createInstance="yes" partnerLink="AdapterDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" portType="tns:AdapterDocRetrievePortType" variable="Adapter_CrossGatewayRetrieveIn"/>
+        <scope name="DocRetrieveScope">
+            <variables>
+                <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                <variable name="DocumentRepository_RetrieveDocumentSetOut" xmlns:ihe="urn:ihe:iti:xds-b:2007" messageType="ihe:RetrieveDocumentSetResponse_Message"/>
+                <variable name="DocumentRepository_RetrieveDocumentSetIn" xmlns:ihe="urn:ihe:iti:xds-b:2007" messageType="ihe:RetrieveDocumentSet_Message"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultSeq">
+                        <assign name="AssignFaultInfo">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'AdapterDocRetrieve BPEL - A system fault was encountered processing a doc retrieve message from the gateway. Fault detials follow...'</from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure'</from>
+                                <to>$Adapter_CrossGatewayRetrieveOut.RespondingGateway_CrossGatewayRetrieveResponse/ns0:RegistryResponse/@status</to>
+                            </copy>
+                        </assign>
+                        <reply name="ReplyFromFault" partnerLink="AdapterDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" portType="tns:AdapterDocRetrievePortType" variable="Adapter_CrossGatewayRetrieveOut"/>
+                        <exit name="ExitFromFault"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="DocRetrieveSeq">
+                <assign name="AssignDocRepositoryInput">
+                    <sxt:trace>
+                <sxt:log level="info" location="onStart">
+                    <from>'Begin AdapterDocRetrieve - Input Message is:'</from>
+                </sxt:log>
+                <sxt:log level="info" location="onStart">
+                    <from variable="Adapter_CrossGatewayRetrieveIn"/>
+                </sxt:log>
+            </sxt:trace>
+                    <copy>
+                        <from>$Adapter_CrossGatewayRetrieveIn.RespondingGateway_CrossGatewayRetrieveRequest/ns1:RetrieveDocumentSetRequest</from>
+                        <to variable="DocumentRepository_RetrieveDocumentSetIn" part="body"/>
+                    </copy>
+                </assign>
+                <assign name="AssignInputToGetHMID">
+                    <copy>
+                        <from>'adapter'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns2:propertyFile</to>
+                    </copy>
+                    <copy>
+                        <from>'XDSbHomeCommunityId'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns2:propertyName</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokePropertyAccessor" partnerLink="PropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                <assign name="AssignConnectionManagerInput">
+                    <copy>
+                        <from>'adapterxdsbdocrepository'</from>
+                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns3:homeCommunityWithServiceName/ns3:serviceName</to>
+                    </copy>
+                    <copy>
+                        <from>$GetPropertyOut.GetPropertyResponse/ns2:propertyValue</from>
+                        <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns3:homeCommunityWithServiceName/ns3:homeCommunity/ns5:homeCommunityId</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeConnectionManager" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                <assign name="AssignDynamicEndPointFromConnMgr">
+                    <copy>
+                        <from>ns4:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns3:serviceConnectionInfoEndpoints/ns3:serviceConnectionInfoEndpoint/ns5:EPR/ns5:EndpointReference)</from>
+                        <to partnerLink="AdapterComponentDocRetrievePL"/>
+                    </copy>
+                </assign>
+                <invoke name="InvokeDocRepository" partnerLink="AdapterComponentDocRetrievePL" operation="DocumentRepository_RetrieveDocumentSet" xmlns:ihe="urn:ihe:iti:xds-b:2007" portType="ihe:DocumentRepository_PortType" inputVariable="DocumentRepository_RetrieveDocumentSetIn" outputVariable="DocumentRepository_RetrieveDocumentSetOut"/>
+                <assign name="AssignDocRetrieveOutput">
+                    <copy>
+                        <from variable="DocumentRepository_RetrieveDocumentSetOut" part="body"/>
+                        <to variable="Adapter_CrossGatewayRetrieveOut" part="RespondingGateway_CrossGatewayRetrieveResponse"/>
+                    </copy>
+                </assign>
+            </sequence>
+        </scope>
+        <reply name="ReplyAdapterDocRetrieve" partnerLink="AdapterDocRetrievePL" operation="RespondingGateway_CrossGatewayRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterdocretrieve" portType="tns:AdapterDocRetrievePortType" variable="Adapter_CrossGatewayRetrieveOut">
+        <sxt:trace>
+                <sxt:log level="info" location="onStart">
+                    <from>'End AdapterDocRetrieve - Response Message is:'</from>
+                </sxt:log>
+                <sxt:log level="info" location="onStart">
+                    <from variable="Adapter_CrossGatewayRetrieveOut"/>
+                </sxt:log>
+            </sxt:trace>
+        </reply>
+    </sequence>
+</process>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="SamlReceive" targetNamespace="http://j2ee.netbeans.org/wsdl/Interfaces/SamlReceive"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/SamlReceive" 
+    xmlns:ns="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+    xmlns:wsaws="http://www.w3.org/2005/08/addressing" 
+    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/Interfaces/SamlReceive">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="SamlReceiveOperationRequest">
+        <part name="body" element="ns:Request"/>
+    </message>
+    <message name="SamlReceiveOperationResponse">
+        <part name="ack" element="ns:Acknowledgement"/>
+    </message>
+    <portType name="SamlReceivePortType">
+        <operation name="SamlReceiveOperation">
+            <input name="input1" message="tns:SamlReceiveOperationRequest"/>
+            <output name="output1" message="tns:SamlReceiveOperationResponse"/>
+        </operation>
+    </portType>
+    <binding name="SamlReceiveBinding" type="tns:SamlReceivePortType">
+        <wsp:PolicyReference URI="#SamlReceiveBindingPolicy"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SamlReceiveOperation">
+            <soap:operation/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SamlReceiveService">
+        <port name="SamlReceivePort" binding="tns:SamlReceiveBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/SamlReceiveService/SamlReceivePort"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="SamlReceive">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="SamlReceivePortTypeRole" portType="tns:SamlReceivePortType"/>
+    </plnk:partnerLinkType>
+    <wsp:Policy wsu:Id="SamlReceiveBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+                <!--<sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler default="wsit" name="usernameHandler"/>
+                    <sc1:CallbackHandler default="wsitPassword" name="passwordHandler"/>
+                </sc1:CallbackHandlerConfiguration>-->
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

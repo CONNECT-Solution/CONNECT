@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Main Build" default="Triggered">
+   
+  <property name="Compile.ConfigName" value="Release" />
+  
+	<include buildfile="Properties.build.xml" />
+	<include buildfile="Common.Build.xml" />
+  <include buildfile="Custom.Build.xml" />
+
+	<description>Begin Package Includes</description>
+	<include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
+	<include buildfile="${PackagesDirectory}\SourceModificationReport\SourceModificationReport.Target.xml" />
+	<include buildfile="${PackagesDirectory}\Deployment\Deployment.Target.xml" />
+	<include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
+	<include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
+	<include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Target.xml" />
+	<include buildfile="${PackagesDirectory}\Simian\Simian.Target.xml" />
+  <include buildfile="${PackagesDirectory}\JUnit\UnitTest.Target.xml" />
+	<description>End Package Includes</description>
+
+	<target name="Triggered" depends="SetUps">
+		<trycatch>
+			<try>
+				<description>Begin Main Build</description>
+
+				<description>Begin Pre Build Actions</description>
+<!--				<call target="SourceModificationReport.PublishOldSource" />   -->
+				<call target="SourceModificationReport.ConsolidateReports" />
+				<!-- SourceModificationReport.PublishOldSource should be the first call! -->
+				<call target="TargetProcess.CreateReport" />
+				<description>End Pre Build Actions</description>
+
+				<description>Begin Clean Up Actions</description>
+				<call target="SourceControl.GetOfThirdPartyDirectory" />
+				<call target="SourceControl.GetOfProductDirectory" />
+<!--				<call target="SourceModificationReport.PublishNewSource" /> -->
+				<!-- SourceModificationReport.PublishNewSource should be the last call! -->
+				<description>End Clean Up Actions</description>
+
+				<description>Begin Compile Actions</description>
+				<asyncexec taskname="Simian" program="${NantExePath}" failonerror="False">
+					<arg line="-buildfile:${PackagesDirectory}\Simian\Simian.Target.xml"/>
+					<arg line='@"${Common.PropertiesFile}"' />
+					<arg line="Simian.Run"/>
+					<arg line="-logger:NAnt.Core.XmlLogger"/>
+					<arg line='-logfile:"${Common.ReportDirectory}\Simian.xml"' />
+				</asyncexec>
+
+        
+        <trycatch>
+          <try>
+            <property name="AntTarget" value="build-test"/>
+            <call target="Ant.CompileSource"/>
+            <property name="Ant.Failure" value="false"/>
+          </try>
+          <catch property="Ant.Exception">
+            <property name="Ant.Failure" value="true"/>
+          </catch>
+        </trycatch>
+				<description>End Compile Actions</description>
+
+				<description>Begin Varification Actions</description>
+				<call target="UnitTest.RunTests"/>
+        <fail if="${Ant.Failure}" message="Ant compile or unit test failure"/>
+				<description>End Varification Actions</description>
+
+				<description>Begin Post Build Actions</description>
+				<call target="Build.PublishZip"/>
+				<waitforexit>
+					<tasknames>
+						<string value="Simian"/>
+					</tasknames>
+				</waitforexit>
+				<description>End Post Build Actions</description>
+
+				<description>End Main Build</description>
+			</try>
+			<finally>
+				<call target="TearDowns" />
+			</finally>
+		</trycatch>
+	</target>
+
+  <target name="ForceClean" depends="SetUps">
+    <trycatch>
+      <try>
+        <description>Begin Main Build</description>
+
+        <description>Begin Pre Build Actions</description>
+        <description>End Pre Build Actions</description>
+
+        <description>Begin Clean Up Actions</description>
+        <call target="SourceControl.CleanGetOfThirdPartyDirectory" />
+        <call target="SourceControl.CleanGetOfProductDirectory" />
+        <description>End Clean Up Actions</description>
+
+        <description>Begin Compile Actions</description>
+        <description>End Compile Actions</description>
+
+        <description>Begin Varification Actions</description>
+        <description>End Varification Actions</description>
+
+        <description>Begin Post Build Actions</description>
+        <description>End Post Build Actions</description>
+
+        <description>End Main Build</description>
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="Release" depends="SetUps">
+		<trycatch>
+			<try>
+				<description>Begin Main Build</description>
+
+				<description>Begin Pre Build Actions</description>
+<!--				<call target="SourceModificationReport.PublishOldSource" />  -->
+				<call target="SourceModificationReport.ConsolidateReports" />
+				<!-- SourceModificationReport.PublishOldSource should be the first call! -->
+				<call target="TargetProcess.CreateReport" />
+				<description>End Pre Build Actions</description>
+
+				<description>Begin Clean Up Actions</description>
+				<call target="SourceControl.CleanGetOfThirdPartyDirectory" />
+				<call target="SourceControl.CleanGetOfProductDirectory" />
+<!--				<call target="SourceModificationReport.PublishNewSource" />  -->
+				<!-- SourceModificationReport.PublishNewSource should be the last call! -->
+				<description>End Clean Up Actions</description>
+
+				<description>Begin Compile Actions</description>
+        <trycatch>
+          <try>
+            <property name="AntTarget" value="build-test"/>
+            <call target="Ant.CompileSource"/>
+            <property name="Ant.Failure" value="false"/>
+          </try>
+          <catch property="Ant.Exception">
+            <property name="Ant.Failure" value="true"/>
+          </catch>
+        </trycatch>
+				<description>End Compile Actions</description>
+
+				<description>Begin Varification Actions</description>
+        <call target="UnitTest.RunTests"/>
+
+        <fail if="${Ant.Failure}" message="Ant compile or unit test failure"/>
+				<description>End Varification Actions</description>
+
+				<description>Begin Post Build Actions</description>
+				<call target="Build.PublishZip"/>
+				<call target="NightlyBuild.Publish"/>
+				<call target="Simian.Run" />
+        <copy 
+          file="${TargetProcess.ReportFilePath}" 
+          todir="${Common.ArtifactDirectoryPath}" 
+        />
+				<description>End Post Build Actions</description>
+
+				<description>End Main Build</description>
+			</try>
+			<finally>
+				<call target="TearDowns" />
+			</finally>
+		</trycatch>
+	</target>
+
+	<target name="SetUps">
+		<call target="Common.SetUp" />
+		<description>Begin SetUps</description>
+		<call target="SourceControl.SetUp" />
+		<call target="SourceModificationReport.SetUp" />
+		<call target="Deployment.SetUp" />
+		<call target="Workspace.SetUp" />
+		<call target="Ant.SetUp" />
+		<call target="TargetProcess.SetUp" />
+		<call target="Simian.SetUp" />
+    <call target="UnitTest.SetUp" />
+		<description>End SetUps</description>
+	</target>
+
+	<target name="TearDowns">
+		<description>Begin TearDowns</description>
+		<call target="SourceControl.TearDown" />
+		<call target="SourceModificationReport.TearDown" />
+		<call target="Deployment.TearDown" />
+		<call target="Workspace.TearDown" />
+		<call target="Ant.TearDown" />
+		<call target="TargetProcess.TearDown" />
+		<call target="Simian.TearDown" />
+    <call target="UnitTest.TearDown" />
+		<description>End TearDowns</description>
+		<call target="Common.TearDown" />
+	</target>
+</project>

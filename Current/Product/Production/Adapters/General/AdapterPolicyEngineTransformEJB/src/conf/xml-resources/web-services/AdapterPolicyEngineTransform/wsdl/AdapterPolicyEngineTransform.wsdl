@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Adapter Policy Engine WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+   name="AdapterPolicyEngineTransform" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform">
+  <documentation>Adapter Policy Engine Transform</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+    </xsd:schema>
+  </types>
+  
+  <message name="TransformXACMLRequestToCppAQRRequestMessage">
+    <part name="TransformXACMLRequestToCppAQRRequest" 
+          element="nccommonadapter:TransformXACMLRequestToCppAQRRequest"/>
+  </message>
+  <message name="TransformXACMLRequestToCppAQRResponseMessage">
+    <part name="TransformXACMLRequestToCppAQRResponse" 
+          element="nccommonadapter:TransformXACMLRequestToCppAQRResponse"/>
+  </message>
+
+  <message name="TransformAQRToCppRDSRRequestMessage">
+    <part name="TransformAQRToCppRDSRRequest" 
+          element="nccommonadapter:TransformAQRToCppRDSRRequest"/>
+  </message>
+  <message name="TransformAQRToCppRDSRResponseMessage">
+    <part name="TransformAQRToCppRDSRResponse" 
+          element="nccommonadapter:TransformAQRToCppRDSRResponse"/>
+  </message>
+
+  <message name="CheckPatientOptInRequestMessage">
+    <part name="CheckPatientOptInRequest" 
+          element="nccommonadapter:CheckPatientOptInRequest"/>
+  </message>
+  <message name="CheckPatientOptInResponseMessage">
+    <part name="CheckPatientOptInResponse" 
+          element="nccommonadapter:CheckPatientOptInResponse"/>
+  </message>
+
+  <message name="TransformXACMLRequestToAQRForPatientIdRequestMessage">
+    <part name="TransformXACMLRequestToAQRForPatientIdRequest" 
+          element="nccommonadapter:TransformXACMLRequestToAQRForPatientIdRequest"/>
+  </message>
+  <message name="TransformXACMLRequestToAQRForPatientIdResponseMessage">
+    <part name="TransformXACMLRequestToAQRForPatientIdResponse" 
+          element="nccommonadapter:TransformXACMLRequestToAQRForPatientIdResponse"/>
+  </message>
+  
+  <message name="TransformPatientIdAQRToCppXACMLRequestMessage">
+    <part name="TransformPatientIdAQRToCppXACMLRequest" 
+          element="nccommonadapter:TransformPatientIdAQRToCppXACMLRequest"/>
+  </message>
+  <message name="TransformPatientIdAQRToCppXACMLResponseMessage">
+    <part name="TransformPatientIdAQRToCppXACMLResponse" 
+          element="nccommonadapter:TransformPatientIdAQRToCppXACMLResponse"/>
+  </message>
+
+  <portType name="AdapterPolicyEngineTransformPortType">
+    <operation name="TransformXACMLRequestToCppAQR">
+      <input name="TransformXACMLRequestToCppAQRRequest"
+             message="tns:TransformXACMLRequestToCppAQRRequestMessage" />
+      <output name="TransformXACMLRequestToCppAQRResponse"
+              message="tns:TransformXACMLRequestToCppAQRResponseMessage" />
+    </operation>
+
+    <operation name="TransformAQRToCppRDSR">
+      <input name="TransformAQRToCppRDSRRequest"
+             message="tns:TransformAQRToCppRDSRRequestMessage" />
+      <output name="TransformAQRToCppRDSRResponse"
+              message="tns:TransformAQRToCppRDSRResponseMessage" />
+    </operation>
+
+    <operation name="CheckPatientOptIn">
+      <input name="CheckPatientOptInRequest"
+             message="tns:CheckPatientOptInRequestMessage" />
+      <output name="CheckPatientOptInResponse"
+              message="tns:CheckPatientOptInResponseMessage" />
+    </operation>
+    
+    <operation name="TransformXACMLRequestToAQRForPatientId">
+      <input name="TransformXACMLRequestToAQRForPatientIdRequest"
+             message="tns:TransformXACMLRequestToAQRForPatientIdRequestMessage" />
+      <output name="TransformXACMLRequestToAQRForPatientIdResponse"
+              message="tns:TransformXACMLRequestToAQRForPatientIdResponseMessage" />
+    </operation>
+    
+    <operation name="TransformPatientIdAQRToCppXACML">
+      <input name="TransformPatientIdAQRToCppXACMLRequest"
+             message="tns:TransformPatientIdAQRToCppXACMLRequestMessage" />
+      <output name="TransformPatientIdAQRToCppXACMLResponse"
+              message="tns:TransformPatientIdAQRToCppXACMLResponseMessage" />
+    </operation>
+  </portType>
+  
+  <binding name="AdapterPolicyEngineTransformBindingSoap11" type="tns:AdapterPolicyEngineTransformPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="TransformXACMLRequestToCppAQR">
+      <soap:operation soapAction="urn:TransformXACMLRequestToCppAQR"/>
+      <input name="TransformXACMLRequestToCppAQRRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="TransformXACMLRequestToCppAQRResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="TransformAQRToCppRDSR">
+      <soap:operation soapAction="urn:TransformAQRToCppRDSR"/>
+      <input name="TransformAQRToCppRDSRRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="TransformAQRToCppRDSRResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="CheckPatientOptIn">
+      <soap:operation soapAction="urn:CheckPatientOptIn"/>
+      <input name="CheckPatientOptInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPatientOptInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+
+    <operation name="TransformXACMLRequestToAQRForPatientId">
+      <soap:operation soapAction="urn:TransformXACMLRequestToAQRForPatientId"/>
+      <input name="TransformXACMLRequestToAQRForPatientIdRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="TransformXACMLRequestToAQRForPatientIdResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    
+    <operation name="TransformPatientIdAQRToCppXACML">
+      <soap:operation soapAction="urn:TransformPatientIdAQRToCppXACML"/>
+      <input name="TransformPatientIdAQRToCppXACMLRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="TransformPatientIdAQRToCppXACMLResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+
+  </binding>
+  
+  <service name="AdapterPolicyEngineTransform">
+    <port name="AdapterPolicyEngineTransformPortSoap11" 
+          binding="tns:AdapterPolicyEngineTransformBindingSoap11">
+      <soap:address 
+         location="http://localhost:${NhincHttpPort}/NhinConnect/AdapterPolicyEngineTransform" />
+    </port>
+  </service>
+  <plnk:partnerLinkType name="AdapterPolicyEngineTransform">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="AdapterPolicyEngineTransformPortTypeRole" 
+               portType="tns:AdapterPolicyEngineTransformPortType"/>
+  </plnk:partnerLinkType>
+  
+</definitions>

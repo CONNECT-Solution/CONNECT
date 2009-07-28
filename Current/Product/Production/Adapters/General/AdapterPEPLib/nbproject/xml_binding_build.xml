@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+            *** GENERATED FROM xml_binding_cfg.xml - DO NOT EDIT  ***
+            *** Configure thru JAXB Wizard.                       ***
+        -->
+<project name="AdapterPEPLib_jaxb" default="default" basedir=".">
+    <target name="xjc-typedef-target" depends="-init-project">
+        <typedef classname="com.sun.tools.xjc.XJCTask" name="xjc" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig">
+            <classpath path="${jaxbwiz.xjcdef.classpath}"/>
+        </typedef>
+    </target>
+    <target name="jaxb-clean-code-generation" depends="clean,jaxb-code-generation"/>
+    <target name="jaxb-code-generation" depends="xjc-typedef-target,-do-init,-init-macrodef-javac">
+        <mkdir dir="build/generated/addons/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
+        <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
+        <mkdir dir="${build.classes.dir}" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
+        <mkdir dir="build/generated/jaxbCache/NhincCommonAdapter"/>
+        <xjc destdir="build/generated/jaxbCache/NhincCommonAdapter" catalog="catalog.xml">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+                <pathelement path="${jaxbwiz.xjcrun.classpath}"/>
+            </classpath>
+            <arg value="-xmlschema"/>
+            <schema file="xml-resources/jaxb/NhincCommonAdapter/NhincCommonAdapter.xsd"/>
+            <depends file="xml-resources/jaxb/NhincCommonAdapter/NhincCommonAdapter.xsd"/>
+            <produces dir="build/generated/jaxbCache/NhincCommonAdapter"/>
+        </xjc>
+        <copy todir="build/generated/addons/jaxb">
+            <fileset dir="build/generated/jaxbCache/NhincCommonAdapter"/>
+        </copy>
+        <ns0:javac xmlns:ns0="http://www.netbeans.org/ns/j2se-project/3" includes="" excludes="" destdir="${build.classes.dir}" srcdir="build/generated/addons/jaxb" classpath="${jaxbwiz.gensrc.classpath}" sourcepath="${src.dir}"/>
+    </target>
+</project>

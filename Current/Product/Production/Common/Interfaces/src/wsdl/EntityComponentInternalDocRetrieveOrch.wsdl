@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="EntityComponentInternalDocRetrieveOrch" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:entitycomponentinternaldocretrieveorch"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternaldocretrieveorch" 
+    xmlns:entintorch="urn:gov:hhs:fha:nhinc:common:entitycommoninternalorch" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:entitycomponentinternaldocretrieveorch">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:entitycommoninternalorch" 
+                        schemaLocation="../schemas/nhinc/common/EntityCommonInternalOrch.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="SendRetrieveDocumentSetRequestMessage">
+        <part name="SendRetrieveDocumentSetRequest" element="entintorch:SendRetrieveDocumentSetRequest"/>
+    </message>
+    <message name="SendRetrieveDocumentSetRequestResponseMessage">
+        <part name="SendRetrieveDocumentSetRequestResponse" element="entintorch:SendRetrieveDocumentSetRequestResponse"/>
+    </message>
+    <portType name="EntityComponentInternalDocRetrieveOrchPortType">
+        <operation name="SendRetrieveDocumentSetRequest">
+            <input name="SendRetrieveDocumentSetRequest" message="tns:SendRetrieveDocumentSetRequestMessage"/>
+            <output name="SendRetrieveDocumentSetRequestResponse" message="tns:SendRetrieveDocumentSetRequestResponseMessage" />
+        </operation>
+    </portType>
+    <binding name="EntityComponentInternalDocRetrieveOrchPortTypeBinding" 
+             type="tns:EntityComponentInternalDocRetrieveOrchPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="SendRetrieveDocumentSetRequest">
+            <soap:operation soapAction="urn:SendRetrieveDocumentSetRequest"/>
+            <input name="SendRetrieveDocumentSetRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="SendRetrieveDocumentSetRequestResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="EntityComponentInternalDocRetrieveOrchService">
+        <port name="EntityComponentInternalDocRetrieveOrchPortTypeBindingPort" 
+              binding="tns:EntityComponentInternalDocRetrieveOrchPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityComponentInternalDocRetrieveOrch"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="EntityComponentInternalDocRetrieveOrch">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="EntityComponentInternalDocRetrieveOrchPortTypeRole" portType="tns:EntityComponentInternalDocRetrieveOrchPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InternalConnectionInfos>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.200</homeCommunityId>
+		<name>VA</name>
+		<description>VA</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://dvanhie1.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>Service to perform subject discovery over NHIN</description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description></description>
+				<endpointURL>http://dvanhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>	
+			<service>
+				<name>agencysubscription</name>
+				<description></description>
+				<endpointURL>http://dvanhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>	
+			<service>
+				<name>subscriptionmanager</name>
+				<description></description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:8181/SubscriptionManagerService/NhieUnsubscribe</endpointURL>
+			</service>	
+			<service>
+				<name>notificationconsumer</name>
+				<description></description>
+				<endpointURL>https://dvanhie1.fedsconnect.org:9081/NotificationProducerService/NotificationConsumerPort</endpointURL>
+			</service>	
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.198</homeCommunityId>
+		<name>DoD</name>
+		<description>DoD</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://testgateway.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>Service to perform subject discovery over NHIN</description>
+				<endpointURL>https://mhsnhie1.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://mhsnhie1.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://mhsnhie1.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://mhsnhie1.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://mhsnhie1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description></description>
+				<endpointURL>http://testgateway.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>	
+			<service>
+				<name>agencysubscription</name>
+				<description></description>
+				<endpointURL>http://testgateway.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>	
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.4.1</homeCommunityId>
+		<name>SSN</name>
+		<description></description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184</homeCommunityId>
+		<name>SSA</name>
+		<description>SSA</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>1.3.6.1.4.1.21302</homeCommunityId>
+		<name>Wright State</name>
+		<description>Wright State</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://WSNHIE1.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.210</homeCommunityId>
+		<name>IHS</name>
+		<description>IHS</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://ihsnhie.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.166.1.1</homeCommunityId>
+		<name>CareSpark</name>
+		<description>CareSpark</description>
+		<services>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://csnhintiapps01.cgifederal.com:6151/SubjectDiscoveryRespondingGatewayService/SubjectDiscoverySecureRequest</endpointURL>
+			</service>
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://csnhintiapps01.cgifederal.com:6151/DocumentRepository_Service/CSNHIECrossGatewayRetrieveService</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://csnhintiapps01.cgifederal.com:6151/DocumentRegistry_Service/CSNHIECrossGatewayQueryService</endpointURL>
+			</service>						
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.166.4</homeCommunityId>
+		<name>CareSpark</name>
+		<description>CareSpark</description>
+		<services>
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://csnhintiapps01.cgifederal.com:6151/DocumentRepository_Service/CSNHIECrossGatewayRetrieveService</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://csnhintiapps01.cgifederal.com:6151/DocumentRegistry_Service/CSNHIECrossGatewayQueryService</endpointURL>
+			</service>						
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>1.3.6.1.4.1.26580</homeCommunityId>
+		<name>Kaiser Permanente</name>
+		<description>Kaiser Permanente</description>
+		<services>
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://uatdmzweb11.kp.org/services/RespondingGateway_Service</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184.1</homeCommunityId>
+		<name>SSA - Federal</name>
+		<description>SSA</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://valws.ssa.gov:444/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://valws.ssa.gov:444/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://valws.ssa.gov:444/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://valws.ssa.gov:444/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://valws.ssa.gov:444/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184.2</homeCommunityId>
+		<name>SSA - Federal</name>
+		<description>SSA - Federal Val</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://valws.ssa.gov:444/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://valws.ssa.gov:444/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://valws.ssa.gov:444/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://valws.ssa.gov:444/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://valws.ssa.gov:444/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184.3</homeCommunityId>
+		<name>SSA - Federal</name>
+		<description>SSA - Federal Int</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://intws.ssa.gov:444/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://intws.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://intws.ssa.gov:444/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://intws.ssa.gov:444/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://intws.ssa.gov:444/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184.4</homeCommunityId>
+		<name>SSA - Federal</name>
+		<description>SSA - Federal ATE/ETE</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://nhinws.ssa.gov/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://nhinws.ssa.gov/NHIN/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://nhinws.ssa.gov/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://nhinws.ssa.gov/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://nhinws.ssa.gov/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184.5</homeCommunityId>
+		<name>SSA - Federal</name>
+		<description>SSA - Federal</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>Service to retrieve audit events for a given date range</description>
+				<endpointURL>https://ws.ssa.gov:444/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://ws.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>Service to query for documents</description>
+				<endpointURL>https://ws.ssa.gov:444/RespondingGateway_Query_Service</endpointURL>
+			</service>						
+			<service>
+				<name>documentretrieve</name>
+				<description>Service to retrieve document(s)</description>
+				<endpointURL>https://ws.ssa.gov:444/RespondingGateway_Retrieve_Service</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description></description>
+				<endpointURL>https://ws.ssa.gov:444/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+</InternalConnectionInfos>

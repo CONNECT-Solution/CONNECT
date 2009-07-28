@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" xmlns:ns2="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionreferencerepository" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>GatewaySubscriptionRepositoryCA</name>
+            <description>Represents the Service Assembly of GatewaySubscriptionRepositoryCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="NhincComponentSubscriptionRepositoryPort" service-name="ns1:NhincComponentSubscriptionRepositoryService"/>
+                <provider endpoint-name="javaee_NhincComponentSubscriptionRepositoryPort" service-name="ns1:NhincComponentSubscriptionRepositoryService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort" service-name="ns2:NhincComponentSubscriptionReferenceRepositoryService"/>
+                <provider endpoint-name="javaee_NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort" service-name="ns2:NhincComponentSubscriptionReferenceRepositoryService"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-. --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:testpepschema" targetNamespace="urn:gov:hhs:fha:nhinc:testpepschema" elementFormDefault="qualified">
+
+<xsd:complexType name="EnforceResourceInputType">
+    <xsd:sequence>
+        <xsd:element name="inputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="EnforceResourceInput" type="tns:EnforceResourceInputType" />
+
+<xsd:complexType name="EnforceResourceOutputType">
+    <xsd:sequence>
+        <xsd:element name="outputParam" type="xsd:string" />
+    </xsd:sequence>
+</xsd:complexType>
+<xsd:element name="EnforceResourceOutput" type="tns:EnforceResourceOutputType" />
+
+
+</xsd:schema>

@@ -1,0 +1,4 @@
+!2 Purpose
+This suite holds tests that expose bugs.  All tests in this suite should fail.  When a test passes it should be moved to the regression suite.
+
+!contents -R2 -g -p -f -h

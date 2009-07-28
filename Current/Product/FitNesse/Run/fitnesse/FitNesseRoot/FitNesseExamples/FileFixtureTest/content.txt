@@ -1,0 +1,51 @@
+!|Import|
+|com.agilex|
+
+!define directoryPath {C:\Temp}
+!define filePath {C:\Temp\test.txt}
+!define content {This is a test of the emergency broadcast system!
+}
+
+|!-IOFixture-!|
+|create|${directoryPath}|
+|exists|${directoryPath}|
+|write|${filePath}|${content}|
+|exists|${filePath}|
+|append|${filePath}|more|
+|fileContentsEquals|${filePath}|${content}more|
+|fileContains|${filePath}|broadcast|
+|copy|${filePath}|C:\Temp\test2.txt|
+|exists|C:\Temp\test2.txt|
+|filesAreSame|${filePath}|C:\Temp\test2.txt|
+|move|C:\Temp\test2.txt|C:\Temp\test3.txt|
+|exists|C:\Temp\test2.txt|is|false|
+|exists|C:\Temp\test3.txt|
+|delete|${filePath}|
+|exists|${filePath}|is|false|
+|delete|C:\Temp\test3.txt|
+|exists|C:\Temp\test3.txt|is|false|
+
+|!-IOFixture-!|
+|write|${filePath}|${content}|
+|waitForFileExists|${filePath}|
+|delete|${filePath}|
+
+waitForFileExists optionally takes two more parrameters: timeoutInMilliseconds and intervalInMilliseconds.
+
+!define timeoutInMilliseconds {2000}
+!define intervalInMilliseconds {1000}
+
+|!-IOFixture-!|
+|waitForFileExists|${filePath}|${timeoutInMilliseconds}|
+
+|!-IOFixture-!|
+|waitForFileExists|${filePath}|${timeoutInMilliseconds}|${intervalInMilliseconds}|
+
+
+!|IOFixture|
+|mapDrive|v:|\\192.168.101.123\c$|password|localhost\administrator|
+|disconnectDrive|\\192.168.101.123\c$|
+
+!|IOFixture|
+|mapDrive|\\192.168.101.123\c$|password|localhost\administrator|
+|disconnectDrive|\\192.168.101.123\c$|

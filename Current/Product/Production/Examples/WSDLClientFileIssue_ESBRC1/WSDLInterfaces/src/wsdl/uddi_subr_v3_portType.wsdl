@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:uddi-org:subr_v3_portType" xmlns:uddi="urn:uddi-org:api_v3" xmlns:uddi_subr="urn:uddi-org:subr_v3" targetNamespace="urn:uddi-org:subr_v3_portType">
+	<documentation>
+	                This WSDL document defines the portTypes for the UDDI V3 Subscription Listener.
+	</documentation>
+	<types>
+		<xsd:schema targetNamespace="urn:uddi-org:subr_v3_portType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="urn:uddi-org:api_v3" schemaLocation="../schemas/uddi/uddi_v3.xsd"/>
+			<xsd:import namespace="urn:uddi-org:subr_v3" schemaLocation="../schemas/uddi/uddi_v3subscriptionListener.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="dispositionReportFaultMessage">
+		<part name="body" element="uddi:dispositionReport"/>
+	</message>
+	<message name="dispositionReportMessage">
+		<part name="body" element="uddi:dispositionReport"/>
+	</message>
+	<message name="notify_subscriptionListenerMessage">
+		<part name="body" element="uddi_subr:notify_subscriptionListener"/>
+	</message>
+	<portType name="UDDI_SubscriptionListener_PortType">
+		<documentation>This portType defines all of the UDDI subscriptionListener operations.</documentation>
+		<operation name="notify_subscriptionListener">
+			<input message="tns:notify_subscriptionListenerMessage"/>
+			<output message="tns:dispositionReportMessage"/>
+			<fault name="error" message="tns:dispositionReportFaultMessage"/>
+		</operation>
+	</portType>
+	<!-- 
+	Copyright (c) 2000-2002 by Accenture, Ariba, Inc., Commerce One, Inc. Fujitsu Limited, Hewlett-Packard Company, i2 Technologies, Inc., Intel Corporation, 
+	International Business Machines Corporation, Microsoft Corporation, Oracle Corporation, SAP AG, Sun Microsystems, Inc., and VeriSign, Inc.  All Rights Reserved.
+	
+	Copyright (c) OASIS Open 2002-2004. All Rights Reserved.
+	Version 3.0.2 
+	-->
+</definitions>

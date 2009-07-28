@@ -1,0 +1,7 @@
+<EntityDescriptor
+    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+    entityID="jerichoPdpEntity">
+    <XACMLPDPDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+	    <XACMLAuthzService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/EnterSpaceCE/XACMLService"/>
+    </XACMLPDPDescriptor>
+</EntityDescriptor>

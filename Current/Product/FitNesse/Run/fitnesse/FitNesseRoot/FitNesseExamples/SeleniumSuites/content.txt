@@ -1,0 +1,10 @@
+Please note that this is not a suite, it contains suites.  Often with Selenium tests you want to execute the same suite of tests against different browsers.  You can make use of !-FitNesse-! variables, suites, and symbolic links to create a single suite that is executed against various browsers.  Notice below the suites named after browsers and the one suite named !-RegressionSuite-!.  The !-RegressionSuite-! has no variable definition, the other suites contain a symbolic link to the !-RegressionSuite-!.  This allows you to maintain one set of tests for various browsers.
+
+Here we set Selenium variables that will be used in every Selenium fixture, remember that they are inherited by all children of this page.
+!define Selenium.Server {localhost}
+!define Selenium.Port {4488}
+
+This is the page that we will open the browser to...
+!define Url.Root {http://maps.google.com}
+
+!contents -R2 -g -p -f -h

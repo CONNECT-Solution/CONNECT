@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-check-NhincSubscription" depends="wsimport-init">
+        <condition property="wsimport-client-NhincSubscription.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincsubscription/NhincSubscription.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-NhincSubscription" depends="wsimport-init,wsimport-client-check-NhincSubscription" unless="wsimport-client-NhincSubscription.notRequired">
+        <property name="wsdl-NhincSubscription" location="${meta.inf}/xml-resources/web-service-references/NhincSubscription/wsdl/NhincSubscription.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincSubscription}" catalog="catalog.xml"/>
+    </target>
+    <target name="wsimport-client-clean-NhincSubscription" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincsubscription"/>
+    </target>
+    <target name="wsimport-service-check-HiemUnsubscribe" depends="wsimport-init">
+        <condition property="wsimport-service-HiemUnsubscribe.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2/SubscriptionManagerService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init,wsimport-service-check-HiemUnsubscribe" unless="wsimport-service-HiemUnsubscribe.notRequired">
+        <property name="service-wsdl-HiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-HiemUnsubscribe}" catalog="catalog.xml"/>
+        <property name="targetLocation-HiemUnsubscribe" location="${meta.inf}/wsdl/HiemUnsubscribe"/>
+        <property name="sourceLocation-HiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/HiemUnsubscribe/wsdl/"/>
+        <copy todir="${targetLocation-HiemUnsubscribe}">
+            <fileset dir="${sourceLocation-HiemUnsubscribe}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemUnsubscribe" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2"/>
+    </target>
+    <target name="wsimport-service-check-HiemNotify" depends="wsimport-init">
+        <condition property="wsimport-service-HiemNotify.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2/NotificationConsumerService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-HiemNotify" depends="wsimport-init,wsimport-service-check-HiemNotify" unless="wsimport-service-HiemNotify.notRequired">
+        <property name="service-wsdl-HiemNotify" location="${meta.inf}/xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-HiemNotify}" catalog="catalog.xml"/>
+        <property name="targetLocation-HiemNotify" location="${meta.inf}/wsdl/HiemNotify"/>
+        <property name="sourceLocation-HiemNotify" location="${meta.inf}/xml-resources/web-services/HiemNotify/wsdl/"/>
+        <copy todir="${targetLocation-HiemNotify}">
+            <fileset dir="${sourceLocation-HiemNotify}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemNotify" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2"/>
+    </target>
+    <target name="wsimport-service-check-HiemSubscription" depends="wsimport-init">
+        <condition property="wsimport-service-HiemSubscription.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2/NotificationProducerService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-HiemSubscription" depends="wsimport-init,wsimport-service-check-HiemSubscription" unless="wsimport-service-HiemSubscription.notRequired">
+        <property name="service-wsdl-HiemSubscription" location="${meta.inf}/xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-HiemSubscription}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-HiemSubscription" location="${meta.inf}/wsdl/HiemSubscription"/>
+        <property name="sourceLocation-HiemSubscription" location="${meta.inf}/xml-resources/web-services/HiemSubscription/wsdl/"/>
+        <copy todir="${targetLocation-HiemSubscription}">
+            <fileset dir="${sourceLocation-HiemSubscription}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-HiemSubscription" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/bw_2"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhincSubscription"/>
+    <target name="wsimport-client-compile" depends="wsimport-client-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-HiemUnsubscribe, wsimport-service-HiemNotify, wsimport-service-HiemSubscription"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

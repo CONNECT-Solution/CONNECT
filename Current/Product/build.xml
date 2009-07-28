@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="nhinc" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
+
+  <description>Builds nhinc, tests, runs NHINC projects</description>
+
+  <import file="build.lib.xml" />
+
+  <property file="build.properties"/>
+
+  <echo message="ant.home=${ant.home}" />
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+	<classpath>
+		<pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar" />
+	</classpath>
+  </taskdef>
+	
+  <import file="Properties.build.xml"/>
+
+  <condition property="progress-filepath" value="${TempDirectory}/ant-progress.txt">
+    <not>
+      <isset property="progress-filepath" />
+    </not>
+  </condition>
+
+  <path id="ant.contrib.task.classpath">
+    <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
+    <pathelement location="${ant.home}/lib/ivy-2.1.0-rc1.jar"/>
+    <pathelement location="${ant.home}/lib/bcel-5.1.jar"/>
+    <pathelement location="${ant.home}/lib/commons-httpclient-3.0.1.jar"/>
+    <pathelement location="${ant.home}/lib/commons-logging-1.0.4.jar"/>
+  </path>
+
+  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <taskdef name="math" classname="net.sf.antcontrib.math.MathTask">
+    <classpath refid="ant.contrib.task.classpath"/>
+  </taskdef>
+
+  <target name="default" depends="build" description="Builds the NHIN-C solution." />
+
+  <target name="build" description="Builds the NHIN-C solution." >
+    <property name="do-to-target" value="build"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="build-test" description="Cleans and then builds the NHIN-C solution." depends="init-tests">
+    <property name="do-to-target" value="build-test"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean" description="Cleans the NHIN-C solution." >
+    <property name="do-to-target" value="clean"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean-build" description="Cleans and then builds the NHIN-C solution.">
+    <property name="do-to-target" value="clean-build"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="clean-test" description="Cleans and then builds the NHIN-C solution." depends="init-tests">
+    <property name="do-to-target" value="clean-test"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="test" depends="init-tests">
+    <property name="do-to-target" value="test"/>
+    <antcall target="do-to-projects" />
+  </target>
+
+
+	<target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
+		<property name="project.count" value="0" />
+		<echo message="PRoduct directory = ${ProductDirectory}"/>
+		<xmltask source="build.projects.xml">
+			<call path="/projects/project">
+				<actions>
+					<math result="project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
+				</actions>
+			</call>
+		</xmltask>
+<echo message="here"/>
+		<property name="current.project.count" value="0" />
+		<xmltask source="build.projects.xml">
+			<call path="/projects/project">
+				<param name="project.name" path="name/text()" />
+				<param name="project.directory" path="directory/text()" />
+				<actions>
+					<math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
+					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+					<ant dir="${ProductDirectory}/@{project.directory}" antfile="build.xml" inheritAll="true">
+						<target name="${do-to-target}" />
+					</ant>
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
+					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
+				</actions>
+			</call>
+		</xmltask>
+	</target>
+
+  <target name="init-tests">
+    <delete includeemptydirs="true" failonerror="false">
+      <fileset dir="./UnitTestResults" includes="*.xml"/>
+      <fileset dir="./UnitTestResults/html" />
+    </delete>
+    <mkdir dir="./UnitTestResults"/>
+  </target>
+
+  <target name="UnitTestReport">
+    <echo message=" ******************** Format JUnit Results *************************"/>
+    <junitreport todir="./UnitTestResults" tofile="UnitTests.xml">
+      <fileset dir="./UnitTestResults">
+        <include name="TEST-*.xml"/>
+      </fileset>
+      <report format="frames" todir="./UnitTestResults/html"/>
+    </junitreport>
+    <echo message=" ******************** End Format JUnit Results **********************"/>
+  </target>
+
+  <target name="debug" description="Debugging Build Process" >
+
+  </target>
+  
+  <target name="echo_vars" description="Echo variables target." >
+    <echo message="netbeans.home = ${netbeans.home}" />
+  </target>
+
+  <target name="xsd" description="xsd">
+    <echo message="**** Converting XSD's to Jar's ************ "/>
+    <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+      <classpath>
+        <fileset dir="${caps.netbeans.home}/java2/modules/ext/jaxws21/" includes="*.jar" />
+      </classpath>
+    </taskdef>
+    <mkdir dir="${ProductionDirectory}/CommonBin"/>
+    <mkdir dir="${ProductionDirectory}/Interfaces/Agency/temp/src"/>
+    <mkdir dir="${ProductionDirectory}/Interfaces/Agency/temp/build/classes"/>
+    <mkdir dir="${ProductionDirectory}/Interfaces/temp/src"/>
+    <mkdir dir="${ProductionDirectory}/Interfaces/temp/build/classes"/>
+    <xjc package="gov.hhs.fha.nhinc.adaptermodel" destdir="${ProductionDirectory}/Interfaces/Agency/temp/src">
+      <schema  dir="${ProductionDirectory}/Interfaces/src/schemas/Agency" includes="*.xsd"/>
+    </xjc>
+    <xjc package="gov.hhs.fha.nhinc.nhiemodel.ebRS" destdir="${ProductionDirectory}/Interfaces/temp/src">
+      <schema  dir="${ProductionDirectory}/Interfaces/src/schemas/ebRS" includes="*.xsd"/>
+    </xjc>
+    <xjc package="gov.hhs.fha.nhinc.nhiemodel.ihe" destdir="${ProductionDirectory}/Interfaces/temp/src">
+      <schema  dir="${ProductionDirectory}/Interfaces/src/schemas/ihe" includes="*.xsd"/>
+    </xjc>
+    <javac srcdir="${ProductionDirectory}/Interfaces/Agency/temp/src"
+           destdir="${ProductionDirectory}/Interfaces/Agency/temp/build/classes" />
+    <javac srcdir="${ProductionDirectory}/Interfaces/temp/src"
+           destdir="${ProductionDirectory}/Interfaces/temp/build/classes" />
+    <delete file="${ProductionDirectory}/CommonBin/adaptermodels.jar"/>
+    <delete file="${ProductionDirectory}/CommonBin/nhiemodels.jar"/>
+    <jar destfile="${ProductionDirectory}/CommonBin/adaptermodels.jar"
+         basedir="${ProductionDirectory}/Interfaces/Agency/temp/build/classes"
+         excludes="**/Test.class" />
+    <jar destfile="${ProductionDirectory}/CommonBin/nhiemodels.jar"
+         basedir="${ProductionDirectory}/Interfaces/temp/build/classes"
+         excludes="**/Test.class" />
+    <delete includeEmptyDirs="true">
+      <fileset dir="${ProductionDirectory}/Interfaces/Agency/temp"/>
+      <fileset dir="${ProductionDirectory}/Interfaces/temp"/>
+    </delete>
+  </target>
+
+</project>

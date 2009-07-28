@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="xml-resources/web-service-references/NhinAuditLogQuery/wsdl/NhinAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="xml-resources/web-service-references/NhinAuditLogQuery/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="xml-resources/web-service-references/NhinAuditLogQuery/schemas/nhinc/gateway/SamlTokenData.xsd"/>
+</catalog>

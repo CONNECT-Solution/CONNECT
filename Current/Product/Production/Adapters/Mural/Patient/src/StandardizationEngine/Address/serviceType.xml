@@ -1,0 +1,62 @@
+<serviceType>
+	<description>Address Standardization</description>
+	
+	<parameter name="fields">
+		<list>
+			
+			<value>MatchPropertyName</value>
+			<value>MatchStreetName</value>
+			<value>OrigPropertyName</value>
+			<value>OrigSecondStreetName</value>
+			<value>OrigStreetName</value>
+			<value>StorStreetName</value>
+			<value>SecondStreetNameSufType</value>
+			
+			<value>BoxDescript</value>
+			<value>BoxIdentif</value>
+			<value>BuildingClass</value>
+			<value>BuildingNumber</value>
+			<value>BuildingNumberPrefix</value>
+			<value>BuildingNumberSuffix</value>
+			<value>CenterDescript</value>
+			<value>CenterIdentif</value>
+			<value>Conjunction</value>
+			<value>ExtraInfo</value>
+			<value>FirstHouseNumber</value>
+			<value>HouseClass</value>
+			<value>HouseNumber</value>
+			<value>HouseNumberPrefix</value>
+			<value>HouseNumberSuffix</value>
+			<value>MostlyNumericClass</value>
+			<!--
+			<value>OtherB1</value>
+			<value>OtherB2</value>
+			<value>OtherBE</value>
+			-->
+			<value>PostOfficeBoxClass</value>
+			<value>PropDesPrefDirection</value>
+			<value>PropDesPrefType</value>
+			<value>PropertyBuildingName</value>
+			<value>PropDesSufDirection</value>
+			<value>PropDesSufType</value>
+			<value>RuralRouteClass</value>
+			<value>RuralRouteDescript</value>
+			<value>RuralRouteIdentif</value>
+			<value>SecondBuildingNumberPrefix</value>
+			<value>SecondHouseNumber</value>
+			<value>SecondHouseNumberPrefix</value>
+			<value>SecondStreetName</value>
+			<value>SecondStreetNameSufType</value>
+			<value>StreetName</value>
+			<value>StreetNameExtensionIndex</value>
+			<value>StreetNamePrefDirection</value>
+			<value>StreetNamePrefType</value>
+			<value>StreetNameSufDirection</value>
+			<value>StreetNameSufType</value>
+			<value>StreetTypeClass</value>
+			<value>UnitWithinStructureClass</value>
+			<value>WithinStructDescript</value>
+			<value>WithinStructIdentif</value>
+		</list>
+	</parameter>
+</serviceType>

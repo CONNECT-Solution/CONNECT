@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="urn:uddi-org:custody_v3_portType" xmlns:ns1="urn:uddi-org:v3_service" xmlns:ns2="urn:gov:hhs:fha:nhinc:wsdlissue:wsdl:sample" xmlns:ns3="urn:uddi-org:api_v3_portType" xmlns:ns4="urn:uddi-org:sub_v3_portType" name="SampleService2EJB">
+    <services>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_SampleServicePort" interface-name="ns2:SampleServicePortType" service-name="ns2:SampleServiceService"/>
+        <consumes enable-for-nmr="true" endpoint-name="javaee_UDDI_Custody_Port" interface-name="ns0:UDDI_CustodyTransfer_PortType" service-name="ns1:UDDI_Service"/>
+        <consumes enable-for-nmr="true" endpoint-name="javaee_UDDI_Security_Port" interface-name="ns3:UDDI_Security_PortType" service-name="ns1:UDDI_Service"/>
+        <consumes enable-for-nmr="true" endpoint-name="javaee_UDDI_Publication_Port" interface-name="ns3:UDDI_Publication_PortType" service-name="ns1:UDDI_Service"/>
+        <consumes enable-for-nmr="true" endpoint-name="javaee_UDDI_Inquiry_Port" interface-name="ns3:UDDI_Inquiry_PortType" service-name="ns1:UDDI_Service"/>
+        <consumes enable-for-nmr="true" endpoint-name="javaee_UDDI_Subscription_Port" interface-name="ns4:UDDI_Subscription_PortType" service-name="ns1:UDDI_Service"/>
+    </services>
+</javaee-project>

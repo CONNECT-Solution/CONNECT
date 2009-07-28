@@ -1,0 +1,11 @@
+!define filepath {C:\Temp\test.txt}
+!define content {This is the first line.
+This is the second line.
+This is the last line.}
+
+|!-CommandLineFixture-!|
+|createFile|${filepath}|${content}|
+|command|cmd /C type ${filepath}|read|
+|contains|read.stdout|This is the first line.|
+|contains|read.stdout|This is the second line.|
+|contains|read.stdout|This is the last line.|

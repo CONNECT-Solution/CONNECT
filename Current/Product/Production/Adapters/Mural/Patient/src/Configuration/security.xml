@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema/security.xsd">
+    <SecurityConfig module-name="Security" parser-class="com.sun.mdm.index.configurator.impl.security.SecurityConfiguration">
+        <SecurityPlugInClass></SecurityPlugInClass>
+        <ejbSecurity>ON</ejbSecurity>
+        <role>
+            <role-name>MasterIndex.User</role-name>
+            <operations>
+                <name>lookupAssumedMatches</name>
+                <name>lookupAuditLog</name>
+                <name>lookupPotentialDuplicates</name>
+                <name>lookupSystemDefinition</name>
+                <name>lookupSystemDefinitions</name>
+                <name>lookupSystemObjectPKs</name>
+                <name>lookupSystemObjects</name>
+                <name>lookupTransactions</name>
+                <name>resolvePotentialDuplicate</name>
+                <name>searchEnterpriseObject</name>
+            </operations>
+        </role>
+    </SecurityConfig>
+</Configuration>

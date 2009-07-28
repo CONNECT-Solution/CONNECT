@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Target">
+
+  <include buildfile="SoapUI.Properties.xml" />
+
+  <target name="SoapUI.Deploy">
+
+	  <trycatch>
+		  <try> 
+		    <delete dir="${ProductDirectory}\IntegrationTest\results" failonerror="false"/>
+		  	<delete file="${ProductDirectory}\IntegrationTest\default.properties" if="${file::exists(ProductDirectory + '\IntegrationTest\default.properties')}"/>
+
+				<copy file="${ProductDirectory}\IntegrationTest\default.${location}.properties"  tofile="${ProductDirectory}\IntegrationTest\default.properties" />
+				<echo message="Running Integration tests at location: ${location}"/>
+						  	
+			  <exec program="${AntBat}" basedir="${BuildDirectory}\Packages\SoapUI" failonerror="false">
+				  <environment refid="${Ant.Environment.RefId}" />
+				  <arg line="default -buildfile ${BuildDirectory}\Packages\SoapUI\SoapUI.Ant.Target.xml" />
+
+			  </exec>
+			
+		  </try>
+		  <finally>
+		  		<copy failonerror="false" overwrite="true" flatten="true" todir="${BuildDirectory}\SoapUITestReports" verbose="true">
+					<fileset basedir="${ProductDirectory}\IntegrationTest\results">
+						<include name="IntegrationTests.xml" />
+					</fileset>
+				</copy>
+		  </finally>
+	  </trycatch>
+	  
+		<ifthenelse  test="${file::exists(BuildDirectory + '\SoapUITestReports\IntegrationTests.xml')}">
+			<then>
+				<property name="UnitTest.HasFailures" value="true"/>
+				<xmlpeek
+					file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"
+					property="UnitTest.HasFailures"
+					xpath="boolean(/testsuites//testsuite[@errors>0] or /testsuites//testsuite[@failures>0])"
+				/>
+
+				<fail
+					if="${UnitTest.HasFailures}"
+					message="At least one unit test has failed.  Please check the unit test section for more details..."
+				/>
+			</then>
+			<else>
+				<fail message="It doesn't look like any unit tests were run, so the build was failed!"/>
+			</else>
+		</ifthenelse>
+		
+  </target>
+
+ 
+  <target name="SoapUI.SetUp">
+
+  </target>
+
+  <target name="SoapUI.TearDown">
+
+  </target>
+</project>

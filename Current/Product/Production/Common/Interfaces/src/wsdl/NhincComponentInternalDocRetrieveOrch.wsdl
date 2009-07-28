@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NhincComponentInternalDocRetrieveOrch" targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch" 
+    xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+    xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternaldocretrieveorch">
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" schemaLocation="../schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="RespondingGateway_CrossGatewayRetrieveRequest">
+        <part name="RetrieveDocumentSetRequest" element="nccommoninternalorch:RespondingGateway_CrossGatewayRetrieveRequest"/>
+    </message>
+    <message name="RespondingGateway_CrossGatewayRetrieveResponse">
+        <part name="RetrieveDocumentSetResponse" element="ihe:RetrieveDocumentSetResponse"/>
+    </message>
+    <portType name="NhincComponentInternalDocRetrieveOrchPortType">
+        <operation name="RespondingGateway_CrossGatewayRetrieve">
+            <input name="RespondingGateway_CrossGatewayRetrieveRequest" message="tns:RespondingGateway_CrossGatewayRetrieveRequest"/>
+            <output name="RespondingGateway_CrossGatewayRetrieveResponse" message="tns:RespondingGateway_CrossGatewayRetrieveResponse"/>
+        </operation>
+    </portType>
+    <binding name="NhincComponentInternalDocRetrieveOrchPortTypeBinding" type="tns:NhincComponentInternalDocRetrieveOrchPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RespondingGateway_CrossGatewayRetrieve">
+            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
+            <input name="RespondingGateway_CrossGatewayRetrieveRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="RespondingGateway_CrossGatewayRetrieveResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="NhincComponentInternalDocRetrieveOrchService">
+        <port name="NhincComponentInternalDocRetrieveOrchPortTypeBindingPort" binding="tns:NhincComponentInternalDocRetrieveOrchPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincComponentInternalDocRetrieveOrch"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="NhincComponentInternalDocRetrieveOrch">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincComponentInternalDocRetrieveOrchPortTypeRole" portType="tns:NhincComponentInternalDocRetrieveOrchPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

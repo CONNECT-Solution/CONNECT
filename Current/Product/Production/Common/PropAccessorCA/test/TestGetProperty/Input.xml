@@ -1,0 +1,8 @@
+<soapenv:Envelope xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:propertyaccess">
+  <soapenv:Body>
+    <urn:GetPropertyRequest>
+      <urn:propertyFile>testperiodic</urn:propertyFile>
+      <urn:propertyName>Property1</urn:propertyName>
+    </urn:GetPropertyRequest>
+  </soapenv:Body>
+</soapenv:Envelope>

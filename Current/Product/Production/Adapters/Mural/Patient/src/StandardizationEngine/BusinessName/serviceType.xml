@@ -1,0 +1,16 @@
+<serviceType defaultInstance="Generic">
+	<description>Business Name Standardization</description>
+	
+	<parameter name="fields">
+		<list>
+			<value>PrimaryName</value>
+			<value>OrgTypeKeyword</value>
+			<value>AssocTypeKeyword</value>
+			<value>IndustryTypeKeyword</value>
+			<value>AliasList</value>
+			<value>Url</value>
+			<value>IndustrySectorList</value>
+		</list>
+	</parameter>
+	
+</serviceType>

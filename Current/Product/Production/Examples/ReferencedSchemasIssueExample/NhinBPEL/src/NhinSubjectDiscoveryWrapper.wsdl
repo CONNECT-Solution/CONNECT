@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NhinSubjectDiscoveryWrapper" targetNamespace="http://enterprise.netbeans.org/bpel/NhinSubjectDiscoveryWrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/NhinSubjectDiscoveryWrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="urn:ihe:iti:pixv3:2007">
+    <import location="Interfaces/wsdl/NhinSubjectDiscovery.wsdl" namespace="urn:ihe:iti:pixv3:2007"/>
+    <plnk:partnerLinkType name="PIXConsumer_LinkType">
+        <plnk:role name="PIXConsumer_Role" portType="ns:PIXConsumer_PortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:gov:hhs:fha:nhinc:common:hiemsubscriptionrepositoryutil"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:common:hiemsubscriptionrepositoryutil"
+    elementFormDefault="qualified">
+    <xsd:complexType name="GetSubscriptionCountRequestType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionCountRequest" type="tns:GetSubscriptionCountRequestType"></xsd:element>
+    <xsd:complexType name="GetSubscriptionCountResponseType">
+        <xsd:sequence>
+            <xsd:element name="SubscriptionCount" type="xsd:int"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetSubscriptionCountResponse" type="tns:GetSubscriptionCountResponseType"></xsd:element>
+    <xsd:complexType name="EmptySubscriptionRepositoryRequestType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="EmptySubscriptionRepositoryRequest" type="tns:EmptySubscriptionRepositoryRequestType"></xsd:element>
+    <xsd:complexType name="EmptySubscriptionRepositoryResponseType">
+        <xsd:sequence/>
+    </xsd:complexType>
+    <xsd:element name="EmptySubscriptionRepositoryResponse" type="tns:EmptySubscriptionRepositoryResponseType"></xsd:element>
+</xsd:schema>

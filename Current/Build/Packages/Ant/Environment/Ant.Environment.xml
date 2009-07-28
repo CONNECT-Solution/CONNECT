@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Ant.Environment" >
+
+  <property name="Ant.Environment.Path" value="${environment::get-variable('SystemRoot')}\system32;${environment::get-variable('SystemRoot')};${environment::get-variable('SystemRoot')}\System32\Wbem" />
+
+  <property name="Ant.Home"   value="C:\GlassFishESB\netbeans\java2\ant" />
+  <property name="Ant.Bin"     value="${Ant.Home}\bin" />
+  <property name="Ant.Bat"     value="${Ant.Bin}\ant.bat" />
+
+  <property name="Java.Home"                      value="C:\Java\jdk1.6.0_13" />
+  <property name="Java.Exe"                       value="${Java.Home}\bin\javaw.exe"/>
+
+  <environment id="${Ant.Environment.RefId}">
+    <variable name="JAVA_HOME" value="${Java.Home}" />
+    <variable name="ANT_HOME" value="${Ant.Home}" />
+    <variable name="ANT_OPTS" value="-Xmx872m -XX:MaxPermSize=800m"/>
+    <variable name="PATH" path="${Ant.Environment.Path};${Ant.Bin};${Java.Home}\bin;${Java.Home};${NantBinPath};${environment::get-variable('ProgramFiles')}\Subversion\bin" />
+    <variable name="JAVAEXE" value="${Java.Exe}"/>
+    <variable name="NHINC_PROPERTIES_DIR" value="${ProductionDirectory}\Properties" />
+    <variable name="AS_HOME" value="C:\GlassFishESB\glassfish" />
+  </environment>
+
+</project>

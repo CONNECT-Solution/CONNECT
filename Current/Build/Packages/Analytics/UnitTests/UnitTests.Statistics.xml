@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE Builds [
+  <!ENTITY content SYSTEM "..\..\..\Artifacts\UnitTestsContent.xml">
+]>
+<Builds>
+  &content;
+</Builds>

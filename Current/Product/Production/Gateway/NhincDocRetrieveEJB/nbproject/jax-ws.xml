@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="DocRetrieve">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
+      <local-wsdl-file>NhinDocRetrieve.wsdl</local-wsdl-file>
+      <service-name>RespondingGateway_Retrieve_Service</service-name>
+      <port-name>RespondingGateway_Retrieve_Port_Soap</port-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+  </services>
+  <clients>
+    <client name="NhincDocRetrieve">
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsdl-url>
+      <local-wsdl-file>NhincDocRetrieve.wsdl</local-wsdl-file>
+      <package-name>gov:hhs:fha:nhinc:nhincdocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+    </client>
+  </clients>
+</jax-ws>

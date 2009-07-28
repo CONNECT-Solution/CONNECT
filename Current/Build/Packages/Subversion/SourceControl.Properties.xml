@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SVN.Properties">
+
+  <property name="SVN.URI.Root" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC" overwrite="false" />
+  <property name="SVN.URI.ProjectName" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC" overwrite="false" />
+  <property name="SVN.URI.ProjectCodeLine" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current" overwrite="false" />
+  
+  <ifthenelse test="${file::exists(PackagesDirectory + '\Subversion\SourceControl.Credentials.xml')}">
+    <then>
+      <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Credentials.xml" />
+    </then>
+    <else>
+      <echo level="Warning" message="SourceControl.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>
+    </else>
+  </ifthenelse>
+  
+  <property name="SVN.Credentials.SafeStorage" value="true" overwrite="false"/>
+  <property name="SVN.TemplateDB" value="C:\Tools\CI Factory\Packages\Subversion\Install\Template.zip" overwrite="false" />
+  <property name="SVN.RootShare" value="C:\svnrepos" overwrite="false"/>
+	<property name="SourceControl.Update.Interactive" value="false" overwrite="false"/>
+
+	<property name="TortoisePath" value="${environment::get-variable('ProgramFiles')}\TortoiseSVN\bin\TortoiseProc.exe"/>
+
+	<property name="SvnBinPath" value="${environment::get-variable('ProgramFiles')}\Subversion\bin"/>
+	<setenv name="PATH" value="${environment::get-variable('PATH')};${SvnBinPath}" unless="${string::contains(environment::get-variable('PATH'), SvnBinPath)}" />
+
+</project>

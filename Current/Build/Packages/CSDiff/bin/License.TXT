@@ -1,0 +1,37 @@
+CSDiff Version 5.0
+Copyright (C) 2000-2005 ComponentSoftware, Inc.
+All Rights Reserved
+
+License Agreement
+
+The following terms and conditions should be read carefully before using this software. Your use of this software indicates your acceptance of this license agreement and warranty.
+
+Freeware
+
+You may use this product free of charge.
+
+Disclaimer of Warranty
+
+      THIS SOFTWARE IS DISTRIBUTED "AS IS" AND WITHOUT
+WARRANTIES AS TO PERFORMANCE OF MERCHANTABILITY OR ANY
+OTHER WARRANTIES WHETHER EXPRESSED OR IMPLIED.  BECAUSE
+OF THE VARIOUS HARDWARE AND SOFTWARE ENVIRONMENTS INTO
+WHICH THIS PROGRAM MAY BE PUT, NO WARRANTY OF FITNESS FOR
+A PARTICULAR PURPOSE IS OFFERED.  GOOD DATA PROCESSING
+PROCEDURE DICTATES THAT ANY PROGRAM BE THOROUGHLY
+TESTED WITH NON-CRITICAL DATA BEFORE RELYING ON IT.  THE
+USER MUST ASSUME THE ENTIRE RISK OF USING THE PROGRAM.
+ANY LIABILITY OF THE SELLER WILL BE LIMITED EXCLUSIVELY TO
+PRODUCT REPLACEMENT OR REFUND OF PURCHASE PRICE.
+
+Further Distribution
+
+You are hereby licensed to make as many copies of the complete and unmodified package of this product and distribute it by any means. There is no charge for this right.
+
+Reverse-Engineering
+
+You may not reverse engineer, decompile, disassemble or alter this software product in any way.
+
+Separation of Components
+
+This software product is licensed as a single product. Its component parts may not be separated for any use or distribution. 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="nhinc-integrationtests" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
+    <description>runs integration tests</description>
+    <!-- <property file="build.properties"/> -->
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+		  <classpath>
+		    <pathelement location="C:/Projects/NHINC/Current/ThirdParty/AntExtraLibs/ant-contrib-1.0b3.jar"/>
+		  </classpath>
+		</taskdef>
+		
+		<property name="IntegrationTest.Dir" value="C:/Projects/NHINC/Current/Product/IntegrationTest"/>
+		<property name="IntegrationTest.Results.Dir" value="${IntegrationTest.Dir}/results"/>
+		<property name="SoapUI.Dir" value="C:/soapUI-Pro-current/bin"/>
+    <target name="default" depends="run-tests,build-report" />
+
+    <target name="init-tests">
+        <delete includeemptydirs="true" failonerror="false">
+            <fileset dir=".\\results" />
+        </delete>
+    </target>
+
+    <target name="run-tests" depends="init-tests">
+	<echo message="HERE"/>
+    	<var name="counter" value="1"/>
+
+			<for param="file">
+			  <path>
+			    <fileset dir="${IntegrationTest.Dir}" includes="InternalSelfTest-soapui-project.xml"/>
+			    <fileset dir="${IntegrationTest.Dir}" includes="ValidateServices-soapui-project.xml"/>
+			    <fileset dir="${IntegrationTest.Dir}" includes="PatientCorrelation-soapui-project.xml"/>
+			    <fileset dir="${IntegrationTest.Dir}" includes="PatientCorrelationFacade-soapui-project.xml"/>
+			    <fileset dir="${IntegrationTest.Dir}" includes="Flags-DocQuery-soapui-project.xml"/>
+<!--			    <fileset dir="${IntegrationTest.Dir}" includes="Fail-soapui-project.xml"/>-->
+<!--			    <fileset dir="${IntegrationTest.Dir}" includes="EntitySubjectDiscoveryIntegrationTest-soapui-project.xml"/>
+			    <fileset dir="${IntegrationTest.Dir}" includes="MpiManager-soapui-project.xml"/>-->
+			  </path>
+			  <sequential>
+					<echo message="@{file}"/>
+					<echo message="${counter}"/>
+					
+					
+					<exec dir="${SoapUI.Dir}" executable="cmd.exe">
+						<arg line="/c testrunner.bat -j -a -f${IntegrationTest.Results.Dir}/test_${counter} @{file}"/>
+					</exec>
+					<!-- JUnit Report task requires that the input.xml files be unique. The SoapUI executable outputs each test's report summary as report.xml
+							 need to rename each report.xml file. 
+					-->
+					<move file="${IntegrationTest.Results.Dir}/test_${counter}/report.xml" tofile="C:\Projects\NHINC\Current\Product\IntegrationTest\results\test_${counter}\report${counter}.xml"/>
+					<math result="counter" operand1="${counter}" operation="+" operand2="1" datatype="int"/>
+			  </sequential>
+			</for>
+    </target>
+
+    <target name="build-report" >
+
+
+
+			<replace dir="${IntegrationTest.Results.Dir}" token="&lt;testsuites&gt;" value="">
+			  <include name="**/*.xml"/>
+			
+			</replace>
+			<replace dir="${IntegrationTest.Results.Dir}" token="&lt;/testsuites&gt;" value="">
+			  <include name="**/*.xml"/>
+			
+			</replace> 
+
+    
+    	<junitreport 	todir="${IntegrationTest.Results.Dir}"   	tofile="IntegrationTests.xml"> 
+    		<fileset dir="${IntegrationTest.Results.Dir}"> 
+    			<include name="**/report*.xml"/> 
+    	  </fileset> 
+    	  <report format="frames" todir="${IntegrationTest.Results.Dir}/html" /> 
+    	</junitreport>
+
+
+    	
+    </target>
+
+  
+</project>

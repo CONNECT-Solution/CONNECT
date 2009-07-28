@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-check-GatewaySubscriptionRepository" depends="wsimport-init">
+        <condition property="wsimport-service-GatewaySubscriptionRepository.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubscriptionrepository/NhincComponentSubscriptionRepositoryService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-GatewaySubscriptionRepository" depends="wsimport-init,wsimport-service-check-GatewaySubscriptionRepository" unless="wsimport-service-GatewaySubscriptionRepository.notRequired">
+        <property name="service-wsdl-GatewaySubscriptionRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionRepository/wsdl/NhincComponentSubscriptionRepository.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-GatewaySubscriptionRepository}" catalog="catalog.xml"/>
+        <property name="targetLocation-GatewaySubscriptionRepository" location="${meta.inf}/wsdl/GatewaySubscriptionRepository"/>
+        <property name="sourceLocation-GatewaySubscriptionRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionRepository/wsdl/"/>
+        <copy todir="${targetLocation-GatewaySubscriptionRepository}">
+            <fileset dir="${sourceLocation-GatewaySubscriptionRepository}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-GatewaySubscriptionRepository" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubscriptionrepository"/>
+    </target>
+    <target name="wsimport-service-check-GatewaySubscriptionReferenceRepository" depends="wsimport-init">
+        <condition property="wsimport-service-GatewaySubscriptionReferenceRepository.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubscriptionreferencerepository/NhincComponentSubscriptionReferenceRepositoryService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-GatewaySubscriptionReferenceRepository" depends="wsimport-init,wsimport-service-check-GatewaySubscriptionReferenceRepository" unless="wsimport-service-GatewaySubscriptionReferenceRepository.notRequired">
+        <property name="service-wsdl-GatewaySubscriptionReferenceRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionReferenceRepository/wsdl/NhincComponentSubscriptionReferenceRepository.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-GatewaySubscriptionReferenceRepository}" catalog="catalog.xml"/>
+        <property name="targetLocation-GatewaySubscriptionReferenceRepository" location="${meta.inf}/wsdl/GatewaySubscriptionReferenceRepository"/>
+        <property name="sourceLocation-GatewaySubscriptionReferenceRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionReferenceRepository/wsdl/"/>
+        <copy todir="${targetLocation-GatewaySubscriptionReferenceRepository}">
+            <fileset dir="${sourceLocation-GatewaySubscriptionReferenceRepository}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-GatewaySubscriptionReferenceRepository" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentsubscriptionreferencerepository"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-GatewaySubscriptionRepository, wsimport-service-GatewaySubscriptionReferenceRepository"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

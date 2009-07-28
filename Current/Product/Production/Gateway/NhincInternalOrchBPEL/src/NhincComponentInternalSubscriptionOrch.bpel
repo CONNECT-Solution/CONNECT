@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhincComponentInternalSubscriptionOrch"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:nhincinternalorchbpel:nhinccomponentinternalsubscriptionorch"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:nhincinternalorchbpel:nhinccomponentinternalsubscriptionorch" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" 
+    xmlns:ns0="http://docs.oasis-open.org/wsn/b-2" 
+    xmlns:ns1="urn:gov:hhs:fha:nhinc:common:subscription" 
+    xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" 
+    xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
+    xmlns:ns4="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" 
+    xmlns:ns5="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" 
+    xmlns:ns6="urn:gov:hhs:fha:nhinc:common:subscriptiondte" 
+    xmlns:ns7="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+    xmlns:ns8="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:ns9="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:ns10="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
+    xmlns:ns11="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:ns12="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" location="Interfaces/wsdl/NhincComponentInternalSubscriptionManagementOrch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="Interfaces/wsdl/rw-2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" location="Interfaces/wsdl/NhincComponentInternalSubscriptionDte.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" location="Interfaces/wsdl/AdapterSubscriptionManagement.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" location="Interfaces/wsdl/NhincComponentSubscriptionRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" location="Interfaces/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="SubscriptionDtePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" partnerLinkType="tns:NhincComponentInternalSubscriptionDte" partnerRole="NhincComponentInternalSubscriptionDtePortTypeRole"/>
+        <partnerLink name="PolicyEnginePL" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" partnerLinkType="tns:NhincComponentInternalPolicyEngineFacade" partnerRole="NhincComponentInternalPolicyEngineFacadePortTypeRole"/>
+        <partnerLink name="SubscriptionRepositoryPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" partnerLinkType="tns:NhincComponentSubscriptionRepository" partnerRole="NhincComponentSubscriptionRepositoryPortTypeRole"/>
+        <partnerLink name="AdapterSubscriptionPL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" partnerLinkType="tns:AdapterNotificationProducer" partnerRole="AdapterNotificationProducerPortTypeRole"/>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="SubscriptionPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" partnerLinkType="tns:NhincComponentInternalNotificationProducer" myRole="NhincComponentInternalNotificationProducerPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="SubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" messageType="tns:SubscribeResponse"/>
+        <variable name="SubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" messageType="tns:SubscribeRequest"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveSubscribe" createInstance="yes" partnerLink="SubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" portType="tns:NhincComponentInternalNotificationProducerPortType" variable="SubscribeIn"/>
+        <scope name="SubscribeScope">
+            <variables>
+                <variable name="CheckPolicyDocSubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyResponseMessage"/>
+                <variable name="CheckPolicyDocSubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubscribeRequestMessage"/>
+                <variable name="CheckPolicyCdcSubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyResponseMessage"/>
+                <variable name="CheckPolicyCdcSubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubscribeRequestMessage"/>
+                <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+                <variable name="HomeCommunity" type="xsd:string"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                <variable name="CreateAgencySubscribeDocumentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateAgencySubscribeDocumentResponseMessage"/>
+                <variable name="CreateAgencySubscribeDocumentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateAgencySubscribeDocumentRequestMessage"/>
+                <variable name="CreateAgencySubscribeCdcBioPackageOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateAgencySubscribeCdcBioPackageResponseMessage"/>
+                <variable name="CreateAgencySubscribeCdcBioPackageIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateAgencySubscribeCdcBioPackageRequestMessage"/>
+                <variable name="CreateSubscribeResponseOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateSubscribeResponseResponseMessage"/>
+                <variable name="CreateSubscribeResponseIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:CreateSubscribeResponseRequestMessage"/>
+                <variable name="SubscribeDocumentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeDocumentResponseMessage"/>
+                <variable name="SubscribeDocumentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeDocumentRequestMessage"/>
+                <variable name="StoreSubscriptionOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:StoreSubscriptionResponse"/>
+                <variable name="StoreSubscriptionIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" messageType="tns:StoreSubscriptionRequest"/>
+                <variable name="SubscribeCdcBioPackageOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeCdcBioPackageResponseMessage"/>
+                <variable name="SubscribeCdcBioPackageIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeCdcBioPackageRequestMessage"/>
+                <variable name="Topic" type="xsd:string"/>
+                <variable name="TransformNhinSubscribeToInternalSubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformNhinSubscribeToInternalSubscribeResponseMessage"/>
+                <variable name="TransformNhinSubscribeToInternalSubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformNhinSubscribeToInternalSubscribeRequestMessage"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="Sequence1">
+                        <assign name="AssignErrorCodes">
+                            <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                            <from>'System fault encountered in NhinComponentInternalSubscriptionOrch BPEL. Fault detail follows...'</from>
+                                        </sxt:log>
+                                        <sxt:log level="warning" location="onStart">
+                                            <from variable="systemFaultVar"/>
+                                        </sxt:log>
+                                </sxt:trace>
+                                <copy>
+                                    <from>sxxf:current-dateTime()</from>
+                                        <to>$SubscribeOut.SubscribeResponse/ns0:CurrentTime</to>
+                                </copy>
+                        </assign>
+                        <reply name="ReplyFromFault" partnerLink="SubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" portType="tns:NhincComponentInternalNotificationProducerPortType" variable="SubscribeOut"/>
+                        <exit name="ExitAfterFault"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="SubscribeSeq">
+                <assign name="AssignTransformSubscribeInput">
+                    <copy>
+                        <from>$SubscribeIn.SubscribeRequest/ns0:Subscribe</from>
+                        <to>$TransformNhinSubscribeToInternalSubscribeIn.TransformNhinSubscribeToInternalSubscribe/ns0:Subscribe</to>
+                    </copy>
+                    <copy>
+                        <from>''</from>
+                        <to variable="Topic"/>
+                    </copy>
+                </assign>
+                <invoke name="InvokeTransformSubscribe" partnerLink="SubscriptionDtePL" operation="TransformNhinSubscribeToInternalSubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="TransformNhinSubscribeToInternalSubscribeIn" outputVariable="TransformNhinSubscribeToInternalSubscribeOut">
+                    <sxt:trace>
+                        <sxt:log level="info" location="onStart">
+                            <from>'NhincComponentInternalSubscriptionOrch.bpel, Calling transform nhin subscribe to internal subscription item'</from>
+                        </sxt:log>
+                    </sxt:trace>
+                </invoke>
+                <if name="IfHasTopic">
+                    <condition>$TransformNhinSubscribeToInternalSubscribeOut.TransformNhinSubscribeToInternalSubscribe/ns1:SubscriptionItem/ns1:SubscriptionCriteria/ns1:TopicExpression</condition>
+                    <assign name="AssignTopic">
+                        <sxt:trace>
+                            <sxt:log level="info" location="onComplete">
+                                <from>concat('NhincComponentInternalSubscriptionOrch - topic extracted from subscription: ', $Topic)</from>
+                            </sxt:log>
+                        </sxt:trace>
+                        <copy>
+                            <from>$TransformNhinSubscribeToInternalSubscribeOut.TransformNhinSubscribeToInternalSubscribe/ns1:SubscriptionItem/ns1:SubscriptionCriteria/ns1:TopicExpression</from>
+                            <to variable="Topic"/>
+                        </copy>
+                    </assign>
+                </if>
+                <assign name="AssignGetHomeCommunityInput">
+                    <copy>
+                        <from>'gateway'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns7:propertyFile</to>
+                    </copy>
+                    <copy>
+                        <from>'localHomeCommunityId'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns7:propertyName</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                <assign name="AssignGetHomeCommunityOutput">
+                    <copy>
+                        <from>$GetPropertyOut.GetPropertyResponse/ns7:propertyValue</from>
+                        <to variable="HomeCommunity"/>
+                    </copy>
+                </assign>
+                <if name="IfTopicType">
+                    <condition>$Topic = 'nhin-cdc:CdcBioPackage'</condition>
+                    <sequence name="CdcBioPackageSeq">
+                        <assign name="AssignPolicyCheckCdcSubscribe">
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$CheckPolicyCdcSubscribeIn.CheckPolicySubscribeRequest/ns11:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Nhin'</from>
+                                <to>$CheckPolicyCdcSubscribeIn.CheckPolicySubscribeRequest/ns11:interface</to>
+                            </copy>
+                            <copy>
+                                <from>$SubscribeIn.SubscribeRequest/ns3:assertion</from>
+                                <to>$CheckPolicyCdcSubscribeIn.CheckPolicySubscribeRequest/ns11:message/ns11:assertion</to>
+                            </copy>
+                            <copy>
+                                <from>$SubscribeIn.SubscribeRequest/ns0:Subscribe</from>
+                                <to>$CheckPolicyCdcSubscribeIn.CheckPolicySubscribeRequest/ns11:message/ns0:Subscribe</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokePolicyCheckCdcSubscribe" partnerLink="PolicyEnginePL" operation="CheckPolicySubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" inputVariable="CheckPolicyCdcSubscribeIn" outputVariable="CheckPolicyCdcSubscribeOut"/>
+                        <if name="IfCdcPolicyValid">
+                            <condition>$CheckPolicyCdcSubscribeOut.CheckPolicyResponse/ns2:response/ns12:Result/ns12:Decision = 'Permit'</condition>
+                            <sequence name="CdcPolicyValidSeq">
+                                <assign name="AssignStoreCdcBioPackageSubscriptionInput">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                                <from>'NhincComponentInternalSubscriptionOrch - processing a CDC Bio Package Subscription'</from>
+                                            </sxt:log>
+                                    </sxt:trace>
+                                        <copy>
+                                        <from>$TransformNhinSubscribeToInternalSubscribeOut.TransformNhinSubscribeToInternalSubscribe/ns1:SubscriptionItem</from>
+                                            <to variable="StoreSubscriptionIn" part="subscriptionItem"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeStoreCdcBioPackageSubscription" partnerLink="SubscriptionRepositoryPL" operation="StoreSubscription" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" portType="tns:NhincComponentSubscriptionRepositoryPortType" inputVariable="StoreSubscriptionIn" outputVariable="StoreSubscriptionOut">
+                                    <sxt:trace>
+                                            <sxt:log level="info" location="onStart">
+                                                    <from>'NhincComponentInternalSubscriptionOrch - Storing CDC BioPackage subscription'</from>
+                                                </sxt:log>
+                                        </sxt:trace>
+                                </invoke>
+                                <assign name="AssignCreateAgencySubscribeCdcBioPackageInput">
+                                    <copy>
+                                            <from>$SubscribeIn.SubscribeRequest/ns0:Subscribe</from>
+                                                <to>$CreateAgencySubscribeCdcBioPackageIn.CreateAgencySubscribeCdcBioPackageRequest/ns0:Subscribe</to>
+                                        </copy>
+                                </assign>
+                                <invoke name="InvokeCreateAgencySubscribeCdcBioPackage" partnerLink="SubscriptionDtePL" operation="CreateAgencySubscribeCdcBioPackage" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="CreateAgencySubscribeCdcBioPackageIn" outputVariable="CreateAgencySubscribeCdcBioPackageOut"/>
+                                <assign name="AssignAdapterSubscribeCdcBioPackageInput">
+                                    <copy>
+                                            <from>$SubscribeIn.SubscribeRequest/ns3:assertion</from>
+                                                <to>$SubscribeCdcBioPackageIn.SubscribeCdcBioPackageRequest/ns2:assertion</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$CreateAgencySubscribeCdcBioPackageOut.CreateAgencySubscribeCdcBioPackageResponse/ns6:subscribe</from>
+                                                <to>$SubscribeCdcBioPackageIn.SubscribeCdcBioPackageRequest/ns2:subscribe</to>
+                                        </copy>
+                                </assign>
+                                <assign name="AssignGetCdcBioPackageSubscribeEndpointInput">
+                                    <copy>
+                                            <from variable="HomeCommunity"/>
+                                                <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns8:homeCommunityWithServiceName/ns8:homeCommunity/ns9:homeCommunityId</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'adapternotificationproducercdcbiopackage'</from>
+                                                <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns8:homeCommunityWithServiceName/ns8:serviceName</to>
+                                        </copy>
+                                </assign>
+                                <invoke name="InvokeGetCdcBioPackageSubscribeEndpoint" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                <assign name="AssignGetCdcBioPackageSubscribeEndpointOutput">
+                                    <copy>
+                                            <from>ns10:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns8:serviceConnectionInfoEndpoints/ns8:serviceConnectionInfoEndpoint/ns9:EPR/ns9:EndpointReference)</from>
+                                                <to partnerLink="AdapterSubscriptionPL"/>
+                                        </copy>
+                                </assign>
+                                <empty name="TODO_LogAuditBeforeAdapterSubscribeDocument"/>
+                                <invoke name="InvokeAdapterSubscribeCdcBioPackage" partnerLink="AdapterSubscriptionPL" operation="SubscribeCdcBioPackage" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" inputVariable="SubscribeCdcBioPackageIn" outputVariable="SubscribeCdcBioPackageOut">
+                                    <sxt:trace>
+                                            <sxt:log level="info" location="onComplete">
+                                                    <from>'Adapter CdcBioPackage subscribe response...'</from>
+                                                </sxt:log>
+                                                <sxt:log level="warning" location="onComplete">
+                                                    <from variable="SubscribeCdcBioPackageOut"/>
+                                                </sxt:log>
+                                        </sxt:trace>
+                                </invoke>
+                            </sequence>
+                        </if>
+                    </sequence>
+                    <elseif>
+                        <condition>$Topic = 'document'</condition>
+                        <sequence name="DocumentSeq">
+                            <assign name="AssignPolicyCheckDocSubscribe">
+                                <copy>
+                                    <from>$SubscribeIn.SubscribeRequest/ns0:Subscribe</from>
+                                    <to>$CheckPolicyDocSubscribeIn.CheckPolicySubscribeRequest/ns11:message/ns0:Subscribe</to>
+                                </copy>
+                                <copy>
+                                    <from>$SubscribeIn.SubscribeRequest/ns3:assertion</from>
+                                    <to>$CheckPolicyDocSubscribeIn.CheckPolicySubscribeRequest/ns11:message/ns11:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$CheckPolicyDocSubscribeIn.CheckPolicySubscribeRequest/ns11:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$CheckPolicyDocSubscribeIn.CheckPolicySubscribeRequest/ns11:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokePolicyCheckDocSubscribe" partnerLink="PolicyEnginePL" operation="CheckPolicySubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" inputVariable="CheckPolicyDocSubscribeIn" outputVariable="CheckPolicyDocSubscribeOut"/>
+                            <if name="IfDocPolicyValid">
+                                <condition>$CheckPolicyDocSubscribeOut.CheckPolicyResponse/ns2:response/ns12:Result/ns12:Decision = 'Permit'</condition>
+                                <sequence name="SeqPolicyValidSeq">
+                                    <assign name="AssignStoreDocumentSubscriptionOutput">
+                                        <sxt:trace>
+                                            <sxt:log level="info" location="onStart">
+                                                    <from>'NhincComponentInternalSubscriptionOrch - processing a document subscription'</from>
+                                                </sxt:log>
+                                        </sxt:trace>
+                                            <copy>
+                                            <from>$TransformNhinSubscribeToInternalSubscribeOut.TransformNhinSubscribeToInternalSubscribe/ns1:SubscriptionItem</from>
+                                                <to variable="StoreSubscriptionIn" part="subscriptionItem"/>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeStoreDocumentSubscription" partnerLink="SubscriptionRepositoryPL" operation="StoreSubscription" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" portType="tns:NhincComponentSubscriptionRepositoryPortType" inputVariable="StoreSubscriptionIn" outputVariable="StoreSubscriptionOut">
+                                        <sxt:trace>
+                                                <sxt:log level="info" location="onStart">
+                                                        <from>'NhincComponentInternalSubscriptionOrch - Storing document subscription'</from>
+                                                    </sxt:log>
+                                            </sxt:trace>
+                                    </invoke>
+                                    <assign name="AssignCreateAgencySubscribeDocument">
+                                        <copy>
+                                                <from>$SubscribeIn.SubscribeRequest/ns0:Subscribe</from>
+                                                    <to>$CreateAgencySubscribeDocumentIn.CreateAgencySubscribeDocumentRequest/ns0:Subscribe</to>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="InvokeCreateAgencySubscribeDocument" partnerLink="SubscriptionDtePL" operation="CreateAgencySubscribeDocument" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="CreateAgencySubscribeDocumentIn" outputVariable="CreateAgencySubscribeDocumentOut"/>
+                                    <assign name="AssignAdapterSubscribeDocumentInput">
+                                        <copy>
+                                                <from>$SubscribeIn.SubscribeRequest/ns3:assertion</from>
+                                                    <to>$SubscribeDocumentIn.SubscribeDocumentRequest/ns2:assertion</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$CreateAgencySubscribeDocumentOut.CreateAgencySubscribeDocumentResponse/ns6:subscribe/ns1:ConsumerReference</from>
+                                                    <to>$SubscribeDocumentIn.SubscribeDocumentRequest/ns2:subscribe/ns4:ConsumerReference</to>
+                                            </copy>
+                                            <copy>
+                                                <from>$CreateAgencySubscribeDocumentOut.CreateAgencySubscribeDocumentResponse/ns6:subscribe/ns1:AdhocQuery</from>
+                                                    <to>$SubscribeDocumentIn.SubscribeDocumentRequest/ns2:subscribe/ns4:AdhocQuery</to>
+                                            </copy>
+                                    </assign>
+                                    <assign name="AssignGetDocumentSubscribeEndpointInput">
+                                        <copy>
+                                                <from variable="HomeCommunity"/>
+                                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns8:homeCommunityWithServiceName/ns8:homeCommunity/ns9:homeCommunityId</to>
+                                            </copy>
+                                            <copy>
+                                                <from>'adapternotificationproducerdocument'</from>
+                                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns8:homeCommunityWithServiceName/ns8:serviceName</to>
+                                            </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetDocumentSubscribeEndpoint" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                    <assign name="AssignGetDocumentSubscribeEndpointOutput">
+                                        <copy>
+                                                <from>ns10:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns8:serviceConnectionInfoEndpoints/ns8:serviceConnectionInfoEndpoint/ns9:EPR/ns9:EndpointReference)</from>
+                                                    <to partnerLink="AdapterSubscriptionPL"/>
+                                            </copy>
+                                    </assign>
+                                    <empty name="TODO_LogAuditBeforeAdapterSubscribeCdcBioPackage"/>
+                                    <invoke name="InvokeAdapterSubscribeDocument" partnerLink="AdapterSubscriptionPL" operation="SubscribeDocument" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" inputVariable="SubscribeDocumentIn" outputVariable="SubscribeDocumentOut">
+                                        <sxt:trace>
+                                                <sxt:log level="info" location="onComplete">
+                                                        <from>'Response from adapter subscribe document...'</from>
+                                                    </sxt:log>
+                                                    <sxt:log level="warning" location="onComplete">
+                                                        <from variable="SubscribeDocumentOut"/>
+                                                    </sxt:log>
+                                            </sxt:trace>
+                                    </invoke>
+                                </sequence>
+                            </if>
+                        </sequence>
+                    </elseif>
+                    <else>
+                        <sequence name="TopicUnknownSeq">
+                            <empty name="TODO_ReturnUnknownTopicFault">
+                                <sxt:trace>
+                                    <sxt:log level="warning" location="onStart">
+                                        <ns10:from>concat('### NhincComponentInternalSubscriptionOrch.bpel - Unknown topic: ', $Topic)</ns10:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </empty>
+                        </sequence>
+                    </else>
+                </if>
+                <assign name="AssignCreateSubscribeResponseInput">
+                    <copy>
+                            <from variable="StoreSubscriptionOut" part="subscriptionReference"/>
+                                <to>$CreateSubscribeResponseIn.CreateSubscribeResponse/ns1:SubscriptionReference</to>
+                        </copy>
+                </assign>
+                <invoke name="InvokeCreateSubscribeResponse" partnerLink="SubscriptionDtePL" operation="CreateSubscribeResponse" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincComponentInternalSubscriptionDtePortType" inputVariable="CreateSubscribeResponseIn" outputVariable="CreateSubscribeResponseOut"/>
+                <assign name="AssignSubscribeCdcBioPackageResponse">
+                    <copy>
+                            <from>$CreateSubscribeResponseOut.CreateSubscribeResponse/ns0:SubscribeResponse</from>
+                                <to variable="SubscribeOut" part="SubscribeResponse"/>
+                        </copy>
+                </assign>
+            </sequence>
+        </scope>
+        <reply name="ReplySubscribe" partnerLink="SubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" portType="tns:NhincComponentInternalNotificationProducerPortType" variable="SubscribeOut"/>
+    </sequence>
+</process>

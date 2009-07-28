@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!--
+    Document   : CorrelatedIdentifers.hbm.xml
+    Created on : January 27, 2009, 3:57 PM
+    Author     : svalluripalli
+    Description:
+        Purpose of the document follows.
+-->
+<hibernate-mapping package="gov.hhs.fha.nhinc.common.connectionmanager.model">
+  <class name="AssigningAuthorityToHomeCommunityMapping" table="assigningauthoritytohomecommunitymapping">
+    <id name="id" column="id" type="long">
+        <generator class="increment"/>
+    </id>
+    <property name="assigningAuthorityId" column="assigningauthorityid" type="string" length="45" not-null="true" />
+    <property name="homeCommunityId" column="homecommunityid" type="string" length="45" not-null="true" />
+  </class>
+</hibernate-mapping>

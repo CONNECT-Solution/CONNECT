@@ -1,0 +1,326 @@
+
+<html>
+
+  <HEAD>
+    
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- SOAP 1.2
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      SOAP 1.2 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="active">
+          <a>Users Guide</a>
+        </td>
+        <td class="inactive">
+          <a href="jaxws-tools.html">Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="UsersGuide.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="provider.html">
+            <span>Provider </span>
+          </a>
+        </li>
+        <li>
+          <a href="asyncprovider.html">
+            <span>AsyncProvider </span>
+          </a>
+        </li>
+        <li>
+          <a href="dispatch.html">
+            <span>Dispatch </span>
+          </a>
+        </li>
+        <li>
+          <a href="asynch.html">
+            <span>Asynchronous Client </span>
+          </a>
+        </li>
+        <li>
+          <a href="handlers.html">
+            <span>Handler </span>
+          </a>
+        </li>
+        <li>
+          <a href="mtom-swaref.html">
+            <span>MTOM and Swaref </span>
+          </a>
+        </li>
+        <li>
+          <a href="soap12.html">
+            <span class="active">SOAP 1.2 </span>
+          </a>
+        </li>
+        <li>
+          <a href="customizations.html">
+            <span>WSDL Customization </span>
+          </a>
+        </li>
+        <li>
+          <a href="annotations.html">
+            <span>Annotations </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsaddressing.html">
+            <span>WS-Addressing </span>
+          </a>
+        </li>
+        <li>
+          <a href="statefulWebservice.html">
+            <span>Stateful Webservice </span>
+          </a>
+        </li>
+        <li>
+          <a href="catalog-support.html">
+            <span>Catalog </span>
+          </a>
+        </li>
+        <li>
+          <a href="interop.html">
+            <span>Interoperability </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <H2>Introduction</H2>
+
+
+    <P>The default binding supported by JAX-WS 2.0 is SOAP 1.1 over HTTP.
+    With this release we have added 
+      <B>SOAP 1.2 binding over HTTP</B>
+    support into JAX-WS 2.0. This document describes how SOAP 1.2 binding
+    can be applied to an endpoint and how it can be used on the client
+    side in the case of proxy port. To enable SOAP 1.2 support in the
+    
+      <CODE>Dispatch</CODE> client please refer to the 
+      <CODE>Dispatch</CODE>
+    documents.
+    
+
+
+    <H2>SOAP 1.2 Endpoint</H2>
+
+
+    <P>To enable SOAP 1.2 binding on an endpoint. You would need to set
+    binding attribute value in 
+      <A href="jaxws-war.html#The_sun-jaxws.xml_File">sun-jaxws.xml</A>
+    to SOAP 1.2 HTTP binding value as specified by
+    javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING which is:
+    "
+      <A href="http://www.w3.org/2003/05/soap/bindings/HTTP/">http://www.w3.org/2003/05/soap/bindings/HTTP/</A>"
+    or
+    &#8220;
+      <A href="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/">
+        <SPAN style="font-weight: medium">http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/
+          <SPAN style="text-decoration: none">&#8221;</SPAN>
+        </SPAN>
+      </A>
+      <BR>
+      <BR>Here
+    is the sun-jaxws.xml from fromjava-soap1.2 sample:
+    
+
+    <PRE>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;endpoints xmlns='http://java.sun.com/xml/ns/jax-ws/ri/runtime' version='2.0'&gt;
+    &lt;endpoint
+    name='fromjava-soap12'
+    implementation='fromjava_soap12.server.AddNumbersImpl'
+    <B>binding="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/"</B>
+    url-pattern='/addnumbers'/&gt;
+    &lt;/endpoints&gt;</PRE>
+
+
+    <P>
+    JAX-WS 2.0 generates WSDL on the fly when requested by a client. If
+    this binding attribute is present and is equal to SOAP 1.2 HTTP
+    binding WSDL with SOAP 1.2 binding is generated. Based on this
+    binding descriptor JAX-WS runtime configures itself to handle SOAP 1.2
+    messages.
+
+
+    <P>Notice that the binding id
+    &#8220;
+      <A href="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/">
+        <SPAN style="font-weight: medium">
+          <SPAN style="text-decoration: none">
+            <FONT color="#000000">
+    http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/</FONT>
+          </SPAN>
+        </SPAN>
+      </A>&#8221;
+    is not a standard binding id. If you use SOAP 1.2 binding id
+    &#8220;
+      <A href="http://www.w3.org/2003/05/soap/bindings/HTTP/">
+        <SPAN style="text-decoration: none">
+          <FONT color="#000000">http://www.w3.org/2003/05/soap/bindings/HTTP/</FONT>
+        </SPAN>
+      </A>&#8221;
+    defined by JAX-WS, still the endpoint is configured to use SOAP 1.2
+    binding, except that a wsdl will not be generated on the fly.
+
+    
+
+
+    <P>Alternatively, you can specify the binding through @BindingType
+    annotation in the implementation class to use SOAP 1.2 binding.
+    Here is
+    an example from the fromjava_soap12 sample.
+    
+      <br>
+    
+      <pre>
+        @WebService
+        @BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
+        public class AddNumbersImpl {
+
+        /**
+        * @param number1
+        * @param number2
+        * @return The sum
+        * @throws AddNumbersException
+        * if any of the numbers to be added is negative.
+        */
+        public int addNumbers (int number1, int number2) throws AddNumbersException {
+        if (number1 &lt;0 || number2 &lt;0) {
+        throw new AddNumbersException ("Negative number cant be added!",
+        "Numbers: " + number1 + ", " + number2);
+        }
+        return number1 + number2;
+        }
+        }
+    </pre>
+
+    
+
+
+    <P>The commandline 
+      <A href="wsgen.html">wsgen </A>and the equivalent
+    ant task can be used to generate SOAP 1.1 (default) or SOAP 1.2 WSDL.
+    The binding information should be passed using -wsdl:protocol switch.
+    
+
+
+    <H2>Client</H2>
+
+
+    <P>On the client there is nothing special that has to be done. JAX-WS
+    runtime looks into the WSDL to determine the binding being used and
+    configures itself accordingly. 
+      <A href="wsimport.html">wsimport
+</A>command line tool or wsimport ant task can be used to import the
+    WSDL and to generated the client side artifacts.
+    
+
+
+    <H2>Samples</H2>
+
+
+    <P>There are 2 samples bundled with this release
+
+
+    <UL>
+    
+      <LI>
+        <P style="margin-bottom: 0in">fromwsdl-soap12 - shows SOAP 1.2
+        endpoint developed starting from wsdl
+    
+      </LI>
+      <LI>
+
+    
+        <P>fromjava-soap12 - shows SOAP 1.2 endpoint developed starting
+        from Java
+
+      </LI>
+    </UL>
+
+
+    <P>A SOAP 1.2 message generated by JAX-WS:
+
+    <PRE>Content-Type: <FONT color="#ff0000">application/soap+xml</FONT>; charset=utf-8
+    Content-Length: 178
+    SOAPAction: ""
+    &lt;soapenv:Envelope xmlns:soapenv="<FONT color="#ff0000">http://www.w3.org/2003/05/soap-envelope</FONT>"&gt;
+    &lt;soapenv:Body&gt;
+    <FONT color="#000099">  &lt;addNumbers xmlns="http://duke.example.org"&gt;</FONT>
+    <FONT color="#000099">   &lt;arg0&gt;10&lt;/arg0&gt;</FONT>
+    <FONT color="#000099">   &lt;arg1&gt;20&lt;/arg1&gt;</FONT>
+    <FONT color="#000099">  &lt;/addNumbers &gt;</FONT>
+    &lt;/soapenv:Body&gt;
+    &lt;/soapenv:Envelope&gt;
+    A SOAP 1.2 Fault message generated by JAX-WS:
+    Content-Type: <FONT color="#cc0000">application/soap+xml</FONT>; charset=utf-8
+    Content-Length: 476
+    SOAPAction: ""
+    &lt;soapenv:Envelope xmlns:soapenv="<FONT color="#cc0000">http://www.w3.org/2003/05/soap-envelope</FONT>"&gt;
+    &lt;soapenv:Body&gt;
+    &lt;<B>soapenv:Fault</B>&gt;
+    &lt;<B>soapenv:Code</B>&gt;
+    &lt;soapenv:Value&gt;<FONT color="#333399">soapenv:Sender</FONT>&lt;/soapenv:Value&gt;
+    &lt;/soapenv:Code&gt;
+    &lt;<B>soapenv:Reason</B>&gt;
+    &lt;<B>soapenv:Text</B> xml:lang="en"&gt;<FONT color="#330099">Negative number cant be added!</FONT>&lt;/soapenv:Text&gt;
+    &lt;/soapenv:Reason&gt;
+    &lt;<B>soapenv:Detail</B>&gt;
+    <FONT color="#330099">&lt;AddNumbersFault xmlns="http://duke.example.org"&gt;</FONT>
+    <FONT color="#330099">                    &lt;faultInfo&gt;Numbers: -10, 20&lt;/faultInfo&gt;</FONT>
+    <FONT color="#330099">                    &lt;message&gt;Negative number cant be added!&lt;/message&gt;</FONT>
+    <FONT color="#330099">                &lt;/AddNumbersFault &gt;</FONT>
+    &lt;/soapenv:Detail&gt;
+    &lt;/soapenv:Fault&gt;
+    &lt;/soapenv:Body&gt;
+    &lt;/soapenv:Envelope&gt;</PRE>
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

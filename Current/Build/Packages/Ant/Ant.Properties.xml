@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Ant.Properties">
+
+  <property name="AntBuildLogDirectory" value="${BuildDirectory}\AntLogs" overwrite="false"/>
+  <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\build_log.xml" overwrite="false"/>
+  <property name="AntBuildFileName" value="${ProductDirectory}\Build.xml" overwrite="false"/>
+
+  <property name="AntTarget" value="build" overwrite="false"/>
+
+  <property name="Ant.Environment.ConfigFileName" value="Ant.Environment.xml" readonly="true"/>
+  <property name="Ant.Environment.ConfigDirectoryName" value="Environment" readonly="true"/>
+  <property name="Ant.Environment.ConfigDirectoryPath" value="${PackagesDirectory}\Ant\${Ant.Environment.ConfigDirectoryName}" readonly="true"/>
+  <property name="Ant.Environment.ConfigFilePath" value="${Ant.Environment.ConfigDirectoryPath}\${Ant.Environment.ConfigFileName}" readonly="true"/>
+  <property name="Ant.Environment.RefId" value="Ant.Environment" readonly="true"/>
+
+  <include buildfile="${Ant.Environment.ConfigFilePath}" />
+  
+  <property name="AntPropertyFileName" value="${ProductDirectory}\build.win.properties" overwrite="false"/>
+</project>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Properties">
+
+  <property name="Workspace.Silent" value="True" overwrite="false"/>
+  
+  <script language="C#" prefix="directory" >
+    <imports>
+      <import namespace="System.IO" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("name")]
+         public static string GetDirectoryName(string path)
+         {
+                 return new DirectoryInfo( path ).Name;
+         }
+      ]]>
+    </code>
+  </script>
+  
+  <strings id="Workspace.RequieredSoftware">
+    <string value="Subversion"/>
+    <string value="Java"/>
+    <!--
+    This needs to be sync'd with:
+    https://wiki.agilexhealth.com/confluence/display/NHINGateway/Development+Environment+Setup
+    
+    <string value="GlassFishESB"/>
+    -->
+  </strings>
+
+	<strings id="Workspace.Configuration">
+		
+	</strings>
+
+  <include buildfile="Software\GlassFishESB\GlassFishESB.Script.xml"/>
+  <include buildfile="Software\Java\Java.Script.xml"/>
+
+  <fileset id="PacakgeFinder" />
+  <ifnot test="${property::exists('SourceControl.PackageName')}">
+    <property name="PackagePathPattern" value="${PackagesDirectory}\**\SourceControl.Target.xml"/>
+    <function execute="${fileset::include-add('PacakgeFinder', PackagePathPattern)}"/>
+    <property name="PackagePath" value="${fileset::get-name-at-index('PacakgeFinder', 0)}"/>
+    <property name="SourceControl.PackageName" value="${directory::name(path::get-directory-name(PackagePath))}"/>
+  </ifnot>
+
+  <ifnot test="${stringlist::contains('Workspace.RequieredSoftware', SourceControl.PackageName)}">
+    <function execute="${stringlist::add('Workspace.RequieredSoftware', SourceControl.PackageName)}" />
+  </ifnot>
+  <include buildfile="Software\${SourceControl.PackageName}\${SourceControl.PackageName}.Script.xml"
+           unless="${target::exists('Workspace.RequieredSoftware.' + SourceControl.PackageName)}"/>
+
+</project>

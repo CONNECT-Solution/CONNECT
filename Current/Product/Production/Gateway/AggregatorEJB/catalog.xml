@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/Aggregator.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/nhinc/gateway/Aggregator.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/nhinc/common/NhincCommon.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ebRS/query.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/XDS.b_DocumentRepository.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/xmlsoap.org/addressing.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ebRS/rim.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ebRS/rs.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/lcm.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/ebRS/lcm.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/conf/xml-resources/web-services/NhincComponentAggregator/schemas/www.w3.org/2001/xml.xsd"/>
+</catalog>

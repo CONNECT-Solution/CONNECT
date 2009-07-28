@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhincComponentInternalPolicyEngineFacade"
+    targetNamespace="http://enterprise.netbeans.org/bpel/GatewayPolicyEngineFacadeBPEL/NhincComponentInternalPolicyEngineFacade"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/GatewayPolicyEngineFacadeBPEL/NhincComponentInternalPolicyEngineFacade" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:propertyaccess" xmlns:ns1="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:policyenginedte" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+    <import namespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" location="Interfaces/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adapterpolicyengine" location="Interfaces/wsdl/AdapterPolicyEngine.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/NhincComponentInternalPolicyEngineTransformWrapper" location="NhincComponentInternalPolicyEngineTransformWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" location="Interfaces/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="NhincInternalPolicyEngineTransformPL" xmlns:tns="http://enterprise.netbeans.org/bpel/NhincComponentInternalPolicyEngineTransformWrapper" partnerLinkType="tns:NhincInternalComponentPolicyEngineTransformLinkType" partnerRole="NhincInternalComponentPolicyEngineTransformRole"/>
+        <partnerLink name="NhinPropertyAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="NhincConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="AdapterPolicyEnginePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" partnerLinkType="tns:AdapterPolicyEngine" partnerRole="AdapterPolicyEnginePortTypeRole"/>
+        <partnerLink name="NhinInternalPolicyEngineFacadePL" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" partnerLinkType="tns:NhincComponentInternalPolicyEngineFacade" myRole="NhincComponentInternalPolicyEngineFacadePortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="CheckPolicySubjectAddedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectAddedRequestMessage"/>
+        <variable name="CheckPolicyAdhocQueryIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyAdhocQueryRequestMessage"/>
+        <variable name="CheckPolicySubjectRevisedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectRevisedRequestMessage"/>
+        <variable name="CheckPolicySubjectRevokedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectRevokedRequestMessage"/>
+        <variable name="CheckPolicySubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubscribeRequestMessage"/>
+        <variable name="CheckPolicyNotifyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyNotifyRequestMessage"/>
+        <variable name="CheckPolicyUnsubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyUnsubscribeRequestMessage"/>
+        <variable name="CheckPolicySubjectReidentificationIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectReidentificationRequestMessage"/>
+        <variable name="CheckPolicyDocRetrieveIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyDocRetrieveRequestMessage"/>
+        <variable name="CheckPolicyFindAuditEventsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyFindAuditEventsRequestMessage"/>
+        <variable name="CheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" messageType="tns:CheckPolicyRequestMessage"/>
+        <variable name="CheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" messageType="tns:CheckPolicyResponseMessage"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+        <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+        <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+    </variables>
+    <sequence>
+        <pick name="InternalPolicyEngineMessagePick" createInstance="yes">
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyAdhocQuery" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyAdhocQueryIn">
+                <sequence name="AdhocQuery-SequencePolicyEngine">
+                    <scope name="AdhocQueryScope">
+                        <variables>
+                            <variable name="CheckPolicyAdhocQueryOut" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformAdhocQueryToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformAdhocQueryToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformAdhocQueryToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="AdhocQuery-SequencePolicyEngineInner">
+                            <assign name="AdhocQuery-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicyAdhocQueryIn" part="CheckPolicyAdhocQueryRequest"/>
+                                    <to variable="TransformAdhocQueryToCheckPolicyIn" part="TransformAdhocQueryToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="AdhocQuery-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformAdhocQueryToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformAdhocQueryToCheckPolicyIn" outputVariable="TransformAdhocQueryToCheckPolicyOut"/>
+                            <assign name="AdhocQuery-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="AdhocQuery-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="AdhocQuery-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <assign name="AdhocQuery-AssignDteOut">
+                                <copy>
+                                    <from>$TransformAdhocQueryToCheckPolicyOut.TransformResponse/ns5:request</from>
+                                    <to>$CheckPolicyIn.CheckPolicyRequest/ns5:request</to>
+                                </copy>
+                            </assign>
+                            <invoke name="AdhocQuery-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="AdhocQuery-AssignInternalPEResponse">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="AdhocQuery-InvokeAdapterPolicyEngineService" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                        <ns3:from>$CheckPolicyIn.CheckPolicyRequest</ns3:from>
+                                    </sxt:log>
+                                    <sxt:log level="info" location="onComplete">
+                                        <ns3:from>$CheckPolicyOut.CheckPolicyResponse</ns3:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </invoke>
+                            <assign name="AdhocQuery-AssignAdapterOutToPE">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicyAdhocQueryOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="AdhocQuery-ReplyToInternalPolicyEngineFacade" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyAdhocQuery" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyAdhocQueryOut">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                        <ns3:from>concat('reply: ', $CheckPolicyAdhocQueryOut.CheckPolicyResponse)</ns3:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </reply>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectAdded" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectAddedIn">
+                <sequence name="SubAdd-SequencePolicyEngine">
+                    <scope name="SubAddScope">
+                        <variables>
+                            <variable name="CheckPolicySubjectAddedOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformSubjectAddedToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformSubjectAddedToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformSubjectAddedToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="SubAdd-SequencePolicyEngineInner">
+                            <assign name="SubAdd-AssignDteInput">
+                                <copy>
+                                    <from variable="CheckPolicySubjectAddedIn" part="CheckPolicySubjectAddedRequest"/>
+                                    <to variable="TransformSubjectAddedToCheckPolicyIn" part="TransformSubjectAddedToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubAdd-InvokePEDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformSubjectAddedToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformSubjectAddedToCheckPolicyIn" outputVariable="TransformSubjectAddedToCheckPolicyOut"/>
+                            <assign name="SubAdd-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubAdd-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="SubAdd-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubAdd-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="SubAdd-AssignDteOutputAndConnOutPut">
+                                <copy>
+                                    <from>$TransformSubjectAddedToCheckPolicyOut.TransformResponse/ns5:request</from>
+                                    <to>$CheckPolicyIn.CheckPolicyRequest/ns5:request</to>
+                                </copy>
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubAdd-InvokeAdapterPolicyEngineService" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                        <ns3:from>$CheckPolicyIn.CheckPolicyRequest</ns3:from>
+                                    </sxt:log>
+                                    <sxt:log level="info" location="onComplete">
+                                        <ns3:from>$CheckPolicyOut.CheckPolicyResponse</ns3:from>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </invoke>
+                            <assign name="SubAdd-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicySubjectAddedOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="SubAdd-ResponseFromAdapterPolicyEngine" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectAdded" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectAddedOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectRevised" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectRevisedIn">
+                <sequence name="SubjectRevised-SequencePolicyEngine">
+                    <scope name="SubjectRevisedScope">
+                        <variables>
+                            <variable name="CheckPolicySubjectRevisedOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformSubjectRevisedToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformSubjectRevisedToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformSubjectRevisedToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="SubjectRevised-SequencePolicyEngineInner">
+                            <assign name="SubjectRevised-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicySubjectRevisedIn" part="CheckPolicySubjectRevisedRequest"/>
+                                    <to variable="TransformSubjectRevisedToCheckPolicyIn" part="TransformSubjectRevisedToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevised-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformSubjectRevisedToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformSubjectRevisedToCheckPolicyIn" outputVariable="TransformSubjectRevisedToCheckPolicyOut"/>
+                            <assign name="SubjectRevised-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevised-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="SubjectRevised-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevised-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="SubjectRevised-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubjectRevisedToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevised-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="SubjectRevised-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicySubjectRevisedOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="SubjectRevised-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectRevised" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectRevisedOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyDocRetrieve" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyDocRetrieveIn">
+                <sequence name="DocRetrieve-SequencePolicyEngine">
+                    <scope name="DocRetrieveScope">
+                        <variables>
+                            <variable name="CheckPolicyDocRetrieveOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformDocRetrieveToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformDocRetrieveToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformDocRetrieveToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="Sequence1">
+                            <assign name="DocRetrieve-AssignDteInput">
+                                <copy>
+                                    <from variable="CheckPolicyDocRetrieveIn" part="CheckPolicyDocRetrieveRequest"/>
+                                    <to variable="TransformDocRetrieveToCheckPolicyIn" part="TransformDocRetrieveToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="DocRetrieve-InvokeDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformDocRetrieveToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformDocRetrieveToCheckPolicyIn" outputVariable="TransformDocRetrieveToCheckPolicyOut"/>
+                            <assign name="DocRetrieve-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="DocRetrieve-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="DocRetrieve-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="DocRetrieve-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="DocRetrieve-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformDocRetrieveToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="DocRetrieve-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="DocRetrieve-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicyDocRetrieveOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="DocRetrieve-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyDocRetrieve" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyDocRetrieveOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectRevoked" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectRevokedIn">
+                <sequence name="SubjectRevoked-SequencePolicyEngine">
+                    <scope name="SubjectRevokedScope">
+                        <variables>
+                            <variable name="CheckPolicySubjectRevokedOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformSubjectRevokedToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformSubjectRevokedToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformSubjectRevokedToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="SubjectRevoked-SequencePolicyEngineInner">
+                            <assign name="SubjectRevoked-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicySubjectRevokedIn" part="CheckPolicySubjectRevokedRequest"/>
+                                    <to variable="TransformSubjectRevokedToCheckPolicyIn" part="TransformSubjectRevokedToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevoked-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformSubjectRevokedToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformSubjectRevokedToCheckPolicyIn" outputVariable="TransformSubjectRevokedToCheckPolicyOut"/>
+                            <assign name="SubjectRevoked-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevoked-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="SubjectRevoked-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevoked-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="SubjectRevoked-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubjectRevokedToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectRevoked-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="SubjectRevoked-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicySubjectRevokedOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="SubjectRevoked-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectRevoked" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectRevokedOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectReidentification" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectReidentificationIn">
+                <sequence name="SubjectReidentification-SequencePolicyEngine">
+                    <scope name="SubjectReidentificationScope">
+                        <variables>
+                            <variable name="CheckPolicySubjectReidentificationOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformSubjectReidentificationToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformSubjectReidentificationToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformSubjectReidentificationToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="SubjectReidentification-SequencePolicyEngineInner">
+                            <assign name="SubjectReidentification-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicySubjectReidentificationIn" part="CheckPolicySubjectReidentificationRequest"/>
+                                    <to variable="TransformSubjectReidentificationToCheckPolicyIn" part="TransformSubjectReidentificationToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectReidentification-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformSubjectReidentificationToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformSubjectReidentificationToCheckPolicyIn" outputVariable="TransformSubjectReidentificationToCheckPolicyOut"/>
+                            <assign name="SubjectReidentification-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectReidentification-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="SubjectReidentification-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectReidentification-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="SubjectReidentification-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubjectReidentificationToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="SubjectReidentification-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="SubjectReidentification-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicySubjectReidentificationOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="SubjectReidentification-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubjectReidentification" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubjectReidentificationOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyFindAuditEvents" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyFindAuditEventsIn">
+                <sequence name="FindAuditEvents-SequencePolicyEngine">
+                    <scope name="FindAuditEventsScope">
+                        <variables>
+                            <variable name="CheckPolicyFindAuditEventsOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformFindAuditEventsToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformFindAuditEventsToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformFindAuditEventsToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="FindAuditEvents-SequencePolicyEngineInner">
+                            <assign name="FindAuditEvents-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicyFindAuditEventsIn" part="CheckPolicyFindAuditEventsRequest"/>
+                                    <to variable="TransformFindAuditEventsToCheckPolicyIn" part="TransformFindAuditEventsToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="FindAuditEvents-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformFindAuditEventsToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformFindAuditEventsToCheckPolicyIn" outputVariable="TransformFindAuditEventsToCheckPolicyOut"/>
+                            <assign name="FindAuditEvents-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="FindAuditEvents-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="FindAuditEvents-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="FindAuditEvents-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="FindAuditEvents-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformFindAuditEventsToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="FindAuditEvents-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="FindAuditEvents-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicyFindAuditEventsOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="FindAuditEvents-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyFindAuditEvents" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyFindAuditEventsOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubscribeIn">
+                <sequence name="Subscribe-SequencePolicyEngine">
+                    <scope name="SubscribeScope">
+                        <variables>
+                            <variable name="CheckPolicySubscribeOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformSubscribeToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformSubscribeToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformSubscribeToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="Subscribe-SequencePolicyEngineInner">
+                            <assign name="Subscribe-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicySubscribeIn" part="CheckPolicySubscribeRequest"/>
+                                    <to variable="TransformSubscribeToCheckPolicyIn" part="TransformSubscribeToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Subscribe-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformSubscribeToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformSubscribeToCheckPolicyIn" outputVariable="TransformSubscribeToCheckPolicyOut"/>
+                            <assign name="Subscribe-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Subscribe-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="Subscribe-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Subscribe-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="Subscribe-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformSubscribeToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Subscribe-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="Subscribe-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicySubscribeOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="Subscribe-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicySubscribe" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicySubscribeOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyUnsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyUnsubscribeIn">
+                <sequence name="Unsubscribe-SequencePolicyEngine">
+                    <scope name="UnsubscribeScope">
+                        <variables>
+                            <variable name="CheckPolicyUnsubscribeOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformUnsubscribeToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformUnsubscribeToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformUnsubscribeToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="Unsubscribe-SequencePolicyEngineInner">
+                            <assign name="Unsubscribe-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicyUnsubscribeIn" part="CheckPolicyUnsubscribeRequest"/>
+                                    <to variable="TransformUnsubscribeToCheckPolicyIn" part="TransformUnsubscribeToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Unsubscribe-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformUnsubscribeToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformUnsubscribeToCheckPolicyIn" outputVariable="TransformUnsubscribeToCheckPolicyOut"/>
+                            <assign name="Unsubscribe-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Unsubscribe-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="Unsubscribe-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Unsubscribe-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="Unsubscribe-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformUnsubscribeToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Unsubscribe-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="Unsubscribe-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicyUnsubscribeOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="Unsubscribe-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyUnsubscribe" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyUnsubscribeOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyNotify" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyNotifyIn">
+                <sequence name="Notify-SequencePolicyEngine">
+                    <scope name="NotifyScope">
+                        <variables>
+                            <variable name="CheckPolicyNotifyOut" messageType="tns:CheckPolicyResponseMessage"/>
+                            <variable name="TransformNotifyToCheckPolicyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformResponseMessage"/>
+                            <variable name="TransformNotifyToCheckPolicyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" messageType="tns:TransformNotifyToCheckPolicyRequestMessage"/>
+                        </variables>
+                        <sequence name="Notify-SequencePolicyEngineInner">
+                            <assign name="Notify-AssignPolicyEngineTransformInput">
+                                <copy>
+                                    <from variable="CheckPolicyNotifyIn" part="CheckPolicyNotifyRequest"/>
+                                    <to variable="TransformNotifyToCheckPolicyIn" part="TransformNotifyToCheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Notify-InvokePolicyEngineDte" partnerLink="NhincInternalPolicyEngineTransformPL" operation="TransformNotifyToCheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" portType="tns:NhincInternalComponentPolicyEngineTransformPortType" inputVariable="TransformNotifyToCheckPolicyIn" outputVariable="TransformNotifyToCheckPolicyOut"/>
+                            <assign name="Notify-AssignPropAccessorInput">
+                                <copy>
+                                    <from>'gateway'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                </copy>
+                                <copy>
+                                    <from>'localHomeCommunityId'</from>
+                                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Notify-InvokePropAccessor" partnerLink="NhinPropertyAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                            <assign name="Notify-AssignConnectionManagerInput">
+                                <copy>
+                                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                                </copy>
+                                <copy>
+                                    <from>'policyengineservice'</from>
+                                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                                </copy>
+                            </assign>
+                            <invoke name="Notify-InvokeConnectionManager" partnerLink="NhincConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                            <assign name="Notify-AssignAdaptorInput">
+                                <copy>
+                                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                                    <to partnerLink="AdapterPolicyEnginePL"/>
+                                </copy>
+                                <copy>
+                                    <from variable="TransformNotifyToCheckPolicyOut" part="TransformResponse"/>
+                                    <to variable="CheckPolicyIn" part="CheckPolicyRequest"/>
+                                </copy>
+                            </assign>
+                            <invoke name="Notify-InvokeAdaptorPolicyEngine" partnerLink="AdapterPolicyEnginePL" operation="CheckPolicy" xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengine" portType="tns:AdapterPolicyEnginePortType" inputVariable="CheckPolicyIn" outputVariable="CheckPolicyOut"/>
+                            <assign name="Notify-AssignAdapterOutputToResponse">
+                                <copy>
+                                    <from variable="CheckPolicyOut" part="CheckPolicyResponse"/>
+                                    <to variable="CheckPolicyNotifyOut" part="CheckPolicyResponse"/>
+                                </copy>
+                            </assign>
+                            <reply name="Notify-ReplyPolicyEngineRes" partnerLink="NhinInternalPolicyEngineFacadePL" operation="CheckPolicyNotify" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" variable="CheckPolicyNotifyOut"/>
+                        </sequence>
+                    </scope>
+                </sequence>
+            </onMessage>
+        </pick>
+    </sequence>
+</process>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="Interfaces/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterInternalSubDiscoveryAnnounce.wsdl"/>
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="Interfaces/wsdl/AdapterMpiManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterMpiManager.wsdl"/>
+    <system systemId="Interfaces/wsdl/EntitySubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntitySubjectDiscovery.wsdl"/>
+</catalog>

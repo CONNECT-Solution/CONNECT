@@ -1,0 +1,7 @@
+!2 Purpose
+This suite holds tests for work that has been completed in previous iterations.  All tests in this suite should pass.  If a test breaks it should be fixed '''immediately'''.  There is no need to create a new bug in Target Process; this is treated just like a broken build, meaning it interrupts other tasks.
+
+!note This suite should be executed as a symbolic link from the .NhincRoot.LocalSuite.
+
+
+!contents -R2 -g -p -f -h

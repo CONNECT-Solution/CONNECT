@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<properties>
+	<Edit/>
+	<Files/>
+	<Help/>
+	<LastModified>20090521113509</LastModified>
+	<Properties/>
+	<RecentChanges/>
+	<Refactor/>
+	<Search/>
+	<Suite/>
+	<Suites/>
+	<SymbolicLinks>
+		<RegressionSuite>.TriservRoot.RegressionSuite</RegressionSuite>
+		<BugSuite>.TriservRoot.BugSuite</BugSuite>
+		<DevelopmentIterationSuite>.TriservRoot.DevelopmentIterationSuite</DevelopmentIterationSuite>
+	</SymbolicLinks>
+	<Versions/>
+	<WhereUsed/>
+	<saveId>1237483758485</saveId>
+	<ticketId>4640103572347557651</ticketId>
+</properties>

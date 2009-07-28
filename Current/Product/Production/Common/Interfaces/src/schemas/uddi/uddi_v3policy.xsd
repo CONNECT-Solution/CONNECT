@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:uddi-org:policy_v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:uddi-org:policy_v3" version="3.0.2">
+	<!-- 
+	Copyright (c) 2000-2002 by Accenture, Ariba, Inc., Commerce One, Inc. 
+	Fujitsu Limited, Hewlett-Packard Company, i2 Technologies, Inc., 
+	Intel Corporation, International Business Machines Corporation,  
+	Microsoft Corporation, Oracle Corporation, SAP AG, Sun Microsystems, Inc., 
+	and VeriSign, Inc.  All Rights Reserved.
+    
+	Copyright (c) OASIS Open 2002-2004. All Rights Reserved.
+	-->
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../www.w3.org/2001/xml.xsd"/>
+	<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+	<xsd:element name="policies" final="restriction">
+		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:documentation>This is the top level element containing all policy elements.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:sequence>
+				<xsd:element ref="policy" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="dsig:Signature" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="policy" final="restriction">
+		<xsd:complexType>
+			<xsd:annotation>
+				<xsd:documentation>This element should be used to articulate one policy.</xsd:documentation>
+			</xsd:annotation>
+			<xsd:sequence>
+				<xsd:element ref="policyName"/>
+				<xsd:element ref="policyDescription" maxOccurs="unbounded"/>
+				<xsd:element ref="policyDecisionPoint"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="policyName" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>This contains the name of the policy from the UDDI V3 Specification.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="policyDescription" type="policyDescription_type" final="restriction">
+		<xsd:annotation>
+			<xsd:documentation>This contains the description of the policy and how it may effect interaction with the node or registry. This may be adorned with an xml:lang attribute to provide translated</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="policyDescription_type" final="restriction">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute ref="xml:lang"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="policyDecisionPoint" type="xsd:string">
+		<xsd:annotation>
+			<xsd:documentation>This contains the name of object that decides the policy, typically this will be the value registry or node.</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

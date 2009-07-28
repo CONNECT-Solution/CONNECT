@@ -1,0 +1,282 @@
+
+<html>
+
+  <HEAD>
+	
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- Stateful Web Service with Metro
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      Stateful Web Service with Metro 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="active">
+          <a>Users Guide</a>
+        </td>
+        <td class="inactive">
+          <a href="jaxws-tools.html">Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="UsersGuide.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="provider.html">
+            <span>Provider </span>
+          </a>
+        </li>
+        <li>
+          <a href="asyncprovider.html">
+            <span>AsyncProvider </span>
+          </a>
+        </li>
+        <li>
+          <a href="dispatch.html">
+            <span>Dispatch </span>
+          </a>
+        </li>
+        <li>
+          <a href="asynch.html">
+            <span>Asynchronous Client </span>
+          </a>
+        </li>
+        <li>
+          <a href="handlers.html">
+            <span>Handler </span>
+          </a>
+        </li>
+        <li>
+          <a href="mtom-swaref.html">
+            <span>MTOM and Swaref </span>
+          </a>
+        </li>
+        <li>
+          <a href="soap12.html">
+            <span>SOAP 1.2 </span>
+          </a>
+        </li>
+        <li>
+          <a href="customizations.html">
+            <span>WSDL Customization </span>
+          </a>
+        </li>
+        <li>
+          <a href="annotations.html">
+            <span>Annotations </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsaddressing.html">
+            <span>WS-Addressing </span>
+          </a>
+        </li>
+        <li>
+          <a href="statefulWebservice.html">
+            <span class="active">Stateful Webservice </span>
+          </a>
+        </li>
+        <li>
+          <a href="catalog-support.html">
+            <span>Catalog </span>
+          </a>
+        </li>
+        <li>
+          <a href="interop.html">
+            <span>Interoperability </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <h2>Contents</h2>
+    <ol class="toc">
+
+
+      <li>1. 
+        <a href="#Introduction">Introduction</a>
+      </li>
+      <ol class="toc"></ol>
+
+      <li>2. 
+        <a href="#Usage">Usage</a>
+      </li>
+      <ol class="toc"></ol>
+
+      <li>3. 
+        <a href="#Things_To_Consider">Things To Consider</a>
+      </li>
+      <ol class="toc"></ol>
+
+
+    </ol>
+
+
+    <a name="Introduction">
+      <h2>
+        <a href="#Introduction">1.</a> Introduction
+				
+      </h2>
+    </a>
+	
+    <p>
+		Metro has a vendor extension that allows developers to bring back object state to the web service world. Normally, Metro only creates one instance of a service class, and have it serve all incoming requests concurrently. This makes it essentially impossible to use instance fields of the service class for any meaningful purpose.
+	
+    <p>
+		Because of this, people end up coding like C, in anti-OO fashion. Either that or you end up with writing boiler-plate code to dispatch a request to the right instance of your real domain object.
+	
+    <p>
+		The stateful web service support in Metro resolves this problem by having Metro maintain multiple instances of a service. By using 
+      <a href="wsaddressing.html">WS-Addressing</a> behind the scene, it provides a standard-based on-the-wire protocol and easy-to-use programming model.
+	
+    
+
+
+    <a name="Usage">
+      <h2>
+        <a href="#Usage">2.</a> Usage
+				
+      </h2>
+    </a>
+	
+    <p>
+		Application service implementation classes (or providers) who'd like to use the stateful web service support must declare 
+      <tt>@Stateful</tt> annotation on a class. It should also have a 
+      <b>public static</b> method/field that takes 
+      <tt>StatefulWebServiceManager</tt>.
+	
+    
+
+    <pre>
+@Stateful @WebService @Addressing
+class BankAccount {
+    protected final int id;
+    private int balance;
+    
+    Account(int id) { this.id = id; }
+    
+    @WebMethod
+    public synchronized void deposit(int amount) { balance+=amount; }
+
+    // either via a public static field
+    <font color="red">
+    public static StatefulWebServiceManager&lt;BankAccount&gt; manager;
+    </font>
+    // ... or  via a public static method (the method name could be anything)
+    <font color="red">
+    public static void setManager(StatefulWebServiceManager&lt;BankAccount&gt; manager) {
+       ...
+    }
+    </font>
+}
+</pre>
+
+
+    <p>
+After your service is deployed but before you receive a first request,
+the resource injection occurs on the field or the method.
+
+
+    <p>
+A stateful web service class does not need to have a default constructor.
+In fact, most of the time you want to define a constructor that takes
+some arguments, so that each instance carries certain state (as illustrated
+in the above example.)
+
+
+    <p>
+Each instance of a stateful web service class is identified by an unique
+EndpointReference. Your application creates an instance of
+a class, then you'll have Metro assign this unique EPR for the
+instance as follows:
+
+
+      <pre>
+@WebService
+class Bank { // this is ordinary stateless service
+    @WebMethod
+    public synchronized W3CEndpointReference login(int accountId, int pin) {
+        if(!checkPin(pin))
+            throw new AuthenticationFailedException("invalid pin");
+        BankAccount acc = new BankAccount(accountId);
+        return BankAccount.manager.export(acc);
+    }
+}
+</pre>
+
+
+    
+    <p>
+Typically you then pass this EPR to remote systems. When they send
+messages to this EPR, Metro makes sure that the particular exported
+instance associated with that EPR will receive a service invocation.
+
+
+
+    <a name="Things_To_Consider">
+      <h2>
+        <a href="#Things_To_Consider">3.</a> Things To Consider
+				
+      </h2>
+    </a>
+
+    <p>
+When you no longer need to tie an instance to the EPR,
+use {@link #unexport(Object)} so that the object can be GC-ed
+(or else you'll leak memory.) You may choose to do so explicitly,
+or you can rely on the time out by using {@link #setTimeout(long, Callback)}.
+ *
+
+    <p>
+{@link StatefulWebServiceManager} is thread-safe. It can be safely
+invoked from multiple threads concurrently.
+
+
+
+
+
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterInternalSubDiscoveryAnnounce" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce"
+    xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" 
+    xmlns:hl7="urn:hl7-org:v3" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <types>
+        <xsd:schema elementFormDefault="qualified" 
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+            <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="AnnounceNewPatientOperationRequestMessage">
+        <part name="AnnounceNewPatientRequest" element="hl7:PIXConsumer_PRPA_IN201301UVRequest"/>
+    </message>
+    <message name="AnnounceNewPatientOperationResponseMessage">
+        <part name="AnnounceNewPatientResponse" element="hl7:MCCI_IN000002UV01"/>
+    </message>
+    <portType name="AdapterInternalSubDiscoveryAnnouncePortType">
+        <operation name="AnnounceNewPatientOperation">
+            <input name="AnnounceNewPatientRequest" message="tns:AnnounceNewPatientOperationRequestMessage"/>
+            <output name="AnnounceNewPatientResponse" message="tns:AnnounceNewPatientOperationResponseMessage"/>
+        </operation>
+    </portType>
+    <wsdl:binding name="AdapterInternalSubDiscoveryAnnounceBindingSoap11" 
+                type="tns:AdapterInternalSubDiscoveryAnnouncePortType">
+        <wsoap11:binding style="document" 
+                     transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="AnnounceNewPatientOperation">
+            <wsoap11:operation soapAction="urn:AnnounceNewPatientOperation"/>
+            <wsdl:input name="AnnounceNewPatientRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="AnnounceNewPatientResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="AdapterInternalSubDiscoveryAnnounce">
+    <wsdl:port name="AdapterInternalSubDiscoveryAnnouncePortSoap11" 
+               binding="tns:AdapterInternalSubDiscoveryAnnounceBindingSoap11">
+      <wsoap11:address 
+          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterInternalSubDiscoveryAnnounce"/>
+    </wsdl:port>
+  </wsdl:service>
+    
+    <plnk:partnerLinkType name="AdapterInternalSubDiscoveryAnnounce">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="AdapterInternalSubDiscoveryAnnouncePortTypeRole" portType="tns:AdapterInternalSubDiscoveryAnnouncePortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" name="ConnectionManagerEJB">
+    <services>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_NhincComponentConnectionManagerPortSoap11" interface-name="ns0:NhincComponentConnectionManagerPortType" service-name="ns0:NhincComponentConnectionManager"/>
+    </services>
+</javaee-project>

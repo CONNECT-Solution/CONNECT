@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.subscription.repository.data">
+  <class name="SubscriptionStorageItem" table="subscription">
+    <id column="id" length="128" name="recordId" type="string">
+      <generator class="uuid"/>
+    </id>
+    <property column="Subscriptionid" name="subscriptionId" not-null="false" type="string"/>
+    <property column="SubscribeXML" name="subscribeXML" not-null="false" type="string"/>
+    <property column="SubscriptionReferenceXML" name="subscriptionReferenceXML" not-null="false" type="string"/>
+    <property column="RootTopic" length="128" name="rootTopic" not-null="false" type="string"/>
+    <property column="ParentSubscriptionId" length="128" name="parentSubscriptionId" not-null="false" type="string"/>
+    <property column="ParentSubscriptionReferenceXML" name="parentSubscriptionReferenceXML" not-null="false" type="string"/>
+    <property column="Consumer" length="128" name="consumer" not-null="false" type="string"/>
+    <property column="Producer" length="128" name="producer" not-null="false" type="string"/>
+    <property column="PatientId" length="128" name="patientId" not-null="false" type="string"/>
+    <property column="PatientAssigningAuthority" length="128" name="patientAssigningAuthority" not-null="false" type="string"/>
+    <property column="Targets" name="targets" not-null="false" type="string"/>
+    <property column="CreationDate" length="64" name="creationDate" not-null="false" type="timestamp"/>
+  </class>
+</hibernate-mapping>

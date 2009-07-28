@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Indexer.Properties">
+  <property name="Indexer.HTMLOutFile" value="C:\Java\jdk1.6.0_05\bin"/>
+  <property name="Indexer.XMLOutFile" value="C:\Java\jdk1.6.0_05\bin"/>
+  <property name="Indexer.ConfigFile" value="C:\Java\jdk1.6.0_05\bin"/>
+	<property name="Indexer.XSLT" value="C:\Java\jdk1.6.0_05\bin"/>
+	<property name="Indexer.Root" value="${ProductDirectory}"/>
+	<property name="Indexer.ProjectName value="${ProjectName}"/>
+</project>

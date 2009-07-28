@@ -1,0 +1,199 @@
+
+<html>
+
+  <HEAD>
+  
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- AsyncProvider
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      AsyncProvider 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="active">
+          <a>Users Guide</a>
+        </td>
+        <td class="inactive">
+          <a href="jaxws-tools.html">Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="UsersGuide.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="provider.html">
+            <span>Provider </span>
+          </a>
+        </li>
+        <li>
+          <a href="asyncprovider.html">
+            <span class="active">AsyncProvider </span>
+          </a>
+        </li>
+        <li>
+          <a href="dispatch.html">
+            <span>Dispatch </span>
+          </a>
+        </li>
+        <li>
+          <a href="asynch.html">
+            <span>Asynchronous Client </span>
+          </a>
+        </li>
+        <li>
+          <a href="handlers.html">
+            <span>Handler </span>
+          </a>
+        </li>
+        <li>
+          <a href="mtom-swaref.html">
+            <span>MTOM and Swaref </span>
+          </a>
+        </li>
+        <li>
+          <a href="soap12.html">
+            <span>SOAP 1.2 </span>
+          </a>
+        </li>
+        <li>
+          <a href="customizations.html">
+            <span>WSDL Customization </span>
+          </a>
+        </li>
+        <li>
+          <a href="annotations.html">
+            <span>Annotations </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsaddressing.html">
+            <span>WS-Addressing </span>
+          </a>
+        </li>
+        <li>
+          <a href="statefulWebservice.html">
+            <span>Stateful Webservice </span>
+          </a>
+        </li>
+        <li>
+          <a href="catalog-support.html">
+            <span>Catalog </span>
+          </a>
+        </li>
+        <li>
+          <a href="interop.html">
+            <span>Interoperability </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <p>Web Service endpoints may choose to work at the XML message level by
+implementing the 
+      <code>Provider</code> interface. The related
+information about&#160;
+      <code>Provider</code> endpoints is documented
+in&#160;
+      <a href="provider.html">provider</a> page. However&#160; 
+      <code>Provider
+</code>endpoints are synchronous i.e. they receive XML requests and
+they return XML responses synchronously in invoke() method. If the
+endpoint wants to spawn a thread to process the request, it would block
+the jax-ws runtime thread and has to manage all the low details
+synchronizing the threads when the response is available. Also blocking
+a thread doesn't really scale well especially when the underlying
+transport is capable of handling asynchronous request and responses. RI
+provides an implemention specific solution to this problem by
+introducing&#160; 
+      <code>AsyncProvider. </code>This is similar to 
+      <code></code>
+      <code>Provider
+</code>endpoints but the difference is that the endpoint
+implementations have to implement 
+      <code>AsyncProvider </code>interface.
+    
+
+    <h2>
+      <code>AsyncProvider Example</code>
+      <code></code>
+    </h2>
+
+    <p>The following example shows an 
+      <code>AsyncProvider</code> example
+that accesses the payload of the request.
+      <br>
+
+    
+
+    <p>For example:
+
+    <pre><code>
+@WebServiceProvider 
+public class AsyncProviderImpl implements AsyncProvider&lt;Source&gt; {     
+    public void invoke(Source source, AsyncProviderCallback cbak, WebServiceContext ctxt) {...}
+}</code></pre>
+
+    <h2>
+      <code>AsyncProvider</code> sample
+    </h2>
+See a&#160; 
+    <a href="../samples/asyncprovider">sample</a> that
+illustrates 
+    <code></code>
+    <code>AsyncProvider </code>endpoints.
+    <br>
+
+    <br>
+
+    <pre><br></pre>
+
+    <br>
+
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

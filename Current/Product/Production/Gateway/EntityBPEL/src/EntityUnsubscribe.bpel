@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="EntityUnsubscribe"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:entitybpel:entityunsubscribe"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:entitybpel:entityunsubscribe" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:ns1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch">
+    <import namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" location="Interfaces/wsdl/EntitySubscriptionManagement.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="Interfaces/wsdl/rw-2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:entitycomponentinternalunsubscribeorch" location="Interfaces/wsdl/EntityComponentInternalUnsubscribeOrch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="InternalUnsubscribePL" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalunsubscribeorch" partnerLinkType="tns:EntityComponentInternalUnsubscribeOrch" partnerRole="EntityComponentInternalUnsubscribeOrchPortTypeRole"/>
+        <partnerLink name="EntityUnsubscribePL" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" partnerLinkType="tns:EntitySubscriptionManager" myRole="EntitySubscriptionManagerPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="UnsubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" messageType="tns:UnsubscribeResponseMessage">
+            <sxed:editor>
+                <sxed:pseudoComp parentPath="$UnsubscribeOut.UnsubscribeResponse" type="xsd:string" qName="xsd:string" source="to"/>
+            </sxed:editor>
+        </variable>
+        <variable name="UnsubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" messageType="tns:UnsubscribeRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveUnsubscribe" createInstance="yes" partnerLink="EntityUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" portType="tns:EntitySubscriptionManagerPortType" variable="UnsubscribeIn"/>
+        <scope name="UnsubscribeScope">
+            <variables>
+                <variable name="InternalUnsubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalunsubscribeorch" messageType="tns:UnsubscribeResponse"/>
+                <variable name="InternalUnsubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalunsubscribeorch" messageType="tns:UnsubscribeRequest"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFault" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultSeq">
+                        <assign name="AssignFaultResponse">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'EntityUnsubscribe.bpel - A system fault was encountered processing an unsubscribe message. Fault details follow...'</from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <from variable="systemFault"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'An error occured processing the unsubscribe message.'</from>
+                                <to>$UnsubscribeOut.UnsubscribeResponse/xsd:string
+                                    <sxed:editor>
+                                        <sxed:pseudoComp parentPath="$UnsubscribeOut.UnsubscribeResponse" type="xsd:string" qName="xsd:string" source="to"/>
+                                    </sxed:editor>
+                                </to>
+                            </copy>
+                        </assign>
+                        <empty name="TODO_AuditLogFaultResponse"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="UnsubscribeSeq">
+                <empty name="TODO_AuditLogRequest"/>
+                <assign name="AssignInternalUnsubscribeInput">
+                    <copy>
+                        <from>$UnsubscribeIn.UnsubscribeRequest/ns0:unsubscribe</from>
+                        <to>$InternalUnsubscribeIn.UnsubscribeRequest/ns1:Unsubscribe</to>
+                    </copy>
+                    <copy>
+                        <from>$UnsubscribeIn.UnsubscribeRequest/ns0:assertion</from>
+                        <to>$InternalUnsubscribeIn.UnsubscribeRequest/ns2:assertion</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeInternalUnsubscribe" partnerLink="InternalUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:entitycomponentinternalunsubscribeorch" portType="tns:EntityComponentInternalUnsubscribeOrchPortType" inputVariable="InternalUnsubscribeIn" outputVariable="InternalUnsubscribeOut"/>
+                <assign name="AssignInternalUnsubscribeOutpt">
+                    <copy>
+                        <from variable="InternalUnsubscribeOut" part="UnsubscribeResponse"/>
+                        <to variable="UnsubscribeOut" part="UnsubscribeResponse"/>
+                    </copy>
+                </assign>
+                <empty name="TODO_AuditLogResponse"/>
+            </sequence>
+        </scope>
+        <reply name="ReplySubscribe" partnerLink="EntityUnsubscribePL" operation="Unsubscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" portType="tns:EntitySubscriptionManagerPortType" variable="UnsubscribeOut"/>
+    </sequence>
+</process>

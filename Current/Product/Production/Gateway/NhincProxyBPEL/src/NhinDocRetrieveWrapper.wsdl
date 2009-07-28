@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NhinDocRetrieveWrapper" targetNamespace="http://enterprise.netbeans.org/bpel/NhinDocRetrieveWrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/NhinDocRetrieveWrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="urn:ihe:iti:xds-b:2007">
+    <import location="Interfaces/wsdl/NhinDocRetrieve.wsdl" namespace="urn:ihe:iti:xds-b:2007"/>
+    <plnk:partnerLinkType name="RespondingGateway_Retrieve_LinkType">
+        <plnk:role name="RespondingGateway_Retrieve_Role" portType="ns:RespondingGateway_Retrieve_PortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+   <xs:element name="edm">
+      <xs:complexType>
+         <xs:sequence>
+            <xs:any processContents="skip" maxOccurs="unbounded"/>
+            <xs:element name="relationships" type="relationshipType" maxOccurs="1"/>
+            <xs:element name="impl-details" type="implDetailType"/>
+            <xs:element name="gui-definition" type="guiDefinitionType"/>
+         </xs:sequence>
+      </xs:complexType>
+   </xs:element>
+   <xs:simpleType name="gui-fieldType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="TextBox"/>
+         <xs:enumeration value="MenuList"/>
+      </xs:restriction>
+   </xs:simpleType>
+   <xs:complexType name="guiDefinitionType">
+      <xs:sequence>
+         <xs:element name="page-definition" type="qwsDefinitionType"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="qwsDefinitionType">
+      <xs:sequence>
+         <xs:element name="eo-search" type="eoSearchType"/>
+         <xs:element name="create-eo" type="eoCreateType"/>
+         <xs:element name="history" type="historyType"/>
+         <xs:element name="matching-review" type="matchingReviewType"/>
+         <xs:element name="audit-log" type="auditLogType"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="eoSearchType">
+      <xs:sequence>
+         <xs:element name="root-object" type="xs:string"/>
+         <xs:element name="tab-name" type="xs:string"/>
+         <xs:element name="tab-entrance" type="xs:string"/>
+         <xs:element name="simple-search-page" type="simpleSearchPageType" maxOccurs="unbounded"/>
+         <xs:element name="search-result-list-page" type="searchResultListPageType"/>
+         <xs:element name="eo-view-page" type="eoViewPageType"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="simpleSearchPageType">
+      <xs:sequence>
+         <xs:element name="screen-title" type="xs:string"/>
+         <xs:element name="field-per-row" type="xs:positiveInteger"/>
+         <xs:element name="show-euid" type="xs:boolean"/>
+         <xs:element name="show-lid" type="xs:boolean"/>
+         <xs:element name="instruction" type="xs:string" minOccurs="0"/>
+         <xs:element name="field-group" type="fieldGroupType" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="search-option" type="searchOptionType" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="fieldGroupType">
+      <xs:sequence>
+         <xs:element name="description" type="xs:string"/>
+         <xs:element name="field-ref" maxOccurs="98">
+           <xs:complexType>
+            <xs:simpleContent>
+             <xs:extension base="xs:string">
+              <xs:attribute name="choice">
+                <xs:simpleType>
+                 <xs:restriction base="xs:string">
+                  <xs:enumeration value="exact"/>
+                  <xs:enumeration value="range"/>
+                 </xs:restriction>
+                </xs:simpleType>
+               </xs:attribute>
+             </xs:extension>
+            </xs:simpleContent>
+           </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="searchOptionType">
+      <xs:sequence>
+         <xs:element name="display-name" type="xs:string"/>
+         <xs:element name="query-builder" type="xs:string"/>
+         <xs:element name="weighted" type="xs:boolean"/>
+         <xs:element name="candidate-threshold" type="xs:int" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="parameter" type="searchOptionParameterType" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="searchOptionParameterType">
+      <xs:sequence>
+         <xs:element name="name" type="xs:string"/>
+         <xs:element name="value" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:simpleType name="fieldRefType">
+      <xs:restriction base="xs:string"/>
+   </xs:simpleType>
+   <xs:simpleType name="objectRefType">
+      <xs:restriction base="xs:string"/>
+   </xs:simpleType>
+   <xs:complexType name="searchResultListPageType">
+      <xs:sequence>
+         <xs:element name="item-per-page" type="xs:positiveInteger"/>
+         <xs:element name="max-result-size" type="xs:positiveInteger"/>
+         <xs:element name="field-ref" type="fieldRefType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="eoViewPageType">
+      <xs:sequence>
+         <xs:element name="field-per-row" type="xs:positiveInteger"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="eoCreateType">
+      <xs:sequence>
+         <xs:element name="root-object" type="objectRefType"/>
+         <xs:element name="tab-name" type="xs:string"/>
+         <xs:element name="tab-entrance" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="historyType">
+      <xs:sequence>
+         <xs:element name="root-object" type="objectRefType"/>
+         <xs:element name="tab-name" type="xs:string"/>
+         <xs:element name="tab-entrance" type="xs:string"/>
+         <xs:element name="xa-search-page">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="field-per-row" type="xs:positiveInteger"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="search-result-list-page">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="item-per-page" type="xs:positiveInteger"/>
+                  <xs:element name="max-result-size" type="xs:positiveInteger"/>
+                  <xs:element name="field-ref" type="fieldRefType" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="matchingReviewType">
+      <xs:sequence>
+         <xs:element name="root-object" type="objectRefType"/>
+         <xs:element name="tab-name" type="xs:string"/>
+         <xs:element name="tab-entrance" type="xs:string"/>
+         <xs:element name="pd-search-page">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="field-per-row" type="xs:positiveInteger"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="search-result-list-page">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="item-per-page" type="xs:positiveInteger"/>
+                  <xs:element name="max-result-size" type="xs:positiveInteger"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="auditLogType">
+      <xs:sequence>
+         <xs:element name="allow-insert" type="xs:boolean"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="relationshipType">
+      <xs:sequence>
+         <xs:element name="name" type="objectRefType"/>
+         <xs:element name="children" type="objectRefType" maxOccurs="5"/>
+         <xs:element name="relationships" type="relationshipType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="implDetailType">
+      <xs:sequence>
+         <xs:element name="master-controller-jndi-name" type="xs:string"/>
+         <xs:element name="validation-service-jndi-name" type="xs:string"/>
+         <xs:element name="usercode-jndi-name" type="xs:string"/>
+         <xs:element name="debug-flag" type="xs:boolean"/>
+         <xs:element name="debug-dest" type="xs:string"/>
+         <xs:element name="enable-security" type="xs:boolean" default="true" minOccurs="0"/>
+         <!--
+      <xs:element name="sss-domain" type="xs:string"/>
+      <xs:element name="sss-realm" type="xs:string"/>
+      <xs:element name="sss-protocol" type="xs:string"/>
+      <xs:element name="sss-ConnectionFactoryJNDIName" type="xs:string"/>
+      <xs:element name="sss-javaNamingFactoryInitial" type="xs:string"/>
+      <xs:element name="sss-javaNamingProviderUrl" type="xs:string"/>
+      -->
+      </xs:sequence>
+   </xs:complexType>
+</xs:schema>

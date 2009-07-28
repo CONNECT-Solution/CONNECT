@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <context-param>
+        <param-name>com.sun.faces.verifyObjects</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>com.sun.faces.validateXml</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <run-as>
+            <role-name>MasterIndex.Admin</role-name>
+        </run-as>
+
+       <security-role-ref>
+            <role-name>MasterIndex.Admin</role-name>
+            <role-link>MasterIndex.Admin</role-link>
+        </security-role-ref>
+
+    </servlet>
+    <!-- #~#~#~#~#~#~#~#~#~#~#~#~#~ YUI 4 JSF #~#~#~#~#~#~#~#~#~#~#~#~#~  -->         
+<!-- Security roles referenced by this web application -->
+    <filter>
+            <filter-name>yui4jsf filter</filter-name>
+            <filter-class>net.sf.yui4jsf.filter.YUI4JSFFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+            <filter-name>yui4jsf filter</filter-name>
+            <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+
+    <!-- #~#~#~#~#~#~#~#~#~#~#~#~#~ YUI 4 JSF END #~#~#~#~#~#~#~#~#~#~#~#~#~  -->    
+	
+    <filter>
+        <filter-name>redirect-jsf-filter</filter-name>
+        <filter-class>com.sun.mdm.index.edm.presentation.handlers.FilterMappingHandler</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>redirect-jsf-filter</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>results.jsp</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error500.jsp</location>
+    </error-page>
+
+
+<security-constraint>
+    <display-name>SecurityConstraint</display-name>
+
+    <web-resource-collection>
+                  <web-resource-name>WRCollection</web-resource-name>
+                 <url-pattern>*.jsp</url-pattern>
+    </web-resource-collection>
+
+    <!-- Anyone with one of the listed roles may access this area -->
+    <auth-constraint>
+                  <role-name>Administrator</role-name>
+                  <role-name>DataEntry</role-name>
+                  <role-name>DataEntry2</role-name>
+                  <role-name>Clerk</role-name>
+    </auth-constraint>
+
+    <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>    
+
+<security-role>
+    <role-name>MasterIndex.Admin</role-name>
+</security-role>     
+
+<security-role>
+    <role-name>Administrator</role-name>
+</security-role>     
+
+<security-role>
+    <role-name>DataEntry</role-name>
+</security-role>     
+
+<security-role>
+    <role-name>DataEntry2</role-name>
+</security-role>     
+
+<security-role>
+    <role-name>Clerk</role-name>
+</security-role>     
+
+
+<!-- Default login configuration uses form-based authentication -->  
+<login-config>
+      <auth-method>FORM</auth-method>
+       <realm-name>file</realm-name>
+      <form-login-config>
+	      <form-login-page>/login.jsp</form-login-page>
+	      <form-error-page>/loginerror.jsp</form-error-page>
+      </form-login-config>
+  </login-config>
+</web-app>

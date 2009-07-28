@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <ns6:ReplaceAdhocQueryPatientIdResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:jbi="http://java.sun.com/xml/ns/jbi/wsdl-11-wrapper" xmlns:msgns="urn:gov:hhs:fha:nhinc:nhinccomponentdocumenttransform" xmlns:ns2="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="urn:gov:hhs:fha:nhinc:common:nhinccommondocumenttransform">
+      <ns5:AdhocQueryRequest comment="" federated="false" federation="" id="" maxResults="-1" startIndex="0">
+        <ns5:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+        <ns3:AdhocQuery home="urn:oid:7.7" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+          <ns3:Slot name="$XDSDocumentEntryPatientId">
+            <ns3:ValueList>
+              <ns3:Value>'4567^^^&amp;2.2&amp;ISO'</ns3:Value>
+            </ns3:ValueList>
+          </ns3:Slot>
+        </ns3:AdhocQuery>
+      </ns5:AdhocQueryRequest>
+    </ns6:ReplaceAdhocQueryPatientIdResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

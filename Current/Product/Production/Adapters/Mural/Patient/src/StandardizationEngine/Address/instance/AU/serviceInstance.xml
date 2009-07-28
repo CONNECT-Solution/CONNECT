@@ -1,0 +1,6 @@
+<serviceInstance>
+	<description>Address Standardization: Australia</description>
+	<parameter name="dataType" value="Address"/>
+	<parameter name="variantType" value="AU"/>
+	<componentManagerFactory class="com.sun.mdm.sbme.datatype.address.variant.au.AUStandardizerFactory"/>
+</serviceInstance>

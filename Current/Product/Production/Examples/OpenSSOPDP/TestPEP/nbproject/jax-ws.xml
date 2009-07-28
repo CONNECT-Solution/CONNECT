@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="TestPEPService">
+      <implementation-class>gov.hhs.fha.nhinc.testpep.TestPEPService</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/TestPEP/src/java/TestPEPService.wsdl</wsdl-url>
+      <local-wsdl-file>TestPEPService.wsdl</local-wsdl-file>
+      <service-name>TestPEPServiceService</service-name>
+      <port-name>TestPEPServicePort</port-name>
+      <package-name>gov.hhs.fha.nhinc.testpepservice</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>

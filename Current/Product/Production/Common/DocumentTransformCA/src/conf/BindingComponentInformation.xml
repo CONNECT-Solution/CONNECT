@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component-info-list>
+    <component-info>
+        <description>Database binding</description>
+        <name>sun-database-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/jdbc/</xmlns>
+    </component-info>
+    <component-info>
+        <description>File Binding</description>
+        <name>sun-file-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/file/</xmlns>
+    </component-info>
+    <component-info>
+        <description>FTP Binding</description>
+        <name>sun-ftp-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/ftp/</xmlns>
+    </component-info>
+    <component-info>
+        <description>HTTP Soap Binding to send SOAP messages e.g. to and from BPEL service engine.</description>
+        <name>sun-http-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/http/</xmlns>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/soap/</xmlns>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/soap12/</xmlns>
+    </component-info>
+    <component-info>
+        <description>JMS Binding</description>
+        <name>sun-jms-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/jms/</xmlns>
+    </component-info>
+    <component-info>
+        <description>LDAP binding</description>
+        <name>sun-ldap-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/ldap/</xmlns>
+    </component-info>
+</component-info-list>

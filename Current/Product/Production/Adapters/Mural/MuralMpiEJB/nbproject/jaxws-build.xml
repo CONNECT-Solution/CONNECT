@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-check-PatientEJB" depends="wsimport-init">
+        <condition property="wsimport-client-PatientEJB.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/com/sun/mdm/index/webservice/PatientEJB.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-PatientEJB" depends="wsimport-init,wsimport-client-check-PatientEJB" unless="wsimport-client-PatientEJB.notRequired">
+        <property name="wsdl-PatientEJB" location="${meta.inf}/xml-resources/web-service-references/PatientEJB/wsdl/PatientEJB.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-PatientEJB}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/PatientEJB.wsdl" xnocompile="true"/>
+    </target>
+    <target name="wsimport-client-clean-PatientEJB" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/com/sun/mdm/index/webservice"/>
+    </target>
+    <target name="wsimport-service-check-MuralMPI" depends="wsimport-init">
+        <condition property="wsimport-service-MuralMPI.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptercomponentmpi/AdapterComponentMpiService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-MuralMPI" depends="wsimport-init,wsimport-service-check-MuralMPI" unless="wsimport-service-MuralMPI.notRequired">
+        <property name="service-wsdl-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/AdapterComponentMpi.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-MuralMPI}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-MuralMPI" location="${meta.inf}/wsdl/MuralMPI"/>
+        <property name="sourceLocation-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/"/>
+        <copy todir="${targetLocation-MuralMPI}">
+            <fileset dir="${sourceLocation-MuralMPI}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-MuralMPI" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptercomponentmpi"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-PatientEJB"/>
+    <target name="wsimport-client-compile" depends="wsimport-client-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-MuralMPI"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="Interfaces/wsdl/NhinSubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhinSubjectDiscovery.wsdl"/>
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+</catalog>

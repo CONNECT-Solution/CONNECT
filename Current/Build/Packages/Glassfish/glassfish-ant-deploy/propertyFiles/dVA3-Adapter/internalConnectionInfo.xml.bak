@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InternalConnectionInfos>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.198</homeCommunityId>
+		<name>DoD</name>
+		<description>DoD Description</description>
+		<services>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://172.16.50.82:8081/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>nhincsubjectdiscovery</name>
+				<description>NHIN-CONNECT Internal Subject Discovery</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>documentquery</description>
+				<endpointURL>https://172.16.50.82:8081/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentquery</name>
+				<description>NHIN-CONNECT Internal Document Query</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>documentretrieve</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://172.16.50.82:8081/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentretrieve</name>
+				<description>NHIN-CONNECT Internal Document Retrieve</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://172.16.50.82:8081/findAuditEvents/AuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincauditquery</name>
+				<description>auditquery</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincAuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>agency</name>
+				<description>Agency Entity Service</description>
+				<endpointURL>http://172.16.50.82:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>https://172.16.50.82:8081/NotificationProducerService/HiemSubscription</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincNotificationProducer</endpointURL>
+			</service>
+			<service>
+				<name>notificationconsumer</name>
+				<description>HIEM Notify</description>
+				<endpointURL>https://172.16.50.82:8081/NotificationConsumerService/HiemNotify</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationconsumer</name>
+				<description>HIEM Notify</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincNotificationConsumer</endpointURL>
+			</service>
+			<service>
+				<name>subscriptionmanager</name>
+				<description>HIEM Unsubscribe</description>
+				<endpointURL>https://172.16.50.82:8081/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+			</service>
+			<service>
+				<name>nhincsubscriptionmanager</name>
+				<description>HIEM Unsubscribe</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/NhincSubscriptionManager</endpointURL>
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description>agencynotificationconsumer</description>
+				<endpointURL>http://172.16.50.82:9080/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencysubscription</name>
+				<description>agencysubscription</description>
+				<endpointURL>http://172.16.50.82:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelation</name>
+				<description>Patient Correlation Service</description>
+				<endpointURL>http://172.16.50.82:8080/PatientCorrelationService</endpointURL>
+			</service>
+
+			<service>
+				<name>auditrepository</name>
+				<description>Audit Repository</description>
+				<endpointURL>http://172.16.50.82:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+				<name>auditrepositorymanager</name>
+				<description>auditrepositorymanager</description>
+				<endpointURL>http://172.16.50.82:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+			    <name>mpi</name>
+			    <description>Master Patient Index</description>
+			    <endpointURL>http://172.16.50.49:8080/NhinConnect/AdapterMpiService</endpointURL>
+   		</service>
+			<service>
+				<name>policyengineservice</name>
+				<description>Policy Engine Service</description>
+				<endpointURL>http://172.16.50.82:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+			</service>
+			<service>
+				<name>adapterdocretrieve</name>
+				<description>Adapter Document Query</description>
+				<endpointURL>http://172.16.50.49:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>adapterreidentificationservice</name>
+				<description>adapterreidentificationservice</description>
+				<endpointURL>http://172.16.50.49:8080/NhinConnect/AdapterReidentification</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationproducerpassthrough</name>
+				<description>Adapter HIEM Subscribe PassThrough</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.49:9080/NhinConnect/AdapterNotificationProducer</endpointURL> -->
+			</service>
+			<service>
+				<name>adapternotificationproducercdcbiopackage</name>
+				<description>Adapter HIEM Subscribe for CDC Bio Package</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.49:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationproducerdocument</name>
+				<description>Adapter HIEM Subscribe for Documents</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.49:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.200</homeCommunityId>
+		<name>Federal Agency - VA</name>
+		<description>DoD Description</description>
+		<services>
+			<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>nhincsubjectdiscovery</name>
+				<description>NHIN-CONNECT Internal Subject Discovery</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>documentquery</name>
+				<description>documentquery</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentquery</name>
+				<description>NHIN-CONNECT Internal Document Query</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>documentretrieve</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentretrieve</name>
+				<description>NHIN-CONNECT Internal Document Retrieve</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/findAuditEvents/AuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincauditquery</name>
+				<description>auditquery</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincAuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>agency</name>
+				<description>Agency Entity Service</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/NotificationProducerService/HiemSubscription</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincNotificationProducer</endpointURL>
+			</service>
+			<service>
+				<name>notificationconsumer</name>
+				<description>HIEM Notify</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/NotificationConsumerService/HiemNotify</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationconsumer</name>
+				<description>HIEM Notify</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincNotificationConsumer</endpointURL>
+			</service>
+			<service>
+				<name>subscriptionmanager</name>
+				<description>HIEM Unsubscribe</description>
+				<endpointURL>https://dvanhie3.fedsconnect.org:8081/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+			</service>
+			<service>
+				<name>nhincsubscriptionmanager</name>
+				<description>HIEM Unsubscribe</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincSubscriptionManager</endpointURL>
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description>agencynotificationconsumer</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencysubscription</name>
+				<description>agencysubscription</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>
+			<service>
+				<name>patientcorrelation</name>
+				<description>Patient Correlation Service</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/PatientCorrelationService</endpointURL>
+			</service>
+
+			<service>
+				<name>auditrepository</name>
+				<description>Audit Repository</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+				<name>auditrepositorymanager</name>
+				<description>auditrepositorymanager</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+			    <name>mpi</name>
+			    <description>Master Patient Index</description>
+			    <endpointURL>http://172.16.50.48:8080/NhinConnect/AdapterMpiService</endpointURL>
+   		</service>
+			<service>
+				<name>policyengineservice</name>
+				<description>Policy Engine Service</description>
+				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+			</service>
+			<service>
+				<name>adapterdocretrieve</name>
+				<description>Adapter Document Query</description>
+				<endpointURL>http://172.16.50.48:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>adapterreidentificationservice</name>
+				<description>adapterreidentificationservice</description>
+				<endpointURL>http://172.16.50.48:8080/NhinConnect/AdapterReidentification</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationproducerpassthrough</name>
+				<description>Adapter HIEM Subscribe PassThrough</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.48:9080/NhinConnect/AdapterNotificationProducer</endpointURL> -->
+			</service>
+			<service>
+				<name>adapternotificationproducercdcbiopackage</name>
+				<description>Adapter HIEM Subscribe for CDC Bio Package</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.48:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
+			</service>
+			<service>
+				<name>adapternotificationproducerdocument</name>
+				<description>Adapter HIEM Subscribe for Documents</description>
+				<!-- <endpointURL>http://localhost:8088/mockAdapterNotificationProducerBindingSoap11</endpointURL> -->
+				<endpointURL>http://172.16.50.48:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+
+<!--	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.4.1</homeCommunityId>
+		<name>SSN</name>
+		<description></description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.184</homeCommunityId>
+		<name>SSA</name>
+		<description>SSA</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://localhost:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>1.3.6.1.4.1.21302</homeCommunityId>
+		<name>Wright State</name>
+		<description>Wright State</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://WSNHIE1.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.210</homeCommunityId>
+		<name>IHS</name>
+		<description>IHS</description>
+		<services>
+			<service>
+				<name>agency</name>
+				<description>agency</description>
+				<endpointURL>http://ihsnhie.fedsconnect.org:18184/AgencyServiceService/AgencyServicePort</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>-->
+</InternalConnectionInfos>

@@ -1,0 +1,168 @@
+body, table, form, input, td, th, p, textarea, select
+{
+	font-family: verdana, helvetica, arial;
+	font-size: 11px;
+}
+
+
+a:link, .bold-link:link,.build-passed-link, .build-failed-link
+ {text-decoration: NONE; color: #403F8D;}
+ 
+a:hover, .bold-link:hover,.build-passed-link:hover, .build-failed-link:hover
+ {text-decoration: NONE; color:#7bcf15; }
+ 
+a.bold-link{ text-decoration: NONE; font-size: 12px;  font-weight: bold;}
+a.build-passed-link { color: #7bcf15;}
+a.build-passed-link:hover { color: #7bcf15; font-weight: bold;}
+a.build-failed-link:hover { color:#D13535; font-weight: bold; }
+a.build-failed-link { color:#D13535;}
+
+.main-panel { color:#FC0; }
+
+.link { color:#00F;  }
+.buildresults-header { color: #000; font-weight: bolder; }
+.buildresults-data { color: #000; }
+.buildresults-data-failed { color: #F30; }
+
+.stylesection { margin-left: 4px; }
+.header-title { font-size:18px; color:#64BC53; font-weight:bold; padding-bottom:10pt; }
+.header-title-error { font-size:16px; color:#D13535; font-weight:bold; padding-bottom:10pt; }
+.header-label { font-weight:bold; }
+.header-data { color:#000000; }
+.header-data-error { font-family:courier, monospaced; color:#D13535; white-space:pre; }
+
+.section-table { margin-top:10px; }
+.sectionheader { color: #403F8D; font-size: 14px; font-weight: bold; position:relative; top: 9px; }
+.sectionheader-text { font-size: 14px; font-weight: bold; position:relative; top: 9px; }
+.sectionheader-title-image { float: left; border-style: none; height: 25px; }
+.sectionheader-container { border-bottom: #403F8D 1px dotted; font-size: 14px; font-weight: bold;}
+.sectionheader-container-error { border-bottom: #D13535 1px dotted; color: #D13535; font-size: 14px; font-weight: bold;}
+.sectionheader-container-warning { border-bottom: #FF7700 1px dotted; color: #FF7700; font-size: 14px; font-weight: bold;}
+.section-data { font-size:9px; color:#000; }
+.section-data-bold { font-size:11px; color:#000; }
+.section-oddrow { background-color:#F0F7FF; }
+.section-evenrow { background-color:#FFF; }
+.section-error { font-size:9px; color:#D13535; white-space:pre; }
+.section-error-bold { font-size:11px; color:#D13535; white-space:pre; }
+.section-warning { font-size:9px; color:#FF7700; white-space:pre; }
+
+.LogContainer
+{  
+	font-family:'Lucida Console',Monaco,monospace; 
+	font-weight:normal;
+}
+.LogMessageEven 
+{
+	background-color: #FFF;
+}
+.LogMessageUneven
+{
+	background-color: #A8BCFF;
+}
+
+.b1, .b2, .b3, .b4{font-size:1px; overflow:hidden; display:block;}
+.b1 {height:1px; background:#888; margin:0 5px;}
+.b2 {height:1px; background:white; border-right:2px solid #888; border-left:2px solid #888; margin:0 3px;}
+.b3 {height:1px; background:white; border-right:1px solid #888; border-left:1px solid #888; margin:0 2px;}
+.b4 {height:2px; background:white; border-right:1px solid #888; border-left:1px solid #888; margin:0 1px;}
+.contentb {background: white; border-right:1px solid #888; border-left:1px solid #888;}
+.contentb div {margin-left: 5px;}
+
+.warning { color:#FF7700 }
+.error { color:#D13535 }
+
+.RecentBuildsPanel {
+	border-style: solid;
+	border-width: 1px;
+        border-color: #333399;
+	margin-bottom:5;
+}
+
+.RecentBuildsPanel th 
+{
+	background-color: #333399;
+	text-align: center;
+	font-weight: bold;
+	padding: 3px;
+	color: ivory;
+}
+
+.RecentBuildsPanel td {
+	padding: 3;
+        background-color: white;
+}
+
+.breadcrumbs
+{
+        color: darkgrey;
+}
+.breadcrumbs a {
+        color: ivory;
+        text-decoration: none;
+}
+
+.breadcrumbs a:hover 
+{ 
+        color:#FC0; 
+}
+
+.ProjectGridHeader
+{
+        color: ivory;
+}
+.ProjectGridHeader a {
+        color: ivory;
+        text-decoration: none;
+}
+.ProjectGridHeader a:hover 
+{ 
+        color:#FC0; 
+}
+
+.log
+{
+}
+
+.wholepage
+{
+        background-color: #FFFFFF;
+}
+
+.TopControls
+{
+        background-color: #333399;
+        color: ivory;
+}
+
+.statusimage { vertical-align: middle; }
+
+*.pass{
+background-color: #33ff99;
+}
+
+*.fail{
+background-color: #ff6600;
+}
+
+*.unknown{
+background-color: #ffffcc;
+}
+
+*.exception{
+background-color: #000000;
+color: #ffffff;
+}
+
+a.dsphead{
+}
+
+a.dsphead:hover{
+text-decoration:underline;
+}
+
+a.dsphead span.dspchar{
+}
+
+.dspcont{
+display:none;
+}

@@ -1,0 +1,20 @@
+& CO                AND COMPANY
+& COMPANY           AND COMPANY
+AND CO              AND COMPANY
+AND COMPANY         0
+ASSOCIATES          0
+BANKSHARES          0
+BANCORP             0
+BANCORPORATION      BANCORP
+CASTINGS            0
+COMPANIES           0
+ENT                 ENTERPRISES
+ENTER               ENTERPRISES
+ENTERPRISES         0
+GMBH & CO           0
+GP                  GROUP
+GROUP               0
+HOLDING             0
+HOLDINGS            HOLDING
+PARTNERS            0
+TRUST               0

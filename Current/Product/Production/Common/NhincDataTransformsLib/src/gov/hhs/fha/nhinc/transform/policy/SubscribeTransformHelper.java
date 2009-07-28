@@ -1,0 +1,145 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package gov.hhs.fha.nhinc.transform.policy;
+
+import com.sun.jmx.remote.internal.Unmarshal;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.SubscribeMessageType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+import java.io.StringReader;
+import java.util.List;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
+import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.w3c.dom.Element;
+
+/**
+ *
+ * @author svalluripalli
+ */
+public class SubscribeTransformHelper {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscribeTransformHelper.class);
+
+    private static final String ActionInValue = "HIEMSubscriptionRequestIn";
+    private static final String ActionOutValue = "HIEMSubscriptionRequestOut";
+    private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
+    private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
+
+    public static CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType event) {
+        CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
+        SubscribeMessageType message = event.getMessage();
+        RequestType request = new RequestType();
+        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionInValue));
+        }
+        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+        }
+
+        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        request.getSubject().add(subject);
+
+        AdhocQueryRequest adhocReq = new AdhocQueryRequest();
+        AdhocQueryType adhocQuery = new AdhocQueryType();
+        adhocQuery = getAdhocQuery(event.getMessage().getSubscribe());
+        adhocReq.setAdhocQuery(adhocQuery);
+        String patId = AdhocQueryTransformHelper.extractPatientIdentifierId(adhocReq);
+        String assignAuth = AdhocQueryTransformHelper.extractPatientIdentifierAssigningAuthority(adhocReq);
+
+        ResourceType resource = new ResourceType();
+
+        if (NullChecker.isNotNullish(assignAuth)) {
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, assignAuth));
+        }
+
+        if (NullChecker.isNotNullish(patId)) {
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+        }
+
+        request.getResource().add(resource);
+
+        genericPolicyRequest.setRequest(request);
+        return genericPolicyRequest;
+    }
+
+    public static AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
+        AdhocQueryType adhocQuery = null;
+        List<Object> any = nhinSubscribe.getAny();
+
+
+        for (Object anyItem : any) {
+            log.debug("SubscribeTransformHelper.getAdhocQuery - type of any in list: " + anyItem.getClass().getName());
+            if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
+                log.debug("Any item was oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType");
+                adhocQuery = (AdhocQueryType) anyItem;
+            }
+            else if (anyItem instanceof JAXBElement) {
+                log.debug("Any item was JAXBElement");
+                if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
+                    log.debug("Any item - JAXBElement value was AdhocQueryType");
+                    adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
+                }
+            }
+            else if (anyItem instanceof Element) {
+                log.debug("Any item was Element");
+                Element element = (Element) anyItem;
+                log.debug("SubscribeTransformHelper.getAdhocQuery - element name of any in list: " + element.getLocalName());
+                adhocQuery = unmarshalAdhocQuery(element);
+                //Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
+
+            //  Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
+            }
+            else
+            {
+                log.debug("Any type did not fit any expected value");
+            }
+        }
+        return adhocQuery;
+    }
+
+    public static AdhocQueryType unmarshalAdhocQuery(Element adhocQueryElement) {
+        AdhocQueryType unmarshalledObject = null;
+        String contextPath = "oasis.names.tc.ebxml_regrep.xsd.rim._3";
+        log.debug("begin unmarshal");
+
+        if (adhocQueryElement == null) {
+            log.warn("element to unmarshal is null");
+        } else if (contextPath == null) {
+            log.warn("no contextPath supplied");
+        } else {
+            try {
+                log.debug("desializing element");
+                String serializedElement = XmlUtility.serializeElement(adhocQueryElement);
+                log.debug("serializedElement=[" + serializedElement + "]");
+                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                log.debug("get instance of unmarshaller");
+                javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
+                log.debug("init stringReader");
+                StringReader stringReader = new StringReader(serializedElement);
+                log.debug("Calling unmarshal");
+                JAXBElement<AdhocQueryType> jaxbElement = (JAXBElement<AdhocQueryType>)unmarshaller.unmarshal(stringReader);
+                log.debug("unmarshalled to JAXBElement");
+                unmarshalledObject = jaxbElement.getValue();
+                log.debug("end unmarshal");
+            } catch (Exception e) {
+                //"java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
+                //use jaxb element
+                log.error("Failed to unmarshall: " + e.getMessage(), e);
+                unmarshalledObject = null;
+            }
+        }
+
+        return unmarshalledObject;
+    }
+
+}

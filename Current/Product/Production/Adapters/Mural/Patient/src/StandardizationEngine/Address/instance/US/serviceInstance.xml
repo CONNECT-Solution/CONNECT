@@ -1,0 +1,6 @@
+<serviceInstance>
+	<description>Address Standardization: United States</description>
+	<parameter name="dataType" value="Address"/>
+	<parameter name="variantType" value="US"/>
+	<componentManagerFactory class="com.sun.mdm.sbme.datatype.address.variant.us.USStandardizerFactory"/>
+</serviceInstance>

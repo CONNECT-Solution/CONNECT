@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NhincSubscription" targetNamespace="urn:gov:hhs:fha:nhinc:nhincsubscription"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" 
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+    xmlns:wsntw="http://docs.oasis-open.org/wsn/bw-2"
+    xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:nccommoninternalorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch">
+    <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="rw-2.wsdl"/>
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincsubscription">
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" schemaLocation="../schemas/nhinc/common/NhincCommonInternalOrch.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="NotifyRequestMessage">
+        <part name="NotifyRequest" element="nccommoninternalorch:NotifyRequest"/>
+    </message>
+    <wsdl:message name="SubscribeRequestMessage">
+    <wsdl:part name="SubscribeRequest" element="nccommoninternalorch:SubscribeRequest"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeResponseMessage">
+    <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeCreationFailedFault">
+    <wsdl:part name="SubscribeCreationFailedFault" 
+               element="wsnt:SubscribeCreationFailedFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicExpressionDialectUnknownFault">
+    <wsdl:part name="TopicExpressionDialectUnknownFault" 
+               element="wsnt:TopicExpressionDialectUnknownFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTopicExpressionFault">
+    <wsdl:part name="InvalidTopicExpressionFault" 
+               element="wsnt:InvalidTopicExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicNotSupportedFault">
+    <wsdl:part name="TopicNotSupportedFault" 
+               element="wsnt:TopicNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidFilterFault">
+    <wsdl:part name="InvalidFilterFault" 
+               element="wsnt:InvalidFilterFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidProducerPropertiesExpressionFault">
+    <wsdl:part name="InvalidProducerPropertiesExpressionFault" 
+               element="wsnt:InvalidProducerPropertiesExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidMessageContentExpressionFault">
+    <wsdl:part name="InvalidMessageContentExpressionFault" 
+               element="wsnt:InvalidMessageContentExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnrecognizedPolicyRequestFault">
+    <wsdl:part name="UnrecognizedPolicyRequestFault" 
+               element="wsnt:UnrecognizedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnsupportedPolicyRequestFault">
+    <wsdl:part name="UnsupportedPolicyRequestFault" 
+               element="wsnt:UnsupportedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyMessageNotSupportedFault">
+    <wsdl:part name="NotifyMessageNotSupportedFault" 
+               element="wsnt:NotifyMessageNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnacceptableInitialTerminationTimeFault">
+    <wsdl:part name="UnacceptableInitialTerminationTimeFault" 
+               element="wsnt:UnacceptableInitialTerminationTimeFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeRequestMessage">
+    <wsdl:part name="UnsubscribeRequest" element="nccommoninternalorch:UnsubscribeRequest"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeResponseMessage">
+    <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UnableToDestroySubscriptionFault">
+    <wsdl:part name="UnableToDestroySubscriptionFault" 
+               element="wsnt:UnableToDestroySubscriptionFault"/>
+  </wsdl:message>
+    <portType name="NotificationConsumer">
+        <operation name="Notify">
+            <input name="NotifyRequest" message="tns:NotifyRequestMessage"/>
+        </operation>
+    </portType>
+    <wsdl:portType name="NotificationProducer">
+    <wsdl:operation name="Subscribe">
+      <wsdl:input name="SubscribeRequest" message="tns:SubscribeRequestMessage"/> 
+      <wsdl:output name="SubscribeResponse" message="tns:SubscribeResponseMessage"/> 
+      <wsdl:fault name="ResourceUnknownFault" message="wsrf-rw:ResourceUnknownFault"/> 
+      <wsdl:fault name="InvalidFilterFault" message="tns:InvalidFilterFault"/> 
+      <wsdl:fault name="TopicExpressionDialectUnknownFault" 
+                  message="tns:TopicExpressionDialectUnknownFault"/> 
+      <wsdl:fault name="InvalidTopicExpressionFault" 
+                  message="tns:InvalidTopicExpressionFault"/> 
+      <wsdl:fault name="TopicNotSupportedFault" 
+                  message="tns:TopicNotSupportedFault"/> 
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault" 
+                  message="tns:InvalidProducerPropertiesExpressionFault"/> 
+      <wsdl:fault name="InvalidMessageContentExpressionFault" 
+                  message="tns:InvalidMessageContentExpressionFault"/> 
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault" 
+                  message="tns:UnacceptableInitialTerminationTimeFault"/> 
+      <wsdl:fault name="UnrecognizedPolicyRequestFault" 
+                  message="tns:UnrecognizedPolicyRequestFault"/> 
+      <wsdl:fault name="UnsupportedPolicyRequestFault" 
+                  message="tns:UnsupportedPolicyRequestFault"/> 
+      <wsdl:fault name="NotifyMessageNotSupportedFault" 
+                  message="tns:NotifyMessageNotSupportedFault"/> 
+      <wsdl:fault name="SubscribeCreationFailedFault" 
+                  message="tns:SubscribeCreationFailedFault"/> 
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SubscriptionManager">
+    <wsdl:operation name="Unsubscribe">
+      <wsdl:input name="UnsubscribeRequest" 
+                  message="tns:UnsubscribeRequestMessage"/> 
+      <wsdl:output name="UnsubscribeResponse" 
+                   message="tns:UnsubscribeResponseMessage"/>
+      <wsdl:fault name="ResourceUnknownFault" 
+                  message="wsrf-rw:ResourceUnknownFault"/>
+      <wsdl:fault name="UnableToDestroySubscriptionFault" 
+                  message="tns:UnableToDestroySubscriptionFault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+   <wsdl:binding name="NotificationConsumerBinding" type="tns:NotificationConsumer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Notify">
+      <soap:operation soapAction="urn:Notify"/>
+      <wsdl:input name="NotifyRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NotificationProducerBinding" type="tns:NotificationProducer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Subscribe">
+      <soap:operation soapAction="urn:Subscribe"/>
+      <wsdl:input name="SubscribeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SubscribeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidFilterFault">
+        <soap:fault name="InvalidFilterFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicExpressionDialectUnknownFault">
+        <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTopicExpressionFault">
+        <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicNotSupportedFault">
+        <soap:fault name="TopicNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
+        <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidMessageContentExpressionFault">
+        <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
+        <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecognizedPolicyRequestFault">
+        <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnsupportedPolicyRequestFault">
+        <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="NotifyMessageNotSupportedFault">
+        <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="SubscribeCreationFailedFault">
+        <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SubscriptionManagerBinding" type="tns:SubscriptionManager">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Unsubscribe">
+      <soap:operation soapAction="urn:Unsubscribe"/>
+      <wsdl:input name="UnsubscribeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UnsubscribeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnableToDestroySubscriptionFault">
+        <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NhincNotificationConsumerService">
+    <wsdl:port name="NotificationConsumerPort" binding="tns:NotificationConsumerBinding">
+      <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincNotificationConsumer"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="NhincNotificationProducerService">
+    <wsdl:port name="NotificationProducerPort" binding="tns:NotificationProducerBinding">
+      <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincNotificationProducer"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="NhincSubscriptionManagerService">
+    <wsdl:port name="SubscriptionManagerPort" binding="tns:SubscriptionManagerBinding">
+      <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincSubscriptionManager"/>
+    </wsdl:port>
+  </wsdl:service>
+    <plnk:partnerLinkType name="NhincHiemNotify">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincHiemNotifyRole" portType="tns:NotificationConsumer"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="NhincHiemSubscribe">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincHiemSubscriberRole" portType="tns:NotificationProducer"/>
+    </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="NhincHiemUnsubscribe">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincHiemUnsubscribeRole" portType="tns:SubscriptionManager"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Adapter Policy Engine Interim WSDL 
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterim"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+   name="AdapterPolicyEngineInterim" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterim">
+  <documentation>Adapter Policy Engine Interim</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+    </xsd:schema>
+  </types>
+  
+  <!-- CheckPolicyPatientOptIn -->
+  <message name="CheckPolicyPatientOptInRequestMessage">
+    <part name="CheckPolicyPatientOptInRequest" 
+          element="nccommonadapter:CheckPolicyPatientOptInRequest"/>
+  </message>
+  <message name="CheckPolicyPatientOptInResponseMessage">
+    <part name="CheckPolicyPatientOptInResponse" 
+          element="nccommonadapter:CheckPolicyPatientOptInResponse"/>
+  </message>
+  
+  <!-- CheckPolicySubjDiscIn -->
+  <message name="CheckPolicySubjDiscInRequestMessage">
+    <part name="CheckPolicySubjDiscInRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscInRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscInResponseMessage">
+    <part name="CheckPolicySubjDiscInResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscInResponse"/>
+  </message>
+
+  <!-- CheckPolicySubjDiscOut -->
+  <message name="CheckPolicySubjDiscOutRequestMessage">
+    <part name="CheckPolicySubjDiscOutRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscOutRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscOutResponseMessage">
+    <part name="CheckPolicySubjDiscOutResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscOutResponse"/>
+  </message>
+
+  <!-- CheckPolicySubjDiscRevokeIn -->
+  <message name="CheckPolicySubjDiscRevokeInRequestMessage">
+    <part name="CheckPolicySubjDiscRevokeInRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscRevokeInRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscRevokeInResponseMessage">
+    <part name="CheckPolicySubjDiscRevokeInResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscRevokeInResponse"/>
+  </message>
+
+  <!-- CheckPolicySubjDiscRevokeOut -->
+  <message name="CheckPolicySubjDiscRevokeOutRequestMessage">
+    <part name="CheckPolicySubjDiscRevokeOutRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscRevokeOutRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscRevokeOutResponseMessage">
+    <part name="CheckPolicySubjDiscRevokeOutResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscRevokeOutResponse"/>
+  </message>
+
+  <!-- CheckPolicyDocQueryIn -->
+  <message name="CheckPolicyDocQueryInRequestMessage">
+    <part name="CheckPolicyDocQueryInRequest" 
+          element="nccommonadapter:CheckPolicyDocQueryInRequest"/>
+  </message>
+  <message name="CheckPolicyDocQueryInResponseMessage">
+    <part name="CheckPolicyDocQueryInResponse" 
+          element="nccommonadapter:CheckPolicyDocQueryInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyDocQueryOut -->
+  <message name="CheckPolicyDocQueryOutRequestMessage">
+    <part name="CheckPolicyDocQueryOutRequest" 
+          element="nccommonadapter:CheckPolicyDocQueryOutRequest"/>
+  </message>
+  <message name="CheckPolicyDocQueryOutResponseMessage">
+    <part name="CheckPolicyDocQueryOutResponse" 
+          element="nccommonadapter:CheckPolicyDocQueryOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicyDocRetrieveIn -->
+  <message name="CheckPolicyDocRetrieveInRequestMessage">
+    <part name="CheckPolicyDocRetrieveInRequest" 
+          element="nccommonadapter:CheckPolicyDocRetrieveInRequest"/>
+  </message>
+  <message name="CheckPolicyDocRetrieveInResponseMessage">
+    <part name="CheckPolicyDocRetrieveInResponse" 
+          element="nccommonadapter:CheckPolicyDocRetrieveInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyDocRetrieveOut -->
+  <message name="CheckPolicyDocRetrieveOutRequestMessage">
+    <part name="CheckPolicyDocRetrieveOutRequest" 
+          element="nccommonadapter:CheckPolicyDocRetrieveOutRequest"/>
+  </message>
+  <message name="CheckPolicyDocRetrieveOutResponseMessage">
+    <part name="CheckPolicyDocRetrieveOutResponse" 
+          element="nccommonadapter:CheckPolicyDocRetrieveOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicyAuditLogQueryIn -->
+  <message name="CheckPolicyAuditLogQueryInRequestMessage">
+    <part name="CheckPolicyAuditLogQueryInRequest" 
+          element="nccommonadapter:CheckPolicyAuditLogQueryInRequest"/>
+  </message>
+  <message name="CheckPolicyAuditLogQueryInResponseMessage">
+    <part name="CheckPolicyAuditLogQueryInResponse" 
+          element="nccommonadapter:CheckPolicyAuditLogQueryInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyAuditLogQueryOut -->
+  <message name="CheckPolicyAuditLogQueryOutRequestMessage">
+    <part name="CheckPolicyAuditLogQueryOutRequest" 
+          element="nccommonadapter:CheckPolicyAuditLogQueryOutRequest"/>
+  </message>
+  <message name="CheckPolicyAuditLogQueryOutResponseMessage">
+    <part name="CheckPolicyAuditLogQueryOutResponse" 
+          element="nccommonadapter:CheckPolicyAuditLogQueryOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMSubscRqstIn -->
+  <message name="CheckPolicyHIEMSubscRqstInRequestMessage">
+    <part name="CheckPolicyHIEMSubscRqstInRequest" 
+          element="nccommonadapter:CheckPolicyHIEMSubscRqstInRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMSubscRqstInResponseMessage">
+    <part name="CheckPolicyHIEMSubscRqstInResponse" 
+          element="nccommonadapter:CheckPolicyHIEMSubscRqstInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMSubscRqstOut -->
+  <message name="CheckPolicyHIEMSubscRqstOutRequestMessage">
+    <part name="CheckPolicyHIEMSubscRqstOutRequest" 
+          element="nccommonadapter:CheckPolicyHIEMSubscRqstOutRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMSubscRqstOutResponseMessage">
+    <part name="CheckPolicyHIEMSubscRqstOutResponse" 
+          element="nccommonadapter:CheckPolicyHIEMSubscRqstOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMSubscCnclIn -->
+  <message name="CheckPolicyHIEMSubscCnclInRequestMessage">
+    <part name="CheckPolicyHIEMSubscCnclInRequest" 
+          element="nccommonadapter:CheckPolicyHIEMSubscCnclInRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMSubscCnclInResponseMessage">
+    <part name="CheckPolicyHIEMSubscCnclInResponse" 
+          element="nccommonadapter:CheckPolicyHIEMSubscCnclInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMSubscCnclOut -->
+  <message name="CheckPolicyHIEMSubscCnclOutRequestMessage">
+    <part name="CheckPolicyHIEMSubscCnclOutRequest" 
+          element="nccommonadapter:CheckPolicyHIEMSubscCnclOutRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMSubscCnclOutResponseMessage">
+    <part name="CheckPolicyHIEMSubscCnclOutResponse" 
+          element="nccommonadapter:CheckPolicyHIEMSubscCnclOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMNotifyIn -->
+  <message name="CheckPolicyHIEMNotifyInRequestMessage">
+    <part name="CheckPolicyHIEMNotifyInRequest" 
+          element="nccommonadapter:CheckPolicyHIEMNotifyInRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMNotifyInResponseMessage">
+    <part name="CheckPolicyHIEMNotifyInResponse" 
+          element="nccommonadapter:CheckPolicyHIEMNotifyInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyHIEMNotifyOut -->
+  <message name="CheckPolicyHIEMNotifyOutRequestMessage">
+    <part name="CheckPolicyHIEMNotifyOutRequest" 
+          element="nccommonadapter:CheckPolicyHIEMNotifyOutRequest"/>
+  </message>
+  <message name="CheckPolicyHIEMNotifyOutResponseMessage">
+    <part name="CheckPolicyHIEMNotifyOutResponse" 
+          element="nccommonadapter:CheckPolicyHIEMNotifyOutResponse"/>
+  </message>
+  
+  <!-- CheckPolicySubjDiscReIdentIn -->
+  <message name="CheckPolicySubjDiscReIdentInRequestMessage">
+    <part name="CheckPolicySubjDiscReIdentInRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentInRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscReIdentInResponseMessage">
+    <part name="CheckPolicySubjDiscReIdentInResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentInResponse"/>
+  </message>
+  
+  <!-- CheckPolicySubjDiscReIdentOut -->
+  <message name="CheckPolicySubjDiscReIdentOutRequestMessage">
+    <part name="CheckPolicySubjDiscReIdentOutRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentOutRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscReIdentOutResponseMessage">
+    <part name="CheckPolicySubjDiscReIdentOutResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentOutResponse"/>
+  </message>
+
+  <portType name="AdapterPolicyEngineInterimPortType">
+    <operation name="CheckPolicyPatientOptIn">
+      <input name="CheckPolicyPatientOptInRequest"
+             message="tns:CheckPolicyPatientOptInRequestMessage" />
+      <output name="CheckPolicyPatientOptInResponse"
+              message="tns:CheckPolicyPatientOptInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscIn">
+      <input name="CheckPolicySubjDiscInRequest"
+             message="tns:CheckPolicySubjDiscInRequestMessage" />
+      <output name="CheckPolicySubjDiscInResponse"
+              message="tns:CheckPolicySubjDiscInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscOut">
+      <input name="CheckPolicySubjDiscOutRequest"
+             message="tns:CheckPolicySubjDiscOutRequestMessage" />
+      <output name="CheckPolicySubjDiscOutResponse"
+              message="tns:CheckPolicySubjDiscOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscRevokeIn">
+      <input name="CheckPolicySubjDiscRevokeInRequest"
+             message="tns:CheckPolicySubjDiscRevokeInRequestMessage" />
+      <output name="CheckPolicySubjDiscRevokeInResponse"
+              message="tns:CheckPolicySubjDiscRevokeInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscRevokeOut">
+      <input name="CheckPolicySubjDiscRevokeOutRequest"
+             message="tns:CheckPolicySubjDiscRevokeOutRequestMessage" />
+      <output name="CheckPolicySubjDiscRevokeOutResponse"
+              message="tns:CheckPolicySubjDiscRevokeOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyDocQueryIn">
+      <input name="CheckPolicyDocQueryInRequest"
+             message="tns:CheckPolicyDocQueryInRequestMessage" />
+      <output name="CheckPolicyDocQueryInResponse"
+              message="tns:CheckPolicyDocQueryInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyDocQueryOut">
+      <input name="CheckPolicyDocQueryOutRequest"
+             message="tns:CheckPolicyDocQueryOutRequestMessage" />
+      <output name="CheckPolicyDocQueryOutResponse"
+              message="tns:CheckPolicyDocQueryOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyDocRetrieveIn">
+      <input name="CheckPolicyDocRetrieveInRequest"
+             message="tns:CheckPolicyDocRetrieveInRequestMessage" />
+      <output name="CheckPolicyDocRetrieveInResponse"
+              message="tns:CheckPolicyDocRetrieveInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyDocRetrieveOut">
+      <input name="CheckPolicyDocRetrieveOutRequest"
+             message="tns:CheckPolicyDocRetrieveOutRequestMessage" />
+      <output name="CheckPolicyDocRetrieveOutResponse"
+              message="tns:CheckPolicyDocRetrieveOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyAuditLogQueryIn">
+      <input name="CheckPolicyAuditLogQueryInRequest"
+             message="tns:CheckPolicyAuditLogQueryInRequestMessage" />
+      <output name="CheckPolicyAuditLogQueryInResponse"
+              message="tns:CheckPolicyAuditLogQueryInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyAuditLogQueryOut">
+      <input name="CheckPolicyAuditLogQueryOutRequest"
+             message="tns:CheckPolicyAuditLogQueryOutRequestMessage" />
+      <output name="CheckPolicyAuditLogQueryOutResponse"
+              message="tns:CheckPolicyAuditLogQueryOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMSubscRqstIn">
+      <input name="CheckPolicyHIEMSubscRqstInRequest"
+             message="tns:CheckPolicyHIEMSubscRqstInRequestMessage" />
+      <output name="CheckPolicyHIEMSubscRqstInResponse"
+              message="tns:CheckPolicyHIEMSubscRqstInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMSubscRqstOut">
+      <input name="CheckPolicyHIEMSubscRqstOutRequest"
+             message="tns:CheckPolicyHIEMSubscRqstOutRequestMessage" />
+      <output name="CheckPolicyHIEMSubscRqstOutResponse"
+              message="tns:CheckPolicyHIEMSubscRqstOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMSubscCnclIn">
+      <input name="CheckPolicyHIEMSubscCnclInRequest"
+             message="tns:CheckPolicyHIEMSubscCnclInRequestMessage" />
+      <output name="CheckPolicyHIEMSubscCnclInResponse"
+              message="tns:CheckPolicyHIEMSubscCnclInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMSubscCnclOut">
+      <input name="CheckPolicyHIEMSubscCnclOutRequest"
+             message="tns:CheckPolicyHIEMSubscCnclOutRequestMessage" />
+      <output name="CheckPolicyHIEMSubscCnclOutResponse"
+              message="tns:CheckPolicyHIEMSubscCnclOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMNotifyIn">
+      <input name="CheckPolicyHIEMNotifyInRequest"
+             message="tns:CheckPolicyHIEMNotifyInRequestMessage" />
+      <output name="CheckPolicyHIEMNotifyInResponse"
+              message="tns:CheckPolicyHIEMNotifyInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyHIEMNotifyOut">
+      <input name="CheckPolicyHIEMNotifyOutRequest"
+             message="tns:CheckPolicyHIEMNotifyOutRequestMessage" />
+      <output name="CheckPolicyHIEMNotifyOutResponse"
+              message="tns:CheckPolicyHIEMNotifyOutResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdentIn">
+      <input name="CheckPolicySubjDiscReIdentInRequest"
+             message="tns:CheckPolicySubjDiscReIdentInRequestMessage" />
+      <output name="CheckPolicySubjDiscReIdentInResponse"
+              message="tns:CheckPolicySubjDiscReIdentInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdentOut">
+      <input name="CheckPolicySubjDiscReIdentOutRequest"
+             message="tns:CheckPolicySubjDiscReIdentOutRequestMessage" />
+      <output name="CheckPolicySubjDiscReIdentOutResponse"
+              message="tns:CheckPolicySubjDiscReIdentOutResponseMessage" />
+    </operation>
+  </portType>
+  
+  <binding name="AdapterPolicyEngineInterimBindingSoap11" type="tns:AdapterPolicyEngineInterimPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CheckPolicyPatientOptIn">
+      <soap:operation soapAction="urn:CheckPolicyPatientOptIn"/>
+      <input name="CheckPolicyPatientOptInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyPatientOptInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscIn">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscIn"/>
+      <input name="CheckPolicySubjDiscInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscOut">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscOut"/>
+      <input name="CheckPolicySubjDiscOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscRevokeIn">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscRevokeIn"/>
+      <input name="CheckPolicySubjDiscRevokeInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscRevokeInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscRevokeOut">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscRevokeOut"/>
+      <input name="CheckPolicySubjDiscRevokeOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscRevokeOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyDocQueryIn">
+      <soap:operation soapAction="urn:CheckPolicyDocQueryIn"/>
+      <input name="CheckPolicyDocQueryInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyDocQueryInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyDocQueryOut">
+      <soap:operation soapAction="urn:CheckPolicyDocQueryOut"/>
+      <input name="CheckPolicyDocQueryOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyDocQueryOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyDocRetrieveIn">
+      <soap:operation soapAction="urn:CheckPolicyDocRetrieveIn"/>
+      <input name="CheckPolicyDocRetrieveInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyDocRetrieveInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyDocRetrieveOut">
+      <soap:operation soapAction="urn:CheckPolicyDocRetrieveOut"/>
+      <input name="CheckPolicyDocRetrieveOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyDocRetrieveOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyAuditLogQueryIn">
+      <soap:operation soapAction="urn:CheckPolicyAuditLogQueryIn"/>
+      <input name="CheckPolicyAuditLogQueryInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyAuditLogQueryInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyAuditLogQueryOut">
+      <soap:operation soapAction="urn:CheckPolicyAuditLogQueryOut"/>
+      <input name="CheckPolicyAuditLogQueryOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyAuditLogQueryOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMSubscRqstIn">
+      <soap:operation soapAction="urn:CheckPolicyHIEMSubscRqstIn"/>
+      <input name="CheckPolicyHIEMSubscRqstInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMSubscRqstInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMSubscRqstOut">
+      <soap:operation soapAction="urn:CheckPolicyHIEMSubscRqstOut"/>
+      <input name="CheckPolicyHIEMSubscRqstOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMSubscRqstOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMSubscCnclIn">
+      <soap:operation soapAction="urn:CheckPolicyHIEMSubscCnclIn"/>
+      <input name="CheckPolicyHIEMSubscCnclInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMSubscCnclInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMSubscCnclOut">
+      <soap:operation soapAction="urn:CheckPolicyHIEMSubscCnclOut"/>
+      <input name="CheckPolicyHIEMSubscCnclOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMSubscCnclOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMNotifyIn">
+      <soap:operation soapAction="urn:CheckPolicyHIEMNotifyIn"/>
+      <input name="CheckPolicyHIEMNotifyInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMNotifyInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyHIEMNotifyOut">
+      <soap:operation soapAction="urn:CheckPolicyHIEMNotifyOut"/>
+      <input name="CheckPolicyHIEMNotifyOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyHIEMNotifyOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdentIn">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscReIdentIn"/>
+      <input name="CheckPolicySubjDiscReIdentInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscReIdentInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdentOut">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscReIdentOut"/>
+      <input name="CheckPolicySubjDiscReIdentOutRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscReIdentOutResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service name="AdapterPolicyEngineInterim">
+    <port name="AdapterPolicyEngineInterimPortSoap11" 
+          binding="tns:AdapterPolicyEngineInterimBindingSoap11">
+      <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngineInterim" />
+    </port>
+  </service>
+  <plnk:partnerLinkType name="AdapterPolicyEngineInterim">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="AdapterPolicyEngineInterimPortTypeRole" 
+               portType="tns:AdapterPolicyEngineInterimPortType"/>
+  </plnk:partnerLinkType>
+  
+</definitions>

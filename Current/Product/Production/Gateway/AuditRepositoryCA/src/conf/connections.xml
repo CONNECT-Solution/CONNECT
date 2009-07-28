@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>AuditRepositoryCA</name>
+            <description>Represents the Service Assembly of AuditRepositoryCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="AuditRepositoryManagerPort" service-name="ns1:AuditRepositoryManagerService"/>
+                <provider endpoint-name="javaee_AuditRepositoryManagerPort" service-name="ns1:AuditRepositoryManagerService"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

@@ -1,0 +1,6 @@
+<serviceInstance>
+	<description>Business Name Standardization: Generic</description>
+	<parameter name="dataType" value="BusinessName"/>
+	<parameter name="variantType" value="Generic"/>
+	<componentManagerFactory class="com.sun.mdm.sbme.datatype.businessname.variant.generic.GenericStandardizerFactory"/>
+</serviceInstance>

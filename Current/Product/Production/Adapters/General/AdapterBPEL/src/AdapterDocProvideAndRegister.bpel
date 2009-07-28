@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="AdapterDocProvideAndRegister"
+    targetNamespace="http://enterprise.netbeans.org/bpel/AdapterBPEL/AdapterDocProvideAndRegister"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="http://enterprise.netbeans.org/bpel/AdapterBPEL/AdapterDocProvideAndRegister" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:propertyaccess" xmlns:ns1="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+    <import namespace="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" location="Interfaces/wsdl/AdapterDocProvideAndRegister.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://enterprise.netbeans.org/bpel/AdapterComponentDocRepositoryWrapper" location="AdapterComponentDocRepositoryWrapper.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:ihe:iti:xds-b:2007" location="Interfaces/wsdl/AdapterComponentDocRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AdapterDocRegisterPL" xmlns:tns="http://enterprise.netbeans.org/bpel/AdapterComponentDocRepositoryWrapper" partnerLinkType="tns:DocumentRepository_LinkType" partnerRole="DocumentRepository_Role"/>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="AdapterDocProvideAndRegisterPL" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" partnerLinkType="tns:AdapterDocProvideAndRegister" myRole="AdapterDocProvideAndRegisterPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="AdapterDocProvideAndRegisterOperationOut" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" messageType="tns:AdapterDocProvideAndRegisterOperationResponse"/>
+        <variable name="ProvideAndRegisterDocumentSetOut" xmlns:ihe="urn:ihe:iti:xds-b:2007" messageType="ihe:ProvideAndRegisterDocumentSet-bResponse_Message"/>
+        <variable name="ProvideAndRegisterDocumentSetIn" xmlns:ihe="urn:ihe:iti:xds-b:2007" messageType="ihe:ProvideAndRegisterDocumentSet-b_Message"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+        <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+        <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+        <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+        <variable name="AdapterDocProvideAndRegisterOperationIn" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" messageType="tns:AdapterDocProvideAndRegisterOperationRequest"/>
+    </variables>
+    <faultHandlers>
+        <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+            <sequence name="SystemFaultSeq">
+                <assign name="AssignFaultInfo">
+                    <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'AdapterDocProvideAndRegister BPEL - A system fault was encountered processing a doc ProvideAndRegister message from the gateway. Fault detials follow...'</from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                    <copy>
+                        <from>'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure'</from>
+                        <to>$ProvideAndRegisterDocumentSetOut.body/@status</to>
+                    </copy>
+                </assign>
+                <reply name="ReplyError" partnerLink="AdapterDocProvideAndRegisterPL" operation="AdapterDocProvideAndRegisterOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" portType="tns:AdapterDocProvideAndRegisterPortType" variable="AdapterDocProvideAndRegisterOperationOut"/>
+                <exit name="ExitFromFault"/>
+            </sequence>
+        </catch>
+    </faultHandlers>
+    <sequence name="DocProvideAndRegisterMain">
+        <receive name="Receive" createInstance="yes" partnerLink="AdapterDocProvideAndRegisterPL" operation="AdapterDocProvideAndRegisterOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" portType="tns:AdapterDocProvideAndRegisterPortType" variable="AdapterDocProvideAndRegisterOperationIn"/>
+        <sequence name="DocProvideAndRegisterSequence">
+            <assign name="AssignProvideAndRegisterInput">
+                <copy>
+                    <from>$AdapterDocProvideAndRegisterOperationIn.part1/ns4:ProvideAndRegisterDocumentSetRequest</from>
+                    <to variable="ProvideAndRegisterDocumentSetIn" part="body"/>
+                </copy>
+            </assign>
+            <assign name="AssignProp">
+                <copy>
+                    <from>'adapter'</from>
+                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                </copy>
+                <copy>
+                    <from>'XDSbHomeCommunityId'</from>
+                    <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                </copy>
+            </assign>
+            <invoke name="InvokeProp" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+            <assign name="AssignConnInfo">
+                <copy>
+                    <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:homeCommunity/ns2:homeCommunityId</to>
+                </copy>
+                <copy>
+                    <from>'adapterxdsbdocrepository'</from>
+                    <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns1:homeCommunityWithServiceName/ns1:serviceName</to>
+                </copy>
+            </assign>
+            <invoke name="InvokeConnManager" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+            <assign name="AssignConnOut">
+                <copy>
+                    <from>ns3:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns1:serviceConnectionInfoEndpoints/ns1:serviceConnectionInfoEndpoint/ns2:EPR/ns2:EndpointReference)</from>
+                    <to partnerLink="AdapterDocRegisterPL"/>
+                </copy>
+            </assign>
+            <invoke name="InvokeAdapterCompDocRepository" partnerLink="AdapterDocRegisterPL" operation="DocumentRepository_ProvideAndRegisterDocumentSet-b" xmlns:ihe="urn:ihe:iti:xds-b:2007" portType="ihe:DocumentRepository_PortType" inputVariable="ProvideAndRegisterDocumentSetIn" outputVariable="ProvideAndRegisterDocumentSetOut"/>
+            <assign name="AssignDocProvideAndRegisterOut">
+                <copy>
+                    <from variable="ProvideAndRegisterDocumentSetOut" part="body"/>
+                    <to>$AdapterDocProvideAndRegisterOperationOut.part1/ns5:RegistryResponse</to>
+                </copy>
+            </assign>
+        </sequence>
+        <reply name="ReplyAdapterComp" partnerLink="AdapterDocProvideAndRegisterPL" operation="AdapterDocProvideAndRegisterOperation" xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister" portType="tns:AdapterDocProvideAndRegisterPortType" variable="AdapterDocProvideAndRegisterOperationOut"/>
+    </sequence>
+</process>

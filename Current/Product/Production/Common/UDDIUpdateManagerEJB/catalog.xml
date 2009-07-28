@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentUDDIUpdateManager.wsdl" uri="src/conf/xml-resources/web-services/UDDIUpdateManager/wsdl/NhincComponentUDDIUpdateManager.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/ConnectionManagerInfo.xsd" uri="src/conf/xml-resources/web-services/UDDIUpdateManager/schemas/nhinc/common/ConnectionManagerInfo.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/conf/xml-resources/web-services/UDDIUpdateManager/schemas/nhinc/common/NhincCommon.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/xmlsoap.org/addressing.xsd" uri="src/conf/xml-resources/web-services/UDDIUpdateManager/schemas/xmlsoap.org/addressing.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/uddi/xmldsig-core-schema.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/uddi/xmldsig-core-schema.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_v3_service.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_api_v3_binding.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_api_v3_binding.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_custody_v3_binding.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_custody_v3_binding.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_sub_v3_binding.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_sub_v3_binding.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_api_v3_portType.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_api_v3_portType.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_custody_v3_portType.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_custody_v3_portType.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_sub_v3_portType.wsdl" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_sub_v3_portType.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/uddi/uddi_v3.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/uddi/uddi_v3.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/uddi/uddi_v3custody.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/uddi/uddi_v3custody.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/uddi/uddi_v3subscription.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/uddi/uddi_v3subscription.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd" uri="src/conf/xml-resources/web-service-references/uddi_v3_service/schemas/www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+</catalog>

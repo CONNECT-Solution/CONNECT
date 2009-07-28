@@ -1,0 +1,458 @@
+
+<html>
+
+  <HEAD>
+    
+    <link rel="stylesheet" href="style/default.css" type="text/css">
+
+    <title>Metro 1.4 FCS -- Handler
+    </title>
+  </HEAD>
+
+
+  <BODY>
+    <h1>
+      <banner>
+    Metro Web Service Stack
+  </banner>
+      <br>
+      Handler 
+    
+    </h1>
+    <center>
+      <b>Implementation Version:</b> 1.4 FCS
+      <br>
+    </center>
+    <table class="navbar" cellspacing="0">
+      <tr>
+        <td class="inactive">
+          <a href="index.html">Metro</a>
+        </td>
+        <td class="active">
+          <a>Users Guide</a>
+        </td>
+        <td class="inactive">
+          <a href="jaxws-tools.html">Tools</a>
+        </td>
+        <td class="inactive">
+          <a href="ri-features.html">JAX-WS Extensions</a>
+        </td>
+        <td class="inactive">
+          <a href="samples.html">Samples</a>
+        </td>
+        <td class="inactive">
+          <a href="community.html">Metro Community</a>
+        </td>
+      </tr>
+    </table>
+    <div class="subnavbar">
+      <ul>
+        <li class="first">
+          <a href="UsersGuide.html">
+            <span>Overview </span>
+          </a>
+        </li>
+        <li>
+          <a href="provider.html">
+            <span>Provider </span>
+          </a>
+        </li>
+        <li>
+          <a href="asyncprovider.html">
+            <span>AsyncProvider </span>
+          </a>
+        </li>
+        <li>
+          <a href="dispatch.html">
+            <span>Dispatch </span>
+          </a>
+        </li>
+        <li>
+          <a href="asynch.html">
+            <span>Asynchronous Client </span>
+          </a>
+        </li>
+        <li>
+          <a href="handlers.html">
+            <span class="active">Handler </span>
+          </a>
+        </li>
+        <li>
+          <a href="mtom-swaref.html">
+            <span>MTOM and Swaref </span>
+          </a>
+        </li>
+        <li>
+          <a href="soap12.html">
+            <span>SOAP 1.2 </span>
+          </a>
+        </li>
+        <li>
+          <a href="customizations.html">
+            <span>WSDL Customization </span>
+          </a>
+        </li>
+        <li>
+          <a href="annotations.html">
+            <span>Annotations </span>
+          </a>
+        </li>
+        <li>
+          <a href="wsaddressing.html">
+            <span>WS-Addressing </span>
+          </a>
+        </li>
+        <li>
+          <a href="statefulWebservice.html">
+            <span>Stateful Webservice </span>
+          </a>
+        </li>
+        <li>
+          <a href="catalog-support.html">
+            <span>Catalog </span>
+          </a>
+        </li>
+        <li>
+          <a href="interop.html">
+            <span>Interoperability </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  
+  
+    <h2>Handler Types</h2>
+
+  
+    <p>JAX-WS 2.0 defines a 
+      <code>Handler</code> interface, with subinterfaces 
+      <code>LogicalHandler</code> and 
+      <code>SOAPHandler</code>. The 
+      <code>Handler</code> interface contains 
+      <code>handleMessage(C context)</code> and 
+      <code>handleFault(C context)</code> methods, where 
+      <code>C</code> extends 
+      <code>MessageContext</code>. A property in the 
+      <code>MessageContext</code> object is used to determine if the message is inbound or outbound. 
+      <code>SOAPHandler</code> objects have access to the full soap message including headers. Logical handlers are independent of protocol and have access to the payload of the message.
+    
+
+  
+    <p>The new handler types can now be written without casting the message
+context object that is passed to them. For instance:
+  
+    <pre>
+public class MyLogicalHandler implements LogicalHandler&lt;LogicalMessageContext&gt; {
+    public boolean handleMessage(LogicalMessageContext messageContext) {
+        LogicalMessage msg = messageContext.getMessage();
+        return true;
+    }
+    // other methods
+}
+
+public class MySOAPHandler implements SOAPHandler&lt;SOAPMessageContext&gt; {
+
+    public boolean handleMessage(SOAPMessageContext messageContext) {
+        SOAPMessage msg = messageContext.getMessage();
+        return true;
+    }
+    // other methods
+}
+</pre>
+
+  
+    <p>A 
+      <code>close(C context)</code> method has been added that is called on the
+handlers at the conclusion of a message exchange pattern. This allows handlers
+to clean up any resources that were used for the processing of a request-only
+or request/response exchange.
+    
+
+  
+    <p>The 
+      <code>init()</code> and 
+      <code>destroy()</code> methods of the handler
+lifecycle no longer exist. Instead, a method may be annotated with the
+  
+      <code>@PostConstruct</code> annotation to be called after the handler is
+  created or the 
+      <code>@PreDestroy</code> annotation to be called before the
+  handler is destroyed. Note that the annotated methods must return
+  
+      <code>void</code> and take no arguments:
+    
+
+    <pre>
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+public class MyLogicalHandler implements LogicalHandler&lt;LogicalMessageContext&gt; {
+    @PostConstruct
+    public void methodA() { }
+
+    @PreDestroy
+    public void methodB() {}
+
+    // other methods
+}
+</pre>
+
+  
+    <h2>MessageContext</h2>
+
+  
+    <p>In the examples above, the 
+      <code>LogicalMessage</code> object allows a
+handler to get and set the message payload either as a JAXB object or as a
+
+      <code>javax.xml.transform.Source</code>. The 
+      <code>SOAPMessage</code> object
+allows access to headers and the SOAP body of the message.
+    
+
+  
+    <p>Both context objects extend 
+      <code>MessageContext</code>, which holds
+properties that the handlers can use to communicate with each other. A standard
+property 
+      <code>MessageContext.MESSAGE_OUTBOUND_PROPERTY</code> holds a
+
+      <code>Boolean</code> that is used to determine the direction of a message.
+For example, during a request, the property would be 
+      <code>Boolean.TRUE</code>
+when seen by a client handler and 
+      <code>Boolean.FALSE</code> when seen by a
+server handler.
+    
+
+  
+    <p>The message context object can also hold properties set by the client or
+provider. For instance, port proxy and dispatch objects both extend
+
+      <code>BindingProvider</code>. A message context object can be obtained from both
+to represent the request or response context. Properties set in the request
+context can be read by the handlers, and the handlers may set properties on the
+message context objects passed to them. If these properties are set with the
+scope 
+      <code>MessageContext.Scope.APPLICATION</code> then they will be
+available in the response context to the client. On the server end, a context
+object is passed into the 
+      <code>invoke</code> method of a
+
+      <code>Provider</code>.
+    
+
+  
+    <h2>Handler Chain Configuration</h2>
+
+  
+    <h3>Handler Files</h3>
+
+  
+    <p>Starting from a WSDL file, handler chain configuration is through WSDL customizations as defined by 
+      <a href="http://jcp.org/en/jsr/detail?id=109">JSR 109</a>. A 
+      <code>&lt;handler-chains&gt;</code> element is added to the customization file. The following is a simple handler chain with one handler (customization may be on server or client side):
+    
+  
+    <pre>
+&lt;-- excerpt from customization file --&gt;
+&lt;bindings xmlns="http://java.sun.com/xml/ns/jaxws"&gt;
+  &lt;handler-chains xmlns="http://java.sun.com/xml/ns/javaee"&gt;
+    &lt;handler-chain&gt;
+      &lt;handler&gt;
+        &lt;handler-class&gt;fromwsdl.handler_simple.common.TestHandler&lt;/handler-class&gt;
+      &lt;/handler&gt;
+    &lt;/handler-chain&gt;
+  &lt;/handler-chains&gt;
+&lt;/bindings&gt;
+</pre>
+
+  
+    <p>Multiple 
+      <code>handler-chain</code> elements may exist within the
+  
+      <code>handler-chains</code> element. These may optionally use a service name,
+  port name, or protocol pattern in their description to apply some chains
+  to certain ports and protocols and not to others. For instance (note the
+  wildcard character used in the service name):
+    
+
+  
+    <pre>
+  &lt;-- excerpt --&gt;
+  &lt;handler-chains xmlns="http://java.sun.com/xml/ns/javaee"&gt;
+    &lt;handler-chain&gt;
+      &lt;service-name-pattern xmlns:ns1="urn:namespace"&gt;ns1:My*Service&lt;/service-name-pattern&gt;
+      &lt;handler&gt;...&lt;/handler&gt;
+    &lt;/handler-chain&gt;
+
+    &lt;handler-chain&gt;
+      &lt;port-name-pattern xmlns:ns1="urn:namespace"&gt;ns1:HelloPort&lt;/port-name-pattern&gt;
+      &lt;handler&gt;...&lt;/handler&gt;
+    &lt;/handler-chain&gt;
+
+    &lt;handler-chain&gt;
+      &lt;protocol-bindings&gt;##SOAP11_HTTP&lt;/protocol-bindings&gt;
+      &lt;handler&gt;...&lt;/handler&gt;
+    &lt;/handler-chain&gt;
+  &lt;/handler-chains&gt;
+</pre>
+
+  
+    <p>Handlers will appear in the final handler chain in the order that they are
+  included in the customization file. However, logical handlers will be sorted
+  out and called before protocol handlers during execution.
+
+  
+    <p>Starting from a Java class, annotations are used to describe the handler
+  chain as defined by 
+      <a href="http://jcp.org/en/jsr/detail?id=181">JSR 181</a>.
+  The following example uses the 
+      <code>@HandlerChain</code> annotation to refer
+  to a file describing the chain.
+    
+  
+    <pre>
+import javax.jws.HandlerChain;
+import javax.jws.WebService;
+
+@WebService
+@HandlerChain( file="handlers.xml")
+public class MyServiceImpl {
+    // implementation of class
+}
+</pre>
+
+  
+    <p>An example 
+      <code>handlers.xml</code> file is shown below. The schema is
+  the same that is used for the customization.
+    
+  
+    <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;jws:handler-chains xmlns:jws="http://java.sun.com/xml/ns/javaee"&gt;
+  &lt;jws:handler-chain&gt;
+    &lt;jws:handler&gt;
+      &lt;jws:handler-class&gt;fromjava.handler_simple.common.TestHandler&lt;/jws:handler-class&gt;
+    &lt;/jws:handler&gt;
+  &lt;/jws:handler-chain&gt;
+&lt;/jws:handler-chains&gt;
+  </pre>
+
+  
+    <p>When packaging the service, the handlers.xml file must be in the classpath
+  within the WAR file, either directly under 
+      <code>WEB-INF/classes</code> or
+  further down in the same package as the service class file.
+    
+
+  
+    <p>On the server side, the handlers may be configured in the sun-jaxws.xml
+  deployment descriptor as well. A handler chain specified here will override
+  handlers in WSDL customizations or annotated classes. The schema for the
+  handler section is the same as in the previous examples:
+
+  
+    <pre>
+&lt;endpoints ....&gt;
+  &lt;endpoint ....&gt;
+    &lt;handler-chains xmlns="http://java.sun.com/xml/ns/javaee"&gt;
+      &lt;handler-chain&gt;
+        ....
+      &lt;/handler-chain&gt;
+    &lt;/handler-chains&gt;
+  &lt;/endpoint&gt;
+&lt;/endpoints&gt;
+</pre>
+
+  
+    <h3>Programmatic Case</h3>
+
+  
+    <p>Handler chains may be configured on the client side at runtime by setting a
+  chain directly on a 
+      <code>BindingProvider</code> (e.g., a 
+      <code>Dispatch</code>
+  object or a port proxy) or by using a 
+      <code>HandlerResolver</code>. This
+  example shows how to add a handler chain to a port proxy:
+    
+  
+    <pre>
+    // given proxy interface HelloPortType
+    HelloPortType myProxy = // create proxy
+
+    Binding binding = ((BindingProvider)myProxy).getBinding();
+
+    // can create new list or use existing one
+    List&lt;Handler&gt; handlerList = binding.getHandlerChain();
+
+    handlerList.add(new MyHandler());
+    binding.setHandlerChain(handlerList);
+</pre>
+
+  
+    <p>To configure the handlers that are added to newly created 
+      <code>Binding</code>
+  objects, add a handler resolver to the service with 
+      <code>setHandlerResolver()</code>.
+  The new resolver will be used whenever a 
+      <code>BindingProvider</code> is
+  created from the service. An example resolver is as follows:
+    
+
+    <pre>
+/*
+ * Add handlers to the returned list based on the information
+ * in info.getBindingID(), getPortName(), and/or getServiceName().
+ */
+public class MyResolver implements HandlerResolver {
+    public List&lt;Handler&gt; getHandlerChain(PortInfo info) {
+        List&lt;Handler&gt; handlers = new ArrayList&lt;Handler&gt;();
+        // add handlers to list based on PortInfo information
+        return handlers;
+    }
+}
+</pre>
+
+  
+    <p>A resolver that modifies the initially configured handler chains could
+  be written by calling 
+      <code>service.getHandlerResolver()</code> and passing
+  the original resolver to a new one:
+    
+
+    <pre>
+    // original HandlerResolver passed in constructor or setter method
+    public List&lt;Handler&gt; getHandlerChain(PortInfo info) {
+        List&lt;Handler&gt; handlers = originalResolver.getHandlerChain(info);
+        // alter list based on PortInfo information
+        return handlers;
+    }
+</pre>
+
+  
+    <h2>Handler Samples</h2>
+
+  
+    <p>The 
+      <code>fromjavahandler</code> and 
+      <code>fromwsdlhandler</code> samples set a 
+      <code>SOAPHandler</code> on the client and server. This handler simply outputs the contents of the SOAP message and can be used to see the requests and responses being passed back and forth. See the sample documentation for information on running the samples.
+    
+
+
+
+    <hr>
+    <div class="footer">
+      <div style="float:right; height: 24px"></div>
+      <footer>
+    
+        <a href="../LICENSE.txt">Copyright&#169; 2007 Sun Microsystems, Inc. All rights reserved.</a>
+  
+      </footer>
+      <div style="clear:both"></div>
+    </div>
+  </BODY>
+</html>

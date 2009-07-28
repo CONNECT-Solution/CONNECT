@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhincComponentInternalSubDiscovery201303Orch"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:nhincinternalorchbpel:nhinccomponentinternalsubdiscovery201303orch"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:nhincinternalorchbpel:nhinccomponentinternalsubdiscovery201303orch" 
+    xmlns:conninfo="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    xmlns:hl7="urn:hl7-org:v3" 
+    xmlns:ncpc="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" 
+    xmlns:evtcmn="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns1="urn:oasis:names:tc:xacml:2.0:context:schema:os">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" location="Interfaces/wsdl/NhincComponentInternalSubDiscovery201303Orch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" location="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" location="Interfaces/wsdl/NhincComponentSubDiscTransforms.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" location="Interfaces/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="PolicyEnginePL" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" partnerLinkType="tns:NhincComponentInternalPolicyEngineFacade" partnerRole="NhincComponentInternalPolicyEngineFacadePortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="PatientCorrelationPL" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" partnerLinkType="tns:PatientCorrelationFacadePartnerLinkType" partnerRole="PatientCorrelationPortTypeRole"/>
+        <partnerLink name="SubjectDiscoveryDtePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" partnerLinkType="tns:NhincComponentSubDiscTransforms" partnerRole="NhincComponentSubDiscTransformsPortTypeRole"/>
+        <partnerLink name="NhincRevokePL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" partnerLinkType="tns:NhincComponentInternalSubDiscovery201303Orch" myRole="NhincComponentInternalSubDiscovery201303OrchPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="RevokePatientIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" messageType="tns:RevokePatientRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="Receive201303" createInstance="yes" partnerLink="NhincRevokePL" operation="RevokePatient" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" portType="tns:NhincComponentInternalSubDiscovery201303OrchPortType" variable="RevokePatientIn"/>
+        <scope name="Process201303Scope">
+            <variables>
+                <variable name="CheckPolicySubjectRevokedOut" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicyResponseMessage"/>
+                <variable name="CheckPolicySubjectRevokedIn" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" messageType="tns:CheckPolicySubjectRevokedRequestMessage"/>
+                <variable name="CreateAckOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckResponseMessage"/>
+                <variable name="CreateAckIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" messageType="tns:CreateAckRequestMessage"/>
+                <variable name="RevokePatientOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" messageType="tns:RevokePatientResponseMessage"/>
+                <variable name="GetAAsByHCIDOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAssigningAuthoritiesByHomeCommunityResponseMessage"/>
+                <variable name="GetAAsByHCIDIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetAssigningAuthoritiesByHomeCommunityRequestMessage"/>
+                <variable name="RemovePatientCorrelationOut" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RemovePatientCorrelationResponseMessage"/>
+                <variable name="RemovePatientCorrelationIn" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RemovePatientCorrelationRequestMessage"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultSeq">
+                        <assign name="AssignCreateFaultAck">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <bpel:from>'NhinComponentInternalSubDiscovery201303Orch.bpel - A system fault was encounterd processing a 201303 message. Fault detials follow...'</bpel:from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <bpel:from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>$RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:id</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                            </copy>
+                            <copy>
+                                <from>'Error - Policy Check Failed'</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                            </copy>
+                            <copy>
+                                <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                            </copy>
+                            <copy>
+                                <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeCreateFaultAck" partnerLink="SubjectDiscoveryDtePL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="AssignFaultResp">
+                            <copy>
+                                <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                <to variable="RevokePatientOut" part="RevokePatientResponse"/>
+                            </copy>
+                        </assign>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="Process201303Seq">
+                <assign name="AssignPolicyEngine">
+                    <copy>
+                        <from variable="RevokePatientIn" part="RevokePatientRequest"/>
+                        <to>$CheckPolicySubjectRevokedIn.CheckPolicySubjectRevokedRequest/evtcmn:message</to>
+                    </copy>
+                    <copy>
+                        <from>'Inbound'</from>
+                        <to>$CheckPolicySubjectRevokedIn.CheckPolicySubjectRevokedRequest/evtcmn:direction</to>
+                    </copy>
+                    <copy>
+                        <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                        <to>$CheckPolicySubjectRevokedIn.CheckPolicySubjectRevokedRequest/evtcmn:sendingHomeCommunity</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokePolicyEngine" partnerLink="PolicyEnginePL" operation="CheckPolicySubjectRevoked" xmlns:tns="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" portType="tns:NhincComponentInternalPolicyEngineFacadePortType" inputVariable="CheckPolicySubjectRevokedIn" outputVariable="CheckPolicySubjectRevokedOut"/>
+                
+                <if name="IfPolicyIsValid">
+                    <condition>$CheckPolicySubjectRevokedOut.CheckPolicyResponse/ns0:response/ns1:Result/ns1:Decision = 'Permit'</condition>
+                    <sequence name="ValidPolicySeq">
+                        <assign name="AssignGetAAsfromHcid">
+                            <copy>
+                                <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                <to>$GetAAsByHCIDIn.GetAssigningAuthoritiesByHomeCommunityRequest/conninfo:HomeCommunity/nccommon:homeCommunityId</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetAAsfromHcid" partnerLink="ConnectionManagerPL" operation="GetAssigningAuthoritiesByHomeCommunity" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetAAsByHCIDIn" outputVariable="GetAAsByHCIDOut"/>
+                        <forEach name="ForEachAA" parallel="no" counterName="AACtr" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade">
+                            <startCounterValue>1</startCounterValue>
+                                <finalCounterValue>count($GetAAsByHCIDOut.GetAssigningAuthoritiesByHomeCommunityResponse/conninfo:assigningAuthoritiesId/nccommon:assigningAuthority)</finalCounterValue>
+                                <scope name="RetrieveCorrelationsScope">
+                                    <variables>
+                                            <variable name="RetrievePatientCorrelationsOut" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsResponseMessage"/>
+                                                <variable name="RetrievePatientCorrelationsIn" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" messageType="tns:RetrievePatientCorrelationsRequestMessage"/>
+                                        </variables>
+                                        <sequence name="RetrieveCorrelationsSeq">
+                                            <assign name="AssignRetrieveCorrelations">
+                                                    <copy>
+                                                            <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root)</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:AssigningAuthorityIdentifier</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension)</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:QualifiedPatientIdentifier/nccommon:SubjectIdentifier</to>
+                                                        </copy>
+                                                        <copy>
+                                                            <from>$GetAAsByHCIDOut.GetAssigningAuthoritiesByHomeCommunityResponse/conninfo:assigningAuthoritiesId/nccommon:assigningAuthority[$AACtr]/nccommon:assigningAuthorityId</from>
+                                                                <to>$RetrievePatientCorrelationsIn.RetrievePatientCorrelationsRequest/ncpc:TargetAssigningAuthority</to>
+                                                        </copy>
+                                                </assign>
+                                                <invoke name="InvokeRetrieveCorrelations" partnerLink="PatientCorrelationPL" operation="RetrievePatientCorrelations" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" portType="tns:PatientCorrelationFacadePortType" inputVariable="RetrievePatientCorrelationsIn" outputVariable="RetrievePatientCorrelationsOut"/>
+                                                <forEach name="ForEachCorrelation" parallel="no" counterName="CorrelationCtr">
+                                                    <startCounterValue>1</startCounterValue>
+                                                        <finalCounterValue>count($RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier)</finalCounterValue>
+                                                        <scope name="RemoveCorrelationScope">
+                                                            <sequence name="RemoveCorrelationSeq">
+                                                                    <assign name="AssignRemoveCorrelation">
+                                                                            <copy>
+                                                                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@extension)</from>
+                                                                                        <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[1]/nccommon:SubjectIdentifier</to>
+                                                                                </copy>
+                                                                                <copy>
+                                                                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:controlActProcess/hl7:subject/hl7:registrationEvent/hl7:subject1/hl7:patient/hl7:id/@root)</from>
+                                                                                        <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[1]/nccommon:AssigningAuthorityIdentifier</to>
+                                                                                </copy>
+                                                                                <copy>
+                                                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$CorrelationCtr]/nccommon:SubjectIdentifier</from>
+                                                                                        <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[2]/nccommon:SubjectIdentifier</to>
+                                                                                </copy>
+                                                                                <copy>
+                                                                                    <from>$RetrievePatientCorrelationsOut.RetrievePatientCorrelationsResponse/ncpc:QualifiedPatientIdentifier[$CorrelationCtr]/nccommon:AssigningAuthorityIdentifier</from>
+                                                                                        <to>$RemovePatientCorrelationIn.RemovePatientCorrelationRequest/ncpc:QualifiedPatientIdentifier[2]/nccommon:AssigningAuthorityIdentifier</to>
+                                                                                </copy>
+                                                                        </assign>
+                                                                        <invoke name="InvokeRemoveCorrelation" partnerLink="PatientCorrelationPL" operation="RemovePatientCorrelation" xmlns:tns="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" portType="tns:PatientCorrelationFacadePortType" inputVariable="RemovePatientCorrelationIn" outputVariable="RemovePatientCorrelationOut"/>
+                                                                </sequence>
+                                                        </scope>
+                                                </forEach>
+                                        </sequence>
+                                </scope>
+                        </forEach>
+                        <assign name="AssignCreateAck">
+                            <copy>
+                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                </copy>
+                                <copy>
+                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                </copy>
+                                <copy>
+                                    <from>'Success'</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                </copy>
+                                <copy>
+                                    <from>$RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:id</from>
+                                        <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                </copy>
+                        </assign>
+                        <invoke name="InvokeCreateAck" partnerLink="SubjectDiscoveryDtePL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                        <assign name="Assign201303Resp">
+                            <copy>
+                                    <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                        <to variable="RevokePatientOut" part="RevokePatientResponse"/>
+                                </copy>
+                        </assign>
+                    </sequence>
+                    <else>
+                        <sequence name="InvalidPolicySeq">
+                            <assign name="AssignCreatePolicyFailedAck">
+                                <copy>
+                                    <from>$RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:id</from>
+                                    <to>$CreateAckIn.CreateAckRequest/hl7:origMsgId</to>
+                                </copy>
+                                <copy>
+                                    <from>'Error - Policy Check Failed'</from>
+                                    <to>$CreateAckIn.CreateAckRequest/hl7:msgText</to>
+                                </copy>
+                                <copy>
+                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:receiver/hl7:device/hl7:id/@root)</from>
+                                    <to>$CreateAckIn.CreateAckRequest/hl7:senderOID</to>
+                                </copy>
+                                <copy>
+                                    <from>string($RevokePatientIn.RevokePatientRequest/hl7:PRPA_IN201303UV/hl7:sender/hl7:device/hl7:id/@root)</from>
+                                    <to>$CreateAckIn.CreateAckRequest/hl7:receiverOID</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeCreatePolicyFailedAck" partnerLink="SubjectDiscoveryDtePL" operation="CreateAck" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" portType="tns:NhincComponentSubDiscTransformsPortType" inputVariable="CreateAckIn" outputVariable="CreateAckOut"/>
+                            <assign name="AssignInvalidPolicyResp">
+                                <copy>
+                                    <from variable="CreateAckOut" part="CreateAckResponse"/>
+                                    <to variable="RevokePatientOut" part="RevokePatientResponse"/>
+                                </copy>
+                            </assign>
+                        </sequence>
+                    </else>
+                </if>
+                <reply name="Reply201303" partnerLink="NhincRevokePL" operation="RevokePatient" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubdiscovery201303orch" portType="tns:NhincComponentInternalSubDiscovery201303OrchPortType" variable="RevokePatientOut"/>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

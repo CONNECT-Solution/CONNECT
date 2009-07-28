@@ -1,0 +1,16 @@
+This set of pages are examples of how to use !-FitNesse-!...
+
+The !-!path-! directive sets where to find all the Fit fixtures.  Here we have it set to look in the same directory as !-FitNesse-! is executing from with the pattern of all jar files.
+!path *.jar
+
+These variables control how setup and teardown pages are displayed; here they are collapsed...
+!define COLLAPSE_SETUP {true}
+!define COLLAPSE_TEARDOWN {true}
+
+!define today {!sysdate(dd-MMM-yy)}
+!define TODAY {!upper(!sysdate(dd-MMM-yy))}
+
+!-${today}-!=${today}
+!-${TODAY}-!=${TODAY}
+
+!contents -R2 -g -p -f -h

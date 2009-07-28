@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<standardizer conjunction="conjunction"  extraInformation="extraInformation">
+    <stateModel name="start">
+        <when inputSymbol="salutation" nextState="salutation" outputSymbol="salutation" probability=".15"/>
+        <when inputSymbol="givenName" nextState="headingFirstName" outputSymbol="firstName" probability=".6"/>
+        <when inputSymbol="abbreviation" nextState="headingFirstName" outputSymbol="firstName" probability=".15"/>
+        <when inputSymbol="surname" nextState="trailingLastName" outputSymbol="lastName" probability=".1"/>
+        
+        <state name="salutation">
+	        <when inputSymbol="givenName" nextState="headingFirstName" outputSymbol="firstName" probability=".9"/>
+	        <when inputSymbol="abbreviation" nextState="headingFirstName" outputSymbol="firstName" probability=".1"/>
+        </state>
+
+        <state name="headingFirstName">
+            <when inputSymbol="givenName" nextState="headingMiddleName" outputSymbol="middleName" probability=".4"/>
+            <when inputSymbol="surname" nextState="headingLastName" outputSymbol="lastName" probability=".3"/>
+            <when inputSymbol="abbreviation" nextState="headingMiddleName" outputSymbol="middleName" probability=".1"/>
+            <when inputSymbol="conjunction" nextState="headingFirstName" outputSymbol="conjunction" probability=".1"/>
+            <when inputSymbol="nickname" nextState="firstNickname" outputSymbol="nickname" probability=".1"/>
+        </state>
+
+        <state name="firstNickname">
+            <when inputSymbol="givenName" nextState="headingMiddleName" outputSymbol="middleName" probability=".4"/>
+            <when inputSymbol="surname" nextState="headingLastName" outputSymbol="lastName" probability=".4"/>
+            <when inputSymbol="abbreviation" nextState="headingMiddleName" outputSymbol="middleName" probability=".2"/>
+        </state>
+
+        <state name="headingMiddleName">
+            <when inputSymbol="surname" nextState="headingLastName" outputSymbol="lastName" probability=".9"/>
+            <when inputSymbol="nickname" nextState="headingMiddleNickname" outputSymbol="nickname" probability=".1"/>
+        </state>
+
+        <state name="headingMiddleNickname">
+            <when inputSymbol="surname" nextState="headingLastName" outputSymbol="lastName" probability="1"/>
+        </state>
+    
+        <state name="headingLastName">
+            <eof probability=".5"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".1"/>
+            <when inputSymbol="comma" nextState="headingComma" probability=".15"/>
+            <when inputSymbol="generation" nextState="headingGeneration" outputSymbol="generation" probability=".12"/>
+            <when inputSymbol="title" nextState="headingTitle" outputSymbol="title" probability=".13"/>
+        </state>
+
+        <state name="headingComma">
+            <when inputSymbol="generation" nextState="headingGeneration" outputSymbol="generation" probability=".5"/>
+            <when inputSymbol="title" nextState="headingTitle" outputSymbol="title" probability=".5"/>
+        </state>
+
+        <state name="headingGeneration">
+            <eof probability=".7"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".1"/>
+            <when inputSymbol="comma" nextState="headingTitleSeparator" probability=".1"/>
+            <when inputSymbol="title" nextState="headingTitle" outputSymbol="title" probability=".1"/>
+        </state>
+
+        <state name="headingTitleSeparator">
+            <when inputSymbol="title" nextState="headingTitle" outputSymbol="title" probability="1"/>
+        </state>
+    
+        <state name="headingTitle">
+            <eof probability=".4"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".3"/>
+            <when inputSymbol="and" nextState="headingTitleSeparator" probability=".3"/>
+        </state>
+        
+        <state name="trailingLastName">
+            <when inputSymbol="givenName" nextState="trailingFirstName" outputSymbol="firstName" probability=".5"/>
+            <when inputSymbol="comma" nextState="trailingComma" probability=".5"/>
+        </state>
+        
+        <state name="trailingComma">
+            <when inputSymbol="givenName" nextState="trailingFirstName" outputSymbol="firstName" probability="1"/>
+        </state>
+        
+        <state name="trailingFirstName">
+            <eof probability=".25"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".25"/>
+            <when inputSymbol="givenName" nextState="trailingMiddleName" outputSymbol="middleName" probability=".5"/>
+        </state>
+        
+        <state name="trailingMiddleName">
+            <eof probability=".6"/>
+            <when inputSymbol="conjunction" nextState="start" outputSymbol="conjunction" probability=".4"/>
+        </state>
+    </stateModel>
+
+    <inputSymbols>
+        <!--
+        <tokenNormalizer>
+            <transliterate from="Ç" to="C"/>
+            <transliterate from="Ñ" to="N"/>
+            <transliterate from="ÁÉÍÓÚ" to="AEIOU"/>
+            <transliterate from="ÀÈÌÒÙ" to="AEIOU"/>
+            <transliterate from="ÄËÏÖÜ" to="AEIOU"/>
+            <transliterate from="ÂÊÎÔÛ" to="AEIOU"/>
+        </tokenNormalizer>
+        -->
+
+        <inputSymbol name="salutation">
+            <matchers>
+                <matcher>
+                    <preProcessing>
+                        <replaceAll regex="\." replacement=""/>
+                    </preProcessing>
+                    <lexicon resource="salutation.txt"/>
+                    <postProcessing>
+                        <dictionary resource="salutationNormalization.txt" separator="\|"/>
+                    </postProcessing>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="givenName">
+            <matchers>
+                <matcher>
+                    <preProcessing>
+                        <replaceAll regex="\." replacement=""/>
+                        <dictionary resource="givenNameNormalization.txt" separator="\|"/>
+                    </preProcessing>
+                    <lexicon resource="givenNames.txt"/>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="[A-Z]{2,}"/>
+                        <pattern regex="D[AE][L']?"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="[A-Z]{2,}"/>
+                        <pattern regex="DE"/>
+                        <pattern regex="L[AO]S"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher factor=".25">
+                    <preProcessing>
+                        <replace regex="ST\.?" replacement="SAINT"/>
+                    </preProcessing>
+                    <pattern regex="[A-Z]{2,}(-[A-Z]{2,})?">
+                        <exceptFor regex="SAINT"/>
+                        <exceptFor regex="D[AE]"/>
+                        <exceptFor regex="DEL(LA)?"/>
+                        <exceptFor regex="V[AO]N"/>
+                        <exceptFor regex="[DLO]'[A-Z]+"/>
+                    </pattern>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="nickname">
+            <matchers>
+                <matcher>
+                    <pattern regex="[(&quot;&apos;][A-Z ]{2,}\.?[)&quot;&apos;]"/>
+                    <postProcessing>
+                        <replaceAll regex="[()&quot;&apos;.]" replacement=""/>
+                    </postProcessing>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="surname">
+            <matchers>
+                <matcher>
+                    <preProcessing>
+                        <dictionary resource="surnameNormalization.txt" separator="\|"/>
+                    </preProcessing>
+                    <lexicon resource="surnames.txt"/>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="(ST\.?)|(SAINT)"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                    <postProcessing>
+                        <replace regex="ST\.?" replacement="SAINT"/>
+                    </postProcessing>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="V[AO]N"/>
+                        <pattern regex="DE[NR]?"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="V[AO]N"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="DEL(LA)?"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="DE"/>
+                        <pattern regex="L[AO]S?"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <matchAllPatterns>
+                        <pattern regex="D[AE]"/>
+                        <pattern regex="[A-Z]{2,}"/>
+                    </matchAllPatterns>
+                </matcher>
+                <matcher>
+                    <pattern regex="[DLO]'[A-Z]+(-[A-Z]+)?"/>
+                </matcher>
+                <matcher factor=".25">
+                    <pattern regex="[A-Z]{3,}(-[A-Z]{3,})?"/>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="abbreviation">
+            <matchers>
+                <matcher>
+                    <pattern regex="[A-Z]"/>
+                    <postProcessing>
+                        <replace regex="$" replacement="."/>
+                    </postProcessing>
+                </matcher>
+                <matcher>
+                    <pattern regex="[A-Z]{1,3}\."/>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="generation">
+            <matchers>
+                <matcher>
+                    <preProcessing>
+                        <replaceAll regex="\." replacement=""/>
+                        <dictionary resource="generationNormalization.txt" separator="\|"/>
+                     </preProcessing>
+                    <lexicon resource="generation.txt"/>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="title">
+            <matchers>
+                <matcher>
+                    <preProcessing>
+                        <replaceAll regex="[.']" replacement=""/>
+                        <dictionary resource="titleNormalization.txt" separator="\|"/>
+                    </preProcessing>
+                    <lexicon resource="titles.txt"/>
+                </matcher>
+                <matcher>
+					<pattern regex="[(&quot;&apos;][A-Z ]{2,}\.?[)&quot;&apos;]"/>
+                    <postProcessing>
+                        <replaceAll regex="[()&amp;&apos;]" replacement=""/>
+                        <replaceAll regex="\." replacement=""/>
+                        <dictionary resource="titleNormalization.txt" separator="\|"/>
+                    </postProcessing>
+                </matcher>    
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="comma">
+            <matchers>
+                <matcher>
+                    <fixedString>,</fixedString>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="and">
+            <matchers>
+                <matcher>
+                    <fixedStrings>
+                        <fixedString>/</fixedString>
+                        <fixedString>&amp;</fixedString>
+                    </fixedStrings>
+                    <postProcessing>
+                        <replaceAll regex="\&amp;" replacement="AND"/>
+                        <replaceAll regex="\/" replacement="AND"/>
+                    </postProcessing>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+        <inputSymbol name="conjunction">
+            <matchers>
+                <matcher>
+                    <fixedStrings>
+                        <fixedString>/</fixedString>
+                        <fixedString>&amp;</fixedString>
+                        <fixedString>AND</fixedString>
+                        <fixedString>OR</fixedString>
+                        <fixedString>AND/OR</fixedString>
+                        <fixedString>C/O</fixedString>
+                    </fixedStrings>
+                    <postProcessing>
+                        <replaceAll regex="\&amp;" replacement="AND"/>
+                        <replaceAll regex="C\/O" replacement="CHARGE OF"/>
+                    </postProcessing>
+                </matcher>
+            </matchers>
+        </inputSymbol>
+    </inputSymbols>
+
+    <outputSymbols>
+        <outputSymbol name="salutation"/>
+        <outputSymbol name="firstName"/>
+        <outputSymbol name="middleName"/>
+        <outputSymbol name="nickname"/>
+        <outputSymbol name="lastName"/>
+        <outputSymbol name="generation"/>
+        <outputSymbol name="title"/>
+        <outputSymbol name="conjunction"/>
+    </outputSymbols>
+
+    <cleanser>
+        <uppercase/>
+
+        <!--<replaceAll regex="-" replacement=" "/>-->
+        <replaceAll regex="`" replacement="'"/>
+        <replaceAll regex="\." replacement=". "/>
+        <replaceAll regex="," replacement=" , "/>
+        <replaceAll regex="\s+((AND)|(OR)|(&amp;))\s*$" replacement=""/>
+        <replaceAll regex="^([^A-Z(]+\s*)([^A-Z]+\s*)*" replacement=""/>
+        <replaceAll regex="^([^DLO])['`]([A-Z]+)" replacement="$1$2"/>
+        <replaceAll regex="^([A-Z]{2,})\." replacement="$1 "/>
+        <replaceAll regex="^([A-Z])\.([A-Z])\.?" replacement="$1. $2"/>
+        <replaceAll regex="([\w.])([\[\(\{])" replacement="$1 $2"/>
+        <replaceAll regex="/\s*([A-Z]{2,})\.?$" replacement=" ($1)"/>
+        <replaceAll regex="&amp;" replacement=" &amp; "/>
+        <replaceAll regex="AND / OR" replacement="AND/OR"/>
+        <replaceAll regex="C / O" replacement="C/O"/>
+        <replaceAll regex="%20" replacement=" "/>
+        <replaceAll regex="([A-Z]{2,})[`'.]" replacement="$1 "/>
+        <replaceAll regex="([A-Z]+)0([A-Z]+)" replacement="$1O$2"/>
+        <replaceAll regex="([A-Z]+)[;,0-9]([A-Z]+)" replacement="$1$2"/>
+
+        <normalizeSpace/>
+    </cleanser>
+    
+    <normalizer>
+    	<preProcessing>
+    		<uppercase/>
+            <replaceAll regex="'+" replacement=""/>
+            <replaceAll regex="[^A-Z%_]+" replacement=" "/>
+    	</preProcessing>
+    	<for field="FirstName" use="givenName"/>
+    	<for field="MiddleName" use="givenName"/>
+    	<for field="LastName" use="surname"/>
+    </normalizer>
+</standardizer>

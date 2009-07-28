@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.VisualStudio.Scripts">
+
+	<property name="VS2005WebDeployInstallPath" value="Z:\WebDeploymentSetup.msi"/>
+	<property name="VS2005SP1InstallPath" value="Z:\VS80sp1-KB926601-X86-ENU.exe"/>
+	
+	<target name="Workspace.RequieredSoftware.VisualStudio2005WebDeploy">
+		<property name="VisualStudioWebDeploy" value=""/>
+		<readregistry hive="LocalMachine"
+                  key="SOFTWARE\Microsoft\VisualStudio\8.0\Packages\{CBA82673-3810-4290-BC4F-06BE9BF845A1}\"
+                  property="VisualStudioWebDeploy" failonerror="false"/>
+
+		<ifnot test="${VisualStudioWebDeploy == 'Web Deployment Projects Package'}">
+			<ask answer="Answer"
+           question="It looks like Web Deployment Projects Package is not installed.  Do you wish to continue?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+				<options>
+					<string value="Continue"/>
+					<string value="Stop and Install Web Deployment"/>
+					<string value="Exit"/>
+				</options>
+			</ask>
+			<ifthenelse test="${Answer == 'Stop and Install Web Deployment'}">
+				<then>
+					<ifthenelse test="${file::exists(VS2005WebDeployInstallPath)}">
+						<then>
+							<exec workingdir="${path::get-directory-name(VS2005WebDeployInstallPath)}" program="msiexec" commandline="/i ${VS2005WebDeployInstallPath}" verbose="true" />
+						</then>
+						<else>
+							<asyncexec program="cmd" commandline='/C " explorer http://download.microsoft.com/download/c/c/b/ccb4877f-55f7-4478-8f16-e41886607a0e/WebDeploymentSetup.msi"' createnowindow="true" redirectoutput="false" useshellexecute="true" waitforexit="false" />
+
+							<ask answer="Answer" caption="Are finished installing Web Deployment?" question="Are finished installing Web Deployment?" showdialog="true">
+								<options>
+									<string value="Finished"/>
+									<string value="Exit"/>
+								</options>
+							</ask>
+
+							<fail if="${Answer == 'Exit'}" message="Please try again after installing Web Deployment."/>
+						</else>
+					</ifthenelse>
+				</then>
+				<elseif if="${Answer == 'Exit'}">
+					<fail message="Please install VS 2005 Web Deployment!" />
+				</elseif>
+			</ifthenelse>
+		</ifnot>
+	</target>
+
+	<target name="Workspace.RequieredSoftware.VisualStudio2005">
+		<property name="VisualStudioServicePack" value=""/>
+		<readregistry hive="LocalMachine"
+                  key="SOFTWARE\Microsoft\DevDiv\VS\Servicing\8.0\SP"
+                  property="VisualStudioServicePack" failonerror="false"/>
+
+		<ifnot test="${VisualStudioServicePack == '1'}">
+			<ask answer="Answer"
+           question="It looks like Visual Studio 2005 SP1 is not installed.  Do you wish to continue?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+				<options>
+					<string value="Continue"/>
+					<string value="Stop and Install SP1"/>
+					<string value="Exit"/>
+				</options>
+			</ask>
+			<ifthenelse test="${Answer == 'Stop and Install SP1'}">
+				<then>
+					<ifthenelse test="${file::exists(VS2005SP1InstallPath)}">
+						<then>
+							<asyncexec workingdir="${path::get-directory-name(VS2005SP1InstallPath)}" program="${VS2005SP1InstallPath}" verbose="true" createnowindow="true" redirectoutput="false" useshellexecute="true" waitforexit="false" />
+						</then>
+						<else>
+							<asyncexec program="cmd" commandline='/C " explorer http://msdn2.microsoft.com/en-us/vstudio/bb265237.aspx"' createnowindow="true" redirectoutput="false" useshellexecute="true" waitforexit="false" />
+						</else>
+					</ifthenelse>
+
+					<fail message="Installing VS 2005 SP1, this will take a long time!" />
+				</then>
+				<elseif if="${Answer == 'Exit'}">
+					<fail message="Please install VS 2005 SP1!" />
+				</elseif>
+			</ifthenelse>
+		</ifnot>
+	</target>
+
+	<target name="Workspace.RequieredSoftware.TeamExplorer">
+		<ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\Microsoft Visual Studio 8\Common7\IDE\PrivateAssemblies\Microsoft.TeamFoundation.VersionControl.Client.dll')}" >
+			<ask answer="Answer"
+           question="It looks like Team Explorer is not installed.  Do you wish to continue?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+				<options>
+					<string value="Continue"/>
+					<string value="Stop and Install Team Explorer"/>
+					<string value="Exit"/>
+				</options>
+			</ask>
+			<ifthenelse test="${Answer == 'Stop and Install Team Explorer'}">
+				<then>
+					<asyncexec program="cmd" commandline='/C "explorer http://download.microsoft.com/download/2/a/d/2ad44873-8ccb-4a1b-9c0d-23224b3ba34c/VSTFClient.img"' createnowindow="true" redirectoutput="false" useshellexecute="true" waitforexit="false" />
+					<fail message="Installing Team Explorer!" />
+				</then>
+				<elseif if="${Answer == 'Exit'}">
+					<fail message="Please install Team Explorer!" />
+				</elseif>
+			</ifthenelse>
+		</ifnot>
+	</target>
+
+</project>

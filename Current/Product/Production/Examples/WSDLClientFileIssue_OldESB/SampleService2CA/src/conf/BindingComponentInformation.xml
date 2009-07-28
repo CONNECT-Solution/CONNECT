@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component-info-list>
+    <component-info>
+        <description>Description of binding component : RSS</description>
+        <name>gestalt-rss-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/rss/</xmlns>
+    </component-info>
+    <component-info>
+        <description>TCPIP Binding</description>
+        <name>bostech-tcpip-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://cbesb.bostechcorp.com/wsdl/tcpip/1.0</xmlns>
+    </component-info>
+    <component-info>
+        <description>SNMP Binding</description>
+        <name>sun-snmp-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/snmp/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Description of binding component : SIP</description>
+        <name>gestalt-sip-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/sip/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Description of binding component : UDDI</description>
+        <name>gestalt-uddi-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/uddi/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Description of binding component : XMPP</description>
+        <name>gestalt-xmpp-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/xmpp/</xmlns>
+    </component-info>
+    <component-info>
+        <description>CICS Binding</description>
+        <name>jbi4cics</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>uri://schemas.imola.it/jbi/wsdl-extensions/cics/</xmlns>
+    </component-info>
+    <component-info>
+        <description>CORBA Binding</description>
+        <name>jbi4corba</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>uri://schemas.imola.it/jbi/wsdl-extensions/corba/</xmlns>
+    </component-info>
+    <component-info>
+        <description>EJB Binding</description>
+        <name>jbi4ejb</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>uri://schemas.imola.it/jbi/wsdl-extensions/ejb/</xmlns>
+    </component-info>
+    <component-info>
+        <description>DCOM Binding</description>
+        <name>sun-dcom-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/dcom/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Email Binding</description>
+        <name>sun-email-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/email/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Exec Binding</description>
+        <name>sun-exec-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/exec/</xmlns>
+    </component-info>
+    <component-info>
+        <description>File Binding</description>
+        <name>sun-file-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/file/</xmlns>
+    </component-info>
+    <component-info>
+        <description>FTP Binding</description>
+        <name>sun-ftp-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/ftp/</xmlns>
+    </component-info>
+    <component-info>
+        <description>HL7 Binding</description>
+        <name>sun-hl7-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/hl7/</xmlns>
+    </component-info>
+    <component-info>
+        <description>HTTP Soap Binding to send SOAP messages e.g. to and from BPEL service engine.</description>
+        <name>sun-http-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/http/</xmlns>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/soap/</xmlns>
+        <xmlns>http://schemas.xmlsoap.org/wsdl/soap12/</xmlns>
+    </component-info>
+    <component-info>
+        <description>IMS Binding</description>
+        <name>sun-ims-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/ims/</xmlns>
+    </component-info>
+    <component-info>
+        <description>JDBC binding</description>
+        <name>sun-jdbc-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/jdbc/</xmlns>
+    </component-info>
+    <component-info>
+        <description>JMS Binding</description>
+        <name>sun-jms-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/jms/</xmlns>
+    </component-info>
+    <component-info>
+        <description>LDAP binding</description>
+        <name>sun-ldap-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/ldap/</xmlns>
+    </component-info>
+    <component-info>
+        <description>MSMQ Binding</description>
+        <name>sun-msmq-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/msmq/</xmlns>
+    </component-info>
+    <component-info>
+        <description>SAP Binding</description>
+        <name>sun-sap-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/sap/</xmlns>
+    </component-info>
+    <component-info>
+        <description>SMTP Binding</description>
+        <name>sun-smtp-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/smtp/</xmlns>
+    </component-info>
+    <component-info>
+        <description>swift Binding</description>
+        <name>sun-swift-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/swift/</xmlns>
+    </component-info>
+    <component-info>
+        <description>MQ Binding</description>
+        <name>sun-webspheremq-binding</name>
+        <state>Installed</state>
+        <type>binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/mq/</xmlns>
+    </component-info>
+    <component-info>
+        <description>Database binding</description>
+        <name>sun-database-binding</name>
+        <state>Installed</state>
+        <type>Binding</type>
+        <xmlns>http://schemas.sun.com/jbi/wsdl-extensions/jdbc/</xmlns>
+    </component-info>
+</component-info-list>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="FindAndReplace" default="Main" basedir="..\Build" >
+
+  <property name="CCNetProject" value="NHINC"/>
+  <property name="CCNetBuildCondition" value="ForceBuild "/>
+  <property name="CCNetIntegrationStatus" value="Success"/>
+  <property name="CCNetLastIntegrationStatus" value="Success"/>
+  <property name="CCNetBuildDate" value="2006-09-12"/>
+  <property name="CCNetBuildTime" value="11:10:00"/>
+  <property name="CCNetArtifactDirectory" value="C:\Temp\CCNetArtifactDirectory"/>
+  <property name="CCNetWorkingDirectory" value="C:\Temp\CCNetWorkingDirectory"/>
+
+  <property name="CCNetLabel" value="1.0.0.2"/>
+  <property name="CCNetLogFilePath" value=""/>
+
+  <include buildfile="Properties.Build.xml"/>
+  <include buildfile="Common.Build.xml" />
+
+  <target name="Main">
+    
+	  <largeproperty name="GetSrcDir">
+		  <value expand="true">
+			  <![CDATA[Please enter the path from ${ProductionDirectory} to the file you would like to distribute ( i.e. HelloWorldBPEL\src\ )]]>
+		  </value>
+	  </largeproperty>
+	  <largeproperty name="GetSrcFile">
+		  <value expand="true">
+			  <![CDATA[Please enter the name of the file you would like to distribute ( i.e. HelloWorld.wsdl )]]>
+		  </value>
+	  </largeproperty>
+	  <ask answer="SrcDir" dialogmode="FreeText" question= "${GetSrcDir}"/>
+	  <ask answer="SrcFile" dialogmode="FreeText" question= "${GetSrcFile}"/>
+	  <property name="SrcDirFile" value= "${ProductionDirectory}\${SrcDir}${SrcFile}"/>
+
+	  <ifthenelse test="${file::exists(SrcDirFile)}">
+		  <then>
+			  <echo message="Found ${SrcDirFile}"/>
+			  <echo message="Scanning all directories under ${ProductionDirectory} - Be Very Very Patient"/>
+			  <foreach item="File" property="FilePathCandidate">
+				  <in>
+					  <items>
+						  <include name="${ProductionDirectory}\**\${SrcFile}"/>
+					  </items>
+				  </in>
+				  <do>
+					  <largeproperty name="TestFile">
+						  <value expand="true">
+							  <![CDATA[Would you like to update ${FilePathCandidate}]]>
+						  </value>
+					  </largeproperty>
+					  <ask if="${SrcDirFile != FilePathCandidate}" answer="Answer" caption="Update File?" question="${TestFile}">
+						  <options>
+							  <string value="Update"/>
+							  <string value="Skip"/>
+						  </options>
+					 </ask>
+					 <ifthenelse test="${Answer == 'Update'}">
+						 <then>
+							 <copy file="${SrcDirFile}" tofile="${FilePathCandidate}" overwrite="true" verbose="true" failonerror="true" />
+						 </then>
+						 <else>
+							 <echo message=" Skipped file: ${FilePathCandidate} "/>
+						 </else>
+					 </ifthenelse>
+				  </do>
+			  </foreach>
+		  </then>
+		  <else>
+			  <echo message="${SrcDirFile} Not Found"/>
+		  </else>
+	  </ifthenelse>
+  </target>
+
+</project>

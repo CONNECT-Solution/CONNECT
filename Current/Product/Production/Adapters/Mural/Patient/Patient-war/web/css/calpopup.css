@@ -1,0 +1,224 @@
+#calcontainer {
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	width: 207px;
+	height: 202px;
+	visibility: hidden;
+}
+
+#calcontainer table {
+	width: 100%;
+	margin: 0;
+	border: 2px solid #acacac;
+}
+
+#calcontainer thead img {
+	border-width: 0;
+	vertical-align: top;
+}
+* html #calcontainer thead img {
+	vertical-align: middle;
+}
+
+#calcontainer td, #calcontainer th {
+	font: 11px Arial,Helvetica,Sans-serif;
+	color: #000;
+	background: #e3e3e3;
+	text-align: center;
+	vertical-align: middle;
+	height: 22px;
+	width: 29px;
+	padding: 0;
+	white-space: nowrap;
+}
+
+#calcontainer th {
+	color: #fff;
+	background-color: #666;
+	font-weight: normal;
+}
+
+#calcontainer td.calHighlightColor {
+	background-color: #ffd;
+}
+
+#calcontainer td.calMonth, #calcontainer td.calYear {
+	width: 58px;
+}
+
+#calcontainer a, #calcontainer a:link, #calcontainer a:visited, #calcontainer a:active {
+	font: 11px Arial,Helvetica,Sans-serif;
+	color: #000;
+	text-decoration: underline;
+}  
+#calcontainer a:hover {
+	color: #383848;
+}
+
+#calcontainer td a.today, #calcontainer td span.today {
+	font-weight: bold;
+}
+#calcontainer tbody span {
+	height: 22px;
+	line-height: 22px;
+	display: block;
+}
+
+#calcontainer .disabled {
+	color: #666;
+	cursor: pointer;
+}  
+
+#calcontainer tbody a, #calcontainer tbody a:link, #calcontainer tbody a:visited, #calcontainer tbody a:active {
+	height: 22px;
+	width: 29px;
+	line-height: 22px;
+	display: block;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#calcontainer tbody a:hover {
+	background-color: #ffd;
+	color: #383848;
+}
+
+#calcontainer tfoot a, #calcontainer tfoot a:link, #calcontainer tfoot a:visited, #calcontainer tfoot a:active {
+}
+#calcontainer tfoot td {
+	width: 203px;
+	background: #c7c7c7;
+}
+#calcontainer thead td a, #calcontainer thead a:link, #calcontainer thead a:visited, #calcontainer thead a:active {
+	display: inline;
+}
+
+/* Calendar menu options */
+
+#calcontainer thead ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+#calcontainer thead li {
+	font: 11px/1.2 Arial,Helvetica,Sans-serif;
+}
+#calcontainer thead ul li {
+	/* This allows each li to line up next to each other on a single line */
+	display: inline;
+	/* This allows each item to be horizontal. */
+	float: left;
+}
+#calcontainer thead ul ul {
+	border: 1px solid #acacac;
+	background: #fff;
+	padding: 1px;
+	position: absolute;
+	display: none;
+	text-align: left;
+}
+* html #calcontainer thead ul ul {
+	padding: 0 1px 1px;
+}
+#calcontainer thead #cp_prevMonth a {
+	width: 13px;
+	background: transparent url(../images/caldown.gif) no-repeat 50% 0;
+}
+#calcontainer thead #cp_nextMonth a {
+	width: 13px;
+	background: transparent url(../images/calup.gif) no-repeat 50% 0;
+}
+#calcontainer thead #cp_prevYear a {
+	width: 13px;
+	background: transparent url(../images/caldown.gif) no-repeat 50% 0;
+}
+#calcontainer thead #cp_nextYear a {
+	width: 13px;
+	background: transparent url(../images/calup.gif) no-repeat 50% 0;
+}
+
+#calcontainer thead li a,#calcontainer thead li a:link,#calcontainer thead li a:active,#calcontainer thead li a:visited {
+	display: block;
+	text-align: center;
+}
+#calcontainer thead li li a,#calcontainer thead li li a:link,#calcontainer thead li li a:active,#calcontainer thead li li a:visited {
+	text-align: left;
+	height: 13px;
+	vertical-align: middle;
+}
+* html #calcontainer thead li li a,* html #calcontainer thead li li a:link,* html #calcontainer thead li li a:active,* html #calcontainer thead li li a:visited {
+	height: 15px;
+}
+#calcontainer thead li a, #calcontainer thead li a:link, #calcontainer thead li a:active, #calcontainer thead li a:visited {
+	display:block;
+	text-decoration: none;
+}
+* html #calcontainer thead li a, * html #calcontainer thead li a:link, * html #calcontainer thead li a:active, * html #calcontainer thead li a:visited {
+	width: 100%;
+}
+#calcontainer thead li a span {
+	text-indent: -1000px;
+	overflow: hidden;
+	display: block;
+}
+
+#calcontainer thead li li {
+	display: block;
+	float: none;
+}
+#cp_monthMenu {
+	width: 87px;
+}
+#cp_months {
+	width: 88px;
+	height: 180px;
+	text-align: left;
+}
+* html #cp_months {
+	left: 15px;
+	top: 18px;
+	height: 184px;
+}
+* html #cp_months a {
+	width: 86px;
+}
+#cp_yearMenu {
+	width: 58px;
+}
+#cp_years {
+	height: 105px;
+	width: 55px;
+	text-align: left;
+}
+* html #cp_years {
+	left: 129px;
+}
+* html #cp_years a {
+	width: 53px;
+}
+
+#calcontainer thead li li a, #calcontainer thead li li a:link, #calcontainer thead li li a:active, #calcontainer thead li li a:visited {
+	display: block;
+	font: 10px/1.2 verdana,Arial,Helvetica,Sans-serif;
+	border: 1px solid #fff;
+	padding-left: 10px;
+	text-decoration: none;
+	color: #000;
+}
+#calcontainer thead li li a:hover {
+	background: #e3e3e3;
+	border: 1px solid #acacac;
+}
+#calcontainer thead ul.open {
+	display: block;
+}
+
+/* to make sure that the image is aligned properly */
+img.cp_img {
+	border-width: 0;
+	vertical-align: top;
+}
+* html img.cp_img {
+	vertical-align: text-bottom;
+}

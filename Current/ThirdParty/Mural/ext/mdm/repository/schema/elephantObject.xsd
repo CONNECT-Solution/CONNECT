@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="elephant-object">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string"/>
+				<xs:element name="bbe-home" type="xs:string"/>
+				<xs:choice>
+					<xs:element name="weblogic" type="weblogicType"/>
+				</xs:choice>
+				<xs:element name="database">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Oracle"/>
+							<xs:enumeration value="MS SQL Server"/>
+							<xs:enumeration value="Sybase"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="match-engine">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="Tigris"/>
+							<xs:enumeration value="Vality"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="system" type="xs:string" maxOccurs="unbounded"/>
+				<xs:element name="primary-object" type="objectType"/>
+				<xs:element name="secondary-objects" type="objectType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="block-definition" type="blockType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="gui-definition" type="guiType" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="weblogicType">
+		<xs:sequence>
+			<xs:element name="version">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="6.1.0"/>
+						<xs:enumeration value="7.0.0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="javac">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="classic"/>
+						<xs:enumeration value="modern"/>
+						<xs:enumeration value="jikes"/>
+						<xs:enumeration value="jvc"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="weblogic-home" type="xs:string"/>
+			<xs:element name="working-path" type="xs:string"/>
+			<xs:element name="data-source" type="xs:string"/>
+			<xs:element name="create-default-tables" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="objectType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="fields" type="fieldType" maxOccurs="unbounded"/>
+			<xs:element name="standardization-type" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="firstName"/>
+						<xs:enumeration value="lastName"/>
+						<xs:enumeration value="address"/>
+						<xs:enumeration value="date"/>
+						<xs:enumeration value="none"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="related-object" type="related-objectType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="related-objectType">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="description" type="xs:string"/>
+			<xs:choice>
+				<xs:element name="one-to-one"/>
+				<xs:element name="one-to-many"/>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="fieldType">
+		<xs:sequence>
+			<xs:element name="id" type="xs:string"/>
+			<xs:element name="field-name" type="xs:string"/>
+			<xs:element name="matchFlag" type="xs:boolean"/>
+			<xs:choice>
+				<xs:element name="database-oracle" type="oracleType"/>
+				<xs:element name="database-sql-server" type="sql-serverType"/>
+				<xs:element name="database-sybase" type="sybaseType"/>
+			</xs:choice>
+			<xs:element name="match" type="matchType" minOccurs="0"/>
+			<xs:element name="constraint" type="constraintType" minOccurs="0"/>
+			<xs:element name="gui-type" type="gui-fieldType" minOccurs="0"/>
+			<xs:element name="show-in-list" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="oracleType">
+		<xs:sequence>
+			<xs:element name="column" type="xs:string"/>
+			<xs:element name="columntype">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="varchar2"/>
+						<xs:enumeration value="char"/>
+						<xs:enumeration value="nvarchar2"/>
+						<xs:enumeration value="blob"/>
+						<xs:enumeration value="clob"/>
+						<xs:enumeration value="rowid"/>
+						<xs:enumeration value="number"/>
+						<xs:enumeration value="double"/>
+						<xs:enumeration value="nchar"/>
+						<xs:enumeration value="long"/>
+						<xs:enumeration value="float"/>
+						<xs:enumeration value="date"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="size" type="xs:int"/>
+			<xs:element name="nullable" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sql-serverType">
+		<xs:sequence>
+			<xs:element name="databaseFieldName" type="xs:string"/>
+			<xs:element name="columntype">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="varchar"/>
+						<xs:enumeration value="char"/>
+						<xs:enumeration value="number"/>
+						<xs:enumeration value="date"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="data-size" type="xs:int"/>
+			<xs:element name="required" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="sybaseType">
+		<xs:sequence>
+			<xs:element name="databaseFieldName" type="xs:string"/>
+			<xs:element name="columntype">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="varchar"/>
+						<xs:enumeration value="char"/>
+						<xs:enumeration value="number"/>
+						<xs:enumeration value="date"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="data-size" type="xs:int"/>
+			<xs:element name="required" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="code-valueType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="value" type="xs:string"/>
+			<xs:element name="description" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="qwsType">
+		<xs:sequence>
+			<xs:element name="search-screen" type="search-screenType"/>
+			<xs:element name="search-result-list-screen" type="search-result-list-screenType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="constraintType">
+		<xs:choice>
+			<xs:element name="numeric-constraint" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:sequence>
+							<xs:element name="op" type="operandType"/>
+							<xs:element name="value" type="xs:int"/>
+						</xs:sequence>
+						<xs:sequence minOccurs="0">
+							<xs:element name="op" type="operandType"/>
+							<xs:element name="value" type="xs:int"/>
+						</xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="string-constraint" minOccurs="0">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="regex" type="xs:string"/>
+						<xs:element name="code-table" type="code-valueType"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="date-constraint" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:sequence>
+							<xs:element name="op" type="operandType"/>
+							<xs:element name="value" type="xs:date"/>
+						</xs:sequence>
+						<xs:sequence minOccurs="0">
+							<xs:element name="op" type="operandType"/>
+							<xs:element name="value" type="xs:date"/>
+						</xs:sequence>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="operandType">
+		<xs:choice>
+			<xs:element name="equal"/>
+			<xs:element name="greater"/>
+			<xs:element name="less"/>
+			<xs:element name="greater-and-equal"/>
+			<xs:element name="less-and-equal"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="matchType">
+		<xs:sequence>
+			<xs:element name="match-type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="firstName"/>
+						<xs:enumeration value="lastName"/>
+						<xs:enumeration value="exact"/>
+						<xs:enumeration value="date"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="standardization-type" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="firstName"/>
+						<xs:enumeration value="lastName"/>
+						<xs:enumeration value="address"/>
+						<xs:enumeration value="date"/>
+						<xs:enumeration value="none"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="match-option" minOccurs="0" maxOccurs="unbounded">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="soundex"/>
+						<xs:enumeration value="transpose"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="exactType">
+		<xs:complexContent>
+			<xs:extension base="ruleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ruleType" abstract="true">
+		<xs:sequence>
+			<xs:element name="field">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:string" use="required"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="priority"/>
+		</xs:sequence>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="startsWithType">
+		<xs:complexContent>
+			<xs:extension base="ruleType">
+				<xs:sequence>
+					<xs:element name="length"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="phoneticType" abstract="true">
+		<xs:complexContent>
+			<xs:extension base="ruleType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="soundexType">
+		<xs:complexContent>
+			<xs:extension base="phoneticType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="nysiisType">
+		<xs:complexContent>
+			<xs:extension base="phoneticType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="blockType">
+		<xs:sequence>
+			<xs:choice maxOccurs="unbounded">
+				<xs:element name="startswith">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="startsWithType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="exact" type="exactType"/>
+				<xs:element name="soundex" type="soundexType"/>
+				<xs:element name="nysiis" type="nysiisType"/>
+			</xs:choice>
+			<xs:element name="number"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="guiType">
+		<xs:sequence>
+			<xs:element name="qws-definition" type="qwsType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="search-screenType">
+		<xs:sequence>
+			<xs:element name="primary-object-search">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="screen-title" type="xs:string"/>
+						<xs:element name="object-ref" type="xs:string"/>
+						<xs:element name="by-field" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="field-ref" type="xs:string"/>
+									<xs:element name="description" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="by-group" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="description" type="xs:string"/>
+									<xs:element name="field-ref" type="xs:string" minOccurs="2" maxOccurs="unbounded"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="secondary-object-search" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="screen-title" type="xs:string"/>
+						<xs:element name="object-ref" type="xs:string"/>
+						<xs:element name="field-ref" type="xs:string" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="search-result-list-screenType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string"/>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="gui-fieldType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TextBox"/>
+			<xs:enumeration value="ListMenu"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

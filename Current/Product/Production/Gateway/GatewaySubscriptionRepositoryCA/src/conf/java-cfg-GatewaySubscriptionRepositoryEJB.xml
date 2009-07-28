@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionrepository" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentsubscriptionreferencerepository" name="GatewaySubscriptionRepositoryEJB">
+    <services>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_NhincComponentSubscriptionRepositoryPort" interface-name="ns0:NhincComponentSubscriptionRepositoryPortType" service-name="ns0:NhincComponentSubscriptionRepositoryService"/>
+        <provides enable-for-javaee-http="true" endpoint-name="javaee_NhincComponentSubscriptionReferenceRepositoryPortTypeBindingPort" interface-name="ns1:NhincComponentSubscriptionReferenceRepositoryPortType" service-name="ns1:NhincComponentSubscriptionReferenceRepositoryService"/>
+    </services>
+</javaee-project>

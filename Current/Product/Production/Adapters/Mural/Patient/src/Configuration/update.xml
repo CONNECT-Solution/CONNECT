@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schema/update.xsd">
+    <SurvivorHelperConfig module-name="SurvivorHelper" parser-class="com.sun.mdm.index.configurator.impl.SurvivorHelperConfig">
+        <helper-class>com.sun.mdm.index.survivor.impl.DefaultSurvivorHelper</helper-class>
+        <default-survivor-strategy>
+            <strategy-class>com.sun.mdm.index.survivor.impl.WeightedSurvivorStrategy</strategy-class>
+            <parameters>
+                <parameter>
+                    <parameter-name>ConfigurationModuleName</parameter-name>
+                    <parameter-type>java.lang.String</parameter-type>
+                    <parameter-value>WeightedSurvivorCalculator</parameter-value>
+                </parameter>
+            </parameters>
+        </default-survivor-strategy>
+        <candidate-definitions>
+            <candidate-field name="Patient.PersonCatCode"/>
+            <candidate-field name="Patient.FirstName"/>
+            <candidate-field name="Patient.FirstName_Std"/>
+            <candidate-field name="Patient.FirstName_Phon"/>
+            <candidate-field name="Patient.MiddleName"/>
+            <candidate-field name="Patient.LastName"/>
+            <candidate-field name="Patient.LastName_Std"/>
+            <candidate-field name="Patient.LastName_Phon"/>
+            <candidate-field name="Patient.Suffix"/>
+            <candidate-field name="Patient.Title"/>
+            <candidate-field name="Patient.SSN"/>
+            <candidate-field name="Patient.DOB"/>
+            <candidate-field name="Patient.Death"/>
+            <candidate-field name="Patient.Gender"/>
+            <candidate-field name="Patient.MStatus"/>
+            <candidate-field name="Patient.Race"/>
+            <candidate-field name="Patient.Ethnic"/>
+            <candidate-field name="Patient.Religion"/>
+            <candidate-field name="Patient.Language"/>
+            <candidate-field name="Patient.SpouseName"/>
+            <candidate-field name="Patient.MotherName"/>
+            <candidate-field name="Patient.MotherMN"/>
+            <candidate-field name="Patient.FatherName"/>
+            <candidate-field name="Patient.Maiden"/>
+            <candidate-field name="Patient.PobCity"/>
+            <candidate-field name="Patient.PobState"/>
+            <candidate-field name="Patient.PobCountry"/>
+            <candidate-field name="Patient.VIPFlag"/>
+            <candidate-field name="Patient.VetStatus"/>
+            <candidate-field name="Patient.Status"/>
+            <candidate-field name="Patient.DriverLicense"/>
+            <candidate-field name="Patient.DriverLicenseSt"/>
+            <candidate-field name="Patient.Dod"/>
+            <candidate-field name="Patient.DeathCertificate"/>
+            <candidate-field name="Patient.Nationality"/>
+            <candidate-field name="Patient.Citizenship"/>
+            <candidate-field name="Patient.Alias[*].*"/>
+            <candidate-field name="Patient.Address[*].*"/>
+            <candidate-field name="Patient.Phone[*].*"/>
+        </candidate-definitions>
+    </SurvivorHelperConfig>
+    <WeightedCalculator module-name="WeightedSurvivorCalculator" parser-class="com.sun.mdm.index.configurator.impl.WeightedCalculatorConfig">
+        <default-parameters>
+            <parameter>
+                <quality>SourceSystem</quality>
+                <preference>SystemA</preference>
+                <utility>100.0</utility>
+            </parameter>
+            <parameter>
+                <quality>SourceSystem</quality>
+                <preference>SystemB</preference>
+                <utility>100.0</utility>
+            </parameter>
+            <parameter>
+                <quality>MostRecentModified</quality>
+                <utility>75.0</utility>
+            </parameter>
+        </default-parameters>
+    </WeightedCalculator>	
+    <UpdateManagerConfig module-name="UpdateManager" parser-class="com.sun.mdm.index.configurator.impl.UpdateManagerConfig">
+        <EnterpriseMergePolicy></EnterpriseMergePolicy>
+        <EnterpriseUnmergePolicy></EnterpriseUnmergePolicy>
+        <EnterpriseUpdatePolicy></EnterpriseUpdatePolicy>
+        <EnterpriseCreatePolicy></EnterpriseCreatePolicy>
+        <SystemMergePolicy></SystemMergePolicy>
+        <SystemUnmergePolicy></SystemUnmergePolicy>
+        <UndoAssumeMatchPolicy></UndoAssumeMatchPolicy>
+        <SkipUpdateIfNoChange>true</SkipUpdateIfNoChange>
+    </UpdateManagerConfig>
+</Configuration>

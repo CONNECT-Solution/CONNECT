@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NhinHiemFaults" targetNamespace="http://docs.oasis-open.org/wsn/bw-2"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:tns="http://docs.oasis-open.org/wsn/bw-2">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2"
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="UnableToDestroySubscriptionFault">
+        <wsdl:part name="UnableToDestroySubscriptionFault"
+               element="wsnt:UnableToDestroySubscriptionFault"/>
+    </wsdl:message>
+    <wsdl:message name="InvalidMessageContentExpressionFault">
+        <wsdl:part name="InvalidMessageContentExpressionFault"
+               element="wsnt:InvalidMessageContentExpressionFault"/>
+    </wsdl:message>
+    <wsdl:message name="UnrecognizedPolicyRequestFault">
+        <wsdl:part name="UnrecognizedPolicyRequestFault"
+               element="wsnt:UnrecognizedPolicyRequestFault"/>
+    </wsdl:message>
+    <wsdl:message name="UnsupportedPolicyRequestFault">
+        <wsdl:part name="UnsupportedPolicyRequestFault"
+               element="wsnt:UnsupportedPolicyRequestFault"/>
+    </wsdl:message>
+    <wsdl:message name="NotifyMessageNotSupportedFault">
+        <wsdl:part name="NotifyMessageNotSupportedFault"
+               element="wsnt:NotifyMessageNotSupportedFault"/>
+    </wsdl:message>
+    <wsdl:message name="UnacceptableInitialTerminationTimeFault">
+        <wsdl:part name="UnacceptableInitialTerminationTimeFault"
+               element="wsnt:UnacceptableInitialTerminationTimeFault"/>
+    </wsdl:message>
+    <wsdl:message name="TopicExpressionDialectUnknownFault">
+        <wsdl:part name="TopicExpressionDialectUnknownFault"
+               element="wsnt:TopicExpressionDialectUnknownFault"/>
+    </wsdl:message>
+    <wsdl:message name="InvalidTopicExpressionFault">
+        <wsdl:part name="InvalidTopicExpressionFault"
+               element="wsnt:InvalidTopicExpressionFault"/>
+    </wsdl:message>
+    <wsdl:message name="TopicNotSupportedFault">
+        <wsdl:part name="TopicNotSupportedFault"
+               element="wsnt:TopicNotSupportedFault"/>
+    </wsdl:message>
+    <wsdl:message name="InvalidFilterFault">
+        <wsdl:part name="InvalidFilterFault"
+               element="wsnt:InvalidFilterFault"/>
+    </wsdl:message>
+    <wsdl:message name="InvalidProducerPropertiesExpressionFault">
+        <wsdl:part name="InvalidProducerPropertiesExpressionFault"
+               element="wsnt:InvalidProducerPropertiesExpressionFault"/>
+    </wsdl:message>
+    <wsdl:message name="SubscribeCreationFailedFault">
+        <wsdl:part name="SubscribeCreationFailedFault"
+               element="wsnt:SubscribeCreationFailedFault"/>
+    </wsdl:message>
+</definitions>

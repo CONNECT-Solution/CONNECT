@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:aggregator" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:auditmsg="http://nhinc.services.com/schema/auditmessage" targetNamespace="urn:gov:hhs:fha:nhinc:gateway:aggregator" elementFormDefault="qualified">
+	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
+	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
+	<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd"/>
+	<!-- ==================================================================
+         The following types are used for aggregating doc query messages.
+         ================================================================== -->
+	<xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../../ihe/auditmessage.xsd"/>
+	<xsd:complexType name="StartTransactionDocQueryRequestType">
+		<xsd:sequence>
+			<xsd:element name="qualifiedPatientIdentifiers" type="nccommon:QualifiedSubjectIdentifiersType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartTransactionDocQueryRequest" type="tns:StartTransactionDocQueryRequestType"/>
+	<xsd:complexType name="StartTransactionDocQueryResponseType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartTransactionDocQueryResponse" type="tns:StartTransactionDocQueryResponseType"/>
+	<xsd:complexType name="SetResponseMsgDocQueryRequestType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+			<xsd:element name="qualifiedPatientIdentifier" type="nccommon:QualifiedSubjectIdentifierType"/>
+			<xsd:element name="homeCommunityId" type="xsd:string"/>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SetResponseMsgDocQueryRequest" type="tns:SetResponseMsgDocQueryRequestType"/>
+	<xsd:complexType name="SetResponseMsgDocQueryResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SetResponseMsgDocQueryResponse" type="tns:SetResponseMsgDocQueryResponseType"/>
+	<xsd:complexType name="GetAggResultsDocQueryRequestType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+			<xsd:element name="timedOut" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="GetAggResultsDocQueryRequest" type="tns:GetAggResultsDocQueryRequestType"/>
+	<xsd:complexType name="GetAggResultsDocQueryResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+			<xsd:element ref="query:AdhocQueryResponse"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="GetAggResultsDocQueryResponse" type="tns:GetAggResultsDocQueryResponseType"/>
+	<!-- ==================================================================
+         The following types are used for aggregating doc retrieve messages.
+         ================================================================== -->
+	<xsd:complexType name="StartTransactionDocRetrieveRequestType">
+		<xsd:sequence>
+			<xsd:element name="retrieveDocumentSetRequest" type="ihe:RetrieveDocumentSetRequestType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartTransactionDocRetrieveRequest" type="tns:StartTransactionDocRetrieveRequestType"/>
+	<xsd:complexType name="StartTransactionDocRetrieveResponseType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="StartTransactionDocRetrieveResponse" type="tns:StartTransactionDocRetrieveResponseType"/>
+	<xsd:complexType name="SetResponseMsgDocRetrieveRequestType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+			<xsd:element name="homeCommunityId" type="xsd:string"/>
+			<xsd:element name="repositoryUniqueId" type="xsd:string"/>
+			<xsd:element name="documentUniqueId" type="xsd:string"/>
+			<xsd:element name="retrieveDocumentSetResponse" type="ihe:RetrieveDocumentSetResponseType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SetResponseMsgDocRetrieveRequest" type="tns:SetResponseMsgDocRetrieveRequestType"/>
+	<xsd:complexType name="SetResponseMsgDocRetrieveResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SetResponseMsgDocRetrieveResponse" type="tns:SetResponseMsgDocRetrieveResponseType"/>
+	<xsd:complexType name="GetAggResultsDocRetrieveRequestType">
+		<xsd:sequence>
+			<xsd:element name="transactionId" type="xsd:string"/>
+			<xsd:element name="timedOut" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="GetAggResultsDocRetrieveRequest" type="tns:GetAggResultsDocRetrieveRequestType"/>
+	<xsd:complexType name="GetAggResultsDocRetrieveResponseType">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string"/>
+			<xsd:element name="retrieveDocumentSetResponse" type="ihe:RetrieveDocumentSetResponseType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="GetAggResultsDocRetrieveResponse" type="tns:GetAggResultsDocRetrieveResponseType"/>
+	<xsd:complexType name="FindAuditEventsResponseAggregationType">
+		<xsd:sequence>
+			<xsd:element name="aggregate" type="auditmsg:FindAuditEventsResponseType"/>
+			<xsd:element name="new" type="auditmsg:FindAuditEventsResponseType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FindAuditEventsResponseAggregation" type="tns:FindAuditEventsResponseAggregationType"/>
+</xsd:schema>

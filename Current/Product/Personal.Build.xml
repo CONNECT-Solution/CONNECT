@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Personal Build" default="Build" basedir="..\Build" >
+
+  <property name="CCNetBuildCondition" value="ForceBuild "/>
+  <property name="CCNetIntegrationStatus" value="Success"/>
+  <property name="CCNetLastIntegrationStatus" value="Success"/>
+  <property name="CCNetBuildDate" value="2005-01-01"/>
+  <property name="CCNetBuildTime" value="00:00:01"/>
+  <property name="CCNetArtifactDirectory" value="C:\Temp\CCNetArtifactDirectory"/>
+  <property name="CCNetWorkingDirectory" value="C:\Temp\CCNetWorkingDirectory"/>
+  <property name="CCNetLabel" value="Personal.1"/>
+  <property name="CCNetLogFilePath" value=""/>
+
+  <include buildfile="Properties.Build.xml"/>
+  <property name="CCNetProject" value="${ProjectName}"/>
+  <property name="Compile.ConfigName" value="Debug"/>
+  <property name="CCNetListenerFile" value="C:\Temp\antlistener.txt"/>
+
+  <property name="Workspace.Silent" value="False"/>
+
+  <include buildfile="Common.Build.xml" />
+  <include buildfile="Custom.Build.xml" />
+
+  <description>Begin Package Includes</description>
+  <include buildfile="${PackagesDirectory}\Deployment\Deployment.Target.xml" />
+  <include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
+  <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
+  <include buildfile="${PackagesDirectory}\JUnit\UnitTest.Target.xml" />
+  <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
+  <include buildfile="${PackagesDirectory}\FitNesse\FitNesse.Target.xml"/>
+  <description>End Package Includes</description>
+
+  <call target="Common.SetUp"/>
+  
+  <target name="FitNesse.Run.RegressionSuite">
+    <trycatch>
+      <try>
+        <call target="FitNesse.SetUp"/>
+
+        <property name="FitNesse.IntegrationSuitePath" value="NhincRoot.IntegrationSuite.RegressionSuite"/>
+        <property name="FitNesse.Reports.FileName" value="RegressionSuiteFitNesseReport.xml"/>
+        <property name="FitNesse.FailBuildForFailingTest" value="true"/>
+        <call target="FitNesse.RunTests"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="FitNesse.ShowReport"/>
+        <call target="FitNesse.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="FitNesse.Run.DevelopmentIterationSuite">
+    <trycatch>
+      <try>
+        <call target="FitNesse.SetUp"/>
+
+        <property name="FitNesse.IntegrationSuitePath" value="NhincRoot.IntegrationSuite.DevelopmentIterationSuite"/>
+        <property name="FitNesse.Reports.FileName" value="DevelopmentIterationSuiteFitNesseReport.xml"/>
+        <property name="FitNesse.FailBuildForFailingTest" value="true"/>
+        <call target="FitNesse.RunTests"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="FitNesse.ShowReport"/>
+        <call target="FitNesse.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="FitNesse.Run.BugSuite">
+    <trycatch>
+      <try>
+        <call target="FitNesse.SetUp"/>
+
+        <property name="FitNesse.IntegrationSuitePath" value="NhincRoot.IntegrationSuite.BugSuite"/>
+        <property name="FitNesse.Reports.FileName" value="BugSuiteFitNesseReport.xml"/>
+        <property name="FitNesse.FailBuildForFailingTest" value="true"/>
+        <call target="FitNesse.RunTests"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="FitNesse.ShowReport"/>
+        <call target="FitNesse.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="CreateCommandPrompt">
+    <setenv>
+      <environment refid="${Ant.Environment.RefId}" />
+    </setenv>
+
+    <call target="UpdateWorkspace"/>
+
+    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="cmd" workingdir="${ProductDirectory}" />
+  </target>
+
+  <target name="OpenNetBeans">
+    <setenv>
+      <environment refid="${Ant.Environment.RefId}" />
+    </setenv>
+
+    <call target="UpdateWorkspace"/>
+
+    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="C:\GlassFishESB\NetBeans\bin\netbeans.exe"/>
+  </target>
+
+  <target name="UpdateWorkspace">
+    <call target="Workspace.CheckForRequieredSoftware" />
+    <call target="Workspace.ConfigureEnvironment" />
+  </target>
+  
+  <target name="Build">
+    <call target="UpdateWorkspace"/>
+    <property name="AntTarget" value="build-test"/>
+    <call target="Test"/>
+  </target>
+
+  <target name="Rebuild">
+    <call target="UpdateWorkspace"/>
+    <property name="AntTarget" value="clean-test"/>
+    <call target="Test"/>
+  </target>
+
+  <target name="UpdateSource">
+    <call target="FitNesse.StopServer"/>
+    <call target="FitNesse.PrepForCommitToSubversion"/>
+    <property name="SourceControl.Update.FileTimeStamp" value="Current"/>
+    <property name="SourceControl.Update.ReplaceWritableFiles" value="False"/>
+    <property name="SourceControl.Update.MakeWritable" value="False"/>
+    <property name="SourceControl.Update.Interactive" value="True"/>
+    <call target="SourceControl.GetOfCodeLineDirectory"/>
+    <call target="FitNesse.PrepForCommitToSubversion"/>
+    <call target="FitNesse.StartServer" if="${FitNesse.Status=='Started'}"/>
+  </target>
+
+  <target name="Compile">
+    <if test="${AntTarget == 'NaN'}">
+      <property name="AntTarget" value="build"/>
+    </if>
+    <trycatch>
+      <try>
+        <call target="Ant.SetUp"/>
+
+        <call target="Ant.CompileSource" />
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+        <call target="Ant.ShowReport"/>
+        
+        <fail message="${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="Ant.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="Recompile">
+    <if test="${AntTarget == 'NaN'}">
+      <property name="AntTarget" value="clean-build"/>
+    </if>
+    <call target="Compile"/>
+  </target>
+
+  <target name="Test">
+    <trycatch>
+      <try>
+        <call target="UnitTest.SetUp"/>
+
+        <if test="${AntTarget == 'NaN'}">
+          <property name="AntTarget" value="test"/>
+        </if>
+
+        <trycatch>
+          <try>
+            <call target="Compile"/>
+            <property name="Ant.Failure" value="false"/>
+          </try>
+          <catch property="Ant.Exception">
+            <property name="Ant.Failure" value="true"/>
+          </catch>
+        </trycatch>
+        
+        <call target="UnitTest.RunTests"/>
+        <fail if="${Ant.Failure}" message="Ant compile or unit test failure"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <call target="UnitTest.ShowReport"/>
+
+        <fail message="${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="UnitTest.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+</project>

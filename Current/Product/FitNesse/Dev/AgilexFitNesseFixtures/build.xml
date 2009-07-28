@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package" name="AgilexFitNesseFixtures">
+
+	<property name="dist.type" value="jar" />
+	<property name="webtest.hasTests" value="false" />
+	<property name="unittest.hasTests" value="true" />
+
+	<property name="lib.dir" location="..\..\Run\fitnesse" />
+
+	<!-- Please make sure that this goes up to the correct directory -->
+	<import file="../../../build.lib.xml" />
+
+	<fileset id="classpath.compile" dir="${lib.dir}">
+		<include name="fitnesse.jar" />
+		<include name="fitlibrary.jar" />
+		<include name="commons-net-2.0.jar" />
+		<include name="commons-net-ftp-2.0.jar"/>
+		<include name="jsch-0.1.41.jar" />
+	</fileset>
+
+	<fileset id="classpath.runtime" dir="${lib.dir}">
+
+	</fileset>
+
+	<fileset id="classpath.test" dir="${lib.dir}">
+		<include name="junit-4.4.jar"/>
+	</fileset>
+
+	<path id="build.classpath">
+		<fileset refid="classpath.compile" />
+	</path>
+
+	<target name="resolve">
+
+	</target>
+
+	<target name="deploy" depends="package">
+		<copy file="${dist.file}" todir="${lib.dir}" overwrite="true"/>
+	</target>
+
+</project>

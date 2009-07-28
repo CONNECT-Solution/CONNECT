@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="Interfaces/wsdl/AdapterDocRetrieve.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterDocRetrieve.wsdl"/>
+    <system systemId="Interfaces/wsdl/AdapterComponentDocRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterComponentDocRepository.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalAuditRepository.wsdl"/>
+    <system systemId="Interfaces/wsdl/AdapterAuditLogQuery.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterAuditLogQuery.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentAuditRepository.wsdl"/>
+    <system systemId="Interfaces/wsdl/rw-2.wsdl" uri="nb-uri:Interfaces#src/wsdl/rw-2.wsdl"/>
+    <system systemId="Interfaces/wsdl/AdapterNotificationConsumer.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterNotificationConsumer.wsdl"/>
+    <system systemId="Interfaces/wsdl/AdapterSubscriptionManagement.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterSubscriptionManagement.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
+    <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
+    <system systemId="Interfaces/wsdl/AdapterDocProvideAndRegister.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterDocProvideAndRegister.wsdl"/>
+</catalog>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT application (#PCDATA)>
+<!ELEMENT appserver (#PCDATA)>
+<!ELEMENT configuration (appserver, application, output-folder)>
+<!ELEMENT criteria (dates, status?)>
+<!ELEMENT dates EMPTY>
+<!ATTLIST dates
+	type (range | today | yesterday) #REQUIRED
+	from-date CDATA #IMPLIED
+	to-date CDATA #IMPLIED
+>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT disable (#PCDATA)>
+<!ELEMENT MasterIndexReport (configuration, reports)>
+<!ELEMENT enable (#PCDATA)>
+<!ELEMENT field EMPTY>
+<!ATTLIST field
+	path CDATA #REQUIRED
+	label CDATA #REQUIRED
+	width CDATA #REQUIRED
+>
+<!ELEMENT fields (field*)>
+<!ELEMENT output-file (#PCDATA)>
+<!ELEMENT output-folder (#PCDATA)>
+<!ELEMENT max-result-size (#PCDATA)>
+<!ELEMENT page-size (#PCDATA)> 
+<!ELEMENT report (enable, output-file, max-result-size?, page-size?, criteria, fields)>
+<!ATTLIST report
+	name CDATA #REQUIRED
+	template CDATA #REQUIRED
+>
+<!ELEMENT reports (report+)>

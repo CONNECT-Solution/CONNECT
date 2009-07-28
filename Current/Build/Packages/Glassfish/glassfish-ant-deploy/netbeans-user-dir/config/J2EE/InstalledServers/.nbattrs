@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="instance">
+        <attr name="DOMAIN" stringvalue="domain1"/>
+        <attr name="HttpMonitorOn" stringvalue="true"/>
+        <attr name="LOCATION" stringvalue="C:\GlassFishESB\glassfish\domains"/>
+        <attr name="PROP_INSTANCE_ID" stringvalue="glassfish"/>
+        <attr name="displayName" stringvalue="GlassFish V2"/>
+        <attr name="httpportnumber" stringvalue="8080"/>
+        <attr name="password" stringvalue="adminadmin"/>
+        <attr name="registeredWithoutUI" stringvalue="false"/>
+        <attr name="url" stringvalue="[C:\GlassFishESB\glassfish]deployer:Sun:AppServer::localhost:4848"/>
+        <attr name="username" stringvalue="admin"/>
+    </fileobject>
+    <fileobject name="instance_1">
+        <attr name="DOMAIN" stringvalue=""/>
+        <attr name="LOCATION" stringvalue=""/>
+        <attr name="PROP_INSTANCE_ID" stringvalue="glassfish_1"/>
+        <attr name="displayName" stringvalue="GlassFish V2 - Integration Server"/>
+        <attr name="httpportnumber" stringvalue="9080"/>
+        <attr name="password" stringvalue="adminadmin"/>
+        <attr name="registeredWithoutUI" stringvalue="false"/>
+        <attr name="url" stringvalue="[C:\GlassFishESB\glassfish]deployer:Sun:AppServer::192.168.25.157:4848"/>
+        <attr name="username" stringvalue="admin"/>
+    </fileobject>
+    <fileobject name="instance_2">
+        <attr name="DOMAIN" stringvalue=""/>
+        <attr name="LOCATION" stringvalue=""/>
+        <attr name="PROP_INSTANCE_ID" stringvalue="glassfish_2"/>
+        <attr name="displayName" stringvalue="GlassFish V2 - MHS3 Server"/>
+        <attr name="httpportnumber" stringvalue="9080"/>
+        <attr name="password" stringvalue="adminadmin"/>
+        <attr name="registeredWithoutUI" stringvalue="false"/>
+        <attr name="url" stringvalue="[C:\GlassFishESB\glassfish]deployer:Sun:AppServer::172.16.50.82:4848"/>
+        <attr name="username" stringvalue="admin"/>
+    </fileobject>
+    <fileobject name="instance_3">
+        <attr name="DOMAIN" stringvalue=""/>
+        <attr name="LOCATION" stringvalue=""/>
+        <attr name="PROP_INSTANCE_ID" stringvalue="glassfish_3"/>
+        <attr name="displayName" stringvalue="GlassFish V2 - VA3 Server"/>
+        <attr name="httpportnumber" stringvalue="9080"/>
+        <attr name="password" stringvalue="adminadmin"/>
+        <attr name="registeredWithoutUI" stringvalue="false"/>
+        <attr name="url" stringvalue="[C:\GlassFishESB\glassfish]deployer:Sun:AppServer::172.16.50.54:4848"/>
+        <attr name="username" stringvalue="admin"/>
+    </fileobject>
+</attributes>

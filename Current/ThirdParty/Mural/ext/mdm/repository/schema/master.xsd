@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ # DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ #
+ # Copyright 2003-2007 Sun Microsystems, Inc. All Rights Reserved.
+ #
+ # The contents of this file are subject to the terms of the Common 
+ # Development and Distribution License ("CDDL")(the "License"). You 
+ # may not use this file except in compliance with the License.
+ #
+ # You can obtain a copy of the License at
+ # https://open-dm-mi.dev.java.net/cddl.html
+ # or open-dm-mi/bootstrap/legal/license.txt. See the License for the 
+ # specific language governing permissions and limitations under the  
+ # License.  
+ #
+ # When distributing the Covered Code, include this CDDL Header Notice 
+ # in each file and include the License file at
+ # open-dm-mi/bootstrap/legal/license.txt.
+ # If applicable, add the following below this CDDL Header, with the 
+ # fields enclosed by brackets [] replaced by your own identifying 
+ # information: "Portions Copyrighted [year] [name of copyright owner]"
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="Configuration">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MasterControllerConfig"/>
+				<xs:element ref="DecisionMakerConfig"/>
+				<xs:element ref="EuidGeneratorConfig"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MasterControllerConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="update-mode"/>
+				<xs:element ref="merged-record-update"/>
+				<xs:element ref="execute-match"/>
+				<xs:element ref="transaction"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="update-mode">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="Pessimistic"/>
+				<xs:enumeration value="Optimistic"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="merged-record-update">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="execute-match">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="query-builder"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="transaction">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="CONTAINER"/>
+				<xs:enumeration value="BEAN"/>
+                                <xs:enumeration value="LOCAL"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+
+	<xs:element name="option">
+		<xs:complexType>
+			<xs:attribute name="key" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="query-builder">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="option"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DecisionMakerConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="decision-maker-class"/>
+				<xs:element ref="parameters"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="parameter" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameter">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="parameter-name"/>
+				<xs:element ref="parameter-type"/>
+				<xs:element ref="parameter-value"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="parameter-name">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="ChecksumLength"/>
+				<xs:enumeration value="ChunkSize"/>
+				<xs:enumeration value="DuplicateThreshold"/>
+				<xs:enumeration value="IdLength"/>
+				<xs:enumeration value="MatchThreshold"/>
+				<xs:enumeration value="OneExactMatch"/>
+				<xs:enumeration value="SameSystemMatch"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="parameter-type">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="java.lang.Boolean"/>
+				<xs:enumeration value="java.lang.Float"/>
+				<xs:enumeration value="java.lang.Integer"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="parameter-value">
+		<xs:simpleType>
+			<xs:restriction base="xs:string"/>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="decision-maker-class" type="xs:string"/>
+	<xs:element name="EuidGeneratorConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="euid-generator-class"/>
+				<xs:element ref="parameters"/>
+			</xs:sequence>
+			<xs:attribute name="module-name" type="xs:string" use="required"/>
+			<xs:attribute name="parser-class" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="euid-generator-class" type="xs:string"/>
+</xs:schema>

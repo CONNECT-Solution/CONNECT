@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.xmlsoap.org/soap/envelope/ http://schemas.xmlsoap.org/soap/envelope/">
+  <SOAP-ENV:Body>
+    <ns3:BusinessEntities xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:jbi="http://java.sun.com/xml/ns/jbi/wsdl-11-wrapper" xmlns:msgns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns2="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
+      <ns3:businessEntity businessKey="uddi:nhinregistry:205d77e8-9abe-48e8-9cbb-eece4df4e2e6">
+        <ns3:names>
+          <ns3:businessName>West VA</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>West Virginia Health Information Network</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.74</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:f93eecdd-6dd1-4572-82c0-c23fce112527">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://www.wvhin-onc3.com:5889/webservices/service/WVHIN_WS</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:8306d66a-f2a9-4614-859a-f7506507e281">
+        <ns3:names>
+          <ns3:businessName>NCHICA</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>The North Carolina Healthcare Information and Communications Alliance, Inc. (NCHICA)</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>1.3.18.103</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:a8f06211-5ed6-4462-8c9c-4b8ce658057b">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nchica.ibmhsp.net:444/ICServices_Web/api/SubjectDiscoveryQuery</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:ab4e2cd6-63f9-4584-b88a-38362856bb58">
+        <ns3:names>
+          <ns3:businessName>Kaiser Permanante</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Kaiser Permanante</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>1.3.6.1.4.1.26580</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:a687b4b3-cf14-4cef-9557-c9b2be49b4e8">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://uatdmzweb11.kp.org/services/NHIN2_GatewayServicesSoap/SubjectDiscovery</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:20f6ed19-81aa-400e-9992-e8c2417d5cd2">
+        <ns3:names>
+          <ns3:businessName>Federal Agency - VA</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Federal VA region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.200</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:ebe76eae-d649-4533-ac90-8c19e8097a11">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://dvanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:1de94c92-d808-4cf8-a9fa-61b5cce099ed">
+        <ns3:names>
+          <ns3:businessName>Community Health Information Collaborative (CHIC)</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the CHIC RHIO</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>1.3.6.1.4.1.31523</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:815c583e-25a5-4ae0-a27b-341370fc1d68">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nhingate1.rhio.net/services/SubjectDiscovery</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:30e1250f-4e28-4f05-8e17-47404954eb38">
+        <ns3:names>
+          <ns3:businessName>Federal Agency - IHS</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Federal IHS region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.210</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:2d12b713-cfd5-495f-aaca-9b4b2881a48c">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://ihsnhie.fedsconnect.org:9081/PIXConsumer_Soap11</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:7168fa08-48e2-4c6b-90ce-a62b51b38061">
+        <ns3:names>
+          <ns3:businessName>Wright State</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>HealthLink RHIO is HIEx of wright state university,Dayton,OH</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>urn:oid;1.3.6.1.4.1.21302</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:378607b8-5876-4cbb-8c22-a7b9ff465d3d">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://WSNHIE1.fedsconnect.org:9081/PIXConsumer_Soap11</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:0cca50a9-314f-495d-89c5-cb7e87578eb4">
+        <ns3:names>
+          <ns3:businessName>MedVirginia</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange of edvirginia</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.190</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:41b1c4a8-b3bd-40a3-99ba-f5627285bd04">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://medvirginia.ibmhsp.net:450/ICServices_Web/api/SubjectDiscoveryQuery</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:2a68efa7-02de-44af-ab26-1f228e0c97af">
+        <ns3:names>
+          <ns3:businessName>healthbridge</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the healthbridge</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.183</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:ea0837a7-ae9d-488f-87cd-189c422cd55e">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nhin.healthbridge.org/nhinsubjectdiscovery/service</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:b22b5c83-305e-41c2-99c5-e30eb983c4fd">
+        <ns3:names>
+          <ns3:businessName>Cleveland Clinic</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Cleveland Clinic region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.192</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:a98be2db-2f5b-448e-887c-756714534cb8">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://appserver2.ng-nhin.com/nghie/PIXConsumer</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:9f3368e2-3a5a-4e75-83a8-4f1c2c1a9f27">
+        <ns3:names>
+          <ns3:businessName>Lovelace</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange of Lovelace</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.4.318</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:ee6536e2-da43-41fb-b06c-c103616226e1">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://www.nmhic.org/nhin2/services/GatewayServices</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:28be7f18-1e33-47ea-a123-0066534181ad">
+        <ns3:names>
+          <ns3:businessName>CareSpark</ns3:businessName>
+          <ns3:businessName>CareSpark RHIO</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Tennessee region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.166.4</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:cddfb0c8-3a28-475a-9ca6-2872400c2570">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://csnhintiapps03.cgifederal.com:6151/SubjectDiscoveryRespondingGatewayService/SubjectDiscoveryRespondingGatewayPort</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:6761e74e-fb2a-479d-a93b-a18d40b7d3d6">
+        <ns3:names>
+          <ns3:businessName>NYeC - NYCLIX</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>New York Clinical Information Exchange (NYCLIX)</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.195</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:115bd737-ac01-430a-8c38-76326f395ce6">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nhin.nyclix.org/nhin2/services/GatewayServices</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:c363f259-09e5-4ccc-b269-201f74f7f28c">
+        <ns3:names>
+          <ns3:businessName>Federal Agency - SSA</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Federal SSA region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.184</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:17fb3198-cd27-46e4-9196-acbc617e69df">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://ssanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:4d8be044-c9f3-4369-bb60-4683f460b0b5">
+        <ns3:names>
+          <ns3:businessName>Delaware Health Information Network</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Delaware Region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.185</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:a86797e1-b35c-459e-8002-407f323adb81">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://test03.denhin.net/SubjectDiscoveryService</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:07ec6987-f062-4d84-9bab-ab3c6325804b">
+        <ns3:names>
+          <ns3:businessName>Federal Agency - DoD</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Federal DoD region.</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.198</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:80cdf3eb-2e1b-4aa5-90ec-49169fff6a60">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://mhsnhie1.fedsconnect.org:9081/PIXConsumer_Soap11</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:6cbbe4e3-de57-41ab-98e8-0f60fcd124fc">
+        <ns3:names>
+          <ns3:businessName>Longbeach</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange of LongBeach</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.188</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:058b0222-8157-4b88-aea5-00ab2b16c465">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://lbnh.memorialcare.org/nhin2/services/GatewayServices</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:b9823daf-38fc-4efe-bd28-4dc77d0621b8">
+        <ns3:names>
+          <ns3:businessName>Bloomington Hospital</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Bloomington Hospital region</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.13.25</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:1b2bf2ec-cb74-4584-9b16-f107534123dc">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nhinhealthlinc.org/nhinsubjectdiscovery/service</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:8211c951-8f7a-4b6d-a25e-ed5da3782bb5">
+        <ns3:names>
+          <ns3:businessName>Regenstrief Institute, Inc.</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>Health Information Exchange in the Regenstrief Institute, Inc.</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>1.3.6.1.4.1.12009.6.1</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:560a4db0-3f8f-4f0a-93db-8d177338094d">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/SubjectDiscovery</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+      <ns3:businessEntity businessKey="uddi:nhinregistry:39675970-45be-4e0e-9983-1417b2e10e50">
+        <ns3:names>
+          <ns3:businessName>NYeC - LIPIX</ns3:businessName>
+        </ns3:names>
+        <ns3:descriptions>
+          <ns3:businessDescription>LIPIX is an independent not-for-profit corporation established to develop a Regional Health Information Organization (RHIO), aka a Health Information Exchange (HIE), on Long Island.</ns3:businessDescription>
+        </ns3:descriptions>
+        <ns3:homeCommunityId>2.16.840.1.113883.3.176</ns3:homeCommunityId>
+        <ns3:federalHIE>false</ns3:federalHIE>
+        <ns3:publicKeyURI/>
+        <ns3:businessServices>
+          <ns3:businessService serviceKey="uddi:nhinregistry:2c15274b-1691-43e4-90c9-bbdf08017207">
+            <ns3:names>
+              <ns3:name>Subject Discovery Service</ns3:name>
+            </ns3:names>
+            <ns3:descriptions>
+              <ns3:description>Service to perform subject discovery over NHIN</ns3:description>
+            </ns3:descriptions>
+            <ns3:uniformServiceName>subjectdiscovery</ns3:uniformServiceName>
+            <ns3:serviceVersion>2.0</ns3:serviceVersion>
+            <ns3:internalWebService>false</ns3:internalWebService>
+            <ns3:bindingTemplates>
+              <ns3:bindingTemplate bindingKey="">
+                <ns3:endpointURL>https://nhin2.lipixportal.org/Services/HS.IHE.PIXv3.Manager.Services.cls</ns3:endpointURL>
+                <ns3:wsdlURL/>
+              </ns3:bindingTemplate>
+            </ns3:bindingTemplates>
+          </ns3:businessService>
+        </ns3:businessServices>
+      </ns3:businessEntity>
+    </ns3:BusinessEntities>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

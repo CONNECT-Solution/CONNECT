@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterim" xmlns:ns10="urn:gov:hhs:fha:nhinc:adapterpolicyengine" xmlns:ns2="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineinterim" xmlns:ns3="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineorchestrator" xmlns:ns4="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineinterimhelper" xmlns:ns5="urn:ihe:iti:xds-b:2007" xmlns:ns6="urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator" xmlns:ns7="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengine" xmlns:ns8="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterimhelper" xmlns:ns9="urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>AdapterPolicyEngineCA</name>
+            <description>Represents the Service Assembly of AdapterPolicyEngineCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimPortSoap11" service-name="ns1:AdapterPolicyEngineInterim"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimPortTypeRole_myRole" service-name="ns2:AdapterPolicyEnginePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimPortTypeRole_partnerRole" service-name="ns3:AdapterPolicyEngineInterimPL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimPortTypeRole_myRole" service-name="ns2:AdapterPolicyEnginePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRegistry_Role_partnerRole" service-name="ns4:AdapterComponentDocRegistryPL"/>
+                <provider endpoint-name="DocumentRegistry_Port_Soap12" service-name="ns5:DocumentRegistry_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineOrchestratorPortSoap11" service-name="ns6:AdapterPolicyEngineOrchestrator"/>
+                <provider endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_myRole" service-name="ns3:AdapterPolicyEngineOrchestratorPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_partnerRole" service-name="ns7:AdapterPolicyEngineOrchestratorPL"/>
+                <provider endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_myRole" service-name="ns3:AdapterPolicyEngineOrchestratorPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortSoap11" service-name="ns8:AdapterPolicyEngineInterimHelper"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns4:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_partnerRole" service-name="ns2:AdapterPolicyEngineInterimHelperPL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns4:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_partnerRole" service-name="ns4:AdapterPolicyEngineInterimHelperInvokePL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns4:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineTransformPortSoap11" service-name="ns9:AdapterPolicyEngineTransform"/>
+                <provider endpoint-name="javaee_AdapterPolicyEngineTransformPortSoap11" service-name="ns9:AdapterPolicyEngineTransform"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineTransformPortTypeRole_partnerRole" service-name="ns4:AdapterPolicyEngineTransformPL"/>
+                <provider endpoint-name="javaee_AdapterPolicyEngineTransformPortSoap11" service-name="ns9:AdapterPolicyEngineTransform"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRepository_Role_partnerRole" service-name="ns4:AdapterComponentDocRepositoryPL"/>
+                <provider endpoint-name="DocumentRepository_Port_Soap12" service-name="ns5:DocumentRepository_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEnginePortSoap11" service-name="ns10:AdapterPolicyEngine"/>
+                <provider endpoint-name="AdapterPolicyEnginePortTypeRole_myRole" service-name="ns7:AdapterEnginePL"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="NotificationProducerService">
+      <implementation-class>nhinc.wsn.NotificationProducerService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Examples/WSN/Interfaces/src/WSDL/NhinSubscription.wsdl</wsdl-url>
+      <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
+      <service-name>NotificationProducerService</service-name>
+      <port-name>NotificationProducerPort</port-name>
+      <package-name>org.oasis_open.docs.wsn.bw_2</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+    <service name="NotificationConsumerService">
+      <implementation-class>nhinc.wsn.NotificationConsumerService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Examples/WSN/Interfaces/src/WSDL/NhinSubscription.wsdl</wsdl-url>
+      <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
+      <service-name>NotificationConsumerService</service-name>
+      <port-name>NotificationConsumerPort</port-name>
+      <package-name>org.oasis_open.docs.wsn.bw_2</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+    </service>
+    <service name="UtilityService">
+      <implementation-class>nhinc.wsn.Utility</implementation-class>
+    </service>
+  </services>
+  <clients>
+    <client name="NhinSubscription">
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Examples/WSN/Interfaces/src/WSDL/NhinSubscription.wsdl</wsdl-url>
+      <local-wsdl-file>NhinSubscription.wsdl</local-wsdl-file>
+      <package-name>org.oasis_open.docs.wsn.bw_2</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+    </client>
+    <client name="SubscriptionSink">
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Examples/WSN/Interfaces/src/WSDL/SubscriptionSink.wsdl</wsdl-url>
+      <local-wsdl-file>SubscriptionSink.wsdl</local-wsdl-file>
+      <package-name>org.netbeans.j2ee.wsdl.interfaces.subscriptionsink</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+    </client>
+  </clients>
+</jax-ws>

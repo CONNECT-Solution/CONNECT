@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-check-AuditQuery" depends="wsimport-init">
+        <condition property="wsimport-service-AuditQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/com/nhin/services/wsdl/auditlogquery/findAuditEvents.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-AuditQuery" depends="wsimport-init,wsimport-service-check-AuditQuery" unless="wsimport-service-AuditQuery.notRequired">
+        <property name="service-wsdl-AuditQuery" location="${meta.inf}/xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AuditQuery}" catalog="catalog.xml"/>
+        <property name="targetLocation-AuditQuery" location="${meta.inf}/wsdl/AuditQuery"/>
+        <property name="sourceLocation-AuditQuery" location="${meta.inf}/xml-resources/web-services/AuditQuery/wsdl/"/>
+        <copy todir="${targetLocation-AuditQuery}">
+            <fileset dir="${sourceLocation-AuditQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AuditQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/com/nhin/services/wsdl/auditlogquery"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-AuditQuery"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

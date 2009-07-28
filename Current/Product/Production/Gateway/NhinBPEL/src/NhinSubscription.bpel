@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="NhinSubscription"
+    targetNamespace="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinsubscription"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:gateway:nhinbpel:nhinsubscription" 
+    xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" 
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:ns0="urn:gov:hhs:fha:nhinc:common:propertyaccess" xmlns:ns1="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" xmlns:ns3="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns6="http://docs.oasis-open.org/wsbpel/2.0/process/executable" xmlns:ns7="urn:gov:hhs:fha:nhinc:common:hiemauditlog" xmlns:ns8="urn:gov:hhs:fha:nhinc:common:auditlog">
+    <import namespace="urn:gov:hhs:fha:nhinc:nhincsubscription" location="Interfaces/wsdl/NhincSubscription.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="Interfaces/wsdl/rw-2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" location="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" location="Interfaces/wsdl/NhincComponentInternalSubscriptionManagementOrch.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" location="Interfaces/wsdl/AdapterSubscriptionManagement.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" location="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" location="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AuditLogPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" partnerLinkType="tns:NhincComponentInternalAuditRepository" partnerRole="NhincComponentInternalAuditRepositoryPortTypeRole"/>
+        <partnerLink name="PropAccessorPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" partnerLinkType="tns:NhincComponentPropAccessor" partnerRole="NhincComponentPropAccessorPortTypeRole"/>
+        <partnerLink name="InternalSubscriptionPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" partnerLinkType="tns:NhincComponentInternalNotificationProducer" partnerRole="NhincComponentInternalNotificationProducerPortTypeRole"/>
+        <partnerLink name="ConnectionManagerPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" partnerLinkType="tns:NhincComponentConnectionManager" partnerRole="NhincComponentConnectionManagerPortTypeRole"/>
+        <partnerLink name="AdapterSubscribePL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" partnerLinkType="tns:AdapterNotificationProducer" partnerRole="AdapterNotificationProducerPortTypeRole"/>
+        <partnerLink name="NhincSubscriptionPL" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" partnerLinkType="tns:NhincHiemSubscribe" myRole="NhincHiemSubscriberRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="SubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:SubscribeResponseMessage"/>
+        <variable name="SubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:SubscribeRequestMessage"/>
+    </variables>
+    <sequence>
+        <receive name="ReceiveNhincSubscription" createInstance="yes" partnerLink="NhincSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:NotificationProducer" variable="SubscribeIn">
+            <sxt:trace>
+                <sxt:log level="info" location="onStart">
+                    <from>'Received subscription message from NHIN interface'</from>
+                </sxt:log>
+            </sxt:trace>
+        </receive>
+        <scope name="ProcessSubscriptionScope">
+            <variables>
+                <variable name="LogSubscribeRespRequestOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                <variable name="LogSubscribeRespRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogSubscribeRespRequestMessage"/>
+                <variable name="LogNhinSubscribeRequestOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogEventResponseMessage"/>
+                <variable name="LogNhinSubscribeRequestIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" messageType="tns:LogNhinSubscribeRequestMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
+                <variable name="GetConnectionInfoEndpointByServiceNameIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" messageType="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
+                <variable name="AdapterSubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeResponseMessage"/>
+                <variable name="AdapterSubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeRequestMessage"/>
+                <variable name="InternalSubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" messageType="tns:SubscribeResponse"/>
+                <variable name="InternalSubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" messageType="tns:SubscribeRequest"/>
+                <variable name="SubscribeCreationFailedFaultVar" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:SubscribeCreationFailedFault"/>
+                <variable name="NotifyMessageNotSupportedFaultVar" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" messageType="tns:NotifyMessageNotSupportedFault"/>
+                <variable name="PassthroughMode" type="xsd:boolean"/>
+                <variable name="ServiceSubscription" type="xsd:boolean"/>
+                <variable name="GetPropertyOut" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyResponseMessage"/>
+                <variable name="GetPropertyIn" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" messageType="tns:GetPropertyRequestMessage"/>
+            </variables>
+            <faultHandlers>
+                <catch faultName="sxeh:systemFault" faultVariable="systemFaultVar" faultMessageType="sxeh:faultMessage">
+                    <sequence name="SystemFaultSeq">
+                        <assign name="AssignSubscribeCreationFailedInput">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'System fault encountered processing a subscription message. Fault follows...'</from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <from variable="systemFaultVar"/>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>sxxf:current-dateTime()</from>
+                                <to>$SubscribeCreationFailedFaultVar.SubscribeCreationFailedFault/ns1:Timestamp</to>
+                            </copy>
+                            <copy>
+                                <from>$SubscribeIn.SubscribeRequest/ns2:assertion</from>
+                                <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/ns7:assertion</to>
+                            </copy>
+                            <copy>
+                                <from variable="SubscribeOut" part="SubscribeResponse"/>
+                                <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/wsnt:SubscribeResponse</to>
+                            </copy>
+                            <copy>
+                                <from>'Inbound'</from>
+                                <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:direction</to>
+                            </copy>
+                            <copy>
+                                <from>'Nhin'</from>
+                                <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:interface</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeLogSubscribeRespFromFault" partnerLink="AuditLogPL" operation="LogSubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubscribeRespRequestIn" outputVariable="LogSubscribeRespRequestOut"/>
+                        <reply name="ReplySubscribeCreationFailed" partnerLink="NhincSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:NotificationProducer" faultName="tns:SubscribeCreationFailedFault" variable="SubscribeCreationFailedFaultVar">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <ns6:from>'NhinSubscription.bpel - Completed logging subscribe response returned from fault'</ns6:from>
+                                </sxt:log>
+                                <sxt:log level="warning" location="onStart">
+                                    <ns6:from variable="LogSubscribeRespRequestOut"/>
+                                </sxt:log>
+                            </sxt:trace>
+                        </reply>
+                        <exit name="ExitAfterSubscribeCreationFault"/>
+                    </sequence>
+                </catch>
+            </faultHandlers>
+            <sequence name="ProcessSubscriptionSeq">
+                <assign name="AssignLogNhinSubscribeRequestInput">
+                    <copy>
+                        <from>$SubscribeIn.SubscribeRequest/wsnt:Subscribe</from>
+                        <to>$LogNhinSubscribeRequestIn.LogNhinSubscribeRequest/ns7:message/wsnt:Subscribe</to>
+                    </copy>
+                    <copy>
+                        <from>$SubscribeIn.SubscribeRequest/ns2:assertion</from>
+                        <to>$LogNhinSubscribeRequestIn.LogNhinSubscribeRequest/ns7:message/ns2:assertion</to>
+                    </copy>
+                    <copy>
+                        <from>'Inbound'</from>
+                        <to>$LogNhinSubscribeRequestIn.LogNhinSubscribeRequest/ns8:direction</to>
+                    </copy>
+                    <copy>
+                        <from>'Nhin'</from>
+                        <to>$LogNhinSubscribeRequestIn.LogNhinSubscribeRequest/ns8:interface</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeLogNhinSubscribeRequest" partnerLink="AuditLogPL" operation="LogNhinSubscribeRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogNhinSubscribeRequestIn" outputVariable="LogNhinSubscribeRequestOut"/>
+                <assign name="AssignGetServiceSubscriptionFlagInput">
+                    <sxt:trace>
+                        <sxt:log level="info" location="onStart">
+                            <ns6:from>'NhinSubscription.bpel - Completed log of inbound subscribe message'</ns6:from>
+                        </sxt:log>
+                        <sxt:log level="warning" location="onStart">
+                            <ns6:from variable="LogNhinSubscribeRequestOut"/>
+                        </sxt:log>
+                    </sxt:trace>
+                    <copy>
+                        <from>'gateway'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                    </copy>
+                    <copy>
+                        <from>'serviceSubscription'</from>
+                        <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeGetServiceSubscriptionFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                <assign name="AssignGetServiceSubscriptionFlagOutput">
+                    <copy>
+                        <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue = 'true'</from>
+                        <to variable="ServiceSubscription"/>
+                    </copy>
+                </assign>
+                <if name="IfServiceSubscription">
+                    <condition>$ServiceSubscription</condition>
+                    <sequence name="ServiceSubscriptionSeq">
+                        <assign name="AssignGetPassthroughFlagInput">
+                            <sxt:trace>
+                                <sxt:log level="info" location="onStart">
+                                    <from>'Subscription supported - processing'</from>
+                                </sxt:log>
+                            </sxt:trace>
+                            <copy>
+                                <from>'gateway'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                            </copy>
+                            <copy>
+                                <from>'subscriptionPassthrough'</from>
+                                <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                            </copy>
+                        </assign>
+                        <invoke name="InvokeGetPassthroughFlag" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                        <assign name="AssignGetPassthroughFlagOutput">
+                            <copy>
+                                <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue = 'true'</from>
+                                <to variable="PassthroughMode"/>
+                            </copy>
+                        </assign>
+                        <if name="IfNotPassthrough">
+                            <condition>not($PassthroughMode)</condition>
+                            <sequence name="NotPassthroughSeq">
+                                <assign name="AssignInternalSubscribeInput">
+                                    <sxt:trace>
+                                        <sxt:log level="info" location="onStart">
+                                            <from>'Subscription not in passthrough mode - processing internally'</from>
+                                        </sxt:log>
+                                    </sxt:trace>
+                                    <copy>
+                                        <from variable="SubscribeIn" part="SubscribeRequest"/>
+                                        <to variable="InternalSubscribeIn" part="SubscribeRequest"/>
+                                    </copy>
+                                </assign>
+                                <invoke name="InvokeInternalSubscription" partnerLink="InternalSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalsubscriptionmanagementorch" portType="tns:NhincComponentInternalNotificationProducerPortType" inputVariable="InternalSubscribeIn" outputVariable="InternalSubscribeOut"/>
+                                <assign name="AssignInternalSubscribeOutput">
+                                    <copy>
+                                        <from variable="InternalSubscribeOut" part="SubscribeResponse"/>
+                                        <to variable="SubscribeOut" part="SubscribeResponse"/>
+                                    </copy>
+                                </assign>
+                            </sequence>
+                            <else>
+                                <sequence name="PassthroughSeq">
+                                    <assign name="AssignAdapterSubscribeInput">
+                                        <sxt:trace>
+                                            <sxt:log level="info" location="onStart">
+                                                <from>'In subscription passthrough mode - sending to adapter'</from>
+                                            </sxt:log>
+                                        </sxt:trace>
+                                        <copy>
+                                            <from>$SubscribeIn.SubscribeRequest/wsnt:Subscribe</from>
+                                            <to>$AdapterSubscribeIn.SubscribeRequest/wsnt:Subscribe</to>
+                                        </copy>
+                                        <copy>
+                                            <from>$SubscribeIn.SubscribeRequest/ns2:assertion</from>
+                                            <to>$AdapterSubscribeIn.SubscribeRequest/ns3:assertion</to>
+                                        </copy>
+                                    </assign>
+                                    <assign name="AssignGetHomeCommunityIdInput">
+                                        <copy>
+                                            <from>'gateway'</from>
+                                            <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyFile</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'localHomeCommunityId'</from>
+                                            <to>$GetPropertyIn.GetPropertyRequest/ns0:propertyName</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetHomeCommunityId" partnerLink="PropAccessorPL" operation="GetProperty" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" portType="tns:NhincComponentPropAccessorPortType" inputVariable="GetPropertyIn" outputVariable="GetPropertyOut"/>
+                                    <assign name="AssignGetAdapterSubscribeEndpointInput">
+                                        <copy>
+                                            <from>$GetPropertyOut.GetPropertyResponse/ns0:propertyValue</from>
+                                            <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns4:homeCommunityWithServiceName/ns4:homeCommunity/ns5:homeCommunityId</to>
+                                        </copy>
+                                        <copy>
+                                            <from>'adapternotificationproducerpassthrough'</from>
+                                            <to>$GetConnectionInfoEndpointByServiceNameIn.GetConnectionInfoEndpointByServiceNameRequest/ns4:homeCommunityWithServiceName/ns4:serviceName</to>
+                                        </copy>
+                                    </assign>
+                                    <invoke name="InvokeGetAdapterSubscribeEndpoint" partnerLink="ConnectionManagerPL" operation="GetConnectionInfoEndpointByServiceName" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" portType="tns:NhincComponentConnectionManagerPortType" inputVariable="GetConnectionInfoEndpointByServiceNameIn" outputVariable="GetConnectionInfoEndpointByServiceNameOut"/>
+                                    <assign name="AssignAdapterSubscribeEndpoint">
+                                        <copy>
+                                            <from>ns6:doXslTransform('urn:stylesheets:wrap2serviceref.xsl', $GetConnectionInfoEndpointByServiceNameOut.ConnectionInfoEndpoint/ns4:serviceConnectionInfoEndpoints/ns4:serviceConnectionInfoEndpoint/ns5:EPR/ns5:EndpointReference)</from>
+                                            <to partnerLink="AdapterSubscribePL"/>
+                                        </copy>
+                                    </assign>
+                                    <empty name="TODO_LogAuditBeforeAdapterSubscription"/>
+                                    <invoke name="InvokeAdapterSubscribe" partnerLink="AdapterSubscribePL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" inputVariable="AdapterSubscribeIn" outputVariable="AdapterSubscribeOut"/>
+                                    <assign name="AssignAdapterSubscribeOutput">
+                                        <copy>
+                                            <from variable="AdapterSubscribeOut" part="SubscribeResponse"/>
+                                            <to variable="SubscribeOut" part="SubscribeResponse"/>
+                                        </copy>
+                                    </assign>
+                                </sequence>
+                            </else>
+                        </if>
+                    </sequence>
+                    <else>
+                        <sequence name="NotSupportedSeq">
+                            <assign name="AssignNotifyNotSupportedInput">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                        <from>'Subscription not suported - returning'</from>
+                                    </sxt:log>
+                                </sxt:trace>
+                                <copy>
+                                    <from>sxxf:current-dateTime()</from>
+                                    <to>$NotifyMessageNotSupportedFaultVar.NotifyMessageNotSupportedFault/ns1:Timestamp</to>
+                                </copy>
+                                <copy>
+                                    <from>$SubscribeIn.SubscribeRequest/ns2:assertion</from>
+                                    <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/ns7:assertion</to>
+                                </copy>
+                                <copy>
+                                    <from variable="SubscribeOut" part="SubscribeResponse"/>
+                                    <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/wsnt:SubscribeResponse</to>
+                                </copy>
+                                <copy>
+                                    <from>'Inbound'</from>
+                                    <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:direction</to>
+                                </copy>
+                                <copy>
+                                    <from>'Nhin'</from>
+                                    <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:interface</to>
+                                </copy>
+                            </assign>
+                            <invoke name="InvokeLogSubscribeRespNotSupported" partnerLink="AuditLogPL" operation="LogSubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubscribeRespRequestIn" outputVariable="LogSubscribeRespRequestOut"/>
+                            <reply name="ReplyNotifyNotSupported" partnerLink="NhincSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:NotificationProducer" faultName="tns:NotifyMessageNotSupportedFault" variable="NotifyMessageNotSupportedFaultVar">
+                                <sxt:trace>
+                                    <sxt:log level="info" location="onStart">
+                                        <ns6:from>'NhinSubscription.bpel - Completed logging audit on subscribe response for subscribe not supported'</ns6:from>
+                                    </sxt:log>
+                                    <sxt:log level="warning" location="onStart">
+                                        <ns6:from variable="LogSubscribeRespRequestOut"/>
+                                    </sxt:log>
+                                </sxt:trace>
+                            </reply>
+                            <exit name="ExitAfterNotSupportedFault"/>
+                        </sequence>
+                    </else>
+                </if>
+                <assign name="AssignLogSubscribeRespRequestInput">
+                    <copy>
+                        <from>$SubscribeIn.SubscribeRequest/ns2:assertion</from>
+                        <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/ns7:assertion</to>
+                    </copy>
+                    <copy>
+                        <from variable="SubscribeOut" part="SubscribeResponse"/>
+                        <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns7:message/wsnt:SubscribeResponse</to>
+                    </copy>
+                    <copy>
+                        <from>'Inbound'</from>
+                        <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:direction</to>
+                    </copy>
+                    <copy>
+                        <from>'Nhin'</from>
+                        <to>$LogSubscribeRespRequestIn.LogSubscribeRespRequest/ns8:interface</to>
+                    </copy>
+                </assign>
+                <invoke name="InvokeLogSubscribeRespRequest" partnerLink="AuditLogPL" operation="LogSubscribeRespRequest" xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" portType="tns:NhincComponentInternalAuditRepositoryPortType" inputVariable="LogSubscribeRespRequestIn" outputVariable="LogSubscribeRespRequestOut"/>
+                <reply name="ReplyNhincSubscription" partnerLink="NhincSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubscription" portType="tns:NotificationProducer" variable="SubscribeOut">
+                    <sxt:trace>
+                        <sxt:log level="info" location="onStart">
+                            <ns6:from>'NhinSubscription.bpel - Completed logging subscribe response returned to remote gateway.'</ns6:from>
+                        </sxt:log>
+                        <sxt:log level="warning" location="onStart">
+                            <ns6:from variable="LogSubscribeRespRequestOut"/>
+                        </sxt:log>
+                    </sxt:trace>
+                </reply>
+            </sequence>
+        </scope>
+    </sequence>
+</process>

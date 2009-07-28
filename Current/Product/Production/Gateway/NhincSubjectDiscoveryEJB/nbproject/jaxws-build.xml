@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-check-NhincSubjectDiscovery" depends="wsimport-init">
+        <condition property="wsimport-client-NhincSubjectDiscovery.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincsubjectdiscovery/NhincSubjectDiscovery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-NhincSubjectDiscovery" depends="wsimport-init,wsimport-client-check-NhincSubjectDiscovery" unless="wsimport-client-NhincSubjectDiscovery.notRequired">
+        <property name="wsdl-NhincSubjectDiscovery" location="${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/wsdl/NhincSubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincSubjectDiscovery}" catalog="catalog.xml"/>
+    </target>
+    <target name="wsimport-client-clean-NhincSubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincsubjectdiscovery"/>
+    </target>
+    <target name="wsimport-service-check-SubjectDiscovery" depends="wsimport-init">
+        <condition property="wsimport-service-SubjectDiscovery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/ihe/iti/pixv3/_2007/PIXConsumer_Service.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init,wsimport-service-check-SubjectDiscovery" unless="wsimport-service-SubjectDiscovery.notRequired">
+        <property name="service-wsdl-SubjectDiscovery" location="${meta.inf}/xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-SubjectDiscovery}" catalog="catalog.xml"/>
+        <property name="targetLocation-SubjectDiscovery" location="${meta.inf}/wsdl/SubjectDiscovery"/>
+        <property name="sourceLocation-SubjectDiscovery" location="${meta.inf}/xml-resources/web-services/SubjectDiscovery/wsdl/"/>
+        <copy todir="${targetLocation-SubjectDiscovery}">
+            <fileset dir="${sourceLocation-SubjectDiscovery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-SubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/ihe/iti/pixv3/_2007"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhincSubjectDiscovery"/>
+    <target name="wsimport-client-compile" depends="wsimport-client-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscovery"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

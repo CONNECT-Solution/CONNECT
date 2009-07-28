@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process
+    name="AdapterSubscription"
+    targetNamespace="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adaptersubscription"
+    xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:sxt="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Trace" 
+    xmlns:sxed="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Editor"
+    xmlns:sxat="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/Attachment"
+    xmlns:sxeh="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/ErrorHandling"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adaptersubscription" xmlns:sxxf="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/XPathFunctions" xmlns:ns0="http://docs.oasis-open.org/wsn/b-2" xmlns:ns1="http://www.w3.org/2005/08/addressing">
+    <import namespace="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" location="Interfaces/wsdl/AdapterSubscriptionManagement.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="Interfaces/wsdl/rw-2.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <partnerLinks>
+        <partnerLink name="AdapterSubscriptionPL" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" partnerLinkType="tns:AdapterNotificationProducer" myRole="AdapterNotificationProducerPortTypeRole"/>
+    </partnerLinks>
+    <variables>
+        <variable name="SubscribeCdcBioPackageOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeCdcBioPackageResponseMessage"/>
+        <variable name="SubscribeCdcBioPackageIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeCdcBioPackageRequestMessage"/>
+        <variable name="SubscribeDocumentOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeDocumentResponseMessage"/>
+        <variable name="SubscribeDocumentIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeDocumentRequestMessage"/>
+        <variable name="SubscribeOut" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeResponseMessage"/>
+        <variable name="SubscribeIn" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" messageType="tns:SubscribeRequestMessage"/>
+    </variables>
+    <sequence>
+        <pick name="SubscriptionPick" createInstance="yes">
+            <onMessage partnerLink="AdapterSubscriptionPL" operation="Subscribe" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeIn">
+                <sequence name="Sequence1">
+                    <assign name="AssignSubscribeResponse">
+                        <copy>
+                            <from>sxxf:current-dateTime()</from>
+                            <to>$SubscribeOut.SubscribeResponse/ns0:CurrentTime</to>
+                        </copy>
+                        <copy>
+                            <from>'AdapterSubscriptionAddress'</from>
+                            <to>$SubscribeOut.SubscribeResponse/ns0:SubscriptionReference/ns1:Address</to>
+                        </copy>
+                    </assign>
+                    <reply name="ReplySubscribe" partnerLink="AdapterSubscriptionPL" operation="Subscribe" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="AdapterSubscriptionPL" operation="SubscribeDocument" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeDocumentIn">
+                <sequence name="Sequence2">
+                    <assign name="AssignSubscribeDocumentResponse">
+                        <copy>
+                            <from>sxxf:current-dateTime()</from>
+                            <to>$SubscribeDocumentOut.SubscribeDocumentResponse/ns0:CurrentTime</to>
+                        </copy>
+                        <copy>
+                            <from>'AdapterDocumentSubscriptionAddress'</from>
+                            <to>$SubscribeDocumentOut.SubscribeDocumentResponse/ns0:SubscriptionReference/ns1:Address</to>
+                        </copy>
+                    </assign>
+                    <reply name="ReplySubscribeDocument" partnerLink="AdapterSubscriptionPL" operation="SubscribeDocument" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeDocumentOut"/>
+                </sequence>
+            </onMessage>
+            <onMessage partnerLink="AdapterSubscriptionPL" operation="SubscribeCdcBioPackage" xmlns:tns="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeCdcBioPackageIn">
+                <sequence name="Sequence3">
+                    <assign name="AssignSubscribeCdcBioPackage">
+                        <copy>
+                            <from>sxxf:current-dateTime()</from>
+                            <to>$SubscribeCdcBioPackageOut.SubscribeCdcBioPackageResponse/ns0:CurrentTime</to>
+                        </copy>
+                        <copy>
+                            <from>'AdapterCdcBioPackageSubscriptionAddress'</from>
+                            <to>$SubscribeCdcBioPackageOut.SubscribeCdcBioPackageResponse/ns0:SubscriptionReference/ns1:Address</to>
+                        </copy>
+                    </assign>
+                    <reply name="ReplySubscribeCdcBioPackage" partnerLink="AdapterSubscriptionPL" operation="SubscribeCdcBioPackage" portType="tns:AdapterNotificationProducerPortType" variable="SubscribeCdcBioPackageOut"/>
+                </sequence>
+            </onMessage>
+        </pick>
+    </sequence>
+</process>

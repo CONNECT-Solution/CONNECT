@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Subversion.Scripts">
+
+  <target name="Workspace.RequieredSoftware.Subversion">
+    <call target="Workspace.RequieredSoftware.Subversion.Tortoise"/>
+    <call target="Workspace.RequieredSoftware.Subversion.Console"/>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Subversion.Console">
+    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\Subversion\bin\svn.exe')}" >
+      <ask answer="Answer"
+           question="It looks like the Subversion command line client is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+        <options>
+          <string value="Install"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install'}">
+        <then>
+          <get
+              src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/Subversion-1.5.5-win32.msi"
+              dest="${environment::get-variable('TEMP')}\Subversion-1.5.5-win32.msi"
+          />
+          <exec workingdir="${environment::get-variable('TEMP')}" program="msiexec" commandline="/i ${environment::get-variable('TEMP')}\Subversion-1.5.5-win32.msi /q" verbose="true" />
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please install Subversion!" />
+        </elseif>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Subversion.Tortoise">
+    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\TortoiseSVN\bin\TortoiseProc.exe')}" >
+      <ask answer="Answer"
+           question="It looks like TortoiseSVN is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+        <options>
+          <string value="Install"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install'}">
+        <then>
+          <get
+              src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi"
+              dest="${environment::get-variable('TEMP')}\TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi"
+          />
+          <exec 
+            workingdir="${environment::get-variable('TEMP')}" 
+            program="msiexec" 
+            commandline="/i ${environment::get-variable('TEMP')}\TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi /q" 
+            resultproperty="Return.Code"
+            failonerror="false"
+            verbose="true" 
+          />
+          <fail if="${int::parse(Return.Code) != 0 or int::parse(Return.Code) != 3010}" message="msiexec (return code was ${Return.Code})"/>
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please install TortoiseSVN!" />
+        </elseif>
+      </ifthenelse>
+
+    </ifnot>
+  </target>
+
+</project>

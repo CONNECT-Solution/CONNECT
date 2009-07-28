@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://nhinc.fha.hhs.gov/" xmlns:tns="http://nhinc.fha.hhs.gov/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="extractSaml" type="tns:extractSaml"/>
+
+  <xs:element name="extractSamlResponse" type="tns:extractSamlResponse"/>
+
+  <xs:complexType name="extractSaml">
+    <xs:sequence>
+      <xs:element name="body" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="extractSamlResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

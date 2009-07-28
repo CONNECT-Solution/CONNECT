@@ -1,0 +1,834 @@
+ACADEMIES           0                   10006
+ACADEMY             0                   10006  10009
+ACCEPTANCE          0                   14004  14009
+ACCESS              0                   26004
+ACCESSORIES         0                   02002  09002
+ACCIDENT            0                   17001
+ACCIDENT INSURANCE  0                   17001
+ACCOUNTANCY         0                   10001
+ACCOUNTANT          0                   10001
+ACCOUNTANTS         0                   10001
+ACCOUNTING          0                   10001
+ACTIVEWEAR          0                   09001
+ADVERTISEMENT       0                   10002
+ADVERTISEMENTS      0                   10002
+ADVERTISING         0                   10002
+AERONAUTIC          0                   01001  01002  01003
+AEROSPACE           0                   01001  01002  01003
+AIR                 0                   19019  27001  27002  27003
+AIR CRAFT           AIRCRAFT            01001  01002  01003
+AIRCRAFT            0                   01001  01002  01003
+AIRLINE             0                   27003
+AIRLINES            0                   27003
+AIRPORT             0                   27002
+AIRPORTS            0                   27002
+AIRWAYS             0                   27003
+ALLOY               0                   22008
+ALLOYS              0                   22008
+ALUMINIUM           0                   19013  22001
+ALUMINUM            ALUMINIUM           19013  22001
+ANALYST             0                   10013
+ANIMATION           0                   21006
+APPAREL             0                   09001
+APPARELS            0                   09001
+APPLIANCE           0                   08001
+APPLIANCES          0                   08001
+ARCHERY             0                   08011
+ARCHITECT           0                   20003
+ARCHITECTS          0                   20003
+ASSET               0                   14001
+ASSICURAZIONI       0                   17004
+ASSOCIATION         0                   10015
+ASSURANCE           0                   17003  17004
+ATTORNEY            0                   10011
+AUTO                0                   02001  02002  18007  24001  25001
+AUTO RACING         0                   18007
+AUTOMATION          0                   19008
+AUTOMOBILE          0                   02001
+AUTOMOTIVE          0                   02001  02002  24001  25001
+AVIATION            0                   01001  01002  01003  27002
+AXLE                0                   02002
+BAKERIES            0                   15015
+BAKERS              0                   15015
+BAKERY              0                   15015
+BAKING              0                   15015
+BANC                0                   03001
+BANCA               0                   03001
+BANCO               0                   03001
+BANCORP             0                   03001
+BANCSHARE           BANKSHARE           03001
+BANCSHARES          BANKSHARES          03001
+BANK                0                   03001
+BANKS               0                   03001
+BANKSHARE           0                   03001
+BANKSHARES          0                   03001
+BAR                 0                   18008
+BARS                0                   18008
+BASEBALL            0                   18007  18010
+BASKETBALL          0                   18007  18010
+BATTERIES           0                   19015
+BATTERY             0                   19015
+BEAUTY              0                   24008
+BEEF                0                   15016
+BEVERAGE            0                   15004  15007
+BEVERAGES           0                   15004  15007
+BICYCLE             0                   08011  08011
+BIO                 0                   11001-11009
+BIOINFORMATICS      0                   11001-11009
+BIOMEDICAL          0                   11001-11009
+BIOPHARMA           0                   11001-11009
+BIOSCIENCE          0                   11001-11009
+BIOSCIENCES         BIOSCIENCE          11001-11009
+BIOTECHNOLOGIES     BIOTECHNOLOGY       11001-11009
+BIOTECHNOLOGY       0                   11001-11009
+BOAT                0                   02004  02007
+BOATS               0                   02004  02007
+BOOK KEEPING        0                   10001
+BOOK SHOP           BOOKSHOP            25006
+BOOK STORE          BOOKSTORE           25006
+BOOK WORLD          BOOKWORLD           25006
+BOOKKEEPING         0                   10001
+BOOKS               0                   25006
+BOOKSELLER          0                   25006
+BOOKSHOP            0                   25006
+BOOKSTORE           0                   25006
+BOOKSTORES          0                   25006
+BOOKWORLD           0                   25006
+BOTTLERS            0                   15004
+BOTTLING            0                   15004
+BOWLING             0                   18010
+BREAD               0                   15015
+BREADS              0                   15015
+BREWERIES           0                   15005
+BREWERS             0                   15005
+BREWERY             0                   15005
+BREWING             0                   15005
+BROADBAND           0                   16004
+BROADCAST           0                   11012  21014
+BROADCASTING        0                   11012  21014
+BROKER              0                   14005  17002
+BROKERAGE           0                   14005  23001
+BROKERS             0                   14005  17002
+BUILD               0                   10002  20008
+BUILDER             0                   14002
+BUILDERS            0                   10002  20003  20005  23012  24002
+BUILDING            0                   19008  20002  20008  24002
+BURGER              0                   18008
+BURGERS             0                   18008
+BUSINESS SERVICES   0                   10016
+BUSINESS SYSTEM     0                   06001-06019
+BUTTER              0                   15010
+CAB                 0                   17004
+CABLE               0                   19023  26001
+CABLING             0                   19023
+CABS                0                   17004
+CALL CENTER         0                   10022
+CALL CENTRE         CALL CENTER         10022
+CAMERA              0                   08009
+CANDIES             0                   15019
+CANDY               0                   15019
+CAPITAL             0                   03001  14001  14003  14005  14006  14008  14009  14012
+CAPITAL MANAGEMENT  0                   14001
+CAR                 0                   02001  25001
+CARBIDE             0                   19015
+CARBON              0                   04002  04003  04005  04006  22002
+CARDIO              0                   16005
+CAREER              0                   10009
+CARGO               0                   17001
+CARS                0                   02001  25001
+CASINO              0                   18002  18004
+CASINOS             0                   18002  18004
+CAST                0                   12010
+CASTING             0                   19013
+CASTINGS            0                   19013
+CASUALTY            0                   17005
+CELLULAR            0                   16010
+CELULAR             CELLULAR            16010
+CELULOSE            0                   19018
+CEMENT              0                   10001
+CERAMIC             0                   10002  20008
+CHARITABLE          0                   10005
+CHARITIES           0                   10005
+CHARITY             0                   10005
+CHEESE              0                   15010
+CHEF                0                   19005
+CHEMICAL            CHEMICALS           04001-04006
+CHEMICALS           0                   04001-04006
+CHILD CARE          CHILD CARE          10006
+CHILDCARE           0                   10006
+CHILDRENS WEAR      CHILDRENSWEAR       09001
+CHILDRENSWEAR       0                   09001
+CHLD CARE           0                   10006
+CHLDCARE            CHILD CARE          10006
+CHOCOLATE           0                   15019
+CIGAR               0                   15020
+CINEMA              0                   21005
+CINEMAS             0                   21005
+CIRCUIT             0                   12001-12012
+CLIMATE             0                   10009
+CLOCK               0                   08005
+CLOCKS              0                   08005
+COACH               0                   02008
+COAL                0                   12002
+COAT                COATING             04004
+COATING             0                   04004
+COATINGS            0                   04004
+COFFEE              0                   18009
+COLLECTING          0                   10001
+COLLECTION          0                   10001
+COLLEGE             0                   10007  10009
+COLLEGES            0                   10007  10009
+COMMERCE            0                   03001
+COMMERCIAL          0                   14003
+COMMUNICATION       0                   06001  21009  21011  21012  26005  26006  26008
+COMMUNICATIONS      COMMUNICATION       06001  10002  10014  10022  21003  21009  21011  21012  21013  21014  26001  26002 26005  26006  26008  26009  26010  26011
+COMMUNITIES         0                   13003
+COMPONENT           0                   05001-05008  12001  12002  12003  12006  12008-12012  19011
+COMPONENTS          0                   05001-05008
+COMPREHENSIVE       0                   16010
+COMPUTER            0                   05001-05008  25002
+COMPUTERS           0                   05001-05008  25002
+COMPUTING           0                   05001-05008  06001-06019
+CONCRETE            0                   10001
+CONFECTIONERY       0                   15019
+CONFECTIONS         0                   15019
+CONSTRUCTION        0                   10001  20005  20008  23003  23012
+CONSTRUCTIONS       CONSTRUCTION        10003  20005  23003
+CONSTRUCTORS        0                   10003  20005
+CONSULTANT          0                   06012  10012
+CONSULTANTS         0                   06012  10012
+CONSULTING          0                   06012  10012
+CONSUMER            0                   14004
+CONTAINER           0                   19017
+CONTRACTING         0                   10010
+CONTRACTORS         0                   10010
+CONTROL             0                   10009
+CONVENIENCE         0                   14005
+CONVEYOR            0                   19012
+COOPERATIVE         0                   15001  15002
+COPPER              0                   12003
+COSMETIC            0                   14008
+COSMETICS           COSMETIC            09007  24008
+CREDIT              0                   03001  14003  14004  14005  14009
+CREDIT UNION        0                   14004
+CRUISES             0                   18011
+DAIRIES             0                   15010
+DAIRY               0                   15010
+DATA SYSTEMS        0                   05001-05008
+DATASYSTEMS         0                   05001-05008
+DECOR               0                   08003
+DECORATIVE          0                   08003
+DEFENCE             0                   01001  01002  01003
+DEFENSE             0                   01001  01002  01003
+DEMOLITION          0                   10003  20005
+DENTAL              0                   16008
+DEPARTMENT          0                   14006
+DEPARTMENTAL        0                   14006
+DESKTOP             0                   06001-06019
+DEVELOPERS          0                   10003  20005  23003  23012
+DEVELOPMENT         0                   10005  23003  23012
+DIAGNOSTIC          0                   16005
+DIAGNOSTICS         DIAGNOSTIC          11003  16005
+DIAMOND             0                   12004
+DIAMONDS            DIAMOND             12004
+DIESEL              0                   02002
+DIGITAL             0                   05001-05008  21006
+DINER               RESTAURANT          18008
+DINERS              RESTAURANTS         18008
+DISTILLERIES        0                   15006
+DISTILLERS          0                   15006
+DISTRIBUTING        DISTRIBUTION        06002  13007  15004  19005  27005
+DISTRIBUTION        0                   06002  11008  13007  15004  19005  19009  21013  27005
+DISTRIBUTOR         0                   11008  15004  19009  21013  27005
+DISTRIBUTORS        DISTRIBUTOR         11008  15004  19009  21013  27005
+DOCUMENT            0                   06008
+DOOR                0                   10008
+DRESSES             0                   09001 
+DRILL               0                   19011
+DRILLG              DRILLING            13001-13007
+DRILLING            0                   13001-13007
+DRUG                0                   11001-11009  24008
+DRUGS               0                   11001-11009  24008
+EAT                 0                   18008
+EATERIES            RESTAURANTS         18008
+EATERY              RESTAURANT          18008
+EDUCATION           0                   10006  10009
+EDUCATIONAL         0                   10009
+ELECTRIC            0                   08002  19015  19022  28002  28003
+ELECTRICAL          0                   19015
+ELECTRICITY         0                   18003
+ELECTRON            ELECTRONICS         08002  12001-12012  24004  25002
+ELECTRONIC          0                   08002  12001-12012  24004  25002
+ELECTRONICS         0                   08002  12001-12012  24004  25002
+ELEMENTS            0                   19019
+ELEVATOR            0                   19008
+ELEVATORS           0                   19008
+EMPLOYMENT          0                   10020
+ENERGY              0                   13001-13007  28001-28006  28005
+ENGINE              0                   02002
+ENGINEER            0                   10003
+ENGINEERED          0                   19016
+ENGINEERING         0                   19002  19003  19008  19016  20003  20005
+ENGINEERS           ENGINEER            10003  20005
+ENGINES             0                   02002
+ENTERTAINMENT       0                   06011  18002  18006  21003  21004  21005  21007  21013  21014  25006
+ENVIRONMENT         0                   19019  20004
+ENVIRONMENTAL       0                   19019  20004  20011
+EQUITY              0                   14006
+ESQUIRE             0                   1001
+ESTATE              0                   13001  23001-23012
+EXCHANGE            0                   14005  14008
+EXPLORATION         0                   13001  13001-13007
+EXPRESS             0                   17001  27008
+EYE                 0                   15004
+EYE CARE            0                   15004
+FABRIC              0                   19021
+FABRICS             FABRIC              19021
+FARM                0                   15001  15010  15002
+FARMERS             0                   15001  15002
+FARMS               0                   15001  15010  15016
+FASTENERS           0                   19007
+FEATURES            0                   11004
+FIBER               0                   04005
+FIBRE               0                   04005
+FIELDS              0                   12005
+FILM                0                   08009  21004
+FILMS               0                   08009  21004
+FILTER              0                   19019
+FINANCE             0                   03001  14003  14004  14008
+FINANCIAL           0                   03001  14001-14009  17001-17007
+FIREARM             0                   08011
+FIREARMS            0                   08011
+FITNESS             0                   08011  18010
+FIXTURES            0                   10009
+FLIGHT              0                   17003
+FLOOR               0                   10008
+FLOUR               0                   15015
+FOOD                0                   15001  15002  18009  19005  15009  15010
+FOODS               0                   15001  15002  18009  19005
+FOOT                0                   09002
+FOOTBALL            0                   08011  18007  18010
+FOOTWEAR            0                   09002
+FOREST              0                   10006
+FORESTS             0                   10006
+FORMS               0                   09003
+FOUNDATION          0                   10005  10010
+FOUNDRIES           0                   19013
+FOUNDRY             0                   19013
+FREIGHT             0                   17008
+FREIGHTERS          0                   17008
+FROZEN              0                   15009
+FUEL                0                   13001-13007  19022
+FUND                0                   14001  14005
+FURNISHINGS         0                   14010
+FURNITURE           0                   08003  08008  24010
+GAMES               0                   06011  18004
+GAMING              0                   18002  18003  18004
+GARDEN              0                   08006  24002
+GAS                 0                   13001-13007  24005  28002  28004
+GASOLINE            0                   14005
+GENERATOR           0                   19022
+GENERATORS          GENERATOR           19022
+GENETICS            0                   11001-11009
+GLASS               0                   19006
+GOLD                0                   12006
+GOLF                0                   08011  18010     25008
+GRAPHIC             0                   05001  05008  06001-06019  10018
+GRAPHICS            0                   05001  05008  10018
+GRAPHITE            0                   04002  04003  04005  04006
+GROCERS             0                   15013
+GROWERS             0                   15001
+GUARANTEE           0                   17007
+GUARANTY            0                   17007
+GUARD               0                   06019  10019
+GUARDS              0                   10019
+GUITAR              0                   08012
+GYM                 0                   18010
+GYMS                0                   18010
+GYPSUM              0                   10001
+HANDLING            0                   19012
+HARDWARE            0                   14002
+HARDWARES           0                   14002
+HEALTH              0                   16001-16010  23005
+HEALTH CARE         HEALTHCARE          16001-16010
+HEALTH PLAN         0                   16001
+HEALTH PLANS        0                   16001
+HEALTH SYSTEM       0                   16003
+HEALTH SYSTEMS      0                   16003
+HEALTHCARE          0                   16001-16010   16008
+HEAVY INDUSTRIES    0                   19003  19008  19009  19011  19016
+HELICOPTER          0                   01001  01002  01003  27002
+HOCKEY              0                   08011  18007  18010
+HOLIDAY             0                   18011
+HOLIDAYS            0                   18011
+HOME                0                   08004  08006  14009  20008  23010  24002  24010  23012
+HOME MORTGAGE       0                   14009
+HOMEHEALTH          0                   16002
+HOMES               0                   10007  23012
+HOSPITAL            0                   16003
+HOSPITALITY         0                   13006
+HOSPITALS           0                   16003
+HOTEL               0                   18005  23006
+HOTELS              0                   18005  23006
+HOUSING             0                   10007
+HUMAN RESOURCES     0                   10020
+HUMANE              0                   10005
+HUMANITY            0                   10005
+HYDRAULIC           0                   19004
+HYDRAULICS          0                   19004
+HYDROCARBON         0                   13001-13007
+IMAGE               0                   11006
+IMAGING             0                   16005
+INDEMNITY           0                   17005
+INDUSTRIAL          0                   19003  19008  19009  19011  19016
+INDUSTRIES          0                   19003  19008  19009  19011  19016
+INFORMATION         0                   06001-06019   21001
+INFOTECH            0                   06001-06019
+INK                 0                   04006
+INN                 0                   18005  18008
+INNS                0                   18005  18008
+INSTRUMENT          0                   08012
+INSTRUMENTS         0                   08012
+INSULATION          0                   19015
+INSURANCE           0                   17001-17007
+INTERACTIVE         0                   06009  06011  21002
+INTERIOR            0                   14010
+INTERNET            0                   11002  26004
+INVEST              0                   14006
+INVESTMENT          0                   03001  14001  14005  14006  23002  23008 
+INVESTMENTS         0                   14006
+INVESTOR            0                   14006  23002     23004
+INVESTORS           0                   14006  23002     23004
+IRON                0                   19013  22010
+JET                 0                   01001  01002  01003  27002  27003
+JEWELERS            0                   08005  25003
+JEWELERY            JEWELRY             08005  25003
+JEWELLER            JEWELERS            08005  25003
+JEWELLERS           JEWELERS            08005  25003
+JEWELLERY           JEWELRY             08005  25003
+JEWELRY             0                   08005  25003
+JOURNAL             0                   11009
+JOURNALS            0                   11009
+JUICE               0                   15007
+KNITS               0                   09001
+KNITTING            0                   09001
+KNITWEAR            0                   09001
+LAB                 LABORATORY          11001-11009  16007
+LABORATORIES        0                   11001-11009  16007
+LABORATORY          0                   11001-11009  16007
+LABORATRS           LABORATORIES        11001-11009  16007
+LABORATY            LABORATORY          11001-11009  16007
+LABS                LABORATORIES        11001-11009  16007
+LAW                 0                   10011
+LAWN                0                   08006
+LAWYER              0                   10011
+LEAGUE              0                   18007
+LEARN               0                   10009  06009
+LEARNING            0                   06009  10006  10009
+LEASE               0                   14007
+LEASING             0                   14007
+LEGAL               0                   10011
+LEISURE             0                   18002  18005  18011
+LIBRARIE            LIBRARY             25006
+LIBRARY             0                   25006
+LIFE                0                   17003
+LIFE ASSURANCE      0                   17003
+LIFE INSURANCE      0                   17003
+LIGHT               0                   19010
+LIGHTING            0                   19010
+LIME                0                   10001
+LIMOUSINE           0                   17004
+LINES               0                   17007  27008
+LITHOGRAPH          0                   10018
+LOAN                0                   14004  14009
+LOANS               0                   14004  14009
+LODGE               LODGING             13006
+LODGING             0                   13006
+LOGISTIC            LOGISTICS           17005
+LOGISTICS           0                   17005
+LOTTERY             0                   18003
+LPG                 0                   18004
+LUMBER              0                   14002
+LUMIN               0                   19010
+MACHINERY           0                   19002  19003  19012  19016
+MACHINES            0                   19002  19003  19016
+MAIL                0                   17001
+MAINTENANCE         0                   10003
+MANAGEMENT          0                   14001  14006
+MANUFACTURED        0                   10007
+MANUFACTURING       0                   02001  02002  08001  08008 08011  19001  19003  20007
+MARINE              0                   02007  27007
+MARITIME            0                   17007
+MARKET              0                   14009
+MARKETING           0                   10014  10022
+MARKETS             0                   14009
+MART                0                   14005
+MARTS               0                   14005
+MATERIAL            0                   19012  20001  20002
+MATERIALS           0                   10001  20002  22007
+MEAT                0                   15016
+MEATS               0                   15016
+MEDIA               0                   11003  21006  21009  21011  21012  21013  21014  26001
+MEDICAL             0                   11001-11009   16003  16005  16006
+MERCANTILE          0                   03001
+METAL               0                   19013  22001  22003  22005  22010  22008
+METALLURGICAL       0                   12007
+METALS              0                   19013  22005  22007  22008  22010
+METRO               0                   17006
+MICRO SYSTEM        0                   06001-06019
+MICRO SYSTEMS       0                   06001-06019
+MICROCOMPUTER       0                   05001-05008
+MICROELECTRONICS    0                   12001-12012
+MICROSYSTEM         0                   05001-05008
+MICROSYSTEMS        0                   05001-05008  06001-06019
+MICROWAVE           0                   16011
+MILITARY            0                   01001  01002  01003
+MILK                0                   15010
+MILLS               0                   15015  19018  19021
+MINERAL             0                   22001-22010
+MINERALS            0                   22001-22010
+MINES               0                   12004  22005  22006
+MINING              0                   12001  22002  22003  22005  22006
+MISSILE             0                   01001  01002  01003
+MISSILES            0                   01001  01002  01003
+MOBILE              0                   16010
+MORTGAGE            0                   14009  23008
+MOTEL               0                   18005
+MOTELS              0                   18005
+MOTOR               0                   02001  02008  18010  25001
+MOTOR CAR           MOTORCAR            02001
+MOTOR CARS          MOTORCAR            02001
+MOTOR CYCLE         MOTORCYCLE          02003
+MOTOR CYCLES        MOTORCYCLE          02003
+MOTOR SPORTS        0                   18010
+MOTORCAR            0                   02001
+MOTORCARS           MOTORCAR            02001
+MOTORCYCLE          0                   02003
+MOTORCYCLES         0                   02003
+MOTORS              MOTOR               02001  02008  18010  25001
+MOTORSPORTS         0                   18010
+MOTORSPRT           MOTORSPORTS         18010
+MUSEUM              0                   10010
+MUSIC               0                   11007  25006
+MUSICAL             0                   08012
+MUSICALS            0                   08012
+MUTUAL              0                   17005
+NATURAL GAS         0                   18004
+NATURAL RESOURCES   0                   13001-13007
+NAVIGATION          0                   17007
+NETWORK             0                   05007  06017  21012  21014  26001  26008  26009
+NETWORKS            0                   05007  06017  21012  21014  26001  26008  26009
+NEWS                0                   11009
+NEWS PAPER          0                   11009
+NEWSPAPER           0                   11009
+NURSERIES           0                   14002
+NURSERY             0                   14002
+NUT                 0                   19007
+OFFICE              0                   08008  25007
+OFFSHORE            0                   13006
+OIL                 0                   13001-13007   24005
+ONLINE              0                   11002  26004
+OPERATOR            0                   18011
+OPERATORS           0                   18011
+ORCHARDS            0                   15001
+PACKAGING           0                   19017
+PAINT               0                   04004
+PAINTS              0                   04004
+PAPER               0                   19018
+PAPERBOARD          0                   19017  19018
+PAPERS              0                   19018
+PARCEL              0                   17001
+PARK                0                   18006
+PARLOUR             0                   18008
+PARTS               0                   02002  24001
+PARTY               0                   15004
+PASTA               0                   15018
+PC                  0                   05008  10011  25002
+PERFUME             0                   09007
+PERSONNEL           0                   10020
+PET                 0                   15004
+PETROCHEMICAL       0                   04002  04003  13001-13007
+PETROCHEMICALS      0                   04002  04003  13001-13007
+PETRÓLEOS           0                   13001-13007
+PETROLEUM           0                   13001-13007   24005
+PETROLEUMS          0                   13001-13007
+PETS                0                   15004
+PHARMACEUTICAL      0                   11001-11009
+PHARMACEUTICALS     0                   11001-11009
+PHOTO               0                   08009
+PIANO               0                   08012
+PICTURES            0                   11004
+PIPE                0                   12010
+PIPELINE            0                   13004
+PIPELINES           0                   13004
+PIZZA               0                   18008
+PLACEMENT           0                   10020
+PLASTIC             0                   04005  19017  19020
+PLASTICS            0                   04005  19017  19020
+PLAY                0                   08012
+PLUMBING            0                   10009
+PNEUMATIC           0                   19004
+POLYMER             0                   04005
+POLYMERS            0                   04005
+POLYTHENE           0                   19017
+POSTAL              0                   17001
+POULTRY             0                   15016
+POWER               0                   19015  19022  28003  28005
+POWER BOAT          0                   02004
+POWER BOATS         0                   02004
+POWERBOAT           0                   02004
+POWERBOATS          0                   02004
+PRECISION           0                   19011
+PRESS               0                   10018  21009  21010
+PRINT               PRINTING            10018
+PRINTER             0                   10018
+PRINTERS            0                   10018
+PRODUCE             0                   15001
+PRODUCERS           0                   15001
+PRODUCTION          0                   11013
+PRODUCTIONS         0                   11004  21006  21013
+PRODUCTS            0                   09007  15016  15017  15018
+PROPANE             0                   13001-13007
+PROPERTIES          0                   13001  23001-23012
+PROPERTY            0                   13001  23001-23012
+PROTECTION          0                   10019
+PROTECTIVE          0                   10019
+PUBLIC RELATIONS    0                   10014
+PUBLICATIONS        0                   21009  21010  21011
+PUBLISHER           0                   21010
+PUBLISHERS          PUBLISHER           21010
+PUBLISHING          0                   21009  21010
+PUBLISHING          0                   21008  21009  21010  21011
+PUMP                0                   19004
+PUMPS               0                   19004
+RACING              0                   18007
+RADIO               0                   11012
+RAIL                0                   02005  27006
+RAILROAD            0                   17006
+RAILWAY             0                   17006
+RAILWAYS            RAILWAY             17006
+RAYON               0                   04003
+RAZOR               0                   09007
+REAL ESTATE         0                   13001  23001-23012
+REALTY              0                   13001  23001-23012
+RECORD              RECORDS             11007
+RECORDING           0                   11007
+RECORDS             0                   11007
+RECOVERY            0                   10001  20011
+RECREATION          0                   08012  18006
+RECYCLE             0                   10011
+RECYCLING           0                   10011
+REFINERY            0                   13005
+REFINING            0                   13005
+REFRACTORIES        0                   19006
+REFRACTORY          0                   19006
+REFRIGERATED        0                   17008
+REFRIGERATION       0                   19005
+REINSURANCE         0                   17006
+RENT                0                   10004  14007
+RENTAL              0                   14007
+RESEARCH            0                   10013  10021  16007
+RESERVE             0                   03001
+RESIDENTIAL         0                   13010  23012
+RESIN               0                   04005
+RESINS              0                   04005
+RESORT              0                   18002  18005
+RESORTS             0                   18002  18005
+RESOURCES           0                   10020  13001-13007  14011  22004  22005
+RESTAURANT          0                   18008
+RESTAURANTS         0                   18008
+RETAIL              0                   13011  24001-24011
+ROYALTY             0                   14010
+ROYALTY TRUST       0                   14010
+RUBBER              0                   19020
+SAFE                0                   06019
+SAFETY              0                   10019
+SATELLITE           0                   11003  21012  26001  26011
+SAUSAGE             0                   15016
+SAVING              0                   03001
+SAVINGS             0                   03001
+SCHOOL              0                   10006
+SCHOOLS             0                   10006
+SCIENCES            0                   11001-11009
+SCIENTIFIC          0                   12001-12012   16006
+SCREW               0                   19007
+SEAFOOD             0                   15017
+SEAFOODS            0                   15017
+SEAL                0                   19004
+SEALS               0                   19004
+SEARCH              0                   10020
+SECURE              0                   06019  10019
+SECURITIES          0                   14005  14008
+SECURITY            0                   06019  10019
+SECURITY SERVICES   0                   10019
+SECURITY SYSTEMS    0                   10019
+SEMICONDUCTOR       0                   12001-12012
+SERVICE             0                   06001-06019  10001-10022  14001-14012
+SERVICES            0                   06001-06019  10001-10022  14001-14012
+SHIP                0                   02007  27007
+SHIP BUILDING       0                   02007
+SHIP YARD           0                   02007
+SHIP YARDS          0                   02007
+SHIPBUILDING        0                   02007
+SHIPPING            0                   17007
+SHIPS               0                   17007
+SHIPYARD            0                   02007
+SHIPYARDS           0                   02007
+SHOE                0                   09002
+SHOES               0                   09002
+SHOP                0                   14003
+SHOPS               0                   14003
+SHUTTLE             0                   17004
+SILICON             0                   12008  12009  12010  12011  12012
+SILVER              0                   12006
+SKI                 0                   18010
+SKIING              0                   18010
+SMELTING            0                   12007
+SNACK               0                   15015  15018
+SNACKS              0                   15015  15018
+SOAP                0                   09004  09007
+SOAPS               0                   09004  09007
+SOCIETY             0                   10005  10015
+SOFTWARE            0                   06001-06019
+SOLAR               0                   19022
+SOLUTIONS           0                   06001-06019
+SOLVENT             0                   04002  04003  04004  04006
+SOLVENTS            0                   04002  04003  04004  04006
+SPACE               0                   01001  01002  01003
+SPEEDWAY            0                   18010
+SPINNING            0                   19021
+SPORT               0                   08011  18007  18010  25008
+SPORTING            0                   15008
+SPORTS              0                   08011  18007  18010  25008
+SPORTSWEAR          0                   09001
+STAFF               STAFFING            10020
+STAFFING            0                   10020
+STATIONERS          0                   15007
+STATIONERY          0                   15007
+STAY                0                   18005
+STEAK               0                   18008
+STEAK HOUSE         0                   18008
+STEAKHOUSE          0                   18008
+STEAM NAVIGATION    0                   17007
+STEEL               0                   19013  22010
+STOCK               0                   14005  14008
+STORE               0                   14003  24005  24006  24009  24007
+STORES              0                   14003  24005  24006  24007  24009
+STUDIO              0                   11004
+STUDIOS             0                   11004
+SUGAR               0                   15019
+SUGARS              0                   15019
+SUITES              0                   18005
+SUNGLASSES          0                   09002
+SUPER MARKET        0                   14009
+SUPER MARKETS       0                   14009
+SUPERMARKET         0                   14009
+SUPERMARKETS        0                   14009
+SUPPLY              0                   19009  20002
+SURGICAL            0                   16005  16006
+SWEEPSTAKES         0                   18003
+SWEET               0                   15019
+SWEETS              0                   15019
+SWITCH              0                   19015
+SYNTHETIC           0                   04002
+SYSTEM              0                   06001-06019
+SYSTEMS             0                   05001-05008   06001-06019  10019  12001-12012
+TANKER              0                   17007
+TANKERS             0                   17007
+TAPE                0                   15006
+TAXI                0                   17004
+TAXIS               0                   17004
+TEAM                0                   18007
+TECH                TECHNOLOGY          05001-05008 06001-06019 
+TECHNOLOGIES        TECHNOLOGY          05001-05008 06001-06019
+TECHNOLOGY          0                   05001-05008 06001-06019
+TECHSYSTEMS         0                   05001-05008 06001-06019
+TELE PHONE          TELEPHONE           16005
+TELE PHONES         TELEPHONES          16005
+TELEVISION          TV                  11013  21014
+TELECOM             0                   16005  26006  26009  26010
+TELECOMM            TELECOMMUNICATION   16005  26006  26008
+TELECOMMUNICATION   0                   16005  26006  26008
+TELECOMMUNICATIONS  0                   16005  26006  26008  26009  26010  26011
+TELE-COMMUNICATIONS 0                   16009
+TELEGRAPH           0                   16005
+TELEPHONE           0                   16005
+TELEPHONES          0                   16005
+TELEVISION          0                   11013  21014
+TEXTILE             0                   19021
+TEXTILES            0                   19021
+THEATER             0                   11005
+THEATERS            0                   11005
+THEATRE             0                   11005
+THEATRES            0                   11005
+THERAPEUTIC         THERAPEUTICS        11001-11009
+THERAPEUTICS        0                   11001-11009
+THERAPY             0                   16010
+THERMAL             0                   18003
+THERMO              0                   19022
+THRIFT              0                   03001
+TILES               0                   10002
+TIMBER              0                   10006
+TIRE                0                   19020  24001
+TIRES               0                   19020  24001
+TOBACCO             0                   15020
+TOOL                0                   08006  19002  19003  19013
+TOOLS               0                   08006  19011
+TOUR                0                   18011
+TOURS               0                   18011
+TOY                 0                   08012
+TOYS                0                   15009
+TRAILER             0                   02005
+TRAILMOBILE         0                   02005
+TRAILWAYS           0                   17004
+TRAINING            0                   10009
+TRANSFORMER         0                   19022
+TRANSFORMERS        0                   19022
+TRANSIT             0                   17004  27006
+TRANSPORT           0                   17005  27008
+TRANSPORTATION      0                   02005  27004  27008
+TRANSPORTERS        0                   17008
+TRAVEL              0                   18011
+TRAVELS             0                   18011
+TRUCK               0                   02008  27008
+TRUCKING            0                   17008
+TRUCKS              0                   02008
+TRUST               0                   03001  10005  14010
+TUBE                0                   19013  22010
+TURBINE             0                   19022
+TURBINES            0                   19022
+TV                  TELEVISION          11013  21014
+TYRE                0                   19020  24001
+TYRE                TIRE                19020  24001
+TYRES               TIRES               19020  24001
+UNDERWRITING        0                   17004
+UNIVERSITY          0                   10007
+UTILITIES           0                   18001  28001-28006
+VACATION            0                   18011
+VACATIONS           0                   18011
+VALVE               0                   19004
+VALVES              0                   19004
+VARNISH             0                   04004
+VENTURE             0                   14012
+VENTURE CAPITAL     0                   14012
+VENTURES            0                   14012
+VIDEO               0                   11004  21006  25006
+VINEYARD            0                   15008
+VINEYARDS           0                   15008
+WAGERING            0                   18002
+WASTE               0                   10004  20011
+WATCH               0                   08005
+WATCHES             0                   08005
+WATER               0                   18002  28006
+WEAR                0                   09001  09002  09007  24003
+WHOLESALE           0                   15013  15014  24003
+WINE                0                   15008
+WINERIES            0                   15008
+WINERY              0                   15008
+WIRE                0                   19023
+WIRE & CABLE        0                   19023
+WIRELESS            0                   16010  26011
+WOOD                0                   10006
+WOOL                0                   09001
+WOOLEN              0                   09001
+WORLDWIDE           0                   10014

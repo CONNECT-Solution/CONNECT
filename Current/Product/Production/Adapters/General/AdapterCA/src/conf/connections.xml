@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns1="urn:gov:hhs:fha:nhinc:adaptersubscriptionmanagement" xmlns:ns10="urn:gov:hhs:fha:nhinc:adaptermpimanager" xmlns:ns11="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterauditquery" xmlns:ns12="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" xmlns:ns13="urn:gov:hhs:fha:nhinc:adapterdocretrieve" xmlns:ns14="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterdocretrieve" xmlns:ns15="urn:gov:hhs:fha:nhinc:adapterpolicyenginetransform" xmlns:ns16="urn:gov:hhs:fha:nhinc:adapterinternalsubdiscoveryannounce" xmlns:ns17="urn:gov:hhs:fha:nhinc:adapterpolicyengine" xmlns:ns18="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterim" xmlns:ns19="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineinterim" xmlns:ns2="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterunsubscribe" xmlns:ns20="urn:gov:hhs:fha:nhinc:adapternotificationconsumer" xmlns:ns21="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapternotify" xmlns:ns22="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterimhelper" xmlns:ns23="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" xmlns:ns24="urn:gov:hhs:fha:nhinc:adapterdocquery" xmlns:ns25="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adaptersubscription" xmlns:ns26="urn:gov:hhs:fha:nhinc:adapterauditlogquery" xmlns:ns3="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineinterimhelper" xmlns:ns4="urn:ihe:iti:xds-b:2007" xmlns:ns5="urn:gov:hhs:fha:nhinc:adapters:general:adapterbpel:adapterdocquery" xmlns:ns6="urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator" xmlns:ns7="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengineorchestrator" xmlns:ns8="urn:gov:hhs:fha:nhinc:adapters:general:adapterpolicyenginebpel:adapterpolicyengine" xmlns:ns9="urn:gov:hhs:fha:nhinc:adapters:adaptersubjectdiscoverybpel:adaptersubjectdiscovery" version="1.0">
+    <service-assembly>
+        <identification>
+            <name>AdapterCA</name>
+            <description>Represents the Service Assembly of AdapterCA</description>
+        </identification>
+        <connections>
+            <connection>
+                <consumer endpoint-name="AdapterSubscriptionManagerPortSoap11" service-name="ns1:AdapterSubscriptionManager"/>
+                <provider endpoint-name="AdapterSubscriptionManagerPortTypeRole_myRole" service-name="ns2:AdapterUnsubscribePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRegistry_Role_partnerRole" service-name="ns3:AdapterComponentDocRegistryPL"/>
+                <provider endpoint-name="DocumentRegistry_Port_Soap" service-name="ns4:DocumentRegistry_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRegistry_Role_partnerRole" service-name="ns5:AdapterComponentDocQueryPL"/>
+                <provider endpoint-name="DocumentRegistry_Port_Soap" service-name="ns4:DocumentRegistry_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineOrchestratorPortSoap11" service-name="ns6:AdapterPolicyEngineOrchestrator"/>
+                <provider endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_myRole" service-name="ns7:AdapterPolicyEngineOrchestratorPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_partnerRole" service-name="ns8:AdapterPolicyEngineOrchestratorPL"/>
+                <provider endpoint-name="AdapterPolicyEngineOrchestratorPortTypeRole_myRole" service-name="ns7:AdapterPolicyEngineOrchestratorPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterMpiManagerPortTypeRole_partnerRole" service-name="ns9:MpiManagerPL"/>
+                <provider endpoint-name="AdapterMpiManagerPortTypeBindingPort" service-name="ns10:AdapterMpiManagerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AuditRepositoryManagerPortTypeRole_partnerRole" service-name="ns11:AuditRepositoryPL"/>
+                <provider endpoint-name="AuditRepositoryManagerPort" service-name="ns12:AuditRepositoryManagerService"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterDocRetrievePortSoap11" service-name="ns13:AdapterDocRetrieve"/>
+                <provider endpoint-name="AdapterDocRetrievePortTypeRole_myRole" service-name="ns14:AdapterDocRetrievePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineTransformPortTypeRole_partnerRole" service-name="ns3:AdapterPolicyEngineTransformPL"/>
+                <provider endpoint-name="AdapterPolicyEngineTransformPortSoap11" service-name="ns15:AdapterPolicyEngineTransform"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterInternalSubDiscoveryAnnouncePortSoap11" service-name="ns16:AdapterInternalSubDiscoveryAnnounce"/>
+                <provider endpoint-name="AdapterInternalSubDiscoveryAnnouncePortTypeRole_myRole" service-name="ns9:AdapterIntSubDiscAnnouncePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRepository_Role_partnerRole" service-name="ns3:AdapterComponentDocRepositoryPL"/>
+                <provider endpoint-name="DocumentRepository_Port_Soap" service-name="ns4:DocumentRepository_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="DocumentRepository_Role_partnerRole" service-name="ns14:AdapterComponentDocRetrievePL"/>
+                <provider endpoint-name="DocumentRepository_Port_Soap" service-name="ns4:DocumentRepository_Service"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEnginePortSoap11" service-name="ns17:AdapterPolicyEngine"/>
+                <provider endpoint-name="AdapterPolicyEnginePortTypeRole_myRole" service-name="ns8:AdapterEnginePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimPortSoap11" service-name="ns18:AdapterPolicyEngineInterim"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimPortTypeRole_myRole" service-name="ns19:AdapterPolicyEnginePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimPortTypeRole_partnerRole" service-name="ns7:AdapterPolicyEngineInterimPL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimPortTypeRole_myRole" service-name="ns19:AdapterPolicyEnginePL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterNotificationConsumerPortSoap11" service-name="ns20:AdapterNotificationConsumer"/>
+                <provider endpoint-name="AdapterNotificationConsumerPortTypeRole_myRole" service-name="ns21:AdapterNotifyPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortSoap11" service-name="ns22:AdapterPolicyEngineInterimHelper"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns3:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_partnerRole" service-name="ns19:AdapterPolicyEngineInterimHelperPL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns3:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_partnerRole" service-name="ns3:AdapterPolicyEngineInterimHelperInvokePL"/>
+                <provider endpoint-name="AdapterPolicyEngineInterimHelperPortTypeRole_myRole" service-name="ns3:AdapterPolicyEngineInterimHelperPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="EntitySubjectDiscoveryPortTypeRole_partnerRole" service-name="ns9:EntitySubjectDiscoveryPL"/>
+                <provider endpoint-name="EntitySubjectDiscoveryPortSoap11" service-name="ns23:EntitySubjectDiscovery"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterDocQueryPortSoap11" service-name="ns24:AdapterDocQuery"/>
+                <provider endpoint-name="AdapterDocQueryPortTypeRole_myRole" service-name="ns5:AdapterDocQueryPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterNotificationProducerPortSoap11" service-name="ns1:AdapterNotificationProducer"/>
+                <provider endpoint-name="AdapterNotificationProducerPortTypeRole_myRole" service-name="ns25:AdapterSubscriptionPL"/>
+            </connection>
+            <connection>
+                <consumer endpoint-name="AdapterAuditLogQueryPortSoap11" service-name="ns26:AdapterAuditLogQuery"/>
+                <provider endpoint-name="AdapterAuditLogQueryPortTypeRole_myRole" service-name="ns11:AdapterAuditQueryPL"/>
+            </connection>
+        </connections>
+    </service-assembly>
+</jbi>

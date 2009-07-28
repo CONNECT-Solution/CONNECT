@@ -1,0 +1,827 @@
+ALLÉE                             Allée              1TY 
+ALLEE                             Allée              1TY 
+ALLÉ                              Allée              1TY 
+ALLE                              Allée              1TY 
+ALL                               Allée              1TY 
+AV                                Av                 2TY          
+AVE                               Av                 2TY          
+AVEN                              Av                 2TY          
+AVENU                             Av                 2TY          
+AVENUE                            Av                 2TY          
+AVN                               Av                 2TY          
+AVNUE                             Av                 2TY
+BD                                BD                 3TY          
+BL                                BD                 3TY          
+BLV                               BD                 3TY          
+BLVD                              BD                 3TY          
+BOULEVARD                         BD                 3TY          
+BOULV                             BD                 3TY          
+ROND-POINT                        RPT                4TY
+RONDPOINT                         RPT                4TY
+ROND POINT                        RPT                4TY
+RD-PT                             RPT                4TY
+RPT                               RPT                4TY
+IMPASSE                           IMP                5TY
+IMP                               IMP                5TY
+PASSAGE                           PAS                6TY
+PAS                               PAS                6TY
+PASS                              PAS                6TY
+PLACE                             PL                 7TY
+PL                                PL                 7TY
+ROUTE                             RTE                1RR   8TY
+RTE                               RTE                1RR   8TY
+RT                                RTE                1RR   8TY
+SQUARE                            SQ                 9TY   2BP
+SQUA                              SQ                 9TY   2BP
+SQRE                              SQ                 9TY   2BP
+ARCADES                           ARCA              10TY
+ARCA                              ARCA              10TY
+CHEMIN                            CHEM              11TY   7AU
+CHEM                              CHEM              11TY   7AU
+CHE                               CHEM              11TY   7AU
+VILLA                             VLA                3BU  13TY   1WD
+VLLA                              VLA                3BU  13TY   1WD    
+QUAI                              QUAI              14TY
+Q                                 QUAI               0A1  14TY   3EN 
+COUR                              COUR              15TY  54AU
+CR                                COUR              15TY  54AU
+RUE                               RUE               16TY
+R                                 RUE                0A1  16TY
+RUELLE                            RLLE              17TY
+RLLE                              RLLE              17TY       
+PONT                              PONT              18TY
+CITE                              Cité               1BP  19TY
+CITÉ                              Cité               1BP  19TY    
+VOIE                              Voie              20TY          
+PORT                              Port              21TY   3BP
+COURS                             CRS               22TY   2BU
+CRS                               CRS               22TY   0AU
+BOUCLE                            Boucle            23TY
+BCLE                              Boucle            23TY
+PARVIS                            Parvis            24TY
+PRVS                              Parvis            24TY
+LACETS                            LaCE              25TY
+LACE                              LACE               0TY  25TY
+CORNICHE                          COR               26TY   1AU
+CORNI                             COR               26TY   0AU
+CORN                              COR                0AU  26TY
+HAMEAU                            HAM               27TY   3AU
+HAME                              HAM                0AU  27TY
+HAM                               HAM               27TY   0AU
+MONTÉE                            Montée            28TY
+MONTEE                            Montée            28TY
+TRAVERSE                          TRA               29TY        
+TRAVERS                           TRA               29TY   0AU
+TRAV                              TRA               29TY   0AU
+TR                                TRA               29TY   0AU
+ESCALIER                          ESCA              30TY   1WI
+ESCALI                            ESCA              30TY   1WI
+ESCA                              ESCA              30TY   1WI
+SENTIER                           Sentier           31TY
+SENT                              SENT              31TY   0AU
+TERASSE                           TSSE              32TY   1BU   2AU
+TERR                              TSSE              32TY
+TER                               TSSE               2EN  32TY    
+TERRA                             TSSE              32TY          
+PROMENADE CORNICHE                PROM COR          33TY
+PROMENADE CORN                    PROM COR          33TY
+PROM CORNICHE                     PROM COR          33TY
+PROM CORN                         PROM COR          33TY
+PROMENADE                         PROM              34TY   4BP
+PROM                              PROM              34TY   0AU
+CARREFOUR                         Carrefour         35TY   0AU
+CLOS                              Clos              36TY   0AU
+LE CLOS                           Clos              36TY  
+LES HAUTS                         LHTS              37TY
+RAMPE                             Rampe              4HR  38TY   9AU 
+RAMP                              Rampe              4HR  38TY   9AU 
+GALERIE                           GAL               39TY  10AU
+GALERIES                          GAL               39TY  10AU
+GALE                              GAL               39TY
+MAIL                              MAIL              40TY   0AU  
+AUTOROUTE NO                      AUT                1HR  41TY   0AU
+ROUTE NATIONALE NO                RN                 2HR  42TY
+RTE NATIONALE NO                  RN                 2HR  42TY
+RTE NAL NO                        RN                 2HR  42TY
+RN N0                             RN                 2HR  42TY
+AUTOROUTE                         AUT                1HR  41TY   0AU
+ROUTE NATIONALE                   RN                 2HR  42TY
+RTE NATIONALE                     RN                 2HR  42TY
+RTE NAL                           RN                 2HR  42TY
+RN                                RN                 2HR  42TY
+NATIONALE                         NAL               12AU   2HR  42TY 
+NATIONAL                          NAL               12AU   0AU
+NAL                               NAL               12AU   0AU
+ROUTE DEPARTEMENTALE NO           RTE DEP            3HR  43TY 
+ROUTE DÉPARTEMENTALE NO           RTE DEP            3HR  43TY
+RTE DEPARTEMENTALE NO             RTE DEP            3HR  43TY
+RTE DÉPARTEMENTALE NO             RTE DEP            3HR  43TY
+DEPARTEMENTALE NO                 DEPT               3HR  43TY  11AU  
+DÉPARTEMENTALE NO                 DEPT               3HR  43TY  11AU  
+ROUTE DEPARTEMENTALE              RTE DEP            3HR  43TY 
+ROUTE DÉPARTEMENTALE              RTE DEP            3HR  43TY
+RTE DEPARTEMENTALE                RTE DEP            3HR  43TY
+RTE DÉPARTEMENTALE                RTE DEP            3HR  43TY
+DEPARTEMENTALE                    DEPT               3HR  43TY  11AU 
+DÉPARTEMENTALE                    DEPT               3HR  43TY  11AU
+ESPLANADE                         ESP               44TY   7BP
+CHAUSSEE                          CHS               45TY   0AU
+CHAUSSÉE                          CHS               45TY   0AU
+VALON                             VLON              46TY  39AU
+VLON                              VLON              46TY  39AU
+PASSERELLE                        PLE               47TY  40AU
+PSRL                              PLE               47TY  40AU
+PASSER                            PLE               47TY  40AU
+PISTE                             PIST               3RR  48TY  41AU
+PSTE                              PIST               3RR  48TY  41AU
+PIST                              PIST               3RR  48TY  41AU
+VOIE COMMUNALE NO                 VCOM               4RR   
+VOIE COMM NO                      VCOM               4RR   
+VOIE COMMUNALE                    VCOM               4RR   
+VOIE COMM                         VCOM               4RR   
+LOT COMMUNAL NO                   LCOM               5RR   
+LOT COMM NO                       LCOM               5RR   
+LOT COMMUNAL                      LCOM               5RR   
+LOT COMM                          LCOM               5RR   
+ARTERE                            Artère             5HR  49TY   0AU
+ARTÈRE                            Artère             5HR  49TY   0AU
+LES CÔTEAUX                       Côteaux           50TY   0AU
+CÔTEAUX                           Côteaux           50TY   0AU
+COTX                              Côteaux           50TY   0AU
+CER                               Cercle             4BU   0AU    
+CERCL                             Cercle             4BU   0AU    
+CERCLE                            Cercle             4BU   0AU    
+CRCL                              Cercle             4BU   0AU    
+CRCLE                             Cercle             4BU   0AU
+GARE RER                          GARE RER           5BU
+RER                               RER                5BU
+BATIMENT                          BAT                6BU
+BÂTIMENT                          BAT                6BU
+BÂT                               BAT                6BU
+BAT                               BAT                6BU
+IMMEUBLE                          IMM                7BU
+IMM                               IMM                7BU
+QUARTIER                          QUA                5BP   0AU
+QUART                             QUA                5BP   0AU
+QRTR                              QUA                5BP   0AU
+HYPPODROME                        Hyppo              6BP   0AU 
+RESIDENCE                         RES                8BP  13AU  
+RÉSIDENCE                         RES                8BP  13AU
+RESID                             RES                8BP  13AU
+RÉSID                             RES                8BP  13AU
+RES                               RES                8BP  13AU
+RÉS                               RES                8BP  13AU
+HOTEL                             HOT                8BU  
+HÔTEL                             HOT                8BU
+AÉRODROME                         AERD               9BP  14AU
+AERODROME                         AERD               9BP  14AU
+AERD                              AERD               9BP
+AÉROPORT                          AERP              10BP  15AU
+AEROPORT                          AERP              10BP  15AU
+AERP                              AERP              10BP
+AÉROGARE                          AERG              11BP  16AU
+AEROGARE                          AERG              11BP  16AU
+AERG                              AERG              11BP 
+CHÂTEAU                           CHT                9BU  19AU
+CHATEAU                           CHT                9BU  19AU
+CHT                               CHT                9BU  19AU
+CHAT                              CHT                9BU  19AU
+CENTRE                            CTRE              12BP
+CTRE                              CTRE              12BP
+CENTRE COMMERCIAL                 CCAL              13BP
+CTRE COMMERCIAL                   CCAL              13BP
+CENTRE CIAL                       CCAL              13BP
+CTRE CIAL                         CCAL              13BP
+CCAL                              CCAL              13BP
+SIEGE                             SIEG              10BU
+SIÈGE                             SIEG              10BU
+MAISON                            MAIS              11BU
+DOMICILE                          DOMI              12BU   3WD
+DOMI                              DOMI              12BU   3WD    
+PAVILLON                          PAV               13BU
+PAV                               PAV               13BU   0AU
+MANOIR                            MAN               14BU
+AUBERGE                           AUBE              15BU
+PALAIS                            PAL               16BU  21AU
+FACULTE                           FAC               14BP
+FACULTÉ                           FAC               14BP
+ETABLISEMENT                      ETS               15BP
+ÉTABLISEMENT                      ETS               15BP
+INSTITUT                          INST              16BP
+INST                              INST              16BP
+OBSERVATOIRE                      OBS               17BU
+OBSERV                            OBS               17BU
+OBS                               OBS               17BU   0AU
+PREFECTURE                        PREF              17BP
+PRÉFECTURE                        PREF              17BP
+PREF                              PREF              17BP   0AU
+UNIVERSITE                        UNIV              18BP 
+UNIVERSITÉ                        UNIV              18BP 
+UNIV                              UNIV              18BP   0AU
+AUBERGE DE JEUNESSE               Aube Jeun         18BU 
+TAVERNE                           TAVE              19BU
+TAVER                             TAVE              19BU
+USINE                             USIN              21BP
+USIN                              USIN              21BP
+MAGASIN                           MAGS              20BU
+COLLEGE                           College           19BP
+COLLÈGE                           College           19BP
+JARDIN                            JARD              20BP  23AU
+JARD                              JARD              20BP  23AU
+LOTISSEMENT                       LOT               22BP 
+VILLAGE                           VLGE              23BP  47AU
+VLGE                              VLGE              23BP  47AU
+ZONE D'ACTIVITE                   Zne Act           24BP
+ZONE D'ACTIVITÉ                   Zne Act           24BP
+ZONE ACTIVITE                     Zne Act           24BP
+ZONE ACTIVITÉ                     Zne Act           24BP
+ZA                                Zne Act            0AU  24BP
+ZONE INDUSTRIELLE                 Zne Ind           25BP
+Zne Ind                           Zne Ind           25BP
+ZI                                Zne Ind           25BP
+AGENCE                            AGCE              21BU
+AGCE                              AGCE              21BU
+LYCÉE                             LYCEE             29BP
+LYCEE                             LYCEE             29BP
+PARC DE CARAVANES                 Parc Car          30BP
+PARC CARAVANES                    Parc Car          30BP
+CARAVANES                         Parc Car          30BP
+INN                               INN               22BU
+STATION DE SKI                    SSKI              26BP
+STATION SKI                       SSKI              26BP
+STA SKI                           SSKI              26BP
+BAZAAR                            BAZR              27BP
+BAZR                              BAZR              27BP
+ÉCOLE                             ECOL              28BP   0AU 
+ECOLE                             ECOL              28BP   0AU 
+ECOL                              ECOL              28BP 
+BARAQUEMENT                       BRQ               23BU
+BRQ                               BRQ               23BU   0AU
+LABORATOIRE                       LABO              24BU
+LAB                               LABO              24BU
+LABO                              LABO              24BU
+PROPRIETE                         PROP              38BP
+PROPRIÉTÉ                         PROP              38BP
+PROP                              PROP              38BP   0AU
+SOCIETE                           SOC               25BU 
+SOCIÉTÉ                           SOC               25BU
+SOC                               SOC                0AU  25BU
+QLINIQUE                          QLIN              26BU
+QLIN                              QLIN              26BU
+DOMAINE                           DOM               27BU
+DOM                               DOM                0AU  27BU
+FERME                             FRM               28BU
+FRM                               FRM               28BU   0AU
+STATION                           STA               29BU
+STAT                              STA                0AU  29BU
+STA                               STA               29BU   0AU
+VELODROME                         VELO              39BP
+VÉLODROME                         VELO              39BP
+VELOD                             VELO              39BP
+SOUS-PREFECTURE                   SPREF             31BP
+SOUS-PRÉFECTURE                   SPREF             31BP
+SPREF                             SPREF             31BP   0AU
+FONDERIE                          FOND              36BP
+FOND                              FOND              36BP   0AU
+CAMP                              CAMP              37BP   0AU
+DEPARTEMENT                       DEPT              30BU 
+DÉPARTEMENT                       DEPT              30BU 
+DEPT                              DEPT              30BU
+DÉPT                              DEPT              30BU
+CHALET                            CHAL              31BU   9WD   0AU
+CHAL                              CHAL              31BU   9WD   0AU
+KIOSQUE                           KIOS              32BU
+KIOS                              KIOS              32BU   0AU
+ZONE D'AMENAGEMENT DIFFERE        ZAD               32BP
+ZONE D'AMÉNAGEMENT DIFFÉRÉ        ZAD               32BP
+ZAD                               ZAD               32BP
+ZONE D'AMENAGEMENT CONCERTE       ZAC               33BP
+ZONE D'AMÉNAGEMENT CONCERTÉ       ZAC               33BP
+ZAC                               ZAC               33BP
+ASSURANCE                         ASSU              33BU
+ASSUR                             ASSU              33BU
+MÉTRO                             MET               34BU
+METRO                             MET               34BU
+LOGEMENT                          LOG               35BU
+LOG                               LOG               35BU   0AU
+BOUTIQUE                          BTQ               36BU  
+GENDARMERIE                       GEND              37BU
+GEND                              GEND              37BU   0AU   
+RESTAURANT                        REST              38BU
+REST                              REST              38BU   0AU 
+ATELIER                           AT                39BU
+AT                                AT                39BU   0AU       
+ZONE ARTISANALE                   ZNE ART           34BP
+BOURG                             BORG              35BP
+ZONE                              ZN                40BP
+LIEU DIT                          LD                41BP
+LIEU-DIT                          LD                41BP
+LD                                LD                41BP   0AU
+POST RESTANTE                     Post Res          42BP
+POSTE RESTANTE                    Post Res          42BP
+HOPITAL                           Hôpital           43BP
+HÔPITAL                           Hôpital           43BP
+HOP                               Hôpital           43BP
+HOSPICE                           Hosp              44BP
+HOSP                              Hosp              44BP
+GRANDE                            Gde                1EX   0AU
+GDE                               Gde                1EX   0AU
+PETITE                            Pte                2EX   0AU 
+PTE                               Pte                2EX   0AU
+GRAND                             Grand              3EX   0AU
+GRAND'                            Grand              3EX   0AU
+GD                                Gd                 3EX   0AU
+PETIT                             Petit              4EX   0AU
+PT                                PT                 4EX   0AU
+VIEUX                             VX                 5EX   0AU
+VX                                VX                 5EX   0AU
+VIELLE                            VX                 6EX   0AU
+VIEL                              VX                 6EX   0AU
+ANCIEN                            Ancien             7EX   0AU
+ANC                               ANC                7EX   0AU
+ANCIENNE                          Ancienne           8EX   0AU
+BIS                               B                  1EN
+B                                 B                  1EN   0A1
+T                                 T                  2EN   0A1
+QUATER                            Q                  3EN 
+SOUTERRAIN                        Sout              12EX   0AU
+SOUTERAINE                        Sout              12EX   0AU
+ACCES                             ACCE              13EX   
+ACCÈS                             ACCE              13EX
+CHEZ                              CHEZ              14EX
+A L'ATTENTION DE                  ATT               15EX
+ATT                               ATT               15EX   0AU
+EXTENSION                         EXTN              16EX
+EXTN                              EXTN              16EX
+GRANDES                           GDES               0AU  17EX 
+GDES                              GDES               0AU  17EX 
+GRANDS                            GDS                0AU  18EX
+GDS                               GDS                0AU  18EX
+HAUT                              HT                19EX   0AU
+HT                                HT                19EX   0AU
+HAUTE                             HTE               20EX   0AU
+HTE                               HTE               20EX   0AU
+HAUTES                            HTES               0AU  21EX 
+HTES                              HTES               0AU  21EX 
+HAUTS                             HTS                0AU  22EX
+HTS                               HTS                0AU  22EX
+BAS                               BAS               23EX   0AU
+BASSE                             BASS              24EX   0AU
+BASSES                            BASS              24EX   0AU
+MILIEU                            Milieu            25EX  
+DROITE                            DRTE              26EX
+DRTE                              DRTE              26EX   0AU
+GAUCHE                            Gauche            27EX
+FACE                              Face              28EX
+NOUVEAU                           NOUV              29EX
+NOUV                              NOUV              29EX
+NOUVELLE                          NOUV              30EX
+ANNEXE                            ANNX              31EX
+ANNX                              ANNX              31EX
+A                                 A                  0A1   0EX
+PONTS                             Ponts              4AU
+ET                                &                  1AM   6AU
+-                                 -                  0DA 
+DE                                DE                 0NL
+DU                                DU                 0NL 
+DES                               DES                0NL
+D                                 D                  0A1   0NL   0EX
+LA                                LA                 0NL   0AU   
+LE                                LE                 0NL   0AU
+LES                               LES                0NL   0AU  
+O                                 Ouest              1DR   0A1
+OUEST                             O                  1DR  
+SUD                               Sud                2DR
+S                                 S                  2DR   0A1
+EST                               Est                3DR
+E                                 E                  3DR   0A1
+NORD                              Nord               4DR 104SA
+N                                 N                  4DR   0A1
+N-E                               N-E                5DR
+N E                               N-E                5DR          
+NORD EST                          N-E                5DR          
+NORD-EST                          N-E                5DR          
+N-O                               N-O                6DR          
+N O                               N-O                6DR          
+NORD OUEST                        N-O                6DR          
+NORD-OUEST                        N-O                6DR          
+S E                               S-E                7DR          
+S-E                               S-E                7DR          
+SUD EST                           S-E                7DR
+SUD-EST                           S-E                7DR          
+S-O                               S-O                8DR          
+S O                               S-O                8DR          
+SUD OUEST                         S-O                8DR    
+SUD-OUEST                         S-O                8DR          
+APP                               App                2WD  
+APPART                            App                2WD 
+APPARTEMENT                       APP                2WD          
+APT                               App                2WD 
+APP NO                            App                2WD 
+ENTREE                            ENT                4WD
+ENTRÉE                            ENT                4WD
+ENTR                              ENT                4WD
+MEZZANINE                         MEZZ               5WD
+MEZZA                             MEZZ               5WD
+MEZZ                              MEZZ               5WD
+#                                 #                  6WD
+SOUS-SOL                          SSOL               7WD
+S-SOL                             SSOL               7WD
+SSOL                              SSOL               7WD
+BUNGALOW                          BUNG               8WD
+BUNG                              BUNG               8WD   0AU
+BUREAU                            BURE              10WD   
+BURE                              BURE              10WD   0AU
+CELLULE                           CELL              11WD
+CELL                              CELL              11WD
+ÉTAGE                             ETG                2WI
+ETAGE                             ETG                2WI 
+ETG                               ETG                2WI
+ROTONDE                           RTD                3WI   0AU
+ROTON                             RTD                3WI
+RTDE                              RTD                3WI
+SITE                              SITE               4WI
+NIVEAU                            NIVE               5WI
+NIVE                              NIVE               5WI   0AU
+NIV                               NIVE               5WI   0AU
+B POSTALE                         BP                 1BX   
+BP                                BP                 1BX   0AU
+BT POSTALE                        BP                 1BX
+BOITE POSTALE                     BP                 1BX
+BOÎTE POSTALE                     BP                 1BX
+BOITE                             BP                 1BX
+BOÎTE                             BP                 1BX
+CASE POSTALE                      CP                 2BX
+CP                                CP                 2BX   0AU
+TRI SERVICE ARRIVEE               TSA                3BX
+TRI SERVICE ARRIVÉE               TSA                3BX
+TSA                               TSA                3BX   
+SAINT                             ST                 8AU
+ST                                ST                 8AU
+FAUBOURG                          FBG               18AU
+FBG                               FBG               18AU
+PAVE                              PAVE              20AU
+PAVÉ                              PAVE              20AU
+VALLEE                            VALLE             24AU
+VALLÉE                            VALLE             24AU
+MONT                              MONT              25AU  28TY
+FORT                              FORT              26AU 
+PLAGE                             PLAG              27AU
+GENERAL                           GEN               81AU
+GÉNERAL                           GEN               81AU
+GEN                               GEN               81AU
+GÉN                               GEN               81AU
+GAL                               GEN               81AU  39TY
+J F KENNEDY                       JFK               28AU
+JF KENNEDY                        JFK               28AU
+JOHN F KENNEDY                    JFK               28AU
+JOHN KENNEDY                      JFK               28AU
+M L KING                          MLK               29AU
+MARTIN L KING                     MLK               29AU
+MARTIN LUTHER KING                MLK               29AU
+LUTHER KING                       MLK               29AU
+DEPARTEMENTAL                     DEP               30AU
+MARITIME                          MAR               31AU
+MAR                               MAR                0AU  31AU
+CITADELLE                         CTD               32AU
+CTD                               CTD               32AU
+NOTRE DAME                        ND                33AU
+ND                                ND                33AU
+SAINTE                            STE               34AU
+STE                               STE               34AU
+SAINTES                           STES              35AU
+STES                              STES              35AU
+SAINTS                            STS               36AU
+STS                               STS               36AU
+FORET                             FOR               38AU
+FORÊT                             FOR               38AU
+FORE                              FOR               38AU
+RIVIERE                           RIVI              42AU
+RIVIÈRE                           RIVI              42AU
+RIVI                              RIVI              42AU
+RIVE                              RIV               43AU
+RIV                               RIV               43AU
+COTIER                            COTR              44AU
+COTR                              COTR              44AU
+SOMMET                            SMT               45AU
+SMT                               SMT               45AU
+VIADUC                            VIA               46AU
+VIA                               VIA               46AU
+VILLE                             VILL              48AU
+VILL                              VILL              48AU
+TECHNIQUE                         TECH              49AU
+TECH                              TECH              49AU
+TUNNEL                            TUN               50AU
+TUN                               TUN               50AU
+UNIVERSITAIRE                     UNVT              51AU
+UNVT                              UNVT              51AU
+COLLINE                           COLN              52AU
+COLN                              COLN              52AU
+GORGE                             GORG              53AU
+GORG                              GORG              53AU
+BARRAGE                           BARR              55AU
+BARR                              BARR              55AU
+DIGUE                             DIG               56AU
+DIG                               DIG               56AU
+PREMIER                           1ER               57AU   0OT
+1ER                               1ER                0OT  57AU
+1 ER                              1ER                0OT  57AU
+PREMIERE                          1ERE              58AU   0OT
+PREMIÈRE                          1ERE              58AU   0OT
+1ERE                              1ERE               0OT  58AU
+1 ERE                             1ERE               0OT  58AU
+1ÈRE                              1ERE               0OT  58AU
+1 ÈRE                             1ERE               0OT  58AU
+DEUXIEME                          2EME              59AU   0OT
+DEUXIÈME                          2EME              59AU   0OT
+2EME                              2EME               0OT  59AU
+2 EME                             2EME               0OT  59AU
+2ÈME                              2EME               0OT  59AU
+2 ÈME                             2EME               0OT  59AU
+TROISIEME                         3EME              60AU   0OT
+TROISIÈME                         3EME              60AU   0OT
+3EME                              3EME               0OT  60AU
+3 EME                             3EME               0OT  60AU
+3ÈME                              3EME               0OT  60AU
+3 ÈME                             3EME               0OT  60AU
+QUATRIEME                         4EME              61AU   0OT
+QUATRIÈME                         4EME              61AU   0OT
+4EME                              4EME               0OT  61AU
+4 EME                             4EME               0OT  61AU
+4ÈME                              4EME               0OT  61AU
+4 ÈME                             4EME               0OT  61AU
+CINQUIEME                         5EME              62AU   0OT
+CINQUIÈME                         5EME              62AU   0OT
+5EME                              5EME               0OT  62AU
+5 ÈME                             5EME               0OT  62AU
+5ÈME                              5EME               0OT  62AU
+5 EME                             5EME               0OT  62AU
+SIXIEME                           6EME              63AU   0OT
+SIXIÈME                           6EME              63AU   0OT
+6EME                              6EME               0OT  63AU
+6 EME                             6EME               0OT  63AU
+6ÈME                              6EME               0OT  63AU
+6 ÈME                             6EME               0OT  63AU
+SEPTIEME                          7EME              64AU   0OT
+SEPTIÈME                          7EME              64AU   0OT
+7EME                              7EME               0OT  64AU
+7 EME                             7EME               0OT  64AU
+7ÈME                              7EME               0OT  64AU
+7 ÈME                             7EME               0OT  64AU
+HUITIEME                          8EME              65AU   0OT
+HUITIÈME                          8EME              65AU   0OT
+8EME                              8EME               0OT  65AU
+8 EME                             8EME               0OT  65AU
+8ÈME                              8EME               0OT  65AU
+8 ÈME                             8EME               0OT  65AU
+NEUVIEME                          9EME              66AU   0OT
+NEUVIÈME                          9EME              66AU   0OT
+9EME                              9EME               0OT  66AU
+9 EME                             9EME               0OT  66AU
+9ÈME                              9EME               0OT  66AU
+9 ÈME                             9EME               0OT  66AU
+DIXIEME                           10EME             67AU   0OT
+DIXIÈME                           10EME             67AU   0OT
+10EME                             10EME              0OT  67AU
+10 EME                            10EME              0OT  67AU
+10ÈME                             10EME              0OT  67AU
+10 ÈME                            10EME              0OT  67AU
+ONZIEME                           11EME             68AU   0OT
+ONZIÈME                           11EME             68AU   0OT
+11EME                             11EME              0OT  68AU
+11 EME                            11EME              0OT  68AU
+11ÈME                             11EME              0OT  68AU
+11 ÈME                            11EME              0OT  68AU
+DOUZIEME                          12EME             69AU   0OT
+DOUZIÈME                          12EME             69AU   0OT
+12EME                             12EME              0OT  69AU
+12 EME                            12EME              0OT  69AU
+12ÈME                             12EME              0OT  69AU
+12 ÈME                            12EME              0OT  69AU
+TREIZIEME                         13EME             70AU   0OT
+TREIZIÈME                         13EME             70AU   0OT
+13EME                             13EME              0OT  70AU
+13 EME                            13EME              0OT  70AU
+13ÈME                             13EME              0OT  70AU
+13 ÈME                            13EME              0OT  70AU
+QUATORZIEME                       14EME             71AU   0OT
+QUATORZIÈME                       14EME             71AU   0OT
+14EME                             14EME              0OT  71AU
+14 EME                            14EME              0OT  71AU
+14ÈME                             14EME              0OT  71AU
+14 ÈME                            14EME              0OT  71AU
+QUINZIEME                         15EME             72AU   0OT
+QUINZIÈME                         15EME             72AU   0OT
+15EME                             15EME              0OT  72AU
+15 EME                            15EME              0OT  72AU
+15ÈME                             15EME              0OT  72AU
+15 ÈME                            15EME              0OT  72AU
+SEIZIEME                          16EME             73AU   0OT
+SEIZIÈME                          16EME             73AU   0OT
+16EME                             16EME              0OT  73AU
+16 EME                            16EME              0OT  73AU
+16ÈME                             16EME              0OT  73AU
+16 ÈME                            16EME              0OT  73AU
+DIX-SEPTIEME                      17EME             74AU   0OT
+DIX-SEPTIÈME                      17EME             74AU   0OT
+17EME                             17EME              0OT  74AU
+17 EME                            17EME              0OT  74AU
+17ÈME                             17EME              0OT  74AU
+17 ÈME                            17EME              0OT  74AU
+DIX-HUITIEME                      18EME             75AU   0OT
+DIX-HUITIÈME                      18EME             75AU   0OT
+18EME                             18EME              0OT  75AU
+18 EME                            18EME              0OT  75AU
+18ÈME                             18EME              0OT  75AU
+18 ÈME                            18EME              0OT  75AU
+DIX-NEUVIEME                      19EME             76AU   0OT
+DIX-NEUVIÈME                      19EME             76AU   0OT
+19EME                             19EME              0OT  76AU
+19 EME                            19EME              0OT  76AU
+19ÈME                             19EME              0OT  76AU
+19 ÈME                            19EME              0OT  76AU
+VINGTIEME                         20EME             77AU   0OT
+VINGTIÈME                         20EME             77AU   0OT
+20EME                             20EME              0OT  77AU
+20 EME                            20EME              0OT  77AU
+20ÈME                             20EME              0OT  77AU
+20 ÈME                            20EME              0OT  77AU
+UN                                1                  0NU   0AU
+DEUX                              2                  0NU   0AU
+TROIS                             3                  0NU   0AU
+QUATRE                            4                  0NU   0AU
+CINQ                              5                  0NU   0AU
+SIX                               6                  0NU   0AU
+HUIT                              8                  0NU   0AU
+NEUF                              9                  0NU   0AU
+DIX                              10                  0NU   0AU
+ONZE                             11                  0NU   0AU
+DOUZE                            12                  0NU   0AU
+ARMEES                            ARMS              78AU
+ARMS                              ARMS              78AU
+NAVAL                             NAVL              79AU
+NAVL                              NAVL              79AU
+INTERNATIONAL                     Internat          80AU
+INTERNAT                          Internat          80AU
+ARRONDISSEMENT                    ARR                1SA
+ARROND                            ARR                1SA
+ARR                               ARR                1SA   0AU
+COMMUNE                           COM                2SA   0AU  
+COM                               COM                0AU   2SA   
+REGION                            REG                3SA   0AU
+REG                               REG                0AU   3SA
+FRANCE                            FR                 4SA
+FR                                FR                 4SA   0AU
+CEDEX                             CEDEX              5SA
+BAS-RHIN                          Bas-Rhin          30SA   0AU
+HAUT-RHIN                         Haut-Rhin         31SA   0AU
+DORDOGNE                          Dordogne          32SA   0AU
+GIRONDE                           Gironde           33SA   0AU
+LANDES                            Landes            34SA   0AU
+LOT-ET-GARONNE                    LGarronne         35SA   0AU
+PYRENEES-ATLANTIQUES              Py-Atlan          36SA   0AU
+ALLIER                            Allier            37SA   0AU
+CANTAL                            Cantal            38SA   0AU
+HAUTE-LOIRE                       Haute-Loire       39SA   0AU
+PUY-DE-DOME                       P-Dôme            40SA   0AU
+PUY-DE-DÔME                       P-Dôme            40SA   0AU
+CALVADOS                          Calvados          41SA   0AU
+MANCHE                            Manche            42SA   0AU
+ORNE                              Orne              43SA   0AU
+COTE-D'OR                         Côte-d'Or         44SA   0AU
+CÔTE-D'OR                         Côte-d'Or         44SA   0AU
+NIEVRE                            Nièvre            45SA   0AU
+NIÈVRE                            Nièvre            45SA   0AU
+SAONE-ET-LOIRE                    Saô-Loire         46SA   0AU
+SAÔNE-ET-LOIRE                    Saô-Loire         46SA   0AU
+YONNE                             Yonne             47SA   0AU
+COTES-D'ARMOR                     Côt-d'Armor       48SA   0AU
+CôTES-D'ARMOR                     Côt-d'Armor       48SA   0AU
+FINISTERE                         Finistère         49SA   0AU
+FINISTÈRE                         Finistère         49SA   0AU
+ILLE-ET-VILAINE                   Ill-Vilaine       50SA   0AU
+MORBIHAN                          Morbihan          51SA   0AU
+CHER                              Cher              52SA   0AU
+EURE-ET-LOIR                      Eur-Loir          53SA   0AU
+INDRE                             Indre             54SA   0AU
+INDRE-ET-LOIRE                    Ind-Loire         55SA   0AU
+LOIR-ET-CHER                      Loir-Cher         56SA   0AU
+LOIRET                            Loiret            57SA   0AU
+ARDENNES                          Ardennes          58SA   0AU
+AUBE                              Aube              59SA  15BU   0AU
+MARNE                             Marne             60SA   0AU
+HAUTE-MARNE                       H-Marne           61SA   0AU
+CORSE-DU-SUD                      Corse-Sud         62SA   0AU
+HAUTE-CORSE                       H-Corse           63SA   0AU
+GUADELOUPE                        Guadeloupe        64SA   0AU
+MARTINIQUE                        Martinique        65SA   0AU
+GUYANE                            Guyane            66SA   0AU
+LA REUNION                        Réunion           67SA   0AU
+LA RÉUNION                        Réunion           67SA   0AU
+SAINT-PIERRE-ET-MIQUELON          S-P-Miquelon      68SA   0AU
+MAYOTTE                           Mayotte           69SA   0AU
+DOUBS                             Doubs             70SA   0AU
+JURA                              Jura              71SA   0AU
+HAUTE-SAONE                       H-Saône           72SA   0AU
+HAUTE-SAÔNE                       H-Saône           72SA   0AU
+TERRITOIRE DE BELFORT             Terr Belfort      73SA   0AU
+EURE                              Eure              74SA   0AU
+SEINE-MARITIME                    S-Maritime        75SA   0AU
+PARIS                             Paris             76SA   0AU
+SEINE-ET-MARNE                    S-Marne           77SA   0AU
+YVELINES                          Yvelines          78SA   0AU
+ESSONNE                           Essonne           79SA   0AU
+HAUTS-DE-SEINE                    H-Seine           80SA   0AU
+SEINE-SAINT-DENIS                 S-S-Denis         81SA   0AU
+VAL-DE-MARNE                      Val-Marne         82SA   0AU
+VAL-D'OISE                        Val-d'Oise        83SA   0AU
+AUDE                              Aude              84SA   0AU
+GARD                              Gard              85SA   0AU
+HERAULT                           Hérault           86SA   0AU
+LOZERE                            Lozère            87SA   0AU
+LOZÈRE                            Lozère            87SA   0AU
+PYRENEES-ORIENTALES               P-Orientales      88SA   0AU
+CORREZE                           Corrèze           89SA   0AU
+CORRÈZE                           Corrèze           89SA   0AU
+CREUSE                            Creuse            90SA   0AU
+HAUTE-VIENNE                      H-Vienne          91SA   0AU
+MEURTHE-ET-MOSELLE                M-Moselle         92SA   0AU
+MEUSE                             Meuse             93SA   0AU
+MOSELLE                           Moselle           94SA   0AU
+VOSGES                            Vosges            95SA   0AU
+ARIEGE                            Ariège            96SA   0AU
+ARIÈGE                            Ariège            96SA   0AU
+AVEYRON                           Aveyron           97SA   0AU
+HAUTE-GARONNE                     H-Garonne         98SA   0AU
+GERS                              Gers              99SA   0AU
+LOT                               Lot               22BP 100SA   0AU
+HAUTES-PYRENEES                   H-Pyrénées       101SA   0AU
+HAUTES-PYRÉNÉES                   H-Pyrénées       101SA   0AU
+TARN                              Tarn             102SA   0AU
+TARN-ET-GARONNE                   T-Garonne        103SA   0AU
+PAS-DE-CALAIS                     P-Calais         105SA   0AU
+6LOIRE-ATLANTIQUE                 L-Atlantique     106SA   0AU
+MAINE-ET-LOIRE                    M-Loire          107SA   0AU
+MAYENNE                           Mayenne          108SA   0AU
+SARTHE                            Sarthe           109SA   0AU
+VENDEE                            Vendée           110SA   0AU
+VENDÉE                            Vendée           110SA   0AU
+AISNE                             Aisne            111SA   0AU
+OISE                              Oise             112SA   0AU
+SOMME                             Somme            113SA   0AU
+CHARENTE                          Charente         114SA   0AU
+CHARENTE-MARITIME                 C-Maritime       115SA   0AU
+DEUX-SEVRES                       D-Sèvres         116SA   0AU
+VIENNE                            Vienne           117SA   0AU
+ALPES-DE-HAUTE-PROVENCE           A-H-Provence     118SA   0AU
+HAUTES-ALPES                      H-Alpes          119SA   0AU
+ALPES-MARITIMES                   A-Maritimes      120SA   0AU
+BOUCHES-DU-RHONE                  B-Rhône          121SA   0AU
+BOUCHES-DU-RHÔNE                  B-Rhône          121SA   0AU
+VAR                               Var              122SA   0AU
+VAUCLUSE                          Vaucluse         123SA   0AU
+AIN                               Ain              124SA   0AU
+ARDECHE                           Ardèche          125SA   0AU
+ARDÈCHE                           Ardèche          125SA   0AU
+DROME                             Drôme            126SA   0AU
+DRÔME                             Drôme            126SA   0AU
+ISERE                             Isère            127SA   0AU
+ISÈRE                             Isère            127SA   0AU
+LOIRE                             Loire            128SA   0AU
+RHONE                             Rhône            129SA   0AU
+SAVOIE                            Savoie           130SA   0AU
+HAUTE-SAVOIE                      H-Savoie         131SA   0AU
+TERRES AUSTRALES ET ANTARCTIQUES  T-A-Antar        132SA   0AU
+WALLIS ET FUTUNA                  Wal-Futuna       133SA   0AU
+POLYNESIE FRANÇAISE               Poly-Fr          134SA   0AU
+NOUVELLE-CALEDONIE                N-Calédonie      135SA   0AU
+NOUVELLE-CALÉDONIE                N-Calédonie      135SA   0AU
+JONCTION                          JONC               6HR   0AU
+JONC                              JONC               6HR   0AU
+KILOMETRE                         KM                 1MP
+KM                                KM                 1MP   0AU
+JANVIER                           JAN                1DM
+JAN                               JAN                1DM
+FÉVRIER                           FEV                2DM
+FEVRIER                           FEV                2DM
+FÉV                               FEV                2DM
+FEV                               FEV                2DM
+MARS                              MARS               3DM
+AVRIL                             AVR                4DM
+AVR                               AVR                4DM
+MAI                               MAI                5DM
+JUIN                              JUIN               6DM
+JUILLET                           JUIL               7DM
+JUIL                              JUIL               7DM
+AÔUT                              AOUT               8DM
+AOUT                              AOUT               8DM
+SEPTEMBRE                         SEPT               9DM
+SEPT                              SEPT               9DM   0NU
+OCTOBRE                           OCT               10DM
+OCT                               OCT               10DM
+NOVEMBRE                          NOV               11DM
+NOV                               NOV               11DM
+DÉCEMBRE                          DEC               12DM
+DECEMBRE                          DEC               12DM
+DÉC                               DEC               12DM
+DEC                               DEC               12DM

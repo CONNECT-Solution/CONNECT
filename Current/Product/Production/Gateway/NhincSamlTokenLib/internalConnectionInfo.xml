@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InternalConnectionInfos>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.200</homeCommunityId>
+		<name>VA</name>
+		<description>Federal-VA</description>
+		<services>
+			<service>
+				<name>nhincsubjectdiscovery</name>
+				<description>NHIN-CONNECT Internal Subject Discovery</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentquery</name>
+				<description>NHIN-CONNECT Internal Document Query</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincDocumentQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincdocumentretrieve</name>
+				<description>NHIN-CONNECT Internal Document Retrieve</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincDocumentRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincauditquery</name>
+				<description>NHIN-CONNECT Internal Audit Query</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincAuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationproducer</name>
+				<description>NHIN-CONNECT Internal HIEM Subscription</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincSubscription</endpointURL>
+			</service>
+			<service>
+				<name>nhincsubscriptionmanager</name>
+				<description>NHIN-CONNECT Internal HIEM Unsubscribe</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincUnsubscription</endpointURL>
+			</service>
+			<service>
+				<name>nhincnotificationconsumer</name>
+				<description>NHIN-CONNECT Internal Notify</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincNotify</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+</InternalConnectionInfos>

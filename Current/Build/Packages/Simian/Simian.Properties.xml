@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Simian.Properties">
+
+  <property name="Simian.Directory" value="${path::get-short-path(BuildDirectory)}\SimianReport"/>
+  <property name="Simian.ReportFilePath" value="${Simian.Directory}\SimianReport.xml"/>
+
+  <property name="Simian.PublishXmlReport" value="true"/>
+
+  <if test="${file::exists(PackagesDirectory + '\Alerts\Alerts.Properties.xml')}">
+    <include buildfile="${PackagesDirectory}\Alerts\Alerts.Properties.xml"/>
+    <if test="${stringlist::contains('Alerts.TargetListId', 'Alerts.Simian')}">
+      <property name="Simian.PublishXmlReport" value="True"/>
+    </if>
+  </if>
+  
+</project>

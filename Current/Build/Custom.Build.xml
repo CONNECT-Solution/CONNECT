@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Custom">
+<include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
+  <property name="Compile.Bin" value="${ProductDirectory}\${Compile.ConfigName}Bin" overwrite="false"/>
+  
+  <zipfileset id="Deployment.ZipFileSet" basedir="${Compile.Bin}">
+    <include name="**\*"/>
+  </zipfileset>
+
+  
+	<target name="Build.PublishZip">
+		<call target="Private.ANT.CopyToWorkingBin" />
+		<call target="Private.ANT.CreateAdapterSDK"/>
+
+		<property name="Deployment.TargetDir" value="${Common.ArtifactDirectoryPath}" />
+		<property name="Deployment.ZipFileName" value="${ProjectName}.zip" />
+		<property name="Deployment.FileWebPath" value="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}/${Deployment.ZipFileName}" />
+		<property name="Deployment.FileWebName" value="${CCNetLabel} ${Deployment.ZipFileName}" />
+
+		<call target="Deployment.PublishZip" />
+	</target>
+
+	<target name="NightlyBuild.Publish">
+		<call target="Private.Ant.TagSource" />
+	</target>
+
+	<target name="Private.ANT.CreateAdapterSDK">
+		<echo message="${ProductionDirectory}"/>
+		<zip zipfile="${Compile.Bin}\AdapterSDK.zip" includeemptydirs="true">
+			<fileset basedir="${ProductionDirectory}\" >
+				<include name="Interfaces\src\schemas\Agency\**" />
+			</fileset>
+			<fileset basedir="${ProductionDirectory}\" >
+				<include name="Interfaces\src\wsdl\AdapterService.wsdl" />
+			</fileset>
+			<fileset basedir="${ProductionDirectory}\" >
+				<include name="Interfaces\src\wsdl\EntityService.wsdl" />
+			</fileset>
+		</zip>
+	</target>
+
+	<target name="Private.Ant.TagSource">
+		<loadtasks assembly="${BuildDirectory}/nant/bin/DirectoryIndexingLib.dll"/>
+
+		<property name="IndexerHTMLFileName" value="${ProductionDirectory}\manifest.html" />
+		<property name="IndexerXMLFileName" value="${ProductDirectory}\manifest.xml" />
+		<property name="IndexerLogoFileName" value="${ProductionDirectory}\logo.bmp" />
+
+		<delete file="${IndexerHTMLFileName}"  	verbose="true" if="${file::exists(IndexerHTMLFileName)}"/>
+		<delete file="${IndexerXMLFileName}" 	verbose="true" if="${file::exists(IndexerXMLFileName)}"/>
+		<delete file="${IndexerLogoFileName}" 	verbose="true" if="${file::exists(IndexerLogoFileName)}"/>
+
+		<DirIndex 
+      title="NHIN Connect Human Readable Source Code &amp; Machine Readable Binary Object Code" 
+      projectName="NHIE Framework"
+			htmlOutputFile="${ProductionDirectory}\manifest.html"
+			xmlOutputFile="${ProductionDirectory}\manifest.xml"
+			xslt="packages\DirectoryIndexing\indexer.xslt"
+			version="${CCNetLabel}"
+			releaseDate="${CCNetBuildDate}"
+			rootDirectory="${ProductionDirectory}"
+			releaseSummary="This delivery contains all source and binary code completed to-date for the NHIN Connect Gateway project."
+			tag="This deliverable contains the following content:"
+    />
+
+		<copy file="packages\DirectoryIndexing\logo.bmp"
+					todir="${ProductionDirectory}"
+					overwrite="true"
+		/>
+
+		<!--
+		<zip zipfile="${Common.ArtifactDirectoryPath}\NHIN_Connect_SourceCode.zip">
+			<fileset basedir="${ProductionDirectory}" >
+				<include name="**/*" />
+        <exclude name="**/build/*"/>
+        <exclude name="**/dist/*"/>
+        <exclude name="**/generated/**/*.java"/>
+        <exclude name=".svn/*"/>
+			</fileset>
+		</zip>
+-->
+		<property name="Deployment.FileWebPath" value="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}/NHIN_Connect_SourceCode.zip" />
+		<property name="Deployment.FileWebName" value="${CCNetLabel} NHIN_Connect_SourceCode.zip" />
+
+		<call target="Deployment.PublishLink" />
+	</target>
+
+	<target name="Private.ANT.CopyToWorkingBin">
+		<mkdir if="${directory::exists(Compile.Bin) == false}" dir="${Compile.Bin}"/>
+		<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+			<fileset basedir="${ProductionDirectory}\CommonBin">
+				<include name="*.jar" />
+			</fileset>
+		</copy>
+
+		<copy failonerror="false" overwrite="true" flatten="false" todir="${Compile.Bin}\SoapUI" verbose="true">
+			<fileset basedir="${ProductDirectory}\UnitTest\SoapUI">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+
+		<saveproperties file="${Compile.Bin}\ReleaseInfo.txt" format="CommandLine" >
+			<property name="CCNetLabel"/>
+			<property name="CnCNetBuildDate"/>
+			<property name="CCNetBuildTime"/>
+		</saveproperties>
+
+		<foreach item="Folder" in="${ProductionDirectory}\Adapters\General" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>
+		
+		<foreach item="Folder" in="${ProductionDirectory}\Adapters\Mural" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>
+		
+		<foreach item="Folder" in="${ProductionDirectory}\Adapters\GenericFileTransfer" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>
+		
+		<foreach item="Folder" in="${ProductionDirectory}\Adapters" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>		
+		<foreach item="Folder" in="${ProductionDirectory}\Common" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>
+		
+		<foreach item="Folder" in="${ProductionDirectory}\Gateway" property="foldername" >
+			<do >
+				<if test="${string::contains((foldername), '.svn')==false}">
+					<echo message="Folder = ${foldername}"/>
+					<copy failonerror="false" overwrite="true" flatten="true" todir="${Compile.Bin}" verbose="true">
+						<fileset basedir="${foldername}\dist">
+							<include name="*.*" />
+						</fileset>
+					</copy>
+
+				</if>
+			</do>
+		</foreach>
+
+	</target>
+
+</project>

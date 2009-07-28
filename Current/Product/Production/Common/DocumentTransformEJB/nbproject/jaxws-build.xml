@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-check-DocumentTransform" depends="wsimport-init">
+        <condition property="wsimport-service-DocumentTransform.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentdocumenttransform/NhincComponentDocumentTransformService.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-DocumentTransform" depends="wsimport-init,wsimport-service-check-DocumentTransform" unless="wsimport-service-DocumentTransform.notRequired">
+        <property name="service-wsdl-DocumentTransform" location="${meta.inf}/xml-resources/web-services/DocumentTransform/wsdl/NhincComponentDocumentTransform.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-DocumentTransform}" catalog="catalog.xml"/>
+        <property name="targetLocation-DocumentTransform" location="${meta.inf}/wsdl/DocumentTransform"/>
+        <property name="sourceLocation-DocumentTransform" location="${meta.inf}/xml-resources/web-services/DocumentTransform/wsdl/"/>
+        <copy todir="${targetLocation-DocumentTransform}">
+            <fileset dir="${sourceLocation-DocumentTransform}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocumentTransform" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentdocumenttransform"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>

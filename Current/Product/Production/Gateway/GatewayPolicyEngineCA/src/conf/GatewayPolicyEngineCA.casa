@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform" xmlns:ns2="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns3="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns4="urn:gov:hhs:fha:nhinc:adapterpolicyengine" xmlns:ns5="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" xmlns:ns6="http://enterprise.netbeans.org/bpel/GatewayPolicyEngineFacadeBPEL/NhincComponentInternalPolicyEngineFacade" xmlns:xlink="http://www.w3.org/2000/xlink">
+    <endpoints>
+        <endpoint endpoint-name="NhincInternalComponentPolicyEngineTransformPort" interface-name="ns1:NhincInternalComponentPolicyEngineTransformPortType" name="endpoint1" service-name="ns1:NhincComponentInternalPolicyEngineTransformService"/>
+        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns2:NhincComponentConnectionManagerPortType" name="endpoint2" service-name="ns2:NhincComponentConnectionManager"/>
+        <endpoint endpoint-name="NhincComponentPropAccessorPort" interface-name="ns3:NhincComponentPropAccessorPortType" name="endpoint3" service-name="ns3:NhincComponentPropAccessor"/>
+        <endpoint endpoint-name="AdapterPolicyEnginePortSoap11" interface-name="ns4:AdapterPolicyEnginePortType" name="endpoint4" service-name="ns4:AdapterPolicyEngine"/>
+        <endpoint endpoint-name="NhincComponentInternalPolicyEngineFacadePort" interface-name="ns5:NhincComponentInternalPolicyEngineFacadePortType" name="endpoint5" service-name="ns5:NhincComponentInternalPolicyEngineFacadeService"/>
+        <endpoint endpoint-name="javaee_NhincInternalComponentPolicyEngineTransformPort" interface-name="ns1:NhincInternalComponentPolicyEngineTransformPortType" name="endpoint6" service-name="ns1:NhincComponentInternalPolicyEngineTransformService"/>
+        <endpoint display-name="NhinInternalPolicyEngineFacadePL" endpoint-name="NhincComponentInternalPolicyEngineFacadePortTypeRole_myRole" file-path="NhincComponentInternalPolicyEngineFacade.bpel" interface-name="ns5:NhincComponentInternalPolicyEngineFacadePortType" name="endpoint7" process-name="NhincComponentInternalPolicyEngineFacade" service-name="ns6:NhinInternalPolicyEngineFacadePL"/>
+        <endpoint display-name="NhincInternalPolicyEngineTransformPL" endpoint-name="NhincInternalComponentPolicyEngineTransformRole_partnerRole" file-path="NhincComponentInternalPolicyEngineFacade.bpel" interface-name="ns1:NhincInternalComponentPolicyEngineTransformPortType" name="endpoint8" process-name="NhincComponentInternalPolicyEngineFacade" service-name="ns6:NhincInternalPolicyEngineTransformPL"/>
+        <endpoint display-name="NhinPropertyAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="NhincComponentInternalPolicyEngineFacade.bpel" interface-name="ns3:NhincComponentPropAccessorPortType" name="endpoint9" process-name="NhincComponentInternalPolicyEngineFacade" service-name="ns6:NhinPropertyAccessorPL"/>
+        <endpoint display-name="NhincConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhincComponentInternalPolicyEngineFacade.bpel" interface-name="ns2:NhincComponentConnectionManagerPortType" name="endpoint10" process-name="NhincComponentInternalPolicyEngineFacade" service-name="ns6:NhincConnectionManagerPL"/>
+        <endpoint display-name="AdapterPolicyEnginePL" endpoint-name="AdapterPolicyEnginePortTypeRole_partnerRole" file-path="NhincComponentInternalPolicyEngineFacade.bpel" interface-name="ns4:AdapterPolicyEnginePortType" name="endpoint11" process-name="NhincComponentInternalPolicyEngineFacade" service-name="ns6:AdapterPolicyEnginePL"/>
+    </endpoints>
+    <service-units>
+        <service-engine-service-unit artifacts-zip="GatewayPolicyEngineTransformationEjb.jar" component-name="sun-javaee-engine" defined="true" description="Represents this Service Unit" internal="true" name="GatewayPolicyEngineCA-GatewayPolicyEngineTransformationEjb" unit-name="GatewayPolicyEngineTransformationEjb" unknown="false" x="-1" y="-1">
+            <provides endpoint="endpoint6"/>
+        </service-engine-service-unit>
+        <service-engine-service-unit artifacts-zip="GatewayPolicyEngineFacadeBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="GatewayPolicyEngineCA-GatewayPolicyEngineFacadeBPEL" unit-name="GatewayPolicyEngineFacadeBPEL" unknown="false" x="-1" y="-1">
+            <provides endpoint="endpoint7"/>
+            <consumes endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
+            <consumes endpoint="endpoint10"/>
+            <consumes endpoint="endpoint11"/>
+        </service-engine-service-unit>
+        <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="GatewayPolicyEngineCA-sun-http-binding" unit-name="sun-http-binding">
+            <ports>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/GatewayPolicyEngineTransformationEjb/META-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineTransformService']/port[@name='NhincInternalComponentPolicyEngineTransformPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngine']/port[@name='AdapterPolicyEnginePortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint2"/>
+                    <provides endpoint="endpoint2"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineFacadeService']/port[@name='NhincComponentInternalPolicyEngineFacadePort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor']/port[@name='NhincComponentPropAccessorPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
+                </port>
+            </ports>
+        </binding-component-service-unit>
+    </service-units>
+    <connections>
+        <connection consumer="endpoint1" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint5" provider="endpoint7" state="unchanged"/>
+        <connection consumer="endpoint10" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint9" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint11" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint1" state="unchanged"/>
+    </connections>
+    <porttypes>
+        <link xlink:href="../jbiServiceUnits/GatewayPolicyEngineTransformationEjb/META-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/portType[@name='NhincInternalComponentPolicyEngineTransformPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/portType[@name='AdapterPolicyEnginePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalPolicyEngineFacadePortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/portType[@name='NhincInternalComponentPolicyEngineTransformPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
+    </porttypes>
+    <bindings>
+        <link xlink:href="../jbiServiceUnits/GatewayPolicyEngineTransformationEjb/META-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/binding[@name='NhincInternalComponentPolicyEngineTransformPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/binding[@name='AdapterPolicyEngineBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalPolicyEngineFacadePortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/binding[@name='NhincInternalComponentPolicyEngineTransformPortTypeBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
+    </bindings>
+    <services>
+        <link xlink:href="../jbiServiceUnits/GatewayPolicyEngineTransformationEjb/META-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineTransformService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl#xpointer(/definitions/service[@name='AdapterPolicyEngine'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineFacadeService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineTransformService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/META-INF/GatewayPolicyEngineFacadeBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
+    </services>
+    <regions>
+        <region name="WSDL Endpoints" width="150"/>
+        <region name="JBI Modules" width="500"/>
+        <region name="External Modules" width="200"/>
+    </regions>
+</casa>

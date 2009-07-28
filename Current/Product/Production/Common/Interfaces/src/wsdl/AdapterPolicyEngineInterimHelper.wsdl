@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Adapter Policy Engine Interim WSDL 
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterimhelper"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+   name="AdapterPolicyEngineInterimHelper" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:adapterpolicyengineinterimhelper">
+  <documentation>Adapter Policy Engine Interim</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+    </xsd:schema>
+  </types>
+  
+  <!-- CheckPolicyPatientOptIn -->
+  <message name="CheckPolicyPatientOptInRequestMessage">
+    <part name="CheckPolicyPatientOptInRequest" 
+          element="nccommonadapter:CheckPolicyPatientOptInRequest"/>
+  </message>
+  <message name="CheckPolicyPatientOptInResponseMessage">
+    <part name="CheckPolicyPatientOptInResponse" 
+          element="nccommonadapter:CheckPolicyPatientOptInResponse"/>
+  </message>
+  
+  <!-- CheckPolicyBasedPatientIdExistence -->
+  <message name="CheckPolicyBasedPatientIdExistenceRequestMessage">
+    <part name="CheckPolicyBasedPatientIdExistenceRequest" 
+          element="nccommonadapter:CheckPolicyBasedPatientIdExistenceRequest"/>
+  </message>
+  <message name="CheckPolicyBasedPatientIdExistenceResponseMessage">
+    <part name="CheckPolicyBasedPatientIdExistenceResponse" 
+          element="nccommonadapter:CheckPolicyBasedPatientIdExistenceResponse"/>
+  </message>
+
+  <!-- CheckPolicyDocRetrieve -->
+  <message name="CheckPolicyDocRetrieveRequestMessage">
+    <part name="CheckPolicyDocRetrieveRequest" 
+          element="nccommonadapter:CheckPolicyDocRetrieveRequest"/>
+  </message>
+  <message name="CheckPolicyDocRetrieveResponseMessage">
+    <part name="CheckPolicyDocRetrieveResponse" 
+          element="nccommonadapter:CheckPolicyDocRetrieveResponse"/>
+  </message>
+  
+  <!-- CheckPolicyReidentification -->
+  <message name="CheckPolicySubjDiscReIdentRequestMessage">
+    <part name="CheckPolicySubjDiscReIdentRequest" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentRequest"/>
+  </message>
+  <message name="CheckPolicySubjDiscReIdentResponseMessage">
+    <part name="CheckPolicySubjDiscReIdentResponse" 
+          element="nccommonadapter:CheckPolicySubjDiscReIdentResponse"/>
+  </message>
+
+  <portType name="AdapterPolicyEngineInterimHelperPortType">
+    <operation name="CheckPolicyPatientOptIn">
+      <input name="CheckPolicyPatientOptInRequest"
+             message="tns:CheckPolicyPatientOptInRequestMessage" />
+      <output name="CheckPolicyPatientOptInResponse"
+              message="tns:CheckPolicyPatientOptInResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyBasedPatientIdExistence">
+      <input name="CheckPolicyBasedPatientIdExistenceRequest"
+             message="tns:CheckPolicyBasedPatientIdExistenceRequestMessage" />
+      <output name="CheckPolicyBasedPatientIdExistenceResponse"
+              message="tns:CheckPolicyBasedPatientIdExistenceResponseMessage" />
+    </operation>
+    <operation name="CheckPolicyDocRetrieve">
+      <input name="CheckPolicyDocRetrieveRequest"
+             message="tns:CheckPolicyDocRetrieveRequestMessage" />
+      <output name="CheckPolicyDocRetrieveResponse"
+              message="tns:CheckPolicyDocRetrieveResponseMessage" />
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdent">
+      <input name="CheckPolicySubjDiscReIdentRequest"
+             message="tns:CheckPolicySubjDiscReIdentRequestMessage" />
+      <output name="CheckPolicySubjDiscReIdentResponse"
+              message="tns:CheckPolicySubjDiscReIdentResponseMessage" />
+    </operation>
+  </portType>
+  
+  <binding name="AdapterPolicyEngineInterimHelperBindingSoap11" type="tns:AdapterPolicyEngineInterimHelperPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CheckPolicyPatientOptIn">
+      <soap:operation soapAction="urn:CheckPolicyPatientOptIn"/>
+      <input name="CheckPolicyPatientOptInRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyPatientOptInResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyBasedPatientIdExistence">
+      <soap:operation soapAction="urn:CheckPolicyBasedPatientIdExistence"/>
+      <input name="CheckPolicyBasedPatientIdExistenceRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyBasedPatientIdExistenceResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicyDocRetrieve">
+      <soap:operation soapAction="urn:CheckPolicyDocRetrieve"/>
+      <input name="CheckPolicyDocRetrieveRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicyDocRetrieveResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPolicySubjDiscReIdent">
+      <soap:operation soapAction="urn:CheckPolicySubjDiscReIdent"/>
+      <input name="CheckPolicySubjDiscReIdentRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="CheckPolicySubjDiscReIdentResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  
+  <service name="AdapterPolicyEngineInterimHelper">
+    <port name="AdapterPolicyEngineInterimHelperPortSoap11" 
+          binding="tns:AdapterPolicyEngineInterimHelperBindingSoap11">
+      <soap:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngineInterimHelper" />
+    </port>
+  </service>
+  <plnk:partnerLinkType name="AdapterPolicyEngineInterimHelper">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="AdapterPolicyEngineInterimHelperPortTypeRole" 
+               portType="tns:AdapterPolicyEngineInterimHelperPortType"/>
+  </plnk:partnerLinkType>
+  
+</definitions>
