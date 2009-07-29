@@ -68,7 +68,7 @@
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-
+  <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
   <cruisecontrol>
@@ -103,13 +103,13 @@
       </triggeredIntegrationFilter>
     </integrationFilter>
     <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
-      <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current/Build</trunkUrl>
+      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&BuildDirectoryName;</trunkUrl>
       <workingDirectory>&BuildDirectory;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
       <username>build</username>
       <password>password</password>
       <webUrlBuilder type="websvn">
-        <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+        <url>&Subversion.Repo.Url;{0}</url>
       </webUrlBuilder>
     </sourcecontrol>
     <labeller type="defaultlabeller">

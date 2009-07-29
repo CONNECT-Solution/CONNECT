@@ -67,6 +67,7 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
+  <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 <cruisecontrol>
 
@@ -100,13 +101,13 @@
       </triggeredIntegrationFilter>
     </integrationFilter>
     <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
-      <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current/Build</trunkUrl>
+      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&BuildDirectoryName;</trunkUrl>
       <workingDirectory>&BuildDirectory;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
       <username>build</username>
       <password>password</password>
       <webUrlBuilder type="websvn">
-        <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
+        <url>&Subversion.Repo.Url;{0}</url>
       </webUrlBuilder>
     </sourcecontrol>
     <labeller type="defaultlabeller">
@@ -158,15 +159,15 @@
     </integrationFilter>
     <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="true" autoGetSource="false" >
-        <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current</trunkUrl>
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
         <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <username>build</username>
         <password>password</password>
         <webUrlBuilder type="websvn">
-          <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
+          <url>&Subversion.Repo.Url;{0}</url>
         </webUrlBuilder>
-        <tagBaseUrl>https://svn.connectopensource.org:8443/svn/NHIN_Public/tags</tagBaseUrl>
+        <tagBaseUrl>&Subversion.Repo.Url;/tags</tagBaseUrl>
       </sourceControlProvider>
       <exclusionFilters>
         <pathFilter caseSensitive="false">
@@ -394,16 +395,14 @@
     </integrationFilter>
   <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current</trunkUrl>		          
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>		          
         <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <username>build</username>
         <password>password</password>
         <webUrlBuilder type="websvn">
-          <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
+          <url>&Subversion.Repo.Url;{0}</url>
         </webUrlBuilder>
-        <tagBaseUrl>https://svn.connectopensource.org:8443/svn/NHIN_Public/tags</tagBaseUrl>
-		
       </sourceControlProvider>
       <exclusionFilters>
         <pathFilter>

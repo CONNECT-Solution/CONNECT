@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SVN.Properties">
 
-  <property name="SVN.URI.Root" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC" overwrite="false" />
-  <property name="SVN.URI.ProjectName" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC" overwrite="false" />
-  <property name="SVN.URI.ProjectCodeLine" value="https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current" overwrite="false" />
+  <property name="SVN.URI.Root" value="https://svn.connectopensource.org:8443/svn/Nhin_Public" overwrite="false" />
+  <property name="SVN.URI.ProjectName" value="${SVN.URI.Root}" overwrite="false" />
+  <property name="SVN.URI.ProjectCodeLine" value="${SVN.URI.ProjectName}/Current" overwrite="false" />
   
   <ifthenelse test="${file::exists(PackagesDirectory + '\Subversion\SourceControl.Credentials.xml')}">
     <then>
