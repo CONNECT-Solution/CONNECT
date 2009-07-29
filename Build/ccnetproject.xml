@@ -100,13 +100,13 @@
       </triggeredIntegrationFilter>
     </integrationFilter>
     <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
-      <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current/Build</trunkUrl>
+      <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current/Build</trunkUrl>
       <workingDirectory>&BuildDirectory;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
       <username>build</username>
       <password>password</password>
       <webUrlBuilder type="websvn">
-        <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+        <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
       </webUrlBuilder>
     </sourcecontrol>
     <labeller type="defaultlabeller">
@@ -158,19 +158,19 @@
     </integrationFilter>
     <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="true" autoGetSource="false" >
-        <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current</trunkUrl>
+        <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current</trunkUrl>
         <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <username>build</username>
         <password>password</password>
         <webUrlBuilder type="websvn">
-          <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+          <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
         </webUrlBuilder>
-        <tagBaseUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/tags</tagBaseUrl>
+        <tagBaseUrl>https://svn.connectopensource.org:8443/svn/NHIN_Public/tags</tagBaseUrl>
       </sourceControlProvider>
       <exclusionFilters>
         <pathFilter caseSensitive="false">
-          <pattern>/Track_B/trunk/NHINC/&ProjectCodeLineName;/Product/Production/Examples/**/*.*</pattern>
+          <pattern>**/&ProjectCodeLineName;/Product/Production/Examples/**/*.*</pattern>
         </pathFilter>
         <pathFilter caseSensitive="false">
           <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest</pattern>
@@ -394,15 +394,15 @@
     </integrationFilter>
   <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/Current</trunkUrl>		          
+        <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/Current</trunkUrl>		          
         <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <username>build</username>
         <password>password</password>
         <webUrlBuilder type="websvn">
-          <url>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository{0}</url>
+          <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
         </webUrlBuilder>
-        <tagBaseUrl>https://wiki.nhiegateway.org:8443/svn/NHIN_Repository/Track_B/trunk/NHINC/tags</tagBaseUrl>
+        <tagBaseUrl>https://svn.connectopensource.org:8443/svn/NHIN_Public/tags</tagBaseUrl>
 		
       </sourceControlProvider>
       <exclusionFilters>
