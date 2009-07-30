@@ -3,7 +3,7 @@
     <InboundChannels>
         <channel>
             <type>file</type>
-            <topic>nhinc:testTopic</topic>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
             <location>C:\cdc\fileDump\</location>
             <additionalElements>
                 <element1>1 value</element1>
@@ -14,7 +14,7 @@
     <OutboundChannels>
         <channel>
             <type>file</type>
-            <topic>nhinc:testTopic</topic>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
             <location>C:\cdc\fileExport\</location>
             <additionalElements>
                 <element1>1 value</element1>
@@ -23,7 +23,7 @@
         </channel>
         <channel>
             <type>file</type>
-            <topic>nhinc:testTopic2</topic>
+            <topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic2</wsnt:TopicExpression>]]></topic>
             <location>C:\cdc\fileExport2\</location>
             <additionalElements>
                 <element1>1 value</element1>
