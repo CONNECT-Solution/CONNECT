@@ -8,6 +8,10 @@
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
 	</project>
+		<project>
+		<name>NhinInterfaceTestHelperEJB</name>
+		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
+	</project>
 	<project>
 		<name>NhincHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
@@ -23,7 +27,7 @@
 	<project>
 		<name>FTATransferAdapterEJB</name>
 		<directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
-	</project>
+	</project> 
 	<project>
 		<name>MuralMPIEJB</name>
 		<directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
@@ -64,6 +68,10 @@
 	<project>
 		<name>NhincAuditQueryEJB</name>
 		<directory>/Production/Gateway/NhincAuditQueryEJB</directory>
+	</project>
+		<project>
+		<name>EntityDocQueryEJB</name>
+		<directory>/Production/Gateway/EntityDocQueryEJB</directory>
 	</project>
 	<project>
 		<name>NhincDocQueryEJB</name>
