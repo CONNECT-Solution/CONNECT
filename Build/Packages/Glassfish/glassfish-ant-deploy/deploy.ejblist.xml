@@ -101,10 +101,6 @@
 		<jarname>NhincSubjectDiscoveryEJB.jar</jarname>
 	</ejblist>
 	<ejblist>
-		<name>SubscriptionDteEjb</name>
-		<jarname>SubscriptionDteEjb.jar</jarname>
-	</ejblist>
-	<ejblist>
 		<name>PatientCorrelationEJB</name>
 		<jarname>PatientCorrelationEJB.jar</jarname>
 	</ejblist>
