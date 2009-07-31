@@ -77,6 +77,11 @@
 		<jarname>EntityAuditLogQueryEJB.jar</jarname>
 		<directory>Production/Gateway/EntityAuditLogQueryEJB</directory>
 	</ejblist>
+		<ejblist>
+		<name>EntityDocQueryEJB</name>
+		<jarname>EntityDocQueryEJB.jar</jarname>
+		<directory>Production/Gateway/EntityDocQueryEJB</directory>
+	</ejblist>
 	<ejblist>
 		<name>GatewaySubscriptionRepositoryEJB</name>
 		<jarname>GatewaySubscriptionRepositoryEJB.jar</jarname>
