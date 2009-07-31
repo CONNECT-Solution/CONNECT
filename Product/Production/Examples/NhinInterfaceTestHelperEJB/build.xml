@@ -272,6 +272,7 @@
 		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
         <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
+    
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -282,6 +283,7 @@
 		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
         <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
+    
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -304,8 +306,10 @@
         <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.HiemUtilityLib.jar}" property="included.lib.reference.HiemUtilityLib.jar"/>
+        <copy file="${reference.HiemUtilityLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.HiemUtilityLib.jar}"/>
         </manifest>
     </target>   
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
