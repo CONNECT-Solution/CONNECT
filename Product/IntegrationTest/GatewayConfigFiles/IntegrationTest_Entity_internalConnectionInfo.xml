@@ -8,7 +8,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscoveryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>
@@ -18,22 +18,17 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL> 
+				<endpointURL>https://localhost:8181/findAuditEvents/AuditQueryTestHelper</endpointURL> 
 			</service>
 			<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-			<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincDocQuery</endpointURL>
+				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieveTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -43,13 +38,12 @@
 			<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
-				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
+				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
 			</service>
-
 			<service>
 				<name>notificationconsumer</name>
 				<description>HIEM Notify</description>
-				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
+				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincnotificationconsumer</name>
@@ -59,7 +53,7 @@
 			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
-				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribeTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubscriptionmanager</name>
@@ -192,7 +186,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscoveryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>
@@ -202,22 +196,17 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+				<endpointURL>https://localhost:8181/findAuditEvents/AuditQueryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-			<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincDocQuery</endpointURL>
+				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQueryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieveTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -227,32 +216,17 @@
 		<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
-				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
-			</service>
-			<service>
-				<name>nhincnotificationproducer</name>
-				<description>notificationproducer</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincNotificationProducer</endpointURL>
+				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>notificationconsumer</name>
 				<description>HIEM Notify</description>
-				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
-			</service>
-			<service>
-				<name>nhincnotificationconsumer</name>
-				<description>HIEM Notify</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincNotificationConsumer</endpointURL>
+				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
-				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
-			</service>
-			<service>
-				<name>nhincsubscriptionmanager</name>
-				<description>HIEM Unsubscribe</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincSubscriptionManager</endpointURL>
+				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribeTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquery</name>
