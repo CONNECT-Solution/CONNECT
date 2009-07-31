@@ -15,11 +15,13 @@
 		<jarname>AdapterPEPEJB.jar</jarname>
 		<directory>Production/Adapters/General/AdapterPEPEJB</directory>
 	</ejblist>
+	<!--
   <ejblist>
 		<name>AdapterPolicyEngineEJB</name>
 		<jarname>AdapterPolicyEngineEJB.jar</jarname>
 		<directory>Production/Adapters/General/AdapterPolicyEngineEJB</directory>
 	</ejblist>
+	-->
   <ejblist>
 		<name>AdapterPolicyEngineOrchestratorEJB</name>
 		<jarname>AdapterPolicyEngineOrchestratorEJB.jar</jarname>
