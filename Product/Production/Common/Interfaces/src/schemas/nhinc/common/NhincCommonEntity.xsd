@@ -45,6 +45,14 @@
     </xsd:complexType>
     <xsd:element name="RespondingGateway_CrossGatewayQueryRequest" type="tns:RespondingGateway_CrossGatewayQueryRequestType" />
 
+    <xsd:complexType name="RespondingGateway_CrossGatewayQuerySamlRequestType" >
+        <xsd:sequence>
+            <xsd:element ref="query:AdhocQueryRequest" />
+            <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="RespondingGateway_CrossGatewayQuerySamlRequest" type="tns:RespondingGateway_CrossGatewayQuerySamlRequestType" />
+
     <!-- ====================================================================
          Document Retrieve Schemas.
          ==================================================================== -->
@@ -67,6 +75,14 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="FindAuditEventsRequest" type="tns:FindAuditEventsRequestType" />
+
+    <xsd:complexType name="FindAuditEventsSamlRequestType">
+        <xsd:sequence>
+            <xsd:element ref="iheaudit:FindAuditEvents"/>
+            <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="FindAuditEventsSamlRequest" type="tns:FindAuditEventsSamlRequestType"></xsd:element>
 
     <!-- ====================================================================
          Subscription Management Schemas.
