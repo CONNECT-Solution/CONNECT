@@ -14,9 +14,9 @@
 
   <target name="GlassFish.InteractiveDeploy">
     <property name="GlassFish.InteractiveDeploy" value="true"/>
-    
+
     <call target="GlassFish.SetUp"/>
-    
+
     <call target="Private.GlassFish.CheckForAndInstallLocalGlassFishInstall"/>
 
     <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem"/>
@@ -131,14 +131,14 @@ May I install it there and continue with the deployment?]]>
 
   <target name="Private.GlassFish.Tag">
     <loadtasks assembly="${BuildDirectory}/nant/bin/DirectoryIndexingLib.dll"/>
-    <DirIndex 
-      title="NHIN Connect Gateway" 
-      projectName="NHIE Framework" 
-      htmlOutputFile="${Glassfish.DeploymentServer}\glassfishesb\default.html" 
-      xmlOutputFile="${Glassfish.DeploymentServer}\glassfishesb\default.xml" 
-      xslt="packages\DirectoryIndexing\indexer.xslt" 
-      version="${CCNetLabel}" 
-      releaseDate="${CCNetBuildDate}" 
+    <DirIndex
+      title="NHIN Connect Gateway"
+      projectName="NHIE Framework"
+      htmlOutputFile="${Glassfish.DeploymentServer}\glassfishesb\default.html"
+      xmlOutputFile="${Glassfish.DeploymentServer}\glassfishesb\default.xml"
+      xslt="packages\DirectoryIndexing\indexer.xslt"
+      version="${CCNetLabel}"
+      releaseDate="${CCNetBuildDate}"
       rootDirectory="${Glassfish.DeploymentServer}\glassfishesb"
 		  releaseSummary="This delivery contains the core services for the NHIN Connect Gateway project"
 		  tag="This deliverable contains the following content:"
@@ -237,7 +237,7 @@ Title=Deploy ${ProjectName}]]>
 
     <delete file="${Batch.FilePath}" />
     <delete file="${SfxConfig.FilePath}" />
-    <delete file="${SfxGlassFish.PropertiesFilePath}" />  
+    <delete file="${SfxGlassFish.PropertiesFilePath}" />
   </target>
 
   <target name="GlassFish.DeployTgt">
@@ -255,7 +255,7 @@ Title=Deploy ${ProjectName}]]>
             </exec>
           </then>
           <else>
-	    <echo message="Un-Deploying applications first."/>
+            <echo message="Un-Deploying applications first."/>
             <exec program="${Ant.Bat}" failonerror="true">
               <environment refid="${Ant.Environment.RefId}" />
               <arg line="undeploy -buildfile ${Glassfish.AntDeployFileName}" />
@@ -263,7 +263,7 @@ Title=Deploy ${ProjectName}]]>
               <arg line="-logger org.apache.tools.ant.XmlLogger" />
               <arg line="-logfile ${AntBuildLogFile}" />
             </exec>
-	    <echo message="Deploying applications now."/>
+            <echo message="Deploying applications now."/>
             <exec program="${Ant.Bat}" failonerror="true">
               <environment refid="${Ant.Environment.RefId}" />
               <arg line="deploy -buildfile ${Glassfish.AntDeployFileName}" />
