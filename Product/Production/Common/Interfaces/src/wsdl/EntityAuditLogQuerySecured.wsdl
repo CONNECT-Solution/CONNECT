@@ -23,7 +23,7 @@
         </xsd:schema>
     </types>
     <message name="FindAuditEventsRequestMessage">
-        <part name="FindAuditEventsRequest" element="nccommonentity:FindAuditEventsSamlRequest"/>
+        <part name="FindAuditEventsRequest" element="nccommonentity:FindAuditEventsSecuredRequest"/>
     </message>
     <message name="FindAuditEventsResponseMessage">
         <part name="FindAuditEventsResponse" element="iheaudit:FindAuditEventsResponse"/>
