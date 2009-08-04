@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
 	<ejblist>
-		<name>AdapterMPIEJB</name>
+		<name>AdapterMpiEJB</name>
 		<jarname>AdapterMpiEJB.jar</jarname>
 		<directory>Production/Adapters/General/AdapterMpiEJB</directory>
 	</ejblist>
