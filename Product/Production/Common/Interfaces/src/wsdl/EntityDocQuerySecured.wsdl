@@ -41,7 +41,7 @@
           element="query:AdhocQueryResponse"/>
   </message>
   
-  <portType name="EntityDocQueryPortType">
+  <portType name="EntityDocQuerySecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
@@ -52,7 +52,7 @@
     </operation>
   </portType>
   
-  <binding name="EntityDocQueryBindingSoap11" type="tns:EntityDocQueryPortType">
+  <binding name="EntityDocQuerySecuredBindingSoap11" type="tns:EntityDocQuerySecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -68,9 +68,9 @@
     </operation>
   </binding>
   
-  <service name="EntityDocQuery">
-    <port name="EntityDocQueryPortSoap11" 
-          binding="tns:EntityDocQueryBindingSoap11">
+  <service name="EntityDocQuerySecured">
+    <port name="EntityDocQuerySecuredPortSoap11"
+          binding="tns:EntityDocQuerySecuredBindingSoap11">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuerySecured" />
     </port>
@@ -273,15 +273,15 @@
             </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <plnk:partnerLinkType name="EntityDocQuery">
+  <plnk:partnerLinkType name="EntityDocQuerySecured">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 
          link represents the interaction between the BPEL process and a partner service. 
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-    <plnk:role name="EntityDocQueryPortTypeRole" 
-               portType="tns:EntityDocQueryPortType"/>
+    <plnk:role name="EntityDocQuerySecuredPortTypeRole"
+               portType="tns:EntityDocQuerySecuredPortType"/>
   </plnk:partnerLinkType>
   
 </definitions>

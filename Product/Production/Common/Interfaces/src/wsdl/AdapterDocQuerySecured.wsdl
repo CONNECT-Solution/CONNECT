@@ -41,7 +41,7 @@
           element="query:AdhocQueryResponse"/>
   </message>
   
-  <portType name="AdapterDocQueryPortType">
+  <portType name="AdapterDocQuerySecuredPortType">
     <operation name="RespondingGateway_CrossGatewayQuery">
       <input name="RespondingGateway_CrossGatewayQueryRequest"
              message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
@@ -52,7 +52,7 @@
     </operation>
   </portType>
   
-  <binding name="AdapterDocQueryBindingSoap11" type="tns:AdapterDocQueryPortType">
+  <binding name="AdapterDocQuerySecuredBindingSoap11" type="tns:AdapterDocQuerySecuredPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
@@ -68,9 +68,9 @@
     </operation>
   </binding>
   
-  <service name="AdapterDocQuery">
-    <port name="AdapterDocQueryPortSoap11" 
-          binding="tns:AdapterDocQueryBindingSoap11">
+  <service name="AdapterDocQuerySecured">
+    <port name="AdapterDocQuerySecuredPortSoap11"
+          binding="tns:AdapterDocQuerySecuredBindingSoap11">
       <soap:address 
          location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuerySecured" />
     </port>
@@ -273,15 +273,15 @@
             </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <plnk:partnerLinkType name="AdapterDocQuery">
+  <plnk:partnerLinkType name="AdapterDocQuerySecured">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 
          link represents the interaction between the BPEL process and a partner service. 
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-    <plnk:role name="AdapterDocQueryPortTypeRole" 
-               portType="tns:AdapterDocQueryPortType"/>
+    <plnk:role name="AdapterDocQuerySecuredPortTypeRole"
+               portType="tns:AdapterDocQuerySecuredPortType"/>
   </plnk:partnerLinkType>
   
 </definitions>
