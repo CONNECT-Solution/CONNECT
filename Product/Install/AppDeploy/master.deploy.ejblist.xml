@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
 	<ejblist>
-		<name>AdapterMPI</name>
+		<name>AdapterMPIEJB</name>
 		<jarname>AdapterMpiEJB.jar</jarname>
 		<directory>Production/Adapters/General/AdapterMpiEJB</directory>
 	</ejblist>
@@ -38,7 +38,7 @@
 		<directory>Production/Adapters/General/AdapterReidentificationEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>Aggregator</name>
+		<name>AggregatorEJB</name>
 		<jarname>AggregatorEJB.jar</jarname>
 		<directory>Production/Gateway/AggregatorEJB</directory>
 	</ejblist>
@@ -48,12 +48,12 @@
 		<directory>Production/Common/AuditLogEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>AuditRepo</name>
+		<name>AuditRepositoryEJB</name>
 		<jarname>AuditRepositoryEJB.jar</jarname>
 		<directory>Production/Gateway/AuditRepositoryEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>ConnectionManager</name>
+		<name>ConnectionManagerEJB</name>
 		<jarname>ConnectionManagerEJB.jar</jarname>
 		<directory>Production/Common/ConnectionManagerEJB</directory>
 	</ejblist>
@@ -118,17 +118,17 @@
 		<directory>Production/Gateway/NhincAuditLogDteEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>AuditQuery</name>
+		<name>NhincAuditQueryEJB</name>
 		<jarname>NhincAuditQueryEJB.jar</jarname>
 		<directory>Production/Gateway/NhincAuditQueryEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>DocQuery</name>
+		<name>NhincDocQueryEJB</name>
 		<jarname>NhincDocQueryEJB.jar</jarname>
 		<directory>Production/Gateway/NhincDocQueryEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>DocRet</name>
+		<name>NhincDocRetrieveEJB</name>
 		<jarname>NhincDocRetrieveEJB.jar</jarname>
 		<directory>Production/Gateway/NhincDocRetrieveEJB</directory>
 	</ejblist>
@@ -138,7 +138,7 @@
 		<directory>Production/Common/NhincSubDiscDataTransformsEJB</directory>
 	</ejblist>
 	<ejblist>
-		<name>SubjDisc</name>
+		<name>NhincSubjectDiscoveryEJB</name>
 		<jarname>NhincSubjectDiscoveryEJB.jar</jarname>
 		<directory>Production/Gateway/NhincSubjectDiscoveryEJB</directory>
 	</ejblist>
