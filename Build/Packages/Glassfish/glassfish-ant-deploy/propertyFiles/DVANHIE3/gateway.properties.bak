@@ -2,7 +2,7 @@
 CacheRefreshDuration=0
 
 localHomeCommunityId=2.16.840.1.113883.3.200
-localHomeCommunityDescription=VA (DVA3)
+localHomeCommunityDescription=IntegrationTest1
 localDeviceId=2.16.840.1.113883.3.200
 
 serviceDocumentQuery=true
@@ -16,6 +16,26 @@ serviceSubjectDiscovery=true
 subjectDiscoveryPassthrough=false
 
 serviceAuditRepository=true
+auditRepositoryPassthrough=false
+
+serviceSubscription=true
+subscriptionPassthrough=true
+
+serviceNotify=true
+notifyPassthrough=false
+NotificationConsumerEndpointAddress=https://localhost:8181/NotificationConsumerService/HiemNotify
+
+## HIEM - BEGIN ##
+
+# Subscription processing service mode. Options are 'supported', 'notsupported', or 'passthrough'
+hiem.subscription.servicemode=supported
+
+# Child adapter subscription mode. Options are 'createchildsubscription', 'forward', 'disabled'
+hiem.AdapterSubscriptionMode=createchildsubscription
+
+hiem.enableAudit=false;
+
+## HIEM - END ##
 
 # Duration of time between garbage collection threads on the aggregator.  
 # This is how often it will run a garbage collector against the 
@@ -36,3 +56,22 @@ subscription.repository.implementation.class=gov.hhs.fha.nhinc.subscription.repo
 subscription.repository.file.name=subscriptionList.xml
 
 ## SUBSCRIPTION REPOSITORY - END ##
+
+# Connection Manager Information - BEGIN
+#-------------------------
+# when running Outside of NHIN Connect development environment use this one...
+#UDDIInquiryEndpointURL=http://12.54.145.57:8080/uddi/services/inquiry
+# when running Inside of NHIN Connect development environment use this one...
+UDDIInquiryEndpointURL=http://172.16.50.57:8080/uddi/services/inquiry
+UDDIBusinessesToIgnore=uddi:replication:findbusiness;uddi:replication:findtmodels;uddi:nhinregistry:node
+UDDIRefreshDuration=3600
+UDDIRefreshKeepBackups=false
+InternalConnectionRefreshDuration=3600
+InternalConnectionRefreshKeepBackups=false
+# Connection Manager Information - END
+
+# Policy Engine - BEGIN
+# Valid settings for PdpEntityName are either ConnectOpenSSO or jericho - will default to ConnectOpenSSO
+#PdpEntityName=jericho
+PdpEntityName=ConnectOpenSSO
+# Policy Engine - END

@@ -78,7 +78,7 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				 <endpointURL>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/AdapterDocQueryService</endpointURL> 
+				 <endpointURL>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/AdapterDocQuery</endpointURL> 
 			</service>
 			<service>
 				<name>adapterdocquerypassthrough</name>
@@ -133,7 +133,7 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>policyengineservice</description>
-				<endpointURL>http://mhsnhie3.fedsconnect.org:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				<endpointURL>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
 		   </service>
 		   <service>
 				<name>adapternotificationproducercdcbiopackage</name>
@@ -330,12 +330,12 @@
 			<service>
 				<name>adapternotificationconsumer</name>
 				<description>Adapter HIEM Notify</description>
-				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationconsumerpassthrough</name>
 				<description>Adapter HIEM Notify PassThrough</description>
-				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/AdapterNotificationConsumer/AdapterFTAService</endpointURL>
 			</service>
 			<service>
 				<name>adapterauditquerypassthrough</name>
@@ -370,7 +370,7 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>policyengineservice</description>
-				<endpointURL>http://dvanhie3.fedsconnect.org:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				<endpointURL>http://dvanhie3.fedsconnect.org:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
 		   </service>
 		   <service>
 				<name>adapternotificationproducercdcbiopackage</name>
@@ -425,11 +425,13 @@
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL>-->
 				<endpointURL>http://dvanhie3.fedsconnect.org:8080/DocumentRepository_Service</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL>-->
 				<endpointURL>http://dvanhie3.fedsconnect.org:8080/DocumentRegistry_Service</endpointURL>
 			</service>
 			<service>
@@ -562,7 +564,7 @@
 			      <service>
 				        <name>policyengineservice</name>
 				        <description>Policy Engine Service</description>
-				        <endpointURL>http://localhost:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				        <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
 			      </service>
 			      <service>
 				        <name>adapterdocretrieve</name>
@@ -767,7 +769,7 @@
 			      <service>
 				        <name>policyengineservice</name>
 				        <description>Policy Engine Service</description>
-				        <endpointURL>http://localhost:9080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				        <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
 			      </service>
 			      <service>
 				        <name>adapterdocretrieve</name>
