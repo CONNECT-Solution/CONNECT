@@ -71,8 +71,7 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-  <cruisecontrol>
-
+<cruisecontrol>
   <project name="&ProjectName;-&ProjectCodeLineName; Int Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
@@ -123,7 +122,6 @@
       &email;
     </publishers>
   </project>
-  
   <project name="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment">
     <webURL>&webURLi;</webURL>
     <state type="state" />
@@ -132,7 +130,7 @@
         <trigger
           type="projectTrigger"
           serverUri="tcp://&HostName;:&Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName; Nightly Build"
+          project="&ProjectName;-&ProjectCodeLineName;-Release"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
@@ -169,7 +167,7 @@
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
 
-     <labeller type="remoteProjectLabeller">
+    <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName; Nightly Build</project>
       <serverUri>tcp://&HostName;:&Port;/CruiseManager.rem</serverUri>
     </labeller>
@@ -308,93 +306,92 @@
       </email>
     </publishers>
   </project>
-    <project name="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
-      <webURL>&webURL;</webURL>
-      <state type="state" />
-      <triggers>
-        <projectTriggerFilter name="Project">
-          <trigger
-            type="projectTrigger"
-            serverUri="tcp://192.168.25.157:&Port;/CruiseManager.rem"
-            project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite"
+  <project name="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
+    <webURL>&webURL;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter name="Project">
+        <trigger
+          type="projectTrigger"
+          serverUri="tcp://192.168.25.157:&Port;/CruiseManager.rem"
+          project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite"
         >
-            <triggerStatus>Success</triggerStatus>
-            <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-          </trigger>
-          <projectFilters>
-            &ScriptsBuilding;
-            &Deploying;
-            &IntegrationTest;
-          </projectFilters>
-        </projectTriggerFilter>
-      </triggers>
-      <forceFilters>
-        <projectForceFilter name="Force">
-          <projectFilters>
-            &ScriptsBuilding;
-            &Deploying;
-            &IntegrationTest;
-          </projectFilters>
-        </projectForceFilter>
-      </forceFilters>
-      <integrationFilter>
-        <triggeredIntegrationFilter>
-          <allowed>
-            <modificationsRequired condition="false" />
-          </allowed>
-        </triggeredIntegrationFilter>
-        <forcedIntegrationFilter>
-          <allowed>
-            <modificationsRequired condition="false" />
-          </allowed>
-          <blocked>
-          </blocked>
-        </forcedIntegrationFilter>
-      </integrationFilter>
-      <sourcecontrol type="nullSourceControl" />
-      <labeller type="stateFileLabeller">
-        <project>&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite</project>
-      </labeller>
-      <tasks>
-        <nant>
-          <executable>&NantExePath;</executable>
-          <baseDirectory>&BuildDirectory;</baseDirectory>
-          <logger>NAnt.Core.XmlLogger </logger>
-          <buildFile>Deploy.build.xml</buildFile>
-          <buildArgs>-D:target.server=172.16.50.82 -listener:NAnt.Core.AppendListener</buildArgs>
-          <targetList>
-            <target>Deploy-Target</target>
-          </targetList>
+          <triggerStatus>Success</triggerStatus>
+          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
+        </trigger>
+        <projectFilters>
+          &ScriptsBuilding;
+          &Deploying;
+          &IntegrationTest;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter name="Force">
+        <projectFilters>
+          &ScriptsBuilding;
+          &Deploying;
+          &IntegrationTest;
+        </projectFilters>
+      </projectForceFilter>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol type="nullSourceControl" />
+    <labeller type="stateFileLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite</project>
+    </labeller>
+    <tasks>
+      <nant>
+        <executable>&NantExePath;</executable>
+        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Deploy.build.xml</buildFile>
+        <buildArgs>-D:target.server=172.16.50.82 -listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Deploy-Target</target>
+        </targetList>
 
-          <buildTimeoutSeconds>2700</buildTimeoutSeconds>
-        </nant>
-      </tasks>
-      <publishers>
-        <merge>
-          <files>
-            <file>&BuildDirectory;\AntLogs\*.xml</file>
-            <file>&BuildDirectory;\Reports\*.xml</file>
-          </files>
-        </merge>
-        <xmllogger />
-        <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
-          <users>
-            <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
-            <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
-            <user name="Kieran Dunne"     group="buildmaster"   address="kieran.dunne@agilex.com"/>
-            <user name="Brian Mowbray"		group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+        <buildTimeoutSeconds>2700</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&BuildDirectory;\AntLogs\*.xml</file>
+          <file>&BuildDirectory;\Reports\*.xml</file>
+        </files>
+      </merge>
+      <xmllogger />
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+        <users>
+          <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
+          <user name="Kieran Dunne"     group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"		group="buildmaster" 	address="brian.mowbray@agilex.com"/>
 
-            <user name="Greg Pfister"			group="managers" 	    address="greg.pfister@agilex.com"/>
+          <user name="Greg Pfister"			group="managers" 	    address="greg.pfister@agilex.com"/>
 
-            <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
-          </users>
-          <groups>
-            <group name="buildmaster" notification="change"/>
-            <group name="testers" notification="success"/>
-            <group name="managers" notification="success"/>
-          </groups>
-        </email>
-      </publishers>
-    </project>
-
-  </cruisecontrol>
+          <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
+        </users>
+        <groups>
+          <group name="buildmaster" notification="change"/>
+          <group name="testers" notification="success"/>
+          <group name="managers" notification="success"/>
+        </groups>
+      </email>
+    </publishers>
+  </project>
+</cruisecontrol>

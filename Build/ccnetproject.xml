@@ -33,7 +33,7 @@
     </labeller>'>
   <!ENTITY DevBuilding '<projectFilter
                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName;">
+               project="&ProjectName;-&ProjectCodeLineName;-Dev">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -60,7 +60,7 @@
           </projectFilter>'>
   <!ENTITY NightlyBuilding '<projectFilter
                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; Nightly Build">
+               project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -121,7 +121,7 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Dev">
     <webURL>&webURL;</webURL>
     <state type="state" />
     <triggers>
@@ -357,7 +357,7 @@
     </publishers>
   </project>
  
-  <project name="&ProjectName;-&ProjectCodeLineName; Nightly Build">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
      <webURL>&webURL;</webURL>
     <state type="state" />
     <triggers>
