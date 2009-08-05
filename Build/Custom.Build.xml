@@ -50,7 +50,7 @@
     <property name="Deployment.FileWebName" value="${InstallerZip.FileName}"/>
     <property name="Deployment.FileWebPath"	value="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}/${Deployment.FileWebName}" />
    
-    <call target="Deployment.Link" />
+    <call target="Deployment.PublishLink" />
 	</target>
 
   <target name="Common.FindBuild">
