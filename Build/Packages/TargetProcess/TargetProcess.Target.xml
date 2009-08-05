@@ -13,7 +13,7 @@
   </trycatch>
 
   <target name="TargetProcess.Get.Release.Report">
-    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
+    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem"/>
     <property name="ReleaseProjectName" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
     <property name="ReleaseArchiveFolderName" value="${ccnet::get-project-last-build-date(CCNetRemotingUrl, ReleaseProjectName)}"/>
 

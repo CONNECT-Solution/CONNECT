@@ -15,7 +15,6 @@
 			<arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
       <arg line='-DProductVersion="${CCNetLabel}"' />
 		</exec>
-		
 	</target>
 
   <target name="Ant.ShowReport">
