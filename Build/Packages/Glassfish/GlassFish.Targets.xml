@@ -22,14 +22,24 @@
   <target name="GlassFish.StartServer">
     <call target="GlassFish.GetServerStatus"/>
     <if test="${GlassFish.Status == 'Stopped'}">
-      <exec
+      <asyncexec
+        createnowindow="true"
+        redirectoutput="false"
+        useshellexecute="true"
+        waitforexit="true"
+        taskname="GlassFishStart"
         program="cmd"
         workingdir="${path::get-directory-name(GlassFish.ApplicationServer.File.Path)}"
         verbose="true"
       >
         <arg line='/C "${GlassFish.ApplicationServer.File.Path}" start-domain ${GlassFish.Domain.Name}' />
-      </exec>
-    </if>
+      </asyncexec>
+      <waitforexit>
+        <tasknames>
+          <string value='GlassFishStart'/>
+        </tasknames>
+      </waitforexit>
+  </if>
   </target>
 
   <target name="GlassFish.StopServer">
