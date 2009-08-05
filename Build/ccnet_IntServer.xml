@@ -168,7 +168,7 @@
     <sourcecontrol type="nullSourceControl" />
 
     <labeller type="remoteProjectLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName; Nightly Build</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
       <serverUri>tcp://&HostName;:&Port;/CruiseManager.rem</serverUri>
     </labeller>
 
