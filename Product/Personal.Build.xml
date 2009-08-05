@@ -27,6 +27,7 @@
   <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
   <include buildfile="${PackagesDirectory}\JUnit\UnitTest.Target.xml" />
   <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
+  <include buildfile="${PackagesDirectory}\GlassFish\GlassFish.Targets.xml" />
   <include buildfile="${PackagesDirectory}\FitNesse\FitNesse.Target.xml"/>
   <description>End Package Includes</description>
 
