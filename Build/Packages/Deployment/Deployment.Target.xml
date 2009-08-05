@@ -59,17 +59,7 @@
 
     <call target="Deployment.PublishLink"/>
   </target>
-  <target name="Deployment.CommitZip">
-		<copy file="${Deployment.TargetDir}/${Deployment.ZipFileName}" tofile="${Deployment.SVNDir}\${ZipFileName}"/>
-
-<exec program="svn" workingdir="${Deployment.SVNDir}" verbose="true">
-  <arg line="commit" /> 
-  <arg line='-m "Modified by build script in build ${CCNetLabel}"' /> 
-  <arg line="--non-interactive" /> 
-  <arg line="--username build01" /> 
-  <arg line="--password g5Xu6uxu" /> 
-  </exec>
-  </target>
+  
   <target name="Deployment.SetUp">
     <call target="Deployment.EchoDeploymentWebPath" />
 		<call target="Deployment.EchoDeploymentArtifactPath"/>

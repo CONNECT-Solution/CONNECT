@@ -105,8 +105,6 @@
       <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&BuildDirectoryName;</trunkUrl>
       <workingDirectory>&BuildDirectory;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-      <username>build</username>
-      <password>password</password>
       <webUrlBuilder type="websvn">
         <url>&Subversion.Repo.Url;{0}</url>
       </webUrlBuilder>

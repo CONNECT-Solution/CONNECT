@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Custom">
 
-  <property name="Web.Credentials.UserName" value="build"/>
-  <property name="Web.Credentials.Password" value="password"/>
+  <property name="Web.Credentials.UserName" value="crap"/>
+  <property name="Web.Credentials.Password" value="bogas"/>
   
 	<target name="Build.PublishZip">
     <zip zipfile="${Common.TempDirectory}\AdapterSDK.zip" includeemptydirs="true">
