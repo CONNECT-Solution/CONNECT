@@ -157,12 +157,13 @@
   <target name="SourceModificationReport.CreateModificationList">
     <fileset  basedir="${ProductDirectory}" id="SourceModificationReport.ModificationList" />
 
-    <if test="${file::exists(SourceModificationReport.ReportFile)}">
-      <xmlquery
+    <xmlquery
         file="${SourceModificationReport.ReportFile}"
         id="FileNames"
         query="//Modification/FileName"
     />
+    <if test="${file::exists(SourceModificationReport.ReportFile)}">
+
 
       <property name="index" value="0" />
 
@@ -177,7 +178,7 @@
             property="DirtySCPath"
             xpath="//Modification/FolderName"
             nodeindex="${index}"
-        />
+          />
 
           <trycatch>
             <try>
