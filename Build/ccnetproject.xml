@@ -58,7 +58,7 @@
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY NightlyBuilding '<projectFilter
+  <!ENTITY ReleaseBuilding '<projectFilter
                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
@@ -79,7 +79,7 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &DevBuilding;
-          &NightlyBuilding;
+          &ReleaseBuilding;
           &ForceClean;
         </projectFilters>
       </projectTriggerFilter>
@@ -88,7 +88,7 @@
       <projectForceFilter>
         <projectFilters>
           &DevBuilding;
-          &NightlyBuilding;
+          &ReleaseBuilding;
           &ForceClean;
         </projectFilters>
       </projectForceFilter>
@@ -129,7 +129,7 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &ScriptsBuilding;
-          &NightlyBuilding;
+          &ReleaseBuilding;
           &ForceClean;
         </projectFilters>
       </projectTriggerFilter>
@@ -138,7 +138,7 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &NightlyBuilding;
+          &ReleaseBuilding;
           &ForceClean;
         </projectFilters>
       </projectForceFilter>
@@ -484,7 +484,7 @@
         <baseDirectory>&BuildDirectory;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:nightly.build=true -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Release</target>
         </targetList>
