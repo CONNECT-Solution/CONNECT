@@ -179,10 +179,10 @@
         <executable>&NantExePath;</executable>
         <baseDirectory>&BuildDirectory;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Deploy.build.xml</buildFile>
-        <buildArgs>-D:target.server=192.168.25.157 -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Deploy-Target</target>
+          <target>DeployToTest</target>
         </targetList>
 
         <buildTimeoutSeconds>4200</buildTimeoutSeconds>

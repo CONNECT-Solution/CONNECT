@@ -41,11 +41,4 @@
 
   <property name="webURL" value="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true"/>
  
-  <property name="Glassfish.ServiceName" value="domain1" overwrite="false"/>
-
-  <property name="Glassfish.HomeDir" value="${PackagesDirectory}\Glassfish\glassfish-ant-deploy" overwrite="false"/>
-  <property name="Glassfish.AntBuildFileName" value="${Glassfish.HomeDir}\build.xml" overwrite="false"/>
-  <property name="Glassfish.InstallDirectoryPath" value="c:\GlassfishESB\glassfish" overwrite="false"/>
-  <property name="Glassfish.OpenEsbInstallFilePath" value="\\athc-file1\Shared_Folders\Healthcare\NHIN\OpenESB\openesb.exe" overwrite="false"/>
-
 </project>

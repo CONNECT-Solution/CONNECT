@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Custom">
+
+  <target name="GlassFish.Redeploy.Release.Build">
+    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
+    <property name="ProjectNameToPullFrom" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
+
+    <call target="Common.FindBuild"/>
+    <regex input="${build}" pattern="log(?'BuildArchiveFolderName'\d+)Lbuild\.${CCNetLabel}\.xml$"/>
+    <regex input="${BuildArchiveFolderName}" pattern="(?'Year'\d\d\d\d)(?'Month'\d\d)(?'Day'\d\d)"/>
+
+    <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
+    <property name="Release.Application.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Application.Zip.File.Name}"/>
+
+    <get
+      dest="${Release.Application.Zip.File.Path}"
+      src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Application.Zip.File.Name}"
+      verbose="true"
+    >
+      <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
+    </get>
+
+    <delete dir="${GlassFish.Deploy.Directory.Path}" if="${directory::exists(GlassFish.Deploy.Directory.Path)}"/>
+    <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
+
+    <call target="GlassFish.Redeploy"/>
+  </target>
+
+</project>

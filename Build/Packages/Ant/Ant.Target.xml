@@ -7,10 +7,11 @@
 		<exec program="${Ant.Bat}" failonerror="true" verbose="true">
 			<environment refid="${Ant.Environment.RefId}" />
 			<arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
-			<arg line='-propertyfile "${AntPropertyFileName}"' />
+			
 			<arg line="-logger org.apache.tools.ant.XmlLogger" />
 			<arg line='-logfile "${AntBuildLogFile}"' />
-			<arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+			
+      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
       <arg line='-DProductVersion="${CCNetLabel}"' />
 		</exec>
 		

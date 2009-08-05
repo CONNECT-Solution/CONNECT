@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Targets">
+
+  <!--
+  This is for the new version of CI Factory
+  
+  <stringadd refid="Personal.UpdateSource.Before.Target.List">
+    <string value="GlassFish.StopServer"/>
+  </stringadd>
+
+  <stringadd refid="Personal.UpdateSource.After.Target.List">
+    <string value="GlassFish.RestartServer"/>
+  </stringadd>
+  -->
+
+  <include buildfile="GlassFish.Properties.xml"/>
+
+  <target name="GlassFish.RestartServer">
+    <call target="GlassFish.StartServer" if="${GlassFish.Status=='Started'}"/>
+  </target>
+
+  <target name="GlassFish.StartServer">
+    <call target="GlassFish.GetServerStatus"/>
+    <if test="${GlassFish.Status == 'Stopped'}">
+      <exec
+        program="cmd"
+        workingdir="${path::get-directory-name(GlassFish.ApplicationServer.File.Path)}"
+        verbose="true"
+      >
+        <arg line='/C "${GlassFish.ApplicationServer.File.Path}" start-domain ${GlassFish.Domain.Name}' />
+      </exec>
+    </if>
+  </target>
+
+  <target name="GlassFish.StopServer">
+    <call target="GlassFish.GetServerStatus"/>
+    <if test="${GlassFish.Status == 'Started'}">
+      <exec
+        program="cmd"
+        workingdir="${path::get-directory-name(GlassFish.ApplicationServer.File.Path)}"
+        verbose="true"
+      >
+        <arg line='/C "${GlassFish.ApplicationServer.File.Path}" stop-domain ${GlassFish.Domain.Name}' />
+      </exec>
+    </if>
+  </target>
+
+  <target name="GlassFish.GetServerStatus">
+    <trycatch>
+      <try>
+        <get
+         src="http://localhost:${GlassFish.Port}"
+         dest="${environment::get-variable('TEMP')}\GlassFish-status.txt"
+        />
+        <loadfile file="${environment::get-variable('TEMP')}\GlassFish-status.txt" property="GlassFish.Status" />
+        <ifthenelse test="${string::contains(GlassFish.Status, 'error')}">
+          <then>
+            <property name="GlassFish.Status" value="Stopped"/>
+          </then>
+          <else>
+            <property name="GlassFish.Status" value="Started"/>
+          </else>
+        </ifthenelse>
+      </try>
+      <catch>
+        <property name="GlassFish.Status" value="Stopped"/>
+      </catch>
+    </trycatch>
+  </target>
+
+  <target name="GlassFish.Redeploy">
+    <call target="GlassFish.Undeploy"/>
+
+    <call target="GlassFish.StopServer"/>
+    <call target="GlassFish.StartServer"/>
+
+    <call target="GlassFish.Deploy"/>
+  </target>
+  
+  <target name="GlassFish.Undeploy">
+    <property name="AntTarget" value="undeploy"/>
+    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
+    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\undeploy_log.xml"/>
+
+    <call target="Ant.CompileSource"/>
+  </target>
+  
+  <target name="GlassFish.Deploy">
+    <property name="AntTarget" value="deploy"/>
+    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
+    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
+
+    <call target="Ant.CompileSource"/>
+  </target>
+
+  <target name="GlassFish.SetUp">
+    <delete dir="${AntBuildLogDirectory}" if="${directory::exists(AntBuildLogDirectory)}" verbose="true"/>
+    <mkdir dir="${AntBuildLogDirectory}" verbose="true"/>
+  </target>
+
+  <target name="GlassFish.TearDown">
+  </target>
+
+  <include buildfile="GlassFish.Custom.xml"/>
+  
+</project>

@@ -1,32 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Glassfish.Properties">
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Properties">
 
-  <property name="Glassfish.ServerIPAddress" value="192.168.25.157" overwrite="false"/>
-  <property name="Glassfish.DeploymentServer" value="\\${Glassfish.ServerIPAddress}" overwrite="false"/>
- 
-	<property name="Glassfish.DVA2IPAddress" value="172.16.50.42" overwrite="false"/>
-  <property name="Glassfish.DVA2Server" value="\\${Glassfish.DVA2IPAddress}" overwrite="false"/>
+  <property name="GlassFish.Port"             value="4848" overwrite="false"/>
+  <property name="GlassFish.Domain.Name"      value="domain1" overwrite="false"/>
 
-	<property name="Glassfish.MHS2IPAddress" value="172.16.50.44" overwrite="false"/>
-  <property name="Glassfish.MHS2Server" value="\\${Glassfish.MHS2IPAddress}" overwrite="false"/>
-
-  <property name="Glassfish.DVA3IPAddress" value="172.16.50.54" overwrite="false"/>
-  <property name="Glassfish.DVA3Server" value="\\${Glassfish.DVA3IPAddress}" overwrite="false"/>
-
-  <property name="Glassfish.MHS3IPAddress" value="172.16.50.82" overwrite="false"/>
-  <property name="Glassfish.MHS3Server" value="\\${Glassfish.MHS3IPAddress}" overwrite="false"/>
-
-  <property name="Glassfish.BaseServerIPAddress" value="172.16.50.46" overwrite="false"/>
-  <property name="Glassfish.BaseServer" value="\\${Glassfish.BaseServerIPAddress}" overwrite="false"/>
-   
-  <property name="Glassfish.ServiceName" value="domain1" overwrite="false"/>
-  
-  <property name="Glassfish.HomeDir" value="${PackagesDirectory}\Glassfish\glassfish-ant-deploy" overwrite="false"/>
-  <property name="Glassfish.AntBuildFileName" value="${Glassfish.HomeDir}\build.xml" overwrite="false"/>
-  <property name="Glassfish.AntDeployHomeDir" value="${InstallDirectory}\AppDeploy" overwrite="false"/>
-  <property name="Glassfish.AntDeployFileName" value="${Glassfish.AntDeployHomeDir}\build.xml" overwrite="false"/>
-  
-  <property name="Glassfish.InstallDirectoryPath" value="c:\GlassfishESB\glassfish" overwrite="false"/>
-  <property name="Glassfish.OpenEsbInstallFilePath" value="\\athc-file1\Shared_Folders\Healthcare\NHIN\OpenESB\openesb.exe" overwrite="false"/>
+  <property name="GlassFish.ApplicationServer.File.Path"  value="C:\GlassFishESB\glassfish\bin\asadmin.bat" overwrite="false"/>
+  <property name="GlassFish.Deploy.Directory.Path"        value="C:\${ProjectName}" overwrite="false"/>
+  <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\build.xml" overwrite="false"/>
 
 </project>
