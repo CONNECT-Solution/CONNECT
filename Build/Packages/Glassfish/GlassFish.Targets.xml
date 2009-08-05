@@ -82,7 +82,16 @@
     <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
     <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\undeploy_log.xml"/>
 
-    <call target="Ant.CompileSource"/>
+    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
+      <environment refid="${Ant.Environment.RefId}" />
+      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
+
+      <arg line="-logger org.apache.tools.ant.XmlLogger" />
+      <arg line='-logfile "${AntBuildLogFile}"' />
+
+      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+      <arg line='-DProductVersion="${CCNetLabel}"' />
+    </exec>
   </target>
   
   <target name="GlassFish.Deploy">
@@ -90,7 +99,16 @@
     <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
     <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
 
-    <call target="Ant.CompileSource"/>
+    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
+      <environment refid="${Ant.Environment.RefId}" />
+      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
+
+      <arg line="-logger org.apache.tools.ant.XmlLogger" />
+      <arg line='-logfile "${AntBuildLogFile}"' />
+
+      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+      <arg line='-DProductVersion="${CCNetLabel}"' />
+    </exec>
   </target>
 
   <target name="GlassFish.SetUp">
