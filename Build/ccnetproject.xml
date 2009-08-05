@@ -319,7 +319,7 @@
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
     </labeller>
     <tasks>
       <nant>
@@ -472,7 +472,7 @@
     </sourcecontrol>
   
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
     </labeller>
     <tasks>
       <modificationWriter>
