@@ -140,6 +140,14 @@
 
         <description>Begin Compile Actions</description>
 
+        <asyncexec taskname="Simian" program="${NantExePath}" failonerror="False">
+          <arg line="-buildfile:${PackagesDirectory}\Simian\Simian.Target.xml"/>
+          <arg line='@"${Common.PropertiesFile}"' />
+          <arg line="Simian.Run"/>
+          <arg line="-logger:NAnt.Core.XmlLogger"/>
+          <arg line='-logfile:"${Common.ReportDirectory}\Simian.xml"' />
+        </asyncexec>
+        
         <trycatch>
           <try>
             <property name="AntTarget" value="build-test"/>
@@ -164,7 +172,11 @@
 
         <call target="Build.PublishZip"/>
 
-        <call target="Simian.Run" />
+        <waitforexit>
+          <tasknames>
+            <string value="Simian"/>
+          </tasknames>
+        </waitforexit>
 
         <description>End Post Build Actions</description>
 
