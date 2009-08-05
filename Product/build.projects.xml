@@ -170,6 +170,10 @@
 		<directory>/Production/Adapters/General/AdapterReidentificationEJB</directory>
 	</project>
 	<project>
+		<name>EntityDocQueryProxyEJB</name>
+		<directory>/Production/Adapters/General/EntityDocQueryProxyEJB</directory>
+	</project>
+	<project>
 		<name>AdapterCA</name>
 		<directory>/Production/Adapters/General/AdapterCA</directory>
 	</project>

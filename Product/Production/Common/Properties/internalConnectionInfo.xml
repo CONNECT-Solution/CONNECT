@@ -208,6 +208,16 @@
 				<description>Entity Notify</description>
 				<endpointURL>http://localhost:9080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
 			</service>
+			<service>
+				<name>entitydocqueryproxy</name>
+				<description>Entity Document Query Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerysecured</name>
+				<description>Entity Document Query Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -408,6 +418,16 @@
 				<description>mocknotificationconsumer</description>
 				<endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
 			</service>
+			<service>
+				<name>entitydocqueryproxy</name>
+				<description>Entity Document Query Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerysecured</name>
+				<description>Entity Document Query Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -435,6 +455,16 @@
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
+			<service>
+				<name>entitydocqueryproxy</name>
+				<description>Entity Document Query Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerysecured</name>
+				<description>Entity Document Query Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+			</service>
 			
 		</services>
 	</internalConnectionInfo>
@@ -452,6 +482,16 @@
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
 				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL>
+			</service>
+			<service>
+				<name>entitydocqueryproxy</name>
+				<description>Entity Document Query Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>entitydocquerysecured</name>
+				<description>Entity Document Query Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

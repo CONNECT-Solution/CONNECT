@@ -18,23 +18,6 @@
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-EntityDocQuery" depends="wsimport-init">
-        <condition property="wsimport-service-EntityDocQuery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery/EntityDocQuery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntityDocQuery" depends="wsimport-init,wsimport-service-check-EntityDocQuery" unless="wsimport-service-EntityDocQuery.notRequired">
-        <property name="service-wsdl-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-EntityDocQuery" location="${meta.inf}/wsdl/EntityDocQuery"/>
-        <property name="sourceLocation-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/"/>
-        <copy todir="${targetLocation-EntityDocQuery}">
-            <fileset dir="${sourceLocation-EntityDocQuery}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-EntityDocQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery"/>
-    </target>
     <target name="wsimport-service-check-NhincProxyDocQuery" depends="wsimport-init">
         <condition property="wsimport-service-NhincProxyDocQuery.notRequired">
             <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocquery/NhincProxyDocQuery.java"/>
@@ -52,7 +35,24 @@
     <target name="wsimport-service-clean-NhincProxyDocQuery" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocquery"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery"/>
+    <target name="wsimport-service-check-EntityDocQuerySecured" depends="wsimport-init">
+        <condition property="wsimport-service-EntityDocQuerySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery/EntityDocQuerySecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-EntityDocQuerySecured" depends="wsimport-init,wsimport-service-check-EntityDocQuerySecured" unless="wsimport-service-EntityDocQuerySecured.notRequired">
+        <property name="service-wsdl-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntityDocQuerySecured" location="${meta.inf}/wsdl/EntityDocQuerySecured"/>
+        <property name="sourceLocation-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-services/EntityDocQuerySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntityDocQuerySecured}">
+            <fileset dir="${sourceLocation-EntityDocQuerySecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyDocQuery, wsimport-service-EntityDocQuerySecured"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>

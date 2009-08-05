@@ -13,9 +13,8 @@ import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,13 +29,14 @@ public class DocQueryAuditLog {
      * This method will log Audit Query Requests received on the Entity Interface
      *
      * @param auditMsg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
-    public AcknowledgementType audit(RespondingGatewayCrossGatewayQueryRequestType auditMsg) {
+    public AcknowledgementType audit(RespondingGatewayCrossGatewayQuerySecuredRequestType auditMsg, AssertionType assertion) {
         log.debug("Entering DocQueryAuditLog.audit (entity)...");
 
         AdhocQueryMessageType auditReqMsg = new AdhocQueryMessageType();
-        auditReqMsg.setAssertion(auditMsg.getAssertion());
+        auditReqMsg.setAssertion(assertion);
         auditReqMsg.setAdhocQueryRequest(auditMsg.getAdhocQueryRequest());
 
         AcknowledgementType ack = logDocQuery(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);

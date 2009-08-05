@@ -9,7 +9,7 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="EntityDocQueryEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project EntityDocQueryEJB.</description>
-    	<import file="nbproject/build-impl.xml"/>
+    <import file="nbproject/build-impl.xml"/>
 	<import file="../../../build.lib.xml"/>
 	<target name="build">
 		<property name="target-to-call" value="dist"/>
@@ -73,18 +73,22 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-EntityDocQuery" depends="wsimport-init,wsimport-service-check-EntityDocQuery">
+    <target name="wsimport-service-EntityDocQuerySecured" depends="wsimport-init,wsimport-service-check-EntityDocQuerySecured" unless="wsimport-service-EntityDocQuerySecured.notRequired">
 <!--
-		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl" catalog="catalog.xml"/>
+        <property name="service-wsdl-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
 -->
-		<copy todir="${basedir}/${meta.inf}/wsdl/EntityDocQuery">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/"/>
-		</copy>
-		<echo message="copy schemas"/>
-		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/EntityDocQuery/schemas/"/>
-		</copy>
-	</target>
+        <property name="targetLocation-EntityDocQuerySecured" location="${meta.inf}/wsdl/EntityDocQuerySecured"/>
+        <property name="sourceLocation-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-services/EntityDocQuerySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntityDocQuerySecured}">
+            <fileset dir="${sourceLocation-EntityDocQuerySecured}"/>
+        </copy>
+        <property name="targetLocationSchemas-EntityDocQuerySecured" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchemas-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-services/EntityDocQuerySecured/schemas/"/>
+        <copy todir="${targetLocationSchemas-EntityDocQuerySecured}">
+            <fileset dir="${sourceLocationSchemas-EntityDocQuerySecured}"/>
+        </copy>
+    </target>
 	<target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init,wsimport-service-check-NhincProxyDocQuery">
 <!--
 		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl" catalog="catalog.xml"/>

@@ -110,6 +110,11 @@
     <jarname>AdapterDocQueryEJB.jar</jarname>
     <directory>Production/Adapters/General/AdapterDocQueryEJB</directory>
   </ejblist>
+	<ejblist>
+	  <name>EntityDocQueryProxyEJB</name>
+	  <jarname>EntityDocQueryProxyEJB.jar</jarname>
+	  <directory>Production/Adapters/General/EntityDocQueryProxyEJB</directory>
+	</ejblist>
   <ejblist>
     <name>NhincAuditLogDteEJB</name>
     <jarname>NhincAuditLogDteEJB.jar</jarname>
