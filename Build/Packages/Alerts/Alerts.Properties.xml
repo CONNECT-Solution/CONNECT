@@ -17,7 +17,7 @@
 	<include buildfile="${PackagesDirectory}\Alerts\Diskspace\DiskSpace.Script.xml"/>
   <!--<include buildfile="${PackagesDirectory}\Alerts\Tracker\Tracker.Script.xml"/>-->
 
-  <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + ' Nightly Build'}">
+  <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + '-Release'}">
     <function execute="${stringlist::add('Alerts.TargetListId', 'Alerts.DoneUserStories')}"/>
   </if>
 

@@ -252,7 +252,7 @@
       </else>
     </ifthenelse>
 
-    <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + ' Nightly Build'}">
+    <if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName + '-Release'}">
       <property name="Alerts.SendMessage.ToList" value="jay.flowers@agilex.com;greg.pfister@agilex.com;brian.mowbray@agilex.com"/>
       <property name="Alerts.SendMessage.CCList" value=""/>
       <call target="Alerts.SendMessage"/>
