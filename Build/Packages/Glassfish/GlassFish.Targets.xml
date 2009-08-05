@@ -82,12 +82,13 @@
     <call target="GlassFish.Undeploy"/>
 
     <call target="GlassFish.StopServer"/>
-    <call target="GlassFish.StartServer"/>
 
     <call target="GlassFish.Deploy"/>
   </target>
   
   <target name="GlassFish.Undeploy">
+    <call target="GlassFish.StartServer"/>
+    
     <property name="AntTarget" value="undeploy"/>
     <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
     <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\undeploy_log.xml"/>
@@ -105,6 +106,8 @@
   </target>
   
   <target name="GlassFish.Deploy">
+    <call target="GlassFish.StartServer"/>
+    
     <property name="AntTarget" value="deploy"/>
     <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
     <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
