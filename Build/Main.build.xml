@@ -179,9 +179,6 @@
   <target name="DeployToTest" depends="SetUps">
     <trycatch>
       <try>
-        <property name="SourceControl.CleanGetOf" value="${InstallDirectory}"/>
-        <call target="SourceControl.CleanGetOf"/>
-
         <call target="GlassFish.Redeploy.Release.Build" />
       </try>
       <finally>
