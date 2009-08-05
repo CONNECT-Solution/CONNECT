@@ -7,6 +7,16 @@
   <condition property="deploypropertiesfile" value="deploy.unix.properties">
     <os family="unix"/>
   </condition>
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+  <taskdef resource="com/sun/tools/appserver/antlib.xml">
+    <classpath>
+      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
+      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
+    </classpath>
+  </taskdef>
+
   <property file="${basedir}/${deploypropertiesfile}"/>
 
   <!-- Developer override list of jars to operate on in this external file. -->
@@ -16,35 +26,22 @@
   <property name="master.applist" value="${basedir}/master.deploy.ejblist.xml" />
 
   <property name="DistDir" value="${basedir}/nhinc" />
-  <available file="${basedir}/NHINC.zip" property="nhinc.zip.present"/>
+  <available file="${DistDir}" property="nhinc.folder.present"/>
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml">
-    <classpath>
-      <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
-    </classpath>
-  </taskdef>
-
-  <taskdef resource="com/sun/tools/appserver/antlib.xml">
-    <classpath>
-      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
-    </classpath>
-  </taskdef>
-
-  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
-    <classpath>
-      <pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar"/>
-    </classpath>
-  </taskdef>
+  <condition property="TARGET_IP" value="localhost">
+    <not>
+      <isset property="TARGET_IP" />
+    </not>
+  </condition>
 
   <target name="deploy" depends="-init-cl-deployment-env,showvars,-do-unzip,deploy-tgt,-cleanup-cl-deployment-env" description="Execute deployment of EJB and possibly CA zips if deployCA property is set." >
     <echo message="Deploy complete." />
   </target>
-  
+
   <target name="undeploy" depends="-init-cl-deployment-env,showvars,undeploy-tgt,-cleanup-cl-deployment-env" description="Execute un-deployment of EJB and possibly CA zips if deployCA property is set." >
     <echo message="Un-Deploy complete." />
   </target>
-  
+
   <target name="showvars" description="Display properties that are set." >
     <echo message="--- Some variables ---"/>
     <echo message="Deploy Properties file: ${basedir}/${deploypropertiesfile}"/>
@@ -52,7 +49,7 @@
     <echo message="ProductBaseDir: ${ProductBaseDir}"/>
     <echo message="glassfish.home: ${glassfish.home}"/>
     <echo message="TARGET_IP: ${TARGET_IP}"/>
-    <echo message="TARGET_GW: ${TARGET_GW}"/>
+
     <echo message="sjsas.username: ${sjsas.username}"/>
     <if>
       <isset property="deployCA" />
@@ -77,7 +74,7 @@
     <loadfile property="dev.list.ejboverride" failonerror="false" srcFile="${dev.list.ejboverride.filename}" />
     <echo message="Init complete." />
   </target>
-  
+
   <target name="-cleanup-cl-deployment-env" >
     <delete file="${sjsas.password.file}" />
     <echo message="Cleanup complete." />
@@ -100,10 +97,10 @@
                     <equals arg1="@{currejb}" arg2="@{ejblist.name}" trim="true" />
                     <then>
                       <echo message="Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
-                      <sun-appserv-deploy 
+                      <sun-appserv-deploy
                         user="${sjsas.username}"
                         passwordfile="${sjsas.password.file}"
-                        host="${TARGET_IP}" 
+                        host="${TARGET_IP}"
                         port="${ADMIN_PORT}"
                         file="${DistDir}/@{ejblist.jarname}"
                         asinstalldir="${glassfish.home}"
@@ -115,10 +112,10 @@
             </then>
             <else>
               <echo message="Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
-              <sun-appserv-deploy 
+              <sun-appserv-deploy
                 user="${sjsas.username}"
                 passwordfile="${sjsas.password.file}"
-                host="${TARGET_IP}" 
+                host="${TARGET_IP}"
                 port="${ADMIN_PORT}"
                 file="${DistDir}/@{ejblist.jarname}"
                 asinstalldir="${glassfish.home}"
@@ -146,10 +143,10 @@
                     <equals arg1="@{currejb}" arg2="@{ejblist.name}" trim="true" />
                     <then>
                       <echo message="Un-Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
-                      <sun-appserv-undeploy 
+                      <sun-appserv-undeploy
                         user="${sjsas.username}"
                         passwordfile="${sjsas.password.file}"
-                        host="${TARGET_IP}" 
+                        host="${TARGET_IP}"
                         port="${ADMIN_PORT}"
                         name="@{ejblist.name}"
                         asinstalldir="${glassfish.home}"
@@ -161,7 +158,7 @@
             </then>
             <else>
               <echo message="Un-Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
-              <sun-appserv-undeploy 
+              <sun-appserv-undeploy
                 user="${sjsas.username}"
                 passwordfile="${sjsas.password.file}"
                 host="${TARGET_IP}"
@@ -181,57 +178,57 @@
       <isset property="deployCA" />
       <then>
         <echo message="Deploying NhinCA from ${DistDir}/NhinCA.zip" />
-        <jbi-deploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           file="${DistDir}/NhinCA.zip"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-start-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="NhinCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
 
         <echo message="Deploying EntityCA from ${DistDir}/EntityCA.zip" />
-        <jbi-deploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           file="${DistDir}/EntityCA.zip"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-start-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="EntityCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
 
         <echo message="Deploying AdapterCA ${DistDir}/AdapterCA.zip" />
-        <jbi-deploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           file="${DistDir}/AdapterCA.zip"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-start-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="AdapterCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
       </then>
       <else>
@@ -246,57 +243,57 @@
       <isset property="deployCA" />
       <then>
         <echo message="Un-Deploying NhinCA" />
-        <jbi-shut-down-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="NhinCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-undeploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="NhinCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
 
         <echo message="Un-Deploying EntityCA" />
-        <jbi-shut-down-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="EntityCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-undeploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="EntityCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
 
         <echo message="Un-Deploying AdapterCA" />
-        <jbi-shut-down-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="AdapterCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
-        <jbi-undeploy-service-assembly 
-          host="${TARGET_IP}" 
-          port="${ADMIN_PORT}" 
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
           name="AdapterCA"
-          target="${TARGET_DOMAIN}" 
-          username="${sjsas.username}" 
-          password="${sjsas.password}" 
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
         />
       </then>
       <else>
@@ -308,12 +305,12 @@
   <target name="unzip" depends="-init-cl-deployment-env,-do-unzip,-cleanup-cl-deployment-env"  description="Unzip NHIN-C binaries">
     <echo message="UnZip complete." />
   </target>
-  
+
   <target name="-do-unzip">
-    <delete dir="${basedir}/nhinc" quiet="true" failonerror="false" />
     <if>
       <isset property="dev.list.ejboverride"/>
       <then>
+        <delete dir="${DistDir}"/>
         <echo message="Developer override copying from source tree to deployment directory." />
         <xmltask source="${master.applist}">
           <call path="/projects/ejblist">
@@ -359,11 +356,9 @@
         </if>
       </then>
       <elseif>
-        <istrue value="${nhinc.zip.present}" />
+        <istrue value="${nhinc.folder.present}" />
         <then>
-          <delete dir="${DistDir}"/>
-          <unzip src="NHINC.zip" dest="${DistDir}"/>
-          <echo message="UnZipped NHINC.zip to ${DistDir} complete." />
+          <!--Do nothing-->
         </then>
       </elseif>
       <else>
