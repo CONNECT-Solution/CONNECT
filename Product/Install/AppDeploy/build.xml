@@ -7,6 +7,8 @@
   <condition property="deploypropertiesfile" value="deploy.unix.properties">
     <os family="unix"/>
   </condition>
+  
+  <property file="${basedir}/${deploypropertiesfile}"/>
 
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
@@ -17,7 +19,6 @@
     </classpath>
   </taskdef>
 
-  <property file="${basedir}/${deploypropertiesfile}"/>
 
   <!-- Developer override list of jars to operate on in this external file. -->
   <property name="dev.list.ejboverride.filename" value="${basedir}/dev.deploy.ejblist.txt" />
