@@ -71,13 +71,16 @@ public class EntityAuditLog {
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
     private AcknowledgementType logAuditQuery(FindAuditEventsMessageType message, String direction, String _interface) {
+        AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logFindAuditEvents(message, direction, _interface);
 
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        if (auditLogMsg != null) {
+            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            ack = proxy.auditLog(auditLogMsg);
+        }
 
-        return proxy.auditLog(auditLogMsg);
+        return ack;
     }
-    
 }
