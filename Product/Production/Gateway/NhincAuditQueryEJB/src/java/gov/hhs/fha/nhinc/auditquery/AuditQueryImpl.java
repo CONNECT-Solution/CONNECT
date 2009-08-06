@@ -111,6 +111,8 @@ public class AuditQueryImpl {
     }
 
     private AcknowledgementType audit(FindAuditEventsRequestType auditMsg, String direction, String _interface) {
+        AcknowledgementType ack = new AcknowledgementType();
+
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -121,10 +123,13 @@ public class AuditQueryImpl {
 
         LogEventRequestType auditLogMsg = auditLogger.logFindAuditEvents(message, direction, _interface);
 
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        if (auditLogMsg != null) {
+            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            ack = proxy.auditLog(auditLogMsg);
+        }
 
-        return proxy.auditLog(auditLogMsg);
+        return ack;
     }
 
     private boolean checkPolicy(FindAuditEventsRequestType message) {
