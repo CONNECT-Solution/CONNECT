@@ -124,4 +124,7 @@
             <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
