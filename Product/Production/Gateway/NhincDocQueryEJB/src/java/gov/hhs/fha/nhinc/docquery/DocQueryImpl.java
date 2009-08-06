@@ -45,8 +45,10 @@ class DocQueryImpl {
         RespondingGatewayCrossGatewayQueryRequestType crossGatewayQueryRequest = new RespondingGatewayCrossGatewayQueryRequestType();
         crossGatewayQueryRequest.setAdhocQueryRequest(body);
         crossGatewayQueryRequest.setAssertion(SamlTokenExtractor.GetAssertion(context));
+
         // Audit the incomming query
         AcknowledgementType ack = auditAdhocQueryRequest(crossGatewayQueryRequest, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
         //AssignProcessFlag: 'true' = $GetPropertyOut.GetPropertyResponse/propacc:propertyValue
         // Check if the AdhocQuery Service is enabled
         if (isServiceEnabled())
@@ -71,12 +73,6 @@ class DocQueryImpl {
             resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
         }
         
-//        String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
-//        NhincDocQueryService service = new NhincDocQueryService();
-//        NhincDocQueryPortType port = service.getNhincDocQueryPortTypeBindingPort();
-//        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, SamlTokenExtractorHelper.getEndpointURL(homeCommunityId, SamlTokenExtractorHelper.INTERNAL_DOC_QUERY));
-//        resp = port.respondingGatewayCrossGatewayQuery(crossGatewayQueryRequest);
-        
         //create an audit record for the response
         ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
@@ -93,6 +89,8 @@ class DocQueryImpl {
      */
     private AcknowledgementType auditAdhocQueryRequest(RespondingGatewayCrossGatewayQueryRequestType crossGatewayDocQueryRequest, String direction, String _interface)
     {
+        AcknowledgementType ack = new AcknowledgementType();
+
         // Need to resolve the namespace issues here because this type is defined in multiple schemas
         gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType();
         message.setAssertion(crossGatewayDocQueryRequest.getAssertion());
@@ -100,7 +98,12 @@ class DocQueryImpl {
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, _interface);
-        return audit(auditLogMsg);
+
+        if (auditLogMsg != null) {
+           ack = audit(auditLogMsg);
+        }
+
+        return ack;
     }
 
     /**
@@ -112,6 +115,8 @@ class DocQueryImpl {
      */
     private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse crossGatewayDocQueryResponse, String direction, String _interface)
     {
+        AcknowledgementType ack = new AcknowledgementType();
+
         // Need to resolve the namespace issues here because this type is defined in multiple schemas
         gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType();
         // message.setAssertion(crossGatewayDocQueryResponse.getAssertion());
@@ -119,7 +124,12 @@ class DocQueryImpl {
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface);
-        return audit(auditLogMsg);
+
+        if (auditLogMsg != null) {
+           ack = audit(auditLogMsg);
+        }
+       
+        return ack;
     }
 
     /**
