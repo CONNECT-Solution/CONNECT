@@ -54,6 +54,7 @@ class DocQueryImpl {
             // Check to see if in adapter pass through mode for this service
             if (isInPassThroughMode())
             {
+                log.info("Passthrough mode is enabled, sending message to the Adapter");
                 resp = forwardToAgency(crossGatewayQueryRequest);
             } 
             else
@@ -63,6 +64,8 @@ class DocQueryImpl {
         }
         else
         {
+            log.warn("Document Query Service is disabled");
+
             //AssignEmptyResponse
             resp.setTotalResultCount(NhincConstants.NHINC_ADHOC_QUERY_NO_RESULT_COUNT);
             resp.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
