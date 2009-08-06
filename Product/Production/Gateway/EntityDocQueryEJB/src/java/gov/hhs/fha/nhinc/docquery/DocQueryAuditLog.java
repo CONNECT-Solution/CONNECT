@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.docquery;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
@@ -23,7 +22,8 @@ import org.apache.commons.logging.LogFactory;
  * @author jhoppesc
  */
 public class DocQueryAuditLog {
-        private static Log log = LogFactory.getLog(DocQueryAuditLog.class);
+
+    private static Log log = LogFactory.getLog(DocQueryAuditLog.class);
 
     /**
      * This method will log Audit Query Requests received on the Entity Interface
@@ -74,33 +74,17 @@ public class DocQueryAuditLog {
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
     private AcknowledgementType logDocQuery(AdhocQueryMessageType message, String direction, String _interface) {
+        AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, _interface);
 
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-
-        return proxy.auditLog(auditLogMsg);
+        if (auditLogMsg != null) {
+            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            ack = proxy.auditLog(auditLogMsg);
+        }
+        return ack;
     }
-    
-        /**
-     * This method will log Document Query Responses received on the Nhin Interface
-     *
-     * @param auditMsg The Document Query Response message to be audit logged.
-     * @return An acknowledgement of whether or not the message was successfully logged.
-//     */
-//    public AcknowledgementType auditResponse(AdhocQueryResponse docQueryResp, AssertionType assertion) {
-//        log.debug("Entering DocQueryAuditLog.auditResponse (proxy)...");
-//
-//        AdhocQueryResponseMessageType auditReqMsg = new AdhocQueryResponseMessageType();
-//        auditReqMsg.setAssertion(assertion);
-//        auditReqMsg.setAdhocQueryResponse(docQueryResp);
-//
-//        AcknowledgementType ack = logDocQueryResponse(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-//
-//        log.debug("Exiting DocQueryAuditLog.auditResponse (proxy)...");
-//        return ack;
-//    }
 
     /**
      * This method will log Document Query Responses received/sent on a particular public interface
@@ -111,13 +95,16 @@ public class DocQueryAuditLog {
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditResponse(AdhocQueryResponseMessageType message, String direction, String _interface) {
+        AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface);
 
-        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        if (auditLogMsg != null) {
+            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            ack = proxy.auditLog(auditLogMsg);
+        }
 
-        return proxy.auditLog(auditLogMsg);
+        return ack;
     }
-
 }
