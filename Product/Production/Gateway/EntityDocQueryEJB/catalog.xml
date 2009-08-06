@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" uri="src/conf/xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonEntity.xsd" uri="src/conf/xml-resources/web-services/EntityDocQuery/schemas/nhinc/common/NhincCommonEntity.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuery.wsdl" uri="src/conf/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/conf/xml-resources/web-services/NhincProxyDocQuery/schemas/ebRS/query.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonProxy.xsd" uri="src/conf/xml-resources/web-services/NhincProxyDocQuery/schemas/nhinc/common/NhincCommonProxy.xsd"/>
