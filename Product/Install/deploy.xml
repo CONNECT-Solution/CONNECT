@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="Chapter33.deployment" default="deploy">
+
+  <import file="settings.xml" />
+  
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
+  <taskdef resource="com/sun/tools/appserver/antlib.xml">
+    <classpath>
+      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
+      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
+    </classpath>
+  </taskdef>
+
+  <!--
+  These properties should be defined in project build.xml files:
+  
+  <property name="deploy.type" value="ejb" description="options:['ejb', 'shared', 'ca']" />
+  -->
+
+  <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}"/>
+  <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.password}" file="${deploy.glassfish.password.file.path}"/>
+  <property name="deploy.application.list.file.path" value="${basedir}/deploy.application.list.xml"/>
+  <property name="deploy.exclusion.file.path" value="${basedir}/exclusions.txt"/>
+
+  <if>
+    <available file="deploy.exclusion.file.path"/>
+    <then>
+      <loadfile property="deploy.exclusion.list" srcFile="${deploy.exclusion.file.path}"/>
+      <for list="${deploy.exclusion.list}" delimiter="${line.separator}" param="exclusion">
+        <sequential>
+          <property name="deploy.exclude.${exclusion}" value="true"/>
+        </sequential>
+      </for>
+    </then>
+  </if>
+
+  <target name="deploy">
+    <if>
+      <isset property="project.name" />
+      <then>
+        <antcall target="deploy.to.development" />
+      </then>
+      <else>
+        <antcall target="deploy.to.production" />
+      </else>
+    </if>
+  </target>
+
+  <target name="undeploy">
+    <if>
+      <isset property="project.name" />
+      <then>
+        <antcall target="undeploy.from.development" />
+      </then>
+      <else>
+        <antcall target="undeploy.from.production" />
+      </else>
+    </if>
+  </target>
+
+  <target name="deploy.to.production">
+    <runtarget target="deploy.glassfish.stop.server"/>
+    <runtarget target="deploy.shared.libs.to.glassfish"/>
+    
+    <runtarget target="deploy.glassfish.start.server"/>
+    <runtarget target="deploy.ejbs.to.glassfish"/>
+    <runtarget target="deploy.wars.to.glassfish"/>
+    <runtarget target="deploy.cas.to.glassfish"/>
+  </target>
+  
+  <target name="undeploy.from.production">
+    <runtarget target="deploy.glassfish.start.server"/>
+    <runtarget target="undeploy.cas.from.glassfish"/>
+    <runtarget target="undeploy.wars.from.glassfish"/>
+    <runtarget target="undeploy.ejbs.from.glassfish"/>
+
+    <runtarget target="deploy.glassfish.stop.server"/>
+    <runtarget target="undeploy.shared.libs.from.glassfish"/>
+  </target>
+
+  <target name="deploy.glassfish.start.server">
+    <sun-appserv-admin
+      explicitcommand="start-domain ${deployment.glassfish.domain}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="deploy.glassfish.stop.server">
+    <sun-appserv-admin
+      explicitcommand="stop-domain ${deployment.glassfish.domain}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="deploy.ejbs.to.glassfish">
+    <var name="target" value="deploy.ejb.to.glassfish"/>
+    <runtarget target="target.to.call.on.ejbs"/>
+  </target>
+
+  <target name="undeploy.ejbs.from.glassfish">
+    <var name="target" value="undeploy.ejb.from.glassfish"/>
+    <runtarget target="target.to.call.on.ejbs"/>
+  </target>
+  
+  <target name="target.to.call.on.ejbs">
+    <xmltask source="${deploy.application.list.file.path}">
+      <call path="/applications/ejbs/ejb">
+        <param name="ejb.name" path="name/text()" />
+        <actions>
+          <if>
+            <not>
+              <isset property="deploy.exclude.@{ejb.name}"/>
+            </not>
+            <then>
+              <var name="deployment.glassfish.ejb.file.path" value="${basedir}/nhinc/@{ejb.name}.jar"/>
+              <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
+              <runtarget target="${target}"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="deploy.wars.to.glassfish">
+    <var name="target" value="deploy.war.to.glassfish"/>
+    <runtarget target="target.to.call.on.wars"/>
+  </target>
+
+  <target name="undeploy.wars.from.glassfish">
+    <var name="target" value="undeploy.war.from.glassfish"/>
+    <runtarget target="target.to.call.on.wars"/>
+  </target>
+
+  <target name="target.to.call.on.wars">
+    <xmltask source="${deploy.application.list.file.path}">
+      <call path="/applications/wars/war">
+        <param name="war.name" path="name/text()" />
+        <actions>
+          <if>
+            <not>
+              <isset property="deploy.exclude.@{war.name}"/>
+            </not>
+            <then>
+              <var name="deployment.glassfish.war.file.path" value="${basedir}/nhinc/@{war.name}.war"/>
+              <var name="deployment.glassfish.war.name" value="@{war.name}"/>
+              <runtarget target="${target}"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="deploy.cas.to.glassfish">
+    <var name="target" value="deploy.ca.to.glassfish"/>
+    <runtarget target="target.to.call.on.cas"/>
+  </target>
+
+  <target name="undeploy.cas.from.glassfish">
+    <var name="target" value="undeploy.ca.from.glassfish"/>
+    <runtarget target="target.to.call.on.cas"/>
+  </target>
+
+  <target name="target.to.call.on.cas">
+    <xmltask source="${deploy.application.list.file.path}">
+      <call path="/applications/cas/ca">
+        <param name="ca.name" path="name/text()" />
+        <actions>
+          <if>
+            <not>
+              <isset property="deploy.exclude.@{ca.name}"/>
+            </not>
+            <then>
+              <var name="deployment.glassfish.ca.file.path" value="${basedir}/nhinc/@{ca.name}.zip"/>
+              <var name="deployment.glassfish.ca.name" value="@{ca.name}"/>
+              <runtarget target="${target}"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="deploy.shared.libs.to.glassfish">
+    <var name="target" value="deploy.shared.lib.to.glassfish"/>
+    <runtarget target="target.to.call.on.shared.libs"/>
+  </target>
+
+  <target name="undeploy.shared.libs.from.glassfish">
+    <var name="target" value="undeploy.shared.lib.from.glassfish"/>
+    <runtarget target="target.to.call.on.shared.libs"/>
+  </target>
+  
+  <target name="target.to.call.on.shared.libs">
+    <xmltask source="${deploy.application.list.file.path}">
+      <call path="/applications/shared/lib">
+        <param name="shared.name" path="name/text()" />
+        <actions>
+          <if>
+            <not>
+              <isset property="deploy.exclude.@{shared.name}"/>
+            </not>
+            <then>
+              <var name="deployment.glassfish.shared.lib.file.path" value="${basedir}/nhinc/@{shared.name}.jar"/>
+              <runtarget target="${target}"/>
+            </then>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+  
+  <target name="deploy.to.development">
+    <echo message="Attempting to deploy package for project ${project.name}." />
+
+    <mkdir dir="${deployment.dir}" />
+    <copy todir="${deployment.dir}" file="${dist.file}" overwrite="true"/>
+
+    <switch value="${deploy.type}">
+      <case value="ear">
+        <var unset="true" name="deployment.weblogic.application.name" />
+        <basename file="${dist.file}" property="deployment.weblogic.application.name" suffix=".ear" />
+        <var name="deployment.weblogic.application.file.path" value="${deployment.dir}/${deployment.weblogic.application.name}.ear" />
+        <runtarget target="deploy.ear.to.weblogic" />
+      </case>
+      <default>
+        <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
+      </default>
+    </switch>
+  </target>
+
+  <target name="undeploy.from.development">
+    <echo message="Attempting to deploy package for project ${project.name}." />
+    <mkdir dir="${deployment.dir}" />
+    <copy todir="${deployment.dir}" file="${dist.file}" overwrite="true" />
+
+    <switch value="${deploy.type}">
+      <case value="ear">
+        <var unset="true" name="deployment.weblogic.application.name" />
+        <basename file="${dist.file}" property="deployment.weblogic.application.name" suffix=".ear" />
+        <var name="deployment.weblogic.application.file.path" value="${deployment.dir}/${deployment.weblogic.application.name}.ear" />
+        <antcall target="undeploy.ear.from.weblogic" />
+      </case>
+      <default>
+        <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
+      </default>
+    </switch>
+  </target>
+  
+  <target name="deploy.ejb.to.glassfish">
+    <sun-appserv-deploy
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      file="${deployment.glassfish.ejb.file.path}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="undeploy.ejb.from.glassfish">
+    <sun-appserv-undeploy
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      name="${deployment.glassfish.ejb.name}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="deploy.war.to.glassfish">
+    <sun-appserv-deploy
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      file="${deployment.glassfish.war.file.path}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="undeploy.war.from.glassfish">
+    <sun-appserv-undeploy
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      name="${deployment.glassfish.war.name}"
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="deploy.ca.to.glassfish">
+    <jbi-deploy-service-assembly
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      file="${deployment.glassfish.ca.file.path}"
+      username="${deployment.glassfish.server.username}"
+      password="${deployment.glassfish.server.password}"
+    />
+    <jbi-start-service-assembly
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      name="${deployment.glassfish.ca.name}"
+      username="${deployment.glassfish.server.username}"
+      password="${deployment.glassfish.server.password}"
+    />
+  </target>
+
+  <target name="undeploy.ca.from.glassfish">
+    <jbi-shut-down-service-assembly
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      name="${deployment.glassfish.ca.name}"
+      username="${deployment.glassfish.server.username}"
+      password="${deployment.glassfish.server.password}"
+    />
+    <jbi-undeploy-service-assembly
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.port}"
+      name="${deployment.glassfish.ca.name}"
+      username="${deployment.glassfish.server.username}"
+      password="${deployment.glassfish.server.password}"
+    />
+  </target>
+  
+  <target name="deploy.shared.lib.to.glassfish">
+    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" />
+  </target>
+  
+  <target name="undeploy.shared.lib.from.glassfish">
+    <basename property="deployment.glassfish.shared.lib.file.name" file="${deployment.glassfish.shared.lib.file.path}"/>
+    <delete file="${deployment.glassfish.shared.lib.file.name}" />
+  </target>
+  
+</project>

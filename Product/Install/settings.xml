@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="settings">
+
+  <property name="glassfish.home" value="c:\GlassfishESB\glassfish"/>
+  
+  <property name="deployment.dir" value="C:\NHINC" />
+
+  <property name="deployment.glassfish.port" value="4848"/>
+  <property name="deployment.glassfish.server" value="localhost"/>
+  <property name="deployment.glassfish.domain" value="domain1"/>
+
+  <property name="deployment.glassfish.server.username" value="admin" />
+  <property name="deployment.glassfish.server.password" value="adminadmin" />
+
+</project>
