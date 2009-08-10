@@ -121,7 +121,7 @@
   </target>
   
   <target name="Alerts.SetUp">
-    <property name="UrlToThisBuild" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_ViewBuildReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
+    <property name="UrlToThisBuild" value="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_ViewBuildReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
     <echo file="${Alerts.ReportAppenderFilePath}" message=""/>
   </target>
 

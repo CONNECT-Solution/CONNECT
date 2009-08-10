@@ -39,13 +39,13 @@
     <xsl:variable name="MostRecentIntegration" select="/statistics/integration[position() = last()]" />
     <xsl:variable name="ArtifactFolderName" select="ms:FormatDate($MostRecentIntegration/statistic[@name='StartTime']/text(), 'yyyyMMddHHmmss')" />
 
-    <xsl:variable name="quietandrecoverytimefile" select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/quietandrecoverytimehistory.xml')"/>
+    <xsl:variable name="quietandrecoverytimefile" select="concat('https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/quietandrecoverytimehistory.xml')"/>
     <xsl:variable name="quietandrecoverytimedoc" select="document($quietandrecoverytimefile)"/>
 
-    <xsl:variable name="simianfile" select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/Simian.Statistics.xml')"/>
+    <xsl:variable name="simianfile" select="concat('https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/Simian.Statistics.xml')"/>
     <xsl:variable name="simiandoc" select="document($simianfile)"/>
 
-    <xsl:variable name="unittestfile" select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/UnitTests.Statistics.xml')"/>
+    <xsl:variable name="unittestfile" select="concat('https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Artifacts/', $ArtifactFolderName, '/UnitTests.Statistics.xml')"/>
     <xsl:variable name="unittestdoc" select="document($unittestfile)"/>
 
     <style>
@@ -358,10 +358,10 @@ if(!document.getElementById)
         <xsl:variable name="BuildUrl">
           <xsl:choose>
             <xsl:when test="./@status = 'Success'">
-              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, 'Lbuild.', @build-label, '.xml')"/>
+              <xsl:value-of select="concat('https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, 'Lbuild.', @build-label, '.xml')"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, '.xml')"/>
+              <xsl:value-of select="concat('https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, '.xml')"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>

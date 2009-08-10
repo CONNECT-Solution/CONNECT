@@ -34,4 +34,4 @@
 <!ENTITY NantBinPath              '&BuildDirectory;\nAnt\bin' >
 <!ENTITY NantExePath              '&NantBinPath;\nant.exe' >
 
-<!ENTITY webURL                   'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY webURL                   'https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>

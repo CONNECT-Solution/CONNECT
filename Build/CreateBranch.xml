@@ -143,7 +143,7 @@
         <property name="NantBinPath" value="${BranchBuildDirectory}\nant\bin"/>
         <property name="NantExePath" value="${NantBinPath}\nant.exe"/>
 
-        <property name="webURL" value="http://${BuildServerHostName}/${ProjectName}-${BranchName}/default.aspx?_action_ViewFarmReport=true"/>
+        <property name="webURL" value="https://${BuildServerHostName}/${ProjectName}-${BranchName}/default.aspx?_action_ViewFarmReport=true"/>
       </properties>
     </nant>
     
@@ -184,7 +184,7 @@
         <property name="NantBinPath" value="${BranchBuildDirectory}\nant\bin"/>
         <property name="NantExePath" value="${NantBinPath}\nant.exe"/>
 
-        <property name="webURL" value="http://${BuildServerHostName}/${ProjectName}-${BranchName}/default.aspx?_action_ViewFarmReport=true"/>
+        <property name="webURL" value="https://${BuildServerHostName}/${ProjectName}-${BranchName}/default.aspx?_action_ViewFarmReport=true"/>
       </properties>
     </nant>
 

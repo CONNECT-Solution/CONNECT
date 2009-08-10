@@ -18,7 +18,7 @@
   <property name="Alerts.BuildTime.PreviousAbsolute" value="NaN" overwrite="false"/>
   <!-- End Previous Properties -->
 
-  <property name="Alerts.BuildTime.ChartUrl" value="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts.swf?library_path=/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts_library&amp;xml_source=/${ProjectName}-${ProjectCodeLineName}/${ArtifactRootDirectoryName}/${Common.ArtifactFolderName}/BuildTimeHistoryChartData.xml"/>
+  <property name="Alerts.BuildTime.ChartUrl" value="https://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts.swf?library_path=/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts_library&amp;xml_source=/${ProjectName}-${ProjectCodeLineName}/${ArtifactRootDirectoryName}/${Common.ArtifactFolderName}/BuildTimeHistoryChartData.xml"/>
   
   <target name="Alerts.BuildTime" if="${CCNetIntegrationStatus == 'Success'}">
     <xmlpeek

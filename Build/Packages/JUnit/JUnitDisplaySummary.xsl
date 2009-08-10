@@ -158,9 +158,9 @@
             </xsl:attribute>
 
             <xsl:attribute name="href">
-              http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_UnitTestDetailsBuildReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
+              https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_UnitTestDetailsBuildReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
             </xsl:attribute>
-            <img src="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages\JUnit\logo.gif" class="sectionheader-title-image"/>
+            <img src="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages\JUnit\logo.gif" class="sectionheader-title-image"/>
             <div class="sectionheader-text">
               Unit Tests run: <xsl:value-of select="$stuff/@testcount"/>, Failures: <xsl:value-of select="$stuff/@failures"/>, Not run: <xsl:value-of select="$stuff/@notrun"/>, Time: <xsl:value-of select="$stuff/@time"/> seconds
             </div>

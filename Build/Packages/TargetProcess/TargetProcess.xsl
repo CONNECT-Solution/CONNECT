@@ -15,7 +15,7 @@
       <tbody>
         <tr>
           <td height="42" class="sectionheader-container">
-            <img src="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages/TargetProcess/logo.gif" class="sectionheader-title-image" />
+            <img src="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages/TargetProcess/logo.gif" class="sectionheader-title-image" />
             <div class="sectionheader"  >
               TargetProcess Associated Items (<xsl:value-of select="count(//TargetProcess/Entity)"/>)
             </div>

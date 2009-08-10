@@ -33,7 +33,7 @@
 
     <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
     <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
-    <property name="UrlToSimianReport" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_SimianReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
+    <property name="UrlToSimianReport" value="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_SimianReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
 
     <if test="${Alerts.Simian.Previous.DuplicateLineCount != 'NaN' and Alerts.Simian.DuplicateLineCount != 'notset'}">
       <call target="Alerts.Simian.GenerateReport"/>
@@ -117,7 +117,7 @@
       <value expand="true" xml="true">
         <html>
           <head>
-            <link type="text/css" rel="stylesheet" href="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
+            <link type="text/css" rel="stylesheet" href="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
           </head>
           <body>
             <p>
@@ -135,7 +135,7 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>
@@ -157,7 +157,7 @@
       <value expand="true" xml="true">
         <html>
           <head>
-            <link type="text/css" rel="stylesheet" href="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
+            <link type="text/css" rel="stylesheet" href="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
           </head>
           <body>
             <p>
@@ -175,7 +175,7 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>

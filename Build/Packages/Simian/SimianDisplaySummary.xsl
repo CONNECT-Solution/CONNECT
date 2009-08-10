@@ -28,9 +28,9 @@
           <td height="42" class="sectionheader-container" colSpan="2">
             <a STYLE="TEXT-DECORATION: NONE; color: 403F8D;" onmouseover="this.style.color = '#7bcf15'" onmouseout="this.style.color = '#403F8D'">
               <xsl:attribute name="href">
-                http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_SimianReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
+                https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_SimianReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
               </xsl:attribute>
-              <img src="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages/Simian/logo.gif" class="sectionheader-title-image"/>
+              <img src="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages/Simian/logo.gif" class="sectionheader-title-image"/>
               <div class="sectionheader-text">
                 Simian Summary (<xsl:value-of select="$stuff/@percentduplication" /> Duplication)
               </div>

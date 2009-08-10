@@ -39,6 +39,6 @@
   <property name="NantBinPath" value="&NantBinPath;"/>
   <property name="NantExePath" value="&NantExePath;"/>
 
-  <property name="webURL" value="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true"/>
+  <property name="webURL" value="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true"/>
  
 </project>

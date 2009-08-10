@@ -40,7 +40,7 @@
             <table class="section-table" cellpadding="2" cellspacing="0" border="0" width="98%">
               <tr>
                 <td height="42" class="sectionheader-container">
-                  <img src="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/SourceControl.gif" class="sectionheader-title-image" />
+                  <img src="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/SourceControl.gif" class="sectionheader-title-image" />
                   <div class="sectionheader"  >
                     Source Control Revision History Since Last Good Build
                   </div>
@@ -121,13 +121,13 @@
           <xsl:attribute name="src">
             <xsl:choose>
               <xsl:when test="Type = 'Added'">
-                <xsl:value-of select="'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/add.png'"/>
+                <xsl:value-of select="'https://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/add.png'"/>
               </xsl:when>
               <xsl:when test="Type = 'Modified'">
-                <xsl:value-of select="'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/edit.png'"/>
+                <xsl:value-of select="'https://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/edit.png'"/>
               </xsl:when>
-              <xsl:when test="Type = 'Deleted'">http://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/delete.png</xsl:when>
-              <xsl:otherwise>http://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/document_text.png</xsl:otherwise>
+              <xsl:when test="Type = 'Deleted'">https://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/delete.png</xsl:when>
+              <xsl:otherwise>https://&HostName;/&ProjectName;-&ProjectCodeLineName;/images/document_text.png</xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
         </img>&#160;<xsl:value-of select="Type"/>

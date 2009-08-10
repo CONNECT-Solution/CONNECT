@@ -16,7 +16,7 @@
     </do>
   </foreach>
 
-  <property name="Common.Credentials.File.Path" value="${BuildDirectory}\Common.Credentails.xml"/>
+  <property name="Common.Credentials.File.Path" value="${BuildDirectory}\Common.Credentials.xml"/>
   <ifthenelse test="${file::exists(Common.Credentials.File.Path)}">
     <then>
       <include buildfile="${Common.Credentials.File.Path}" />
