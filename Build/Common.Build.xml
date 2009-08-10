@@ -16,6 +16,16 @@
     </do>
   </foreach>
 
+  <property name="Common.Credentials.File.Path" value="${BuildDirectory}\Common.Credentails.xml"/>
+  <ifthenelse test="${file::exists(Common.Credentials.File.Path)}">
+    <then>
+      <include buildfile="${Common.Credentials.File.Path}" />
+    </then>
+    <else>
+      <echo level="Warning" message="${Common.Credentials.File.Path} was not found. This might be okay, if say you are running a personal build."/>
+    </else>
+  </ifthenelse>
+
   <target name="Common.DeleteFiles">
     <echo message="The property Common.FilesToDelete was not specified." if="${Common.FilesToDelete == ''}"/>
     <foreach item="String" in="${Common.FilesToDelete}" delim=";" property="Private.Common.FileToDelete" unless="${Common.FilesToDelete == ''}">

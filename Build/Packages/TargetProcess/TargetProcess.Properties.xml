@@ -15,7 +15,7 @@
   
 	    <connectioninformation
 			id="TargetProcess.ConnectionInformation"
-			rootserviceurl="http://build.nhiegateway.org"
+			rootserviceurl="http://tp.nhiegateway.org/TargetProcess2"
 			username="${TP.Username}"
 			password="${TP.Password}"
 		/>

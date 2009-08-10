@@ -251,8 +251,8 @@
         <arg line="checkout" />
         <arg line='"${Uri}"'/>
         <arg line="--non-interactive" />
-        <arg line="--password=password"/>
-        <arg line="--username=build"/>
+        <arg line="--username ${SVN.Username}" />
+        <arg line="--password ${SVN.Password}" />
         <arg line='"${SourceControl.GetOf}"'/>
       </exec>
 		</if>

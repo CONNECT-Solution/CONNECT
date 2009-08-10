@@ -18,9 +18,9 @@
     <variable name="JAVA_HOME" value="${Java.Home}" />
     <variable name="PATH" path="${Ant.Environment.Path};${Ant.Bin};${Java.Home}\bin;${Java.Home};${environment::get-variable('ProgramFiles')}\Subversion\bin" />
     <variable name="ProjectName" value="Nhinc"/>
-    <variable name="TP.UserName" value="flowersj"/>
-    <variable name="TP.Password" value="password"/>
-    <variable name="TP.Url" value="http://build.nhiegateway.org"/>
+    <variable name="TP.UserName" value="${TP.Username}"/>
+    <variable name="TP.Password" value="${TP.Password}"/>
+    <variable name="TP.Url" value="http://tp.nhiegateway.org/TargetProcess2"/>
   </environment>
   
 </project>
