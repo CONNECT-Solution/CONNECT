@@ -31,7 +31,7 @@
 			    <fileset dir="${IntegrationTest.Dir}" includes="ValidateServices-soapui-project.xml"/>
 			    <fileset dir="${IntegrationTest.Dir}" includes="PatientCorrelation-soapui-project.xml"/>
 			    <fileset dir="${IntegrationTest.Dir}" includes="PatientCorrelationFacade-soapui-project.xml"/>
-			    <fileset dir="${IntegrationTest.Dir}" includes="Flags-DocQuery-soapui-project.xml"/>
+<!--			    <fileset dir="${IntegrationTest.Dir}" includes="Flags-DocQuery-soapui-project.xml"/>-->
 			    <fileset dir="${IntegrationTest.Dir}" includes="AuditQueryTestHelper-soapui-project.xml"/>
 <!--			    <fileset dir="${IntegrationTest.Dir}" includes="Fail-soapui-project.xml"/>-->
 <!--			    <fileset dir="${IntegrationTest.Dir}" includes="EntitySubjectDiscoveryIntegrationTest-soapui-project.xml"/>
