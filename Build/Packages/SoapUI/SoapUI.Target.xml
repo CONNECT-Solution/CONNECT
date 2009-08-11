@@ -3,7 +3,7 @@
 
   <include buildfile="SoapUI.Properties.xml" />
 
-  <target name="SoapUI.Deploy">
+  <target name="SoapUI.RunTests">
 
 	  <trycatch>
 		  <try> 
@@ -31,20 +31,20 @@
 	  
 		<ifthenelse  test="${file::exists(BuildDirectory + '\SoapUITestReports\IntegrationTests.xml')}">
 			<then>
-				<property name="UnitTest.HasFailures" value="true"/>
+				<property name="SoapUI.HasFailures" value="true"/>
 				<xmlpeek
 					file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"
-					property="UnitTest.HasFailures"
+					property="SoapUI.HasFailures"
 					xpath="boolean(/testsuites//testsuite[@errors>0] or /testsuites//testsuite[@failures>0])"
 				/>
 
 				<fail
-					if="${UnitTest.HasFailures}"
-					message="At least one unit test has failed.  Please check the unit test section for more details..."
+					if="${SoapUI.HasFailures}"
+					message="At least one SoapUI has failed.  Please check the SoapUI section for more details..."
 				/>
 			</then>
 			<else>
-				<fail message="It doesn't look like any unit tests were run, so the build was failed!"/>
+				<fail message="It doesn't look like any SoapUI were run, so the build was failed!"/>
 			</else>
 		</ifthenelse>
 		

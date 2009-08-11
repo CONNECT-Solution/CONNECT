@@ -204,8 +204,8 @@
           <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
         </users>
         <groups>
-          <group name="buildmaster" notification="change"/>
-          <group name="testers" notification="success"/>
+          <group name="buildmaster" notification="always"/>
+          <group name="testers" notification="always"/>
           <group name="managers" notification="success"/>
         </groups>
       </email>
@@ -263,10 +263,10 @@
         <executable>&NantExePath;</executable>
         <baseDirectory>&BuildDirectory;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>IntegrationTest.build.xml</buildFile>
-        <buildArgs>-D:target.server=192.168.25.157 -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Triggered</target>
+          <target>Test</target>
         </targetList>
 
         <buildTimeoutSeconds>2700</buildTimeoutSeconds>
@@ -298,8 +298,8 @@
           <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
         </users>
         <groups>
-          <group name="buildmaster" notification="change"/>
-          <group name="testers" notification="success"/>
+          <group name="buildmaster" notification="always"/>
+          <group name="testers" notification="always"/>
         </groups>
       </email>
     </publishers>

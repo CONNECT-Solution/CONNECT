@@ -191,12 +191,28 @@
   <target name="DeployToTest" depends="SetUps">
     <trycatch>
       <try>
+        <call target="TargetProcess.Get.Release.Report"/>
         <call target="GlassFish.Redeploy.Release.Build" />
       </try>
       <finally>
         <call target="TearDowns" />
       </finally>
     </trycatch>
+  </target>
+
+  <target name="Test" depends="SetUps" >
+    <trycatch>
+      <try>
+        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="SoapUI.RunTests"/>
+      </try>
+      <finally>
+        <copy failonerror="false" overwrite="true" tofile="${Common.ArtifactDirectoryPath}\unittests.xml" verbose="true" file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"/>
+        <copy failonerror="false" overwrite="true" todir="${Common.ArtifactDirectoryPath}" verbose="true" file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"/>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+
   </target>
   
   <target name="SetUps">

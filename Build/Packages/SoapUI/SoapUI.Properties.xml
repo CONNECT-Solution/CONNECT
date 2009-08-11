@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Properties">
-<!--  <include buildfile="../../Properties.build.xml"/> -->
-    
-	<property name="AntHome"  value="${environment::get-variable('ANT_HOME')}" overwrite="false"/>
-	<property name="JavaHome" value="${environment::get-variable('JAVA_HOME')}" overwrite="false"/>
-<!--	<property name="NetBeansHome" value="C:\Java\NetBeans6.0.1\NetBeans 6.0.1" overwrite="false"/> -->
-	<property name="Path" value="${environment::get-variable('PATH')}" overwrite="false"/>
-	
-<!--	<property name="JavaReleaseDirectory" value="${ProductDirectory}\JavaRelease" overwrite="false"/>
-	-<zipfileset id="Deployment.ZipFileSet" basedir="${Compile.Bin}">
-		<include name="**\*"/>
-	</zipfileset>
--->
-	<property name="AntBin"  value="${AntHome}\bin" overwrite="false"/>
-	<property name="AntBat"  value="${AntBin}\ant.bat" overwrite="false"/>
-	<property name="AntBuildLogDirectory" value="${BuildDirectory}\AntLogs" overwrite="false"/>
-	<property name="AntBuildLogFile" value="${AntBuildLogDirectory}\build_log.xml" overwrite="false"/>
-	<property name="AntResultCode" value="inital" />
-	<property name="AntBuildFileName" value="${PackagesDirectory}\GlassFish\glassfish-ant-deploy\build.xml" overwrite="false"/>
-	
-	<property name="AS_ANT" value="C:\Java\AppServer\lib\ant" />
-	<property name="AS_ANT_LIB" value="C:\Java\AppServer\lib\ant\lib" />
-	<property name="AS_WEBSERVICES_LIB" value="C:\Java\AppServer\lib" />
-	<property name="AS_PERL" value="C:\Java\AppServer\lib\perl" />
-	<property name="AS_NSS" value="C:\Java\AppServer\lib" />
-	<property name="AS_NSS_BIN" value="C:\Java\AppServer\lib" />
-	<property name="AS_LIB" value="C:\Java\AppServer\lib" />
-	<property name="AS_INSTALL" value="C:\Java\AppServer" />
-	<property name="AS_CLASSPATH" value="${AS_LIB}}\tools.jar;${AS_LIB}}\appserv-jstl.jar;${AS_LIB}}\javaee.jar;${AS_LIB}}\webservices-rt.jar;${AS_LIB}\webservices-tools.jar;${AS_LIB}\commons-logging.jar;${AS_LIB}\mail.jar;${AS_LIB}\activation.jar;${AS_LIB}\appserv-ws.jar" />
-
-<!--	<property name="NETBEANS_HOME" value ="C:\Java\NetBeans6.0.1\NetBeans 6.0.1"/>
-
-	<property name="NETBEANS_ANT" value ="${NETBEANS_HOME}\soa1\ant\nblib"/>
-	<property name="NETBEANS_MODULES" value="${NETBEANS_HOME}\soa1\modules"/> 
-
-	<property name="NETBEANS_PATH" value ="${NETBEANS_ANT}\org-netbeans-modules-compapp-projects-jbi.jar;${NETBEANS_MODULES}\org-netbeans-modules-compapp-projects-jbi.jar;${NETBEANS_MODULES}\org-netbeans-modules-bpel-xpath.jar;${NETBEANS_MODULES}\org-netbeans-modules-bpel-search.jar"/> -->
-	
-	<property name="Ant.Environment.ConfigFilePath" value="${ProductDirectory}\Ant.Environment.xml" overwrite="false"/>
-
-  <property name="Ant.Environment.RefId" value="Ant.Environment" overwrite="false"/>
 
   <property name="location" value="server" overwrite="true"/>
-
-  <ifthenelse test="${file::exists(Ant.Environment.ConfigFilePath)}">
-    <then>
-      <include buildfile="${Ant.Environment.ConfigFilePath}"/>
-    </then>
-    <else>
-      <call target="Ant.Environment.Set"/>
-    </else>
-  </ifthenelse>
-
-  <target name="Ant.Environment.Set">
-    <environment id="${Ant.Environment.RefId}">
-		<variable name="JAVA_HOME" value="${JavaHome}" />
-		<variable name="ANT_HOME" value="${AntHome}" />
-		<variable name="CLASS_PATH" value="${Path};${AntBin};${JavaHome};${ThirdPartyDirectory}\JUnit\junit-4.4.zip;${AS_CLASSPATH}" />
-		<variable name="PATH" path="${Path};${AntBin};${JavaHome};${ThirdPartyDirectory}\JUnit\junit-4.4.zip;${AS_CLASSPATH}" />
-
-	</environment>
-  </target>
 
 </project>
