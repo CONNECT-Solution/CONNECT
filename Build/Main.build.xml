@@ -206,6 +206,9 @@
       <try>
         <property name="SourceControl.CleanGetOf" value="${SoapUI.Root.Directory.Path}"/>
         <call target="SourceControl.CleanGetOf"/>
+
+        <property name="SourceControl.CleanGetOf" value="${ProductionDirectory}\Common\Interfaces"/>
+        <call target="SourceControl.CleanGetOf"/>
         
         <call target="TargetProcess.Get.Release.Report"/>
         <call target="SoapUI.RunTests"/>
