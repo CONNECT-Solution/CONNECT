@@ -18,7 +18,7 @@
     <property name="ReleaseArchiveFolderName" value="${ccnet::get-project-last-build-date(CCNetRemotingUrl, ReleaseProjectName)}"/>
 
     <get
-      dest="${Common.Project.ReportDirectory}\${ProjectName}TargetProcesss.xml"
+      dest="${Common.ReportDirectory}\${ProjectName}TargetProcesss.xml"
       src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${ReleaseArchiveFolderName}/${ProjectName}TargetProcesss.xml"
     >
       <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}" unless="${Web.Credentials.UserName == '' or Web.Credentials.Password == ''}"/>
