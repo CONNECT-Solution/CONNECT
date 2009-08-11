@@ -12,9 +12,9 @@
     
 	  <trycatch>
 		  <try>	  	
-			  <exec program="${AntBat}" basedir="${BuildDirectory}\Packages\SoapUI">
+			  <exec program="${Ant.Bat}">
 				  <environment refid="${Ant.Environment.RefId}" />
-				  <arg line="default -buildfile ${BuildDirectory}\Packages\SoapUI\SoapUI.Ant.Target.xml" />
+				  <arg line="-buildfile ${BuildDirectory}\Packages\SoapUI\SoapUI.Ant.Target.xml" />
 			  </exec>
         <property name="Ant.Failure" value="False"/>
 		  </try>
