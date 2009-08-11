@@ -6,7 +6,7 @@
   <target name="SoapUI.RunTests">
 		<copy 
       file="${SoapUI.Property.File.Path}"  
-      tofile="${ProductDirectory}\IntegrationTest\default.properties" 
+      tofile="${SoapUI.Root.Directory.Path}\default.properties" 
       overwrite="true"
     />
     

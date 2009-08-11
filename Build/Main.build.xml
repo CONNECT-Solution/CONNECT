@@ -204,12 +204,21 @@
   <target name="Test" depends="SetUps" >
     <trycatch>
       <try>
+        <property name="SourceControl.CleanGetOf" value="${SoapUI.Root.Directory.Path}"/>
+        <call target="SourceControl.CleanGetOf"/>
+        
         <call target="TargetProcess.Get.Release.Report"/>
         <call target="SoapUI.RunTests"/>
       </try>
       <finally>
-        <copy failonerror="false" overwrite="true" tofile="${Common.ArtifactDirectoryPath}\unittests.xml" verbose="true" file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"/>
-        <copy failonerror="false" overwrite="true" todir="${Common.ArtifactDirectoryPath}" verbose="true" file="${BuildDirectory}\SoapUITestReports\IntegrationTests.xml"/>
+        <!--Nasty Hack, Please fix this soon.-->
+        <copy
+          file="${SoapUI.Report.File.Path}"
+          tofile="${Common.ArtifactDirectoryPath}\unittests.xml"
+          failonerror="false"
+          verbose="true"
+        />
+        
         <call target="TearDowns" />
       </finally>
     </trycatch>

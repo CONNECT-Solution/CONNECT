@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Properties">
 
-  <property name="SoapUI.Property.File.Name" value="default.server.properties" overwrite="false"/>
-  <property name="SoapUI.Property.File.Path" value="${ProductDirectory}\IntegrationTest\${SoapUI.Property.File.Name}" overwrite="false"/>
+  <property name="SoapUI.Root.Directory.Path" value="${ProductDirectory}\IntegrationTest"/>
   
-  <property name="SoapUI.Intermediate.Report.Directory.Path" value="${ProductDirectory}\IntegrationTest\results" overwrite="false"/>
+  <property name="SoapUI.Property.File.Name" value="default.server.properties" overwrite="false"/>
+  <property name="SoapUI.Property.File.Path" value="${SoapUI.Root.Directory.Path}\${SoapUI.Property.File.Name}" overwrite="false"/>
+  
+  <property name="SoapUI.Intermediate.Report.Directory.Path" value="${SoapUI.Root.Directory.Path}\results" overwrite="false"/>
   <property name="SoapUI.Intermediate.Report.File.Path" value="${SoapUI.Intermediate.Report.Directory.Path}\IntegrationTests.xml" overwrite="false"/>
   
   <property name="SoapUI.Report.Directory.Path" value="${BuildDirectory}\SoapUITestReports" overwrite="false"/>
