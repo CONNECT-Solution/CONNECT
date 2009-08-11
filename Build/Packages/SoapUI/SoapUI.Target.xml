@@ -25,13 +25,13 @@
 	  </trycatch>
     
     <copy
-			file='${SoapUI.Intermediate.Report.file.Path}'
+			file='${SoapUI.Intermediate.Report.File.Path}'
 			todir='${SoapUI.Report.Directory.Path}'
 			if="${file::exists(SoapUI.Intermediate.Report.File.Path)}"
 		/>
     
     <copy
-			file='${SoapUI.Intermediate.Report.file.Path}'
+			file='${SoapUI.Intermediate.Report.File.Path}'
 			todir='${Common.ArtifactDirectoryPath}'
 			if="${file::exists(SoapUI.Intermediate.Report.File.Path)}"
 		/>
