@@ -14,6 +14,7 @@
   <include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
   <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
   <include buildfile="${PackagesDirectory}\GlassFish\GlassFish.Targets.xml" />
+  <include buildfile="${PackagesDirectory}\SoapUI\SoapUI.Target.xml" />
   <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Target.xml" />
   <include buildfile="${PackagesDirectory}\Simian\Simian.Target.xml" />
   <include buildfile="${PackagesDirectory}\JUnit\UnitTest.Target.xml" />
@@ -227,6 +228,7 @@
     <call target="Simian.SetUp" />
     <call target="UnitTest.SetUp" />
     <call target="GlassFish.SetUp" />
+    <call target="SoapUI.SetUp" />
     <description>End SetUps</description>
   </target>
 
@@ -241,6 +243,7 @@
     <call target="Simian.TearDown" />
     <call target="UnitTest.TearDown" />
     <call target="GlassFish.TearDown" />
+    <call target="SoapUI.TearDown" />
     <description>End TearDowns</description>
     <call target="Common.TearDown" />
   </target>
