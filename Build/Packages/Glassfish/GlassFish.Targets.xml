@@ -81,8 +81,6 @@
   <target name="GlassFish.Redeploy">
     <call target="GlassFish.Undeploy"/>
 
-    <call target="GlassFish.StopServer"/>
-
     <call target="GlassFish.Deploy"/>
   </target>
   
@@ -106,6 +104,23 @@
   </target>
   
   <target name="GlassFish.Deploy">
+    <call target="GlassFish.StopServer"/>
+
+    <property name="AntTarget" value="deploy.shared"/>
+    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
+    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
+
+    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
+      <environment refid="${Ant.Environment.RefId}" />
+      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
+
+      <arg line="-logger org.apache.tools.ant.XmlLogger" />
+      <arg line='-logfile "${AntBuildLogFile}"' />
+
+      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
+      <arg line='-DProductVersion="${CCNetLabel}"' />
+    </exec>
+    
     <call target="GlassFish.StartServer"/>
     
     <property name="AntTarget" value="deploy"/>

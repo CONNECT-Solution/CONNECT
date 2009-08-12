@@ -10,10 +10,32 @@
   <property name="Java.Home"                      value="C:\Java\jdk1.6.0_13" />
   <property name="Java.Exe"                       value="${Java.Home}\bin\javaw.exe"/>
 
+  <property name="GlassFish.Lib.Directory.Path" value="C:\GlassFishESB\glassfish\lib"/>
+  <property name="NetBeans.Property.Libs.CopyLibs.Classpath" value="C:\GlassFishESB\netbeans\java2\ant\extra\org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+  <property name="NetBeans.Property.J2ee.Platform.Classpath" value=""/>
+
+  <loopthrough property="Path">
+    <items>
+      <strings>
+        <string value="javaee.jar:"/>
+        <string value="activation.jar:"/>
+        <string value="appserv-tags.jar:"/>
+        <string value="mail.jar:"/>
+        <string value="appserv-jstl.jar:"/>
+        <string value="webservices-tools.jar:"/>
+        <string value="webservices-rt.jar:"/>
+        <string value="appserv-ws.jar"/>
+      </strings>
+    </items>
+    <do>
+      <property name="NetBeans.Property.J2ee.Platform.Classpath" value="${GlassFish.Lib.Directory.Path}\${Path}:${NetBeans.Property.J2ee.Platform.Classpath}"/>
+    </do>
+  </loopthrough>
+  
   <environment id="${Ant.Environment.RefId}">
     <variable name="JAVA_HOME" value="${Java.Home}" />
     <variable name="ANT_HOME" value="${Ant.Home}" />
-    <variable name="ANT_OPTS" value="-Xmx872m -XX:MaxPermSize=800m"/>
+    <variable name="ANT_OPTS" value='-Xmx872m -XX:MaxPermSize=512m "-Dcom.sun.aas.instanceName=server" "-Dlibs.CopyLibs.classpath=${NetBeans.Property.Libs.CopyLibs.Classpath}" "-Dj2ee.platform.classpath=${NetBeans.Property.J2ee.Platform.Classpath}"'/>
     <variable name="PATH" path="${Ant.Environment.Path};${Ant.Bin};${Java.Home}\bin;${Java.Home};${NantBinPath};${environment::get-variable('ProgramFiles')}\Subversion\bin" />
     <variable name="JAVAEXE" value="${Java.Exe}"/>
     <variable name="NHINC_PROPERTIES_DIR" value="${ProductionDirectory}\Properties" />

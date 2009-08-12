@@ -9,7 +9,7 @@
   <property name="CCNetArtifactDirectory" value="C:\Temp\CCNetArtifactDirectory"/>
   <property name="CCNetWorkingDirectory" value="C:\Temp\CCNetWorkingDirectory"/>
   
-  <property name="CCNetLabel" value="1.0.0.598"/>
+  <property name="CCNetLabel" value="2.2.0.67"/>
   <property name="CCNetProject" value="NHINC"/>
   <property name="CCNetLogFilePath" value="C:\temp\log20080904154412Lbuild.1.0.0.749.xml"/>
 
@@ -26,18 +26,31 @@
   <include buildfile="${PackagesDirectory}\Deployment\Deployment.Target.xml" />
   <include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
   <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
-  <include buildfile="${PackagesDirectory}\glassfish\glassfish.Target.xml" />
+  <include buildfile="${PackagesDirectory}\GlassFish\GlassFish.Targets.xml" />
   <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Target.xml" />
   <include buildfile="${PackagesDirectory}\Alerts\Alerts.Target.xml" />
 
   <target name="test">
-    <call target="Ant.SetUp" />
-    <exec program="${AntBat}" failonerror="true">
-      <environment refid="${Ant.Environment.RefId}" />
-      <arg line="clean-build -buildfile ${AntBuildFileName}" />
+    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem"/>
+    <property name="ProjectNameToPullFrom" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
 
-      <arg line="-DProductVersion=${CCNetLabel}" />
-    </exec>
+    <call target="Common.FindBuild"/>
+    <regex input="${build}" pattern="log(?'BuildArchiveFolderName'\d+)Lbuild\.${CCNetLabel}\.xml$"/>
+    <regex input="${BuildArchiveFolderName}" pattern="(?'Year'\d\d\d\d)(?'Month'\d\d)(?'Day'\d\d)"/>
+
+    <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
+    <property name="Release.Application.Zip.File.Path" value="${Common.TempDirectory}\${Release.Application.Zip.File.Name}"/>
+
+    <get
+      dest="${Release.Application.Zip.File.Path}"
+      src="https://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Application.Zip.File.Name}"
+      verbose="true"
+    >
+      <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
+      <certificates>
+        <include name="C:\temp\build.agilexhealth.com.cer"/>
+      </certificates>
+    </get>
 	</target>
 
 </project>

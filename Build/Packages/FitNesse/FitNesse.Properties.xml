@@ -13,6 +13,11 @@
   <property name="FitNesse.PublishXmlReport" value="true" overwrite="false"/>
   <property name="FitNesse.FailBuildForFailingTest" value="true" overwrite="false"/>
 
+  <ifnot test="${property::exists('TP.Username')}">
+    <property name="TP.Username" value="bogas"/>
+    <property name="TP.Password" value="bogas"/>
+  </ifnot>
+
   <property name="FitNesse.Environment.RefId" value="FitNesse.Environment.RefId"/>
   <environment id="${FitNesse.Environment.RefId}">
     <variable name="JAVA_HOME" value="${Java.Home}" />
