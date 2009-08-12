@@ -25,7 +25,7 @@ public class EntityDocQueryImpl
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = null;
 
         try
-        { // Call Web Service Operation
+        {
             String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_DOC_QUERY_SECURED_SERVICE_NAME);
             
             EntityDocQuerySecuredPortType port = getPort(url);
@@ -51,7 +51,7 @@ public class EntityDocQueryImpl
     private EntityDocQuerySecuredPortType getPort(String url) {
         EntityDocQuerySecuredPortType port = service.getEntityDocQuerySecuredPortSoap11();
 
-        log.info("Setting endpoint address to Nhin Document Query Service to " + url);
+        log.info("Setting endpoint address to Entity Document Query Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
 
         return port;

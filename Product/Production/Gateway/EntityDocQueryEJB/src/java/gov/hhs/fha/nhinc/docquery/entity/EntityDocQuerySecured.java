@@ -4,7 +4,6 @@ import gov.hhs.fha.nhinc.entitydocquery.EntityDocQuerySecuredPortType;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-//import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 
 /**

@@ -112,6 +112,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
 			</service>
 			<service>
+				<name>adapterdocquerysecured</name>
+				<description>Adapter Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+			</service>
+			<service>
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
@@ -244,6 +249,11 @@
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
 				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>adapterdocquerysecured</name>
+				<description>Adapter Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentquery</name>

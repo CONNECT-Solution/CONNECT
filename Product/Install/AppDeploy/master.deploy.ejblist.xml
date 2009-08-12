@@ -180,5 +180,11 @@
     <jarname>HiemSubscriptionRepositoryUtilEJB.jar</jarname>
     <directory>Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
   </ejblist>
+  <ejblist>
+    <name>AdapterDocQueryProxyEJB</name>
+    <jarname>AdapterDocQueryProxyEJB.jar</jarname>
+    <directory>Production/Gateway/AdapterDocQueryProxyEJB</directory>
+  </ejblist>
+-->
 </projects>
 

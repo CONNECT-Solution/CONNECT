@@ -74,61 +74,60 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target name="wsimport-service-AdapterDocQueryService" depends="wsimport-init,wsimport-service-check-AdapterDocQueryService">
-<!--
-		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AdapterDocQueryService/wsdl/AdapterDocQuery.wsdl" catalog="catalog.xml"/>
--->
-		<copy todir="${basedir}/${meta.inf}/wsdl/AdapterDocQueryService">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterDocQueryService/wsdl/"/>
-		</copy>
-		<echo message="copy schemas"/>
-		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterDocQueryService/schemas/"/>
-		</copy>
-	</target>
-    <target name="-deps-module-jar" depends="init" if="no.dist.ear.dir" unless="no.deps">
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
 		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
-    <target name="-deps-ear-jar" depends="init" if="dist.ear.dir" unless="no.deps">
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
 		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
-    <target name="deps-clean" depends="init" if="no.dist.ear.dir" unless="no.deps">
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    <target name="library-inclusion-in-archive" depends="compile">
-        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.AdapterDocumentRegistryProxy.jar}" todir="${build.classes.dir}"/>
-    </target>
-    <target name="library-inclusion-in-manifest" depends="compile">
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-		<copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${reference.AdapterDocumentRegistryProxy.jar}" property="included.lib.reference.AdapterDocumentRegistryProxy.jar"/>
-		<copy file="${reference.AdapterDocumentRegistryProxy.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${reference.AdapterDocumentRegistryProxyImpl.jar}" property="included.lib.reference.AdapterDocumentRegistryProxyImpl.jar"/>
-		<copy file="${reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${dist.ear.dir}"/>
-        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar}
-                                                ${included.lib.reference.AdapterDocumentRegistryProxy.jar}
-                                                ${included.lib.reference.AdapterDocumentRegistryProxyImpl.jar}"/>
-        </manifest>
+    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init,wsimport-service-check-AdapterDocQuerySecured" unless="wsimport-service-AdapterDocQuerySecured.notRequired">
+<!--
+        <property name="service-wsdl-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+-->
+        <property name="targetLocation-AdapterDocQuerySecured" location="${meta.inf}/wsdl/AdapterDocQuerySecured"/>
+        <property name="sourceLocation-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterDocQuerySecured}">
+            <fileset dir="${sourceLocation-AdapterDocQuerySecured}"/>
+        </copy>
+        <property name="targetLocationSchema-AdapterDocQuerySecured" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchema-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/schemas/"/>
+        <copy todir="${targetLocationSchema-AdapterDocQuerySecured}">
+            <fileset dir="${sourceLocationSchema-AdapterDocQuerySecured}"/>
+        </copy>
     </target>
 	<target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
 		<nbundeploy failOnError="false" startServer="false"/>
 	</target>
+    <target depends="compile" name="library-inclusion-in-archive">
+        <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+    </target>
+    <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRegistryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocumentRegistryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Class-Path" value="${manifest.reference.AdapterDocumentRegistryProxy.jar} ${manifest.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.reference.NhincLib.jar} "/>
+        </manifest>
+    </target>
 </project>

@@ -46,7 +46,7 @@ public class EntityDocQuerySecuredImpl
     
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context)
     {
-        log.debug("Entering EntityDocQueryImpl.respondingGatewayCrossGatewayQuery...");
+        log.debug("Entering EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = new AdhocQueryResponse();
         boolean isTargeted = false;
@@ -154,7 +154,7 @@ public class EntityDocQuerySecuredImpl
         auditMsg.setAssertion(assertion);
         ack = auditLog.auditResponse(auditMsg, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-        log.debug("Exiting EntityDocQueryImpl.respondingGatewayCrossGatewayQuery...");
+        log.debug("Exiting EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
         return response;
     }
 
