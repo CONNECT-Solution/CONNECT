@@ -21,7 +21,7 @@
     </code>
   </script>
 
-  <property name="Workspace.Ftp.Url" value="ftp://username:password@server.domain.com/path/"/>
+  <property name="Workspace.Ftp.Url" value="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/"/>
   
   <strings id="Workspace.RequieredSoftware">
     <string value="Java"/>

@@ -15,7 +15,7 @@
     
     <cmd>
       <value expand="true" xml="false">
-        net use ${PersonalTracking.BuildServer.URI} password /user:build
+        net use ${PersonalTracking.BuildServer.URI} ${Web.Credentials.Password} /user:${Web.Credentials.UserName}
       </value>
       <environment/>
     </cmd>
