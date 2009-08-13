@@ -6,7 +6,7 @@
   <property name="TargetProcess.ReportDirectoryPath" value="${Common.Project.Common.Directory.Transient.Path}\TargetProcess" />
   <property name="TargetProcess.ReportFilePath" value="${TargetProcess.ReportDirectoryPath}\${ProjectName}TargetProcesss.xml" />
 
-  <property name="TargetProcess.ProjectName" value="NHIE-Gateway Green Team"/>
+  <property name="TargetProcess.ProjectName" value="CONNECT Gateway"/>
 
   <ifthenelse test="${file::exists(Package.TargetProcess.Directory.Path + '\TargetProcess.Credentials.xml')}">
     <then>
