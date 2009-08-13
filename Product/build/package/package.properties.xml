@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="package.properties">
+
+	<path id="war.files" />
+	<path id="ear.files" />
+	<path id="war.libs" />
+	<path id="ear.libs" />
+
+	<property name="dist.dir" value="${project.dir}/dist/${build.config}" />
+	<property name="dist.file" value="${dist.dir}/${project.name}.${dist.type}" />
+	
+</project>

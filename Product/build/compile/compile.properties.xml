@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="compile.properties">
+
+	<path id="build.classpath" />
+
+	<property name="source.dir" value="${project.dir}/src/main/java" />
+	<property name="source.resources.dir" value="${project.dir}/src/main/resources" />
+	<property name="source.webcontent.dir" value="${project.dir}/WebContent" />
+
+	<property name="build.dir" value="${project.dir}/build/${build.config}" />
+	<property name="build.dist.root" value="${build.dir}/dist" />
+	
+	<if>
+		<equals arg1="${dist.type}" arg2="war" />
+		<then>
+			<property name="build.classes.dir" value="${build.dist.root}/WEB-INF/classes" />
+		</then>
+		<else>
+			<property name="build.classes.dir" value="${build.dist.root}" />
+		</else>
+	</if>
+
+	<property name="build.dist.meta-inf.dir" value="${build.dist.root}/META-INF" />
+	<property name="build.dist.manifest.file" value="${build.dist.meta-inf.dir}/MANIFEST.MF" />
+	<property name="build.war.lib.dir" value="${build.dist.root}/WEB-INF/lib" />
+	<property name="build.ear.lib.dir" value="${build.dist.root}/lib" />
+</project>

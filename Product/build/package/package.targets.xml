@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="package.targets">
+	
+	<import file="package.properties.xml"/>
+
+	<target name="package.help">
+			
+	</target>
+
+	<target name="package.clean">
+		<delete dir="${dist.dir}" failonerror="true" />
+	</target>
+
+	<target name="-package.create">
+		<mkdir dir="${dist.dir}" />
+
+		<echo message="check if out of date ${dist.file}" />
+
+		<if>
+			<exists path="${dist.file}" />
+			<then>
+				<property name="force.package" value="false" />
+			</then>
+			<else>
+				<echo message="The package will be forced, the dist file does not exist: ${dist.file}." />
+				<property name="force.package" value="true" />
+			</else>
+		</if>
+
+
+		<outofdate verbose="true" force="${force.package}">
+			<sourcefiles>
+				<path refid="war.libs" />
+				<path refid="war.files" />
+				<path refid="ear.libs" />
+				<path refid="ear.files" />
+				<fileset dir="${build.dist.root}">
+					<include name="**/*" />
+				</fileset>
+			</sourcefiles>
+			<targetfiles>
+				<filelist dir="${dist.dir}">
+					<file name="${dist.file}" />
+				</filelist>
+			</targetfiles>
+			<sequential>
+				<call target="-package.recreate" />
+			</sequential>
+		</outofdate>
+	</target>
+
+	<target name="-package.recreate">
+		<echo message="Creating package ${dist.file}..."/>
+		<delete file="${dist.file}" />
+		<mkdir dir="${build.dist.meta-inf.dir}" />
+
+		<manifest file="${build.dist.manifest.file}" mode="update">
+			<attribute name="Implementation-Vendor" value="My Company" />
+			<attribute name="Implementation-Title" value="${root.project.name}" />
+			<attribute name="Implementation-Version" value="${ProductVersion}" />
+		</manifest>
+
+		<switch value="${dist.type}">
+			<case value="jar">
+				<jar destfile="${dist.file}" compress="true" basedir="${build.dist.root}" manifest="${build.dist.manifest.file}" />
+			</case>
+			<case value="war">
+				<mkdir dir="${build.war.lib.dir}" />
+				<for param="war.lib">
+					<path refid="war.libs" />
+					<sequential>
+						<copy file="@{war.lib}" todir="${build.war.lib.dir}" />
+					</sequential>
+				</for>
+				<war compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}">
+					<path refid="war.files" />
+					<fileset dir="${build.dist.root}" />
+				</war>
+			</case>
+			<case value="ear">
+				<mkdir dir="${build.ear.lib.dir}" />
+				<copy todir="${build.ear.lib.dir}" flatten="true" overwrite="true">
+					<path refid="ear.libs" />
+				</copy>
+				<copy todir="${build.dist.root}" flatten="true" overwrite="true">
+					<path refid="ear.libs" />
+				</copy>
+				<ear compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}" appxml="${build.dist.meta-inf.dir}/application.xml">
+					<path refid="ear.files" />
+					<fileset dir="${build.dist.root}" />
+				</ear>
+			</case>
+			<default>
+				<fail message="Tag your it! Packaging ${dist.type}s has not yet been implemented, you can write it..." />
+			</default>
+		</switch>
+	</target>
+
+</project>

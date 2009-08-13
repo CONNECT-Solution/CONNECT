@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="build.targets">
+	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+	<typedef resource="AgilexAnt.properties" />
+	<script language="javascript">
+		<![CDATA[
+	    importClass(Packages.com.agilex.ant.TargetListener);
+		
+		var targetListener = new TargetListener();
+		project.setProjectReference(targetListener);
+		project.addBuildListener(targetListener);
+	]]></script>
+	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
+
+	<import file="properties.build.xml" />
+	<import file="common.build.xml" />
+	<import file="build.macros.xml"/>
+	
+	<import file="ivy/ivy.targets.xml"/>
+	<import file="compile/compile.targets.xml"/>
+	<import file="package/package.targets.xml"/>
+	<import file="junit/junit.targets.xml"/>
+	<import file="corbertura/corbertura.targets.xml"/>
+	
+	<target name="clean">
+		<call target="ivy.clean"/>
+		<call target="compile.clean"/>
+		<call target="package.clean"/>
+		<call target="junit.clean"/>
+		<call target="coverage.clean"/>
+	</target>
+	
+	<target name="source.compile">
+		<dependcalls target="source.compile" />
+		<call target="ivy.resolve"/>
+		<call target="-compile.source"/>
+		<call target="coverage.instrument.classes" />
+	</target>
+	
+	<target name="unittest.run">
+		<call target="source.compile" if="${unittest.hasTests}" once="true"/>
+		<call target="coverage.prepfortests" if="${unittest.hasTests}"/>
+		<call target="-unittest.run"/>
+		<call target="-coverage.write.report" if="${unittest.hasTests}"/>
+		<call target="-coverage.check.project" if="${unittest.hasTests}"/>
+	</target>
+		
+	<target name="integrationtest.run">
+		<call target="source.compile" if="${integrationtest.hasTests}" once="true"/>
+		<call target="coverage.prepfortests" if="${integrationtest.hasTests}"/>
+		<call target="-integrationtest.run"/>
+		<call target="-coverage.write.report" if="${integrationtest.hasTests}"/>
+		<call target="-coverage.check.project" if="${integrationtest.hasTests}"/>
+	</target>
+	
+	<target name="webtest.run">
+		<call target="source.compile" if="${webtest.hasTests}" once="true"/>
+		<call target="-webtest.run"/>
+	</target>
+	
+	<target name="package.create" depends="source.compile">
+		<dependcalls target="package.create"/>
+		<call target="-package.create"/>
+		<call target="coverage.instrument.package"/>
+	</target>
+	
+	<target name="help">
+		<echo taskname="help">
+This project is in a ${build.config} configuration because the property compile.debug is set to ${compile.debug}.  
+To control the configuration set the property compile.debug at the command line like so: -Dcompile.debug=[true|false].
+
+Targets available in this project:
+
+clean - deletes all transient directories and files.
+
+source.compile - compiles all source files and copies all resources into the ${build.dir}.
+
+package.create - creates ${dist.file}.
+
+unittest.run - executes all the tests in ${unittest.source.dir}. 
+	It is ${unittest.hasTests} that this project has unit tests.
+	Writes an html report to ${coverage.report.dir}/index.html.  
+	It is ${coverage.isneeded} that coverage is collected in this configuration.
+	Checks that both line and branch coverage rates are meet for all classes.  
+	The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage 
+	and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
+	in the file ${coverage.thresholds.file}.
+			
+integrationtest.run - executes all tests in ${unittest.source.dir}. 
+	It is ${integrationtest.hasTests} that this project has integration tests.
+	Writes an html report to ${coverage.report.dir}/index.html.  
+	It is ${coverage.isneeded} that coverage is collected in this configuration.
+	Checks that both line and branch coverage rates are meet for all classes.  
+	The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage 
+	and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
+	in the file ${coverage.thresholds.file}.
+			
+webtest.run - executes all tests in ${unittest.source.dir}. 
+	It is ${webtest.hasTests} that this project has web tests..
+
+		</echo>
+
+		<call target="ivy.help"/>
+		<call target="compile.help"/>
+		<call target="package.help"/>
+		<call target="junit.help"/>
+		<call target="coverage.help"/>
+		
+	</target>
+	
+</project>

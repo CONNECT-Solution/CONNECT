@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="junit.macros" >
+	
+	<macrodef name="junitrun">
+			<attribute name="reportfile" />
+			<attribute name="testtype" />
+			<attribute name="verbose" default="false" />
+			<attribute name="genreport" default="${called.from.main.build}" />
+			<element name="junitclasspath"/>
+			<element name="tests"/>
+	        <sequential>
+	        	<var unset="true" name="reportdir" />
+				<var unset="true" name="reportfilename" />
+	        	<var unset="true" name="junit.basedir" />
+				<basename property="reportfilename" file="@{reportfile}" />
+				<dirname property="reportdir" file="@{reportfile}" />
+	        	<dirname property="junit.basedir" file="${reportdir}" />
+	        	
+	    		<delete dir="${reportdir}" />
+	    		<mkdir dir="${reportdir}" />
+
+	    		<if>
+	    			<istrue value="@{verbose}" />
+	    			<then>
+	    				<for param="classpath.item">
+	    					<junitclasspath/>
+	    					<sequential>
+	    						<echo message="@{classpath.item}" />
+	    					</sequential>
+	    				</for>
+	    			</then>
+	    		</if>
+
+	        	<property name="coverage.file" location="${coverage.classes.report.file}"/>
+
+	        	<echo message="${coverage.file}"/>
+	    		<junit dir="${junit.basedir}" failureproperty="unittest.failure" printSummary="yes" fork="true">
+	    			<sysproperty key="basedir" value="${junit.basedir}" />
+	    			<sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.file}" />
+	    			
+	    			<formatter type="xml" />
+	    			<formatter usefile="false" type="plain" />
+	    			
+	    			<classpath><junitclasspath/></classpath>
+	    			
+	    			<batchtest todir="${reportdir}">
+	    				<tests/>
+	    			</batchtest>
+	    		</junit>
+
+	    		<if>
+	    			<isfalse value="@{genreport}" />
+	    			<then>
+	    				<junitreportplus reportfile="@{reportfile}" testtype="@{testtype}">
+	    					<xmlreports>
+	    						<fileset dir="${junit.basedir}">
+	    							<include name="@{testtype}-test-reports/TEST-*.xml" />
+	    						</fileset>
+	    					</xmlreports>
+	    				</junitreportplus>
+	    			</then>
+	    		</if>
+	        </sequential>
+	    </macrodef>
+
+		<macrodef name="junitreportplus">
+			<attribute name="reportfile" />
+			<attribute name="testtype" />
+			<element name="xmlreports" />
+			<sequential>
+				<var unset="true" name="reportdir" />
+				<var unset="true" name="reportfilename" />
+				<basename property="reportfilename" file="@{reportfile}" />
+				<dirname property="reportdir" file="@{reportfile}" />
+
+				<mkdir dir="${reportdir}" />
+				<delete dir="@{reportfile}" />
+
+				<junitreport todir="${reportdir}" tofile="${reportfilename}">
+					<xmlreports />
+					<report format="frames" todir="${reportdir}" />
+				</junitreport>
+
+				<available file="@{reportfile}" property="test.report.exists" value="true" />
+				<if>
+					<isset property="test.report.exists" />
+					<then>
+						<xmltask source="@{reportfile}">
+							<call path="/">
+								<param name="has.errors" path="boolean(/testsuites//testsuite[@errors>0] or /testsuites//testsuite[@failures>0])" />
+								<actions>
+									<if>
+										<istrue value="@{has.errors}" />
+										<then>
+											<fail message="Atleast one @{testtype} test has failed!" />
+										</then>
+									</if>
+								</actions>
+							</call>
+						</xmltask>
+					</then>
+					<else>
+						<fail message="It doesn't look like any @{testtype} were run, so the build was failed!" />
+					</else>
+				</if>
+			</sequential>
+		</macrodef>
+
+	
+</project>

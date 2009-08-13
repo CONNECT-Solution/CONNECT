@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="corbertura.targets">
+
+	<import file="corbertura.properties.xml" />
+	<import file="corbertura.macros.xml" />
+
+	<taskdef resource="tasks.properties">
+		<classpath>
+			<fileset dir="${corbertura.bin}">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+	
+	<target name="coverage.help">
+		
+	</target>
+
+	<target name="coverage.clean">
+		<delete dir="${coverage.report.dir}" failonerror="true" />
+	</target>
+
+	<target name="coverage.instrument.classes">
+		<if>
+			<istrue value="${coverage.isneeded}" />
+			<then>
+				<mkdir dir="${build.instrumented.classes.dir}" />
+				<outofdate verbose="true" outputtargetspath="instrumented.files.that.need.updating">
+					<sourcefiles>
+						<fileset dir="${build.classes.dir}">
+							<include name="**/*.class" />
+						</fileset>
+						<path refid="build.classpath" />
+					</sourcefiles>
+					<targetfiles>
+						<fileset dir="${build.instrumented.classes.dir}">
+							<include name="**/*.class" />
+						</fileset>
+					</targetfiles>
+					<sequential>
+						<delete>
+							<path refid="instrumented.files.that.need.updating" />
+						</delete>
+						<cobertura-instrument datafile="${coverage.classes.report.file}" todir="${build.instrumented.classes.dir}">
+							<includeClasses regex=".*${root.project.name}.*" />
+
+							<instrumentationClasspath refid="instrument.classpath" />
+						</cobertura-instrument>
+					</sequential>
+				</outofdate>
+			</then>
+		</if>
+	</target>
+
+	<target name="coverage.instrument.package">
+		<if>
+			<istrue value="${coverage.isneeded}" />
+			<then>
+				<echo message="check if out of date ${dist.instrumented.file}" />
+
+				<mkdir dir="${dist.instrumented.dir}" />
+
+				<if>
+					<exists path="${dist.instrumented.file}" />
+					<then>
+						<property name="force.instrument.package" value="false" />
+					</then>
+					<else>
+						<echo message="Force instrument of package..." />
+						<property name="force.instrument.package" value="true" />
+					</else>
+				</if>
+
+				<outofdate verbose="true" force="${force.instrument.package}">
+					<sourcefiles>
+						<filelist dir="${dist.dir}">
+							<file name="${dist.file}" />
+						</filelist>
+					</sourcefiles>
+					<targetfiles>
+						<filelist dir="${dist.instrumented.dir}">
+							<file name="${dist.instrumented.file}" />
+						</filelist>
+					</targetfiles>
+					<sequential>
+						<cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
+							<includeClasses regex=".*${root.project.name}.*" />
+
+							<instrumentationClasspath>
+								<pathelement location="${dist.file}" />
+							</instrumentationClasspath>
+						</cobertura-instrument>
+					</sequential>
+				</outofdate>
+			</then>
+		</if>
+	</target>
+
+	<target name="-coverage.write.report">
+		<call target="coverage.write.html.report" />
+		<call target="coverage.write.xml.report" />
+	</target>
+
+	<target name="coverage.write.xml.report">
+		<if>
+			<exists path="${coverage.classes.report.file}" />
+			<then>
+				<echo message="Createing XML Coverage Report." />
+				<cobertura-report format="xml" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
+			</then>
+		</if>
+	</target>
+
+	<target name="coverage.write.html.report">
+		<if>
+			<exists path="${coverage.classes.report.file}" />
+			<then>
+				<cobertura-report format="html" datafile="${coverage.classes.report.file}" destdir="${coverage.report.dir}" srcdir="${source.dir}" />
+			</then>
+		</if>
+	</target>
+	
+	<target name="-coverage.product.prep">
+		<delete file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+	</target>
+
+	<target name="-coverage.product.check">
+		<if>
+			<exists path="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+			<then>
+				<foreach-line file="${root.project.directory.path}/coverage-reports/coverage.check.failure" var="coverage.failing.project.name">
+					<var name="coverage.failing.project.directory" unset="true"/>
+					<var name="coverage.check.failures" unset="true"/>
+					<propertycopy property="coverage.failing.project.directory" from="project.@{coverage.failing.project.name}.directory"/>
+					<loadfile property="coverage.check.failures" srcfile="${coverage.failing.project.directory}/coverage-reports/check.tag"/>
+					<echo message="${coverage.check.failures}"/>
+				</foreach-line>
+				<fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
+			</then>
+		</if>
+	</target>
+	
+	<target name="-coverage.check.project">
+		<if>
+			<and>
+				<istrue value="${coverage.isneeded}"/>
+				<exists path="${coverage.classes.report.file}" />
+			</and>
+			<then>
+				<call target="coverage.write.xml.report" />
+				<if>
+					<and>
+						<exists path="${coverage.report.dir}/coverage.xml" />
+					</and>
+					<then>
+						<echo message="Checking Code Coverage Thresholds..." />
+						
+						<property name="coverage.check.tag.file" value="${coverage.report.dir}/check.tag" />
+						<echo message="" file="${coverage.check.tag.file}" />
+						
+						<math result="default.linerate" operand1="${coverage.threshold.linerate}" operation="/" operand2="100" datatype="double" />
+						<math result="default.branchrate" operand1="${coverage.threshold.branchrate}" operation="/" operand2="100" datatype="double" />
+						
+						<trycatch reference="exception">
+							<try>
+								<xmltask source="${coverage.report.dir}/coverage.xml">
+									<call path="//class">
+										<param name="class" path="@name" />
+										<param name="branchrate" path="@branch-rate" />
+										<param name="linerate" path="@line-rate" />
+										<param name="linecount" path="count(lines/line)" />
+										<param name="branchcount" path="count(lines/line/conditions/condition) * 2" />
+										<actions>
+											<var name="linecount" value="@{linecount}" />
+											<var name="branchcount" value="@{branchcount}" />
+
+											<var name="current.linerate" value="@{linerate}" />
+											<var name="current.branchrate" value="@{branchrate}" />
+											
+											<var name="threshold.linerate" value="${default.linerate}"/>
+											<var name="threshold.branchrate" value="${default.branchrate}"/>
+											
+											<if>
+												<exists path="${coverage.thresholds.file}" />
+												<then>
+													<xmlpeek
+														file="${coverage.thresholds.file}"
+														xpath="boolean(//threshold[@class='@{class}'])"
+														property="threshold.exists"
+													/>
+											
+													<if>
+														<istrue value="${threshold.exists}"/>
+														<then>
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@linecount" property="threshold.linecount" />
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@linesexecuted" property="threshold.linesexecuted" />
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@branchcount" property="threshold.branchcount" />
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@branchsexecuted" property="threshold.branchsexecuted" />
+						
+															<if>
+																<not>
+																	<equals arg1="${threshold.linecount}" arg2="${linecount}" />
+																</not>
+																<then>
+																	<var name="new.linerate" unset="true" />
+																	<script language="javascript">
+																		<![CDATA[
+																			linecount = project.getProperty("linecount");
+																			thresholdLinecount = project.getProperty("threshold.linecount");
+																			thresholdLinesexecuted = project.getProperty("threshold.linesexecuted");
+																			coverageThresholdLinerate = project.getProperty("coverage.threshold.linerate");
+																			
+																			var newLinesExecuted = (((linecount - thresholdLinecount)*coverageThresholdLinerate / 100) + Number(thresholdLinesexecuted));
+																			var newLinerate = newLinesExecuted / linecount;
+																			project.setProperty("new.linerate", newLinerate);
+																			project.setProperty("new.linesexecuted", newLinesExecuted);
+																			]]>
+																	</script>
+																	<echo message="Updating ${coverage.thresholds.file}" />
+																	<echo message="New linecount ${linecount}, lines executed ${new.linesexecuted} and linerate ${new.linerate} for class @{class}: Old linecount ${threshold.linecount} and old lines executed ${threshold.linesexecuted}."/>
+																	<xmltask source="${coverage.thresholds.file}" dest="${coverage.thresholds.file}">
+																		<replace path="//threshold[@class='@{class}']/@linecount" withText="${linecount}" />
+																		<replace path="//threshold[@class='@{class}']/@linerate" withText="${new.linerate}" />
+																		<replace path="//threshold[@class='@{class}']/@linesexecuted" withText="${new.linesexecuted}" />
+																	</xmltask>
+																</then>
+															</if>
+						
+															<if>
+																<not>
+																	<equals arg1="${threshold.branchcount}" arg2="${branchcount}" />
+																</not>
+																<then>
+																	<var name="new.branchrate" unset="true" />
+																	<script language="javascript">
+																		<![CDATA[
+																			branchcount = project.getProperty("branchcount");
+																			thresholdBranchcount = project.getProperty("threshold.branchcount");
+																			thresholdBranchsexecuted = project.getProperty("threshold.branchsexecuted");
+																			coverageThresholdBranchrate = project.getProperty("coverage.threshold.branchrate");
+																			
+																			var newBranchsExecuted = (((branchcount - thresholdBranchcount)*coverageThresholdBranchrate / 100) + Number(thresholdBranchsexecuted));
+																			var newBranchrate = newBranchsExecuted / branchcount;
+																			project.setProperty("new.branchrate", newBranchrate);
+																			project.setProperty("new.branchsexecuted", newBranchsExecuted);
+																			]]>
+																	</script>
+																	<echo message="Updating ${coverage.thresholds.file}" />
+																	<echo message="New branchcount ${branchcount}, branches executed ${new.branchsexecuted} and branchrate ${new.branchrate} for class @{class}: Old linecount ${threshold.branchcount} and old lines executed ${threshold.branchsexecuted}."/>
+																	<xmltask source="${coverage.thresholds.file}" dest="${coverage.thresholds.file}">
+																		<replace path="//threshold[@class='@{class}']/@branchcount" withText="${branchcount}" />
+																		<replace path="//threshold[@class='@{class}']/@branchrate" withText="${new.branchrate}" />
+																		<replace path="//threshold[@class='@{class}']/@branchsexecuted" withText="${new.branchsexecuted}" />
+																	</xmltask>
+																</then>
+															</if>
+															
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@linerate" property="threshold.linerate" />
+															<xmlpeek file="${coverage.thresholds.file}" xpath="//threshold[@class='@{class}']/@branchrate" property="threshold.branchrate" />
+														</then>
+													</if>
+												</then>	
+											</if>
+											
+											<var name="threshold.linerate.passed" value="true"/>
+											<var name="threshold.branchrate.passed" value="true"/>
+											
+											<if>
+												<compare less="${current.linerate}" greater="${threshold.linerate}" />
+												<then>
+													<var name="threshold.linerate.passed" value="false"/>
+													<converttopercent name="threshold.linerate.percent" value="${threshold.linerate}"/>
+													<converttopercent name="current.linerate.percent" value="${current.linerate}"/>
+													<echo file="${coverage.check.tag.file}" append="true"><![CDATA[Project ${project.name}, Class @{class} failed check. Line coverage rate of ${current.linerate.percent}% is below ${threshold.linerate.percent}%.
+]]></echo>
+													<var name="coverage.check.hasfailure" value="true"/>
+												</then>
+											</if>
+
+											<if>
+												<compare less="${current.branchrate}" greater="${threshold.branchrate}" />
+												<then>
+													<var name="threshold.branchrate.passed" value="false"/>
+													<converttopercent name="threshold.branchrate.percent" value="${threshold.branchrate}"/>
+													<converttopercent name="current.branchrate.percent" value="${current.branchrate}"/>
+													<echo file="${coverage.check.tag.file}" append="true"><![CDATA[Project ${project.name}, Class @{class} failed check. Branch coverage rate of ${current.branchrate.percent}% is below ${threshold.branchrate.percent}%.
+]]></echo>
+													<var name="coverage.check.hasfailure" value="true"/>
+												</then>
+											</if>
+										</actions>
+									</call>
+								</xmltask>
+							</try>
+							<catch>
+								<delete file="${coverage.check.tag.file}"/>
+								<throw refid="exception"/>
+							</catch>
+						</trycatch>
+							
+						
+						<loadfile property="coverage.check.failures" srcfile="${coverage.check.tag.file}"/>
+						<if>
+							<isset property="coverage.check.failures"/>
+							<then>
+								<echo level="error" message="-${line.separator}Coverage Check:${line.separator}${coverage.check.failures}"/>
+								<if>
+									<isfalse value="${called.from.main.build}"/>
+									<then>
+										<fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
+									</then>
+									<else>
+										<echo message="${project.name}${line.separator}" file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+									</else>
+								</if>
+							</then>
+						</if>
+					</then>
+				</if>
+			</then>
+		</if>
+	</target>
+
+	<target name="coverage.prepfortests">
+		<changeid originial="junitrun.classpath" new="junitrun.classpath.old" />
+		<path id="junitrun.classpath">
+			<pathelement path="${build.instrumented.classes.dir}" />
+			<path refid="junitrun.classpath.old" />
+			<fileset dir="C:\Projects\triserv\trunk\Build\Packages\Corbertura\bin">
+				<include name="cobertura.jar" />
+			</fileset>
+		</path>
+	</target>
+</project>

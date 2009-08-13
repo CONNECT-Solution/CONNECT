@@ -25,6 +25,9 @@
   <property name="InstallDirectory"           value='${ProductDirectory}/${InstallDirectoryName}'              />
   <property name="TempDirectory"              value='/Temp'                                                    />
 
+  <property name="root.project.name" value="NHINC" />
+  <property name="root.project.directory.path" value="c:/Projects/NHINC/Current/Product"/>
+
   <property name="TempBuildFilePath"              value='${ProductDirectory}/temp.xml'                                                    />
 
 </project>

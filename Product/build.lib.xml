@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="build.lib.lib" default="none" basedir=".">
-
+<project name="build.lib" default="none" >
+  <property name="project.dir" location="." />
+  <basename file="${project.dir}" property="project.name" />
+	
   <import file="Properties.build.xml"/>
   <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="junit.targets">
+
+	<import file="junit.properties.xml" />
+	<import file="junit.macros.xml" />
+
+	<target name="junit.help">
+			
+	</target>
+
+	<target name="junit.clean">
+		<delete dir="${unittest.report.dir}" failonerror="true" />
+		<delete dir="${webtest.report.dir}" failonerror="true" />
+		<delete dir="${integrationtest.report.dir}" failonerror="true" />
+	</target>
+	
+
+	<target name="-unittest.run">
+		<if>
+			<istrue value="${unittest.hasTests}" />
+			<then>
+				<junitrun reportfile="${project.dir}/unit-test-reports/UnitTests.xml" testtype="unit" verbose="${debug}">
+					<junitclasspath>
+						<path refid="junitrun.classpath" />
+					</junitclasspath>
+					<tests>
+						<fileset refid="junitrun.tests" />
+					</tests>
+				</junitrun>
+			</then>
+			<else>
+				<echo message="The project ${project.name} is not marked as having unit tests: property unittest.hasTests=${unittest.hasTests}." />
+			</else>
+		</if>
+	</target>
+
+	<target name="-webtest.run">
+		<if>
+			<istrue value="${webtest.hasTests}" />
+			<then>
+				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}">
+					<junitclasspath>
+						<path refid="junitrun.classpath" />
+					</junitclasspath>
+					<tests>
+						<fileset refid="junitrun.tests" />
+					</tests>
+				</junitrun>
+			</then>
+			<else>
+				<echo message="The project ${project.name} is not marked as having web tests: property webtest.hasTests=${webtest.hasTests}." />
+			</else>
+		</if>
+	</target>
+
+	<target name="-integrationtest.run">
+		<if>
+			<istrue value="${integrationtest.hasTests}" />
+			<then>
+				<junitrun reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration" verbose="${debug}">
+					<junitclasspath>
+						<path refid="junitrun.classpath" />
+					</junitclasspath>
+					<tests>
+						<fileset refid="junitrun.tests" />
+					</tests>
+				</junitrun>
+			</then>
+			<else>
+				<echo message="The project ${project.name} is not marked as having integration tests: property integrationtest.hasTests=${integrationtest.hasTests}." />
+			</else>
+		</if>
+	</target>
+
+</project>

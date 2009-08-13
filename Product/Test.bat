@@ -1,2 +1,4 @@
-..\Build\nant\bin\nant.exe -buildfile:Personal.Build.xml Test
-SET /P variable="Hit Enter to continue."
+CALL ..\Build\SetEnv.bat
+nant.exe -listener:NAnt.Core.XmlLogger -buildfile:Personal.Build.xml Test
+@echo off
+SET /P variable="Hit Enter to exit."

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="compile.targets">
+
+	<import file="compile.properties.xml" />
+
+	<target name="compile.help">
+			
+	</target>
+
+	<target name="compile.clean">
+		<delete dir="${build.dir}" failonerror="true" />
+	</target>
+
+	<target name="-compile.source">
+		<mkdir dir="${build.classes.dir}" />
+		<echo message="compile.source for ${project.name}" />
+
+		<available file="${source.webcontent.dir}" property="hasWebContent" />
+		<if>
+			<isset property="hasWebContent" />
+			<then>
+				<path id="source.webcontent.fileset">
+					<fileset dir="${source.webcontent.dir}">
+						<include name="**/*" />
+					</fileset>
+				</path>
+			</then>
+			<else>
+				<path id="source.webcontent.fileset" />
+			</else>
+		</if>
+
+		<echo message="check if out of date-> ${source.dir} to ${build.dist.root}" />
+
+		<scriptmapper id="compile.source.mapper" language="javascript">
+				if (source.substr(source.length - 4).toLowerCase() != ".jar")
+				{
+					buildClassesDir = project.getProperty("build.dist.root");
+					sourceDir = project.getProperty("source.dir");
+					sourceResourcesDir = project.getProperty("source.resources.dir");
+					sourceWebcontentDir = project.getProperty("source.webcontent.dir");
+					projectDir = project.getProperty("project.dir");
+					shortSourceDir = sourceDir.replace(String(projectDir) + "/", "").replace("/", "\\");
+					shortSourceResourcesDir = sourceResourcesDir.replace(String(projectDir) + "/", "").replace("/", "\\");
+					shortSourceWebcontentDir = sourceWebcontentDir.replace(String(projectDir) + "/", "").replace("/", "\\");
+					
+					if (source.substring(0,String(shortSourceDir).length) == shortSourceDir)
+					{
+						source = source.replace(String(shortSourceDir), String(buildClassesDir));
+					}
+					
+					if (source.substring(0,String(shortSourceResourcesDir).length) == shortSourceResourcesDir)
+					{
+						source = source.replace(String(shortSourceResourcesDir), String(buildClassesDir));
+					}
+				
+					if (source.substring(0,String(shortSourceWebcontentDir).length) == shortSourceWebcontentDir)
+					{
+						source = source.replace(String(shortSourceWebcontentDir), String(buildClassesDir));
+					}
+				
+					if (source.substr(source.length - 5).toLowerCase() == ".java")
+					{
+				  		self.addMappedName(source.replace(/java$/i, "class"));
+					}
+					else
+					{
+						self.addMappedName(source);
+					}
+				}
+			</scriptmapper>
+
+		<outofdate verbose="true" outputtargetspath="build.files.that.need.updating">
+			<sourcefiles>
+				<path refid="build.classpath" />
+				<fileset dir="${source.dir}">
+					<include name="**/*" />
+				</fileset>
+				<fileset dir="${source.resources.dir}">
+					<include name="**/*" />
+				</fileset>
+				<path refid="source.webcontent.fileset" />
+			</sourcefiles>
+			<targetfiles>
+				<fileset dir="${build.dist.root}">
+					<include name="**/*" />
+				</fileset>
+			</targetfiles>
+			<mapper refid="compile.source.mapper" />
+			<sequential>
+				<delete>
+					<path refid="build.files.that.need.updating" />
+				</delete>
+				<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
+					<classpath refid="build.classpath" />
+				</javac>
+				<copy todir="${build.classes.dir}">
+					<fileset dir="${source.dir}" casesensitive="false">
+						<include name="**/*" />
+						<exclude name="**/*.java" />
+					</fileset>
+				</copy>
+				<copy todir="${build.classes.dir}">
+					<fileset dir="${source.resources.dir}">
+						<include name="**/*" />
+					</fileset>
+				</copy>
+				<if>
+					<equals arg1="${dist.type}" arg2="war" />
+					<then>
+						<copy todir="${build.dist.root}">
+							<fileset dir="${source.webcontent.dir}">
+								<include name="**/*" />
+							</fileset>
+						</copy>
+					</then>
+				</if>
+			</sequential>
+		</outofdate>
+
+		<if>
+			<or>
+				<istrue value="${unittest.hasTests}" />
+				<istrue value="${webtest.hasTests}" />
+				<istrue value="${integrationtest.hasTests}" />
+			</or>
+			<then>
+				<mkdir dir="${build.unittest.classes.dir}" />
+				<echo message="check if out of date-> ${unittest.source.dir} to ${build.unittest.classes.dir}" />
+
+				<if>
+					<istrue value="${debug}" />
+					<then>
+						<for param="classpath.item">
+							<path>
+								<path refid="build.classpath" />
+								<pathelement path="${build.classes.dir}" />
+								<fileset refid="classpath.test" />
+							</path>
+							<sequential>
+								<echo message="@{classpath.item}" />
+							</sequential>
+						</for>
+					</then>
+				</if>
+
+				<scriptmapper id="compile.unittest.source.mapper" language="javascript">
+						if (source.substr(source.length - 4).toLowerCase() != ".jar")
+						{
+							buildClassesDir = project.getProperty("build.unittest.classes.dir");
+							sourceDir = project.getProperty("unittest.source.dir");
+							sourceResourcesDir = project.getProperty("unittest.resources.dir");
+							projectDir = project.getProperty("project.dir");
+							shortSourceDir = sourceDir.replace(String(projectDir) + "/", "").replace("/", "\\");
+							shortSourceResourcesDir = sourceResourcesDir.replace(String(projectDir) + "/", "").replace("/", "\\");
+							
+							if (source.substring(0,String(shortSourceDir).length) == shortSourceDir)
+							{
+								source = source.replace(String(shortSourceDir), String(buildClassesDir));
+							}
+							
+							if (source.substring(0,String(shortSourceResourcesDir).length) == shortSourceResourcesDir)
+							{
+								source = source.replace(String(shortSourceResourcesDir), String(buildClassesDir));
+							}
+						
+							if (source.substr(source.length - 5).toLowerCase() == ".java")
+							{
+						  		self.addMappedName(source.replace(/java$/i, "class"));
+							}
+							else
+							{
+								self.addMappedName(source);
+							}
+						}
+					</scriptmapper>
+
+				<outofdate verbose="true" outputtargetspath="build.files.that.need.updating">
+					<sourcefiles>
+						<path refid="build.classpath" />
+						<fileset dir="${unittest.source.dir}">
+							<include name="**/*" />
+						</fileset>
+						<fileset dir="${unittest.resources.dir}">
+							<include name="**/*" />
+						</fileset>
+					</sourcefiles>
+					<targetfiles>
+						<fileset dir="${build.unittest.classes.dir}">
+							<include name="**/*" />
+						</fileset>
+					</targetfiles>
+					<mapper refid="compile.unittest.source.mapper" />
+					<sequential>
+						<delete>
+							<path refid="build.files.that.need.updating" />
+						</delete>
+						<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}" includes="**/*.java" source="1.6" target="1.6">
+							<classpath>
+								<path refid="build.classpath" />
+								<pathelement path="${build.classes.dir}" />
+								<fileset refid="classpath.test" />
+							</classpath>
+						</javac>
+						<copy todir="${build.unittest.classes.dir}" overwrite="true">
+							<fileset dir="${unittest.source.dir}" casesensitive="false">
+								<include name="**/*" />
+								<exclude name="**/*.java" />
+							</fileset>
+						</copy>
+						<copy todir="${build.unittest.classes.dir}" overwrite="true">
+							<fileset dir="${unittest.resources.dir}">
+								<include name="**/*" />
+							</fileset>
+						</copy>
+					</sequential>
+				</outofdate>
+			</then>
+		</if>
+
+	</target>
+
+
+</project>

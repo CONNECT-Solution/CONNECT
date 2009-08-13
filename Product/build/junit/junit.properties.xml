@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="junit.properties">
+
+	<property name="unittest.hasTests" value="true" />
+	<property name="unittest.report.dir" value="${project.dir}/unit-test-reports" />
+	
+	<property name="webtest.hasTests" value="false" />
+	<property name="webtest.report.dir" value="${project.dir}/web-test-reports" />
+	
+	<property name="integrationtest.hasTests" value="false" />
+	<property name="integrationtest.report.dir" value="${project.dir}/integration-test-reports" />
+
+	<property name="unittest.source.dir" value="${project.dir}/src/test/java" />
+	<property name="unittest.resources.dir" value="${project.dir}/src/test/resources" />
+	<property name="build.unittest.classes.dir" value="${build.dir}/test/classes" />
+
+	<fileset id="junitrun.tests" dir="${unittest.source.dir}">
+		<include name="**/**Test.java" />
+	</fileset>
+	
+	<path id="junitrun.classpath">
+		<path refid="build.classpath" />
+		<pathelement path="${build.unittest.classes.dir}" />
+		<pathelement path="${build.classes.dir}" />
+		<fileset refid="classpath.test" />
+	</path>
+</project>

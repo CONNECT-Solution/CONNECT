@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="common.build">
+
+	<condition property="root.project.version" value="Personal.1">
+		<not>
+			<isset property="root.project.version" />
+		</not>
+	</condition>
+
+	<path id="build.project.dependencies" />
+
+	<property name="called.from.main.build" value="false" />
+
+	<property name="compile.debug" value="true" />
+	<property name="build.config" value="debug" />
+
+	<property name="project.dir" location="." />
+	<basename file="${project.dir}" property="project.name" />
+	
+	<if>
+		<isfalse value="${compile.debug}" />
+		<then>
+			<var name="build.config" unset="true" />
+			<property name="build.config" value="release" />
+		</then>
+	</if>
+
+	<xmltask source="${root.project.directory.path}/projects.xml">
+		<call path="/projects/project">
+			<param name="project.name" path="name/text()" />
+			<param name="project.directory" path="directory/text()" />
+			<param name="project.dist.type" path="dist.type/text()" />
+			<actions>
+				<if>
+					<istrue value="${debug}" />
+					<then>
+						<echo message="Creating properties for project: '@{project.name}'." />
+						<echo message='property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}"' />
+						<echo message='property name="project.@{project.name}.dist.file" value="@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}"' />
+					</then>
+				</if>
+
+				<property name="project.@{project.name}.build.dir" value="${root.project.directory.path}/@{project.directory}/build/${build.config}" />
+				<property name="project.@{project.name}.build.dist.root" value="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
+				<if>
+					<equals arg1="@{project.dist.type}" arg2="war" />
+					<then>
+						<property name="project.@{project.name}.build.classes.dir" value="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist/WEB-INF/classes" />
+					</then>
+					<else>
+						<property name="project.@{project.name}.build.classes.dir" value="${root.project.directory.path}/@{project.directory}/build/${build.config}/dist" />
+					</else>
+				</if>
+
+				<property name="project.@{project.name}.directory" value="${root.project.directory.path}/@{project.directory}" />
+				<property name="project.@{project.name}.build.file" value="${root.project.directory.path}/@{project.directory}/build.xml" />
+				<property name="project.@{project.name}.dist.file" value="${root.project.directory.path}/@{project.directory}/dist/${build.config}/@{project.name}.@{project.dist.type}" />
+
+				<available file="${root.project.directory.path}/@{project.directory}/build.xml" property="build.available" value="true" />
+				<if>
+					<isset property="build.available" />
+					<then>
+						<!-- Good -->
+					</then>
+					<else>
+						<echo level="warning" message="Could not find build.xml in ${root.project.directory.path}/@{project.directory}!" />
+					</else>
+				</if>
+			</actions>
+		</call>
+	</xmltask>
+
+</project>

@@ -1,2 +1,4 @@
-..\Build\nant\bin\nant.exe -buildfile:Personal.Build.xml FitNesse.CommitToSubversion
-SET /P variable="Hit Enter to continue."
+CALL ..\Build\SetEnv.bat
+nant.exe -listener:NAnt.Core.XmlLogger -buildfile:Personal.Build.xml FitNesse.CommitToSubversion
+@echo off
+SET /P variable="Hit Enter to exit."
