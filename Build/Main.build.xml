@@ -163,6 +163,8 @@
         <property name="Compile.Debug" value="False" />
         <call target="Ant.Package" />-->
 
+        <call target="Build.PublishZip"/>
+        
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
