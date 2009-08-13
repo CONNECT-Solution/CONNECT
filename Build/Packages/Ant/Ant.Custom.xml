@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Ant.Custom">
+
+  <target name="Ant.CompileSource" override="true">
+    <ant
+      target="build-test"
+      buildfile="${Ant.Build.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\compile_log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args>
+        <arg line="-Dcompile.debug=${Compile.Debug}"/>
+      </args>
+    </ant>
+  </target>
+
+</project>
