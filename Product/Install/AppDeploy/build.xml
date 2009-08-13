@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="nhinc-deploy" default="deploy" basedir=".">
+
+  <condition property="deploypropertiesfile" value="deploy.win.properties">
+    <os family="windows"/>
+  </condition>
+  <condition property="deploypropertiesfile" value="deploy.unix.properties">
+    <os family="unix"/>
+  </condition>
+  
+  <property file="${basedir}/${deploypropertiesfile}"/>
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+  <taskdef resource="com/sun/tools/appserver/antlib.xml">
+    <classpath>
+      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
+      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
+    </classpath>
+  </taskdef>
+
+
+  <!-- Developer override list of jars to operate on in this external file. -->
+  <property name="dev.list.ejboverride.filename" value="${basedir}/dev.deploy.ejblist.txt" />
+
+  <!-- List of jars to operate on in this external file. -->
+  <property name="master.applist" value="${basedir}/master.deploy.ejblist.xml" />
+
+  <property name="DistDir" value="${basedir}/nhinc" />
+  <available file="${DistDir}" property="nhinc.folder.present"/>
+
+  <condition property="TARGET_IP" value="localhost">
+    <not>
+      <isset property="TARGET_IP" />
+    </not>
+  </condition>
+
+  <target name="deploy" depends="-init-cl-deployment-env,showvars,-do-unzip,deploy-tgt,-cleanup-cl-deployment-env" description="Execute deployment of EJB and possibly CA zips if deployCA property is set." >
+    <echo message="Deploy complete." />
+  </target>
+
+  <target name="undeploy" depends="-init-cl-deployment-env,showvars,undeploy-tgt,-cleanup-cl-deployment-env" description="Execute un-deployment of EJB and possibly CA zips if deployCA property is set." >
+    <echo message="Un-Deploy complete." />
+  </target>
+
+  <target name="showvars" description="Display properties that are set." >
+    <echo message="--- Some variables ---"/>
+    <echo message="Deploy Properties file: ${basedir}/${deploypropertiesfile}"/>
+    <echo message="DistDir: ${DistDir}"/>
+    <echo message="ProductBaseDir: ${ProductBaseDir}"/>
+    <echo message="glassfish.home: ${glassfish.home}"/>
+    <echo message="TARGET_IP: ${TARGET_IP}"/>
+
+    <echo message="sjsas.username: ${sjsas.username}"/>
+    <if>
+      <isset property="deployCA" />
+      <then>
+        <echo message="Deploying CA files since deployCA property is set."/>
+      </then>
+      <else>
+        <echo message="NOT Deploying CA files since deployCA property is NOT set."/>
+      </else>
+    </if>
+    <echo message="--- End variables ---"/>
+  </target>
+
+  <target name="-init-cl-deployment-env" >
+    <property file="${deploy.ant.properties.file}" />
+    <available file="${deploy.ant.docbase.dir}/WEB-INF/sun-web.xml" property="sun.web.present"/>
+    <available file="${deploy.ant.resource.dir}" property="has.setup"/>
+    <tempfile prefix="sjsas" property="sjsas.password.file" destdir="${java.io.tmpdir}"/>
+    <echo message="Creating sjsas.password.file in ${sjsas.password.file} "/>
+    <echo message="${sjsas.message}" file="${sjsas.password.file}"/>
+    <echo message="Checking for and loading developer override file."/>
+    <loadfile property="dev.list.ejboverride" failonerror="false" srcFile="${dev.list.ejboverride.filename}" />
+    <echo message="Init complete." />
+  </target>
+
+  <target name="-cleanup-cl-deployment-env" >
+    <delete file="${sjsas.password.file}" />
+    <echo message="Cleanup complete." />
+  </target>
+
+  <target name="deploy-ant-ejbJars">
+    <xmltask source="${master.applist}">
+      <!-- List of jars to deploy in this external file. -->
+      <call path="/projects/ejblist">
+        <param name="ejblist.name" path="name/text()" />
+        <param name="ejblist.jarname" path="jarname/text()" />
+        <param name="ejblist.directory" path="directory/text()" />
+        <actions>
+          <if>
+            <isset property="dev.list.ejboverride"/>
+            <then>
+              <for list="${dev.list.ejboverride}" delimiter="${line.separator}" param="currejb">
+                <sequential>
+                  <if>
+                    <equals arg1="@{currejb}" arg2="@{ejblist.name}" trim="true" />
+                    <then>
+                      <echo message="Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
+                      <sun-appserv-deploy
+                        user="${sjsas.username}"
+                        passwordfile="${sjsas.password.file}"
+                        host="${TARGET_IP}"
+                        port="${ADMIN_PORT}"
+                        file="${DistDir}/@{ejblist.jarname}"
+                        asinstalldir="${glassfish.home}"
+                      />
+                    </then>
+                  </if>
+                </sequential>
+              </for>
+            </then>
+            <else>
+              <echo message="Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
+              <sun-appserv-deploy
+                user="${sjsas.username}"
+                passwordfile="${sjsas.password.file}"
+                host="${TARGET_IP}"
+                port="${ADMIN_PORT}"
+                file="${DistDir}/@{ejblist.jarname}"
+                asinstalldir="${glassfish.home}"
+              />
+            </else>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="undeploy-ant-ejbJars">
+    <xmltask source="${master.applist}">
+      <call path="/projects/ejblist">
+        <param name="ejblist.name" path="name/text()" />
+        <param name="ejblist.jarname" path="jarname/text()" />
+        <param name="ejblist.directory" path="directory/text()" />
+        <actions>
+          <if>
+            <isset property="dev.list.ejboverride"/>
+            <then>
+              <for list="${dev.list.ejboverride}" delimiter="${line.separator}" param="currejb">
+                <sequential>
+                  <if>
+                    <equals arg1="@{currejb}" arg2="@{ejblist.name}" trim="true" />
+                    <then>
+                      <echo message="Un-Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
+                      <sun-appserv-undeploy
+                        user="${sjsas.username}"
+                        passwordfile="${sjsas.password.file}"
+                        host="${TARGET_IP}"
+                        port="${ADMIN_PORT}"
+                        name="@{ejblist.name}"
+                        asinstalldir="${glassfish.home}"
+                      />
+                    </then>
+                  </if>
+                </sequential>
+              </for>
+            </then>
+            <else>
+              <echo message="Un-Deploying @{ejblist.name} as @{ejblist.jarname} from ${DistDir}"/>
+              <sun-appserv-undeploy
+                user="${sjsas.username}"
+                passwordfile="${sjsas.password.file}"
+                host="${TARGET_IP}"
+                port="${ADMIN_PORT}"
+                name="@{ejblist.name}"
+                asinstalldir="${glassfish.home}"
+              />
+            </else>
+          </if>
+        </actions>
+      </call>
+    </xmltask>
+  </target>
+
+  <target name="deploy-tgt" depends="deploy-ant-ejbJars">
+    <if>
+      <isset property="deployCA" />
+      <then>
+        <echo message="Deploying NhinCA from ${DistDir}/NhinCA.zip" />
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          file="${DistDir}/NhinCA.zip"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="NhinCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+
+        <echo message="Deploying EntityCA from ${DistDir}/EntityCA.zip" />
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          file="${DistDir}/EntityCA.zip"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="EntityCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+
+        <echo message="Deploying AdapterCA ${DistDir}/AdapterCA.zip" />
+        <jbi-deploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          file="${DistDir}/AdapterCA.zip"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-start-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="AdapterCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+      </then>
+      <else>
+        <echo message="Skipping deploy of CA files since property 'deployCA' is not set." />
+        <echo message="See ${deploypropertiesfile} file to change." />
+      </else>
+    </if>
+  </target>
+
+  <target name="undeploy-tgt" depends="undeploy-ant-ejbJars">
+    <if>
+      <isset property="deployCA" />
+      <then>
+        <echo message="Un-Deploying NhinCA" />
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="NhinCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="NhinCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+
+        <echo message="Un-Deploying EntityCA" />
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="EntityCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="EntityCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+
+        <echo message="Un-Deploying AdapterCA" />
+        <jbi-shut-down-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="AdapterCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+        <jbi-undeploy-service-assembly
+          host="${TARGET_IP}"
+          port="${ADMIN_PORT}"
+          name="AdapterCA"
+          target="${TARGET_DOMAIN}"
+          username="${sjsas.username}"
+          password="${sjsas.password}"
+        />
+      </then>
+      <else>
+        <echo message="Skipping un-deploy of CA files." />
+      </else>
+    </if>
+  </target>
+
+  <target name="unzip" depends="-init-cl-deployment-env,-do-unzip,-cleanup-cl-deployment-env"  description="Unzip NHIN-C binaries">
+    <echo message="UnZip complete." />
+  </target>
+
+  <target name="-do-unzip">
+    <if>
+      <isset property="dev.list.ejboverride"/>
+      <then>
+        <delete dir="${DistDir}"/>
+        <echo message="Developer override copying from source tree to deployment directory." />
+        <xmltask source="${master.applist}">
+          <call path="/projects/ejblist">
+            <param name="ejblist.name" path="name/text()" />
+            <param name="ejblist.jarname" path="jarname/text()" />
+            <param name="ejblist.directory" path="directory/text()" />
+            <actions>
+              <for list="${dev.list.ejboverride}" delimiter="${line.separator}" param="currejb">
+                <sequential>
+                  <if>
+                    <equals arg1="@{currejb}" arg2="@{ejblist.name}" trim="true" />
+                    <then>
+                      <echo message="Copying @{ejblist.name} as @{ejblist.jarname} from ${ProductBaseDir}/@{ejblist.directory} to ${DistDir}"/>
+                      <copy todir="${DistDir}" verbose="true" flatten="true">
+                        <fileset dir="${ProductBaseDir}/@{ejblist.directory}">
+                          <patternset>
+                            <include name="**/dist/*.jar"/>
+                            <include name="**/dist/*.war"/>
+                          </patternset>
+                        </fileset>
+                      </copy>
+                    </then>
+                  </if>
+                </sequential>
+              </for>
+            </actions>
+          </call>
+        </xmltask>
+        <if>
+          <isset property="deployCA" />
+          <then>
+            <echo message="Copying CA.zips from source tree since 'deployCA' property is set." />
+            <copy todir="${DistDir}" verbose="true" flatten="true">
+              <fileset dir="${ProductBaseDir}/Production">
+                <patternset>
+                  <include name="Adapters/General/**/dist/AdapterCA.zip"/>
+                  <include name="Gateway/**/dist/EntityCA.zip"/>
+                  <include name="Gateway/**/dist/NhinCA.zip"/>
+                </patternset>
+              </fileset>
+            </copy>
+          </then>
+        </if>
+      </then>
+      <elseif>
+        <istrue value="${nhinc.folder.present}" />
+        <then>
+          <!--Do nothing-->
+        </then>
+      </elseif>
+      <else>
+        <echo message="Copying all EJB.JARs and CA.zips from source tree" />
+        <echo message="to ${DistDir}" />
+        <echo message="This takes a few minutes to start the copy while finding the JARs." />
+        <copy todir="${DistDir}" verbose="true" flatten="true">
+          <fileset dir="${ProductBaseDir}">
+            <patternset>
+              <include name="**/dist/*.jar"/>
+              <include name="**/dist/*.war"/>
+              <include name="**/dist/AdapterCA.zip"/>
+              <include name="**/dist/EntityCA.zip"/>
+              <include name="**/dist/NhinCA.zip"/>
+            </patternset>
+          </fileset>
+        </copy>
+        <echo message="Copying from source tree to ${DistDir} complete." />
+      </else>
+    </if>
+  </target>
+
+</project>
