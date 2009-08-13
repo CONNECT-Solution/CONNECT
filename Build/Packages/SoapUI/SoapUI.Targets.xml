@@ -9,11 +9,14 @@
     />
     
 	  <trycatch>
-		  <try>	  	
-			  <exec program="${Ant.Bat}">
-				  <environment refid="${Ant.Environment.RefId}" />
-				  <arg line="-buildfile ${Package.SoapUI.Directory.Path}\SoapUI.Ant.Target.xml" file="${Package.Alerts.Directory.Path}" />
-			  </exec>
+		  <try>
+        <ant
+          target="soapui.run"
+          buildfile="${Package.SoapUI.Directory.Path}\SoapUI.Ant.Target.xml"
+          logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
+        >
+          <environment refid="${Common.EnvironmentVariables.RefId}"/>
+        </ant>
         <property name="Ant.Failure" value="False"/>
 		  </try>
       <catch property="exception">

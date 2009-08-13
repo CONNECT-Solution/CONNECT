@@ -80,57 +80,36 @@
   
   <target name="GlassFish.Undeploy">
     <call target="GlassFish.StartServer"/>
-    
-    <property name="AntTarget" value="undeploy"/>
-    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
-    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\undeploy_log.xml"/>
 
-    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
-      <environment refid="${Ant.Environment.RefId}" />
-      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
-
-      <arg line="-logger org.apache.tools.ant.XmlLogger" />
-      <arg line='-logfile "${AntBuildLogFile}"' />
-
-      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
-      <arg line='-DProductVersion="${CCNetLabel}"' />
-    </exec>
+    <ant
+      target="undeploy"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+    </ant>
   </target>
   
   <target name="GlassFish.Deploy">
     <call target="GlassFish.StopServer"/>
 
-    <property name="AntTarget" value="deploy.shared"/>
-    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
-    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
-
-    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
-      <environment refid="${Ant.Environment.RefId}" />
-      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
-
-      <arg line="-logger org.apache.tools.ant.XmlLogger" />
-      <arg line='-logfile "${AntBuildLogFile}"' />
-
-      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
-      <arg line='-DProductVersion="${CCNetLabel}"' />
-    </exec>
+    <ant
+      target="deploy.shared"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+    </ant>
     
     <call target="GlassFish.StartServer"/>
     
-    <property name="AntTarget" value="deploy"/>
-    <property name="AntBuildFileName" value="${GlassFish.Deploy.Script.File.Path}"/>
-    <property name="AntBuildLogFile" value="${AntBuildLogDirectory}\deploy_log.xml"/>
-
-    <exec program="${Ant.Bat}" failonerror="true" verbose="true">
-      <environment refid="${Ant.Environment.RefId}" />
-      <arg line='${AntTarget} -buildfile "${AntBuildFileName}"' />
-
-      <arg line="-logger org.apache.tools.ant.XmlLogger" />
-      <arg line='-logfile "${AntBuildLogFile}"' />
-
-      <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
-      <arg line='-DProductVersion="${CCNetLabel}"' />
-    </exec>
+    <ant
+      target="deploy"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+    </ant>
   </target>
 
   <target name="GlassFish.SetUp">
