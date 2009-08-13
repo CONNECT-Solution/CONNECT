@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="TargetProcess.Properties">
 
-	<property name="TargetProcess.ReportDirectoryPath" value="${BuildDirectory}\TargetProcess" />
+  <loadtasks assembly="${Common.Directory.Packages.Path}\TargetProcess\bin\CIFactory.TargetProcess.NAnt.Tasks.dll" />
+
+  <property name="TargetProcess.ReportDirectoryPath" value="${Common.Project.Common.Directory.Transient.Path}\TargetProcess" />
 	<property name="TargetProcess.ReportFilePath" value="${TargetProcess.ReportDirectoryPath}\${ProjectName}TargetProcesss.xml" />
 
-  <ifthenelse test="${file::exists(PackagesDirectory + '\TargetProcess\TargetProcess.Credentials.xml')}">
-    <then>
-      <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml" />
-    </then>
-    <else>
-      <echo level="Warning" message="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>
-    </else>
-  </ifthenelse>
-  
-	    <connectioninformation
-			id="TargetProcess.ConnectionInformation"
-			rootserviceurl="http://tp.nhiegateway.org/TargetProcess2"
-			username="${TP.Username}"
-			password="${TP.Password}"
-		/>
+  <property name="TargetProcess.ProjectName" value="NHIE-Gateway Green Team"/>
 
+  <connectioninformation
+    id="TargetProcess.ConnectionInformation"
+    rootserviceurl="http://tp.nhiegateway.org"
+    username="flowersj"
+    password="password"
+  />
 
 </project>

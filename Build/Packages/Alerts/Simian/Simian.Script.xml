@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.Simian.Scripts">
 
-  <property name="Alerts.Simian.PreviousPropertiesFilePath" value="${PackagesDirectory}\Alerts\Simian\Previous.Properties.xml"/>
+  <property name="Alerts.Simian.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\Simian\${CCNetProject}.Previous.Properties.xml"/>
   <ifthenelse test="${file::exists(Alerts.Simian.PreviousPropertiesFilePath)}">
     <then>
       <include buildfile="${Alerts.Simian.PreviousPropertiesFilePath}" />
@@ -11,7 +11,7 @@
     </else>
   </ifthenelse>
 
-  <property name="Alerts.Simian.ReportFilePath" value="${Common.ArtifactDirectoryPath}\SimianReport.xml"/>
+  <property name="Alerts.Simian.ReportFilePath" value="${Common.Directory.Artifact.Path}\SimianReport.xml"/>
 
   <!-- Begin Previous Properties -->
   <property name="Alerts.Simian.Previous.DuplicateLineCount" value="NaN" overwrite="false"/>
@@ -33,7 +33,7 @@
 
     <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
     <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
-    <property name="UrlToSimianReport" value="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_SimianReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
+    <property name="UrlToSimianReport" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_SimianReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
 
     <if test="${Alerts.Simian.Previous.DuplicateLineCount != 'NaN' and Alerts.Simian.DuplicateLineCount != 'notset'}">
       <call target="Alerts.Simian.GenerateReport"/>
@@ -70,22 +70,22 @@
       <arg line="/o /c /p /w /n /r /x /d"/>
       <arg line='"${Alerts.Simian.Previous.ReportFilePath}"' />
       <arg line='"${Alerts.Simian.ReportFilePath}"' />
-      <arg line='"${Common.ArtifactDirectoryPath}\Simian.Diff.xml"' />
+      <arg line='"${Common.Directory.Artifact.Path}\Simian.Diff.xml"' />
     </exec>
 
     <style
-      in="${Common.ArtifactDirectoryPath}\Simian.Diff.xml"
-      out="${Common.ArtifactDirectoryPath}\Simian.Diff.Report.html"
-      style="${PackagesDirectory}\Alerts\Simian\DiffReport.xsl"
+      in="${Common.Directory.Artifact.Path}\Simian.Diff.xml"
+      out="${Common.Directory.Artifact.Path}\Simian.Diff.Report.html"
+      style="${Common.Directory.Packages.Path}\Alerts\Simian\DiffReport.xsl"
     >
       <parameters>
-        <parameter name="PathPrefix" value="${path::get-short-path(ProductDirectory)}"/>
+        <parameter name="PathPrefix" value="${path::get-short-path(Common.Directory.Product.Path)}"/>
         <parameter name="OriginalDocPath" value="${Alerts.Simian.Previous.ReportFilePath}"/>
       </parameters>
     </style>
 
     <loadfile
-      file="${Common.ArtifactDirectoryPath}\Simian.Diff.Report.html"
+      file="${Common.Directory.Artifact.Path}\Simian.Diff.Report.html"
       property="Alerts.Simian.Report"
     />
   </target>
@@ -117,7 +117,7 @@
       <value expand="true" xml="true">
         <html>
           <head>
-            <link type="text/css" rel="stylesheet" href="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
+            <link type="text/css" rel="stylesheet" href="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
           </head>
           <body>
             <p>
@@ -135,7 +135,7 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>
@@ -157,7 +157,7 @@
       <value expand="true" xml="true">
         <html>
           <head>
-            <link type="text/css" rel="stylesheet" href="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
+            <link type="text/css" rel="stylesheet" href="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
           </head>
           <body>
             <p>
@@ -175,7 +175,7 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="IntegrationTest.Properties">
+
+  <property name="IntegrationTest.PublishXmlReport" value="true" overwrite="false"/>
+  <property name="IntegrationTestReportsDirectoryPath" value="${Common.Project.Common.Directory.Transient.Path}\IntegrationTestReports"/>
+  
+</project>

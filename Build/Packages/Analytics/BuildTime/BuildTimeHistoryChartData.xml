@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE chart [
-  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\BuildHistoryXAxis.xml">
-  <!ENTITY Total SYSTEM   "..\..\..\Artifacts\BuildHistoryTotal.xml">
-  <!ENTITY Compile SYSTEM   "..\..\..\Artifacts\BuildHistoryCompile.xml">
-  <!ENTITY ProductSourceUpdate SYSTEM      "..\..\..\Artifacts\BuildHistoryProduceSourceUpdate.xml">
-  <!ENTITY ThirdPartySourceUpdate SYSTEM "..\..\..\Artifacts\BuildHistoryThirdPartySourceUpdate.xml">
-  <!ENTITY UnitTests SYSTEM "..\..\..\Artifacts\BuildHistoryUnitTests.xml">
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis                    SYSTEM    "BuildHistoryXAxis.xml">
+  <!ENTITY Total                    SYSTEM    "BuildHistoryTotal.xml">
+  <!ENTITY Compile                  SYSTEM    "BuildHistoryCompile.xml">
+  <!ENTITY ProductSourceUpdate      SYSTEM    "BuildHistoryProduceSourceUpdate.xml">
+  <!ENTITY ThirdPartySourceUpdate   SYSTEM    "BuildHistoryThirdPartySourceUpdate.xml">
+  <!ENTITY UnitTests                SYSTEM    "BuildHistoryUnitTests.xml">
 ]>
 <chart>
 

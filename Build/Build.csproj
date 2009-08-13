@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE Project[
+<!DOCTYPE Project [
   <!ENTITY % entities SYSTEM "Entities.xml">
 
   %entities;
@@ -60,25 +60,59 @@
     <None Include="dashboard\WorkspaceSetup\**\*" Exclude="**\.svn\**\*" />
     <None Include="dashboard\xsl\*.xsl" Exclude="**\.svn\**\*" />
     <None Include="dashboard\cruisecontrol.css" />
+    <None Include="EnvironmentVariables\EnvironmentVariables.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\&ProductDirectoryName;\Personal.Build.xml">
+    <None Include="..\&Common.Directory.Product.Name;\Personal.Build.xml">
       <Link>Personal.Build\Personal.Build.xml</Link>
     </None>
-    <None Include="..\&ProductDirectoryName;\Build.bat">
+    <None Include="..\&Common.Directory.Product.Name;\Build.bat">
       <Link>Personal.Build\Build.bat</Link>
     </None>
-    <None Include="..\&ProductDirectoryName;\NoUpdateBuild.bat">
+    <None Include="..\&Common.Directory.Product.Name;\NoUpdateBuild.bat">
       <Link>Personal.Build\NoUpdateBuild.bat</Link>
     </None>
-    <None Include="..\&ProductDirectoryName;\OpenCommandPrompt.bat">
+    <None Include="..\&Common.Directory.Product.Name;\OpenCommandPrompt.bat">
       <Link>Personal.Build\OpenCommandPrompt.bat</Link>
     </None>
-    <None Include="..\&ProductDirectoryName;\Test.bat">
+    <None Include="..\&Common.Directory.Product.Name;\OpenNetBeans.bat">
+      <Link>Personal.Build\OpenNetBeans.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\CommitFitNesse.bat">
+      <Link>Personal.Build\CommitFitNesse.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\Rebuild.bat">
+      <Link>Personal.Build\Rebuild.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\Commit.bat">
+      <Link>Personal.Build\Commit.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\Test.bat">
       <Link>Personal.Build\Test.bat</Link>
     </None>
-    <None Include="..\product\UpdateWorkspace.bat">
+    <None Include="..\&Common.Directory.Product.Name;\StartSeleniumServer.bat">
+      <Link>Personal.Build\StartSeleniumServer.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\StopSeleniumServer.bat">
+      <Link>Personal.Build\StopSeleniumServer.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\StartFitNesseServer.bat">
+      <Link>Personal.Build\StartFitNesseServer.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\StopFitNesseServer.bat">
+      <Link>Personal.Build\StopFitNesseServer.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\StartGlassFish.bat">
+      <Link>Personal.Build\StartGlassFish.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\StopGlassFish.bat">
+      <Link>Personal.Build\StopGlassFish.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\UpdateWorkspace.bat">
       <Link>Personal.Build\UpdateWorkspace.bat</Link>
+    </None>
+    <None Include="..\&Common.Directory.Product.Name;\GlassFish.Redeploy.bat">
+      <Link>Personal.Build\GlassFish.Redeploy.bat</Link>
     </None>
   </ItemGroup>
   <ItemGroup>

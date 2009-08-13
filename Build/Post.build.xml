@@ -1,111 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Post Build" default="PostBuildWrapper">
-  
-	<include buildfile="Properties.build.xml" />
+
+  <include buildfile="Properties.build.xml" />
   <include buildfile="Common.Build.xml" />
-  
-	<description>Begin Package Includes</description>
-  <include buildfile="${PackagesDirectory}\CSDiff\CSDiff.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Alerts\Alerts.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Analytics\Analytics.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Backup\Backup.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Archive\Archive.Target.xml" />
+
+  <description>Begin Package Includes</description>
+  <loadpackages>
+    <package name="CSDiff" />
+    <package name="Backup" />
+    <package name="Archive" />
+    <package name="Analytics" />
+    <package name="Alerts" />
+  </loadpackages>
   <description>End Package Includes</description>
-  
-	<target name="PostBuild">
+
+  <target name="PostBuild">
     <trycatch>
       <try>
+        <description>Begin SetUp</description>
+        <call target="SetUps" />
+        <description>End SetUp</description>
 
-				<description>Begin SetUp</description>
-
-				<call target="SetUps" />
-
-				<description>End SetUp</description>
-  
-				<description>Begin Post Build Actions</description>
-
-        <call target="Archive.Move" failonerror="false" />
-				<if test="${CCNetProject == ProjectName + '-' + ProjectCodeLineName}">
-<!-- 					<call target="CSDiff.GenerateHtmlReports" failonerror="false" /> -->
-					<call target="Analytics.CompileReports" failonerror="false" />
-				</if>
-        <call target="Alerts.Run" failonerror="false" />
+        <description>Begin Post Build Actions</description>
         <call target="Backup.CopyCCNETFiles" failonerror="false" />
         <call target="Backup.CopyPublishedFiles" failonerror="false" />
+        <call target="Archive.Move" failonerror="false" />
+        <call target="Analytics.CompileReports" failonerror="false" />
+        <call target="Alerts.Run" failonerror="false" />
+        <description>End Post Build Actions</description>
 
-				<description>End Post Build Actions</description>
-
-			</try>
-			<catch property="exception">
-				<echo level="Error" message="${exception}"/>
-				<property name="UrlToPostBuildReport" value="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_PostBuildNAntOutputBuildReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}"/>
-
-				<largeproperty name="Content">
-					<value expand="true" xml="true">
-						<html>
-							<head>
-								<link type="text/css" rel="stylesheet" href="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css"/>
-							</head>
-							<body>
-								<p>
-									<a onmouseover="this.style.color = '#7bcf15'"
-										 style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
-										 href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
-								</p>
-								<p>${datetime::now()}</p>
-
-								<p>Build Master,</p>
-								<p>The Post Build failed.</p>
-								<br/>
-								<a
-									onmouseover="this.style.color = '#7bcf15'"
-									style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
-									href="${UrlToPostBuildReport}"
-            >
-									<img style="float: left; border-style: none; height: 25px;" src="https://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/images/NAntOutput.gif"/>
-									<div>Exception</div>
-								</a>
-								<br/>
-								<p>${exception}</p>
-								<br/>
-								<p>Cheers,</p>
-								<p>Your pal, the build server.</p>
-							</body>
-						</html>
-					</value>
-				</largeproperty>
-
-				<mail 
-              tolist="jay.flowers@agilex.com" 
-              from="NHINC.Build@agilex-hc-5155.com" 
-              mailhost="127.0.0.1" 
-              subject="${CCNetProject} Post Build Failed ${CCNetLabel}" 
-              message="${Content}" format="Html" />
-			</catch>
+      </try>
+      <catch property="exception">
+        <echo level="Error" message="${exception}" />
+        <property name="UrlToPostBuildReport" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_PostBuildNAntOutputBuildReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}" />
+        <property name="UrlToThisBuild" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_ViewBuildReport=true&amp;server=${ProjectName}-${ProjectCodeLineName}&amp;project=${CCNetProject}&amp;build=${path::get-file-name(CCNetLogFilePath)}" />
+        <largeproperty name="Content">
+          <value expand="true" xml="true">
+            <html>
+              <head>
+                <link type="text/css" rel="stylesheet" href="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/cruisecontrol.css" />
+              </head>
+              <body>
+                <p>
+                  <a onmouseover="this.style.color = '#7bcf15'" style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;" href="${UrlToThisBuild}">${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}</a>
+                </p>
+                <p>${datetime::now()}</p>
+                <p>Build Master,</p>
+                <p>The Post Build failed.</p>
+                <br />
+                <a onmouseover="this.style.color = '#7bcf15'" style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;" href="${UrlToPostBuildReport}">
+                  <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/images/NAntOutput.gif" />
+                  <div>Exception</div>
+                </a>
+                <br />
+                <p>${exception}</p>
+                <br />
+                <p>Cheers,</p>
+                <p>Your pal, the build server.</p>
+              </body>
+            </html>
+          </value>
+        </largeproperty>
+        <mail 
+          tolist="jay.flowers@gmail.com" 
+          from="${ProjectName}.Build@agilex-hc-5155.com" 
+          mailhost="127.0.0.1" 
+          subject="${CCNetProject} Post Build Failed ${CCNetLabel}" 
+          message="${Content}" 
+          format="Html" 
+        />
+      </catch>
       <finally>
         <call target="TearDowns" />
       </finally>
     </trycatch>
   </target>
-
-	<target name="SetUps">
+  
+  <target name="SetUps">
     <description>Begin SetUps</description>
     <call target="CSDiff.SetUp" />
-    <call target="Alerts.SetUp" />
-    <call target="Analytics.SetUp" />
-    <call target="Archive.SetUp" />
     <call target="Backup.SetUp" />
+    <call target="Archive.SetUp" />
+    <call target="Analytics.SetUp" />
+    <call target="Alerts.SetUp" />
     <description>End SetUps</description>
   </target>
-
-	<target name="TearDowns">
+  
+  <target name="TearDowns">
     <description>Begin TearDowns</description>
     <call target="CSDiff.TearDown" />
-    <call target="Alerts.TearDown" />
-    <call target="Analytics.TearDown" />
-    <call target="Archive.TearDown" />
     <call target="Backup.TearDown" />
+    <call target="Archive.TearDown" />
+    <call target="Analytics.TearDown" />
+    <call target="Alerts.TearDown" />
     <description>End TearDowns</description>
   </target>
-	
+  
 </project>

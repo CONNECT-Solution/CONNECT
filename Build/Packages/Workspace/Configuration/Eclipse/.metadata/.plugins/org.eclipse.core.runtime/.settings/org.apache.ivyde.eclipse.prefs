@@ -1,0 +1,4 @@
+#Tue Jan 13 15:07:35 EST 2009
+eclipse.preferences.version=1
+ivy_org=triserv
+ivy_conf_path=file\:/%Drive.Letter%\:/%Common.Directory.ProjectsRoot.Name%/%ProjectName%/%ProjectCodeLineName%/%Common.Directory.Product.Name%/ivysettings.xml

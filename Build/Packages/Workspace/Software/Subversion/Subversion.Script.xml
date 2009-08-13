@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Subversion.Scripts">
 
+  <property name="Subversion.Console.Version" value="1.6.3.38063"/>
+  <property name="Subversion.Console.Installer.File.Name" value="Setup-Subversion-1.6.3.msi"/>
+  <property name="Subversion.Console.Installer.File.Path" value="C:\Temp\${Subversion.Console.Installer.File.Name}"/>
+  <property name="Subversion.Console.Installer.File.Url" value="http://subversion.tigris.org/files/documents/15/46163/${Subversion.Console.Installer.File.Name}"/>
+
+  <property name="Subversion.Tortoise.Version" value="1.6.3.16613"/>
+  <property name="Subversion.Tortoise.Installer.File.Name" value="TortoiseSVN-1.6.3.16613-win32-svn-1.6.3.msi"/>
+  <property name="Subversion.Tortoise.Installer.File.Path" value="C:\Temp\${Subversion.Tortoise.Installer.File.Name}"/>
+  <property name="Subversion.Tortoise.Installer.File.Url" value="http://downloads.sourceforge.net/tortoisesvn/${Subversion.Tortoise.Installer.File.Name}?download"/>
+
   <target name="Workspace.RequieredSoftware.Subversion">
     <call target="Workspace.RequieredSoftware.Subversion.Tortoise"/>
     <call target="Workspace.RequieredSoftware.Subversion.Console"/>
   </target>
 
+  <target name="Workspace.RequieredSoftware.Subversion.Console.CheckUpgradeNeeded">
+    <property name="Console.IsUpgradeNeeded" value="False"/>
+    <if test="${file::exists(SvnBinPath + '\svn.exe')}" >
+      <echo message="Installed version of Subversion Console:"/>
+      <echo message="${fileversioninfo::get-file-version(fileversioninfo::get-version-info(SvnBinPath + '\svn.exe'))}"/>
+      <if test="${version::compare(fileversioninfo::get-file-version(fileversioninfo::get-version-info(SvnBinPath + '\svn.exe')), version::parse(Subversion.Console.Version)) &lt; 0}">
+        <property name="Console.IsUpgradeNeeded" value="True"/>
+      </if>
+    </if>
+  </target>
+
   <target name="Workspace.RequieredSoftware.Subversion.Console">
-    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\Subversion\bin\svn.exe')}" >
+    <call target="Workspace.RequieredSoftware.Subversion.Console.CheckUpgradeNeeded"/>
+    <if test="${not file::exists(SvnBinPath + '\svn.exe') or bool::parse(Console.IsUpgradeNeeded)}" >
       <ask answer="Answer"
-           question="It looks like the Subversion command line client is not installed.  This software is required.  Do you wish to install the software?"
+           question="It looks like the Subversion command line client is not installed, or an older version than ${Subversion.Console.Version} is installed.  This software is required.  Do you wish to install the software?"
            caption="Proceed Without Required Software?"
            showdialog="true" >
         <options>
@@ -20,22 +42,40 @@
       <ifthenelse test="${Answer == 'Install'}">
         <then>
           <get
-              src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/Subversion-1.5.5-win32.msi"
-              dest="${environment::get-variable('TEMP')}\Subversion-1.5.5-win32.msi"
+              src="${Subversion.Console.Installer.File.Url}"
+              dest="${Subversion.Console.Installer.File.Path}"
+              unless="${file::exists(Subversion.Console.Installer.File.Path)}"
           />
-          <exec workingdir="${environment::get-variable('TEMP')}" program="msiexec" commandline="/i ${environment::get-variable('TEMP')}\Subversion-1.5.5-win32.msi /q" verbose="true" />
+          <exec
+            workingdir="${path::get-directory-name(Subversion.Console.Installer.File.Path)}"
+            program="msiexec"
+            commandline='/i ${Subversion.Console.Installer.File.Path} /norestart /q INSTALLDIR="${ProgramFiles.32.Path}\Subversion"'
+            verbose="true"
+          />
         </then>
         <elseif if="${Answer == 'Exit'}">
           <fail message="Please install Subversion!" />
         </elseif>
       </ifthenelse>
-    </ifnot>
+    </if>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Subversion.Tortoise.CheckUpgradeNeeded">
+    <property name="Tortoise.IsUpgradeNeeded" value="False"/>
+    <if test="${file::exists(TortoisePath)}" >
+      <echo message="Installed version of Tortoise:"/>
+      <echo message="${fileversioninfo::get-file-version(fileversioninfo::get-version-info(TortoisePath))}"/>
+      <if test="${version::compare(fileversioninfo::get-file-version(fileversioninfo::get-version-info(TortoisePath)), version::parse(Subversion.Tortoise.Version)) &lt; 0}">
+        <property name="Tortoise.IsUpgradeNeeded" value="True"/>
+      </if>
+    </if>
   </target>
 
   <target name="Workspace.RequieredSoftware.Subversion.Tortoise">
-    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\TortoiseSVN\bin\TortoiseProc.exe')}" >
+    <call target="Workspace.RequieredSoftware.Subversion.Tortoise.CheckUpgradeNeeded"/>
+    <if test="${not file::exists(TortoisePath) or bool::parse(Tortoise.IsUpgradeNeeded)}" >
       <ask answer="Answer"
-           question="It looks like TortoiseSVN is not installed.  This software is required.  Do you wish to install the software?"
+           question="It looks like TortoiseSVN is not installed, or an older version than ${Subversion.Tortoise.Version} is installed.  This software is required.  Do you wish to install the software?"
            caption="Proceed Without Required Software?"
            showdialog="true" >
         <options>
@@ -46,25 +86,43 @@
       <ifthenelse test="${Answer == 'Install'}">
         <then>
           <get
-              src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi"
-              dest="${environment::get-variable('TEMP')}\TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi"
+              src="${Subversion.Tortoise.Installer.File.Url}"
+              dest="${Subversion.Tortoise.Installer.File.Path}"
+              unless="${file::exists(Subversion.Tortoise.Installer.File.Path)}"
           />
-          <exec 
-            workingdir="${environment::get-variable('TEMP')}" 
-            program="msiexec" 
-            commandline="/i ${environment::get-variable('TEMP')}\TortoiseSVN-Silent-1.5.7.15182-win32-svn-1.5.5.msi /q" 
+          <exec
+            workingdir="${path::get-directory-name(Subversion.Tortoise.Installer.File.Path)}"
+            program="msiexec"
+            commandline='/i ${Subversion.Tortoise.Installer.File.Path} /norestart /q INSTALLDIR="${ProgramFiles.32.Path}\TortoiseSVN"'
             resultproperty="Return.Code"
             failonerror="false"
-            verbose="true" 
+            verbose="true"
           />
-          <fail if="${int::parse(Return.Code) != 0 or int::parse(Return.Code) != 3010}" message="msiexec (return code was ${Return.Code})"/>
+          <fail if="${int::parse(Return.Code) != 0 and int::parse(Return.Code) != 3010}" message="msiexec (return code was ${Return.Code})"/>
         </then>
         <elseif if="${Answer == 'Exit'}">
+          <echo message="Could not find: ${TortoisePath}"/>
           <fail message="Please install TortoiseSVN!" />
         </elseif>
       </ifthenelse>
 
-    </ifnot>
+    </if>
   </target>
+
+  <script language="C#" prefix="version" >
+    <imports>
+      <import namespace="System.IO" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("compare")]
+         public static int Compare(Version versionA, Version versionB)
+         {
+                 return versionA.CompareTo(versionB);
+         }
+      ]]>
+    </code>
+  </script>
 
 </project>

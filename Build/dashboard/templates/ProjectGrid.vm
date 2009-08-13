@@ -168,7 +168,6 @@ if(!document.getElementById)
             #end
           </td>
           <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">$projectGridRow.Name</td>
-          <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">&nbsp;</td>
           <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">
             #if ($projectGridRow.Status == "Stopped")
             Off Line
@@ -182,15 +181,11 @@ if(!document.getElementById)
             Available
             #end
           </td>
-          <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">&nbsp;</td>
           <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">
             $projectGridRow.LastBuildDate
           </td>
-          <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">&nbsp;</td>
           <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">
-              $projectGridRow.LastBuildLabel
-          </td>
-          <td class="ProjectGridCell" onclick="clearTimeout(timer);window.location='$projectGridRow.MostRecentBuildUrl';">&nbsp;</td>
+              $projectGridRow.LastBuildLabel</td>
           <td class="ProjectGridCell">
             <input type="hidden" name="forcebuild" value="true" />
             <input type="hidden" name="forceBuildProject" value="$projectGridRow.Name" />
@@ -206,7 +201,7 @@ if(!document.getElementById)
         </form>
       </tr>
   <tr>
-    <td colspan="10">
+    <td colspan="6">
 		<div style="display: table; margin-left: auto; margin-right: auto; width: 100%;">
       
 

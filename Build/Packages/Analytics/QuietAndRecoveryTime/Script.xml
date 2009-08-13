@@ -22,11 +22,11 @@
     <echo message="Generating QuietTimeHistoryChartData"/>
     <delete>
       <fileset>
-        <include name="${ArtifactRootDirectory}\QuietTimeHistoryXAxis.xml"/>
-        <include name="${ArtifactRootDirectory}\QuietTimeMaxHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\QuietTimeMinHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\QuietTimeOpenHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\QuietTimeCloseHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeMaxHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeMinHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeOpenHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeCloseHistoryDurations.xml"/>
       </fileset>
     </delete>
     <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
@@ -45,8 +45,8 @@
     <echo message="Generating QuietTimeHistoryLineChartData"/>
     <delete>
       <fileset>
-        <include name="${ArtifactRootDirectory}\QuietTimeHistoryLineXAxis.xml"/>
-        <include name="${ArtifactRootDirectory}\QuietTimeHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryLineXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\QuietTimeHistoryDurations.xml"/>
       </fileset>
     </delete>
     <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
@@ -73,11 +73,11 @@
     <echo message="Generating RecoveryTimeHistoryChartData"/>
     <delete>
       <fileset>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeHistoryXAxis.xml"/>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeMaxHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeMinHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeOpenHistoryDurations.xml"/>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeCloseHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeMaxHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeMinHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeOpenHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeCloseHistoryDurations.xml"/>
       </fileset>
     </delete>
     <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>
@@ -96,8 +96,8 @@
     <echo message="Generating RecoveryTimeHistoryLineChartData"/>
     <delete>
       <fileset>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeHistoryLineXAxis.xml"/>
-        <include name="${ArtifactRootDirectory}\RecoveryTimeHistoryDurations.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryLineXAxis.xml"/>
+        <include name="${Common.Directory.ArtifactRoot.Path}\RecoveryTimeHistoryDurations.xml"/>
       </fileset>
     </delete>
     <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\QuietAndRecoveryTime\QuietAndRecoveryTimeHistory.xml"/>

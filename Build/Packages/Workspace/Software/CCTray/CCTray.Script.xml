@@ -2,12 +2,12 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.CCTray.Scripts">
 
   <property name="CCTray.Install.FriendlyName" value="CCTray"/>
-  <property name="CCTray.Install.Path" value="C:\Program Files\CCTray"/>
+  <property name="CCTray.Install.Path" value="${ProgramFiles.Default.Path}\CCTray"/>
   <property name="CCTray.Installer.FileName" value="CCTraySetup.exe"/>
   <property name="CCTray.Installer.FilePath" value="C:\TEMP\${CCTray.Installer.FileName}"/>
-  <property name="CCTray.Installer.Download.URL" value="http://${BuildServerHostName}/$ProjectName}-${ProjectCodeLineName}/default.aspx?_action_CCTrayDownload=true"/>
-  
-	<target name="Workspace.RequieredSoftware.CCTray">
+  <property name="CCTray.Installer.Download.URL" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_CCTrayDownload=true"/>
+
+  <target name="Workspace.RequieredSoftware.CCTray">
     <ifnot test="${directory::exists(CCTray.Install.Path)}" >
       <call target="CCTray.DownloadAndInstall"/>
     </ifnot>
@@ -25,16 +25,19 @@
     </ask>
     <ifthenelse test="${Answer == 'Install'}">
       <then>
+        <if test="${file::exists(CCNet.Dashboard.Directory.Path + '\cctray\CCTraySetup.exe')}">
+          <property name="CCTray.Installer.FilePath" value="${CCNet.Dashboard.Directory.Path}\cctray\CCTraySetup.exe"/>
+        </if>
         <get
           src="${CCTray.Installer.Download.URL}"
           dest="${CCTray.Installer.FilePath}"
           unless="${file::exists(CCTray.Installer.FilePath)}"
-        >
-          <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}" unless="${Web.Credentials.UserName == '' or Web.Credentials.Password == ''}"/>
+         >
+          <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
         </get>
-        <exec 
-          workingdir="C:\TEMP" 
-          program="${CCTray.Installer.FilePath}" 
+        <exec
+          workingdir="${path::get-directory-name(CCTray.Installer.FilePath)}"
+          program="${CCTray.Installer.FilePath}"
           verbose="true"
         />
       </then>

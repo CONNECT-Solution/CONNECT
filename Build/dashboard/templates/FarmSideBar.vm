@@ -3,9 +3,12 @@
 	<tr><td><a href="$link.Url" class="$link.LinkClass">$link.Text</a></td></tr>
   #end
   <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td>
-      <a title="Download and execute to deploy to internal test server."  href="Deployment/NHINC-Current-Deployment.exe" >
-        $projectName Deployment Application
+      <a title="Download and execute to setup a development workspace of NHINC-Current."  href="WorkspaceSetup/NHINC-Current-WorkspaceSetup.exe" >
+        NHINC-Current Workspace Setup
       </a>
     </td>
   </tr>

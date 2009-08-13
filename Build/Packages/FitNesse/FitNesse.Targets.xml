@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="FitNesse">
+
+  <stringadd refid="Personal.UpdateSource.Before.Target.List">
+    <string value="FitNesse.StopServer"/>
+    <string value="FitNesse.PrepForCommitToSubversion"/>
+  </stringadd>
+
+  <stringadd refid="Personal.UpdateSource.After.Target.List">
+    <string value="FitNesse.PrepForCommitToSubversion"/>
+    <string value="FitNesse.RestartServer"/>
+  </stringadd>
+  
+  <target name="FitNesse.RunTests">
+    <trycatch>
+      <try>
+        <call target="Selenium.StartServer"/>
+        <call target="FitNesse.StartServer"/>
+
+        <description>Wait for the server to finish starting...</description>
+        <sleep seconds="6" />
+
+        <setenv>
+          <environment refid="${FitNesse.Environment.RefId}" />
+        </setenv>
+        <exec
+          program="cmd"
+          workingdir="${Common.Directory.Product.Path}\FitNesse\Run\fitnesse"
+          failonerror="false"
+          verbose="true"
+        >
+          <arg line='/C "runtests.bat"' />
+          <environment>
+            <variable name="FitNesse.ReportFilePath" value="${FitNesse.Reports.FilePath}"/>
+            <variable name="FitNesse.Port" value="${FitNesse.Port}"/>
+            <variable name="FitNesse.TargetSuite" value="${FitNesse.IntegrationSuitePath}"/>
+          </environment>
+        </exec>
+
+        <copy
+              file="${FitNesse.Reports.FilePath}"
+              todir="${Common.Directory.Artifact.Path}"
+              if="${FitNesse.PublishXmlReport and file::exists(FitNesse.Reports.FilePath)}"
+              overwrite="true"
+		    >
+          <filterchain>
+            <replacestring from="&lt;=&gt;" to="&amp;lt;=&amp;gt;" />
+            <replacestring from=" &lt;= " to=" &amp;lt;= " />
+            <replacestring from=" =&lt; " to=" =&amp;lt; " />
+            <replacestring from=" &gt;= " to=" &amp;gt;= " />
+            <replacestring from=" =&gt; " to=" =&amp;gt; " />
+            <replacestring from="&amp; " to="&amp;amp; " />
+            <replacestring from="&lt;![CDATA[" to="" />
+            <replacestring from="]]&gt;" to="" />
+            <replacestring from="&lt;hr&gt;" to="&lt;hr/&gt;" />
+            <replacestring from="&lt;init&gt;" to="&amp;lt;init&amp;gt;" />
+            <replacestring from="&amp;nbsp;" to="&amp;#160;" />
+            <replacestring from='src="/files' to='src="Packages/FitNesse' />
+            <replacestring from='href="${FitNesse.IntegrationSuitePath}' to='href="${FitNesse.IntegrationSuiteUrl}' />
+            <regexreplace replacment="" pattern='.*class="\W+"\s+(class="\W+").*' lines="1" />
+            <replacestring from='class="fail" class="fail"' to='class="fail"' />
+            <replacestring from='class="ignore" class="fail"' to='class="fail"' />
+          </filterchain>
+        </copy>
+
+        <xmlpoke
+          file="${Common.Directory.Artifact.Path}\${FitNesse.Reports.FileName}"
+          pokemode="Add"
+          value="&lt;url&gt;${FitNesse.IntegrationSuiteUrl}&lt;/url&gt;"
+          xpath="/testResults"
+        />
+        <xmlpoke
+          file="${Common.Directory.Artifact.Path}\${FitNesse.Reports.FileName}"
+          pokemode="Add"
+          value="&lt;suitePath&gt;${FitNesse.IntegrationSuitePath}&lt;/suitePath&gt;"
+          xpath="/testResults"
+        />
+        <xmlpoke
+          file="${Common.Directory.Artifact.Path}\${FitNesse.Reports.FileName}"
+          pokemode="ReplaceOuter"
+          value=""
+          xpath="//a[text()='(edit)']"
+        />
+
+        <call target="FitNesse.FailBuildForFailingTest" if="${FitNesse.FailBuildForFailingTest}"/>
+      </try>
+      <finally>
+        <call target="FitNesse.StopServer"/>
+        <call target="Selenium.StopServer"/>
+
+        <description>Wait for the server to finish stopping...</description>
+        <sleep seconds="3" />
+      </finally>
+    </trycatch>
+    
+  </target>
+
+  <target name="FitNesse.FailBuildForFailingTest">
+    <xmlpeek
+      file="${Common.Directory.Artifact.Path}\${FitNesse.Reports.FileName}"
+      property="FitNesse.FailedTestCount"
+      xpath="count(//result/counts[(wrong[text() &gt; 0]) or (exceptions[text() &gt; 0])])"
+    />
+    <fail
+      if="${int::parse(FitNesse.FailedTestCount) != 0}"
+      message="Atleast one FitNesse test failed in the suite ${FitNesse.IntegrationSuitePath}!"
+    />
+  </target>
+
+  <target name="FitNesse.RestartServer">
+    <call target="FitNesse.StartServer" if="${FitNesse.Status=='Started'}"/>
+  </target>
+  
+  <target name="FitNesse.StartServer">
+    <call target="FitNesse.GetServerStatus"/>
+    <if test="${FitNesse.Status == 'Stopped'}">
+      <setenv>
+        <environment refid="${FitNesse.Environment.RefId}" />
+      </setenv>
+      <asyncexec
+        createnowindow="true"
+        redirectoutput="false"
+        useshellexecute="true"
+        waitforexit="false"
+        program="cmd"
+        workingdir="${Common.Directory.Product.Path}\FitNesse\Run\fitnesse"
+    >
+        <arg line='/C "run.bat"' />
+        <arg line="-p ${FitNesse.Port}" />
+      </asyncexec>
+    </if>
+  </target>
+  
+  <target name="FitNesse.StopServer">
+    <call target="FitNesse.GetServerStatus"/>
+    <if test="${FitNesse.Status == 'Started'}">
+      <setenv>
+        <environment refid="${FitNesse.Environment.RefId}" />
+      </setenv>
+      <asyncexec
+        createnowindow="true"
+        redirectoutput="false"
+        useshellexecute="true"
+        waitforexit="false"
+        program="cmd"
+        workingdir="${Common.Directory.Product.Path}\FitNesse\Run\fitnesse"
+    >
+        <arg line='/C "stop.bat"' />
+        <arg line="-p ${FitNesse.Port}" />
+      </asyncexec>
+    </if>
+  </target>
+
+  <target name="FitNesse.GetServerStatus">
+    <trycatch>
+      <try>
+        <get
+         src="http://localhost:${FitNesse.Port}"
+         dest="${environment::get-variable('TEMP')}\FitNesse-status.txt"
+        />
+        <property name="FitNesse.Status" value="Stopped"/>
+
+        <trycatch>
+          <try>
+            <xmlpeek
+             file="${environment::get-variable('TEMP')}\FitNesse-status.txt"
+             xpath="boolean(/html/head/title[text()='FrontPage'])"
+             property="FitNesse.Status"
+            />
+            <property name="FitNesse.Status" value="Started"/>
+          </try>
+          <catch/>
+        </trycatch>
+      </try>
+      <catch>
+        <property name="FitNesse.Status" value="Stopped"/>
+      </catch>
+    </trycatch>
+  </target>
+
+  <target name="FitNesse.CommitToSubversion">
+    <call target="FitNesse.PrepForCommitToSubversion"/>
+
+    <property name="SourceControl.Update.FileTimeStamp" value="Current"/>
+    <property name="SourceControl.Update.ReplaceWritableFiles" value="False"/>
+    <property name="SourceControl.Update.MakeWritable" value="False"/>
+    <property name="SourceControl.Update.Interactive" value="True"/>
+    <property name="SourceControl.GetOf" value="${FitNesse.WikiRoot}"/>
+    <call target="SourceControl.GetOf"/>
+
+    <exec program="${TortoisePath}" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+      <arg line="/command:commit" />
+      <arg line='/path:"${FitNesse.WikiRoot}"' />
+      <arg line='/notempfile' />
+      <arg line='/logmsg:"Example Message${NewLine}Task:1234 Did something important${NewLine}Story:4567 Completed"'/>
+    </exec>
+  </target>
+
+  <target name="FitNesse.PrepForCommitToSubversion">
+    <call target="FitNesse.RevertRootPropertiesFile"/>
+    <call target="Private.FitNesse.PrepForCommitToSubversion"/>
+    <call target="Private.FitNesse.PrepForCommitToSubversion"/>
+  </target>
+  
+  <target name="Private.FitNesse.PrepForCommitToSubversion">
+    <exec program="svn" commandline="status" outputproperty="Svn.Status.Output" workingdir="${FitNesse.WikiRoot}"/>
+
+    <foreach item="String" delim="${NewLine}" in="${Svn.Status.Output}" property="line">
+      <do>
+        <property name="NewRevision" value="NaN"/>
+        <loglevel level="None">
+          <do>
+            <regex input="${line}" pattern=".\s+(?'NewRevision'.*)$" failonerror="false"/>
+          </do>
+        </loglevel>
+        <echo message="${line}"/>
+        <echo message="${NewRevision}"/>
+        <ifnot test="${NewRevision == 'NaN'}">
+          <switch value="True">
+            <case value="${string::starts-with(line, '!')}" break="true">
+              <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+                <arg line="update"/>
+                <arg line="${NewRevision}" />
+              </exec>
+              <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+                <arg line="delete"/>
+                <arg line="${NewRevision}" />
+              </exec>
+            </case>
+            <case value="${string::starts-with(line, '?')}" break="true">
+              <ifthenelse test="${file::exists(path::combine(path::combine(FitNesse.WikiRoot, NewRevision), 'content.txt'))}">
+                <then>
+                  <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+                    <arg line="add"/>
+                    <arg line="${NewRevision}" />
+                  </exec>
+                </then>
+                <else>
+                  <delete dir="${FitNesse.WikiRoot}\${NewRevision}" unless="${path::has-extension(NewRevision)}" />
+                </else>
+              </ifthenelse>
+            </case>
+            <case value="${string::starts-with(line, 'A')}" break="true">
+              <if test="${string::ends-with(line, '.zip')}">
+                <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+                  <arg line="revert"/>
+                  <arg line="${NewRevision}" />
+                </exec>
+
+                <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}" >
+                  <arg line="propset"/>
+                  <arg line="svn:ignore"/>
+                  <arg line="*.zip" />
+                  <arg line="${path::get-directory-name(NewRevision)}"/>
+                </exec>
+              </if>
+            </case>
+            <default></default>
+          </switch>
+        </ifnot>
+      </do>
+    </foreach>
+  </target>
+
+  <target name="FitNesse.RevertRootPropertiesFile">
+    <exec program="svn" workingdir="${FitNesse.WikiRoot}" verbose="${SVN.Debug}">
+      <arg line="revert" />
+      <arg line="--non-interactive" />
+      <arg line="properties"/>
+    </exec>
+  </target>
+  
+  <target name="FitNesse.ShowReport">
+    <property name="Common.ShowReport.XmlFile" value="${Common.Directory.Artifact.Path}\${FitNesse.Reports.FileName}"/>
+    <property name="Common.ShowReport.HtmlFile" value="${Common.Project.TempDirectory}\${path::get-file-name-without-extension(FitNesse.Reports.FileName)}.html"/>
+    <property name="Common.ShowReport.XslFile" value="${Common.Directory.Packages.Path}\FitNesse\FitNesseDetails.xsl"/>
+    <property name="Common.ShowReport.DetailsFilePath" value=""/>
+
+    <call target="Common.ShowReport"/>
+  </target>
+
+  <target name="FitNesse.SetUp">
+    <delete dir="${FitNesse.Reports.DirectoryPath}" if="${directory::exists(FitNesse.Reports.DirectoryPath)}" verbose="true"/>
+    <mkdir dir="${FitNesse.Reports.DirectoryPath}" verbose="true"/>
+  </target>
+
+  <target name="FitNesse.TearDown">
+
+  </target>
+  
+</project>

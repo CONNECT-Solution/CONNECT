@@ -4,7 +4,7 @@
 
     <xsl:output method="html"/>
 
-  <xsl:param name="URL" select="//buildresults//target[@name='CSDiff.GenerateHtmlReports']//target[@name='Deployment.EchoDeploymentFileWebPath']/task[@name='echo']/message"  />
+  <xsl:param name="URL" select="//buildresults//target[@name='CSDiff.GenerateHtmlReports']//target[@name='Publish.EchoWebFilePath']/task[@name='echo']/message"  />
 
     <xsl:template match="/">
 

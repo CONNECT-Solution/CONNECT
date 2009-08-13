@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Archive">
+
+  <script language="C#" prefix="directory" >
+    <imports>
+      <import namespace="System.IO" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("name")]
+         public static string GetDirectoryName(string path)
+         {
+                 return new DirectoryInfo( path ).Name;
+         }
+      ]]>
+    </code>
+  </script>
+
+  <script language="C#" prefix="regex" >
+    <imports>
+      <import namespace="System.Text.RegularExpressions" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("match")]
+         public static bool match(string input, string pattern)
+         {
+            return Regex.IsMatch(input, pattern);
+         }
+      ]]>
+    </code>
+  </script>
+
+  <script language="C#" prefix="datetime" >
+    <imports>
+      <import namespace="System.IO" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("parse")]
+         public static DateTime Parse(string dateTimeString)
+         {
+            return DateTime.Parse(dateTimeString);
+         }
+         [Function("subtract-days")]
+         public static DateTime Subtract(string dateTimeString, int days)
+         {
+            return DateTime.Parse(dateTimeString).Subtract(new TimeSpan(days,0,0,0));
+         }
+         [Function("compare")]
+         public static int Compare(string dateTimeString1, string dateTimeString2)
+         {
+            return DateTime.Parse(dateTimeString1).CompareTo(DateTime.Parse(dateTimeString2));
+         }
+      ]]>
+    </code>
+  </script>
+
+  <target name="Archive.Move">
+
+    <property name="Archive.Now" value="${datetime::now()}"/>
+    <property name="Ago" value="${datetime::subtract-days(Archive.Now, Archive.WindowInDays)}"/>
+    <echo message="${Ago}"/>
+
+    <foreach item="Folder" property="Folder">
+      <in>
+        <items>
+          <include name="${Common.Directory.ArtifactRoot.Path}\*"/>
+          <exclude name="${Common.Directory.ArtifactRoot.Path}"/>
+        </items>
+      </in>
+      <do>
+        <trycatch>
+          <try>
+            <property name="ArchiveFolderName" value="${directory::name(Folder)}"/>
+            <echo message="${ArchiveFolderName}"/>
+
+            <ifthenelse test="${regex::match(ArchiveFolderName, '^\d+$')}">
+              <then>
+                <property name="ArchiveFolderYear" value="${string::substring(ArchiveFolderName, 0, 4)}"/>
+                <property name="ArchiveFolderMonth" value="${string::substring(ArchiveFolderName, 4, 2)}"/>
+                <property name="ArchiveFolderDay" value="${string::substring(ArchiveFolderName, 6, 2)}"/>
+
+                <property name="ArchiveDate" value="${ArchiveFolderMonth}/${ArchiveFolderDay}/${ArchiveFolderYear}"/>
+
+                <echo message="${ArchiveDate}"/>
+
+                <if test="${datetime::compare(ArchiveDate, Ago) == -1}">
+                  <copy todir="${Backup.ArtifactsDirectory}" overwrite="true">
+                    <fileset basedir="${Common.Directory.ArtifactRoot.Path}">
+                      <include name="${ArchiveFolderName}\**\*"/>
+                    </fileset>
+                  </copy>
+                  <delete dir="${Folder}" />
+
+                  <copy todir="${Backup.CCNetServerDirectory}" overwrite="true">
+                    <fileset basedir="${CCNet.Server.Directory.Path}">
+                      <include name="\**\log${ArchiveFolderName}*.xml"/>
+                    </fileset>
+                  </copy>
+                  <delete>
+                    <fileset basedir="${CCNet.Server.Directory.Path}">
+                      <include name="\**\log${ArchiveFolderName}*.xml"/>
+                    </fileset>
+                  </delete>
+                </if>
+              </then>
+              <else>
+                <echo message="This is not an artifact dir"/>
+              </else>
+            </ifthenelse>
+          </try>
+          <catch property="exception">
+            <echo level="Warning" message="${exception}"/>
+          </catch>
+        </trycatch>
+
+      </do>
+    </foreach>
+  </target>
+
+  <target name="Archive.SetUp">
+
+  </target>
+
+  <target name="Archive.TearDown">
+
+  </target>
+
+</project>

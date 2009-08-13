@@ -1,84 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Main Build" default="Triggered">
-
-  <property name="Compile.ConfigName" value="Release" />
-
+  
   <include buildfile="Properties.build.xml" />
   <include buildfile="Common.Build.xml" />
   <include buildfile="Custom.Build.xml" />
-
+  
   <description>Begin Package Includes</description>
-  <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Target.xml" />
-  <include buildfile="${PackagesDirectory}\SourceModificationReport\SourceModificationReport.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Deployment\Deployment.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Workspace\Workspace.Targets.xml" />
-  <include buildfile="${PackagesDirectory}\Ant\Ant.Target.xml" />
-  <include buildfile="${PackagesDirectory}\GlassFish\GlassFish.Targets.xml" />
-  <include buildfile="${PackagesDirectory}\SoapUI\SoapUI.Target.xml" />
-  <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Target.xml" />
-  <include buildfile="${PackagesDirectory}\Simian\Simian.Target.xml" />
-  <include buildfile="${PackagesDirectory}\JUnit\UnitTest.Target.xml" />
+  <loadpackages>
+    <package name="Publish" />
+    <package name="Subversion" type="SourceControl" />
+    <package name="SourceModificationReport" />
+    <package name="TargetProcess" />
+    <package name="Simian" />
+    <package name="Ant" />
+    <package name="Selenium" />
+    <package name="FitNesse" />
+    <package name="JUnit" type="UnitTest" />
+    <package name="IntegrationTest" />
+    <package name="Corbertura" type="Coverage" />
+    <package name="Workspace" />
+    <package name="GlassFish" />
+    <package name="SoapUI" />
+  </loadpackages>
   <description>End Package Includes</description>
-
+  
   <target name="Triggered" depends="SetUps">
     <trycatch>
       <try>
         <description>Begin Main Build</description>
-
+        
         <description>Begin Pre Build Actions</description>
-
         <call target="SourceModificationReport.ConsolidateReports" />
         <call target="TargetProcess.CreateReport" />
-
         <description>End Pre Build Actions</description>
-
+        
         <description>Begin Clean Up Actions</description>
-
-        <call target="SourceControl.GetOfThirdPartyDirectory" />
-        <call target="SourceControl.GetOfProductDirectory" />
-
+        <call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
-
+        
         <description>Begin Compile Actions</description>
-
-        <asyncexec taskname="Simian" program="${NantExePath}" failonerror="False">
-          <arg line="-buildfile:${PackagesDirectory}\Simian\Simian.Target.xml"/>
+        <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Simian.Directory.Path}\Simian.Runner.xml" />
           <arg line='@"${Common.PropertiesFile}"' />
           <arg line="Simian.Run"/>
           <arg line="-logger:NAnt.Core.XmlLogger"/>
-          <arg line='-logfile:"${Common.ReportDirectory}\Simian.xml"' />
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
 
-        <trycatch>
-          <try>
-            <property name="AntTarget" value="build-test"/>
-            <call target="Ant.CompileSource"/>
-            <property name="Ant.Failure" value="false"/>
-          </try>
-          <catch property="Ant.Exception">
-            <property name="Ant.Failure" value="true"/>
-          </catch>
-        </trycatch>
-
+        <call target="Ant.CompileSource" />
         <description>End Compile Actions</description>
-
+        
         <description>Begin Varification Actions</description>
-
-        <call target="UnitTest.RunTests"/>
-        <fail if="${Ant.Failure}" message="Ant compile or unit test failure"/>
-
+        <!--<call target="UnitTest.RunTests" />
+        <call target="Coverage.PublishReports" />-->
         <description>End Varification Actions</description>
-
+        
         <description>Begin Post Build Actions</description>
+        <waitforexit>
+          <tasknames>
+            <string value="Simian"/>
+          </tasknames>
+        </waitforexit>
+        <description>End Post Build Actions</description>
+        
+        <description>End Main Build</description>
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+  
+  <target name="Heavy" depends="SetUps">
+    <trycatch>
+      <try>
+        <description>Begin Main Build</description>
+        
+        <description>Begin Pre Build Actions</description>
+        <call target="SourceModificationReport.ConsolidateReports" />
+        <call target="TargetProcess.CreateReport" />
+        <description>End Pre Build Actions</description>
+        
+        <description>Begin Clean Up Actions</description>
+        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+        <description>End Clean Up Actions</description>
+        
+        <description>Begin Compile Actions</description>
+        <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Simian.Directory.Path}\Simian.Runner.xml" />
+          <arg line='@"${Common.PropertiesFile}"' />
+          <arg line="Simian.Run"/>
+          <arg line="-logger:NAnt.Core.XmlLogger"/>
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
+        </asyncexec>
+        
+        <call target="Ant.CompileSource" />
+        <description>End Compile Actions</description>
+        
+        <description>Begin Varification Actions</description>
+        <!--<call target="UnitTest.RunTests" />
+        <call target="IntegrationTest.RunTests" />
+        <call target="Coverage.PublishReports" />-->
+        <description>End Varification Actions</description>
+        
+        <description>Begin Post Build Actions</description>
+        <!--<call target="Ant.Package" />
+        <property name="Compile.Debug" value="False" />
+        <call target="Ant.Package" />-->
 
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
           </tasknames>
         </waitforexit>
-
         <description>End Post Build Actions</description>
-
+        
         <description>End Main Build</description>
       </try>
       <finally>
@@ -86,101 +124,52 @@
       </finally>
     </trycatch>
   </target>
-
-  <target name="ForceClean" depends="SetUps">
-    <trycatch>
-      <try>
-        <description>Begin Main Build</description>
-
-        <description>Begin Pre Build Actions</description>
-        <description>End Pre Build Actions</description>
-
-        <description>Begin Clean Up Actions</description>
-
-        <call target="SourceControl.CleanGetOfThirdPartyDirectory" />
-        <call target="SourceControl.CleanGetOfProductDirectory" />
-
-        <description>End Clean Up Actions</description>
-
-        <description>Begin Compile Actions</description>
-        <description>End Compile Actions</description>
-
-        <description>Begin Varification Actions</description>
-        <description>End Varification Actions</description>
-
-        <description>Begin Post Build Actions</description>
-        <description>End Post Build Actions</description>
-
-        <description>End Main Build</description>
-      </try>
-      <finally>
-        <call target="TearDowns" />
-      </finally>
-    </trycatch>
-  </target>
-
+  
   <target name="Release" depends="SetUps">
     <trycatch>
       <try>
         <description>Begin Main Build</description>
-
+        
         <description>Begin Pre Build Actions</description>
-
         <call target="SourceModificationReport.ConsolidateReports" />
-
         <call target="TargetProcess.CreateReport" />
-
         <description>End Pre Build Actions</description>
-
+        
         <description>Begin Clean Up Actions</description>
-
-        <call target="SourceControl.CleanGetOfThirdPartyDirectory" />
-        <call target="SourceControl.CleanGetOfProductDirectory" />
-
+        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
-
+        
         <description>Begin Compile Actions</description>
-
-        <asyncexec taskname="Simian" program="${NantExePath}" failonerror="False">
-          <arg line="-buildfile:${PackagesDirectory}\Simian\Simian.Target.xml"/>
+        <asyncexec taskname="Simian" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Simian.Directory.Path}\Simian.Runner.xml" />
           <arg line='@"${Common.PropertiesFile}"' />
           <arg line="Simian.Run"/>
           <arg line="-logger:NAnt.Core.XmlLogger"/>
-          <arg line='-logfile:"${Common.ReportDirectory}\Simian.xml"' />
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
         
-        <trycatch>
-          <try>
-            <property name="AntTarget" value="build-test"/>
-            <call target="Ant.CompileSource"/>
-            <property name="Ant.Failure" value="false"/>
-          </try>
-          <catch property="Ant.Exception">
-            <property name="Ant.Failure" value="true"/>
-          </catch>
-        </trycatch>
-
+        <call target="Ant.CompileSource" />
         <description>End Compile Actions</description>
-
+        
         <description>Begin Varification Actions</description>
-
-        <call target="UnitTest.RunTests"/>
-        <fail if="${Ant.Failure}" message="Ant compile or unit test failure"/>
-
+        <!--<call target="UnitTest.RunTests" />
+        <call target="IntegrationTest.RunTests" />
+        <call target="Coverage.PublishReports" />-->
         <description>End Varification Actions</description>
-
+        
         <description>Begin Post Build Actions</description>
-
-        <call target="Build.PublishZip"/>
+        <!--<call target="Ant.Package" />
+        <property name="Compile.Debug" value="False" />
+        <call target="Ant.Package" />-->
 
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
           </tasknames>
         </waitforexit>
-
         <description>End Post Build Actions</description>
-
+        
         <description>End Main Build</description>
       </try>
       <finally>
@@ -207,9 +196,9 @@
         <property name="SourceControl.CleanGetOf" value="${SoapUI.Root.Directory.Path}"/>
         <call target="SourceControl.CleanGetOf"/>
 
-        <property name="SourceControl.CleanGetOf" value="${ProductionDirectory}\Common\Interfaces"/>
+        <property name="SourceControl.CleanGetOf" value="${Common.Directory.Production.Path}\Common\Interfaces"/>
         <call target="SourceControl.CleanGetOf"/>
-        
+
         <call target="TargetProcess.Get.Release.Report"/>
         <call target="SoapUI.RunTests"/>
       </try>
@@ -217,46 +206,52 @@
         <!--Nasty Hack, Please fix this soon.-->
         <copy
           file="${SoapUI.Report.File.Path}"
-          tofile="${Common.ArtifactDirectoryPath}\unittests.xml"
+          tofile="${Common.Directory.Artifact.Path}\unittests.xml"
           failonerror="false"
           verbose="true"
         />
-        
         <call target="TearDowns" />
       </finally>
     </trycatch>
-
   </target>
-  
+
   <target name="SetUps">
     <call target="Common.SetUp" />
     <description>Begin SetUps</description>
-    <call target="SourceControl.SetUp" />
+    <call target="Publish.SetUp" />
+    <call target="Subversion.SetUp" />
     <call target="SourceModificationReport.SetUp" />
-    <call target="Deployment.SetUp" />
-    <call target="Workspace.SetUp" />
-    <call target="Ant.SetUp" />
     <call target="TargetProcess.SetUp" />
     <call target="Simian.SetUp" />
-    <call target="UnitTest.SetUp" />
+    <call target="Ant.SetUp" />
+    <call target="Selenium.SetUp" />
+    <call target="FitNesse.SetUp" />
+    <call target="JUnit.SetUp" />
+    <call target="IntegrationTest.SetUp" />
+    <call target="Corbertura.SetUp" />
+    <call target="Workspace.SetUp" />
     <call target="GlassFish.SetUp" />
     <call target="SoapUI.SetUp" />
     <description>End SetUps</description>
   </target>
-
+  
   <target name="TearDowns">
     <description>Begin TearDowns</description>
-    <call target="SourceControl.TearDown" />
+    <call target="Publish.TearDown" />
+    <call target="Subversion.TearDown" />
     <call target="SourceModificationReport.TearDown" />
-    <call target="Deployment.TearDown" />
-    <call target="Workspace.TearDown" />
-    <call target="Ant.TearDown" />
     <call target="TargetProcess.TearDown" />
     <call target="Simian.TearDown" />
-    <call target="UnitTest.TearDown" />
+    <call target="Ant.TearDown" />
+    <call target="Selenium.TearDown" />
+    <call target="FitNesse.TearDown" />
+    <call target="JUnit.TearDown" />
+    <call target="IntegrationTest.TearDown" />
+    <call target="Corbertura.TearDown" />
+    <call target="Workspace.TearDown" />
     <call target="GlassFish.TearDown" />
     <call target="SoapUI.TearDown" />
     <description>End TearDowns</description>
-    <call target="Common.TearDown" />
   </target>
+  
 </project>

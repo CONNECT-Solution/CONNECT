@@ -32,7 +32,7 @@
       </email>'>
 
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName; Int Build Scripts">
             <exclusionFilters>
               <activities>
@@ -42,7 +42,7 @@
           </projectFilter>'>
 
   <!ENTITY Deploying '<projectFilter
-                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                 project="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment">
              <exclusionFilters>
                <activities>
@@ -51,7 +51,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY IntegrationTest '<projectFilter
-                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                 project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite">
              <exclusionFilters>
                <activities>
@@ -60,7 +60,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployingStagingArea '<projectFilter
-                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                 project="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
              <exclusionFilters>
                <activities>
@@ -71,7 +71,7 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol>
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
   <project name="&ProjectName;-&ProjectCodeLineName; Int Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
@@ -102,8 +102,8 @@
       </triggeredIntegrationFilter>
     </integrationFilter>
     <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
-      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&BuildDirectoryName;</trunkUrl>
-      <workingDirectory>&BuildDirectory;</workingDirectory>
+      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Build.Name;</trunkUrl>
+      <workingDirectory>&Common.Directory.Build.Path;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
       <webUrlBuilder type="websvn">
         <url>&Subversion.Repo.Url;{0}</url>
@@ -127,7 +127,7 @@
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://&HostName;:&Port;/CruiseManager.rem"
+          serverUri="tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
           project="&ProjectName;-&ProjectCodeLineName;-Release"
         >
           <triggerStatus>Success</triggerStatus>
@@ -164,16 +164,14 @@
       </forcedIntegrationFilter>
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
-
     <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
-      <serverUri>tcp://&HostName;:&Port;/CruiseManager.rem</serverUri>
+      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
     </labeller>
-
     <tasks>
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
@@ -187,8 +185,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&BuildDirectory;\AntLogs\*.xml</file>
-          <file>&BuildDirectory;\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Deployment\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Deployment\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Deployment\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />
@@ -218,7 +217,7 @@
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://192.168.25.157:&Port;/CruiseManager.rem"
+          serverUri="tcp://192.168.25.157:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
           project="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment"
         >
           <triggerStatus>Success</triggerStatus>
@@ -260,8 +259,8 @@
     </labeller>
     <tasks>
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
@@ -275,15 +274,16 @@
     <publishers>
       <merge>
         <files>
-          <file>&BuildDirectory;\AntLogs\*.xml</file>
-          <file>&BuildDirectory;\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite\AntLogs\*.xml</file>
         </files>
       </merge>
       <xslmerger>
         <filepairs>
           <filepair>
-            <xslfile>&PackagesDirectory;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&BuildDirectory;\SoapUITestReports\I*.xml</xmlfile>
+            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\SoapUI\*.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
@@ -305,13 +305,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
-    <webURL>&webURL;</webURL>
+    <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://192.168.25.157:&Port;/CruiseManager.rem"
+          serverUri="tcp://192.168.25.157:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
           project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite"
         >
           <triggerStatus>Success</triggerStatus>
@@ -353,8 +353,8 @@
     </labeller>
     <tasks>
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Deploy.build.xml</buildFile>
         <buildArgs>-D:target.server=172.16.50.82 -listener:NAnt.Core.AppendListener</buildArgs>
@@ -368,8 +368,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&BuildDirectory;\AntLogs\*.xml</file>
-          <file>&BuildDirectory;\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Staging Area Deployment\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Staging Area Deployment\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Staging Area Deployment\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />

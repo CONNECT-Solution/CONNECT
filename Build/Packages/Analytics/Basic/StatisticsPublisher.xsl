@@ -124,6 +124,8 @@
   </msxsl:script>
 
   <xsl:param name="CCNetLabel" />
+  <xsl:param name="CCNetLogFilePath" />
+  <xsl:param name="CCNetProject" />
 
   <xsl:output method="html"/>
 
@@ -184,6 +186,21 @@
         <xsl:with-param name="StatisticValue" select="/cruisecontrol/@project"/>
       </xsl:call-template>
 
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationName'"/>
+        <xsl:with-param name="StatisticValue" select="//TargetProcess/Iteration/@name[1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationStartDate'"/>
+        <xsl:with-param name="StatisticValue" select="//TargetProcess/Iteration/@startdate[1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationEndDate'"/>
+        <xsl:with-param name="StatisticValue" select="//TargetProcess/Iteration/@enddate[1]"/>
+      </xsl:call-template>
+
 
       <xsl:call-template name="AddStatistic">
         <xsl:with-param name="StatisticName" select="'mainsubmitter'"/>
@@ -206,18 +223,39 @@
         <xsl:with-param name="StatisticValue" select="count(/cruisecontrol/modifications/modification)"/>
       </xsl:call-template>
 
+      <xsl:choose>
+        <xsl:when test="boolean(//task[@name='call']/target[@name='Compile.CompileSource'])">
+          <xsl:variable name="CompileTime"  select="//task[@name='call']/target[@name='Compile.CompileSource']/parent::node()/duration/text()"/>
+          <xsl:call-template name="AddStatistic">
+            <xsl:with-param name="StatisticName" select="'CompileTime'"/>
+            <xsl:with-param name="StatisticValue" select="format-number($CompileTime div 1000,'##0.00')"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="boolean(//task[@name='call']/target[@name='Ant.CompileSource'])">
+          <xsl:variable name="CompileTime" select="//task[@name='call']/target[@name='Ant.CompileSource']/parent::node()/duration/text()"/>
+          <xsl:call-template name="AddStatistic">
+            <xsl:with-param name="StatisticName" select="'CompileTime'"/>
+            <xsl:with-param name="StatisticValue" select="format-number($CompileTime div 1000,'##0.00')"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="AddStatistic">
+            <xsl:with-param name="StatisticName" select="'CompileTime'"/>
+            <xsl:with-param name="StatisticValue" select="NaN"/>
+          </xsl:call-template>
+        </xsl:otherwise>
+      </xsl:choose>
 
-      <xsl:variable name="UnitTests"              select="sum(//testsuite/@time)"/>
-      <xsl:variable name="AntRunTime"             select="//task[@name='call']/target[@name='Ant.CompileSource']//task[@name='exec' and message/text()='Buildfile: c:\Projects\NHINC\Current\Product\Build.xml']/duration/text()" />
-      <xsl:variable name="CompileTime"            select="format-number($AntRunTime div 1000,'##0.00') - $UnitTests"/>
-      <xsl:variable name="ProduceSourceUpdate"    select="//task[@name='call']/target[@name='SourceControl.GetOfProductDirectory']/parent::node()/duration/text()"/>
-      <xsl:variable name="ThirdPartySourceUpdate" select="//task[@name='call']/target[@name='SourceControl.CleanGetOfThirdPartyDirectory']/parent::node()/duration/text()"/>
-      
-
+      <xsl:variable name="PackageTime"  select="//task[@name='call']/target[@name='Ant.Package']/parent::node()/duration/text()"/>
       <xsl:call-template name="AddStatistic">
-        <xsl:with-param name="StatisticName" select="'CompileTime'"/>
-        <xsl:with-param name="StatisticValue" select="$CompileTime"/>
+        <xsl:with-param name="StatisticName" select="'PackageTime'"/>
+        <xsl:with-param name="StatisticValue" select="format-number($PackageTime div 1000,'##0.00')"/>
       </xsl:call-template>
+      
+      <xsl:variable name="ProduceSourceUpdate"    select="//task[@name='call']/target[@name='SourceControl.GetOf.Common.Directory.Product.Path' or @name='SourceControl.CleanGetOf.Common.Directory.Product.Path']/parent::node()/duration/text()"/>
+      <xsl:variable name="ThirdPartySourceUpdate" select="//task[@name='call']/target[@name='SourceControl.GetOf.Common.Directory.ThirdParty.Path' or @name='SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path']/parent::node()/duration/text()"/>
+      <xsl:variable name="UnitTests"              select="//task[@name='call']/target[@name='UnitTest.RunTests']/parent::node()/duration/text()"/>
+
       <xsl:call-template name="AddStatistic">
         <xsl:with-param name="StatisticName" select="'ProduceSourceUpdate'"/>
         <xsl:with-param name="StatisticValue" select="format-number($ProduceSourceUpdate div 1000,'##0.00')"/>
@@ -228,7 +266,7 @@
       </xsl:call-template>
       <xsl:call-template name="AddStatistic">
         <xsl:with-param name="StatisticName" select="'UnitTests'"/>
-        <xsl:with-param name="StatisticValue" select="$UnitTests"/>
+        <xsl:with-param name="StatisticValue" select="format-number($UnitTests div 1000,'##0.00')"/>
       </xsl:call-template>
     </integration>
   </xsl:template>

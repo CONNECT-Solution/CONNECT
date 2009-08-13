@@ -12,7 +12,7 @@
   <include buildfile="Common.Build.xml" />
   
   <description>Begin Package Includes</description>
-  <include buildfile="${PackagesDirectory}\Analytics\Analytics.Target.xml" />
+  <include buildfile="${Common.Directory.Packages.Path}\Analytics\Analytics.Target.xml" />
   <description>End Package Includes</description>
   
   <target name="test">

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE stylesheet [
   <!ENTITY % entities SYSTEM "..\..\Entities.xml">
 
@@ -98,7 +98,7 @@
     ]]>
   </msxsl:script>
 
-  <xsl:param name="ArtifactDirectoryPath" select="/cruisecontrol/build/buildresults//target[@name='Deployment.SetUp']//target[@name='Deployment.EchoDeploymentArtifactPath']/task[@name='echo']/message"  />
+  <xsl:param name="ArtifactDirectoryPath" select="/cruisecontrol/build/buildresults//target[@name='Publish.SetUp']//target[@name='Publish.EchoArtifactPath']/task[@name='echo']/message"  />
   <!--<xsl:param name="ArtifactDirectoryPath" select="'C:\Temp'"  />-->
   <xsl:variable name="alertsFile" select="concat($ArtifactDirectoryPath, '\Alerts.xml')" />
   
@@ -185,7 +185,7 @@
               }
             </style>
 
-            <xsl:variable name="AlertReport" select="ms:ProcessAlertScripts(($alertsdoc), '&PackagesDirectory;\Alerts')" />
+            <xsl:variable name="AlertReport" select="ms:ProcessAlertScripts(($alertsdoc), '&Common.Directory.Packages.Path;\Alerts')" />
             <xsl:copy-of select="$AlertReport"/>
 
           </div>

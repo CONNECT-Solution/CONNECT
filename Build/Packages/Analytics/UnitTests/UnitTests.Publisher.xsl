@@ -134,6 +134,20 @@
       <xsl:attribute name="build-label">
         <xsl:value-of select="($CCNetLog)/cruisecontrol/build/@label"/>
       </xsl:attribute>
+
+      <xsl:attribute name="status">
+        <xsl:choose>
+          <xsl:when test="($CCNetLog)/cruisecontrol/exception">
+            <xsl:value-of select="'Exception'"/>
+          </xsl:when>
+          <xsl:when test="($CCNetLog)/cruisecontrol/build/@error">
+            <xsl:value-of select="'Failure'"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="'Success'"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
       
       <xsl:attribute name="day">
         <xsl:value-of select="ms:FormatDate(($CCNetLog)/cruisecontrol/build/@date, 'dd')"/>
@@ -166,6 +180,21 @@
       <xsl:call-template name="AddStatistic">
         <xsl:with-param name="StatisticName" select="'ProjectName'"/>
         <xsl:with-param name="StatisticValue" select="($CCNetLog)/cruisecontrol/@project"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationName'"/>
+        <xsl:with-param name="StatisticValue" select="($CCNetLog)//TargetProcess/Iteration/@name[1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationStartDate'"/>
+        <xsl:with-param name="StatisticValue" select="($CCNetLog)//TargetProcess/Iteration/@startdate[1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="AddStatistic">
+        <xsl:with-param name="StatisticName" select="'IterationEndDate'"/>
+        <xsl:with-param name="StatisticValue" select="($CCNetLog)//TargetProcess/Iteration/@enddate[1]"/>
       </xsl:call-template>
 
 
@@ -243,11 +272,11 @@
       <!--Are we runnign MbUnit?-->
       <xsl:if test="//report-result/counter">
 
-        <xsl:variable name="mbunit.result.list" select="($CCNetLog)//report-result/counter"/>
+        <xsl:variable name="mbunit.result.list" select="//report-result/counter"/>
         <xsl:variable name="mbunit.assertcount" select="sum($mbunit.result.list/@assert-count)"/>
         <xsl:variable name="mbunit.executedcount" select="sum($mbunit.result.list/@run-count)"/>
         <xsl:variable name="mbunit.failurecount" select="sum($mbunit.result.list/@failure-count)"/>
-        <xsl:variable name="mbunit.notrun" select="sum($mbunit.result.list/@skip-count)"/>
+        <xsl:variable name="mbunit.notrun" select="sum($mbunit.result.list/@skip-count) + sum($mbunit.result.list/@ignore-count)"/>
 
         <xsl:call-template name="AddStatistic">
           <xsl:with-param name="StatisticName" select="'Total Test Count'"/>
@@ -274,7 +303,7 @@
       <!--Are we running MSTest?-->
       <xsl:if test="//Tests/TestRun/result">
 
-        <xsl:variable name="mstest.resultnodes" select="($CCNetLog)//Tests/TestRun/result" />
+        <xsl:variable name="mstest.resultnodes" select="//Tests/TestRun/result" />
         <xsl:variable name="mstest.testcount" select="sum($mstest.resultnodes/totalTestCount)" />
 
         <xsl:call-template name="AddStatistic">

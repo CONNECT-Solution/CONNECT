@@ -5,19 +5,14 @@
 
   <target name="Alerts.DiskSpace">
 
-		<property name="DiskSpace.C" value="${drive::get-avalible-space('c:\') / 1024 / 1024 / 1024}"/>
-    <property name="DiskSpace.D.Check" value="${drive::get-type('d:\') == 'Fixed'}"/>
-		<property name="DiskSpace.D" value="${drive::get-avalible-space('d:\') / 1024 / 1024 / 1024}" if="${DiskSpace.D.Check}"/>
+		<property name="DiskSpace" value="${drive::get-avalible-space(path::get-path-root(Common.Directory.CodeLine.Path)) / 1024 / 1024 / 1024}"/>
 
-    <echo message="DiskSpace on C is ${DiskSpace.C}"/>
-    <if test="${DiskSpace.D.Check}">
-		<echo message="DiskSpace on D is ${DiskSpace.D}"/>
-    </if>
+    <echo message="DiskSpace is ${DiskSpace}"/>
 
     <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
     <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
 
-    <ifthenelse test="${int::parse(DiskSpaceThreshold) > int::parse(DiskSpace.C) or (bool::parse(DiskSpace.D.Check) and int::parse(DiskSpaceThreshold) > int::parse(DiskSpace.D))}">
+    <ifthenelse test="${int::parse(DiskSpaceThreshold) > int::parse(DiskSpace)}">
       <then>
         <call target="Alerts.DiskSpace.GenerateWarning"/>
         <call target="Alerts.SendMessage"/>
@@ -27,11 +22,6 @@
 
   <target name="Alerts.DiskSpace.GenerateWarning">
     <property name="Alerts.SendMessage.Subject" value="${CCNetProject} ${CCNetLabel}: Running out of disk space!" />
-
-    <property name="DiskSpace.D.Message" value=""/>
-    <if test="${DiskSpace.D.Check}">
-      <property name="DiskSpace.D.Message" value=" and ${DiskSpace.D} Gigs left avalible on the d:\ drive"/>
-    </if>
 
     <largeproperty name="Alerts.SendMessage.Content">
       <value expand="true" xml="true">
@@ -45,7 +35,7 @@
             </p>
 
             <p>Build Master,</p>
-            <p>Please take note that there are ${DiskSpace.C} Gigs left avalible on the c:\ drive${DiskSpace.D.Message}.</p>
+            <p>Please take note that there are ${DiskSpace} Gigs left avalible on the ${path::get-path-root(Common.Directory.CodeLine.Path)} drive.</p>
             <br/>
             <p>Cheers,</p>
             <p>Your pal, the build server.</p>
@@ -66,12 +56,6 @@
          public static long GetAvalibleSpace(string drive)
          {
                  return new DriveInfo(drive).AvailableFreeSpace;
-         }
-         
-         [Function("get-type")]
-         public static String GetType(string drive)
-         {
-                 return new DriveInfo(drive).DriveType.ToString();
          }
       ]]>
 		</code>

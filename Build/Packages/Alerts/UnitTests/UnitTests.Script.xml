@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.UnitTests.Scripts">
 
-  <property name="Alerts.UnitTests.PreviousPropertiesFilePath" value="${PackagesDirectory}\Alerts\UnitTests\Previous.Properties.xml"/>
+  <property name="Alerts.UnitTests.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\UnitTests\${CCNetProject}.Previous.Properties.xml"/>
   <ifthenelse test="${file::exists(Alerts.UnitTests.PreviousPropertiesFilePath)}">
     <then>
       <include buildfile="${Alerts.UnitTests.PreviousPropertiesFilePath}" />
@@ -21,10 +21,12 @@
 
 		<property name="Alerts.UnitTests.Count" value="notset"/>
     <property name="Alerts.UnitTests.ReportFilePath" value="notset"/>
+    <property name="Alerts.UnitTests.GenerateReport.Target" value="notset"/>
 
 		<switch value="True">
-			<case value="${directory::exists(PackagesDirectory + '\MSTest')}" break="true">
-				<xmlpeek
+			<case value="${directory::exists(Common.Directory.Packages.Path + '\MSTest')}" break="true">
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.MSTest"/>
+        <xmlpeek
 					file="${Alerts.BuildLog}"
 					xpath="//Tests/TestRun/result/totalTestCount"
 					property="Alerts.UnitTests.Count"
@@ -32,8 +34,9 @@
 					failonerror="false"
 				/>			 
 			</case>
-			<case value="${directory::exists(PackagesDirectory + '\DotNetUnitTest')}" break="true">
-        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.ArtifactDirectoryPath}\${string::replace(ProjectName, ' ', '_')}UnitTests.xml"/>
+			<case value="${directory::exists(Common.Directory.Packages.Path + '\DotNetUnitTest')}" break="true">
+        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.Directory.Artifact.Path}\${string::replace(ProjectName, ' ', '_')}UnitTests.xml"/>
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.MbUnit"/>
 				<xmlpeek
 					file="${Alerts.UnitTests.ReportFilePath}"
 					xpath="sum(//report-result/counter/@run-count)"
@@ -42,8 +45,9 @@
 					failonerror="false"
 				/>
 			</case>
-      <case value="${directory::exists(PackagesDirectory + '\JUnit')}" break="true">
-        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.ArtifactDirectoryPath}\unittests.xml"/>
+      <case value="${directory::exists(Common.Directory.Packages.Path + '\JUnit')}" break="true">
+        <property name="Alerts.UnitTests.ReportFilePath" value="${Common.Directory.Artifact.Path}\unittests.xml"/>
+        <property name="Alerts.UnitTests.GenerateReport.Target" value="Alerts.UnitTests.GenerateReport.JUnit"/>
         <xmlpeek
 					file="${Alerts.UnitTests.ReportFilePath}"
 					xpath="count(//testcase)"
@@ -53,7 +57,7 @@
 				/>
       </case>
 			<default>
-				<property name="Alerts.UnitTests.Count" value="0"/>		
+        <fail message="I can't figure out what unit test package we are using!" />
 			</default>
 		</switch>
 
@@ -70,7 +74,7 @@
     <echo message="Previous Unit Test Count is ${Alerts.UnitTests.Previous.Count}"/>
 
     <if test="${Alerts.UnitTests.Previous.Count != 'NaN' and Alerts.UnitTests.Count != 'notset'}">
-      <call target="Alerts.UnitTests.GenerateReport" if="${Alerts.UnitTests.Previous.ReportFilePath != 'notset' and Alerts.UnitTests.ReportFilePath != 'notset' and int::parse(Alerts.UnitTests.Count) != int::parse(Alerts.UnitTests.Previous.Count)}"/>
+      <call target="${Alerts.UnitTests.GenerateReport.Target}" if="${Alerts.UnitTests.GenerateReport.Target != 'notset' and Alerts.UnitTests.Previous.ReportFilePath != 'notset' and Alerts.UnitTests.ReportFilePath != 'notset' and int::parse(Alerts.UnitTests.Count) != int::parse(Alerts.UnitTests.Previous.Count)}"/>
       <ifthenelse test="${int::parse(Alerts.UnitTests.Count) > int::parse(Alerts.UnitTests.Previous.Count)}">
         <then>
           <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Count) - int::parse(Alerts.UnitTests.Previous.Count)} test(s) have been added!"/>
@@ -96,7 +100,23 @@
 
   </target>
 
-  <target name="Alerts.UnitTests.GenerateReport">
+  <target name="Alerts.UnitTests.GenerateReport.MSTest">
+    <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+      <value expand="true" xml="true">
+        <p>Not yet implemented!</p>
+      </value>
+    </largeproperty>
+  </target>
+  
+  <target name="Alerts.UnitTests.GenerateReport.MbUnit">
+    <largeproperty name="Alerts.UnitTests.DiffReport.Content">
+      <value expand="true" xml="true">
+        <p>Not yet implemented!</p>
+      </value>
+    </largeproperty>
+  </target>
+  
+  <target name="Alerts.UnitTests.GenerateReport.JUnit">
     <strings id="Alerts.UnitTests.CurrentList"/>
     
     <property name="Alerts.UnitTests.NodeIndex" value="${Alerts.UnitTests.Count}"/>

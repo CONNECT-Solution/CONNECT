@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE chart [
-  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\SuccessProgressXAxis.xml">
-  <!ENTITY Success SYSTEM   "..\..\..\Artifacts\SuccessProgressSuccessful.xml">
-  <!ENTITY Fail SYSTEM      "..\..\..\Artifacts\SuccessProgressFailed.xml">
-  <!ENTITY Exception SYSTEM "..\..\..\Artifacts\SuccessProgressException.xml">
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis      SYSTEM  "SuccessProgressXAxis.xml">
+  <!ENTITY Success    SYSTEM  "SuccessProgressSuccessful.xml">
+  <!ENTITY Fail       SYSTEM  "SuccessProgressFailed.xml">
+  <!ENTITY Exception  SYSTEM  "SuccessProgressException.xml">
 ]>
 <chart>
 
@@ -29,7 +34,7 @@
   <chart_type>line</chart_type>
   <axis_category skip='100' />
   <series_color>
-    <color>7bcf15</color>
+    <color>41B32D</color>
     <color>D13535</color>
     <color>000000</color>
   </series_color>

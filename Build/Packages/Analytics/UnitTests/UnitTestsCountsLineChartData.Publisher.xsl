@@ -1,9 +1,18 @@
 <?xml version="1.0"?>
+<!DOCTYPE chart [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+]>
 <xsl:stylesheet version="1.0" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:exsl="http://exslt.org/common"
   exclude-result-prefixes="exsl">
 
+
+  <xsl:param name="CCNetLabel" />
+  <xsl:param name="CCNetLogFilePath" />
+  <xsl:param name="CCNetProject" />
 
   <xsl:output method="html"/>
 
@@ -17,22 +26,22 @@
       <number>
         <xsl:value-of select="position()"/>
       </number>
-      <exsl:document href="Artifacts\UnitTestsCountsHistoryTotal.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\UnitTestsCountsHistoryTotal.xml" fragment="yes" append="yes" >
         <number>
           <xsl:value-of select="$Total"/>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\UnitTestsCountsHistoryPassed.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\UnitTestsCountsHistoryPassed.xml" fragment="yes" append="yes" >
         <number>
           <xsl:value-of select="$Passed"/>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\UnitTestsCountsHistoryIgnored.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\UnitTestsCountsHistoryIgnored.xml" fragment="yes" append="yes" >
         <number>
           <xsl:value-of select="$Ignored"/>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\UnitTestsCountsHistoryFailed.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\UnitTestsCountsHistoryFailed.xml" fragment="yes" append="yes" >
         <number>
           <xsl:value-of select="$Failed"/>
         </number>

@@ -4,7 +4,7 @@
 
   <xsl:output method="html"/>
 
-  <xsl:param name="URL" select="/cruisecontrol/build/buildresults//target[@name='Deployment.SetUp']//target[@name='Deployment.EchoDeploymentWebPath']/task[@name='echo']/message"  />
+  <xsl:param name="URL" select="/cruisecontrol/build/buildresults//target[@name='Publish.SetUp']//target[@name='Publish.EchoWebPath']/task[@name='echo']/message"  />
 
   <xsl:template match="/">
 

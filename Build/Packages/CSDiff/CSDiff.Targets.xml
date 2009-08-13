@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="CSDiff">
+
+  <loadpackages>
+    <package name="SourceModificationReport" unless="${scriptfile::exists('SourceModificationReport')}"/>
+    <package name="Publish" unless="${scriptfile::exists('Publish')}"/>
+  </loadpackages>
+
+  <property name="CSDiff.ProgramPath" value="${Common.Directory.Packages.Path}\CSDiff\bin\csdiff.exe"/>
+  <property name="CSDiff.ReportDirectoryName" value="Diffs"/>
+  <property name="CSDiff.ReportFileName" value="DiffReport.htm"/>
+  <property name="CSDiff.ReportDirectoryPath" value="${Common.Directory.Artifact.Path}\${CSDiff.ReportDirectoryName}"/>
+
+  <target name="CSDiff.GenerateHtmlReports">
+    <exec program="${CSDiff.ProgramPath}" verbose="true">
+      <arg line='"/Oh${CSDiff.ReportDirectoryPath}\${CSDiff.ReportFileName}"' />
+      <arg line="/n"/>
+      <arg line="/q" />
+      <arg line="/d" />
+      <arg line="/rC:02134S:2AH:1" />
+      <arg line='"${SourceModificationReport.OldSourcePath}"' />
+      <arg line='"${SourceModificationReport.NewSourcePath}"' />
+      <arg line='"Old Source"' />
+      <arg line='"New Source"' />
+    </exec>
+
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${CSDiff.ReportDirectoryName}" />
+    <call target='Publish.EchoWebFilePath'/>
+  </target>
+
+  <target name="CSDiff.SetUp">
+    <mkdir dir="${CSDiff.ReportDirectoryPath}" unless="${directory::exists(CSDiff.ReportDirectoryPath)}"/>
+
+    <property name="CSDiff" value="${Common.Directory.Packages.Path}\CSDiff\bin"/>
+    <property name="Hive" value="CurrentUser"/>
+    <property name="BaseKey" value="Software"/>
+
+    <readregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\CSDiffPath" property="CSDiff.Path"/>
+
+    <ifnot test="${file::exists(CSDiff.Path + '\CSDiff.exe')}">
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\CSDiffPath" value="${CSDiff}"/>
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\CSDiffOpt" value="1174093259" kind="DWord"/>
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\CSDiffFlg" value="1" kind="DWord"/>
+
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\HistoryCombo\CSDiffBaseFile"       value="${CSDiff}\Base.txt"/>
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\HistoryCombo\CSDiffComparedFile"   value="${CSDiff}\NewFile.txt"/>
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\HistoryCombo\CSDiffBaseFolder"     value="${CSDiff}\Base Folder"/>
+      <writeregistry hive="${Hive}" key="${BaseKey}\ComponentSoftware\CSDiff\HistoryCombo\CSDiffComparedFolder" value="${CSDiff}\New Folder"/>
+    </ifnot>
+  </target>
+
+  <target name="CSDiff.TearDown">
+
+  </target>
+
+</project>

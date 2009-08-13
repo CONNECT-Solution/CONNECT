@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." name="agilex.ant.tasks" default="compile.source">
+
+	<property name="source.dir" value="src" />
+	<property name="build.classes.dir" value="build" />
+
+	<target name="clean">
+		<delete dir="${build.classes.dir}"/>
+	</target>
+	
+	<target name="compile.source">
+		<mkdir dir="${build.classes.dir}" />
+		<javac srcdir="${source.dir}" destdir="${build.classes.dir}" target="1.5" debug="true" debuglevel="lines,vars,source" />
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${source.dir}">
+				<include name="**/*"/>
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="package" depends="compile.source">
+		<jar destfile="lib/agilex-ant-tasks.jar" basedir="${build.classes.dir}" />
+	</target>
+
+</project>

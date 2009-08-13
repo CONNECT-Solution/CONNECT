@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.RAD.Software.Scripts">
+
+  <property name="IBM.Install.Dir"                value="${environment::get-variable('ProgramFiles')}\IBM"/>
+  <property name="IBM.Rad.Install.Dir"            value="${IBM.Install.Dir}\SDP"/>
+  <property name="IBM.RAD.SilentInstaller.Expand.To.Directory" value="C:\Temp"/>
+  <property name="IBM.RAD.SilentInstaller.Expanded.Directory" value="${IBM.RAD.SilentInstaller.Expand.To.Directory}\RAD-Install"/>
+
+  <property name="IBM.WAS.Zip.Download.URLBase" value="${Workspace.Ftp.Url}WASFixes"/>
+  <property name="IBM.WAS.Zip.Download.To.Directory" value="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\maintenance"/>
+  <property name="IBM.WAS.Version.Expected" value="7.003"/>
+  <strings id="IBM.WAS.FixPack.Names">
+    <string value="7.0.0-WS-WAS-WinX32-FP0000003.pak"/>
+    <string value="7.0.0-WS-WASSDK-WinX32-FP0000003.pak"/>
+  </strings>  
+
+  <property name="IBM.UpdateInstaller.ExePath" value="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\update.bat"/>
+  <ifnot test="${file::exists(IBM.UpdateInstaller.ExePath)}">
+    <property name="IBM.UpdateInstaller.ExePath" value="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\update.exe"/>  
+  </ifnot>
+  
+  <property name="IBM.UpdateInstaller.Zip.Expand.To.Directory" value="C:\Temp"/>
+  <property name="IBM.UpdateInstaller.Zip.Expanded.Directory" value="${IBM.UpdateInstaller.Zip.Expand.To.Directory}\Update-Installer"/>
+  <property name="IBM.UpdateInstaller.Zip.FileName" value="7.0.0.3-WS-UPDI-WinIA32.zip"/>
+  <property name="IBM.UpdateInstaller.Zip.FilePath" value="C:\Temp\${IBM.UpdateInstaller.Zip.FileName}"/>
+  <property name="IBM.UpdateInstaller.Zip.Download.URL" value="${IBM.WAS.Zip.Download.URLBase}/${IBM.UpdateInstaller.Zip.FileName}"/>
+  <property name="IBM.UpdateInstaller.Version.Expected" value="7.003"/>
+
+  <target name="Workspace.RequieredSoftware.RAD">
+    <call target="Workspace.RequieredSoftware.RAD.InitialInstall"/>
+    <call target="Workspace.RequieredSoftware.WAS.Fixes" if="${directory::exists(IBM.Rad.Install.Dir + '\runtimes\base_v7')}"/>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.WAS.Fixes">
+    <call target="Workspace.RequieredSoftware.WAS.UpdateInstaller"/>
+
+    <exec
+      program="cmd"
+      outputproperty="IBM.WAS.Version.Info"
+      verbose="true"
+    >
+      <arg line='/C "${environment::get-variable('ProgramFiles')}\IBM\SDP\runtimes\base_v7\bin\versionInfo.bat"'/>
+    </exec>
+
+    <regex input="${IBM.WAS.Version.Info}" pattern="Name\s+IBM\sWebSphere\sApplication\sServer\s+Version\s+(?'major'\d+)\.(?'minor'\d+)\.{0,1}(?'revision'\d+){0,1}\.{0,1}(?'build'\d+){0,1}\s"/>
+    <property name="IBM.WAS.Version.Actual" value="${major}.${minor}${revision}${build}"/>
+    
+    <fileset id="IBM.WAS.FixPack.FileSet"/>
+    
+    <if test="${double::parse(IBM.WAS.Version.Actual) &lt; double::parse(IBM.WAS.Version.Expected)}">
+      <property name="Answer" value="NaN"/>
+      <ask answer="Answer"
+         question="It looks like IBM Websphere Application Server is not up to date.  This update is required.  Do you wish to install the update?"
+         caption="Proceed Without Required Update?"
+         showdialog="true"
+         unless="${Workspace.Silent}"
+      >
+        <options>
+          <string value="Update"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+
+      <ifthenelse test="${Answer == 'Update' or bool::parse(Workspace.Silent)}">
+        <then>
+
+          <loopthrough property="IBM.WAS.FixPackName">
+            <items>
+              <strings refid="IBM.WAS.FixPack.Names"/>
+            </items>
+            <do>
+              <get
+                src="${IBM.WAS.Zip.Download.URLBase}/${IBM.WAS.FixPackName}"
+                dest="${IBM.WAS.Zip.Download.To.Directory}\${IBM.WAS.FixPackName}"
+                unless="${file::exists(IBM.WAS.Zip.Download.To.Directory + '\' + IBM.WAS.FixPackName)}"
+              />
+              <function execute="${fileset::include-add('IBM.WAS.FixPack.FileSet', IBM.WAS.Zip.Download.To.Directory + '\' + IBM.WAS.FixPackName)}"/>
+            </do>
+          </loopthrough>
+
+          <ask answer="trash"
+             question="Please insure that IBM Websphere Application Server is not currently running before continuing."
+             caption="Is IBM Websphere Application Server Running?"
+             showdialog="true"
+             unless="${Workspace.Silent}"
+          >
+            <options>
+              <string value="Continue"/>
+            </options>
+          </ask>
+
+          <exec
+            program="${IBM.UpdateInstaller.ExePath}"
+            verbose="true"
+          >
+            <arg line="-silent"/>
+            <arg line='-options "${Common.Directory.Packages.Path}\Workspace\Software\RAD\UpdateInstallerOptions.txt"'/>
+          </exec>
+          <delete>
+            <fileset refid="IBM.WAS.FixPack.FileSet"/>
+          </delete>
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please unpdate IBM Websphere Application Server!" />
+        </elseif>
+      </ifthenelse>
+    </if>
+  </target>
+  
+  <target name="Workspace.RequieredSoftware.WAS.UpdateInstaller">
+    <if test="${directory::exists(path::get-directory-name(IBM.UpdateInstaller.ExePath))}">
+      <loadfile property="IBM.UpdateInstaller.Version.Text" file="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\version.txt"/>
+      
+      <regex input="${IBM.UpdateInstaller.Version.Text}" pattern="\sVersion\:\s(?'major'\d+)\.(?'minor'\d+)\.{0,1}(?'revision'\d+){0,1}\.{0,1}(?'build'\d+){0,1}\s"/>
+      <property name="IBM.UpdateInstaller.Version.Actual" value="${major}.${minor}${revision}${build}"/>
+
+      <if test="${double::parse(IBM.UpdateInstaller.Version.Actual) &lt; double::parse(IBM.UpdateInstaller.Version.Expected)}">
+        <trycatch>
+          <try>
+            <exec
+              program="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\uninstall\uninstall.exe"
+              verbose="true"
+            >
+              <arg line='-silent'/>
+            </exec>
+            <delete dir="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller"/>
+          </try>
+          <catch property="exception">
+            <echo level="Warning" message="Old Update Installater errored while uninstalling, trying to cleanup..."/>
+            <echo level="Warning" message="${exception}"/>
+            <delete dir="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller"/>
+            <!--<deleteregistry hive="LocalMachine" key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\IBM Installation Manager" />-->
+          </catch>
+        </trycatch>
+
+      </if>
+    </if>
+
+    <ifnot test="${directory::exists(path::get-directory-name(IBM.UpdateInstaller.ExePath))}">
+      <get
+          src="${IBM.UpdateInstaller.Zip.Download.URL}"
+          dest="${IBM.UpdateInstaller.Zip.FilePath}"
+          unless="${file::exists(IBM.UpdateInstaller.Zip.FilePath)}"
+      />
+      <mkdir dir="${IBM.UpdateInstaller.Zip.Expanded.Directory}" unless="${directory::exists(IBM.UpdateInstaller.Zip.Expanded.Directory)}"/>
+      <exec
+        program="${Tools.7z.Exe}"
+        commandline='x "${IBM.UpdateInstaller.Zip.FilePath}" -o"${IBM.UpdateInstaller.Zip.Expanded.Directory}" -aoa'
+        verbose="true"
+      />
+      <exec
+        program="install"
+        basedir='${IBM.UpdateInstaller.Zip.Expanded.Directory}\UpdateInstaller'
+        workingdir='${IBM.UpdateInstaller.Zip.Expanded.Directory}\UpdateInstaller'
+        verbose='true'
+      >
+        <arg line='-options "${Common.Directory.Packages.Path}\Workspace\Software\RAD\UpdateInstallerInstallOptions.txt" -silent'/>
+      </exec>
+      <sleep seconds='5'/>
+      <delete file="${IBM.UpdateInstaller.Zip.FilePath}" />
+      <delete dir="${IBM.UpdateInstaller.Zip.Expanded.Directory}"/>
+
+      <property name="IBM.UpdateInstaller.ExePath" value="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\update.bat"/>
+      <ifnot test="${file::exists(IBM.UpdateInstaller.ExePath)}">
+        <property name="IBM.UpdateInstaller.ExePath" value="${environment::get-variable('ProgramFiles')}\IBM\WebSphere\UpdateInstaller\update.exe"/>
+      </ifnot>
+    </ifnot>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.RAD.InitialInstall">
+    <ifnot test="${directory::exists(IBM.Rad.Install.Dir + '\runtimes\base_v7')}" >
+      <ask answer="Answer"
+           question="It looks like RAD is not installed.  This software is optional.  Do you wish to install the software?"
+           caption="Proceed Without Optional Software?"
+           showdialog="true" >
+        <options>
+          <string value="Install"/>
+          <string value="Don't Install"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install'}">
+        <then>
+          <mkdir dir="${IBM.RAD.SilentInstaller.Expand.To.Directory}" unless="${directory::exists(IBM.RAD.SilentInstaller.Expand.To.Directory)}"/>
+          
+          <ifnot test="${directory::exists(IBM.RAD.SilentInstaller.Expanded.Directory)}">
+
+            <ifthenelse test="${file::exists('\\athc-file1\Shared_Folders\Healthcare\TriServ\Software\RAD\RAD-Install.zip')}">
+              <then>
+                <property name="IBM.RAD.SilentInstaller.FilePath" value="\\athc-file1\Shared_Folders\Healthcare\TriServ\Software\RAD\RAD-Install.zip"/>
+              </then>
+              <elseifs>
+                <elseif test="${file::exists('C:\Temp\RAD-Install.zip')}">
+                  <property name="IBM.RAD.SilentInstaller.FilePath" value="C:\Temp\RAD-Install.zip"/>
+                </elseif>
+              </elseifs>
+              <else>
+                <property name="IBM.RAD.SilentInstaller.FilePath" value="C:\Temp\RAD-Install.zip"/>
+                <fail message="No Access to installer!"/>
+                <get
+                  dest="${IBM.RAD.SilentInstaller.FilePath}"
+                  src="${Workspace.Ftp.Url}RAD-Install.rar"
+              />
+              </else>
+            </ifthenelse>
+            
+            <asyncexec
+              program="${Tools.7z.Exe}"
+              commandline='x "${IBM.RAD.SilentInstaller.FilePath}" -o"${IBM.RAD.SilentInstaller.Expand.To.Directory}" -aoa'
+              verbose="true"
+              useshellexecute="true" 
+              createnowindow="true" 
+              redirectoutput="false" 
+              taskname="Unzip"
+			      />
+            <waitforexit>
+              <tasknames>
+                <string value="Unzip"/>
+              </tasknames>
+            </waitforexit>
+          </ifnot>
+
+          <exec
+            program="installc"
+            basedir='${IBM.RAD.SilentInstaller.Expanded.Directory}\RAD_SETUP\InstallerImage_win32'
+            workingdir='${IBM.RAD.SilentInstaller.Expanded.Directory}\RAD_SETUP\InstallerImage_win32'
+            verbose='true'
+          >
+            <arg line='--launcher.ini silent-install.ini'/>
+            <arg line='-log "${IBM.RAD.SilentInstaller.Expanded.Directory}\Silent\Log\installmanagerlog.xml"'/>
+          </exec>
+
+          <exec
+            program="installc"
+            basedir='${IBM.RAD.SilentInstaller.Expanded.Directory}\RAD_SETUP\InstallerImage_win32'
+            workingdir='${IBM.RAD.SilentInstaller.Expanded.Directory}\RAD_SETUP\InstallerImage_win32'
+            verbose='true'
+          >
+            <arg line='--launcher.ini silent-install.ini'/>
+            <arg line='-input "${IBM.RAD.SilentInstaller.Expanded.Directory}\Silent\responsefile.xml"'/>
+            <arg line='-log "${IBM.RAD.SilentInstaller.Expanded.Directory}\Silent\Log\radlog.xml"'/>
+          </exec>
+
+          <ask answer="Answer"
+           question="Do you want to delete the installer files?"
+           caption="Clean Up"
+           showdialog="true" >
+            <options>
+              <string value="Delete"/>
+              <string value="Save"/>
+            </options>
+          </ask>
+
+          <delete dir="${IBM.RAD.SilentInstaller.Expanded.Directory}" if="${Answer == 'Delete'}"/>
+          <delete file="${IBM.RAD.SilentInstaller.FilePath}" if="${Answer == 'Delete' and IBM.RAD.SilentInstaller.FilePath == 'C:\Temp\RAD-Install.zip'}"/>
+        </then>
+        <elseif if="${Answer != 'Install'}">
+          
+        </elseif>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+</project>

@@ -124,7 +124,7 @@
       </tr>
       <tr class="a">
         <td>% Duplication</td>
-        <td><xsl:value-of select="format-number((sum(//check/summary/@duplicateLineCount) - sum(//set/@lineCount)) div sum(//check/summary/@totalSignificantLineCount), '#.00%')"/></td>
+        <td><xsl:value-of select="format-number(sum(//set/@lineCount) div sum(//check/summary/@totalSignificantLineCount), '#.00%')"/></td>
       </tr>
     </table>
   </xsl:template>

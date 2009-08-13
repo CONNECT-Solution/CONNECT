@@ -5,7 +5,7 @@
 	<import file="nhinc-copy-props.xml" />
   
   <property name="PackagesDirectory" value="../.." />
-  <property name="ProductDirectory" value="../../../../Product" />
+  <property name="Common.Directory.Product.Path" value="../../../../Product" />
 
   <condition property="buildpropertiesfile" value="build.win.properties">
     <os family="windows"/>
@@ -13,7 +13,7 @@
   <condition property="buildpropertiesfile" value="build.unix.properties">
     <os family="unix"/>
   </condition>
-  <property file="${ProductDirectory}/${buildpropertiesfile}"/>
+  <property file="${Common.Directory.Product.Path}/${buildpropertiesfile}"/>
   
   <!--
 
@@ -142,7 +142,7 @@
 
   <target name="unzip" description="Unzip NHIN-C binaries">
     <echo message="--- Some variables ---"/>
-    <echo message="Build Properties file: ${ProductDirectory}/${buildpropertiesfile}"/>
+    <echo message="Build Properties file: ${Common.Directory.Product.Path}/${buildpropertiesfile}"/>
     <echo message="${java.module.install.dir}"/>
     <echo message="${enterprise.module.install.dir}"/>
     <echo message="${xml.module.install.dir}"/>

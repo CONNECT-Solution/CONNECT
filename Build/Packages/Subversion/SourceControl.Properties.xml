@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SVN.Properties">
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SourceControl.Properties">
 
   <property name="SVN.URI.Root" value="https://svn.connectopensource.org:8443/svn/Nhin_Public" overwrite="false" />
   <property name="SVN.URI.ProjectName" value="${SVN.URI.Root}" overwrite="false" />
   <property name="SVN.URI.ProjectCodeLine" value="${SVN.URI.ProjectName}/Current" overwrite="false" />
+
+  <property name="SourceControl.Example.Commit.Message" value="Example Message${NewLine}Task#1234 Did something important${NewLine}Story#4567 Completed" overwrite="False"/>
   
-  <ifthenelse test="${file::exists(PackagesDirectory + '\Subversion\SourceControl.Credentials.xml')}">
+  <ifthenelse test="${file::exists(Common.Directory.Packages.Path + '\Subversion\SourceControl.Credentials.xml')}">
     <then>
-      <include buildfile="${PackagesDirectory}\Subversion\SourceControl.Credentials.xml" />
+      <include buildfile="${Common.Directory.Packages.Path}\Subversion\SourceControl.Credentials.xml" />
     </then>
     <else>
       <echo level="Warning" message="SourceControl.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>

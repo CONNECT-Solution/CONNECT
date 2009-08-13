@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Common">
-  
-  <property name="Common.FilesToDelete" value="" overwrite="false"/>
 
-  <foreach item="File" property="Tools.Candidate">
+  <ifthenelse test="${environment::variable-exists('ProgramFiles(x86)')}">
+    <then>
+      <property name="Processor.Type" value="64"/>
+      <property name="ProgramFiles.Default.Path" value="${environment::get-variable('ProgramFiles(x86)')}"/>
+
+      <ifthenelse test="${environment::variable-exists('ProgramW6432')}">
+        <then>
+          <property name="ProgramFiles.64.Path" value="${environment::get-variable('ProgramW6432')}"/>
+        </then>
+        <else>
+          <property name="ProgramFiles.64.Path" value="${environment::get-variable('ProgramFiles')}"/>
+        </else>
+      </ifthenelse>
+
+      <property name="ProgramFiles.32.Path" value="${environment::get-variable('ProgramFiles(x86)')}"/>
+    </then>
+    <else>
+      <property name="Processor.Type" value="32"/>
+      <property name="ProgramFiles.Default.Path" value="${environment::get-variable('ProgramFiles')}"/>
+      <property name="ProgramFiles.32.Path" value="${environment::get-variable('ProgramFiles')}"/>
+    </else>
+  </ifthenelse>
+  
+  <foreach item="File" property="Tools.Canidate">
     <in>
       <items>
         <include name="${Common.Directory.Tools.Path}\**\*.exe"/>
@@ -11,12 +32,14 @@
       </items>
     </in>
     <do>
-      <property name="Tools.${path::get-file-name-without-extension(Tools.Candidate)}.Bin" value="${path::get-directory-name(Tools.Candidate)}"/>
-      <property name="Tools.${path::get-file-name-without-extension(Tools.Candidate)}.Exe" value="${Tools.Candidate}"/>
+      <property name="Tools.${path::get-file-name-without-extension(Tools.Canidate)}.Bin" value="${path::get-directory-name(Tools.Canidate)}"/>
+      <property name="Tools.${path::get-file-name-without-extension(Tools.Canidate)}.Exe" value="${Tools.Canidate}"/>
     </do>
   </foreach>
 
-  <property name="Common.Credentials.File.Path" value="${BuildDirectory}\Common.Credentials.xml"/>
+  <function execute="${property::destroy('Tools.Canidate')}"/>
+
+  <property name="Common.Credentials.File.Path" value="${Common.Directory.Build.Path}\Common.Credentials.xml"/>
   <ifthenelse test="${file::exists(Common.Credentials.File.Path)}">
     <then>
       <include buildfile="${Common.Credentials.File.Path}" />
@@ -26,27 +49,20 @@
     </else>
   </ifthenelse>
 
-  <target name="Common.DeleteFiles">
-    <echo message="The property Common.FilesToDelete was not specified." if="${Common.FilesToDelete == ''}"/>
-    <foreach item="String" in="${Common.FilesToDelete}" delim=";" property="Private.Common.FileToDelete" unless="${Common.FilesToDelete == ''}">
-      <echo message="Attempting to delete ${Private.Common.FileToDelete}."/>
-      <delete verbose="true">
-        <fileset>
-          <include name="${Private.Common.FileToDelete}"/>
-        </fileset>
-      </delete>
-    </foreach>
-  </target>
+  <property name="Today" value="${datetime::get-month(datetime::now())}-${datetime::get-day(datetime::now())}-${datetime::get-year(datetime::now())}"/>
+  <property name="Time" value="${datetime::get-hour(datetime::now())}.${datetime::get-minute(datetime::now())}.${datetime::get-second(datetime::now())}"/>
+  <property name="Now" value="${Today} ${Time}"/>
 
-	<property name="CCNetLogsDirectoryPath" value="${BuildDirectory}\server\${CCNetProject}\Artifacts\buildlogs" />
-	<property name="CCNetLogMessageFilePath" value="${CCNetLogsDirectoryPath}\LogMessages.txt"/>
+  <property name="CCNet.Directory.Logs.Path" value="${CCNet.Server.Directory.Path}\${CCNetProject}\Artifacts\buildlogs" />
+  <property name="CCNet.Directory.Logs.MessageFile.Path" value="${CCNet.Directory.Logs.Path}\LogMessages.txt"/>
 
-	<property name="Common.ArtifactFolderName" value="${string::replace(CCNetBuildDate, '-', '')}${string::replace(CCNetBuildTime, ':', '')}"/>
-	<echo message="The ArtifactFolderName is ${Common.ArtifactFolderName}"/>
-	<property name="Common.ArtifactDirectoryPath" value="${ArtifactRootDirectory}\${Common.ArtifactFolderName}"/>
+  <property name="Common.Directory.Artifact.Name" value="${string::replace(CCNetBuildDate, '-', '')}${string::replace(CCNetBuildTime, ':', '')}"/>
+  <echo message="The ArtifactFolderName is ${Common.Directory.Artifact.Name}"/>
+  <property name="Common.Directory.Artifact.Path" value="${Common.Directory.ArtifactRoot.Path}\${Common.Directory.Artifact.Name}"/>
 
-	<property name="Common.ReportDirectory" value="${BuildDirectory}\Reports"/>
-	<property name="Common.TempDirectory" value="${BuildDirectory}\Temp"/>
+  <property name="Common.Project.Common.Directory.Transient.Path" value="${Common.Directory.Transient.Path}\${CCNetProject}"/>
+  <property name="Common.Project.ReportDirectory" value="${Common.Project.Common.Directory.Transient.Path}\Reports"/>
+  <property name="Common.Project.TempDirectory" value="${Common.Project.Common.Directory.Transient.Path}\Temp"/>
 
   <largeproperty name="NewLine">
     <value>
@@ -54,12 +70,16 @@
 ]]>
     </value>
   </largeproperty>
-  
-	<property name="Common.PropertiesFile" value="${Common.TempDirectory}\Properties.txt"/>
-	<target name="Common.CreatePropertiesFile">
-		<delete file="${Common.PropertiesFile}" if ="${file::exists(Common.PropertiesFile)}" />
-		<property name="Compile.ConfigName" value="Debug" overwrite="false"/>
-		<saveproperties file="${Common.PropertiesFile}" format="CommandLine" >
+
+  <property name="Common.EnvironmentVariables.RefId" value="Common.EnvironmentVariables" />
+
+  <include buildfile="${Common.File.EnvironmentVariables.Path}" />
+
+  <property name="Common.PropertiesFile" value="${Common.Project.TempDirectory}\Properties.txt"/>
+  <target name="Common.CreatePropertiesFile">
+    <delete file="${Common.PropertiesFile}" if ="${file::exists(Common.PropertiesFile)}" />
+    <property name="Compile.ConfigName" value="Debug" overwrite="false"/>
+    <saveproperties file="${Common.PropertiesFile}" format="CommandLine" >
       <property name="CCNetBuildCondition"/>
       <property name="CCNetIntegrationStatus"/>
       <property name="CCNetLabel"/>
@@ -69,61 +89,111 @@
       <property name="CCNetBuildTime"/>
       <property name="CCNetArtifactDirectory"/>
       <property name="CCNetWorkingDirectory"/>
-
       <property name="BuildServerHostName"/>
-      <property name="BuildServerPort"/>
-      <property name="LabelPrefix"/>
-			<property name="EmailHost"/>
-			<property name="ProjectName"/>
-			<property name="ProjectCodeLineName"/>
-			<property name="ProjectsDirectory"/>
-			<property name="ProjectRootDirectory"/>
-			<property name="ProjectCodeLineDirectory"/>
-			<property name="ProductDirectory"/>
-			<property name="ThirdPartyDirectory"/>
-			<property name="ProductionDirectory"/>
-			<property name="BuildDirectory"/>
+      <property name="EmailHost"/>
+      <property name="ProjectName"/>
+      <property name="ProjectCodeLineName"/>
+      <property name="Common.Directory.ProjectsRoot.Path"/>
+      <property name="Common.Directory.ProjectRoot.Path"/>
+      <property name="Common.Directory.CodeLine.Path"/>
+      <property name="Common.Directory.Product.Path"/>
+      <property name="Common.Directory.ThirdParty.Path"/>
+      <property name="Common.Directory.Production.Path"/>
+      <property name="Common.Directory.Build.Path"/>
+      <property name="Common.Directory.Transient.Name"/>
+      <property name="Common.Directory.Tools.Name" />
 
-      <property name="ProductDirectoryName"       />
-      <property name="ThirdPartyDirectoryName"    />
-      <property name="ProductionDirectoryName"    />
-      <property name="BuildDirectoryName"         />
-      <property name="ArtifactRootDirectoryName"  />
-      <property name="PackagesDirectoryName"      />
-      <property name="UnitTestDirectoryName"      />
-      <property name="InstallDirectoryName"       />
-      
-			<property name="Compile.ConfigName"/>
-			<property name="ArtifactRootDirectory" value="${ArtifactRootDirectory}"/>
-			<property name="NantExePath" value="${BuildDirectory}\nAnt\bin\nant.exe"/>
-			<property name="PackagesDirectory" value="${PackagesDirectory}"/>
-			<property name="Common.ArtifactDirectoryPath"/>
-			<property name="Common.ArtifactFolderName"/>
-			<property name="Common.ReportDirectory"/>
-			<property name="Common.TempDirectory"/>
-			<property name="UnitTestDirectory"/>
-			<property name="InstallDirectory"/>
-		</saveproperties>
-	</target>
+      <property name="Common.Directory.Product.Name"       />
+      <property name="Common.Directory.ThirdParty.Name"    />
+      <property name="Common.Directory.Production.Name"    />
+      <property name="Common.Directory.Build.Name"         />
+      <property name="Common.Directory.ArtifactRoot.Name"  />
+      <property name="Common.Directory.Packages.Name"      />
+      <property name="Common.Directory.UnitTest.Name"      />
+      <property name="Common.Directory.Install.Name"       />
+      <property name="Common.Directory.Transient.Path"/>
+      <property name="Common.Directory.Tools.Path" />
 
-	<target name="Common.SetUp">
-		<!--<record name="${CCNetLogMessageFilePath}" level="Info" action="Start" autoflush="true"/>-->
+      <property name="CCNet.Server.Directory.Path"/>
+      <property name="CCNet.Dashboard.Directory.Path"/>
+      <property name="CCNet.Server.Remoting.Port"/>
+      <property name="CCNet.LabelPrefix"/>
 
-		<mkdir dir="${Common.ArtifactDirectoryPath}" unless="${directory::exists(Common.ArtifactDirectoryPath)}" verbose="true"/>
+      <property name="Compile.ConfigName"/>
+      <property name="Common.Directory.ArtifactRoot.Path" value="${Common.Directory.ArtifactRoot.Path}"/>
+      <property name="Tools.NAnt.Exe" value="${Tools.NAnt.Exe}"/>
+      <property name="Common.Directory.Packages.Path" value="${Common.Directory.Packages.Path}"/>
+      <property name="Common.Directory.Artifact.Path"/>
+      <property name="Common.Directory.Artifact.Name"/>
+      <property name="Common.Project.ReportDirectory"/>
+      <property name="Common.Project.TempDirectory"/>
+      <property name="Common.Project.Common.Directory.Transient.Path"/>
+      <property name="Common.Directory.UnitTest.Path"/>
+      <property name="Common.Directory.Install.Path"/>
 
-    <delete dir="${Common.ReportDirectory}" if="${directory::exists(Common.ReportDirectory)}"/>
-    <mkdir dir="${Common.ReportDirectory}"/>
+      <property name="Today" />
+      <property name="Time" />
+      <property name="Now" />
+    </saveproperties>
+  </target>
 
-    <delete dir="${Common.TempDirectory}" if="${directory::exists(Common.TempDirectory)}"/>
-    <mkdir dir="${Common.TempDirectory}"/>
+  <target name="Common.SetUp">
+    <mkdir dir="${path::get-directory-name(CCNetListenerFile)}" unless="${directory::exists(path::get-directory-name(CCNetListenerFile))}"/>
+    <mkdir dir="${Common.Directory.Artifact.Path}" unless="${directory::exists(Common.Directory.Artifact.Path)}" verbose="true"/>
+
+    <delete dir="${Common.Project.Common.Directory.Transient.Path}" if="${directory::exists(Common.Project.Common.Directory.Transient.Path)}"/>
+    <mkdir dir="${Common.Project.Common.Directory.Transient.Path}"/>
+
+    <delete dir="${Common.Project.ReportDirectory}" if="${directory::exists(Common.Project.ReportDirectory)}"/>
+    <mkdir dir="${Common.Project.ReportDirectory}"/>
+
+    <delete dir="${Common.Project.TempDirectory}" if="${directory::exists(Common.Project.TempDirectory)}"/>
+    <mkdir dir="${Common.Project.TempDirectory}"/>
 
     <call target="Common.CreatePropertiesFile"/>
   </target>
 
-	<target name="Common.TearDown">
-		<!--<record name="${CCNetLogMessageFilePath}" action="Stop" />
-		<record name="${CCNetLogMessageFilePath}" action="Close" />-->
-	</target>
+  <target name="Common.WriteSetEnvBatchFile">
+    <setenv>
+      <environment refid="${Common.EnvironmentVariables.RefId}" />
+    </setenv>
+
+    <write file="${Common.Directory.Build.Path}\SetEnv.bat">
+      <text expand="true" xml="false">
+        <![CDATA[
+SET ProjectName=${ProjectName}
+SET ProjectCodeLineName=${ProjectCodeLineName}
+SET Common.Directory.ProjectsRoot.Path=${Common.Directory.ProjectsRoot.Path}
+
+SET Common.Directory.Product.Name=${Common.Directory.Product.Name}
+SET Common.Directory.ThirdParty.Name=${Common.Directory.ThirdParty.Name}
+SET Common.Directory.Production.Name=${Common.Directory.Production.Name}
+SET Common.Directory.Build.Name=${Common.Directory.Build.Name}
+SET Common.Directory.ArtifactRoot.Name=${Common.Directory.ArtifactRoot.Name}
+SET Common.Directory.Packages.Name=${Common.Directory.Packages.Name}
+SET Common.Directory.UnitTest.Name=${Common.Directory.UnitTest.Name}
+SET Common.Directory.Install.Name=${Common.Directory.Install.Name}
+SET Common.Directory.Transient.Name=${Common.Directory.Transient.Name}
+SET Common.Directory.Tools.Name=${Common.Directory.Tools.Name}
+
+SET Common.Directory.ProjectRoot.Path=${Common.Directory.ProjectRoot.Path}
+SET Common.Directory.CodeLine.Path=${Common.Directory.CodeLine.Path}
+SET Common.Directory.Product.Path=${Common.Directory.Product.Path}
+SET Common.Directory.ThirdParty.Path=${Common.Directory.ThirdParty.Path}
+SET Common.Directory.Production.Path=${Common.Directory.Production.Path}
+SET Common.Directory.Build.Path=${Common.Directory.Build.Path}
+SET Common.Directory.ArtifactRoot.Path=${Common.Directory.ArtifactRoot.Path}
+SET Common.Directory.Packages.Path=${Common.Directory.Packages.Path}
+SET Common.Directory.UnitTest.Path=${Common.Directory.UnitTest.Path}
+SET Common.Directory.Install.Path=${Common.Directory.Install.Path}
+SET Common.Directory.Transient.Path=${Common.Directory.Transient.Path}
+SET Common.Directory.Tools.Path=${Common.Directory.Tools.Path}
+
+SET PATH=${environment::get-variable('PATH')}
+]]>
+      </text>
+    </write>
+  </target>
 
   <!--
       Parameters
@@ -142,7 +212,7 @@
 <HTML>
   <HEAD>
               <title>Build Report</title>
-              <link type="text/css" rel="stylesheet" href="file://${BuildDirectory}\dashboard\cruisecontrol.css"/>
+              <link type="text/css" rel="stylesheet" href="file://${CCNet.Dashboard.Directory.Path}\cruisecontrol.css"/>
   </HEAD>
   <body>]]>
       </value>
@@ -161,7 +231,7 @@
         <xmlpoke
           file="${Common.ShowReport.HtmlFile}"
           xpath="//img[@src = '${Image}']/@src"
-          value="file://${BuildDirectory}/${Image}"
+          value="file://${Common.Directory.Build.Path}/${Image}"
           />
       </do>
     </loopthrough>
@@ -178,7 +248,7 @@
           <xmlpoke
             file="${Common.ShowReport.DetailsFilePath}"
             xpath="//img[@src = '${Image}']/@src"
-            value="file://${BuildDirectory}/${string::replace(string::replace(string::trim(Image), '&#xD;', ''), '&#xA;', '')}"
+            value="file://${Common.Directory.Build.Path}/${string::replace(string::replace(string::trim(Image), '&#xD;', ''), '&#xA;', '')}"
             />
         </do>
       </loopthrough>
@@ -189,7 +259,7 @@
         value="file://${Common.ShowReport.DetailsFilePath}"
       />
     </if>
-    
+
     <asyncexec program="cmd" commandline='/C "${Common.ShowReport.HtmlFile}"' createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" />
   </target>
 
@@ -205,7 +275,7 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
       </value>
     </largeproperty>
 
-    <xmlquery query='/cruisecontrol/project/@name' file='${BuildDirectory}\ccnetproject.xml' id='CCNetProjects' />
+    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\ccnetproject.xml' id='CCNetProjects' />
     <property name='CCTrayProjects' value=''/>
 
     <loopthrough property='CCNetProjectName'>
@@ -216,13 +286,13 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
         <largeproperty name="CCTrayProjects">
           <value expand="true" xml="false">
             <![CDATA[${CCTrayProjects}
-    <Project serverUrl="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem" projectName="${CCNetProjectName}" />]]>
+    <Project serverUrl="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem" projectName="${CCNetProjectName}" />]]>
           </value>
         </largeproperty>
       </do>
     </loopthrough>
 
-    <property name="SfxConfig.FilePath" value="${BuildDirectory}\SfxConfig.txt"/>
+    <property name="SfxConfig.FilePath" value="${Common.Directory.Build.Path}\SfxConfig.txt"/>
     <echo message="${SfxConfig.Content}" file="${SfxConfig.FilePath}"/>
 
     <largeproperty name="CCTraySettings.Content">
@@ -235,10 +305,10 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
   <PollPeriodSeconds>5</PollPeriodSeconds>
   <BuildTransitionNotification showBalloon="true">
     <Sound>
-      <BrokenBuildSound>C:\Program Files\cctray\broken.wav</BrokenBuildSound>
-      <FixedBuildSound>C:\Program Files\cctray\fixed.wav</FixedBuildSound>
-      <StillFailingBuildSound>C:\Program Files\cctray\still-failing.wav</StillFailingBuildSound>
-      <StillSuccessfulBuildSound>C:\Program Files\cctray\still-successful.wav</StillSuccessfulBuildSound>
+      <BrokenBuildSound>${environment::get-variable('ProgramFiles')}\cctray\broken.wav</BrokenBuildSound>
+      <FixedBuildSound>${environment::get-variable('ProgramFiles')}\cctray\fixed.wav</FixedBuildSound>
+      <StillFailingBuildSound>${environment::get-variable('ProgramFiles')}\cctray\still-failing.wav</StillFailingBuildSound>
+      <StillSuccessfulBuildSound>${environment::get-variable('ProgramFiles')}\cctray\still-successful.wav</StillSuccessfulBuildSound>
     </Sound>
     <BalloonMessages>
       <BrokenBuildMessage>
@@ -270,90 +340,93 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
       </value>
     </largeproperty>
 
-		<property name="CCTraySettings.FileName" value="Settings.xml"/>
-    <property name="CCTraySettings.FilePath" value="${BuildDirectory}\${CCTraySettings.FileName}"/>
+    <property name="CCTraySettings.FileName" value="Settings.xml"/>
+    <property name="CCTraySettings.FilePath" value="${Common.Directory.Build.Path}\${CCTraySettings.FileName}"/>
     <echo message="${CCTraySettings.Content}" file="${CCTraySettings.FilePath}"/>
 
     <property name="WinRarProgramPath" value="${environment::get-variable('ProgramFiles')}\winrar\winrar.exe" overwrite="false"/>
-    <property name="CCTraySetupExe.FilePath" value="${BuildDirectory}\dashboard\cctray\CCTraySetup.exe"/>
+    <property name="CCTraySetupExe.FilePath" value="${CCNet.Dashboard.Directory.Path}\cctray\CCTraySetup.exe"/>
 
-    <property name="CCTrayZip.FilePath" value="${BuildDirectory}\dashboard\cctray\cctray.zip"/>
+    <property name="CCTrayZip.FilePath" value="${CCNet.Dashboard.Directory.Path}\cctray\cctray.zip"/>
     <if test="${file::exists(CCTrayZip.FilePath)}">
       <delete file="${CCTraySetupExe.FilePath}" if="${file::exists(CCTraySetupExe.FilePath)}" />
       <exec program="${WinRarProgramPath}"
             commandline='s -ibck "${CCTrayZip.FilePath}" c -z"${SfxConfig.FilePath}"'
-            workingdir='${BuildDirectory}'
+            workingdir='${Common.Directory.Build.Path}'
             verbose='true'/>
       <delete file='${CCTrayZip.FilePath}' if='${file::exists(CCTrayZip.FilePath)}' />
-      <move file='${BuildDirectory}\dashboard\cctray\cctray.exe' tofile='${CCTraySetupExe.FilePath}' />
+      <move file='${CCNet.Dashboard.Directory.Path}\cctray\cctray.exe' tofile='${CCTraySetupExe.FilePath}' />
     </if>
 
     <exec program="${WinRarProgramPath}"
 				  commandline='u -ibck -r "${CCTraySetupExe.FilePath}" ${CCTraySettings.FileName} c -z"${SfxConfig.FilePath}" -sfx'
-				  workingdir='${BuildDirectory}'/>
+				  workingdir='${Common.Directory.Build.Path}'/>
 
-		<delete file="${SfxConfig.FilePath}" />
-		<delete file="${CCTraySettings.FilePath}" />
+    <delete file="${SfxConfig.FilePath}" />
+    <delete file="${CCTraySettings.FilePath}" />
   </target>
-  
-  <script language="C#" prefix="list">
+
+  <macrodef name="findprogram">
+    <attributes>
+      <attribute name="program" require="True" type="string"/>
+      <attribute name="returnpropertyname" default="Found.Program.File.Path" type="string" require="False"/>
+    </attributes>
+    <sequential>
+      <property name="exit" value="false"/>
+
+      <ifnot test="${exit}">
+        <echo message="Searching in ${ProgramFiles.32.Path}\${program}..."/>
+        <foreach item="File" property="program.file.path">
+          <in>
+            <items>
+              <include name="${ProgramFiles.32.Path}\${program}"/>
+            </items>
+          </in>
+          <do>
+            <echo message="Found ${program.file.path}"/>
+            <property name="${returnpropertyname}" value="${program.file.path}"/>
+            <property name="exit" value="true"/>
+          </do>
+        </foreach>
+      </ifnot>
+
+      <ifnot test="${exit}">
+        <if test="${int::parse(Processor.Type) == 64}">
+          <echo message="Searching in ${ProgramFiles.64.Path}\${program}..."/>
+          <foreach item="File" property="program.file.path">
+            <in>
+              <items>
+                <include name="${ProgramFiles.64.Path}\${program}"/>
+              </items>
+            </in>
+            <do>
+              <echo message="Found ${program.file.path}"/>
+              <property name="${returnpropertyname}" value="${program.file.path}"/>
+              <property name="exit" value="true"/>
+            </do>
+          </foreach>
+        </if>
+      </ifnot>
+
+      <echo message="${returnpropertyname} == ${property::get-value(returnpropertyname)}"/>
+      <fail unless="${property::exists(returnpropertyname)}" message="Could not find ${program}."/>
+    </sequential>
+  </macrodef>
+
+  <script language="C#" prefix="regex" >
+    <imports>
+      <import namespace="System.Text.RegularExpressions" />
+    </imports>
+
     <code>
-      <![CDATA[                 
-					
-          private static System.Collections.Hashtable MasterTable = new System.Collections.Hashtable();
-          
-          [Function("create")]
-					public static string Create(string listName)
-          {
-            if (!MasterTable.Contains(listName))
-              MasterTable.Add(listName, new System.Collections.ArrayList());
-            return listName;
-          }
-          
-          [Function("destroy")]
-					public static string Destroy(string listName)
-          {
-            if (!MasterTable.Contains(listName))
-              MasterTable.Remove(listName);
-            return listName;
-          }
-          
-          [Function("contains")]
-					public static bool Contains(string listName, string item)
-          {
-            return ((System.Collections.ArrayList)MasterTable[listName]).Contains(item);
-          }
-          
-          [Function("add")]
-					public static void Add(string listName, string item)
-          {
-            ((System.Collections.ArrayList)MasterTable[listName]).Add(item);
-          }
-          
-          [Function("remove")]
-					public static void Remove(string listName, string item)
-          {
-            ((System.Collections.ArrayList)MasterTable[listName]).Remove(item);
-          }
-          
-          [Function("flatten")]
-          public static string Flatten(string listName)
-          {
-            System.Collections.ArrayList List = (System.Collections.ArrayList) MasterTable[listName];
-            if (List.Count == 0)
-                return string.Empty;
-            StringBuilder builder = new StringBuilder();
-            builder.Append(List[0]);
-            for (int i = 1; i < List.Count; ++i)
-            {
-                builder.Append(",");
-                builder.Append(List[i]);
-            }
-            return builder.ToString();
-          }
-          
-			]]>
+      <![CDATA[
+         [Function("match")]
+         public static bool match(string input, string pattern)
+         {
+            return Regex.IsMatch(input, pattern);
+         }
+      ]]>
     </code>
   </script>
-
-</project>  
+  
+</project>

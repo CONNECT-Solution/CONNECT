@@ -29,10 +29,10 @@
         </groups>
       </email>'>
   <!ENTITY labeller '<labeller type="defaultlabeller">
-      <prefix>&LabelPrefix;</prefix>
+      <prefix>&CCNet.LabelPrefix;</prefix>
     </labeller>'>
   <!ENTITY DevBuilding '<projectFilter
-               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Dev">
             <exclusionFilters>
               <activities>
@@ -40,26 +40,26 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+  <!ENTITY DevFailed '<projectFilter
+               serverUri="&CCNet.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Dev">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY HeavyBuilding '<projectFilter
+               serverUri="&CCNet.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Heavy">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY ForceClean '<projectFilter
-                serverUri="tcp://localhost:&Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName; Force Clean">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY ReleaseBuilding '<projectFilter
-               serverUri="tcp://localhost:&Port;/CruiseManager.rem"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <activities>
@@ -67,12 +67,76 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
+  <!ENTITY ScriptsBuilding '<projectFilter
+               serverUri="&CCNet.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
+  <!ENTITY SourceControl.ExclusionFilters '<exclusionFilters>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/AppDeploy</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/AppDeploy/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/AppDeploy/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/SupportApps/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/SupportApps/**/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;/*.*</pattern>
+        </pathFilter>
+        <pathFilter>
+          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;/**/*.*</pattern>
+        </pathFilter>
+      </exclusionFilters>'>
 ]>
-<cruisecontrol>
-
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&CCNet.Server.Rest.Url;">
   <project name="&ProjectName;-&ProjectCodeLineName; Build Scripts">
-    <webURL>&webURL;</webURL>
+    <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -80,7 +144,7 @@
         <projectFilters>
           &DevBuilding;
           &ReleaseBuilding;
-          &ForceClean;
+          &HeavyBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -89,7 +153,7 @@
         <projectFilters>
           &DevBuilding;
           &ReleaseBuilding;
-          &ForceClean;
+          &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -101,8 +165,8 @@
       </triggeredIntegrationFilter>
     </integrationFilter>
     <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
-      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&BuildDirectoryName;</trunkUrl>
-      <workingDirectory>&BuildDirectory;</workingDirectory>
+      <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Build.Name;</trunkUrl>
+      <workingDirectory>&Common.Directory.Build.Path;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
       <webUrlBuilder type="websvn">
         <url>&Subversion.Repo.Url;{0}</url>
@@ -120,7 +184,7 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Dev">
-    <webURL>&webURL;</webURL>
+    <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -128,7 +192,7 @@
         <projectFilters>
           &ScriptsBuilding;
           &ReleaseBuilding;
-          &ForceClean;
+          &HeavyBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -137,7 +201,7 @@
         <projectFilters>
           &ScriptsBuilding;
           &ReleaseBuilding;
-          &ForceClean;
+          &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -158,89 +222,24 @@
     <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="true" autoGetSource="false" >
         <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
-        <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <webUrlBuilder type="websvn">
           <url>&Subversion.Repo.Url;{0}</url>
         </webUrlBuilder>
         <tagBaseUrl>&Subversion.Repo.Url;/tags</tagBaseUrl>
       </sourceControlProvider>
-      <exclusionFilters>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/Product/Production/Examples/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/AssemblyInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/ProjectInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/ProjectInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/**/*.*</pattern>
-        </pathFilter>
-
-      </exclusionFilters>
+      &SourceControl.ExclusionFilters;
     </sourcecontrol>
     &labeller;
     <tasks>
       <modificationWriter>
         <filename>SourceModificationReport.xml</filename>
-        <path>&BuildDirectory;\SourceModificationReports</path>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Dev</path>
       </modificationWriter>
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
@@ -254,28 +253,32 @@
     <publishers>
       <merge>
         <files>
-          <file>&BuildDirectory;\Reports\*.xml</file>
-          <file>&BuildDirectory;\AntLogs\*.xml</file>
-          <file>&BuildDirectory;\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger>
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
         <filepairs>
           <filepair>
-            <xslfile>&PackagesDirectory;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&BuildDirectory;\UnitTestReports\*.xml</xmlfile>
+            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\SimianReport\SimianReport.xml</xmlfile>
           </filepair>
           <filepair>
-            <xslfile>&PackagesDirectory;\Simian\SimianSummary.xsl</xslfile>
-            <xmlfile>&BuildDirectory;\SimianReport\SimianReport.xml</xmlfile>
+            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Dev\Coverage\CoverageReport.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
       <xmllogger />
       &email;
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Post.Shim.xml</buildFile>
         <targetList>
@@ -286,83 +289,16 @@
       </nant>
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName; Force Clean">
- 
-    <webURL>&webURL;</webURL>
-    <state type="state" />
-    <triggers/>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DevBuilding;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="true" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="nullSourceControl" />
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
-    </labeller>
-    <tasks>
-      <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>ForceClean</target>
-        </targetList>
-
-        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&BuildDirectory;\Reports\*.xml</file>
-        </files>
-      </merge>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
- 
-  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
-     <webURL>&webURL;</webURL>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Heavy">
+    <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
-        <trigger type="scheduleTrigger" time="01:00" buildCondition="IfModificationExists" />
+        <trigger type="scheduleTrigger" time="12:30" buildCondition="IfModificationExists" />
         <projectFilters>
           &ScriptsBuilding;
           &DevBuilding;
-          &ForceClean;
+          &ReleaseBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -371,7 +307,120 @@
         <projectFilters>
           &ScriptsBuilding;
           &DevBuilding;
-          &ForceClean;
+          &ReleaseBuilding;
+        </projectFilters>
+      </projectForceFilter>
+      <!--<userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>-->
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <modificationDelaySeconds>0</modificationDelaySeconds>
+    <sourcecontrol type="filtered">
+      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
+        <trunkUrl>https://svn.connectopensource.org:8443/svn/Nhin_Public/&ProjectCodeLineName;</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <webUrlBuilder type="websvn">
+          <url>https://svn.connectopensource.org:8443/svn/Nhin_Public{0}</url>
+        </webUrlBuilder>
+      </sourceControlProvider>
+      &SourceControl.ExclusionFilters;
+    </sourcecontrol>
+    <labeller type="stateFileLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
+    </labeller>
+    <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Heavy</path>
+      </modificationWriter>
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Heavy</target>
+        </targetList>
+        <buildTimeoutSeconds>600</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\AntLogs\*.xml</file>
+        </files>
+      </merge>
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+        <filepairs>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\SimianReport\SimianReport.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\IntegrationTest\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\IntegrationTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Heavy\Coverage\CoverageReport.xml</xmlfile>
+          </filepair>
+        </filepairs>
+      </xslmerger>
+      <xmllogger />
+      &email;
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
+    <webURL>&CCNet.Dashboard.Url;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger type="scheduleTrigger" time="01:00" buildCondition="IfModificationExists" />
+        <projectFilters>
+          &ScriptsBuilding;
+          &DevBuilding;
+          &HeavyBuilding;
+          &DevFailed;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &DevBuilding;
+          &HeavyBuilding;
+          &DevFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -389,165 +438,77 @@
         </blocked>
       </forcedIntegrationFilter>
     </integrationFilter>
-  <sourcecontrol type="filtered">
+    <sourcecontrol type="filtered">
       <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>		          
-        <workingDirectory>&ProjectCodeLineDirectory;</workingDirectory>
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
         <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
         <webUrlBuilder type="websvn">
           <url>&Subversion.Repo.Url;{0}</url>
         </webUrlBuilder>
       </sourceControlProvider>
-      <exclusionFilters>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/AssemblyInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/ProjectInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/**/ProjectInfo.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&BuildDirectoryName;/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductionDirectoryName;/Examples/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/IntegrationTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/UnitTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/*.*</pattern>
-        </pathFilter>
-        <pathFilter caseSensitive="false">
-	  <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/Install/AppDeploy/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&ProductDirectoryName;/FitNesse/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-	  <pattern>**/&ProjectCodeLineName;/SupportApps/**/*.*</pattern>
-        </pathFilter>
-      </exclusionFilters>
+      &SourceControl.ExclusionFilters;
     </sourcecontrol>
-  
     <labeller type="stateFileLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
     </labeller>
     <tasks>
       <modificationWriter>
         <filename>SourceModificationReport.xml</filename>
-        <path>&BuildDirectory;\SourceModificationReports</path>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Release</path>
       </modificationWriter>
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Release</target>
         </targetList>
-
         <buildTimeoutSeconds>9200</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
       <merge>
         <files>
-          <file>&BuildDirectory;\Reports\*.xml</file>
-          <file>&BuildDirectory;\AntLogs\*.xml</file>
-          <file>&BuildDirectory;\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger>
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
         <filepairs>
           <filepair>
-            <xslfile>&PackagesDirectory;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&BuildDirectory;\UnitTestReports\*.xml</xmlfile>
+            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\SimianReport\SimianReport.xml</xmlfile>
           </filepair>
           <filepair>
-            <xslfile>&PackagesDirectory;\Simian\SimianSummary.xsl</xslfile>
-            <xmlfile>&BuildDirectory;\SimianReport\SimianReport.xml</xmlfile>
+            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\IntegrationTest\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\IntegrationTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Coverage\CoverageReport.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
       <xmllogger />
-      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
-        <users>
-          <user name="Jay Flowers"	  group="buildmaster" address="jay.flowers@agilex.com"/>
-          <user name="Scott Smith"	  group="buildmaster" address="scott.smith@agilex.com"/>
-          <user name="Kieran Dunne"   group="buildmaster" address="kieran.dunne@agilex.com"/>
-          <user name="Brian Mowbray"	group="buildmaster" 	address="brian.mowbray@agilex.com"/>
-
-          <user name="Greg Pfister"		group="manager" 	address="greg.pfister@agilex.com"/>
-
-          <user name="flowersj"				group="developer" 	address="jay.flowers@agilex.com"/>
-          <user name="smiths"  				group="developer" 	address="scott.smith@agilex.com"/>
-          <user name="borsts"					group="developer" 	address="scott.borst@agilex.com"/>
-          <user name="dunnek"					group="developer" 	address="kieran.dunne@agilex.com"/>
-          <user name="hudar"					group="developer" 	address="ron.huda@agilex.com"/>
-          <user name="mowbrayb"				group="developer" 	address="brian.mowbray@agilex.com"/>
-          <user name="pfisterg"				group="developer" 	address="greg.pfister@agilex.com"/>
-          <user name="rayj"						group="developer" 	address="jason.ray@agilex.com"/>
-          <user name="webbn"					group="developer" 	address="neil.webb@agilex.com"/>
-          <user name="westbergl"			group="developer" 	address="les.westberg@agilex.com"/>
-          <user name="valluripallis"	group="developer" 	address="svalluripalli@scenpro.com"/>
-          <user name="vickersv"				group="developer" 	address="vvickers@harris.com"/>
-          <user name="flynnm"					group="developer" 	address="mflynn02@harris.com"/>
-          <user name="hoppeschj"			group="developer" 	address="	jhoppesc@harris.com"/>
-        </users>
-        <groups>
-          <group name="buildmaster" notification="change"/>
-          <group name="manager"     notification="always"/>
-        </groups>
-      </email>
+      &email;
       <nant>
-        <executable>&NantExePath;</executable>
-        <baseDirectory>&BuildDirectory;</baseDirectory>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger </logger>
         <buildFile>Post.Shim.xml</buildFile>
         <targetList>
           <target>PostBuildWrapper</target>
         </targetList>
-
         <buildTimeoutSeconds>300</buildTimeoutSeconds>
       </nant>
     </publishers>
   </project>
-  
 </cruisecontrol>

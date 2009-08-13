@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE chart [
-  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\Simian.XAxis.xml">
-  <!ENTITY DuplicateFileCount SYSTEM     "..\..\..\Artifacts\Simian.DuplicateFileCount.xml">
-  <!ENTITY DuplicateLineCount SYSTEM     "..\..\..\Artifacts\Simian.DuplicateLineCount.xml">
-  <!ENTITY DuplicateBlockCount SYSTEM     "..\..\..\Artifacts\Simian.DuplicateBlockCount.xml">
-  <!ENTITY TotalFileCount SYSTEM     "..\..\..\Artifacts\Simian.TotalFileCount.xml">
-  <!ENTITY TotalSignificantLineCount SYSTEM     "..\..\..\Artifacts\Simian.TotalSignificantLineCount.xml">
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis                      SYSTEM     "Simian.XAxis.xml">
+  <!ENTITY DuplicateFileCount         SYSTEM     "Simian.DuplicateFileCount.xml">
+  <!ENTITY DuplicateLineCount         SYSTEM     "Simian.DuplicateLineCount.xml">
+  <!ENTITY DuplicateBlockCount        SYSTEM     "Simian.DuplicateBlockCount.xml">
+  <!ENTITY TotalFileCount             SYSTEM     "Simian.TotalFileCount.xml">
+  <!ENTITY TotalSignificantLineCount  SYSTEM     "Simian.TotalSignificantLineCount.xml">
 ]>
 <chart>
 

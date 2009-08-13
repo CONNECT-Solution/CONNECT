@@ -20,7 +20,7 @@
       password="${TP.Password}"
 	/>
 
-    <property name="TargetProcess.ReportFilePath" value="${Common.TempDirectory}\TargetProcesss.xml" />
+    <property name="TargetProcess.ReportFilePath" value="${Common.Project.TempDirectory}\TargetProcesss.xml" />
 
     <strings id="stories"/>
     <targetprocessgetcurrentuserstories project="NHIE-Gateway" userstorylistref="stories">

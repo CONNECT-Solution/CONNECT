@@ -38,14 +38,13 @@
           <xsl:value-of select="sum(//result/counts/exceptions)"/>
         </xsl:attribute>
 
-        <xsl:for-each select="//result">
-          <xsl:if test="counts[wrong &gt; 0 or exceptions &gt; 0]"></xsl:if>
+        <xsl:for-each select="//result[counts/wrong &gt; 0 or counts/exceptions &gt; 0]">
           <tr>
             <td class="section-error">FitNesseTest:</td>
             <td class="section-error">
               <a>
                 <xsl:attribute name="href">
-                  <xsl:text>https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_FitNesse</xsl:text>
+                  <xsl:text>http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_FitNesse</xsl:text>
                   <xsl:value-of select="$SuiteName" />
                   <xsl:text>DetailsBuildReport=true&amp;server=</xsl:text>
                   <xsl:value-of select="$CCNetServer" />

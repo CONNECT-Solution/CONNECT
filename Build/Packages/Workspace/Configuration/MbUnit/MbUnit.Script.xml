@@ -7,13 +7,13 @@
                    value="10"/>
 		<writeregistry hive="LocalMachine"
                    key="SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit\(Default)"
-                   value="${ThirdPartyDirectory}\MbUnit\MbUnit.GUI.exe"/>
+                   value="${Common.Directory.ThirdParty.Path}\MbUnit\MbUnit.GUI.exe"/>
 		<writeregistry hive="LocalMachine"
                    key="SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit\Application"
                    value="MbUnit.Framework"/>
 		<writeregistry hive="LocalMachine"
                    key="SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit\TargetFrameworkAssemblyName"
-                   value="${ThirdPartyDirectory}\MbUnit\MbUnit.GUI.exe"/>
+                   value="${Common.Directory.ThirdParty.Path}\MbUnit\MbUnit.GUI.exe"/>
 		<writeregistry hive="LocalMachine"
                    key="SOFTWARE\MutantDesign\TestDriven.NET\TestRunners\MbUnit\TypeName"
                    value="MbUnit.AddIn.MbUnitTestRunner"/>

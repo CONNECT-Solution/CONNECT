@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE chart [
-  <!ENTITY XAxis SYSTEM     "..\..\..\Artifacts\UnitTestsCountsHistoryLineXAxis.xml">
-  <!ENTITY Total SYSTEM   "..\..\..\Artifacts\UnitTestsCountsHistoryTotal.xml">
-  <!ENTITY Passed SYSTEM   "..\..\..\Artifacts\UnitTestsCountsHistoryPassed.xml">
-  <!ENTITY Ignored SYSTEM      "..\..\..\Artifacts\UnitTestsCountsHistoryIgnored.xml">
-  <!ENTITY Failed SYSTEM "..\..\..\Artifacts\UnitTestsCountsHistoryFailed.xml">
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+
+  
+  <!ENTITY XAxis    SYSTEM    "UnitTestsCountsHistoryLineXAxis.xml">
+  <!ENTITY Total    SYSTEM    "UnitTestsCountsHistoryTotal.xml">
+  <!ENTITY Passed   SYSTEM    "UnitTestsCountsHistoryPassed.xml">
+  <!ENTITY Ignored  SYSTEM    "UnitTestsCountsHistoryIgnored.xml">
+  <!ENTITY Failed   SYSTEM    "UnitTestsCountsHistoryFailed.xml">
 ]>
 <chart>
 

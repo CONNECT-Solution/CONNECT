@@ -4,16 +4,16 @@
 
   %entities;
 ]>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="BuildServerSetup" default="Setup" basedir="&BuildDirectory;">
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="BuildServerSetup" default="Setup" basedir="&Common.Directory.Build.Path;">
 
   <include buildfile="Properties.build.xml"/>
     
-  <property name="CCNETDashboard.DashboardDirectory" value="${BuildDirectory}\dashboard"/>
+  <property name="CCNETDashboard.DashboardDirectory" value="${CCNet.Dashboard.Directory.Path}"/>
   
   <target name="Setup" >
     <mkiisdir dirpath="${CCNETDashboard.DashboardDirectory}" vdirname="${ProjectName}-${ProjectCodeLineName}"  defaultdoc="Default.aspx" enabledefaultdoc="true"/>
-    <mkiisdir dirpath="${ArtifactRootDirectory}" vdirname="${ProjectName}-${ProjectCodeLineName}/${ArtifactRootDirectoryName}" enabledirbrowsing="true"/>
-    <mkiisdir dirpath="${PackagesDirectory}" vdirname="${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}"/>
+    <mkiisdir dirpath="${Common.Directory.ArtifactRoot.Path}" vdirname="${ProjectName}-${ProjectCodeLineName}/${Common.Directory.ArtifactRoot.Name}" enabledirbrowsing="true"/>
+    <mkiisdir dirpath="${Common.Directory.Packages.Path}" vdirname="${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}"/>
 
     <script language="C#">
       <imports>
@@ -76,8 +76,8 @@
         <items>
           <strings>
             <string value="${ProjectName}-${ProjectCodeLineName}"/>
-            <string value="${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}"/>
-            <string value="${ProjectName}-${ProjectCodeLineName}/${ArtifactRootDirectoryName}"/>
+            <string value="${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}"/>
+            <string value="${ProjectName}-${ProjectCodeLineName}/${Common.Directory.ArtifactRoot.Name}"/>
           </strings>
         </items>
         <do>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.BuildTime.Script">
 
-	<property name="Alerts.BuildTime.AbsoluteThreshold" value="01:00:00"/>
-  <property name="Alerts.BuildTime.IncreaseThreshold" value="00:05:00"/>
+	<property name="Alerts.BuildTime.AbsoluteThreshold" value="00:15:00"/>
+  <property name="Alerts.BuildTime.IncreaseThreshold" value="00:03:00"/>
 
-  <property name="Alerts.BuildTime.PreviousPropertiesFilePath" value="${PackagesDirectory}\Alerts\BuildTime\${CCNetProject}.Previous.Properties.xml"/>
+  <property name="Alerts.BuildTime.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\BuildTime\${CCNetProject}.Previous.Properties.xml"/>
   <ifthenelse test="${file::exists(Alerts.BuildTime.PreviousPropertiesFilePath)}">
     <then>
       <include buildfile="${Alerts.BuildTime.PreviousPropertiesFilePath}" />
@@ -18,7 +18,7 @@
   <property name="Alerts.BuildTime.PreviousAbsolute" value="NaN" overwrite="false"/>
   <!-- End Previous Properties -->
 
-  <property name="Alerts.BuildTime.ChartUrl" value="https://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts.swf?library_path=/${ProjectName}-${ProjectCodeLineName}/${PackagesDirectoryName}/Analytics/charts_library&amp;xml_source=/${ProjectName}-${ProjectCodeLineName}/${ArtifactRootDirectoryName}/${Common.ArtifactFolderName}/BuildTimeHistoryChartData.xml"/>
+  <property name="Alerts.BuildTime.ChartUrl" value="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}/Analytics/charts.swf?library_path=/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.Packages.Name}/Analytics/charts_library&amp;xml_source=/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.ArtifactRoot.Name}/${Common.Directory.Artifact.Name}/BuildTimeHistoryChartData.xml"/>
   
   <target name="Alerts.BuildTime" if="${CCNetIntegrationStatus == 'Success'}">
     <xmlpeek

@@ -1,0 +1,1029 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CIFactory.NAnt.Tasks</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Functions.MultiXslOutput.RedirectState">
+            <summary>
+            Specifies the redirecting state of the <c>MultiXmlTextWriter</c>.
+            </summary>
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.RedirectState.Relaying">
+            <summary>
+            The output is being relayed further (default).
+            </summary>
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.RedirectState.Redirecting">
+            <summary>
+            The output is being redirected.
+            </summary>
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.RedirectState.WritingRedirectElementAttrs">
+            <summary>
+            <c>&lt;exsl:document></c> attributes are being written
+            </summary>	        
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.RedirectState.WritingRedirectElementAttrValue">
+            <summary>
+            <c>&lt;exsl:document></c> attribute value is being written
+            </summary>
+        </member>
+        <member name="T:Common.Functions.MultiXslOutput.MultiXmlTextWriter">
+             <summary>
+             <para><c>MultiXmlTextWriter</c> class extends standard <c>XmlTextWriter</c> class 
+             and represents an XML writer that provides a fast, 
+             non-cached, forward-only way of generating multiple output files containing
+             either text data or XML data that conforms to the W3C Extensible Markup 
+             Language (XML) 1.0 and the Namespaces in XML recommendations.</para>	
+             </summary>
+             <remarks>
+             <para>Instances of <c>MultiXmlTextWriter</c> class regognize special element 
+             (<c>&lt;exsl:document></c> in <c>"http://exslt.org/common"</c> namespace) as
+             instruction to redirect the output of this element's content to another file. 
+             When using with <c>XslTransform</c> class, <c>MultiXmlTextWriter</c> class 
+             allows to generate multiple XSL Transfromation results.</para>	
+             <para><c>MultiXmlTextWriter</c> class extends <c>System.Xml.XmlTextWriter</c>
+             class, therefore its instances can be passed directly to the overloaded 
+             <c>XslTransform.Transform()</c> method, which accepts <c>XmlWriter</c> as 
+             object to write the transformation result to. All actual XML writing work 
+             <c>MultiXmlTextWriter</c> class delegates to its base class, but it overrides 
+             several <c>XmlTextWriter</c> class methods to implement output switching logic 
+             as follows: once <c>&lt;exsl:document></c> element start tag is detected in 
+             the XML stream, new writer (<c>XmlTextWriter</c> or <c>StreamWriter</c> depending on
+             <c>method</c> attribute value) object is created with parameters as specified 
+             in the attributes of the <c>&lt;exsl:document></c> element and the output 
+             is switched to this newly created writer untill the end tag of the 
+             <c>&lt;exsl:document></c> element is encountered.</para>
+             <para><c>&lt;exsl:document></c> element syntax is as follows:
+             <code>
+             &lt;exsl:document
+                href = { uri-reference }
+                method = { "xml" | "text" }
+                encoding = { string }
+                standalone = { "yes" | "no" }
+                doctype-public = { string }
+                doctype-system = { string }
+                indent = { "yes" | "no" }
+                &lt;-- Content: template -->
+             &lt;/exsl:document>
+             </code></para>
+             <para>
+             The <c>href</c> attribute specifies where new result document should be stored, 
+             it must be an absolute or relative URI. Relative URIs are resolved 
+             relatively to the parent result document base URI. If the <c>href</c> attribute
+             specifies that the output should be redirected to a file in a directory
+             and that directory does not exist, it will be created. This allows to create 
+             directory trees of any complexity.</para>
+             <para>Semantics of the rest attributes is as defined in W3C XSLT 1.0 Recommendation 
+             for <c>&lt;xsl:output></c> element, see 
+             <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>.
+             </para>
+             <para><b>Note:</b> <c>&lt;exsl:document></c> element namespace prefix must be bound to 
+             <c>"http://exslt.org/common"</c> namespace URI in order to be recognized by 
+             <c>MultiXmlTextWriter</c> class as a redirecting instruction. </para>
+             </remarks>
+             <example>This example shows how to use <c>MultiXmlTextWriter</c> along with 
+             <c>XslTransform</c> to achieve create multiple result documents in one
+             transfromation run:
+             <para>In XSL stylesheet document declare <c>"http://exslt.org/common"</c> namespace
+             and whenever you want to create new result document make use of <c>&lt;exsl:documnet></c>
+             element:<br/>
+             <c>style.xsl</c> stylesheet fragment:
+             <code>
+             <![CDATA[
+             <xsl:stylesheet version="1.0" 
+               xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+               ]]><b>xmlns:exsl= "http://exslt.org/common"</b><![CDATA[ 
+               ]]><b>exclude-result-prefixes="exsl"</b>><![CDATA[ 
+               <xsl:template match="book">
+                 <!-- Builds frameset -->
+                 <html> 
+                   <head>
+                     <title><xsl:value-of select="@title"/></title> 
+                   </head>
+                   <frameset cols="20%,80%"> 
+                     <frame src="toc.html"/> 
+                     <!-- Builds table of contents output document -->    
+                     ]]><b>&lt;exsl:document href="toc.html" indent="yes"></b><![CDATA[
+                       <html>
+                         <head>
+                           <title>Table of Contents</title>
+                         </head>
+                         <body>
+                           <ul>
+                             <xsl:apply-templates mode="toc"/> 
+                           </ul> 
+                         </body>                      
+                       </html>
+                     ]]><b>&lt;/exsl:document></b><![CDATA[ 
+                     <frame src="{chapter[1]/@id}.html" name="body" />
+                     <xsl:apply-templates />
+                   </frameset> 
+                 </html>
+                 ...  
+            
+             ]]>
+             </code>
+             C# code fragment:	
+             <code>
+             XPathDocument doc = new XPathDocument("book.xml");
+             XslTransform xslt = new XslTransform();
+             xslt.Load("style.xsl");	            
+             MultiXmlTextWriter multiWriter = 
+                 new MultiXmlTextWriter("index.html", Encoding.UTF8);
+             multiWriter.Formatting = Formatting.Indented;
+             xslt.Transform(doc, null, multiWriter);
+             </code>
+             </para>
+             </example>
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.MultiXmlTextWriter.RedirectNamespace">
+            <summary>
+            This constant is the namespace <c>&lt;exsl:document></c> element 
+            should belong to in order to be recognized as redirect instruction.
+            It's <c>"http://exslt.org/common"</c> as defined by 
+            <a href="http://www.exslt.org">EXSLT community initiative</a>.
+            </summary>	    	     
+        </member>
+        <member name="F:Common.Functions.MultiXslOutput.MultiXmlTextWriter.RedirectElementName">
+            <summary>
+            This constant is the redirect instruction element name.
+            It's <c>"document"</c> as defined by 
+            <a href="http://www.exslt.org">EXSLT community initiative</a>.
+            </summary>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Creates an instance of the <c>MultiXmlTextWriter</c> class using the specified filename and
+            encoding.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="T:System.Xml.XmlTextWriter"/>.
+            Overridden to set output directory.
+            </summary>
+            <param name="fileName">The filename to write to. If the file exists, it will truncate it and overwrite it 
+            with the new content.</param>
+            <param name="encoding">The encoding to generate. If encoding is a null reference it writes the file out 
+            as UTF-8, and omits the encoding attribute from the ProcessingInstruction.</param>
+            <exception cref="T:System.ArgumentException">The encoding is not supported; the filename is empty, contains only 
+            white space, or contains one or more invalid characters.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Access is denied.</exception>
+            <exception cref="T:System.ArgumentNullException">The filename is a null reference.</exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException">The directory to write to is not found.</exception>
+            <exception cref="T:System.IO.IOException">The filename includes an incorrect or invalid syntax 
+            for file name, directory name, or volume label syntax.</exception>
+            <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.#ctor(System.IO.TextWriter)">
+            <summary>
+            Creates an instance of the <c>MultiXmlTextWriter</c> class using the specified 
+            <c>TextWriter</c>, see <see cref="T:System.IO.TextWriter"/>.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="T:System.Xml.XmlTextWriter"/>.
+            </summary>
+            <param name="w">The <c>TextWriter</c> to write to. It is assumed that the <c>TextWriter</c> is 
+            already set to the correct encoding.</param>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.#ctor(System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            Creates an instance of the <c>MultiXmlTextWriter</c> class using the specified 
+            stream and encoding.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="T:System.Xml.XmlTextWriter"/>.
+            </summary>
+            <param name="w">The stream to which you want to write.</param>
+            <param name="encoding">The encoding to generate. If encoding is a null 
+            reference it writes out the stream as UTF-8 and omits the encoding attribute 
+            from the ProcessingInstruction.</param>
+            <exception cref="T:System.ArgumentException">The encoding is not supported or the stream 
+            cannot be written to.</exception>
+            <exception cref="T:System.ArgumentNullException">w is a null reference.</exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.CheckContentStart">
+            <summary>
+            Checks possible start of <c>&lt;exsl:document&gt;</c> element content.         
+            </summary>
+            <remarks>
+            When <c>&lt;exsl:document&gt;</c> element start tag is detected, the beginning of the 
+            element's content might be detected as any next character data (not attribute
+            value though), element start tag, processing instruction or comment.
+            </remarks>
+            <exception cref="T:System.ArgumentNullException">Thrown when <c>href</c> attribute is absent.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when a document, specified by <c>href</c> attribute is
+            opened alreary. Two nested <c>&lt;exsl:document&gt;</c></exception> elements cannot specify the same 
+            output URI in their <c>href</c> attributes.
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteStartElement(System.String,System.String,System.String)">
+            <summary>
+            Writes the specified start tag and associates it with the given namespace and prefix.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteStartElement(System.String,System.String,System.String)"/>
+            Overridden to detect <c>exsl:document</c> element start tag.
+            </summary>        
+            <param name="prefix">The namespace prefix of the element.</param>
+            <param name="localName">The local name of the element.</param>
+            <param name="ns">The namespace URI to associate with the element. If this namespace 
+            is already in scope and has an associated prefix then the writer will automatically write that prefix also. </param>
+            <exception cref="T:System.InvalidOperationException">The writer is closed.</exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.FinishRedirecting">
+            <summary>
+            Finishes output redirecting - closes current writer 
+            and pops previous state.
+            </summary>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteEndElement">
+            <summary>
+            Closes one element and pops the corresponding namespace scope.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteEndElement"/>
+            Overridden to detect <c>exsl:document</c> element end tag.
+            </summary>                
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteFullEndElement">
+            <summary>
+            Closes one element and pops the corresponding namespace scope.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteFullEndElement"/>
+            Overridden to detect <c>exsl:document</c> element end tag.
+            </summary>                
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteStartAttribute(System.String,System.String,System.String)">
+            <summary>
+            Writes the start of an attribute.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteStartAttribute(System.String,System.String,System.String)"/>
+            Overridden to detect <c>exsl:document</c> attribute names and to redirect
+            the output.
+            </summary>
+            <param name="prefix">Namespace prefix of the attribute.</param>
+            <param name="localName">Local name of the attribute.</param>
+            <param name="ns">Namespace URI of the attribute.</param>                                            
+            <exception cref="T:System.ArgumentException"><c>localName</c>c&gt; is either a null reference or <c>String.Empty</c>.</exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteEndAttribute">
+            <summary>
+            Closes the previous <c>WriteStartAttribute</c> call.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteEndAttribute"/>
+            Overridden to redirect the output.
+            </summary>        
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteComment(System.String)">
+            <summary>
+            Writes out a comment &lt;!--...--&gt; containing the specified text.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteComment(System.String)"/>
+            Overriden to redirect the output.
+            </summary>
+            <param name="text">Text to place inside the comment.</param>        
+            <exception cref="T:System.ArgumentException">The text would result in a non-well formed XML document.</exception>
+            <exception cref="T:System.InvalidOperationException">The <c>WriteState</c> is Closed.</exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteProcessingInstruction(System.String,System.String)">
+            <summary>
+            Writes out a processing instruction with a space between the name 
+            and text as follows: &lt;?name text?&gt;.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteProcessingInstruction(System.String,System.String)"/>
+            Overridden to redirect the output.
+            </summary>
+            <param name="name">Name of the processing instruction.</param>
+            <param name="text">Text to include in the processing instruction.</param>        
+            <exception cref="T:System.ArgumentException"><para>The text would result in a non-well formed XML document.</para> 
+            <para><c>name</c> is either a null reference or <c>String.Empty</c>.</para>
+            <para>This method is being used to create an XML declaration after 
+            <c>WriteStartDocument</c> has already been called.</para></exception>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.MultiXmlTextWriter.WriteString(System.String)">
+            <summary>
+            Writes the given text content.
+            Inherited from <c>XmlTextWriter</c>, see <see cref="M:System.Xml.XmlTextWriter.WriteString(System.String)"/>
+            Overridden to detect <c>exsl:document</c> element attribute values and to 
+            redirect the output.
+            </summary>
+            <param name="text">Text to write.</param>        
+            <exception cref="T:System.ArgumentException">The text string contains an invalid surrogate pair.</exception>
+        </member>
+        <member name="F:CIFactory.NAnt.Tasks.Ask.AskQuestion.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.Ask.AskQuestion.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.Ask.AskQuestion.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Common.Functions.MultiXslOutput.OutputMethod">
+            <summary>
+            XSLT output method enumeration, see W3C XSLT 1.0 Recommendation at 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>.    
+            </summary>
+            <remarks>Only <c>xml</c> and <c>text</c> methods are supported by this version of 
+            the <c>MultiXmlTextWriter</c>.</remarks>
+        </member>
+        <member name="T:Common.Functions.MultiXslOutput.OutputState">
+            <summary>
+            This class represents redirected output state and properties.
+            </summary>    
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.OutputState.#ctor">
+            <summary>
+            Creates new <c>OutputState</c> with default properties values:
+            UTF8 encoding, no indentation, nonstandalone document, XML output
+            method.
+            </summary>                                    
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.OutputState.InitWriter">
+            <summary>
+            Initializes the writer to write redirected output. 
+            </summary>              
+            <remarks>Depending on the <c>method</c> attribute value, 
+            <c>XmlTextWriter</c> or <c>StreamWriter</c> is created. 
+            <c>XmlTextWriter</c> is used for outputting XML and  
+            <c>StreamWriter</c> - for plain text.
+            </remarks>
+        </member>
+        <member name="M:Common.Functions.MultiXslOutput.OutputState.CloseWriter">
+            <summary>
+            Closes the writer that was used to write redirected output.
+            </summary>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Standalone">
+            <summary>
+            Specifies whether the result document should be written with 
+            a standalone XML document declaration.
+            </summary>
+            <value>Standalone XML declaration as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>
+            <remarks>The property does not affect output while output method is <c>text</c>.</remarks>            
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Method">
+            <summary>
+            Specifies output method.
+            </summary>
+            <value>Output Method as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>        
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Href">
+            <summary>
+            Specifies the URI where the result document should be written to.
+            </summary>                            
+            <value>Absolute or relative URI of the output document.</value>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Encoding">
+            <summary>
+            Specifies the preferred character encoding of the result document.
+            </summary>
+            <value>Output encoding as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Indent">
+            <summary>
+            Specifies whether the result document should be written in the 
+            indented form.
+            </summary>
+            <value>Output document formatting as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>
+            <remarks>The property does not affect output while output method is <c>text</c>.</remarks>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.PublicDoctype">
+            <summary>
+            Specifies the public identifier to be used in the document 
+            type declaration.
+            </summary>
+            <value>Public part of the output document type definition as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>
+            <remarks>The property does not affect output while output method is <c>text</c>.</remarks>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.SystemDoctype">
+            <summary>
+            Specifies the system identifier to be used in the document 
+            type declaration.
+            </summary>
+            <value>System part of the output document type definition as per W3C XSLT 1.0 Recommendation (see 
+            <a href="http://www.w3.org/TR/xslt.html#output">http://www.w3.org/TR/xslt.html#output</a>
+            for more info).</value>
+            <remarks>The property does not affect output while output method is <c>text</c>.</remarks>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.XmlWriter">
+            <summary>
+            Actual <c>XmlTextWriter</c> used to write the redirected 
+            result document.
+            </summary>              
+            <value><c>XmlWriter</c>, which is used to write the output document in XML method.</value>                      
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.TextWriter">
+            <summary>
+            Actual <c>TextWriter</c> used to write the redirected 
+            result document in text output method.
+            </summary>                                    
+            <value><c>StreamWriter</c>, which is used to write the output document in text method.</value>
+        </member>
+        <member name="P:Common.Functions.MultiXslOutput.OutputState.Depth">
+            <summary>
+            Tree depth (used to detect end tag of the <c>exsl:document</c>).
+            </summary>
+            <value>Current output tree depth.</value>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.Options">
+            <summary>
+            Represents the command line options for this application.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.StartDate">
+            <summary>
+            Gets the StartDate specified on the command line.
+            </summary>
+            <value>Returns DateTime.MinValue if this option was not provided.</value>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.BuildNumberType">
+            <summary>
+            Gets the BuildNumberType specified on the command line.
+            </summary>
+            <value>
+            Returns the default BuildNumberType if the build option 
+            was not specified on the command line.
+            </value>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.Options.ToBuildNumberType(System.String)">
+            <summary>
+            Private helper that converts a string to the equivilent BuildNumberType.
+            </summary>
+            <param name="buildNumberDescription">
+            The string representing a BuildNumberType.
+            </param>
+            <returns>
+            Returns the default BuildNumberType if the string is not a recognized BuildNumberType.
+            </returns>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.VersionIsPinned">
+            <summary>
+            Indicates whether the version number is pinned.
+            </summary>
+            <value>
+            Returns true if the pin option was specified on the command line. Otherwise
+            returns false.
+            </value>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.RevisionNumberType">
+            <summary>
+            Gets the RevisionNumberType specified on the command line.
+            </summary>
+            <value>
+            Returns the default RevisionNumberType if the revision option 
+            was not specified on the command line.
+            </value>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.Options.ToRevisionNumberType(System.String)">
+            <summary>
+            Private helper that converts a string to the equivilent RevisionNumberType.
+            </summary>
+            <param name="revisionNumberDescription">
+            The string representing a RevisionNumberType.
+            </param>
+            <returns>
+            Returns the default RevisionNumberType if the string is not a recognized RevisionNumberType.
+            </returns>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.InputFilename">
+            <summary>
+            Gets the inputfile specified on the command line.
+            </summary>
+            <value>
+            Returns null if the inputfile was not specified on the command line.
+            </value>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.OutputFilename">
+            <summary>
+            Gets the outputfile specified on the command line.
+            </summary>
+            <value>
+            Returns null if the outputfile was not specified on the command line.
+            </value>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.Options.AttributeName">
+            <summary>
+            Gets the VersionType specified on the command line.
+            </summary>
+            <value>
+            Returns the default VersionType if the version option 
+            was not specified on the command line.
+            </value>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:MattGriffith.UpdateVersion.Options.ValidatePinOption" -->
+        <member name="P:MattGriffith.UpdateVersion.Options.PinVersion">
+            <summary>
+            Gets the PinVersion specified on the command line.
+            </summary>
+            <value>
+            Returns null if the pin option 
+            was not specified on the command line.
+            </value>
+        </member>
+        <member name="T:Macrodef.MacroDefSequential">
+            <summary>
+            Contains the template for the macro - the tasks that should be executed when the macro is called.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.IfThenTask.Test">
+            <summary>
+            Used to test arbitrary boolean expression.
+            </summary>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.RunUpdateVersion">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.RunUpdateVersion.execute(MattGriffith.UpdateVersion.Options)">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.RunUpdateVersion.GetInput(MattGriffith.UpdateVersion.Options)">
+            <summary>
+            Private helper method that gets the input string from the appropriate source.
+            </summary>
+            <param name="options">The command line options.</param>
+            <returns>
+            Returns the input string.
+            </returns>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.RunUpdateVersion.ReadFile(System.String)">
+            <summary>
+            Private helper that reads the input string from a file.
+            </summary>
+            <param name="filename">The name of the file to read.</param>
+            <returns>The string representing the data stored in the input file.</returns>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.RunUpdateVersion.WriteOutput(System.String,MattGriffith.UpdateVersion.Options)">
+            <summary>
+            Writes the output string to the appropriate target.
+            </summary>
+            <param name="output">
+            The output string.
+            </param>
+            <param name="options">
+            The command line options.
+            </param>
+        </member>
+        <member name="T:Macrodef.MacroDefTask">
+            <summary>
+            Defines a new task.
+            </summary>
+            <remarks>
+            Derived from <a href="http://ant.apache.org/manual/CoreTasks/macrodef.html">Ant's macrodef task</a>.
+            Defines a new task, called <see cref="P:Macrodef.MacroDefTask.name"/>, which uses the
+            <see cref="P:Macrodef.MacroDefTask.StuffToDo"/> element as a template.
+            The new task can have xml <see cref="P:Macrodef.MacroDefTask.Attributes"/> and xml child <see cref="P:Macrodef.MacroDefTask.Elements"/>.
+            </remarks>
+            <example>
+              <para>Simple Macro.</para>
+              <code>
+              <![CDATA[
+            <macrodef name="mytask">
+            	<sequential>
+            		<echo messasge="mytask invoked!"/>
+            	</sequential>
+            </macrodef>
+            <mytask/>
+              ]]>
+              </code>
+            </example>
+            <example>
+              <para>Receive Parameters.</para>
+              <code>
+              <![CDATA[
+            <macrodef name="assert-equals">
+              <attributes>
+                <attribute name="name"/>
+                <attribute name="expected"/>
+                <attribute name="actual"/>
+              </attributes>
+              <sequential>
+                <fail if="${ expected != actual}" message="${name}: expected '${expected}' but was '${actual}'"/>
+              </sequential>
+            </macrodef>
+              ]]>
+              </code>
+            </example>
+            <example>
+              <para>Receive Callable Elements.</para>
+              <code>
+              <![CDATA[<macrodef name="macro-with-elements">
+            	<elements>
+            		<element name="echo"/>
+            	</elements>
+            	<sequential>
+            		<echo message="before element1"/>
+            		<element name="echo"/>
+            		<echo message="after element1"/>
+            	</sequential>
+            </macrodef>
+            <macro-with-elements>
+            	<echo message="element1"/>
+            </macro-with-elements>
+              ]]>
+              </code>
+            </example>
+        </member>
+        <member name="P:Macrodef.MacroDefTask.Attributes">
+            <summary>
+            Attributes to the task - simple xml attributes on the macro invocation.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroDefTask.ElementGroups">
+            <summary>
+            Attributes to the task - xml child elements of the macro invocation.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroDefTask.Elements">
+            <summary>
+            Attributes to the task - xml elements of the macro invocation.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroDefTask.name">
+            <summary>
+            The name of the macro.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroDefTask.StuffToDo">
+            <summary>
+            The tasks to execute when this macro is invoked.
+            </summary>
+        </member>
+        <member name="T:Macrodef.MacroAttribute">
+            <summary>
+            Describes a parameter/attribute of the macro. Can be accessed as properties within the macro definition (i.e. ${prop}).
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroAttribute.defaultValue">
+            <summary>
+            Default value - the property will be set to this if the attribute is not present.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroAttribute.name">
+            <summary>
+            The name of the attribute.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroAttribute.property">
+            <summary>
+            Property name to store the value in - defaults to the name of the attribute.
+            </summary>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.VersionUpdater">
+            <summary>
+            Searches for an AssemblyVersion attribute in an input string and updates the version
+            number using the provided options.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionUpdater.AssemblyVersionRegex">
+            <summary>
+            A regex that matches strings like 'AssemblyVersion("1.0.0.1")'
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionUpdater._Input">
+            <summary>
+            The input containing the version number to update.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionUpdater._Output">
+            <summary>
+            Stores the output with the updated version number.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionUpdater._ActiveRegex">
+            <summary>
+            Stores the active regex in use based on the type of version we're looking for.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionUpdater._ReplaceFormat">
+            <summary>
+            Stores the string format used to generate the replacement string.
+            </summary>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionUpdater.#ctor(System.String,MattGriffith.UpdateVersion.Options)">
+            <summary>
+            Initializes a new VersionUpdater instance.
+            </summary>
+            <param name="input">
+            The input string containing the AssemblyVersion attribute
+            to update.
+            </param>
+            <param name="options">The options to use for updating the version number.</param>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionUpdater.Input">
+            <summary>
+            Gets the input string that this VersionUpdater was based on.
+            </summary>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionUpdater.Output">
+            <summary>
+            Gets the output string that contains the updated version number.
+            </summary>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.DeleteRegistryTask.GetHiveKey(Microsoft.Win32.RegistryHive)">
+            <summary>
+            Returns the key for a given registry hive.
+            </summary>
+            <param name="hive">The registry hive to return the key for.</param>
+            <returns>
+            The key for a given registry hive.
+            </returns>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.DeleteRegistryTask.RegistryHiveName">
+            <summary>
+            Space separated list of registry hives to search for <see cref="P:CIFactory.NAnt.Tasks.DeleteRegistryTask.RegistryKey"/>.
+            For a list of possible values, see <see cref="T:Microsoft.Win32.RegistryHive"/>. The 
+            default is <see cref="F:Microsoft.Win32.RegistryHive.LocalMachine"/>.
+            </summary>
+            <remarks>
+            <seealso cref="T:Microsoft.Win32.RegistryHive"/>
+            </remarks>
+        </member>
+        <member name="T:CIFactory.NAnt.Tasks.WriteRegistryTask">
+            <summary>
+            Writes a specified value to the Windows Registry.
+            </summary>
+            <example>
+            <para>Write a single value to the Registry.</para>
+              <code>
+                <![CDATA[
+            <writeregistry value="A test value" key="SOFTWARE\NAnt-Test\SampleValue" hive="LocalMachine" />
+                ]]>
+              </code>
+            </example>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.WriteRegistryTask.ExecuteTask">
+            <summary>
+            Write the specified value to the Registry.
+            </summary>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.WriteRegistryTask.GetHiveKey(Microsoft.Win32.RegistryHive)">
+            <summary>
+            Returns the key for a given registry hive.
+            </summary>
+            <param name="hive">The registry hive to return the key for.</param>
+            <returns>
+            The key for a given registry hive.
+            </returns>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.WriteRegistryTask.RegistryKeyValue">
+            <summary>
+            Value to be stored in the Registry.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.WriteRegistryTask.RegistryKey">
+            <summary>
+            The registry key to write to, including the path.
+            </summary>
+            <example>
+            SOFTWARE\NAnt-Test
+            </example>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.WriteRegistryTask.RegistryHiveName">
+            <summary>
+            Space separated list of registry hives to search for <see cref="P:CIFactory.NAnt.Tasks.WriteRegistryTask.RegistryKey"/>.
+            For a list of possible values, see <see cref="T:Microsoft.Win32.RegistryHive"/>. The 
+            default is <see cref="F:Microsoft.Win32.RegistryHive.LocalMachine"/>.
+            </summary>
+            <remarks>
+            <seealso cref="T:Microsoft.Win32.RegistryHive"/>
+            </remarks>
+        </member>
+        <member name="T:Macrodef.MacroElement">
+            <summary>
+            Describe nested elements that can be supplied to the macrodef. These elements are callable by name.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroElement.name">
+            <summary>
+            The name of the element.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.LargePropertyTask.ReadOnly">
+            <summary>
+            Specifies whether the property is read-only or not. 
+            The default is <see langword="false" />.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.LargePropertyTask.Dynamic">
+            <summary>
+            Specifies whether references to other properties should not be 
+            expanded when the value of the property is set, but expanded when
+            the property is actually used.  By default, properties will be
+            expanded when set.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.LargePropertyTask.Overwrite">
+            <summary>
+            Specifies whether the value of a property should be overwritten if
+            the property already exists (unless the property is read-only). 
+            The default is <see langword="true" />.
+            </summary>
+        </member>
+        <member name="T:CIFactory.NAnt.Tasks.AsyncExec">
+            <summary>
+            Asynchrously executes a child process.
+            </summary>
+            <example>
+              <para>Ping "cifactory.org" and wait, also ping "cifactory.com" without waiting.</para>
+              <code>
+                <![CDATA[
+            <asyncexec 
+              program="ping"
+              commandline="cifactory.org"
+              taskname="PingTask"
+              resultproperty="PingExitCode"
+              failonerror="false"
+              outputproperty="PingOutput"/>
+            
+            <asyncexec 
+              program="ping" 
+              commandline="-t cifactory.com" 
+              waitforexit="false" 
+              useshellexecute="true" 
+              createnowindow="false" 
+              redirectoutput="false" />
+            
+            <waitforexit>
+              <tasknames>
+                <string value="PingTask"/>
+              </tasknames>
+            </waitforexit>
+            
+            <echo message="The exit code for pinging cifactory.org was ${PingExitCode}."/>
+            <echo message="${PingOutput}"/>
+                ]]>
+              </code>
+            </example>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.AsyncExec.StreamReaderThread_Output">
+            <summary>
+            Reads from the stream until the external program is ended.
+            </summary>
+        </member>
+        <member name="M:CIFactory.NAnt.Tasks.AsyncExec.StreamReaderThread_Error">
+            <summary>
+            Reads from the stream until the external program is ended.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.AsyncExec.TaskName">
+            <summary>
+            Names the task so that you can use the waitforexit task later.
+            </summary>
+        </member>
+        <member name="P:CIFactory.NAnt.Tasks.AsyncExec.WaitForExit">
+            <summary>
+            Indicates the intent to call the waitforexit task in the future.
+            </summary>
+        </member>
+        <member name="P:Macrodef.MacroElementGroup.name">
+            <summary>
+            The name of the element.
+            </summary>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.BuildNumberType">
+            <summary>
+            Specifies the algorithm to use when calculating a new build number.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.BuildNumberType.Fixed">
+            <summary>
+            Indicates the build number should not change.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.BuildNumberType.MonthDay">
+            <summary>
+            Indicates the build number should be calculated using the number of months 
+            since the start of the project as the plus the current day, in the 
+            current month, as the build number.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.BuildNumberType.Increment">
+            <summary>
+            Indicates the build number should be calculated by incrementing the existing 
+            build number by one.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.BuildNumberType.BuildDay">
+            <summary>
+            Creates a build number that is the last digit of the current year
+            concatenated with the day of the year.
+            </summary>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.RevisionNumberType">
+            <summary>
+            Specifies the algorithm to use when calculating a new revision number.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.RevisionNumberType.Automatic">
+            <summary>
+            Calculates the revision number based on the number of seconds since midnight divided by 10.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.RevisionNumberType.Increment">
+            <summary>
+            Increments the existing revision number by one.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.RevisionNumberType.Fixed">
+            <summary>
+            Makes no changes to the Revision Number
+            </summary>
+        </member>
+        <member name="T:MattGriffith.UpdateVersion.VersionCalculator">
+            <summary>
+            Represents a calculator that can calculate new version numbers.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionCalculator._OriginalVersion">
+            <summary>
+            Stores the version number that the calculated version is based on.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionCalculator._StartDate">
+            <summary>
+            Stores the project start date used to calculate new build numbers when
+            using the MonthDay algorithm. 
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionCalculator._BuildNumberType">
+            <summary>
+            Stores the algorithm to use when calculating the build number.
+            </summary>
+        </member>
+        <member name="F:MattGriffith.UpdateVersion.VersionCalculator._RevisionNumberType">
+            <summary>
+            Stores the algorithm to use when calculating the revision number.
+            </summary>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionCalculator.#ctor(System.String)">
+            <summary>
+            Initializes a new VersionCalculator with the specified version.
+            </summary>
+            <param name="originalVersion">
+            A string containing the major, minor, build, and 
+            revision numbers, where each number is delimited with a period character ('.').
+            </param>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionCalculator.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new VersionCalculator with the specified version.
+            </summary>
+            <param name="originalMajor">The original major version number.</param>
+            <param name="originalMinor">The original minor version number.</param>
+            <param name="originalBuild">The original build version number.</param>
+            <param name="originalRevision">The original revision version number.</param>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionCalculator.#ctor(System.Version)">
+            <summary>
+            Initializes a new VersionCalculator with the specified version.
+            </summary>
+            <param name="originalVersion">The original version.</param>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionCalculator.CalculateBuildNumber">
+            <summary>
+            Private helper method that calculates the build number.
+            </summary>
+            <returns>The new calculated build number.</returns>
+        </member>
+        <member name="M:MattGriffith.UpdateVersion.VersionCalculator.CalculateRevisionNumber">
+            <summary>
+            Private helper that calculates the revision number.
+            </summary>
+            <returns>The new calculated revision number.</returns>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionCalculator.OriginalVersion">
+            <summary>
+            Gets the version number that the calculated version is based on.
+            </summary>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionCalculator.StartDate">
+            <summary>
+            Gets the project start date used to calculate new build numbers when
+            using the MonthDay algorithm. 
+            </summary>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionCalculator.BuildNumberType">
+            <summary>
+            Gets the algorithm to use when calculating the build number.
+            </summary>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionCalculator.RevisionNumberType">
+            <summary>
+            Gets the algorithm to use when calculating the revision number.
+            </summary>
+        </member>
+        <member name="P:MattGriffith.UpdateVersion.VersionCalculator.NewVersion">
+            <summary>
+            Gets the new calculated version.
+            </summary>
+        </member>
+    </members>
+</doc>

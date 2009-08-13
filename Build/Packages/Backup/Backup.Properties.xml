@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Backup.Properties">
   
-  <fileset id="Backup.CCNETFiles" basedir="${BuildDirectory}\server">
-    <include name="${string::replace(string::to-lower(CCNetLogFilePath), string::to-lower(BuildDirectory) + '\server\', '')}"/>
+  <fileset id="Backup.CCNETFiles" basedir="${CCNet.Server.Directory.Path}">
+    <include name="${string::replace(string::to-lower(CCNetLogFilePath), string::to-lower(Common.Directory.Build.Path) + '\server\', '')}"/>
     <include name="${string::replace(CCNetProject, ' ', '')}.state"/>
   </fileset>
 
-  <fileset id="Backup.PublishFiles" basedir="${ArtifactRootDirectory}">
-    <include name="${Common.ArtifactFolderName}\**\*"/>
+  <fileset id="Backup.PublishFiles" basedir="${Common.Directory.ArtifactRoot.Path}">
+    <include name="${Common.Directory.Artifact.Name}\**\*"/>
   </fileset>
 
-  <property name="Backup.BackupRepositoryDirectory" value="C:\Backup\Build Archive\${ProjectName}\${ProjectCodeLineName}\${BuildDirectoryName}"/>
+  <property name="Backup.BackupRepositoryDirectory" value="C:\Backup\Build Archive\${ProjectName}\${ProjectCodeLineName}\${Common.Directory.Build.Name}"/>
   <property name="Backup.CCNetServerDirectory" value="${Backup.BackupRepositoryDirectory}\server"/>
   <property name="Backup.ArtifactsDirectory" value="${Backup.BackupRepositoryDirectory}\Artifacts"/>
   

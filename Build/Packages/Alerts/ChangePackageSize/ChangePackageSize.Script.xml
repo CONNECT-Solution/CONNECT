@@ -5,7 +5,7 @@
   <property name="Alerts.ChangePackageSize.ExceedsNegativeLineCountDifference" value="20"/>
   <property name="Alerts.ChangePackageSize.ExceedsFileCount" value="4"/>
 
-  <property name="Alerts.ChangePackageSize.PreviousPropertiesFilePath" value="${PackagesDirectory}\Alerts\ChangePackageSize\Previous.Properties.xml"/>
+  <property name="Alerts.ChangePackageSize.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\ChangePackageSize\${CCNetProject}.Previous.Properties.xml"/>
   <include buildfile="${Alerts.ChangePackageSize.PreviousPropertiesFilePath}" if="${file::exists(Alerts.ChangePackageSize.PreviousPropertiesFilePath)}"/>
 
   <!-- Begin Previous Properties -->

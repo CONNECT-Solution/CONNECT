@@ -4,7 +4,7 @@
   <include buildfile="Properties.build.xml"/>
   <include buildfile="Common.Build.xml" />
 
-  <property name="CallPostBuildLogFilePath" value="${Common.ArtifactDirectoryPath}\callpostbuildlog.txt"/>
+  <property name="CallPostBuildLogFilePath" value="${Common.Directory.Artifact.Path}\callpostbuildlog.txt"/>
 
   <target name="PostBuildWrapper">
     <record name="${CallPostBuildLogFilePath}" level="Debug" action="Start"/>
@@ -22,10 +22,10 @@
           </else>
         </ifthenelse>
 
-        <asyncexec waitforexit="false" program="${NantExePath}" failonerror="false" useshellexecute="true" createnowindow="true" redirectoutput="false" >
+        <asyncexec waitforexit="false" program="${Tools.NAnt.Exe}" failonerror="false" useshellexecute="true" createnowindow="true" redirectoutput="false" >
           <arg line="-buildfile:Post.Build.xml"/>
           <arg line='-logger:NAnt.Core.XmlLogger' />
-          <arg line='-logfile:"${Common.ArtifactDirectoryPath}\postbuildlog.xml"' />
+          <arg line='-logfile:"${Common.Directory.Artifact.Path}\postbuildlog.xml"' />
           <arg line='@"${Common.PropertiesFile}"' />
           <arg line='-D:CCNetLogFilePath="${CCNetLogFilePath}"' />
           <arg line="${CCNetForcedByArg}" />
@@ -45,7 +45,7 @@
 
     <if test="${CallPostBuildFailed}">
       <loadfile file="${CallPostBuildLogFilePath}" property="CallPostBuildLogContent" />
-      <mail tolist="jay.flowers@agilex.com" from="NHINC.Build@agilex-hc-5155.com" mailhost="127.0.0.1" subject="${CCNetProject} Post Build Failed ${CCNetLabel}" message="${CallPostBuildLogContent}" />
+      <mail tolist="jay.flowers@gmail.com" from="${ProjectName}.Build@agilex-hc-5155.com" mailhost="127.0.0.1" subject="${CCNetProject} Post Build Failed ${CCNetLabel}" message="${CallPostBuildLogContent}" />
     </if>
   </target>
 

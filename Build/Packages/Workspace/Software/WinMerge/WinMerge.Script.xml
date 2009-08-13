@@ -19,7 +19,7 @@
       </ask>
       <if test="${Answer == 'Install'}">
         <get
-            src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/${WinMerge.Installer.FileName}"
+            src="${Workspace.Ftp.Url}${WinMerge.Installer.FileName}"
             dest="${environment::get-variable('TEMP')}\${WinMerge.Installer.FileName}"
         />
         <exec 
@@ -33,14 +33,14 @@
           program="regedit"
           verbose="true"
         >
-          <arg line="/S ${PackagesDirectory}\Workspace\Software\WinMerge\CurrentUser.reg"/>
+          <arg line="/S ${Common.Directory.Packages.Path}\Workspace\Software\WinMerge\CurrentUser.reg"/>
         </exec>
 
         <exec
           program="regedit"
           verbose="true"
         >
-          <arg line="/S ${PackagesDirectory}\Workspace\Software\WinMerge\LocalMachine.reg"/>
+          <arg line="/S ${Common.Directory.Packages.Path}\Workspace\Software\WinMerge\LocalMachine.reg"/>
         </exec>
       </if>
     </if>

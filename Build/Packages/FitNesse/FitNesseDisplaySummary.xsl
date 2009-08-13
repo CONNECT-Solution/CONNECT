@@ -81,9 +81,9 @@
             </xsl:attribute>
 
             <xsl:attribute name="href">
-              https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_FitNesse<xsl:value-of select="$stuff/@suite"/>DetailsBuildReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
+              http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_FitNesse<xsl:value-of select="$stuff/@suite"/>DetailsBuildReport=true&amp;server=<xsl:value-of select="$CCNetServer" />&amp;project=<xsl:value-of select="$CCNetProject" />&amp;build=<xsl:value-of select="$CCNetBuild" />
             </xsl:attribute>
-            <img src="https://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages\FitNesse\logo.gif" class="sectionheader-title-image"/>
+            <img src="http://&HostName;/&ProjectName;-&ProjectCodeLineName;/Packages\FitNesse\logo.gif" class="sectionheader-title-image"/>
             <div class="sectionheader-text">
               FitNesse <xsl:value-of select="$stuff/@suite"/> Tests Run: <xsl:value-of select="$stuff/@testcount"/>, Failed Tests: <xsl:value-of select="$stuff/@tests-with-failures"/>, Tests w/ Exceptions: <xsl:value-of select="$stuff/@tests-with-exceptions"/>, Correct Validations: <xsl:value-of select="$stuff/@correct-validations"/>, Failed Validations: <xsl:value-of select="$stuff/@failed-validations"/>, Exceptions: <xsl:value-of select="$stuff/@exceptions"/>
             </div>

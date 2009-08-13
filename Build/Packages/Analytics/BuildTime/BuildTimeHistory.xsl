@@ -1,4 +1,9 @@
 <?xml version="1.0"?>
+<!DOCTYPE chart [
+  <!ENTITY % entities SYSTEM "entities.dtd">
+
+  %entities;
+]>
 <xsl:stylesheet version="1.0" 
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
   xmlns:exsl="http://exslt.org/common"
@@ -6,6 +11,10 @@
   xmlns:ms="urn:DateScripts"
   exclude-result-prefixes="ms msxsl exsl">
 
+
+  <xsl:param name="CCNetLabel" />
+  <xsl:param name="CCNetLogFilePath" />
+  <xsl:param name="CCNetProject" />
 
   <msxsl:script implements-prefix="ms" language="C#">
     <![CDATA[
@@ -19,16 +28,16 @@
   <xsl:output method="html"/>
 
   <xsl:template match="/">
-    <xsl:for-each select="/statistics/integration[position() > last()-200 and ms:FormatTime(statistic[@name='Duration']/text()) &lt; 1800]">
+    <xsl:for-each select="/statistics/integration[position() > last()-200]">
       <number>
         <xsl:value-of select="position()"/>
       </number>
-      <exsl:document href="Artifacts\BuildHistoryTotal.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\BuildHistoryTotal.xml" fragment="yes" append="yes" >
         <number>
           <xsl:value-of select="ms:FormatTime(statistic[@name='Duration']/text())"/>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\BuildHistoryCompile.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\BuildHistoryCompile.xml" fragment="yes" append="yes" >
         <number>
           <xsl:choose>
             <xsl:when test="statistic[@name='CompileTime']/text() = 'NaN'">
@@ -40,7 +49,7 @@
           </xsl:choose>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\BuildHistoryProduceSourceUpdate.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\BuildHistoryProduceSourceUpdate.xml" fragment="yes" append="yes" >
         <number>
           <xsl:choose>
             <xsl:when test="statistic[@name='ProduceSourceUpdate']/text() = 'NaN'">
@@ -52,7 +61,7 @@
           </xsl:choose>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\BuildHistoryThirdPartySourceUpdate.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\BuildHistoryThirdPartySourceUpdate.xml" fragment="yes" append="yes" >
         <number>
           <xsl:choose>
             <xsl:when test="statistic[@name='ThirdPartySourceUpdate']/text() = 'NaN'">
@@ -64,7 +73,7 @@
           </xsl:choose>
         </number>
       </exsl:document>
-      <exsl:document href="Artifacts\BuildHistoryUnitTests.xml" fragment="yes" append="yes" >
+      <exsl:document href="Artifacts\&CCNetProject;\BuildHistoryUnitTests.xml" fragment="yes" append="yes" >
         <number>
           <xsl:choose>
             <xsl:when test="statistic[@name='UnitTests']/text() = 'NaN'">

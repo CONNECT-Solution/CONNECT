@@ -1,0 +1,79 @@
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="IntegrationTest">
+  
+	<target name="IntegrationTest.RunTests">
+    <trycatch>
+      <try>
+        <ant
+          target="integrationtest.run"
+          buildfile="${Ant.Build.File.Path}"
+          logfile="${Ant.Log.Directory.Path}\integrationtest_log.xml"
+        >
+          <environment refid="${Common.EnvironmentVariables.RefId}"/>
+          <args>
+            <arg line="-Dcompile.debug=${Compile.Debug}"/>
+          </args>
+        </ant>
+        
+        <property name="IntegrationTest.Failed" value="false"/>
+      </try>
+      <catch property="exception">
+        <property name="IntegrationTest.Failed" value="true"/>
+      </catch>
+    </trycatch>
+    
+    
+		<copy failonerror="false" overwrite="true" flatten="true" todir="${IntegrationTestReportsDirectoryPath}" verbose="true">
+			<fileset basedir="${Common.Directory.Product.Path}\integration-test-reports">
+				<include name="IntegrationTests.xml" />
+			</fileset>
+		</copy>
+
+    <copy
+			file='${IntegrationTestReportsDirectoryPath}\IntegrationTests.xml'
+			todir='${Common.Directory.Artifact.Path}'
+			if="${IntegrationTest.PublishXmlReport and file::exists(IntegrationTestReportsDirectoryPath + '\IntegrationTests.xml')}"
+		/>
+
+    <if test="${IntegrationTest.Failed}">
+      <fail message="Something went wrong while executing the integration tests.  Please check the Ant Report."/>
+    </if>
+	</target>
+
+	<target name="IntegrationTest.ShowReport">
+		<property name="Common.ShowReport.XmlFile" value="${IntegrationTestReportsDirectoryPath}\IntegrationTests.xml"/>
+		<property name="Common.ShowReport.HtmlFile" value="${IntegrationTestReportsDirectoryPath}\TestReport.html"/>
+		<property name="Common.ShowReport.XslFile" value="${Common.Directory.Packages.Path}\IntegrationTest\junit-noframes.xsl"/>
+		<property name="Common.ShowReport.DetailsFilePath" value=""/>
+
+		<call target="Common.ShowReport"/>
+	</target>
+
+	<target name="IntegrationTest.SetUp">
+    <delete dir="${IntegrationTestReportsDirectoryPath}" if="${directory::exists(IntegrationTestReportsDirectoryPath)}" verbose="true"/>
+    <mkdir dir="${IntegrationTestReportsDirectoryPath}" verbose="true"/>
+	</target>
+
+	<target name="IntegrationTest.TearDown">
+
+	</target>
+
+  <target name="Personal.IntegrationTest">
+    <trycatch>
+      <try>
+        <call target="IntegrationTest.SetUp"/>
+
+        <property name="Ant.Log.File.Path" value="${Ant.Log.Directory.Path}\integrationtest_log.xml"/>
+        <call target="IntegrationTest.RunTests"/>
+      </try>
+      <catch property="ExceptionMessage">
+        <call target="IntegrationTest.ShowReport"/>
+        <call target="Ant.ShowReport"/>
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="IntegrationTest.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+  
+</project>

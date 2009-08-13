@@ -8,15 +8,15 @@
     <echo message="Generating BuildTimeHistory"/>
     <delete>
       <fileset>
-        <include name="${ArtifactRootDirectory}\BuildHistoryTotal.xml"/>
-        <include name="${ArtifactRootDirectory}\BuildHistoryCompile.xml"/>
-        <include name="${ArtifactRootDirectory}\BuildHistoryProduceSourceUpdate.xml"/>
-        <include name="${ArtifactRootDirectory}\BuildHistoryThirdPartySourceUpdate.xml"/>
-        <include name="${ArtifactRootDirectory}\BuildHistoryUnitTests.xml"/>
-        <include name="${ArtifactRootDirectory}\BuildHistoryXAxis.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryTotal.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryCompile.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryProduceSourceUpdate.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryThirdPartySourceUpdate.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryUnitTests.xml"/>
+        <include name="${Analytics.ContentDirectoryPath}\BuildHistoryXAxis.xml"/>
       </fileset>
     </delete>
-    <property name="Analytics.XmlInputFileName" value="${Analytics.PackageDirectory}\Basic\MainAnalyticsReport.xml"/>
+    <property name="Analytics.XmlInputFileName" value="${Analytics.ContentDirectoryPath}\MainAnalyticsReport.xml"/>
     <property name="Analytics.XslFilePath" value="${Analytics.PackageDirectory}\BuildTime\BuildTimeHistory.xsl"/>
     <property name="Analytics.XmlReportFileName" value="BuildHistoryXAxis.xml"/>
     <property name="Analytics.CopyFileSetRefId" value="Analytics.BuildTimeHistory"/>

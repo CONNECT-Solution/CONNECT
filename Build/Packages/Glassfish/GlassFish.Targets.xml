@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Targets">
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish">
 
-  <!--
-  This is for the new version of CI Factory
-  
   <stringadd refid="Personal.UpdateSource.Before.Target.List">
     <string value="GlassFish.StopServer"/>
   </stringadd>
@@ -11,9 +8,6 @@
   <stringadd refid="Personal.UpdateSource.After.Target.List">
     <string value="GlassFish.RestartServer"/>
   </stringadd>
-  -->
-
-  <include buildfile="GlassFish.Properties.xml"/>
 
   <target name="GlassFish.RestartServer">
     <call target="GlassFish.StartServer" if="${GlassFish.Status=='Started'}"/>
@@ -146,7 +140,5 @@
 
   <target name="GlassFish.TearDown">
   </target>
-
-  <include buildfile="GlassFish.Custom.xml"/>
   
 </project>

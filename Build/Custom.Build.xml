@@ -2,52 +2,52 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Custom">
   
 	<target name="Build.PublishZip">
-    <zip zipfile="${Common.TempDirectory}\AdapterSDK.zip" includeemptydirs="true">
-      <fileset basedir="${ProductionDirectory}\" >
+    <zip zipfile="${Common.Project.TempDirectory}\AdapterSDK.zip" includeemptydirs="true">
+      <fileset basedir="${Common.Directory.Production.Path}\" >
         <include name="Interfaces\src\schemas\Agency\**" />
       </fileset>
-      <fileset basedir="${ProductionDirectory}\" >
+      <fileset basedir="${Common.Directory.Production.Path}\" >
         <include name="Interfaces\src\wsdl\AdapterService.wsdl" />
       </fileset>
-      <fileset basedir="${ProductionDirectory}\" >
+      <fileset basedir="${Common.Directory.Production.Path}\" >
         <include name="Interfaces\src\wsdl\EntityService.wsdl" />
       </fileset>
     </zip>
     
-    <saveproperties file="${Common.TempDirectory}\ReleaseInfo.txt" format="CommandLine" >
+    <saveproperties file="${Common.Project.TempDirectory}\ReleaseInfo.txt" format="CommandLine" >
       <property name="CCNetLabel"/>
       <property name="CnCNetBuildDate"/>
       <property name="CCNetBuildTime"/>
     </saveproperties>
 
     <property name="InstallerZip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
-    <property name='InstallerZip.FilePath' value='${Common.ArtifactDirectoryPath}\${InstallerZip.FileName}'/>
+    <property name='InstallerZip.FilePath' value='${Common.Directory.Artifact.Path}\${InstallerZip.FileName}'/>
 
     <zip zipfile="${InstallerZip.FilePath}">
-      <fileset basedir="${Common.TempDirectory}">
+      <fileset basedir="${Common.Project.TempDirectory}">
         <include name="ReleaseInfo.txt"/>
         <include name="AdapterSDK.zip"/>
       </fileset>
-      <fileset prefix="nhinc" basedir="${ProductionDirectory}\CommonBin">
+      <fileset prefix="nhinc" basedir="${Common.Directory.Production.Path}\CommonBin">
         <include name="*.jar" />
       </fileset>
-      <fileset prefix="SoapUI" basedir="${ProductDirectory}\UnitTest\SoapUI">
+      <fileset prefix="SoapUI" basedir="${Common.Directory.Product.Path}\UnitTest\SoapUI">
         <include name="**\*" />
       </fileset>
       <fileset prefix="nhinc">
-        <include name="${ProductionDirectory}\Adapters\**\dist\*"/>
-        <include name="${ProductionDirectory}\Common\**\dist\*"/>
-        <include name="${ProductionDirectory}\Gateway\**\dist\*"/>
+        <include name="${Common.Directory.Production.Path}\Adapters\**\dist\*"/>
+        <include name="${Common.Directory.Production.Path}\Common\**\dist\*"/>
+        <include name="${Common.Directory.Production.Path}\Gateway\**\dist\*"/>
       </fileset>
-      <fileset basedir="${InstallDirectory}\AppDeploy">
+      <fileset basedir="${Common.Directory.Install.Path}\AppDeploy">
         <include name="**\*"/>
       </fileset>
     </zip>
 
-    <property name="Deployment.FileWebName" value="${InstallerZip.FileName}"/>
-    <property name="Deployment.FileWebPath"	value="${Deployment.WebPathRoot}/${Common.ArtifactFolderName}/${Deployment.FileWebName}" />
+    <property name="Publish.Web.File.Name" value="${InstallerZip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Deployment.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
    
-    <call target="Deployment.PublishLink" />
+    <call target="Publish.Link" />
 	</target>
 
   <target name="Common.FindBuild">
@@ -70,5 +70,90 @@
       </do>
     </loopthrough>
   </target>
-  
+
+  <macrodef name="ask.published.good.build">
+    <attributes>
+      <attribute name="resultproperty" default="Build.Version" type="string"/>
+      <attribute name="remotingurl" default="${CCNet.Server.Remoting.Url}" type="string"/>
+      <attribute name="project" default="${ProjectName}-${ProjectCodeLineName}-Release" type="string"/>
+    </attributes>
+    <sequential>
+
+      <strings id="goodbuilds"/>
+      <strings id="builds"/>
+
+      <function execute="${ccnet::get-project-some-build-labels(remotingurl, project, 15, 'builds') }"/>
+
+      <property name="count" value="0"/>
+
+      <loopthrough property="build">
+        <items>
+          <strings refid="builds"/>
+        </items>
+        <do>
+          <trycatch>
+            <try>
+              <regex input="${build}" pattern="log\d+Lbuild\.(?'Label'.*)\.xml$"/>
+              <function execute="${stringlist::add('goodbuilds', Label)}"/>
+              <property name="count" value="${int::parse(count) + 1}"/>
+            </try>
+            <catch/>
+          </trycatch>
+          <break if="${int::parse(count) == 6}"/>
+        </do>
+      </loopthrough>
+
+      <ask
+          answer="${resultproperty}"
+          caption="Choose which build?"
+          question="Choose which build?">
+        <options refid="goodbuilds" />
+      </ask>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="get.published.artifact">
+    <attributes>
+      <attribute name="artifact" require="True" type="string"/>
+      <attribute name="dest" require="True" type="string"/>
+      <attribute name="build" require="True" type="string"/>
+      <attribute name="remotingurl" default="${CCNet.Server.Remoting.Url}" type="string"/>
+      <attribute name="project" default="${ProjectName}-${ProjectCodeLineName}-Release" type="string"/>
+      <attribute name="webroot" default="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/${Common.Directory.ArtifactRoot.Name}" type="string"/>
+      <attribute name="username" default="${Web.Credentials.UserName}" type="string"/>
+      <attribute name="password" default="${Web.Credentials.Password}" type="string"/>
+    </attributes>
+    <sequential>
+
+      <strings id="builds"/>
+      <function execute="${ccnet::get-project-some-build-labels(remotingurl, project, 15, 'builds') }"/>
+      <loopthrough property="BuildName">
+        <items>
+          <strings refid="builds"/>
+        </items>
+        <do>
+          <trycatch>
+            <try>
+              <regex input="${BuildName}" pattern="log(?'BuildArchiveFolderName'\d+)Lbuild\.${build}\.xml$"/>
+              <break/>
+            </try>
+            <catch/>
+          </trycatch>
+        </do>
+      </loopthrough>
+
+      <regex input="${BuildArchiveFolderName}" pattern="(?'Year'\d\d\d\d)(?'Month'\d\d)(?'Day'\d\d)"/>
+
+      <mkdir dir="${path::get-directory-name(dest)}" unless="${directory::exists(path::get-directory-name(dest))}"/>
+
+      <get
+        dest="${dest}"
+        src="${webroot}/${BuildArchiveFolderName}/${artifact}"
+        verbose="true"
+      >
+        <credentials username="${username}" password="${password}"/>
+      </get>
+    </sequential>
+  </macrodef>
+
 </project>

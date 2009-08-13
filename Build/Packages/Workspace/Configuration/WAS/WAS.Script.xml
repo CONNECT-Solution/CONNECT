@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.WAS.Configuration.Scripts">
+
+  <property name="WAS.Install.DirectoryPath" value="${environment::get-variable('ProgramFiles')}\IBM\SDP\runtimes\base_v7"/>
+  <property name="WAS.Profile.DriectoryPath" value="${WAS.Install.DirectoryPath}\profiles\was70profile2"/>
+  
+  <target name="Workspace.Configuration.WAS" if="${directory::exists(WAS.Install.DirectoryPath)}">
+    <ifnot test="${directory::exists(WAS.Profile.DriectoryPath)}">
+      <fail message="We expected there to be a WAS profile was70profile2 yet it does not exist! ${WAS.Profile.DriectoryPath}"/>
+    </ifnot>
+    
+    <replace file="${WAS.Profile.DriectoryPath}\properties\soap.client.props">
+      <filterchain>
+        <replacestring from="com.ibm.SOAP.requestTimeout=180" to="com.ibm.SOAP.requestTimeout=600"   />
+      </filterchain>
+    </replace>
+
+    <property name="count" value="0"/>
+    <foreach item="Folder" property="folder">
+      <in>
+        <items basedir="${WAS.Profile.DriectoryPath}\config\cells">
+          <include name="*"/>
+          <exclude name="${WAS.Profile.DriectoryPath}\config\cells"/>
+        </items>
+    </in>
+      <do>
+        <property name="count" value="${int::parse(count) + 1}"/>
+        <echo message="${directory::name(folder)} ${count}"/>
+        <fail if="${int::parse(count) &gt; 1}" message="Found more than one cell, don't know which one to configure."/>
+        <property name="WAS.Cell.Name" value="${directory::name(folder)}"/>
+      </do>
+    </foreach>
+    <fail message="Could not find a cell to configure." if="${int::parse(count) != 1}"/>
+    
+    <property name="count" value="0"/>
+    <foreach item="Folder" property="folder">
+      <in>
+        <items basedir="${WAS.Profile.DriectoryPath}\config\cells\${WAS.Cell.Name}\nodes">
+          <include name="*"/>
+          <exclude name="${WAS.Profile.DriectoryPath}\config\cells\${WAS.Cell.Name}\nodes"/>
+        </items>
+      </in>
+      <do>
+        <property name="count" value="${int::parse(count) + 1}"/>
+        <echo message="${directory::name(folder)} ${count}"/>
+        <fail if="${int::parse(count) &gt; 1}" message="Found more than one node, don't know which one to configure."/>
+        <property name="WAS.Node.Name" value="${directory::name(folder)}"/>
+      </do>
+    </foreach>
+    <fail message="Could not find a node to configure." if="${int::parse(count) != 1}"/>
+    
+
+    <property name="WAS.ServerConfig.FilePath" value="${WAS.Profile.DriectoryPath}\config\cells\${WAS.Cell.Name}\nodes\${WAS.Node.Name}\serverindex.xml"/>
+
+    <xmlpeek
+      file="${WAS.ServerConfig.FilePath}"
+      property="WAS.ServerConfig.WC_defaulthost.Acutal"
+      xpath="//specialEndpoints[@endPointName='WC_defaulthost']/endPoint/@port"
+    />
+
+    <xmlpeek
+      file="${WAS.ServerConfig.FilePath}"
+      property="WAS.ServerConfig.WC_adminhost_secure.Acutal"
+      xpath="//specialEndpoints[@endPointName='WC_adminhost_secure']/endPoint/@port"
+    />
+
+    <xmlpeek
+      file="${WAS.ServerConfig.FilePath}"
+      property="WAS.ServerConfig.HostName"
+      xpath="//specialEndpoints[@endPointName='BOOTSTRAP_ADDRESS']/endPoint/@host"
+    />
+
+    <property name="WAS.ServerConfig.WC_adminhost_secure.Expected" value="9044"/>
+    <property name="WAS.ServerConfig.WC_defaulthost.Expected" value="9080"/>
+
+    <if test="${int::parse(WAS.ServerConfig.WC_adminhost_secure.Acutal) != int::parse(WAS.ServerConfig.WC_adminhost_secure.Expected) or int::parse(WAS.ServerConfig.WC_defaulthost.Acutal) != int::parse(WAS.ServerConfig.WC_defaulthost.Expected)}">
+      <write file="${Common.Project.TempDirectory}\appserver.props">
+        <text expand="true" xml="false">
+          <![CDATA[WAS_HOME=C:/PROGRA~1/IBM/SDP/runtimes/base_v7
+was.install.root=C:/PROGRA~1/IBM/SDP/runtimes/base_v7
+profileName=was70profile2
+profilePath=C:/PROGRA~1/IBM/SDP/runtimes/base_v7/profiles/was70profile2
+templatePath=C:/PROGRA~1/IBM/SDP/runtimes/base_v7/profileTemplates/default
+nodeName=${WAS.Node.Name}
+cellName=${WAS.Cell.Name}
+hostName=JFlowers630V.atdom-hc.com
+WC_adminhost_secure=${WAS.ServerConfig.WC_adminhost_secure.Expected}
+WC_defaulthost=${WAS.ServerConfig.WC_defaulthost.Expected}
+]]></text>
+      </write>
+
+      <exec
+        workingdir="${WAS.Install.DirectoryPath}\bin"
+        program="cmd"
+        verbose="true"
+      >
+        <arg line="/C"/>
+        <arg line='ws_ant.bat'/>
+        <arg line='-propertyfile "${Common.Project.TempDirectory}\appserver.props"'/>
+        <arg line='-file "${WAS.Install.DirectoryPath}\profileTemplates\default\actions\updatePorts.ant"'/>
+      </exec>
+      
+    </if>
+  </target>
+	
+</project>

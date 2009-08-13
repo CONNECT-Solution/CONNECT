@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Eclipse.Scripts">
+
+
+  <target name="Workspace.RequieredSoftware.Eclipse">
+    <call target="Workspace.RequieredSoftware.Eclipse.IDE"/>
+    <call target="Workspace.RequieredSoftware.Eclipse.JAD"/>
+  </target>
+  
+  <target name="Workspace.RequieredSoftware.Eclipse.IDE">
+    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\eclipse\eclipse.exe')}" >
+      <ask answer="Answer"
+           question="It looks like the Eclipse is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+        <options>
+          <string value="Install"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install'}">
+        <then>
+          <get
+              src="${Workspace.Ftp.Url}eclipse-silent-setup.exe"
+              dest="${environment::get-variable('TEMP')}\eclipse-silent-setup.exe"
+          />
+          <exec 
+            workingdir="${environment::get-variable('TEMP')}" 
+            program="${environment::get-variable('TEMP')}\eclipse-silent-setup.exe" 
+            verbose="true"
+          />
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please install Eclipse!" />
+        </elseif>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Eclipse.JAD">
+    <property name="JAD.ExePath" value="C:\Tools\Jad\jad.exe"/>
+    <ifnot test="${file::exists(JAD.ExePath)}">
+      <get
+        src="${Workspace.Ftp.Url}jadnt158.zip"
+        dest="${environment::get-variable('TEMP')}\jadnt158.zip"
+      />
+      <unzip
+        zipfile="${environment::get-variable('TEMP')}\jadnt158.zip"
+        todir="C:\Tools\Jad"
+      />
+    </ifnot>
+    
+  </target>
+
+</project>

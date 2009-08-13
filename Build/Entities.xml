@@ -1,37 +1,43 @@
-<!ENTITY HostName                 'build.nhiegateway.org' >
-<!ENTITY Port                     '21524'>
-<!ENTITY EmailHost                '127.0.0.1'>
-<!ENTITY LabelPrefix              '2.2.0.'>
-<!ENTITY ProjectName              'NHINC' >
-<!ENTITY ProjectCodeLineName      'Current' >
-<!ENTITY ProjectsDirectory        'c:\Projects' >
+<!ENTITY HostName                               'build.nhiegateway.org' >
+<!ENTITY EmailHost                              '127.0.0.1'>
 
-<!ENTITY ProductDirectoryName         'Product'>
-<!ENTITY ThirdPartyDirectoryName      'ThirdParty' >
-<!ENTITY ProductionDirectoryName      'Production' >
-<!ENTITY BuildDirectoryName           'Build' >
-<!ENTITY ArtifactRootDirectoryName    'Artifacts' >
-<!ENTITY PackagesDirectoryName        'Packages' >
-<!ENTITY UnitTestDirectoryName        'UnitTest' >
-<!ENTITY InstallDirectoryName         'Install' >
-<!ENTITY Common.Directory.Tools.Name  'Tools' >
+<!ENTITY ProjectName                           'NHINC' >
+<!ENTITY ProjectCodeLineName                   'Current' >
 
-<!ENTITY ProjectRootDirectory           '&ProjectsDirectory;\&ProjectName;' >
-<!ENTITY ProjectCodeLineDirectory       '&ProjectRootDirectory;\&ProjectCodeLineName;' >
-<!ENTITY ProductDirectory               '&ProjectCodeLineDirectory;\&ProductDirectoryName;' >
-<!ENTITY ThirdPartyDirectory            '&ProjectCodeLineDirectory;\&ThirdPartyDirectoryName;' >
-<!ENTITY ProductionDirectory            '&ProductDirectory;\&ProductionDirectoryName;' >
-<!ENTITY BuildDirectory                 '&ProjectCodeLineDirectory;\&BuildDirectoryName;' >
-<!ENTITY Common.Directory.Build.Path    '&ProjectCodeLineDirectory;\&BuildDirectoryName;' >
-<!ENTITY ArtifactRootDirectory          '&BuildDirectory;\&ArtifactRootDirectoryName;' >
-<!ENTITY PackagesDirectory              '&BuildDirectory;\&PackagesDirectoryName;' >
-<!ENTITY UnitTestDirectory              '&ProductDirectory;\&UnitTestDirectoryName;' >
-<!ENTITY InstallDirectory               '&ProductDirectory;\&InstallDirectoryName;' >
-<!ENTITY Common.Directory.Tools.Path    '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
+<!ENTITY Common.Directory.Product.Name         'Product'>
+<!ENTITY Common.Directory.ThirdParty.Name      'ThirdParty' >
+<!ENTITY Common.Directory.Production.Name      'Production' >
+<!ENTITY Common.Directory.Build.Name           'Build' >
+<!ENTITY Common.Directory.Tools.Name           'Tools' >
+<!ENTITY Common.Directory.ArtifactRoot.Name    'Artifacts' >
+<!ENTITY Common.Directory.Packages.Name        'Packages' >
+<!ENTITY Common.Directory.UnitTest.Name        'UnitTest' >
+<!ENTITY Common.Directory.Install.Name         'Install' >
+<!ENTITY Common.Directory.Transient.Name       'Transient'>
 
-<!ENTITY BinariesDirectory              '&ProjectCodeLineDirectory;\Build\Deployment\Binaries' >
+<!ENTITY Common.Directory.ProjectsRoot.Path    'c:\Projects' >
+<!ENTITY Common.Directory.ProjectRoot.Path     '&Common.Directory.ProjectsRoot.Path;\&ProjectName;' >
+<!ENTITY Common.Directory.CodeLine.Path        '&Common.Directory.ProjectRoot.Path;\&ProjectCodeLineName;' >
+<!ENTITY Common.Directory.Product.Path         '&Common.Directory.CodeLine.Path;\&Common.Directory.Product.Name;' >
+<!ENTITY Common.Directory.ThirdParty.Path      '&Common.Directory.CodeLine.Path;\&Common.Directory.ThirdParty.Name;' >
+<!ENTITY Common.Directory.Production.Path      '&Common.Directory.Product.Path;\&Common.Directory.Production.Name;' >
+<!ENTITY Common.Directory.Build.Path           '&Common.Directory.CodeLine.Path;\&Common.Directory.Build.Name;' >
+<!ENTITY Common.Directory.ArtifactRoot.Path    '&Common.Directory.Build.Path;\&Common.Directory.ArtifactRoot.Name;' >
+<!ENTITY Common.Directory.Packages.Path        '&Common.Directory.Build.Path;\&Common.Directory.Packages.Name;' >
+<!ENTITY Common.Directory.UnitTest.Path        '&Common.Directory.Product.Path;\&Common.Directory.UnitTest.Name;' >
+<!ENTITY Common.Directory.Install.Path         '&Common.Directory.Product.Path;\&Common.Directory.Install.Name;' >
+<!ENTITY Common.Directory.Transient.Path       '&Common.Directory.Build.Path;\&Common.Directory.Transient.Name;' >
+<!ENTITY Common.Directory.Tools.Path           '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
 
-<!ENTITY NantBinPath              '&BuildDirectory;\nAnt\bin' >
-<!ENTITY NantExePath              '&NantBinPath;\nant.exe' >
+<!ENTITY CCNet.LabelPrefix                     '2.2.0.'>
+<!ENTITY CCNet.Server.Remoting.Port            '21524'>
+<!ENTITY CCNet.Server.Remoting.Url             'tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY CCNet.Server.Rest.Port                '21525'>
+<!ENTITY CCNet.Server.Rest.Url                 'http://&HostName;:&CCNet.Server.Rest.Port;'>
+<!ENTITY CCNet.Server.Directory.Path           '&Common.Directory.Build.Path;\server'>
+<!ENTITY CCNet.Dashboard.Directory.Path        '&Common.Directory.Build.Path;\dashboard'>
+<!ENTITY CCNet.Dashboard.Url                   'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY webURL                   'https://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+<!ENTITY Tools.NAnt.Bin                         '&Common.Directory.Tools.Path;\nAnt\bin' >
+<!ENTITY Tools.NAnt.Exe                         '&Tools.NAnt.Bin;\nant.exe' >
+

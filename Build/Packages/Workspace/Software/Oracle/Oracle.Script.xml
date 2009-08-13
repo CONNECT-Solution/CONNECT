@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Oracle.Scripts">
+
+  <target name="Workspace.RequieredSoftware.Oracle">
+    <call target="Workspace.RequieredSoftware.Oracle.SqlDeveloper"/>
+    <call target="Workspace.RequieredSoftware.Oracle.Express"/>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Oracle.Express">
+    <ifnot test="${directory::exists('C:\Oracle\OracleXE')}" >
+      <property name="Answer" value="NaN"/>
+      <ask answer="Answer"
+           question="It looks like the Oracle Express is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true"
+           unless="${Workspace.Silent}"
+      >
+        <options>
+          <string value="Install"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install' or bool::parse(Workspace.Silent)}">
+        <then>
+          <property name="Oracle.Express.Installer.Name" value="OracleXEUniv.exe"/>
+          <get
+              src="${Workspace.Ftp.Url}${Oracle.Express.Installer.Name}"
+              dest="${environment::get-variable('TEMP')}\${Oracle.Express.Installer.Name}"
+          />
+          <property name="Temp.Dir" value="${environment::get-variable('TEMP')}"/>
+          <exec
+            workingdir="${environment::get-variable('TEMP')}"
+            program="${environment::get-variable('TEMP')}\${Oracle.Express.Installer.Name}"
+            verbose="true"
+          >
+            <arg line='/s' />
+            <arg line='/f1"${Common.Directory.Packages.Path}\Workspace\Software\Oracle\OracleXE-install.iss"' />
+            <arg line='/f2"${Temp.Dir}\OracleXE-install.log"' />
+          </exec>
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please install Oracle Express!" />
+        </elseif>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+  <target name="Workspace.RequieredSoftware.Oracle.SqlDeveloper">
+    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\sqldeveloper\sqldeveloper.exe')}" >
+      <ask answer="Answer"
+           question="It looks like the Oracle SQL Developer is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+        <options>
+          <string value="Install"/>
+          <string value="Exit"/>
+        </options>
+      </ask>
+      <ifthenelse test="${Answer == 'Install'}">
+        <then>
+          <get
+              src="${Workspace.Ftp.Url}sqldeveloper-silent-setup.exe"
+              dest="${environment::get-variable('TEMP')}\sqldeveloper-silent-setup.exe"
+          />
+          <exec 
+            workingdir="${environment::get-variable('TEMP')}" 
+            program="${environment::get-variable('TEMP')}\sqldeveloper-silent-setup.exe" 
+            verbose="true"
+          />
+        </then>
+        <elseif if="${Answer == 'Exit'}">
+          <fail message="Please install Sql Developer!" />
+        </elseif>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+</project>
