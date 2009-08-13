@@ -33,35 +33,61 @@
 
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; Int Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-
-  <!ENTITY Deploying '<projectFilter
+  <!ENTITY ReleaseFailed '<projectFilter
+               serverUri="&CCNet.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Release">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY Deploy '<projectFilter
                 serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment">
+                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
              <exclusionFilters>
                <activities>
                  <activity>Building</activity>
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY IntegrationTest '<projectFilter
+  <!ENTITY DeployFailed '<projectFilter
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName;-Deploy">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY Test '<projectFilter
                 serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite">
+                project="&ProjectName;-&ProjectCodeLineName;-Test">
              <exclusionFilters>
                <activities>
                  <activity>Building</activity>
                </activities>
              </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DeployingStagingArea '<projectFilter
+  <!ENTITY TestFailed '<projectFilter
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName;-Test">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY Staging '<projectFilter
                 serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
+                project="&ProjectName;-&ProjectCodeLineName;-Staging">
              <exclusionFilters>
                <activities>
                  <activity>Building</activity>
@@ -72,25 +98,25 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
-  <project name="&ProjectName;-&ProjectCodeLineName; Int Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &Deploying;
-          &IntegrationTest;
-          &DeployingStagingArea;
+          &Deploy;
+          &Test;
+          &Staging;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &Deploying;
-          &IntegrationTest;
-          &DeployingStagingArea;
+          &Deploy;
+          &Test;
+          &Staging;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -120,7 +146,7 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
@@ -135,8 +161,9 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &IntegrationTest;
-          &DeployingStagingArea;
+          &Test;
+          &Staging;
+          &ReleaseFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -144,8 +171,9 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &IntegrationTest;
-          &DeployingStagingArea;
+          &Test;
+          &Staging;
+          &ReleaseFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -210,7 +238,7 @@
       </email>
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Test">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
@@ -218,15 +246,16 @@
         <trigger
           type="projectTrigger"
           serverUri="tcp://192.168.25.157:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName; Internal Test Deployment"
+          project="&ProjectName;-&ProjectCodeLineName;-Deploy"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &Deploying;
-          &DeployingStagingArea;
+          &Deploy;
+          &Staging;
+          &DeployFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -234,8 +263,9 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &Deploying;
-          &DeployingStagingArea;
+          &Deploy;
+          &Staging;
+          &DeployFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -253,9 +283,18 @@
         </blocked>
       </forcedIntegrationFilter>
     </integrationFilter>
-    <sourcecontrol type="nullSourceControl" />
+    <sourcecontrol type="filtered">
+      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <webUrlBuilder type="websvn">
+          <url>&Subversion.Repo.Url;{0}</url>
+        </webUrlBuilder>
+      </sourceControlProvider>
+    </sourcecontrol>
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName; Internal Test Deployment</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
     </labeller>
     <tasks>
       <nant>
@@ -304,7 +343,7 @@
       </email>
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName; Staging Area Deployment">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Staging">
     <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
@@ -312,15 +351,16 @@
         <trigger
           type="projectTrigger"
           serverUri="tcp://192.168.25.157:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite"
+          project="&ProjectName;-&ProjectCodeLineName;-Test"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &Deploying;
-          &IntegrationTest;
+          &Deploy;
+          &Test;
+          &TestFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -328,8 +368,9 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &Deploying;
-          &IntegrationTest;
+          &Deploy;
+          &Test;
+          &TestFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -349,7 +390,7 @@
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Test</project>
     </labeller>
     <tasks>
       <nant>
