@@ -8,12 +8,12 @@
 
   <property name="TargetProcess.ProjectName" value="NHIE-Gateway Green Team"/>
 
-  <ifthenelse test="${file::exists(PackagesDirectory + '\TargetProcess\TargetProcess.Credentials.xml')}">
+  <ifthenelse test="${file::exists(Package.TargetProcess.Directory.Path + '\TargetProcess.Credentials.xml')}">
     <then>
-      <include buildfile="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml" />
+      <include buildfile="${Package.TargetProcess.Directory.Path}\TargetProcess.Credentials.xml" />
     </then>
     <else>
-      <echo level="Warning" message="${PackagesDirectory}\TargetProcess\TargetProcess.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>
+      <echo level="Warning" message="${Package.TargetProcess.Directory.Path}\TargetProcess.Credentials.xml was not found. This might be okay, if say you are running a personal build."/>
     </else>
   </ifthenelse>
 
