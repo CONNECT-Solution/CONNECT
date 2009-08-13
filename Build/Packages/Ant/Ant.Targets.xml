@@ -51,6 +51,11 @@
 	<target name="Ant.SetUp">
 		<delete dir="${Ant.Log.Directory.Path}" if="${directory::exists(Ant.Log.Directory.Path)}" verbose="true"/>
 		<mkdir dir="${Ant.Log.Directory.Path}" verbose="true"/>
+    <copy todir="${Ant.Home}">
+      <fileset basedir="${Package.Ant.Directory.Path}\Ant">
+        <include name="**\*"/>
+      </fileset>
+    </copy>
 	</target>
 
 	<target name="Ant.TearDown">

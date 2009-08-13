@@ -3,7 +3,7 @@
 
   <property name="Common.EnvironmentVariables.Path" value="${environment::get-variable('SystemRoot')}\system32;${environment::get-variable('SystemRoot')};${environment::get-variable('SystemRoot')}\System32\Wbem" />
 
-  <property name="Ant.Home"   value="${Common.Directory.Packages.Path}\Ant\Ant" />
+  <property name="Ant.Home"   value="C:\GlassFishESB\netbeans\java2\ant" />
   <property name="Ant.Bin"    value="${Ant.Home}\bin" />
   <property name="Ant.Bat"    value="${Ant.Bin}\ant.bat" />
 
