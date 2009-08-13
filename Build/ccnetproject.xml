@@ -372,7 +372,7 @@
         <targetList>
           <target>Heavy</target>
         </targetList>
-        <buildTimeoutSeconds>600</buildTimeoutSeconds>
+        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
