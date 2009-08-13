@@ -219,16 +219,16 @@
     <call target="Common.SetUp" />
     <description>Begin SetUps</description>
     <call target="Publish.SetUp" />
-    <call target="Subversion.SetUp" />
+    <call target="SourceControl.SetUp" />
     <call target="SourceModificationReport.SetUp" />
     <call target="TargetProcess.SetUp" />
     <call target="Simian.SetUp" />
     <call target="Ant.SetUp" />
     <call target="Selenium.SetUp" />
     <call target="FitNesse.SetUp" />
-    <call target="JUnit.SetUp" />
+    <call target="UnitTest.SetUp" />
     <call target="IntegrationTest.SetUp" />
-    <call target="Corbertura.SetUp" />
+    <call target="Coverage.SetUp" />
     <call target="Workspace.SetUp" />
     <call target="GlassFish.SetUp" />
     <call target="SoapUI.SetUp" />
@@ -238,16 +238,16 @@
   <target name="TearDowns">
     <description>Begin TearDowns</description>
     <call target="Publish.TearDown" />
-    <call target="Subversion.TearDown" />
+    <call target="SourceControl.TearDown" />
     <call target="SourceModificationReport.TearDown" />
     <call target="TargetProcess.TearDown" />
     <call target="Simian.TearDown" />
     <call target="Ant.TearDown" />
     <call target="Selenium.TearDown" />
     <call target="FitNesse.TearDown" />
-    <call target="JUnit.TearDown" />
+    <call target="UnitTest.TearDown" />
     <call target="IntegrationTest.TearDown" />
-    <call target="Corbertura.TearDown" />
+    <call target="Coverage.TearDown" />
     <call target="Workspace.TearDown" />
     <call target="GlassFish.TearDown" />
     <call target="SoapUI.TearDown" />
