@@ -113,7 +113,9 @@ public class NhincConstants {
     public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final BigInteger NHINC_ADHOC_QUERY_NO_RESULT_COUNT = BigInteger.valueOf(0L);
 
-
+    //Patient Correlation Constants
+    public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
+    public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
 
     private NhincConstants() {
     }
