@@ -74,7 +74,6 @@
 
 	<target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
 		<property name="project.count" value="0" />
-		<echo message="PRoduct directory = ${ProductDirectory}"/>
 		<xmltask source="build.projects.xml">
 			<call path="/projects/project">
 				<actions>
@@ -82,7 +81,6 @@
 				</actions>
 			</call>
 		</xmltask>
-<echo message="here"/>
 		<property name="current.project.count" value="0" />
 		<xmltask source="build.projects.xml">
 			<call path="/projects/project">
