@@ -85,6 +85,13 @@
 				<description>Patient Correlation Service</description>
 				<endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
 			</service>
+			
+			<service>
+				<name>patientcorrelationsecured</name>
+				<description>Patient Correlation Secured Service</description>
+				<endpointURL>https://localhost:8181/PatientCorrelationSecuredService</endpointURL>
+			</service>
+						
 			<service>
 				<name>auditrepository</name>
 				<description>Audit Repository</description>
@@ -320,6 +327,11 @@
 				<description>Patient Correlation Service</description>
 				<endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
 			</service>
+			<service>
+				<name>patientcorrelationsecured</name>
+				<description>Patient Correlation Secured Service</description>
+				<endpointURL>https://localhost:8181/PatientCorrelationSecuredService</endpointURL>
+			</service>			
 			<service>
 				<name>auditrepository</name>
 				<description>Audit Repository</description>
