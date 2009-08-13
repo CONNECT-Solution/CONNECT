@@ -134,8 +134,6 @@
   </target>
 
   <target name="GlassFish.SetUp">
-    <delete dir="${AntBuildLogDirectory}" if="${directory::exists(AntBuildLogDirectory)}" verbose="true"/>
-    <mkdir dir="${AntBuildLogDirectory}" verbose="true"/>
   </target>
 
   <target name="GlassFish.TearDown">
