@@ -10,6 +10,6 @@
   <property name="SoapUI.Intermediate.Report.File.Path" value="${SoapUI.Intermediate.Report.Directory.Path}\IntegrationTests.xml" overwrite="false"/>
   
   <property name="SoapUI.Report.Directory.Path" value="${Common.Project.Common.Directory.Transient.Path}\SoapUITestReports" overwrite="false"/>
-  <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\IntegrationTests.xml" overwrite="false"/>
+  <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\SoapUITests.xml" overwrite="false"/>
 
 </project>

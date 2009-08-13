@@ -58,6 +58,14 @@
 		
   </target>
 
+  <target name="SoapUI.ShowReport">
+    <property name="Common.ShowReport.XmlFile" value="${SoapUI.Report.File.Path}"/>
+    <property name="Common.ShowReport.HtmlFile" value="${SoapUI.Report.Directory.Path}\TestReport.html"/>
+    <property name="Common.ShowReport.XslFile" value="${Common.Directory.Packages.Path}\SoapUI\junit-noframes.xsl"/>
+    <property name="Common.ShowReport.DetailsFilePath" value=""/>
+
+    <call target="Common.ShowReport"/>
+  </target>
  
   <target name="SoapUI.SetUp">
     <delete dir="${SoapUI.Intermediate.Report.Directory.Path}" if="${directory::exists(SoapUI.Intermediate.Report.Directory.Path)}"/>

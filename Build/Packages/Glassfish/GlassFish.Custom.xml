@@ -2,7 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Custom">
 
   <target name="GlassFish.Redeploy.Release.Build">
-    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${BuildServerPort}/CruiseManager.rem"/>
+    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
     <property name="ProjectNameToPullFrom" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
 
     <call target="Common.FindBuild"/>

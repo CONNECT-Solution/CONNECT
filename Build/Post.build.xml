@@ -6,7 +6,6 @@
 
   <description>Begin Package Includes</description>
   <loadpackages>
-    <package name="CSDiff" />
     <package name="Backup" />
     <package name="Archive" />
     <package name="Analytics" />
@@ -78,7 +77,6 @@
   
   <target name="SetUps">
     <description>Begin SetUps</description>
-    <call target="CSDiff.SetUp" />
     <call target="Backup.SetUp" />
     <call target="Archive.SetUp" />
     <call target="Analytics.SetUp" />
@@ -88,7 +86,6 @@
   
   <target name="TearDowns">
     <description>Begin TearDowns</description>
-    <call target="CSDiff.TearDown" />
     <call target="Backup.TearDown" />
     <call target="Archive.TearDown" />
     <call target="Analytics.TearDown" />

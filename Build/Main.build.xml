@@ -203,13 +203,6 @@
         <call target="SoapUI.RunTests"/>
       </try>
       <finally>
-        <!--Nasty Hack, Please fix this soon.-->
-        <copy
-          file="${SoapUI.Report.File.Path}"
-          tofile="${Common.Directory.Artifact.Path}\unittests.xml"
-          failonerror="false"
-          verbose="true"
-        />
         <call target="TearDowns" />
       </finally>
     </trycatch>

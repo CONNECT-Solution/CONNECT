@@ -77,6 +77,6 @@
     </target>    
     
     <target name="deploy">
-    	<echo message="here"/>
+      <fail message="not implemented!"/>
     </target>
 </project>
