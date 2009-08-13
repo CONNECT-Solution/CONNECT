@@ -4,7 +4,7 @@
 
   %entities;
   <!ENTITY webURLi                   'http://192.168.25.157/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
-  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Integration Test">
+  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
           <user name="Jay Flowers"	group="buildmaster" address="jay.flowers@agilex.com"/>
           <user name="Scott Smith"	group="buildmaster" address="scott.smith@agilex.com"/>
@@ -191,7 +191,7 @@
         </files>
       </merge>
       <xmllogger />
-      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Integration Test">
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
           <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
           <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
@@ -279,7 +279,7 @@
           <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName; Internal Test Integration Suite\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger>
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <filepairs>
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
@@ -288,7 +288,7 @@
         </filepairs>
       </xslmerger>
       <xmllogger />
-      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Integration Test">
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
           <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
           <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
@@ -374,7 +374,7 @@
         </files>
       </merge>
       <xmllogger />
-      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
           <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
           <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
