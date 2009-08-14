@@ -15,10 +15,15 @@
             </webservice-endpoint>   
         </ejb>
         <ejb>
-            <ejb-name>NhincProxyDocQuery</ejb-name>
+            <ejb-name>NhincProxyDocQuerySecured</ejb-name>
             <webservice-endpoint>
-                <port-component-name>NhincProxyDocQuery</port-component-name>
-                <endpoint-address-uri>/NhinConnect/NhincProxyDocQuery</endpoint-address-uri>
+                <port-component-name>NhincProxyDocQuerySecured</port-component-name>
+                <endpoint-address-uri>/NhinConnect/NhincProxyDocQuerySecured</endpoint-address-uri>
+                <login-config>
+                    <auth-method>CLIENT-CERT</auth-method>
+                    <realm>certificate</realm>
+                </login-config>
+                <transport-guarantee>CONFIDENTIAL</transport-guarantee>
             </webservice-endpoint>   
         </ejb>
     </enterprise-beans>

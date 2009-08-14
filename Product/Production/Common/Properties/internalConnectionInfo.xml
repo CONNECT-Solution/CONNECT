@@ -230,6 +230,16 @@
 				<description>Entity Document Query Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxydocquery</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -450,6 +460,16 @@
 				<description>Entity Document Query Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
 			</service>
+			<service>
+				<name>nhincproxydocquery</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -487,7 +507,16 @@
 				<description>Entity Document Query Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
 			</service>
-			
+			<service>
+				<name>nhincproxydocquery</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -514,6 +543,16 @@
 				<name>entitydocquerysecured</name>
 				<description>Entity Document Query Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocquery</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocquerysecured</name>
+				<description>NHINC Proxy Document Query</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

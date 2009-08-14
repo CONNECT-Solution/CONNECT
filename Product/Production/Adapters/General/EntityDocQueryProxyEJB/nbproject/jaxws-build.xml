@@ -31,6 +31,18 @@
     <target name="wsimport-client-clean-EntityDocQuerySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/entitydocquery"/>
     </target>
+    <target name="wsimport-client-check-NhincProxyDocQuerySecured" depends="wsimport-init">
+        <condition property="wsimport-client-NhincProxyDocQuerySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincproxydocquerysecured/NhincProxyDocQuerySecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-NhincProxyDocQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyDocQuerySecured" unless="wsimport-client-NhincProxyDocQuerySecured.notRequired">
+        <property name="wsdl-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxyDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl" xnocompile="true"/>
+    </target>
+    <target name="wsimport-client-clean-NhincProxyDocQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/nhincproxydocquerysecured"/>
+    </target>
     <target name="wsimport-service-check-EntityDocQuery" depends="wsimport-init">
         <condition property="wsimport-service-EntityDocQuery.notRequired">
             <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery/EntityDocQuery.java"/>
@@ -48,14 +60,31 @@
     <target name="wsimport-service-clean-EntityDocQuery" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocquery"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntityDocQuerySecured"/>
+    <target name="wsimport-service-check-NhincProxyDocQuery" depends="wsimport-init">
+        <condition property="wsimport-service-NhincProxyDocQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocquery/NhincProxyDocQuery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init,wsimport-service-check-NhincProxyDocQuery" unless="wsimport-service-NhincProxyDocQuery.notRequired">
+        <property name="service-wsdl-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-NhincProxyDocQuery" location="${meta.inf}/wsdl/NhincProxyDocQuery"/>
+        <property name="sourceLocation-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
+        <copy todir="${targetLocation-NhincProxyDocQuery}">
+            <fileset dir="${sourceLocation-NhincProxyDocQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocquery"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntityDocQuerySecured, wsimport-client-NhincProxyDocQuerySecured"/>
     <target name="wsimport-client-compile" depends="wsimport-client-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
         <copy todir="${classes.dir}">
             <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
         </copy>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-EntityDocQuery"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>

@@ -46,6 +46,26 @@ public class DocQueryAuditLog {
     }
 
     /**
+     * This method will log Audit Query Requests received on the NHIN Proxy Interface
+     *
+     * @param auditMsg The Audit Query Request message to be audit logged.
+     * @param assertion Assertion received
+     * @return An acknowledgement of whether or not the message was successfully logged.
+     */
+    public AcknowledgementType audit(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType auditMsg, AssertionType assertion) {
+        log.debug("Entering DocQueryAuditLog.audit (NHIN Proxy)...");
+
+        AdhocQueryMessageType auditReqMsg = new AdhocQueryMessageType();
+        auditReqMsg.setAssertion(assertion);
+        auditReqMsg.setAdhocQueryRequest(auditMsg.getAdhocQueryRequest());
+
+        AcknowledgementType ack = logDocQuery(auditReqMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+
+        log.debug("Exiting DocQueryAuditLog.audit (NHIN Proxy)...");
+        return ack;
+    }
+
+    /**
      * This method will log Document Query Requests sent on the Nhin Interface
      *
      * @param auditMsg The Document Query Request message to be audit logged.

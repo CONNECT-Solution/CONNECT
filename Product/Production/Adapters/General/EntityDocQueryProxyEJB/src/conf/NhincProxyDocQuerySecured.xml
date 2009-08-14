@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  NHINC Proxy Document Query WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   name="NhincProxyDocQuerySecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
+  <documentation>Nhinc Proxy Document Query Secured</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                  schemaLocation="../schemas/ebRS/query.xsd"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+    </xsd:schema>
+  </types>
+
+  <message name="RespondingGateway_CrossGatewayQueryRequestMessage">
+    <part name="body"
+          element="query:AdhocQueryRequest"/>
+  </message>
+  <message name="RespondingGateway_CrossGatewayQueryResponseMessage">
+    <part name="body"
+          element="query:AdhocQueryResponse"/>
+  </message>
+
+  <portType name="NhincProxyDocQuerySecuredPortType">
+    <operation name="RespondingGateway_CrossGatewayQuery">
+      <input name="RespondingGateway_CrossGatewayQueryRequest"
+             message="tns:RespondingGateway_CrossGatewayQueryRequestMessage"
+             wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryRequestMessage"/>
+      <output name="RespondingGateway_CrossGatewayQueryResponse"
+              message="tns:RespondingGateway_CrossGatewayQueryResponseMessage"
+              wsaw:Action="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured:RespondingGateway_CrossGatewayQueryResponseMessage"/>
+    </operation>
+  </portType>
+
+  <binding name="NhincProxyDocQuerySecuredBindingSoap11" type="tns:NhincProxyDocQuerySecuredPortType">
+    <wsp1:PolicyReference URI="#NhincProxyDocQuerySecuredBindingSoap11Policy"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="RespondingGateway_CrossGatewayQuery">
+      <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
+      <input name="RespondingGateway_CrossGatewayQueryRequest">
+        <soap:body use="literal"/>
+      </input>
+      <output name="RespondingGateway_CrossGatewayQueryResponse">
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="NhincProxyDocQuerySecured">
+    <port name="NhincProxyDocQuerySecuredPortSoap11"
+          binding="tns:NhincProxyDocQuerySecuredBindingSoap11">
+      <soap:address
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyDocQuerySecured" />
+    </port>
+  </service>
+
+  <!-- Define action property on each receiving message -->
+  <vprop:property name="action" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define resource property on each receiving message -->
+  <vprop:property name="resource" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:resource"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseRoleCode property on each receiving message -->
+  <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseRoleCode"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseCodeSystem property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystem"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseCodeSystemName property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystemName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseDisplayName property on each receiving message -->
+  <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseDisplayName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userFirstName property on each receiving message -->
+  <vprop:property name="userFirstName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userFirstName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userMiddleName property on each receiving message -->
+  <vprop:property name="userMiddleName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userMiddleName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userLastName property on each receiving message -->
+  <vprop:property name="userLastName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userLastName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userName property on each receiving message -->
+  <vprop:property name="userName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userOrganization property on each receiving message -->
+  <vprop:property name="userOrganization" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userOrganization"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCode property on each receiving message -->
+  <vprop:property name="userRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCode"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeSystem property on each receiving message -->
+  <vprop:property name="userRoleCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeSystem"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeSystemName property on each receiving message -->
+  <vprop:property name="userRoleCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeSystemName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeDisplayName property on each receiving message -->
+  <vprop:property name="userRoleCodeDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeDisplayName"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define expirationDate property on each receiving message -->
+  <vprop:property name="expirationDate" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:expirationDate"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define signDate property on each receiving message -->
+  <vprop:property name="signDate" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:signDate"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define contentReference property on each receiving message -->
+  <vprop:property name="contentReference" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:contentReference"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define content property on each receiving message -->
+  <vprop:property name="content" type="xsd:base64Binary"/>
+  <vprop:propertyAlias propertyName="tns:content"
+     messageType="tns:RespondingGateway_CrossGatewayQueryRequestMessage" part="body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+
+  <plnk:partnerLinkType name="NhincProxyDocQuerySecured">
+    <!-- A partner link type is automatically generated when a new port type is added.
+         Partner link types are used by BPEL processes. In a BPEL process, a partner
+         link represents the interaction between the BPEL process and a partner service.
+         Each partner link is associated with a partner link type. A partner link type
+         characterizes the conversational relationship between two services. The
+         partner link type can have one or two roles.-->
+    <plnk:role name="NhincProxyDocQuerySecuredPortTypeRole"
+               portType="tns:NhincProxyDocQuerySecuredPortType"/>
+  </plnk:partnerLinkType>
+  <wsp1:Policy wsu:Id="NhincProxyDocQuerySecuredBindingSoap11Policy">
+    <wsp1:ExactlyOne>
+      <wsp1:All>
+		<sc1:KeyStore wspp:visibility="private"
+                    aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector"
+                    callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+		<sc1:TrustStore wspp:visibility="private"
+                certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector"
+                callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+
+        <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+          <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+        </sc1:CallbackHandlerConfiguration>
+      </wsp1:All>
+    </wsp1:ExactlyOne>
+  </wsp1:Policy>
+</definitions>

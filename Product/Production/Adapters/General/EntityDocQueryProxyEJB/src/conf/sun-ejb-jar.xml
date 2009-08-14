@@ -9,5 +9,12 @@
                 <endpoint-address-uri>/NhinConnect/EntityDocQuery</endpoint-address-uri>
             </webservice-endpoint>   
         </ejb>
+        <ejb>
+            <ejb-name>NhincProxyDocQuery</ejb-name>
+            <webservice-endpoint>
+                <port-component-name>NhincProxyDocQuery</port-component-name>
+                <endpoint-address-uri>/NhinConnect/NhincProxyDocQuery</endpoint-address-uri>
+            </webservice-endpoint>
+        </ejb>
     </enterprise-beans>
 </sun-ejb-jar>

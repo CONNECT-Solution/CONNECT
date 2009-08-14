@@ -15,7 +15,7 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQueryImpl;
+import gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecuredImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
@@ -88,13 +88,12 @@ public class EntityDocQuerySecuredImpl
             if (correlationsResult != null &&
                     NullChecker.isNotNullish(correlationsResult.getQualifiedPatientIdentifier())) {
 
-                NhincProxyDocQueryImpl nhincDocQueryProxy = new NhincProxyDocQueryImpl();
+                NhincProxyDocQuerySecuredImpl nhincDocQueryProxy = new NhincProxyDocQuerySecuredImpl();
 
                 // For each correlation send out a document query request
                 for (QualifiedSubjectIdentifierType subId : correlationsResult.getQualifiedPatientIdentifier()) {
-                    gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType();
+                    gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
                     docQuery.setAdhocQueryRequest(request.getAdhocQueryRequest());
-                    docQuery.setAssertion(assertion);
 
                     NhinTargetSystemType targetSystem = new NhinTargetSystemType();
                     HomeCommunityType targetCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(subId.getAssigningAuthorityIdentifier());
@@ -105,7 +104,7 @@ public class EntityDocQuerySecuredImpl
                     DocumentQueryTransform transform = new DocumentQueryTransform();
                     AdhocQueryRequest adhocQueryRequest = transform.replaceAdhocQueryPatientId(request.getAdhocQueryRequest(), localHomeCommunity, subId.getAssigningAuthorityIdentifier(), subId.getSubjectIdentifier());
 
-                    AdhocQueryResponse queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery);
+                    AdhocQueryResponse queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery, assertion);
                     //response = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery);
 
                     // Aggregate document query results.

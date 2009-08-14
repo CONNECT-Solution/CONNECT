@@ -6,4 +6,5 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
     <import location="EntityDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocquery"/>
+    <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
 </definitions>

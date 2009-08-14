@@ -97,6 +97,13 @@
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl" xnocompile="true"/>
 -->
     </target>
+    <target name="wsimport-client-NhincProxyDocQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyDocQuerySecured" unless="wsimport-client-NhincProxyDocQuerySecured.notRequired">
+<!--
+        <property name="wsdl-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxyDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl" xnocompile="true"/>
+-->
+    </target>
+    
     <target name="wsimport-service-EntityDocQuery" depends="wsimport-init,wsimport-service-check-EntityDocQuery" unless="wsimport-service-EntityDocQuery.notRequired">
 <!--
         <property name="service-wsdl-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
@@ -111,6 +118,22 @@
         <property name="sourceLocationSchema-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/schemas/"/>
         <copy todir="${targetLocationSchema-EntityDocQuery}">
             <fileset dir="${sourceLocationSchema-EntityDocQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init,wsimport-service-check-NhincProxyDocQuery" unless="wsimport-service-NhincProxyDocQuery.notRequired">
+<!--
+        <property name="service-wsdl-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+-->
+        <property name="targetLocation-NhincProxyDocQuery" location="${meta.inf}/wsdl/NhincProxyDocQuery"/>
+        <property name="sourceLocation-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
+        <copy todir="${targetLocation-NhincProxyDocQuery}">
+            <fileset dir="${sourceLocation-NhincProxyDocQuery}"/>
+        </copy>
+        <property name="targetLocationSchema-NhincProxyDocQuery" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchema-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/schemas/"/>
+        <copy todir="${targetLocationSchema-NhincProxyDocQuery}">
+            <fileset dir="${sourceLocationSchema-NhincProxyDocQuery}"/>
         </copy>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">

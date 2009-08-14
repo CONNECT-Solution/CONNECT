@@ -89,18 +89,22 @@
             <fileset dir="${sourceLocationSchemas-EntityDocQuerySecured}"/>
         </copy>
     </target>
-	<target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init,wsimport-service-check-NhincProxyDocQuery">
+    <target name="wsimport-service-NhincProxyDocQuerySecured" depends="wsimport-init,wsimport-service-check-NhincProxyDocQuerySecured" unless="wsimport-service-NhincProxyDocQuerySecured.notRequired">
 <!--
-		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl" catalog="catalog.xml"/>
+        <property name="service-wsdl-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
 -->
-		<copy todir="${basedir}/${meta.inf}/wsdl/NhincProxyDocQuery">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
-		</copy>
-		<echo message="copy schemas"/>
-		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/schemas/"/>
-		</copy>
-	</target>
+        <property name="targetLocation-NhincProxyDocQuerySecured" location="${meta.inf}/wsdl/NhincProxyDocQuerySecured"/>
+        <property name="sourceLocation-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/"/>
+        <copy todir="${targetLocation-NhincProxyDocQuerySecured}">
+            <fileset dir="${sourceLocation-NhincProxyDocQuerySecured}"/>
+        </copy>
+        <property name="targetLocationSchemas-NhincProxyDocQuerySecured" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchemas-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuerySecured/schemas/"/>
+        <copy todir="${targetLocationSchemas-NhincProxyDocQuerySecured}">
+            <fileset dir="${sourceLocationSchemas-NhincProxyDocQuerySecured}"/>
+        </copy>
+    </target>
 	
 	<target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
