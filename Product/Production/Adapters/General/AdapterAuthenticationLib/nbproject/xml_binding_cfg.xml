@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<schemas xmlns='http://xml.netbeans.org/schema/JAXBWizConfig' destdir='build/generated/addons/jaxb' projectName='AdapterAuthenticationLib' version='0.5'>
+	<schema type='-xmlschema' package='' name='NhincCommonAdapter'>
+		<xjc-options>
+		</xjc-options>
+		<schema-sources>
+			<schema-source location='xml-resources/jaxb/NhincCommonAdapter/NhincCommonAdapter.xsd' origLocation='../../../Common/Interfaces/src/schemas/nhinc/common/NhincCommonAdapter.xsd'/>
+		</schema-sources>
+		<bindings>
+		</bindings>
+		<catalog/>
+	</schema>
+</schemas>

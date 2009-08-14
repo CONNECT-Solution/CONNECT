@@ -31,6 +31,11 @@
     <directory>Production/Adapters/General/AdapterPolicyEngineTransformEJB</directory>
   </ejblist>
   <ejblist>
+    <name>AdapterAuthenticationEJB</name>
+    <jarname>AdapterAuthenticationEJB.jar</jarname>
+    <directory>Production/Adapters/General/AdapterAuthenticationEJB</directory>
+  </ejblist>
+  <ejblist>
     <name>AdapterReidentificationEJB</name>
     <jarname>AdapterReidentificationEJB.jar</jarname>
     <directory>Production/Adapters/General/AdapterReidentificationEJB</directory>
@@ -59,6 +64,11 @@
     <name>ConsumerPreferencesProfileGUI</name>
     <jarname>ConsumerPreferencesProfileGUI.war</jarname>
     <directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
+  </ejblist>
+  <ejblist>
+    <name>UniversalClientGUI</name>
+    <jarname>UniversalClientGUI.war</jarname>
+    <directory>/Production/Adapters/General/UniversalGUI</directory>
   </ejblist>
   <ejblist>
     <name>DocumentRepositoryEJB</name>
@@ -110,11 +120,11 @@
     <jarname>AdapterDocQueryEJB.jar</jarname>
     <directory>Production/Adapters/General/AdapterDocQueryEJB</directory>
   </ejblist>
-	<ejblist>
-	  <name>EntityDocQueryProxyEJB</name>
-	  <jarname>EntityDocQueryProxyEJB.jar</jarname>
-	  <directory>Production/Adapters/General/EntityDocQueryProxyEJB</directory>
-	</ejblist>
+  <ejblist>
+    <name>EntityDocQueryProxyEJB</name>
+    <jarname>EntityDocQueryProxyEJB.jar</jarname>
+    <directory>Production/Adapters/General/EntityDocQueryProxyEJB</directory>
+  </ejblist>
   <ejblist>
     <name>NhincAuditLogDteEJB</name>
     <jarname>NhincAuditLogDteEJB.jar</jarname>

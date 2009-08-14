@@ -24,10 +24,10 @@
 		<name>HiemSubscriptionRepositoryUtilEJB</name>
 		<directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
 	</project>
-	<project>
+	<!--<project>
 		<name>FTATransferAdapterEJB</name>
 		<directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
-	</project> 
+	</project>  -->
 	<project>
 		<name>MuralMPIEJB</name>
 		<directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
@@ -60,10 +60,21 @@
 		<name>AdapterDocQueryEJB</name>
 		<directory>/Production/Adapters/General/AdapterDocQueryEJB</directory>
 	</project>
-
+	<project>
+		<name>AdapterAuthenticationEJB</name>
+		<directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
+	</project>
+	<project>
+		<name>AdapterAuthenticationProxyImpl</name>
+		<directory>/Production/Adapters/General/AdapterAuthenticationProxyImpl</directory>
+	</project>
 	<project>
 		<name>ConsumerPreferencesProfileGUI</name>
 		<directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
+	</project>
+	<project>
+		<name>UniversalClientGUI</name>
+		<directory>/Production/Adapters/General/UniversalClientGUI</directory>
 	</project>
 	<project>
 		<name>NhincAuditQueryEJB</name>

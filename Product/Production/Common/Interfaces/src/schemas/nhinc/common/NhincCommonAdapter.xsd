@@ -579,4 +579,21 @@
     </xsd:complexType>
     <xsd:element name="StorePtConsentResponse" type="tns:StorePtConsentResponseType" />
 
+	<!-- ====================================================================
+         Authentication
+         ==================================================================== -->
+	<xsd:complexType name="AuthenticateUserRequestType">
+		<xsd:sequence>
+			<xsd:element name="userName" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AuthenticateUserRequest" type="tns:AuthenticateUserRequestType"/>
+	<xsd:complexType name="AuthenticateUserResponseType">
+		<xsd:sequence>
+            <xsd:element name="isAuthenticationAvailable" type="xsd:boolean"/>
+			<xsd:element name="authenticationToken" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AuthenticateUserResponse" type="tns:AuthenticateUserResponseType"/>
 </xsd:schema>

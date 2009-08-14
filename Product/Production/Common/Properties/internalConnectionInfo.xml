@@ -240,6 +240,11 @@
 				<description>NHINC Proxy Document Query</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
 			</service>
+			<service>
+				<name>adapterauthentication</name>
+				<description>adapterauthentication</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -469,6 +474,11 @@
 				<name>nhincproxydocquerysecured</name>
 				<description>NHINC Proxy Document Query</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>adapterauthentication</name>
+				<description>adapterauthentication</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
