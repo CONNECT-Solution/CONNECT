@@ -24,10 +24,10 @@
 		<name>HiemSubscriptionRepositoryUtilEJB</name>
 		<directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
 	</project>
-	<!--<project>
+	<project>
 		<name>FTATransferAdapterEJB</name>
 		<directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
-	</project>  -->
+	</project>
 	<project>
 		<name>MuralMPIEJB</name>
 		<directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
