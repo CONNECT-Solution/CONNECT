@@ -43,7 +43,8 @@ public class NhincConstants {
     public static final String SUBSCRIBE_ACTION = "subscribe";
     public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
-
+    public static final String PAT_CORR_ACTION = "patientcorrelation";
+    
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_LOG_SERVICE_NAME = "auditlog";
