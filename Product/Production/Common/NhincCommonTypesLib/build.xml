@@ -222,7 +222,7 @@
     <target name="processWsdl">
         <echo message="Performing wsimport for: ${wsdl.file}" />
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
-                  destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="false"
+                  destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="true"
                   wsdlLocation="file:${wsdl.file}" xnocompile="true" />
     </target>
 </project>
