@@ -38,6 +38,7 @@ public class NhincProxyDocQuerySecuredImpl
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
         AcknowledgementType ack = auditLog.audit(body, assertion);
 
+        log.debug("Creating NhinDocQueryProxy");
         NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
         NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
 
@@ -46,6 +47,8 @@ public class NhincProxyDocQuerySecuredImpl
         request.setAdhocQueryRequest(body.getAdhocQueryRequest());
         request.setAssertion(assertion);
         request.setNhinTargetSystem(body.getNhinTargetSystem());
+
+        log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
         response = proxy.respondingGatewayCrossGatewayQuery(request);
 
         // Audit the Document Query Response Message received on the Nhin Interface

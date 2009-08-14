@@ -44,6 +44,10 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
         }
 
         if (NullChecker.isNotNullish(url)) {
+            if(log.isDebugEnabled())
+            {
+                log.debug("URL for NHIN Proxy call: " + url);
+            }
             RespondingGatewayQueryPortType port = getPort(url);
 
             AssertionType assertIn = request.getAssertion();
