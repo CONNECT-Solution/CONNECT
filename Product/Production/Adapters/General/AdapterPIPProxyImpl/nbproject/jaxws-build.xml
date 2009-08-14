@@ -14,11 +14,11 @@
     <target name="wsimport-client-AdapterPIP" depends="wsimport-init">
         <property name="wsdl-AdapterPIP" location="xml-resources/web-service-references/AdapterPIP/wsdl/AdapterPIP.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterPIP}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterpip" includes="AdapterPIP.java" casesensitive="no"/>
+            <produces dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adapterpip" includes="AdapterPIP.java" casesensitive="no"/>
         </wsimport>
     </target>
     <target name="wsimport-client-clean-AdapterPIP" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterpip"/>
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adapterpip"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterPIP"/>
     <target name="wsimport-client-compile-depend" if="do.depend.true">
