@@ -175,10 +175,10 @@
 		<ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
 		<ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
 		<ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-		<ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.AuditQueryAdapterProxyImpl.Absolute}" antfile="${project.AuditQueryAdapterProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.AuditQueryAdapterProxy.Absolute}" antfile="${project.AuditQueryAdapterProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.AuditQueryAdapterProxyImpl.Absolute}" antfile="${project.AuditQueryAdapterProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.AuditQueryAdapterProxy.Absolute}" antfile="${project.AuditQueryAdapterProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
 	</target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
 		<nbundeploy failOnError="false" startServer="false"/>

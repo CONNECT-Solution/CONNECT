@@ -123,7 +123,7 @@
 
         <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
 </project>

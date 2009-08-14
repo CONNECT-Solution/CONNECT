@@ -83,7 +83,7 @@
                 
     	<property name="project.NHINClib.Absolute" location="${project.NhincLib}"/>
     	
-    	<ant dir="${project.NHINClib.Absolute}" antfile="${project.NHINClib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    	<ant dir="${project.NHINClib.Absolute}" antfile="${project.NHINClib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
 </project>
