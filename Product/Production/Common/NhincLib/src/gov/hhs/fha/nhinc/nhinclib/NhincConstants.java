@@ -52,7 +52,7 @@ public class NhincConstants {
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_LOG_SERVICE_NAME = "auditlog";
     public static final String AUDIT_QUERY_SERVICE_NAME = "auditquery";
-    public static final String AUDIT_LOG_ADAPTER_SERVICE_NAME = "adapterauditquerypassthrough";
+    public static final String AUDIT_LOG_ADAPTER_SERVICE_NAME = "adapterauditquery";
     public static final String AUDIT_LOG_INBOUND_DIRECTION = "Inbound";
     public static final String AUDIT_LOG_OUTBOUND_DIRECTION = "Outbound";
     public static final String AUDIT_LOG_ENTITY_INTERFACE = "Entity";
@@ -81,9 +81,9 @@ public class NhincConstants {
     public static final String HIEM_NOTIFY_ENTITY_SERVICE_NAME = "entitynotificationconsumer";
 
     // HIEM - adapter interface
-    public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducerpassthrough";
-    public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanagerpassthrough";
-    public static final String HIEM_NOTIFY_ADAPTER_SERVICE_NAME = "adapternotificationconsumerpassthrough";
+    public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducer";
+    public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanager";
+    public static final String HIEM_NOTIFY_ADAPTER_SERVICE_NAME = "adapternotificationconsumer";
     
     public static final String HIEM_SUBSCRIPTION_SERVICE_PROPERTY = "serviceSubscription";
     public static final String HIEM_SUBSCRIPTION_SERVICE_PASSTHRU_PROPERTY = "subscriptionPassthrough";
