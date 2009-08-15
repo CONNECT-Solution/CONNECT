@@ -11,19 +11,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
 			</service>
 			<service>
-				<name>nhincsubjectdiscovery</name>
-				<description>NHIN-CONNECT Internal Subject Discovery</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
-			</service>
-			<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
 				<endpointURL>https://<Gateway-IP>:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-			<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>documentretrieve</name>
@@ -41,19 +31,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
-				<name>nhincauditquery</name>
-				<description>auditquery</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincAuditLogQuery</endpointURL>
-			</service>
-			<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
 				<endpointURL>https://<Gateway-IP>:8181/NotificationProducerService/HiemSubscription</endpointURL>
-			</service>
-			<service>
-				<name>nhincnotificationproducer</name>
-				<description>notificationproducer</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincNotificationProducer</endpointURL>
 			</service>
 			<service>
 				<name>notificationconsumer</name>
@@ -61,19 +41,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/NotificationConsumerService/HiemNotify</endpointURL>
 			</service>
 			<service>
-				<name>nhincnotificationconsumer</name>
-				<description>HIEM Notify</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincNotificationConsumer</endpointURL>
-			</service>
-			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://<Gateway-IP>:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
-			</service>
-			<service>
-				<name>nhincsubscriptionmanager</name>
-				<description>HIEM Unsubscribe</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincSubscriptionManager</endpointURL>
 			</service>
 			<service>
 				<name>agencynotificationconsumer</name>
@@ -121,19 +91,19 @@
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterReidentification</endpointURL>
 			</service>
 			<service>
-				<name>adapternotificationproducercdcbiopackage</name>
-				<description>Adapter HIEM Subscribe for CDC Bio Package</description>
-				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
-			</service>
-			<service>
-				<name>adapternotificationproducerdocument</name>
-				<description>Adapter HIEM Subscribe for Documents</description>
+				<name>adapternotificationproducer</name>
+				<description>Adapter HIEM Subscribe</description>
 				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationconsumer</name>
-				<description>Adapter HIEM Subscribe for Documents</description>
+				<description>Adapter HIEM Notify</description>
 				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
+			</service>
+			<service>
+				<name>adaptersubscriptionmanager</name>
+				<description>Adapter HIEM Unsubscribe</description>
+				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubscriptionManager</endpointURL>
 			</service>
 			<service>
 				<name>policyenginedte</name>
@@ -167,21 +137,12 @@
                 <description>Adapter Subject Discovery</description>
                 <endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
             </service>
-            <service>
-                <name>adaptersubdiscoverypassthrough</name>
-                <description>Adapter Subject Discovery PassThrough</description>
-                <endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
-            </service>
 			<service>
 				<name>adaptercomponentmpiservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
 			</service>
-			      <service>
-				        <name>adapternotificationproducerpassthrough</name>
-				        <description>adapternotificationproducerpassthrough</description>
-				        <endpointURL>http://<Adapter-IP>:8080/AdapterNotificationProducer/AdapterSubcriptionManagement</endpointURL>
-			      </service>
+			      
 			      <service>
 				        <name>adapterpip</name>
 				        <description>adapterpip</description>
@@ -225,19 +186,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
 			</service>
 			<service>
-				<name>nhincsubjectdiscovery</name>
-				<description>NHIN-CONNECT Internal Subject Discovery</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
-			</service>
-			<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
 				<endpointURL>https://<Gateway-IP>:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-			<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>documentretrieve</name>
@@ -255,19 +206,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
-				<name>nhincauditquery</name>
-				<description>auditquery</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincAuditLogQuery</endpointURL>
-			</service>
-			<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
 				<endpointURL>https://<Gateway-IP>:8181/NotificationProducerService/HiemSubscription</endpointURL>
-			</service>
-			<service>
-				<name>nhincnotificationproducer</name>
-				<description>notificationproducer</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincNotificationProducer</endpointURL>
 			</service>
 			<service>
 				<name>notificationconsumer</name>
@@ -275,19 +216,9 @@
 				<endpointURL>https://<Gateway-IP>:8181/NotificationConsumerService/HiemNotify</endpointURL>
 			</service>
 			<service>
-				<name>nhincnotificationconsumer</name>
-				<description>HIEM Notify</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincNotificationConsumer</endpointURL>
-			</service>
-			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://<Gateway-IP>:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
-			</service>
-			<service>
-				<name>nhincsubscriptionmanager</name>
-				<description>HIEM Unsubscribe</description>
-				<endpointURL>http://<Gateway-IP>:9080/NhinConnect/NhincSubscriptionManager</endpointURL>
 			</service>
 			<service>
 				<name>agencynotificationconsumer</name>
@@ -335,19 +266,19 @@
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterReidentification</endpointURL>
 			</service>
 			<service>
-				<name>adapternotificationproducercdcbiopackage</name>
-				<description>Adapter HIEM Subscribe for CDC Bio Package</description>
-				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
-			</service>
-			<service>
-				<name>adapternotificationproducerdocument</name>
-				<description>Adapter HIEM Subscribe for Documents</description>
+				<name>adapternotificationproducer</name>
+				<description>Adapter HIEM Subscribe</description>
 				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
 			</service>
 			<service>
 				<name>adapternotificationconsumer</name>
-				<description>Adapter HIEM Subscribe for Documents</description>
+				<description>Adapter HIEM Notify</description>
 				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
+			</service>
+			<service>
+				<name>adaptersubscriptionmanager</name>
+				<description>Adapter HIEM Unsubscribe</description>
+				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubscriptionManager</endpointURL>
 			</service>
 			<service>
 				<name>policyenginedte</name>
@@ -386,21 +317,11 @@
                 <description>Adapter Subject Discovery</description>
                 <endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
             </service>
-            <service>
-                <name>adaptersubdiscoverypassthrough</name>
-                <description>Adapter Subject Discovery PassThrough</description>
-                <endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
-            </service>
 			<service>
 				<name>adaptercomponentmpiservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
 			</service>
-			      <service>
-				        <name>adapternotificationproducerpassthrough</name>
-				        <description>adapternotificationproducerpassthrough</description>
-				        <endpointURL>http://<Adapter-IP>:8080/AdapterNotificationProducer/AdapterSubcriptionManagement</endpointURL>
-			      </service>
 			      <service>
 				        <name>adapterpip</name>
 				        <description>adapterpip</description>
