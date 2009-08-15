@@ -24,15 +24,15 @@ public class SubjectDiscovery implements PIXConsumerPortType {
     private static Log log = LogFactory.getLog(SubjectDiscovery.class);
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201301UV(org.hl7.v3.PRPAIN201301UV body) {
-        return (SubjectDiscoveryImpl.pixConsumerPRPAIN201301UV(body, context));
+        return (new SubjectDiscoveryImpl().pixConsumerPRPAIN201301UV(body, context));
     }
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201302UV(org.hl7.v3.PRPAIN201302UV body) {
-        return (SubjectDiscoveryImpl.pixConsumerPRPAIN201302UV(body, context));
+        return (new SubjectDiscoveryImpl().pixConsumerPRPAIN201302UV(body, context));
     }
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201303UV(org.hl7.v3.PRPAIN201303UV body) {
-        return (SubjectDiscoveryImpl.pixConsumerPRPAIN201303UV(body, context));
+        return (new SubjectDiscoveryImpl().pixConsumerPRPAIN201303UV(body, context));
     }
 
     public org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201304UV(org.hl7.v3.PRPAIN201304UV body) {
@@ -41,7 +41,7 @@ public class SubjectDiscovery implements PIXConsumerPortType {
     }
 
     public org.hl7.v3.PRPAIN201310UV pixConsumerPRPAIN201309UV(org.hl7.v3.PRPAIN201309UV body) {
-        return (SubjectDiscoveryImpl.pixConsumerPRPAIN201309UV(body, context));
+        return (new SubjectDiscoveryImpl().pixConsumerPRPAIN201309UV(body, context));
     }
 
 }
