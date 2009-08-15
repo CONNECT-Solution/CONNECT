@@ -7,12 +7,6 @@
     <system systemId="Interfaces/wsdl/NhincProxyDocRetrieve.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxyDocRetrieve.wsdl"/>
     <system systemId="Interfaces/wsdl/NhinDocRetrieve.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhinDocRetrieve.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentAuditRepository.wsdl"/>
-    <system systemId="Interfaces/wsdl/rw-2.wsdl" uri="nb-uri:Interfaces#src/wsdl/rw-2.wsdl"/>
-    <system systemId="Interfaces/wsdl/NhincProxySubscriptionManagement.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-    <system systemId="Interfaces/wsdl/NhincProxyNotificationConsumer.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxyNotificationConsumer.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
-    <system systemId="Interfaces/wsdl/NhinSubscription.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhinSubscription.wsdl"/>
-    <system systemId="Interfaces/schemas/nhin/HIEM.xsd" uri="nb-uri:Interfaces#src/schemas/nhin/HIEM.xsd"/>
-    <system systemId="Interfaces/wsdl/NhincComponentInternalSubscriptionDte.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalSubscriptionDte.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentInternalAuditRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentInternalAuditRepository.wsdl"/>
 </catalog>
