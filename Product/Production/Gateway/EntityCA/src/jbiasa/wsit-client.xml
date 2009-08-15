@@ -5,8 +5,6 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
-    <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
     <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
-    <import location="NhinAuditLogQuery.xml" namespace="http://services.nhin.com/wsdl/auditlogquery"/>
 </definitions>
