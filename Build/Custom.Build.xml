@@ -45,7 +45,7 @@
     </zip>
 
     <property name="Publish.Web.File.Name" value="${InstallerZip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Deployment.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
    
     <call target="Publish.Link" />
 	</target>
