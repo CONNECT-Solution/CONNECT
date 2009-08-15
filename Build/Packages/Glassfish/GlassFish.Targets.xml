@@ -87,6 +87,7 @@
       logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args/>
     </ant>
   </target>
   
@@ -99,6 +100,7 @@
       logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args/>
     </ant>
     
     <call target="GlassFish.StartServer"/>
@@ -109,6 +111,7 @@
       logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args/>
     </ant>
   </target>
 
