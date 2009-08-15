@@ -43,8 +43,11 @@ public class NhincConstants {
     public static final String SUBSCRIBE_ACTION = "subscribe";
     public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
+    public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
+
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     
+
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
     public static final String AUDIT_LOG_SERVICE_NAME = "auditlog";
@@ -119,6 +122,14 @@ public class NhincConstants {
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
+    // Subject Discovery Constants
+    public static final String NHINC_SUBJECT_DISCOVERY_SERVICE_NAME = "serviceSubjectDiscovery";
+    public static final String SUBJECT_DISCOVERY_SERVICE_NAME = "subjectdiscovery";
+    public static final String SUBJECT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "subjectDiscoveryPassthrough";
+    public static final String SUBJECT_DISCOVERY_DISABLED_ACK_MSG = "Subject Discovery Service is not enabled";
+    public static final String SUBJECT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Subject Discovery";
+    public static final String SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME = "adapterreidentificationservice";
+    public static final String SUBJECT_DISCOVERY_ADAPTER_SERVICE_NAME = "adaptersubdiscovery";
 
     private NhincConstants() {
     }
