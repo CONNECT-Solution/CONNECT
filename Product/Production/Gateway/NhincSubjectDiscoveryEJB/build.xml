@@ -86,64 +86,169 @@
         <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/SubjectDiscovery/schemas/" />
         </copy>
-    </target>
-    
-    <target name="wsimport-client-NhincSubjectDiscovery" depends="wsimport-init,wsimport-client-check-NhincSubjectDiscovery" unless="wsimport-client-NhincSubjectDiscovery.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/wsdl/NhincSubjectDiscovery.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubjectDiscovery.wsdl" catalog="catalog.xml"/>
--->
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincSubjectDiscovery">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/schemas/" />
-        </copy>
-    </target>
-    
-    
+    </target>  
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+	    <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+	    <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.NhinSubjectDiscoveryProxy.Absolute" location="${project.NhinSubjectDiscoveryProxy}"/>
+	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
+	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
+	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinSubjectDiscoveryProxy.Absolute}" antfile="${project.NhinSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+	    <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+	    <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.NhinSubjectDiscoveryProxy.Absolute" location="${project.NhinSubjectDiscoveryProxy}"/>
+	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
+	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
+	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinSubjectDiscoveryProxy.Absolute}" antfile="${project.NhinSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+	    <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+	    <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.NhinSubjectDiscoveryProxy.Absolute" location="${project.NhinSubjectDiscoveryProxy}"/>
+	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
+	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
+	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhinSubjectDiscoveryProxy.Absolute}" antfile="${project.NhinSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target> 
     
 
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterMpiProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.PatientCorrelationFacade.jar}" todir="${build.classes.dir}"/>
+		<copy file="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.classes.dir}"/>
+		<copy file="${reference.NhinSubjectDiscoveryProxy.jar}" todir="${build.classes.dir}"/>
+		<copy file="${reference.NhinSubjectDiscoveryProxyImpl.jar}" todir="${build.classes.dir}"/>
+		<copy file="${reference.AdapterReidentificationProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterReidentificationProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
         <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AuditRepositoryProxyImpl.jar}" property="included.lib.reference.AuditRepositoryProxyImpl.jar"/>
+        <copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AuditRepositoryProxy.jar}" property="included.lib.reference.AuditRepositoryProxy.jar"/>
+        <copy file="${reference.AuditRepositoryProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.PolicyEngineProxyImpl.jar}" property="included.lib.reference.PolicyEngineProxyImpl.jar"/>
+        <copy file="${reference.PolicyEngineProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.PolicyEngineProxy.jar}" property="included.lib.reference.PolicyEngineProxy.jar"/>
+        <copy file="${reference.PolicyEngineProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.NhincDataTransformsLib.jar}" property="included.lib.reference.NhincDataTransformsLib.jar"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" property="included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar"/>
+        <copy file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterMpiProxy.jar}" property="included.lib.reference.AdapterMpiProxy.jar"/>
+        <copy file="${reference.AdapterMpiProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterMpiProxyImpl.jar}" property="included.lib.reference.AdapterMpiProxyImpl.jar"/>
+        <copy file="${reference.AdapterMpiProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.PatientCorrelationFacade.jar}" property="included.lib.reference.PatientCorrelationFacade.jar"/>
+		<copy file="${reference.PatientCorrelationFacade.jar}" todir="${dist.ear.dir}"/>
+		<basename file="${reference.PatientCorrelationFacadeProxy.jar}" property="included.lib.reference.PatientCorrelationFacadeProxy.jar"/>
+		<copy file="${reference.PatientCorrelationFacadeProxy.jar}" todir="${dist.ear.dir}"/>
+		<basename file="${reference.NhinSubjectDiscoveryProxy.jar}" property="included.lib.reference.NhinSubjectDiscoveryProxy.jar"/>
+		<copy file="${reference.NhinSubjectDiscoveryProxy.jar}" todir="${dist.ear.dir}"/>
+		<basename file="${reference.NhinSubjectDiscoveryProxyImpl.jar}" property="included.lib.reference.NhinSubjectDiscoveryProxyImpl.jar"/>
+		<copy file="${reference.NhinSubjectDiscoveryProxyImpl.jar}" todir="${dist.ear.dir}"/>
+		<basename file="${reference.AdapterReidentificationProxy.jar}" property="included.lib.reference.AdapterReidentificationProxy.jar"/>
+        <copy file="${reference.AdapterReidentificationProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterReidentificationProxyImpl.jar}" property="included.lib.reference.AdapterReidentificationProxyImpl.jar"/>
+        <copy file="${reference.AdapterReidentificationProxyImpl.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.PolicyEngineProxyImpl.jar} ${included.lib.reference.PolicyEngineProxy.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${included.lib.reference.AdapterMpiProxy.jar} ${included.lib.reference.AdapterMpiProxyImpl.jar} ${included.lib.reference.PatientCorrelationFacade.jar} ${included.lib.reference.PatientCorrelationFacadeProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxyImpl.jar} ${included.lib.reference.AdapterReidentificationProxy.jar} ${included.lib.reference.AdapterReidentificationProxyImpl.jar}"/>
         </manifest>
     </target>   
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

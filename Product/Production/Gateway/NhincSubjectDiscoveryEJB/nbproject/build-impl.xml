@@ -287,15 +287,43 @@ exists or setup the property manually. For example like this:
                 COMPILATION SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterReidentificationProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterReidentificationProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterReidentificationProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterReidentificationProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
-    <target depends="init,deps-jar,wsimport-service-generate,wsimport-client-generate" name="-pre-pre-compile">
+    <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
         <mkdir dir="${build.ear.classes.dir}"/>
     </target>
@@ -308,7 +336,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" todir="${build.classes.dir}"/>
@@ -323,13 +350,27 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xstream-1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacade.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhinSubjectDiscoveryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhinSubjectDiscoveryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterReidentificationProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterReidentificationProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.junit_4.classpath}" manifestproperty="manifest.libs.junit_4.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" manifestproperty="manifest.file.reference.dom4j-1.6.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" manifestproperty="manifest.file.reference.jdom-1.0.jar" todir="${dist.ear.dir}"/>
@@ -344,8 +385,23 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xstream-1.3.jar}" manifestproperty="manifest.file.reference.xstream-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" manifestproperty="manifest.file.reference.xstream-benchmark-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" manifestproperty="manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxy.jar}" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacade.jar}" manifestproperty="manifest.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" manifestproperty="manifest.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhinSubjectDiscoveryProxy.jar}" manifestproperty="manifest.reference.NhinSubjectDiscoveryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhinSubjectDiscoveryProxyImpl.jar}" manifestproperty="manifest.reference.NhinSubjectDiscoveryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterReidentificationProxy.jar}" manifestproperty="manifest.reference.AdapterReidentificationProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterReidentificationProxyImpl.jar}" manifestproperty="manifest.reference.AdapterReidentificationProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.NhinSubjectDiscoveryProxy.jar} ${manifest.reference.NhinSubjectDiscoveryProxyImpl.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AdapterReidentificationProxy.jar} ${manifest.reference.AdapterReidentificationProxyImpl.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -356,7 +412,7 @@ exists or setup the property manually. For example like this:
             <fileset dir="${meta.inf}" excludes="**/*.dbschema **/xml-resources/** ${meta.inf.excludes}"/>
         </copy>
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf,wsimport-service-compile,wsimport-client-compile" if="have.sources" name="-do-compile">
+    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf,wsimport-service-compile" if="have.sources" name="-do-compile">
         <ejbjarproject2:javac destdir="${classes.dir}"/>
         <copy todir="${classes.dir}">
             <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
@@ -371,7 +427,7 @@ exists or setup the property manually. For example like this:
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,wsimport-service-compile,wsimport-client-compile" name="-do-compile-single">
+    <target depends="init,deps-jar,-pre-pre-compile,wsimport-service-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <ejbjarproject2:javac excludes="" includes="${javac.includes}"/>
     </target>
@@ -603,8 +659,22 @@ exists or setup the property manually. For example like this:
                 CLEANUP SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterReidentificationProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterReidentificationProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhinSubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
