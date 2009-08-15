@@ -11,19 +11,9 @@
 				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
 			</service>
 		  	<service>
-				<name>nhincsubjectdiscovery</name>
-				<description>NHIN-CONNECT Internal Subject Discovery</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
-			</service>
-		  	<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-		  	<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincDocQuery</endpointURL>
 			</service>
 		  	<service>
 				<name>documentretrieve</name>
@@ -101,19 +91,9 @@
 				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
 			</service>
 		  	<service>
-				<name>nhincsubjectdiscovery</name>
-				<description>NHIN-CONNECT Internal Subject Discovery</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincSubjectDiscovery</endpointURL>
-			</service>
-		  	<service>
 				<name>documentquery</name>
 				<description>documentquery</description>
 				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
-			</service>
-		  	<service>
-				<name>nhincdocumentquery</name>
-				<description>NHIN-CONNECT Internal Document Query</description>
-				<endpointURL>http://localhost:9080/NhinConnect/NhincDocQuery</endpointURL>
 			</service>
 		  	<service>
 				<name>documentretrieve</name>
