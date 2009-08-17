@@ -163,6 +163,7 @@ class DocQueryImpl {
         //call the policy engine to check the permission on the request
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(policyCheckReq);
+        policyReq.setAssertion(message.getAssertion());
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);

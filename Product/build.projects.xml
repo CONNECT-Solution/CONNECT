@@ -37,6 +37,10 @@
 		<directory>/Production/Adapters/General/AdapterPolicyEngineEJB</directory>
 	</project>
 	<project>
+		<name>AdapterPolicyEngineProxyEJB</name>
+		<directory>/Production/Gateway/AdapterPolicyEngineProxyEJB</directory>
+	</project>
+	<project>
 		<name>AdapterPolicyEngineOrchestratorEJB</name>
 		<directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorEJB</directory>
 	</project>

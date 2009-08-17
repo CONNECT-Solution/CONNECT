@@ -48,6 +48,7 @@ public class FindAuditEventsTransformHelper {
             }
         }
         genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
 }

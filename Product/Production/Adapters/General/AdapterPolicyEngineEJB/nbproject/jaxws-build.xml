@@ -18,24 +18,24 @@
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-AdapterPolicyEngine" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterPolicyEngine.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyengine/AdapterPolicyEngine.java"/>
+    <target name="wsimport-service-check-AdapterPolicyEngineSecured" depends="wsimport-init">
+        <condition property="wsimport-service-AdapterPolicyEngineSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyenginesecured/AdapterPolicyEngineSecured.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-AdapterPolicyEngine" depends="wsimport-init,wsimport-service-check-AdapterPolicyEngine" unless="wsimport-service-AdapterPolicyEngine.notRequired">
-        <property name="service-wsdl-AdapterPolicyEngine" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPolicyEngine}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-AdapterPolicyEngine" location="${meta.inf}/wsdl/AdapterPolicyEngine"/>
-        <property name="sourceLocation-AdapterPolicyEngine" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngine/wsdl/"/>
-        <copy todir="${targetLocation-AdapterPolicyEngine}">
-            <fileset dir="${sourceLocation-AdapterPolicyEngine}"/>
+    <target name="wsimport-service-AdapterPolicyEngineSecured" depends="wsimport-init,wsimport-service-check-AdapterPolicyEngineSecured" unless="wsimport-service-AdapterPolicyEngineSecured.notRequired">
+        <property name="service-wsdl-AdapterPolicyEngineSecured" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/AdapterPolicyEngineSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPolicyEngineSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-AdapterPolicyEngineSecured" location="${meta.inf}/wsdl/AdapterPolicyEngineSecured"/>
+        <property name="sourceLocation-AdapterPolicyEngineSecured" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterPolicyEngineSecured}">
+            <fileset dir="${sourceLocation-AdapterPolicyEngineSecured}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-AdapterPolicyEngine" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyengine"/>
+    <target name="wsimport-service-clean-AdapterPolicyEngineSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyenginesecured"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterPolicyEngine"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterPolicyEngineSecured"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>

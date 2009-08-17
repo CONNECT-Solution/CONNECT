@@ -80,8 +80,12 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>Policy Engine Service</description>
-<!--				<endpointURL>http://localhost:9080/NhinConnect/AdapterPolicyEngine</endpointURL> -->
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+			</service>
+			<service>
+				<name>policyengineservicesecured</name>
+				<description>Policy Engine Service Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrieve</name>

@@ -53,6 +53,7 @@ public class SubjectReidentificationTransformHelper {
             request.getResource().add(resource);
         }
         genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
 

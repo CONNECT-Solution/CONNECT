@@ -19,5 +19,5 @@ public interface PolicyEngineProxy {
      * @param request Generic Policy Check request message
      * @return The policy check results
      */
-    public CheckPolicyResponseType checkPolicy (CheckPolicyRequestType checkPolicyRequest);
+    public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest);
 }

@@ -12,7 +12,6 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -21,6 +21,11 @@
     <directory>Production/Adapters/General/AdapterPolicyEngineEJB</directory>
   </ejblist>
   <ejblist>
+    <name>AdapterPolicyEngineProxyEJB</name>
+    <jarname>AdapterPolicyEngineProxyEJB.jar</jarname>
+    <directory>Production/Gateway/AdapterPolicyEngineProxyEJB</directory>
+  </ejblist>
+  <ejblist>
     <name>AdapterPolicyEngineOrchestratorEJB</name>
     <jarname>AdapterPolicyEngineOrchestratorEJB.jar</jarname>
     <directory>Production/Adapters/General/AdapterPolicyEngineOrchestratorEJB</directory>

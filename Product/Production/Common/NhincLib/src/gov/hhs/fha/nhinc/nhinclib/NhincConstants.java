@@ -65,6 +65,7 @@ public class NhincConstants {
     // Policy Engine Constants
     public static final String POLICYENGINE_DTE_SERVICE_NAME = "policyenginedte";
     public static final String POLICYENGINE_SERVICE_NAME = "policyengineservice";
+    public static final String POLICYENGINE_SERVICE_SECURED_NAME = "policyengineservicesecured";
     public static final String POLICYENGINE_FACADE_SERVICE_NAME = "policyenginefacade";
     public static final String POLICYENGINE_INBOUND_DIRECTION = "Inbound";
     public static final String POLICYENGINE_OUTBOUND_DIRECTION = "Outbound";

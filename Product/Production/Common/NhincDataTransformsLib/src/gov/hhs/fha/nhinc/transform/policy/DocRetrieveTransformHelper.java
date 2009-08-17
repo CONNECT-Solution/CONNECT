@@ -41,6 +41,7 @@ public class DocRetrieveTransformHelper {
             }
         }
         genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
     

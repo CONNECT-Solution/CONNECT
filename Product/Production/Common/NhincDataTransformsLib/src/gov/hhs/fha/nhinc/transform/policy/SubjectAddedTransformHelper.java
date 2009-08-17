@@ -45,6 +45,7 @@ public class SubjectAddedTransformHelper {
         }
 
         genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
 

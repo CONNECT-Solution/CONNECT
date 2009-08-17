@@ -58,6 +58,7 @@ public class AdhocQueryTransformHelper {
         request.getSubject().add(subject);
 
         genericPolicyRequest.setRequest(request);
+        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
 

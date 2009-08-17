@@ -300,6 +300,7 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <ant antfile="${project.AdapterPEPLib}/build.xml" inheritall="false" target="jar"/>
@@ -315,6 +316,7 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
@@ -343,6 +345,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
@@ -362,8 +365,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorLib.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineOrchestratorLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxy.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxyImpl.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.AdapterPolicyEngineLib.jar} ${manifest.reference.AdapterPEPProxy.jar} ${manifest.reference.AdapterPEPProxyImpl.jar} ${manifest.reference.AdapterPEPLib.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorLib.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.AdapterPolicyEngineLib.jar} ${manifest.reference.AdapterPEPProxy.jar} ${manifest.reference.AdapterPEPProxyImpl.jar} ${manifest.reference.AdapterPEPLib.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorLib.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -634,6 +638,7 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
