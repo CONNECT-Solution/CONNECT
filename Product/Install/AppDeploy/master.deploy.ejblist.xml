@@ -126,6 +126,11 @@
     <directory>Production/Adapters/General/AdapterDocQueryEJB</directory>
   </ejblist>
   <ejblist>
+    <name>AdapterAuditQueryEJB</name>
+    <jarname>AdapterAuditQueryEJB.jar</jarname>
+    <directory>Production/Adapters/General/AdapterAuditQueryEJB</directory>
+  </ejblist>
+  <ejblist>
     <name>EntityDocQueryProxyEJB</name>
     <jarname>EntityDocQueryProxyEJB.jar</jarname>
     <directory>Production/Adapters/General/EntityDocQueryProxyEJB</directory>
