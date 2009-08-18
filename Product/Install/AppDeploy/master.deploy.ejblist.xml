@@ -205,6 +205,15 @@
     <jarname>AdapterDocQueryProxyEJB.jar</jarname>
     <directory>Production/Gateway/AdapterDocQueryProxyEJB</directory>
   </ejblist>
--->
+  <ejblist>
+    <name>AdapterDocRetrieveEJB</name>
+    <jarname>AdapterDocRetrieveEJB.jar</jarname>
+    <directory>Production/Adapters/General/AdapterDocRetrieveEJB</directory>
+  </ejblist>
+  <ejblist>
+    <name>AdapterDocRetrieveProxyEJB</name>
+    <jarname>AdapterDocRetrieveProxyEJB.jar</jarname>
+    <directory>Production/Gateway/AdapterDocRetrieveProxyEJB</directory>
+  </ejblist>
 </projects>
 

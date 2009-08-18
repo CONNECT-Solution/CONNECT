@@ -198,6 +198,14 @@
 		<directory>/Production/Gateway/AdapterDocQueryProxyEJB</directory>
 	</project>	
 	<project>
+		<name>AdapterDocRetrieveEJB</name>
+		<directory>/Production/Adapters/General/AdapterDocRetrieveEJB</directory>
+	</project>
+	<project>
+		<name>AdapterDocRetrieveProxyEJB</name>
+		<directory>/Production/Gateway/AdapterDocRetrieveProxyEJB</directory>
+	</project>	
+	<project>
 		<name>AdapterCA</name>
 		<directory>/Production/Adapters/General/AdapterCA</directory>
 	</project>
