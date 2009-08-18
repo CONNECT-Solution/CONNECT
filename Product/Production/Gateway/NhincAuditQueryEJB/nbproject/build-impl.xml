@@ -287,8 +287,8 @@ exists or setup the property manually. For example like this:
                 COMPILATION SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AuditQueryAdapterProxy}/build.xml" inheritall="false" target="jar"/>
-        <ant antfile="${project.AuditQueryAdapterProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterAuditQueryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterAuditQueryProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
@@ -298,8 +298,8 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AuditQueryAdapterProxy}/build.xml" inheritall="false" target="jar"/>
-        <ant antfile="${project.AuditQueryAdapterProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterAuditQueryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterAuditQueryProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
@@ -339,10 +339,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditQueryAdapterProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditQueryAdapterProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterAuditQueryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.General-AdapterAuditQueryProxyImpl}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterAuditQueryProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
@@ -366,12 +367,13 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditQueryAdapterProxy.jar}" manifestproperty="manifest.reference.AuditQueryAdapterProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditQueryAdapterProxyImpl.jar}" manifestproperty="manifest.reference.AuditQueryAdapterProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterAuditQueryProxy.jar}" manifestproperty="manifest.reference.AdapterAuditQueryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.General-AdapterAuditQueryProxyImpl}" manifestproperty="manifest.file.reference.General-AdapterAuditQueryProxyImpl" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterAuditQueryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterAuditQueryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.AuditQueryAdapterProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.AuditQueryAdapterProxyImpl.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.General-AdapterAuditQueryProxyImpl} ${manifest.reference.AdapterAuditQueryProxyImpl.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -629,8 +631,8 @@ exists or setup the property manually. For example like this:
                 CLEANUP SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AuditQueryAdapterProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AuditQueryAdapterProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterAuditQueryProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterAuditQueryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>

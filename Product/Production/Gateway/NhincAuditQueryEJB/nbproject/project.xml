@@ -33,10 +33,11 @@
             <included-library>reference.NhincDataTransformsLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>reference.PolicyEngineProxy.jar</included-library>
-            <included-library>reference.AuditQueryAdapterProxy.jar</included-library>
             <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
-            <included-library>reference.AuditQueryAdapterProxyImpl.jar</included-library>
             <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
+            <included-library>reference.AdapterAuditQueryProxy.jar</included-library>
+            <included-library>file.reference.General-AdapterAuditQueryProxyImpl</included-library>
+            <included-library>reference.AdapterAuditQueryProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -46,7 +47,7 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>AuditQueryAdapterProxy</foreign-project>
+                <foreign-project>AdapterAuditQueryProxy</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -54,7 +55,7 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>AuditQueryAdapterProxyImpl</foreign-project>
+                <foreign-project>AdapterAuditQueryProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
