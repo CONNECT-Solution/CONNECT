@@ -45,6 +45,8 @@
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>reference.AdapterReidentificationProxy.jar</included-library>
             <included-library>reference.AdapterReidentificationProxyImpl.jar</included-library>
+            <included-library>reference.AdapterSubjectDiscoveryProxy.jar</included-library>
+            <included-library>reference.AdapterSubjectDiscoveryProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -79,6 +81,22 @@
             </reference>
             <reference>
                 <foreign-project>AdapterReidentificationProxyImpl</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AdapterSubjectDiscoveryProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AdapterSubjectDiscoveryProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

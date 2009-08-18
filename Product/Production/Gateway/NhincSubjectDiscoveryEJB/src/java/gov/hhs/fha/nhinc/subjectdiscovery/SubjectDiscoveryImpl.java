@@ -49,7 +49,9 @@ public class SubjectDiscoveryImpl {
                 ackMsg = ackCreater.createAck(pix201301Request, NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
             }
         } else {
-            // Forward to the Agency
+            // Just forward the request to the Agency
+            SubjectDiscoveryAdapterSender sdAdapterSender = new SubjectDiscoveryAdapterSender();
+            ackMsg = sdAdapterSender.send201301ToAgency(pix201301Request);
         }
 
         // Audit the outgoing ack message
@@ -93,7 +95,9 @@ public class SubjectDiscoveryImpl {
                 ackMsg = ackCreater.createAck(pix201302Request, NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
             }
         } else {
-            // Forward to the Agency
+            // Just forward the request to the Agency
+            SubjectDiscoveryAdapterSender sdAdapterSender = new SubjectDiscoveryAdapterSender();
+            ackMsg = sdAdapterSender.send201302ToAgency(pix201302Request);
         }
 
         // Audit the outgoing ack message
@@ -138,7 +142,9 @@ public class SubjectDiscoveryImpl {
                 ackMsg = ackCreater.createAck(pix201303Request, NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
             }
         } else {
-            // Forward to the Agency
+            // Just forward the request to the Agency
+            SubjectDiscoveryAdapterSender sdAdapterSender = new SubjectDiscoveryAdapterSender();
+            ackMsg = sdAdapterSender.send201303ToAgency(pix201303Request);
         }
 
         // Audit the outgoing ack message
@@ -188,7 +194,9 @@ public class SubjectDiscoveryImpl {
                 ret310 = ackCreater.createFault201310(pix201309Request, NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
             }
         } else {
-            // Forward to the Agency
+            // Just forward the request to the Agency
+            SubjectDiscoveryAdapterSender sdAdapterSender = new SubjectDiscoveryAdapterSender();
+            ret310 = sdAdapterSender.send201309ToAgency(pix201309Request);
         }
 
         // Audit the outgoing 201310 message

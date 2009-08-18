@@ -105,6 +105,8 @@
 	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
 	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
 	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxy.Absolute" location="${project.AdapterSubjectDiscoveryProxy}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxyImpl.Absolute" location="${project.AdapterSubjectDiscoveryProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -122,6 +124,8 @@
         <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxy.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
 
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
@@ -141,6 +145,8 @@
 	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
 	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
 	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxy.Absolute" location="${project.AdapterSubjectDiscoveryProxy}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxyImpl.Absolute" location="${project.AdapterSubjectDiscoveryProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -158,6 +164,8 @@
         <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxy.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
@@ -176,6 +184,8 @@
 	    <property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
 	    <property name="project.AdapterReidentificationProxy.Absolute" location="${project.AdapterReidentificationProxy}"/>
 	    <property name="project.AdapterReidentificationProxyImpl.Absolute" location="${project.AdapterReidentificationProxyImpl}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxy.Absolute" location="${project.AdapterSubjectDiscoveryProxy}"/>
+	    <property name="project.AdapterSubjectDiscoveryProxyImpl.Absolute" location="${project.AdapterSubjectDiscoveryProxyImpl}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -193,6 +203,8 @@
         <ant dir="${project.NhinSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.NhinSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterReidentificationProxy.Absolute}" antfile="${project.AdapterReidentificationProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterReidentificationProxyImpl.Absolute}" antfile="${project.AdapterReidentificationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxy.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}" antfile="${project.AdapterSubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target> 
     
 
@@ -213,6 +225,8 @@
 		<copy file="${reference.NhinSubjectDiscoveryProxyImpl.jar}" todir="${build.classes.dir}"/>
 		<copy file="${reference.AdapterReidentificationProxy.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.AdapterReidentificationProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterSubjectDiscoveryProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterSubjectDiscoveryProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
@@ -247,8 +261,12 @@
         <copy file="${reference.AdapterReidentificationProxy.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.AdapterReidentificationProxyImpl.jar}" property="included.lib.reference.AdapterReidentificationProxyImpl.jar"/>
         <copy file="${reference.AdapterReidentificationProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterSubjectDiscoveryProxy.jar}" property="included.lib.reference.AdapterSubjectDiscoveryProxy.jar"/>
+        <copy file="${reference.AdapterSubjectDiscoveryProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterSubjectDiscoveryProxyImpl.jar}" property="included.lib.reference.AdapterSubjectDiscoveryProxyImpl.jar"/>
+        <copy file="${reference.AdapterSubjectDiscoveryProxyImpl.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.PolicyEngineProxyImpl.jar} ${included.lib.reference.PolicyEngineProxy.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${included.lib.reference.AdapterMpiProxy.jar} ${included.lib.reference.AdapterMpiProxyImpl.jar} ${included.lib.reference.PatientCorrelationFacade.jar} ${included.lib.reference.PatientCorrelationFacadeProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxyImpl.jar} ${included.lib.reference.AdapterReidentificationProxy.jar} ${included.lib.reference.AdapterReidentificationProxyImpl.jar}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.PolicyEngineProxyImpl.jar} ${included.lib.reference.PolicyEngineProxy.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${included.lib.reference.AdapterMpiProxy.jar} ${included.lib.reference.AdapterMpiProxyImpl.jar} ${included.lib.reference.PatientCorrelationFacade.jar} ${included.lib.reference.PatientCorrelationFacadeProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxy.jar} ${included.lib.reference.NhinSubjectDiscoveryProxyImpl.jar} ${included.lib.reference.AdapterReidentificationProxy.jar} ${included.lib.reference.AdapterReidentificationProxyImpl.jar} ${included.lib.reference.AdapterSubjectDiscoveryProxy.jar} ${included.lib.reference.AdapterSubjectDiscoveryProxyImpl.jar}"/>
         </manifest>
     </target>   
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
