@@ -26,7 +26,8 @@ public class PatientCorrelationRetriever
 
         // Call the patient correlation service
         PatientCorrelationHelper correlationHelper = new PatientCorrelationHelper();
-        org.hl7.v3.PRPAIN201310UV correlationOutput = correlationHelper.retrievePatientCorrelations(correlationInput);
+        
+        org.hl7.v3.PRPAIN201310UV correlationOutput = correlationHelper.retrievePatientCorrelations(correlationInput, request.getAssertion());
 
         // Create response message
         RetrievePatientCorrelationsResponseType response = transformHelper.createFacadeRetrieveResult(correlationOutput);

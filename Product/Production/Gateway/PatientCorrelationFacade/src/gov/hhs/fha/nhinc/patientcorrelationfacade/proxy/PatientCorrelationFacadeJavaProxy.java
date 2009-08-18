@@ -37,6 +37,7 @@ public class PatientCorrelationFacadeJavaProxy implements PatientCorrelationFaca
      */
     public AddPatientCorrelationResponseType addPatientCorrelation(AddPatientCorrelationRequestType request)
     {
+       
         return new PatientCorrelationCreator().addPatientCorrelation(request);
     }
 

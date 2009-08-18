@@ -102,20 +102,8 @@
         </wsimport>
 -->
     </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelation" depends="wsimport-init">
-<!--
-        <property name="wsdl-NhincComponentPatientCorrelation" location="xml-resources/web-service-references/NhincComponentPatientCorrelation/wsdl/NhincComponentPatientCorrelation.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelation}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" includes="NhincComponentPatientCorrelation.java" casesensitive="no"/>
-        </wsimport>
--->
-    </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init">
-<!--
-        <property name="wsdl-NhincComponentPatientCorrelationFacade" location="xml-resources/web-service-references/NhincComponentPatientCorrelationFacade/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelationFacade}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/componentpatientcorrelationfacade" includes="NhincComponentPatientCorrelationFacade.java" casesensitive="no"/>
-        </wsimport>
--->
-    </target>
+
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
+    
+
 </project>

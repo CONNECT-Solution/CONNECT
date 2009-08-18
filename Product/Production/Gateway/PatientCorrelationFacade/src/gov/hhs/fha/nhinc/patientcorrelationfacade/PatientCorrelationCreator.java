@@ -27,7 +27,7 @@ public class PatientCorrelationCreator
 
         // Call the patient correlation service
         PatientCorrelationHelper correlationHelper = new PatientCorrelationHelper();
-        org.hl7.v3.MCCIIN000002UV01 addOutput = correlationHelper.addPatientCorrelation(addInput);
+        org.hl7.v3.MCCIIN000002UV01 addOutput = correlationHelper.addPatientCorrelation(addInput, request.getAssertion());
 
         // Create response message
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();

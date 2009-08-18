@@ -27,7 +27,7 @@ public class PatientCorrelationRemover
 
         // Call the patient correlation service
         PatientCorrelationHelper correlationHelper = new PatientCorrelationHelper();
-        org.hl7.v3.MCCIIN000002UV01 revokeOutput = correlationHelper.removePatientCorrelation(revokeInput);
+        org.hl7.v3.MCCIIN000002UV01 revokeOutput = correlationHelper.removePatientCorrelation(revokeInput, request.getAssertion());
 
         // Create response message
         RemovePatientCorrelationResponseType response = new RemovePatientCorrelationResponseType();

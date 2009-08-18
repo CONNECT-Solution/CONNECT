@@ -57,6 +57,7 @@ public class PatientCorrelationFacadeProxyImplTest
             remoteQualifiedSubjectId.setSubjectIdentifier(remotePatientId);
             addRequest.getQualifiedPatientIdentifier().add(remoteQualifiedSubjectId);
 
+            
             // Save patient correlation
             AddPatientCorrelationResponseType addResponse = correlationProxy.addPatientCorrelation(addRequest);
             assertNotNull("Add response was null", addResponse);

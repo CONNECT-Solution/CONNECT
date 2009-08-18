@@ -11,34 +11,16 @@
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelationFacadeDte" depends="wsimport-init">
-        <property name="wsdl-NhincComponentPatientCorrelationFacadeDte" location="xml-resources/web-service-references/NhincComponentPatientCorrelationFacadeDte/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelationFacadeDte}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte" includes="NhincComponentPatientCorrelationFacadeDte.java" casesensitive="no"/>
-        </wsimport>
-    </target>
-    <target name="wsimport-client-clean-NhincComponentPatientCorrelationFacadeDte" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte"/>
-    </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelation" depends="wsimport-init">
-        <property name="wsdl-NhincComponentPatientCorrelation" location="xml-resources/web-service-references/NhincComponentPatientCorrelation/wsdl/NhincComponentPatientCorrelation.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelation}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" includes="NhincComponentPatientCorrelation.java" casesensitive="no"/>
-        </wsimport>
-    </target>
-    <target name="wsimport-client-clean-NhincComponentPatientCorrelation" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
-    </target>
     <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init">
         <property name="wsdl-NhincComponentPatientCorrelationFacade" location="xml-resources/web-service-references/NhincComponentPatientCorrelationFacade/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelationFacade}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/componentpatientcorrelationfacade" includes="NhincComponentPatientCorrelationFacade.java" casesensitive="no"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelationFacade}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl" xnocompile="true">
+            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:componentpatientcorrelationfacade" includes="NhincComponentPatientCorrelationFacade.java" casesensitive="no"/>
         </wsimport>
     </target>
     <target name="wsimport-client-clean-NhincComponentPatientCorrelationFacade" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/componentpatientcorrelationfacade"/>
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:componentpatientcorrelationfacade"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentPatientCorrelationFacadeDte, wsimport-client-NhincComponentPatientCorrelation, wsimport-client-NhincComponentPatientCorrelationFacade"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentPatientCorrelationFacade"/>
     <target name="wsimport-client-compile-depend" if="do.depend.true">
         <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
     </target>
