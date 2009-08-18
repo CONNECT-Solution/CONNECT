@@ -167,5 +167,7 @@
 			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.AdapterAuditQueryProxyImpl.jar} ${included.lib.reference.AdapterAuditQueryProxy.jar}"/>
 		</manifest>
 	</target>
-	
+	<target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
+		<nbundeploy failOnError="false" startServer="false"/>
+	</target>
 </project>
