@@ -60,10 +60,15 @@
 		<name>AdapterPDPOpenSSO</name>
 		<directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
 	</project>
-		<project>
+	<project>
 		<name>AdapterDocQueryEJB</name>
 		<directory>/Production/Adapters/General/AdapterDocQueryEJB</directory>
 	</project>
+	<project>
+		<name>AdapterAuditQueryEJB</name>
+		<directory>/Production/Adapters/General/AdapterAuditQueryEJB</directory>
+	</project>
+
 	<project>
 		<name>AdapterAuthenticationEJB</name>
 		<directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
