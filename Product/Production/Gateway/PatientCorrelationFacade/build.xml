@@ -104,6 +104,6 @@
     </target>
 
     <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
-    <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init"/>>    
+    <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init"/>    
 
 </project>
