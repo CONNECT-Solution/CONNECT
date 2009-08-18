@@ -99,6 +99,6 @@
 		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		<ant dir="${project.NhinSubjectDiscoveryProxy.Absolute}" antfile="${project.NhinSubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
 		<ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-		<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
 	</target>
 </project>
