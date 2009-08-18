@@ -31,8 +31,8 @@
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 311px; top: 96px; position: absolute" text="Search"/>
                                     <webuijsf:table augmentTitle="false" binding="#{Page2.table1}" id="table1"
                                         style="left: 24px; top: 144px; position: absolute; width: 450px" title="Patient Search Results" width="450">
-                                        <webuijsf:tableRowGroup binding="#{Page2.tableRowGroup1}" id="tableRowGroup1" rows="10"
-                                            selected="#{Page2.selectedState}" sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
+                                        <webuijsf:tableRowGroup binding="#{Page2.tableRowGroup1}" id="tableRowGroup1" rows="4" selected="#{Page2.selectedState}"
+                                            sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn binding="#{Page2.tableColumn7}" headerText="Patient Select" id="tableColumn7"
                                                 onClick="setTimeout(function(){document.getElementById('form1:subjectDiscoveryTab:patientSearchTab:layoutPanel1:table1').initAllRows()}, 0);" selectId="radioButton1">
                                                 <!--<webuijsf:checkbox id="checkbox1" selected="#{Page2.selected}" selectedValue="#{Page2.selectedValue}"/>-->
@@ -58,20 +58,18 @@
                                                 <webuijsf:staticText id="staticText6" text="#{currentRow.value['gender']}"/>
                                             </webuijsf:tableColumn>
                                         </webuijsf:tableRowGroup>
-                                        <f:facet name="actionsBottom">
-                                            <webuijsf:button actionExpression="#{Page2.subjectDiscoveryButton_action}" binding="#{Page2.subjectDiscoveryButton}"
-                                                id="subjectDiscoveryButton"
-                                                style="font-family: 'Times New Roman',Times,serif; font-size: 18px; left: 120px; top: 240px; position: absolute" text="Perform Subject Discovery"/>
-                                        </f:facet>
                                     </webuijsf:table>
+                                    <webuijsf:button actionExpression="#{Page2.subjectDiscoveryButton_action}" binding="#{Page2.subjectDiscoveryButton}"
+                                        id="subjectDiscoveryButton"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 143px; top: 264px; position: absolute" text="Select Patient"/>
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab binding="#{Page2.subjectDiscoveryTab2}" disabled="true" id="subjectDiscoveryTab2"
                                 style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Subject Discovery">
                                 <webuijsf:panelLayout id="layoutPanel2" style="height: 534px; position: relative; width: 100%; -rave-layout: grid"/>
                             </webuijsf:tab>
-                            <webuijsf:tab disabled="true" id="documentDiscoveryTab"
-                                style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Document Discovery">
+                            <webuijsf:tab binding="#{Page2.documentDiscoveryTab}" disabled="true" id="documentDiscoveryTab"
+                                style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Documents">
                                 <webuijsf:panelLayout id="layoutPanel3" style="height: 582px; position: relative; width: 100%; -rave-layout: grid"/>
                             </webuijsf:tab>
                         </webuijsf:tabSet>

@@ -17,8 +17,15 @@ import com.sun.webui.jsf.component.TableColumn;
 import com.sun.webui.jsf.component.TableRowGroup;
 import com.sun.webui.jsf.component.TextField;
 import com.sun.webui.jsf.event.TableSelectPhaseListener;
-import gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxy;
-import gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
+import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+import javax.faces.event.FacesEvent;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201305UV;
+import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAMT201301UVPatient;
+import org.hl7.v3.PRPAMT201310UVOtherIDs;
+import org.hl7.v3.PRPAMT201310UVPatient;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -40,6 +57,14 @@ import javax.faces.context.FacesContext;
  */
 public class Page2 extends AbstractPageBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
+
+    private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
+    private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
+    private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
+    private static final String PROPERTY_FILE_KEY_ASSIGN_AUTH = "assigningAuthorityId";
+    private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
+    private static final String SSA_OID = "2.16.840.1.113883.4.1";
+    private static Log log = LogFactory.getLog(Page2.class);
 
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
@@ -239,16 +264,16 @@ public class Page2 extends AbstractPageBean {
     public void setAgencyLogo1(StaticText st) {
         this.agencyLogo1 = st;
     }
+    private Tab documentDiscoveryTab = new Tab();
 
-    /*private Select select;
-
-    public Select getSelect() {
-    return select;
+    public Tab getDocumentDiscoveryTab() {
+        return documentDiscoveryTab;
     }
 
-    public void setSelect(Select select) {
-    this.select = select;
-    }*/
+    public void setDocumentDiscoveryTab(Tab t) {
+        this.documentDiscoveryTab = t;
+    }
+
     // </editor-fold>
     /**
      * <p>Construct a new Page bean instance.</p>
@@ -313,18 +338,21 @@ public class Page2 extends AbstractPageBean {
      */
     @Override
     public void prerender() {
-
         String token = getSessionBean1().getAuthToken();
-        System.out.println("Page2.prerender Token= " + token);
         if (token == null || token.isEmpty()) {
             try {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().redirect("Page1.jsp");
             } catch (IOException ex) {
-                Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Universal Client can not prerender Page2: " + ex.getMessage());
             }
         }
-        this.agencyLogo1.setText("Federal Agency");
+        try {
+            String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
+            this.agencyLogo1.setText(agencyName);
+        } catch (PropertyAccessException ex) {
+            log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
+        }
     }
 
     /**
@@ -337,6 +365,9 @@ public class Page2 extends AbstractPageBean {
      */
     @Override
     public void destroy() {
+        // make sure this is set as first active tab
+        this.getSubjectDiscoveryTab().setSelected("patientSearchTab");
+        
     }
 
     /**
@@ -366,98 +397,247 @@ public class Page2 extends AbstractPageBean {
         return (ApplicationBean1) getBean("ApplicationBean1");
     }
 
+    public String patientSearchTab_action() {
+        return null;
+    }
+
     public String patientSearchButton_action() {
+
+        this.getPatientSearchDataList().clear();
+        this.patientInfo.setText("");
+        deactivateSubjectDiscoveryTab();
+
         String firstName = (String) firstNameField.getText();
         String lastName = (String) lastNameField.getText();
+        try {
+            String assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
-        StringBuffer searchInfoBuf = new StringBuffer("Searching for Patient: ");
-        if (firstName != null && !firstName.isEmpty()) {
-            searchInfoBuf.append(firstName + " ");
+            StringBuffer searchInfoBuf = new StringBuffer("Searching for Patient: ");
+            boolean isFirstNameAvail = false;
+            boolean isLastNameAvail = false;
+            if (firstName != null && !firstName.isEmpty()) {
+                searchInfoBuf.append(firstName + " ");
+                isFirstNameAvail = true;
+            }
+            if (lastName != null && !lastName.isEmpty()) {
+                searchInfoBuf.append(lastName + " ");
+                isLastNameAvail = true;
+            }
+            if (isFirstNameAvail || isLastNameAvail) {
+                this.patientInfo.setText(searchInfoBuf.toString());
+
+                II patId = new II();
+                patId.setRoot(assigningAuthId);
+                PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, lastName, null, null, null), patId);
+                PRPAIN201305UV searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
+
+                AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
+                AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+                PRPAIN201306UV patients = mpiProxy.findCandidates(searchPat);
+
+                List<PRPAMT201310UVPatient> mpiPatResultList = new ArrayList<PRPAMT201310UVPatient>();
+                if (patients != null && patients.getControlActProcess() != null && patients.getControlActProcess().getSubject() != null) {
+                    List<PRPAIN201306UVMFMIMT700711UV01Subject1> subjectList = patients.getControlActProcess().getSubject();
+                    log.debug("Search MPI found " + subjectList.size() + " candidates");
+                    for (PRPAIN201306UVMFMIMT700711UV01Subject1 subject1 : subjectList) {
+                        if (subject1 != null &&
+                                subject1.getRegistrationEvent() != null &&
+                                subject1.getRegistrationEvent().getSubject1() != null &&
+                                subject1.getRegistrationEvent().getSubject1().getPatient() != null) {
+                            PRPAMT201310UVPatient mpiPat = subject1.getRegistrationEvent().getSubject1().getPatient();
+                            mpiPatResultList.add(mpiPat);
+                        }
+                    }
+                    if (!mpiPatResultList.isEmpty()) {
+                        List<String> data = new ArrayList<String>();
+                        for (PRPAMT201310UVPatient resultPatient : mpiPatResultList) {
+                            //extract first and last name
+                            if (resultPatient.getPatientPerson() != null &&
+                                    resultPatient.getPatientPerson().getValue() != null &&
+                                    resultPatient.getPatientPerson().getValue().getName() != null) {
+                                String patientLastName = "";
+                                String patientFirstName = "";
+                                PersonNameType name = HL7Extractors.translatePNListtoPersonNameType(resultPatient.getPatientPerson().getValue().getName());
+                                if (name.getFamilyName() != null) {
+                                    patientLastName = name.getFamilyName();
+                                }
+                                if (name.getGivenName() != null) {
+                                    patientFirstName = name.getGivenName();
+                                }
+                                data.add(patientLastName);
+                                data.add(patientFirstName);
+
+                                //extract patient id for this assigning authority
+                                String resultPatientId = "";
+                                if (resultPatient.getId() != null && !resultPatient.getId().isEmpty()) {
+                                    for (II idxId : resultPatient.getId()) {
+                                        if (idxId != null &&
+                                                idxId.getExtension() != null &&
+                                                idxId.getRoot() != null) {
+                                            if (assigningAuthId.equals(idxId.getRoot())) {
+                                                resultPatientId = idxId.getExtension();
+                                                log.debug(resultPatientId + " found with assigning authority: " + assigningAuthId);
+                                            }
+                                        }
+                                    }
+                                }
+                                data.add(resultPatientId);
+
+                                //extract SSN
+                                String resultPatientSSN = "";
+                                if (resultPatient.getPatientPerson().getValue().getAsOtherIDs() != null) {
+                                    List<PRPAMT201310UVOtherIDs> ssnIdsList = resultPatient.getPatientPerson().getValue().getAsOtherIDs();
+                                    for (PRPAMT201310UVOtherIDs ssnId : ssnIdsList) {
+                                        if (ssnId.getId() != null && !ssnId.getId().isEmpty()) {
+                                            for (II idxId : ssnId.getId()) {
+                                                if (idxId != null &&
+                                                        idxId.getExtension() != null &&
+                                                        idxId.getRoot() != null) {
+                                                    if (SSA_OID.equals(idxId.getRoot())) {
+                                                        resultPatientSSN = idxId.getExtension();
+                                                        log.debug(resultPatientSSN + " found with SSA Authority: " + idxId.getRoot());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                data.add(resultPatientSSN);
+
+                                //extract DOB
+                                String resultPatientDOB = "";
+                                if (resultPatient.getPatientPerson().getValue().getBirthTime() != null &&
+                                        resultPatient.getPatientPerson().getValue().getBirthTime().getValue() != null) {
+                                    resultPatientDOB = resultPatient.getPatientPerson().getValue().getBirthTime().getValue();
+                                }
+                                data.add(resultPatientDOB);
+
+                                //extract Gender
+                                String resultPatientGender = "";
+                                if (resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode() != null &&
+                                        resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode() != null) {
+                                    resultPatientGender = resultPatient.getPatientPerson().getValue().getAdministrativeGenderCode().getCode();
+                                }
+                                data.add(resultPatientGender);
+
+                                PatientSearchData patientData = new PatientSearchData(data);
+                                this.getPatientSearchDataList().add(patientData);
+                            } else {
+                                log.error("Subject patientPerson has no name data.");
+                            }
+                        }
+                    } else {
+                        log.error("No subject data found in the MPI candidate");
+                    }
+                } else {
+                    log.error("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId + " assigning authority: " + assigningAuthId);
+                }
+                if (getPatientSearchDataList().isEmpty()) {
+                    this.patientInfo.setText("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId + " assigning authority: " + assigningAuthId);
+                } else {
+                    this.patientInfo.setText(" ");
+                }
+            } else {
+                this.patientInfo.setText("Please enter the patient's name.");
+            }
+        } catch (PropertyAccessException ex) {
+            log.error("Property file assess problem: " + ex.getMessage());
         }
-        if (lastName != null && !lastName.isEmpty()) {
-            searchInfoBuf.append(lastName + " ");
-        }
-
-        this.patientInfo.setText(searchInfoBuf.toString());
-
-        List<String> data = new ArrayList<String>();
-        data.add("Smith");
-        data.add("Joe");
-        data.add("1234");
-        data.add("111-22-3333");
-        data.add("06/08/1945");
-        data.add("M");
-        PatientSearchData patientDataJoe = new PatientSearchData(data);
-        this.getPatientSearchDataList().add(patientDataJoe);
-
-        data.clear();
-        data.add("Smith");
-        data.add("Sandy");
-        data.add("987");
-        data.add("666-55-4444");
-        data.add("03/27/1949");
-        data.add("F");
-        PatientSearchData patientDataSandy = new PatientSearchData(data);
-        this.getPatientSearchDataList().add(patientDataSandy);
-
-        this.patientInfo.setText(" ");
         return null;
     }
 
     public String logOutButton_action() {
         String loginDecision = "login_required";
         getSessionBean1().setAuthToken("");
+        getSessionBean1().getPatientSearchDataList().clear();
         return loginDecision;
     }
 
     public String subjectDiscoveryButton_action() {
-        this.patientInfo.setText("Performing Subject Discovery on First Selected Patient");
+        this.patientInfo.setText("Performing Subject Discovery on Selected Patient");
         RowKey[] selectedRowKeys = getTableRowGroup1().getSelectedRowKeys();
 
-        for (int i = 0; i < selectedRowKeys.length; i++) {
-            int rowId = Integer.parseInt(selectedRowKeys[i].getRowId()) + 1;
+        if (selectedRowKeys.length > 0) {
+            PatientSearchData foundPatient = null;
+            StringBuffer discoverInfoBuf = new StringBuffer();
+            for (int i = 0; i < selectedRowKeys.length && foundPatient == null; i++) {
+                int rowId = Integer.parseInt(selectedRowKeys[i].getRowId());
+                System.out.println("Row " + rowId + " is selected - with Key: " + selectedRowKeys[i]);
+                foundPatient = this.getPatientSearchDataList().get(rowId);
+                discoverInfoBuf.append("Name: ");
+                if (!foundPatient.getLastName().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getLastName() + ", ");
+                }
+                if (!foundPatient.getFirstName().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getFirstName() + " ");
+                }
+                discoverInfoBuf.append("ID: ");
+                if (!foundPatient.getPatientId().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getPatientId() + " ");
+                }
+                discoverInfoBuf.append("SSN: ");
+                if (!foundPatient.getSsn().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getSsn() + " ");
+                }
+                discoverInfoBuf.append("DOB: ");
+                if (!foundPatient.getDob().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getDob() + " ");
+                }
+                discoverInfoBuf.append("Gender: ");
+                if (!foundPatient.getGender().isEmpty()) {
+                    discoverInfoBuf.append(foundPatient.getGender() + " ");
+                }
+                this.patientInfo.setText(discoverInfoBuf.toString());
 
-            System.out.println("Row " + rowId + " is selected - with Key: " + selectedRowKeys[i] );
-
-        }
-        /*boolean isFound = false;
-        for (PatientSearchData patient : getPatientSearchDataList()) {
-            this.patientInfo.setText("Patient: " + patient.getFirstName() + " selected: " + patient.isSelectPatient());
-        if (patient.getSelectPatient()) {
-        if (isFound) {
-        patient.setSelectPatient(false);
+                activateSubjectDiscoveryTab();
+                this.getSubjectDiscoveryTab().setSelected("subjectDiscoveryTab2");
+            }
         } else {
-        isFound = true;
-        StringBuffer discoverInfoBuf = new StringBuffer();
-        discoverInfoBuf.append("Name: ");
-        if (!patient.getLastName().isEmpty()) {
-        discoverInfoBuf.append(patient.getLastName() + ", ");
+            this.patientInfo.setText("Please select patient from the table.");
         }
-        if (!patient.getFirstName().isEmpty()) {
-        discoverInfoBuf.append(patient.getFirstName() + " ");
-        }
-        discoverInfoBuf.append("ID: ");
-        if (!patient.getPatientId().isEmpty()) {
-        discoverInfoBuf.append(patient.getPatientId() + " ");
-        }
-        discoverInfoBuf.append("SSN: ");
-        if (!patient.getSsn().isEmpty()) {
-        discoverInfoBuf.append(patient.getSsn() + " ");
-        }
-        discoverInfoBuf.append("DOB: ");
-        if (!patient.getDob().isEmpty()) {
-        discoverInfoBuf.append(patient.getDob() + " ");
-        }
-        discoverInfoBuf.append("Gender: ");
-        if (!patient.getGender().isEmpty()) {
-        discoverInfoBuf.append(patient.getGender() + " ");
-        }
-        this.patientInfo.setText(discoverInfoBuf.toString());
-        }
-        }*/
-        
+
         return null;
     }
+
+    private void activateDocumentsTab() {
+        this.getDocumentDiscoveryTab().setDisabled(false);
+        String tabLabelStyle = this.getDocumentDiscoveryTab().getStyle();
+        if (tabLabelStyle.contains("color: gray; ")) {
+            String newStyle = tabLabelStyle.replace("color: gray; ", "");
+            this.getDocumentDiscoveryTab().setStyle(newStyle);
+        }
+    }
+
+    private void deactivateDocumentsTab() {
+        String tabLabelStyle = this.getDocumentDiscoveryTab().getStyle();
+        if (!tabLabelStyle.contains("color: gray; ")) {
+            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
+            newStyle.insert(0, "color: gray; ");
+            this.getDocumentDiscoveryTab().setStyle(newStyle.toString());
+        }
+        this.getDocumentDiscoveryTab().setDisabled(true);
+    }
+
+    private void activateSubjectDiscoveryTab() {
+        this.getSubjectDiscoveryTab2().setDisabled(false);
+        String tabLabelStyle = this.getSubjectDiscoveryTab2().getStyle();
+        if (tabLabelStyle.contains("color: gray; ")) {
+            String newStyle = tabLabelStyle.replace("color: gray; ", "");
+            this.getSubjectDiscoveryTab2().setStyle(newStyle);
+        }
+    }
+
+    private void deactivateSubjectDiscoveryTab() {
+        String tabLabelStyle = this.getSubjectDiscoveryTab2().getStyle();
+        if (!tabLabelStyle.contains("color: gray; ")) {
+            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
+            newStyle.insert(0, "color: gray; ");
+            this.getSubjectDiscoveryTab2().setStyle(newStyle.toString());
+        }
+        this.getSubjectDiscoveryTab2().setDisabled(true);
+    }
+
     private TableSelectPhaseListener tablePhaseListener = new TableSelectPhaseListener();
 
     public void setSelected(Object object) {

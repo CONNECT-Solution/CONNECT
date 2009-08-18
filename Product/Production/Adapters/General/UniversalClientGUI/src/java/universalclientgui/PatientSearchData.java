@@ -4,19 +4,15 @@
  */
 package universalclientgui;
 
-import com.sun.webui.jsf.component.Checkbox;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class PatientSearchData {
 
     private ArrayList<String> columns;
 
     public PatientSearchData(List<String> cols) {
-        System.out.println("Construct new PatientSearchData");
         columns = new ArrayList<String>(cols);
-        //tspl = new TableSelectPhaseListener();
     }
 
     public ArrayList<String> getColumns() {
@@ -74,5 +70,4 @@ public class PatientSearchData {
     public void setGender(String col) {
         columns.set(5, col);
     }
- 
 }

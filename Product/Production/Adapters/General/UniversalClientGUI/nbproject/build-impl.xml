@@ -383,12 +383,18 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
@@ -530,28 +536,38 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.jsf12-support.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.jsf12-support.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.woodstock-components.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.woodstock-components.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.woodstock-theme-default.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.woodstock-theme-default.classpath" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
+            <attribute name="Class-Path" value="${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${libs.jsf12-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.woodstock-components.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.woodstock-theme-default.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" name="do-ear-dist">
@@ -833,6 +849,9 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="do-clean">

@@ -82,22 +82,36 @@
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
         <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
+        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
         <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
+        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
 
@@ -105,11 +119,18 @@
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
         <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
+        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
 <!-- 

@@ -15,11 +15,14 @@ import gov.hhs.fha.nhinc.adapterauthentication.proxy.AdapterAuthenticationProxyO
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -34,6 +37,10 @@ import javax.faces.context.FacesContext;
  */
 public class Page1 extends AbstractPageBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
+
+    private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
+    private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
+    private static Log log = LogFactory.getLog(Page1.class);
 
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
@@ -165,23 +172,28 @@ public class Page1 extends AbstractPageBean {
         // If no authentication service is available set up a default token and redirect to page2
         AdapterAuthenticationProxyObjectFactory factory = new AdapterAuthenticationProxyObjectFactory();
         AdapterAuthenticationProxy adapterAuthenticationProxy = factory.getAdapterAuthenticationProxy();
-        System.out.println("Obtained proxy: " + adapterAuthenticationProxy);
         AuthenticateUserRequestType authRequest = new AuthenticateUserRequestType();
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        System.out.println("Page1.prerender Authentication Service Avail: " + authResp.isIsAuthenticationAvailable());
+        log.debug("Page1.prerender Authentication Service " +  adapterAuthenticationProxy + " Avail: " + authResp.isIsAuthenticationAvailable());
         if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
             try {
                 getSessionBean1().setAuthToken("NoOpToken");
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().redirect("faces/Page2.jsp");
             } catch (IOException ex) {
-                Logger.getLogger(Page1.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("Universal Client can not prerender Page1: " + ex.getMessage());
             }
         }
 
-        this.agencyLogo.setText("Federal Agency");
+        try {
+            String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
+            this.agencyLogo.setText(agencyName);
+        } catch (PropertyAccessException ex) {
+            log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
+        }
+
     }
 
     /**
@@ -235,7 +247,7 @@ public class Page1 extends AbstractPageBean {
         authRequest.setUserName(name);
         authRequest.setPassword(pass);
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        
+
         if (authResp != null && authResp.isIsAuthenticationAvailable()) {
             String authToken = authResp.getAuthenticationToken();
             if (!authToken.isEmpty()) {
