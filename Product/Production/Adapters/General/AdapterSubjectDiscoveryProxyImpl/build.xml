@@ -80,8 +80,13 @@
     nbproject/build-impl.xml file. 
 
     -->
-      <target name="wsimport-client-AdapterSubjectDiscoveryi" depends="wsimport-init">
-
+    <target name="wsimport-client-AdapterSubjectDiscovery" depends="wsimport-init">
+<!--
+        <property name="wsdl-AdapterSubjectDiscovery" location="xml-resources/web-service-references/AdapterSubjectDiscovery/wsdl/AdapterSubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscovery.wsdl" xnocompile="true">
+            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptersubjectdiscovery" includes="AdapterSubjectDiscovery.java" casesensitive="no"/>
+        </wsimport>
+-->
     </target>
     
     <target depends="init" name="deps-jar" unless="no.deps">
