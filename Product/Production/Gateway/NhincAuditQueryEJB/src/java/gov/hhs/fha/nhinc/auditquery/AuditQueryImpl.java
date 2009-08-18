@@ -6,8 +6,8 @@ package gov.hhs.fha.nhinc.auditquery;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
-import gov.hhs.fha.nhinc.auditqueryadapter.proxy.AuditQueryAdapterProxy;
-import gov.hhs.fha.nhinc.auditqueryadapter.proxy.AuditQueryAdapterProxyObjectFactory;
+import gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryProxy;
+import gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
@@ -87,8 +87,8 @@ public class AuditQueryImpl {
         findAuditEventsRequest.setAssertion(auditMsg.getAssertion());
         findAuditEventsRequest.setFindAuditEvents(auditMsg.getFindAuditEvents());
 
-        AuditQueryAdapterProxyObjectFactory adapterFactory = new AuditQueryAdapterProxyObjectFactory();
-        AuditQueryAdapterProxy adapterProxy = adapterFactory.getAdapterAuditQueryProxy();
+        AdapterAuditQueryProxyObjectFactory adapterFactory = new AdapterAuditQueryProxyObjectFactory();
+        AdapterAuditQueryProxy adapterProxy = adapterFactory.getAdapterAuditQueryProxy();
         resp = adapterProxy.auditQuery(findAuditEventsRequest);
 
         return resp;
