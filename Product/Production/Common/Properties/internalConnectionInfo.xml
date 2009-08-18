@@ -93,6 +93,11 @@
 				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
+				<name>adaptersubjectdiscovery</name>
+				<description>Adapter Subject Discovery</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
+			</service>
+			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
@@ -428,6 +433,11 @@
 				<name>adapterauthentication</name>
 				<description>adapterauthentication</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
+			</service>
+			<service>
+				<name>adaptersubjectdiscovery</name>
+				<description>Adapter Subject Discovery</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
