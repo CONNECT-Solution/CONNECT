@@ -71,17 +71,21 @@
 
     -->
 
-    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init,wsimport-service-check-PatientCorrelationService" unless="wsimport-service-PatientCorrelationService.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${basedir}/${meta.inf}/wsdl/PatientCorrelationService">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/"/>
+    <target name="wsimport-service-PatientCorrelationServiceSecured" depends="wsimport-init,wsimport-service-check-PatientCorrelationServiceSecured" >
+        <property name="service-wsdl-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
+
+        <property name="targetLocation-PatientCorrelationServiceSecured" location="${meta.inf}/wsdl/PatientCorrelationServiceSecured"/>
+        <property name="sourceLocation-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/"/>
+        <copy todir="${targetLocation-PatientCorrelationServiceSecured}">
+            <fileset dir="${sourceLocation-PatientCorrelationServiceSecured}"/>
         </copy>
+        
         <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationService/schemas"/>
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/schemas"/>
         </copy>
+        
     </target>
+
 
  <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>

@@ -32,7 +32,7 @@ public class PatientCorrelationServiceImpl {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PatientCorrelationServiceImpl.class);
 
-    public static RetrievePatientCorrelationsResponseType retrievePatientCorrelations(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+    public static RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest) {
         log.info("start PatientCorrelationServiceImpl.retrievePatientCorrelations");
 
         PRPAIN201309UV IN201309 = retrievePatientCorrelationsRequest.getPRPAIN201309UV();
@@ -59,7 +59,7 @@ public class PatientCorrelationServiceImpl {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(inputQualifiedPatientIdentifier , dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(IN201309, iiList);
-        RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
+        RetrievePatientCorrelationsSecuredResponseType result = new RetrievePatientCorrelationsSecuredResponseType();
         result.setPRPAIN201310UV(IN201310);
         return result;
     }
@@ -177,7 +177,7 @@ public class PatientCorrelationServiceImpl {
 //        }
 //        return result;
 //    }
-    public static AddPatientCorrelationResponseType addPatientCorrelation(AddPatientCorrelationRequestType addPatientCorrelationRequest) {
+    public static AddPatientCorrelationSecuredResponseType addPatientCorrelation(AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest) {
         PRPAIN201301UV IN201301 = addPatientCorrelationRequest.getPRPAIN201301UV();
 
         PRPAMT201301UVPatient patient = PRPAIN201301UVParser.ParseHL7PatientPersonFrom201301Message(IN201301);
@@ -230,12 +230,12 @@ public class PatientCorrelationServiceImpl {
         dao.addPatientCorrelation(correlatedIdentifers);
 
 
-        AddPatientCorrelationResponseType result = new AddPatientCorrelationResponseType();
+        AddPatientCorrelationSecuredResponseType result = new AddPatientCorrelationSecuredResponseType();
         result.setMCCIIN000002UV01(AckBuilder.BuildAck(IN201301) );
         return result;
     }
 
-    public static RemovePatientCorrelationResponseType removePatientCorrelation(RemovePatientCorrelationRequestType removePatientCorrelationRequest) {
+    public static RemovePatientCorrelationSecuredResponseType removePatientCorrelation(RemovePatientCorrelationSecuredRequestType removePatientCorrelationRequest) {
         PRPAIN201303UV IN201303 = removePatientCorrelationRequest.getPRPAIN201303UV();
 
         PRPAMT201305UVPatient patient = PRPAIN201303UVParser.parseHL7PatientPersonFrom201303Message(IN201303);
@@ -266,7 +266,7 @@ public class PatientCorrelationServiceImpl {
         dao.removePatientCorrelation(correlatedIdentifers);
         dao.removePatientCorrelation(correlatedPatientIdentifers);
 
-        RemovePatientCorrelationResponseType result = new RemovePatientCorrelationResponseType();
+        RemovePatientCorrelationSecuredResponseType result = new RemovePatientCorrelationSecuredResponseType();
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         result.setMCCIIN000002UV01(ack);
         return result;
