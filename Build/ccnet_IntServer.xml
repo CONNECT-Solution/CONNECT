@@ -6,25 +6,27 @@
   <!ENTITY webURLi                   'http://192.168.25.157/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
-          <user name="Jay Flowers"	group="buildmaster" address="jay.flowers@agilex.com"/>
-          <user name="Scott Smith"	group="buildmaster" address="scott.smith@agilex.com"/>
-          <user name="Kieran Dunne" group="buildmaster" address="kieran.dunne@agilex.com"/>
-					<user name="Brian Mowbray"			group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+          <user name="Jay Flowers"	      group="buildmaster" address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"	group="buildmaster" address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"	      group="buildmaster" address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"       group="buildmaster" address="kieran.dunne@agilex.com"/>
+					<user name="Brian Mowbray"			group="buildmaster" address="brian.mowbray@agilex.com"/>
           
-					<user name="flowersj"				group="developer" 	address="jay.flowers@agilex.com"/>
-          <user name="smiths"	        group="developer"   address="scott.smith@agilex.com"/>
-					<user name="borsts"					group="developer" 	address="scott.borst@agilex.com"/>
-					<user name="dunnek"					group="developer" 	address="kieran.dunne@agilex.com"/>
-					<user name="hudar"					group="developer" 	address="ron.huda@agilex.com"/>
-					<user name="mowbrayb"				group="developer" 	address="brian.mowbray@agilex.com"/>
-					<user name="pfisterg"				group="developer" 	address="greg.pfister@agilex.com"/>
-					<user name="rayj"						group="developer" 	address="jason.ray@agilex.com"/>
-					<user name="webbn"					group="developer" 	address="neil.webb@agilex.com"/>
-					<user name="westbergl"			group="developer" 	address="les.westberg@agilex.com"/>
-					<user name="valluripallis"	group="developer" 	address="svalluripalli@scenpro.com"/>
-					<user name="vickersv"				group="developer" 	address="vvickers@harris.com"/>
-					<user name="flynnm"					group="developer" 	address="mflynn02@harris.com"/>
-					<user name="hoppeschj"			group="developer" 	address="jhoppesc@harris.com"/>
+					<user name="flowersj"				    group="developer" 	address="jay.flowers@agilex.com"/>
+          <user name="vadlamanis"	        group="developer"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="goldmanm"	          group="developer"   address="mark.goldman@agilex.com"/>
+					<user name="borsts"					    group="developer" 	address="scott.borst@agilex.com"/>
+					<user name="dunnek"					    group="developer" 	address="kieran.dunne@agilex.com"/>
+					<user name="hudar"					    group="developer" 	address="ron.huda@agilex.com"/>
+					<user name="mowbrayb"				    group="developer" 	address="brian.mowbray@agilex.com"/>
+					<user name="pfisterg"				    group="developer" 	address="greg.pfister@agilex.com"/>
+					<user name="rayj"						    group="developer" 	address="jason.ray@agilex.com"/>
+					<user name="webbn"					    group="developer" 	address="neil.webb@agilex.com"/>
+					<user name="westbergl"			    group="developer" 	address="les.westberg@agilex.com"/>
+					<user name="valluripallis"	    group="developer" 	address="svalluripalli@scenpro.com"/>
+					<user name="vickersv"				    group="developer" 	address="vvickers@harris.com"/>
+					<user name="flynnm"					    group="developer" 	address="mflynn02@harris.com"/>
+					<user name="hoppeschj"			    group="developer" 	address="jhoppesc@harris.com"/>
         </users>
         <groups>
           <group name="buildmaster" notification="change"/>
@@ -221,14 +223,15 @@
       <xmllogger />
       <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
-          <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
-          <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
-          <user name="Kieran Dunne"     group="buildmaster"   address="kieran.dunne@agilex.com"/>
-          <user name="Brian Mowbray"		group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+          <user name="Jay Flowers"	      group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"	group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"	      group="buildmaster"   address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"       group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"		  group="buildmaster" 	address="brian.mowbray@agilex.com"/>
 
-          <user name="Greg Pfister"			group="managers" 	    address="greg.pfister@agilex.com"/>
+          <user name="Greg Pfister"			  group="managers" 	    address="greg.pfister@agilex.com"/>
 
-          <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
+          <user name="borsts"					    group="testers" 	    address="scott.borst@agilex.com"/>
         </users>
         <groups>
           <group name="buildmaster" notification="always"/>
@@ -329,12 +332,13 @@
       <xmllogger />
       <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
-          <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
-          <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
-          <user name="Kieran Dunne"     group="buildmaster"   address="kieran.dunne@agilex.com"/>
-          <user name="Brian Mowbray"		group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+          <user name="Jay Flowers"	      group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"	group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"	      group="buildmaster"   address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"       group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"		  group="buildmaster" 	address="brian.mowbray@agilex.com"/>
 
-          <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
+          <user name="borsts"					    group="testers" 	    address="scott.borst@agilex.com"/>
         </users>
         <groups>
           <group name="buildmaster" notification="always"/>
@@ -417,14 +421,15 @@
       <xmllogger />
       <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
-          <user name="Jay Flowers"	    group="buildmaster"   address="jay.flowers@agilex.com"/>
-          <user name="Scott Smith"	    group="buildmaster"   address="scott.smith@agilex.com"/>
-          <user name="Kieran Dunne"     group="buildmaster"   address="kieran.dunne@agilex.com"/>
-          <user name="Brian Mowbray"		group="buildmaster" 	address="brian.mowbray@agilex.com"/>
+          <user name="Jay Flowers"	      group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"	group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"	      group="buildmaster"   address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"       group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"		  group="buildmaster" 	address="brian.mowbray@agilex.com"/>
 
-          <user name="Greg Pfister"			group="managers" 	    address="greg.pfister@agilex.com"/>
+          <user name="Greg Pfister"			  group="managers" 	    address="greg.pfister@agilex.com"/>
 
-          <user name="borsts"					  group="testers" 	    address="scott.borst@agilex.com"/>
+          <user name="borsts"					    group="testers" 	    address="scott.borst@agilex.com"/>
         </users>
         <groups>
           <group name="buildmaster" notification="change"/>
