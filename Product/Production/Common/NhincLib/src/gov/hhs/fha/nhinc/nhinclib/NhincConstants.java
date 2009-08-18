@@ -130,7 +130,7 @@ public class NhincConstants {
     public static final String SUBJECT_DISCOVERY_DISABLED_ACK_MSG = "Subject Discovery Service is not enabled";
     public static final String SUBJECT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Subject Discovery";
     public static final String SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME = "adapterreidentificationservice";
-    public static final String SUBJECT_DISCOVERY_ADAPTER_SERVICE_NAME = "adaptersubdiscovery";
+    public static final String SUBJECT_DISCOVERY_ADAPTER_SERVICE_NAME = "adaptersubjectdiscovery";
 
     private NhincConstants() {
     }
