@@ -82,7 +82,7 @@ public class EntityDocQuerySecuredImpl
                 NullChecker.isNotNullish(request.getAdhocQueryRequest().getAdhocQuery().getSlot())) {
             List<SlotType1> slotList = request.getAdhocQueryRequest().getAdhocQuery().getSlot();
 
-            RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, targets);
+            RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, targets, assertion);
 
             // Make sure the valid results back
             if (correlationsResult != null &&
@@ -157,7 +157,7 @@ public class EntityDocQuerySecuredImpl
         return response;
     }
 
-    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, List<NhinTargetCommunityType> targets) {
+    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, List<NhinTargetCommunityType> targets, AssertionType assertion) {
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
@@ -208,6 +208,9 @@ public class EntityDocQuerySecuredImpl
         PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
         PatientCorrelationFacadeProxy proxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
 
+        log.debug("Setting Assertion: " + assertion.getSSN());
+        patientCorrelationReq.setAssertion(assertion);
+        
         results = proxy.retrievePatientCorrelations(patientCorrelationReq);
 
         // Make sure the response is valid
