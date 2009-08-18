@@ -81,6 +81,12 @@
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterDocQueryService</endpointURL>
 			</service>
 			<service>
+				<name>adapterauditquery</name>
+				<description>adapterauditquery</description>
+				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+			</service>
+
+			<service>
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterMpiService</endpointURL>
