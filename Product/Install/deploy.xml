@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="Chapter33.deployment" default="deploy">
 
-  <import file="settings.xml" />
-  
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
   <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
+  
+  <if>
+    <isset property="project.name" />
+    <then>
+      <property name="script.root.directory" value="${root.project.directory.path}/Install"/>
+    </then>
+    <else>
+      <property name="script.root.directory" value="${basedir}"/>
+    </else>
+  </if>
+  
+  <import file="settings.xml" />
+  
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
@@ -16,13 +27,13 @@
   <!--
   These properties should be defined in project build.xml files:
   
-  <property name="deploy.type" value="ejb" description="options:['ejb', 'shared', 'ca']" />
+  <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared', 'ca']" />
   -->
 
   <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}"/>
   <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.password}" file="${deploy.glassfish.password.file.path}"/>
-  <property name="deploy.application.list.file.path" value="${basedir}/deploy.application.list.xml"/>
-  <property name="deploy.exclusion.file.path" value="${basedir}/exclusions.txt"/>
+  <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
+  <property name="deploy.exclusion.file.path" value="${script.root.directory}/exclusions.txt"/>
 
   <if>
     <available file="deploy.exclusion.file.path"/>
@@ -82,14 +93,14 @@
 
   <target name="deploy.glassfish.start.server">
     <sun-appserv-admin
-      explicitcommand="start-domain ${deployment.glassfish.domain}"
+      explicitcommand="start-domain ${deployment.glassfish.domain.name}"
       asinstalldir="${glassfish.home}"
     />
   </target>
 
   <target name="deploy.glassfish.stop.server">
     <sun-appserv-admin
-      explicitcommand="stop-domain ${deployment.glassfish.domain}"
+      explicitcommand="stop-domain ${deployment.glassfish.domain.name}"
       asinstalldir="${glassfish.home}"
     />
   </target>
@@ -114,7 +125,7 @@
               <isset property="deploy.exclude.@{ejb.name}"/>
             </not>
             <then>
-              <var name="deployment.glassfish.ejb.file.path" value="${basedir}/nhinc/@{ejb.name}.jar"/>
+              <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
               <var name="deployment.glassfish.ejb.name" value="@{ejb.name}"/>
               <runtarget target="${target}"/>
             </then>
@@ -144,7 +155,7 @@
               <isset property="deploy.exclude.@{war.name}"/>
             </not>
             <then>
-              <var name="deployment.glassfish.war.file.path" value="${basedir}/nhinc/@{war.name}.war"/>
+              <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
               <var name="deployment.glassfish.war.name" value="@{war.name}"/>
               <runtarget target="${target}"/>
             </then>
@@ -174,7 +185,7 @@
               <isset property="deploy.exclude.@{ca.name}"/>
             </not>
             <then>
-              <var name="deployment.glassfish.ca.file.path" value="${basedir}/nhinc/@{ca.name}.zip"/>
+              <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/@{ca.name}.zip"/>
               <var name="deployment.glassfish.ca.name" value="@{ca.name}"/>
               <runtarget target="${target}"/>
             </then>
@@ -204,7 +215,7 @@
               <isset property="deploy.exclude.@{shared.name}"/>
             </not>
             <then>
-              <var name="deployment.glassfish.shared.lib.file.path" value="${basedir}/nhinc/@{shared.name}.jar"/>
+              <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>
               <runtarget target="${target}"/>
             </then>
           </if>
@@ -216,15 +227,33 @@
   <target name="deploy.to.development">
     <echo message="Attempting to deploy package for project ${project.name}." />
 
-    <mkdir dir="${deployment.dir}" />
-    <copy todir="${deployment.dir}" file="${dist.file}" overwrite="true"/>
+    <mkdir dir="${deployment.binaries.dir}" />
+    <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
 
     <switch value="${deploy.type}">
-      <case value="ear">
-        <var unset="true" name="deployment.weblogic.application.name" />
-        <basename file="${dist.file}" property="deployment.weblogic.application.name" suffix=".ear" />
-        <var name="deployment.weblogic.application.file.path" value="${deployment.dir}/${deployment.weblogic.application.name}.ear" />
-        <runtarget target="deploy.ear.to.weblogic" />
+      <case value="ejb">
+        <var unset="true" name="deployment.glassfish.ejb.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.ejb.name" suffix=".jar" />
+        <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ejb.name}.jar" />
+        <runtarget target="deploy.ejb.to.glassfish" />
+      </case>
+      <case value="war">
+        <var unset="true" name="deployment.glassfish.war.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.war.name" suffix=".war" />
+        <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
+        <runtarget target="deploy.war.to.glassfish" />
+      </case>
+      <case value="ca">
+        <var unset="true" name="deployment.glassfish.ca.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.ca.name" suffix=".zip" />
+        <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ca.name}.zip" />
+        <runtarget target="deploy.ca.to.glassfish" />
+      </case>
+      <case value="shared">
+        <var unset="true" name="deployment.glassfish.shared.lib.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
+        <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.shared.lib.name}.jar" />
+        <runtarget target="deploy.shared.lib.to.glassfish" />
       </case>
       <default>
         <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
@@ -233,16 +262,32 @@
   </target>
 
   <target name="undeploy.from.development">
-    <echo message="Attempting to deploy package for project ${project.name}." />
-    <mkdir dir="${deployment.dir}" />
-    <copy todir="${deployment.dir}" file="${dist.file}" overwrite="true" />
+    <echo message="Attempting to undeploy package for project ${project.name}." />
 
     <switch value="${deploy.type}">
-      <case value="ear">
-        <var unset="true" name="deployment.weblogic.application.name" />
-        <basename file="${dist.file}" property="deployment.weblogic.application.name" suffix=".ear" />
-        <var name="deployment.weblogic.application.file.path" value="${deployment.dir}/${deployment.weblogic.application.name}.ear" />
-        <antcall target="undeploy.ear.from.weblogic" />
+      <case value="ejb">
+        <var unset="true" name="deployment.glassfish.ejb.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.ejb.name" suffix=".jar" />
+        <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ejb.name}.jar" />
+        <runtarget target="undeploy.ejb.from.glassfish" />
+      </case>
+      <case value="war">
+        <var unset="true" name="deployment.glassfish.war.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.war.name" suffix=".war" />
+        <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
+        <runtarget target="undeploy.war.from.glassfish" />
+      </case>
+      <case value="ca">
+        <var unset="true" name="deployment.glassfish.ca.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.ca.name" suffix=".zip" />
+        <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ca.name}.zip" />
+        <runtarget target="undeploy.ca.from.glassfish" />
+      </case>
+      <case value="shared">
+        <var unset="true" name="deployment.glassfish.shared.lib.name" />
+        <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
+        <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.shared.lib.name}.jar" />
+        <runtarget target="undeploy.shared.lib.from.glassfish" />
       </case>
       <default>
         <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
@@ -329,12 +374,30 @@
   </target>
   
   <target name="deploy.shared.lib.to.glassfish">
-    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" />
+    <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" overwrite="true" />
   </target>
   
   <target name="undeploy.shared.lib.from.glassfish">
     <basename property="deployment.glassfish.shared.lib.file.name" file="${deployment.glassfish.shared.lib.file.path}"/>
-    <delete file="${deployment.glassfish.shared.lib.file.name}" />
+    <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
+  </target>
+
+  <target name="delete.glassfish.domain">
+    <runtarget target="deploy.glassfish.stop.server"/>
+    <delete dir="${deployment.glassfish.domain.home}" />
+  </target>
+
+  <target name="create.glassfish.domain">
+    <copy todir="${deployment.glassfish.domain.home}">
+      <fileset dir="${deployment.glassfish.domain.source.directory}">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="recreate.glassfish.domain">
+    <runtarget target="delete.glassfish.domain"/>
+    <runtarget target="create.glassfish.domain"/>
   </target>
   
 </project>

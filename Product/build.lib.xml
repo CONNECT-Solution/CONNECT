@@ -4,6 +4,7 @@
   <basename file="${project.dir}" property="project.name" />
 	
   <import file="Properties.build.xml"/>
+  <import file="Install/deploy.xml"/>
   <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
 
   <condition property="buildpropertiesfile" value="build.win.properties">
@@ -43,6 +44,41 @@
       <pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar"/>
     </classpath>
   </taskdef>
+
+
+  <macrodef name="call">
+    <attribute name="target"/>
+    <attribute name="if" default="true"/>
+    <sequential>
+      <if>
+        <and>
+          <istrue value="@{if}" />
+          <isfalse value="@{unless}" />
+        </and>
+        <then>
+          <runtarget target="@{target}"/>
+        </then>
+      </if>
+    </sequential>
+  </macrodef>
+
+  <target name="deploy">
+    <property file="${project.dir}/nbproject/project.properties"/>
+    <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+    
+    <call target="deploy.to.development" if="${deploy.isDeployable}"/>
+  </target>
+
+  <target name="undeploy">
+    <property file="${project.dir}/nbproject/project.properties"/>
+    <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+      <isset property="sedeployment.jar" />
+    </condition>
+    
+    <call target="undeploy.from.development" if="${deploy.isDeployable}"/>
+  </target>
 
   <!-- 
   ***** Properties used as params to this target *****

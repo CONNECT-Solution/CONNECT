@@ -1,1 +1,2 @@
-..\Build\nant\bin\nant.exe -buildfile:Personal.Build.xml GlassFish.StopServer
+CALL ..\Build\SetEnv.bat
+nant.exe -listener:NAnt.Core.XmlLogger -buildfile:Personal.Build.xml GlassFish.StopServer

@@ -10,10 +10,34 @@
   </shared>
   <wars>
     <war>
+      <name>UniversalClientGUI</name>
+    </war>
+    <war>
       <name>ConsumerPreferencesProfileGUI</name>
     </war>
   </wars>
   <ejbs>
+    <ejb>
+      <name>AdapterPolicyEngineProxyEJB</name>
+    </ejb>
+    <ejb>
+      <name>AdapterAuthenticationEJB</name>
+    </ejb>
+    <ejb>
+      <name>AdapterAuditQueryEJB</name>
+    </ejb>
+    <ejb>
+      <name>EntityDocQueryProxyEJB</name>
+    </ejb>
+    <ejb>
+      <name>AdapterDocQueryProxyEJB</name>
+    </ejb>
+    <ejb>
+      <name>AdapterDocRetrieveEJB</name>
+    </ejb>
+    <ejb>
+      <name>AdapterDocRetrieveProxyEJB</name>
+    </ejb>
     <ejb>
       <name>AdapterMpiEJB</name>
     </ejb>

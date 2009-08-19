@@ -4,10 +4,14 @@
   <property name="glassfish.home" value="c:\GlassfishESB\glassfish"/>
   
   <property name="deployment.dir" value="C:\NHINC" />
+  <property name="deployment.binaries.dir" value="${deployment.dir}\nhinc" />
 
   <property name="deployment.glassfish.port" value="4848"/>
   <property name="deployment.glassfish.server" value="localhost"/>
-  <property name="deployment.glassfish.domain" value="domain1"/>
+  
+  <property name="deployment.glassfish.domain.name" value="domain1"/>
+  <property name="deployment.glassfish.domain.home" value="${glassfish.home}\domains\${deployment.glassfish.domain.name}"/>
+  <property name="deployment.glassfish.domain.source.directory" value="${script.root.directory}/domains/test"/>
 
   <property name="deployment.glassfish.server.username" value="admin" />
   <property name="deployment.glassfish.server.password" value="adminadmin" />

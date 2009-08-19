@@ -71,6 +71,22 @@
     <antcall target="do-to-projects" />
   </target>
 
+  <target name="deploy">
+    <var name="do-to-target" value="deploy" />
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="redeploy">
+    <var name="do-to-target" value="undeploy" />
+    <antcall target="do-to-projects" />
+    <var name="do-to-target" value="deploy" />
+    <antcall target="do-to-projects" />
+  </target>
+
+  <target name="undeploy">
+    <var name="do-to-target" value="undeploy" />
+    <antcall target="do-to-projects" />
+  </target>
 
 	<target name="do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
 		<property name="project.count" value="0" />
