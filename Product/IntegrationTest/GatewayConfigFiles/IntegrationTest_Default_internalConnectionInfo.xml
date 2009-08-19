@@ -117,6 +117,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
 			</service>
 			<service>
+				<name>adaptercomponentmpiservice</name>
+				<description>Master Patient Index Component</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
+			</service>
+			<service>
 				<name>patientcorrelation</name>
 				<description>Patient Correlation Service</description>
 				<endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
@@ -298,6 +303,11 @@
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
+			</service>
+			<service>
+				<name>adaptercomponentmpiservice</name>
+				<description>Master Patient Index Component</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
 			</service>
 			<service>
 				<name>patientcorrelation</name>
