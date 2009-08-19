@@ -7,16 +7,6 @@
         </identification>
         <service-unit>
             <identification>
-                <name>AdapterCA-AdapterSubjectDiscoveryBPEL</name>
-                <description>Represents this Service Unit</description>
-            </identification>
-            <target>
-                <artifacts-zip>AdapterSubjectDiscoveryBPEL.jar</artifacts-zip>
-                <component-name>sun-bpel-engine</component-name>
-            </target>
-        </service-unit>
-        <service-unit>
-            <identification>
                 <name>AdapterCA-AdapterBPEL</name>
                 <description>Represents this Service Unit</description>
             </identification>

@@ -97,25 +97,7 @@
             <fileset dir="${AdapterBPEL.su.dir}/META-INF"/>
         </copy>
 
-       <property name="project.AdapterSubjectDiscoveryBPEL.Absolute" location="${project.AdapterSubjectDiscoveryBPEL}"/>
-        <ant dir="${project.AdapterSubjectDiscoveryBPEL.Absolute}" target="dist_se" inheritall="false" antfile="${project.AdapterSubjectDiscoveryBPEL.Absolute}/build.xml"/>
-        <property name="AdapterSubjectDiscoveryBPEL.su.name" value="AdapterSubjectDiscoveryBPEL"/>
-        <unzip src="${reference.AdapterSubjectDiscoveryBPEL.dist_se}" dest="${src.dir}/../jbiServiceUnits/${AdapterSubjectDiscoveryBPEL.su.name}">
-            <patternset>
-                <include name="**/*.wsdl"/>
-                <include name="**/*.WSDL"/>
-                <include name="**/*.xsd"/>
-                <include name="**/*.XSD"/>
-                <include name="META-INF/jbi.xml"/>
-                <include name="META-INF/catalog.xml"/>
-            </patternset>
-        </unzip>
-        <property name="AdapterSubjectDiscoveryBPEL.su.dir" value="${src.dir}/../jbiServiceUnits/${AdapterSubjectDiscoveryBPEL.su.name}"/>
-        <copy file="${AdapterSubjectDiscoveryBPEL.su.dir}/META-INF/jbi.xml" todir="${AdapterSubjectDiscoveryBPEL.su.dir}"/>
-        <copy todir="${src.dir}/../jbiServiceUnits/META-INF/${AdapterSubjectDiscoveryBPEL.su.name}">
-            <fileset dir="${AdapterSubjectDiscoveryBPEL.su.dir}/META-INF"/>
-        </copy>
-        
+               
     </target>
     
     <target name="jbi-build" depends="init,init-deploy,deps-jar, deps-javaee-jar" description="Build Service Assembly.">
@@ -128,10 +110,7 @@
         <copy todir="${build.dir}/META-INF/${AdapterBPEL.su.name}">
             <fileset dir="${src.dir}/../jbiServiceUnits/META-INF/${AdapterBPEL.su.name}"/>
         </copy>
-        <copy todir="${build.dir}/META-INF/${AdapterSubjectDiscoveryBPEL.su.name}">
-            <fileset dir="${src.dir}/../jbiServiceUnits/META-INF/${AdapterSubjectDiscoveryBPEL.su.name}"/>
-        </copy> 
-        
+                
         <jar compress="true" jarfile="${build.dir}/BCDeployment.jar">
             <fileset dir="${src.dir}/../jbiServiceUnits">
                 <exclude name="**/catalog.xml"/>
@@ -148,11 +127,8 @@
     </target> 
         
     <target name="deps-clean" depends="init" unless="${no.dependencies}">
-    		<property name="project.AdapterSubjectDiscoveryBPEL.Absolute" location="${project.AdapterSubjectDiscoveryBPEL}"/>
     
-        <ant dir="${project.AdapterBPEL}" target="clean" inheritall="false" antfile="${project.AdapterBPEL}/build.xml"/>
-        <ant dir="${project.AdapterSubjectDiscoveryBPEL.Absolute}" target="clean" inheritall="false" antfile="${project.AdapterSubjectDiscoveryBPEL.Absolute}/build.xml"/>
-        
+        <ant dir="${project.AdapterBPEL}" target="clean" inheritall="false" antfile="${project.AdapterBPEL}/build.xml"/>        
         
     </target>    
     
