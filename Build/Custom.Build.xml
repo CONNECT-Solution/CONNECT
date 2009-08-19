@@ -39,7 +39,7 @@
         <include name="${Common.Directory.Production.Path}\Common\**\dist\*"/>
         <include name="${Common.Directory.Production.Path}\Gateway\**\dist\*"/>
       </fileset>
-      <fileset basedir="${Common.Directory.Install.Path}\AppDeploy">
+      <fileset basedir="${Common.Directory.Install.Path}">
         <include name="**\*"/>
       </fileset>
     </zip>

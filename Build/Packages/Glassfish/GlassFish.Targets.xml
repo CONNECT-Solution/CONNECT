@@ -16,36 +16,28 @@
   <target name="GlassFish.StartServer">
     <call target="GlassFish.GetServerStatus"/>
     <if test="${GlassFish.Status == 'Stopped'}">
-      <asyncexec
-        createnowindow="true"
-        redirectoutput="false"
-        useshellexecute="true"
-        waitforexit="true"
-        taskname="GlassFishStart"
-        program="cmd"
-        workingdir="${path::get-directory-name(GlassFish.ApplicationServer.File.Path)}"
-        verbose="true"
+      <ant
+        target="deploy.glassfish.start.server"
+        buildfile="${GlassFish.Deploy.Script.File.Path}"
+        logfile="${Ant.Log.Directory.Path}\start.glassfish.log.xml"
       >
-        <arg line='/C "${GlassFish.ApplicationServer.File.Path}" start-domain ${GlassFish.Domain.Name}' />
-      </asyncexec>
-      <waitforexit>
-        <tasknames>
-          <string value='GlassFishStart'/>
-        </tasknames>
-      </waitforexit>
+        <environment refid="${Common.EnvironmentVariables.RefId}"/>
+        <args/>
+      </ant>
   </if>
   </target>
 
   <target name="GlassFish.StopServer">
     <call target="GlassFish.GetServerStatus"/>
     <if test="${GlassFish.Status == 'Started'}">
-      <exec
-        program="cmd"
-        workingdir="${path::get-directory-name(GlassFish.ApplicationServer.File.Path)}"
-        verbose="true"
+      <ant
+        target="deploy.glassfish.stop.server"
+        buildfile="${GlassFish.Deploy.Script.File.Path}"
+        logfile="${Ant.Log.Directory.Path}\stop.glassfish.log.xml"
       >
-        <arg line='/C "${GlassFish.ApplicationServer.File.Path}" stop-domain ${GlassFish.Domain.Name}' />
-      </exec>
+        <environment refid="${Common.EnvironmentVariables.RefId}"/>
+        <args/>
+      </ant>
     </if>
   </target>
 
@@ -73,14 +65,23 @@
   </target>
 
   <target name="GlassFish.Redeploy">
-    <call target="GlassFish.Undeploy"/>
+    <call target="GlassFish.Recreate.Domain"/>
 
     <call target="GlassFish.Deploy"/>
   </target>
+
+  <target name="GlassFish.Recreate.Domain">
+    <ant
+      target="recreate.glassfish.domain"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args/>
+    </ant>
+  </target>
   
   <target name="GlassFish.Undeploy">
-    <call target="GlassFish.StartServer"/>
-
     <ant
       target="undeploy"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
@@ -92,23 +93,10 @@
   </target>
   
   <target name="GlassFish.Deploy">
-    <call target="GlassFish.StopServer"/>
-
-    <ant
-      target="deploy.shared"
-      buildfile="${GlassFish.Deploy.Script.File.Path}"
-      logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
-    >
-      <environment refid="${Common.EnvironmentVariables.RefId}"/>
-      <args/>
-    </ant>
-    
-    <call target="GlassFish.StartServer"/>
-    
     <ant
       target="deploy"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
-      logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
+      logfile="${Ant.Log.Directory.Path}\deploy_log.xml"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args/>
@@ -120,5 +108,73 @@
 
   <target name="GlassFish.TearDown">
   </target>
-  
+
+  <target name="Personal.Redeploy">
+    <ask
+      answer="GlassFish.Deploy.Source"
+      caption="Deploy Source"
+      question="Do you want to deploy from your local build or choose a release build from the build server?"
+    >
+      <options>
+        <string value="Release Build"/>
+        <string value="Local Build"/>
+      </options>
+    </ask>
+
+    <switch value="${GlassFish.Deploy.Source}">
+      <case value="Release Build" break="True">
+        <call target="Personal.GlassFish.GetRelease"/>
+      </case>
+      <case value="Local Build" break="True">
+        <property name="GlassFish.Deploy.EnvironmentVariables.RefId" value="${Common.EnvironmentVariables.RefId}"/>
+        <property name="GlassFish.Deploy.Directory.Path" value="${Common.Directory.Product.Path}"/>
+        <property name="GlassFish.Deploy.Script.File.Path" value="${GlassFish.Deploy.Directory.Path}\build.xml" />
+        <property name="GlassFish.Deploy.Ant.Home" value="${Ant.Home}"/>
+        <call target="Personal.Package"/>
+      </case>
+      <default>
+        <fail message="The choice ${GlassFish.Deploy.Source} was unexpected!"/>
+      </default>
+    </switch>
+
+    <trycatch>
+      <try>
+        <call target="Ant.SetUp"/>
+        <call target="GlassFish.Redeploy" />
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+        <property name="Ant.Log.File.Path" value="${Ant.Log.Directory.Path}\deploy_log.xml"/>
+        <call target="Ant.ShowReport"/>
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="Ant.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
+
+  <target name="Personal.GlassFish.GetRelease">
+    <ask.published.good.build
+          verbose="True"
+          resultproperty="Release.Application.Version"
+        />
+
+    <echo message="Getting release version ${Release.Application.Version}..."/>
+
+    <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${Release.Application.Version}.zip"/>
+    <property name="Release.Application.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Application.Zip.File.Name}"/>
+
+    <get.published.artifact
+      verbose="True"
+      artifact="${Release.Application.Zip.File.Name}"
+      dest="${Release.Application.Zip.File.Path}"
+      build="${Release.Application.Version}"
+        />
+    <delete dir="${GlassFish.Deploy.Directory.Path}" if="${directory::exists(GlassFish.Deploy.Directory.Path)}"/>
+
+    <echo message="Unzipping ${Release.Application.Zip.File.Path} to ${GlassFish.Deploy.Directory.Path}."/>
+    <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
+  </target>
+
 </project>

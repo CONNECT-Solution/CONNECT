@@ -6,6 +6,6 @@
 
   <property name="GlassFish.ApplicationServer.File.Path"  value="C:\GlassFishESB\glassfish\bin\asadmin.bat" overwrite="false"/>
   <property name="GlassFish.Deploy.Directory.Path"        value="C:\${ProjectName}" overwrite="false"/>
-  <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\build.xml" overwrite="false"/>
+  <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\deploy.xml" overwrite="false"/>
 
 </project>
