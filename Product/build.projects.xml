@@ -194,6 +194,10 @@
 		<directory>/Production/Adapters/General/EntityDocQueryProxyEJB</directory>
 	</project>
 	<project>
+		<name>PatientCorrelationProxy</name>
+		<directory>/Production/Adapters/General/PatientCorrelationProxy</directory>
+	</project>
+	<project>
 		<name>AdapterDocQueryProxyEJB</name>
 		<directory>/Production/Gateway/AdapterDocQueryProxyEJB</directory>
 	</project>	
