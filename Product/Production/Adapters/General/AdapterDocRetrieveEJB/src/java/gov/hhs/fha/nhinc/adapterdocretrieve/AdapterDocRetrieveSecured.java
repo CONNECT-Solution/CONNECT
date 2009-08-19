@@ -1,8 +1,10 @@
 package gov.hhs.fha.nhinc.adapterdocretrieve;
 
 import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveSecuredPortType;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -13,11 +15,12 @@ import javax.jws.WebService;
 @Stateless
 public class AdapterDocRetrieveSecured implements AdapterDocRetrieveSecuredPortType
 {
+    @Resource
+    private WebServiceContext context;
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body)
     {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet - yo.");
+        return new AdapterDocRetrieveSecuredImpl().respondingGatewayCrossGatewayRetrieve(body, context);
     }
     
 }

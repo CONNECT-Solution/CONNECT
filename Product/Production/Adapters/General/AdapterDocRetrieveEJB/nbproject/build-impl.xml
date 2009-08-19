@@ -286,8 +286,16 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps"/>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+    </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -299,11 +307,21 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.reference.AdapterDocumentRepositoryProxyImpl.jar} ${manifest.reference.NhincLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -560,7 +578,11 @@ exists or setup the property manually. For example like this:
     <!--
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
+    </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>
