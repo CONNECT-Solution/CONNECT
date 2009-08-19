@@ -4,13 +4,13 @@
 	<target name="Build.PublishZip">
     <zip zipfile="${Common.Project.TempDirectory}\AdapterSDK.zip" includeemptydirs="true">
       <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Interfaces\src\schemas\Agency\**" />
+        <include name="Common\Interfaces\src\schemas\Agency\**" />
       </fileset>
       <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Interfaces\src\wsdl\AdapterService.wsdl" />
+        <include name="Common\Interfaces\src\wsdl\AdapterService.wsdl" />
       </fileset>
       <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Interfaces\src\wsdl\EntityService.wsdl" />
+        <include name="Common\Interfaces\src\wsdl\EntityService.wsdl" />
       </fileset>
     </zip>
     
@@ -38,6 +38,7 @@
         <include name="${Common.Directory.Production.Path}\Adapters\**\dist\*"/>
         <include name="${Common.Directory.Production.Path}\Common\**\dist\*"/>
         <include name="${Common.Directory.Production.Path}\Gateway\**\dist\*"/>
+        <include name="${Common.Directory.Production.Path}\Examples\NhinInterfaceTestHelperEJB\**\dist\*"/>
       </fileset>
       <fileset basedir="${Common.Directory.Install.Path}">
         <include name="**\*"/>
