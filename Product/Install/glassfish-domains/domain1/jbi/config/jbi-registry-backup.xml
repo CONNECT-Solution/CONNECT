@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi/registry">
+    <components>
+        <component upgrade-number="1" default-install="true" timestamp="1240781604430" file-name="httpbc.jar" name="sun-http-binding"/>
+        <component default-install="true" timestamp="1240781604524" file-name="appserv-jbise.jar" name="sun-javaee-engine"/>
+        <component timestamp="1240781674244" file-name="bpelserviceengine.jar" name="sun-bpel-engine"/>
+        <component timestamp="1240781676353" file-name="databasebc.jar" name="sun-database-binding"/>
+        <component timestamp="1240781678056" file-name="edmse.jar" name="sun-edm-engine"/>
+        <component timestamp="1240781679541" file-name="filebc.jar" name="sun-file-binding"/>
+        <component timestamp="1240781680963" file-name="ftpbc.jar" name="sun-ftp-binding"/>
+        <component timestamp="1240781682291" file-name="iepserviceengine.jar" name="sun-iep-engine"/>
+        <component timestamp="1240781683900" file-name="jmsbc.jar" name="sun-jms-binding"/>
+        <component timestamp="1240781685166" file-name="ldapbc.jar" name="sun-ldap-binding"/>
+        <component timestamp="1240781686572" file-name="schedulerbc.jar" name="sun-scheduler-binding"/>
+        <component timestamp="1240781687838" file-name="xsltserviceengine.jar" name="sun-xslt-engine"/>
+    </components>
+    <shared-libraries>
+        <shared-library default-install="true" timestamp="1240781604571" file-name="wsdlsl.jar" name="sun-wsdl-library"/>
+        <shared-library timestamp="1240781669009" file-name="encoderlib.jar" name="sun-encoder-library"/>
+        <shared-library timestamp="1240781670728" file-name="wsdlextlib.jar" name="sun-wsdl-ext-library"/>
+        <shared-library timestamp="1240781672306" file-name="saxonlib.jar" name="sun-saxon-library"/>
+    </shared-libraries>
+    <service-assemblies>
+        <service-assembly timestamp="1250054938000" file-name="NhinCA.zip" name="NhinCA"/>
+    </service-assemblies>
+    <servers>
+        <server name-ref="server">
+            <component-ref workspace="C:\GlassFishESB\glassfish\domains\domain1/jbi/components/sun-http-binding/install_root/workspace" install-root="C:\GlassFishESB\glassfish\domains\domain1/jbi/components/sun-http-binding/install_root" state="Started" name-ref="sun-http-binding">
+                <service-units/>
+                <component-config>
+                    <application-variable>
+                        <name>NhincHttpPort</name>
+                        <value>8080</value>
+                        <type>STRING</type>
+                    </application-variable>
+                </component-config>
+            </component-ref>
+            <component-ref workspace="C:\GlassFishESB\glassfish\domains\domain1/jbi/components/sun-javaee-engine/install_root/workspace" install-root="C:\GlassFishESB\glassfish\domains\domain1/jbi/components/sun-javaee-engine/install_root" state="Shutdown" name-ref="sun-javaee-engine"/>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-bpel-engine/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-bpel-engine/install_root" state="Started" name-ref="sun-bpel-engine">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-database-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-database-binding/install_root" state="Shutdown" name-ref="sun-database-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-edm-engine/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-edm-engine/install_root" state="Shutdown" name-ref="sun-edm-engine">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-file-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-file-binding/install_root" state="Shutdown" name-ref="sun-file-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-ftp-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-ftp-binding/install_root" state="Shutdown" name-ref="sun-ftp-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-iep-engine/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-iep-engine/install_root" state="Shutdown" name-ref="sun-iep-engine">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-jms-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-jms-binding/install_root" state="Shutdown" name-ref="sun-jms-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-ldap-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-ldap-binding/install_root" state="Shutdown" name-ref="sun-ldap-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-scheduler-binding/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-scheduler-binding/install_root" state="Shutdown" name-ref="sun-scheduler-binding">
+                <service-units/>
+            </component-ref>
+            <component-ref workspace="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-xslt-engine/install_root/workspace" install-root="${com.sun.jbi.platform.instanceRoot}/jbi/components/sun-xslt-engine/install_root" state="Shutdown" name-ref="sun-xslt-engine">
+                <service-units/>
+            </component-ref>
+            <shared-library-ref install-root="C:\GlassFishESB\glassfish\domains\domain1/jbi/shared-libraries/sun-wsdl-library/install_root" name-ref="sun-wsdl-library"/>
+            <shared-library-ref install-root="${com.sun.jbi.platform.instanceRoot}\jbi\shared-libraries\sun-encoder-library\install_root" name-ref="sun-encoder-library"/>
+            <shared-library-ref install-root="${com.sun.jbi.platform.instanceRoot}\jbi\shared-libraries\sun-wsdl-ext-library\install_root" name-ref="sun-wsdl-ext-library"/>
+            <shared-library-ref install-root="${com.sun.jbi.platform.instanceRoot}\jbi\shared-libraries\sun-saxon-library\install_root" name-ref="sun-saxon-library"/>
+        </server>
+    </servers>
+</jbi>

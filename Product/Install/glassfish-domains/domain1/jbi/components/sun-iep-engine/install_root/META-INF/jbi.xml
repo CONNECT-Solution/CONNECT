@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<jbi version="1.0"
+        xmlns="http://java.sun.com/xml/ns/jbi"
+    	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+	xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0"
+        xmlns:logging="http://www.sun.com/jbi/descriptor/logging">
+
+    <!-- identification information about this se -->
+    <component type="service-engine">
+        <identification>
+            <name>sun-iep-engine</name>
+            <description>The sun-iep-engine is an open source, JBI 1.0 compliant Service Engine that provides Complex Event Processing (CEP) and Event Stream Processing (ESP) capabilities. The sun-iep-engine is also referred to as IEP SE.</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="IEP SE Component">com.sun.jbi.engine.iep.IEPSEComponent
+        </component-class-name>
+        <component-class-path>
+            <path-element>lib/wsdl4j.jar</path-element>
+            <path-element>lib/iepcore.jar</path-element>
+            <path-element>lib/iepjbiadapter.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+        </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.engine.iep.IEPSEBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+            <path-element>lib/iepcore.jar</path-element>
+            <path-element>lib/iepjbiadapter.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+        </bootstrap-class-path>
+        <config:Configuration version="1.0">
+            <config:PropertyGroup name="DB" displayName="Database" displayDescription="Configure Database" showDisplay="all">
+                <config:Property name="DatabaseNonXaJndiName"
+                         displayName="Non XA Data Source Name"
+                         displayDescription="sun-iep-engine executes event processors at the configured data source."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="jdbc/iepseDerbyNonXA"/>
+                <config:Property name="DatabaseXaJndiName"
+                         displayName="XA Data Source Name"
+                         displayDescription="sun-iep-engine collects events at the configured data source."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="jdbc/iepseDerbyXA"/>
+                <config:Property name="DatabaseSchemaName"
+                         displayName="Database Schema Name"
+                         displayDescription="sun-iep-engine creates system tables under the specified database schema."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="iepseDB"/>
+            </config:PropertyGroup>
+            <config:Property name="GarbageCollectionEnabled"
+                         displayName="Garbage Collection Enabled"
+                         displayDescription="When set to 'true', system will garbage collect events that no longer needed."
+                         showDisplay="all"
+                         type="xsd:boolean"
+                         defaultValue="true"/>
+            <config:Property name="EngineExpiryInterval"
+                         displayName="Lease Renewal Interval (> 10 sec)"
+                         displayDescription="It is applicable only for cluster environment. It is the interval at which sun-iep-engine component renews its lease to continue to own event processors it is executing. Keep it no less than 10 seconds."
+                         showDisplay="all"
+                         type="xsd:int"
+                         defaultValue="60">
+               <config:Constraint facet="minInclusive" value="10"/> 
+			</config:Property>
+            <config:Property name="MaximumBatchSize"
+                         displayName="Maximum Batch Size (> 0 sec)"
+                         displayDescription="sun-iep-engine processes no more than maxium-batch-size second worth of input events per iteration"
+                         showDisplay="all"
+                         type="xsd:int"
+                         defaultValue="2">
+               <config:Constraint facet="minInclusive" value="1"/> 
+			</config:Property>
+<!--                         
+            <config:Property name="NoOfThreads"
+                         displayName="No of Threads"
+                         displayDescription="No of threads(optimal no. = no of input/output operators deployed in SE)."
+                         showDisplay="all"
+                         type="xsd:int"
+                         defaultValue="5"/>
+-->                         
+            <config:Property name="TransactedOutput"
+                         displayName="Transacted Output"
+                         displayDescription="This option will enable transacted output operations."
+                         showDisplay="all"
+                         type="xsd:boolean"
+                         defaultValue="true"/>
+            <config:Property name="RuntimeStyle"
+                         displayName="Runtime Style"
+                         displayDescription="sun-iep-engine uses runtime style (standalone or embedded)."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="standAlone">
+               <config:Constraint facet="enumeration" value="standAlone"/>
+               <config:Constraint facet="enumeration" value="embedded"/>
+			</config:Property>				
+<!--                       
+            <config:Property name="AieType"
+                         displayName="AI Engine Type"
+                         displayDescription="AI Engine type (none or matlab)."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="none"/>
+            <config:Property name="AieHostname"
+                         displayName="AI Engine Hostname"
+                         displayDescription="AI Engine Hostname."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="localhost"/>
+            <config:Property name="AiePort"
+                         displayName="AI Engine Port"
+                         displayDescription="AI Engine Port."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="6688"/>
+            <config:Property name="AieId"
+                         displayName="AI Engine Id"
+                         displayDescription="AI Engine Id."
+                         showDisplay="all"
+                         type="xsd:string"
+                         defaultValue="aie01"/>
+-->                         
+        </config:Configuration>
+        <logging:Logging root="com.sun.jbi.engine.iep">
+            <logging:logger displayName="Life Cycle" addPrefix="false">com.sun.jbi.engine.iep.IEPSELifeCycle
+            </logging:logger>
+            <logging:logger displayName="Service Unit Manager" addPrefix="false">com.sun.jbi.engine.iep.IEPSEServiceUnitManager
+            </logging:logger>
+            <logging:logger displayName="Input Thread" addPrefix="false">com.sun.jbi.engine.iep.IEPSEInOnlyThread
+            </logging:logger>
+            <logging:logger displayName="Output Thread" addPrefix="false">com.sun.jbi.engine.iep.IEPSEOutOnlyThread
+            </logging:logger>
+            <logging:logger displayName="Heart Beat Thread" addPrefix="false">com.sun.jbi.engine.iep.IEPSEHeartBeatThread
+            </logging:logger>
+            <logging:logger displayName="Engine" addPrefix="false">com.sun.jbi.engine.iep.core.runtime.IEPEngine
+            </logging:logger>
+        </logging:Logging>
+    </component>
+</jbi>

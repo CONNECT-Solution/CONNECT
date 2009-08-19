@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sun-application PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 Java EE Application 5.0//EN" "http://www.sun.com/software/appserver/dtds/sun-application_5_0-0.dtd">
+<sun-application>
+  <web>
+    <web-uri>sys.war</web-uri>
+    <context-root>/__JWSappclients</context-root>
+  </web>
+  <unique-id>81315865614942208</unique-id>
+</sun-application>

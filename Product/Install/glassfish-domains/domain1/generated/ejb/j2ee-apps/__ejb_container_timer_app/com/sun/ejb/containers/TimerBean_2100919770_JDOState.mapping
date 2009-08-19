@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383">
+  <_properties>4</_properties>
+  <_name>com.sun.ejb.containers.TimerBean_2100919770_JDOState</_name>
+  <_support>
+    <OBJECT/>
+  </_support>
+  <_tables>
+    <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+      <ROW ROW="0">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingTableElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingTableElementImpl-282717731">
+          <_referencingKeys>
+            <OBJECT/>
+          </_referencingKeys>
+          <_key>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.TIMERID"/>
+            </ARRAY>
+          </_key>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_name>EJB__TIMER__TBL</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_table>EJB__TIMER__TBL</_table>
+        </OBJECT>
+      </ROW>
+    </ARRAY>
+  </_tables>
+  <_isModified>true</_isModified>
+  <_persistenceElement>
+    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383">
+      <_impl>
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceClassElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceClassElementImpl23863701">
+          <_groups>
+            <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceElementCollection" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceElementCollection8732241">
+              <_propertyName>groups</_propertyName>
+              <_template>
+                <ARRAY SIZE="0" CLASS="PRIMITIVE" ROWCLASS="com.sun.jdo.api.persistence.model.jdo.ConcurrencyGroupElement">
+                </ARRAY>
+              </_template>
+              <_owner>
+                <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceClassElementImpl23863701"/>
+              </_owner>
+              <_elements>
+                <OBJECT/>
+              </_elements>
+            </OBJECT>
+          </_groups>
+          <_element>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+          </_element>
+          <_fields>
+            <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceElementCollection" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceElementCollection24138346">
+              <_propertyName>fields</_propertyName>
+              <_template>
+                <ARRAY SIZE="0" CLASS="PRIMITIVE" ROWCLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement">
+                </ARRAY>
+              </_template>
+              <_owner>
+                <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceClassElementImpl23863701"/>
+              </_owner>
+              <_elements>
+                <ARRAY SIZE="10" CLASS="PRIMITIVE" ROWCLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement">
+                  <ROW ROW="0">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1431197635">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl25411566">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1431197635"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>creationTimeRaw</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="1">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1372072228">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl17875688">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1372072228"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>blob</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="2">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement-688439926">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl23861023">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement-688439926"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>lastExpirationRaw</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="3">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement55135431">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl23203218">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement55135431"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>timerId</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>true</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="4">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1576678147">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl6882443">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1576678147"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>containerId</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="5">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement314315957">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl6758683">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement314315957"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>ownerId</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="6">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1478802968">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl11437378">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement1478802968"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>state</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="7">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement922610877">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl32828061">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement922610877"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>pkHashCode</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="8">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement-1656882432">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl5707400">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement-1656882432"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>intervalDuration</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                  <ROW ROW="9">
+                    <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement" ID="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement149291932">
+                      <_impl>
+                        <OBJECT CLASS="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl" ID="com.sun.jdo.api.persistence.model.jdo.impl.PersistenceFieldElementImpl25707289">
+                          <_element>
+                            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceFieldElement149291932"/>
+                          </_element>
+                          <_persistenceType>0</_persistenceType>
+                          <_name>initialExpirationRaw</_name>
+                          <_support>
+                            <OBJECT/>
+                          </_support>
+                          <_derivedModifier>0</_derivedModifier>
+                          <_isKey>false</_isKey>
+                        </OBJECT>
+                      </_impl>
+                      <_declaringClass>
+                        <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.jdo.PersistenceClassElement1369045383"/>
+                      </_declaringClass>
+                    </OBJECT>
+                  </ROW>
+                </ARRAY>
+              </_elements>
+            </OBJECT>
+          </_fields>
+          <_keyClass>com.sun.ejb.containers.TimerBean_2100919770_JDOState.Oid</_keyClass>
+          <_objectIdentityType>0</_objectIdentityType>
+          <_name>com.sun.ejb.containers.TimerBean_2100919770_JDOState</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_isModified>true</_isModified>
+        </OBJECT>
+      </_impl>
+    </OBJECT>
+  </_persistenceElement>
+  <_databaseRoot>__ejb_container_timer_app_ejb</_databaseRoot>
+  <_consistencyLevel>0</_consistencyLevel>
+  <_fields>
+    <ARRAY SIZE="10" CLASS="java.util.ArrayList" ROWCLASS="">
+      <ROW ROW="0">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl1431197635">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>creationTimeRaw</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.CREATIONTIMERAW"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="1">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl1372072228">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>blob</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.BLOB"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>0</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="2">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl-688439926">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>lastExpirationRaw</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.LASTEXPIRATIONRAW"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="3">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl55135431">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>timerId</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.TIMERID"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="4">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl1576678147">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>containerId</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.CONTAINERID"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="5">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl314315957">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>ownerId</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.OWNERID"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="6">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl1478802968">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>state</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.STATE"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="7">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl922610877">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>pkHashCode</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.PKHASHCODE"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="8">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl-1656882432">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>intervalDuration</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.INTERVALDURATION"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+      <ROW ROW="9">
+        <OBJECT CLASS="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl" ID="com.sun.jdo.api.persistence.model.mapping.impl.MappingFieldElementImpl149291932">
+          <_properties>0</_properties>
+          <_isVersion>false</_isVersion>
+          <_name>initialExpirationRaw</_name>
+          <_support>
+            <OBJECT/>
+          </_support>
+          <_declaringClass>
+            <OBJECT REFERENCE="com.sun.jdo.api.persistence.model.mapping.impl.MappingClassElementImpl1369045383"/>
+          </_declaringClass>
+          <_columns>
+            <ARRAY SIZE="1" CLASS="java.util.ArrayList" ROWCLASS="">
+              <ROW ROW="0" ROWCLASS="java.lang.String" VALUE="EJB__TIMER__TBL.INITIALEXPIRATIONRAW"/>
+            </ARRAY>
+          </_columns>
+          <_fetchGroup>1</_fetchGroup>
+        </OBJECT>
+      </ROW>
+    </ARRAY>
+  </_fields>
+  <versionNo>5</versionNo>
+</OBJECT>
