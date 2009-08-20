@@ -16,6 +16,7 @@
           logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
         >
           <environment refid="${Common.EnvironmentVariables.RefId}"/>
+          <args/>
         </ant>
         <property name="Ant.Failure" value="False"/>
 		  </try>
