@@ -12,7 +12,7 @@
 		  <try>
         <ant
           target="soapui.run"
-          buildfile="${Package.SoapUI.Directory.Path}\SoapUI.Ant.Target.xml"
+          buildfile="${Package.SoapUI.Directory.Path}\SoapUI.Ant.Targets.xml"
           logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
         >
           <environment refid="${Common.EnvironmentVariables.RefId}"/>
