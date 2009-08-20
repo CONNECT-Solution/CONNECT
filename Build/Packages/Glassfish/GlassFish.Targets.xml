@@ -16,15 +16,22 @@
   <target name="GlassFish.StartServer">
     <call target="GlassFish.GetServerStatus"/>
     <if test="${GlassFish.Status == 'Stopped'}">
-      <ant
+      <ant.async
         target="deploy.glassfish.start.server"
         buildfile="${Common.Directory.Product.Path}\build.xml"
         logfile="${Ant.Log.Directory.Path}\start.glassfish.log.xml"
+        taskname="GlassFish.StartServer"
       >
         <environment refid="${Common.EnvironmentVariables.RefId}"/>
         <args/>
-      </ant>
-  </if>
+      </ant.async>
+
+      <waitforexit>
+        <tasknames>
+          <string value='GlassFish.StartServer'/>
+        </tasknames>
+      </waitforexit>
+    </if>
   </target>
 
   <target name="GlassFish.StopServer">
@@ -82,25 +89,39 @@
   </target>
   
   <target name="GlassFish.Undeploy">
-    <ant
+    <ant.async
       target="undeploy"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
       logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
+      taskname="GlassFish.Undeploy"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args/>
-    </ant>
+    </ant.async>
+
+    <waitforexit>
+      <tasknames>
+        <string value='GlassFish.Undeploy'/>
+      </tasknames>
+    </waitforexit>
   </target>
   
   <target name="GlassFish.Deploy">
-    <ant
+    <ant.async
       target="deploy"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
       logfile="${Ant.Log.Directory.Path}\deploy_log.xml"
+      taskname="GlassFish.Deploy"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args/>
-    </ant>
+    </ant.async>
+
+    <waitforexit>
+      <tasknames>
+        <string value='GlassFish.Deploy'/>
+      </tasknames>
+    </waitforexit>
   </target>
 
   <target name="GlassFish.SetUp">
