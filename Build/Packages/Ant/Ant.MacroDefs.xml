@@ -68,6 +68,10 @@
         </else>
       </ifthenelse>
 
+      <setenv>
+        <element name="environment"/>
+      </setenv>
+
       <asyncexec
         createnowindow="true"
         redirectoutput="false"
@@ -78,8 +82,6 @@
         failonerror="true" 
         verbose="true"
       >
-        <element name="environment"/>
-
         <arg line='${target} -buildfile "${buildfile}"' />
         <arg line='${Ant.LogParams}' />
         <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
