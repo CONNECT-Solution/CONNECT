@@ -117,12 +117,14 @@
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.reference.AdapterDocumentRepositoryProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.reference.AdapterDocumentRepositoryProxyImpl.jar} ${manifest.reference.NhincLib.jar} "/>
         </manifest>
     </target>
 	<target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
