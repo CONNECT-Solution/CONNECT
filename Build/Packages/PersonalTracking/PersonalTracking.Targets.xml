@@ -9,7 +9,7 @@
   <target name="PersonalTracking.CopyToServer">
     <waitfor condition="${process::isrunning(PersonalTracking.SelfPid) == false}" timeout="10" pollinginterval="2"/>
     
-    <property name="PersonalTracking.BuildServer.URI" value="\\${BuildServerHostName}\${ProjectName}-${CodeLineName}-PersonalTracking"/>
+    <property name="PersonalTracking.BuildServer.URI" value="\\${BuildServerHostName}\${ProjectName}-${ProjectCodeLineName}-PersonalTracking"/>
     <property name="PersonalTracking.User.URI" value="${PersonalTracking.BuildServer.URI}\${environment::get-variable('USERNAME')}"/>
     <property name="PersonalTracking.LogDirectory.URI" value="${PersonalTracking.User.URI}\${PersonalTracking.ParentScriptName}"/>
     
@@ -39,6 +39,7 @@
     <property name="PersonalTracking.SelfPid" value="${process::get-current-pid()}"/>
     <property name="PersonalTracking.ParentPid" value="${process::get-parent-pid(PersonalTracking.SelfPid)}"/>
     <property name="PersonalTracking.ParentCommandLine" value="${process::get-command-line(PersonalTracking.ParentPid)}"/>
+    <echo message="${PersonalTracking.ParentCommandLine}"/>
 
     <loglevel level="None">
       <do>
@@ -54,8 +55,15 @@
                 <property name="PersonalTracking.ParentScriptName" value="${ExeName}"/>
               </try>
               <catch>
-                <regex input="${PersonalTracking.ParentCommandLine}" pattern="^(?'ExeName'[\w+|_]+)\s+"/>
+                <trycatch>
+                  <try>
+                    <regex input="${PersonalTracking.ParentCommandLine}" pattern="^&quot;{0,}(?'ExeName'[\w+|_]+)"/>
                 <property name="PersonalTracking.ParentScriptName" value="${ExeName}"/>
+                  </try>
+                  <catch>
+                    <property name="PersonalTracking.ParentScriptName" value="Unknown"/>
+                  </catch>
+                </trycatch>
               </catch>
             </trycatch>
           </catch>
