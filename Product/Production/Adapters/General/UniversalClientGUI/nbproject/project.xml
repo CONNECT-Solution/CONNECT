@@ -56,6 +56,18 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
+                    <file>${reference.PatientCorrelationFacadeProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.PatientCorrelationFacade.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
                     <file>${reference.NhincLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -122,6 +134,14 @@
                 <id>jar</id>
             </reference>
             <reference>
+                <foreign-project>AssigningAuthoritiesToHomeCommunityMappingDAO</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
                 <foreign-project>NhincDataTransformsLib</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -131,6 +151,22 @@
             </reference>
             <reference>
                 <foreign-project>NhincLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PatientCorrelationFacade</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PatientCorrelationFacadeProxy</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

@@ -52,6 +52,16 @@ public class SessionBean1 extends AbstractSessionBean {
         this.patientSearchDataList = patientSearchDataList;
     }
 
+    private List<PatientCorrelationData> patientCorrelationList = new ArrayList<PatientCorrelationData>();
+
+    public List<PatientCorrelationData> getPatientCorrelationList() {
+        return patientCorrelationList;
+    }
+
+    public void setPatientCorrelationList(List<PatientCorrelationData> patientCorrelationList) {
+        this.patientCorrelationList = patientCorrelationList;
+    }
+
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
      * This method is automatically generated, so any user-specified code inserted

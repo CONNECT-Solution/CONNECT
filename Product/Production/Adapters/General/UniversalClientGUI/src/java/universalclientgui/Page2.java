@@ -4,28 +4,28 @@
  */
 package universalclientgui;
 
-import com.sun.data.provider.RowKey;
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.webui.jsf.component.Button;
-import com.sun.webui.jsf.component.Label;
-import com.sun.webui.jsf.component.RadioButton;
+import com.sun.webui.jsf.component.Hyperlink;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
-import com.sun.webui.jsf.component.Table;
-import com.sun.webui.jsf.component.TableColumn;
-import com.sun.webui.jsf.component.TableRowGroup;
 import com.sun.webui.jsf.component.TextField;
-import com.sun.webui.jsf.event.TableSelectPhaseListener;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
+import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
+import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-import javax.faces.event.FacesEvent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
@@ -73,32 +72,15 @@ public class Page2 extends AbstractPageBean {
      */
     private void _init() throws Exception {
     }
-    private TabSet subjectDiscoveryTab = new TabSet();
+    // General Page 2 Bindings
+    private StaticText agencyLogo = new StaticText();
 
-    public TabSet getSubjectDiscoveryTab() {
-        return subjectDiscoveryTab;
+    public StaticText getAgencyLogo() {
+        return agencyLogo;
     }
 
-    public void setSubjectDiscoveryTab(TabSet ts) {
-        this.subjectDiscoveryTab = ts;
-    }
-    private Tab subjectDiscoveryTab2 = new Tab();
-
-    public Tab getSubjectDiscoveryTab2() {
-        return subjectDiscoveryTab2;
-    }
-
-    public void setSubjectDiscoveryTab2(Tab t) {
-        this.subjectDiscoveryTab2 = t;
-    }
-    private Tab patientSearchTab = new Tab();
-
-    public Tab getPatientSearchTab() {
-        return patientSearchTab;
-    }
-
-    public void setPatientSearchTab(Tab t) {
-        this.patientSearchTab = t;
+    public void setAgencyLogo(StaticText st) {
+        this.agencyLogo = st;
     }
     private StaticText patientInfo = new StaticText();
 
@@ -109,6 +91,44 @@ public class Page2 extends AbstractPageBean {
     public void setPatientInfo(StaticText st) {
         this.patientInfo = st;
     }
+    private TabSet clientTabSet = new TabSet();
+
+    public TabSet getClientTabSet() {
+        return clientTabSet;
+    }
+
+    public void setClientTabSet(TabSet ts) {
+        this.clientTabSet = ts;
+    }
+    private Tab patientSearchTab = new Tab();
+
+    public Tab getPatientSearchTab() {
+        return patientSearchTab;
+    }
+
+    public void setPatientSearchTab(Tab t) {
+        this.patientSearchTab = t;
+    }
+    private Tab subjectDiscoveryTab = new Tab();
+
+    public Tab getSubjectDiscoveryTab() {
+        return subjectDiscoveryTab;
+    }
+
+    public void setSubjectDiscoveryTab(Tab t) {
+        this.subjectDiscoveryTab = t;
+    }
+    private Tab documentTab = new Tab();
+
+    public Tab getDocumentTab() {
+        return documentTab;
+    }
+
+    public void setDocumentTab(Tab t) {
+        this.documentTab = t;
+    }
+
+    // Patient Search Tab Bindings
     private TextField lastNameField = new TextField();
 
     public TextField getLastNameField() {
@@ -117,24 +137,6 @@ public class Page2 extends AbstractPageBean {
 
     public void setLastNameField(TextField tf) {
         this.lastNameField = tf;
-    }
-    private Label lastNameLabel = new Label();
-
-    public Label getLastNameLabel() {
-        return lastNameLabel;
-    }
-
-    public void setLastNameLabel(Label l) {
-        this.lastNameLabel = l;
-    }
-    private Label firstNameLabel = new Label();
-
-    public Label getFirstNameLabel() {
-        return firstNameLabel;
-    }
-
-    public void setFirstNameLabel(Label l) {
-        this.firstNameLabel = l;
     }
     private TextField firstNameField = new TextField();
 
@@ -156,123 +158,65 @@ public class Page2 extends AbstractPageBean {
         this.patientSearchDataList = patientSearchDataList;
         getSessionBean1().setPatientSearchDataList(patientSearchDataList);
     }
-    private Table table1 = new Table();
+    private Hyperlink patientSelectIdLink = new Hyperlink();
 
-    public Table getTable1() {
-        return table1;
+    public Hyperlink getPatientSelectIdLink() {
+        return patientSelectIdLink;
     }
 
-    public void setTable1(Table t) {
-        this.table1 = t;
-    }
-    private TableRowGroup tableRowGroup1 = new TableRowGroup();
-
-    public TableRowGroup getTableRowGroup1() {
-        return tableRowGroup1;
+    public void setPatientSelectIdLink(Hyperlink h) {
+        this.patientSelectIdLink = h;
     }
 
-    public void setTableRowGroup1(TableRowGroup trg) {
-        this.tableRowGroup1 = trg;
-    }
-    private TableColumn tableColumn1 = new TableColumn();
+    // Subject Discovery Tab Bindings
+    private StaticText subjectDiscoveryResultsInfo = new StaticText();
 
-    public TableColumn getTableColumn1() {
-        return tableColumn1;
+    public StaticText getSubjectDiscoveryResultsInfo() {
+        return subjectDiscoveryResultsInfo;
     }
 
-    public void setTableColumn1(TableColumn tc) {
-        this.tableColumn1 = tc;
+    public void setSubjectDiscoveryResultsInfo(StaticText st) {
+        this.subjectDiscoveryResultsInfo = st;
     }
-    private TableColumn tableColumn2 = new TableColumn();
+    private List<PatientCorrelationData> patientCorrelationList;
 
-    public TableColumn getTableColumn2() {
-        return tableColumn2;
-    }
-
-    public void setTableColumn2(TableColumn tc) {
-        this.tableColumn2 = tc;
-    }
-    private TableColumn tableColumn3 = new TableColumn();
-
-    public TableColumn getTableColumn3() {
-        return tableColumn3;
+    public List<PatientCorrelationData> getPatientCorrelationList() {
+        patientCorrelationList = getSessionBean1().getPatientCorrelationList();
+        return patientCorrelationList;
     }
 
-    public void setTableColumn3(TableColumn tc) {
-        this.tableColumn3 = tc;
+    public void setPatientCorrelationList(List<PatientCorrelationData> patientCorrelationList) {
+        this.patientCorrelationList = patientCorrelationList;
+        getSessionBean1().setPatientCorrelationList(patientCorrelationList);
     }
-    private TableColumn tableColumn4 = new TableColumn();
+    private Hyperlink correlatedAuthorityLink = new Hyperlink();
 
-    public TableColumn getTableColumn4() {
-        return tableColumn4;
-    }
-
-    public void setTableColumn4(TableColumn tc) {
-        this.tableColumn4 = tc;
-    }
-    private TableColumn tableColumn5 = new TableColumn();
-
-    public TableColumn getTableColumn5() {
-        return tableColumn5;
+    public Hyperlink getCorrelatedAuthorityLink() {
+        return correlatedAuthorityLink;
     }
 
-    public void setTableColumn5(TableColumn tc) {
-        this.tableColumn5 = tc;
+    public void setCorrelatedAuthorityLink(Hyperlink h) {
+        this.correlatedAuthorityLink = h;
     }
-    private TableColumn tableColumn6 = new TableColumn();
+    private StaticText broadcastInfo = new StaticText();
 
-    public TableColumn getTableColumn6() {
-        return tableColumn6;
-    }
-
-    public void setTableColumn6(TableColumn tc) {
-        this.tableColumn6 = tc;
-    }
-    private TableColumn tableColumn7 = new TableColumn();
-
-    public TableColumn getTableColumn7() {
-        return tableColumn7;
+    public StaticText getBroadcastInfo() {
+        return broadcastInfo;
     }
 
-    public void setTableColumn7(TableColumn tc) {
-        this.tableColumn7 = tc;
+    public void setBroadcastInfo(StaticText st) {
+        this.broadcastInfo = st;
     }
-    private Button subjectDiscoveryButton = new Button();
+    private StaticText broadcastInfo2 = new StaticText();
 
-    public Button getSubjectDiscoveryButton() {
-        return subjectDiscoveryButton;
-    }
-
-    public void setSubjectDiscoveryButton(Button b) {
-        this.subjectDiscoveryButton = b;
-    }
-    private RadioButton radioButton1 = new RadioButton();
-
-    public RadioButton getRadioButton1() {
-        return radioButton1;
+    public StaticText getBroadcastInfo2() {
+        return broadcastInfo2;
     }
 
-    public void setRadioButton1(RadioButton rb) {
-        this.radioButton1 = rb;
-    }
-    private StaticText agencyLogo1 = new StaticText();
-
-    public StaticText getAgencyLogo1() {
-        return agencyLogo1;
+    public void setBroadcastInfo2(StaticText st) {
+        this.broadcastInfo2 = st;
     }
 
-    public void setAgencyLogo1(StaticText st) {
-        this.agencyLogo1 = st;
-    }
-    private Tab documentDiscoveryTab = new Tab();
-
-    public Tab getDocumentDiscoveryTab() {
-        return documentDiscoveryTab;
-    }
-
-    public void setDocumentDiscoveryTab(Tab t) {
-        this.documentDiscoveryTab = t;
-    }
 
     // </editor-fold>
     /**
@@ -349,7 +293,7 @@ public class Page2 extends AbstractPageBean {
         }
         try {
             String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
-            this.agencyLogo1.setText(agencyName);
+            this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
             log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
         }
@@ -366,8 +310,8 @@ public class Page2 extends AbstractPageBean {
     @Override
     public void destroy() {
         // make sure this is set as first active tab
-        this.getSubjectDiscoveryTab().setSelected("patientSearchTab");
-        
+        this.getClientTabSet().setSelected("patientSearchTab");
+
     }
 
     /**
@@ -397,6 +341,15 @@ public class Page2 extends AbstractPageBean {
         return (ApplicationBean1) getBean("ApplicationBean1");
     }
 
+    // General Page2 methods
+    public String logOutButton_action() {
+        String loginDecision = "login_required";
+        getSessionBean1().setAuthToken("");
+        getSessionBean1().getPatientSearchDataList().clear();
+        return loginDecision;
+    }
+
+    // Patient Search Tab Methods
     public String patientSearchTab_action() {
         return null;
     }
@@ -406,6 +359,7 @@ public class Page2 extends AbstractPageBean {
         this.getPatientSearchDataList().clear();
         this.patientInfo.setText("");
         deactivateSubjectDiscoveryTab();
+        deactivateDocumentTab();
 
         String firstName = (String) firstNameField.getText();
         String lastName = (String) lastNameField.getText();
@@ -547,24 +501,16 @@ public class Page2 extends AbstractPageBean {
         return null;
     }
 
-    public String logOutButton_action() {
-        String loginDecision = "login_required";
-        getSessionBean1().setAuthToken("");
-        getSessionBean1().getPatientSearchDataList().clear();
-        return loginDecision;
-    }
+    public String patientSelectIdLink_action() {
 
-    public String subjectDiscoveryButton_action() {
-        this.patientInfo.setText("Performing Subject Discovery on Selected Patient");
-        RowKey[] selectedRowKeys = getTableRowGroup1().getSelectedRowKeys();
+        String matchPatientId = this.getPatientSelectIdLink().getText().toString();
 
-        if (selectedRowKeys.length > 0) {
-            PatientSearchData foundPatient = null;
-            StringBuffer discoverInfoBuf = new StringBuffer();
-            for (int i = 0; i < selectedRowKeys.length && foundPatient == null; i++) {
-                int rowId = Integer.parseInt(selectedRowKeys[i].getRowId());
-                System.out.println("Row " + rowId + " is selected - with Key: " + selectedRowKeys[i]);
-                foundPatient = this.getPatientSearchDataList().get(rowId);
+        PatientSearchData foundPatient = null;
+        StringBuffer discoverInfoBuf = new StringBuffer();
+        for (PatientSearchData testPatient : getPatientSearchDataList()) {
+            if (testPatient.getPatientId().equals(matchPatientId)) {
+                foundPatient = testPatient;
+
                 discoverInfoBuf.append("Name: ");
                 if (!foundPatient.getLastName().isEmpty()) {
                     discoverInfoBuf.append(foundPatient.getLastName() + ", ");
@@ -591,75 +537,117 @@ public class Page2 extends AbstractPageBean {
                 this.patientInfo.setText(discoverInfoBuf.toString());
 
                 activateSubjectDiscoveryTab();
-                this.getSubjectDiscoveryTab().setSelected("subjectDiscoveryTab2");
+                initializeSubjectDiscoveryTab(foundPatient);
+                this.getClientTabSet().setSelected("subjectDiscoveryTab");
+
+                //We found it - leave the loop
+                break;
             }
-        } else {
+        }
+        if (foundPatient == null) {
             this.patientInfo.setText("Please select patient from the table.");
         }
-
         return null;
     }
 
-    private void activateDocumentsTab() {
-        this.getDocumentDiscoveryTab().setDisabled(false);
-        String tabLabelStyle = this.getDocumentDiscoveryTab().getStyle();
-        if (tabLabelStyle.contains("color: gray; ")) {
-            String newStyle = tabLabelStyle.replace("color: gray; ", "");
-            this.getDocumentDiscoveryTab().setStyle(newStyle);
-        }
-    }
-
-    private void deactivateDocumentsTab() {
-        String tabLabelStyle = this.getDocumentDiscoveryTab().getStyle();
-        if (!tabLabelStyle.contains("color: gray; ")) {
-            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
-            newStyle.insert(0, "color: gray; ");
-            this.getDocumentDiscoveryTab().setStyle(newStyle.toString());
-        }
-        this.getDocumentDiscoveryTab().setDisabled(true);
+    // Subject Discovery Tab Methods
+    public String subjectDiscoveryTab_action() {
+        return null;
     }
 
     private void activateSubjectDiscoveryTab() {
-        this.getSubjectDiscoveryTab2().setDisabled(false);
-        String tabLabelStyle = this.getSubjectDiscoveryTab2().getStyle();
+        this.getSubjectDiscoveryTab().setDisabled(false);
+        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
         if (tabLabelStyle.contains("color: gray; ")) {
             String newStyle = tabLabelStyle.replace("color: gray; ", "");
-            this.getSubjectDiscoveryTab2().setStyle(newStyle);
+            this.getSubjectDiscoveryTab().setStyle(newStyle);
         }
     }
 
     private void deactivateSubjectDiscoveryTab() {
-        String tabLabelStyle = this.getSubjectDiscoveryTab2().getStyle();
+        String tabLabelStyle = this.getSubjectDiscoveryTab().getStyle();
         if (!tabLabelStyle.contains("color: gray; ")) {
             StringBuffer newStyle = new StringBuffer(tabLabelStyle);
             newStyle.insert(0, "color: gray; ");
-            this.getSubjectDiscoveryTab2().setStyle(newStyle.toString());
+            this.getSubjectDiscoveryTab().setStyle(newStyle.toString());
         }
-        this.getSubjectDiscoveryTab2().setDisabled(true);
+        this.getSubjectDiscoveryTab().setDisabled(true);
     }
 
-    private TableSelectPhaseListener tablePhaseListener = new TableSelectPhaseListener();
+    private void initializeSubjectDiscoveryTab(PatientSearchData foundPatient) {
+        this.getSubjectDiscoveryResultsInfo().setText("Subject Discovery Results (Existing Correlations)");
+        this.getBroadcastInfo().setText("Click to Discover New Correlations.");
+        this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
+        this.getPatientCorrelationList().clear();
 
-    public void setSelected(Object object) {
-        RowKey rowKey = (RowKey) getValue("#{currentRow.tableRow}");
-        if (rowKey != null) {
-            tablePhaseListener.setSelected(rowKey, object);
+        try {
+            String assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
+
+            PatientCorrelationFacadeProxyObjectFactory pcFactory = new PatientCorrelationFacadeProxyObjectFactory();
+            PatientCorrelationFacadeProxy pcProxy = pcFactory.getPatientCorrelationFacadeProxy();
+
+            QualifiedSubjectIdentifierType homeQualifiedSubjectId = new QualifiedSubjectIdentifierType();
+            homeQualifiedSubjectId.setAssigningAuthorityIdentifier(assigningAuthId);
+            homeQualifiedSubjectId.setSubjectIdentifier(foundPatient.getPatientId());
+            RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
+            retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
+
+            RetrievePatientCorrelationsResponseType pcResponse = pcProxy.retrievePatientCorrelations(retrieveRequest);
+            List<QualifiedSubjectIdentifierType> retrievedPatCorrList = pcResponse.getQualifiedPatientIdentifier();
+
+            if (retrievedPatCorrList != null && !retrievedPatCorrList.isEmpty()) {
+                for (QualifiedSubjectIdentifierType qualSubject : retrievedPatCorrList) {
+                    String remoteAssigningAuth = qualSubject.getAssigningAuthorityIdentifier();
+                    String remotePatientId = qualSubject.getSubjectIdentifier();
+                    HomeCommunityType remoteHomeCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(remoteAssigningAuth);
+                    String remoteHomeCommunityId = remoteHomeCommunity.getHomeCommunityId();
+                    HomeCommunityMap hcMapping = new HomeCommunityMap();
+                    String remoteHomeCommunityName = hcMapping.getHomeCommunityName(remoteHomeCommunityId);
+
+                    List<String> data = new ArrayList<String>();
+                    data.add(remoteAssigningAuth);
+                    data.add(remotePatientId);
+                    data.add(remoteHomeCommunityName);
+                    data.add(remoteHomeCommunityId);
+                    PatientCorrelationData patientData = new PatientCorrelationData(data);
+                    this.getPatientCorrelationList().add(patientData);
+                }
+            }
+        } catch (PropertyAccessException ex) {
+            log.error("Property file assess problem: " + ex.getMessage());
         }
     }
 
-    public Object getSelected() {
-        RowKey rowKey = (RowKey) getValue("#{currentRow.tableRow}");
-        return tablePhaseListener.getSelected(rowKey);
+    public String correlatedAuthorityLink_action() {
+        System.out.println("Clicked Org Link: " + this.getCorrelatedAuthorityLink().getText());
+        return null;
     }
 
-    public Object getSelectedValue() {
-        RowKey rowKey = (RowKey) getValue("#{currentRow.tableRow}");
-        return (rowKey != null) ? rowKey.getRowId() : null;
+    // Document Tab Methods
+    private void activateDocumentTab() {
+        this.getDocumentTab().setDisabled(false);
+        String tabLabelStyle = this.getDocumentTab().getStyle();
+        if (tabLabelStyle.contains("color: gray; ")) {
+            String newStyle = tabLabelStyle.replace("color: gray; ", "");
+            this.getDocumentTab().setStyle(newStyle);
+        }
     }
 
-    public boolean getSelectedState() {
-        RowKey rowKey = (RowKey) getValue("#{currentRow.tableRow}");
-        return tablePhaseListener.isSelected(rowKey);
+    private void deactivateDocumentTab() {
+        String tabLabelStyle = this.getDocumentTab().getStyle();
+        if (!tabLabelStyle.contains("color: gray; ")) {
+            StringBuffer newStyle = new StringBuffer(tabLabelStyle);
+            newStyle.insert(0, "color: gray; ");
+            this.getDocumentTab().setStyle(newStyle.toString());
+        }
+        this.getDocumentTab().setDisabled(true);
+    }
+
+    public String broadcastSubjectDiscoveryButton_action() {
+        this.getSubjectDiscoveryResultsInfo().setText("Broadcast Subject Discovery Results");
+        this.getBroadcastInfo().setText("");
+        this.getBroadcastInfo2().setText("");
+        return null;
     }
 }
 

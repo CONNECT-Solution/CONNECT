@@ -385,8 +385,11 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar"/>
@@ -394,8 +397,11 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
@@ -545,12 +551,15 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -566,6 +575,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -851,8 +863,11 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">

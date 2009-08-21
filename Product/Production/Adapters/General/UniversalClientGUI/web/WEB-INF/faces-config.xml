@@ -45,9 +45,14 @@
         <managed-bean-class>universalclientgui.Page2</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-        <managed-bean>
+    <managed-bean>
         <managed-bean-name>PatientSearchData</managed-bean-name>
         <managed-bean-class>universalclientgui.PatientSearchData</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>PatientCorrelationData</managed-bean-name>
+        <managed-bean-class>universalclientgui.PatientCorrelationData</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
 </faces-config>

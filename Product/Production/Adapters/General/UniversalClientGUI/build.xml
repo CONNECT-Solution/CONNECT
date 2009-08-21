@@ -13,7 +13,7 @@
 
     <property name="deploy.type" value="war" />
     <property name="deploy.isDeployable" value="true"/>
-
+    
     <import file="../../../../build.lib.xml" />
 
     <target name="build">
@@ -87,6 +87,9 @@
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
 		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
@@ -95,6 +98,9 @@
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
@@ -105,6 +111,9 @@
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
 		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
@@ -113,6 +122,9 @@
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
@@ -124,6 +136,9 @@
         <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
 		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+		<property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
@@ -132,6 +147,9 @@
         <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
