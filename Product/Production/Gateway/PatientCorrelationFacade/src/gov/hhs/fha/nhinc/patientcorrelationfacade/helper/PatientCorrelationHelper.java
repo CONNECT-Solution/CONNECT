@@ -64,23 +64,43 @@ public class PatientCorrelationHelper
         log.error("Method No longer Supported. Must pass assertion information");
         return response;
     }
+    private PatientCorrelationPortType getPatientCorrelationPort()
+    {
+        if(patientCorrelationService == null)
+        {
+            patientCorrelationService = new gov.hhs.fha.nhinc.nhinccomponentpatientcorrelation.PatientCorrelationService();
+        }
+        PatientCorrelationPortType port = patientCorrelationService.getPatientCorrelationPort();
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, getPatientCorrelationEndpointAddress());
+        return port;
+    }
     public org.hl7.v3.PRPAIN201310UV retrievePatientCorrelations(org.hl7.v3.PRPAIN201309UV correlationInput, AssertionType assertion)
     {
         org.hl7.v3.PRPAIN201310UV response = null;
         
         try
         { // Call Web Service Operation
-            String url = getPatientCorrelationEndpointAddress();
-            PatientCorrelationSecuredPortType port = getPort(url);
+            //String url = getPatientCorrelationEndpointAddress();
+            //PatientCorrelationSecuredPortType port = getPort(url);
+            PatientCorrelationPortType port = getPatientCorrelationPort();
 
-            org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest = new org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType();
-            retrievePatientCorrelationsRequest.setPRPAIN201309UV(correlationInput);
+           //org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest = new org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType();
+            //retrievePatientCorrelationsRequest.setPRPAIN201309UV(correlationInput);
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PAT_CORR_ACTION);
+            //SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            //Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.PAT_CORR_ACTION);
 
             // TODO process result here
-            org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType result = port.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
+            //org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType result = port.retrievePatientCorrelations(retrievePatientCorrelationsRequest, assertion);
+
+            org.hl7.v3.RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest = new org.hl7.v3.RetrievePatientCorrelationsRequestType();
+
+            retrievePatientCorrelationsRequest.setAssertion(assertion);
+
+            retrievePatientCorrelationsRequest.setPRPAIN201309UV(correlationInput);
+
+            org.hl7.v3.RetrievePatientCorrelationsResponseType result = port.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
+
             if(result != null)
             {
                 response = result.getPRPAIN201310UV();
@@ -188,7 +208,7 @@ public class PatientCorrelationHelper
             // Lookup home community id
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
-            endpointAddress = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunity, NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
+            endpointAddress = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunity, NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
             log.debug("Patient correlation endpoint address: " + endpointAddress);
         }
         catch (PropertyAccessException pae)
