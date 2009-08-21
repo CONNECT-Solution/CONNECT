@@ -226,13 +226,33 @@
 			</service>
 			<service>
 				<name>nhincproxydocquerysecured</name>
-				<description>NHINC Proxy Document Query</description>
+				<description>NHINC Proxy Document Query Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
 			</service>
 			<service>
 				<name>adapterauthentication</name>
 				<description>adapterauthentication</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrieveproxy</name>
+				<description>Entity Document Retrieve Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrievesecured</name>
+				<description>Entity Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrieve</name>
+				<description>NHINC Proxy Document Retrieve</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrievesecured</name>
+				<description>NHINC Proxy Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
@@ -454,6 +474,26 @@
 				<description>Adapter Subject Discovery</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
 			</service>
+			<service>
+				<name>entitydocretrieveproxy</name>
+				<description>Entity Document Retrieve Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrievesecured</name>
+				<description>Entity Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrieve</name>
+				<description>NHINC Proxy Document Retrieve</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrievesecured</name>
+				<description>NHINC Proxy Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -496,6 +536,26 @@
 				<description>NHINC Proxy Document Query</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
 			</service>
+			<service>
+				<name>entitydocretrieveproxy</name>
+				<description>Entity Document Retrieve Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrievesecured</name>
+				<description>Entity Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrieve</name>
+				<description>NHINC Proxy Document Retrieve</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrievesecured</name>
+				<description>NHINC Proxy Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+			</service>
 		</services>
 	</internalConnectionInfo>
 	<internalConnectionInfo>
@@ -532,6 +592,26 @@
 				<name>nhincproxydocquerysecured</name>
 				<description>NHINC Proxy Document Query</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrieveproxy</name>
+				<description>Entity Document Retrieve Proxy</description>
+				<endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>entitydocretrievesecured</name>
+				<description>Entity Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrieve</name>
+				<description>NHINC Proxy Document Retrieve</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxydocretrievesecured</name>
+				<description>NHINC Proxy Document Retrieve Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>

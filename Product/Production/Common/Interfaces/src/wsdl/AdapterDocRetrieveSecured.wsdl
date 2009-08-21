@@ -18,15 +18,15 @@
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization" 
-   name="AdapterDocRetrieve" 
+   name="AdapterDocRetrieveSecured"
    targetNamespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured">
-    <documentation>Adapter document retrieve</documentation>
+    <documentation>Adapter Document Retrieve Secured</documentation>
     <types>
         <xsd:schema>
             <xsd:import namespace="urn:ihe:iti:xds-b:2007" 
                         schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
-                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                        schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
         </xsd:schema>
     </types>
     <message name="RespondingGateway_CrossGatewayRetrieveRequestMessage">

@@ -143,6 +143,12 @@
     <ejb>
       <name>HiemSubscriptionRepositoryUtilEJB</name>
     </ejb>
+    <ejb>
+      <name>EntityDocRetrieveEJB</name>
+    </ejb>
+    <ejb>
+      <name>EntityDocRetrieveProxyEJB</name>
+    </ejb>
   </ejbs>
   <cas>
     <ca>

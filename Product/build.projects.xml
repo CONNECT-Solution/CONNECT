@@ -210,6 +210,14 @@
 		<directory>/Production/Gateway/AdapterDocRetrieveProxyEJB</directory>
 	</project>	
 	<project>
+		<name>EntityDocRetrieveProxyEJB</name>
+		<directory>/Production/Adapters/General/EntityDocRetrieveProxyEJB</directory>
+	</project>	
+	<project>
+		<name>EntityDocRetrieveEJB</name>
+		<directory>/Production/Gateway/EntityDocRetrieveEJB</directory>
+	</project>	
+	<project>
 		<name>AdapterCA</name>
 		<directory>/Production/Adapters/General/AdapterCA</directory>
 	</project>

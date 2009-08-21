@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntityDocRetrieve" resourceRoot="${projectDir}" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\projects\NHINC\Current\Product\UnitTest\soapUI</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap11" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl"><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+<con:soapui-project name="EntityDocRetrieve" resourceRoot="${projectDir}" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\Projects\nhinc\Current\Product\UnitTest\soapUI</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap11" soapVersion="1_1" anonymous="optional" definition="../../Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl"><con:part><con:url>file:\C:\projects\NHINC\Current\Product\Production\Common\Interfaces\src\schemas\ihe\XDS.b_DocumentRepository.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="urn:ihe:iti:xds-b:2007" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns="urn:ihe:iti:xds-b:2007" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../ebRS/rs.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" schemaLocation="../ebRS/rim.xsd"/>
   <xs:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" schemaLocation="../ebRS/lcm.xsd"/>
@@ -3328,210 +3328,149 @@ This document and the information contained herein is provided on an "AS IS" bas
   </xsd:complexType>
   <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
   <xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="EntityDocRetrieveTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveTestCase" searchProperties="true" id="c94d9438-6cfb-41dd-b57f-c387c93c6d41"><con:settings/><con:testStep type="request" name="DocRetrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="DocRetrieve"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint><con:endpoint>http://localhost:8080/NhinConnect/EntityDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="EntityDocRetrieveTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="EntityDocRetrieveTestCase" searchProperties="true" id="c94d9438-6cfb-41dd-b57f-c387c93c6d41"><con:settings/><con:testStep type="request" name="DocRetrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="DocRetrieve"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
-            <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
                <urn1:HomeCommunityId>urn:oid:1.1</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>111111111</urn1:DocumentUniqueId>
+               <urn1:DocumentUniqueId>555555555</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
-            <!--<urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:1.1</urn1:HomeCommunityId>
-               <urn1:RepositoryUniqueId>1</urn1:RepositoryUniqueId>
-               <urn1:DocumentUniqueId>222222222</urn1:DocumentUniqueId>
-            </urn1:DocumentRequest>-->
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
             <urn2:address>
                <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>W</urn2:code>
                </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
+               <urn2:city>BUFFALO</urn2:city>
+               <urn2:country>USA</urn2:country>
+               <urn2:state>NY</urn2:state>
+               <urn2:streetAddress>12345 EAST COAST WAY</urn2:streetAddress>
+               <urn2:zipCode>01010</urn2:zipCode>
             </urn2:address>
-            <urn2:dateOfBirth>?</urn2:dateOfBirth>
-            <urn2:dateOfSignature>10/25/2008 00:00:00</urn2:dateOfSignature>
-            <urn2:expirationDate>10/25/2009 00:00:00</urn2:expirationDate>
-            <urn2:explanationNonClaimantSignature>?</urn2:explanationNonClaimantSignature>
-            <urn2:haveSecondWitnessSignature>?</urn2:haveSecondWitnessSignature>
-            <urn2:haveSignature>?</urn2:haveSignature>
-            <urn2:haveWitnessSignature>?</urn2:haveWitnessSignature>
+            <urn2:dateOfBirth>19800516</urn2:dateOfBirth>
+            <urn2:dateOfSignature>08/20/2009 17:25:45</urn2:dateOfSignature>
+            <urn2:expirationDate>09/19/2009 17:30:45</urn2:expirationDate>
+            <urn2:explanationNonClaimantSignature>NEEDED</urn2:explanationNonClaimantSignature>
+            <urn2:haveSecondWitnessSignature>true</urn2:haveSecondWitnessSignature>
+            <urn2:haveSignature>true</urn2:haveSignature>
+            <urn2:haveWitnessSignature>true</urn2:haveWitnessSignature>
             <urn2:homeCommunity>
-               <urn2:description>?</urn2:description>
-               <urn2:homeCommunityId>?</urn2:homeCommunityId>
-               <urn2:name>?</urn2:name>
+               <urn2:description>InternalSelfTest2</urn2:description>
+               <urn2:homeCommunityId>2.2</urn2:homeCommunityId>
+               <urn2:name>InternalSelfTest2</urn2:name>
             </urn2:homeCommunity>
             <urn2:personName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
+               <urn2:familyName>JONES</urn2:familyName>
+               <urn2:givenName>FRED</urn2:givenName>
                <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>G</urn2:code>
                </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
+               <urn2:secondNameOrInitials>ANDREW</urn2:secondNameOrInitials>
             </urn2:personName>
             <urn2:phoneNumber>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
+               <urn2:areaCode>703</urn2:areaCode>
+               <urn2:countryCode>1</urn2:countryCode>
+               <urn2:extension>1212</urn2:extension>
+               <urn2:localNumber>555</urn2:localNumber>
                <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>W</urn2:code>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:purposeOfDisclosure>?</urn2:purposeOfDisclosure>
+            <urn2:purposeOfDisclosure>NEEDED FOR VA</urn2:purposeOfDisclosure>
             <urn2:secondWitnessAddress>
                <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>W</urn2:code>
                </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
+               <urn2:city>ALBANY</urn2:city>
+               <urn2:country>USA</urn2:country>
+               <urn2:state>NY</urn2:state>
+               <urn2:streetAddress>4 TROY STREET</urn2:streetAddress>
+               <urn2:zipCode>01033</urn2:zipCode>
             </urn2:secondWitnessAddress>
             <urn2:secondWitnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
+               <urn2:familyName>JONES</urn2:familyName>
+               <urn2:givenName>JAMES</urn2:givenName>
                <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>G</urn2:code>
                </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
+               <urn2:secondNameOrInitials>KENNETH</urn2:secondNameOrInitials>
             </urn2:secondWitnessName>
             <urn2:secondWitnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
+               <urn2:areaCode>301</urn2:areaCode>
+               <urn2:countryCode>1</urn2:countryCode>
+               <urn2:extension>555</urn2:extension>
+               <urn2:localNumber>0001</urn2:localNumber>
                <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>W</urn2:code>
                </urn2:phoneNumberType>
             </urn2:secondWitnessPhone>
-            <urn2:SSN>?</urn2:SSN>
-            <!--1 or more repetitions:-->
-            <urn2:uniquePatientId>?</urn2:uniquePatientId>
+            <urn2:SSN>123456789</urn2:SSN>
+            <urn2:uniquePatientId>500000000</urn2:uniquePatientId>
             <urn2:witnessAddress>
                <urn2:addressType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>H</urn2:code>
                </urn2:addressType>
-               <urn2:city>?</urn2:city>
-               <urn2:country>?</urn2:country>
-               <urn2:state>?</urn2:state>
-               <urn2:streetAddress>?</urn2:streetAddress>
-               <urn2:zipCode>?</urn2:zipCode>
+               <urn2:city>HARTFORD</urn2:city>
+               <urn2:country>USA</urn2:country>
+               <urn2:state>CT</urn2:state>
+               <urn2:streetAddress>10410 MAIN ST.</urn2:streetAddress>
+               <urn2:zipCode>05032</urn2:zipCode>
             </urn2:witnessAddress>
             <urn2:witnessName>
-               <urn2:familyName>?</urn2:familyName>
-               <urn2:givenName>?</urn2:givenName>
+               <urn2:familyName>COREY</urn2:familyName>
+               <urn2:givenName>AMANDA</urn2:givenName>
                <urn2:nameType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>H</urn2:code>
                </urn2:nameType>
-               <urn2:secondNameOrInitials>?</urn2:secondNameOrInitials>
+               <urn2:secondNameOrInitials>EVE</urn2:secondNameOrInitials>
             </urn2:witnessName>
             <urn2:witnessPhone>
-               <urn2:areaCode>?</urn2:areaCode>
-               <urn2:countryCode>?</urn2:countryCode>
-               <urn2:extension>?</urn2:extension>
-               <urn2:localNumber>?</urn2:localNumber>
+               <urn2:areaCode>202</urn2:areaCode>
+               <urn2:countryCode>1</urn2:countryCode>
+               <urn2:extension>555</urn2:extension>
+               <urn2:localNumber>1010</urn2:localNumber>
                <urn2:phoneNumberType>
-                  <urn2:code>?</urn2:code>
-                  <urn2:codeSystem>?</urn2:codeSystem>
-                  <urn2:codeSystemName>?</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                  <urn2:displayName>?</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:code>H</urn2:code>
                </urn2:phoneNumberType>
             </urn2:witnessPhone>
             <urn2:userInfo>
                <urn2:personName>
-                  <urn2:familyName>Patricks</urn2:familyName>
-                  <urn2:givenName>Victor</urn2:givenName>
+                  <urn2:familyName>FRANKLIN</urn2:familyName>
+                  <urn2:givenName>MARK</urn2:givenName>
                   <urn2:nameType>
-                     <urn2:code>?</urn2:code>
-                     <urn2:codeSystem>?</urn2:codeSystem>
-                     <urn2:codeSystemName>?</urn2:codeSystemName>
-                     <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
-                     <urn2:displayName>?</urn2:displayName>
-                     <urn2:originalText>?</urn2:originalText>
+                     <urn2:code>P</urn2:code>
                   </urn2:nameType>
-                  <urn2:secondNameOrInitials>Ian</urn2:secondNameOrInitials>
+                  <urn2:secondNameOrInitials>ALAN</urn2:secondNameOrInitials>
                </urn2:personName>
-               <urn2:userName>vip</urn2:userName>
-               <urn2:role>?</urn2:role>
+               <urn2:userName>mfranklin</urn2:userName>
+               <urn2:role>Administrator</urn2:role>
                <urn2:org>
-                  <urn2:description>?</urn2:description>
-                  <urn2:homeCommunityId>?</urn2:homeCommunityId>
-                  <urn2:name>Flight1</urn2:name>
+                  <urn2:description>InternalSelfTest2</urn2:description>
+                  <urn2:homeCommunityId>2.2</urn2:homeCommunityId>
+                  <urn2:name>InternalSelfTest2</urn2:name>
                </urn2:org>
-               <!--Optional:-->
                <urn2:roleCoded>
                   <urn2:code>80584001</urn2:code>
                   <urn2:codeSystem>2.16.840.1.113883.6.96</urn2:codeSystem>
                   <urn2:codeSystemName>SNOMED_CT</urn2:codeSystemName>
-                  <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
+                  <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
                   <urn2:displayName>Psychiatrist</urn2:displayName>
-                  <urn2:originalText>?</urn2:originalText>
+                  <urn2:originalText>Psychiatrist</urn2:originalText>
                </urn2:roleCoded>
             </urn2:userInfo>
-            <urn2:authorized>?</urn2:authorized>
-            <!--Optional:-->
+            <urn2:authorized>true</urn2:authorized>
             <urn2:purposeOfDisclosureCoded>
                <urn2:code>PSYCHOTHERAPY</urn2:code>
                <urn2:codeSystem>2.16.840.1.113883.3.18.7.1</urn2:codeSystem>
                <urn2:codeSystemName>nhin-purpose</urn2:codeSystemName>
-               <urn2:codeSystemVersion>?</urn2:codeSystemVersion>
+               <urn2:codeSystemVersion>1.0</urn2:codeSystemVersion>
                <urn2:displayName>Use or disclosure of Psychotherapy Notes</urn2:displayName>
-               <urn2:originalText>?</urn2:originalText>
+               <urn2:originalText>Psychotherapy Notes</urn2:originalText>
             </urn2:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn2:claimFormRef>cid:1078128665242</urn2:claimFormRef>
-            <!--Optional:-->
+            <urn2:claimFormRef>Ref-Clm-123</urn2:claimFormRef>
             <urn2:claimFormRaw>YWVvbGlhbQ==</urn2:claimFormRaw>
          </urn:assertion>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
