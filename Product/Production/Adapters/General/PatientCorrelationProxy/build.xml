@@ -93,26 +93,29 @@
     
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}"  antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}"  antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
      <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-   			<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}"  antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}"  antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-   			<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>    
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
