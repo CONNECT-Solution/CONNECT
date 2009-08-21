@@ -202,6 +202,7 @@
         <call target="SourceControl.CleanGetOf"/>
 
         <call target="TargetProcess.Get.Release.Report"/>
+        <call target="GlassFish.StartServer"/>
         <call target="SoapUI.RunTests"/>
       </try>
       <finally>
