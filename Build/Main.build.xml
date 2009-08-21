@@ -195,11 +195,7 @@
   <target name="Test" depends="SetUps" >
     <trycatch>
       <try>
-        <property name="SourceControl.CleanGetOf" value="${SoapUI.Root.Directory.Path}"/>
-        <call target="SourceControl.CleanGetOf"/>
-
-        <property name="SourceControl.CleanGetOf" value="${Common.Directory.Production.Path}\Common\Interfaces"/>
-        <call target="SourceControl.CleanGetOf"/>
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
 
         <call target="TargetProcess.Get.Release.Report"/>
         <call target="GlassFish.StartServer"/>
