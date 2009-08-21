@@ -5,21 +5,26 @@
 <project name="NhincSAMLCallbackLib" default="default" basedir=".">
     <description>Builds, tests, and runs the project NhincSAMLCallbackLib.</description>
     <import file="nbproject/build-impl.xml"/>
-	<import file="../../../build.lib.xml" />
-	
-	<target name="build">
-		<property name="target-to-call" value="jar" />
-		<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,jar" />
-	<target name="clean-test" depends="clean,jar" />
-	<target name="build-test" depends="jar" />
-	<target name="-post-jar">
-		<echo message="Copying file to ${glassfish.home}/lib if newer. Making backup copy." />
-	    	<basename property="distfile.jar" file="${dist.jar}" />
-	    	<copy file="${glassfish.home}/lib/${distfile.jar}" tofile="${glassfish.home}/lib/${distfile.jar}.bak" verbose="true" failonerror="false" />
-		<copy file="${dist.jar}" todir="${glassfish.home}/lib" verbose="true" failonerror="false" />
-	</target>
+
+    <property name="deploy.type" value="shared" />
+    <property name="deploy.isDeployable" value="true"/>
+    
+    <import file="../../../build.lib.xml" />
+    
+    <target name="build">
+      <property name="target-to-call" value="jar" />
+      <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,jar" />
+    <target name="clean-test" depends="clean,jar" />
+    <target name="build-test" depends="jar" />
+    
+    <target name="-post-jar">
+      <echo message="Copying file to ${glassfish.home}/lib if newer. Making backup copy." />
+          <basename property="distfile.jar" file="${dist.jar}" />
+          <copy file="${glassfish.home}/lib/${distfile.jar}" tofile="${glassfish.home}/lib/${distfile.jar}.bak" verbose="true" failonerror="false" />
+      <copy file="${dist.jar}" todir="${glassfish.home}/lib" verbose="true" failonerror="false" />
+    </target>
     <!--
 
     There exist several targets which are by default empty and which can be 

@@ -10,19 +10,23 @@
 <project name="NhincCommonTypesLib" default="default" basedir=".">
     <description>Builds, tests, and runs the project NhincCommonTypesLib.</description>
     <import file="nbproject/build-impl.xml"/>
-	<import file="../../../build.lib.xml" />
-<!--	
-	<target name="build">
-		<property name="target-to-call" value="jar" />
-		<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
--->
-	<target name="build">
-		<antcall target="jar" />
-	</target>
-	<target name="clean-build" depends="clean,jar" />
-	<target name="clean-test" depends="clean,jar" />
-	<target name="build-test" depends="jar" />
+
+    <property name="deploy.type" value="shared" />
+    <property name="deploy.isDeployable" value="true"/>
+    
+    <import file="../../../build.lib.xml" />
+    <!--	
+      <target name="build">
+        <property name="target-to-call" value="jar" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+      </target>
+    -->
+    <target name="build">
+      <antcall target="jar" />
+    </target>
+    <target name="clean-build" depends="clean,jar" />
+    <target name="clean-test" depends="clean,jar" />
+    <target name="build-test" depends="jar" />
     <!--
 
     There exist several targets which are by default empty and which can be 

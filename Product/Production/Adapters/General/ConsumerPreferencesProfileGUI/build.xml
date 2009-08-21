@@ -10,74 +10,19 @@
 <project name="ConsumerPreferencesProfileGUI" default="default" basedir=".">
     <description>Builds, tests, and runs the project ConsumerPreferencesProfileGUI.</description>
     <import file="../../../../build.lib.xml" />
+
+    <property name="deploy.type" value="war" />
+    <property name="deploy.isDeployable" value="true"/>
+    
     <import file="nbproject/build-impl.xml"/>
-	<target name="build">
-		<property name="target-to-call" value="dist" />
-		<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,dist" />
-	<target name="clean-test" depends="clean,dist" />
-	<target name="build-test" depends="dist" />
-
-    <target name="wsimport-client-identityservices" depends="wsimport-init,wsimport-client-check-identityservices" unless="wsimport-client-identityservices.notRequired">
-<!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true"/>
--->
+    
+    <target name="build">
+      <property name="target-to-call" value="dist" />
+      <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
-
-
-    <target depends="init" name="deps-jar" unless="no.deps">
-		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
-		<property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
-		<property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
-		<property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
-		<property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
-		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-
-        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" name="deps-clean" unless="no.deps">
-		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
-		<property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
-		<property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
-		<property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
-		<property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
-		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-
-        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
-
-	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-		<nbundeploy failOnError="false" startServer="false"/>
-	</target>
-
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist" />
+    <target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -136,4 +81,61 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="wsimport-client-identityservices" depends="wsimport-init,wsimport-client-check-identityservices" unless="wsimport-client-identityservices.notRequired">
+<!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true"/>
+-->
+    </target>
+
+    <target depends="init" name="deps-jar" unless="no.deps">
+        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
+        <property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
+        <property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
+        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
+        <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+
+    <target depends="init" name="deps-clean" unless="no.deps">
+        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
+        <property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
+        <property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
+        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
+        <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
+
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>

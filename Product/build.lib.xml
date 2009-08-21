@@ -64,18 +64,33 @@
 
   <target name="deploy">
     <property file="${project.dir}/nbproject/project.properties"/>
-    <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-      <isset property="sedeployment.jar" />
-    </condition>
+    <switch value="${deploy.type}">
+      <case value="war">
+        <property name="dist.file" value="${project.dir}/${dist.war}"/>
+      </case>
+      <default>
+        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+          <isset property="sedeployment.jar" />
+        </condition>
+      </default>
+    </switch>
     
+    <echo message="${dist.file}"/>
     <call target="deploy.to.development" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="undeploy">
     <property file="${project.dir}/nbproject/project.properties"/>
-    <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-      <isset property="sedeployment.jar" />
-    </condition>
+    <switch value="${deploy.type}">
+      <case value="war">
+        <property name="dist.file" value="${project.dir}/${dist.war}"/>
+      </case>
+      <default>
+        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+          <isset property="sedeployment.jar" />
+        </condition>
+      </default>
+    </switch>
     
     <call target="undeploy.from.development" if="${deploy.isDeployable}"/>
   </target>
@@ -516,31 +531,32 @@
       </sequential>
     </outofdate>
   </target>
+  
   <target name="updateGFlibs">
-	<echo>Refreshing GlassFish/libs dir from working copy.</echo>
-	<echo>Building NhincCommonTypesLib</echo>
-	<ant dir="${ProductDirectory}\Production\Common\NhincCommonTypesLib" antfile="build.xml" inheritAll="true">
-		<target name="jar" />
-	</ant>
-	<echo>Building NhincSAMLCallbackLib</echo>
-	<ant dir="${ProductDirectory}\Production\Gateway\NhincSAMLCallbackLib" antfile="build.xml" inheritAll="true">
-		<target name="jar" />
-	</ant>
+    <echo>Refreshing GlassFish/libs dir from working copy.</echo>
+    <echo>Building NhincCommonTypesLib</echo>
+    <ant dir="${ProductDirectory}\Production\Common\NhincCommonTypesLib" antfile="build.xml" inheritAll="true">
+      <target name="jar" />
+    </ant>
+    
+    <echo>Building NhincSAMLCallbackLib</echo>
+    <ant dir="${ProductDirectory}\Production\Gateway\NhincSAMLCallbackLib" antfile="build.xml" inheritAll="true">
+      <target name="jar" />
+    </ant>
 
-	<echo>Updating ${ThirdPartyDirectory}/**/*.jar to ${glassfish.home}/lib/ </echo>
-	<copy todir="${glassfish.home}/lib" verbose="true">
-		<fileset dir="${ThirdPartyDirectory}">
-			<patternset>
-				<include name="c3po/*.jar" />
-				<include name="log4j/*.jar" />
-				<include name="HibernateLibraries/*.jar" />
-				<include name="MySQLDB/*.jar" />
-				<include name="XStream/*.jar" />
-				<include name="XStream/*.txt" />
-			</patternset>
-		</fileset>
-		<mapper type="flatten" />
-	</copy>
-
+    <echo>Updating ${ThirdPartyDirectory}/**/*.jar to ${glassfish.home}/lib/ </echo>
+    <copy todir="${glassfish.home}/lib" verbose="true">
+      <fileset dir="${ThirdPartyDirectory}">
+        <patternset>
+          <include name="c3po/*.jar" />
+          <include name="log4j/*.jar" />
+          <include name="HibernateLibraries/*.jar" />
+          <include name="MySQLDB/*.jar" />
+          <include name="XStream/*.jar" />
+          <include name="XStream/*.txt" />
+        </patternset>
+      </fileset>
+      <mapper type="flatten" />
+    </copy>
   </target>
 </project>
