@@ -325,7 +325,7 @@
         <filepairs>
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\SoapUI\*.xml</xmlfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\SoapUITestReports\*.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
