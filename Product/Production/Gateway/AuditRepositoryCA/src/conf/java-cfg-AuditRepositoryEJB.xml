@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<javaee-project xmlns="http://java.sun.com/xml/ns/jbi/javaee/config/1/" xmlns:ns0="urn:gov:hhs:fha:nhinc:nhinccomponentauditlogrepository" xmlns:ns1="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" name="AuditRepositoryEJB">
-    <services>
-        <provides enable-for-javaee-http="true" endpoint-name="javaee_AuditRepositoryManagerPort" interface-name="ns0:AuditRepositoryManagerPortType" service-name="ns0:AuditRepositoryManagerService"/>
-        <provides enable-for-javaee-http="true" endpoint-name="javaee_AuditRepositoryManagerPort" interface-name="ns1:AuditRepositoryManagerPortType" service-name="ns1:AuditRepositoryManagerService"/>
-    </services>
-</javaee-project>
