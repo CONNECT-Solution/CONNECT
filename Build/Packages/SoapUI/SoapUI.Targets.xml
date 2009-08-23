@@ -15,7 +15,7 @@
           buildfile="${Package.SoapUI.Directory.Path}\SoapUI.Ant.Targets.xml"
           logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
         >
-          <environment refid="${Common.EnvironmentVariables.RefId}"/>
+          <environment refid="SoapUI.EnvironmentVariables.RefId"/>
           <args/>
         </ant>
         <property name="Ant.Failure" value="False"/>

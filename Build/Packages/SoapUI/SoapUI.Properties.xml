@@ -12,4 +12,15 @@
   <property name="SoapUI.Report.Directory.Path" value="${Common.Project.Common.Directory.Transient.Path}\SoapUITestReports" overwrite="false"/>
   <property name="SoapUI.Report.File.Path" value="${SoapUI.Report.Directory.Path}\IntegrationTests.xml" overwrite="false"/>
 
+  <environment id="SoapUI.EnvironmentVariables.RefId">
+    <variable name="JAVA_HOME" value="${Java.Home}" />
+    <variable name="ANT_HOME" value="${Ant.Home}" />
+    <variable name="ANT_OPTS" value='-Xmx872m -XX:MaxPermSize=512m "-Dcom.sun.aas.instanceName=server" "-Dlibs.CopyLibs.classpath=${NetBeans.Property.Libs.CopyLibs.Classpath}" "-Dj2ee.platform.classpath=${NetBeans.Property.J2ee.Platform.Classpath}"'/>
+    <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${environment::get-variable('ProgramFiles')}\Subversion\bin;" />
+    <variable name="JAVAEXE" value="${Java.Exe}"/>
+    <variable name="CORBERTURA_BIN" value="${Corbertura.Bin}"/>
+    <variable name="NHINC_PROPERTIES_DIR" value="C:\GlassfishESB\glassfish\domains\domain1\config\nhinc" />
+    <variable name="AS_HOME" value="${GlassFish.Home.Directory.Path}" />
+  </environment>
+
 </project>
