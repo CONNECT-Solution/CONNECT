@@ -19,7 +19,7 @@
     <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${environment::get-variable('ProgramFiles')}\Subversion\bin;" />
     <variable name="JAVAEXE" value="${Java.Exe}"/>
     <variable name="CORBERTURA_BIN" value="${Corbertura.Bin}"/>
-    <variable name="NHINC_PROPERTIES_DIR" value="C:\GlassfishESB\glassfish\domains\domain1\config\nhinc" />
+    <variable name="NHINC_PROPERTIES_DIR" value="C:\GlassfishESB\glassfish\domains\domain1\config\nhin" />
     <variable name="AS_HOME" value="${GlassFish.Home.Directory.Path}" />
   </environment>
 
