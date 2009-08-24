@@ -177,6 +177,7 @@
           &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
+      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
     </forceFilters>
     <integrationFilter>
       <triggeredIntegrationFilter>
@@ -225,6 +226,7 @@
           &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
+      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
     </forceFilters>
     <integrationFilter>
       <triggeredIntegrationFilter>
@@ -331,7 +333,7 @@
           &ReleaseBuilding;
         </projectFilters>
       </projectForceFilter>
-      <!--<userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>-->
+      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
     </forceFilters>
     <integrationFilter>
       <triggeredIntegrationFilter>
@@ -444,6 +446,7 @@
           &DevFailed;
         </projectFilters>
       </projectForceFilter>
+      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
     </forceFilters>
     <integrationFilter>
       <triggeredIntegrationFilter>
