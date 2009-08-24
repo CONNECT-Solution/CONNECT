@@ -284,10 +284,7 @@
         <runtarget target="undeploy.ca.from.glassfish" />
       </case>
       <case value="shared">
-        <var unset="true" name="deployment.glassfish.shared.lib.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
-        <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.shared.lib.name}.jar" />
-        <runtarget target="undeploy.shared.lib.from.glassfish" />
+		<echo message="A shared J2EE libraries or optional package cannot be undeployed until all applications that reference the library or package are first undeployed. If no applications reference an application or package you can safely remove it."/>
       </case>
       <default>
         <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
