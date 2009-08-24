@@ -7,12 +7,18 @@
     <call target="GlassFish.StopServer"/>
     <delete file="${GlassFish.Domain.Server.Log.File.Path}" />
     <call target="GlassFish.StartServer"/>
-    
-    <call target="SoapUI::SoapUI.RunTests"/>
 
-    <call target="GlassFish.StopServer"/>
-    <copy file="${GlassFish.Domain.Server.Log.File.Path}" todir="${Common.Directory.Artifact.Path}" overwrite="True" />
-    <call target="GlassFish.StartServer"/>
+    <trycatch>
+      <try>
+        <call target="SoapUI::SoapUI.RunTests"/>
+      </try>
+      <finally>
+        <call target="GlassFish.StopServer"/>
+        <copy file="${GlassFish.Domain.Server.Log.File.Path}" todir="${Common.Directory.Artifact.Path}" overwrite="True" />
+        <call target="GlassFish.StartServer"/>
+      </finally>
+    </trycatch>
+
   </target>
   
 </project>
