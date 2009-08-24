@@ -383,8 +383,9 @@ if(!document.getElementById)
             <xsl:choose>
               <xsl:when test="text()='build'"></xsl:when>
               <xsl:when test="text()='flowersj'"></xsl:when>
-              <xsl:when test="text()='aravallip'"></xsl:when>
-              <xsl:when test="text()='stephenst'"></xsl:when>
+              <xsl:when test="text()='dev'"></xsl:when>
+              <xsl:when test="text()='jay'"></xsl:when>
+              <xsl:when test="text()='IUSR_ATHC-GFAS'"></xsl:when>
               <xsl:otherwise>
                 <tr>
                   <td>
