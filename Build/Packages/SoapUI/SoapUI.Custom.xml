@@ -14,7 +14,7 @@
       </try>
       <finally>
         <call target="GlassFish.StopServer"/>
-        <copy file="${GlassFish.Domain.Server.Log.File.Path}" todir="${Common.Directory.Artifact.Path}" overwrite="True" />
+        <copy file="${GlassFish.Domain.Server.Log.File.Path}" tofile="${Common.Directory.Artifact.Path}\server.log.txt" overwrite="True" />
         <call target="GlassFish.StartServer"/>
       </finally>
     </trycatch>
