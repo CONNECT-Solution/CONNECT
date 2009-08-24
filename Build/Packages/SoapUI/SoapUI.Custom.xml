@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Custom">
+
+  <target name="SoapUI.RunTests" override="True">
+    <property name="GlassFish.Domain.Server.Log.File.Path" value="${GlassFish.Home.Directory.Path}\domains\${GlassFish.Domain.Name}\logs\server.log"/>
+    
+    <call target="GlassFish.StopServer"/>
+    <delete file="" />
+    <call target="GlassFish.StartServer"/>
+    
+    <call target="SoapUI::SoapUI.RunTests"/>
+
+    <call target="GlassFish.StopServer"/>
+    <copy file="${GlassFish.Domain.Server.Log.File.Path}" todir="${Common.Directory.Artifact.Path}" overwrite="True" />
+    <call target="GlassFish.StartServer"/>
+  </target>
+  
+</project>

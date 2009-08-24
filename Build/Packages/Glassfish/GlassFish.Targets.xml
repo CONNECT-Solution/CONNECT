@@ -22,7 +22,7 @@
         logfile="${Ant.Log.Directory.Path}\start.glassfish.log.xml"
         taskname="GlassFish.StartServer"
       >
-        <environment refid="${Common.EnvironmentVariables.RefId}"/>
+        <environment refid="GlassFish.EnvironmentVariables.RefId"/>
         <args/>
       </ant.async>
 
@@ -42,7 +42,7 @@
         buildfile="${Common.Directory.Product.Path}\build.xml"
         logfile="${Ant.Log.Directory.Path}\stop.glassfish.log.xml"
       >
-        <environment refid="${Common.EnvironmentVariables.RefId}"/>
+        <environment refid="GlassFish.EnvironmentVariables.RefId"/>
         <args/>
       </ant>
     </if>
@@ -83,7 +83,7 @@
       buildfile="${GlassFish.Deploy.Script.File.Path}"
       logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
     >
-      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args/>
     </ant>
   </target>
@@ -95,7 +95,7 @@
       logfile="${Ant.Log.Directory.Path}\undeploy_log.xml"
       taskname="GlassFish.Undeploy"
     >
-      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args/>
     </ant.async>
 
@@ -113,7 +113,7 @@
       logfile="${Ant.Log.Directory.Path}\deploy_log.xml"
       taskname="GlassFish.Deploy"
     >
-      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args/>
     </ant.async>
 
@@ -147,7 +147,6 @@
         <call target="Personal.GlassFish.GetRelease"/>
       </case>
       <case value="Local Build" break="True">
-        <property name="GlassFish.Deploy.EnvironmentVariables.RefId" value="${Common.EnvironmentVariables.RefId}"/>
         <property name="GlassFish.Deploy.Directory.Path" value="${Common.Directory.Product.Path}"/>
         <property name="GlassFish.Deploy.Script.File.Path" value="${GlassFish.Deploy.Directory.Path}\build.xml" />
         <property name="GlassFish.Deploy.Ant.Home" value="${Ant.Home}"/>
