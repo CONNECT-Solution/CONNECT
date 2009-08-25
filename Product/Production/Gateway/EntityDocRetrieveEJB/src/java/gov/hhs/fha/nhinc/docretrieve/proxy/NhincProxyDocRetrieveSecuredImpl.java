@@ -2,8 +2,11 @@ package gov.hhs.fha.nhinc.docretrieve.proxy;
 
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhindocretrieve.proxy.NhinDocRetrieveProxy;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 /**
  *
@@ -16,14 +19,25 @@ public class NhincProxyDocRetrieveSecuredImpl
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context)
     {
+        log.debug("Begin NhincProxyDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve(...)");
+        RetrieveDocumentSetResponseType response = null;
         // Collect assertion
+        log.debug("Collecting assertion");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType response = new ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType();
+        log.debug("Creating NHIN doc retrieve proxy");
+        NhinDocRetrieveProxyObjectFactory objFactory = new NhinDocRetrieveProxyObjectFactory();
+        NhinDocRetrieveProxy docRetrieveProxy = objFactory.getNhinDocRetrieveProxy();
 
-        RegistryResponseType responseType = new RegistryResponseType();
-        responseType.setStatus("From NhincProxyDocRetrieveSecuredImpl");
-        response.setRegistryResponse(responseType);
+        RespondingGatewayCrossGatewayRetrieveRequestType request = new RespondingGatewayCrossGatewayRetrieveRequestType();
+        request.setAssertion(assertion);
+        request.setNhinTargetSystem(body.getNhinTargetSystem());
+        request.setRetrieveDocumentSetRequest(body.getRetrieveDocumentSetRequest());
+
+        log.debug("Calling doc retrieve proxy");
+        response = docRetrieveProxy.respondingGatewayCrossGatewayRetrieve(request);
+
+        log.debug("End NhincProxyDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve(...)");
         return response;
     }
     

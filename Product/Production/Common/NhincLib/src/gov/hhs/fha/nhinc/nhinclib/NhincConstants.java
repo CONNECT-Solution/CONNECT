@@ -43,6 +43,7 @@ public class NhincConstants {
     public static final String SUBSCRIBE_ACTION = "subscribe";
     public static final String UNSUBSCRIBE_ACTION = "unsubscribe";
     public static final String DOC_QUERY_ACTION = "queryDocuments";
+    public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
 
     public static final String PAT_CORR_ACTION = "patientcorrelation";
@@ -130,6 +131,7 @@ public class NhincConstants {
     public static final String ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "entitydocretrievesecured";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
+    public static final String DOC_RETRIEVE_SERVICE_NAME = "documentretrieve";
 
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";

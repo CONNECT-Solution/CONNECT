@@ -44,7 +44,6 @@ public class NhincProxyDocRetrieveImpl
             // Send message
             log.debug("Calling secure NHIN Proxy doc retrieve.");
             result = port.respondingGatewayCrossGatewayRetrieve(body);
-            System.out.println("Result = "+result);
         }
         catch (Exception ex)
         {

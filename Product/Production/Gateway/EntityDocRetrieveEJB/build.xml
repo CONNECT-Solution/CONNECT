@@ -111,32 +111,48 @@
         </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
+        <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <ant dir="${project.NhinDocRetrieveProxy.Absolute}" antfile="${project.NhinDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinDocRetrieveProxyImpl.Absolute}" antfile="${project.NhinDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
+        <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <ant dir="${project.NhinDocRetrieveProxy.Absolute}" antfile="${project.NhinDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinDocRetrieveProxyImpl.Absolute}" antfile="${project.NhinDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
+        <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <ant dir="${project.NhinDocRetrieveProxy.Absolute}" antfile="${project.NhinDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhinDocRetrieveProxyImpl.Absolute}" antfile="${project.NhinDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhinDocRetrieveProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhinDocRetrieveProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhinDocRetrieveProxy.jar}" manifestproperty="manifest.reference.NhinDocRetrieveProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhinDocRetrieveProxyImpl.jar}" manifestproperty="manifest.reference.NhinDocRetrieveProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinDocRetrieveProxy.jar} ${manifest.reference.NhinDocRetrieveProxyImpl.jar} "/>
         </manifest>
     </target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
