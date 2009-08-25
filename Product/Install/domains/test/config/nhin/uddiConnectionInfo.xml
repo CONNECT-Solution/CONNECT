@@ -30,17 +30,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:2333ead1-9c5d-4c60-b79a-b0d5231e3192">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinhealthlinc.org/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -74,7 +74,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinhealthlinc.org/nhinxca/xcaquery</endpointURL>
+              <endpointURL>https://nhinhealthlinc.org/nhinxca/respondinggateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -91,59 +91,26 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinhealthlinc.org/nhinxca/xcaretrieve</endpointURL>
+              <endpointURL>https://nhinhealthlinc.org/nhinxca/respondinggateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
       </businessServices>
     </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:1be7fe41-ce65-4a3d-8ae7-e0fd814068f9">
+    <businessEntity businessKey="uddi:nhinregistry:28be7f18-1e33-47ea-a123-0066534181ad">
       <names>
         <businessName>CareSpark</businessName>
+        <businessName>CareSpark RHIO</businessName>
       </names>
       <descriptions>
-        <businessDescription>Health Information Exchange in the Tennessee / Virginia region</businessDescription>
+        <businessDescription>Health Information Exchange in the Tennessee region</businessDescription>
       </descriptions>
       <homeCommunityId>2.16.840.1.113883.3.166.4</homeCommunityId>
       <federalHIE>false</federalHIE>
       <publicKeyURI></publicKeyURI>
       <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:08f88cfa-bcd0-4a4b-9f89-b8a81db5ecba">
-          <names>
-            <name>UDDI Subscription Listener</name>
-          </names>
-          <descriptions>
-            <description>Web Service for UDDI Subscription Listener</description>
-          </descriptions>
-          <uniformServiceName>uddisubscriptionlistener</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://192.168.98.28:5050/NHIE_SubscriptionListener/UDDISubscriptionListenerService</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:0cbe1dc2-2361-4242-ac02-bb112f7cbc8e">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/SubjectDiscoveryRespondingGatewayService/SubjectDiscoverySecureRequest</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:549d71f6-1376-400f-8793-2d36b3c32f69">
+        <businessService serviceKey="uddi:nhinregistry:61daa2ed-7b02-4c74-b6b5-3746847d00b0">
           <names>
             <name>Document Query Service</name>
           </names>
@@ -155,12 +122,43 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/DocumentRegistry_Service/CSNHIECrossGatewayQueryService</endpointURL>
+              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/RespondingGateway_Service/CSNHIESSLOnlyCrossGatewayService</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
-        <businessService serviceKey="uddi:nhinregistry:5a02bea7-9055-4865-ba45-7d013194ed27">
+        <businessService serviceKey="uddi:nhinregistry:654dd74d-5bf7-4b34-8c31-7cd0d176d19e">
+          <names>
+            <name>Subscription Notification Service</name>
+          </names>
+          <descriptions>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
+          </descriptions>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:9fd3cd35-0c3c-4a23-9e6a-d4aa8451b64a">
+          <names>
+            <name>UDDI Subscription Listener</name>
+          </names>
+          <uniformServiceName>UDDISubscriptionListenerService</uniformServiceName>
+          <serviceVersion></serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://192.168.98.28:5050/NHIE_SubscriptionListener/UDDISubscriptionListenerService</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:aefc912a-4f9f-408e-a632-01f8983b37ab">
           <names>
             <name>Audit Log Query Service</name>
           </names>
@@ -177,7 +175,24 @@
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
-        <businessService serviceKey="uddi:nhinregistry:9f08b332-9795-4fb8-8f10-a1ab670c7591">
+        <businessService serviceKey="uddi:nhinregistry:cddfb0c8-3a28-475a-9ca6-2872400c2570">
+          <names>
+            <name>Subject Discovery Service</name>
+          </names>
+          <descriptions>
+            <description>Service to perform subject discovery over NHIN</description>
+          </descriptions>
+          <uniformServiceName>subjectdiscovery</uniformServiceName>
+          <serviceVersion>2.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/SubjectDiscoveryRespondingGatewayService/SubjectDiscoveryRespondingGatewayPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:e7962572-40e3-4c1a-b319-4e43f29cd86e">
           <names>
             <name>Document Retrieve Service</name>
           </names>
@@ -189,156 +204,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/DocumentRepository_Service/CSNHIECrossGatewayRetrieveService</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:dfdc89ea-1bf5-42b4-a983-7cd545696ff8">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/SubscriptionManager/NotificationProducerSecureService</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:85ff13e6-b621-47d9-8da3-e225e643372f">
-      <names>
-        <businessName>CDC</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>CDC</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.114222.4.3.2.2.3.726.1</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:1a8e6bc9-02a9-41b6-8fe9-d71e5df25c2f">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://207.138.115.199:9081/RespondingGateway_Query_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:2c10f92b-4a70-4314-aeb2-e7afaeb358ef">
-          <names>
-            <name>Agency Subscription Service</name>
-          </names>
-          <descriptions>
-            <description>Agency Subscription Service</description>
-          </descriptions>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://207.138.115.199:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:49f4eec3-8d0e-4de6-abae-dc4f8d4cab93">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>1.0</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://207.138.115.199:9081/RespondingGateway_Retrieve_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:6070fdf7-0f42-4516-8ae7-cb07717e522d">
-          <names>
-            <name>Subscription Notification Service</name>
-          </names>
-          <descriptions>
-            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
-          </descriptions>
-          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://207.138.115.199:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:7aa09a5b-6601-4a5c-8806-e83c7bd02aa3">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>1.0</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://207.138.115.199:9081/findAuditEvents/AuditLogQuery</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:b7a7651a-372e-433e-a210-dda27bd4bdc5">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://207.138.115.199:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:fd3a0776-54ad-4330-bc51-cf1820a3f5f1">
-          <names>
-            <name>subjectdiscovery</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://207.138.115.199:9081/PIXConsumer_Soap11</endpointURL>
+              <endpointURL>https://csnhintiapps03.cgifederal.com:6151/RespondingGateway_Service/CSNHIESSLOnlyCrossGatewayService</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -358,17 +224,17 @@
       <businessServices>
         <businessService serviceKey="uddi:nhinregistry:2fb0dca3-ead6-4f27-bcd9-9a353821b843">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/Subscribe</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -385,7 +251,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/CrossGatewayRetrieve</endpointURL>
+              <endpointURL>https://appserver2.ng-nhin.com/nghie/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -402,7 +268,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/AuditLogQuery</endpointURL>
+              <endpointURL>https://appserver2.ng-nhin.com/nghie/AuditLogQuery</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -419,7 +285,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/CrossGatewayQuery</endpointURL>
+              <endpointURL>https://appserver2.ng-nhin.com/nghie/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -436,24 +302,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/PIXConsumer</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:c17b5a0a-cac2-4c51-b348-d45e234e99f0">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://appserver2.ng-nhin.com/nghie/services/Notify</endpointURL>
+              <endpointURL>https://appserver2.ng-nhin.com/nghie/PIXConsumer</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -483,21 +332,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/AuditLog</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:4fc506d7-114c-4fc7-a453-1bb7c7d42e2c">
-          <names>
-            <name>Agency Unsubscribe Service</name>
-          </names>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/SubscriptionManager</endpointURL>
+              <endpointURL>https://nhingate1.rhio.net/audit/AuditLog</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -519,9 +354,9 @@
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
-        <businessService serviceKey="uddi:nhinregistry:8e9f6e2a-7cdc-4e6b-965b-4157cd5f30f7">
+        <businessService serviceKey="uddi:nhinregistry:9382af3f-702a-48e0-8c84-06d129a5c759">
           <names>
-            <name>Notification Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
             <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
@@ -531,24 +366,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/NotificationConsumer</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:9382af3f-702a-48e0-8c84-06d129a5c759">
-          <names>
-            <name>Subscription Service</name>
-          </names>
-          <descriptions>
-            <description>Subscription Service</description>
-          </descriptions>
-          <uniformServiceName>subscriptionservice</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/NotificationProducer</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -565,7 +383,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/CrossGatewayQuery</endpointURL>
+              <endpointURL>https://nhingate1.rhio.net/services/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -582,7 +400,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhingate1.rhio.net/services/CrossGatewayRetrieve</endpointURL>
+              <endpointURL>https://nhingate1.rhio.net/services/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -602,17 +420,17 @@
       <businessServices>
         <businessService serviceKey="uddi:nhinregistry:161e2cb7-45db-41be-b4bc-1355fc4a1e60">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://test03.denhin.net/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -629,7 +447,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://test03.denhin.net/CrossGatewayRetrieve</endpointURL>
+              <endpointURL>https://test03.denhin.net/CrossGatewayService</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -646,7 +464,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://test03.denhin.net/CrossGatewayQuery</endpointURL>
+              <endpointURL>https://test03.denhin.net/CrossGatewayService</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -689,7 +507,7 @@
     </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:07ec6987-f062-4d84-9bab-ab3c6325804b">
       <names>
-        <businessName>Department of Defense</businessName>
+        <businessName>Federal Agency - DoD</businessName>
       </names>
       <descriptions>
         <businessDescription>Health Information Exchange in the Federal DoD region.</businessDescription>
@@ -698,20 +516,6 @@
       <federalHIE>false</federalHIE>
       <publicKeyURI></publicKeyURI>
       <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:3e7c812f-8459-4306-9186-cf5407d712ba">
-          <names>
-            <name>Agency Subscription Service</name>
-          </names>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://mhsnhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
         <businessService serviceKey="uddi:nhinregistry:78e19762-08dc-4389-b1de-ca880026c0d8">
           <names>
             <name>Subscription Notification Service</name>
@@ -724,7 +528,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>http://mhsnhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -780,23 +584,6 @@
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
-        <businessService serviceKey="uddi:nhinregistry:dedd6a5e-b89d-47b0-b596-e1f7dc737325">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://mhsnhie1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
         <businessService serviceKey="uddi:nhinregistry:f4820210-1a58-4d2f-a3b5-238b0e52d49f">
           <names>
             <name>Document Query Service</name>
@@ -816,9 +603,205 @@
         </businessService>
       </businessServices>
     </businessEntity>
+    <businessEntity businessKey="uddi:nhinregistry:30e1250f-4e28-4f05-8e17-47404954eb38">
+      <names>
+        <businessName>Federal Agency - IHS</businessName>
+      </names>
+      <descriptions>
+        <businessDescription>Health Information Exchange in the Federal IHS region</businessDescription>
+      </descriptions>
+      <homeCommunityId>2.16.840.1.113883.3.210</homeCommunityId>
+      <federalHIE>false</federalHIE>
+      <publicKeyURI></publicKeyURI>
+      <businessServices>
+        <businessService serviceKey="uddi:nhinregistry:2d12b713-cfd5-495f-aaca-9b4b2881a48c">
+          <names>
+            <name>Subject Discovery Service</name>
+          </names>
+          <descriptions>
+            <description>Service to perform subject discovery over NHIN</description>
+          </descriptions>
+          <uniformServiceName>subjectdiscovery</uniformServiceName>
+          <serviceVersion>2.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ihsnhie.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:c1644763-c2d9-461e-b78a-87bb978ff94b">
+          <names>
+            <name>Audit Log Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve audit events for a given date range</description>
+          </descriptions>
+          <uniformServiceName>auditquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ihsnhie.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:c8d0dd0c-b611-4e5b-9eb7-745fad1ef0ec">
+          <names>
+            <name>Subscription Notification Service</name>
+          </names>
+          <descriptions>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
+          </descriptions>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:e50ddc4c-d008-4762-9f30-5fcef8333302">
+          <names>
+            <name>Document Retrieve Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve document(s)</description>
+          </descriptions>
+          <uniformServiceName>documentretrieve</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ihsnhie.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:e53391e9-8e79-420b-bd22-d7766709717a">
+          <names>
+            <name>Document Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to query for documents</description>
+          </descriptions>
+          <uniformServiceName>documentquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ihsnhie.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+      </businessServices>
+    </businessEntity>
+    <businessEntity businessKey="uddi:nhinregistry:c363f259-09e5-4ccc-b269-201f74f7f28c">
+      <names>
+        <businessName>Federal Agency - SSA</businessName>
+      </names>
+      <descriptions>
+        <businessDescription>Health Information Exchange in the Federal SSA region</businessDescription>
+      </descriptions>
+      <homeCommunityId>2.16.840.1.113883.3.184</homeCommunityId>
+      <federalHIE>false</federalHIE>
+      <publicKeyURI></publicKeyURI>
+      <businessServices>
+        <businessService serviceKey="uddi:nhinregistry:17fb3198-cd27-46e4-9196-acbc617e69df">
+          <names>
+            <name>Subject Discovery Service</name>
+          </names>
+          <descriptions>
+            <description>Service to perform subject discovery over NHIN</description>
+          </descriptions>
+          <uniformServiceName>subjectdiscovery</uniformServiceName>
+          <serviceVersion>2.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ssanhie1.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:337eb9ea-7ffd-460f-88f9-e7dec2b62b8e">
+          <names>
+            <name>Audit Log Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve audit events for a given date range</description>
+          </descriptions>
+          <uniformServiceName>auditquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ssanhie1.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:5591f1bb-54e6-4867-8e7c-0ccf67259648">
+          <names>
+            <name>Document Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to query for documents</description>
+          </descriptions>
+          <uniformServiceName>documentquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ssanhie1.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:cc773b20-d48c-4bcd-83e5-e921158c9120">
+          <names>
+            <name>Document Retrieve Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve document(s)</description>
+          </descriptions>
+          <uniformServiceName>documentretrieve</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://ssanhie1.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:df51acbd-6ec3-4ec6-aacb-787af897d64b">
+          <names>
+            <name>Subscription Notification Service</name>
+          </names>
+          <descriptions>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
+          </descriptions>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+      </businessServices>
+    </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:20f6ed19-81aa-400e-9992-e8c2417d5cd2">
       <names>
-        <businessName>Department of Veterans Affairs</businessName>
+        <businessName>Federal Agency - VA</businessName>
       </names>
       <descriptions>
         <businessDescription>Health Information Exchange in the Federal VA region</businessDescription>
@@ -827,34 +810,6 @@
       <federalHIE>false</federalHIE>
       <publicKeyURI></publicKeyURI>
       <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:29fabca7-6866-4da9-814b-3ad711920425">
-          <names>
-            <name>Agency Subscription Service</name>
-          </names>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://dvanhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:38775bf0-0a8a-4ebe-9f29-aecf3b9733bb">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://dvanhie1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
         <businessService serviceKey="uddi:nhinregistry:4c2c35bf-62e6-49e3-99d7-c27f57f01900">
           <names>
             <name>Document Retrieve Service</name>
@@ -901,7 +856,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>http://dvanhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -944,10 +899,10 @@
     </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:2a68efa7-02de-44af-ab26-1f228e0c97af">
       <names>
-        <businessName>Healthbridge</businessName>
+        <businessName>healthbridge</businessName>
       </names>
       <descriptions>
-        <businessDescription>Health Information Exchange in the Healthbridge</businessDescription>
+        <businessDescription>Health Information Exchange in the healthbridge</businessDescription>
       </descriptions>
       <homeCommunityId>2.16.840.1.113883.3.183</homeCommunityId>
       <federalHIE>false</federalHIE>
@@ -982,24 +937,24 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.healthbridge.org/nhinxca/xcaretrieve</endpointURL>
+              <endpointURL>DocumentRetrieveService service implemented as a web-service. Supports saml over 2way ssl with MTOM enabled</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:e8440fd1-ff7f-4a57-a657-68d39e4a8de9">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.healthbridge.org/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1033,237 +988,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.healthbridge.org/nhinxca/xcaquery</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:072bd2d9-a815-4dec-9886-deab456374ab">
-      <names>
-        <businessName>HIXNY</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>Healthcare Information Exchange of New York</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.4.319</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:30ee8b0b-cb9b-4010-a431-3fa808ad5dad">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>auditquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://www.hixny.net/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:4fef1afd-ef1e-4a93-b84b-01ea1806b023">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://www.hixny.net/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:52059537-2e6e-4573-a1f4-8b14369fd1b9">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://www.hixny.net/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:aad0d9f0-9c83-4524-a723-72ea3655a281">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://www.hixny.net/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:c21cc9a6-76b2-4cf1-b386-0a97503349a2">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer Service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://www.hixny.net/nhin2/services/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:30e1250f-4e28-4f05-8e17-47404954eb38">
-      <names>
-        <businessName>Indian Health Service</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>Health Information Exchange in the Federal IHS region</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.210</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:2d12b713-cfd5-495f-aaca-9b4b2881a48c">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ihsnhie.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:5654468d-09d1-47ab-88c4-7f249c14fb53">
-          <names>
-            <name>Agency Subscription Service</name>
-          </names>
-          <descriptions>
-            <description>Agency Subscription Service</description>
-          </descriptions>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://ihsnhie.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:bfcd4afb-f7e8-4c6d-b29f-c938217fa8eb">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer Service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ihsnhie.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:c1644763-c2d9-461e-b78a-87bb978ff94b">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>auditquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ihsnhie.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:c8d0dd0c-b611-4e5b-9eb7-745fad1ef0ec">
-          <names>
-            <name>Subscription Notification Service</name>
-          </names>
-          <descriptions>
-            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
-          </descriptions>
-          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://ihsnhie.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:e50ddc4c-d008-4762-9f30-5fcef8333302">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ihsnhie.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:e53391e9-8e79-420b-bd22-d7766709717a">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ihsnhie.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
+              <endpointURL>https://nhin.healthbridge.org/nhinxca/respondinggateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1272,10 +997,10 @@
     </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:ab4e2cd6-63f9-4584-b88a-38362856bb58">
       <names>
-        <businessName>Kaiser Permanente</businessName>
+        <businessName>Kaiser Permanante</businessName>
       </names>
       <descriptions>
-        <businessDescription>Health Information Exchange in the Kaiser Permanente</businessDescription>
+        <businessDescription>Health Information Exchange in the Kaiser Permanante</businessDescription>
       </descriptions>
       <homeCommunityId>1.3.6.1.4.1.26580</homeCommunityId>
       <federalHIE>false</federalHIE>
@@ -1293,7 +1018,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://uatdmzweb11.kp.org/services/RespondingGateway_Service/MTOM</endpointURL>
+              <endpointURL>https://uatdmzweb11.kp.org/services/RespondingGateway_Service</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1317,17 +1042,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:99e4f260-8eff-41af-80de-2175d08d769c">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://uatdmzweb11.kp.org/services/ConsumerPreferences/subscribeNewDocs</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1344,7 +1069,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://uatdmzweb11.kp.org/services/NHIN2_GatewayServicesSoap/subjectDiscovery</endpointURL>
+              <endpointURL>https://uatdmzweb11.kp.org/services/NHIN2_GatewayServicesSoap/SubjectDiscovery</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1370,7 +1095,7 @@
     </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:6cbbe4e3-de57-41ab-98e8-0f60fcd124fc">
       <names>
-        <businessName>LongBeach</businessName>
+        <businessName>Longbeach</businessName>
       </names>
       <descriptions>
         <businessDescription>Health Information Exchange of LongBeach</businessDescription>
@@ -1398,17 +1123,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:5c51aa05-a9e9-4297-bfb6-dc7942cac2c5">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://lbnh.memorialcare.org/nhin2/services/GatewayServices</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1466,12 +1191,110 @@
         </businessService>
       </businessServices>
     </businessEntity>
+    <businessEntity businessKey="uddi:nhinregistry:9f3368e2-3a5a-4e75-83a8-4f1c2c1a9f27">
+      <names>
+        <businessName>Lovelace</businessName>
+      </names>
+      <descriptions>
+        <businessDescription>Health Information Exchange of Lovelace</businessDescription>
+      </descriptions>
+      <homeCommunityId>2.16.840.1.113883.4.318</homeCommunityId>
+      <federalHIE>false</federalHIE>
+      <publicKeyURI></publicKeyURI>
+      <businessServices>
+        <businessService serviceKey="uddi:nhinregistry:48ca15cc-c524-440b-9de7-7f132daad9df">
+          <names>
+            <name>Subscription Notification Service</name>
+          </names>
+          <descriptions>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
+          </descriptions>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:4d35deab-3522-4be3-bdec-1680f904d53d">
+          <names>
+            <name>Document Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to query for documents</description>
+          </descriptions>
+          <uniformServiceName>documentquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://www.nmhic.org/nhin2/services/GatewayServices</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:a9cedcc7-8233-4613-abe1-b55e2faa8c30">
+          <names>
+            <name>Audit Log Query Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve audit events for a given date range</description>
+          </descriptions>
+          <uniformServiceName>auditquery</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://www.nmhic.org/nhin2/services/GatewayServices</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:ee6536e2-da43-41fb-b06c-c103616226e1">
+          <names>
+            <name>Subject Discovery Service</name>
+          </names>
+          <descriptions>
+            <description>Service to perform subject discovery over NHIN</description>
+          </descriptions>
+          <uniformServiceName>subjectdiscovery</uniformServiceName>
+          <serviceVersion>2.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://www.nmhic.org/nhin2/services/GatewayServices</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+        <businessService serviceKey="uddi:nhinregistry:fd8232a1-2561-4bce-9144-bb8d638439b8">
+          <names>
+            <name>Document Retrieve Service</name>
+          </names>
+          <descriptions>
+            <description>Service to retrieve document(s)</description>
+          </descriptions>
+          <uniformServiceName>documentretrieve</uniformServiceName>
+          <serviceVersion>1.0</serviceVersion>
+          <internalWebService>false</internalWebService>
+          <bindingTemplates>
+            <bindingTemplate bindingKey="">
+              <endpointURL>https://www.nmhic.org/nhin2/services/GatewayServices</endpointURL>
+              <wsdlURL></wsdlURL>
+            </bindingTemplate>
+          </bindingTemplates>
+        </businessService>
+      </businessServices>
+    </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:0cca50a9-314f-495d-89c5-cb7e87578eb4">
       <names>
         <businessName>MedVirginia</businessName>
       </names>
       <descriptions>
-        <businessDescription>Health Information Exchange of MedVirginia</businessDescription>
+        <businessDescription>Health Information Exchange of edvirginia</businessDescription>
       </descriptions>
       <homeCommunityId>2.16.840.1.113883.3.190</homeCommunityId>
       <federalHIE>false</federalHIE>
@@ -1479,17 +1302,17 @@
       <businessServices>
         <businessService serviceKey="uddi:nhinregistry:0c4593ac-f205-41a0-a577-3c0ece291064">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.&lt;/description&gt;</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://medvirginia.ibmhsp.net:450/ICServices_Web/api/Subscribe</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1577,17 +1400,17 @@
       <businessServices>
         <businessService serviceKey="uddi:nhinregistry:51a3c0f4-94e4-480f-821b-ab3c7384bf32">
           <names>
-            <name>Notification Production Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Production Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nchica.ibmhsp.net:444/ICServices_Web/api/Subscribe</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -1662,311 +1485,6 @@
         </businessService>
       </businessServices>
     </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:d9cc790c-90b5-4e2f-ba90-fccacef64f33">
-      <names>
-        <businessName>NCI</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>National Cancer Institute</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.26</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:848a4f18-85c6-4843-9a49-d274d75b29a8">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ncias-s135-v.nci.nih.gov:9081/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:8bbed8bd-e2a1-49d4-a2b4-8e2c5e6e76f9">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ncias-s135-v.nci.nih.gov:9081/RespondingGateway_Query_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:b37276a2-cdcf-4e11-9856-83e6b4ba9101">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https:/ncias-s135-v.nci.nih.gov:9081/RespondingGateway_Retrieve_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:9f3368e2-3a5a-4e75-83a8-4f1c2c1a9f27">
-      <names>
-        <businessName>NMHIC</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>Health Information Exchange of Lovelace</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.4.318</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:48ca15cc-c524-440b-9de7-7f132daad9df">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer Service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nmhic.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:4d35deab-3522-4be3-bdec-1680f904d53d">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nmhic.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:a9cedcc7-8233-4613-abe1-b55e2faa8c30">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>auditquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nmhic.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:ee6536e2-da43-41fb-b06c-c103616226e1">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nmhic.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:fd8232a1-2561-4bce-9144-bb8d638439b8">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nmhic.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:93d557d9-cc0d-432c-9f82-d9551439bffe">
-      <names>
-        <businessName>NY-CDC</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>New York CDC</businessDescription>
-      </descriptions>
-      <homeCommunityId></homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:b370b6b5-db41-4317-9d3c-c147f619abac">
-      <names>
-        <businessName>NYDOH</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>New York Department of Health - CDC</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.218</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:17661911-75a5-4229-b52d-3668500dc303">
-          <names>
-            <name>Subscription Notification Service</name>
-          </names>
-          <descriptions>
-            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
-          </descriptions>
-          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://nydohnhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:2a3487a7-045a-4863-8abe-d9cb027a8ceb">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nydohnhie1.fedsconnect.org:9081/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:46054b41-54ec-496c-a5e8-8d897401ecee">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>1.0</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nydohnhie1.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:5ce2f1d7-5eb2-4620-8075-e9f5007aaa55">
-          <names>
-            <name>Agency Subscription Service</name>
-          </names>
-          <descriptions>
-            <description>Agency Subscription Service</description>
-          </descriptions>
-          <uniformServiceName>agencysubscription</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>http://nydohnhie1.fedsconnect.org:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:8a1aa84e-64cd-4dbe-8674-89a3abae4d57">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>1.0</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nydohnhie1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:9268ba09-79c1-458e-8deb-f610b95daadb">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nydohnhie1.fedsconnect.org:9081/RespondingGateway_Query_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:d03974d9-7304-4a79-83b0-2dcfbb34c5d1">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>1.0</uniformServiceName>
-          <serviceVersion></serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nydohnhie1.fedsconnect.org:9081/RespondingGateway_Retrieve_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:39675970-45be-4e0e-9983-1417b2e10e50">
       <names>
         <businessName>NYeC - LIPIX</businessName>
@@ -2024,7 +1542,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin2.lipixportal.org/Services/HS.NHIN.Audit.Services.cls</endpointURL>
+              <endpointURL>https://nhin2.lipixportal.org/Services/HS.IHE.ATNA.Repository.Services.cls</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2048,17 +1566,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:da2b09c7-4ed3-4a90-bafb-0d6a42451d7a">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin2.lipixportal.org/Services/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2134,7 +1652,7 @@
           <descriptions>
             <description>Service to query for documents</description>
           </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
+          <uniformServiceName></uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
@@ -2146,115 +1664,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:e1d682c0-31cb-4975-a99f-905948b4c051">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://nhin.nyclix.org/nhin2/services/GatewayServices</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:bb6716a4-32cd-4048-8396-f196bb81484c">
-      <names>
-        <businessName>NYeC - WNYCIE</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>NYeC - WNYCIE</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.25.256133121442266547198931747355024016667</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:40e1af81-c750-46d6-92f9-74c8cd6cee70">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://wnynhin.axolotl.com/nhinxca/xcaretrieve</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:43c1b7a5-51c2-4ad2-90d5-1c19bd4d25db">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>auditquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://wnynhin.axolotl.com/nhinaudit/query</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:5d281010-4713-4bef-b8d2-a8e446ed04d5">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://wnynhin.axolotl.com/nhinsubjectdiscovery/service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:8ff8189c-fbf4-4be0-9465-9e82b43d9249">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer Service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://wnynhin.axolotl.com/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:f2dbd4f6-45d8-4c14-a74e-273bc85bd086">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://wnynhin.axolotl.com/nhinxca/xcaquery</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2263,7 +1683,7 @@
     </businessEntity>
     <businessEntity businessKey="uddi:nhinregistry:8211c951-8f7a-4b6d-a25e-ed5da3782bb5">
       <names>
-        <businessName>Regenstrief Institute, Inc. (Indiana)</businessName>
+        <businessName>Regenstrief Institute, Inc.</businessName>
       </names>
       <descriptions>
         <businessDescription>Health Information Exchange in the Regenstrief Institute, Inc.</businessDescription>
@@ -2284,7 +1704,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/CrossGatewayQuery</endpointURL>
+              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2306,36 +1726,19 @@
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
-        <businessService serviceKey="uddi:nhinregistry:70583597-d555-4bd8-80ff-e115b7cafc33">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/Subscription/Subscribe</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
         <businessService serviceKey="uddi:nhinregistry:75d82c9c-0f81-456e-b80d-2d5d1b57b95c">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/Subscription/Subscribe</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2369,255 +1772,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/CrossGatewayRetrieve</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:c363f259-09e5-4ccc-b269-201f74f7f28c">
-      <names>
-        <businessName>Social Security Administration</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>Health Information Exchange with SSA</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.184</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:17fb3198-cd27-46e4-9196-acbc617e69df">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinws.ssa.gov/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:337eb9ea-7ffd-460f-88f9-e7dec2b62b8e">
-          <names>
-            <name>Audit Log Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve audit events for a given date range</description>
-          </descriptions>
-          <uniformServiceName>auditquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinws.ssa.gov/findAuditEvents/AuditLogQuery</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:5591f1bb-54e6-4867-8e7c-0ccf67259648">
-          <names>
-            <name>Document Query Service</name>
-          </names>
-          <descriptions>
-            <description>Service to query for documents</description>
-          </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinws.ssa.gov/RespondingGateway_Query_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:cc773b20-d48c-4bcd-83e5-e921158c9120">
-          <names>
-            <name>Document Retrieve Service</name>
-          </names>
-          <descriptions>
-            <description>Service to retrieve document(s)</description>
-          </descriptions>
-          <uniformServiceName>documentretrieve</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinws.ssa.gov/RespondingGateway_Retrieve_Service</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-        <businessService serviceKey="uddi:nhinregistry:df51acbd-6ec3-4ec6-aacb-787af897d64b">
-          <names>
-            <name>Notification Producer Service</name>
-          </names>
-          <descriptions>
-            <description>Notification Producer Service</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://nhinws.ssa.gov/NotificationProducerService/NotificationProducerPort</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:45f127d7-5f1c-4a68-8359-42cdaf025e5d">
-      <names>
-        <businessName>SSA - Federal</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>SSA - Federal</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.184.5</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:e68258e6-73ae-457a-b8c7-bff5739f04b3">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://ws.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:3e9a8961-56b7-4131-bfaa-5d38d2c6b94f">
-      <names>
-        <businessName>SSA - Federal ATE/ETE</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>SSA - Federal</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.184.4</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:06a34e7e-2986-4a90-9a3c-99ece11ac99a">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Subject discovery service implemented as a web-service. Supports saml over 2way ssl</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://atews.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:504b46bc-ffe7-412d-962a-30f746d98293">
-      <names>
-        <businessName>SSA - Federal Int</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>SSA - Federal</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.184.3</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:c5502309-fe61-477d-8054-788425f2b6a0">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName>subjectdiscovery</uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://intws.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:423be20e-7a13-4008-9d94-b740ef766c21">
-      <names>
-        <businessName>SSA - Federal Val</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>SSA - Federal</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.184.2</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:0268aaa9-52a2-46d6-9b7d-f0cefef1747e">
-          <names>
-            <name>Subject Discovery Service</name>
-          </names>
-          <descriptions>
-            <description>Service to perform subject discovery over NHIN</description>
-          </descriptions>
-          <uniformServiceName></uniformServiceName>
-          <serviceVersion>2.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://valws.ssa.gov:444/NHIN/PIXConsumer_Soap11</endpointURL>
-              <wsdlURL></wsdlURL>
-            </bindingTemplate>
-          </bindingTemplates>
-        </businessService>
-      </businessServices>
-    </businessEntity>
-    <businessEntity businessKey="uddi:nhinregistry:caf5be26-5aa8-4d4a-9c84-d6e65f44b9a3">
-      <names>
-        <businessName>WDH</businessName>
-      </names>
-      <descriptions>
-        <businessDescription>Washington Department of Health - CDC</businessDescription>
-      </descriptions>
-      <homeCommunityId>2.16.840.1.113883.3.218</homeCommunityId>
-      <federalHIE>false</federalHIE>
-      <publicKeyURI></publicKeyURI>
-      <businessServices>
-        <businessService serviceKey="uddi:nhinregistry:b733d639-fec7-4ea6-a117-e64b631007e3">
-          <names>
-            <name>Notification Producer</name>
-          </names>
-          <descriptions>
-            <description>Service to receive subscription requests.</description>
-          </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
-          <internalWebService>false</internalWebService>
-          <bindingTemplates>
-            <bindingTemplate bindingKey="">
-              <endpointURL>https://128.95.121.39:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>https://ng.regenstrief.org:8443/RegenstriefNhinGateway/services/CrossGateway</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2676,7 +1831,7 @@
           <descriptions>
             <description>Service to query for documents</description>
           </descriptions>
-          <uniformServiceName>documentquery</uniformServiceName>
+          <uniformServiceName></uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
@@ -2688,17 +1843,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:afa95f5e-24d5-4ef3-8196-dad9c50b04fe">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://www.wvhin-onc3.com:5889/webservices/service/WVHIN_WS</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2729,7 +1884,7 @@
       <descriptions>
         <businessDescription>HealthLink RHIO is HIEx of wright state university,Dayton,OH</businessDescription>
       </descriptions>
-      <homeCommunityId>1.3.6.1.4.1.21302</homeCommunityId>
+      <homeCommunityId>urn:oid;1.3.6.1.4.1.21302</homeCommunityId>
       <federalHIE>false</federalHIE>
       <publicKeyURI></publicKeyURI>
       <businessServices>
@@ -2786,17 +1941,17 @@
         </businessService>
         <businessService serviceKey="uddi:nhinregistry:7c9d3073-95fd-4ec1-81bf-04bdb421aa81">
           <names>
-            <name>Notification Producer Service</name>
+            <name>Subscription Notification Service</name>
           </names>
           <descriptions>
-            <description>Notification Producer Service</description>
+            <description>Service to receive notification for a change in consumer preference as well as change in patients documents.</description>
           </descriptions>
-          <uniformServiceName>notificationproducer</uniformServiceName>
+          <uniformServiceName>agencynotificationconsumer</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://WSNHIE1.fedsconnect.org:9081/NotificationProducerService/NotificationProducerPort</endpointURL>
+              <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>
@@ -2813,7 +1968,7 @@
           <internalWebService>false</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="">
-              <endpointURL>https://WSNHIE1.fedsconnect.org:9181/findAuditEvents/AuditLogQuery</endpointURL>
+              <endpointURL>https://WSNHIE1.fedsconnect.org:9081/findAuditEvents/AuditLogQuery</endpointURL>
               <wsdlURL></wsdlURL>
             </bindingTemplate>
           </bindingTemplates>

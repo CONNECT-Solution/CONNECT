@@ -6,5 +6,5 @@
     <!-- <bean id="adapterauditquery" class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryProxyNoOpImpl"/> -->
 	
 	<!-- Web-service implementation -->
-     <bean id="adapterauditquery" class="gov.hhs.fha.nhinc.auditqueryadapter.proxy.AuditQueryAdapterWebServiceProxy"/> 
+     <bean id="adapterauditquery" class="gov.hhs.fha.nhinc.adapterauditquery.proxy.AdapterAuditQueryWebServiceProxy"/> 
 </beans>
