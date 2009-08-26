@@ -23,7 +23,6 @@
           <include name="InternalSelfTest-soapui-project.xml"/>
           <include name="ValidateServices-soapui-project.xml"/>
           <include name="PatientCorrelation-soapui-project.xml"/>
-          <include name="PatientCorrelationFacade-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
         </fileset>
       </path>
