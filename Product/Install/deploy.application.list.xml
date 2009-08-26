@@ -126,6 +126,9 @@
       <name>PatientCorrelationEJB</name>
     </ejb>
     <ejb>
+      <name>PatientCorrelationProxy</name>
+    </ejb>
+    <ejb>
       <name>PatientCorrelationFacadeDteEjb</name>
     </ejb>
     <ejb>
