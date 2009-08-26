@@ -5,6 +5,7 @@
 package universalclientgui;
 
 import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.FacesException;
@@ -61,6 +62,21 @@ public class SessionBean1 extends AbstractSessionBean {
     public void setPatientCorrelationList(List<PatientCorrelationData> patientCorrelationList) {
         this.patientCorrelationList = patientCorrelationList;
     }
+
+    private AssertionType assertionInfo;
+
+    public AssertionType getAssertionInfo() {
+        if(assertionInfo == null){
+            AssertionCreator assertHelp = new AssertionCreator();
+            assertionInfo = assertHelp.createAssertion();
+        }
+        return assertionInfo;
+    }
+
+    public void setAssertionInfo(AssertionType assertionInfo) {
+        this.assertionInfo = assertionInfo;
+    }
+
 
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>

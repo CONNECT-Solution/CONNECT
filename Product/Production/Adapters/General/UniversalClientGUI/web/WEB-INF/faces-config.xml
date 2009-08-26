@@ -55,4 +55,9 @@
         <managed-bean-class>universalclientgui.PatientCorrelationData</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>AssertionCreator</managed-bean-name>
+        <managed-bean-class>universalclientgui.AssertionCreator</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
 </faces-config>
