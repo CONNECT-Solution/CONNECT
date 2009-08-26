@@ -329,7 +329,7 @@
 			<service>
 				<name>patientcorrelationsecured</name>
 				<description>Patient Correlation Secured Service</description>
-				<endpointURL>https://localhost:8181/PatientCorrelationSecuredService</endpointURL>
+				<endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
 			</service>			
 			<service>
 				<name>auditrepository</name>
