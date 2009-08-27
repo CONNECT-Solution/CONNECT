@@ -37,6 +37,7 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
     private static final String PROPERTY_KEY_CONTENT_REF = "AssertionContentRef";
     private static final String PROPERTY_KEY_CONTENT_FILENAME = "AssertionContentFile";
+    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
     private static Log log = LogFactory.getLog(AssertionCreator.class);
 
     AssertionType createAssertion() {
@@ -90,7 +91,9 @@ public class AssertionCreator {
         FileInputStream in = null;
         byte[] binOut = null;
         try {
-            binFileName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_FILENAME);
+            String propDir = getPropertyDir();
+            binFileName = propDir + PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_FILENAME);
+            System.out.println("Requesting file: " + binFileName);
             File inFile = new File(binFileName);
             if (inFile.exists()) {
                 long fileLen = inFile.length();
@@ -107,10 +110,14 @@ public class AssertionCreator {
                     // Ensure all the bytes have been read in
                     if (offset < binOut.length) {
                         log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length + " bytes of file " + binFileName);
+                    } else {
+                        log.debug ("Binary A27 form read: " + binOut.length + " bytes");
                     }
                 } else {
                     log.error(binFileName + " file is too long to read");
                 }
+            } else {
+                log.error("File " + binFileName + " containing Binary A27 form does not exist");
             }
         } catch (IOException ex) {
             log.error("AssertionCreator " + ex.getMessage());
@@ -128,5 +135,29 @@ public class AssertionCreator {
 
         log.debug("AssertionCreator.getBinaryClaimForm() -- End");
         return binOut;
+    }
+
+    private String getPropertyDir() {
+        String propertyFileDir = "";
+        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
+        if ((sValue != null) && (sValue.length() > 0))
+        {
+            // Set it up so that we always have a "/" at the end - in case
+            //------------------------------------------------------------
+            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
+            {
+                propertyFileDir = sValue;
+            }
+            else
+            {
+                String sFileSeparator = System.getProperty("file.separator");
+                propertyFileDir = sValue + sFileSeparator;
+            }
+        }
+        else
+        {
+            log.error("");
+        }
+        return propertyFileDir;
     }
 }

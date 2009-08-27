@@ -589,6 +589,7 @@ public class Page2 extends AbstractPageBean {
             homeQualifiedSubjectId.setSubjectIdentifier(foundPatient.getPatientId());
             RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
             retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
+            retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
 
             RetrievePatientCorrelationsResponseType pcResponse = pcProxy.retrievePatientCorrelations(retrieveRequest);
             List<QualifiedSubjectIdentifierType> retrievedPatCorrList = pcResponse.getQualifiedPatientIdentifier();
