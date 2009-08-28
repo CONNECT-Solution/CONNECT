@@ -47,6 +47,7 @@ public class NhincConstants {
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
 
     public static final String PAT_CORR_ACTION = "patientcorrelation";
+    public static final String ADAPTER_MPI_ACTION = "mpi";
     
 
     // Audit Logging Constants
@@ -100,6 +101,9 @@ public class NhincConstants {
 
     // MPI constants
     public static final String ADAPTER_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
+    public static final String ADAPTER_MPI_PROXY_SERVICE_NAME = "mpi";
+    public static final String ADAPTER_MPI_PROXY_SECURED_SERVICE_NAME = "mpisecured";
+
 
     // SOAP Headers
     public static final String HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE = "SoapMessage";
