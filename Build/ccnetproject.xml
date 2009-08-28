@@ -6,45 +6,45 @@
 
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
         <users>
-          <user name="Jay Flowers"	      group="buildmaster"     address="jay.flowers@agilex.com"/>
-          <user name="Srikanth Vadlamani"	group="buildmaster"     address="srikanth.vadlamani@agilex.com"/>
-          <user name="Mark Goldman"	      group="buildmaster"     address="mark.goldman@agilex.com"/>
+            <user name="Jay Flowers"            group="buildmaster"     address="jay.flowers@agilex.com"/>
+            <user name="Srikanth Vadlamani"     group="buildmaster"     address="srikanth.vadlamani@agilex.com"/>
+            <user name="Mark Goldman"           group="buildmaster"     address="mark.goldman@agilex.com"/>
           
-					<user name="flowersj"				    group="developer" 	    address="jay.flowers@agilex.com"/>
-          <user name="vadlamanis"	        group="developer"       address="srikanth.vadlamani@agilex.com"/>
-          <user name="goldmanm"	          group="developer"       address="mark.goldman@agilex.com"/>
-					<user name="borsts"					    group="developer" 	    address="scott.borst@agilex.com"/>
-					<user name="dunnek"					    group="developer" 	    address="kieran.dunne@agilex.com"/>
-					<user name="rayj"						    group="developer" 	    address="jason.ray@agilex.com"/>
-					<user name="webbn"					    group="developer" 	    address="neil.webb@agilex.com"/>
-					<user name="westbergl"			    group="developer" 	    address="les.westberg@agilex.com"/>
-					<user name="valluripallis"	    group="developer" 	    address="svalluripalli@scenpro.com"/>
-					<user name="vickersv"				    group="developer" 	    address="vvickers@harris.com"/>
-					<user name="flynnm"					    group="developer" 	    address="mflynn02@harris.com"/>
-					<user name="hoppeschj"			    group="developer" 	    address="jhoppesc@harris.com"/>
-          
-					<user name="scott borst"				group="&ProjectName;" 	address="scott.borst@agilex.com"/>
-					<user name="kieran dunne"				group="&ProjectName;" 	address="kieran.dunne@agilex.com"/>
-					<user name="jason ray"					group="&ProjectName;" 	address="jason.ray@agilex.com"/>
-					<user name="neil webb"					group="&ProjectName;" 	address="neil.webb@agilex.com"/>
-					<user name="les westberg"			  group="&ProjectName;" 	address="les.westberg@agilex.com"/>
-					<user name="sai valluripalli"	  group="&ProjectName;" 	address="svalluripalli@scenpro.com"/>
-					<user name="vicky vickers"			group="&ProjectName;" 	address="vvickers@harris.com"/>
-					<user name="martha flynn"				group="&ProjectName;" 	address="mflynn02@harris.com"/>
-					<user name="jon hoppesch"			  group="&ProjectName;" 	address="jhoppesc@harris.com"/>
-          
-					<user name="scott borst Dev"				group="&ProjectName;Dev" 	address="scott.borst@agilex.com"/>
-					<user name="kieran dunne Dev"				group="&ProjectName;Dev" 	address="kieran.dunne@agilex.com"/>
-					<user name="jason ray Dev"					group="&ProjectName;Dev" 	address="jason.ray@agilex.com"/>
-					<user name="neil webb Dev"					group="&ProjectName;Dev" 	address="neil.webb@agilex.com"/>
-					<user name="les westberg Dev"			  group="&ProjectName;Dev" 	address="les.westberg@agilex.com"/>
-					<user name="sai valluripalli Dev"	  group="&ProjectName;Dev" 	address="svalluripalli@scenpro.com"/>
-					<user name="vicky vickers Dev"			group="&ProjectName;Dev" 	address="vvickers@harris.com"/>
-					<user name="martha flynn Dev"				group="&ProjectName;Dev" 	address="mflynn02@harris.com"/>
-					<user name="jon hoppesch Dev"			  group="&ProjectName;Dev" 	address="jhoppesc@harris.com"/>
+            <user name="flowersj"               group="developer"         address="jay.flowers@agilex.com"/>
+            <user name="vadlamanis"             group="developer"         address="srikanth.vadlamani@agilex.com"/>
+            <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
+            <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
+            <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
+            <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
+            <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
+            <user name="westbergl"              group="developer"         address="les.westberg@agilex.com"/>
+            <user name="valluripallis"          group="developer"         address="svalluripalli@scenpro.com"/>
+            <user name="vickersv"               group="developer"         address="vvickers@harris.com"/>
+            <user name="flynnm"                 group="developer"         address="mflynn02@harris.com"/>
+            <user name="hoppeschj"              group="developer"         address="jhoppesc@harris.com"/>
+
+            <user name="scott borst"            group="&ProjectName;"     address="scott.borst@agilex.com"/>
+            <user name="kieran dunne"           group="&ProjectName;"     address="kieran.dunne@agilex.com"/>
+            <user name="jason ray"              group="&ProjectName;"     address="jason.ray@agilex.com"/>
+            <user name="neil webb"              group="&ProjectName;"     address="neil.webb@agilex.com"/>
+            <user name="les westberg"           group="&ProjectName;"     address="les.westberg@agilex.com"/>
+            <user name="sai valluripalli"       group="&ProjectName;"     address="svalluripalli@scenpro.com"/>
+            <user name="vicky vickers"          group="&ProjectName;"     address="vvickers@harris.com"/>
+            <user name="martha flynn"           group="&ProjectName;"     address="mflynn02@harris.com"/>
+            <user name="jon hoppesch"           group="&ProjectName;"     address="jhoppesc@harris.com"/>
+
+            <user name="scott borst Dev"        group="&ProjectName;Dev"     address="scott.borst@agilex.com"/>
+            <user name="kieran dunne Dev"       group="&ProjectName;Dev"     address="kieran.dunne@agilex.com"/>
+            <user name="jason ray Dev"          group="&ProjectName;Dev"     address="jason.ray@agilex.com"/>
+            <user name="neil webb Dev"          group="&ProjectName;Dev"     address="neil.webb@agilex.com"/>
+            <user name="les westberg Dev"       group="&ProjectName;Dev"     address="les.westberg@agilex.com"/>
+            <user name="sai valluripalli Dev"   group="&ProjectName;Dev"     address="svalluripalli@scenpro.com"/>
+            <user name="vicky vickers Dev"      group="&ProjectName;Dev"     address="vvickers@harris.com"/>
+            <user name="martha flynn Dev"       group="&ProjectName;Dev"     address="mflynn02@harris.com"/>
+            <user name="jon hoppesch Dev"       group="&ProjectName;Dev"     address="jhoppesc@harris.com"/>
         </users>
         <groups>
-          <group name="buildmaster" notification="always"/>
+          <group name="buildmaster"       notification="always"/>
           <group name="&ProjectName;"     notification="change"/>
           <group name="&ProjectName;Dev"  notification="failed"/>
         </groups>
