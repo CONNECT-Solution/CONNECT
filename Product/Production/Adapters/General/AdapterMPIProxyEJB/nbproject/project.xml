@@ -17,7 +17,6 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library>file.reference.spring-sources.jar</included-library>
             <included-library>file.reference.spring.jar</included-library>
-            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.dom4j-1.6.1.jar</included-library>
@@ -35,6 +34,7 @@
             <included-library>reference.NhincLib.jar</included-library>
             <included-library>file.reference.NhincSAMLCallbackLib.jar</included-library>
             <included-library>reference.NhincSamlTokenLib.jar</included-library>
+            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <source-roots>
                 <root id="src.dir" name="Source Packages"/>
             </source-roots>
