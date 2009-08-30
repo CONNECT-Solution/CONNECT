@@ -20,7 +20,16 @@
     <target name="wsimport-client-clean-NhincComponentAuditRepository" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentAuditRepository"/>
+    <target name="wsimport-client-NhincComponentAuditRepositorySecured" depends="wsimport-init">
+        <property name="wsdl-NhincComponentAuditRepositorySecured" location="xml-resources/web-service-references/NhincComponentAuditRepositorySecured/wsdl/NhincComponentAuditRepositorySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentAuditRepositorySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl" xnocompile="true">
+            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository" includes="NhincComponentAuditRepositorySecured.java" casesensitive="no"/>
+        </wsimport>
+    </target>
+    <target name="wsimport-client-clean-NhincComponentAuditRepositorySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentAuditRepository, wsimport-client-NhincComponentAuditRepositorySecured"/>
     <target name="wsimport-client-compile-depend" if="do.depend.true">
         <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
     </target>

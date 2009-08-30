@@ -77,27 +77,27 @@
     		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
     		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
     <target depends="init" name="deps-clean" unless="no.deps">
     		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
     		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>    
-    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init">
-<!--
-        <property name="wsdl-NhincComponentAuditRepository" location="xml-resources/web-service-references/NhincComponentAuditRepository/wsdl/NhincComponentAuditRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentAuditRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository" includes="NhincComponentAuditRepository.java" casesensitive="no"/>
-        </wsimport>
--->
-    </target>
+    
+    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init"/>
+    
+    <target name="wsimport-client-NhincComponentAuditRepositorySecured" depends="wsimport-init"/>
 </project>
