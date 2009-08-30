@@ -35,7 +35,7 @@
     <message name="LogEventResponseMessage">
         <part name="LogEventResponse" element="audit:LogEventResponse"/>
     </message>
-    <portType name="AuditRepositoryManagerPortType">
+    <portType name="AuditRepositoryManagerSecuredPortType">
         <operation name="QueryAuditEvents">
             <input name="QueryAuditEventsRequest"
                    message="tns:QueryAuditEventsRequestMessage"/>
@@ -47,8 +47,8 @@
             <output name="LogEventResponse" message="tns:LogEventResponseMessage"/>
         </operation>
     </portType>
-    <binding name="AuditRepositoryManagerBinding"
-             type="tns:AuditRepositoryManagerPortType">
+    <binding name="AuditRepositoryManagerSecuredBinding"
+             type="tns:AuditRepositoryManagerSecuredPortType">
         <soap:binding style="document"
                       transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#AuditRepository_Binding_SoapPolicy"/>
@@ -76,16 +76,16 @@
             </output>
         </operation>
     </binding>
-    <service name="AuditRepositoryManagerService">
-        <port name="AuditRepositoryManagerPort"
-              binding="tns:AuditRepositoryManagerBinding">
+    <service name="AuditRepositoryManagerSecuredService">
+        <port name="AuditRepositoryManagerSecuredPort"
+              binding="tns:AuditRepositoryManagerSecuredBinding">
             <soap:address
-                location="http://localhost:${NhincHttpPort}/NhinConnect/AuditRepositoryManagerService"/>
+                location="https://localhost:${HttpsDefaultPort}/NhinConnect/AuditRepositoryManagerSecuredService"/>
         </port>
     </service>
-    <plnk:partnerLinkType name="AuditRepositoryManager">
-        <plnk:role name="AuditRepositoryManagerPortTypeRole"
-                   portType="tns:AuditRepositoryManagerPortType"/>
+    <plnk:partnerLinkType name="AuditRepositoryManagerSecured">
+        <plnk:role name="AuditRepositoryManagerSecuredPortTypeRole"
+                   portType="tns:AuditRepositoryManagerSecuredPortType"/>
     </plnk:partnerLinkType>
     <wsp:Policy wsu:Id="AuditRepository_Binding_SoapPolicy">
         <wsp:ExactlyOne>
