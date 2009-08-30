@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.RespondingGatewayCrossGatewayQueryRequestType;
@@ -74,7 +75,7 @@ class DocQueryImpl {
         }
         
         //create an audit record for the response
-        ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditAdhocQueryResponse(resp, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, crossGatewayQueryRequest.getAssertion());
 
         log.debug("Exiting DocQueryImpl.respondingGatewayCrossGatewayQuery");
         return resp;
@@ -95,12 +96,13 @@ class DocQueryImpl {
         gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType();
         message.setAssertion(crossGatewayDocQueryRequest.getAssertion());
         message.setAdhocQueryRequest(crossGatewayDocQueryRequest.getAdhocQueryRequest());
+        
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, _interface);
 
         if (auditLogMsg != null) {
-           ack = audit(auditLogMsg);
+           ack = audit(auditLogMsg, crossGatewayDocQueryRequest.getAssertion());
         }
 
         return ack;
@@ -113,7 +115,7 @@ class DocQueryImpl {
      * @param _interface Indicates which interface component is being logged??
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse crossGatewayDocQueryResponse, String direction, String _interface)
+    private AcknowledgementType auditAdhocQueryResponse(AdhocQueryResponse crossGatewayDocQueryResponse, String direction, String _interface, AssertionType assertion)
     {
         AcknowledgementType ack = new AcknowledgementType();
 
@@ -126,7 +128,7 @@ class DocQueryImpl {
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface);
 
         if (auditLogMsg != null) {
-           ack = audit(auditLogMsg);
+           ack = audit(auditLogMsg, assertion);
         }
        
         return ack;
@@ -137,11 +139,11 @@ class DocQueryImpl {
      * @param auditLogMsg AdhocQueryRequest or AdhocQueryResponse message to log.
      * @return Returns an AcknowledgementType object indicating whether the audit message was successfully stored.
      */
-    private AcknowledgementType audit(LogEventRequestType auditLogMsg)
+    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion)
     {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg);
+        return proxy.auditLog(auditLogMsg, assertion);
     }
 
     /**
