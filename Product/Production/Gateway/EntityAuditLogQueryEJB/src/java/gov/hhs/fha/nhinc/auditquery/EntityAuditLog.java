@@ -78,7 +78,7 @@ public class EntityAuditLog {
         if (auditLogMsg != null) {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            ack = proxy.auditLog(auditLogMsg);
+            ack = proxy.auditLog(auditLogMsg, message.getAssertion());
         }
 
         return ack;
