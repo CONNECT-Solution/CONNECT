@@ -200,7 +200,7 @@ public class SubjectDiscoveryImpl {
         }
 
         // Audit the outgoing 201310 message
-        ack = auditLogger.audit201310(ret310, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        ack = auditLogger.audit201310(ret310, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, pix201309Request.getAssertion());
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201309UV");
         return ret310;

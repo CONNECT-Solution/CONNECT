@@ -49,7 +49,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logSubjectAdded(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, request.getAssertion());
         }
 
         return ack;
@@ -74,7 +74,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logSubjectRevised(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, request.getAssertion());
         }
 
         return ack;
@@ -99,7 +99,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logSubjectRevoked(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, request.getAssertion());
         }
 
         return ack;
@@ -124,7 +124,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logSubjectReident(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, request.getAssertion());
         }
 
         return ack;
@@ -137,7 +137,7 @@ public class SubjectDiscoveryAuditLogger {
      * @param _interface Indicates which interface component is being logged??
      * @return Returns an acknowledgement object indicating whether the audit was successfully completed.
      */
-    public AcknowledgementType audit201310(PRPAIN201310UV request, String direction, String _interface) {
+    public AcknowledgementType audit201310(PRPAIN201310UV request, String direction, String _interface, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
 
         SubjectReidentificationResponseMessageType message = new SubjectReidentificationResponseMessageType();
@@ -148,7 +148,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logSubjectReidentResult(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, assertion);
         }
 
         return ack;
@@ -176,7 +176,7 @@ public class SubjectDiscoveryAuditLogger {
         LogEventRequestType auditLogMsg = auditLogger.logNhinSubjectDiscoveryAck(message, direction, _interface);
 
         if (auditLogMsg != null) {
-            ack = audit(auditLogMsg);
+            ack = audit(auditLogMsg, assertion);
         }
 
         return ack;
@@ -187,10 +187,10 @@ public class SubjectDiscoveryAuditLogger {
      * @param auditLogMsg AdhocQueryRequest or AdhocQueryResponse message to log.
      * @return Returns an AcknowledgementType object indicating whether the audit message was successfully stored.
      */
-    private AcknowledgementType audit(LogEventRequestType auditLogMsg)
+    private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion)
     {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-        return proxy.auditLog(auditLogMsg);
+        return proxy.auditLog(auditLogMsg, assertion);
     }
 }
