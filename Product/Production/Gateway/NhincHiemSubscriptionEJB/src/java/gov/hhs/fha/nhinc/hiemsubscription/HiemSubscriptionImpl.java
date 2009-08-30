@@ -89,7 +89,7 @@ public class HiemSubscriptionImpl {
             {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-                ack = proxy.auditLog(auditLogMsg);
+                ack = proxy.auditLog(auditLogMsg, assertion);
             }
         }
         catch(Throwable t)
@@ -115,7 +115,7 @@ public class HiemSubscriptionImpl {
             {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
                 AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-                ack = proxy.auditLog(auditLogMsg);
+                ack = proxy.auditLog(auditLogMsg, assertion);
             }
         }
         catch(Throwable t)
