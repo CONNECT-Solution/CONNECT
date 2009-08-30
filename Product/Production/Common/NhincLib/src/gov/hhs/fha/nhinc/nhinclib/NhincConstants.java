@@ -45,6 +45,7 @@ public class NhincConstants {
     public static final String DOC_QUERY_ACTION = "queryDocuments";
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
+    public static final String AUDIT_REPO_ACTION = "auditrepository";
 
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     public static final String ADAPTER_MPI_ACTION = "mpi";
@@ -52,6 +53,7 @@ public class NhincConstants {
 
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
+    public static final String AUDIT_REPO_SECURE_SERVICE_NAME = "auditrepositorysecured";
     public static final String AUDIT_LOG_SERVICE_NAME = "auditlog";
     public static final String AUDIT_QUERY_SERVICE_NAME = "auditquery";
     public static final String AUDIT_LOG_ADAPTER_SERVICE_NAME = "adapterauditquery";
