@@ -73,6 +73,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
 			</service>
 			<service>
+				<name>auditrepositorysecured</name>
+				<description>Audit Repository Secured Service</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+			</service>
+			<service>
 				<name>auditrepositorymanager</name>
 				<description>auditrepositorymanager</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
@@ -340,6 +345,11 @@
 				<name>auditrepository</name>
 				<description>Audit Repository</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+				<name>auditrepositorysecured</name>
+				<description>Audit Repository Secured Service</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
 			</service>
 			<service>
 				<name>auditrepositorymanager</name>
