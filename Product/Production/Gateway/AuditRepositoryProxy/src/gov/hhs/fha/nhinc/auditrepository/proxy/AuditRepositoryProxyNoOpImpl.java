@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.auditrepository.proxy;
 
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 
@@ -20,7 +21,7 @@ public class AuditRepositoryProxyNoOpImpl implements AuditRepositoryProxy {
         return new FindCommunitiesAndAuditEventsResponseType();
     }
 
-    public AcknowledgementType auditLog(LogEventRequestType request) {
+    public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
         return new AcknowledgementType();
     }
 
