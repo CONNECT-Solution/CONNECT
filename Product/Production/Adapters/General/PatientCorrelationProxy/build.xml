@@ -10,8 +10,11 @@
 <project name="PatientCorrelationProxy" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project PatientCorrelationProxy.</description>
     <import file="nbproject/build-impl.xml"/>
-    
-    		<import file="../../../../build.lib.xml" />
+
+    <property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
+
+    <import file="../../../../build.lib.xml" />
 		
 		<target name="build">
 			<property name="target-to-call" value="dist" />
