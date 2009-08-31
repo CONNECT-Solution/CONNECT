@@ -232,11 +232,6 @@
         <loadproperties srcFile="${basedir}/nbproject/private/private.properties"/>
         <jbi-deploy-service-assembly serviceAssemblyID="${jbi.service-assembly.id}" serviceAssemblyLocation="${basedir}/${dist.jar}" netBeansUserDir="${netbeans.user}" j2eeServerInstance="${j2ee.server.instance}"/>
     </target>
-    <target name="undeploy" depends="init">
-        <property name="j2ee.server.instance" value=""/>
-        <loadproperties srcFile="${basedir}/nbproject/private/private.properties"/>
-        <jbi-deploy-service-assembly undeployServiceAssembly="true" serviceAssemblyID="${jbi.service-assembly.id}" serviceAssemblyLocation="${basedir}/${dist.jar}" netBeansUserDir="${netbeans.user}" j2eeServerInstance="${j2ee.server.instance}"/>
-    </target>
     <target name="-pre-debug">
         <property name="inDebug" value="true"/>
         <setup-debug-environment netBeansUserDir="${netbeans.user}" j2eeServerInstance="${j2ee.server.instance}"/>
