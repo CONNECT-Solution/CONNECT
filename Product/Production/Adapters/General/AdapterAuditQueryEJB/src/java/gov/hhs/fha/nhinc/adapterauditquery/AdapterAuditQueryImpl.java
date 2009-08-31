@@ -96,7 +96,7 @@ public class AdapterAuditQueryImpl
         if (auditLogMsg != null) {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            ack = proxy.auditLog(auditLogMsg);
+            ack = proxy.auditLog(auditLogMsg, auditMsg.getAssertion());
         }
 
         return ack;
