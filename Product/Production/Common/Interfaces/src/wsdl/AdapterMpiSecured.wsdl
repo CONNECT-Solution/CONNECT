@@ -28,7 +28,7 @@
     </types>
     <message name="FindCandidatesRequest">
         <part name="FindCandidatesRequest" 
-              element="hl7:PIXConsumer_PRPA_IN201305UVRequest"/>
+              element="hl7:PRPA_IN201305UV"/>
     </message>
     <message name="FindCandidatesResponse">
         <part name="FindCandidatesResponse" 
