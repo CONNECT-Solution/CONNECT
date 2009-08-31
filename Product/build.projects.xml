@@ -13,6 +13,10 @@
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
 	</project>
 	<project>
+		<name>AdapterMPIProxyEJB</name>
+		<directory>/Production/Adapters/General/AdapterMPIProxyEJB</directory>
+	</project>
+	<project>
 		<name>NhincHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
 	</project>
