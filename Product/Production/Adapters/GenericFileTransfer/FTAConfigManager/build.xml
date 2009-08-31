@@ -91,4 +91,7 @@
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>    
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
