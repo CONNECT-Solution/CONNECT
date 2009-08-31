@@ -36,7 +36,7 @@ public class AdapterMpiProxyImpl {
     * @param
     * @return
     */
-   public static PRPAIN201306UV query(PIXConsumerPRPAIN201305UVRequestType findCandidatesRequest)
+   public  PRPAIN201306UV query(PIXConsumerPRPAIN201305UVRequestType findCandidatesRequest)
    {
        log.debug("Entering AdapterMpiProxyImpl.query method...");
        String url = getURL();
@@ -50,7 +50,7 @@ public class AdapterMpiProxyImpl {
 
        
    }
-    private static String getURL()
+    private  String getURL()
     {
         String url = "";
 
@@ -65,7 +65,7 @@ public class AdapterMpiProxyImpl {
 
         return url;
     }
-    private static AdapterMpiSecuredPortType getPort(String url)
+    private  AdapterMpiSecuredPortType getPort(String url)
     {
 
 

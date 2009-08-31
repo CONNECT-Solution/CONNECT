@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="AdapterMpiService">
-      <implementation-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpiService</implementation-class>
+    <service name="AdapterMpi">
+      <implementation-class>gov.hhs.fha.nhinc.adaptermpi.AdapterMpi</implementation-class>
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterMpi.wsdl</local-wsdl-file>
       <service-name>AdapterMpiService</service-name>

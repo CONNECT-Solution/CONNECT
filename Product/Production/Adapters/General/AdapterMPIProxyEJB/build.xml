@@ -23,6 +23,10 @@
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
+    
+    <property name="deploy.type" value="ejb" /> 
+    <property name="deploy.isDeployable" value="true"/> 
+
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -78,16 +82,16 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-AdapterMpiService" depends="wsimport-init,wsimport-service-check-AdapterMpiService" unless="wsimport-service-AdapterMpiService.notRequired">
-        <property name="service-wsdl-AdapterMpiService" location="${meta.inf}/xml-resources/web-services/AdapterMpiService/wsdl/AdapterMpi.wsdl"/>
-        <!--<wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterMpiService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/> -->
-        <property name="targetLocation-AdapterMpiService" location="${meta.inf}/wsdl/AdapterMpiService"/>
-        <property name="sourceLocation-AdapterMpiService" location="${meta.inf}/xml-resources/web-services/AdapterMpiService/wsdl/"/>
-        <copy todir="${targetLocation-AdapterMpiService}">
-            <fileset dir="${sourceLocation-AdapterMpiService}"/>
+    <target name="wsimport-service-AdapterMpi" depends="wsimport-init,wsimport-service-check-AdapterMpi" unless="wsimport-service-AdapterMpi.notRequired">
+        <property name="service-wsdl-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
+        <!--<wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterMpi}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/> -->
+        <property name="targetLocation-AdapterMpi" location="${meta.inf}/wsdl/AdapterMpi"/>
+        <property name="sourceLocation-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/"/>
+        <copy todir="${targetLocation-AdapterMpi}">
+            <fileset dir="${sourceLocation-AdapterMpi}"/>
         </copy>
         <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpiService/schemas"/>
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpi/schemas"/>
         </copy>
     </target>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init,wsimport-client-check-AdapterMpiSecured" unless="wsimport-client-AdapterMpiSecured.notRequired"/>
@@ -116,5 +120,6 @@
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    
+
+
 </project>

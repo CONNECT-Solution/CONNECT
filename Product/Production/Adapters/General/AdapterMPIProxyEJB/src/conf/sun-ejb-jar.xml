@@ -3,9 +3,9 @@
 <sun-ejb-jar>
     <enterprise-beans>
         <ejb>
-            <ejb-name>AdapterMpiService</ejb-name>
+            <ejb-name>AdapterMpi</ejb-name>
             <webservice-endpoint>
-                <port-component-name>AdapterMpiService</port-component-name>
+                <port-component-name>AdapterMpi</port-component-name>
                 <endpoint-address-uri>/NhinConnect/AdapterMpiService</endpoint-address-uri>
             </webservice-endpoint>   
         </ejb>
