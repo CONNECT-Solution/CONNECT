@@ -43,10 +43,11 @@ public class AdapterMpiProxyImpl {
        AdapterMpiSecuredPortType port = getPort(url);
        SamlTokenCreator tokenCreator = new SamlTokenCreator();
        Map requestContext = tokenCreator.CreateRequestContext(findCandidatesRequest.getAssertion(), url, NhincConstants.ADAPTER_MPI_ACTION);
-
+       ((BindingProvider) port).getRequestContext().putAll(requestContext);
        log.debug("Calling Secured Endpoint");
+
        
-       return port.findCandidates(findCandidatesRequest);
+       return port.findCandidates(findCandidatesRequest.getPRPAIN201305UV());
 
        
    }

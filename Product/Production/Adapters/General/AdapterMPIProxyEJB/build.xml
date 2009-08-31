@@ -94,8 +94,7 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpi/schemas"/>
         </copy>
     </target>
-    <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init,wsimport-client-check-AdapterMpiSecured" unless="wsimport-client-AdapterMpiSecured.notRequired"/>
-
+ 
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
@@ -121,5 +120,6 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
+    <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init,wsimport-client-check-AdapterMpiSecured" unless="wsimport-client-AdapterMpiSecured.notRequired"/>
 
 </project>
