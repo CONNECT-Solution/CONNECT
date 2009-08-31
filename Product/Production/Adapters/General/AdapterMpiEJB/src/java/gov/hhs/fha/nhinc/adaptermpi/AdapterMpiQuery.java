@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PIXConsumerPRPAIN201305UVRequestType;
 import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAIN201305UV;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 
@@ -32,7 +33,7 @@ public class AdapterMpiQuery {
     * @param 
     * @return
     */
-   public static PRPAIN201306UV query(PIXConsumerPRPAIN201305UVRequestType findCandidatesRequest) {
+   public static PRPAIN201306UV query(PRPAIN201305UV findCandidatesRequest) {
        log.debug("Entering AdapterMpiQuery.query method...");
        PRPAIN201306UV  queryResponse = null;
        AdapterComponentMpiService mpiService = new AdapterComponentMpiService ();
@@ -63,6 +64,7 @@ public class AdapterMpiQuery {
        
        if ((sEndpointURL != null) &&
            (sEndpointURL.length() > 0)) {
+           log.debug("calling " + sEndpointURL);
            ((javax.xml.ws.BindingProvider) mpiPort).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
        }
        else {
@@ -75,8 +77,8 @@ public class AdapterMpiQuery {
                     "'http://localhost:8080/NhinConnect/AdapterComponentMpiService'");
        }
        
-       if (findCandidatesRequest.getPRPAIN201305UV() != null) {
-           queryResponse = mpiPort.findCandidates(findCandidatesRequest.getPRPAIN201305UV());
+       if (findCandidatesRequest != null) {
+           queryResponse = mpiPort.findCandidates(findCandidatesRequest);
        }
        else {
            queryResponse = null;

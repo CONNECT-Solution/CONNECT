@@ -293,7 +293,7 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
-    <target depends="init,deps-jar,wsimport-service-generate,wsimport-client-generate" name="-pre-pre-compile">
+    <target depends="init,deps-jar,wsimport-client-generate,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
         <mkdir dir="${build.ear.classes.dir}"/>
     </target>
@@ -352,7 +352,7 @@ exists or setup the property manually. For example like this:
             <fileset dir="${meta.inf}" excludes="**/*.dbschema **/xml-resources/** ${meta.inf.excludes}"/>
         </copy>
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf,wsimport-service-compile,wsimport-client-compile" if="have.sources" name="-do-compile">
+    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf,wsimport-client-compile,wsimport-service-compile" if="have.sources" name="-do-compile">
         <ejbjarproject2:javac destdir="${classes.dir}"/>
         <copy todir="${classes.dir}">
             <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
@@ -367,7 +367,7 @@ exists or setup the property manually. For example like this:
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,wsimport-service-compile,wsimport-client-compile" name="-do-compile-single">
+    <target depends="init,deps-jar,-pre-pre-compile,wsimport-client-compile,wsimport-service-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
         <ejbjarproject2:javac excludes="" includes="${javac.includes}"/>
     </target>

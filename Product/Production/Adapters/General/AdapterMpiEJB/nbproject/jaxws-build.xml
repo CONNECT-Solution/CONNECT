@@ -31,21 +31,21 @@
     <target name="wsimport-client-clean-AdapterComponentMpi" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     </target>
-    <target name="wsimport-service-check-AdapterMpi" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterMpi.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptermpi/AdapterMpiService.java"/>
+    <target name="wsimport-service-check-AdapterMpiSecured" depends="wsimport-init">
+        <condition property="wsimport-service-AdapterMpiSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptermpi/AdapterMpiSecuredService.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-AdapterMpi" depends="wsimport-init,wsimport-service-check-AdapterMpi" unless="wsimport-service-AdapterMpi.notRequired">
-        <property name="service-wsdl-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterMpi}" catalog="catalog.xml"/>
-        <property name="targetLocation-AdapterMpi" location="${meta.inf}/wsdl/AdapterMpi"/>
-        <property name="sourceLocation-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/"/>
-        <copy todir="${targetLocation-AdapterMpi}">
-            <fileset dir="${sourceLocation-AdapterMpi}"/>
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init,wsimport-service-check-AdapterMpiSecured" unless="wsimport-service-AdapterMpiSecured.notRequired">
+        <property name="service-wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-AdapterMpiSecured" location="${meta.inf}/wsdl/AdapterMpiSecured"/>
+        <property name="sourceLocation-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterMpiSecured}">
+            <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-AdapterMpi" depends="-init-project">
+    <target name="wsimport-service-clean-AdapterMpiSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptermpi"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterComponentMpi"/>
@@ -55,7 +55,7 @@
             <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
         </copy>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpi"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>
