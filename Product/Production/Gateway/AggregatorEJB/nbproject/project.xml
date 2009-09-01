@@ -26,8 +26,8 @@
             <included-library>file.reference.jdbc2_0-stdext.jar</included-library>
             <included-library>file.reference.jta.jar</included-library>
             <included-library>file.reference.c3p0-0.9.1.2.jar</included-library>
-            <included-library>file.reference.mysql-connector-java-5.0.8-bin.jar</included-library>
             <included-library>reference.NhincLib.jar</included-library>
+            <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>file.reference.ThirdParty-log4j</included-library>
             <included-library>reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>

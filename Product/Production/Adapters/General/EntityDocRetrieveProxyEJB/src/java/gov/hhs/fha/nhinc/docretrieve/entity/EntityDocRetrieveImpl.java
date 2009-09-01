@@ -35,7 +35,8 @@ public class EntityDocRetrieveImpl
             AssertionType assertIn = respondingGatewayCrossGatewayRetrieveRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             // Send message
             log.debug("Calling secure entity doc retrieve.");
             result = port.respondingGatewayCrossGatewayRetrieve(respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest());

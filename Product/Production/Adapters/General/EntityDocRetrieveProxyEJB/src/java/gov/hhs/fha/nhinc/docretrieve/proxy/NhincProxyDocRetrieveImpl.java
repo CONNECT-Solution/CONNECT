@@ -35,7 +35,8 @@ public class NhincProxyDocRetrieveImpl
             AssertionType assertIn = respondingGatewayCrossGatewayRetrieveRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             // Create body
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
             body.setRetrieveDocumentSetRequest(respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest());

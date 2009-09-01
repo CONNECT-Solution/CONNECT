@@ -60,6 +60,7 @@ public class NhinDocRetrieveWebServiceProxy implements NhinDocRetrieveProxy
 
                 log.debug("Creating port");
                 RespondingGatewayRetrievePortType port = getPort(url);
+                ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
                 log.debug("Calling NHIN doc retrieve service");
                 response = port.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest());

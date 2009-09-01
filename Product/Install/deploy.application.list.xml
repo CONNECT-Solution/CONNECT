@@ -155,6 +155,9 @@
     <ejb>
       <name>EntityDocRetrieveProxyEJB</name>
     </ejb>
+    <ejb>
+      <name>PatientCorrelationProxy</name>
+    </ejb>
   </ejbs>
   <cas>
     <ca>

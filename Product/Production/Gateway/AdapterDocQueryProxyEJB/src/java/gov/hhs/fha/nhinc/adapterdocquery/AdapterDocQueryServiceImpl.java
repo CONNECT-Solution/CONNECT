@@ -31,7 +31,8 @@ public class AdapterDocQueryServiceImpl
             AssertionType assertIn = respondingGatewayCrossGatewayQueryRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             response = port.respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest());
         }
         catch (Exception ex)

@@ -11,6 +11,7 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 /**
  *
@@ -31,25 +32,40 @@ public class NhincProxyDocQuerySecuredImpl
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body, AssertionType assertion)
     {
         log.debug("Entering NhincProxyDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
-        AdhocQueryResponse response = new AdhocQueryResponse();
-
+        AdhocQueryResponse response = null;
 
         // Audit the Document Query Request Message sent on the Nhin Interface
         DocQueryAuditLog auditLog = new DocQueryAuditLog();
         AcknowledgementType ack = auditLog.audit(body, assertion);
 
-        log.debug("Creating NhinDocQueryProxy");
-        NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
-        NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
+        try
+        {
+            log.debug("Creating NhinDocQueryProxy");
+            NhinDocQueryProxyObjectFactory docQueryFactory = new NhinDocQueryProxyObjectFactory();
+            NhinDocQueryProxy proxy = docQueryFactory.getNhinDocQueryProxy();
 
-        RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
+            RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
 
-        request.setAdhocQueryRequest(body.getAdhocQueryRequest());
-        request.setAssertion(assertion);
-        request.setNhinTargetSystem(body.getNhinTargetSystem());
+            request.setAdhocQueryRequest(body.getAdhocQueryRequest());
+            request.setAssertion(assertion);
+            request.setNhinTargetSystem(body.getNhinTargetSystem());
 
-        log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
-        response = proxy.respondingGatewayCrossGatewayQuery(request);
+            log.debug("Calling NhinDocQueryProxy.respondingGatewayCrossGatewayQuery(request)");
+            response = proxy.respondingGatewayCrossGatewayQuery(request);
+        }
+        catch(Throwable t)
+        {
+            log.error("Error sending NHIN Proxy message: " + t.getMessage(), t);
+            response = new AdhocQueryResponse();
+            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+
+            RegistryError registryError = new RegistryError();
+            registryError.setCodeContext("Processing NHIN Proxy document retrieve");
+            registryError.setErrorCode("XDSRepositoryError");
+            registryError.setSeverity("Error");
+            // TODO: Check null pointer on ... probably error list
+            response.getRegistryErrorList().getRegistryError().add(registryError);
+        }
 
         // Audit the Document Query Response Message received on the Nhin Interface
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();

@@ -33,7 +33,8 @@ public class NhincProxyDocQueryImpl
             AssertionType assertIn = respondingGatewayCrossGatewayQueryRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
             body.setAdhocQueryRequest(respondingGatewayCrossGatewayQueryRequest.getAdhocQueryRequest());
             body.setNhinTargetSystem(respondingGatewayCrossGatewayQueryRequest.getNhinTargetSystem());

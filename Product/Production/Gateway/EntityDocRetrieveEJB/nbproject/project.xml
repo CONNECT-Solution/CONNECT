@@ -19,6 +19,10 @@
             <included-library>reference.NhincLib.jar</included-library>
             <included-library>reference.NhinDocRetrieveProxy.jar</included-library>
             <included-library>reference.NhinDocRetrieveProxyImpl.jar</included-library>
+            <included-library>reference.AuditRepositoryProxy.jar</included-library>
+            <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
+            <included-library>reference.AggregatorLib.jar</included-library>
+            <included-library>reference.NhincDataTransformsLib.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -27,6 +31,30 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>AggregatorLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AuditRepositoryProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AuditRepositoryProxyImpl</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
             <reference>
                 <foreign-project>NhinDocRetrieveProxy</foreign-project>
                 <artifact-type>jar</artifact-type>
@@ -37,6 +65,14 @@
             </reference>
             <reference>
                 <foreign-project>NhinDocRetrieveProxyImpl</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>NhincDataTransformsLib</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

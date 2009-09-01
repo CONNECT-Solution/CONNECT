@@ -33,7 +33,8 @@ public class AdapterDocRetrieveServiceImpl
             AssertionType assertIn = respondingGatewayCrossGatewayRetrieveRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             log.debug("Calling secure adapter doc retrieve.");
             result = port.respondingGatewayCrossGatewayRetrieve(respondingGatewayCrossGatewayRetrieveRequest.getRetrieveDocumentSetRequest());
             System.out.println("Result = "+result);

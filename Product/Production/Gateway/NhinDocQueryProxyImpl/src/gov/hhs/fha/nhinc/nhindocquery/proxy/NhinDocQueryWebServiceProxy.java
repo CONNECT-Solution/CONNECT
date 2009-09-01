@@ -53,7 +53,8 @@ public class NhinDocQueryWebServiceProxy implements NhinDocQueryProxy {
             AssertionType assertIn = request.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
-
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            
             response = port.respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest());
         } else {
             log.error("The URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME + " is null");
