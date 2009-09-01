@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
   <services>
-    <service name="EntityAuditLogQuery">
-      <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuery.wsdl</wsdl-url>
-      <local-wsdl-file>EntityAuditLogQuery.wsdl</local-wsdl-file>
-      <service-name>EntityAuditLogQuery</service-name>
-      <port-name>EntityAuditLogQueryPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.entityauditlogquery</package-name>
+    <service name="ProxyAuditLogQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditLogQuery</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyAuditLogQuery.wsdl</local-wsdl-file>
+      <service-name>NhincProxyAuditLogQuery</service-name>
+      <port-name>NhincProxyAuditLogQueryPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
@@ -25,13 +25,13 @@
         </wsimport-option>
       </wsimport-options>
     </service>
-    <service name="ProxyAuditLogQuery">
-      <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditLogQuery</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuery.wsdl</wsdl-url>
-      <local-wsdl-file>NhincProxyAuditLogQuery.wsdl</local-wsdl-file>
-      <service-name>NhincProxyAuditLogQuery</service-name>
-      <port-name>NhincProxyAuditLogQueryPortSoap11</port-name>
-      <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquery</package-name>
+    <service name="EntityAuditLogQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
+      <service-name>EntityAuditLogQuerySamlService</service-name>
+      <port-name>EntityAuditLogQuerySamlPortTypeBindingPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.entityauditlogquerysaml</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-provider>false</use-provider>
       <wsimport-options>
