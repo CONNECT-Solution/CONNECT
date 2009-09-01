@@ -58,6 +58,7 @@ public class NhincConstants {
     public static final String AUDIT_QUERY_SERVICE_NAME = "auditquery";
     public static final String AUDIT_LOG_ADAPTER_SERVICE_NAME = "adapterauditquery";
     public static final String ADAPTER_AUDIT_QUERY_SECURED_SERVICE_NAME = "adapterauditquerysecured";
+    public static final String ENTITY_AUDIT_QUERY_SECURED_SERVICE_NAME = "entityauditquerysecured";
 
     public static final String AUDIT_LOG_ADAPTER_SERVICE_MANAGER_NAME = "auditrepositorymanager";
     public static final String AUDIT_LOG_INBOUND_DIRECTION = "Inbound";
