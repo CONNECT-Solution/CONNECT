@@ -9,12 +9,12 @@
                 <endpoint-address-uri>/NhinConnect/EntityAuditQuery</endpoint-address-uri>
             </webservice-endpoint>   
         </ejb>
-     <!--   <ejb>
+        <ejb>
             <ejb-name>NhincProxyAuditQuery</ejb-name>
             <webservice-endpoint>
                 <port-component-name>NhincProxyAuditQuery</port-component-name>
                 <endpoint-address-uri>/NhinConnect/NhincProxyAuditQuery</endpoint-address-uri>
             </webservice-endpoint>
-        </ejb> -->
+        </ejb> 
     </enterprise-beans>
 </sun-ejb-jar>
