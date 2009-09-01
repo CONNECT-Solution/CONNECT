@@ -7,6 +7,8 @@ package gov.hhs.fha.nhinc.mpi.proxy;
 
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiService;
+import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType;
+import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredService;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -15,7 +17,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV;
 import org.hl7.v3.PRPAIN201306UV;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import javax.xml.ws.BindingProvider;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 /**
  *
  * @author jhoppesc
@@ -24,7 +28,20 @@ public class AdapterMpiWebServiceProxy implements AdapterMpiProxy {
 
     private static Log log = LogFactory.getLog(AdapterMpiWebServiceProxy.class);
     static AdapterComponentMpiService mpiService = new AdapterComponentMpiService();
+    static AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
+    
+    public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest, AssertionType assertion)
+    {
+        log.debug("In findCandidates secured method.");
+       String url = getSecuredURL();
+       AdapterComponentMpiSecuredPortType port = getSecuredPort(url);
+       SamlTokenCreator tokenCreator = new SamlTokenCreator();
+       java.util.Map requestContext;
+       requestContext = tokenCreator.CreateRequestContext(assertion, url,  NhincConstants.ADAPTER_MPI_ACTION);
+       ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
+       return port.findCandidates(findCandidatesRequest);
+    }
     public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest) {
         String url = null;
         PRPAIN201306UV result = new PRPAIN201306UV();
@@ -52,5 +69,26 @@ public class AdapterMpiWebServiceProxy implements AdapterMpiProxy {
         ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
         return port;
     }
+    private AdapterComponentMpiSecuredPortType  getSecuredPort(String url) {
+        AdapterComponentMpiSecuredPortType  port = mpiSecuredService.getAdapterComponentMpiSecuredPort();
 
+        log.info("Setting endpoint address to MPI Service to " + url);
+        ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+        return port;
+    }
+    private String getSecuredURL()
+    {
+        String url = "";
+
+        try
+        {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME);
+        }
+        catch(Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+        }
+
+        return url;
+    }
 }
