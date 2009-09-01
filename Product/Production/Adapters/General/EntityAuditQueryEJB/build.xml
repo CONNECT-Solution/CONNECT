@@ -99,9 +99,9 @@
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-EntityAuditLogQuerySecured" unless="wsimport-client-EntityAuditLogQuerySecured.notRequired">
 
     </target>
-   <!-- <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyAuditLogQuerySecured" unless="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
+    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyAuditLogQuerySecured" unless="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
 
-    </target> -->
+    </target> 
     
     <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init,wsimport-service-check-EntityAuditQuery" unless="wsimport-service-EntityAuditQuery.notRequired">
 
@@ -117,19 +117,19 @@
         </copy>
     </target>
     
-  <!--  <target name="wsimport-service-NhincProxyAuditQuery" depends="wsimport-init,wsimport-service-check-NhincProxyAuditQuery" unless="wsimport-service-NhincProxyAuditQuery.notRequired">
+   <target name="wsimport-service-NhincProxyAuditLogQuery" depends="wsimport-init,wsimport-service-check-NhincProxyAuditLogQuery" unless="wsimport-service-NhincProxyAuditLogQuery.notRequired">
 
-        <property name="targetLocation-NhincProxyAuditQuery" location="${meta.inf}/wsdl/NhincProxyAuditQuery"/>
-        <property name="sourceLocation-NhincProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyAuditQuery/wsdl/"/>
-        <copy todir="${targetLocation-NhincProxyAuditQuery}">
-            <fileset dir="${sourceLocation-NhincProxyAuditQuery}"/>
+        <property name="targetLocation-NhincProxyAuditLogQuery" location="${meta.inf}/wsdl/NhincProxyAuditLogQuery"/>
+        <property name="sourceLocation-NhincProxyAuditLogQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyAuditLogQuery/wsdl/"/>
+        <copy todir="${targetLocation-NhincProxyAuditLogQuery}">
+            <fileset dir="${sourceLocation-NhincProxyAuditLogQuery}"/>
         </copy>
-        <property name="targetLocationSchema-NhincProxyAuditQuery" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchema-NhincProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyAuditQuery/schemas/"/>
-        <copy todir="${targetLocationSchema-NhincProxyAuditQuery}">
-            <fileset dir="${sourceLocationSchema-NhincProxyAuditQuery}"/>
+        <property name="targetLocationSchema-NhincProxyAuditLogQuery" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchema-NhincProxyAuditLogQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyAuditLogQuery/schemas/"/>
+        <copy todir="${targetLocationSchema-NhincProxyAuditLogQuery}">
+            <fileset dir="${sourceLocationSchema-NhincProxyAuditLogQuery}"/>
         </copy>
-    </target> -->
+    </target> 
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
