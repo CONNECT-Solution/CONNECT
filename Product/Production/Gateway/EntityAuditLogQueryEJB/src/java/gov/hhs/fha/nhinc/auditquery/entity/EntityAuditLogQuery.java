@@ -5,27 +5,25 @@
 
 package gov.hhs.fha.nhinc.auditquery.entity;
 
-import gov.hhs.fha.nhinc.entityauditlogquery.EntityAuditLogQueryPortType;
+import gov.hhs.fha.nhinc.entityauditlogquerysaml.EntityAuditLogQuerySamlPortType;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author user1
+ * @author jhoppesc
  */
-@WebService(serviceName = "EntityAuditLogQuery", portName = "EntityAuditLogQueryPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entityauditlogquery.EntityAuditLogQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityauditlogquery", wsdlLocation = "META-INF/wsdl/EntityAuditLogQuery/EntityAuditLogQuery.wsdl")
+@WebService(serviceName = "EntityAuditLogQuerySamlService", portName = "EntityAuditLogQuerySamlPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.entityauditlogquerysaml.EntityAuditLogQuerySamlPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entityauditlogquerysaml", wsdlLocation = "META-INF/wsdl/EntityAuditLogQuery/EntityAuditLogQuerySecured.wsdl")
 @Stateless
-public class EntityAuditLogQuery implements EntityAuditLogQueryPortType {
+public class EntityAuditLogQuery implements EntityAuditLogQuerySamlPortType {
+    @Resource
+    private WebServiceContext context;
 
-    /**
-     * This method will receive and service Audit Log Query requests from the Entity Interface
-     *
-     * @param findAuditEventsRequest The audit log query search criteria
-     * @return A list of Audit Log records that match the specified criteria
-     */
-    public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType findAuditEventsRequest) {
+    public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType findAuditEventsRequest) {
         EntityAuditLogImpl auditQuery = new EntityAuditLogImpl();
-        return auditQuery.findAuditEvents(findAuditEventsRequest);
+        return auditQuery.findAuditEvents(findAuditEventsRequest, context);
     }
 
 }

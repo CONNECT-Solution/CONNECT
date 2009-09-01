@@ -16,7 +16,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,16 +38,21 @@ public class EntityAuditLogImpl {
      * @param findAuditEventsRequest The audit log query search criteria
      * @return A list of Audit Log records that match the specified criteria
      */
-    public FindAuditEventsResponseType findAuditEvents(FindAuditEventsRequestType findAuditEventsRequest) {
+    public FindAuditEventsResponseType findAuditEvents(FindAuditEventsSecuredRequestType findAuditEventsRequest, WebServiceContext context) {
         log.debug("Entering EntityAuditLogImpl.findAuditEvents...");
 
         FindAuditEventsResponseType resp = new FindAuditEventsResponseType();
         EntityAuditQuery auditQuery = new EntityAuditQuery();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
+        FindAuditEventsRequestType request = new FindAuditEventsRequestType();
+        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        request.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
+        request.setNhinTargetCommunities(findAuditEventsRequest.getNhinTargetCommunities());
+
         // Audit the Audit Log Query Request Message received on the Entity Interface
         EntityAuditLog auditLog = new EntityAuditLog();
-        AcknowledgementType ack = auditLog.audit(findAuditEventsRequest);
+        AcknowledgementType ack = auditLog.audit(request);
 
         // Check to see if any target communities were specified in the request message.
         // If there were no target communities provided then perform a local audit query
@@ -52,7 +60,7 @@ public class EntityAuditLogImpl {
         if (findAuditEventsRequest.getNhinTargetCommunities() == null ||
                 NullChecker.isNullish(findAuditEventsRequest.getNhinTargetCommunities().getNhinTargetCommunity())) {
             // Perform a local audit query
-            FindCommunitiesAndAuditEventsResponseType auditResults = auditQuery.query(findAuditEventsRequest);
+            FindCommunitiesAndAuditEventsResponseType auditResults = auditQuery.query(request);
 
             // Save off the audit query results
             if (auditResults.getFindAuditEventResponse() != null &&
@@ -84,8 +92,8 @@ public class EntityAuditLogImpl {
                 ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
 
                 gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType proxyReq = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
-                proxyReq.setAssertion(findAuditEventsRequest.getAssertion());
-                proxyReq.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
+                proxyReq.setAssertion(request.getAssertion());
+                proxyReq.setFindAuditEvents(request.getFindAuditEvents());
                 NhinTargetSystemType targetSys = new NhinTargetSystemType();
                 targetSys.setHomeCommunity(targetComm.getHomeCommunity());
                 proxyReq.setNhinTargetSystem(targetSys);
