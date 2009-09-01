@@ -73,6 +73,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
 			</service>
 			<service>
+				<name>auditrepositorysecured</name>
+				<description>Audit Repository Secured Service</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+			</service>
+			<service>
 				<name>auditrepositorymanager</name>
 				<description>auditrepositorymanager</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
@@ -118,9 +123,19 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
 			</service>
 			<service>
+				<name>adapterauditquerysecured</name>
+				<description>adapterauditquerysecured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+			</service>
+			<service>
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
+			</service>
+		<service>
+				<name>mpisecured</name>
+				<description>Master Patient Index</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
 			</service>
 			<service>
 				<name>adaptercomponentmpiservice</name>
@@ -330,11 +345,16 @@
 				<name>patientcorrelationsecured</name>
 				<description>Patient Correlation Secured Service</description>
 				<endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
-			</service>			
+			</service>				
 			<service>
 				<name>auditrepository</name>
 				<description>Audit Repository</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+			</service>
+			<service>
+				<name>auditrepositorysecured</name>
+				<description>Audit Repository Secured Service</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
 			</service>
 			<service>
 				<name>auditrepositorymanager</name>
@@ -366,6 +386,11 @@
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
+			</service>
+		<service>
+				<name>mpisecured</name>
+				<description>Master Patient Index</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
 			</service>
 			<service>
 				<name>adaptercomponentmpiservice</name>
@@ -612,6 +637,16 @@
 				<name>nhincproxydocretrievesecured</name>
 				<description>NHINC Proxy Document Retrieve Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>adapterauditquery</name>
+				<description>adapterauditquery</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>adapterauditquerysecured</name>
+				<description>adapterauditquerysecured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
