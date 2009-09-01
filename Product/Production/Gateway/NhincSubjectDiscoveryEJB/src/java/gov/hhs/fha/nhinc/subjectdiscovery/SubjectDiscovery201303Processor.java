@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.subjectdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationResponseType;
@@ -51,7 +52,7 @@ public class SubjectDiscovery201303Processor {
 
         // For each of the assigning authority ids attempt to get patient correlations for that assigning authority
         for (String assignAuthId : assignAuthIds) {
-            removeCorrelations(patId, assignAuthId);
+            removeCorrelations(patId, assignAuthId, request.getAssertion());
         }
 
         ack = ackCreater.createAck(request, "Success");
@@ -75,7 +76,7 @@ public class SubjectDiscovery201303Processor {
         return aaList;
     }
 
-    private void removeCorrelations(II patientId, String assignAuthId) {
+    private void removeCorrelations(II patientId, String assignAuthId, AssertionType assertion) {
         // Set up the request message to find out if there are any patient correlations for this patient id and assigning authority
         RetrievePatientCorrelationsRequestType patCorrelationQueryReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType subId = new QualifiedSubjectIdentifierType();

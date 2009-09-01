@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.subjectdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
@@ -77,7 +78,7 @@ public class SubjectDiscovery201301Processor {
                 PRPAIN201302UV msg201302 = create201302(patient, request.getPRPAIN201301UV());
 
                 // Create a patient correlation
-                createPatientCorrelation(request.getPRPAIN201301UV(), msg201302);
+                createPatientCorrelation(request.getPRPAIN201301UV(), msg201302, request.getAssertion());
 
                 // Set up the target
                 NhinTargetSystemType target = new NhinTargetSystemType();
@@ -261,11 +262,11 @@ public class SubjectDiscovery201301Processor {
         return result;
     }
 
-    private void createPatientCorrelation(PRPAIN201301UV remotePatient, PRPAIN201302UV localPatient) {
+    private void createPatientCorrelation(PRPAIN201301UV remotePatient, PRPAIN201302UV localPatient, AssertionType assertion) {
         AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
         QualifiedSubjectIdentifierType localSubId = new QualifiedSubjectIdentifierType();
         QualifiedSubjectIdentifierType remoteSubId = new QualifiedSubjectIdentifierType();
-
+        
         if (remotePatient != null &&
                 localPatient != null) {
             if (localPatient.getControlActProcess() != null &&
@@ -309,6 +310,7 @@ public class SubjectDiscovery201301Processor {
             if (request.getQualifiedPatientIdentifier().isEmpty() == false) {
                 PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
                 PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+                request.setAssertion(assertion);
                 patCorrelationProxy.addPatientCorrelation(request);
             }
         }

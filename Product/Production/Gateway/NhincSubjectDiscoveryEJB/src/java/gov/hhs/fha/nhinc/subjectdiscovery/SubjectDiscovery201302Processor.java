@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.subjectdiscovery;
 
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
@@ -73,7 +74,7 @@ public class SubjectDiscovery201302Processor {
 
             if (localId != null) {
                 // Create a patient correlation
-                createPatientCorrelation(request.getPRPAIN201302UV(), localId);
+                createPatientCorrelation(request.getPRPAIN201302UV(), localId, request.getAssertion());
 
                 // Successfully processed the 201302 so create an ack reflecting success
                 ackMsg = "Success";
@@ -174,6 +175,7 @@ public class SubjectDiscovery201302Processor {
                 // Query the MPI to see if the patient is found
                 AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
                 AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
+                
                 queryResults = mpiProxy.findCandidates(query);
             } else {
                 queryResults = null;
@@ -185,7 +187,7 @@ public class SubjectDiscovery201302Processor {
         return queryResults;
     }
 
-    private void createPatientCorrelation(PRPAIN201302UV remotePatient, II localId) {
+    private void createPatientCorrelation(PRPAIN201302UV remotePatient, II localId, AssertionType assertion) {
         AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
         QualifiedSubjectIdentifierType localSubId = new QualifiedSubjectIdentifierType();
         QualifiedSubjectIdentifierType remoteSubId = new QualifiedSubjectIdentifierType();
