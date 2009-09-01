@@ -6,5 +6,5 @@
     <!-- <bean id="auditrepository" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyNoOpImpll"/> -->
 	
 	<!-- Web-service Audit Repository implementation -->
-     <bean id="auditrepository" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryWebServiceProxy"/> 
+     <bean id="auditrepository" class="gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositorySecuredWebServiceProxy"/> 
 </beans>
