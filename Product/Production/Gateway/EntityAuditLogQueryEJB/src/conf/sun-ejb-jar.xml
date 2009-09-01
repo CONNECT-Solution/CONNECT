@@ -15,9 +15,9 @@
             </webservice-endpoint>   
         </ejb>
         <ejb>
-            <ejb-name>ProxyAuditLogQuery</ejb-name>
+            <ejb-name>NhincAuditQueryProxy</ejb-name>
             <webservice-endpoint>
-                <port-component-name>ProxyAuditLogQuery</port-component-name>
+                <port-component-name>NhincAuditQueryProxy</port-component-name>
                 <endpoint-address-uri>/NhinConnect/NhincProxyAuditLogQuerySecured</endpoint-address-uri>
                 <login-config>
                     <auth-method>CLIENT-CERT</auth-method>
