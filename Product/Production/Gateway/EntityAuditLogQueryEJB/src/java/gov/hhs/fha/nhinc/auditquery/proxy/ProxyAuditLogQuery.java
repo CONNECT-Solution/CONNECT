@@ -2,31 +2,27 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.auditquery.proxy;
 
-import gov.hhs.fha.nhinc.nhincproxyauditlogquery.NhincProxyAuditLogQueryPortType;
+import gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured.NhincProxyAuditLogQuerySecuredPortType;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author Jon Hoppesch
+ * @author jhoppesc
  */
-@WebService(serviceName = "NhincProxyAuditLogQuery", portName = "NhincProxyAuditLogQueryPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyauditlogquery.NhincProxyAuditLogQueryPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery", wsdlLocation = "META-INF/wsdl/ProxyAuditLogQuery/NhincProxyAuditLogQuery.wsdl")
+@WebService(serviceName = "NhincProxyAuditLogQuerySecured", portName = "NhincProxyAuditLogQuerySecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured.NhincProxyAuditLogQuerySecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured", wsdlLocation = "META-INF/wsdl/ProxyAuditLogQuery/NhincProxyAuditLogQuerySecured.wsdl")
 @Stateless
-public class ProxyAuditLogQuery implements NhincProxyAuditLogQueryPortType {
+public class ProxyAuditLogQuery implements NhincProxyAuditLogQuerySecuredPortType {
 
-    /**
-     * This method will perform an audit log query to a specified community and return a list
-     * of audit log records will be returned to the user.
-     *
-     * @param findAuditEventsRequest The audit log query search criteria
-     * @return A list of Audit Log records that match the specified criteria
-     */
-    public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType findAuditEventsRequest) {
-        ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl ();
-        return proxyAuditQuery.findAuditEvents(findAuditEventsRequest);
+    @Resource
+    private WebServiceContext context;
+
+    public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsSecuredRequestType findAuditEventsRequest) {
+        ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
+        return proxyAuditQuery.findAuditEvents(findAuditEventsRequest, context);
     }
-
 }
