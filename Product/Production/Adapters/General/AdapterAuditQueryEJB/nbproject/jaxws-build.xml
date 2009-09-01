@@ -18,24 +18,24 @@
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-AdapterAuditQuery" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterAuditQuery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquery/AdapterAuditLogQuery.java"/>
+    <target name="wsimport-service-check-AdapterSecuredAuditLogQuery" depends="wsimport-init">
+        <condition property="wsimport-service-AdapterSecuredAuditLogQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquerysaml/AdapterAuditLogQuerySamlService.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-AdapterAuditQuery" depends="wsimport-init,wsimport-service-check-AdapterAuditQuery" unless="wsimport-service-AdapterAuditQuery.notRequired">
-        <property name="service-wsdl-AdapterAuditQuery" location="${meta.inf}/xml-resources/web-services/AdapterAuditQuery/wsdl/AdapterAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-AdapterAuditQuery" location="${meta.inf}/wsdl/AdapterAuditQuery"/>
-        <property name="sourceLocation-AdapterAuditQuery" location="${meta.inf}/xml-resources/web-services/AdapterAuditQuery/wsdl/"/>
-        <copy todir="${targetLocation-AdapterAuditQuery}">
-            <fileset dir="${sourceLocation-AdapterAuditQuery}"/>
+    <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init,wsimport-service-check-AdapterSecuredAuditLogQuery" unless="wsimport-service-AdapterSecuredAuditLogQuery.notRequired">
+        <property name="service-wsdl-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSecuredAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/wsdl/AdapterSecuredAuditLogQuery"/>
+        <property name="sourceLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
+        <copy todir="${targetLocation-AdapterSecuredAuditLogQuery}">
+            <fileset dir="${sourceLocation-AdapterSecuredAuditLogQuery}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-AdapterAuditQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquery"/>
+    <target name="wsimport-service-clean-AdapterSecuredAuditLogQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquerysaml"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterAuditQuery"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterSecuredAuditLogQuery"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>

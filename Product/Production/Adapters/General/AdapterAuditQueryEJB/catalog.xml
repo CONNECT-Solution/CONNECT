@@ -20,4 +20,7 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd" uri="src/conf/xml-resources/web-services/AdapterAuditQuery/schemas/nhinc/common/Cdc.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd" uri="src/conf/xml-resources/web-services/AdapterAuditQuery/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/conf/xml-resources/web-services/AdapterAuditQuery/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl" uri="src/conf/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/conf/xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/conf/xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/nhinc/gateway/SamlTokenData.xsd"/>
 </catalog>
