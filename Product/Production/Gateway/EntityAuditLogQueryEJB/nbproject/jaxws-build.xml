@@ -35,24 +35,7 @@
     <target name="wsimport-service-clean-EntityAuditLogQuery" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entityauditlogquerysaml"/>
     </target>
-    <target name="wsimport-service-check-ProxyAuditLogQuery" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyAuditLogQuery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquerysecured/NhincProxyAuditLogQuerySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyAuditLogQuery" depends="wsimport-init,wsimport-service-check-ProxyAuditLogQuery" unless="wsimport-service-ProxyAuditLogQuery.notRequired">
-        <property name="service-wsdl-ProxyAuditLogQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditLogQuery/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-ProxyAuditLogQuery" location="${meta.inf}/wsdl/ProxyAuditLogQuery"/>
-        <property name="sourceLocation-ProxyAuditLogQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditLogQuery/wsdl/"/>
-        <copy todir="${targetLocation-ProxyAuditLogQuery}">
-            <fileset dir="${sourceLocation-ProxyAuditLogQuery}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-ProxyAuditLogQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquerysecured"/>
-    </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-EntityAuditLogQuery, wsimport-service-ProxyAuditLogQuery"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntityAuditLogQuery"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>

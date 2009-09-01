@@ -90,10 +90,8 @@
 			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/EntityAuditLogQuery/schemas/"/>
 		</copy>
 	</target>
-	<target name="wsimport-service-ProxyAuditLogQuery" depends="wsimport-init,wsimport-service-check-ProxyAuditLogQuery">
-<!--
-		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/ProxyAuditLogQuery/wsdl/NhincProxyAuditLogQuery.wsdl" catalog="catalog.xml"/>
--->
+<!--	<target name="wsimport-service-ProxyAuditLogQuery" depends="wsimport-init,wsimport-service-check-ProxyAuditLogQuery">
+
 		<copy todir="${basedir}/${meta.inf}/wsdl/ProxyAuditLogQuery">
 			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/ProxyAuditLogQuery/wsdl/"/>
 		</copy>
@@ -101,7 +99,7 @@
 		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
 			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/ProxyAuditLogQuery/schemas/"/>
 		</copy>
-	</target>
+	</target> -->
 	
 	<target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
