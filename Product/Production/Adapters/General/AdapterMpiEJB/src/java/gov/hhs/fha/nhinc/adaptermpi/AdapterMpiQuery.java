@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+
 /**
  *
  * @author Jon Hoppesch
