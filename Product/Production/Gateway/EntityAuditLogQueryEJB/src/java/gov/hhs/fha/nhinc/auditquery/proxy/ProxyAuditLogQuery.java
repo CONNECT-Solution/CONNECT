@@ -2,6 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package gov.hhs.fha.nhinc.auditquery.proxy;
 
 import gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured.NhincProxyAuditLogQuerySecuredPortType;
@@ -25,4 +26,5 @@ public class ProxyAuditLogQuery implements NhincProxyAuditLogQuerySecuredPortTyp
         ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
         return proxyAuditQuery.findAuditEvents(findAuditEventsRequest, context);
     }
+
 }
