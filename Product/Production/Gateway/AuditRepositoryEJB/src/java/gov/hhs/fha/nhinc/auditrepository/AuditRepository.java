@@ -2,34 +2,30 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.auditrepository;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType;
+import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType;
+import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
- * @author mflynn02
+ * @author jhoppesc
  */
-@WebService(serviceName = "AuditRepositoryManagerService", portName = "AuditRepositoryManagerPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository", wsdlLocation = "META-INF/wsdl/AuditRepository/NhincComponentAuditRepository.wsdl")
+@WebService(serviceName = "AuditRepositoryManagerSecuredService", portName = "AuditRepositoryManagerSecuredPort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository", wsdlLocation = "META-INF/wsdl/AuditRepository/NhincComponentAuditRepositorySecured.wsdl")
 @Stateless
-public class AuditRepository implements AuditRepositoryManagerPortType {
-    
-    private static Log log = LogFactory.getLog(AuditRepository.class);
+public class AuditRepository implements AuditRepositoryManagerSecuredPortType {
+
+    @Resource
+    private WebServiceContext context;
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType queryAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
-        return AuditRepositoryHelper.queryAuditEvents(queryAuditEventsRequest);
+        return AuditRepositoryHelper.queryAuditEvents(queryAuditEventsRequest, context);
     }
 
-    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType logEventRequest) {
-        return AuditRepositoryHelper.logEvent(logEventRequest);
+    public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType logEvent(gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType logEventRequest) {
+        return AuditRepositoryHelper.logEvent(logEventRequest, context);
     }
-
 }

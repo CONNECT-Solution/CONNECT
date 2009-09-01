@@ -20,12 +20,12 @@
     </target>
     <target name="wsimport-service-check-AuditRepository" depends="wsimport-init">
         <condition property="wsimport-service-AuditRepository.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentauditrepository/AuditRepositoryManagerService.java"/>
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentauditrepository/AuditRepositoryManagerSecuredService.java"/>
         </condition>
     </target>
     <target name="wsimport-service-AuditRepository" depends="wsimport-init,wsimport-service-check-AuditRepository" unless="wsimport-service-AuditRepository.notRequired">
-        <property name="service-wsdl-AuditRepository" location="${meta.inf}/xml-resources/web-services/AuditRepository/wsdl/NhincComponentAuditRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AuditRepository}" catalog="catalog.xml"/>
+        <property name="service-wsdl-AuditRepository" location="${meta.inf}/xml-resources/web-services/AuditRepository/wsdl/NhincComponentAuditRepositorySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AuditRepository}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         <property name="targetLocation-AuditRepository" location="${meta.inf}/wsdl/AuditRepository"/>
         <property name="sourceLocation-AuditRepository" location="${meta.inf}/xml-resources/web-services/AuditRepository/wsdl/"/>
         <copy todir="${targetLocation-AuditRepository}">

@@ -32,10 +32,13 @@ import gov.hhs.fha.nhinc.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
 import com.services.nhinc.schema.auditmessage.*;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -53,28 +56,17 @@ public class AuditRepositoryImpl {
         log.debug("AuditRepositoryImpl Initialized");
     }
 
-	/**
-     * 
-     * @return String
-     */
-/* TODO   private static String getAuditProperties(){
-        String choice = "";
-        try {
-            choice = PropertyAccessor.getProperty("auditlogchoice", "loggingstatus");
-        } catch (PropertyAccessException ex) {
-            log.error(ex.getMessage());
-        }
-        return choice;
-    }
-*/
+
     /**
      * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the status of logging
      * @param mess
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
-    public static AcknowledgementType logAudit(LogEventRequestType mess) {
+    public AcknowledgementType logAudit(LogEventSecureRequestType mess, WebServiceContext context) {
         log.debug("AuditLogManagerImpl.logAudit() -- Begin");
         AcknowledgementType response = null;
+
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
         ActiveParticipant activeParticipant = null;
         ParticipantObjectIdentificationType participantObjectIdentificationType = null;
@@ -132,8 +124,6 @@ public class AuditRepositoryImpl {
         }
 
         auditRec.setMessageType(mess.getInterface() + " " + mess.getDirection());
-//        auditRec.setReceiverPatientId(gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper.createCompositePatientId(auditData.getRecieverHomeCommunityId(), auditData.getReceiverPatientId()));
-//        auditRec.setSenderPatientId(auditData.getSenderPatientId());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
         XMLGregorianCalendar XMLCalDate = eventIdentification.getEventDateTime();
@@ -156,7 +146,7 @@ public class AuditRepositoryImpl {
         return response;
     }
 
-    public static Blob getBlobFromAuditMessage(com.services.nhinc.schema.auditmessage.AuditMessageType mess) {
+    private Blob getBlobFromAuditMessage(com.services.nhinc.schema.auditmessage.AuditMessageType mess) {
         Blob eventMessage = null; //Not Implemented
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance("com.services.nhinc.schema.auditmessage");
@@ -181,11 +171,10 @@ public class AuditRepositoryImpl {
      * @param query
      * @return FindAuditEventsResponseType
      */
-    public static FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query) {
+    public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, WebServiceContext context) {
         log.debug("AuditLogManagerImpl.findAudit() -- Begin");
         
         if (logStatus.equals("")) {
-// TODO            logStatus = getAuditProperties();
             logStatus = "on";
         }
 
@@ -225,7 +214,7 @@ public class AuditRepositoryImpl {
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
-    public static FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
+    private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
         log.debug("AuditLogManagerImpl.buildAuditResponseType -- Begin");
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
@@ -266,7 +255,7 @@ public class AuditRepositoryImpl {
      * @param auditBlob
      * @return AuditMessageType
      */
-    public static AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
+    private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
         log.debug("AuditLogManagerImpl.unMarshallBlobToAuditMess -- Begin");
         AuditMessageType auditMessageType = null;
         try {
@@ -274,7 +263,6 @@ public class AuditRepositoryImpl {
                 InputStream in = auditBlob.getBinaryStream();
                 JAXBContext jaxbContext = JAXBContext.newInstance("com.services.nhinc.schema.auditmessage");
                 Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-//                com.services.nhinc.schema.auditmessage.ObjectFactory factory = new com.services.nhinc.schema.auditmessage.ObjectFactory();
                 JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(in);
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }
@@ -291,7 +279,7 @@ public class AuditRepositoryImpl {
      * @param xmlCalDate
      * @return java.util.Date
      */
-    private static Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
+    private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
         Calendar cal = Calendar.getInstance(Locale.getDefault());
         log.info("cal.getTime() -> "+cal.getTime());
         cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
@@ -305,7 +293,7 @@ public class AuditRepositoryImpl {
      * @param xmlCalDate
      * @return String
      */
-    private static String convertXMLGregorianCalendarToString(XMLGregorianCalendar xmlCalDate) {
+    private String convertXMLGregorianCalendarToString(XMLGregorianCalendar xmlCalDate) {
         GregorianCalendar calDate = xmlCalDate.toGregorianCalendar();
         Date eventDate = calDate.getTime();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

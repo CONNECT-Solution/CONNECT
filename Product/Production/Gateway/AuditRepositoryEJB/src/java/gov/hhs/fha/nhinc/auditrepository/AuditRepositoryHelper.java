@@ -4,13 +4,14 @@
  */
 
 package gov.hhs.fha.nhinc.auditrepository;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import javax.xml.ws.WebServiceContext;
 
 /**
  *
@@ -19,21 +20,21 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 public class AuditRepositoryHelper {
     private static Log log = LogFactory.getLog(AuditRepositoryHelper.class);
         
-    public static FindCommunitiesAndAuditEventsResponseType queryAuditEvents(FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest) {
+    public static FindCommunitiesAndAuditEventsResponseType queryAuditEvents(FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
         
         FindCommunitiesAndAuditEventsResponseType response = new FindCommunitiesAndAuditEventsResponseType();
         
         // Create an instance of the DAO and query the Audit Respository
-        response = AuditRepositoryImpl.findAudit(queryAuditEventsRequest.getFindAuditEvents());
+        response = new AuditRepositoryImpl().findAudit(queryAuditEventsRequest.getFindAuditEvents(), context);
         
         return response;
     }
     
-    public static AcknowledgementType logEvent(LogEventRequestType logEventRequest)
+    public static AcknowledgementType logEvent(LogEventSecureRequestType logEventRequest, WebServiceContext context)
     {
         AcknowledgementType acknowledgement = new AcknowledgementType();
         
-        acknowledgement = AuditRepositoryImpl.logAudit(logEventRequest);
+        acknowledgement = new AuditRepositoryImpl().logAudit(logEventRequest, context);
         
         return acknowledgement;
     }
