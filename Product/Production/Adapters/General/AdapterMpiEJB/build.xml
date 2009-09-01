@@ -110,28 +110,40 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/schemas/" />
         </copy>
     </target>
+		<target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init,wsimport-client-check-AdapterComponentSecuredMpi" unless="wsimport-client-AdapterComponentSecuredMpi.notRequired"/>
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        
+        
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
+        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincSamlTokenLib.jar}"/>
         </manifest>
     </target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

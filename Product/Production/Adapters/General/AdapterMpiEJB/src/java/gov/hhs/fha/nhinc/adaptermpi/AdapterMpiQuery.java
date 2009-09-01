@@ -14,7 +14,14 @@ import org.hl7.v3.PRPAIN201305UV;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 
-
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import java.util.Map;
+import javax.xml.ws.BindingProvider;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import javax.xml.ws.WebServiceContext;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 /**
  *
  * @author Jon Hoppesch
@@ -26,13 +33,29 @@ public class AdapterMpiQuery {
    private static final String GATEWAY_PROPERTY_FILE = "gateway";
    private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
    private static final String SERVICE_NAME_ADAPTER_COMPONENT_MPI_SERVICE = "adaptercomponentmpiservice";
-  
+
+
    /**
     * Send the patient query request to the actual MPI that is implemented
     * 
     * @param 
     * @return
     */
+   public static PRPAIN201306UV query(PRPAIN201305UV findCandidatesRequest, WebServiceContext context) {
+        log.debug("Entering AdapterMpiQuery.query secured method...");
+       String url = getURL();
+       AdapterComponentMpiSecuredPortType port = getPort(url);
+       SamlTokenCreator tokenCreator = new SamlTokenCreator();
+
+       AssertionType assertion = gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor.GetAssertion(context);
+
+       java.util.Map requestContext;
+       requestContext = tokenCreator.CreateRequestContext(assertion, url,  NhincConstants.ADAPTER_MPI_ACTION);
+       ((BindingProvider) port).getRequestContext().putAll(requestContext);
+       
+       return port.findCandidates(findCandidatesRequest);
+
+   }
    public static PRPAIN201306UV query(PRPAIN201305UV findCandidatesRequest) {
        log.debug("Entering AdapterMpiQuery.query method...");
        PRPAIN201306UV  queryResponse = null;
@@ -87,4 +110,29 @@ public class AdapterMpiQuery {
        log.debug("Exiting AdapterMpiQuery.query method...");
        return queryResponse;
    }
+       private static AdapterComponentMpiSecuredPortType getPort(String url)
+       {
+           AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
+           AdapterComponentMpiSecuredPortType port = mpiSecuredService.getAdapterComponentMpiSecuredPort();
+
+           log.info("Setting endpoint address to MPI Component Secured Service to " + url);
+           ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+           return port;
+       }
+    private static String getURL()
+    {
+        String url = "";
+
+        try
+        {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_MPI_SECURED_SERVICE_NAME);
+        }
+        catch(Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+        }
+
+        return url;
+    }
 }
