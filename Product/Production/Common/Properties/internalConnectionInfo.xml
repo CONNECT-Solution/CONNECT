@@ -225,6 +225,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
 			</service>
 			<service>
+				<name>entitysubjectdiscoverysecured</name>
+				<description>Entity Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
 				<name>entitynotificationconsumer</name>
 				<description>Entity Notify</description>
 				<endpointURL>http://localhost:9080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
@@ -490,6 +495,11 @@
 				<endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
 			</service>
 			<service>
+				<name>entitysubjectdiscoverysecured</name>
+				<description>Entity Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
 				<name>entitydocqueryproxy</name>
 				<description>Entity Document Query Proxy</description>
 				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
@@ -582,6 +592,11 @@
 				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
 			<service>
+				<name>entitysubjectdiscoverysecured</name>
+				<description>Entity Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
 				<name>entitydocqueryproxy</name>
 				<description>Entity Document Query Proxy</description>
 				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
@@ -637,6 +652,11 @@
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
 				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL>
+			</service>
+			<service>
+				<name>entitysubjectdiscoverysecured</name>
+				<description>Entity Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
 			</service>
 			<service>
 				<name>entitydocqueryproxy</name>
