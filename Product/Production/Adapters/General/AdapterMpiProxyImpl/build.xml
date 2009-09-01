@@ -90,20 +90,25 @@
         </wsimport>
 -->
     </target>
+    <target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init"/>   
     
     <target depends="init" name="deps-jar" unless="no.deps">
     		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
     		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		
+    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+            
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
     <target depends="init" name="deps-clean" unless="no.deps">
     		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
     		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target> 
 </project>
