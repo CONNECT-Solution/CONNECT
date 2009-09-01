@@ -287,7 +287,17 @@
 			<service>
 				<name>entityauditquerysecured</name>
 				<description>Entity Audit Query Secured</description>
-				<endpointURL>https://localhost:8181/NhinConnect/EntityAuditQuerySecured</endpointURL>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquery</name>
+				<description>NHINC Proxy Audit Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquerysecured</name>
+				<description>NHINC ProxyAudit Query Secured</description>
+				<endpointURL>https://localhost:8181//NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
@@ -557,7 +567,17 @@
 			<service>
 				<name>entityauditquerysecured</name>
 				<description>Entity Audit Query Secured</description>
-				<endpointURL>https://localhost:8181/NhinConnect/EntityAuditQuerySecured</endpointURL>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquery</name>
+				<description>NHINC Proxy Audit Query</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyauditquerysecured</name>
+				<description>NHINC ProxyAudit Query Secured</description>
+				<endpointURL>https://localhost:8181//NhinConnect/NhincProxyAuditLogQuerySecure</endpointURL>
 			</service>
 			<service>
 				<name>adapterauditquery</name>
