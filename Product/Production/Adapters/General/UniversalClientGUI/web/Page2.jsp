@@ -15,7 +15,7 @@
                 <webuijsf:body id="body1" style="-rave-layout: grid">
                     <webuijsf:form id="form1">
                         <webuijsf:image height="100" id="connectImage" style="left: 0px; top: 0px; position: absolute" url="/resources/connect.GIF" width="312"/>
-                        <webuijsf:tabSet binding="#{Page2.clientTabSet}" id="clientTabSet" selected="subjectDiscoveryTab" style="left: 0px; top: 144px; position: absolute; width: 694px">
+                        <webuijsf:tabSet binding="#{Page2.clientTabSet}" id="clientTabSet" selected="patientSearchTab" style="left: 0px; top: 144px; position: absolute; width: 694px">
                             <webuijsf:tab actionExpression="#{Page2.patientSearchTab_action}" binding="#{Page2.patientSearchTab}" id="patientSearchTab"
                                 style="font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Search">
                                 <webuijsf:panelLayout id="patientSearchLayoutPanel" style="height: 537px; position: relative; width: 647px; -rave-layout: grid">
@@ -85,9 +85,38 @@
                                     <webuijsf:staticText binding="#{Page2.broadcastInfo2}" id="broadcastInfo2" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 216px; top: 96px; position: absolute"/>
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
-                            <webuijsf:tab binding="#{Page2.documentTab}" disabled="true" id="documentTab"
+                            <webuijsf:tab actionExpression="#{Page2.documentTab_action}" binding="#{Page2.documentTab}" disabled="true" id="documentTab"
                                 style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Documents">
-                                <webuijsf:panelLayout id="layoutPanel3" style="height: 582px; position: relative; width: 100%; -rave-layout: grid"/>
+                                <webuijsf:panelLayout id="layoutPanel3" style="height: 582px; position: relative; width: 100%; -rave-layout: grid">
+                                    <webuijsf:label id="documentSearchLabel"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 168px; top: 48px; position: absolute" text="Enter the following Document Search Criteria"/>
+                                    <webuijsf:label id="creationDateLabel"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 48px; top: 96px; position: absolute" text="Creation Date Range:"/>
+                                    <webuijsf:calendar binding="#{Page2.creationFromDate}" id="creationDate" style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 168px; top: 96px; position: absolute"/>
+                                    <webuijsf:button actionExpression="#{Page2.getDocQueryResults}" id="docQueryButton"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 263px; top: 168px; position: absolute; width: 120px" text="Document Query"/>
+                                    <webuijsf:table augmentTitle="false" id="docQueryResults" style="left: 48px; top: 216px; position: absolute; width: 600px"
+                                        title="Document Search Results" width="600">
+                                        <webuijsf:tableRowGroup id="docQueryResultsGroup" rows="4" sourceData="#{DocumentQueryResults.documents}" sourceVar="document">
+                                            <webuijsf:tableColumn headerText="Creation Date" id="creationDate" width="113">
+                                                <webuijsf:staticText id="staticText1" text="#{document.value['creationDate']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Title" id="title" width="136">
+                                                <webuijsf:staticText id="staticText1" text="#{document.value['title']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Document Type" id="documentType">
+                                                <webuijsf:staticText id="staticText2" text="#{document.value['documentType']}"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Institution" id="institution" noWrap="true">
+                                                <webuijsf:staticText id="staticText4" text="#{document.value['institution']}"/>
+                                            </webuijsf:tableColumn>
+                                        </webuijsf:tableRowGroup>
+                                    </webuijsf:table>
+                                    <webuijsf:calendar binding="#{Page2.creationToDate}" id="calendar1" style="left: 384px; top: 96px; position: absolute"/>
+                                    <webuijsf:label id="label1" style="left: 192px; top: 144px; position: absolute; vertical-align: top" text="Earliest Date"/>
+                                    <webuijsf:label id="label2" style="left: 408px; top: 144px; position: absolute; vertical-align: top" text="Most Recent Date"/>
+                                    <webuijsf:staticText binding="#{Page2.errorMessage}" id="patientInfo" style="color: blue; font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 168px; top: 24px; position: absolute"/>
+                                </webuijsf:panelLayout>
                             </webuijsf:tab>
                         </webuijsf:tabSet>
                         <webuijsf:staticText binding="#{Page2.patientInfo}" id="patientInfo" style="color: blue; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 0px; top: 120px; position: absolute"/>

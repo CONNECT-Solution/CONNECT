@@ -5,6 +5,7 @@
 package universalclientgui;
 
 import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import com.sun.webui.jsf.component.Calendar;
 import com.sun.webui.jsf.component.Hyperlink;
 import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
@@ -214,8 +215,46 @@ public class Page2 extends AbstractPageBean {
     public void setBroadcastInfo2(StaticText st) {
         this.broadcastInfo2 = st;
     }
+    private Calendar creationFromDate = new Calendar();
 
+    public Calendar getCreationFromDate() {
+        return creationFromDate;
+    }
 
+    public void setCreationFromDate(Calendar c) {
+        this.creationFromDate = c;
+    }
+    private Calendar creationToDate = new Calendar();
+
+    public Calendar getCreationToDate() {
+        return creationToDate;
+    }
+
+    public void setCreationToDate(Calendar c) {
+        this.creationToDate = c;
+    }
+
+    private StaticText errorMessage = new StaticText();
+
+    public StaticText getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(StaticText errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    private String errors;
+
+    public String getErrors() {
+        return errors;
+    }
+
+    public void setErrors(String errors) {
+        this.errors = errors;
+    }
+    
+    
     // </editor-fold>
     /**
      * <p>Construct a new Page bean instance.</p>
@@ -349,6 +388,7 @@ public class Page2 extends AbstractPageBean {
 
     // Patient Search Tab Methods
     public String patientSearchTab_action() {
+        this.errorMessage.setText("");
         return null;
     }
 
@@ -422,11 +462,14 @@ public class Page2 extends AbstractPageBean {
 
                                 //extract patient id for this assigning authority
                                 String resultPatientId = "";
+                                String patientOrgAssigningAuthorityID = null;
                                 if (resultPatient.getId() != null && !resultPatient.getId().isEmpty()) {
                                     for (II idxId : resultPatient.getId()) {
                                         if (idxId != null &&
                                                 idxId.getExtension() != null &&
                                                 idxId.getRoot() != null) {
+                                            // Get the assigning authority of the patient
+                                            patientOrgAssigningAuthorityID = idxId.getRoot();
                                             if (assigningAuthId.equals(idxId.getRoot())) {
                                                 resultPatientId = idxId.getExtension();
                                                 log.debug(resultPatientId + " found with assigning authority: " + assigningAuthId);
@@ -474,7 +517,9 @@ public class Page2 extends AbstractPageBean {
                                 data.add(resultPatientGender);
 
                                 PatientSearchData patientData = new PatientSearchData(data);
+                                patientData.setAssigningAuthorityID(patientOrgAssigningAuthorityID);
                                 this.getPatientSearchDataList().add(patientData);
+
                             } else {
                                 log.error("Subject patientPerson has no name data.");
                             }
@@ -502,6 +547,9 @@ public class Page2 extends AbstractPageBean {
     public String patientSelectIdLink_action() {
 
         String matchPatientId = this.getPatientSelectIdLink().getText().toString();
+
+        //Clear the document search results
+        setBean("DocumentQueryResults", new DocumentQueryResults());
 
         PatientSearchData foundPatient = null;
         StringBuffer discoverInfoBuf = new StringBuffer();
@@ -536,6 +584,7 @@ public class Page2 extends AbstractPageBean {
 
                 activateSubjectDiscoveryTab();
                 initializeSubjectDiscoveryTab(foundPatient);
+                activateDocumentTab();
                 this.getClientTabSet().setSelected("subjectDiscoveryTab");
 
                 //We found it - leave the loop
@@ -545,11 +594,17 @@ public class Page2 extends AbstractPageBean {
         if (foundPatient == null) {
             this.patientInfo.setText("Please select patient from the table.");
         }
+
+        SearchData searchData = (SearchData) getBean("SearchData");
+
+        searchData.setPatientID(foundPatient.getPatientId());
+
         return null;
     }
 
     // Subject Discovery Tab Methods
     public String subjectDiscoveryTab_action() {
+        this.errorMessage.setText("");
         return null;
     }
 
@@ -648,5 +703,83 @@ public class Page2 extends AbstractPageBean {
         this.getBroadcastInfo2().setText("");
         return null;
     }
+
+    /**
+     * 
+     * @return
+     */
+    public String getDocQueryResults() {
+
+        this.errorMessage.setText("");
+        //SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        //System.out.println("Creation Date: " + dateFormatter.format(this.getCreationFromDate().getSelectedDate()));
+
+        if(!isDocumentSearchCriteriaValid())
+        {
+            log.error("Error Message: " + errors);
+            this.errorMessage.setText(errors);
+            return null;
+        }
+
+        SearchData searchData = (SearchData) getBean("SearchData");
+
+        PatientSearchData currentPatient = null;
+
+        for (PatientSearchData testPatient : getPatientSearchDataList())
+        {
+            if (testPatient.getPatientId().equals(searchData.getPatientID()))
+            {
+                currentPatient = testPatient;
+            }
+        }
+        
+        //System.out.println("Patient ID: " + currentPatient.getPatientId() + "Assigning Authority ID: " + currentPatient.getAssigningAuthorityID());
+
+        if (currentPatient == null)
+        {
+            this.errorMessage.setText("Patient information is not available. Please search again.");
+        }
+
+        DocumentQueryClient docQueryClient = new DocumentQueryClient();
+
+        List<DocumentInformation> docInfoList = docQueryClient.retrieveDocumentsInformation(currentPatient, this.getCreationFromDate().getSelectedDate(),
+                                                this.getCreationToDate().getSelectedDate());
+
+        DocumentQueryResults documentQueryResults = new DocumentQueryResults();
+        documentQueryResults.setDocuments(docInfoList);
+
+        setBean("DocumentQueryResults", documentQueryResults);
+
+        return null;
+    }
+
+    public String documentTab_action() {
+        // TODO: Replace with your code
+        this.errorMessage.setText("");
+        return null;
+    }
+
+    private boolean isDocumentSearchCriteriaValid(){
+        StringBuffer message = new StringBuffer();
+        boolean isValid = true;
+
+        if (this.creationFromDate == null || this.creationToDate == null){
+            message.append("Earliest Date and Most Recent Date should not be null");
+            isValid = false;
+        }
+        else if(this.creationFromDate.getSelectedDate() == null || this.getCreationToDate().getSelectedDate() == null){
+            message.append("Earliest Date and Most Recent Date should not be null");
+            isValid = false;
+        }
+        else if(this.creationFromDate.getSelectedDate().after(this.getCreationToDate().getSelectedDate())){
+            message.append("Earliest Date should not be after Most Recent Date");
+            isValid = false;
+        }
+
+        errors = message.toString();
+
+        return isValid;
+    }
+    
 }
 

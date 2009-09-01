@@ -4,12 +4,19 @@
  */
 package universalclientgui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PatientSearchData {
+public class PatientSearchData implements Serializable
+{
 
     private ArrayList<String> columns;
+    private String assigningAuthorityID;
+
+    public PatientSearchData()
+    {
+    }
 
     public PatientSearchData(List<String> cols) {
         columns = new ArrayList<String>(cols);
@@ -17,6 +24,14 @@ public class PatientSearchData {
 
     public ArrayList<String> getColumns() {
         return columns;
+    }
+
+    public String getAssigningAuthorityID() {
+        return assigningAuthorityID;
+    }
+
+    public void setAssigningAuthorityID(String assigningAuthorityID) {
+        this.assigningAuthorityID = assigningAuthorityID;
     }
 
     public void setColumns(ArrayList<String> columns) {
@@ -70,4 +85,5 @@ public class PatientSearchData {
     public void setGender(String col) {
         columns.set(5, col);
     }
+    
 }
