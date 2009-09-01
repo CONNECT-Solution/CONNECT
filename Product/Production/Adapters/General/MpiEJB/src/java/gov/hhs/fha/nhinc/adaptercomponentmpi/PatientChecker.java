@@ -10,7 +10,7 @@ import gov.hhs.fha.nhinc.mpilib.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
-
+import org.hl7.v3.PRPAIN201305UV;
 /**
  *
  * @author Jon Hoppesch

@@ -89,6 +89,20 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterComponentMpi/schemas/" />
         </copy>
     </target>
+    
+    <target name="wsimport-service-AdapterComponentMpiSecured" depends="wsimport-init,wsimport-service-check-AdapterComponentMpiSecured" unless="wsimport-service-AdapterComponentMpiSecured.notRequired">
+        <property name="service-wsdl-AdapterComponentMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/wsdl/AdapterComponentSecuredMpi.wsdl"/>
+        <!--<wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterComponentMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>-->
+        <property name="targetLocation-AdapterComponentMpiSecured" location="${meta.inf}/wsdl/AdapterComponentMpiSecured"/>
+        <property name="sourceLocation-AdapterComponentMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterComponentMpiSecured}">
+            <fileset dir="${sourceLocation-AdapterComponentMpiSecured}"/>
+        </copy>
+        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/schemas/" />
+        </copy>
+    </target>
+    
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		    <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>

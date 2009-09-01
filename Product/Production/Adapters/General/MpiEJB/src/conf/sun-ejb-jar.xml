@@ -7,7 +7,22 @@
             <webservice-endpoint>
                 <port-component-name>AdapterComponentMpi</port-component-name>
                 <endpoint-address-uri>/NhinConnect/AdapterComponentMpiService</endpoint-address-uri>
-            </webservice-endpoint>   
+            </webservice-endpoint>
         </ejb>
+        <ejb>
+            <ejb-name>AdapterComponentMpiSecured</ejb-name>
+            <webservice-endpoint>
+                <port-component-name>AdapterComponentMpiSecured</port-component-name>
+                <endpoint-address-uri>/NhinConnect/AdapterComponentMpiSecuredService</endpoint-address-uri>
+
+            <login-config>
+                <auth-method>CLIENT-CERT</auth-method>
+                <realm>certificate</realm>
+            </login-config>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            </webservice-endpoint>
+        </ejb>
+
+
     </enterprise-beans>
 </sun-ejb-jar>
