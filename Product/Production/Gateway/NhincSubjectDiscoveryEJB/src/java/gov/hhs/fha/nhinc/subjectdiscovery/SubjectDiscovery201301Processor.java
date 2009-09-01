@@ -187,8 +187,8 @@ public class SubjectDiscovery201301Processor {
                 // Query the MPI to see if the patient is found
                 AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
                 AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
-                log.info("Sending query to the MPI");
-                queryResults = mpiProxy.findCandidates(query);
+                log.info("Sending query to the Secured MPI");
+                queryResults = mpiProxy.findCandidates(query, request.getAssertion());
             } else {
                 queryResults = null;
             }
