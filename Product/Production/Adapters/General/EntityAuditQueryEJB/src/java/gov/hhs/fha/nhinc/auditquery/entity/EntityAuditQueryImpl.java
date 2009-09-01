@@ -14,7 +14,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  *
@@ -42,6 +41,7 @@ public class EntityAuditQueryImpl {
             gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType();
             body.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
             body.setNhinTargetCommunities(findAuditEventsRequest.getNhinTargetCommunities());
+            
             results = port.findAuditEvents(body);
         }
         catch (Exception ex)
