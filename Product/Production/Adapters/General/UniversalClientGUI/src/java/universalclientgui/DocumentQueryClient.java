@@ -47,7 +47,7 @@ public class DocumentQueryClient {
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
-    private static final String CREATION_TIME_FROM_SLOT_NAME= "$XDSDocumentEntryCreationTimeFrom";
+    private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
     private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
@@ -62,7 +62,7 @@ public class DocumentQueryClient {
     public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
 
         EntityDocQueryPortType port = getPort(getEntityDocumentQueryProxyAddress());
-        
+
         RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData, creationFromDate, creationToDate);
 
         AdhocQueryResponse response = port.respondingGatewayCrossGatewayQuery(request);
@@ -80,12 +80,12 @@ public class DocumentQueryClient {
         patientIDSlot.setName(PATIENT_ID_SLOT_NAME);
 
         ValueListType valueList = new ValueListType();
-        
+
         StringBuffer universalPatientID = new StringBuffer();
-                universalPatientID.append(patientSearchData.getPatientId());
-                universalPatientID.append( "^^^&");
-                universalPatientID.append(patientSearchData.getAssigningAuthorityID());
-                universalPatientID.append("&ISO");
+        universalPatientID.append(patientSearchData.getPatientId());
+        universalPatientID.append("^^^&");
+        universalPatientID.append(patientSearchData.getAssigningAuthorityID());
+        universalPatientID.append("&ISO");
 
         valueList.getValue().add(universalPatientID.toString());
 
@@ -134,7 +134,6 @@ public class DocumentQueryClient {
         return request;
     }
 
-    
     /**
      *
      * @return
@@ -199,26 +198,21 @@ public class DocumentQueryClient {
         }
 
         if (response.getRegistryObjectList() == null ||
-                response.getRegistryObjectList().getIdentifiable() == null)
-        {
+                response.getRegistryObjectList().getIdentifiable() == null) {
             log.debug("AdhocQueryResponse is null");
             return documentInfoList;
         }
 
         List<JAXBElement<? extends IdentifiableType>> extrinsicObjects = response.getRegistryObjectList().getIdentifiable();
 
-        if (extrinsicObjects != null && extrinsicObjects.size() > 0)
-        {
-            for (JAXBElement<? extends IdentifiableType> jaxb : extrinsicObjects)
-            {
+        if (extrinsicObjects != null && extrinsicObjects.size() > 0) {
+            for (JAXBElement<? extends IdentifiableType> jaxb : extrinsicObjects) {
                 DocumentInformation docInfo = new DocumentInformation();
 
-                if (jaxb.getValue() instanceof ExtrinsicObjectType)
-                {
+                if (jaxb.getValue() instanceof ExtrinsicObjectType) {
                     ExtrinsicObjectType extrinsicObject = (ExtrinsicObjectType) jaxb.getValue();
 
-                    if (extrinsicObject != null)
-                    {
+                    if (extrinsicObject != null) {
                         docInfo.setTitle(extractDocumentTitle(extrinsicObject));
                         docInfo.setDocumentType(extractDocumentType(extrinsicObject));
                         String creationTime = extractCreationTime(extrinsicObject);
@@ -242,18 +236,15 @@ public class DocumentQueryClient {
         return documentTypeCode;
     }
 
-
     private String extractDocumentTitle(ExtrinsicObjectType extrinsicObject) {
 
         String documentTitle = null;
 
         if (extrinsicObject != null &&
-                extrinsicObject.getName() != null)
-        {
+                extrinsicObject.getName() != null) {
             List<LocalizedStringType> localizedString = extrinsicObject.getName().getLocalizedString();
 
-            if (localizedString != null && localizedString.size() > 0)
-            {
+            if (localizedString != null && localizedString.size() > 0) {
                 documentTitle = localizedString.get(0).getValue();
             }
         }
@@ -269,31 +260,32 @@ public class DocumentQueryClient {
         String documentID = null;
 
         ExternalIdentifierType identifier = extractIndentifierType(extrinsicObject, "urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab");
-        
-        if (identifier != null){
+
+        if (identifier != null) {
             documentID = identifier.getValue();
         }
 
         return documentID;
     }
 
-    private String extractInstitution(ExtrinsicObjectType extrinsicObject){
+    private String extractInstitution(ExtrinsicObjectType extrinsicObject) {
         ClassificationType classification = extractClassification(extrinsicObject, "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d");
 
         String institution = null;
 
-        for (SlotType1 slot : classification.getSlot()) {
-            if (slot.getName().contentEquals("authorInstitution")) {
-                if (slot.getValueList().getValue().size() > 0) {
-                    institution = slot.getValueList().getValue().get(0);
-                    break;
+        if (classification != null && classification.getSlot() != null && !classification.getSlot().isEmpty()) {
+            for (SlotType1 slot : classification.getSlot()) {
+                if (slot != null && slot.getName().contentEquals("authorInstitution")) {
+                    if (slot.getValueList() != null && slot.getValueList().getValue() != null && !slot.getValueList().getValue().isEmpty()) {
+                        institution = slot.getValueList().getValue().get(0);
+                        break;
+                    }
                 }
             }
         }
 
         return institution;
     }
-
 
     private String extractSingleSlotValue(ExtrinsicObjectType extrinsicObject, String slotName) {
         String slotValue = null;
@@ -311,8 +303,7 @@ public class DocumentQueryClient {
     private ExternalIdentifierType extractIndentifierType(ExtrinsicObjectType extrinsicObject, String identificationScheme) {
         ExternalIdentifierType identifier = null;
 
-        for (ExternalIdentifierType identifierItem : extrinsicObject.getExternalIdentifier())
-        {
+        for (ExternalIdentifierType identifierItem : extrinsicObject.getExternalIdentifier()) {
             if (identifierItem != null && identifierItem.getIdentificationScheme().contentEquals(identificationScheme)) {
                 identifier = identifierItem;
                 break;
@@ -325,8 +316,7 @@ public class DocumentQueryClient {
     private ClassificationType extractClassification(ExtrinsicObjectType extrinsicObject, String classificationScheme) {
         ClassificationType classification = null;
 
-        for (ClassificationType classificationItem : extrinsicObject.getClassification())
-        {
+        for (ClassificationType classificationItem : extrinsicObject.getClassification()) {
             if (classificationItem != null && classificationItem.getClassificationScheme().contentEquals(classificationScheme)) {
                 classification = classificationItem;
                 break;
@@ -336,7 +326,7 @@ public class DocumentQueryClient {
         return classification;
     }
 
-    private String formatDate(String dateString, String inputFormat, String outputFormat){
+    private String formatDate(String dateString, String inputFormat, String outputFormat) {
         SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
         SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
 
@@ -351,10 +341,8 @@ public class DocumentQueryClient {
         return outputFormatter.format(date);
     }
 
-    private String formatDate(Date date, String format){
+    private String formatDate(Date date, String format) {
         SimpleDateFormat formatter = new SimpleDateFormat(format);
         return formatter.format(date);
     }
-
-
 }

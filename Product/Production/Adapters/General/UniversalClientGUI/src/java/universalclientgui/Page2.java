@@ -17,6 +17,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
+import gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryProxy;
+import gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
@@ -24,21 +26,31 @@ import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacade
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
+import org.hl7.v3.PRPAIN201301UV;
 import org.hl7.v3.PRPAIN201305UV;
 import org.hl7.v3.PRPAIN201306UV;
 import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UVPatient;
+import org.hl7.v3.PRPAMT201301UVPerson;
 import org.hl7.v3.PRPAMT201310UVOtherIDs;
 import org.hl7.v3.PRPAMT201310UVPatient;
 
@@ -57,10 +69,12 @@ public class Page2 extends AbstractPageBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
     private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
+    private static final String PROPERTY_FILE_NAME_UC = "universalClient";
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
     private static final String PROPERTY_FILE_KEY_ASSIGN_AUTH = "assigningAuthorityId";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
+    private static final String PROPERTY_FILE_KEY_LOCAL_DEVICE = "localDeviceId";
     private static final String SSA_OID = "2.16.840.1.113883.4.1";
     private static Log log = LogFactory.getLog(Page2.class);
 
@@ -292,10 +306,10 @@ public class Page2 extends AbstractPageBean {
             throw e instanceof FacesException ? (FacesException) e : new FacesException(e);
         }
 
-    // </editor-fold>
-    // Perform application initialization that must complete
-    // *after* managed components are initialized
-    // TODO - add your own initialization code here
+        // </editor-fold>
+        // Perform application initialization that must complete
+        // *after* managed components are initialized
+        // TODO - add your own initialization code here
     }
 
     /**
@@ -329,7 +343,7 @@ public class Page2 extends AbstractPageBean {
             }
         }
         try {
-            String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
+            String agencyName = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_UC, PROPERTY_FILE_KEY_AGENCY);
             this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
             log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
@@ -396,6 +410,7 @@ public class Page2 extends AbstractPageBean {
 
         this.getPatientSearchDataList().clear();
         this.patientInfo.setText("");
+        getSessionBean1().setFoundPatient(null);
         deactivateSubjectDiscoveryTab();
         deactivateDocumentTab();
 
@@ -555,6 +570,7 @@ public class Page2 extends AbstractPageBean {
         StringBuffer discoverInfoBuf = new StringBuffer();
         for (PatientSearchData testPatient : getPatientSearchDataList()) {
             if (testPatient.getPatientId().equals(matchPatientId)) {
+                getSessionBean1().setFoundPatient(testPatient);
                 foundPatient = testPatient;
 
                 discoverInfoBuf.append("Name: ");
@@ -583,7 +599,7 @@ public class Page2 extends AbstractPageBean {
                 this.patientInfo.setText(discoverInfoBuf.toString());
 
                 activateSubjectDiscoveryTab();
-                initializeSubjectDiscoveryTab(foundPatient);
+                initializeSubjectDiscoveryTab();
                 activateDocumentTab();
                 this.getClientTabSet().setSelected("subjectDiscoveryTab");
 
@@ -627,12 +643,17 @@ public class Page2 extends AbstractPageBean {
         this.getSubjectDiscoveryTab().setDisabled(true);
     }
 
-    private void initializeSubjectDiscoveryTab(PatientSearchData foundPatient) {
+    private void initializeSubjectDiscoveryTab() {
         this.getSubjectDiscoveryResultsInfo().setText("Subject Discovery Results (Existing Correlations)");
         this.getBroadcastInfo().setText("Click to Discover New Correlations.");
         this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
-        this.getPatientCorrelationList().clear();
 
+        performPatientCorrelation();
+    }
+
+    private void performPatientCorrelation() {
+
+        this.getPatientCorrelationList().clear();
         try {
             String assigningAuthId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_ASSIGN_AUTH);
 
@@ -641,7 +662,7 @@ public class Page2 extends AbstractPageBean {
 
             QualifiedSubjectIdentifierType homeQualifiedSubjectId = new QualifiedSubjectIdentifierType();
             homeQualifiedSubjectId.setAssigningAuthorityIdentifier(assigningAuthId);
-            homeQualifiedSubjectId.setSubjectIdentifier(foundPatient.getPatientId());
+            homeQualifiedSubjectId.setSubjectIdentifier(getSessionBean1().getFoundPatient().getPatientId());
             RetrievePatientCorrelationsRequestType retrieveRequest = new RetrievePatientCorrelationsRequestType();
             retrieveRequest.setQualifiedPatientIdentifier(homeQualifiedSubjectId);
             retrieveRequest.setAssertion(getSessionBean1().getAssertionInfo());
@@ -698,9 +719,44 @@ public class Page2 extends AbstractPageBean {
     }
 
     public String broadcastSubjectDiscoveryButton_action() {
-        this.getSubjectDiscoveryResultsInfo().setText("Broadcast Subject Discovery Results");
-        this.getBroadcastInfo().setText("");
-        this.getBroadcastInfo2().setText("");
+
+        try {
+
+            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
+            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
+
+            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
+            request.setAssertion(getSessionBean1().getAssertionInfo());
+
+            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
+            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+
+            PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
+            JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
+            PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
+            PRPAIN201301UV prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
+            request.setPRPAIN201301UV(prpain201301);
+
+            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
+            if (sdAck != null) {
+
+                performPatientCorrelation();
+                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Subject Discovery Results");
+
+                GregorianCalendar cal = new GregorianCalendar();
+                cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+                cal.setTimeInMillis(System.currentTimeMillis());
+
+                this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
+                this.getBroadcastInfo2().setText("");
+            } else {
+                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
+            }
+            return null;
+        } catch (PropertyAccessException ex) {
+            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return null;
     }
 

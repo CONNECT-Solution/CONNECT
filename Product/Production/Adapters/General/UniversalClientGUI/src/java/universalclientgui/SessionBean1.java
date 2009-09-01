@@ -77,7 +77,16 @@ public class SessionBean1 extends AbstractSessionBean {
         this.assertionInfo = assertionInfo;
     }
 
+    private PatientSearchData foundPatient;
 
+    public PatientSearchData getFoundPatient() {
+        return foundPatient;
+    }
+
+    public void setFoundPatient(PatientSearchData foundPatient) {
+        this.foundPatient = foundPatient;
+    }
+    
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
      * This method is automatically generated, so any user-specified code inserted
