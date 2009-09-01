@@ -225,6 +225,8 @@ public class SubjectDiscovery201302Processor {
         if (request.getQualifiedPatientIdentifier().isEmpty() == false) {
             PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
             PatientCorrelationFacadeProxy patCorrelationProxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+
+            request.setAssertion(assertion);
             patCorrelationProxy.addPatientCorrelation(request);
         }
     }

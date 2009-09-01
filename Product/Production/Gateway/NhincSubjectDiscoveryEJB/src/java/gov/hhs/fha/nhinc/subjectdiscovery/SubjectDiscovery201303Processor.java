@@ -101,6 +101,8 @@ public class SubjectDiscovery201303Processor {
                 RemovePatientCorrelationRequestType removeCorrelationReq = new RemovePatientCorrelationRequestType();
                 removeCorrelationReq.getQualifiedPatientIdentifier().add(qualSubId);
                 removeCorrelationReq.getQualifiedPatientIdentifier().add(patId);
+
+                removeCorrelationReq.setAssertion(assertion);
                 RemovePatientCorrelationResponseType resp = patCorrelationProxy.removePatientCorrelation(removeCorrelationReq);
             }
         }
