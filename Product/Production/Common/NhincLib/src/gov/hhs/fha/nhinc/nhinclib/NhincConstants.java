@@ -104,6 +104,7 @@ public class NhincConstants {
 
     // MPI constants
     public static final String ADAPTER_MPI_SERVICE_NAME = "adaptercomponentmpiservice";
+    public static final String ADAPTER_MPI_SECURED_SERVICE_NAME = "adaptercomponentmpisecuredservice";
     public static final String ADAPTER_MPI_PROXY_SERVICE_NAME = "mpi";
     public static final String ADAPTER_MPI_PROXY_SECURED_SERVICE_NAME = "mpisecured";
 
