@@ -123,6 +123,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
 			</service>
 			<service>
+				<name>adapterauditquerysecured</name>
+				<description>adapterauditquerysecured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+			</service>
+			<service>
 				<name>mpi</name>
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
@@ -632,6 +637,16 @@
 				<name>nhincproxydocretrievesecured</name>
 				<description>NHINC Proxy Document Retrieve Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+			</service>
+			<service>
+				<name>adapterauditquery</name>
+				<description>adapterauditquery</description>
+				<endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+			</service>
+			<service>
+				<name>adapterauditquerysecured</name>
+				<description>adapterauditquerysecured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
 			</service>
 		</services>
 	</internalConnectionInfo>
