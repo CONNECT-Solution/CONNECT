@@ -6,7 +6,12 @@
             <ejb-name>EntityAuditLogQuery</ejb-name>
             <webservice-endpoint>
                 <port-component-name>EntityAuditLogQuery</port-component-name>
-                <endpoint-address-uri>/NhinConnect/EntityAuditLogQuery</endpoint-address-uri>
+                <endpoint-address-uri>/NhinConnect/EntityAuditLogQuerySecured</endpoint-address-uri>
+                 <login-config>
+                    <auth-method>CLIENT-CERT</auth-method>
+                    <realm>certificate</realm>
+                </login-config>
+                <transport-guarantee>CONFIDENTIAL</transport-guarantee>
             </webservice-endpoint>   
         </ejb>
         <ejb>
