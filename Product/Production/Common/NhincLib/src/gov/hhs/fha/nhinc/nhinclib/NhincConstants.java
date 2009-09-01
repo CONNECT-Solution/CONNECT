@@ -141,6 +141,8 @@ public class NhincConstants {
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
     public static final String DOC_RETRIEVE_SERVICE_NAME = "documentretrieve";
+    public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
+    public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
 
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";

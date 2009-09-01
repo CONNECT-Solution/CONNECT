@@ -9,15 +9,15 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
 
-		<import file="../../../build.lib.xml" />
-		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />		
+	<import file="../../../build.lib.xml" />
+
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />		
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -90,64 +90,94 @@
         </copy>
     </target>
     
-    <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init,wsimport-client-check-NhincDocRetrieve" unless="wsimport-client-NhincDocRetrieve.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/wsdl/NhincDocRetrieve.wsdl" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" catalog="catalog.xml"/>
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
--->        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincDocRetrieve">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/schemas/" />
-        </copy>
-    </target>
-    
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.AdapterDocRetrieveProxy.Absolute" location="${project.AdapterDocRetrieveProxy}"/>
+		<property name="project.AdapterDocRetrieveProxyImpl.Absolute" location="${project.AdapterDocRetrieveProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
 
+        <ant dir="${project.AdapterDocRetrieveProxy.Absolute}" antfile="${project.AdapterDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocRetrieveProxyImpl.Absolute}" antfile="${project.AdapterDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.AdapterDocRetrieveProxy.Absolute" location="${project.AdapterDocRetrieveProxy}"/>
+		<property name="project.AdapterDocRetrieveProxyImpl.Absolute" location="${project.AdapterDocRetrieveProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
 
+        <ant dir="${project.AdapterDocRetrieveProxy.Absolute}" antfile="${project.AdapterDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocRetrieveProxyImpl.Absolute}" antfile="${project.AdapterDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.AdapterDocRetrieveProxy.Absolute" location="${project.AdapterDocRetrieveProxy}"/>
+		<property name="project.AdapterDocRetrieveProxyImpl.Absolute" location="${project.AdapterDocRetrieveProxyImpl}"/>
+		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
 
+        <ant dir="${project.AdapterDocRetrieveProxy.Absolute}" antfile="${project.AdapterDocRetrieveProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocRetrieveProxyImpl.Absolute}" antfile="${project.AdapterDocRetrieveProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>    
     
-    
     <target depends="compile" name="library-inclusion-in-archive">
- 
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocRetrieveProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocRetrieveProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-
-        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocRetrieveProxy.jar}" manifestproperty="manifest.reference.AdapterDocRetrieveProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocRetrieveProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocRetrieveProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterDocRetrieveProxy.jar} ${manifest.reference.AdapterDocRetrieveProxyImpl.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

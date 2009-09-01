@@ -6,4 +6,5 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
+    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
 </definitions>
