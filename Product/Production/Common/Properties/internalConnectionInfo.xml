@@ -141,7 +141,12 @@
 				<name>adaptercomponentmpiservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
-			</service>			
+			</service>		
+			<service>
+				<name>adaptercomponentmpisecuredservice</name>
+				<description>Master Patient Index Component</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+			</service>	
 			<service>
 				<name>muralmpi</name>
 				<description>Mural MPI Database</description>
@@ -396,7 +401,12 @@
 				<name>adaptercomponentmpiservice</name>
 				<description>Master Patient Index Component</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
-			</service>			
+			</service>		
+			<service>
+				<name>adaptercomponentmpisecuredservice</name>
+				<description>Master Patient Index Component</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+			</service>	
 			<service>
 				<name>muralmpi</name>
 				<description>Mural MPI Database</description>
