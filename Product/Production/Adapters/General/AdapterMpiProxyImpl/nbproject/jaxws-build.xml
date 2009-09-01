@@ -20,7 +20,16 @@
     <target name="wsimport-client-clean-AdapterComponentMpi" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterComponentMpi"/>
+    <target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init">
+        <property name="wsdl-AdapterComponentSecuredMpi" location="xml-resources/web-service-references/AdapterComponentSecuredMpi/wsdl/AdapterComponentSecuredMpi.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterComponentSecuredMpi}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" xnocompile="true">
+            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptercomponentmpi" includes="AdapterComponentSecuredMpi.java" casesensitive="no"/>
+        </wsimport>
+    </target>
+    <target name="wsimport-client-clean-AdapterComponentSecuredMpi" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptercomponentmpi"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterComponentMpi, wsimport-client-AdapterComponentSecuredMpi"/>
     <target name="wsimport-client-compile-depend" if="do.depend.true">
         <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
     </target>
