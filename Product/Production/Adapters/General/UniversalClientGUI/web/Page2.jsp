@@ -66,9 +66,7 @@
                                         style="left: 24px; top: 120px; position: absolute; width: 400px" title="Patient Correlations" width="400">
                                         <webuijsf:tableRowGroup id="patientCorrTableRowGoup" rows="10" sourceData="#{Page2.patientCorrelationList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Assigning Authority" id="patientCoorAssignAuthColm">
-                                                <webuijsf:hyperlink actionExpression="#{Page2.correlatedAuthorityLink_action}"
-                                                    binding="#{Page2.correlatedAuthorityLink}" id="correlatedAssignAuth"
-                                                    style="color: blue; text-decoration: underline" text="#{currentRow.value['assignAuthorityId']}"/>
+                                                <webuijsf:staticText id="correlatedAssignAuthority" text="#{currentRow.value['assignAuthorityId']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Patient Id" id="patientCorrIdColm">
                                                 <webuijsf:staticText id="correlatedPatientId" text="#{currentRow.value['remotePatientId']}"/>

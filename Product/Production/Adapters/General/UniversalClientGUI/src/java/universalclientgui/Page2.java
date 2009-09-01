@@ -693,11 +693,6 @@ public class Page2 extends AbstractPageBean {
         }
     }
 
-    public String correlatedAuthorityLink_action() {
-        System.out.println("Clicked Org Link: " + this.getCorrelatedAuthorityLink().getText());
-        return null;
-    }
-
     // Document Tab Methods
     private void activateDocumentTab() {
         this.getDocumentTab().setDisabled(false);
