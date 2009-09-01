@@ -83,14 +83,18 @@
     <target depends="init" name="deps-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+				<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
+				<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" name="deps-clean" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+				<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+				<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+				<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
+				<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
