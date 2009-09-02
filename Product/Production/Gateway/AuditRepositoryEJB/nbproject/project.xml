@@ -26,8 +26,8 @@
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.aspectjrt.jar</included-library>
-            <included-library>file.reference.mysql-connector-java-5.0.8-bin.jar</included-library>
             <included-library>file.reference.mysql-connector-mxj-gpl-5-0-9-db-files.jar</included-library>
+            <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>file.reference.mysql-connector-mxj-gpl-5-0-9.jar</included-library>
             <included-library>reference.AuditRepositoryDAO.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>

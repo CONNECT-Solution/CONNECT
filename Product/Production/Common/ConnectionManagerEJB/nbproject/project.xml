@@ -41,8 +41,8 @@
             <included-library>file.reference.hibernate3.jar</included-library>
             <included-library>file.reference.jdbc2_0-stdext.jar</included-library>
             <included-library>file.reference.jta.jar</included-library>
-            <included-library>file.reference.mysql-connector-java-5.0.8-bin.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
+            <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

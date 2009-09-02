@@ -25,8 +25,8 @@
             <included-library>file.reference.c3p0-0.9.1.2.jar</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
-            <included-library>file.reference.mysql-connector-java-5.0.8-bin.jar</included-library>
             <included-library>reference.PatientCorrelationDAO.jar</included-library>
+            <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>reference.NhincLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <source-roots>
