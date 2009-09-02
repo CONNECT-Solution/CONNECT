@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-check-EntitySubjectDiscovery" depends="wsimport-init">
+        <condition property="wsimport-service-EntitySubjectDiscovery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubjectdiscovery/EntitySubjectDiscovery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init,wsimport-service-check-EntitySubjectDiscovery" unless="wsimport-service-EntitySubjectDiscovery.notRequired">
+        <property name="service-wsdl-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/EntitySubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntitySubjectDiscovery" location="${meta.inf}/wsdl/EntitySubjectDiscovery"/>
+        <property name="sourceLocation-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
+        <copy todir="${targetLocation-EntitySubjectDiscovery}">
+            <fileset dir="${sourceLocation-EntitySubjectDiscovery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntitySubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubjectdiscovery"/>
+    </target>
+    <target name="wsimport-service-check-NhincProxySubjectDiscovery" depends="wsimport-init">
+        <condition property="wsimport-service-NhincProxySubjectDiscovery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery/NhincProxySubjectDiscovery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init,wsimport-service-check-NhincProxySubjectDiscovery" unless="wsimport-service-NhincProxySubjectDiscovery.notRequired">
+        <property name="service-wsdl-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/NhincProxySubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/NhincProxySubjectDiscovery"/>
+        <property name="sourceLocation-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
+        <copy todir="${targetLocation-NhincProxySubjectDiscovery}">
+            <fileset dir="${sourceLocation-NhincProxySubjectDiscovery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxySubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>
