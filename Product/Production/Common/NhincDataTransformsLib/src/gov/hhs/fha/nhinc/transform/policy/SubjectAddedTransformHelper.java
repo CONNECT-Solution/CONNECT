@@ -43,7 +43,9 @@ public class SubjectAddedTransformHelper {
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, ii.getExtension()));
             request.getResource().add(resource);
         }
-
+        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
+        oPolicyRequest.setRequest(request);
+        PurposeForUseHelper.appendPurposeForUse(oPolicyRequest, event.getMessage().getAssertion());
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
