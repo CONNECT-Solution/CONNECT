@@ -24,21 +24,32 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
  *
  * @author jhoppesc
  */
-public class AdapterMpiWebServiceProxy implements AdapterMpiProxy {
+public class AdapterMpiWebServiceProxySecured implements AdapterMpiProxy {
 
-    private static Log log = LogFactory.getLog(AdapterMpiWebServiceProxy.class);
+    private static Log log = LogFactory.getLog(AdapterMpiWebServiceProxySecured.class);
     static AdapterComponentMpiService mpiService = new AdapterComponentMpiService();
     static AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
-    
+
     public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest, AssertionType assertion)
     {
-       log.warn("Calling secured interface from unsecured implementation");
- 
-       return findCandidates(findCandidatesRequest);
+        log.debug("In findCandidates secured method.");
+       String url = getSecuredURL();
+       AdapterComponentMpiSecuredPortType port = getSecuredPort(url);
+       SamlTokenCreator tokenCreator = new SamlTokenCreator();
+       java.util.Map requestContext;
+       requestContext = tokenCreator.CreateRequestContext(assertion, url,  NhincConstants.ADAPTER_MPI_ACTION);
+       ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+       return port.findCandidates(findCandidatesRequest);
     }
+    /*
+     * Without passing in the Assertion, we need to call the unsecured service.
+     **/
     public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest) {
         String url = null;
         PRPAIN201306UV result = new PRPAIN201306UV();
+
+        log.warn("Calling unsecured interface from secured implementation");
 
         try {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_MPI_SERVICE_NAME);
