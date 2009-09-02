@@ -161,9 +161,6 @@
   </ejbs>
   <cas>
     <ca>
-      <name>NhinCA</name>
-    </ca>
-    <ca>
       <name>EntityCA</name>
     </ca>
     <ca>

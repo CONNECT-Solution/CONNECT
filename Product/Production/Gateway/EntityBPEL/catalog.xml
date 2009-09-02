@@ -4,8 +4,6 @@
     <system systemId="Interfaces/wsdl/EntitySubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntitySubjectDiscovery.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentSubDiscTransforms.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentSubDiscTransforms.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincProxySubjectDiscovery.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincProxySubjectDiscovery.wsdl"/>
-    <system systemId="Interfaces/wsdl/EntityDocRetrieve.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityDocRetrieve.wsdl"/>
-    <system systemId="Interfaces/wsdl/EntityComponentInternalDocRetrieveOrch.wsdl" uri="nb-uri:Interfaces#src/wsdl/EntityComponentInternalDocRetrieveOrch.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentPatientCorrelationFacade.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>

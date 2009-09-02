@@ -27,16 +27,6 @@
         </service-unit>
         <service-unit>
             <identification>
-                <name>EntityCA-EntityInternalOrchBPEL</name>
-                <description>Represents this Service Unit</description>
-            </identification>
-            <target>
-                <artifacts-zip>EntityInternalOrchBPEL.jar</artifacts-zip>
-                <component-name>sun-bpel-engine</component-name>
-            </target>
-        </service-unit>
-        <service-unit>
-            <identification>
                 <name>EntityCA-EntityBPEL</name>
                 <description>Represents this Service Unit</description>
             </identification>

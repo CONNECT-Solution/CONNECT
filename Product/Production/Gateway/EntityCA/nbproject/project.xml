@@ -16,14 +16,6 @@
                 <id>dist_se</id>
             </reference>
             <reference>
-                <foreign-project>EntityInternalOrchBPEL</foreign-project>
-                <artifact-type>CAPS.asa:sun-bpel-engine</artifact-type>
-                <script>build.xml</script>
-                <target>dist_se</target>
-                <clean-target>clean</clean-target>
-                <id>dist_se</id>
-            </reference>
-            <reference>
                 <foreign-project>NhincProxyBPEL</foreign-project>
                 <artifact-type>CAPS.asa:sun-bpel-engine</artifact-type>
                 <script>build.xml</script>

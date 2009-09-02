@@ -138,23 +138,6 @@
         <move todir="${src.dir}/../jbiServiceUnits/META-INF/${EntityBPEL.su.name}">
             <fileset dir="${EntityBPEL.su.dir}/META-INF"/>
         </move>
-        <ant target="dist_se" inheritall="false" antfile="${project.EntityInternalOrchBPEL}/build.xml"/>
-        <property name="EntityInternalOrchBPEL.su.name" value="EntityInternalOrchBPEL"/>
-        <unzip src="${reference.EntityInternalOrchBPEL.dist_se}" dest="${src.dir}/../jbiServiceUnits/${EntityInternalOrchBPEL.su.name}">
-            <patternset>
-                <include name="**/*.wsdl"/>
-                <include name="**/*.WSDL"/>
-                <include name="**/*.xsd"/>
-                <include name="**/*.XSD"/>
-                <include name="META-INF/jbi.xml"/>
-                <include name="META-INF/catalog.xml"/>
-            </patternset>
-        </unzip>
-        <property name="EntityInternalOrchBPEL.su.dir" value="${src.dir}/../jbiServiceUnits/${EntityInternalOrchBPEL.su.name}"/>
-        <move file="${EntityInternalOrchBPEL.su.dir}/META-INF/jbi.xml" todir="${EntityInternalOrchBPEL.su.dir}"/>
-        <move todir="${src.dir}/../jbiServiceUnits/META-INF/${EntityInternalOrchBPEL.su.name}">
-            <fileset dir="${EntityInternalOrchBPEL.su.dir}/META-INF"/>
-        </move>
     </target>
     <target name="deps-javaee-jar" depends="init" unless="${no.dependencies}"/>
     <target name="pre-pre-compile" depends="init,deps-jar">
@@ -165,16 +148,13 @@
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target name="library-inclusion-in-archive" depends="compile">
-        <unjar dest="${build.classes.dir}" src="${reference.EntityInternalOrchBPEL.dist_se}"/>
         <unjar dest="${build.classes.dir}" src="${reference.EntityBPEL.dist_se}"/>
     </target>
     <target name="library-inclusion-in-manifest" depends="compile">
-        <basename property="included.lib.reference.EntityInternalOrchBPEL.dist_se" file="${reference.EntityInternalOrchBPEL.dist_se}"/>
-        <copy todir="${build.classes.dir}" file="${reference.EntityInternalOrchBPEL.dist_se}"/>
         <basename property="included.lib.reference.EntityBPEL.dist_se" file="${reference.EntityBPEL.dist_se}"/>
         <copy todir="${build.classes.dir}" file="${reference.EntityBPEL.dist_se}"/>
         <manifest file="${build.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.EntityInternalOrchBPEL.dist_se},${included.lib.reference.EntityBPEL.dist_se}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.EntityBPEL.dist_se}"/>
         </manifest>
     </target>
     <target name="do-compile" depends="init,deps-jar,pre-pre-compile,pre-compile"/>
@@ -257,7 +237,6 @@
             -->
     <target name="deps-clean" depends="init" unless="${no.dependencies}">
         <ant target="clean" inheritall="false" antfile="${project.EntityBPEL}/build.xml"/>
-        <ant target="clean" inheritall="false" antfile="${project.EntityInternalOrchBPEL}/build.xml"/>
     </target>
     <target name="do-clean" depends="init">
         <delete dir="${build.dir}"/>

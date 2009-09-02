@@ -226,10 +226,6 @@
 		<directory>/Production/Adapters/General/AdapterCA</directory>
 	</project>
 	<project>
-		<name>NhinCA</name>
-		<directory>/Production/Gateway/NhinCA</directory>
-	</project>
-	<project>
 		<name>EntityCA</name>
 		<directory>/Production/Gateway/EntityCA</directory>
 	</project> 
