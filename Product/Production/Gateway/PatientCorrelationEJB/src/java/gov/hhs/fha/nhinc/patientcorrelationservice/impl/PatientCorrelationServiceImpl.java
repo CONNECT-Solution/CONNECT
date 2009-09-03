@@ -43,9 +43,11 @@ public class PatientCorrelationServiceImpl {
         }
         List<II> listII = patIdentifier.getValue();
         if (listII == null) {
+            log.warn("patient identifier was null");
             return null;
         }
         if (listII.get(0) == null) {
+            log.warn("patient identifier(0) was null");
             return null;
         }
 
@@ -106,77 +108,6 @@ public class PatientCorrelationServiceImpl {
         return qualifiedPatientIdentifier;
     }
 
-//    private static List<II> buildListFromSingleItem(II item) {
-//        List<II> list = new ArrayList<II>();
-//        list.add(item);
-//        return list;
-//    }
-//
-//    private static List<II> filterList(List<II> originalList, List<II> inclusionList, List<II> exclusionList) {
-//        List<II> filteredList;
-//
-//        if ((originalList == null) || (originalList.size() == 0)) {
-//            filteredList = originalList;
-//        } else if ((inclusionList == null) && (exclusionList == null)) {
-//            filteredList = originalList;
-//        } else {
-//            filteredList = new ArrayList<II>();
-//            for (II item : originalList) {
-//                if (itemAllowed(item, inclusionList, exclusionList)) {
-//                    filteredList.add(item);
-//                }
-//            }
-//        }
-//
-//        return filteredList;
-//    }
-//
-//    private static boolean itemAllowed(II item, List<II> inclusionList, List<II> exclusionList) {
-//        boolean result = true;
-//
-//        if (inclusionList != null) {
-//            boolean found = false;
-//            for (II inclusionItem : inclusionList) {
-//                if (rootsEqual(item, inclusionItem)) {
-//                    found = true;
-//                    break;
-//                }
-//            }
-//
-//            result = found;
-//        }
-//
-//        if (result) {
-//            if (exclusionList != null) {
-//                boolean found = false;
-//                for (II exclusionItem : exclusionList) {
-//                    if (rootsEqual(item, exclusionItem)) {
-//                        found = true;
-//                        break;
-//                    }
-//                }
-//                result = !found;
-//            }
-//        }
-//
-//        return result;
-//    }
-//
-//    private static boolean rootsEqual(II a, II b) {
-//        boolean result;
-//        if (a == null) {
-//            result = (b == null);
-//        } else if (b == null) {
-//            result = (a == null);
-//        } else if (a.getRoot() == null) {
-//            result = (b.getRoot() == null);
-//        } else if (b.getRoot() == null) {
-//            result = (a.getRoot() == null);
-//        } else {
-//            result = (a.getRoot().contentEquals(b.getRoot()));
-//        }
-//        return result;
-//    }
     public static AddPatientCorrelationSecuredResponseType addPatientCorrelation(AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest) {
         PRPAIN201301UV IN201301 = addPatientCorrelationRequest.getPRPAIN201301UV();
 
@@ -186,39 +117,48 @@ public class PatientCorrelationServiceImpl {
         String correlatedPatientId = "";
         String correlatedPatientAssigningAuthId = "";
         if (patient == null) {
+            log.warn("Patient was null");
             return null;
         }
         List<II> ids = patient.getId();
         if (ids == null) {
+            log.warn("id's were null");
             return null;
         }
         if (ids.get(0) == null) {
+            log.warn("id(0) was null");
             return null;
         }
         if (ids.get(1) == null) {
+            log.warn("id(1) was null");
             return null;
         }
         patientId = ids.get(0).getExtension();
         if (patientId != null && !patientId.equals("")) {
         } else {
+            log.warn("patient id was not supplied");
             return null;
         }
         patientAssigningAuthId = ids.get(0).getRoot();
         if (patientAssigningAuthId != null && !patientAssigningAuthId.equals("")) {
         } else {
+            log.warn("patient assigning authority was not supplied");
             return null;
         }
         correlatedPatientId = ids.get(1).getExtension();
         if (correlatedPatientId != null & !correlatedPatientId.equals("")) {
         } else {
+            log.warn("correlatedPatientId was not supplied");
             return null;
         }
         correlatedPatientAssigningAuthId = ids.get(1).getRoot();
         if (correlatedPatientAssigningAuthId != null && !correlatedPatientAssigningAuthId.equals("")) {
         } else {
+            log.warn("correlatedPatientId assigning authority was not supplied");
             return null;
         }
         if (patientAssigningAuthId.equals(correlatedPatientAssigningAuthId) && patientId.equals(correlatedPatientId)) {
+            log.warn("patient was self-correlated");
             return null;
         }
         CorrelatedIdentifiers correlatedIdentifers = new CorrelatedIdentifiers();
@@ -240,11 +180,13 @@ public class PatientCorrelationServiceImpl {
 
         PRPAMT201305UVPatient patient = PRPAIN201303UVParser.parseHL7PatientPersonFrom201303Message(IN201303);
         if (patient == null) {
+            log.warn("patient was null");
             return null;
         }
 
         List<II> ids = patient.getId();
         if (ids == null) {
+            log.warn("id's were null");
             return null;
         }
 
