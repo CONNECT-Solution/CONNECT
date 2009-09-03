@@ -68,6 +68,7 @@ public class PatientCorrelationImpl
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.PAT_CORR_ACTION);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             org.hl7.v3.AddPatientCorrelationSecuredRequestType body = new org.hl7.v3.AddPatientCorrelationSecuredRequestType();
 
@@ -99,6 +100,7 @@ public class PatientCorrelationImpl
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.PAT_CORR_ACTION);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             org.hl7.v3.RemovePatientCorrelationSecuredRequestType body = new org.hl7.v3.RemovePatientCorrelationSecuredRequestType();
 
