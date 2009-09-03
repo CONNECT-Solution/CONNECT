@@ -80,27 +80,30 @@
   <xsd:element name="SamlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" />
   <xsd:complexType name="SamlAuthzDecisionStatementEvidenceType" >
       <xsd:sequence>
-          <xsd:element name="assertion" type="tns:SamlAuthzDecisionStatementAssertionType" minOccurs="0" />
+          <xsd:element name="assertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType" minOccurs="0" />
       </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="SamlAuthzDecisionStatementEvidence" type="tns:SamlAuthzDecisionStatementEvidenceType" />
-  <xsd:complexType name="SamlAuthzDecisionStatementAssertionType" >
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceAssertionType" >
       <xsd:sequence>
           <xsd:element name="id" type="xsd:string" minOccurs="0" />
           <xsd:element name="issueInstant" type="xsd:string" minOccurs="0" />
           <xsd:element name="version" type="xsd:string" minOccurs="0" />
           <xsd:element name="issuer" type="xsd:string" minOccurs="0" />
-          <xsd:element name="conditions" type="tns:SamlAuthzdecisionStatementEvidenceConditionsType" minOccurs="0" />
+          <xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0" />
+          <xsd:element name="contentReference" type="xsd:string" minOccurs="0" />
+          <xsd:element name="contentType" type="xsd:string" minOccurs="0" />
+          <xsd:element name="content" type="xsd:base64Binary" minOccurs="0" />
       </xsd:sequence>
   </xsd:complexType>
-  <xsd:element name="SamlAuthzDecisionStatementAssertion" type="tns:SamlAuthzDecisionStatementAssertionType" />
-  <xsd:complexType name="SamlAuthzdecisionStatementEvidenceConditionsType">
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType" />
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceConditionsType">
       <xsd:sequence>
           <xsd:element name="notBefore" type="xsd:string" minOccurs="0" />
           <xsd:element name="notOnOrAfter" type="xsd:string" minOccurs="0" />
       </xsd:sequence>
   </xsd:complexType>
-  <xsd:element name="SamlAuthzdecisionStatementEvidenceConditions" type="tns:SamlAuthzdecisionStatementEvidenceConditionsType" />
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceConditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" />
   <xsd:complexType name="SamlSignatureType">
       <xsd:sequence>
           <xsd:element name="keyInfo" type="tns:SamlSignatureKeyInfoType" minOccurs="0" />
