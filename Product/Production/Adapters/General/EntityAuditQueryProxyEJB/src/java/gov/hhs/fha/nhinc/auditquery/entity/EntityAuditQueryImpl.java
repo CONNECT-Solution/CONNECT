@@ -5,13 +5,14 @@
 package gov.hhs.fha.nhinc.auditquery.entity;
 
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
-import gov.hhs.fha.nhinc.auditquery.proxy.ProxyAuditQueryImpl;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.entityauditlogquerysaml.EntityAuditLogQuerySamlPortType;
 import gov.hhs.fha.nhinc.entityauditlogquerysaml.EntityAuditLogQuerySamlService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
 /**
@@ -32,24 +33,24 @@ public class EntityAuditQueryImpl {
 
             EntityAuditLogQuerySamlPortType port = getPort(url);
 
-            ProxyAuditQueryImpl auditProxy = new ProxyAuditQueryImpl();
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType req = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
-            req.setAssertion(findAuditEventsRequest.getAssertion());
-            req.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
-            NhinTargetSystemType target = new NhinTargetSystemType ();
-            target.setUrl(url);
-            req.setNhinTargetSystem(target);
-            response = auditProxy.findAuditEvents(req);
+//            ProxyAuditQueryImpl auditProxy = new ProxyAuditQueryImpl();
+//            gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType req = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
+//            req.setAssertion(findAuditEventsRequest.getAssertion());
+//            req.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
+//            NhinTargetSystemType target = new NhinTargetSystemType ();
+//            target.setUrl(url);
+//            req.setNhinTargetSystem(target);
+//            response = auditProxy.findAuditEvents(req);
 
-//            AssertionType assertIn = findAuditEventsRequest.getAssertion();
-//            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-//            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.AUDIT_QUERY_ACTION);
-//            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-//
-//            gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType();
-//            body.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
-//            body.setNhinTargetCommunities(findAuditEventsRequest.getNhinTargetCommunities());
-//            response = port.findAuditEvents(body);
+            AssertionType assertIn = findAuditEventsRequest.getAssertion();
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.AUDIT_QUERY_ACTION);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType body = new gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType();
+            body.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
+            body.setNhinTargetCommunities(findAuditEventsRequest.getNhinTargetCommunities());
+            response = port.findAuditEvents(body);
         }
         catch (Exception ex)
         {
