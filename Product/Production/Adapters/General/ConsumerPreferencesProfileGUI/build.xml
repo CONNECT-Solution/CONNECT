@@ -82,9 +82,9 @@
 
     -->
     <target name="wsimport-client-identityservices" depends="wsimport-init,wsimport-client-check-identityservices" unless="wsimport-client-identityservices.notRequired">
-<!--
+
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true"/>
--->
+
     </target>
 
     <target depends="init" name="deps-jar" unless="no.deps">
