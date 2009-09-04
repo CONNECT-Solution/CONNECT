@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.dir}/wsimport/service"/>
+        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-check-EntityAuditLogQuerySecured" depends="wsimport-init">
+        <condition property="wsimport-client-EntityAuditLogQuerySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entityauditlogquerysaml/EntityAuditLogQuerySecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-EntityAuditLogQuerySecured" unless="wsimport-client-EntityAuditLogQuerySecured.notRequired">
+        <property name="wsdl-EntityAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true"/>
+    </target>
+    <target name="wsimport-client-clean-EntityAuditLogQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
+    </target>
+    <target name="wsimport-client-check-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
+        <condition property="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured/NhincProxyAuditLogQuerySecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyAuditLogQuerySecured" unless="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
+        <property name="wsdl-NhincProxyAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxyAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true"/>
+    </target>
+    <target name="wsimport-client-clean-NhincProxyAuditLogQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
+    </target>
+    <target name="wsimport-service-check-EntityAuditQuery" depends="wsimport-init">
+        <condition property="wsimport-service-EntityAuditQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entityauditlogquery/EntityAuditLogQuery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init,wsimport-service-check-EntityAuditQuery" unless="wsimport-service-EntityAuditQuery.notRequired">
+        <property name="service-wsdl-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/EntityAuditLogQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntityAuditQuery" location="${meta.inf}/wsdl/EntityAuditQuery"/>
+        <property name="sourceLocation-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/"/>
+        <copy todir="${targetLocation-EntityAuditQuery}">
+            <fileset dir="${sourceLocation-EntityAuditQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityAuditQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entityauditlogquery"/>
+    </target>
+    <target name="wsimport-service-check-ProxyAuditQuery" depends="wsimport-init">
+        <condition property="wsimport-service-ProxyAuditQuery.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquery/NhincProxyAuditLogQuery.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init,wsimport-service-check-ProxyAuditQuery" unless="wsimport-service-ProxyAuditQuery.notRequired">
+        <property name="service-wsdl-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/NhincProxyAuditLogQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-ProxyAuditQuery" location="${meta.inf}/wsdl/ProxyAuditQuery"/>
+        <property name="sourceLocation-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
+        <copy todir="${targetLocation-ProxyAuditQuery}">
+            <fileset dir="${sourceLocation-ProxyAuditQuery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyAuditQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquery"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured"/>
+    <target name="wsimport-client-compile" depends="wsimport-client-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+        <copy todir="${classes.dir}">
+            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery"/>
+    <target name="wsimport-service-compile" depends="wsimport-service-generate">
+        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
+    </target>
+</project>
