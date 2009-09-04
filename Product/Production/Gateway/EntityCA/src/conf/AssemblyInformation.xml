@@ -17,26 +17,6 @@
         </service-unit>
         <service-unit>
             <identification>
-                <name>EntityCA-NhincProxyBPEL</name>
-                <description>Represents this Service Unit</description>
-            </identification>
-            <target>
-                <artifacts-zip>NhincProxyBPEL.jar</artifacts-zip>
-                <component-name>sun-bpel-engine</component-name>
-            </target>
-        </service-unit>
-        <service-unit>
-            <identification>
-                <name>EntityCA-EntityBPEL</name>
-                <description>Represents this Service Unit</description>
-            </identification>
-            <target>
-                <artifacts-zip>EntityBPEL.jar</artifacts-zip>
-                <component-name>sun-bpel-engine</component-name>
-            </target>
-        </service-unit>
-        <service-unit>
-            <identification>
                 <name>EntityCA-sun-database-binding</name>
                 <description>Represents this Service Unit</description>
             </identification>

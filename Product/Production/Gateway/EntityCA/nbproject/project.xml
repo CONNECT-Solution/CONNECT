@@ -8,22 +8,6 @@
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
             <reference>
-                <foreign-project>EntityBPEL</foreign-project>
-                <artifact-type>CAPS.asa:sun-bpel-engine</artifact-type>
-                <script>build.xml</script>
-                <target>dist_se</target>
-                <clean-target>clean</clean-target>
-                <id>dist_se</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincProxyBPEL</foreign-project>
-                <artifact-type>CAPS.asa:sun-bpel-engine</artifact-type>
-                <script>build.xml</script>
-                <target>dist_se</target>
-                <clean-target>clean</clean-target>
-                <id>dist_se</id>
-            </reference>
-            <reference>
                 <foreign-project>PatientCorrelationFacadeBpel</foreign-project>
                 <artifact-type>CAPS.asa:sun-bpel-engine</artifact-type>
                 <script>build.xml</script>

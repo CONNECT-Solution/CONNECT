@@ -1,189 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" xmlns:ns10="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte" xmlns:ns11="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns:ns12="urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade" xmlns:ns13="urn:ihe:iti:pixv3:2007" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade:bpel" xmlns:ns15="urn:gov:hhs:fha:nhinc:gateway:nhincproxybpel:nhinproxysubjectdiscovery" xmlns:ns16="urn:gov:hhs:fha:nhinc:gateway:entitybpel:entitysubjectdiscovery" xmlns:ns2="urn:gov:hhs:fha:nhinc:nhinccomponentaggregator" xmlns:ns3="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" xmlns:ns4="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms" xmlns:ns6="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" xmlns:ns7="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns8="urn:gov:hhs:fha:nhinc:nhinccomponentinternalauditrepository" xmlns:ns9="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacade" xmlns:ns2="urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager" xmlns:ns3="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" xmlns:ns4="urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte" xmlns:ns5="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" xmlns:ns6="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade:bpel" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
         <endpoint endpoint-name="PatientCorrelationFacadePort" interface-name="ns1:PatientCorrelationFacadePortType" name="endpoint1" service-name="ns1:PatientCorrelationService"/>
-        <endpoint endpoint-name="NhincComponentAggregatorPort" interface-name="ns2:NhincComponentAggregatorPortType" name="endpoint2" service-name="ns2:NhincComponentAggregator"/>
-        <endpoint endpoint-name="NhincProxySubjectDiscoveryPortSoap11" interface-name="ns3:NhincProxySubjectDiscoveryPortType" name="endpoint3" service-name="ns3:NhincProxySubjectDiscovery"/>
-        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint4" service-name="ns4:NhincComponentConnectionManager"/>
-        <endpoint endpoint-name="NhincComponentSubDiscTransformsBindingSoap11" interface-name="ns5:NhincComponentSubDiscTransformsPortType" name="endpoint5" service-name="ns5:NhincComponentSubDiscTransforms"/>
-        <endpoint endpoint-name="EntitySubjectDiscoveryPortSoap11" interface-name="ns6:EntitySubjectDiscoveryPortType" name="endpoint6" service-name="ns6:EntitySubjectDiscovery"/>
-        <endpoint endpoint-name="NhincComponentPropAccessorPort" interface-name="ns7:NhincComponentPropAccessorPortType" name="endpoint7" service-name="ns7:NhincComponentPropAccessor"/>
-        <endpoint endpoint-name="NhincComponentInternalAuditRepositoryPortTypeBindingPort" interface-name="ns8:NhincComponentInternalAuditRepositoryPortType" name="endpoint8" service-name="ns8:NhincComponentInternalAuditRepositoryService"/>
-        <endpoint endpoint-name="AuditRepositoryManagerPort" interface-name="ns9:AuditRepositoryManagerPortType" name="endpoint9" service-name="ns9:AuditRepositoryManagerService"/>
-        <endpoint endpoint-name="PatientCorrelationFacadeDteBindingPort" interface-name="ns10:PatientCorrelationFacadeDte" name="endpoint10" service-name="ns10:NhincComponentPatientCorrelationFacadeDteService"/>
-        <endpoint endpoint-name="PatientCorrelationPort" interface-name="ns11:PatientCorrelationPortType" name="endpoint11" service-name="ns11:PatientCorrelationService"/>
-        <endpoint endpoint-name="NhincComponentInternalPolicyEngineFacadePort" interface-name="ns12:NhincComponentInternalPolicyEngineFacadePortType" name="endpoint12" service-name="ns12:NhincComponentInternalPolicyEngineFacadeService"/>
-        <endpoint endpoint-name="PIXConsumer_Port_Soap" interface-name="ns13:PIXConsumer_PortType" name="endpoint13" service-name="ns13:PIXConsumer_Service"/>
-        <endpoint display-name="PatientCorrelationFacadePartnerLink" endpoint-name="PatientCorrelationPortTypeRole_myRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns1:PatientCorrelationFacadePortType" name="endpoint14" process-name="PatientCorrelationFacadeBpel" service-name="ns14:PatientCorrelationFacadePartnerLink"/>
-        <endpoint display-name="PatientCorrelationPartnerLink" endpoint-name="PatientCorrelationPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns11:PatientCorrelationPortType" name="endpoint15" process-name="PatientCorrelationFacadeBpel" service-name="ns14:PatientCorrelationPartnerLink"/>
-        <endpoint display-name="DtePartnerLink" endpoint-name="PatientCorrelationFacadeDteRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns10:PatientCorrelationFacadeDte" name="endpoint16" process-name="PatientCorrelationFacadeBpel" service-name="ns14:DtePartnerLink"/>
-        <endpoint display-name="PropertyAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns7:NhincComponentPropAccessorPortType" name="endpoint17" process-name="PatientCorrelationFacadeBpel" service-name="ns14:PropertyAccessorPL"/>
-        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint18" process-name="PatientCorrelationFacadeBpel" service-name="ns14:ConnectionManagerPL"/>
-        <endpoint display-name="NhincProxySubjectDiscoveryPL" endpoint-name="NhincProxySubjectDiscoveryPortTypeRole_myRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns3:NhincProxySubjectDiscoveryPortType" name="endpoint19" process-name="NhinProxySubjectDiscovery" service-name="ns15:NhincProxySubjectDiscoveryPL"/>
-        <endpoint display-name="SubDiscDataTransformsPL" endpoint-name="NhincComponentSubDiscTransformsPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns5:NhincComponentSubDiscTransformsPortType" name="endpoint20" process-name="NhinProxySubjectDiscovery" service-name="ns15:SubDiscDataTransformsPL"/>
-        <endpoint display-name="ConnectionMgrPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint21" process-name="NhinProxySubjectDiscovery" service-name="ns15:ConnectionMgrPL"/>
-        <endpoint display-name="NhinSubjectDiscoveryPL" endpoint-name="PIXConsumer_Role_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns13:PIXConsumer_PortType" name="endpoint22" process-name="NhinProxySubjectDiscovery" service-name="ns15:NhinSubjectDiscoveryPL"/>
-        <endpoint display-name="AuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="NhinProxySubjectDiscovery.bpel" interface-name="ns8:NhincComponentInternalAuditRepositoryPortType" name="endpoint23" process-name="NhinProxySubjectDiscovery" service-name="ns15:AuditRepositoryPL"/>
-        <endpoint display-name="EntitySubjectDiscoveryPL" endpoint-name="EntitySubjectDiscoveryPortTypeRole_myRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns6:EntitySubjectDiscoveryPortType" name="endpoint24" process-name="EntitySubjectDiscovery" service-name="ns16:EntitySubjectDiscoveryPL"/>
-        <endpoint display-name="SubDiscDataTransformsPL" endpoint-name="NhincComponentSubDiscTransformsPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns5:NhincComponentSubDiscTransformsPortType" name="endpoint25" process-name="EntitySubjectDiscovery" service-name="ns16:SubDiscDataTransformsPL"/>
-        <endpoint display-name="PropAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns7:NhincComponentPropAccessorPortType" name="endpoint26" process-name="EntitySubjectDiscovery" service-name="ns16:PropAccessorPL"/>
-        <endpoint display-name="ConnectionMgrPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns4:NhincComponentConnectionManagerPortType" name="endpoint27" process-name="EntitySubjectDiscovery" service-name="ns16:ConnectionMgrPL"/>
-        <endpoint display-name="PatientCorrelationPL" endpoint-name="PatientCorrelationPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns1:PatientCorrelationFacadePortType" name="endpoint28" process-name="EntitySubjectDiscovery" service-name="ns16:PatientCorrelationPL"/>
-        <endpoint display-name="NhincProxySubjectDiscoveryPL" endpoint-name="NhincProxySubjectDiscoveryPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns3:NhincProxySubjectDiscoveryPortType" name="endpoint29" process-name="EntitySubjectDiscovery" service-name="ns16:NhincProxySubjectDiscoveryPL"/>
-        <endpoint display-name="AuditRepositoryPL" endpoint-name="NhincComponentInternalAuditRepositoryPortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns8:NhincComponentInternalAuditRepositoryPortType" name="endpoint30" process-name="EntitySubjectDiscovery" service-name="ns16:AuditRepositoryPL"/>
-        <endpoint display-name="NhincInternalPolicyEnginePL" endpoint-name="NhincComponentInternalPolicyEngineFacadePortTypeRole_partnerRole" file-path="EntitySubjectDiscovery.bpel" interface-name="ns12:NhincComponentInternalPolicyEngineFacadePortType" name="endpoint31" process-name="EntitySubjectDiscovery" service-name="ns16:NhincInternalPolicyEnginePL"/>
+        <endpoint endpoint-name="NhincComponentConnectionManagerPortSoap11" interface-name="ns2:NhincComponentConnectionManagerPortType" name="endpoint2" service-name="ns2:NhincComponentConnectionManager"/>
+        <endpoint endpoint-name="NhincComponentPropAccessorPort" interface-name="ns3:NhincComponentPropAccessorPortType" name="endpoint3" service-name="ns3:NhincComponentPropAccessor"/>
+        <endpoint endpoint-name="PatientCorrelationFacadeDteBindingPort" interface-name="ns4:PatientCorrelationFacadeDte" name="endpoint4" service-name="ns4:NhincComponentPatientCorrelationFacadeDteService"/>
+        <endpoint endpoint-name="PatientCorrelationPort" interface-name="ns5:PatientCorrelationPortType" name="endpoint5" service-name="ns5:PatientCorrelationService"/>
+        <endpoint display-name="PatientCorrelationFacadePartnerLink" endpoint-name="PatientCorrelationPortTypeRole_myRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns1:PatientCorrelationFacadePortType" name="endpoint6" process-name="PatientCorrelationFacadeBpel" service-name="ns6:PatientCorrelationFacadePartnerLink"/>
+        <endpoint display-name="PatientCorrelationPartnerLink" endpoint-name="PatientCorrelationPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns5:PatientCorrelationPortType" name="endpoint7" process-name="PatientCorrelationFacadeBpel" service-name="ns6:PatientCorrelationPartnerLink"/>
+        <endpoint display-name="DtePartnerLink" endpoint-name="PatientCorrelationFacadeDteRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns4:PatientCorrelationFacadeDte" name="endpoint8" process-name="PatientCorrelationFacadeBpel" service-name="ns6:DtePartnerLink"/>
+        <endpoint display-name="PropertyAccessorPL" endpoint-name="NhincComponentPropAccessorPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns3:NhincComponentPropAccessorPortType" name="endpoint9" process-name="PatientCorrelationFacadeBpel" service-name="ns6:PropertyAccessorPL"/>
+        <endpoint display-name="ConnectionManagerPL" endpoint-name="NhincComponentConnectionManagerPortTypeRole_partnerRole" file-path="PatientCorrelationFacadeBpel.bpel" interface-name="ns2:NhincComponentConnectionManagerPortType" name="endpoint10" process-name="PatientCorrelationFacadeBpel" service-name="ns6:ConnectionManagerPL"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="PatientCorrelationFacadeBpel.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="EntityCA-PatientCorrelationFacadeBpel" unit-name="PatientCorrelationFacadeBpel" unknown="false" x="104" y="99">
-            <provides endpoint="endpoint14"/>
-            <consumes endpoint="endpoint15"/>
-            <consumes endpoint="endpoint16"/>
-            <consumes endpoint="endpoint17"/>
-            <consumes endpoint="endpoint18"/>
-        </service-engine-service-unit>
-        <service-engine-service-unit artifacts-zip="NhincProxyBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="EntityCA-NhincProxyBPEL" unit-name="NhincProxyBPEL" unknown="false" x="100" y="326">
-            <provides endpoint="endpoint19"/>
-            <consumes endpoint="endpoint20"/>
-            <consumes endpoint="endpoint21"/>
-            <consumes endpoint="endpoint22"/>
-            <consumes endpoint="endpoint23"/>
-        </service-engine-service-unit>
-        <service-engine-service-unit artifacts-zip="EntityBPEL.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="EntityCA-EntityBPEL" unit-name="EntityBPEL" unknown="false" x="128" y="1814">
-            <provides endpoint="endpoint24"/>
-            <consumes endpoint="endpoint25"/>
-            <consumes endpoint="endpoint26"/>
-            <consumes endpoint="endpoint27"/>
-            <consumes endpoint="endpoint28"/>
-            <consumes endpoint="endpoint29"/>
-            <consumes endpoint="endpoint30"/>
-            <consumes endpoint="endpoint31"/>
+            <provides endpoint="endpoint6"/>
+            <consumes endpoint="endpoint7"/>
+            <consumes endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
+            <consumes endpoint="endpoint10"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="EntityCA-sun-http-binding" unit-name="sun-http-binding">
             <ports>
-                <port x="67" y="3120">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery']/port[@name='EntitySubjectDiscoveryPortSoap11'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint6"/>
-                    <provides endpoint="endpoint6"/>
-                </port>
-                <port x="67" y="3041">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/service[@name='NhincComponentAggregator']/port[@name='NhincComponentAggregatorPort'])" xlink:type="simple"/>
+                <port x="67" y="197">
+                    <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint2"/>
                     <provides endpoint="endpoint2"/>
                 </port>
-                <port x="67" y="476">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager']/port[@name='NhincComponentConnectionManagerPortSoap11'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint4"/>
-                    <provides endpoint="endpoint4"/>
-                </port>
-                <port x="67" y="397">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService']/port[@name='NhincComponentInternalAuditRepositoryPortTypeBindingPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint8"/>
-                    <provides endpoint="endpoint8"/>
-                </port>
-                <port x="67" y="1424">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineFacadeService']/port[@name='NhincComponentInternalPolicyEngineFacadePort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint12"/>
-                    <provides endpoint="endpoint12"/>
-                </port>
-                <port x="67" y="2962">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService']/port[@name='PatientCorrelationFacadePort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint1"/>
-                    <provides endpoint="endpoint1"/>
-                </port>
-                <port x="67" y="318">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor']/port[@name='NhincComponentPropAccessorPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint7"/>
-                    <provides endpoint="endpoint7"/>
-                </port>
-                <port x="67" y="2883">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms']/port[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
+                <port x="67" y="1582">
+                    <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService']/port[@name='PatientCorrelationPort'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint5"/>
                     <provides endpoint="endpoint5"/>
                 </port>
-                <port x="67" y="2804">
-                    <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery']/port[@name='NhincProxySubjectDiscoveryPortSoap11'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint3"/>
-                    <provides endpoint="endpoint3"/>
-                </port>
-                <port state="deleted" x="0" y="-1">
-                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService']/port[@name='AuditRepositoryManagerPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint9"/>
-                    <provides endpoint="endpoint9"/>
-                </port>
-                <port x="67" y="39">
-                    <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service']/port[@name='PIXConsumer_Port_Soap'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint13"/>
-                    <provides endpoint="endpoint13"/>
-                </port>
-                <port x="67" y="1582">
-                    <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService']/port[@name='PatientCorrelationPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint11"/>
-                    <provides endpoint="endpoint11"/>
+                <port x="67" y="118">
+                    <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService']/port[@name='PatientCorrelationFacadePort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint1"/>
+                    <provides endpoint="endpoint1"/>
                 </port>
                 <port x="67" y="1503">
                     <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl#xpointer(/definitions/service[@name='NhincComponentPatientCorrelationFacadeDteService']/port[@name='PatientCorrelationFacadeDteBindingPort'])" xlink:type="simple"/>
-                    <consumes endpoint="endpoint10"/>
-                    <provides endpoint="endpoint10"/>
+                    <consumes endpoint="endpoint4"/>
+                    <provides endpoint="endpoint4"/>
+                </port>
+                <port x="67" y="39">
+                    <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor']/port[@name='NhincComponentPropAccessorPort'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint3"/>
+                    <provides endpoint="endpoint3"/>
                 </port>
             </ports>
         </binding-component-service-unit>
     </service-units>
     <connections>
-        <connection consumer="endpoint31" provider="endpoint12" state="unchanged"/>
-        <connection consumer="endpoint1" provider="endpoint14" state="unchanged"/>
-        <connection consumer="endpoint28" provider="endpoint14" state="unchanged"/>
-        <connection consumer="endpoint3" provider="endpoint19" state="unchanged"/>
-        <connection consumer="endpoint29" provider="endpoint19" state="unchanged"/>
-        <connection consumer="endpoint18" provider="endpoint4" state="unchanged"/>
-        <connection consumer="endpoint21" provider="endpoint4" state="unchanged"/>
-        <connection consumer="endpoint27" provider="endpoint4" state="unchanged"/>
-        <connection consumer="endpoint20" provider="endpoint5" state="unchanged"/>
-        <connection consumer="endpoint25" provider="endpoint5" state="unchanged"/>
-        <connection consumer="endpoint16" provider="endpoint10" state="unchanged"/>
-        <connection consumer="endpoint23" provider="endpoint8" state="new"/>
-        <connection consumer="endpoint30" provider="endpoint8" state="new"/>
-        <connection consumer="endpoint22" provider="endpoint13" state="unchanged"/>
-        <connection consumer="endpoint6" provider="endpoint24" state="unchanged"/>
-        <connection consumer="endpoint15" provider="endpoint11" state="unchanged"/>
-        <connection consumer="endpoint17" provider="endpoint7" state="unchanged"/>
-        <connection consumer="endpoint26" provider="endpoint7" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint10" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint9" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint4" state="unchanged"/>
     </connections>
     <porttypes>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='EntitySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/portType[@name='NhincComponentAggregatorPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalPolicyEngineFacadePortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationFacadePortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='EntitySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/portType[@name='NhincComponentAggregatorPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalPolicyEngineFacadePortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationFacadePortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='PIXConsumer_PortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationFacadePortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationFacadeDte'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/portType[@name='AuditRepositoryManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/portType[@name='NhincComponentInternalAuditRepositoryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/portType[@name='NhincComponentSubDiscTransformsPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='NhincProxySubjectDiscoveryPortType'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/portType[@name='PIXConsumer_PortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/portType[@name='NhincComponentConnectionManagerPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationPortType'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/portType[@name='PatientCorrelationFacadePortType'])" xlink:type="simple"/>
@@ -191,41 +70,11 @@
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/portType[@name='NhincComponentPropAccessorPortType'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='EntitySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/binding[@name='NhincComponentAggregatorBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalPolicyEngineFacadePortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationFacadeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='EntitySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/binding[@name='NhincComponentAggregatorBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalPolicyEngineFacadePortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationFacadeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='PIXConsumer_Binding_Soap'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationFacadeBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationFacadeDteBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/binding[@name='AuditRepositoryManagerBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/binding[@name='NhincComponentInternalAuditRepositoryPortTypeBinding'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/binding[@name='NhincComponentSubDiscTransformsBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='NhincProxySubjectDiscoveryBindingSoap11'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/binding[@name='PIXConsumer_Binding_Soap'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/binding[@name='NhincComponentConnectionManagerBindingSoap11'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/binding[@name='PatientCorrelationFacadeBinding'])" xlink:type="simple"/>
@@ -233,41 +82,11 @@
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/binding[@name='NhincComponentPropAccessorBindingSoap11'])" xlink:type="simple"/>
     </bindings>
     <services>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/service[@name='NhincComponentAggregator'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineFacadeService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/EntityBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='EntitySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAggregator.wsdl#xpointer(/definitions/service[@name='NhincComponentAggregator'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalPolicyEngineFacadeService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/META-INF/NhincProxyBPEL/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl#xpointer(/definitions/service[@name='NhincComponentPatientCorrelationFacadeDteService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/META-INF/PatientCorrelationFacadeBpel/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPropAccessor.wsdl#xpointer(/definitions/service[@name='NhincComponentPropAccessor'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl#xpointer(/definitions/service[@name='AuditRepositoryManagerService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentInternalAuditRepository.wsdl#xpointer(/definitions/service[@name='NhincComponentInternalAuditRepositoryService'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentSubDiscTransforms.wsdl#xpointer(/definitions/service[@name='NhincComponentSubDiscTransforms'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl#xpointer(/definitions/service[@name='NhincProxySubjectDiscovery'])" xlink:type="simple"/>
-        <link xlink:href="../jbiServiceUnits/NhincProxyBPEL/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl#xpointer(/definitions/service[@name='PIXConsumer_Service'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentConnectionManager.wsdl#xpointer(/definitions/service[@name='NhincComponentConnectionManager'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/PatientCorrelationFacadeBpel/META-INF/src/_references/_projects/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl#xpointer(/definitions/service[@name='PatientCorrelationService'])" xlink:type="simple"/>

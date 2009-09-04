@@ -71,41 +71,6 @@
     -->
     
     <target name="deps-jar" depends="init" unless="${no.dependencies}">
-        <ant dir="${project.EntityBPEL}" target="dist_se" inheritall="false" antfile="${project.EntityBPEL}/build.xml"/>
-        <property name="EntityBPEL.su.name" value="EntityBPEL"/>
-        <unzip src="${reference.EntityBPEL.dist_se}" dest="${src.dir}/../jbiServiceUnits/${EntityBPEL.su.name}">
-            <patternset>
-                <include name="**/*.wsdl"/>
-                <include name="**/*.WSDL"/>
-                <include name="**/*.xsd"/>
-                <include name="**/*.XSD"/>
-                <include name="META-INF/jbi.xml"/>
-                <include name="META-INF/catalog.xml"/>
-            </patternset>
-        </unzip>
-        <property name="EntityBPEL.su.dir" value="${src.dir}/../jbiServiceUnits/${EntityBPEL.su.name}"/>
-        <copy file="${EntityBPEL.su.dir}/META-INF/jbi.xml" todir="${EntityBPEL.su.dir}"/>
-        <copy todir="${src.dir}/../jbiServiceUnits/META-INF/${EntityBPEL.su.name}">
-            <fileset dir="${EntityBPEL.su.dir}/META-INF"/>
-        </copy>
-        
-        <ant dir="${project.NhincProxyBPEL}" target="dist_se" inheritall="false" antfile="${project.NhincProxyBPEL}/build.xml"/>
-        <property name="NhincProxyBPEL.su.name" value="NhincProxyBPEL"/>
-        <unzip src="${reference.NhincProxyBPEL.dist_se}" dest="${src.dir}/../jbiServiceUnits/${NhincProxyBPEL.su.name}">
-            <patternset>
-                <include name="**/*.wsdl"/>
-                <include name="**/*.WSDL"/>
-                <include name="**/*.xsd"/>
-                <include name="**/*.XSD"/>
-                <include name="META-INF/jbi.xml"/>
-                <include name="META-INF/catalog.xml"/>
-            </patternset>
-        </unzip>
-        <property name="NhincProxyBPEL.su.dir" value="${src.dir}/../jbiServiceUnits/${NhincProxyBPEL.su.name}"/>
-        <copy file="${NhincProxyBPEL.su.dir}/META-INF/jbi.xml" todir="${NhincProxyBPEL.su.dir}"/>
-        <copy todir="${src.dir}/../jbiServiceUnits/META-INF/${NhincProxyBPEL.su.name}">
-            <fileset dir="${NhincProxyBPEL.su.dir}/META-INF"/>
-        </copy>
         
         <ant dir="${project.PatientCorrelationFacadeBpel}" target="dist_se" inheritall="false" antfile="${project.PatientCorrelationFacadeBpel}/build.xml"/>
         <property name="PatientCorrelationFacadeBpel.su.name" value="PatientCorrelationFacadeBpel"/>
@@ -133,12 +98,6 @@
         </copy>
         <mkdir dir="${build.dir}/META-INF"/>
         
-        <copy todir="${build.dir}/META-INF/${EntityBPEL.su.name}">
-            <fileset dir="${src.dir}/../jbiServiceUnits/META-INF/${EntityBPEL.su.name}"/>
-        </copy>   
-        <copy todir="${build.dir}/META-INF/${NhincProxyBPEL.su.name}">
-            <fileset dir="${src.dir}/../jbiServiceUnits/META-INF/${NhincProxyBPEL.su.name}"/>
-        </copy> 
         <copy todir="${build.dir}/META-INF/${PatientCorrelationFacadeBpel.su.name}">
             <fileset dir="${src.dir}/../jbiServiceUnits/META-INF/${PatientCorrelationFacadeBpel.su.name}"/>
         </copy>       
@@ -158,8 +117,6 @@
     </target>     
     
     <target name="deps-clean" depends="init" unless="${no.dependencies}">
-        <ant dir="${project.EntityBPEL}" target="clean" inheritall="false" antfile="${project.EntityBPEL}/build.xml"/>
-         <ant dir="${project.NhincProxyBPEL}" target="clean" inheritall="false" antfile="${project.NhincProxyBPEL}/build.xml"/>
           <ant dir="${project.PatientCorrelationFacadeBpel}" target="clean" inheritall="false" antfile="${project.PatientCorrelationFacadeBpel}/build.xml"/>
     </target>
     
