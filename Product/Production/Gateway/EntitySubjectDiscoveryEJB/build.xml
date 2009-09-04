@@ -9,6 +9,10 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="EntitySubjectDiscoveryEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project EntitySubjectDiscoveryEJB.</description>
+    
+    <property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
+
     <import file="nbproject/build-impl.xml"/>
 	<import file="../../../build.lib.xml"/>
 	<target name="build">
