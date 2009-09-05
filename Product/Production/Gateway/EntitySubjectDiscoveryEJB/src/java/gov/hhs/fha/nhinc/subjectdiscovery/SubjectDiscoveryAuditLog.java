@@ -145,10 +145,12 @@ public class SubjectDiscoveryAuditLog {
                     input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().size() > 0 &&
                     input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0) != null &&
                     input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue() != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getTypeId() != null) {
+                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0) != null &&
+                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getRoot() != null &&
+                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getExtension() != null) {
 
-                String hcId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getTypeId().getRoot();
-                String patientId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getTypeId().getExtension();
+                String hcId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getRoot();
+                String patientId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getExtension();
             logRequest.setPRPAIN201309UV(HL7PRPA201309Transforms.createPRPA201309(hcId, patientId));
  
             }
