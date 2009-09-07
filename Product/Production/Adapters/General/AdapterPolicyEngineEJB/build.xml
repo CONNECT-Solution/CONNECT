@@ -205,6 +205,7 @@
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.AdapterPolicyEngineLib.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineLib.jar" todir="${dist.ear.dir}"/>
@@ -221,8 +222,9 @@
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxy.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterPolicyEngineOrchestratorProxyImpl.jar}" manifestproperty="manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.openssoclientsdk.jar}" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.AdapterPolicyEngineLib.jar} ${manifest.reference.AdapterPEPProxy.jar} ${manifest.reference.AdapterPEPProxyImpl.jar} ${manifest.reference.AdapterPEPLib.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorLib.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.AdapterPolicyEngineLib.jar} ${manifest.reference.AdapterPEPProxy.jar} ${manifest.reference.AdapterPEPProxyImpl.jar} ${manifest.reference.AdapterPEPLib.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorLib.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxy.jar} ${manifest.reference.AdapterPolicyEngineOrchestratorProxyImpl.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
         </manifest>
     </target>
     

@@ -32,7 +32,10 @@ public class AdapterPolicyEngineImpl
 
             AssertionType assertIn = checkPolicyRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
+            Map samlMap = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
+
+            Map requestContext = ((BindingProvider) port).getRequestContext();
+            requestContext.putAll(samlMap);
 
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body = new gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType();
             body.setRequest(checkPolicyRequest.getRequest());
