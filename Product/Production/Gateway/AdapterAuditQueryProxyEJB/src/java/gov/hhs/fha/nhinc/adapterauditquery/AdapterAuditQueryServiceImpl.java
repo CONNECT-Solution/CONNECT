@@ -35,7 +35,8 @@ public class AdapterAuditQueryServiceImpl {
 
             AssertionType assertIn = findAuditEventsRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.AUDIT_QUERY_ACTION);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             com.services.nhinc.schema.auditmessage.FindAuditEventsType request = new com.services.nhinc.schema.auditmessage.FindAuditEventsType();
 
@@ -59,7 +60,7 @@ public class AdapterAuditQueryServiceImpl {
         }
         catch (Exception ex)
         {
-            log.error("Error calling adapter doc query secured service: " + ex.getMessage(), ex);
+            log.error("Error calling adapter audit query secured service: " + ex.getMessage(), ex);
         }
 
         return results;
