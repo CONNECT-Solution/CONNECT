@@ -26,10 +26,12 @@
   <strings id="Workspace.RequieredSoftware">
     <string value="Java"/>
     <string value="CCTray"/>
+    <string value="MySQL"/>
   </strings>
 
   <include buildfile="${Package.Workspace.Directory.Path}\Software\CCTray\CCTray.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\Java\Java.Script.xml"/>
+  <include buildfile="${Package.Workspace.Directory.Path}\Software\MySQL\MySQL.Script.xml"/>
 
 	<strings id="Workspace.Configuration">
     <string value="CCTray"/>
