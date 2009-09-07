@@ -8,19 +8,17 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="EntitySubjectDiscoveryProxyImpl" default="default" basedir=".">
-    <description>Builds, tests, and runs the project EntitySubjectDiscoveryProxyImpl.</description>
-    <import file="nbproject/build-impl.xml"/>
-
-    <import file="../../../build.lib.xml" />
-
-    <target name="build">
-        <property name="target-to-call" value="jar" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-    </target>
-    <target name="clean-build" depends="clean,jar" />
-    <target name="clean-test" depends="clean,jar" />
-    <target name="build-test" depends="jar" />
-    <!--
+	<description>Builds, tests, and runs the project EntitySubjectDiscoveryProxyImpl.</description>
+	<import file="nbproject/build-impl.xml"/>
+	<import file="../../../build.lib.xml"/>
+	<target name="build">
+		<property name="target-to-call" value="jar"/>
+		<antcall target="call-target-in-isolation-if-out-of-date"/>
+	</target>
+	<target name="clean-build" depends="clean,jar"/>
+	<target name="clean-test" depends="clean,jar"/>
+	<target name="build-test" depends="jar"/>
+	<!--
 
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
@@ -81,26 +79,21 @@
     nbproject/build-impl.xml file. 
 
     -->
-   <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init"></target>
-
-        <target depends="init" name="deps-jar" unless="no.deps">
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" name="deps-clean" unless="no.deps">
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
-
+	<target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init"/>
+	<target depends="init" name="deps-jar" unless="no.deps">
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+		<ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+	</target>
+	<target depends="init" name="deps-clean" unless="no.deps">
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+		<ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+	</target>
 </project>
