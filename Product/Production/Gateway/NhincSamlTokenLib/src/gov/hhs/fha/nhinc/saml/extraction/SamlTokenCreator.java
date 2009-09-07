@@ -169,6 +169,9 @@ public class SamlTokenCreator {
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer())) {
                         requestContext.put(NhincConstants.EVIDENCE_ISSUER_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
                     }
+                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
+                        requestContext.put(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
+                    }
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference())) {
                         requestContext.put(NhincConstants.EVIDENCE_CONTENT_REF_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference());
                     }

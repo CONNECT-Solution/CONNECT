@@ -32,7 +32,7 @@ public class AdapterPolicyEngineImpl
 
             AssertionType assertIn = checkPolicyRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map samlMap = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_QUERY_ACTION);
+            Map samlMap = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.POLICY_ENGINE_ACTION);
 
             Map requestContext = ((BindingProvider) port).getRequestContext();
             requestContext.putAll(samlMap);

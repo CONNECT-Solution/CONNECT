@@ -48,6 +48,7 @@ public class NhincConstants {
     public static final String EVIDENCE_INSTANT_PROP = "evidenceAssertionInstant";
     public static final String EVIDENCE_VERSION_PROP = "evidenceAssertionVersion";
     public static final String EVIDENCE_ISSUER_PROP = "evidenceAssertionIssuer";
+    public static final String EVIDENCE_ISSUER_FORMAT_PROP = "evidenceAssertionIssuerFormat";
     public static final String EVIDENCE_CONDITION_NOT_BEFORE_PROP = "evidenceConditionNotBefore";
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
     public static final String EVIDENCE_CONTENT_REF_PROP = "evidenceContentReference";
@@ -61,7 +62,7 @@ public class NhincConstants {
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
     public static final String AUDIT_REPO_ACTION = "auditrepository";
-
+    public static final String POLICY_ENGINE_ACTION = "policyengine";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     public static final String ADAPTER_MPI_ACTION = "mpi";
     
