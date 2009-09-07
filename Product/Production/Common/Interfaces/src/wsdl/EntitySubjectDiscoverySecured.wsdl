@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery" 
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"
    xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -15,8 +15,8 @@
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
-   name="EntitySubjectDiscovery" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscovery">
+   name="EntitySubjectDiscoverySecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured">
     <wsdl:documentation>
      WSDL for Entity interface of Subject Discovery
     </wsdl:documentation>
