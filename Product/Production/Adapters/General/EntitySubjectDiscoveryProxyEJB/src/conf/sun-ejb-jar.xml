@@ -9,12 +9,12 @@
                 <endpoint-address-uri>/NhinConnect/EntitySubjectDiscovery</endpoint-address-uri>
             </webservice-endpoint>
         </ejb>
-    <!--    <ejb>
+        <ejb>
             <ejb-name>NhincProxySubjectDiscovery</ejb-name>
             <webservice-endpoint>
                 <port-component-name>NhincProxySubjectDiscovery</port-component-name>
                 <endpoint-address-uri>/NhinConnect/NhincProxySubjectDiscovery</endpoint-address-uri>
             </webservice-endpoint>
-        </ejb> -->
+        </ejb> 
   </enterprise-beans>
 </sun-ejb-jar>
