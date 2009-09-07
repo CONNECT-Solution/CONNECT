@@ -117,6 +117,10 @@
 		<directory>/Production/Gateway/EntityAuditLogQueryEJB</directory>
 	</project>
 	<project>
+		<name>EntityAuditQueryProxyEJB</name>
+		<directory>/Production/Adapters/General/EntityAuditQueryProxyEJB</directory>
+	</project>
+	<project>
 		<name>GatewayPolicyEngineFacadeEJB</name>
 		<directory>/Production/Gateway/GatewayPolicyEngineFacadeEJB</directory>
 	</project>
@@ -127,10 +131,6 @@
 	<project>
 		<name>AuditRepositoryEJB</name>
 		<directory>/Production/Gateway/AuditRepositoryEJB</directory>
-	</project>
-	<project>
-		<name>NhincAuditLogDteEJB</name>
-		<directory>/Production/Gateway/NhincAuditLogDteEJB</directory>
 	</project>
 	<project>
 		<name>PatientCorrelationEJB</name>
@@ -219,6 +219,10 @@
 	<project>
 		<name>EntitySubjectDiscoveryEJB</name>
 		<directory>/Production/Gateway/EntitySubjectDiscoveryEJB</directory>
+	</project>
+	<project>
+		<name>EntitySubjectDiscoveryProxyEJB</name>
+		<directory>/Production/Adapters/General/EntitySubjectDiscoveryProxyEJB</directory>
 	</project>
 	<project>
 		<name>AdapterSubjectDiscoveryProxyEJB</name>
