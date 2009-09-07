@@ -157,6 +157,11 @@ public class NhincConstants {
     public static final String SUBJECT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Subject Discovery";
     public static final String SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME = "adapterreidentificationservice";
     public static final String SUBJECT_DISCOVERY_ADAPTER_SERVICE_NAME = "adaptersubjectdiscovery";
+    public static final String ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "adaptersubjectdiscoverysecured";
+    public static final String ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "entitysubjectdiscoverysecured";
+    public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SERVICE_NAME = "nhincproxysubjectdiscovery";
+    public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxysubjectdiscoverysecured";
+
 
     private NhincConstants() {
     }

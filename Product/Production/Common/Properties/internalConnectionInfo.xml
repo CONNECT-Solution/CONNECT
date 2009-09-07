@@ -108,6 +108,11 @@
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
 			</service>
 			<service>
+				<name>adaptersubjectdiscoverysecured</name>
+				<description>Adapter Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+			</service>
+			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
@@ -538,6 +543,11 @@
 				<name>adaptersubjectdiscovery</name>
 				<description>Adapter Subject Discovery</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
+			</service>
+			<service>
+				<name>adaptersubjectdiscoverysecured</name>
+				<description>Adapter Subject Discovery Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
 			</service>
 			<service>
 				<name>entitydocretrieveproxy</name>
