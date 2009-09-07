@@ -31,7 +31,16 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201301UVProxyRequest" type="PIXConsumer_PRPA_IN201301UVProxyRequestType"/>
-	<xsd:complexType name="PIXConsumer_PRPA_IN201302UVProxyRequestType">
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201301UVProxySecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201301UV"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PIXConsumer_PRPA_IN201301UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201301UVProxySecuredRequestType"/>
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201302UVProxyRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201302UV"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -39,7 +48,16 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201302UVProxyRequest" type="PIXConsumer_PRPA_IN201302UVProxyRequestType"/>
-	<xsd:complexType name="PIXConsumer_PRPA_IN201303UVProxyRequestType">
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201302UVProxySecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201302UV"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PIXConsumer_PRPA_IN201302UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201302UVProxySecuredRequestType"/>
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201303UVProxyRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201303UV"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -47,7 +65,16 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201303UVProxyRequest" type="PIXConsumer_PRPA_IN201303UVProxyRequestType"/>
-	<xsd:complexType name="PIXConsumer_PRPA_IN201304UVProxyRequestType">
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201303UVProxySecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201303UV"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PIXConsumer_PRPA_IN201303UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201303UVProxySecuredRequestType"/>
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201304UVProxyRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201304UV"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -55,7 +82,16 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201304UVProxyRequest" type="PIXConsumer_PRPA_IN201304UVProxyRequestType"/>
-        <xsd:complexType name="PIXConsumer_PRPA_IN201309UVProxyRequestType">
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201304UVProxySecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201304UV"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PIXConsumer_PRPA_IN201304UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201304UVProxySecuredRequestType"/>
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201309UVProxyRequestType">
 		<xsd:sequence>
 			<xsd:element ref="PRPA_IN201309UV"/>
 			<xsd:element name="assertion" type="nccommon:AssertionType"/>
@@ -63,4 +99,13 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PIXConsumer_PRPA_IN201309UVProxyRequest" type="PIXConsumer_PRPA_IN201309UVProxyRequestType"/>
+
+    <xsd:complexType name="PIXConsumer_PRPA_IN201309UVProxySecuredRequestType">
+		<xsd:sequence>
+			<xsd:element ref="PRPA_IN201309UV"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PIXConsumer_PRPA_IN201309UVProxySecuredRequest" type="PIXConsumer_PRPA_IN201309UVProxySecuredRequestType"/>
+
 </xsd:schema>
