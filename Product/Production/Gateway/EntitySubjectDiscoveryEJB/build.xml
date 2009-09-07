@@ -91,16 +91,16 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init,wsimport-service-check-NhincProxySubjectDiscovery" unless="wsimport-service-NhincProxySubjectDiscovery.notRequired">
-        <property name="targetLocation-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/NhincProxySubjectDiscovery"/>
-        <property name="sourceLocation-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
-        <copy todir="${targetLocation-NhincProxySubjectDiscovery}">
-            <fileset dir="${sourceLocation-NhincProxySubjectDiscovery}"/>
+    <target name="wsimport-service-NhincSubjectDiscoverySecured" depends="wsimport-init,wsimport-service-check-NhincSubjectDiscoverySecured" unless="wsimport-service-NhincSubjectDiscoverySecured.notRequired">
+        <property name="targetLocation-NhincSubjectDiscoverySecured" location="${meta.inf}/wsdl/NhincSubjectDiscoverySecured"/>
+        <property name="sourceLocation-NhincSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/NhincSubjectDiscoverySecured/wsdl/"/>
+        <copy todir="${targetLocation-NhincSubjectDiscoverySecured}">
+            <fileset dir="${sourceLocation-NhincSubjectDiscoverySecured}"/>
         </copy>
-        <property name="targetLocationSchemas-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchemas-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/schemas/"/>
-        <copy todir="${targetLocationSchemas-NhincProxySubjectDiscovery}">
-            <fileset dir="${sourceLocationSchemas-NhincProxySubjectDiscovery}"/>
+        <property name="targetLocationSchemas-NhincSubjectDiscoverySecured" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchemas-NhincSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/NhincSubjectDiscoverySecured/schemas/"/>
+        <copy todir="${targetLocationSchemas-NhincSubjectDiscoverySecured}">
+            <fileset dir="${sourceLocationSchemas-NhincSubjectDiscoverySecured}"/>
         </copy>
     </target>
 

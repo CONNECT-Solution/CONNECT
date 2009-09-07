@@ -9,6 +9,8 @@ import gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLog;
 import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinsubjectdiscovery.proxy.NhinSubjectDiscoveryProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201303UVProxyRequestType;
@@ -17,6 +19,10 @@ import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PIXConsumerPRPAIN201301UVProxySecuredRequestType;
+import org.hl7.v3.PIXConsumerPRPAIN201303UVProxySecuredRequestType;
+import org.hl7.v3.PIXConsumerPRPAIN201309UVProxySecuredRequestType;
+import org.hl7.v3.PRPAIN201310UV;
 
 /**
  *
@@ -25,6 +31,17 @@ import org.apache.commons.logging.LogFactory;
 public class NhincProxySubjectDiscoveryImpl {
 
     private static Log log = LogFactory.getLog(NhincProxySubjectDiscoveryImpl.class);
+
+    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVProxySecuredRequestType secureRequest, WebServiceContext context) {
+       MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+       PIXConsumerPRPAIN201301UVProxyRequestType request = new PIXConsumerPRPAIN201301UVProxyRequestType();
+       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+       request.setPRPAIN201301UV(secureRequest.getPRPAIN201301UV());
+       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
+       ack = pixConsumerPRPAIN201301UV(request);
+
+       return ack;
+    }
 
     /**
      * This method will perform an subject announce to a specified community on the Nhin Interface
@@ -55,6 +72,18 @@ public class NhincProxySubjectDiscoveryImpl {
         log.debug("Exiting NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV...");
         return response;
     }
+
+    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVProxySecuredRequestType secureRequest, WebServiceContext context) {
+       MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+       PIXConsumerPRPAIN201303UVProxyRequestType request = new PIXConsumerPRPAIN201303UVProxyRequestType();
+       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+       request.setPRPAIN201303UV(secureRequest.getPRPAIN201303UV());
+       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
+       ack = pixConsumerPRPAIN201303UV(request);
+
+       return ack;
+    }
+
     /**
      * This method will perform an subject revoke to a specified community on the Nhin Interface
      * and return an acknowledgment message.
@@ -83,6 +112,17 @@ public class NhincProxySubjectDiscoveryImpl {
 
         log.debug("Exiting NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV...");
         return response;
+    }
+
+    public PRPAIN201310UV pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxySecuredRequestType secureRequest, WebServiceContext context) {
+       PRPAIN201310UV response = new PRPAIN201310UV();
+       PIXConsumerPRPAIN201309UVProxyRequestType request = new PIXConsumerPRPAIN201309UVProxyRequestType();
+       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+       request.setPRPAIN201309UV(secureRequest.getPRPAIN201309UV());
+       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
+       response = pixConsumerPRPAIN201309UV(request);
+
+       return response;
     }
 
     /**
