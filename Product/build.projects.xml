@@ -8,7 +8,7 @@
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
 	</project>
-		<project>
+	<project>
 		<name>NhinInterfaceTestHelperEJB</name>
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
 	</project>
@@ -72,7 +72,10 @@
 		<name>AdapterAuditQueryEJB</name>
 		<directory>/Production/Adapters/General/AdapterAuditQueryEJB</directory>
 	</project>
-
+	<project>
+		<name>AdapterSubjectDiscoveryEJB</name>
+		<directory>/Production/Adapters/General/AdapterSubjectDiscoveryEJB</directory>
+	</project>
 	<project>
 		<name>AdapterAuthenticationEJB</name>
 		<directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
@@ -93,7 +96,7 @@
 		<name>NhincAuditQueryEJB</name>
 		<directory>/Production/Gateway/NhincAuditQueryEJB</directory>
 	</project>
-		<project>
+	<project>
 		<name>EntityDocQueryEJB</name>
 		<directory>/Production/Gateway/EntityDocQueryEJB</directory>
 	</project>
@@ -142,16 +145,8 @@
 		<directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
 	</project>
 	<project>
-		<name>AuditLogEJB</name>
-		<directory>/Production/Common/AuditLogEJB</directory>
-	</project>
-	<project>
 		<name>ConnectionManagerEJB</name>
 		<directory>/Production/Common/ConnectionManagerEJB</directory>
-	</project>
-	<project>
-		<name>NhincSubDiscDataTransformsEJB</name>
-		<directory>/Production/Common/NhincSubDiscDataTransformsEJB</directory>
 	</project>
 	<project>
 		<name>PropAccessorEJB</name>
@@ -204,7 +199,7 @@
 	<project>
 		<name>AdapterDocQueryProxyEJB</name>
 		<directory>/Production/Gateway/AdapterDocQueryProxyEJB</directory>
-	</project>	
+	</project>
 	<project>
 		<name>AdapterDocRetrieveEJB</name>
 		<directory>/Production/Adapters/General/AdapterDocRetrieveEJB</directory>
@@ -212,15 +207,23 @@
 	<project>
 		<name>AdapterDocRetrieveProxyEJB</name>
 		<directory>/Production/Gateway/AdapterDocRetrieveProxyEJB</directory>
-	</project>	
+	</project>
 	<project>
 		<name>EntityDocRetrieveProxyEJB</name>
 		<directory>/Production/Adapters/General/EntityDocRetrieveProxyEJB</directory>
-	</project>	
+	</project>
 	<project>
 		<name>EntityDocRetrieveEJB</name>
 		<directory>/Production/Gateway/EntityDocRetrieveEJB</directory>
-	</project>	
+	</project>
+	<project>
+		<name>EntitySubjectDiscoveryEJB</name>
+		<directory>/Production/Gateway/EntitySubjectDiscoveryEJB</directory>
+	</project>
+	<project>
+		<name>AdapterSubjectDiscoveryProxyEJB</name>
+		<directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
+	</project>
 	<project>
 		<name>AdapterCA</name>
 		<directory>/Production/Adapters/General/AdapterCA</directory>
@@ -228,16 +231,5 @@
 	<project>
 		<name>EntityCA</name>
 		<directory>/Production/Gateway/EntityCA</directory>
-	</project> 
-	
-<!-- Projects removed as they are referenced from other projects. Only top level projects (EJB, CA, Web App, etc...) should be included in this file.
-	<project>
-		<name>AdapterPIPProxyImpl</name>
-		<directory>/Production/Adapters/General/AdapterPIPProxyImpl</directory>
 	</project>
-	<project>
-		<name>NhincSamlTokenLib</name>
-		<directory>/Production/Gateway/NhincSamlTokenLib</directory>
-	</project>
--->
 </projects>
