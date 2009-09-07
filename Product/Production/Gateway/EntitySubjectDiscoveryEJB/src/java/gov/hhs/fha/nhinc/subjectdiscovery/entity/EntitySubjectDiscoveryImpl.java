@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacade
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLog;
-import gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincProxySubjectDiscovery;
 import gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincProxySubjectDiscoveryImpl;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201303Transforms;
@@ -50,6 +50,12 @@ import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import javax.xml.bind.JAXBElement;
 import java.util.List;
 import java.util.ArrayList;
+import javax.xml.ws.WebServiceContext;
+import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
+import org.hl7.v3.PIXConsumerPRPAIN201303UVSecuredRequestType;
+import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
+import org.hl7.v3.PIXConsumerPRPAIN201309UVSecuredRequestType;
+import org.hl7.v3.PRPAIN201310UV;
 
 /**
  *
@@ -60,7 +66,7 @@ public class EntitySubjectDiscoveryImpl {
     private static Log log = LogFactory.getLog(EntitySubjectDiscoveryImpl.class);
     private static String localHomeCommunity = null;
 
-    public static MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVRequestType pixConsumerPRPAIN201301UVRequest) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVSecuredRequestType pixConsumerPRPAIN201301UVRequest, WebServiceContext context) {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- Begin");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         boolean isTargeted = false;
@@ -68,9 +74,14 @@ public class EntitySubjectDiscoveryImpl {
         List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
         NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
 
+        PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
+        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        request.setNhinTargetCommunities(pixConsumerPRPAIN201301UVRequest.getNhinTargetCommunities());
+        request.setPRPAIN201301UV(pixConsumerPRPAIN201301UVRequest.getPRPAIN201301UV());
+
         /* Log the 201301 message received */
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.audit(pixConsumerPRPAIN201301UVRequest);
+        AcknowledgementType ack = auditLog.audit(request);
 
         // Get the local home community id
         try {
@@ -119,7 +130,7 @@ public class EntitySubjectDiscoveryImpl {
                     RetrievePatientCorrelationsRequestType patientRetrieveRequest = new RetrievePatientCorrelationsRequestType();
                     patientRetrieveRequest.setQualifiedPatientIdentifier(qualifiedSubject);
                     patientRetrieveRequest.getTargetAssigningAuthority().add(aa);
-                    patientRetrieveRequest.setAssertion(pixConsumerPRPAIN201301UVRequest.getAssertion());
+                    patientRetrieveRequest.setAssertion(request.getAssertion());
 
                     // Retreive Patient Correlations this patient
                     PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
@@ -136,7 +147,7 @@ public class EntitySubjectDiscoveryImpl {
                 if (!patientHasCorrelation) {
                     log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- No patientCorrelation; send to community : " +
                             h.getHomeCommunityId());
-                    PIXConsumerPRPAIN201301UVProxyRequestType proxyRequest = createProxy201301(pixConsumerPRPAIN201301UVRequest);
+                    PIXConsumerPRPAIN201301UVProxyRequestType proxyRequest = createProxy201301(request);
 
                     gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType nhinTarget = new gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType();
                     HomeCommunityType homeCommunity = new HomeCommunityType();
@@ -155,27 +166,32 @@ public class EntitySubjectDiscoveryImpl {
         /* Log the response */
         PIXConsumerMCCIIN000002UV01RequestType responseType = new PIXConsumerMCCIIN000002UV01RequestType();
         responseType.setMCCIIN000002UV01(response);
-        responseType.setAssertion(pixConsumerPRPAIN201301UVRequest.getAssertion());
+        responseType.setAssertion(request.getAssertion());
         ack = auditLog.audit(responseType);
 
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- End");
         return response;
     }
 
-    public static org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201303UV(org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType pixConsumerPRPAIN201303UVRequest) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVSecuredRequestType pixConsumerPRPAIN201303UVRequest, WebServiceContext context) {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV -- Begin");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
 
+        PIXConsumerPRPAIN201303UVRequestType request = new PIXConsumerPRPAIN201303UVRequestType();
+        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        request.setNhinTargetCommunities(pixConsumerPRPAIN201303UVRequest.getNhinTargetCommunities());
+        request.setPRPAIN201303UV(pixConsumerPRPAIN201303UVRequest.getPRPAIN201303UV());
+
         /* Log the 201303 message received */
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.audit(pixConsumerPRPAIN201303UVRequest);
+        AcknowledgementType ack = auditLog.audit(request);
 
         /* Assign Retrieve Correlations */
         QualifiedSubjectIdentifierType qualifiedSubject = assignQualifiedSubjectFrom201303(pixConsumerPRPAIN201303UVRequest.getPRPAIN201303UV());
         RetrievePatientCorrelationsRequestType patientRetrieveRequest = new RetrievePatientCorrelationsRequestType();
         patientRetrieveRequest.setQualifiedPatientIdentifier(qualifiedSubject);
-        patientRetrieveRequest.setAssertion(pixConsumerPRPAIN201303UVRequest.getAssertion());
+        patientRetrieveRequest.setAssertion(request.getAssertion());
 
         // Retreive Patient Correlations this patient
         PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
@@ -203,7 +219,7 @@ public class EntitySubjectDiscoveryImpl {
             }
             if (sendToProxy) {
                 /* define the 201303ProxyRequest and send to proxy */
-                PIXConsumerPRPAIN201303UVProxyRequestType proxyRequest = createProxy201303(pixConsumerPRPAIN201303UVRequest);
+                PIXConsumerPRPAIN201303UVProxyRequestType proxyRequest = createProxy201303(request);
                 proxyRequest.getPRPAIN201303UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).setExtension(pid.getSubjectIdentifier());
                 proxyRequest.getPRPAIN201303UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).setRoot(pid.getAssigningAuthorityIdentifier());
 
@@ -232,7 +248,7 @@ public class EntitySubjectDiscoveryImpl {
             removeSubject2.setSubjectIdentifier(results.getQualifiedPatientIdentifier().get(0).getSubjectIdentifier());
             removeRequest.getQualifiedPatientIdentifier().add(removeSubject1);
             removeRequest.getQualifiedPatientIdentifier().add(removeSubject2);
-            removeRequest.setAssertion(pixConsumerPRPAIN201303UVRequest.getAssertion());
+            removeRequest.setAssertion(request.getAssertion());
   
             RemovePatientCorrelationResponseType removeResponse = proxy.removePatientCorrelation(removeRequest);
 
@@ -240,31 +256,36 @@ public class EntitySubjectDiscoveryImpl {
         /* logSubjectResponse(201303Response, Outbound, Entity) */
         PIXConsumerMCCIIN000002UV01RequestType responseType = new PIXConsumerMCCIIN000002UV01RequestType();
         responseType.setMCCIIN000002UV01(response);
-        responseType.setAssertion(pixConsumerPRPAIN201303UVRequest.getAssertion());
+        responseType.setAssertion(request.getAssertion());
         ack = auditLog.audit(responseType);
 
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV -- End");
         return response;
     }
 
-    public org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType pixConsumerPRPAIN201309UVRequest) {
+    public PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVSecuredRequestType pixConsumerPRPAIN201309UVRequest, WebServiceContext context) {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- Begin");
 
-        org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType response = new org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType();
+        PIXConsumerPRPAIN201309UVResponseType response = new PIXConsumerPRPAIN201309UVResponseType();
         NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
-        org.hl7.v3.PRPAIN201310UV proxyResponse;
+        PRPAIN201310UV proxyResponse;
+
+        PIXConsumerPRPAIN201309UVRequestType request = new PIXConsumerPRPAIN201309UVRequestType();
+        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
+        request.setNhinTargetCommunities(pixConsumerPRPAIN201309UVRequest.getNhinTargetCommunities());
+        request.setPRPAIN201309UV(pixConsumerPRPAIN201309UVRequest.getPRPAIN201309UV());
 
         /* Log the 201309 message received */
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.audit(pixConsumerPRPAIN201309UVRequest);
+        AcknowledgementType ack = auditLog.audit(request);
         /*
          * Assign checkpolicy for reidentification
          */
         SubjectReidentificationEventType checkPolicy = new SubjectReidentificationEventType();
         SubjectReidentificationMessageType checkPolicyMessage = new SubjectReidentificationMessageType();
-        checkPolicyMessage.setPRPAIN201309UV(pixConsumerPRPAIN201309UVRequest.getPRPAIN201309UV());
-        checkPolicyMessage.setAssertion(pixConsumerPRPAIN201309UVRequest.getAssertion());
-        checkPolicyMessage.setNhinTargetCommunities(pixConsumerPRPAIN201309UVRequest.getNhinTargetCommunities());
+        checkPolicyMessage.setPRPAIN201309UV(request.getPRPAIN201309UV());
+        checkPolicyMessage.setAssertion(request.getAssertion());
+        checkPolicyMessage.setNhinTargetCommunities(request.getNhinTargetCommunities());
         checkPolicy.setMessage(checkPolicyMessage);
         checkPolicy.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
@@ -278,7 +299,7 @@ public class EntitySubjectDiscoveryImpl {
 
         /* if response='permit' */
         if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {
-            PIXConsumerPRPAIN201309UVProxyRequestType proxyRequest = createProxy201309(pixConsumerPRPAIN201309UVRequest);
+            PIXConsumerPRPAIN201309UVProxyRequestType proxyRequest = createProxy201309(request);
 
             log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- Call to nhinSubjectDiscovery");
             log.debug("proxyRequest >>" + proxyRequest + "<<");

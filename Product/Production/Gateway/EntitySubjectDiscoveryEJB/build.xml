@@ -77,19 +77,20 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init,wsimport-service-check-EntitySubjectDiscovery" unless="wsimport-service-EntitySubjectDiscovery.notRequired">
+    <target name="wsimport-service-EntitySubjectDiscoverySecured" depends="wsimport-init,wsimport-service-check-EntitySubjectDiscoverySecured" unless="wsimport-service-EntitySubjectDiscoverySecured.notRequired">
 
-        <property name="targetLocation-EntitySubjectDiscovery" location="${meta.inf}/wsdl/EntitySubjectDiscovery"/>
-        <property name="sourceLocation-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
-        <copy todir="${targetLocation-EntitySubjectDiscovery}">
-            <fileset dir="${sourceLocation-EntitySubjectDiscovery}"/>
+        <property name="targetLocation-EntitySubjectDiscoverySecured" location="${meta.inf}/wsdl/EntitySubjectDiscoverySecured"/>
+        <property name="sourceLocation-EntitySubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscoverySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntitySubjectDiscoverySecured}">
+            <fileset dir="${sourceLocation-EntitySubjectDiscoverySecured}"/>
         </copy>
-        <property name="targetLocationSchemas-EntitySubjectDiscovery" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchemas-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/schemas/"/>
-        <copy todir="${targetLocationSchemas-EntitySubjectDiscovery}">
-            <fileset dir="${sourceLocationSchemas-EntitySubjectDiscovery}"/>
+        <property name="targetLocationSchemas-EntitySubjectDiscoverySecured" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocationSchemas-EntitySubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscoverySecured/schemas/"/>
+        <copy todir="${targetLocationSchemas-EntitySubjectDiscoverySecured}">
+            <fileset dir="${sourceLocationSchemas-EntitySubjectDiscoverySecured}"/>
         </copy>
     </target>
+    
     <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init,wsimport-service-check-NhincProxySubjectDiscovery" unless="wsimport-service-NhincProxySubjectDiscovery.notRequired">
         <property name="targetLocation-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/NhincProxySubjectDiscovery"/>
         <property name="sourceLocation-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>

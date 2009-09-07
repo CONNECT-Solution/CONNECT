@@ -3,10 +3,15 @@
 <sun-ejb-jar>
   <enterprise-beans>
         <ejb>
-            <ejb-name>EntitySubjectDiscovery</ejb-name>
+            <ejb-name>EntitySubjectDiscoverySecured</ejb-name>
             <webservice-endpoint>
-                <port-component-name>EntitySubjectDiscovery</port-component-name>
-                <endpoint-address-uri>/NhinConnect/EntitySubjectDiscovery</endpoint-address-uri>
+                <port-component-name>EntitySubjectDiscoverySecured</port-component-name>
+                <endpoint-address-uri>/NhinConnect/EntitySubjectDiscoverySecured</endpoint-address-uri>
+                <login-config>
+                    <auth-method>CLIENT-CERT</auth-method>
+                    <realm>certificate</realm>
+                </login-config>
+                <transport-guarantee>CONFIDENTIAL</transport-guarantee>
             </webservice-endpoint>
         </ejb>
         <ejb>
