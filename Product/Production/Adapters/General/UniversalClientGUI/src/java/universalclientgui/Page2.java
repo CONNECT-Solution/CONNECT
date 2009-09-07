@@ -30,7 +30,11 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -39,6 +43,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -180,6 +187,17 @@ public class Page2 extends AbstractPageBean {
     public void setPatientSelectIdLink(Hyperlink h) {
         this.patientSelectIdLink = h;
     }
+
+    private Hyperlink selectedDocumentID = new Hyperlink();
+
+    public Hyperlink getSelectedDocumentID() {
+        return selectedDocumentID;
+    }
+
+    public void setSelectedDocumentID(Hyperlink selectedDocumentID) {
+        this.selectedDocumentID = selectedDocumentID;
+    }
+
 
     // Subject Discovery Tab Bindings
     private StaticText subjectDiscoveryResultsInfo = new StaticText();
@@ -831,6 +849,83 @@ public class Page2 extends AbstractPageBean {
 
         return isValid;
     }
-    
+
+    public String displayDocument() throws Exception{
+        
+        log.debug("Selected document ID: " + this.selectedDocumentID.getText());
+
+        DocumentRetrieveClient docRetrieveClient = new DocumentRetrieveClient();
+
+        String documentID = this.selectedDocumentID.getText().toString();
+
+        DocumentQueryResults docQueryResults = (DocumentQueryResults) getBean("DocumentQueryResults");
+
+        DocumentInformation currentDocument = null;
+
+        for(DocumentInformation documentInformation:docQueryResults.getDocuments())
+        {
+            if (documentID.equals(documentInformation.getDocumentID()))
+            {
+                currentDocument = documentInformation;
+                break;
+            }
+        }
+
+        String document = docRetrieveClient.retriveDocument(currentDocument);
+
+        if (document == null || document.isEmpty())
+        {
+            return "display_document_error";
+        }
+
+        InputStream xsl = getExternalContext().getResourceAsStream("/WEB-INF/CCD.xsl");
+
+        String html = convertXMLToHTML(new ByteArrayInputStream(document.getBytes()), xsl);
+
+        log.debug("HTML PAGE: " + html);
+        
+        if (html == null || html.isEmpty())
+        {
+            return "display_document_error";
+        }
+
+        HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
+
+        OutputStream os = response.getOutputStream();
+        os.write(html.getBytes());
+        os.flush();
+        FacesContext.getCurrentInstance().responseComplete();
+             
+        return null;
+    }
+
+        /**
+         *
+         * @param xml
+         * @param xsl
+         * @return
+         */
+        private String convertXMLToHTML(InputStream xml, InputStream xsl)
+        {
+
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+        
+            try {
+
+                TransformerFactory tFactory = TransformerFactory.newInstance();
+
+                Transformer transformer =
+                        tFactory.newTransformer(new javax.xml.transform.stream.StreamSource(xsl));
+
+                transformer.transform(new javax.xml.transform.stream.StreamSource(xml),
+                        new javax.xml.transform.stream.StreamResult(output));
+
+            } catch (Exception e) {
+                log.error("Exception in transforming xml to html", e);
+            }
+
+        return output.toString();
+    }
+
 }
 

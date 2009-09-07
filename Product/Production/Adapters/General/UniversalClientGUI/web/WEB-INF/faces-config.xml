@@ -19,6 +19,12 @@
             <to-view-id>/Page2.jsp</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>display_document_error</from-outcome>
+            <to-view-id>/document.jsp</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 
     <managed-bean>
         <managed-bean-name>SessionBean1</managed-bean-name>

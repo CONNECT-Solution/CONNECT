@@ -16,6 +16,24 @@ public class DocumentInformation {
     private String title;
     private String documentType;
     private String institution;
+    private String homeCommunityID;
+    private String repositoryUniqueID;
+
+    public String getHomeCommunityID() {
+        return homeCommunityID;
+    }
+
+    public void setHomeCommunityID(String homeCommunityID) {
+        this.homeCommunityID = homeCommunityID;
+    }
+
+    public String getRepositoryUniqueID() {
+        return repositoryUniqueID;
+    }
+
+    public void setRepositoryUniqueID(String repositoryUniqueID) {
+        this.repositoryUniqueID = repositoryUniqueID;
+    }
 
     public String getDocumentID() {
         return documentID;

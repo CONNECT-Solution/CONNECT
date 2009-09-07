@@ -96,10 +96,14 @@
                                     <webuijsf:table augmentTitle="false" id="docQueryResults" style="left: 48px; top: 216px; position: absolute; width: 600px"
                                         title="Document Search Results" width="600">
                                         <webuijsf:tableRowGroup id="docQueryResultsGroup" rows="4" sourceData="#{DocumentQueryResults.documents}" sourceVar="document">
-                                            <webuijsf:tableColumn headerText="Creation Date" id="creationDate" width="113">
+                                            <webuijsf:tableColumn headerText="Dcoument Id" id="documentID">
+                                                <webuijsf:hyperlink actionExpression="#{Page2.displayDocument}" binding="#{Page2.selectedDocumentID}"
+                                                id="documentIdLink" style="color: blue; text-decoration: underline" text="#{document.value['documentID']}" target="_new"/>
+                                            </webuijsf:tableColumn>
+                                            <webuijsf:tableColumn headerText="Creation Date" id="creationDate">
                                                 <webuijsf:staticText id="staticText1" text="#{document.value['creationDate']}"/>
                                             </webuijsf:tableColumn>
-                                            <webuijsf:tableColumn headerText="Title" id="title" width="136">
+                                            <webuijsf:tableColumn headerText="Title" id="title">
                                                 <webuijsf:staticText id="staticText1" text="#{document.value['title']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Document Type" id="documentType">

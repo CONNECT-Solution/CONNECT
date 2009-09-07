@@ -117,7 +117,7 @@ public class DocumentQueryClient {
         adhocQuery.getSlot().add(creationEndTimeSlot);
 
         ResponseOptionType responseOption = new ResponseOptionType();
-        responseOption.setReturnType("RegistryObject");
+        responseOption.setReturnType("LeafClass");
         responseOption.setReturnComposedObjects(Boolean.FALSE);
 
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
@@ -146,7 +146,7 @@ public class DocumentQueryClient {
             String homeCommunity = getHomeCommunityId();
             // Get endpoint url
             endpointAddress = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunity, NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
-            log.debug("Patient correlation endpoint address: " + endpointAddress);
+            log.debug("Doc Query endpoint address: " + endpointAddress);
         } catch (PropertyAccessException pae) {
             log.error("Exception encountered retrieving the local home community: " + pae.getMessage(), pae);
         } catch (ConnectionManagerException cme) {
@@ -219,7 +219,8 @@ public class DocumentQueryClient {
                         docInfo.setCreationDate(formatDate(creationTime, HL7_DATE_FORMAT, REGULAR_DATE_FORMAT));
                         docInfo.setInstitution(extractInstitution(extrinsicObject));
                         docInfo.setDocumentID(extractDocumentID(extrinsicObject));
-
+                        docInfo.setRepositoryUniqueID(extractRespositoryUniqueID(extrinsicObject));
+                        docInfo.setHomeCommunityID(extrinsicObject.getHome());
                         documentInfoList.add(docInfo);
                     }
                 }
@@ -227,6 +228,11 @@ public class DocumentQueryClient {
         }
 
         return documentInfoList;
+    }
+
+    private String extractRespositoryUniqueID(ExtrinsicObjectType extrinsicObject)
+    {
+        return extractSingleSlotValue(extrinsicObject, "repositoryUniqueId");
     }
 
     private String extractDocumentType(ExtrinsicObjectType extrinsicObject) {
