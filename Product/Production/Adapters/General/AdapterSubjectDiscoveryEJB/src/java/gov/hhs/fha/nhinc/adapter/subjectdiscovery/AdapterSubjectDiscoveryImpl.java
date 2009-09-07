@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.adapter.subjectdiscovery;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
@@ -22,7 +23,7 @@ import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
 public class AdapterSubjectDiscoveryImpl {
     public static final String AGENCY_ACK_MSG = "Successful Ack From Agency";
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVRequestType request) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PIXConsumerPRPAIN201301UVRequestType request, WebServiceContext context) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
         String senderOID = null;
@@ -60,7 +61,7 @@ public class AdapterSubjectDiscoveryImpl {
         return ack;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201302UV(PIXConsumerPRPAIN201302UVRequestType request) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201302UV(PIXConsumerPRPAIN201302UVRequestType request, WebServiceContext context) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
         String senderOID = null;
@@ -98,7 +99,7 @@ public class AdapterSubjectDiscoveryImpl {
         return ack;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType request) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType request, WebServiceContext context) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
         String senderOID = null;
@@ -136,11 +137,11 @@ public class AdapterSubjectDiscoveryImpl {
         return ack;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201304UV(PIXConsumerPRPAIN201304UVRequestType pixConsumerPRPAIN201304UVRequest) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201304UV(PIXConsumerPRPAIN201304UVRequestType pixConsumerPRPAIN201304UVRequest, WebServiceContext context) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVRequestType pixConsumerPRPAIN201309UVRequest) {
+    public PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVRequestType pixConsumerPRPAIN201309UVRequest, WebServiceContext context) {
         return new PIXConsumerPRPAIN201309UVResponseType();
     }
 }

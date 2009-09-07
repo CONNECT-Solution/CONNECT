@@ -12,10 +12,15 @@
 <sun-ejb-jar>
     <enterprise-beans>
         <ejb>
-            <ejb-name>AdapterSubjectDiscovery</ejb-name>
+            <ejb-name>AdapterSubjectDiscoverySecured</ejb-name>
             <webservice-endpoint>
-                <port-component-name>AdapterSubjectDiscovery</port-component-name>
-                <endpoint-address-uri>/NhinConnect/AdapterSubjectDiscovery</endpoint-address-uri>
+                <port-component-name>AdapterSubjectDiscoverySecured</port-component-name>
+                <endpoint-address-uri>/NhinConnect/AdapterSubjectDiscoverySecured</endpoint-address-uri>
+                <login-config>
+                    <auth-method>CLIENT-CERT</auth-method>
+                    <realm>certificate</realm>
+                </login-config>
+                <transport-guarantee>CONFIDENTIAL</transport-guarantee>
             </webservice-endpoint>
         </ejb>
     </enterprise-beans>

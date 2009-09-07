@@ -75,16 +75,16 @@
 
     -->
     
-    <target name="wsimport-service-AdapterSubjectDiscovery" depends="wsimport-init,wsimport-service-check-AdapterSubjectDiscovery">
+    <target name="wsimport-service-AdapterSubjectDiscoverySecured" depends="wsimport-init,wsimport-service-check-AdapterSubjectDiscoverySecured">
 <!--
 		<wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AdapterDocQueryService/wsdl/AdapterDocQuery.wsdl" catalog="catalog.xml"/>
 -->
-		<copy todir="${basedir}/${meta.inf}/wsdl/AdapterSubjectDiscovery">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubjectDiscovery/wsdl/"/>
+		<copy todir="${basedir}/${meta.inf}/wsdl/AdapterSubjectDiscoverySecured">
+			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/"/>
 		</copy>
 		<echo message="copy schemas"/>
 		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubjectDiscovery/schemas/"/>
+			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubjectDiscoverySecured/schemas/"/>
 		</copy>
 	</target>
     <target name="-deps-module-jar" depends="init" if="no.dist.ear.dir" unless="no.deps">
