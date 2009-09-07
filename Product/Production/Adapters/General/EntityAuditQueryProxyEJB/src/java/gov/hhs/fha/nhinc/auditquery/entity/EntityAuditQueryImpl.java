@@ -33,15 +33,6 @@ public class EntityAuditQueryImpl {
 
             EntityAuditLogQuerySamlPortType port = getPort(url);
 
-//            ProxyAuditQueryImpl auditProxy = new ProxyAuditQueryImpl();
-//            gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType req = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
-//            req.setAssertion(findAuditEventsRequest.getAssertion());
-//            req.setFindAuditEvents(findAuditEventsRequest.getFindAuditEvents());
-//            NhinTargetSystemType target = new NhinTargetSystemType ();
-//            target.setUrl(url);
-//            req.setNhinTargetSystem(target);
-//            response = auditProxy.findAuditEvents(req);
-
             AssertionType assertIn = findAuditEventsRequest.getAssertion();
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.AUDIT_QUERY_ACTION);
