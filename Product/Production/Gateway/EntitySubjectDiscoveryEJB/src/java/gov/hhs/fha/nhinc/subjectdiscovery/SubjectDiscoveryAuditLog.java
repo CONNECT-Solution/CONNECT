@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationResponseMessageT
 import gov.hhs.fha.nhinc.common.auditlog.NhinSubjectDiscoveryAckMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201303Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201309Transforms;
@@ -44,7 +45,7 @@ public class SubjectDiscoveryAuditLog {
         SubjectAddedMessageType message = new SubjectAddedMessageType();
         message.setPRPAIN201301UV(request.getPRPAIN201301UV());
         message.setAssertion(request.getAssertion());
-        AcknowledgementType ack = logSubjectAdded(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,  NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logSubjectAdded(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return ack;
 
@@ -85,7 +86,7 @@ public class SubjectDiscoveryAuditLog {
         SubjectRevokedMessageType message = new SubjectRevokedMessageType();
         message.setPRPAIN201303UV(request.getPRPAIN201303UV());
         message.setAssertion(request.getAssertion());
-        AcknowledgementType ack = logSubjectRevoked(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,  NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logSubjectRevoked(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return ack;
 
@@ -122,56 +123,37 @@ public class SubjectDiscoveryAuditLog {
         return ack;
 
     }
+
     public AcknowledgementType audit(PIXConsumerPRPAIN201309UVRequestType request) {
 
         SubjectReidentificationRequestMessageType message = new SubjectReidentificationRequestMessageType();
         message.setPRPAIN201309UV(request.getPRPAIN201309UV());
         message.setAssertion(request.getAssertion());
-        AcknowledgementType ack = logSubjectReidentification(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,  NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-
-        return ack;
-
-    }
-    public AcknowledgementType audit(PIXConsumerPRPAIN201309UVProxyRequestType request) {
-        SubjectReidentificationRequestMessageType message = new SubjectReidentificationRequestMessageType();
-        PIXConsumerPRPAIN201309UVProxyRequestType logRequest = new PIXConsumerPRPAIN201309UVProxyRequestType();
-        if (request.getPRPAIN201309UV() != null) {
-            org.hl7.v3.PRPAIN201309UV input = request.getPRPAIN201309UV();
-            if (input.getControlActProcess() != null &&
-                    input.getControlActProcess().getQueryByParameter() != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue() != null &&
-                      input.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                  input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier() != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().size() > 0 &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0) != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue() != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0) != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getRoot() != null &&
-                    input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getExtension() != null) {
-
-                String hcId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getRoot();
-                String patientId = input.getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0).getExtension();
-            logRequest.setPRPAIN201309UV(HL7PRPA201309Transforms.createPRPA201309(hcId, patientId));
- 
-            }
-
-
-        }
-
-        message.setPRPAIN201309UV(logRequest.getPRPAIN201309UV());
-
-        message.setAssertion(request.getAssertion());
-
         AcknowledgementType ack = logSubjectReidentification(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return ack;
 
     }
+
+    public AcknowledgementType audit(PIXConsumerPRPAIN201309UVProxyRequestType request) {
+        SubjectReidentificationRequestMessageType message = new SubjectReidentificationRequestMessageType();
+        AcknowledgementType ack = new AcknowledgementType();
+        
+        if (request.getPRPAIN201309UV() != null &&
+                request.getAssertion() != null) {
+            message.setPRPAIN201309UV(request.getPRPAIN201309UV());
+            message.setAssertion(request.getAssertion());
+            ack = logSubjectReidentification(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+        return ack;
+
+    }
+
     public AcknowledgementType audit(PIXConsumerPRPAIN201310UVRequestType request) {
 
         SubjectReidentificationResponseMessageType message = new SubjectReidentificationResponseMessageType();
         message.setPRPAIN201310UV(request.getPRPAIN201310UV());
-        AcknowledgementType ack = logSubjectReidentificationResponse(message, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,  NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logSubjectReidentificationResponse(message, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return ack;
 
@@ -180,7 +162,7 @@ public class SubjectDiscoveryAuditLog {
     public AcknowledgementType audit(PIXConsumerMCCIIN000002UV01RequestType request) {
         NhinSubjectDiscoveryAckMessageType message = new NhinSubjectDiscoveryAckMessageType();
         message.setPIXConsumerMCCIIN000002UV01Request(request);
-        AcknowledgementType ack = logSubjectResponse(message, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,  NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        AcknowledgementType ack = logSubjectResponse(message, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         return ack;
 
@@ -222,6 +204,7 @@ public class SubjectDiscoveryAuditLog {
         }
         return ack;
     }
+
     private AcknowledgementType logSubjectReidentification(SubjectReidentificationRequestMessageType message, String direction, String _interface) {
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -234,6 +217,7 @@ public class SubjectDiscoveryAuditLog {
         }
         return ack;
     }
+
     private AcknowledgementType logSubjectReidentificationResponse(SubjectReidentificationResponseMessageType message, AssertionType assertion, String direction, String _interface) {
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();

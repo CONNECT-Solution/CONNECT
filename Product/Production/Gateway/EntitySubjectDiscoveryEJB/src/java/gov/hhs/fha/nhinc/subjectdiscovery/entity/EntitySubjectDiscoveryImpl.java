@@ -28,14 +28,13 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationResponseType;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationRetriever;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationRemover;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscoveryAuditLog;
 import gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincProxySubjectDiscovery;
+import gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincProxySubjectDiscoveryImpl;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201303Transforms;
 import org.apache.commons.logging.Log;
@@ -67,7 +66,7 @@ public class EntitySubjectDiscoveryImpl {
         boolean isTargeted = false;
         List<NhinTargetCommunityType> targets = null;
         List<CMHomeCommunity> communities = new ArrayList<CMHomeCommunity>();
-        NhincProxySubjectDiscovery nhinSubjectDiscovery = new NhincProxySubjectDiscovery();
+        NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
 
         /* Log the 201301 message received */
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -166,7 +165,7 @@ public class EntitySubjectDiscoveryImpl {
     public static org.hl7.v3.MCCIIN000002UV01 pixConsumerPRPAIN201303UV(org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType pixConsumerPRPAIN201303UVRequest) {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV -- Begin");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
-        NhincProxySubjectDiscovery nhinSubjectDiscovery = new NhincProxySubjectDiscovery();
+        NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
 
         /* Log the 201303 message received */
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -252,7 +251,7 @@ public class EntitySubjectDiscoveryImpl {
         log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV -- Begin");
 
         org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType response = new org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType();
-        NhincProxySubjectDiscovery nhinSubjectDiscovery = new NhincProxySubjectDiscovery();
+        NhincProxySubjectDiscoveryImpl nhinSubjectDiscovery = new NhincProxySubjectDiscoveryImpl();
         org.hl7.v3.PRPAIN201310UV proxyResponse;
 
         /* Log the 201309 message received */
