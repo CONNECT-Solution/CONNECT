@@ -69,9 +69,6 @@
       <name>AggregatorEJB</name>
     </ejb>
     <ejb>
-      <name>AuditLogEJB</name>
-    </ejb>
-    <ejb>
       <name>AuditRepositoryEJB</name>
     </ejb>
     <ejb>
@@ -108,9 +105,6 @@
       <name>AdapterDocQueryEJB</name>
     </ejb>
     <ejb>
-      <name>NhincAuditLogDteEJB</name>
-    </ejb>
-    <ejb>
       <name>NhincAuditQueryEJB</name>
     </ejb>
     <ejb>
@@ -118,9 +112,6 @@
     </ejb>
     <ejb>
       <name>NhincDocRetrieveEJB</name>
-    </ejb>
-    <ejb>
-      <name>NhincSubDiscDataTransformsEJB</name>
     </ejb>
     <ejb>
       <name>NhincSubjectDiscoveryEJB</name>
