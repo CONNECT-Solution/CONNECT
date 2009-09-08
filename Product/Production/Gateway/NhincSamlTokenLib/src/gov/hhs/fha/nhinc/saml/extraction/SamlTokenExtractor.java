@@ -22,6 +22,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.text.SimpleDateFormat;
@@ -95,6 +102,8 @@ public class SamlTokenExtractor {
             SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(SAMLAssertionFactory.SAML2_0);
             com.sun.xml.wss.saml.Assertion assertIn = factory.createAssertion(reader);
 
+            // If we know the underlying type, we can get to more of the data we are looking for.
+            //------------------------------------------------------------------------------------
             if (assertIn instanceof com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) {
                 com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType assertType = (com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) assertIn;
                 extractSubject(assertType, assertion);
@@ -110,7 +119,8 @@ public class SamlTokenExtractor {
                         AuthzDecisionStatementType statement = (AuthzDecisionStatementType) statements.get(idx);
                         extractDecisionInfo(statement, assertion);
                     } else if (statements.get(idx) instanceof AuthnStatementType) {
-                        // Currently nothing done for AuthnStatement
+                        AuthnStatementType statement = (AuthnStatementType) statements.get(idx);
+                        extractAuthnStatement(statement, assertion);
                     } else {
                         log.warn("Unknown statement type: " + statements.get(idx));
                     }
@@ -148,6 +158,14 @@ public class SamlTokenExtractor {
         PersonNameType userPerson = new PersonNameType();
         CeType userRole = new CeType();
         HomeCommunityType userHc = new HomeCommunityType();
+        SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
+        SamlAuthzDecisionStatementType samlAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
+        SamlAuthzDecisionStatementEvidenceType samlAuthzDecisionStatementEvidence = new SamlAuthzDecisionStatementEvidenceType();
+        SamlAuthzDecisionStatementEvidenceAssertionType samlAuthzDecisionStatementAssertion = new SamlAuthzDecisionStatementEvidenceAssertionType();
+        SamlAuthzDecisionStatementEvidenceConditionsType samlAuthzDecisionStatementEvidenceConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
+        SamlSignatureType samlSignature = new SamlSignatureType();
+        SamlSignatureKeyInfoType samlSignatureKeyInfo = new SamlSignatureKeyInfoType();
+
         user.setPersonName(userPerson);
         user.setOrg(userHc);
         user.setRoleCoded(userRole);
@@ -157,6 +175,8 @@ public class SamlTokenExtractor {
         userPerson.setGivenName(EMPTY_STRING);
         userPerson.setFamilyName(EMPTY_STRING);
         userPerson.setSecondNameOrInitials(EMPTY_STRING);
+        userPerson.setFullName(EMPTY_STRING);
+
         userHc.setName(EMPTY_STRING);
         user.setUserName(EMPTY_STRING);
         userRole.setCode(EMPTY_STRING);
@@ -175,6 +195,40 @@ public class SamlTokenExtractor {
 
         byte[] formRaw = EMPTY_STRING.getBytes();
         assertOut.setClaimFormRaw(formRaw);
+
+        assertOut.setSamlAuthnStatement(samlAuthnStatement);
+        samlAuthnStatement.setAuthInstant(EMPTY_STRING);
+        samlAuthnStatement.setSessionIndex(EMPTY_STRING);
+        samlAuthnStatement.setAuthContextClassRef(EMPTY_STRING);
+        samlAuthnStatement.setSubjectLocalityAddress(EMPTY_STRING);
+        samlAuthnStatement.setSubjectLocalityDNSName(EMPTY_STRING);
+
+        assertOut.setSamlAuthzDecisionStatement(samlAuthzDecisionStatement);
+        samlAuthzDecisionStatement.setDecision(EMPTY_STRING);
+        samlAuthzDecisionStatement.setResource(EMPTY_STRING);
+        samlAuthzDecisionStatement.setAction(EMPTY_STRING);
+
+        samlAuthzDecisionStatement.setEvidence(samlAuthzDecisionStatementEvidence);
+
+        samlAuthzDecisionStatementEvidence.setAssertion(samlAuthzDecisionStatementAssertion);
+        samlAuthzDecisionStatementAssertion.setId(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setIssueInstant(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setVersion(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setIssuer(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setContentReference(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setContentType(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setContent(formRaw);
+
+        samlAuthzDecisionStatementAssertion.setConditions(samlAuthzDecisionStatementEvidenceConditions);
+        samlAuthzDecisionStatementEvidenceConditions.setNotBefore(EMPTY_STRING);
+        samlAuthzDecisionStatementEvidenceConditions.setNotOnOrAfter(EMPTY_STRING);
+
+        assertOut.setSamlSignature(samlSignature);
+        samlSignature.setSignatureValue(formRaw);
+
+        samlSignature.setKeyInfo(samlSignatureKeyInfo);
+        samlSignatureKeyInfo.setRsaKeyValueExponent(formRaw);
+        samlSignatureKeyInfo.setRsaKeyValueModulus(formRaw);
 
         return assertOut;
     }
@@ -285,48 +339,36 @@ public class SamlTokenExtractor {
                     String nameAttr = attrib.getName();
                     if (nameAttr != null) {
                         if (nameAttr.equals(USER_ROLE_ID)) {
-                            assertOut.getUserInfo().setRoleCoded(parseRole(attrib, USER_ROLE_ID));
+                            log.debug("Extracting Assertion.userInfo.roleCoded:");
+                            assertOut.getUserInfo().setRoleCoded(extractNhinCodedElement(attrib, USER_ROLE_ID));
                         } else if (nameAttr.equals(PURPOSE_ROLE_ID)) {
-                            assertOut.setPurposeOfDisclosureCoded(parseRole(attrib, PURPOSE_ROLE_ID));
+                            log.debug("Extracting Assertion.purposeOfDisclosure:");
+                            assertOut.setPurposeOfDisclosureCoded(extractNhinCodedElement(attrib, PURPOSE_ROLE_ID));
                         } else if (nameAttr.equals(USERNAME_ID)) {
                             extractNameParts(attrib, assertOut);
-                        } else if (nameAttr.equals(USERORG_ID) ||
-                                nameAttr.equals(CONTENTREF_ID) ||
-                                nameAttr.equals(CONTENT_ID)) {
-                            List attrVals = attrib.getAttributeValue();
-                            if (attrVals != null && !attrVals.isEmpty()) {
-                                if (nameAttr.equals(CONTENT_ID)) {
-                                    for (int idxVal = 0; idxVal < attrVals.size(); idxVal++) {
-                                        Object formVal = attrVals.get(idxVal);
-
-                                        if (formVal instanceof byte[]) {
-                                            byte[] rawForm = (byte[]) attrVals.get(idxVal);
-                                            log.info("Setting Claim Form to: " + rawForm.toString());
-                                            assertOut.setClaimFormRaw(rawForm);
-                                        } else {
-                                            log.error(nameAttr + " Attribute is not recognized as base64 binary");
-                                        }
-                                    }
-                                } else {
-                                    StringBuffer strBuf = new StringBuffer();
-                                    for (int idxVal = 0; idxVal < attrVals.size(); idxVal++) {
-                                        strBuf.append(attrVals.get(idxVal) + " ");
-                                    }
-                                    if (nameAttr.equals(CONTENTREF_ID)) {
-                                        log.info("Setting ContentReference to: " + strBuf.toString().trim());
-                                        assertOut.setClaimFormRef(strBuf.toString().trim());
-                                    } else if (nameAttr.equals(USERORG_ID)) {
-                                        log.info("Setting UserOrganization to: " + strBuf.toString().trim());
-                                        HomeCommunityType homeCommunity = assertOut.getUserInfo().getOrg();
-                                        homeCommunity.setName(strBuf.toString().trim());
-                                        assertOut.getUserInfo().setOrg(homeCommunity);
-                                    }
-                                }
-                            } else {
-                                log.warn("No values are provided for Attribute: " + nameAttr);
-                            }
+                        } else if (nameAttr.equals(USERORG_ID)) {
+                            String sUserOrg = extractAttributeValueString(attrib);
+                            assertOut.getUserInfo().getOrg().setName(sUserOrg);
+                            log.debug("Assertion.userInfo.org.Name = " + sUserOrg);
+                        } else if (nameAttr.equals(CONTENTREF_ID)) {
+                            String sContentRefId = extractAttributeValueString(attrib);
+                            assertOut.setClaimFormRef(sContentRefId);
+                            log.debug("Assertion.ClaimFormRef = " + sContentRefId);
+                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentReference(sContentRefId);
+                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.ContentReference = " + sContentRefId);
                         } else if (nameAttr.equals(CONTENTTYPE_ID)) {
-                            log.info(nameAttr + " is set to default 'application\\pdf'.");
+                            String sContentType = extractAttributeValueString(attrib);
+                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentType(sContentType);
+                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.ContentType = " + sContentType);
+                        } else if (nameAttr.equals(CONTENT_ID)) {
+                            byte[] byteContent = extractFirstAttributeValueBase64Binary(attrib);
+                            if (byteContent != null)
+                            {
+                                assertOut.setClaimFormRaw(byteContent);
+                                log.debug("Assertion.ClaimFormRaw = " + new String(assertOut.getClaimFormRaw()));
+                                assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContent(byteContent);
+                                log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Content = " + new String(assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent()));
+                            }
                         } else {
                             log.warn("Unrecognized Name Attribute: " + nameAttr);
                         }
@@ -343,6 +385,53 @@ public class SamlTokenExtractor {
     }
 
     /**
+     * This method takes an attribute and extracts the string value of the
+     * attribute.  If the attribute has multiple values, then it concatenates
+     * all of the values.
+     *
+     * @param attrib The attribute containing the string value.
+     * @return The string value (or if there are multiple values, the concatenated string value.)
+     */
+    private static String extractAttributeValueString(AttributeType attrib) {
+        String retValue = "";
+
+        List attrVals = attrib.getAttributeValue();
+        if ((attrVals != null) &&
+            (attrVals.size() > 0)) {
+            StringBuffer strBuf = new StringBuffer();
+            for (Object o : attrVals) {
+                strBuf.append(o + " ");
+            }
+            retValue = strBuf.toString();
+        }
+
+        return retValue.trim();
+        
+    }
+
+    /**
+     * This method takes an attribute and extracts the base64Encoded value from the first
+     * attribute value.
+     *
+     * @param attrib The attribute containing the string value.
+     * @return The string value (or if there are multiple values, the concatenated string value.)
+     */
+    private static byte[] extractFirstAttributeValueBase64Binary(AttributeType attrib) {
+        byte[] retValue = null;
+
+        List attrVals = attrib.getAttributeValue();
+        if ((attrVals != null) &&
+            (attrVals.size() > 0)) {
+            if (attrVals.get(0) instanceof byte[]) {
+                retValue = (byte[]) attrVals.get(0);
+            }
+        }
+        
+        return retValue;
+    }
+
+
+    /**
      * The value of the UserName attribute is assumed to be a user's name in 
      * plain text.  The name parts are extracted in this method as the first 
      * word constitutes the first name, the last word constitutes the last name 
@@ -356,53 +445,54 @@ public class SamlTokenExtractor {
         // Assumption is that before the 1st space reflects the first name,
         // after the last space is the last name, anything between is the middle name
         List attrVals = attrib.getAttributeValue();
-        if (attrVals != null && !attrVals.isEmpty()) {
+        if ((attrVals != null) &&
+            (attrVals.size() >= 1)) {
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 
-            for (int idxVal = 0; idxVal <
-                    attrVals.size(); idxVal++) {
-                if (attrVals.get(idxVal) != null) {
-                    String completeName = attrVals.get(idxVal).toString();
-                    String[] nameTokens = completeName.split("\\s");
-                    ArrayList<String> nameParts = new ArrayList<String>();
+            // Although SAML allows for multiple attribute values, the NHIN Specification
+            // states that for a name there will be one attribute value.  So we will
+            // only look at the first one.  If there are more, the first is the only one
+            // that will be used.
+            //-----------------------------------------------------------------------------
+            String completeName = attrVals.get(0).toString();
+            personName.setFullName(completeName);
+            log.debug("Assertion.userInfo.personName.FullName = " + completeName);
 
-                    //remove blank tokens
-                    for (String tok : nameTokens) {
-                        if (tok.trim() != null && tok.trim().length() > 0) {
-                            nameParts.add(tok);
-                        }
-                    }
+            String[] nameTokens = completeName.split("\\s");
+            ArrayList<String> nameParts = new ArrayList<String>();
 
-                    if (nameParts.size() > 0) {
-                        if (!nameParts.get(0).isEmpty()) {
-                            log.info("Setting User's Given Name to:" + nameParts.get(0));
-
-                            personName.setGivenName(nameParts.get(0));
-                            nameParts.remove(0);
-                        }
-                    }
-
-                    if (nameParts.size() > 0) {
-                        if (!nameParts.get(nameParts.size() - 1).isEmpty()) {
-                            log.info("Setting User's Family Name to: " + nameParts.get(nameParts.size() - 1));
-                            personName.setFamilyName(nameParts.get(nameParts.size() - 1));
-                            nameParts.remove(nameParts.size() - 1);
-                        }
-                    }
-
-                    if (nameParts.size() > 0) {
-                        StringBuffer midName = new StringBuffer();
-                        for (String name : nameParts) {
-                            midName.append(name + " ");
-                        }
-                        // take off last blank character
-                        midName.setLength(midName.length() - 1);
-                        log.info("Setting User's Middle Name to: " + midName.toString());
-                        personName.setSecondNameOrInitials(midName.toString());
-                    }
-                    // Once found break out of the loop
-                    break;
+            //remove blank tokens
+            for (String tok : nameTokens) {
+                if (tok.trim() != null && tok.trim().length() > 0) {
+                    nameParts.add(tok);
                 }
+            }
+
+            if (nameParts.size() > 0) {
+                if (!nameParts.get(0).isEmpty()) {
+                    personName.setGivenName(nameParts.get(0));
+                    nameParts.remove(0);
+                    log.debug("Assertion.userInfo.personName.givenName = " + personName.getGivenName());
+                }
+            }
+
+            if (nameParts.size() > 0) {
+                if (!nameParts.get(nameParts.size() - 1).isEmpty()) {
+                    personName.setFamilyName(nameParts.get(nameParts.size() - 1));
+                    nameParts.remove(nameParts.size() - 1);
+                    log.debug("Assertion.userInfo.personName.familyName = " + personName.getFamilyName());
+                }
+            }
+
+            if (nameParts.size() > 0) {
+                StringBuffer midName = new StringBuffer();
+                for (String name : nameParts) {
+                    midName.append(name + " ");
+                }
+                // take off last blank character
+                midName.setLength(midName.length() - 1);
+                personName.setSecondNameOrInitials(midName.toString());
+                log.debug("Assertion.userInfo.personName.secondNameOrInitials = " + personName.getSecondNameOrInitials());
             }
         } else {
             log.error("User Name attribute is empty: " + attrVals);
@@ -419,10 +509,10 @@ public class SamlTokenExtractor {
      * @param attrib The Attribute that has the UserRole or PurposeForUse as its 
      * value
      * @param assertOut The Assertion element being written to
-     * @param id Identifies which coded element this is parsing
+     * @param codeId Identifies which coded element this is parsing
      */
-    private static CeType parseRole(AttributeType attrib, String id) {
-        log.debug("Entering SamlTokenExtractor.parseRole...");
+    private static CeType extractNhinCodedElement(AttributeType attrib, String codeId) {
+        log.debug("Entering SamlTokenExtractor.parseNhinCodedElement...");
 
         CeType ce = new CeType();
         ce.setCode(EMPTY_STRING);
@@ -432,100 +522,153 @@ public class SamlTokenExtractor {
 
         List attrVals = attrib.getAttributeValue();
 
-       if (attrVals != null && !attrVals.isEmpty()) {
-            int numAttr = attrVals.size();
-            for (int idxVal = 0; idxVal <
-                    numAttr; idxVal++) {
-                log.debug("Processing index:" + idxVal + " attribute value for " + id);
-                if (attrVals.get(idxVal) instanceof ElementNSImpl) {
-                    ElementNSImpl elem = (ElementNSImpl) attrVals.get(idxVal);
-                    log.debug("Element " + elem.getNodeName());
+        if ((attrVals != null) &&
+           (attrVals.size() > 0))
+        {
+            // According to the NHIN specifications - there should be exactly one value.
+            // If there is more than one. We will take only the first one.
+            //---------------------------------------------------------------------------
+            if (attrVals.get(0) instanceof ElementNSImpl)
+            {
+                ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
+                // log.debug("Element " + elem.getNodeName());
 
-                    NodeList nodelist = elem.getChildNodes();
-                    if (nodelist != null && nodelist.getLength() > 0) {
-                        int numNodes = nodelist.getLength();
-                        for (int idx = 0; idx < numNodes; idx++) {
-                            if (nodelist.item(idx) instanceof Node) {
-                                log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
-                                Node node = (Node) nodelist.item(idx);
-                                NamedNodeMap attrMap = node.getAttributes();
-                                if (attrMap != null && attrMap.getLength() > 0) {
-                                    int numMapNodes = attrMap.getLength();
-                                    for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                        log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
-                                        Node attrNode = attrMap.item(attrIdx);
-                                        if (attrNode != null && attrNode.getNodeName() != null && !attrNode.getNodeName().isEmpty()) {
-                                            if (attrNode.getNodeName().equalsIgnoreCase(CE_CODE_ID)) {
-                                                if (USER_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting UserRole Code to: " + attrNode.getNodeValue());
-                                                    ce.setCode(attrNode.getNodeValue());
-                                                } else if (PURPOSE_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting Purpose Code to: " + attrNode.getNodeValue());
-                                                    ce.setCode(attrNode.getNodeValue());
-                                                } else {
-                                                    log.debug("Unrecognized item: " + id + " Cannot parse " + CE_CODE_ID);
-                                                }
-                                            }
-                                            if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYS_ID)) {
-                                                if (USER_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting UserRole Code System to: " + attrNode.getNodeValue());
-                                                    ce.setCodeSystem(attrNode.getNodeValue());
-                                                } else if (PURPOSE_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting Purpose Code System to: " + attrNode.getNodeValue());
-                                                    ce.setCodeSystem(attrNode.getNodeValue());
-
-                                                } else {
-                                                    log.debug("Unrecognized item: " + id + " Cannot parse " + CE_CODESYS_ID);
-                                                }
-                                            }
-                                            if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYSNAME_ID)) {
-                                                if (USER_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting UserRole Code System Name to: " + attrNode.getNodeValue());
-                                                    ce.setCodeSystemName(attrNode.getNodeValue());
-                                                } else if (PURPOSE_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting Purpose Code System Name to: " + attrNode.getNodeValue());
-                                                    ce.setCodeSystemName(attrNode.getNodeValue());
-                                                } else {
-                                                    log.debug("Unrecognized item: " + id + " Cannot parse " + CE_CODESYSNAME_ID);
-                                                }
-                                            }
-                                            if (attrNode.getNodeName().equalsIgnoreCase(CE_DISPLAYNAME_ID)) {
-                                                if (USER_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting UserRole Display to: " + attrNode.getNodeValue());
-                                                    ce.setDisplayName(attrNode.getNodeValue());
-                                                } else if (PURPOSE_ROLE_ID.equals(id)) {
-                                                    log.debug("Setting Purpose Display to: " + attrNode.getNodeValue());
-                                                    ce.setDisplayName(attrNode.getNodeValue());
-                                                } else {
-                                                    log.debug("Unrecognized item: " + id + " Cannot parse " + CE_DISPLAYNAME_ID);
-                                                }
-                                            }
-                                        } else {
-                                          log.debug("Attribute name can not be processed");
+                NodeList nodelist = elem.getChildNodes();
+                if ((nodelist != null) &&
+                    (nodelist.getLength() > 0)) {
+                    int numNodes = nodelist.getLength();
+                    for (int idx = 0; idx < numNodes; idx++) {
+                        if (nodelist.item(idx) instanceof Node) {
+                            // log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
+                            Node node = (Node) nodelist.item(idx);
+                            NamedNodeMap attrMap = node.getAttributes();
+                            if ((attrMap != null) &&
+                                (attrMap.getLength() > 0)) {
+                                int numMapNodes = attrMap.getLength();
+                                for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                                    // log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
+                                    Node attrNode = attrMap.item(attrIdx);
+                                    if ((attrNode != null) &&
+                                        (attrNode.getNodeName() != null) &&
+                                        (!attrNode.getNodeName().isEmpty())) {
+                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODE_ID)) {
+                                            ce.setCode(attrNode.getNodeValue());
+                                            log.debug(codeId + ": ce.Code = " + ce.getCode());
                                         }
+                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYS_ID)) {
+                                            ce.setCodeSystem(attrNode.getNodeValue());
+                                            log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
+                                        }
+                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYSNAME_ID)) {
+                                            ce.setCodeSystemName(attrNode.getNodeValue());
+                                            log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
+                                        }
+                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_DISPLAYNAME_ID)) {
+                                            ce.setDisplayName(attrNode.getNodeValue());
+                                            log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
+                                        }
+                                    } else {
+                                        log.debug("Attribute name can not be processed");
                                     }
-                                } else {
-                                    log.debug("Attribute map is null");
-                                }
+                                }   // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
                             } else {
-                                log.debug("Expected AttributeValue to have a Node child");
+                                log.debug("Attribute map is null");
                             }
+                        } else {
+                            log.debug("Expected AttributeValue to have a Node child");
                         }
-                    } else {
-                        log.error("The AttributeValue for " + id + " should have a Child Node");
-                    }
+                    }   // for (int idx = 0; idx < numNodes; idx++) {
                 } else {
-                    log.error("The value for the " + id + " attribute is not a proper AttributeValue.");
+                    log.error("The AttributeValue for " + codeId + " should have a Child Node");
                 }
-                // Once found break out of the loop
-                break;
+            } else {
+                log.error("The value for the " + codeId + " attribute is not a proper AttributeValue.");
             }
         } else {
-            log.error("Attributes for " + id + " are invalid: " + attrVals);
+            log.error("Attributes for " + codeId + " are invalid: " + attrVals);
         }
 
-        log.debug("Exiting SamlTokenExtractor.parseRole...");
+        log.debug("Exiting SamlTokenExtractor.extractNhinCodedElement...");
         return ce;
+    }
+
+    /**
+     * The Authorization Decision Statement is used to convey a form authorizing
+     * access to medical records.  It may embed the binary content of the
+     * authorization form as well describing the conditions of its validity.
+     * This method saves off all values associated with this Evidence.
+     * @param authnStatement The authn statement element
+     * @param assertOut The Assertion element being written to
+     */
+    public static void extractAuthnStatement(AuthnStatementType authnStatement, AssertionType assertOut) {
+        log.debug("Entering SamlTokenExtractor.extractAuthnStatement...");
+
+        if (authnStatement == null) {
+            log.debug("authnStatement is null: ");
+            return;         // nothing to do...
+        }
+
+        SamlAuthnStatementType samlAuthnStatement = assertOut.getSamlAuthnStatement();
+
+        // AuthnInstant
+        //-------------
+        if (authnStatement.getAuthnInstant() != null) {
+            samlAuthnStatement.setAuthInstant(authnStatement.getAuthnInstant().toXMLFormat());
+            log.debug("Assertion.samlAuthnStatement.authnInstant = " + samlAuthnStatement.getAuthInstant());
+        }
+
+        // SessionIndex
+        if (authnStatement.getSessionIndex() != null) {
+            samlAuthnStatement.setSessionIndex(authnStatement.getSessionIndex());
+            log.debug("Assertion.samlAuthnStatement.sessionIndex = " + samlAuthnStatement.getSessionIndex());
+        }
+
+        // AuthContextClassRef
+        //--------------------
+        if ((authnStatement.getAuthnContext() != null) &&
+            (authnStatement.getAuthnContext().getContent() != null)) {
+            log.debug("authnContext has " + authnStatement.getAuthnContext().getContent().size() + " content entries. ");
+            List<JAXBElement<?>> contents = authnStatement.getAuthnContext().getContent();
+            if ((contents != null) &&
+                (contents.size() > 0)) {
+                for (JAXBElement jaxElem1 : contents) {
+                    // When you look at the actual XML string, it looks as follows:
+                    // 		<saml2:AuthnContext>
+                    //          <saml2:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</saml2:AuthnContextClassRef>
+                    //      </saml2:AuthnContext>
+                    // This implies that we should see under the AuthnContext tag another tag.  But for some reason the
+                    // unmarshaller is stripping that layer out and what we see directly under the AuthnContext is
+                    // a string element that contains the value that is currently in the AuthnContextClassRef tag.  So
+                    // that is why we are looking for a string data type here.
+                    //----------------------------------------------------------------------------------------------------------------
+                    if (jaxElem1.getValue() instanceof String) {
+                        String sValue = (String) jaxElem1.getValue();
+                        samlAuthnStatement.setAuthContextClassRef(sValue);
+                        log.debug("Assertion.samlAuthnStatement.authContextClassRef = " + samlAuthnStatement.getAuthContextClassRef());
+                    }   // if (jaxElem1.getValue() instanceof AuthnContext)
+                }   // for (JAXBElement jaxElem1 : contents)
+            }   // if ((contents != null) &&
+        }   // if ((authnStatement.getAuthnContext() != null) &&
+
+        // SubjectLocalityAddress
+        //-----------------------
+        if ((authnStatement.getSubjectLocality() != null) &&
+            (authnStatement.getSubjectLocality().getAddress() != null) &&
+            (authnStatement.getSubjectLocality().getAddress().length() > 0)) {
+            samlAuthnStatement.setSubjectLocalityAddress(authnStatement.getSubjectLocality().getAddress());
+            log.debug("Assertion.samlAuthnStatement.subjectlocalityAddress = " + samlAuthnStatement.getSubjectLocalityAddress());
+        }
+
+        // SubjectLocalityDNSName
+        //------------------------
+        if ((authnStatement.getSubjectLocality() != null) &&
+            (authnStatement.getSubjectLocality().getDNSName() != null) &&
+            (authnStatement.getSubjectLocality().getDNSName().length() > 0)) {
+            samlAuthnStatement.setSubjectLocalityDNSName(authnStatement.getSubjectLocality().getDNSName());
+            log.debug("Assertion.samlAuthnStatement.subjectlocalityDNSName = " + samlAuthnStatement.getSubjectLocalityDNSName());
+        }
+
+        log.debug("Exiting SamlTokenExtractor.extractAuthnStatement...");
     }
 
     /**
@@ -539,41 +682,127 @@ public class SamlTokenExtractor {
     private static void extractDecisionInfo(AuthzDecisionStatementType authzState, AssertionType assertOut) {
         log.debug("Entering SamlTokenExtractor.extractDecisionInfo...");
 
+        SamlAuthzDecisionStatementType oSamlAuthzDecision = assertOut.getSamlAuthzDecisionStatement();
+
+        // @Decision
+        //-----------
+        if ((authzState.getDecision() != null) &&
+            (authzState.getDecision().value() != null)) {
+            oSamlAuthzDecision.setDecision(authzState.getDecision().value());
+            log.debug("Assertion.SamlAuthzDecisionStatement.Decision = " + oSamlAuthzDecision.getDecision());
+        }
+
+        // @Resource
+        //----------
+        if (authzState.getResource() != null) {
+            oSamlAuthzDecision.setResource(authzState.getResource());
+            log.debug("Assertion.SamlAuthzDecisionStatement.Resource = " + oSamlAuthzDecision.getResource());
+        }
+
+        // Action
+        // According to the NHIN Specifications we should see exactly one of these.  If there are more than
+        // one we will only take the first one.
+        //--------------------------------------------------------------------------------------------------
+        if ((authzState.getAction() != null) &&
+            (authzState.getAction().size() > 0) &&
+            (authzState.getAction().get(0) != null) &&
+            (authzState.getAction().get(0).getValue() != null)) {
+            oSamlAuthzDecision.setAction(authzState.getAction().get(0).getValue());
+            log.debug("Assertion.SamlAuthzDecisionStatement.Action = " + oSamlAuthzDecision.getAction());
+        }
+
+        // Evidence
+        //----------
         EvidenceType evid = authzState.getEvidence();
-        List asserts = evid.getAssertionIDRefOrAssertionURIRefOrAssertion();
-        if (asserts != null && !asserts.isEmpty()) {
-            for (int idx = 0; idx <
-                    asserts.size(); idx++) {
-                if (asserts.get(idx) instanceof JAXBElement) {
-                    JAXBElement evElem = (JAXBElement) asserts.get(idx);
-                    if (evElem.getValue() instanceof com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) {
-                        com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType evAss = (com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) evElem.getValue();
+        extractEvidence(evid, assertOut);
 
-                        extractConditionsInfo(assertOut, evAss.getConditions());
+        log.debug("Exiting SamlTokenExtractor.extractDecisionInfo...");
+    }
 
-                        List statements = evAss.getStatementOrAuthnStatementOrAuthzDecisionStatement();
-                        if (statements != null && !statements.isEmpty()) {
-                            for (int idxState = 0; idxState <
-                                    statements.size(); idxState++) {
-                                if (statements.get(idxState) instanceof AttributeStatementType) {
-                                    AttributeStatementType statement = (AttributeStatementType) statements.get(idxState);
-                                    extractAttributeInfo(statement, assertOut);
-                                }
+    /**
+     * This extracts the evidence information from the authorization
+     * decision statement and places the data into the assertion class.
+     *
+     * @param evidence The evidence that was part of the authroization decision statement.
+     * @param assertOut The class where the data will be placed.
+     */
+    private static void extractEvidence(EvidenceType evidence, AssertionType assertOut)
+    {
+        log.debug("Entering SamlTokenExtractor.extractEvidence...");
+        SamlAuthzDecisionStatementEvidenceAssertionType oSamlEvidAssert = assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion();
+
+        List<JAXBElement<?>> oaAsserts = evidence.getAssertionIDRefOrAssertionURIRefOrAssertion();
+        if ((oaAsserts != null) &&
+            (oaAsserts.size() > 0)) {
+            // Loop looking for the tags we need.
+            //----------------------------------------
+            for (JAXBElement<?> oElement : oaAsserts) {
+                // Is this an Assertion?
+                //-----------------------
+                if (oElement.getValue() instanceof com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) {
+
+                    com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType oAssert = (com.sun.xml.wss.saml.internal.saml20.jaxb20.AssertionType) oElement.getValue();
+
+                    // ID
+                    //----
+                    if (oAssert.getID() != null) {
+                        oSamlEvidAssert.setId(oAssert.getID());
+                        log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Id = " + oSamlEvidAssert.getId());
+                    }
+
+                    // Issue Instant
+                    //--------------
+                    if (oAssert.getIssueInstant() != null) {
+                        oSamlEvidAssert.setIssueInstant(oAssert.getIssueInstant().toXMLFormat());
+                        log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.IssueInstant = " + oSamlEvidAssert.getIssueInstant());
+                    }
+
+                    // Version
+                    //--------
+                    if (oAssert.getVersion() != null) {
+                        oSamlEvidAssert.setVersion(oAssert.getVersion());
+                        log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Version = " + oSamlEvidAssert.getVersion());
+                    }
+
+                    // Issuer Format
+                    //---------------
+                    if ((oAssert.getIssuer() != null) &&
+                        (oAssert.getIssuer().getFormat() != null)) {
+                        oSamlEvidAssert.setIssuerFormat(oAssert.getIssuer().getFormat());
+                        log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.IssuerFormat = " + oSamlEvidAssert.getIssuerFormat());
+                    }
+
+                    // Issuer
+                    //-------
+                    if ((oAssert.getIssuer() != null) &&
+                        (oAssert.getIssuer().getValue() != null)) {
+                        oSamlEvidAssert.setIssuer(oAssert.getIssuer().getValue());
+                        log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Issuer = " + oSamlEvidAssert.getIssuer());
+                    }
+
+                    extractConditionsInfo(assertOut, oAssert.getConditions());
+
+                    List statements = oAssert.getStatementOrAuthnStatementOrAuthzDecisionStatement();
+                    if (statements != null && !statements.isEmpty()) {
+                        for (int idxState = 0; idxState <
+                                statements.size(); idxState++) {
+                            if (statements.get(idxState) instanceof AttributeStatementType) {
+                                AttributeStatementType statement = (AttributeStatementType) statements.get(idxState);
+                                extractAttributeInfo(statement, assertOut);
                             }
-                        } else {
-                            log.error("Evidence Statements are missing.");
                         }
                     } else {
-                        log.warn("Non-Assertion type element: " + evElem.getValue() + " is not processed");
+                        log.error("Evidence Statements are missing.");
                     }
                 } else {
-                    log.error("Evidence assertion is not recognized as a JAXB element");
+                    log.warn("Non-Assertion type element: " + oElement.getValue() + " is not processed");
                 }
             }
         } else {
-            log.error("Evidence assertion is empty: " + asserts);
+            log.error("Evidence assertion is empty: " + oaAsserts);
         }
-        log.debug("Exiting SamlTokenExtractor.extractDecisionInfo...");
+
+        log.debug("Exiting SamlTokenExtractor.extractEvidence...");
     }
 
     /**
@@ -586,6 +815,8 @@ public class SamlTokenExtractor {
     private static void extractConditionsInfo(AssertionType assertOut, ConditionsType conditions) {
         log.debug("Entering SamlTokenExtractor.extractConditionsInfo...");
 
+        SamlAuthzDecisionStatementEvidenceAssertionType oSamlEvidAssert = assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion();
+
         if (conditions != null) {
             SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
@@ -594,8 +825,11 @@ public class SamlTokenExtractor {
                 String formBegin = dateForm.format(beginTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formBegin)) {
-                    log.info("Setting Signature Date to: " + formBegin);
                     assertOut.setDateOfSignature(formBegin);
+                    log.info("Assertion.DateOfSignature = " + assertOut.getDateOfSignature());
+
+                    oSamlEvidAssert.getConditions().setNotBefore(formBegin);
+                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotBefore = " + oSamlEvidAssert.getConditions().getNotBefore());
                 }
             }
 
@@ -604,8 +838,11 @@ public class SamlTokenExtractor {
                 String formEnd = dateForm.format(endTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formEnd)) {
-                    log.info("Setting Expires Date to: " + formEnd);
                     assertOut.setExpirationDate(formEnd);
+                    log.info("Assertion.ExpirationDate = " + assertOut.getExpirationDate());
+
+                    oSamlEvidAssert.getConditions().setNotOnOrAfter(formEnd);
+                    log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotOnOrAfter = " + oSamlEvidAssert.getConditions().getNotOnOrAfter());
                 }
             }
         }
