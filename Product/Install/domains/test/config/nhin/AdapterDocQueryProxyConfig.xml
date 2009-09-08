@@ -6,5 +6,5 @@
     <!-- <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryNoOpImpl"/> -->
 	
 	<!-- Web-service implementation -->
-     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.adapterdocquery.proxy.AdapterDocQueryWebServiceProxy"/> 
+     <bean id="adapterdocquery" class="gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryWebServiceProxy"/> 
 </beans>
