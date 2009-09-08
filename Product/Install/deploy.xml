@@ -253,7 +253,9 @@
         <var unset="true" name="deployment.glassfish.shared.lib.name" />
         <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
         <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.shared.lib.name}.jar" />
+        <runtarget target="deploy.glassfish.stop.server"/>
         <runtarget target="deploy.shared.lib.to.glassfish" />
+        <runtarget target="deploy.glassfish.start.server"/>
       </case>
       <default>
         <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
