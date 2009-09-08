@@ -23,11 +23,16 @@ public class NhincProxyDocRetrieveSecuredImpl
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, WebServiceContext context)
     {
-        log.debug("Begin NhincProxyDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve(...)");
-        RetrieveDocumentSetResponseType response = null;
         // Collect assertion
         log.debug("Collecting assertion");
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        return respondingGatewayCrossGatewayRetrieve(body, assertion);
+    }
+
+    public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType body, AssertionType assertion)
+    {
+        log.debug("Begin NhincProxyDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve(...)");
+        RetrieveDocumentSetResponseType response = null;
 
         // Audit request message
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();

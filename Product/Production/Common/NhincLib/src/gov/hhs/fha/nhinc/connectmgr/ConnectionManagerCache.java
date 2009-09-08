@@ -45,6 +45,9 @@ import java.io.File;
 public class ConnectionManagerCache {
 
     private static Log log = LogFactory.getLog(ConnectionManagerCache.class);
+
+    private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
+
     private static final String CRLF = System.getProperty("line.separator");
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
@@ -978,13 +981,24 @@ public class ConnectionManagerCache {
                     NullChecker.isNotNullish(targetSystem.getHomeCommunity().getHomeCommunityId()) &&
                     NullChecker.isNotNullish(serviceName)) {
                 // Get the URL based on Home Community Id and Service Name
-                log.debug("Attempting to look up URL by home communinity id: " + targetSystem.getHomeCommunity().getHomeCommunityId() + " and service name: " + serviceName);
-                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(targetSystem.getHomeCommunity().getHomeCommunityId(), serviceName);
+                String homeCommunityId = cleanHomeCommunityId(targetSystem.getHomeCommunity().getHomeCommunityId());
+                log.debug("Attempting to look up URL by home communinity id: " + homeCommunityId + " and service name: " + serviceName);
+                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(homeCommunityId, serviceName);
             }
         }
 
         log.debug("Returning URL: " + sEndpointURL);
         return sEndpointURL;
+    }
+
+    private static String cleanHomeCommunityId(String homeCommunityId)
+    {
+        String cleaned = homeCommunityId;
+        if((homeCommunityId != null) && (homeCommunityId.startsWith(HOME_COMMUNITY_PREFIX)))
+        {
+            cleaned = homeCommunityId.substring(HOME_COMMUNITY_PREFIX.length());
+        }
+        return cleaned;
     }
 
     /**

@@ -45,7 +45,7 @@ public class EntityDocRetrieveSecuredImpl
         {
             String transactionId = startTransaction(aggregator, body);
 
-            sendRetrieveMessages(transactionId, body, context);
+            sendRetrieveMessages(transactionId, body, assertion);
 
             response = retrieveDocRetrieveResults(aggregator, transactionId);
         }
@@ -62,7 +62,7 @@ public class EntityDocRetrieveSecuredImpl
         return response;
     }
 
-    private void sendRetrieveMessages(String transactionId, RetrieveDocumentSetRequestType body, WebServiceContext context)
+    private void sendRetrieveMessages(String transactionId, RetrieveDocumentSetRequestType body, AssertionType assertion)
     {
         log.debug("Begin sendRetrieveMessages");
         for(DocumentRequest docRequest : body.getDocumentRequest())
@@ -76,7 +76,7 @@ public class EntityDocRetrieveSecuredImpl
             nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
 
             // Create and start doc retrieve sender thread
-            DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, context);
+            DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
             docRetrieveSender.start();
         }
         log.debug("End sendRetrieveMessages");
@@ -159,7 +159,8 @@ public class EntityDocRetrieveSecuredImpl
     {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
-        homeCommunity.setHomeCommunityId("urn:oid:" + homeCommunityId);
+        homeCommunity.setHomeCommunityId(homeCommunityId);
+//        homeCommunity.setHomeCommunityId("urn:oid:" + homeCommunityId);
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         return nhinTargetSystem;
     }

@@ -73,7 +73,7 @@ public class NhinDocRetrieveWebServiceProxy implements NhinDocRetrieveProxy
         }
         else
         {
-            log.error("The URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME + " is null");
+            log.error("The URL for service: " + NhincConstants.DOC_RETRIEVE_SERVICE_NAME + " is null");
         }
 
         log.debug("End NhinDocRetrieveWebServiceProxy.respondingGatewayCrossGatewayRetrieve(...)");

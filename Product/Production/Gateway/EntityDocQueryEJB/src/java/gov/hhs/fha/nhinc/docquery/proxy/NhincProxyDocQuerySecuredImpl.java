@@ -63,7 +63,6 @@ public class NhincProxyDocQuerySecuredImpl
             registryError.setCodeContext("Processing NHIN Proxy document retrieve");
             registryError.setErrorCode("XDSRepositoryError");
             registryError.setSeverity("Error");
-            // TODO: Check null pointer on ... probably error list
             response.getRegistryErrorList().getRegistryError().add(registryError);
         }
 
