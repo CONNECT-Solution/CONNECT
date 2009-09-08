@@ -39,9 +39,9 @@
             <included-library>file.reference.xml-apis.jar</included-library>
             <included-library>reference.AuditRepositoryProxy.jar</included-library>
             <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
+            <included-library>reference.PolicyEngineProxy.jar</included-library>
             <included-library>reference.AdapterDocQueryProxy.jar</included-library>
             <included-library>reference.AdapterDocQueryProxyImpl.jar</included-library>
-            <included-library>reference.PolicyEngineProxy.jar</included-library>
             <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
             <included-library>reference.NhincDataTransformsLib.jar</included-library>
             <source-roots>
