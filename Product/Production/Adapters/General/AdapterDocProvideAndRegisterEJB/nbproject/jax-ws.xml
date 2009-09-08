@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="AdapterDocProvideAndRegisterService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterdocprovideandregister.AdapterDocProvideAndRegisterService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocProvideAndRegister.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocProvideAndRegister.wsdl</local-wsdl-file>
+      <service-name>AdapterDocProvideAndRegisterService</service-name>
+      <port-name>AdapterDocProvideAndRegisterPortTypeBindingPortSoap11</port-name>
+      <package-name>org.netbeans.j2ee.wsdl.interfaces.adapterdocprovideandregister</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+  </services>
+  <clients/>
+</jax-ws>
