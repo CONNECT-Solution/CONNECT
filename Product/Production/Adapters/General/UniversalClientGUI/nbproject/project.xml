@@ -64,15 +64,15 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
+                    <file>${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
                     <file>${reference.EntitySubjectDiscoveryProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${reference.EntitySubjectDiscoveryProxyImpl.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
