@@ -137,7 +137,7 @@
 				<description>Master Patient Index</description>
 				<endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
 			</service>
-		<service>
+			<service>
 				<name>mpisecured</name>
 				<description>Master Patient Index</description>
 				<endpointURL>https://localhost:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
@@ -203,16 +203,23 @@
 				<endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
 			</service>
 			<service>				
+				<name>adapterxdsbdocrepositorysoap12</name>				
+				<description>Adapter Document Retrieve Soap12</description>				
+				<endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+			</service>			
+			<service>				
 				<name>adapterxdsbdocrepository</name>				
 				<description>Adapter Document Retrieve</description>				
 				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
-				<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
 			</service>			
 			<service>				
 				<name>adapterxdsbdocregistry</name>				
 				<description>Adapter Document Query</description>			
 				<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
-				<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
 			</service>			
 			<service>
 				<name>adapterpip</name>
@@ -487,17 +494,24 @@
 				<description>auditlog</description>
 				<endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
 			</service>
+			<service>				
+				<name>adapterxdsbdocrepositorysoap12</name>				
+				<description>Adapter Document Retrieve Soap12</description>				
+				<endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+			</service>			
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
 				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->				
+<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>-->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
+				<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL>
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+<!--			<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>-->
 			</service>
 			<service>
 				<name>adapterpip</name>
@@ -693,6 +707,11 @@
 		<name>NISTXDS</name>
 		<description>NIST XDS Repository</description>
 		<services>
+			<service>				
+				<name>adapterxdsbdocrepositorysoap12</name>				
+				<description>Adapter Document Retrieve Soap12</description>				
+				<endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+			</service>			
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
