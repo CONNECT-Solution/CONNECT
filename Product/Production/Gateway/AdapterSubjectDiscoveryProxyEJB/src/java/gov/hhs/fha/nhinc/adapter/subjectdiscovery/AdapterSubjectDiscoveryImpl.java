@@ -43,8 +43,6 @@ public class AdapterSubjectDiscoveryImpl {
             Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-            com.services.nhinc.schema.auditmessage.FindAuditEventsType request = new com.services.nhinc.schema.auditmessage.FindAuditEventsType();
-
             ack = port.pixConsumerPRPAIN201301UV(pixConsumerPRPAIN201301UVRequest);
         }
         catch (Exception ex)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EntitySubjectDiscoveryIntegrationTest" resourceRoot="" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\projects\nhinc\Current\Product\IntegrationTest</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubjectDiscoveryBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl"><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\coreschemas\datatypes-base.xsd</con:url><con:content><![CDATA[<!--Copyright (c) 2001, 2002, 2003, 2004, 2005 Health Level Seven. All rights reserved.
+<con:soapui-project name="EntitySubjectDiscoveryIntegrationTest" resourceRoot="" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\Projects\nhinc\Current\Product\IntegrationTest</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntitySubjectDiscoveryBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitysubjectdiscovery}EntitySubjectDiscoveryBindingSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscovery.wsdl"><con:part><con:url>file:\C:\projects\nhinc\Current\Product\Production\Common\Interfaces\src\schemas\HL7V3\coreschemas\datatypes-base.xsd</con:url><con:content><![CDATA[<!--Copyright (c) 2001, 2002, 2003, 2004, 2005 Health Level Seven. All rights reserved.
 
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions
@@ -64005,7 +64005,7 @@ No other rights are granted by implication, estoppel or otherwise.-->
   </xsd:complexType>
   <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
   <xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ForceRefreshInternalConnectCache" name="ForceRefreshInternalConnectCache" bindingOperationName="ForceRefreshInternalConnectCache" type="Request-Response" outputName="ForceRefreshInternalConnectCacheResponse" inputName="ForceRefreshInternalConnectCacheRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ForceRefreshUDDICache" name="ForceRefreshUDDICache" bindingOperationName="ForceRefreshUDDICache" type="Request-Response" outputName="ForceRefreshUDDICacheResponse" inputName="ForceRefreshUDDICacheRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntities" name="GetAllBusinessEntities" bindingOperationName="GetAllBusinessEntities" type="Request-Response" outputName="GetAllBusinessEntitiesResponse" inputName="GetAllBusinessEntitiesRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntitySetByServiceName" name="GetAllBusinessEntitySetByServiceName" bindingOperationName="GetAllBusinessEntitySetByServiceName" type="Request-Response" outputName="GetAllBusinessEntitySetByServiceNameResponse" inputName="GetAllBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllCommunities" name="GetAllCommunities" bindingOperationName="GetAllCommunities" type="Request-Response" outputName="GetAllCommunitiesResponse" inputName="GetAllCommunitiesRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoEndpointSetByServiceName" name="GetAllConnectionInfoEndpointSetByServiceName" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoSetByServiceName" name="GetAllConnectionInfoSetByServiceName" bindingOperationName="GetAllConnectionInfoSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoSetByServiceNameResponse" inputName="GetAllConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAssigningAuthoritiesByHomeCommunity" name="GetAssigningAuthoritiesByHomeCommunity" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" type="Request-Response" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntity" name="GetBusinessEntity" bindingOperationName="GetBusinessEntity" type="Request-Response" outputName="GetBusinessEntityResponse" inputName="GetBusinessEntityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntityByServiceName" name="GetBusinessEntityByServiceName" bindingOperationName="GetBusinessEntityByServiceName" type="Request-Response" outputName="GetBusinessEntityByServiceNameResponse" inputName="GetBusinessEntityByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySet" name="GetBusinessEntitySet" bindingOperationName="GetBusinessEntitySet" type="Request-Response" outputName="GetBusinessEntitySetResponse" inputName="GetBusinessEntitySetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySetByServiceName" name="GetBusinessEntitySetByServiceName" bindingOperationName="GetBusinessEntitySetByServiceName" type="Request-Response" outputName="GetBusinessEntitySetByServiceNameResponse" inputName="GetBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoByServiceName" name="GetConnectionInfoByServiceName" bindingOperationName="GetConnectionInfoByServiceName" type="Request-Response" outputName="GetConnectionInfoByServiceNameResponse" inputName="GetConnectionInfoByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointByServiceName" name="GetConnectionInfoEndpointByServiceName" bindingOperationName="GetConnectionInfoEndpointByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointByServiceNameResponse" inputName="GetConnectionInfoEndpointByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSet" name="GetConnectionInfoEndpointSet" bindingOperationName="GetConnectionInfoEndpointSet" type="Request-Response" outputName="GetConnectionInfoEndpointSetResponse" inputName="GetConnectionInfoEndpointSetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSetByServiceName" name="GetConnectionInfoEndpointSetByServiceName" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="GetConnectionInfoEndpontFromNhinTarget" name="GetConnectionInfoEndpontFromNhinTarget" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" type="Request-Response" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSet" name="GetConnectionInfoSet" bindingOperationName="GetConnectionInfoSet" type="Request-Response" outputName="GetConnectionInfoSetResponse" inputName="GetConnectionInfoSetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSetByServiceName" name="GetConnectionInfoSetByServiceName" bindingOperationName="GetConnectionInfoSetByServiceName" type="Request-Response" outputName="GetConnectionInfoSetByServiceNameResponse" inputName="GetConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetHomeCommunityByAssigningAuthority" name="GetHomeCommunityByAssigningAuthority" bindingOperationName="GetHomeCommunityByAssigningAuthority" type="Request-Response" outputName="GetHomeCommunityByAssigningAuthorityResponse" inputName="GetHomeCommunityByAssigningAuthorityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StoreAssigningAuthorityToHomeCommunityMapping" name="StoreAssigningAuthorityToHomeCommunityMapping" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" type="Request-Response" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="SubjectDiscoveryTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubjectDiscoveryAnnounceTest" searchProperties="true" id="c0430c1c-1e84-41f3-8879-da0d1097b1f4"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:9080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://localhost:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Table</con:name><con:value>assigningauthoritytohomecommunitymapping</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Host</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Port</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.DB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.User</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Pass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property><con:property><con:name>SUT.ConnectionManager.endpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:value></con:property><con:property><con:name>SUT.PolicyEngine.PolicyEngineFacadeDte.EndpointUrl</con:name><con:value>http://localhost:8080/NhincComponentInternalPolicyEngineTransformService/PolicyEngineTransformationService</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.Entity.Endpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>ConfigurationFilesSourceDirectory</con:name><con:value>C:/projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>GatewayConfigurationDirectory</con:name><con:value>C:/GlassFishESB/glassfish/domains/domain1/config/nhinc</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.NhincProxy.Endpoint</con:name><con:value>http://localhost:9080/NhinConnect/NhincProxySubjectDiscovery</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Replace Config Files"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:ForceRefreshInternalConnectCache" name="ForceRefreshInternalConnectCache" bindingOperationName="ForceRefreshInternalConnectCache" type="Request-Response" outputName="ForceRefreshInternalConnectCacheResponse" inputName="ForceRefreshInternalConnectCacheRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:ForceRefreshUDDICache" name="ForceRefreshUDDICache" bindingOperationName="ForceRefreshUDDICache" type="Request-Response" outputName="ForceRefreshUDDICacheResponse" inputName="ForceRefreshUDDICacheRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntities" name="GetAllBusinessEntities" bindingOperationName="GetAllBusinessEntities" type="Request-Response" outputName="GetAllBusinessEntitiesResponse" inputName="GetAllBusinessEntitiesRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllBusinessEntitySetByServiceName" name="GetAllBusinessEntitySetByServiceName" bindingOperationName="GetAllBusinessEntitySetByServiceName" type="Request-Response" outputName="GetAllBusinessEntitySetByServiceNameResponse" inputName="GetAllBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllCommunities" name="GetAllCommunities" bindingOperationName="GetAllCommunities" type="Request-Response" outputName="GetAllCommunitiesResponse" inputName="GetAllCommunitiesRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoEndpointSetByServiceName" name="GetAllConnectionInfoEndpointSetByServiceName" bindingOperationName="GetAllConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoEndpointSetByServiceNameResponse" inputName="GetAllConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAllConnectionInfoSetByServiceName" name="GetAllConnectionInfoSetByServiceName" bindingOperationName="GetAllConnectionInfoSetByServiceName" type="Request-Response" outputName="GetAllConnectionInfoSetByServiceNameResponse" inputName="GetAllConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetAssigningAuthoritiesByHomeCommunity" name="GetAssigningAuthoritiesByHomeCommunity" bindingOperationName="GetAssigningAuthoritiesByHomeCommunity" type="Request-Response" outputName="GetAssigningAuthoritiesByHomeCommunityResponse" inputName="GetAssigningAuthoritiesByHomeCommunityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntity" name="GetBusinessEntity" bindingOperationName="GetBusinessEntity" type="Request-Response" outputName="GetBusinessEntityResponse" inputName="GetBusinessEntityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntityByServiceName" name="GetBusinessEntityByServiceName" bindingOperationName="GetBusinessEntityByServiceName" type="Request-Response" outputName="GetBusinessEntityByServiceNameResponse" inputName="GetBusinessEntityByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySet" name="GetBusinessEntitySet" bindingOperationName="GetBusinessEntitySet" type="Request-Response" outputName="GetBusinessEntitySetResponse" inputName="GetBusinessEntitySetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetBusinessEntitySetByServiceName" name="GetBusinessEntitySetByServiceName" bindingOperationName="GetBusinessEntitySetByServiceName" type="Request-Response" outputName="GetBusinessEntitySetByServiceNameResponse" inputName="GetBusinessEntitySetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoByServiceName" name="GetConnectionInfoByServiceName" bindingOperationName="GetConnectionInfoByServiceName" type="Request-Response" outputName="GetConnectionInfoByServiceNameResponse" inputName="GetConnectionInfoByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointByServiceName" name="GetConnectionInfoEndpointByServiceName" bindingOperationName="GetConnectionInfoEndpointByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointByServiceNameResponse" inputName="GetConnectionInfoEndpointByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSet" name="GetConnectionInfoEndpointSet" bindingOperationName="GetConnectionInfoEndpointSet" type="Request-Response" outputName="GetConnectionInfoEndpointSetResponse" inputName="GetConnectionInfoEndpointSetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoEndpointSetByServiceName" name="GetConnectionInfoEndpointSetByServiceName" bindingOperationName="GetConnectionInfoEndpointSetByServiceName" type="Request-Response" outputName="GetConnectionInfoEndpointSetByServiceNameResponse" inputName="GetConnectionInfoEndpointSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="GetConnectionInfoEndpontFromNhinTarget" name="GetConnectionInfoEndpontFromNhinTarget" bindingOperationName="GetConnectionInfoEndpontFromNhinTarget" type="Request-Response" outputName="GetConnectionInfoEndpontFromNhinTargetResponse" inputName="GetConnectionInfoEndpontFromNhinTargetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSet" name="GetConnectionInfoSet" bindingOperationName="GetConnectionInfoSet" type="Request-Response" outputName="GetConnectionInfoSetResponse" inputName="GetConnectionInfoSetRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetConnectionInfoSetByServiceName" name="GetConnectionInfoSetByServiceName" bindingOperationName="GetConnectionInfoSetByServiceName" type="Request-Response" outputName="GetConnectionInfoSetByServiceNameResponse" inputName="GetConnectionInfoSetByServiceNameRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:GetHomeCommunityByAssigningAuthority" name="GetHomeCommunityByAssigningAuthority" bindingOperationName="GetHomeCommunityByAssigningAuthority" type="Request-Response" outputName="GetHomeCommunityByAssigningAuthorityResponse" inputName="GetHomeCommunityByAssigningAuthorityRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation><con:operation isOneWay="false" action="urn:StoreAssigningAuthorityToHomeCommunityMapping" name="StoreAssigningAuthorityToHomeCommunityMapping" bindingOperationName="StoreAssigningAuthorityToHomeCommunityMapping" type="Request-Response" outputName="StoreAssigningAuthorityToHomeCommunityMappingResponse" inputName="StoreAssigningAuthorityToHomeCommunityMappingRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="SubjectDiscoveryTestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubjectDiscoveryAnnounceTest" searchProperties="true" id="c0430c1c-1e84-41f3-8879-da0d1097b1f4"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://localhost:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Table</con:name><con:value>assigningauthoritytohomecommunitymapping</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Host</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Port</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.DB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.User</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Pass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocRetrieve</con:value></con:property><con:property><con:name>SUT.ConnectionManager.endpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:value></con:property><con:property><con:name>SUT.PolicyEngine.PolicyEngineFacadeDte.EndpointUrl</con:name><con:value>http://localhost:8080/NhincComponentInternalPolicyEngineTransformService/PolicyEngineTransformationService</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.Entity.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>ConfigurationFilesSourceDirectory</con:name><con:value>C:/projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>GatewayConfigurationDirectory</con:name><con:value>C:/projects/nhinc/Current/Product/Production/Common/Properties</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.NhincProxy.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</con:value></con:property><con:property><con:name>SUT.NhincProxyDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyDocQuery</con:value></con:property><con:property><con:name>SUT.Mpi.MpiManager.Endpoint</con:name><con:value>http://localhost:8080/AdapterMpiManagerService</con:value></con:property><con:property><con:name>SUT.Mpi.Mpi.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/AdapterComponentMpiService</con:value></con:property><con:property><con:name>GlassfishConfigurationDirectory</con:name><con:value>C:/GlassFishESB/glassfish/domains/domain1/config</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionDte.EndpointUrl</con:name><con:value>http://localhost:8080/NhincComponentInternalSubscriptionDteService/SubscriptionDteService</con:value></con:property><con:property><con:name>SUT.HIEM.NhinSubscribe.EndpointUrl</con:name><con:value>https://localhost:8181/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SUT.HIEM.NhinSubscribe.NotifyUrl</con:name><con:value>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</con:value></con:property><con:property><con:name>SUT.HIEM.ProxySubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyNotificationProducer</con:value></con:property><con:property><con:name>SUT.HIEM.ProxyNotify.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyNotificationConsumer</con:value></con:property><con:property><con:name>SUT.HIEM.NhinNotify.EndpointUrl</con:name><con:value>http://localhost:8181/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepositoryUtilService.EndpointUrl</con:name><con:value>http://localhost:8080/HiemSubscriptionRepositoryUtilService/HiemSubscriptionRepositoryUtilService</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincComponentSubscriptionReferenceRepository</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.RepositoryDirectory</con:name><con:value>\\localhost\glassfish\domains\domain1\config</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.RepositoryFile</con:name><con:value>subscriptionList.xml</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionManager.EndpointUrl</con:name><con:value>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SUT.HIEM.EntityNotify.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/EntityNotificationConsumer</con:value></con:property><con:property><con:name>SUT.HIEM.EntitySubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/EntityNotificationProducer</con:value></con:property><con:property><con:name>SUT.HIEM.EntitySubscribe.NotifyUrl</con:name><con:value>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</con:value></con:property><con:property><con:name>SUT.HIEM.EntityUnsubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/EntitySubscriptionManager/EntityUnsubscribeService</con:value></con:property><con:property><con:name>RemoteGateway.HIEM.NotificationConsumer.EndpointUrl</con:name><con:value>http://localhost:8080/EntitySubscriptionManager/EntityUnsubscribeService</con:value></con:property><con:property><con:name>AuditRepository.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.dumpDir</con:name><con:value>c/:/cdc/fileDump</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.exportDir2</con:name><con:value>c/:/cdc/fileExport2</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.exportDir1</con:name><con:value>c/:/cdc/fileExport</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Replace Config Files" disabled="true"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Properties" );
 def sourceConfigFileLocation = dataSource.getPropertyValue ("ConfigurationFilesSourceDirectory");
 def destConfigFileLocation = dataSource.getPropertyValue("GatewayConfigurationDirectory");
@@ -64035,7 +64035,7 @@ def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
 def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
 
 DBFunctions.clearTable(host, port, db, user, pass, table);
-</script></con:config></con:testStep><con:testStep type="transfer" name="Set Endpoints"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>EntityURL</con:name><con:sourceType>SUT.SubjectDiscovery.Entity.Endpoint</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>EntityAnnounce</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>PatientCorrelationURL</con:name><con:sourceType>SUT.PatientCorrelationFacade</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Patient Correlation Check</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="EntityAnnounce"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntitySubjectDiscoveryBindingSoap11</con:interface><con:operation>PIXConsumer_PRPA_IN201301UV</con:operation><con:request name="EntityAnnounce"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/NhinConnect/EntitySubjectDiscovery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+</script></con:config></con:testStep><con:testStep type="transfer" name="Set Endpoints"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>EntityURL</con:name><con:sourceType>SUT.SubjectDiscovery.Entity.Endpoint</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>EntityAnnounce</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>PatientCorrelationURL</con:name><con:sourceType>SUT.PatientCorrelationFacade</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Patient Correlation Check</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="EntityAnnounce"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntitySubjectDiscoveryBindingSoap11</con:interface><con:operation>PIXConsumer_PRPA_IN201301UV</con:operation><con:request name="EntityAnnounce"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntitySubjectDiscovery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:PIXConsumer_PRPA_IN201301UVRequest>
@@ -64803,4 +64803,329 @@ declare namespace ns1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       </urn:RetrievePatientCorrelationsRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Check Correlation Not Made"><con:configuration><path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade';
-exists( //ns3:RetrievePatientCorrelationsResponse/ns3:QualifiedPatientIdentifier)</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/></con:soapui-project>
+exists( //ns3:RetrievePatientCorrelationsResponse/ns3:QualifiedPatientIdentifier)</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="SubjectDiscoveryAnnounce" searchProperties="true" id="5e78e750-2cd3-4e5f-a1f7-49ef4f3677a0"><con:settings/><con:testStep type="properties" name="Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" createMissingOnLoad="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://localhost:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Table</con:name><con:value>assigningauthoritytohomecommunitymapping</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Host</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Port</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.DB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.User</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.AssigningAuthorityMapping.DB.Pass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocRetrieve</con:value></con:property><con:property><con:name>SUT.ConnectionManager.endpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincComponentConnectionManager</con:value></con:property><con:property><con:name>SUT.PolicyEngine.PolicyEngineFacadeDte.EndpointUrl</con:name><con:value>http://localhost:8080/NhincComponentInternalPolicyEngineTransformService/PolicyEngineTransformationService</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.Entity.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>ConfigurationFilesSourceDirectory</con:name><con:value>C:/projects/nhinc/Current/Product/IntegrationTest/GatewayConfigFiles</con:value></con:property><con:property><con:name>GatewayConfigurationDirectory</con:name><con:value>C:/projects/nhinc/Current/Product/Production/Common/Properties</con:value></con:property><con:property><con:name>SUT.SubjectDiscovery.NhincProxy.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</con:value></con:property><con:property><con:name>SUT.NhincProxyDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyDocQuery</con:value></con:property><con:property><con:name>SUT.Mpi.MpiManager.Endpoint</con:name><con:value>http://localhost:8080/AdapterMpiManagerService</con:value></con:property><con:property><con:name>SUT.Mpi.Mpi.Endpoint</con:name><con:value>http://localhost:8080/NhinConnect/AdapterComponentMpiService</con:value></con:property><con:property><con:name>GlassfishConfigurationDirectory</con:name><con:value>C:/GlassFishESB/glassfish/domains/domain1/config</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionDte.EndpointUrl</con:name><con:value>http://localhost:8080/NhincComponentInternalSubscriptionDteService/SubscriptionDteService</con:value></con:property><con:property><con:name>SUT.HIEM.NhinSubscribe.EndpointUrl</con:name><con:value>https://localhost:8181/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SUT.HIEM.NhinSubscribe.NotifyUrl</con:name><con:value>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</con:value></con:property><con:property><con:name>SUT.HIEM.ProxySubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyNotificationProducer</con:value></con:property><con:property><con:name>SUT.HIEM.ProxyNotify.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincProxyNotificationConsumer</con:value></con:property><con:property><con:name>SUT.HIEM.NhinNotify.EndpointUrl</con:name><con:value>http://localhost:8181/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepositoryUtilService.EndpointUrl</con:name><con:value>http://localhost:8080/HiemSubscriptionRepositoryUtilService/HiemSubscriptionRepositoryUtilService</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/NhincComponentSubscriptionReferenceRepository</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.RepositoryDirectory</con:name><con:value>\\localhost\glassfish\domains\domain1\config</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionRepository.RepositoryFile</con:name><con:value>subscriptionList.xml</con:value></con:property><con:property><con:name>SUT.HIEM.SubscriptionManager.EndpointUrl</con:name><con:value>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SUT.HIEM.EntityNotify.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/EntityNotificationConsumer</con:value></con:property><con:property><con:name>SUT.HIEM.EntitySubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/EntityNotificationProducer</con:value></con:property><con:property><con:name>SUT.HIEM.EntitySubscribe.NotifyUrl</con:name><con:value>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</con:value></con:property><con:property><con:name>SUT.HIEM.EntityUnsubscribe.EndpointUrl</con:name><con:value>http://localhost:8080/EntitySubscriptionManager/EntityUnsubscribeService</con:value></con:property><con:property><con:name>RemoteGateway.HIEM.NotificationConsumer.EndpointUrl</con:name><con:value>http://localhost:8080/EntitySubscriptionManager/EntityUnsubscribeService</con:value></con:property><con:property><con:name>AuditRepository.EndpointUrl</con:name><con:value>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.dumpDir</con:name><con:value>c/:/cdc/fileDump</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.exportDir2</con:name><con:value>c/:/cdc/fileExport2</con:value></con:property><con:property><con:name>SUT.HIEM.FTA.exportDir1</con:name><con:value>c/:/cdc/fileExport</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="groovy" name="Clear Repository"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="transfer" name="Set Endpoints"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>EntityURL</con:name><con:sourceType>SUT.SubjectDiscovery.Entity.Endpoint</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>EntityAnnounce</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" transferChildNodes="false" ignoreEmpty="false" useXQuery="false" entitize="false"><con:name>PatientCorrelationURL</con:name><con:sourceType>SUT.PatientCorrelationFacade</con:sourceType><con:sourceStep>Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Patient Correlation Check</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="request" name="EntityAnnounce"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntitySubjectDiscoveryBindingSoap11</con:interface><con:operation>PIXConsumer_PRPA_IN201301UV</con:operation><con:request name="EntityAnnounce"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntitySubjectDiscovery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:PIXConsumer_PRPA_IN201301UVRequest>
+         <urn:PRPA_IN201301UV ITSVersion="XML_1.0" xmlns="http://xml.netbeans.org/schema/phone" xmlns:msgns="http://j2ee.netbeans.org/wsdl/DataTransformation" xmlns:urn0="http://xml.netbeans.org/schema/homeCommunity" xmlns:urn1="http://xml.netbeans.org/schema/qualifiedSubjectId" xmlns:urn2="http://xml.netbeans.org/schema/subjectDiscoveryInfo" xmlns:urn3="http://xml.netbeans.org/schema/personName" xmlns:urn4="http://xml.netbeans.org/schema/address" xmlns:urn5="http://xml.netbeans.org/schema/documentInfo" xmlns:urn6="urn:ihe:iti:xds-b:2007" xmlns:urn7="http://xml.netbeans.org/schema/document" xmlns:urn8="http://xml.netbeans.org/schema/dataTransform" xmlns:urn9="urn:gov:hhs:fha:nhinc:xsd:documentregistryinfo" xmlns:ns2="http://xml.netbeans.org/schema/ce" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns7="http://xml.netbeans.org/schema/response" xmlns:ns9="http://xml.netbeans.org/schema/realDocumentEntry">
+            <urn:id extension="-5a3e95b1:11d1fa33d45:-7f9b" root="1.1.1"/>
+            <urn:creationTime value="20080627043800"/>
+            <urn:interactionId extension="PRPA_IN201301UV" root="2.16.840.1.113883.1.6"/>
+            <urn:processingCode code="T"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess moodCode="EVN">
+               <urn:code code="PRPA_TE201301UV"/>
+               <urn:informationRecipient typeCode="IRCP">
+                  <urn:assignedPerson>
+                     <urn:representedOrganization>
+                        <urn:id root="1.1"/>
+                        <urn:name>
+                           <urn:delimiter>CareSpark</urn:delimiter>
+                        </urn:name>
+                     </urn:representedOrganization>
+                  </urn:assignedPerson>
+               </urn:informationRecipient>
+               <urn:subject contextConductionInd="false" typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1>
+                        <urn:patient classCode="PAT">
+                           <urn:id extension="1234" root="1.1.1"/>
+                           <urn:statusCode code="active"/>
+                           <urn:patientPerson>
+                              <urn:name use="L">
+                                 <urn:family partType="FAM">Smith</urn:family>
+                                 <urn:given partType="GIV">Joe</urn:given>
+                              </urn:name>
+                              <urn:telecom use="H" value="321/13/7268546/7452"/>
+                              <urn:administrativeGenderCode code="M"/>
+                              <urn:birthTime value="19560301"/>
+                              <urn:addr use="HME">
+                                 <urn:country>US</urn:country>
+                                 <urn:state>FL</urn:state>
+                                 <urn:city>Orlando</urn:city>
+                                 <urn:postalCode>98765</urn:postalCode>
+                                 <urn:streetAddressLine>123 Nixon Rd.</urn:streetAddressLine>
+                              </urn:addr>
+                              <urn:raceCode code="White"/>
+                              <urn:asOtherIDs classCode="PAT">
+                                 <urn:id extension="123456789" root="2.16.840.1.113883.4.1"/>
+                                 <urn:scopingOrganization>
+                                    <urn:id root="2.16.840.1.113883.4.1"/>
+                                 </urn:scopingOrganization>
+                              </urn:asOtherIDs>
+                              <urn:personalRelationship classCode="PRS">
+                                 <urn:code code="MTH"/>
+                                 <urn:relationshipHolder1 determinerCode="INSTANCE">
+                                    <urn:name use="L">
+                                       <urn:family partType="FAM">Jones</urn:family>
+                                       <urn:given partType="GIV">Lucy</urn:given>
+                                    </urn:name>
+                                 </urn:relationshipHolder1>
+                              </urn:personalRelationship>
+                           </urn:patientPerson>
+                           <urn:providerOrganization xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </urn:patient>
+                     </urn:subject1>
+                     <urn:custodian xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV>
+         <urn:assertion>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>Orlando</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>?string?</urn1:streetAddress>
+               <urn1:zipCode>?string?</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>?string?</urn1:dateOfBirth>
+            <urn1:dateOfSignature>12/25/2008 00:00:00</urn1:dateOfSignature>
+            <urn1:expirationDate>12/25/2009 00:00:00</urn1:expirationDate>
+            <urn1:explanationNonClaimantSignature>auth1234.doc</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>true</urn1:haveSignature>
+            <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>?string?</urn1:description>
+               <urn1:homeCommunityId>?string?</urn1:homeCommunityId>
+               <urn1:name>Melbourne Medical Group</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Jones</urn1:familyName>
+               <urn1:givenName>Bertha</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>BAJ</urn1:secondNameOrInitials>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>?string?</urn1:areaCode>
+               <urn1:countryCode>?string?</urn1:countryCode>
+               <urn1:extension>?string?</urn1:extension>
+               <urn1:localNumber>?string?</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:purposeOfDisclosure>treatment</urn1:purposeOfDisclosure>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>?string?</urn1:city>
+               <urn1:country>?string?</urn1:country>
+               <urn1:state>?string?</urn1:state>
+               <urn1:streetAddress>?string?</urn1:streetAddress>
+               <urn1:zipCode>?string?</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>?string?</urn1:familyName>
+               <urn1:givenName>?string?</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>?string?</urn1:secondNameOrInitials>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>?string?</urn1:areaCode>
+               <urn1:countryCode>?string?</urn1:countryCode>
+               <urn1:extension>?string?</urn1:extension>
+               <urn1:localNumber>?string?</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>?string?</urn1:SSN>
+            <!--1 or more repetitions:-->
+            <urn1:uniquePatientId/>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>Atlanta</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>GA</urn1:state>
+               <urn1:streetAddress>?string?</urn1:streetAddress>
+               <urn1:zipCode>?string?</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smythe</urn1:familyName>
+               <urn1:givenName>Catherine</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>CS</urn1:secondNameOrInitials>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>?string?</urn1:areaCode>
+               <urn1:countryCode>?string?</urn1:countryCode>
+               <urn1:extension>?string?</urn1:extension>
+               <urn1:localNumber>?string?</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>?string?</urn1:code>
+                  <urn1:codeSystem>?string?</urn1:codeSystem>
+                  <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                  <urn1:displayName>?string?</urn1:displayName>
+                  <urn1:originalText>?string?</urn1:originalText>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Smith</urn1:familyName>
+                  <urn1:givenName>Betty</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>?string?</urn1:code>
+                     <urn1:codeSystem>?string?</urn1:codeSystem>
+                     <urn1:codeSystemName>?string?</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+                     <urn1:displayName>?string?</urn1:displayName>
+                     <urn1:originalText>?string?</urn1:originalText>
+                     <!--1 or more repetitions:-->
+                     <urn1:translation/>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>Lou</urn1:secondNameOrInitials>
+               </urn1:personName>
+               <urn1:userName>user1</urn1:userName>
+               <urn1:role>nurse</urn1:role>
+               <urn1:org>
+                  <urn1:description>DoD</urn1:description>
+                  <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
+                  <urn1:name>DoD</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>80584001</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion/>
+                  <urn1:displayName>Psychiatrist</urn1:displayName>
+                  <urn1:originalText/>
+                  <!--1 or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>?string?</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>?string?</urn1:originalText>
+               <!--1 or more repetitions:-->
+               <urn1:translation/>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef>
+            <urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description/>
+                  <urn1:homeCommunityId>2.2</urn1:homeCommunityId>
+                  <urn1:name/>
+               </urn1:homeCommunity> 
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:PIXConsumer_PRPA_IN201301UVRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Check Receiver"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
+//ns1:MCCI_IN000002UV01[1]/ns1:receiver[1]/ns1:device[1]/ns1:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check Sender"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
+//ns1:MCCI_IN000002UV01[1]/ns1:sender[1]/ns1:device[1]/ns1:id[1]/@root</path><content>1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check Ack Message"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
+//ns1:MCCI_IN000002UV01[1]/ns1:acknowledgement[1]/ns1:acknowledgementDetail[1]/ns1:text[1]/text()</path><content>Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:testStep type="request" name="Patient Correlation Check"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationFacadeBinding</con:interface><con:operation>RetrievePatientCorrelations</con:operation><con:request name="Patient Correlation Check"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9080/PatientCorrelationFacadeService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RetrievePatientCorrelationsRequest>
+         <urn:QualifiedPatientIdentifier>
+            <urn1:SubjectIdentifier>1234</urn1:SubjectIdentifier>
+            <urn1:AssigningAuthorityIdentifier>1.1.1</urn1:AssigningAuthorityIdentifier>
+         </urn:QualifiedPatientIdentifier>
+      </urn:RetrievePatientCorrelationsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="Check Correlation Not Made"><con:configuration><path>declare namespace ns3='urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade';
+exists( //ns3:RetrievePatientCorrelationsResponse/ns3:QualifiedPatientIdentifier)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/></con:soapui-project>
