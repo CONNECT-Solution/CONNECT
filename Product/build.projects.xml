@@ -217,6 +217,10 @@
 		<directory>/Production/Gateway/EntityDocRetrieveEJB</directory>
 	</project>
 	<project>
+		<name>AdapterDocRepository2Soap12EJB</name>
+		<directory>/Production/Adapters/General/AdapterDocRepository2Soap12EJB</directory>
+	</project>
+	<project>
 		<name>EntitySubjectDiscoveryEJB</name>
 		<directory>/Production/Gateway/EntitySubjectDiscoveryEJB</directory>
 	</project>
