@@ -48,18 +48,22 @@ public class SamlTokenCreator {
         }
 
         if (assertion != null) {
+            // This is maintained but will be overwritten if a value is available in
+            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions.getNotOnOrAfter()
             if (NullChecker.isNotNullish(assertion.getExpirationDate())) {
                 requestContext.put(NhincConstants.EXPIRE_PROP, assertion.getExpirationDate());
             }
+            // This is maintained but will be overwritten if a value is available in
+            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions.getNotBefore()
             if (NullChecker.isNotNullish(assertion.getDateOfSignature())) {
                 requestContext.put(NhincConstants.SIGN_PROP, assertion.getDateOfSignature());
             }
-            // This will be overwritten if a value is available in
+            // This is maintained but will be overwritten if a value is available in
             // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference()
             if (NullChecker.isNotNullish(assertion.getClaimFormRef())) {
                 requestContext.put(NhincConstants.CONTENT_REF_PROP, assertion.getClaimFormRef());
             }
-            // This will be overwritten if a value is available in
+            // This is maintainted but will be overwritten if a value is available in
             // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent()
             if (assertion.getClaimFormRaw() != null) {
                 requestContext.put(NhincConstants.CONTENT_PROP, assertion.getClaimFormRaw());
