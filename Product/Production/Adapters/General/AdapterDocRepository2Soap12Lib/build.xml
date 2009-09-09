@@ -11,19 +11,19 @@
     <description>Builds, tests, and runs the project AdapterDocRepository2Soap12Lib.</description>
     <import file="nbproject/build-impl.xml"/>
     
-	<property name="deploy.type" value="jar" description="options:['war', 'ejb', 'shared', 'ca']"/>
-	<property name="deploy.isDeployable" value="false"/>
+    <property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
+    
+    <import file="../../../../build.lib.xml" />
 
-	<import file="../../../../build.lib.xml" />
-
-	<target name="build">
-	  <property name="target-to-call" value="jar" />
-	  <antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,build" />
-	<target name="clean-test" depends="clean-build,test" />
-	<target name="build-test" depends="build,test" />
-	
+   <target name="build">
+      <property name="target-to-call" value="jar" />
+      <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
+ 	
 	<!--
 
     There exist several targets which are by default empty and which can be 
