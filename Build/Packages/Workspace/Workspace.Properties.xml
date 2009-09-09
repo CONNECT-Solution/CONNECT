@@ -26,7 +26,6 @@
   <strings id="Workspace.RequieredSoftware">
     <string value="Java"/>
     <string value="CCTray"/>
-    <string value="MySQL"/>
   </strings>
 
   <include buildfile="${Package.Workspace.Directory.Path}\Software\CCTray\CCTray.Script.xml"/>
