@@ -23,7 +23,7 @@ public class ActionHelper {
         if (action == null) {
             action = new ActionType();
         }
-        action.getAttribute().add(AttributeHelper.attributeFactory(ActionAttributeId, Constants.DataTypeString, actionValue));
+        action.getAttribute().add(AttributeHelper.attributeFactory(ActionAttributeId, Constants.DataTypeString, (Object) actionValue));
         return action;
     }
 }
