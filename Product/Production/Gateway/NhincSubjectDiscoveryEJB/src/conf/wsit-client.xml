@@ -8,4 +8,5 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="NhinSubjectDiscovery.xml" namespace="urn:ihe:iti:pixv3:2007"/>
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
+    <import location="AdapterSubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
 </definitions>
