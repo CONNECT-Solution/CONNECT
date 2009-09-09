@@ -11,13 +11,14 @@
     <description>Builds, tests, and runs the project AdapterDocRepository2Soap12EJB.</description>
     <import file="nbproject/build-impl.xml"/>
     
+	<import file="../../../../build.lib.xml" />
 	<property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared', 'ca']"/>
 	<property name="deploy.isDeployable" value="true"/>
 
 	<import file="../../../../build.lib.xml" />
 
 	<target name="build">
-	  <property name="target-to-call" value="jar" />
+	  <property name="target-to-call" value="dist" />
 	  <antcall target="call-target-in-isolation-if-out-of-date" />
 	</target>
 	<target name="clean-build" depends="clean,build" />
@@ -112,6 +113,10 @@
             <fileset dir="${meta.inf}/xml-resources/web-services/AdapterDocRepository2Soap12Service/schemas/" />
         </copy>
 		
+    </target>
+	
+	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
     </target>
 	
 </project>
