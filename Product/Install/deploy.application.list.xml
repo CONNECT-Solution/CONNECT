@@ -83,6 +83,9 @@
     <ejb>
       <name>EntityAuditLogQueryEJB</name>
     </ejb>
+        <ejb>
+      <name>EntityAuditQueryProxyEJB</name>
+    </ejb>
     <ejb>
       <name>EntityDocQueryEJB</name>
     </ejb>
@@ -118,6 +121,9 @@
     </ejb>
    <ejb>
       <name>EntitySubjectDiscoveryEJB</name>
+    </ejb>
+    <ejb>
+      <name>EntitySubjectDiscoveryProxyEJB</name>
     </ejb>
     <ejb>
       <name>PatientCorrelationEJB</name>
