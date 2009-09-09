@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
-    <system systemId="Interfaces/wsdl/AdapterComponentDocRepository.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterComponentDocRepository.wsdl"/>
     <system systemId="Interfaces/wsdl/rw-2.wsdl" uri="nb-uri:Interfaces#src/wsdl/rw-2.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentPropAccessor.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentPropAccessor.wsdl"/>
     <system systemId="Interfaces/wsdl/NhincComponentConnectionManager.wsdl" uri="nb-uri:Interfaces#src/wsdl/NhincComponentConnectionManager.wsdl"/>
-    <system systemId="Interfaces/wsdl/AdapterDocProvideAndRegister.wsdl" uri="nb-uri:Interfaces#src/wsdl/AdapterDocProvideAndRegister.wsdl"/>
 </catalog>
