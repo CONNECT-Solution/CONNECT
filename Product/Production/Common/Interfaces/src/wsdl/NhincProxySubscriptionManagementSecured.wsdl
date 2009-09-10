@@ -50,50 +50,54 @@
 	
 	-->
 <wsdl:definitions 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement" 
    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
    xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-   xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
-   name="EntitySubscriptionManagementSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement"
-   
-    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
-    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-   	xmlns:wsaw="http://www.w3.org/2005/08/addressing"
-   	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-   	xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-   	xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
-   	xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
-    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"   
-   
-   
-   >
-    <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
+   xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
+   name="NhincProxySubscriptionManagementSecured" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+   xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"    >
+
+  <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
                location="rw-2.wsdl"/>
-    <wsdl:types>
-        <xsd:schema>
-            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
-        </xsd:schema>
-        <xsd:schema>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" 
-                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
-        </xsd:schema>
-    </wsdl:types>
+
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/> 
+    </xsd:schema>
+    <xsd:schema>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
+                  schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
 
   <!-- Request/Response Messages -->
   <!-- ========================= -->
-    <wsdl:message name="UnsubscribeRequestMessage">
-        <wsdl:part name="UnsubscribeRequest" element="nccommonentity:UnsubscribeRequest"/>
-    </wsdl:message>
-    <wsdl:message name="UnsubscribeResponseMessage">
-        <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
-    </wsdl:message>
+  <wsdl:message name="SubscribeRequestMessage">
+    <wsdl:part name="SubscribeRequest" element="nccommonproxy:SubscribeRequest"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeResponseMessage">
+    <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeRequestMessage">
+    <wsdl:part name="UnsubscribeRequest" element="nccommonproxy:UnsubscribeRequest"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeResponseMessage">
+    <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
+  </wsdl:message>
   
   
   <!-- Fault Messages -->
@@ -147,249 +151,175 @@
                element="wsnt:UnableToDestroySubscriptionFault"/>
   </wsdl:message>
 
-    <wsdl:message name="SubscribeDocumentRequestMessage">
-        <wsdl:part name="SubscribeDocumentRequest" element="nccommonentity:SubscribeDocumentRequest"/>
-    </wsdl:message>
-    <wsdl:message name="SubscribeDocumentResponseMessage">
-        <wsdl:part name="SubscribeDocumentResponse" element="nccommonentity:SubscribeDocumentResponse"/>
-    </wsdl:message>
-    <wsdl:message name="SubscribeRequest">
-        <wsdl:part name="SubscribeRequest" element="nccommonentity:SubscribeRequest"/>
-    </wsdl:message>
-    <wsdl:message name="SubscribeResponse">
-        <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
-    </wsdl:message>
-    
-    <wsdl:portType name="EntityNotificationProducerSecuredPortType">
-
-        <wsdl:operation name="SubscribeDocument">
-            <wsdl:input name="SubscribeDocumentRequest" message="tns:SubscribeDocumentRequestMessage"/>
-            <wsdl:output name="SubscribeDocumentResponse" message="tns:SubscribeDocumentResponseMessage"/>
-        </wsdl:operation>
-
-        <wsdl:operation name="Subscribe">
-            <wsdl:input name="SubscribeRequest" message="tns:SubscribeRequest"/>
-            <wsdl:output name="SubscribeResponse" message="tns:SubscribeResponse"/>
-            <wsdl:fault name="ResourceUnknownFault"
+  <wsdl:portType name="NhincProxyNotificationProducerSecuredPortType">
+    <wsdl:operation name="Subscribe">
+      <wsdl:input name="SubscribeRequest"
+                  message="tns:SubscribeRequestMessage"/>
+      <wsdl:output name="SubscribeResponse"
+                   message="tns:SubscribeResponseMessage"/>
+      
+      <wsdl:fault name="ResourceUnknownFault" 
                   message="wsrf-rw:ResourceUnknownFault" />
-            <wsdl:fault name="InvalidFilterFault"
+      <wsdl:fault name="InvalidFilterFault" 
                   message="tns:InvalidFilterFault" />
-            <wsdl:fault name="TopicExpressionDialectUnknownFault"
+      <wsdl:fault name="TopicExpressionDialectUnknownFault" 
                   message="tns:TopicExpressionDialectUnknownFault" />
-            <wsdl:fault name="InvalidTopicExpressionFault"
+      <wsdl:fault name="InvalidTopicExpressionFault" 
                   message="tns:InvalidTopicExpressionFault" />
-            <wsdl:fault name="TopicNotSupportedFault"
+      <wsdl:fault name="TopicNotSupportedFault" 
                   message="tns:TopicNotSupportedFault" />
-            <wsdl:fault name="InvalidProducerPropertiesExpressionFault"
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault" 
                   message="tns:InvalidProducerPropertiesExpressionFault" />
-            <wsdl:fault name="InvalidMessageContentExpressionFault"
+      <wsdl:fault name="InvalidMessageContentExpressionFault" 
                   message="tns:InvalidMessageContentExpressionFault" />
-            <wsdl:fault name="UnacceptableInitialTerminationTimeFault"
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault" 
                   message="tns:UnacceptableInitialTerminationTimeFault" />
-            <wsdl:fault name="UnrecognizedPolicyRequestFault"
+      <wsdl:fault name="UnrecognizedPolicyRequestFault" 
                   message="tns:UnrecognizedPolicyRequestFault" />
-            <wsdl:fault name="UnsupportedPolicyRequestFault"
+      <wsdl:fault name="UnsupportedPolicyRequestFault" 
                   message="tns:UnsupportedPolicyRequestFault" />
-            <wsdl:fault name="NotifyMessageNotSupportedFault"
+      <wsdl:fault name="NotifyMessageNotSupportedFault" 
                   message="tns:NotifyMessageNotSupportedFault" />
-            <wsdl:fault name="SubscribeCreationFailedFault"
+      <wsdl:fault name="SubscribeCreationFailedFault" 
                   message="tns:SubscribeCreationFailedFault" />
-        </wsdl:operation>
-    </wsdl:portType>
-    <wsdl:portType name="EntitySubscriptionManagerSecuredPortType">
-        <wsdl:operation name="Unsubscribe">
-            <wsdl:input name="UnsubscribeRequest" 
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:portType name="NhincProxySubscriptionManagerSecuredPortType">
+    <wsdl:operation name="Unsubscribe">
+      <wsdl:input name="UnsubscribeRequest" 
                   message="tns:UnsubscribeRequestMessage" />
-            <wsdl:output name="UnsubscribeResponse" 
+      <wsdl:output name="UnsubscribeResponse" 
                    message="tns:UnsubscribeResponseMessage" />
-            <wsdl:fault name="ResourceUnknownFault" 
+                   
+      <wsdl:fault name="ResourceUnknownFault" 
                   message="wsrf-rw:ResourceUnknownFault" />
-            <wsdl:fault name="UnableToDestroySubscriptionFault" 
+      <wsdl:fault name="UnableToDestroySubscriptionFault" 
                   message="tns:UnableToDestroySubscriptionFault" />
-        </wsdl:operation>
-    </wsdl:portType>
-    
-    <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap11" 
-                type="tns:EntityNotificationProducerSecuredPortType">
-        <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_Binding_SoapPolicy"/>
-        <soap:binding style="document" 
+    </wsdl:operation>
+  </wsdl:portType>
+  
+  <wsdl:binding name="NhincProxyNotificationProducerSecureBindingSoap11" 
+                type="tns:NhincProxyNotificationProducerSecuredPortType">
+    <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="SubscribeDocument">
-            <soap:operation soapAction="urn:SubscribeDocument"/>
-            <wsdl:input name="SubscribeDocumentRequest">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#SubscribeDocument_Binding_Soap_Input_Policy"/>
-            </wsdl:input>
-            <wsdl:output name="SubscribeDocumentResponse">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#SubscribeDocument_Binding_Soap_Output_Policy"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="Subscribe">
-            <soap:operation soapAction="urn:Subscribe"/>
-            <wsdl:input name="SubscribeRequest">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#Subscription_Binding_Soap_Input_Policy"/>
-            </wsdl:input>
-            <wsdl:output name="SubscribeResponse">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#Subscription_Binding_Soap_Output_Policy"/>
-            </wsdl:output>
-            <wsdl:fault name="ResourceUnknownFault">
-                <soap:fault name="ResourceUnknownFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InvalidFilterFault">
-                <soap:fault name="InvalidFilterFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="TopicExpressionDialectUnknownFault">
-                <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InvalidTopicExpressionFault">
-                <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="TopicNotSupportedFault">
-                <soap:fault name="TopicNotSupportedFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
-                <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="InvalidMessageContentExpressionFault">
-                <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
-                <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="UnrecognizedPolicyRequestFault">
-                <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="UnsupportedPolicyRequestFault">
-                <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="NotifyMessageNotSupportedFault">
-                <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="SubscribeCreationFailedFault">
-                <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
-    </wsdl:binding>
-    
-    <wsdl:binding name="EntitySubscriptionManagerSecuredBindingSoap11" 
-                type="tns:EntitySubscriptionManagerSecuredPortType">
-        <soap:binding style="document" 
+                  
+    <wsp:PolicyReference URI="#NhincProxyNotificationProducerSecuredPortType_SoapPolicy"/>                
+                  
+    <wsdl:operation name="Subscribe">
+      <soap:operation soapAction="urn:Subscribe"/>
+      <wsdl:input name="SubscribeRequest" >
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Subscribe_Binding_Soap_Input_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="SubscribeResponse" >
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Subscribe_Binding_Soap_Output_Policy"/>
+      </wsdl:output>
+      
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidFilterFault">
+        <soap:fault name="InvalidFilterFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicExpressionDialectUnknownFault">
+        <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTopicExpressionFault">
+        <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicNotSupportedFault">
+        <soap:fault name="TopicNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
+        <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidMessageContentExpressionFault">
+        <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
+        <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecognizedPolicyRequestFault">
+        <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnsupportedPolicyRequestFault">
+        <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="NotifyMessageNotSupportedFault">
+        <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="SubscribeCreationFailedFault">
+        <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:binding name="NhincProxySubscriptionManagerSecuredBindingSoap11" 
+                type="tns:NhincProxySubscriptionManagerSecuredPortType">
+    <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_SoapPolicy"/>                  
-        <wsdl:operation name="Unsubscribe">
-            <soap:operation soapAction="urn:Unsubscribe"/>
-            <wsdl:input name="UnsubscribeRequest">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Input_Policy"/>                               
-            </wsdl:input>
-            <wsdl:output name="UnsubscribeResponse">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>   
-            </wsdl:output>
-            <wsdl:fault name="ResourceUnknownFault">
-                <soap:fault name="ResourceUnknownFault" use="literal"/>
-            </wsdl:fault>
-            <wsdl:fault name="UnableToDestroySubscriptionFault">
-                <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
-            </wsdl:fault>
-        </wsdl:operation>
-    </wsdl:binding>
-    <wsdl:service name="EntityNotificationProducerSecured">
-        <wsdl:port name="EntityNotificationProducerSecuredPortSoap11" 
-               binding="tns:EntityNotificationProducerSecuredBindingSoap11">
-            <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer"/>
-        </wsdl:port>
-    </wsdl:service>
-    <wsdl:service name="EntitySubscriptionManagerSecured">
-        <wsdl:port name="EntitySubscriptionManagerSecuredPortSoap11" 
-               binding="tns:EntitySubscriptionManagerSecuredBindingSoap11">
-            <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubscriptionManagerSecured"/>
-        </wsdl:port>
-    </wsdl:service>
-    <plnk:partnerLinkType name="EntityNotificationProducer">
+    <wsp:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>    
+    <wsdl:operation name="Unsubscribe">
+      <soap:operation soapAction="urn:Unsubscribe"/>
+      <wsdl:input name="UnsubscribeRequest">
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>
+      </wsdl:input>
+      <wsdl:output name="UnsubscribeResponse">
+        <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>
+      </wsdl:output>
+      
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnableToDestroySubscriptionFault">
+        <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  
+  <wsdl:service name="NhincProxyNotificationProducerSecured">
+    <wsdl:port name="NhincProxyNotificationProducerPortSoap11" 
+               binding="tns:NhincProxyNotificationProducerSecureBindingSoap11">
+      <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyNotificationProducerSecured"/>
+    </wsdl:port>
+  </wsdl:service>
+  
+  <wsdl:service name="NhincProxySubscriptionManagerSecured">
+    <wsdl:port name="NhincProxySubscriptionManagerPortSoap11" 
+               binding="tns:NhincProxySubscriptionManagerSecuredBindingSoap11">
+      <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxySubscriptionManagerSecured"/>
+    </wsdl:port>
+  </wsdl:service>
+  
+  <plnk:partnerLinkType name="NhincProxyNotificationProducer">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 
          link represents the interaction between the BPEL process and a partner service. 
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-        <plnk:role name="EntityNotificationProducerSecuredPortTypeRole"
-               portType="tns:EntityNotificationProducerSecuredPortType"/>
-    </plnk:partnerLinkType>
-    <plnk:partnerLinkType name="EntitySubscriptionManager">
+    <plnk:role name="NhincProxyNotificationProducerSecuredPortTypeRole" 
+               portType="tns:NhincProxyNotificationProducerSecuredPortType"/>
+  </plnk:partnerLinkType>
+  
+  <plnk:partnerLinkType name="NhincProxySubscriptionManager">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 
          link represents the interaction between the BPEL process and a partner service. 
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-        <plnk:role name="EntitySubscriptionManagerSecuredPortTypeRole"
-               portType="tns:EntitySubscriptionManagerSecuredPortType"/>
-    </plnk:partnerLinkType>
-    
-    
-   <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
-                
-                <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-                <sp:TransportBinding>
-                    <wsp:Policy>
-                        <sp:TransportToken>
-                            <wsp:Policy>
-                                <sp:HttpsToken>
-                                    <wsp:Policy>
-                                        <sp:RequireClientCertificate/>
-                                    </wsp:Policy>
-                                </sp:HttpsToken>
-                            </wsp:Policy>
-                        </sp:TransportToken>
-                        <sp:Layout>
-                            <wsp:Policy>
-                                <sp:Strict/>
-                            </wsp:Policy>
-                        </sp:Layout>
-                        <sp:IncludeTimestamp/>
-                        <sp:AlgorithmSuite>
-                            <wsp:Policy>
-                                <sp:Basic128/>
-                            </wsp:Policy>
-                        </sp:AlgorithmSuite>
-                    </wsp:Policy>
-                </sp:TransportBinding>
-                <sp:EndorsingSupportingTokens>
-                    <wsp:Policy>
-                        <sp:SamlToken
-                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-                            <wsp:Policy>
-                                <sp:WssSamlV20Token11/>
-                            </wsp:Policy>
-                        </sp:SamlToken>
-                    </wsp:Policy>
-                </sp:EndorsingSupportingTokens>
-                <sp:Wss11>
-                    <wsp:Policy>
-                        <sp:MustSupportRefKeyIdentifier/>
-                        <sp:MustSupportRefIssuerSerial/>
-                        <sp:RequireSignatureConfirmation/>
-                    </wsp:Policy>
-                </sp:Wss11>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>    
-
-
-   <wsp:Policy wsu:Id="EntityNotificationProducerSecuredPortType_SoapPolicy">
+    <plnk:role name="NhincProxySubscriptionManagerSecuredPortTypeRole" 
+               portType="tns:NhincProxySubscriptionManagerSecuredPortType"/>
+  </plnk:partnerLinkType>
+  
+  <wsp:Policy wsu:Id="NhincProxyNotificationProducerSecuredPortType_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
                 <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
@@ -444,32 +374,74 @@
         </wsp:ExactlyOne>
     </wsp:Policy>    
     
-    <wsp:Policy wsu:Id="Subscription_Binding_Soap_Input_Policy">
+  <wsp:Policy wsu:Id="NhincProxySubscriptionManagerSecuredPortType_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+                
+                <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector" 
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>    
+  
+    <wsp:Policy wsu:Id="Subscribe_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>
-    <wsp:Policy wsu:Id="Subscription_Binding_Soap_Output_Policy">
+    <wsp:Policy wsu:Id="Subscribe_Binding_Soap_Output_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
             </wsp:All>
         </wsp:ExactlyOne>
-    </wsp:Policy>
-    
-    <wsp:Policy wsu:Id="SubscribeDocument_Binding_Soap_Input_Policy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
-    <wsp:Policy wsu:Id="SubscribeDocument_Binding_Soap_Output_Policy">
-        <wsp:ExactlyOne>
-            <wsp:All>
-            </wsp:All>
-        </wsp:ExactlyOne>
-    </wsp:Policy>
-    
+    </wsp:Policy>    
+     
     <wsp:Policy wsu:Id="UnSubscribe_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
             <wsp:All>
@@ -481,6 +453,5 @@
             <wsp:All>
             </wsp:All>
         </wsp:ExactlyOne>
-    </wsp:Policy>
-    
+    </wsp:Policy>   
 </wsdl:definitions>
