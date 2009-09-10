@@ -236,8 +236,4 @@
 		<name>AdapterCA</name>
 		<directory>/Production/Adapters/General/AdapterCA</directory>
 	</project>
-	<project>
-		<name>EntityCA</name>
-		<directory>/Production/Gateway/EntityCA</directory>
-	</project>
 </projects>
