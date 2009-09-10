@@ -78,7 +78,6 @@
     <runtarget target="deploy.glassfish.start.server"/>
     <runtarget target="deploy.ejbs.to.glassfish"/>
     <runtarget target="deploy.wars.to.glassfish"/>
-    <runtarget target="deploy.cas.to.glassfish"/>
   </target>
   
   <target name="undeploy.from.production">
@@ -163,11 +162,6 @@
         </actions>
       </call>
     </xmltask>
-  </target>
-
-  <target name="deploy.cas.to.glassfish">
-    <var name="target" value="deploy.ca.to.glassfish"/>
-    <runtarget target="target.to.call.on.cas"/>
   </target>
 
   <target name="undeploy.cas.from.glassfish">
