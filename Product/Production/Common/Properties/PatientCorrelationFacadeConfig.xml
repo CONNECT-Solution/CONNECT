@@ -4,8 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 	<!-- Default facade implementation -->
     <!-- <bean id="patientcorrelationfacade" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxyNoOpImpl"/> -->
-	<!-- Java patient correlation facade implementation -->
-    <bean id="patientcorrelationfacade" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeJavaProxy"/>
 	<!-- Web service patient correlation facade implementation -->
-    <!-- <bean id="patientcorrelationfacade" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeWebServiceProxy"/> -->
+    <bean id="patientcorrelationfacade" class="gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeWebServiceProxy"/> 
 </beans>
