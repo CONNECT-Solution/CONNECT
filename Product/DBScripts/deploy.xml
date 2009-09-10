@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="deploy" name="NHINC.database.deploy">
+    
+    <import file="properties.xml" />
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+    
+    <taskdef resource="org/apache/ivy/ant/antlib.xml" uri="antlib:org.apache.ivy.ant" />
+    
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+    	<classpath>
+    		<pathelement location="${ant.library.dir}/xmltask-v1.15.1.jar" />
+    	</classpath>
+    </taskdef>
+    
+    <taskdef name="largeproperty" classname="com.agilex.ant.LargeProperty">
+    	<classpath>
+    		<pathelement location="${ant.library.dir}/agilex-ant-tasks.jar" />
+    	</classpath>
+    </taskdef>
+    
+    <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
+    
+    <target name="deploy">
+    	<echo>
+    		Please choose a target:
+    		database.drop
+    		database.create
+    		database.recreate
+    		database.populateWithTestData
+    		database.recreateTestdatabase
+    	</echo>
+    </target>
+    
+    <target name="database.populate.test.data">
+
+    </target>
+
+    <target name="database.alter">
+
+    </target>
+    
+    <target name="database.drop">
+    	<execsql file="${basedir}/nhincdb/dropall.sql"/>
+    </target>
+    
+    <target name="database.create">
+    	<execsql file="${basedir}/nhincdb/nhincdb.sql"/>
+    </target>
+    
+    <target name="database.recreate">
+    	<runtarget target="database.drop"/>
+    	<runtarget target="database.create"/>
+    </target>
+    
+    <macrodef name="execsql">
+        <attribute name="file" />
+        <sequential>
+            <sql classpath="${database.jdbc.driver.classpath}"
+                driver="${database.jdbc.driver}"
+                src="@{file}"
+                url="${database.url}"
+                userid="${database.admin.username}"
+                password="${database.admin.password}" />
+        </sequential>
+    </macrodef>
+</project>
