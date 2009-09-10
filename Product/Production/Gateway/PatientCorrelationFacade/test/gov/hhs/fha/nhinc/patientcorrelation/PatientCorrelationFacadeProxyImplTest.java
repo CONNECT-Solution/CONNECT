@@ -12,7 +12,7 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelatio
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelationResponseType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeJavaProxy;
+import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeWebServiceProxy;
 
 /**
  *
@@ -44,7 +44,7 @@ public class PatientCorrelationFacadeProxyImplTest
             PatientCorrelationFacadeProxyObjectFactory factory = new PatientCorrelationFacadeProxyObjectFactory();
             PatientCorrelationFacadeProxy correlationProxy = factory.getPatientCorrelationFacadeProxy();
             assertNotNull("Patient correlation was null", correlationProxy);
-            assertTrue("Patient correlation proxy was not a valid impl", ((correlationProxy instanceof PatientCorrelationFacadeJavaProxy) ||(correlationProxy instanceof PatientCorrelationFacadeWebServiceProxy)));
+            assertTrue("Patient correlation proxy was not a valid impl", ((correlationProxy instanceof PatientCorrelationFacadeWebServiceProxy) ||(correlationProxy instanceof PatientCorrelationFacadeWebServiceProxy)));
 
             // Create add request
             AddPatientCorrelationRequestType addRequest = new AddPatientCorrelationRequestType();
