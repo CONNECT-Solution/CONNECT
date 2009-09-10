@@ -1,3 +1,5 @@
+-- workaround for non-supported DROP USER IF EXISTS. see MySQL Bug #15287
+GRANT USAGE ON *.* TO nhincuser identified by 'nhincpass';
 DROP USER nhincuser;
 
 DROP DATABASE IF EXISTS subscriptionrepository;
