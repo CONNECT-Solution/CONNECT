@@ -61,7 +61,7 @@ public class AssertionHelper {
             appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionContentReference(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionContentType(policyRequest, assertion);
-//            appendAuthzDecisionStatementEvidenceAssertionContent(policyRequest, assertion);
+            appendAuthzDecisionStatementEvidenceAssertionContent(policyRequest, assertion);
 //            appendSignatureKeyModulus(policyRequest, assertion);
 //            appendSignatureKeyExponent(policyRequest, assertion);
 //            appendSignatureValue(policyRequest, assertion);

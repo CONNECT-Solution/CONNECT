@@ -8,6 +8,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
+import gov.hhs.fha.nhinc.callback.Base64Coder;
 
 /**
  *
@@ -29,7 +30,19 @@ public class AttributeHelper {
         attribute.setDataType(dataType);
 
         AttributeValueType atttibuteValue = new AttributeValueType();
-        atttibuteValue.getContent().add(value);
+        if (value instanceof String) {
+            atttibuteValue.getContent().add(value);
+        }
+        else if (value  instanceof byte[]) {
+            String sValue = new String((byte[]) value);     // Note that JAXB already decoded this.  We need to re-encode it.
+            String sEncodedValue = Base64Coder.encodeString(sValue);
+            atttibuteValue.getContent().add(sEncodedValue);
+        }
+        else {
+            // Note sure what to do with the rest - just put them in...
+            //----------------------------------------------------------
+            atttibuteValue.getContent().add(value);
+        }
         attribute.getAttributeValue().add(atttibuteValue);
 
         return attribute;
