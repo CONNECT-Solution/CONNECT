@@ -20,6 +20,8 @@
     <target name="build-test" depends="jar" />
     
     <target name="-post-jar">
+      <copy file="${dist.jar}" todir="../../../lib" overwrite="true" />
+
       <echo message="Copying file to ${glassfish.home}/lib if newer. Making backup copy." />
           <basename property="distfile.jar" file="${dist.jar}" />
           <copy file="${glassfish.home}/lib/${distfile.jar}" tofile="${glassfish.home}/lib/${distfile.jar}.bak" verbose="true" failonerror="false" />
