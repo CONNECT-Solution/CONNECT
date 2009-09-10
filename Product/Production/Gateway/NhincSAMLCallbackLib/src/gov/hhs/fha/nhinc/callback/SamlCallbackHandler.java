@@ -18,8 +18,8 @@ import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 import com.sun.xml.wss.impl.callback.*;
 import com.sun.xml.wss.saml.*;
-import com.sun.xml.wss.util.DateUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.*;
@@ -28,6 +28,8 @@ import java.text.SimpleDateFormat;
 //import javax.mail.internet.AddressException;
 //import javax.mail.internet.InternetAddress;
 import javax.security.auth.x500.X500Principal;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,6 +41,10 @@ import org.apache.commons.logging.LogFactory;
 public class SamlCallbackHandler implements CallbackHandler {
 
     private static Log log = LogFactory.getLog(SamlCallbackHandler.class);
+    // Valid Evidence Assertion versions
+    private static final String ASSERTION_VERSION_2_0 = "2.0";
+    private static final String[] VALID_ASSERTION_VERSION_ARRAY = {ASSERTION_VERSION_2_0};
+    private static final List<String> VALID_ASSERTION_VERSION_LIST = Collections.unmodifiableList(Arrays.asList(VALID_ASSERTION_VERSION_ARRAY));
     // Valid Authorization Decision values
     private static final String AUTHZ_DECISION_PERMIT = "Permit";
     private static final String AUTHZ_DECISION_DENY = "Deny";
@@ -92,6 +98,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     private KeyStore trustStore;
     private static Element svAssertion;
     private static Element hokAssertion20;
+    private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
 
 
     static {
@@ -104,6 +111,8 @@ public class SamlCallbackHandler implements CallbackHandler {
                         return true;
                     }
                 });
+        // Set up versioning mapping - currently only support 2.0
+        factoryVersionMap.put(ASSERTION_VERSION_2_0, SAMLAssertionFactory.SAML2_0);
     }
 
     /**
@@ -349,7 +358,7 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @return A listing of all statements
      * @throws com.sun.xml.wss.saml.SAMLException
      */
-    private List createAuthnStatements(SAMLAssertionFactory factory) throws SAMLException {
+    private List createAuthnStatements(SAMLAssertionFactory factory) throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createAuthnStatements() -- Begin");
         List statements = new ArrayList();
 
@@ -393,10 +402,11 @@ public class SamlCallbackHandler implements CallbackHandler {
             String authnInstant = tokenVals.get(NhincConstants.AUTHN_INSTANT_PROP).toString();
             try {
                 //times must be in UTC format as specified by the XML Schema type (dateTime)
-                Date validDate = DateUtils.stringToDate(authnInstant.trim());
-                issueInstant.setTime(validDate);
-                log.debug("Setting Authentication instant to: " + authnInstant);
-            } catch (ParseException ex) {
+                DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+                XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
+                issueInstant = xmlDate.toGregorianCalendar();
+                log.debug("Setting Authentication instant to: " + xmlDate.toXMLFormat());
+            } catch (DatatypeConfigurationException ex) {
                 log.debug("Authentication instant: " + authnInstant +
                         " is not in a valid dateTime format, defaulting to current time");
             }
@@ -436,11 +446,12 @@ public class SamlCallbackHandler implements CallbackHandler {
         String decision = AUTHZ_DECISION_PERMIT;
         if (tokenVals.containsKey(NhincConstants.AUTHZ_DECISION_PROP) &&
                 tokenVals.get(NhincConstants.AUTHZ_DECISION_PROP) != null) {
-            decision = tokenVals.get(NhincConstants.AUTHZ_DECISION_PROP).toString();
-            if (VALID_AUTHZ_DECISION_LIST.contains(decision.trim())) {
-                log.debug("Setting Authentication Decision to: " + decision);
+            String requestedDecision = tokenVals.get(NhincConstants.AUTHZ_DECISION_PROP).toString().trim();
+            if (VALID_AUTHZ_DECISION_LIST.contains(requestedDecision)) {
+                log.debug("Setting Authentication Decision to: " + requestedDecision);
+                decision = requestedDecision;
             } else {
-                log.debug(decision + " is not recognized as valid, " +
+                log.debug(requestedDecision + " is not recognized as valid, " +
                         "create default Authentication Decision as: " + AUTHZ_DECISION_PERMIT);
                 log.debug("Should be one of: " + VALID_AUTHZ_DECISION_LIST);
             }
@@ -467,7 +478,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         }
 
         // Evidence Assertion generation           
-        Evidence evidence = createEvidence(factory, issueInstant);
+        Evidence evidence = createEvidence();
 
         AuthnDecisionStatement authDecState = factory.createAuthnDecisionStatement(resource, decision, actions, evidence);
         if (authDecState != null) {
@@ -616,8 +627,26 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @return The Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
      */
-    private Evidence createEvidence(SAMLAssertionFactory factory, GregorianCalendar issueInstant) throws SAMLException {
+    private Evidence createEvidence() throws SAMLException, XWSSecurityException {
         log.debug("SamlCallbackHandler.createEvidence() -- Begin");
+
+        String evAssertVersion = ASSERTION_VERSION_2_0;
+        if ((tokenVals.containsKey(NhincConstants.EVIDENCE_VERSION_PROP) &&
+                tokenVals.get(NhincConstants.EVIDENCE_VERSION_PROP) != null)) {
+            String requestedVersion = tokenVals.get(NhincConstants.EVIDENCE_VERSION_PROP).toString();
+            if (VALID_ASSERTION_VERSION_LIST.contains(requestedVersion.trim())) {
+                log.debug("Setting Evidence Assertion Version to: " + requestedVersion);
+                evAssertVersion = requestedVersion;
+            } else {
+                log.debug(requestedVersion + " is not recognized as valid, " +
+                        "create evidence assertion version as: " + ASSERTION_VERSION_2_0);
+                log.debug("Should be one of: " + VALID_ASSERTION_VERSION_LIST);
+            }
+        } else {
+            log.debug("Defaulting Evidence version to: " + ASSERTION_VERSION_2_0);
+        }
+        String evAssertFactoryVersion = factoryVersionMap.get(evAssertVersion);
+        SAMLAssertionFactory factory = SAMLAssertionFactory.newInstance(evAssertFactoryVersion);
 
         List evAsserts = new ArrayList();
         try {
@@ -628,6 +657,24 @@ public class SamlCallbackHandler implements CallbackHandler {
                 log.debug("Setting Evidence assertion id to: " + evAssertionID);
             } else {
                 log.debug("Defaulting Evidence assertion id to: " + evAssertionID);
+            }
+
+            GregorianCalendar issueInstant = calendarFactory();
+            if (tokenVals.containsKey(NhincConstants.EVIDENCE_INSTANT_PROP) &&
+                    tokenVals.get(NhincConstants.EVIDENCE_INSTANT_PROP) != null) {
+                String authnInstant = tokenVals.get(NhincConstants.EVIDENCE_INSTANT_PROP).toString();
+                try {
+                    //times must be in UTC format as specified by the XML Schema type (dateTime)
+                    DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+                    XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
+                    issueInstant = xmlDate.toGregorianCalendar();
+                    log.debug("Setting Evidence assertion instant to: " + xmlDate.toXMLFormat());
+                } catch (DatatypeConfigurationException ex) {
+                    log.debug("Evidence assertion instant: " + authnInstant +
+                            " is not in a valid dateTime format, defaulting to current time");
+                }
+            } else {
+                log.debug("Defaulting Authentication instant to current time");
             }
 
             NameID evIssuerId = null;
@@ -685,7 +732,9 @@ public class SamlCallbackHandler implements CallbackHandler {
             Conditions conditions = factory.createConditions(beginValidTime, endValidTime, null, null, null, null);
 
             List statements = createEvidenceStatements(factory);
-            evAsserts.add(factory.createAssertion(evAssertionID, evIssuerId, issueInstant, conditions, null, null, statements));
+            Assertion evAssert = factory.createAssertion(evAssertionID, evIssuerId, issueInstant, conditions, null, null, statements);
+            evAssert.setVersion(evAssertVersion);
+            evAsserts.add(evAssert);
         } catch (SAMLException ex) {
             log.debug("Unable to create Evidence Assertion: " + ex.getMessage());
         }
@@ -701,12 +750,14 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @return The calendar object representing the given time
      */
     private GregorianCalendar createCal(String time) {
+
         GregorianCalendar cal = calendarFactory();
         try {
-            //times should be in UTC format as specified by the XML Schema type (dateTime)
-            Date validDate = DateUtils.stringToDate(time.trim());
-            cal.setTime(validDate);
-        } catch (ParseException pex) {
+            //times must be in UTC format as specified by the XML Schema type (dateTime)
+            DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+            XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
+            cal = xmlDate.toGregorianCalendar();
+        } catch (DatatypeConfigurationException dtex) {
             try {
                 // try simple date format - backward compatibility
                 SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -715,8 +766,13 @@ public class SamlCallbackHandler implements CallbackHandler {
                 log.error("Date form is expected to be in dateTime format yyyy-MM-ddTHH:mm:ss.SSSZ Setting default date");
             }
         }
-        log.info("Creating Date: " + DateUtils.toUTCDateFormat(cal.getTime()));
+        try {
+            DatatypeFactory factory = DatatypeFactory.newInstance();
+            log.info("Creating Date: " + factory.newXMLGregorianCalendar(cal).toXMLFormat());
 
+        } catch (DatatypeConfigurationException ex) {
+            log.info("Created calendar instance: " + cal.toString());
+        }
         return cal;
     }
 
