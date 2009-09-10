@@ -301,7 +301,7 @@
         <wsdl:port name="EntityNotificationProducerSecuredPortSoap11" 
                binding="tns:EntityNotificationProducerSecuredBindingSoap11">
             <soap:address 
-         location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer"/>
+         location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationProducerSecured"/>
         </wsdl:port>
     </wsdl:service>
     <wsdl:service name="EntitySubscriptionManagerSecured">

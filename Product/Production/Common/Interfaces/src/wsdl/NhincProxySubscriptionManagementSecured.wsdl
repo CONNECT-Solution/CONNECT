@@ -290,7 +290,7 @@
   </wsdl:service>
   
   <wsdl:service name="NhincProxySubscriptionManagerSecured">
-    <wsdl:port name="NhincProxySubscriptionManagerPortSoap11" 
+    <wsdl:port name="NhincProxySubscriptionManagerSecuredPortSoap11" 
                binding="tns:NhincProxySubscriptionManagerSecuredBindingSoap11">
       <soap:address 
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxySubscriptionManagerSecured"/>

@@ -102,7 +102,7 @@
         </wsdl:operation>
     </wsdl:portType>
     
-    <wsdl:binding name="EntityNotificationConsumerBindingSoap11" 
+    <wsdl:binding name="EntityNotificationConsumerSecuredBindingSoap11" 
                 type="tns:EntityNotificationConsumerSecuredPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -131,16 +131,16 @@
         </wsdl:operation>
     </wsdl:binding>
     
-    <wsdl:service name="EntityNotificationConsumer">
-        <wsdl:port name="EntityNotificationConsumerPortSoap11" 
-               binding="tns:EntityNotificationConsumerBindingSoap11">
+    <wsdl:service name="EntityNotificationConsumerSecured">
+        <wsdl:port name="EntityNotificationConsumerSecuredPortSoap11" 
+               binding="tns:EntityNotificationConsumerSecuredBindingSoap11">
             <soap:address 
          location=
             "https://localhost:${HttpsDefaultPort}/NhinConnect/EntityNotificationConsumerSecured"/>
         </wsdl:port>
     </wsdl:service>
     
-    <plnk:partnerLinkType name="EntityNotificationConsumer">
+    <plnk:partnerLinkType name="EntityNotificationConsumerSecured">
     <!-- A partner link type is automatically generated when a new port type is added. 
          Partner link types are used by BPEL processes. In a BPEL process, a partner 
          link represents the interaction between the BPEL process and a partner service. 
