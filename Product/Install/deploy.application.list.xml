@@ -162,9 +162,6 @@
   </ejbs>
   <cas>
     <ca>
-      <name>EntityCA</name>
-    </ca>
-    <ca>
       <name>AdapterCA</name>
     </ca>
   </cas>
