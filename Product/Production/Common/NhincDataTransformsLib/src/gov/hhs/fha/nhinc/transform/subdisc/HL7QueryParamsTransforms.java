@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.ADExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
@@ -18,9 +19,12 @@ import org.hl7.v3.PRPAMT201306UVLivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UVLivingSubjectId;
 import org.hl7.v3.PRPAMT201306UVLivingSubjectName;
 import org.hl7.v3.PRPAMT201306UVParameterList;
+import org.hl7.v3.PRPAMT201306UVPatientAddress;
+import org.hl7.v3.PRPAMT201306UVPatientTelecom;
 import org.hl7.v3.PRPAMT201306UVQueryByParameter;
 import org.hl7.v3.ST;
 import org.hl7.v3.TEL;
+import org.hl7.v3.TELExplicit;
 
 /**
  *
@@ -58,7 +62,20 @@ public class HL7QueryParamsTransforms {
                 NullChecker.isNotNullish(person.getBirthTime().getValue())) {
            paramList.getLivingSubjectBirthTime().add(createBirthTime(person.getBirthTime().getValue()));
         }
+        
+        // Set the address
+        if(person.getAddr() != null &&
+                person.getAddr().size() > 0)
+        {
+            paramList.getPatientAddress().add(createAddress(person.getAddr()));
+        }
 
+        // Set telephone number
+        if(person.getTelecom()!=null &&
+                person.getTelecom().size() > 0)
+        {
+            paramList.getPatientTelecom().add(createTelecom(person.getTelecom()));
+        }
         // Set the Subject Name
         if (person.getName() != null &&
                 person.getName().size() > 0) {
@@ -133,5 +150,30 @@ public class HL7QueryParamsTransforms {
         }
 
         return adminGender;
+    }
+
+    public static PRPAMT201306UVPatientAddress createAddress(List<ADExplicit> patientAddress)
+    {
+        PRPAMT201306UVPatientAddress subjectAddress = new PRPAMT201306UVPatientAddress();
+        ST text = null;
+        for (ADExplicit address : patientAddress) {
+           subjectAddress.getValue().add(address);
+           text = new ST();
+           subjectAddress.setSemanticsText(text);
+        }
+        return subjectAddress;
+    }
+
+    public static PRPAMT201306UVPatientTelecom createTelecom(List<TELExplicit> patientTelecom)
+    {
+        PRPAMT201306UVPatientTelecom subjectTele = new PRPAMT201306UVPatientTelecom();
+        ST text = null;
+        for(TELExplicit tele : patientTelecom)
+        {
+            subjectTele.getValue().add(tele);
+            text = new ST();
+            subjectTele.setSemanticsText(text);
+        }
+        return subjectTele;
     }
 }
