@@ -83,7 +83,7 @@
     <ejb>
       <name>EntityAuditLogQueryEJB</name>
     </ejb>
-        <ejb>
+    <ejb>
       <name>EntityAuditQueryProxyEJB</name>
     </ejb>
     <ejb>
@@ -160,9 +160,4 @@
       <name>PatientCorrelationProxy</name>
     </ejb>
   </ejbs>
-  <cas>
-    <ca>
-      <name>AdapterCA</name>
-    </ca>
-  </cas>
 </applications>

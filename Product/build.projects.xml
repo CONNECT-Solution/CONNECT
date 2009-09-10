@@ -232,8 +232,4 @@
 		<name>AdapterSubjectDiscoveryProxyEJB</name>
 		<directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
 	</project>
-	<project>
-		<name>AdapterCA</name>
-		<directory>/Production/Adapters/General/AdapterCA</directory>
-	</project>
 </projects>
