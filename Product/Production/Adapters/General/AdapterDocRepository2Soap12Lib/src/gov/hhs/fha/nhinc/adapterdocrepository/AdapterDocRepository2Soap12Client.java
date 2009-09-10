@@ -29,7 +29,6 @@ import javax.xml.ws.soap.MTOMFeature;
 public class AdapterDocRepository2Soap12Client
 {
     private static Log log = LogFactory.getLog(AdapterDocRepository2Soap12Client.class);
-    private static String ADAPTER_XDS_REP_SERVICE_NAME = "adapterxdsbdocrepositorysoap12";
     private static String ADAPTER_XDS_REP_DEFAULT_SERVICE_URL = "http://localhost:50967/axis2/services/xdsrepositoryb";
     private static ihe.iti.xds_b._2007.DocumentRepositoryService service = null;
 
@@ -141,14 +140,14 @@ public class AdapterDocRepository2Soap12Client
             // Get the real endpoint URL for this service.
             //--------------------------------------------
             //Note, set the sEndpointURL to null and comment out the ConnectionMangerCache logic if running outside of GF.
-            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(ADAPTER_XDS_REP_SERVICE_NAME);
+            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDS_REP_SERVICE_NAME);
 
             if ((sEndpointURL == null) ||
                 (sEndpointURL.length() <= 0))
             {
                 sEndpointURL = ADAPTER_XDS_REP_DEFAULT_SERVICE_URL;
                 String sErrorMessage = "Failed to retrieve the Endpoint URL for service: '" +
-                                       ADAPTER_XDS_REP_SERVICE_NAME + "'.  " +
+                                       NhincConstants.ADAPTER_XDS_REP_SERVICE_NAME + "'.  " +
                                        "Setting this to: '" + sEndpointURL + "'";
                 log.warn(sErrorMessage);
             }
