@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="buildRelease" default="buildrelease" basedir=".">
 
-    <import file="..\Packages\Subversion\SourceControl.Credentials.xml"/>
-  
     <condition property="genrelpropertiesfile" value="release.win.properties">
       <os family="windows"/>
     </condition>
@@ -17,7 +15,7 @@
       </classpath>
     </taskdef>
   
-    <target name="buildrelease" description="Do all steps to build release." depends="showvars" >
+    <target name="buildrelease" description="Do all steps to build release." depends="showvars,bundlesrc,bundleprops,bundleinterfaces,getbindist,bundleopensso,bundle3rdpartycomps,bundlemural" >
         <echo message="Build Release complete."/>
     </target>
 
@@ -35,110 +33,98 @@
         <echo message="ReleaseNumber: ${ReleaseNumber}"/>
         <echo message="PropertiesDir: ${PropertiesDir}"/>
         <echo message="Bundle location: ${basedir}"/>
-	<echo message="-----------------------------------------------------------"/>
-	<echo message="-- This next line should have an ArtifactTime value      --"/>
-	<echo message="-- in the middle based on the CI build we are shipping.  --"/>
-	<echo message="-- It should be passed as  -DArtifactTime=20090703010000 --"/>
-	<echo message="-----------------------------------------------------------"/>
+        <echo message="-----------------------------------------------------------"/>
+        <echo message="-- This next line should have an ArtifactTime value      --"/>
+        <echo message="-- in the middle based on the CI build we are shipping.  --"/>
+        <echo message="-- It should be passed as  -DArtifactTime=20090703010000 --"/>
+        <echo message="-----------------------------------------------------------"/>
         <echo message="DistBinaryZipURL: ${DistBinaryZipURL}"/>
         <echo message="--- End variables ---"/>
     </target>
     
     <target name="getsrc" description="Export source from svn">
-	<delete dir="${DistDir}/NHINCSrc" failonerror="false"/>
-	<delete dir="${DistDir}/NHINCSrcBldfiles" failonerror="false"/>
-	<mkdir dir="${DistDir}/NHINCSrc/Product" />
-	<mkdir dir="${DistDir}/NHINCSrcBldfiles" />
-	<echo message="Exporting Install/* dir from SVN"/>
-	<exec dir="${DistDir}/NHINC_Source/Product" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Install"/>
-	</exec>
-	<echo message="Exporting ThirdParty/* dir from SVN"/>
-	<exec dir="${DistDir}/NHINCSrc" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty"/>
-	</exec>
-	<delete dir="${DistDir}/NHINC_Source/ThirdParty/Mural" failonerror="true"/>
-	<echo message="Exporting Production/* dir from SVN"/>
-	<exec dir="${DistDir}/NHINCSrc/Product" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production"/>
-	</exec>
-	<echo message="Exporting Product/* build files from SVN"/>
-	<exec dir="${DistDir}/NHINCSrcBldfiles" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--depth=files"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product"/>
-	</exec>
-	<echo message="Removing AdapterPDPOpenSSO dir from bundle area."/>
-	<delete dir="${DistDir}/NHINCSrc/Product/Production/Adapters/General/AdapterPDPOpenSSO" failonerror="true"/>
-	<echo message="Removing Mural dir from bundle area."/>
-	<delete dir="${DistDir}/NHINCSrc/Product/Production/Adapters/Mural" failonerror="true"/>
-	<copy todir="${DistDir}/NHINCSrc/Product">
-		<fileset dir="${DistDir}/NHINCSrcBldfiles">
-			<exclude name="**/Build.bat"/>
-			<include name="**/build*.*"/>
-			<include name="**/Properties.build.xml"/>
-		</fileset>
-		<mapper type="flatten" />
-	</copy>
-	<echo message="Removing extra source buildfiles from bundle area."/>
-	<delete dir="${DistDir}/NHINCSrcBldfiles" failonerror="true"/>
-	<echo message="----------------------------------------------------------------"/>
-	<echo message="Remove MuralMpiEJB and AdapterPDPOpenSSO projects from build.xml"/>
-	<echo message="----------------------------------------------------------------"/>
+        <delete dir="${DistDir}/NHINCSrc" failonerror="false"/>
+        <delete dir="${DistDir}/NHINCSrcBldfiles" failonerror="false"/>
+        <mkdir dir="${DistDir}/NHINCSrc/Product" />
+        <mkdir dir="${DistDir}/NHINCSrcBldfiles" />
+        <echo message="Exporting Install/* dir from SVN"/>
+        <exec dir="${DistDir}/NHINCSrc/Product" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Install"/>
+        </exec>
+        <echo message="Exporting ThirdParty/* dir from SVN"/>
+        <exec dir="${DistDir}/NHINCSrc" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty"/>
+        </exec>
+        <delete dir="${DistDir}/NHINC_Source/ThirdParty/Mural" failonerror="true"/>
+        <echo message="Exporting Production/* dir from SVN"/>
+        <exec dir="${DistDir}/NHINCSrc/Product" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production"/>
+        </exec>
+        <echo message="Exporting Product/* build files from SVN"/>
+        <exec dir="${DistDir}/NHINCSrcBldfiles" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="--depth=files"/>
+            <arg line="${ReleaseURL}/Product"/>
+        </exec>
+        <echo message="Removing AdapterPDPOpenSSO dir from bundle area."/>
+        <delete dir="${DistDir}/NHINCSrc/Product/Production/Adapters/General/AdapterPDPOpenSSO" failonerror="true"/>
+        <echo message="Removing Mural dir from bundle area."/>
+        <delete dir="${DistDir}/NHINCSrc/Product/Production/Adapters/Mural" failonerror="true"/>
+        <copy todir="${DistDir}/NHINCSrc/Product">
+            <fileset dir="${DistDir}/NHINCSrcBldfiles">
+                <exclude name="**/Build.bat"/>
+                <include name="**/build*.*"/>
+                <include name="**/Properties.build.xml"/>
+            </fileset>
+            <mapper type="flatten" />
+        </copy>
+        <echo message="Removing extra source buildfiles from bundle area."/>
+        <delete dir="${DistDir}/NHINCSrcBldfiles" failonerror="true"/>
+        <echo message="----------------------------------------------------------------"/>
+        <echo message="Remove MuralMpiEJB and AdapterPDPOpenSSO projects from build.xml"/>
+        <echo message="----------------------------------------------------------------"/>
     </target>
-    <target name="bundlesrc" description="Generate source bundle.">
-	<zip destfile="${basedir}/NHIN_Connect_Source_${ReleaseNumber}.zip">
-		<zipfileset dir="${DistDir}/NHINCSrc" prefix="projects/NHINC/Current" includes="**/*"/>
-	</zip>
+    <target name="bundlesrc" depends="getsrc" description="Generate source bundle.">
+        <zip destfile="${basedir}/NHIN_Connect_Source_${ReleaseNumber}.zip">
+            <zipfileset dir="${DistDir}/NHINCSrc" prefix="projects/NHINC/Current" includes="**/*"/>
+        </zip>
     </target>
 
     <target name="getprops" description="Export Properties from svn.">
-	<mkdir dir="${PropertiesDir}" />
-	<echo message="Exporting Properties from SVN"/>
-	<exec dir="${PropertiesDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Common/Properties"/>
-	</exec>
+        <mkdir dir="${PropertiesDir}" />
+        <echo message="Exporting Properties from SVN"/>
+        <exec dir="${PropertiesDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Common/Properties"/>
+        </exec>
     </target>
-    <target name="bundleprops" description="Generate Properties bundle.">
+    <target name="bundleprops" depends="getprops" description="Generate Properties bundle.">
         <zip destfile="${basedir}/NHIN_Connect_Properties_${ReleaseNumber}.zip">
-		<zipfileset dir="${PropertiesDir}/Properties" includes="**/*"/>
-	</zip>
+            <zipfileset dir="${PropertiesDir}/Properties" includes="**/*"/>
+        </zip>
     </target>
 
     <target name="getinterfaces" description="Export Interfaces from svn.">
-	<mkdir dir="${InterfacesDir}" />
-	<echo message="Exporting Interfaces from SVN"/>
-	<exec dir="${InterfacesDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Common/Interfaces/src"/>
-	</exec>
+        <mkdir dir="${InterfacesDir}" />
+        <echo message="Exporting Interfaces from SVN"/>
+        <exec dir="${InterfacesDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Common/Interfaces/src"/>
+        </exec>
     </target>
-    <target name="bundleinterfaces" description="Generate Interfaces bundle.">
+    <target name="bundleinterfaces" depends="getinterfaces" description="Generate Interfaces bundle.">
         <zip destfile="${basedir}/NHIN_Connect_Interfaces_${ReleaseNumber}.zip">
-		<zipfileset dir="${InterfacesDir}" prefix="projects/NHINC/Current/Product/Production/Common/Interfaces" includes="**/*"/>
-	</zip>
+            <zipfileset dir="${InterfacesDir}" prefix="projects/NHINC/Current/Product/Production/Common/Interfaces" includes="**/*"/>
+        </zip>
     </target>
 
     <target name="getbindist" description="Get Latest Binary zip from CI.">
@@ -146,247 +132,215 @@
     </target>
 
     <target name="getopensso" description="Export OpenSSO from svn.">
-	<delete dir="${OpenSSOSrcDir}" />
-	<mkdir dir="${OpenSSOSrcDir}" />
-	<delete dir="${OpenSSODistDir}" />
-	<mkdir dir="${OpenSSODistDir}" />
-	<mkdir dir="${OpenSSODistDir}/OpenSSO/AdapterPDPOpenSSO/conf" />
-	<echo message="Exporting OpenSSO from SVN"/>
-	<exec dir="${OpenSSODistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/OpenSSO"/>
-	</exec>
-	<echo message="Exporting AdapterPDPOpenSSO/conf dir from SVN"/>
-	<exec dir="${OpenSSODistDir}/OpenSSO/AdapterPDPOpenSSO" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Adapters/General/AdapterPDPOpenSSO/conf"/>
-	</exec>
-	<echo message="Exporting AdapterPDPOpenSSO source tree from SVN"/>
-	<exec dir="${OpenSSOSrcDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Adapters/General/AdapterPDPOpenSSO"/>
-	</exec>
-	<echo message="Exporting OpenSSOXACMLExample dir from SVN"/>
-	<exec dir="${OpenSSODistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Examples/OpenSSOXACMLExample"/>
-	</exec>
-	<unzip src="${DistBinaryZip}" dest="${OpenSSODistDir}" >
-		<patternset>
-			<include name="AdapterPDPOpenSSO.war"/>
-		</patternset>
-	</unzip>
-	<unzip src="${OpenSSODistDir}/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
-		<patternset>
-			<include name="**/*QueryHandler.class"/>
-		</patternset>
-	</unzip>
-	<delete file="${OpenSSODistDir}/AdapterPDPOpenSSO.war"/>
-	<copy todir="${OpenSSODistDir}/OpenSSO">
-		<fileset dir="${OpenSSODistDir}/WEB-INF">
-			<include name="**/*QueryHandler.class"/>
-		</fileset>
-		<mapper type="flatten" />
-	</copy>
-	<delete dir="${OpenSSODistDir}/WEB-INF"/>
-	<echo message="Exporting Jericho from SVN"/>
-	<exec dir="${OpenSSODistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/Jericho"/>
-	</exec>
-	<echo message="Exporting IdSvcsClient from SVN"/>
-	<exec dir="${OpenSSODistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/IdSvcsClient/IdSvcsClient.war"/>
-		<arg line="${OpenSSODistDir}/OpenSSO/IdSvcsClient.war"/>
-	</exec>
-	<echo message="----------- ${line.separator} ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
-	<echo message="In order to build AdapterPDPOpenSSO you must add the following code ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
-	<echo message="to the top level build.projects.xml file located in ${line.separator} " append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
-	<echo message="\projects\NHINC\Current\Product directory. ${line.separator} ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
-	<echoxml file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" append="true">
-		<project>
-			<name>AdapterPDPOpenSSO</name>
-			<directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
-		</project>
-	</echoxml>
+        <delete dir="${OpenSSOSrcDir}" />
+        <mkdir dir="${OpenSSOSrcDir}" />
+        <delete dir="${OpenSSODistDir}" />
+        <mkdir dir="${OpenSSODistDir}" />
+        <mkdir dir="${OpenSSODistDir}/OpenSSO/AdapterPDPOpenSSO/conf" />
+        <echo message="Exporting OpenSSO from SVN"/>
+        <exec dir="${OpenSSODistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/OpenSSO"/>
+        </exec>
+        <echo message="Exporting AdapterPDPOpenSSO/conf dir from SVN"/>
+        <exec dir="${OpenSSODistDir}/OpenSSO/AdapterPDPOpenSSO" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Adapters/General/AdapterPDPOpenSSO/conf"/>
+        </exec>
+        <echo message="Exporting AdapterPDPOpenSSO source tree from SVN"/>
+        <exec dir="${OpenSSOSrcDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Adapters/General/AdapterPDPOpenSSO"/>
+        </exec>
+        <echo message="Exporting OpenSSOXACMLExample dir from SVN"/>
+        <exec dir="${OpenSSODistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Examples/OpenSSOXACMLExample"/>
+        </exec>
+        <unzip src="${DistBinaryZip}" dest="${OpenSSODistDir}" >
+            <patternset>
+                <include name="AdapterPDPOpenSSO.war"/>
+            </patternset>
+        </unzip>
+        <unzip src="${OpenSSODistDir}/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
+            <patternset>
+                <include name="**/*QueryHandler.class"/>
+            </patternset>
+        </unzip>
+        <delete file="${OpenSSODistDir}/AdapterPDPOpenSSO.war"/>
+        <copy todir="${OpenSSODistDir}/OpenSSO">
+            <fileset dir="${OpenSSODistDir}/WEB-INF">
+                <include name="**/*QueryHandler.class"/>
+            </fileset>
+            <mapper type="flatten" />
+        </copy>
+        <delete dir="${OpenSSODistDir}/WEB-INF"/>
+        <echo message="Exporting Jericho from SVN"/>
+        <exec dir="${OpenSSODistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/Jericho"/>
+        </exec>
+        <echo message="Exporting IdSvcsClient from SVN"/>
+        <exec dir="${OpenSSODistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/IdSvcsClient/IdSvcsClient.war"/>
+            <arg line="${OpenSSODistDir}/OpenSSO/IdSvcsClient.war"/>
+        </exec>
+        <echo message="----------- ${line.separator} ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
+        <echo message="In order to build AdapterPDPOpenSSO you must add the following code ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
+        <echo message="to the top level build.projects.xml file located in ${line.separator} " append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
+        <echo message="\projects\NHINC\Current\Product directory. ${line.separator} ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
+        <echoxml file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" append="true">
+            <project>
+                <name>AdapterPDPOpenSSO</name>
+                <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
+            </project>
+        </echoxml>
     </target>
-    <target name="bundleopensso" description="Generate OpenSSO bundle.">
-	<zip destfile="${basedir}/NHIN_Connect_OpenSSO_${ReleaseNumber}.zip">
-		<zipfileset dir="${OpenSSODistDir}" prefix="NHINC/ThirdPartyTools" includes="**/*"/>
-	</zip>
-	<zip destfile="${basedir}/NHIN_Connect_OpenSSO_Source_${ReleaseNumber}.zip">
-		<zipfileset dir="${OpenSSOSrcDir}" prefix="projects/NHINC/Current/Product/Production/Adapters/General" includes="**/*"/>
-	</zip>
+    <target name="bundleopensso" depends="getopensso" description="Generate OpenSSO bundle.">
+        <zip destfile="${basedir}/NHIN_Connect_OpenSSO_${ReleaseNumber}.zip">
+            <zipfileset dir="${OpenSSODistDir}" prefix="NHINC/ThirdPartyTools" includes="**/*"/>
+        </zip>
+        <zip destfile="${basedir}/NHIN_Connect_OpenSSO_Source_${ReleaseNumber}.zip">
+            <zipfileset dir="${OpenSSOSrcDir}" prefix="projects/NHINC/Current/Product/Production/Adapters/General" includes="**/*"/>
+        </zip>
     </target>
 
     <target name="get3rdpartycomps" description="Export ThirdParty from svn.">
-	<delete dir="${ThirdPartySrcDir}"/>
-	<mkdir dir="${ThirdPartySrcDir}" />
-	<echo message="Exporting ThirdPartyComponentsSrc dir from SVN"/>
-	<exec dir="${ThirdPartySrcDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty"/>
-	</exec>
-	<delete dir="${ThirdPartySrcDir}/ThirdParty/Mural"/>
-	<delete dir="${ThirdPartySrcDir}/ThirdParty/Jericho"/>
+        <delete dir="${ThirdPartySrcDir}"/>
+        <mkdir dir="${ThirdPartySrcDir}" />
+        <echo message="Exporting ThirdPartyComponentsSrc dir from SVN"/>
+        <exec dir="${ThirdPartySrcDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty"/>
+        </exec>
+        <delete dir="${ThirdPartySrcDir}/ThirdParty/Mural"/>
+        <delete dir="${ThirdPartySrcDir}/ThirdParty/Jericho"/>
     </target>
-    <target name="bundle3rdpartycomps" description="Generate ThirdPartyComponents bundle.">
-	<echo message="Updating specific ${ThirdPartySrcDir}/ThirdParty/**/*.jar files to ${DistDir}/ThirdPartyComponents." />
-	<mkdir dir="${DistDir}/ThirdPartyComponents" />
-	<unzip src="${DistBinaryZip}" dest="${DistDir}/ThirdPartyComponents" >
-		<patternset>
-			<include name="NhincCommonTypesLib.jar"/>
-			<include name="NhincSAMLCallbackLib.jar"/>
-		</patternset>
-	</unzip>
-	<copy todir="${DistDir}/ThirdPartyComponents" verbose="true">
-		<fileset dir="${ThirdPartySrcDir}/ThirdParty">
-			<patternset>
-				<include name="C3PO/*.jar" />
-				<include name="log4j/*.jar" />
-				<include name="SpringFramework/*.jar" />
-				<include name="HibernateLibraries/*.jar" />
-				<include name="MySQLDB/*.jar" />
-				<include name="XStream/*.jar" />
-				<include name="XStream/*.txt" />
-			</patternset>
-		</fileset>
-		<mapper type="flatten" />
-	</copy>
-	<zip destfile="${basedir}/NHIN_Connect_Third_Party_Components_${ReleaseNumber}.zip">
-		<zipfileset dir="${DistDir}/ThirdPartyComponents" prefix="NHINC/ThirdPartyComponents" includes="**/*"/>
-	</zip>
+    <target name="bundle3rdpartycomps" depends="get3rdpartycomps" description="Generate ThirdPartyComponents bundle.">
+        <echo message="Updating specific ${ThirdPartySrcDir}/ThirdParty/**/*.jar files to ${DistDir}/ThirdPartyComponents." />
+        <mkdir dir="${DistDir}/ThirdPartyComponents" />
+        <unzip src="${DistBinaryZip}" dest="${DistDir}/ThirdPartyComponents" >
+            <patternset>
+                <include name="NhincCommonTypesLib.jar"/>
+                <include name="NhincSAMLCallbackLib.jar"/>
+            </patternset>
+        </unzip>
+        <copy todir="${DistDir}/ThirdPartyComponents" verbose="true">
+            <fileset dir="${ThirdPartySrcDir}/ThirdParty">
+                <patternset>
+                    <include name="C3PO/*.jar" />
+                    <include name="log4j/*.jar" />
+                    <include name="SpringFramework/*.jar" />
+                    <include name="HibernateLibraries/*.jar" />
+                    <include name="MySQLDB/*.jar" />
+                    <include name="XStream/*.jar" />
+                    <include name="XStream/*.txt" />
+                </patternset>
+            </fileset>
+            <mapper type="flatten" />
+        </copy>
+        <zip destfile="${basedir}/NHIN_Connect_Third_Party_Components_${ReleaseNumber}.zip">
+            <zipfileset dir="${DistDir}/ThirdPartyComponents" prefix="NHINC/ThirdPartyComponents" includes="**/*"/>
+        </zip>
     </target>
   
     <target name="getmural" description="Export Mural from svn.">
-	<delete dir="${MuralDistDir}"/>
-	<mkdir dir="${MuralDistDir}/Mural" />
-	<delete dir="${MuralSrcDir}"/>
-	<mkdir dir="${MuralSrcDir}" />
-	<echo message="Exporting Mural source tree from SVN"/>
-	<exec dir="${MuralSrcDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Adapters/Mural"/>
-	</exec>
-	<echo message="Exporting Mural DBScripts tree from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/Product/Production/Adapters/Mural/Patient/src/DatabaseScript"/>
-	</exec>
-	<echo message="Exporting Mural application from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/Mural"/>
-	</exec>
-	<echo message="Exporting MySQLdb Installer application from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/MySQL"/>
-	</exec>
-	<echo message="Exporting Ant application from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/Ant"/>
-	</exec>
-	<echo message="Exporting GlassFishESB application from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/GlassFishESB"/>
-	</exec>
-	<echo message="Exporting Metro 1.4 installer from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/SupportApps/Metro1.4"/>
-	</exec>
-	<echo message="Exporting MySQL jdbc from SVN"/>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/MySQLDB/mysql-connector-java-5.0.8-bin.jar"/>
-		<arg line="${MuralDistDir}/Mural/Configuration/mysql-connector-java-5.0.8-bin.jar"/>
-	</exec>
-	<exec dir="${MuralDistDir}" executable="svn.exe">
-		<arg line="export"/>
-		<arg line="--force"/>
-		<arg line="--username ${SVN.Username}"/>
-		<arg line="--password ${SVN.Password}"/>
-		<arg line="${ReleaseURL}/ThirdParty/MySQLDB/mysql-connector-java-5.0.8-bin.jar"/>
-		<arg line="${MuralDistDir}/MySQL/mysql-connector-java-5.0.8-bin.jar"/>
-	</exec>
-	<unzip src="${DistBinaryZip}" dest="${MuralDistDir}/Mural" >
-		<patternset>
-			<include name="MuralMpiEJB.jar"/>
-		</patternset>
-	</unzip>
-	<copy todir="${MuralDistDir}/Mural">
-		<fileset dir="${MuralSrcDir}/Mural/Patient">
-			<include name="Patient.ear"/>
-		</fileset>
-		<mapper type="flatten" />
-	</copy>
-	<delete file="${MuralSrcDir}/Mural/Patient/Patient.ear"/>
-	<echo message="----------- ${line.separator} ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
-	<echo message="In order to build Mural you must add the following code ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
-	<echo message="to the top level build.projects.xml file located in ${line.separator} " append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
-	<echo message="\projects\NHINC\Current\Product directory. ${line.separator} ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
-	<echoxml file="${MuralSrcDir}/Mural/ReadMe1ST.txt" append="true">
-		<project>
-			<name>MuralMPIEJB</name>
-			<directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
-		</project>
-	</echoxml>
+        <delete dir="${MuralDistDir}"/>
+        <mkdir dir="${MuralDistDir}/Mural" />
+        <delete dir="${MuralSrcDir}"/>
+        <mkdir dir="${MuralSrcDir}" />
+        <echo message="Exporting Mural source tree from SVN"/>
+        <exec dir="${MuralSrcDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Adapters/Mural"/>
+        </exec>
+        <echo message="Exporting Mural DBScripts tree from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/Product/Production/Adapters/Mural/Patient/src/DatabaseScript"/>
+        </exec>
+        <echo message="Exporting Mural application from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/Mural"/>
+        </exec>
+        <echo message="Exporting MySQLdb Installer application from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/MySQL"/>
+        </exec>
+        <echo message="Exporting Ant application from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/Ant"/>
+        </exec>
+        <echo message="Exporting GlassFishESB application from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/GlassFishESB"/>
+        </exec>
+        <echo message="Exporting Metro 1.4 installer from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/SupportApps/Metro1.4"/>
+        </exec>
+        <echo message="Exporting MySQL jdbc from SVN"/>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/MySQLDB/mysql-connector-java-5.0.8-bin.jar"/>
+            <arg line="${MuralDistDir}/Mural/Configuration/mysql-connector-java-5.0.8-bin.jar"/>
+        </exec>
+        <exec dir="${MuralDistDir}" executable="svn.exe">
+            <arg line="export"/>
+            <arg line="--force"/>
+            <arg line="${ReleaseURL}/ThirdParty/MySQLDB/mysql-connector-java-5.0.8-bin.jar"/>
+            <arg line="${MuralDistDir}/MySQL/mysql-connector-java-5.0.8-bin.jar"/>
+        </exec>
+        <unzip src="${DistBinaryZip}" dest="${MuralDistDir}/Mural" >
+            <patternset>
+                <include name="MuralMpiEJB.jar"/>
+            </patternset>
+        </unzip>
+        <copy todir="${MuralDistDir}/Mural">
+            <fileset dir="${MuralSrcDir}/Mural/Patient">
+                <include name="Patient.ear"/>
+            </fileset>
+            <mapper type="flatten" />
+        </copy>
+        <delete file="${MuralSrcDir}/Mural/Patient/Patient.ear"/>
+        <echo message="----------- ${line.separator} ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
+        <echo message="In order to build Mural you must add the following code ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
+        <echo message="to the top level build.projects.xml file located in ${line.separator} " append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
+        <echo message="\projects\NHINC\Current\Product directory. ${line.separator} ${line.separator}" append="true" file="${MuralSrcDir}/Mural/ReadMe1ST.txt" />
+        <echoxml file="${MuralSrcDir}/Mural/ReadMe1ST.txt" append="true">
+            <project>
+                <name>MuralMPIEJB</name>
+                <directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
+            </project>
+        </echoxml>
     </target>
-    <target name="bundlemural" description="Generate Mural bundle.">
-	<zip destfile="${basedir}/NHIN_Connect_MURAL_Components_${ReleaseNumber}.zip">
-		<zipfileset dir="${MuralDistDir}" prefix="Mural" includes="**/*"/>
-	</zip>
-	<zip destfile="${basedir}/NHIN_Connect_MURAL_Adapter_Source_${ReleaseNumber}.zip">
-		<zipfileset dir="${MuralSrcDir}" prefix="projects/NHINC/Current/Product/Production/Adapters" includes="**/*"/>
-	</zip>
+    <target name="bundlemural" depends="getmural" description="Generate Mural bundle.">
+        <zip destfile="${basedir}/NHIN_Connect_MURAL_Components_${ReleaseNumber}.zip">
+            <zipfileset dir="${MuralDistDir}" prefix="Mural" includes="**/*"/>
+        </zip>
+        <zip destfile="${basedir}/NHIN_Connect_MURAL_Adapter_Source_${ReleaseNumber}.zip">
+            <zipfileset dir="${MuralSrcDir}" prefix="projects/NHINC/Current/Product/Production/Adapters" includes="**/*"/>
+        </zip>
     </target>
 </project>
