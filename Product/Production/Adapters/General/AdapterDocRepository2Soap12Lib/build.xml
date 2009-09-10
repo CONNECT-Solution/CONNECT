@@ -10,10 +10,7 @@
 <project name="AdapterDocRepository2Soap12Lib" default="default" basedir=".">
     <description>Builds, tests, and runs the project AdapterDocRepository2Soap12Lib.</description>
     <import file="nbproject/build-impl.xml"/>
-    
-    <property name="deploy.type" value="ejb" />
-    <property name="deploy.isDeployable" value="true"/>
-    
+        
     <import file="../../../../build.lib.xml" />
 
    <target name="build">
