@@ -126,6 +126,11 @@
 				<description>auditlog</description>
 				<endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
 			</service>
+			<service>				
+				<name>adapterxdsbdocrepositorysoap12</name>				
+				<description>Adapter Document Retrieve Soap12</description>				
+				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsrepositoryb</endpointURL>
+			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
@@ -300,6 +305,11 @@
 				<name>auditlog</name>
 				<description>auditlog</description>
 				<endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
+			</service>
+			<service>				
+				<name>adapterxdsbdocrepositorysoap12</name>				
+				<description>Adapter Document Retrieve Soap12</description>				
+				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsrepositoryb</endpointURL>
 			</service>
 			<service>
 				<name>adapterxdsbdocrepository</name>
