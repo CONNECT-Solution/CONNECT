@@ -2,23 +2,40 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="SoapUI.Custom">
 
   <target name="SoapUI.RunTests" override="True">
-    <property name="GlassFish.Domain.Server.Log.File.Path" value="${GlassFish.Home.Directory.Path}\domains\${GlassFish.Domain.Name}\logs\server.log"/>
+    <property name="GlassFish.Domain.Server.Log.Dir.Path" value="${GlassFish.Home.Directory.Path}\domains\${GlassFish.Domain.Name}\logs\"/>
+    <property name="GlassFish.Domain.Server.Log.File.Base.Name" value="server.log*"/>
     
-    <call target="GlassFish.StopServer"/>
-    <delete file="${GlassFish.Domain.Server.Log.File.Path}" />
-    <call target="GlassFish.StartServer"/>
+    <call target="SoapUI.RunTests.Log.Clean"/>
 
     <trycatch>
       <try>
         <call target="SoapUI::SoapUI.RunTests"/>
       </try>
       <finally>
-        <call target="GlassFish.StopServer"/>
-        <copy file="${GlassFish.Domain.Server.Log.File.Path}" tofile="${Common.Directory.Artifact.Path}\server.log.txt" overwrite="True" />
-        <call target="GlassFish.StartServer"/>
+        <call target="SoapUI.RunTests.Log.Backup"/>
+        <call target="SoapUI.RunTests.Log.Clean"/>
       </finally>
     </trycatch>
-
+  </target>
+  
+  <target name="SoapUI.RunTests.Log.Clean" override="True">
+    <call target="GlassFish.StopServer"/>
+    <delete>
+      <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
+        <include name="${GlassFish.Domain.Server.Log.File.Base.Name}"/>
+      </fileset>
+    </delete>
+    <call target="GlassFish.StartServer"/>
+  </target>
+  
+  <target name="SoapUI.RunTests.Log.Backup" override="True">
+    <call target="GlassFish.StopServer"/>
+    <copy todir="${Common.Directory.Artifact.Path}" overwrite="True"/>
+      <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
+        <include name="${GlassFish.Domain.Server.Log.File.Base.Name}"/>
+      </fileset>
+    </copy>
+    <call target="GlassFish.StartServer"/>
   </target>
   
 </project>
