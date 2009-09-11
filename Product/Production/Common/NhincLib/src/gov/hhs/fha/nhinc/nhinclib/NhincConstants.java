@@ -107,6 +107,16 @@ public class NhincConstants {
     public static final String HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME = "entitysubscriptionmanager";
     public static final String HIEM_NOTIFY_ENTITY_SERVICE_NAME = "entitynotificationconsumer";
 
+    // HIEM - entity interface secured
+    public static final String HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME = "entitynotificationproducersecured";
+    public static final String HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME = "entitysubscriptionmanagersecured";
+    public static final String HIEM_NOTIFY_ENTITY_SERVICE_NAME = "entitynotificationconsumersecured";
+
+    // HIEM - proxy interface secured
+    public static final String HIEM_SUBSCRIBE_PROXY_SERVICE_NAME = "nhincproxynotificationproducersecured";
+    public static final String HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME = "nhincproxysubscriptionmanagersecured";
+    public static final String HIEM_NOTIFY_PROXY_SERVICE_NAME = "nhincproxynotificationconsumersecured";
+    
     // HIEM - adapter interface
     public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducer";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanager";
