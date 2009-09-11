@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docrepositoryadapter.proxy;
 
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -28,13 +29,26 @@ public class AdapterDocumentRepositoryWebServiceProxy implements AdapterDocument
             String url = null;
 
             String xdsbHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPERTY_FILE_NAME, XDS_HOME_COMMUNITY_ID_PROPERTY);
-            if (xdsbHomeCommunityId != null &&
-                    !xdsbHomeCommunityId.equals("")) {
+            if(log.isDebugEnabled())
+            {
+                log.debug("Value of " + XDS_HOME_COMMUNITY_ID_PROPERTY + " retrieved from the " + ADAPTER_PROPERTY_FILE_NAME + ".properties file: " + xdsbHomeCommunityId);
+            }
+            if(NullChecker.isNotNullish(xdsbHomeCommunityId))
+            {
                 url = ConnectionManagerCache.getEndpointURLByServiceName(xdsbHomeCommunityId, NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
             }
 
-            if (url == null) {
+            if(NullChecker.isNullish(url))
+            {
                 url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                if(NullChecker.isNotNullish(xdsbHomeCommunityId))
+                {
+                    log.warn("The endpoint URL retrieved for " + XDS_HOME_COMMUNITY_ID_PROPERTY + " (" + xdsbHomeCommunityId + ") from the " + ADAPTER_PROPERTY_FILE_NAME + ".properties file was not found. The default local adapter doc repository endpoint will be used: " + url);
+                }
+            }
+            else if(log.isDebugEnabled())
+            {
+                log.debug("The doc repository endpoint URL retrieved for the " + XDS_HOME_COMMUNITY_ID_PROPERTY + " property was found: " + url);
             }
 
             DocumentRepositoryPortType port = getPort(url);
