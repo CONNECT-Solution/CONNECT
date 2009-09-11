@@ -257,6 +257,25 @@
 				<endpointURL>http://localhost:9080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
 			</service>
 			<service>
+				<name>entitynotificationconsumersecured</name>
+				<description>Entity Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubscriptionmanagersecured</name>
+				<description>NHINC Proxy Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>			
+				<name>entitysubscriptionmanagersecured</name>
+				<description>Entity Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+			</service>					
+			<service>
 				<name>entitydocqueryproxy</name>
 				<description>Entity Document Query Proxy</description>
 				<endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
@@ -378,6 +397,25 @@
 				<description>HIEM Unsubscribe</description>
 				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
 			</service>
+			<service>
+				<name>entitynotificationconsumersecured</name>
+				<description>Entity Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxysubscriptionmanagersecured</name>
+				<description>NHINC Proxy Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+			</service>			
+				<name>entitysubscriptionmanagersecured</name>
+				<description>Entity Subscription Manager Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+			</service>		
 			<service>
 				<name>agencynotificationconsumer</name>
 				<description>agencynotificationconsumer</description>
