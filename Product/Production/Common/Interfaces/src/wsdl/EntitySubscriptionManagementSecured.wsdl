@@ -211,7 +211,7 @@
     
     <wsdl:binding name="EntityNotificationProducerSecuredBindingSoap11" 
                 type="tns:EntityNotificationProducerSecuredPortType">
-        <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_Binding_SoapPolicy"/>
+        <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_SoapPolicy"/>
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="SubscribeDocument">
