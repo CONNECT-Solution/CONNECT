@@ -406,6 +406,9 @@ public class SamlCallbackHandler implements CallbackHandler {
                 XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
                 issueInstant = xmlDate.toGregorianCalendar();
                 log.debug("Setting Authentication instant to: " + xmlDate.toXMLFormat());
+            } catch (IllegalArgumentException iaex) {
+                log.debug("Authentication instant: " + authnInstant +
+                        " is not in a valid dateTime format, defaulting to current time");
             } catch (DatatypeConfigurationException ex) {
                 log.debug("Authentication instant: " + authnInstant +
                         " is not in a valid dateTime format, defaulting to current time");
@@ -669,6 +672,9 @@ public class SamlCallbackHandler implements CallbackHandler {
                     XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(authnInstant.trim());
                     issueInstant = xmlDate.toGregorianCalendar();
                     log.debug("Setting Evidence assertion instant to: " + xmlDate.toXMLFormat());
+                } catch (IllegalArgumentException iaex) {
+                    log.debug("Evidence assertion instant: " + authnInstant +
+                            " is not in a valid dateTime format, defaulting to current time");
                 } catch (DatatypeConfigurationException ex) {
                     log.debug("Evidence assertion instant: " + authnInstant +
                             " is not in a valid dateTime format, defaulting to current time");
@@ -757,7 +763,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
             XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
             cal = xmlDate.toGregorianCalendar();
-        } catch (DatatypeConfigurationException dtex) {
+        } catch (IllegalArgumentException iaex) {
             try {
                 // try simple date format - backward compatibility
                 SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -765,27 +771,28 @@ public class SamlCallbackHandler implements CallbackHandler {
             } catch (ParseException ex) {
                 log.error("Date form is expected to be in dateTime format yyyy-MM-ddTHH:mm:ss.SSSZ Setting default date");
             }
+        } catch (DatatypeConfigurationException dtex) {
+            log.error("Problem in creating XML Date Factory. Setting default date");
         }
-        try {
-            DatatypeFactory factory = DatatypeFactory.newInstance();
-            log.info("Creating Date: " + factory.newXMLGregorianCalendar(cal).toXMLFormat());
 
-        } catch (DatatypeConfigurationException ex) {
-            log.info("Created calendar instance: " + cal.toString());
-        }
+        log.info("Created calendar instance: " + (cal.get(Calendar.MONTH) + 1) +
+                "/" + cal.get(Calendar.DAY_OF_MONTH) + "/" + cal.get(Calendar.YEAR) +
+                " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) +
+                ":" + cal.get(Calendar.SECOND));
         return cal;
     }
 
     /**
-     * Creates the Attribute Statements needed for the Evidence element.  These 
-     * include the Attributes for the ContentType, ContentReference, and the 
+     * Creates the Attribute Statements needed for the Evidence element.  These
+     * include the Attributes for the ContentType, ContentReference, and the
      * base64binary Content as well.
-     * @param factory The factory object used to assist in the construction of 
+     * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      * @throws com.sun.xml.wss.saml.SAMLException
      */
-    private List createEvidenceStatements(SAMLAssertionFactory factory) throws SAMLException {
+    private List createEvidenceStatements(
+            SAMLAssertionFactory factory) throws SAMLException {
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
         List statements = new ArrayList();
         List attributes = new ArrayList();
@@ -803,6 +810,7 @@ public class SamlCallbackHandler implements CallbackHandler {
         } else {
             log.debug("No Content Reference found for Evidence");
         }
+
         attributes.add(factory.createAttribute("ContentReference", NHIN_NS, attributeValues1));
 
         // Set the format of the SSA-827 form
@@ -815,6 +823,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("Defaulting Evidence type to: " + EVIDENCE_FORM_TYPE);
             attributeValues2.add(EVIDENCE_FORM_TYPE);
         }
+
         attributes.add(factory.createAttribute("ContentType", NHIN_NS, attributeValues2));
 
         // Set the content of the SSA-827 form
@@ -826,6 +835,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             } else {
                 attributeValues3.add(tokenVals.get(NhincConstants.EVIDENCE_CONTENT_PROP));
             }
+
             log.debug("Setting Evidence Content");
         } else if (tokenVals.containsKey(NhincConstants.CONTENT_PROP)) {
             if (tokenVals.get(NhincConstants.CONTENT_PROP) instanceof String) {
@@ -834,21 +844,24 @@ public class SamlCallbackHandler implements CallbackHandler {
             } else {
                 attributeValues3.add(tokenVals.get(NhincConstants.CONTENT_PROP));
             }
+
             log.debug("Setting Evidence Content");
         } else {
             log.debug("No Content found for Evidence");
         }
+
         attributes.add(factory.createAttribute("Content", NHIN_NS, attributeValues3));
 
         if (!attributes.isEmpty()) {
             statements.add(factory.createAttributeStatement(attributes));
         }
+
         log.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
     }
 
     /**
-     * Initializes the keystore access using the system properties defined in 
+     * Initializes the keystore access using the system properties defined in
      * the domain.xml javax.net.ssl.keyStore and javax.net.ssl.keyStorePassword
      * @throws java.io.IOException
      */
@@ -861,7 +874,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             if (password != null) {
                 try {
                     keyStore = KeyStore.getInstance(STORE_TYPE);
-                    is = new FileInputStream(storeLoc);
+                    is =
+                            new FileInputStream(storeLoc);
                     keyStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
                     log.error("Error initializing KeyStore: " + ex);
@@ -873,13 +887,16 @@ public class SamlCallbackHandler implements CallbackHandler {
                     log.error("Error initializing KeyStore: " + ex);
                     throw new IOException(ex.getMessage());
                 }
+
                 log.debug("SamlCallbackHandler.initKeyStore() -- End");
             } else {
                 log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
             }
+
         } else {
             log.error("javax.net.ssl.keyStore is not defined in domain.xml");
         }
+
     }
 
     /**
@@ -897,7 +914,8 @@ public class SamlCallbackHandler implements CallbackHandler {
             if (password != null) {
                 try {
                     trustStore = KeyStore.getInstance(STORE_TYPE);
-                    is = new FileInputStream(storeLoc);
+                    is =
+                            new FileInputStream(storeLoc);
                     trustStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
                     log.error("Error initializing TrustStore: " + ex);
@@ -909,19 +927,22 @@ public class SamlCallbackHandler implements CallbackHandler {
                     log.error("Error initializing TrustStore: " + ex);
                     throw new IOException(ex.getMessage());
                 }
+
             } else {
                 log.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
             }
+
         } else {
             log.error("javax.net.ssl.trustStore is not defined in domain.xml");
         }
+
         log.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
 
     /**
-     * Finds the X509 certificate in the keystore with the client alias as 
-     * defined in the domain.xml system property CLIENT_KEY_ALIAS and 
-     * establishes the private key on the SignatureKeyCallback request using 
+     * Finds the X509 certificate in the keystore with the client alias as
+     * defined in the domain.xml system property CLIENT_KEY_ALIAS and
+     * establishes the private key on the SignatureKeyCallback request using
      * this certificate.
      * @param request The SignatureKeyCallback request object
      * @throws java.io.IOException
@@ -947,7 +968,10 @@ public class SamlCallbackHandler implements CallbackHandler {
                                         if (uniqueAlias == null) {
                                             uniqueAlias = currentAlias;
                                             break;
+
                                         }
+
+
                                     }
                                 }
                             }
@@ -961,6 +985,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                     } else {
                         log.error("Client key alais can not be determined");
                     }
+
                 } catch (UnrecoverableKeyException ex) {
                     log.error("Error initializing Private Key: " + ex);
                     throw new IOException(ex.getMessage());
@@ -971,12 +996,15 @@ public class SamlCallbackHandler implements CallbackHandler {
                     log.error("Error initializing Private Key: " + ex);
                     throw new IOException(ex.getMessage());
                 }
+
             } else {
                 log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
             }
+
         } else {
             log.error("CLIENT_KEY_ALIAS is not defined in domain.xml");
         }
+
         log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
     }
 
