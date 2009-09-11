@@ -15,7 +15,7 @@
       </classpath>
     </taskdef>
   
-    <target name="buildrelease" description="Do all steps to build release." depends="showvars,bundlesrc,bundleprops,bundleinterfaces,getbindist,bundleopensso,bundle3rdpartycomps,bundlemural" >
+    <target name="buildrelease" description="Do all steps to build release." depends="showvars,bundlesrc,bundleprops,bundleinterfaces,bundle3rdpartycomps,bundlemural" >
         <echo message="Build Release complete."/>
     </target>
 
@@ -163,15 +163,15 @@
         </exec>
         <unzip src="${DistBinaryZip}" dest="${OpenSSODistDir}" >
             <patternset>
-                <include name="AdapterPDPOpenSSO.war"/>
+                <include name="nhinc/AdapterPDPOpenSSO.war"/>
             </patternset>
         </unzip>
-        <unzip src="${OpenSSODistDir}/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
+        <unzip src="${OpenSSODistDir}/nhinc/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
             <patternset>
                 <include name="**/*QueryHandler.class"/>
             </patternset>
         </unzip>
-        <delete file="${OpenSSODistDir}/AdapterPDPOpenSSO.war"/>
+        <delete file="${OpenSSODistDir}/nhinc/AdapterPDPOpenSSO.war"/>
         <copy todir="${OpenSSODistDir}/OpenSSO">
             <fileset dir="${OpenSSODistDir}/WEB-INF">
                 <include name="**/*QueryHandler.class"/>
@@ -189,7 +189,7 @@
         <exec dir="${OpenSSODistDir}" executable="svn.exe">
             <arg line="export"/>
             <arg line="--force"/>
-            <arg line="${ReleaseURL}/ThirdParty/SupportApps/IdSvcsClient/IdSvcsClient.war"/>
+            <arg line="${ReleaseURL}/SupportApps/IdSvcsClient/IdSvcsClient.war"/>
             <arg line="${OpenSSODistDir}/OpenSSO/IdSvcsClient.war"/>
         </exec>
         <echo message="----------- ${line.separator} ${line.separator}" append="true" file="${OpenSSOSrcDir}/AdapterPDPOpenSSO/ReadMe1ST.txt" />
