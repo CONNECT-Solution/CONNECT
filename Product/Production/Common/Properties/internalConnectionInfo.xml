@@ -262,6 +262,16 @@
 				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
 			</service>
 			<service>
+				<name>nhincproxynotificationconsumersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>entitynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
 				<name>nhincproxynotificationproducersecured</name>
 				<description>NHINC Proxy Notify Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
@@ -270,7 +280,8 @@
 				<name>nhincproxysubscriptionmanagersecured</name>
 				<description>NHINC Proxy Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
-			</service>			
+			</service>	
+			<service>		
 				<name>entitysubscriptionmanagersecured</name>
 				<description>Entity Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
@@ -403,6 +414,16 @@
 				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
 			</service>
 			<service>
+				<name>nhincproxynotificationconsumersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+			</service>
+			<service>
+				<name>entitynotificationproducersecured</name>
+				<description>NHINC Proxy Notify Secured</description>
+				<endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+			</service>
+			<service>
 				<name>nhincproxynotificationproducersecured</name>
 				<description>NHINC Proxy Notify Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
@@ -411,7 +432,8 @@
 				<name>nhincproxysubscriptionmanagersecured</name>
 				<description>NHINC Proxy Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
-			</service>			
+			</service>
+            <service>
 				<name>entitysubscriptionmanagersecured</name>
 				<description>Entity Subscription Manager Secured</description>
 				<endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
