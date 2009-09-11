@@ -100,8 +100,8 @@ public class HL7Parser201305 {
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
                 String nameString = "";
-                EnExplicitFamily lastname = new EnExplicitFamily();
-                EnExplicitGiven firstname = new EnExplicitGiven();
+                EnExplicitFamily lastname = null;
+                EnExplicitGiven firstname = null;
 
                 while (iterSerialObjects.hasNext()) {
                     log.info("in iterSerialObjects.hasNext() loop");
@@ -124,11 +124,17 @@ public class HL7Parser201305 {
                         JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
                         if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
+                            lastname = new EnExplicitFamily();
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
                             log.info("found lastname element; content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
-                            firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                            log.info("found firstname element; content=" + firstname.getContent());
+                            if(firstname == null){
+                                firstname = new EnExplicitGiven();
+                                firstname = (EnExplicitGiven) oJAXBElement.getValue();
+                                log.info("found firstname element; content=" + firstname.getContent());
+                            }else{
+                                //this would be where to add handle for middlename
+                            }
                         } else {
                             log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
                         }
@@ -140,13 +146,13 @@ public class HL7Parser201305 {
                 // If text string in patient name, then set in name
                 // else set in element.
                 boolean namefound = false;
-                if (lastname.getContent() != null) {
+                if (lastname!= null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
                     log.info("FamilyName : " + personname.getLastName());
                     namefound = true;
                 }
 
-                if (firstname.getContent() != null) {
+                if (firstname!=null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
                     log.info("GivenName : " + personname.getFirstName());
                     namefound = true;
