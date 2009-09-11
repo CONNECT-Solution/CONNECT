@@ -30,6 +30,10 @@ public class UnsubscribeTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+
+                AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+
         request.getSubject().add(subject);
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());

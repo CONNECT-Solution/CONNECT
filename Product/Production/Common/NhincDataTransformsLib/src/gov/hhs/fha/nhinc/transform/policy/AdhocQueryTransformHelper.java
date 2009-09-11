@@ -68,9 +68,11 @@ public class AdhocQueryTransformHelper {
 
         SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
-        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
-        oPolicyRequest.setRequest(request);
-        AssertionHelper.appendAssertionDataToRequest(oPolicyRequest, event.getMessage().getAssertion());
+
+        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+        CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
+        policyRequest.setRequest(request);
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;

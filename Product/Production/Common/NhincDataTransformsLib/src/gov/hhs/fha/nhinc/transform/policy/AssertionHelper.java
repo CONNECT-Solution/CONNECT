@@ -5,10 +5,11 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+//import gov.hhs.fha.nhinc.common.nhinccommonadapter.RequestType;
 import gov.hhs.fha.nhinc.transform.marshallers.CheckPolicyRequestMarshaller;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
@@ -22,7 +23,7 @@ public class AssertionHelper {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AssertionHelper.class);
     private static final boolean appendAttributesIfNull = false;
 
-    public static void appendAssertionDataToRequest(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    public static void appendAssertionDataToRequest(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending assertion data to xacml request");
 
 //        if (log.isDebugEnabled()) {
@@ -72,7 +73,7 @@ public class AssertionHelper {
         log.debug("end appending assertion data to xacml request");
     }
 
-//    private static void appendAuthInstant(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+//    private static void appendAuthInstant(RequestType policyRequest, AssertionType assertion) {
 //        log.debug("begin appending auth instant");
 //        SubjectType subject = getSubject(policyRequest);
 //        String attributeId = XacmlAttributeId.AuthnStatementAuthnInstant;
@@ -89,56 +90,44 @@ public class AssertionHelper {
 //        }
 //        return value;
 //    }
-    private static ActionType getAction(
-            CheckPolicyRequestType policyRequest) {
+    private static ActionType getAction(RequestType policyRequest) {
         if (policyRequest == null) {
             throw new NullPointerException("policy request is null");
         }
 
-        if (policyRequest.getRequest() == null) {
-            throw new NullPointerException("policy request request is null");
-        }
-
-        ActionType action = policyRequest.getRequest().getAction();
+        ActionType action = policyRequest.getAction();
         if (action == null) {
             action = new ActionType();
-            policyRequest.getRequest().setAction(action);
+            policyRequest.setAction(action);
         }
 
         return action;
     }
 
-    private static SubjectType getSubject(CheckPolicyRequestType policyRequest) {
-        if (policyRequest == null) {
-            throw new NullPointerException("policy request is null");
-        }
+    private static SubjectType getSubject(RequestType policyXacmlRequest) {
 
-        if (policyRequest.getRequest() == null) {
+        if (policyXacmlRequest == null) {
             throw new NullPointerException("policy request request is null");
         }
 
-        SubjectType subject = policyRequest.getRequest().getSubject().get(0);
+        SubjectType subject = policyXacmlRequest.getSubject().get(0);
         if (subject == null) {
             subject = new SubjectType();
-            policyRequest.getRequest().getSubject().add(subject);
+            policyXacmlRequest.getSubject().add(subject);
         }
 
         return subject;
     }
 
-    private static ResourceType getResource(CheckPolicyRequestType policyRequest) {
+    private static ResourceType getResource(RequestType policyRequest) {
         if (policyRequest == null) {
             throw new NullPointerException("policy request is null");
         }
 
-        if (policyRequest.getRequest() == null) {
-            throw new NullPointerException("policy request request is null");
-        }
-
-        ResourceType resource = policyRequest.getRequest().getResource().get(0);
+        ResourceType resource = policyRequest.getResource().get(0);
         if (resource == null) {
             resource = new ResourceType();
-            policyRequest.getRequest().getResource().add(resource);
+            policyRequest.getResource().add(resource);
         }
 
         return resource;
@@ -196,7 +185,7 @@ public class AssertionHelper {
         return userRole;
     }
 
-    private static void appendAuthnStatementAuthnInstant(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthnStatementAuthnInstant(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthnStatementAuthnInstant");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.AuthnStatementAuthnInstant;
@@ -219,7 +208,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthnStatementSessionIndex(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthnStatementSessionIndex(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthnStatementSessionIndex");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.AuthnStatementSessionIndex;
@@ -241,7 +230,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthnStatementAthnContextClassRef(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthnStatementAthnContextClassRef(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthnStatementAthnContextClassRef");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.AuthnStatementAthnContextClassRef;
@@ -263,7 +252,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthnStatementSubjectLocalityAddress(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthnStatementSubjectLocalityAddress(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthnStatementSubjectLocalityAddress");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.AuthnStatementSubjectLocalityAddress;
@@ -285,7 +274,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthnStatementDNSName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthnStatementDNSName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthnStatementDNSName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.AuthnStatementDNSName;
@@ -307,7 +296,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserPersonName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserPersonName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserPersonName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserPersonName;
@@ -329,7 +318,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserOrganizationName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserOrganizationName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserOrganizationName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserOrganizationName;
@@ -351,7 +340,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserRoleCode(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserRoleCode(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserRoleCode");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserRoleCode;
@@ -372,7 +361,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserRoleCodeSystem(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserRoleCodeSystem(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserRoleCodeSystem");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserRoleCodeSystem;
@@ -393,7 +382,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserRoleCodeSystemName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserRoleCodeSystemName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserRoleCodeSystemName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserRoleCodeSystemName;
@@ -414,7 +403,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendUserRoleCodeDiplayName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendUserRoleCodeDiplayName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending UserRoleCodeDiplayName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.UserRoleCodeDiplayName;
@@ -435,7 +424,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendPurposeForUseCode(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendPurposeForUseCode(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending PurposeForUseCode");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.PurposeForUseCode;
@@ -454,7 +443,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendPurposeForUseCodeSystem(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendPurposeForUseCodeSystem(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending PurposeForUseCodeSystem");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.PurposeForUseCodeSystem;
@@ -473,7 +462,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendPurposeForUseCodeSystemName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendPurposeForUseCodeSystemName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending PurposeForUseCodeSystemName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.PurposeForUseCodeSystemName;
@@ -492,7 +481,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendPurposeForUseCodeDisplayName(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendPurposeForUseCodeDisplayName(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending PurposeForUseCodeDisplayName");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.PurposeForUseCodeDisplayName;
@@ -511,7 +500,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementDecision(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementDecision(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementDecision");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementDecision;
@@ -534,7 +523,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementResource(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementResource(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementResource");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementResource;
@@ -557,7 +546,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementAction(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementAction(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementAction");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementAction;
@@ -580,7 +569,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionID(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionID(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionID");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionID;
@@ -603,7 +592,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionIssueInstant(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionIssueInstant(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssueInstant");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssueInstant;
@@ -626,7 +615,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionVersion(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionVersion(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionVersion");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionVersion;
@@ -650,7 +639,7 @@ public class AssertionHelper {
 
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionIssuer(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionIssuer(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionIssuer");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssuer;
@@ -686,7 +675,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotBefore;
@@ -710,7 +699,7 @@ public class AssertionHelper {
 
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter;
@@ -733,7 +722,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionContentReference(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionContentReference(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionContentReference");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionContentReference;
@@ -743,7 +732,7 @@ public class AssertionHelper {
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionContentReference");
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionContentType(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionContentType(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionContentType");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionContentType;
@@ -780,7 +769,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendAuthzDecisionStatementEvidenceAssertionContent(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendAuthzDecisionStatementEvidenceAssertionContent(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending AuthzDecisionStatementEvidenceAssertionContent");
         ResourceType parent = getResource(policyRequest);
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionContent;
@@ -796,7 +785,7 @@ public class AssertionHelper {
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionContent");
     }
 
-    private static void appendSignatureKeyModulus(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendSignatureKeyModulus(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending SignatureKeyModulus");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.SignatureKeyModulus;
@@ -815,7 +804,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendSignatureKeyExponent(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendSignatureKeyExponent(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending SignatureKeyExponent");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.SignatureKeyExponent;
@@ -834,7 +823,7 @@ public class AssertionHelper {
         return value;
     }
 
-    private static void appendSignatureValue(CheckPolicyRequestType policyRequest, AssertionType assertion) {
+    private static void appendSignatureValue(RequestType policyRequest, AssertionType assertion) {
         log.debug("begin appending SignatureValue");
         SubjectType parent = getSubject(policyRequest);
         String attributeId = XacmlAttributeId.SignatureValue;

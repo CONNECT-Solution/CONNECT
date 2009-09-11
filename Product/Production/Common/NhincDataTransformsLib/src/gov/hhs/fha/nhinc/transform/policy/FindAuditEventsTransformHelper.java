@@ -25,7 +25,7 @@ public class FindAuditEventsTransformHelper {
     public static CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();
-        
+
         if (event != null) {
             if (InboundOutboundChecker.IsInbound(event.getDirection())) {
                 request.setAction(ActionHelper.actionFactory(ActionInValue));
@@ -38,18 +38,16 @@ public class FindAuditEventsTransformHelper {
             FindAuditEventsMessageType message = event.getMessage();
             if (message != null) {
                 FindAuditEventsType findAudit = message.getFindAuditEvents();
-                if(findAudit != null)
-                {
+                if (findAudit != null) {
                     findAudit.getPatientId();
                     ResourceType resource = new ResourceType();
                     resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, findAudit.getPatientId()));
-                    request.getResource().add(resource);    
+                    request.getResource().add(resource);
                 }
             }
+            AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
         }
-        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
-        oPolicyRequest.setRequest(request);
-        PurposeForUseHelper.appendPurposeForUse(oPolicyRequest, event.getMessage().getAssertion());
+
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;

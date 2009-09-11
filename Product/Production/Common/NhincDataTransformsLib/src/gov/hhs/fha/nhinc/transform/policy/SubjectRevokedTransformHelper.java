@@ -38,9 +38,10 @@ public class SubjectRevokedTransformHelper {
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, ii.getExtension()));
             request.getResource().add(resource);
         }
+                AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
         CheckPolicyRequestType oPolicyrequest = new CheckPolicyRequestType();
         oPolicyrequest.setRequest(request);
-        PurposeForUseHelper.appendPurposeForUse(oPolicyrequest, event.getMessage().getAssertion());
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;

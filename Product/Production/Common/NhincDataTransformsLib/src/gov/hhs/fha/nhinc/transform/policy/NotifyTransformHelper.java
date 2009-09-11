@@ -28,6 +28,9 @@ public class NotifyTransformHelper {
         }
         SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
+
+                AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;

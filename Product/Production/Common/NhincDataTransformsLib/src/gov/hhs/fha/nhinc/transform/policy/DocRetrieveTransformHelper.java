@@ -40,9 +40,10 @@ public class DocRetrieveTransformHelper {
                 request.getResource().add(getResource(docReq));
             }
         }
-        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
-        oPolicyRequest.setRequest(request);
-        AssertionHelper.appendAssertionDataToRequest(oPolicyRequest, event.getMessage().getAssertion());
+        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+        CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
+        policyRequest.setRequest(request);
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;

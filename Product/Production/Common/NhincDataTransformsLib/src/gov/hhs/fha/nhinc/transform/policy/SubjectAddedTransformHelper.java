@@ -19,6 +19,7 @@ import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01Subject1;
  */
 public class SubjectAddedTransformHelper {
 
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubjectAddedTransformHelper.class);
     private static final String ActionValue = "SubjectDiscoveryIn";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
@@ -28,26 +29,33 @@ public class SubjectAddedTransformHelper {
     }
 
     public static CheckPolicyRequestType transformSubjectAddedInToCheckPolicy(SubjectAddedEventType event) {
+        log.debug("begin transformSubjectAddedInToCheckPolicy");
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         PRPAIN201301UV subjectAdded = event.getMessage().getPRPAIN201301UV();
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
 
         SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        log.debug("transformSubjectAddedInToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
         II ii = extractPatientIdentifier(subjectAdded);
         if (ii != null) {
             ResourceType resource = new ResourceType();
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()  ));
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, ii.getExtension()));
             request.getResource().add(resource);
         }
-        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
-        oPolicyRequest.setRequest(request);
-        PurposeForUseHelper.appendPurposeForUse(oPolicyRequest, event.getMessage().getAssertion());
+
+        log.debug("transformSubjectAddedInToCheckPolicy - adding assertion data");
+        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+//        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
+//        oPolicyRequest.setRequest(request);
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+
+        log.debug("end transformSubjectAddedInToCheckPolicy");
         return genericPolicyRequest;
     }
 
