@@ -226,12 +226,14 @@
     </target>
     <target name="bundle3rdpartycomps" depends="get3rdpartycomps" description="Generate ThirdPartyComponents bundle.">
         <echo message="Updating specific ${ThirdPartySrcDir}/ThirdParty/**/*.jar files to ${DistDir}/ThirdPartyComponents." />
-        <mkdir dir="${DistDir}/ThirdPartyComponents" />
+        <delete dir="${DistDir}/ThirdPartyComponents"/>
+        <mkdir dir="${DistDir}/ThirdPartyComponents"/>
         <unzip src="${DistBinaryZip}" dest="${DistDir}/ThirdPartyComponents" >
             <patternset>
-                <include name="NhincCommonTypesLib.jar"/>
-                <include name="NhincSAMLCallbackLib.jar"/>
+                <include name="nhinc/NhincCommonTypesLib.jar"/>
+                <include name="nhinc/NhincSAMLCallbackLib.jar"/>
             </patternset>
+            <mapper type="flatten"/>
         </unzip>
         <copy todir="${DistDir}/ThirdPartyComponents" verbose="true">
             <fileset dir="${ThirdPartySrcDir}/ThirdParty">
