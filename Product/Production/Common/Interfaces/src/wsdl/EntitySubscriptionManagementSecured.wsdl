@@ -278,7 +278,7 @@
                 type="tns:EntitySubscriptionManagerSecuredPortType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_SoapPolicy"/>                  
+        <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>                  
         <wsdl:operation name="Unsubscribe">
             <soap:operation soapAction="urn:Unsubscribe"/>
             <wsdl:input name="UnsubscribeRequestSecured">
