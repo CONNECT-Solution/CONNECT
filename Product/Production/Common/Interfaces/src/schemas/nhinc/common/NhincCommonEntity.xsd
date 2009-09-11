@@ -97,6 +97,14 @@
     </xsd:complexType>
     <xsd:element name="SubscribeRequest" type="tns:SubscribeRequestType" />
 
+    <xsd:complexType name="SubscribeRequestSecuredType" >
+        <xsd:sequence>
+            <xsd:element ref="wsnt:Subscribe" />
+            <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeRequestSecured" type="tns:SubscribeRequestSecuredType" />
+
     <xsd:complexType name="SubscribeDocumentRequestType">
         <xsd:sequence>
             <xsd:element name="subscribe" type="subb2obdoc:SubscribeDocumentType"/>
@@ -137,6 +145,13 @@
     </xsd:complexType>
     <xsd:element name="UnsubscribeRequest" type="tns:UnsubscribeRequestType" />
     
+    <xsd:complexType name="UnsubscribeRequestSecuredType" >
+        <xsd:sequence>
+            <xsd:element ref="wsnt:Unsubscribe" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UnsubscribeRequestSecured" type="tns:UnsubscribeRequestSecuredType" />
+    
     <!-- ====================================================================
          Notification Schemas.
          ==================================================================== -->
@@ -148,6 +163,14 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="NotifySubscribersOfDocumentRequest" type="tns:NotifySubscribersOfDocumentRequestType" />
+    
+    <xsd:complexType name="NotifySubscribersOfDocumentRequestSecuredType" >
+        <xsd:sequence>
+            <xsd:element name="notify" type="subb2obdoc:NotifyDocumentType" />
+            <xsd:element ref="rim:RegistryObjectList" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifySubscribersOfDocumentRequestSecured" type="tns:NotifySubscribersOfDocumentRequestSecuredType" />
     
     <xsd:complexType name="NotifySubscribersOfCdcBioPackageRequestType" >
         <xsd:sequence>
@@ -163,4 +186,11 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="NotifyRequest" type="tns:NotifyRequestType"></xsd:element>
+    
+    <xsd:complexType name="NotifyRequestSecuredType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:Notify"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifyRequestSecured" type="tns:NotifyRequestSecuredType"></xsd:element>
 </xsd:schema>

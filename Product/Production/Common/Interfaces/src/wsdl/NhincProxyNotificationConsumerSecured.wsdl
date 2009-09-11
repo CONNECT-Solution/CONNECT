@@ -75,13 +75,13 @@
         </xsd:schema>
     </wsdl:types>
     
-    <wsdl:message name="NotifyRequestMessage">
-        <wsdl:part name="NotifyRequest" element="nccommonproxy:NotifyRequest"/>
+    <wsdl:message name="NotifyRequestSecuredMessage">
+        <wsdl:part name="NotifyRequestSecured" element="nccommonproxy:NotifyRequestSecured"/>
     </wsdl:message>
     
     <wsdl:portType name="NhincProxyNotificationConsumerSecuredPortType">
         <wsdl:operation name="Notify">
-            <wsdl:input name="NotifyRequest" message="tns:NotifyRequestMessage" />
+            <wsdl:input name="NotifyRequestSecured" message="tns:NotifyRequestSecuredMessage" />
         </wsdl:operation>
     </wsdl:portType>
     
@@ -92,7 +92,7 @@
         <wsp:PolicyReference URI="#NhincProxyNotificationConsumerSecuredPortType_SoapPolicy"/>                   
         <wsdl:operation name="Notify">
             <soap:operation soapAction="urn:Notify"/>
-            <wsdl:input name="NotifyRequest">
+            <wsdl:input name="NotifyRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Notify_Binding_Soap_Input_Policy"/>
             </wsdl:input>

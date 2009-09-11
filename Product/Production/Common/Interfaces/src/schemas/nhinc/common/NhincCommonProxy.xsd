@@ -72,6 +72,15 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SubscribeRequest" type="tns:SubscribeRequestType"/>
+	
+	<xsd:complexType name="SubscribeRequestSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="wsnt:Subscribe"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SubscribeRequestSecured" type="tns:SubscribeRequestSecuredType"/>
+	
 	<xsd:complexType name="UnsubscribeRequestType">
 		<xsd:sequence>
 			<xsd:element ref="wsnt:Unsubscribe"/>
@@ -80,6 +89,15 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="UnsubscribeRequest" type="tns:UnsubscribeRequestType"/>
+	
+	<xsd:complexType name="UnsubscribeRequestSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="wsnt:Unsubscribe"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="UnsubscribeRequestSecured" type="tns:UnsubscribeRequestSecuredType"/>
+	
 	<!-- ====================================================================
          Notification Schemas.
          ==================================================================== -->
@@ -91,4 +109,11 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="NotifyRequest" type="tns:NotifyRequestType"/>
+	<xsd:complexType name="NotifyRequestSecuredType">
+		<xsd:sequence>
+			<xsd:element ref="wsnt:Notify"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="NotifyRequestSecured" type="tns:NotifyRequestSecuredType"/>
 </xsd:schema>

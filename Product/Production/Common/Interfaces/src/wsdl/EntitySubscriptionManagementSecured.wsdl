@@ -88,8 +88,8 @@
 
   <!-- Request/Response Messages -->
   <!-- ========================= -->
-    <wsdl:message name="UnsubscribeRequestMessage">
-        <wsdl:part name="UnsubscribeRequest" element="nccommonentity:UnsubscribeRequest"/>
+    <wsdl:message name="UnsubscribeRequestSecuredMessage">
+        <wsdl:part name="UnsubscribeRequestSecured" element="nccommonentity:UnsubscribeRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="UnsubscribeResponseMessage">
         <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
@@ -147,14 +147,14 @@
                element="wsnt:UnableToDestroySubscriptionFault"/>
   </wsdl:message>
 
-    <wsdl:message name="SubscribeDocumentRequestMessage">
-        <wsdl:part name="SubscribeDocumentRequest" element="nccommonentity:SubscribeDocumentRequest"/>
+    <wsdl:message name="SubscribeDocumentRequestSecuredMessage">
+        <wsdl:part name="SubscribeDocumentRequestSecured" element="nccommonentity:SubscribeDocumentRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="SubscribeDocumentResponseMessage">
         <wsdl:part name="SubscribeDocumentResponse" element="nccommonentity:SubscribeDocumentResponse"/>
     </wsdl:message>
-    <wsdl:message name="SubscribeRequest">
-        <wsdl:part name="SubscribeRequest" element="nccommonentity:SubscribeRequest"/>
+    <wsdl:message name="SubscribeRequestSecured">
+        <wsdl:part name="SubscribeRequestSecured" element="nccommonentity:SubscribeRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="SubscribeResponse">
         <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
@@ -163,12 +163,12 @@
     <wsdl:portType name="EntityNotificationProducerSecuredPortType">
 
         <wsdl:operation name="SubscribeDocument">
-            <wsdl:input name="SubscribeDocumentRequest" message="tns:SubscribeDocumentRequestMessage"/>
+            <wsdl:input name="SubscribeDocumentRequestSecured" message="tns:SubscribeDocumentRequestSecuredMessage"/>
             <wsdl:output name="SubscribeDocumentResponse" message="tns:SubscribeDocumentResponseMessage"/>
         </wsdl:operation>
 
         <wsdl:operation name="Subscribe">
-            <wsdl:input name="SubscribeRequest" message="tns:SubscribeRequest"/>
+            <wsdl:input name="SubscribeRequestSecured" message="tns:SubscribeRequestSecured"/>
             <wsdl:output name="SubscribeResponse" message="tns:SubscribeResponse"/>
             <wsdl:fault name="ResourceUnknownFault"
                   message="wsrf-rw:ResourceUnknownFault" />
@@ -198,8 +198,8 @@
     </wsdl:portType>
     <wsdl:portType name="EntitySubscriptionManagerSecuredPortType">
         <wsdl:operation name="Unsubscribe">
-            <wsdl:input name="UnsubscribeRequest" 
-                  message="tns:UnsubscribeRequestMessage" />
+            <wsdl:input name="UnsubscribeRequestSecured" 
+                  message="tns:UnsubscribeRequestSecuredMessage" />
             <wsdl:output name="UnsubscribeResponse" 
                    message="tns:UnsubscribeResponseMessage" />
             <wsdl:fault name="ResourceUnknownFault" 
@@ -216,7 +216,7 @@
                   transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="SubscribeDocument">
             <soap:operation soapAction="urn:SubscribeDocument"/>
-            <wsdl:input name="SubscribeDocumentRequest">
+            <wsdl:input name="SubscribeDocumentRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#SubscribeDocument_Binding_Soap_Input_Policy"/>
             </wsdl:input>
@@ -227,7 +227,7 @@
         </wsdl:operation>
         <wsdl:operation name="Subscribe">
             <soap:operation soapAction="urn:Subscribe"/>
-            <wsdl:input name="SubscribeRequest">
+            <wsdl:input name="SubscribeRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Subscription_Binding_Soap_Input_Policy"/>
             </wsdl:input>
@@ -281,7 +281,7 @@
         <wsp:PolicyReference URI="#EntityNotificationProducerSecuredPortType_SoapPolicy"/>                  
         <wsdl:operation name="Unsubscribe">
             <soap:operation soapAction="urn:Unsubscribe"/>
-            <wsdl:input name="UnsubscribeRequest">
+            <wsdl:input name="UnsubscribeRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Input_Policy"/>                               
             </wsdl:input>

@@ -78,26 +78,26 @@
         </xsd:schema>
     </wsdl:types>
     
-    <wsdl:message name="NotifySubscribersOfDocumentRequestMessage">
-        <wsdl:part name="NotifySubscribersOfDocumentRequest" element="nccommonentity:NotifySubscribersOfDocumentRequest"/>
+    <wsdl:message name="NotifySubscribersOfDocumentRequestSecuredMessage">
+        <wsdl:part name="NotifySubscribersOfDocumentRequestSecured" element="nccommonentity:NotifySubscribersOfDocumentRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="NotifySubscribersOfDocumentResponseMessage">
         <wsdl:part name="NotifySubscribersOfDocumentResponse" element="nccommon:Acknowledgement"/>
     </wsdl:message>
-    <wsdl:message name="NotifyRequest">
-        <wsdl:part name="NotifyRequest" element="nccommonentity:NotifyRequest"/>
+    <wsdl:message name="NotifyRequestSecured">
+        <wsdl:part name="NotifyRequestSecured" element="nccommonentity:NotifyRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="NotifyResponse">
         <wsdl:part name="Acknowledgement" element="nccommon:Acknowledgement"/>
     </wsdl:message>
     <wsdl:portType name="EntityNotificationConsumerSecuredPortType">
         <wsdl:operation name="NotifySubscribersOfDocument">
-            <wsdl:input name="NotifySubscribersOfDocumentRequest" message="tns:NotifySubscribersOfDocumentRequestMessage" />
+            <wsdl:input name="NotifySubscribersOfDocumentRequestSecured" message="tns:NotifySubscribersOfDocumentRequestSecuredMessage" />
             <wsdl:output name="NotifySubscribersOfDocumentResponse" message="tns:NotifySubscribersOfDocumentResponseMessage" />
         </wsdl:operation>
 
         <wsdl:operation name="Notify">
-            <wsdl:input name="NotifyRequest" message="tns:NotifyRequest"/>
+            <wsdl:input name="NotifyRequestSecured" message="tns:NotifyRequestSecured"/>
             <wsdl:output name="NotifyResponse" message="tns:NotifyResponse"/>
         </wsdl:operation>
     </wsdl:portType>
@@ -109,7 +109,7 @@
         <wsp:PolicyReference URI="#EntityNotificationConsumerSecuredPortType_SoapPolicy"/>     
         <wsdl:operation name="NotifySubscribersOfDocument">
             <soap:operation soapAction="urn:NotifySubscribersOfDocument"/>
-            <wsdl:input name="NotifySubscribersOfDocumentRequest">
+            <wsdl:input name="NotifySubscribersOfDocumentRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#NotifySubscribersOfDocument_Soap_Input_Policy"/>
             </wsdl:input>
@@ -120,7 +120,7 @@
         </wsdl:operation>
         <wsdl:operation name="Notify">
             <soap:operation soapAction="urn:Notify"/>
-            <wsdl:input name="NotifyRequest">
+            <wsdl:input name="NotifyRequestSecured">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Notify_Binding_Soap_Input_Policy"/>                
             </wsdl:input>

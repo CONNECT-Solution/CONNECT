@@ -86,14 +86,14 @@
 
   <!-- Request/Response Messages -->
   <!-- ========================= -->
-  <wsdl:message name="SubscribeRequestMessage">
-    <wsdl:part name="SubscribeRequest" element="nccommonproxy:SubscribeRequest"/>
+  <wsdl:message name="SubscribeRequestSecuredMessage">
+    <wsdl:part name="SubscribeRequestSecured" element="nccommonproxy:SubscribeRequestSecured"/>
   </wsdl:message>
   <wsdl:message name="SubscribeResponseMessage">
     <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
   </wsdl:message>
-  <wsdl:message name="UnsubscribeRequestMessage">
-    <wsdl:part name="UnsubscribeRequest" element="nccommonproxy:UnsubscribeRequest"/>
+  <wsdl:message name="UnsubscribeRequestSecuredMessage">
+    <wsdl:part name="UnsubscribeRequestSecured" element="nccommonproxy:UnsubscribeRequestSecured"/>
   </wsdl:message>
   <wsdl:message name="UnsubscribeResponseMessage">
     <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
@@ -153,8 +153,8 @@
 
   <wsdl:portType name="NhincProxyNotificationProducerSecuredPortType">
     <wsdl:operation name="Subscribe">
-      <wsdl:input name="SubscribeRequest"
-                  message="tns:SubscribeRequestMessage"/>
+      <wsdl:input name="SubscribeRequestSecured"
+                  message="tns:SubscribeRequestSecuredMessage"/>
       <wsdl:output name="SubscribeResponse"
                    message="tns:SubscribeResponseMessage"/>
       
@@ -187,8 +187,8 @@
   
   <wsdl:portType name="NhincProxySubscriptionManagerSecuredPortType">
     <wsdl:operation name="Unsubscribe">
-      <wsdl:input name="UnsubscribeRequest" 
-                  message="tns:UnsubscribeRequestMessage" />
+      <wsdl:input name="UnsubscribeRequestSecured" 
+                  message="tns:UnsubscribeRequestSecuredMessage" />
       <wsdl:output name="UnsubscribeResponse" 
                    message="tns:UnsubscribeResponseMessage" />
                    
@@ -208,7 +208,7 @@
                   
     <wsdl:operation name="Subscribe">
       <soap:operation soapAction="urn:Subscribe"/>
-      <wsdl:input name="SubscribeRequest" >
+      <wsdl:input name="SubscribeRequestSecured" >
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#Subscribe_Binding_Soap_Input_Policy"/>
       </wsdl:input>
@@ -263,7 +263,7 @@
     <wsp:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>    
     <wsdl:operation name="Unsubscribe">
       <soap:operation soapAction="urn:Unsubscribe"/>
-      <wsdl:input name="UnsubscribeRequest">
+      <wsdl:input name="UnsubscribeRequestSecured">
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>
       </wsdl:input>
