@@ -71,6 +71,12 @@ public class AuditQueryImpl {
                     resp = queryAuditRepo(request);
                 }
             }
+            else {
+                log.warn("Audit Query Service is not enabled");
+            }
+        }
+        else {
+            log.error("Audit Query request failed policy check");
         }
 
         log.debug("Exiting AuditQueryImpl.query...");
