@@ -30,7 +30,7 @@
   
   <target name="SoapUI.RunTests.Log.Backup" override="True">
     <call target="GlassFish.StopServer"/>
-    <copy todir="${Common.Directory.Artifact.Path}" overwrite="True"/>
+    <copy todir="${Common.Directory.Artifact.Path}" overwrite="True">
       <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
         <include name="${GlassFish.Domain.Server.Log.File.Base.Name}"/>
       </fileset>
