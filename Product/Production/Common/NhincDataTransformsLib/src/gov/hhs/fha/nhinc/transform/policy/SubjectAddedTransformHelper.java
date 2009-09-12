@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
@@ -43,7 +44,9 @@ public class SubjectAddedTransformHelper {
         if (ii != null) {
             ResourceType resource = new ResourceType();
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, ii.getExtension()));
+            String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
+            log.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
 

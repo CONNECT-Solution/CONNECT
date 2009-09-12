@@ -8,6 +8,7 @@ import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsMessageType;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
@@ -18,9 +19,11 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
  */
 public class FindAuditEventsTransformHelper {
 
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(FindAuditEventsTransformHelper.class);
     private static final String ActionInValue = "AuditLogQueryIn";
     private static final String ActionOutValue = "AuditLogQueryOut";
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
+    private static final String AssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
 
     public static CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
@@ -41,7 +44,16 @@ public class FindAuditEventsTransformHelper {
                 if (findAudit != null) {
                     findAudit.getPatientId();
                     ResourceType resource = new ResourceType();
-                    resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, findAudit.getPatientId()));
+                    String sPatientId = findAudit.getPatientId();
+                    log.debug("transformFindAuditEventsToCheckPolicy: sPatientId = " + sPatientId);
+
+                    String sAssigningAuthority = PatientIdFormatUtil.parseCommunityId(sPatientId);
+                    log.debug("transformFindAuditEventsToCheckPolicy: sAssigningAuthority = " + sAssigningAuthority);
+                    resource.getAttribute().add(AttributeHelper.attributeFactory(AssigningAuthorityAttributeId, Constants.DataTypeString, sAssigningAuthority));
+
+                    String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(findAudit.getPatientId());
+                    log.debug("transformFindAuditEventsToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+                    resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
                     request.getResource().add(resource);
                 }
             }

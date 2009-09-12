@@ -8,6 +8,7 @@ package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedMessageType;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
@@ -19,6 +20,7 @@ import org.hl7.v3.PRPAIN201303UVMFMIMT700701UV01Subject1;
  * @author svalluripalli
  */
 public class SubjectRevokedTransformHelper {
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubjectRevokedTransformHelper.class);
     private static final String ActionValue = "SubjectRevokedIn";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
@@ -35,7 +37,9 @@ public class SubjectRevokedTransformHelper {
         if (ii != null) {
             ResourceType resource = new ResourceType();
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()  ));
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, ii.getExtension()));
+            String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
+            log.debug("transformSubjectRevokedToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
                 AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());

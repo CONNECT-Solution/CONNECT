@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.io.StringReader;
 import java.util.List;
@@ -62,12 +63,14 @@ public class SubscribeTransformHelper {
         }
 
         if (NullChecker.isNotNullish(patId)) {
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
+            String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(patId);
+            log.debug("transformSubscribeToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         }
 
         request.getResource().add(resource);
 
-                        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
 
         genericPolicyRequest.setRequest(request);

@@ -10,6 +10,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.marshallers.AdhocQueryRequestEventMarshaller;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
@@ -63,7 +65,11 @@ public class AdhocQueryTransformHelper {
 
         ResourceType resource = new ResourceType();
         resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, extractPatientIdentifierAssigningAuthority(docQuery)));
-        resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, extractPatientIdentifierId(docQuery)));
+        String sPatientId = extractPatientIdentifierId(docQuery);
+        String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
+        log.debug("transformAdhocQueryToCheckPolicyBase: sPatientId = " + sPatientId);
+        log.debug("transformAdhocQueryToCheckPolicyBase: sStrippedPatientId = " + sStrippedPatientId);
+        resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());

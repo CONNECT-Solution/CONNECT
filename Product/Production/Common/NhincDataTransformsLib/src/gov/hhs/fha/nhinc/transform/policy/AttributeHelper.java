@@ -24,6 +24,17 @@ public class AttributeHelper {
 
     public static AttributeType attributeFactory(String attributeId, String dataType, Object value) {
         log.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType + "']");
+        
+        // There is a problem if the value is null.  If that occurs then we get a XACML Attribute outer tag
+        // and no inner "<AttributeValue> tag.  This causes the receiving PEP to error out because it should not occur.
+        // if we return null, then the entire attribute will not be added - which is what we want.  Note that an "add" to
+        // a JAXB list where the value is null turns into a noop.
+        //-----------------------------------------------------------------------------------------------------------------
+        if (value == null)
+        {
+            log.debug("XACML attribute [id='" + attributeId + "' was null - returning null - no atribute will be added.");
+            return null;
+        }
 
         AttributeType attribute = new AttributeType();
         attribute.setAttributeId(attributeId);
