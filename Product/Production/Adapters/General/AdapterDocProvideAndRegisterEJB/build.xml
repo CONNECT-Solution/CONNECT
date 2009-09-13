@@ -10,18 +10,19 @@
 <project name="AdapterDocProvideAndRegisterEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project AdapterDocProvideAndRegisterEJB.</description>
     <import file="nbproject/build-impl.xml"/>
-	<property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared', 'ca']"/>
-	<property name="deploy.isDeployable" value="true"/>
+	
+	<property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
+    
+    <import file="../../../../build.lib.xml" />
 
-	<import file="../../../../build.lib.xml" />
-
-	<target name="build">
-	  <property name="target-to-call" value="jar" />
-	  <antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,build" />
-	<target name="clean-test" depends="clean-build,test" />
-	<target name="build-test" depends="build,test" />
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist" />
+    <target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -78,7 +79,7 @@
 
     -->
 	<target name="wsimport-service-AdapterDocProvideAndRegisterService" depends="wsimport-init,wsimport-service-check-AdapterDocProvideAndRegisterService" unless="wsimport-service-AdapterDocProvideAndRegisterService.notRequired">
-	<property name="targetLocation-AdapterDocProvideAndRegisterService" location="${meta.inf}/wsdl/AdapterDocProvideAndRegisterService"/>
+        <property name="targetLocation-AdapterDocProvideAndRegisterService" location="${meta.inf}/wsdl/AdapterDocProvideAndRegisterService"/>
         <property name="sourceLocation-AdapterDocProvideAndRegisterService" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterService/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocProvideAndRegisterService}">
             <fileset dir="${sourceLocation-AdapterDocProvideAndRegisterService}"/>
