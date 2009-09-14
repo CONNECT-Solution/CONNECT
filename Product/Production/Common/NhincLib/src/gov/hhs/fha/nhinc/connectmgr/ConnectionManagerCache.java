@@ -904,6 +904,10 @@ public class ConnectionManagerCache {
                 (oEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim().length() > 0)) {
             sEndpointURL = oEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim();
         }
+        if(log.isInfoEnabled())
+        {
+            log.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name (" + sUniformServiceName + ") returned endpoint address: " + sEndpointURL);
+        }
 
         return sEndpointURL;
     }
