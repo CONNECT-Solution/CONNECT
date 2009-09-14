@@ -9,6 +9,7 @@
                 <dependency dependsOn="wsimport-client-generate" target="-pre-pre-compile"/>
             </extension>
         </buildExtensions>
+        <creator-data xmlns="http://www.sun.com/creator/ns" jsf.current.theme="woodstock-theme-default" jsf.pagebean.package="consumerpreferencesprofilegui" jsf.project.libraries.dir="lib" jsf.project.version="4.0" jsf.startPage="UserLogin.jsp"/>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
             <name>ConsumerPreferencesProfileGUI</name>
             <minimum-ant-version>1.6</minimum-ant-version>
@@ -69,8 +70,45 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library>
+                    <file>${libs.jsf12-support.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${libs.woodstock-components.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${libs.woodstock-theme-default.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${libs.jsf12.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.AdapterAuthenticationLib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.AdapterAuthenticationProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${reference.AdapterAuthenticationProxyImpl.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.openssoclientsdk.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
-            <web-module-additional-libraries/>
+            <web-module-additional-libraries>
+                <library>
+                    <file>${libs.exceptionhandler-runtime.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+            </web-module-additional-libraries>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -79,6 +117,30 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>AdapterAuthenticationLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AdapterAuthenticationProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AdapterAuthenticationProxyImpl</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
             <reference>
                 <foreign-project>AdapterMpiProxy</foreign-project>
                 <artifact-type>jar</artifact-type>
