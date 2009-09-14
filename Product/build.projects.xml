@@ -65,10 +65,6 @@
 		<directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
 	</project>
 	<project>
-		<name>AdapterDocQueryEJB</name>
-		<directory>/Production/Adapters/General/AdapterDocQueryEJB</directory>
-	</project>
-	<project>
 		<name>AdapterAuditQueryEJB</name>
 		<directory>/Production/Adapters/General/AdapterAuditQueryEJB</directory>
 	</project>
@@ -201,10 +197,6 @@
 		<directory>/Production/Gateway/AdapterDocQueryProxyEJB</directory>
 	</project>
 	<project>
-		<name>AdapterDocRetrieveEJB</name>
-		<directory>/Production/Adapters/General/AdapterDocRetrieveEJB</directory>
-	</project>
-	<project>
 		<name>AdapterDocRetrieveProxyEJB</name>
 		<directory>/Production/Gateway/AdapterDocRetrieveProxyEJB</directory>
 	</project>
@@ -231,5 +223,9 @@
 	<project>
 		<name>AdapterSubjectDiscoveryProxyEJB</name>
 		<directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
+	</project>
+		<project>
+		<name>AdapterDocRegistryAndRepositoryEJB</name>
+		<directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
 	</project>
 </projects>
