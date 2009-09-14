@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/query.xsd"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/schemas/nhinc/gateway/SamlTokenData.xsd"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rim.xsd"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rs.xsd" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/schemas/ebRS/rs.xsd"/>
-    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/conf/xml-resources/web-services/AdapterDocQuerySecured/schemas/www.w3.org/2001/xml.xsd"/>
-</catalog>
