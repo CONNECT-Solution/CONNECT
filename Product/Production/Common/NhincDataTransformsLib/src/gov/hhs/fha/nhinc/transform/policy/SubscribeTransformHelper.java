@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.transform.policy;
 
 //import com.sun.jmx.remote.internal.Unmarshal;
@@ -21,6 +17,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
+import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import org.w3c.dom.Element;
 
 /**
@@ -34,6 +31,7 @@ public class SubscribeTransformHelper {
     private static final String ActionOutValue = "HIEMSubscriptionRequestOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
+    private static final String ATTRIBUTE_ID_TOPIC = Constants.ATTRIBUTE_ID_SUBSCRIPTION_TOPIC;
 
     public static CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
@@ -68,6 +66,8 @@ public class SubscribeTransformHelper {
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         }
 
+        setTopic(event, resource);
+
         request.getResource().add(resource);
 
         AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
@@ -76,6 +76,31 @@ public class SubscribeTransformHelper {
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
+    }
+
+    private static void setTopic(SubscribeEventType event, ResourceType resource)
+    {
+        String topic = null;
+        try
+        {
+            log.debug("######## BEGIN TOPIC EXTRACTION ########");
+            JAXBElement<TopicExpressionType> jbElement = (JAXBElement<TopicExpressionType>) event.getMessage().getSubscribe().getFilter().getAny().get(0);
+            TopicExpressionType topicExpression = jbElement.getValue();
+            topic = (String) topicExpression.getContent().get(0);
+            log.debug("Topic extracted: " + topic);
+        }
+        catch(Throwable t)
+        {
+            log.error("Error extracting the topic: " + t.getMessage(), t);
+        }
+        if(NullChecker.isNotNullish(topic))
+        {
+            if(log.isDebugEnabled())
+            {
+                log.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: " + Constants.DataTypeString);
+            }
+            resource.getAttribute().add(AttributeHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
+        }
     }
 
     public static AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
