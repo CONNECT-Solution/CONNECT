@@ -649,11 +649,7 @@ public class AdapterPEPImpl {
                 String purpose = purposeList.get(idx).trim();
                 log.debug("Process role: " + userRole + " Purpose: " + purpose);
                 if(purpose.toUpperCase().contains(VALID_PURPOSE)){
-                    StringBuffer upperUserRole = new StringBuffer(userRole.toUpperCase());
-                    upperUserRole.substring(upperUserRole.indexOf("VALUE"));
-                    upperUserRole.substring(upperUserRole.indexOf("\"") + 1);
-                    upperUserRole.substring(0,upperUserRole.indexOf("\""));
-                    if(upperUserRole.toString().contains(VALID_USER_ROLE_CODE)){
+                    if(userRole.contains(VALID_USER_ROLE_CODE)){
                         optStatus.add("Yes");
                     log.debug("Determined Reidentification Opt-In Status as: Yes");
                     } else {
