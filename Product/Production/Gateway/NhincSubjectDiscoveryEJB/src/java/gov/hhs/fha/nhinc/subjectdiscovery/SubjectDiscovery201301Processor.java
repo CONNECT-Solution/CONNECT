@@ -252,7 +252,7 @@ public class SubjectDiscovery201301Processor {
                     NullChecker.isNotNullish(receiverOID) &&
                     NullChecker.isNotNullish(remotePatId) &&
                     NullChecker.isNotNullish(remoteDeviceId)) {
-                result = HL7PRPA201302Transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, senderOID, receiverOID);
+                result = HL7PRPA201302Transforms.createPRPA201302(patient, remotePatId, remoteDeviceId, receiverOID, senderOID);
             } else {
                 result = null;
             }
