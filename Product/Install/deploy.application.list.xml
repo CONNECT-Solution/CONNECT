@@ -36,9 +36,6 @@
       <name>AdapterDocQueryProxyEJB</name>
     </ejb>
     <ejb>
-      <name>AdapterDocRetrieveEJB</name>
-    </ejb>
-    <ejb>
       <name>AdapterDocRetrieveProxyEJB</name>
     </ejb>
     <ejb>
@@ -105,7 +102,7 @@
       <name>MpiManagerEJB</name>
     </ejb>
     <ejb>
-      <name>AdapterDocQueryEJB</name>
+      <name>AdapterDocRegistryAndRepositoryEJB</name>
     </ejb>
     <ejb>
       <name>NhincAuditQueryEJB</name>
