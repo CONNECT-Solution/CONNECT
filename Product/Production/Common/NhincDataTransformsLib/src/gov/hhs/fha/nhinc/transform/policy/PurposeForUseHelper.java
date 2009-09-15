@@ -34,8 +34,8 @@ public class PurposeForUseHelper {
     }
 
     private static void appendPurposeForUseToSubject( RequestType policyXacmlRequest, String purposeForUse) {
-        if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getAction() != null)) {
-            AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseActionAttributeId, Constants.DataTypeString, purposeForUse);
+        if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getSubject() != null)) {
+            AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseSubjectAttributeId, Constants.DataTypeString, purposeForUse);
             policyXacmlRequest.getSubject().get(0).getAttribute().add(purposeForUseAttribute);
         }
     }
