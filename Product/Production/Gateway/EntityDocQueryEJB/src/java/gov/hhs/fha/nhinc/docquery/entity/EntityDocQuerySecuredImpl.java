@@ -43,6 +43,7 @@ public class EntityDocQuerySecuredImpl
 {
     private static Log log = LogFactory.getLog(EntityDocQuerySecuredImpl.class);
     private String localHomeCommunity = null;
+    private String localAssigningAuthorityId = null;
     
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context)
     {
@@ -96,7 +97,23 @@ public class EntityDocQuerySecuredImpl
                     docQuery.setAdhocQueryRequest(request.getAdhocQueryRequest());
 
                     NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-                    HomeCommunityType targetCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(subId.getAssigningAuthorityIdentifier());
+                    HomeCommunityType targetCommunity = null;
+                    String assigningAuthority = subId.getAssigningAuthorityIdentifier();
+                    if((assigningAuthority != null) && (assigningAuthority.equals(localAssigningAuthorityId)))
+                    {
+                        /*
+                         * If the target is the local home community, the local
+                         * assigning authority may not be mapped to the local
+                         * home community in the community mapping. Set manually.
+                         */
+                        targetCommunity = new HomeCommunityType();
+                        targetCommunity.setHomeCommunityId(localHomeCommunity);
+                        log.debug("Assigning authority was for the local home community. Set target to manual local home community id");
+                    }
+                    else
+                    {
+                        targetCommunity = ConnectionManagerCommunityMapping.getHomeCommunityByAssigningAuthority(assigningAuthority);
+                    }
                     targetSystem.setHomeCommunity(targetCommunity);
                     docQuery.setNhinTargetSystem(targetSystem);
 
@@ -172,7 +189,8 @@ public class EntityDocQuerySecuredImpl
                         NullChecker.isNotNullish(slot.getValueList().getValue()) &&
                         NullChecker.isNotNullish(slot.getValueList().getValue().get(0))) {
                     qualSubId.setSubjectIdentifier(PatientIdFormatUtil.parsePatientId(slot.getValueList().getValue().get(0)));
-                    qualSubId.setAssigningAuthorityIdentifier(PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0)));
+                    localAssigningAuthorityId = PatientIdFormatUtil.parseCommunityId(slot.getValueList().getValue().get(0));
+                    qualSubId.setAssigningAuthorityIdentifier(localAssigningAuthorityId);
 
                     log.info("Extracting subject id: " + qualSubId.getSubjectIdentifier());
                     log.info("Extracting assigning authority id: " + qualSubId.getAssigningAuthorityIdentifier());
@@ -197,11 +215,14 @@ public class EntityDocQuerySecuredImpl
             }
         }
 
-        // Get the property to determine whether we should query our local home community
-        try {
-            querySelf = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DOC_QUERY_SELF_PROPERTY_NAME);
-        } catch (PropertyAccessException ex) {
-            log.error(ex.getMessage());
+        if(!querySelf)
+        {
+            // Get the property to determine whether we should query our local home community
+            try {
+                querySelf = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.DOC_QUERY_SELF_PROPERTY_NAME);
+            } catch (PropertyAccessException ex) {
+                log.error(ex.getMessage());
+            }
         }
 
         // Retreive Patient Correlations this patient
