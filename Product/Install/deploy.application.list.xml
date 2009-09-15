@@ -105,6 +105,9 @@
       <name>AdapterDocRegistryAndRepositoryEJB</name>
     </ejb>
     <ejb>
+      <name>AdapterDocRepository2Soap12EJB</name>
+    </ejb>
+    <ejb>
       <name>NhincAuditQueryEJB</name>
     </ejb>
     <ejb>
