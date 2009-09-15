@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<!-- jbi.xml descriptor for the binding component (BC) -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0" 
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:logging="http://www.sun.com/jbi/descriptor/logging">
+<!-- identification information about this binding -->
+    <component type="binding-component">
+        <identification>
+            <name>sun-ftp-binding</name>
+            <description>FTP binding component. Provides message processing capabilities over FTP protocol in a JBI 1.0 compliant environment.</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="The boot strap class" >com.sun.jbi.ftpbc.FTPBindingLifeCycle</component-class-name>
+        <component-class-path>
+            <path-element>lib/wsdl4j.jar</path-element>
+            <path-element>lib/ftpbcimpl.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/jakarta-oro-2.0.8.jar</path-element>
+            <path-element>lib/resolver.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>            
+            <path-element>lib/net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.impl.jar</path-element>
+         </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.ftpbc.bootstrap.FTPBindingBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+           <path-element>lib/ftpbcimpl.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/jakarta-oro-2.0.8.jar</path-element>
+           <path-element>lib/componentsl.jar</path-element>                       
+        </bootstrap-class-path>
+        <shared-library>sun-encoder-library</shared-library>
+        <config:Configuration version="1.0">
+           <config:Property name="OutboundThreads" 
+                            type="xsd:int" 
+                            displayName="Number of Outbound Threads" 
+                            displayDescription="Maximum number of threads to process outgoing FTP client invocations concurrently. Any integer number between 1 and 2147483647 is allowed." 
+                            defaultValue="10" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="5"/> 
+               <config:Constraint facet="maxInclusive" value="2147483647"/>     
+           </config:Property>
+
+           <config:Property name="InvokeTimeout" 
+                            type="xsd:int" 
+                            displayName="Time out for Invoke" 
+                            displayDescription="Timeout for a synchronous invoke in milli-seconds, min 100, max 2147483647, default 1,000,000." 
+                            defaultValue="1000000" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="100"/> 
+               <config:Constraint facet="maxInclusive" value="2147483647"/>     
+           </config:Property>
+
+           <config:Property name="UsePassiveFTP" 
+                            type="xsd:boolean" 
+                            defaultValue="true" 
+                            displayName="Use Passive FTP" 
+                            displayDescription="Indicate if passive FTP is enabled" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="UseProxy" 
+                            type="xsd:boolean" 
+                            defaultValue="false" 
+                            displayName="Use Proxy" 
+                            displayDescription="Indicate if proxy is enabled" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="ProxyURL" 
+                            type="xsd:string" 
+                            defaultValue="socks5://localhost:1080"
+                            displayName="Proxy URL" 
+                            displayDescription="URL for the proxy" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="ProxyUserID" 
+                            type="xsd:string" 
+                            displayName="Proxy User ID" 
+                            displayDescription="A valid proxy user ID" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="ProxyUserPassword" 
+                            type="xsd:string" 
+                            displayName="Proxy User Password" 
+                            displayDescription="A valid proxy user password" 
+                            showDisplay="all"
+                            encrypted="true" 
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+          
+           <config:Property name="ConnectionPoolMinSize" 
+                            type="xsd:int" 
+                            displayName="Connection Pool Minimum Size" 
+                            displayDescription="Minimum number of connection in the pool." 
+                            defaultValue="2" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="0"/> 
+               <config:Constraint facet="maxInclusive" value="65535"/>     
+           </config:Property>
+
+           <config:Property name="ConnectionPoolMaxSize" 
+                            type="xsd:int" 
+                            displayName="Connection Pool Maximum Size" 
+                            displayDescription="Maximum number of connection in the pool." 
+                            defaultValue="32" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="1"/> 
+               <config:Constraint facet="maxInclusive" value="65535"/>     
+           </config:Property>
+
+           <config:Property name="EnableNMProps" 
+                            type="xsd:boolean" 
+                            defaultValue="true" 
+                            displayName="Enable NM Properties" 
+                            displayDescription="Indicate if component specific normalized message properties are enabled." 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="EnableClusterAware" 
+                            type="xsd:boolean" 
+                            defaultValue="false" 
+                            displayName="Enable Cluster Aware" 
+                            displayDescription="Indicate if component is cluster aware." 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="TokenPersistenceURL" 
+                            type="xsd:string" 
+                            defaultValue="jdbc:derby://localhost:1527/FTPBC_TOKEN_DB"
+                            displayName="Token Persistence URL" 
+                            displayDescription="URL for token persistence store, e.g. file://host/path for file based token, jdbc:derby://localhost:1527/myDB for a db based token, also can be a jndi name of a data source." 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="TokenDBJDBCDriverClass" 
+                            type="xsd:string" 
+                            defaultValue="org.apache.derby.jdbc.ClientDriver"
+                            displayName="Token Database JDBC Driver Class" 
+                            displayDescription="Token database JDBC driver class for database if Token Persistence URL is a jdbc scheme." 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+
+           <config:Property name="ConnectionMaxIdleTimeout" 
+                            type="xsd:int" 
+                            displayName="Max Idle Timeout for Pooled Connection" 
+                            displayDescription="Max Idle Timeout for connections in the pool in milli-seconds (> 1000)." 
+                            defaultValue="60000" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="1000"/> 
+           </config:Property>
+
+          <config:ApplicationConfiguration>
+              <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Application Configuration Name for FTPBC" 
+                               displayDescription="Name of the application configuration for FTPBC" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="Host" 
+                               type="xsd:string"
+                               displayName="FTP Host Name" 
+                               displayDescription="Host Name or IP of FTP Server"  
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="Port" 
+                               type="xsd:int"
+                               displayName="FTP Port" 
+                               displayDescription="FTP Server Port"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="User" 
+                               type="xsd:string"
+                               displayName="FTP User" 
+                               displayDescription="FTP User Login ID"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="Password" 
+                               type="xsd:string"
+                               displayName="FTP Password" 
+                               displayDescription="FTP User Login Password"  
+                               required="false"
+                               encrypted="true" 
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="DirListStyle" 
+                               type="xsd:string"
+                               displayName="Directory Listing Style" 
+                               displayDescription="Directory Listing Style for the FTP server"  
+                               required="false"
+                               isApplicationRestartRequired="true">
+                                <config:Constraint facet="enumeration" value="UNIX"/>
+                                <config:Constraint facet="enumeration" value="AS400"/>
+                                <config:Constraint facet="enumeration" value="AS400-UNIX"/>
+                                <config:Constraint facet="enumeration" value="HCLFTPD 6.0.1.3"/>
+                                <config:Constraint facet="enumeration" value="HCLFTPD 5.1"/>
+                                <config:Constraint facet="enumeration" value="HP NonStop/Tandem"/>
+                                <config:Constraint facet="enumeration" value="MPE"/>
+                                <config:Constraint facet="enumeration" value="MSFTPD 2.0"/>
+                                <config:Constraint facet="enumeration" value="MSP PDS (Fujitsu)"/>
+                                <config:Constraint facet="enumeration" value="MSP PS (Fujitsu)"/>
+                                <config:Constraint facet="enumeration" value="MVS GDG"/>
+                                <config:Constraint facet="enumeration" value="MVS PDS"/>
+                                <config:Constraint facet="enumeration" value="MVS Sequential"/>
+                                <config:Constraint facet="enumeration" value="Netware 4.11"/>
+                                <config:Constraint facet="enumeration" value="NT 3.5"/>
+                                <config:Constraint facet="enumeration" value="NT 4.0"/>
+                                <config:Constraint facet="enumeration" value="UNIX (EUC-JP)"/>
+                                <config:Constraint facet="enumeration" value="UNIX (SJIS)"/>
+                                <config:Constraint facet="enumeration" value="VM/ESA"/>
+                                <config:Constraint facet="enumeration" value="VMS"/>
+                                <config:Constraint facet="enumeration" value="VOS3 PDS (Hitachi)"/>
+                                <config:Constraint facet="enumeration" value="VOS3 PS (Hitachi)"/>
+                                <config:Constraint facet="enumeration" value="VOSK (Hitachi)"/>
+              </config:Property>
+              <config:Property name="UseUserDefinedDirListStyle" 
+                               type="xsd:boolean"
+                               defaultValue="false" 
+                               displayName="Use User Defined Directory Listing Style" 
+                               displayDescription="Use User Defined Directory Listing Style"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="UserDefinedDirListStyle" 
+                               type="xsd:string"
+                               displayName="Name of User Defined Directory Listing Style" 
+                               displayDescription="Name of User Defined Directory Listing Style, e.g. MY_AS400_DIR_LST_STYLE which is associated with an entry in directory listing style heuristics configuration file."  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="UserDefinedDirListStyleConfig" 
+                               type="xsd:string"
+                               displayName="User Defined Directory Listing Style Configuration File" 
+                               displayDescription="Location of the heuristics configuration file containing user defined directory listing styles."  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="SecuredType" 
+                               type="xsd:string"
+                               displayName="Secured FTP Type" 
+                               displayDescription="Secured FTP Type: None (regular FTP - RFC959), ImplicitSSL, ExplicitSSL (RFC2228)"  
+                               required="false"
+                               isApplicationRestartRequired="true">
+                                <config:Constraint facet="enumeration" value="None"/>
+                                <config:Constraint facet="enumeration" value="ExplicitSSL"/>
+                                <config:Constraint facet="enumeration" value="ImplicitSSL"/>
+              </config:Property>
+              <config:Property name="EnableCCC" 
+                               type="xsd:boolean"
+                               defaultValue="false" 
+                               displayName="Enable CCC" 
+                               displayDescription="Enable FTP Clear Command Channel"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="KeyStore" 
+                               type="xsd:string"
+                               displayName="Key Store Location" 
+                               displayDescription="Path pointing to the key store file"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="KeyStorePassword" 
+                               type="xsd:string"
+                               displayName="Key Store Password" 
+                               displayDescription="Password protecting the key store"  
+                               required="false"
+                               encrypted="true" 
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="KeyAlias" 
+                               type="xsd:string"
+                               displayName="Key Alias" 
+                               displayDescription="Key Alias for the client's key pair"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="KeyPassword" 
+                               type="xsd:string"
+                               displayName="Key Password" 
+                               displayDescription="Password for the key alias entry"  
+                               required="false"
+                               encrypted="true" 
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="TrustStore" 
+                               type="xsd:string"
+                               displayName="Trust Store Location" 
+                               displayDescription="Path pointing to the trust store file"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="TrustStorePassword" 
+                               type="xsd:string"
+                               displayName="Trust Store Password" 
+                               displayDescription="Password protecting the trust store"  
+                               required="false"
+                               encrypted="true" 
+                               isApplicationRestartRequired="true"/>
+          </config:ApplicationConfiguration>
+          <config:ApplicationVariable isApplicationRestartRequired="true">
+              <config:name/>
+              <config:type/>
+              <config:value/>
+          </config:ApplicationVariable>
+        </config:Configuration>             
+    </component>
+</jbi>

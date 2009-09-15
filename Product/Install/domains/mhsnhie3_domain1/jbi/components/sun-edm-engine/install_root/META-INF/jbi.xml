@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<jbi version="1.0"
+        xmlns="http://java.sun.com/xml/ns/jbi"
+    	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    	xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+	xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0"
+        xmlns:logging="http://www.sun.com/jbi/descriptor/logging">
+
+<!-- identification information about this engine -->
+    <component type="service-engine">
+        <identification>
+            <name>sun-edm-engine</name>
+            <description>This is a data mashup service engine.</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="Mashup SE Component" >com.sun.jbi.engine.mashup.MashupSEComponent</component-class-name>
+        <component-class-path>
+			<path-element>lib/crl.jar</path-element>
+		   <path-element>lib/edmse.jar</path-element>
+		   <path-element>lib/edmengine.jar</path-element>
+           <path-element>lib/componentsl.jar</path-element>
+           <path-element>lib/wsdl4j.jar</path-element>
+           <path-element>lib/axiondb.jar</path-element>
+           <path-element>lib/commons-codec-1.3.jar</path-element>
+           <path-element>lib/commons-logging-1.1.jar</path-element>
+           <path-element>lib/commons-primitives-1.0.jar</path-element>
+		   <path-element>lib/jxl.jar</path-element>
+        </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.engine.mashup.MashupSEBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+			<path-element>lib/crl.jar</path-element>
+           <path-element>lib/edmse.jar</path-element>
+           <path-element>lib/componentsl.jar</path-element>
+           <path-element>lib/wsdl4j.jar</path-element>
+		   <path-element>lib/qos.jar</path-element>
+		   <path-element>lib/common-util.jar</path-element>
+         </bootstrap-class-path>
+        <!--config:Configuration version="1.0">
+            <config:MaxThreadCount>10</config:MaxThreadCount>
+        </config:Configuration-->
+		<config:Configuration version="1.0">
+			<config:Property name="MaxThreadCount"
+    					displayName="Number of Threads"
+            			displayDescription="# of threads executing. Please configure this equal to # CPUs of the system to get max throughput."
+            			showDisplay="all"
+            			type="xsd:string"
+            			defaultValue="10">
+		    </config:Property>
+			<config:Property name="PageSize"
+    					displayName="Page Size"
+            			displayDescription="# of records to be displayed in one page."
+            			showDisplay="all"
+            			type="xsd:string"
+            			defaultValue="10">
+		    </config:Property>
+		        <config:Property name="AxiondbWorkingDirectory" 
+                            type="xsd:string" 
+                            displayName="Axiondb Working Directory" 
+                            displayDescription="Directory where AXIONDB is located" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+			<config:Property name="AxiondbDataDirectory" 
+                            type="xsd:string" 
+                            displayName="Axiondb Data Directory" 
+                            displayDescription="Data File location" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+                        <config:Property name="ExternalConnectionProvider" 
+                            type="xsd:string" 
+                            displayName="External Connection Provider" 
+                            displayDescription="External Connection Provider Class Name" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="false" 
+                            isComponentRestartRequired="false"
+                            defaultValue="com.sun.mashup.engine.utils.RuntimeConnectionProvider"/>
+		<config:ApplicationConfiguration>
+                
+              <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Application Configuration Name" 
+                               displayDescription="Name of the application configuration" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+                <config:Property name="DataDir" 
+                               type="xsd:string"
+                               displayName="DataDir" 
+                               displayDescription="DataDirectory"  
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+                <config:Property name="DynamicFlatFile" 
+                               type="xsd:string"
+                               displayName="DynamicFlatFile" 
+                               displayDescription="DynamicFlatFile"  
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+		<config:Property name="SourceConnection1" 
+                               type="xsd:string"
+                               displayName="SourceConnection1" 
+                               displayDescription="SourceConnection1"  
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+		<config:Property name="SourceConnection2" 
+                               type="xsd:string"
+                               displayName="SourceConnection2" 
+                               displayDescription="SourceConnection2"  
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+		<config:Property name="SourceConnection3" 
+                               type="xsd:string"
+                               displayName="SourceConnection3" 
+                               displayDescription="SourceConnection3"
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+		<config:Property name="SourceConnection4" 
+                               type="xsd:string"
+                               displayName="SourceConnection4"
+                               displayDescription="SourceConnection4"
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+		<config:Property name="SourceConnection5" 
+                               type="xsd:string"
+                               displayName="SourceConnection5"
+                               displayDescription="SourceConnection5"
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+                <config:Property name="WorkingDir" 
+                               type="xsd:string"
+                               displayName="WorkingDir" 
+                               displayDescription="WorkingDir"
+                               required="false"
+                               isApplicationRestartRequired="false"/>
+          </config:ApplicationConfiguration>
+          <config:ApplicationVariable isApplicationRestartRequired="true">
+              <config:name/>
+              <config:type/>
+              <config:value/>
+          </config:ApplicationVariable>
+        </config:Configuration>
+		<logging:Logging root="com.sun.jbi.engine.mashup">
+            <logging:logger displayName="MashupSEInOutThread" addPrefix="false">com.sun.jbi.engine.mashup.MashupSEInOutThread</logging:logger>
+            <logging:logger displayName="Service Unit Manager" addPrefix="false">com.sun.jbi.engine.mashup.MashupSEServiceUnitManager</logging:logger>
+            <logging:logger displayName="Mashup Process Handler" addPrefix="false">com.sun.jbi.engine.mashup.MashupProcessHandler</logging:logger>
+            <logging:logger displayName="Mashup Component" addPrefix="false">com.sun.jbi.engine.mashup.MashupSEComponent</logging:logger>
+			<logging:logger displayName="Mashup Boot Strap" addPrefix="false">com.sun.jbi.engine.mashup.MashupSEBootstrap</logging:logger>
+			<logging:logger displayName="Mashup Life Cycle" addPrefix="false">com.sun.jbi.engine.mashup.MashupSELifeCycle</logging:logger>
+        </logging:Logging>
+    </component>
+</jbi>

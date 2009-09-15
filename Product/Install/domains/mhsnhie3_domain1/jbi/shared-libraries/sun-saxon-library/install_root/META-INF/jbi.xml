@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- jbi.xml file for a shared library. -->
+<jbi version="1.0"
+     xmlns="http://java.sun.com/xml/ns/jbi"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- identification information about this shared library-->
+    <shared-library class-loader-delegation="self-first">
+        <identification>
+            <name>sun-saxon-library</name>
+            <description>A JBI shared library for Saxon-B 9.1.0.3.</description>
+        </identification>
+        <shared-library-class-path>
+            <path-element>saxon.jar</path-element>
+            <path-element>saxon-dom.jar</path-element>
+            <path-element>saxon-s9api.jar</path-element>
+        </shared-library-class-path>
+    </shared-library>
+</jbi>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentConfig:Configuration name="sun-edm-engine"
+                               xmlns:componentConfig="http://com.sun.jbi.component/schema/configuration"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://com.sun.jbi.component/schema/configuration ./componentConfiguration.xsd">
+    
+    <componentConfig:AxiondbInstanceName displayName="Axiondb Instance Name" 
+                                     displayDescription="Axiondb Instance Name" 
+                                     isPasswordField="false"></componentConfig:AxiondbInstanceName>
+
+    <componentConfig:AxiondbWorkingDir displayName="Axiondb Working Dir" 
+                                     displayDescription="Axiondb Working Directory" 
+                                     isPasswordField="false"></componentConfig:AxiondbWorkingDir>
+                                     
+    <componentConfig:MaxThreadCount displayName="MaxThreadCount" 
+                                     displayDescription="MaxThreadCount" 
+                                     isPasswordField="false">10</componentConfig:MaxThreadCount>
+
+    <componentConfig:ProxyUserID displayName="Proxy User ID" 
+                                     displayDescription="If proxy protocol is SOCKS5 and proxyUserID is not specified in Proxy URL, this is the user ID for proxy login" 
+                                     isPasswordField="false"></componentConfig:ProxyUserID>
+
+    <componentConfig:ProxyUserPassword displayName="Proxy User Password" 
+                                     displayDescription="if proxy protocol is SOCKS5 and ProxyPassword not specified in Proxy URL, this is the user password for proxy login" 
+                                     isPasswordField="true"></componentConfig:ProxyUserPassword>
+                                     
+</componentConfig:Configuration>

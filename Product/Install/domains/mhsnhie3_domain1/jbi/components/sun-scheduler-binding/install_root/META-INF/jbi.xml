@@ -1,0 +1,718 @@
+<?xml version="1.0"?>
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:jbi="http://java.sun.com/xml/ns/jbi"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"    
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0"
+    xmlns:logging="http://www.sun.com/jbi/descriptor/logging"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+
+    <!-- identification information about this engine -->
+    <component type="binding-component">
+        <identification>
+            <name>sun-scheduler-binding</name>
+            <description>(Static) Scheduler Binding Component connecting to scheduling capabilities powered by OpenSymphony Quartz</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="Scheduler BC Component" >org.glassfish.openesb.schedulerbc.SchedulerComponentManager</component-class-name>
+        <component-class-path>
+            <path-element>lib/schedulerbc.jar</path-element>
+            <path-element>lib/component-toolkit.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/quartz-all.jar</path-element>
+            <path-element>lib/commons-collections.jar</path-element>
+            <path-element>lib/commons-logging.jar</path-element>
+            <path-element>lib/log4j.jar</path-element>
+            <path-element>lib/jdbc-stdext.jar</path-element>
+            <path-element>lib/crl.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+        </component-class-path>
+        <bootstrap-class-name>org.glassfish.openesb.schedulerbc.SchedulerBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+            <path-element>lib/schedulerbc.jar</path-element>
+            <path-element>lib/component-toolkit.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/quartz-all.jar</path-element>
+            <path-element>lib/commons-collections.jar</path-element>
+            <path-element>lib/commons-logging.jar</path-element>
+            <path-element>lib/log4j.jar</path-element>
+            <path-element>lib/jdbc-stdext.jar</path-element>
+            <path-element>lib/crl.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+        </bootstrap-class-path>
+        <shared-library>sun-wsdl-ext-library</shared-library>
+        <config:Configuration>
+            <!--Binding component general configuration-->
+            <config:Property name="PollerCount" 
+                             displayName="Poller Thread Count"
+                             displayDescription="Number of threads listening on NMR (ex. to process ACKs)."
+                             type="xsd:int" 
+                             defaultValue="10"
+                             showDisplay="all"
+                             isComponentRestartRequired="true">
+                <!--  Prevents less than 0 and more than 100 listener threads...  -->
+                <config:Constraint facet="minInclusive" value="1"/>
+                <config:Constraint facet="maxInclusive" value="100"/>
+            </config:Property>
+            <config:Property name="QuartzThreadCount" 
+                             displayName="Quartz Worker Thread Count" 
+                             displayDescription="Size of Quartz Scheduler Thread Pool to process triggers."
+                             type="xsd:int" 
+                             defaultValue="10"
+                             showDisplay="all"
+                             isComponentRestartRequired="true">
+                <!--  Prevents less than 0 and more than 100 listener threads...  -->
+                <config:Constraint facet="minInclusive" value="1"/>
+                <config:Constraint facet="maxInclusive" value="100"/>
+            </config:Property>
+            
+            <!--Application specific configuration-->
+            <config:ApplicationConfiguration>
+                <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Name" 
+                               displayDescription="Name of the Application Configuration object" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+                <config:Property name="startDate" 
+                               type="xsd:string"
+                               displayName="startDate" 
+                               displayDescription="Active period start date"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+                <config:Property name="endDate" 
+                               type="xsd:string"
+                               displayName="endDate" 
+                               displayDescription="Active period end date"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+                <config:Property name="timeZone" 
+                               type="xsd:string"
+                               displayName="timeZone" 
+                               displayDescription="Scheduler runtime environment time zone"  
+                               required="false"
+                               isApplicationRestartRequired="true">
+                    <config:Constraint facet="enumeration" value="ACT"/>
+                    <config:Constraint facet="enumeration" value="AET"/>
+                    <config:Constraint facet="enumeration" value="AGT"/>
+                    <config:Constraint facet="enumeration" value="ART"/>
+                    <config:Constraint facet="enumeration" value="AST"/>
+                    <config:Constraint facet="enumeration" value="Africa/Abidjan"/>
+                    <config:Constraint facet="enumeration" value="Africa/Accra"/>
+                    <config:Constraint facet="enumeration" value="Africa/Addis_Ababa"/>
+                    <config:Constraint facet="enumeration" value="Africa/Algiers"/>
+                    <config:Constraint facet="enumeration" value="Africa/Asmara"/>
+                    <config:Constraint facet="enumeration" value="Africa/Asmera"/>
+                    <config:Constraint facet="enumeration" value="Africa/Bamako"/>
+                    <config:Constraint facet="enumeration" value="Africa/Bangui"/>
+                    <config:Constraint facet="enumeration" value="Africa/Banjul"/>
+                    <config:Constraint facet="enumeration" value="Africa/Bissau"/>
+                    <config:Constraint facet="enumeration" value="Africa/Blantyre"/>
+                    <config:Constraint facet="enumeration" value="Africa/Brazzaville"/>
+                    <config:Constraint facet="enumeration" value="Africa/Bujumbura"/>
+                    <config:Constraint facet="enumeration" value="Africa/Cairo"/>
+                    <config:Constraint facet="enumeration" value="Africa/Casablanca"/>
+                    <config:Constraint facet="enumeration" value="Africa/Ceuta"/>
+                    <config:Constraint facet="enumeration" value="Africa/Conakry"/>
+                    <config:Constraint facet="enumeration" value="Africa/Dakar"/>
+                    <config:Constraint facet="enumeration" value="Africa/Dar_es_Salaam"/>
+                    <config:Constraint facet="enumeration" value="Africa/Djibouti"/>
+                    <config:Constraint facet="enumeration" value="Africa/Douala"/>
+                    <config:Constraint facet="enumeration" value="Africa/El_Aaiun"/>
+                    <config:Constraint facet="enumeration" value="Africa/Freetown"/>
+                    <config:Constraint facet="enumeration" value="Africa/Gaborone"/>
+                    <config:Constraint facet="enumeration" value="Africa/Harare"/>
+                    <config:Constraint facet="enumeration" value="Africa/Johannesburg"/>
+                    <config:Constraint facet="enumeration" value="Africa/Kampala"/>
+                    <config:Constraint facet="enumeration" value="Africa/Khartoum"/>
+                    <config:Constraint facet="enumeration" value="Africa/Kigali"/>
+                    <config:Constraint facet="enumeration" value="Africa/Kinshasa"/>
+                    <config:Constraint facet="enumeration" value="Africa/Lagos"/>
+                    <config:Constraint facet="enumeration" value="Africa/Libreville"/>
+                    <config:Constraint facet="enumeration" value="Africa/Lome"/>
+                    <config:Constraint facet="enumeration" value="Africa/Luanda"/>
+                    <config:Constraint facet="enumeration" value="Africa/Lubumbashi"/>
+                    <config:Constraint facet="enumeration" value="Africa/Lusaka"/>
+                    <config:Constraint facet="enumeration" value="Africa/Malabo"/>
+                    <config:Constraint facet="enumeration" value="Africa/Maputo"/>
+                    <config:Constraint facet="enumeration" value="Africa/Maseru"/>
+                    <config:Constraint facet="enumeration" value="Africa/Mbabane"/>
+                    <config:Constraint facet="enumeration" value="Africa/Mogadishu"/>
+                    <config:Constraint facet="enumeration" value="Africa/Monrovia"/>
+                    <config:Constraint facet="enumeration" value="Africa/Nairobi"/>
+                    <config:Constraint facet="enumeration" value="Africa/Ndjamena"/>
+                    <config:Constraint facet="enumeration" value="Africa/Niamey"/>
+                    <config:Constraint facet="enumeration" value="Africa/Nouakchott"/>
+                    <config:Constraint facet="enumeration" value="Africa/Ouagadougou"/>
+                    <config:Constraint facet="enumeration" value="Africa/Porto-Novo"/>
+                    <config:Constraint facet="enumeration" value="Africa/Sao_Tome"/>
+                    <config:Constraint facet="enumeration" value="Africa/Timbuktu"/>
+                    <config:Constraint facet="enumeration" value="Africa/Tripoli"/>
+                    <config:Constraint facet="enumeration" value="Africa/Tunis"/>
+                    <config:Constraint facet="enumeration" value="Africa/Windhoek"/>
+                    <config:Constraint facet="enumeration" value="America/Adak"/>
+                    <config:Constraint facet="enumeration" value="America/Anchorage"/>
+                    <config:Constraint facet="enumeration" value="America/Anguilla"/>
+                    <config:Constraint facet="enumeration" value="America/Antigua"/>
+                    <config:Constraint facet="enumeration" value="America/Araguaina"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Buenos_Aires"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Catamarca"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/ComodRivadavia"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Cordoba"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Jujuy"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/La_Rioja"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Mendoza"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Rio_Gallegos"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/San_Juan"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Tucuman"/>
+                    <config:Constraint facet="enumeration" value="America/Argentina/Ushuaia"/>
+                    <config:Constraint facet="enumeration" value="America/Aruba"/>
+                    <config:Constraint facet="enumeration" value="America/Asuncion"/>
+                    <config:Constraint facet="enumeration" value="America/Atikokan"/>
+                    <config:Constraint facet="enumeration" value="America/Atka"/>
+                    <config:Constraint facet="enumeration" value="America/Bahia"/>
+                    <config:Constraint facet="enumeration" value="America/Barbados"/>
+                    <config:Constraint facet="enumeration" value="America/Belem"/>
+                    <config:Constraint facet="enumeration" value="America/Belize"/>
+                    <config:Constraint facet="enumeration" value="America/Blanc-Sablon"/>
+                    <config:Constraint facet="enumeration" value="America/Boa_Vista"/>
+                    <config:Constraint facet="enumeration" value="America/Bogota"/>
+                    <config:Constraint facet="enumeration" value="America/Boise"/>
+                    <config:Constraint facet="enumeration" value="America/Buenos_Aires"/>
+                    <config:Constraint facet="enumeration" value="America/Cambridge_Bay"/>
+                    <config:Constraint facet="enumeration" value="America/Campo_Grande"/>
+                    <config:Constraint facet="enumeration" value="America/Cancun"/>
+                    <config:Constraint facet="enumeration" value="America/Caracas"/>
+                    <config:Constraint facet="enumeration" value="America/Catamarca"/>
+                    <config:Constraint facet="enumeration" value="America/Cayenne"/>
+                    <config:Constraint facet="enumeration" value="America/Cayman"/>
+                    <config:Constraint facet="enumeration" value="America/Chicago"/>
+                    <config:Constraint facet="enumeration" value="America/Chihuahua"/>
+                    <config:Constraint facet="enumeration" value="America/Coral_Harbour"/>
+                    <config:Constraint facet="enumeration" value="America/Cordoba"/>
+                    <config:Constraint facet="enumeration" value="America/Costa_Rica"/>
+                    <config:Constraint facet="enumeration" value="America/Cuiaba"/>
+                    <config:Constraint facet="enumeration" value="America/Curacao"/>
+                    <config:Constraint facet="enumeration" value="America/Danmarkshavn"/>
+                    <config:Constraint facet="enumeration" value="America/Dawson"/>
+                    <config:Constraint facet="enumeration" value="America/Dawson_Creek"/>
+                    <config:Constraint facet="enumeration" value="America/Denver"/>
+                    <config:Constraint facet="enumeration" value="America/Detroit"/>
+                    <config:Constraint facet="enumeration" value="America/Dominica"/>
+                    <config:Constraint facet="enumeration" value="America/Edmonton"/>
+                    <config:Constraint facet="enumeration" value="America/Eirunepe"/>
+                    <config:Constraint facet="enumeration" value="America/El_Salvador"/>
+                    <config:Constraint facet="enumeration" value="America/Ensenada"/>
+                    <config:Constraint facet="enumeration" value="America/Fort_Wayne"/>
+                    <config:Constraint facet="enumeration" value="America/Fortaleza"/>
+                    <config:Constraint facet="enumeration" value="America/Glace_Bay"/>
+                    <config:Constraint facet="enumeration" value="America/Godthab"/>
+                    <config:Constraint facet="enumeration" value="America/Goose_Bay"/>
+                    <config:Constraint facet="enumeration" value="America/Grand_Turk"/>
+                    <config:Constraint facet="enumeration" value="America/Grenada"/>
+                    <config:Constraint facet="enumeration" value="America/Guadeloupe"/>
+                    <config:Constraint facet="enumeration" value="America/Guatemala"/>
+                    <config:Constraint facet="enumeration" value="America/Guayaquil"/>
+                    <config:Constraint facet="enumeration" value="America/Guyana"/>
+                    <config:Constraint facet="enumeration" value="America/Halifax"/>
+                    <config:Constraint facet="enumeration" value="America/Havana"/>
+                    <config:Constraint facet="enumeration" value="America/Hermosillo"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Indianapolis"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Knox"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Marengo"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Petersburg"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Tell_City"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Vevay"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Vincennes"/>
+                    <config:Constraint facet="enumeration" value="America/Indiana/Winamac"/>
+                    <config:Constraint facet="enumeration" value="America/Indianapolis"/>
+                    <config:Constraint facet="enumeration" value="America/Inuvik"/>
+                    <config:Constraint facet="enumeration" value="America/Iqaluit"/>
+                    <config:Constraint facet="enumeration" value="America/Jamaica"/>
+                    <config:Constraint facet="enumeration" value="America/Jujuy"/>
+                    <config:Constraint facet="enumeration" value="America/Juneau"/>
+                    <config:Constraint facet="enumeration" value="America/Kentucky/Louisville"/>
+                    <config:Constraint facet="enumeration" value="America/Kentucky/Monticello"/>
+                    <config:Constraint facet="enumeration" value="America/Knox_IN"/>
+                    <config:Constraint facet="enumeration" value="America/La_Paz"/>
+                    <config:Constraint facet="enumeration" value="America/Lima"/>
+                    <config:Constraint facet="enumeration" value="America/Los_Angeles"/>
+                    <config:Constraint facet="enumeration" value="America/Louisville"/>
+                    <config:Constraint facet="enumeration" value="America/Maceio"/>
+                    <config:Constraint facet="enumeration" value="America/Managua"/>
+                    <config:Constraint facet="enumeration" value="America/Manaus"/>
+                    <config:Constraint facet="enumeration" value="America/Martinique"/>
+                    <config:Constraint facet="enumeration" value="America/Mazatlan"/>
+                    <config:Constraint facet="enumeration" value="America/Mendoza"/>
+                    <config:Constraint facet="enumeration" value="America/Menominee"/>
+                    <config:Constraint facet="enumeration" value="America/Merida"/>
+                    <config:Constraint facet="enumeration" value="America/Mexico_City"/>
+                    <config:Constraint facet="enumeration" value="America/Miquelon"/>
+                    <config:Constraint facet="enumeration" value="America/Moncton"/>
+                    <config:Constraint facet="enumeration" value="America/Monterrey"/>
+                    <config:Constraint facet="enumeration" value="America/Montevideo"/>
+                    <config:Constraint facet="enumeration" value="America/Montreal"/>
+                    <config:Constraint facet="enumeration" value="America/Montserrat"/>
+                    <config:Constraint facet="enumeration" value="America/Nassau"/>
+                    <config:Constraint facet="enumeration" value="America/New_York"/>
+                    <config:Constraint facet="enumeration" value="America/Nipigon"/>
+                    <config:Constraint facet="enumeration" value="America/Nome"/>
+                    <config:Constraint facet="enumeration" value="America/Noronha"/>
+                    <config:Constraint facet="enumeration" value="America/North_Dakota/Center"/>
+                    <config:Constraint facet="enumeration" value="America/North_Dakota/New_Salem"/>
+                    <config:Constraint facet="enumeration" value="America/Panama"/>
+                    <config:Constraint facet="enumeration" value="America/Pangnirtung"/>
+                    <config:Constraint facet="enumeration" value="America/Paramaribo"/>
+                    <config:Constraint facet="enumeration" value="America/Phoenix"/>
+                    <config:Constraint facet="enumeration" value="America/Port-au-Prince"/>
+                    <config:Constraint facet="enumeration" value="America/Port_of_Spain"/>
+                    <config:Constraint facet="enumeration" value="America/Porto_Acre"/>
+                    <config:Constraint facet="enumeration" value="America/Porto_Velho"/>
+                    <config:Constraint facet="enumeration" value="America/Puerto_Rico"/>
+                    <config:Constraint facet="enumeration" value="America/Rainy_River"/>
+                    <config:Constraint facet="enumeration" value="America/Rankin_Inlet"/>
+                    <config:Constraint facet="enumeration" value="America/Recife"/>
+                    <config:Constraint facet="enumeration" value="America/Regina"/>
+                    <config:Constraint facet="enumeration" value="America/Resolute"/>
+                    <config:Constraint facet="enumeration" value="America/Rio_Branco"/>
+                    <config:Constraint facet="enumeration" value="America/Rosario"/>
+                    <config:Constraint facet="enumeration" value="America/Santiago"/>
+                    <config:Constraint facet="enumeration" value="America/Santo_Domingo"/>
+                    <config:Constraint facet="enumeration" value="America/Sao_Paulo"/>
+                    <config:Constraint facet="enumeration" value="America/Scoresbysund"/>
+                    <config:Constraint facet="enumeration" value="America/Shiprock"/>
+                    <config:Constraint facet="enumeration" value="America/St_Johns"/>
+                    <config:Constraint facet="enumeration" value="America/St_Kitts"/>
+                    <config:Constraint facet="enumeration" value="America/St_Lucia"/>
+                    <config:Constraint facet="enumeration" value="America/St_Thomas"/>
+                    <config:Constraint facet="enumeration" value="America/St_Vincent"/>
+                    <config:Constraint facet="enumeration" value="America/Swift_Current"/>
+                    <config:Constraint facet="enumeration" value="America/Tegucigalpa"/>
+                    <config:Constraint facet="enumeration" value="America/Thule"/>
+                    <config:Constraint facet="enumeration" value="America/Thunder_Bay"/>
+                    <config:Constraint facet="enumeration" value="America/Tijuana"/>
+                    <config:Constraint facet="enumeration" value="America/Toronto"/>
+                    <config:Constraint facet="enumeration" value="America/Tortola"/>
+                    <config:Constraint facet="enumeration" value="America/Vancouver"/>
+                    <config:Constraint facet="enumeration" value="America/Virgin"/>
+                    <config:Constraint facet="enumeration" value="America/Whitehorse"/>
+                    <config:Constraint facet="enumeration" value="America/Winnipeg"/>
+                    <config:Constraint facet="enumeration" value="America/Yakutat"/>
+                    <config:Constraint facet="enumeration" value="America/Yellowknife"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Casey"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Davis"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/DumontDUrville"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Mawson"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/McMurdo"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Palmer"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Rothera"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/South_Pole"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Syowa"/>
+                    <config:Constraint facet="enumeration" value="Antarctica/Vostok"/>
+                    <config:Constraint facet="enumeration" value="Arctic/Longyearbyen"/>
+                    <config:Constraint facet="enumeration" value="Asia/Aden"/>
+                    <config:Constraint facet="enumeration" value="Asia/Almaty"/>
+                    <config:Constraint facet="enumeration" value="Asia/Amman"/>
+                    <config:Constraint facet="enumeration" value="Asia/Anadyr"/>
+                    <config:Constraint facet="enumeration" value="Asia/Aqtau"/>
+                    <config:Constraint facet="enumeration" value="Asia/Aqtobe"/>
+                    <config:Constraint facet="enumeration" value="Asia/Ashgabat"/>
+                    <config:Constraint facet="enumeration" value="Asia/Ashkhabad"/>
+                    <config:Constraint facet="enumeration" value="Asia/Baghdad"/>
+                    <config:Constraint facet="enumeration" value="Asia/Bahrain"/>
+                    <config:Constraint facet="enumeration" value="Asia/Baku"/>
+                    <config:Constraint facet="enumeration" value="Asia/Bangkok"/>
+                    <config:Constraint facet="enumeration" value="Asia/Beirut"/>
+                    <config:Constraint facet="enumeration" value="Asia/Bishkek"/>
+                    <config:Constraint facet="enumeration" value="Asia/Brunei"/>
+                    <config:Constraint facet="enumeration" value="Asia/Calcutta"/>
+                    <config:Constraint facet="enumeration" value="Asia/Choibalsan"/>
+                    <config:Constraint facet="enumeration" value="Asia/Chongqing"/>
+                    <config:Constraint facet="enumeration" value="Asia/Chungking"/>
+                    <config:Constraint facet="enumeration" value="Asia/Colombo"/>
+                    <config:Constraint facet="enumeration" value="Asia/Dacca"/>
+                    <config:Constraint facet="enumeration" value="Asia/Damascus"/>
+                    <config:Constraint facet="enumeration" value="Asia/Dhaka"/>
+                    <config:Constraint facet="enumeration" value="Asia/Dili"/>
+                    <config:Constraint facet="enumeration" value="Asia/Dubai"/>
+                    <config:Constraint facet="enumeration" value="Asia/Dushanbe"/>
+                    <config:Constraint facet="enumeration" value="Asia/Gaza"/>
+                    <config:Constraint facet="enumeration" value="Asia/Harbin"/>
+                    <config:Constraint facet="enumeration" value="Asia/Hong_Kong"/>
+                    <config:Constraint facet="enumeration" value="Asia/Hovd"/>
+                    <config:Constraint facet="enumeration" value="Asia/Irkutsk"/>
+                    <config:Constraint facet="enumeration" value="Asia/Istanbul"/>
+                    <config:Constraint facet="enumeration" value="Asia/Jakarta"/>
+                    <config:Constraint facet="enumeration" value="Asia/Jayapura"/>
+                    <config:Constraint facet="enumeration" value="Asia/Jerusalem"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kabul"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kamchatka"/>
+                    <config:Constraint facet="enumeration" value="Asia/Karachi"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kashgar"/>
+                    <config:Constraint facet="enumeration" value="Asia/Katmandu"/>
+                    <config:Constraint facet="enumeration" value="Asia/Krasnoyarsk"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kuala_Lumpur"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kuching"/>
+                    <config:Constraint facet="enumeration" value="Asia/Kuwait"/>
+                    <config:Constraint facet="enumeration" value="Asia/Macao"/>
+                    <config:Constraint facet="enumeration" value="Asia/Macau"/>
+                    <config:Constraint facet="enumeration" value="Asia/Magadan"/>
+                    <config:Constraint facet="enumeration" value="Asia/Makassar"/>
+                    <config:Constraint facet="enumeration" value="Asia/Manila"/>
+                    <config:Constraint facet="enumeration" value="Asia/Muscat"/>
+                    <config:Constraint facet="enumeration" value="Asia/Nicosia"/>
+                    <config:Constraint facet="enumeration" value="Asia/Novosibirsk"/>
+                    <config:Constraint facet="enumeration" value="Asia/Omsk"/>
+                    <config:Constraint facet="enumeration" value="Asia/Oral"/>
+                    <config:Constraint facet="enumeration" value="Asia/Phnom_Penh"/>
+                    <config:Constraint facet="enumeration" value="Asia/Pontianak"/>
+                    <config:Constraint facet="enumeration" value="Asia/Pyongyang"/>
+                    <config:Constraint facet="enumeration" value="Asia/Qatar"/>
+                    <config:Constraint facet="enumeration" value="Asia/Qyzylorda"/>
+                    <config:Constraint facet="enumeration" value="Asia/Rangoon"/>
+                    <config:Constraint facet="enumeration" value="Asia/Riyadh"/>
+                    <config:Constraint facet="enumeration" value="Asia/Riyadh87"/>
+                    <config:Constraint facet="enumeration" value="Asia/Riyadh88"/>
+                    <config:Constraint facet="enumeration" value="Asia/Riyadh89"/>
+                    <config:Constraint facet="enumeration" value="Asia/Saigon"/>
+                    <config:Constraint facet="enumeration" value="Asia/Sakhalin"/>
+                    <config:Constraint facet="enumeration" value="Asia/Samarkand"/>
+                    <config:Constraint facet="enumeration" value="Asia/Seoul"/>
+                    <config:Constraint facet="enumeration" value="Asia/Shanghai"/>
+                    <config:Constraint facet="enumeration" value="Asia/Singapore"/>
+                    <config:Constraint facet="enumeration" value="Asia/Taipei"/>
+                    <config:Constraint facet="enumeration" value="Asia/Tashkent"/>
+                    <config:Constraint facet="enumeration" value="Asia/Tbilisi"/>
+                    <config:Constraint facet="enumeration" value="Asia/Tehran"/>
+                    <config:Constraint facet="enumeration" value="Asia/Tel_Aviv"/>
+                    <config:Constraint facet="enumeration" value="Asia/Thimbu"/>
+                    <config:Constraint facet="enumeration" value="Asia/Thimphu"/>
+                    <config:Constraint facet="enumeration" value="Asia/Tokyo"/>
+                    <config:Constraint facet="enumeration" value="Asia/Ujung_Pandang"/>
+                    <config:Constraint facet="enumeration" value="Asia/Ulaanbaatar"/>
+                    <config:Constraint facet="enumeration" value="Asia/Ulan_Bator"/>
+                    <config:Constraint facet="enumeration" value="Asia/Urumqi"/>
+                    <config:Constraint facet="enumeration" value="Asia/Vientiane"/>
+                    <config:Constraint facet="enumeration" value="Asia/Vladivostok"/>
+                    <config:Constraint facet="enumeration" value="Asia/Yakutsk"/>
+                    <config:Constraint facet="enumeration" value="Asia/Yekaterinburg"/>
+                    <config:Constraint facet="enumeration" value="Asia/Yerevan"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Azores"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Bermuda"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Canary"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Cape_Verde"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Faeroe"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Faroe"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Jan_Mayen"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Madeira"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Reykjavik"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/South_Georgia"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/St_Helena"/>
+                    <config:Constraint facet="enumeration" value="Atlantic/Stanley"/>
+                    <config:Constraint facet="enumeration" value="Australia/ACT"/>
+                    <config:Constraint facet="enumeration" value="Australia/Adelaide"/>
+                    <config:Constraint facet="enumeration" value="Australia/Brisbane"/>
+                    <config:Constraint facet="enumeration" value="Australia/Broken_Hill"/>
+                    <config:Constraint facet="enumeration" value="Australia/Canberra"/>
+                    <config:Constraint facet="enumeration" value="Australia/Currie"/>
+                    <config:Constraint facet="enumeration" value="Australia/Darwin"/>
+                    <config:Constraint facet="enumeration" value="Australia/Eucla"/>
+                    <config:Constraint facet="enumeration" value="Australia/Hobart"/>
+                    <config:Constraint facet="enumeration" value="Australia/LHI"/>
+                    <config:Constraint facet="enumeration" value="Australia/Lindeman"/>
+                    <config:Constraint facet="enumeration" value="Australia/Lord_Howe"/>
+                    <config:Constraint facet="enumeration" value="Australia/Melbourne"/>
+                    <config:Constraint facet="enumeration" value="Australia/NSW"/>
+                    <config:Constraint facet="enumeration" value="Australia/North"/>
+                    <config:Constraint facet="enumeration" value="Australia/Perth"/>
+                    <config:Constraint facet="enumeration" value="Australia/Queensland"/>
+                    <config:Constraint facet="enumeration" value="Australia/South"/>
+                    <config:Constraint facet="enumeration" value="Australia/Sydney"/>
+                    <config:Constraint facet="enumeration" value="Australia/Tasmania"/>
+                    <config:Constraint facet="enumeration" value="Australia/Victoria"/>
+                    <config:Constraint facet="enumeration" value="Australia/West"/>
+                    <config:Constraint facet="enumeration" value="Australia/Yancowinna"/>
+                    <config:Constraint facet="enumeration" value="BET"/>
+                    <config:Constraint facet="enumeration" value="BST"/>
+                    <config:Constraint facet="enumeration" value="Brazil/Acre"/>
+                    <config:Constraint facet="enumeration" value="Brazil/DeNoronha"/>
+                    <config:Constraint facet="enumeration" value="Brazil/East"/>
+                    <config:Constraint facet="enumeration" value="Brazil/West"/>
+                    <config:Constraint facet="enumeration" value="CAT"/>
+                    <config:Constraint facet="enumeration" value="CET"/>
+                    <config:Constraint facet="enumeration" value="CNT"/>
+                    <config:Constraint facet="enumeration" value="CST"/>
+                    <config:Constraint facet="enumeration" value="CST6CDT"/>
+                    <config:Constraint facet="enumeration" value="CTT"/>
+                    <config:Constraint facet="enumeration" value="Canada/Atlantic"/>
+                    <config:Constraint facet="enumeration" value="Canada/Central"/>
+                    <config:Constraint facet="enumeration" value="Canada/East-Saskatchewan"/>
+                    <config:Constraint facet="enumeration" value="Canada/Eastern"/>
+                    <config:Constraint facet="enumeration" value="Canada/Mountain"/>
+                    <config:Constraint facet="enumeration" value="Canada/Newfoundland"/>
+                    <config:Constraint facet="enumeration" value="Canada/Pacific"/>
+                    <config:Constraint facet="enumeration" value="Canada/Saskatchewan"/>
+                    <config:Constraint facet="enumeration" value="Canada/Yukon"/>
+                    <config:Constraint facet="enumeration" value="Chile/Continental"/>
+                    <config:Constraint facet="enumeration" value="Chile/EasterIsland"/>
+                    <config:Constraint facet="enumeration" value="Cuba"/>
+                    <config:Constraint facet="enumeration" value="EAT"/>
+                    <config:Constraint facet="enumeration" value="ECT"/>
+                    <config:Constraint facet="enumeration" value="EET"/>
+                    <config:Constraint facet="enumeration" value="EST"/>
+                    <config:Constraint facet="enumeration" value="EST5EDT"/>
+                    <config:Constraint facet="enumeration" value="Egypt"/>
+                    <config:Constraint facet="enumeration" value="Eire"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+0"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+1"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+10"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+11"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+12"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+2"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+3"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+4"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+5"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+6"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+7"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+8"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT+9"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-0"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-1"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-10"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-11"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-12"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-13"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-14"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-2"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-3"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-4"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-5"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-6"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-7"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-8"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT-9"/>
+                    <config:Constraint facet="enumeration" value="Etc/GMT0"/>
+                    <config:Constraint facet="enumeration" value="Etc/Greenwich"/>
+                    <config:Constraint facet="enumeration" value="Etc/UCT"/>
+                    <config:Constraint facet="enumeration" value="Etc/UTC"/>
+                    <config:Constraint facet="enumeration" value="Etc/Universal"/>
+                    <config:Constraint facet="enumeration" value="Etc/Zulu"/>
+                    <config:Constraint facet="enumeration" value="Europe/Amsterdam"/>
+                    <config:Constraint facet="enumeration" value="Europe/Andorra"/>
+                    <config:Constraint facet="enumeration" value="Europe/Athens"/>
+                    <config:Constraint facet="enumeration" value="Europe/Belfast"/>
+                    <config:Constraint facet="enumeration" value="Europe/Belgrade"/>
+                    <config:Constraint facet="enumeration" value="Europe/Berlin"/>
+                    <config:Constraint facet="enumeration" value="Europe/Bratislava"/>
+                    <config:Constraint facet="enumeration" value="Europe/Brussels"/>
+                    <config:Constraint facet="enumeration" value="Europe/Bucharest"/>
+                    <config:Constraint facet="enumeration" value="Europe/Budapest"/>
+                    <config:Constraint facet="enumeration" value="Europe/Chisinau"/>
+                    <config:Constraint facet="enumeration" value="Europe/Copenhagen"/>
+                    <config:Constraint facet="enumeration" value="Europe/Dublin"/>
+                    <config:Constraint facet="enumeration" value="Europe/Gibraltar"/>
+                    <config:Constraint facet="enumeration" value="Europe/Guernsey"/>
+                    <config:Constraint facet="enumeration" value="Europe/Helsinki"/>
+                    <config:Constraint facet="enumeration" value="Europe/Isle_of_Man"/>
+                    <config:Constraint facet="enumeration" value="Europe/Istanbul"/>
+                    <config:Constraint facet="enumeration" value="Europe/Jersey"/>
+                    <config:Constraint facet="enumeration" value="Europe/Kaliningrad"/>
+                    <config:Constraint facet="enumeration" value="Europe/Kiev"/>
+                    <config:Constraint facet="enumeration" value="Europe/Lisbon"/>
+                    <config:Constraint facet="enumeration" value="Europe/Ljubljana"/>
+                    <config:Constraint facet="enumeration" value="Europe/London"/>
+                    <config:Constraint facet="enumeration" value="Europe/Luxembourg"/>
+                    <config:Constraint facet="enumeration" value="Europe/Madrid"/>
+                    <config:Constraint facet="enumeration" value="Europe/Malta"/>
+                    <config:Constraint facet="enumeration" value="Europe/Mariehamn"/>
+                    <config:Constraint facet="enumeration" value="Europe/Minsk"/>
+                    <config:Constraint facet="enumeration" value="Europe/Monaco"/>
+                    <config:Constraint facet="enumeration" value="Europe/Moscow"/>
+                    <config:Constraint facet="enumeration" value="Europe/Nicosia"/>
+                    <config:Constraint facet="enumeration" value="Europe/Oslo"/>
+                    <config:Constraint facet="enumeration" value="Europe/Paris"/>
+                    <config:Constraint facet="enumeration" value="Europe/Podgorica"/>
+                    <config:Constraint facet="enumeration" value="Europe/Prague"/>
+                    <config:Constraint facet="enumeration" value="Europe/Riga"/>
+                    <config:Constraint facet="enumeration" value="Europe/Rome"/>
+                    <config:Constraint facet="enumeration" value="Europe/Samara"/>
+                    <config:Constraint facet="enumeration" value="Europe/San_Marino"/>
+                    <config:Constraint facet="enumeration" value="Europe/Sarajevo"/>
+                    <config:Constraint facet="enumeration" value="Europe/Simferopol"/>
+                    <config:Constraint facet="enumeration" value="Europe/Skopje"/>
+                    <config:Constraint facet="enumeration" value="Europe/Sofia"/>
+                    <config:Constraint facet="enumeration" value="Europe/Stockholm"/>
+                    <config:Constraint facet="enumeration" value="Europe/Tallinn"/>
+                    <config:Constraint facet="enumeration" value="Europe/Tirane"/>
+                    <config:Constraint facet="enumeration" value="Europe/Tiraspol"/>
+                    <config:Constraint facet="enumeration" value="Europe/Uzhgorod"/>
+                    <config:Constraint facet="enumeration" value="Europe/Vaduz"/>
+                    <config:Constraint facet="enumeration" value="Europe/Vatican"/>
+                    <config:Constraint facet="enumeration" value="Europe/Vienna"/>
+                    <config:Constraint facet="enumeration" value="Europe/Vilnius"/>
+                    <config:Constraint facet="enumeration" value="Europe/Volgograd"/>
+                    <config:Constraint facet="enumeration" value="Europe/Warsaw"/>
+                    <config:Constraint facet="enumeration" value="Europe/Zagreb"/>
+                    <config:Constraint facet="enumeration" value="Europe/Zaporozhye"/>
+                    <config:Constraint facet="enumeration" value="Europe/Zurich"/>
+                    <config:Constraint facet="enumeration" value="GB"/>
+                    <config:Constraint facet="enumeration" value="GB-Eire"/>
+                    <config:Constraint facet="enumeration" value="GMT"/>
+                    <config:Constraint facet="enumeration" value="GMT0"/>
+                    <config:Constraint facet="enumeration" value="Greenwich"/>
+                    <config:Constraint facet="enumeration" value="HST"/>
+                    <config:Constraint facet="enumeration" value="Hongkong"/>
+                    <config:Constraint facet="enumeration" value="IET"/>
+                    <config:Constraint facet="enumeration" value="IST"/>
+                    <config:Constraint facet="enumeration" value="Iceland"/>
+                    <config:Constraint facet="enumeration" value="Indian/Antananarivo"/>
+                    <config:Constraint facet="enumeration" value="Indian/Chagos"/>
+                    <config:Constraint facet="enumeration" value="Indian/Christmas"/>
+                    <config:Constraint facet="enumeration" value="Indian/Cocos"/>
+                    <config:Constraint facet="enumeration" value="Indian/Comoro"/>
+                    <config:Constraint facet="enumeration" value="Indian/Kerguelen"/>
+                    <config:Constraint facet="enumeration" value="Indian/Mahe"/>
+                    <config:Constraint facet="enumeration" value="Indian/Maldives"/>
+                    <config:Constraint facet="enumeration" value="Indian/Mauritius"/>
+                    <config:Constraint facet="enumeration" value="Indian/Mayotte"/>
+                    <config:Constraint facet="enumeration" value="Indian/Reunion"/>
+                    <config:Constraint facet="enumeration" value="Iran"/>
+                    <config:Constraint facet="enumeration" value="Israel"/>
+                    <config:Constraint facet="enumeration" value="JST"/>
+                    <config:Constraint facet="enumeration" value="Jamaica"/>
+                    <config:Constraint facet="enumeration" value="Japan"/>
+                    <config:Constraint facet="enumeration" value="Kwajalein"/>
+                    <config:Constraint facet="enumeration" value="Libya"/>
+                    <config:Constraint facet="enumeration" value="MET"/>
+                    <config:Constraint facet="enumeration" value="MIT"/>
+                    <config:Constraint facet="enumeration" value="MST"/>
+                    <config:Constraint facet="enumeration" value="MST7MDT"/>
+                    <config:Constraint facet="enumeration" value="Mexico/BajaNorte"/>
+                    <config:Constraint facet="enumeration" value="Mexico/BajaSur"/>
+                    <config:Constraint facet="enumeration" value="Mexico/General"/>
+                    <config:Constraint facet="enumeration" value="Mideast/Riyadh87"/>
+                    <config:Constraint facet="enumeration" value="Mideast/Riyadh88"/>
+                    <config:Constraint facet="enumeration" value="Mideast/Riyadh89"/>
+                    <config:Constraint facet="enumeration" value="NET"/>
+                    <config:Constraint facet="enumeration" value="NST"/>
+                    <config:Constraint facet="enumeration" value="NZ"/>
+                    <config:Constraint facet="enumeration" value="NZ-CHAT"/>
+                    <config:Constraint facet="enumeration" value="Navajo"/>
+                    <config:Constraint facet="enumeration" value="PLT"/>
+                    <config:Constraint facet="enumeration" value="PNT"/>
+                    <config:Constraint facet="enumeration" value="PRC"/>
+                    <config:Constraint facet="enumeration" value="PRT"/>
+                    <config:Constraint facet="enumeration" value="PST"/>
+                    <config:Constraint facet="enumeration" value="PST8PDT"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Apia"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Auckland"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Chatham"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Easter"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Efate"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Enderbury"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Fakaofo"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Fiji"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Funafuti"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Galapagos"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Gambier"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Guadalcanal"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Guam"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Honolulu"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Johnston"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Kiritimati"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Kosrae"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Kwajalein"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Majuro"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Marquesas"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Midway"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Nauru"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Niue"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Norfolk"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Noumea"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Pago_Pago"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Palau"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Pitcairn"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Ponape"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Port_Moresby"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Rarotonga"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Saipan"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Samoa"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Tahiti"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Tarawa"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Tongatapu"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Truk"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Wake"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Wallis"/>
+                    <config:Constraint facet="enumeration" value="Pacific/Yap"/>
+                    <config:Constraint facet="enumeration" value="Poland"/>
+                    <config:Constraint facet="enumeration" value="Portugal"/>
+                    <config:Constraint facet="enumeration" value="ROK"/>
+                    <config:Constraint facet="enumeration" value="SST"/>
+                    <config:Constraint facet="enumeration" value="Singapore"/>
+                    <config:Constraint facet="enumeration" value="SystemV/AST4"/>
+                    <config:Constraint facet="enumeration" value="SystemV/AST4ADT"/>
+                    <config:Constraint facet="enumeration" value="SystemV/CST6"/>
+                    <config:Constraint facet="enumeration" value="SystemV/CST6CDT"/>
+                    <config:Constraint facet="enumeration" value="SystemV/EST5"/>
+                    <config:Constraint facet="enumeration" value="SystemV/EST5EDT"/>
+                    <config:Constraint facet="enumeration" value="SystemV/HST10"/>
+                    <config:Constraint facet="enumeration" value="SystemV/MST7"/>
+                    <config:Constraint facet="enumeration" value="SystemV/MST7MDT"/>
+                    <config:Constraint facet="enumeration" value="SystemV/PST8"/>
+                    <config:Constraint facet="enumeration" value="SystemV/PST8PDT"/>
+                    <config:Constraint facet="enumeration" value="SystemV/YST9"/>
+                    <config:Constraint facet="enumeration" value="SystemV/YST9YDT"/>
+                    <config:Constraint facet="enumeration" value="Turkey"/>
+                    <config:Constraint facet="enumeration" value="UCT"/>
+                    <config:Constraint facet="enumeration" value="US/Alaska"/>
+                    <config:Constraint facet="enumeration" value="US/Aleutian"/>
+                    <config:Constraint facet="enumeration" value="US/Arizona"/>
+                    <config:Constraint facet="enumeration" value="US/Central"/>
+                    <config:Constraint facet="enumeration" value="US/East-Indiana"/>
+                    <config:Constraint facet="enumeration" value="US/Eastern"/>
+                    <config:Constraint facet="enumeration" value="US/Hawaii"/>
+                    <config:Constraint facet="enumeration" value="US/Indiana-Starke"/>
+                    <config:Constraint facet="enumeration" value="US/Michigan"/>
+                    <config:Constraint facet="enumeration" value="US/Mountain"/>
+                    <config:Constraint facet="enumeration" value="US/Pacific"/>
+                    <config:Constraint facet="enumeration" value="US/Pacific-New"/>
+                    <config:Constraint facet="enumeration" value="US/Samoa"/>
+                    <config:Constraint facet="enumeration" value="UTC"/>
+                    <config:Constraint facet="enumeration" value="Universal"/>
+                    <config:Constraint facet="enumeration" value="VST"/>
+                    <config:Constraint facet="enumeration" value="W-SU"/>
+                    <config:Constraint facet="enumeration" value="WET"/>
+                    <config:Constraint facet="enumeration" value="Zulu"/>
+                </config:Property>
+            </config:ApplicationConfiguration>
+            
+            <!--Application specific variables-->
+            <config:ApplicationVariable isApplicationRestartRequired="true">
+                <config:name/>
+                <config:type/>
+                <config:value/>
+            </config:ApplicationVariable>
+        </config:Configuration>
+        <logging:Logging>
+            <!--                QoS                     -->
+            <logging:logger displayName="Messaging Channel (QoS)">com.sun.jbi.common.qos.messaging.MessagingChannel</logging:logger>
+            <logging:logger displayName="Deployment Lookup (QoS)">com.sun.jbi.common.qos.descriptor.DeploymentLookup</logging:logger>
+            <!--          Component Toolkit             -->
+            <logging:logger displayName="Accept Poller Thread (CompTK)">com.sun.jbi.component.toolkit.lifecycle.impl.AcceptPoller</logging:logger>
+            <!--                SchedulerBC             -->
+            <logging:logger displayName="SchedulerBC Component Manager">org.glassfish.openesb.schedulerbc.SchedulerComponentManager</logging:logger>
+            <logging:logger displayName="SchedulerBC Endpoint Manager">org.glassfish.openesb.schedulerbc.SchedulerEndpointManager</logging:logger>
+            <logging:logger displayName="SchedulerBC Configuration Manager">org.glassfish.openesb.schedulerbc.SchedulerConfiguration</logging:logger>
+            <logging:logger displayName="SchedulerBC Service Unit Manager">org.glassfish.openesb.schedulerbc.SchedulerServiceUnitManager</logging:logger>
+            <logging:logger displayName="SchedulerBC Exchange Handler">org.glassfish.openesb.schedulerbc.SchedulerExchangeHandler</logging:logger>
+            <logging:logger displayName="SchedulerBC Endpoint Handler">org.glassfish.openesb.schedulerbc.domain.SchedulerEndPoint</logging:logger>
+            <logging:logger displayName="SchedulerBC Hybrid Trigger">org.glassfish.openesb.schedulerbc.domain.HybridTrigger</logging:logger>
+        </logging:Logging>
+    </component>
+</jbi>

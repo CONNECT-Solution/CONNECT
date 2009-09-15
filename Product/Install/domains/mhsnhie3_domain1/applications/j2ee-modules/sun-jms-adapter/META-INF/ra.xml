@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connector xmlns="http://java.sun.com/xml/ns/j2ee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+           http://java.sun.com/xml/ns/j2ee/connector_1_5.xsd"
+           version="1.5">
+    <description>Sun SeeBeyond Resource Adapter for JMS</description>
+    <display-name>Sun SeeBeyond Combined JMS Resource Adapter</display-name>
+    <vendor-name>Sun</vendor-name>
+    <eis-type>Java Message Service v 1.1</eis-type>
+    <resourceadapter-version>5.1</resourceadapter-version>
+
+    <resourceadapter>
+        <resourceadapter-class>com.stc.jmsjca.unifiedjms.RAUnifiedResourceAdapter</resourceadapter-class>
+        <config-property>
+                <config-property-name>ConnectionURL</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>UserName</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>Password</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>MBeanObjectName</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>MBeanServerDomain</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>Options</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+        <config-property>
+                <config-property-name>TransformerMBeanName</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+                <config-property-value></config-property-value>
+        </config-property>
+
+        <outbound-resourceadapter>
+            <connection-definition>
+                <managedconnectionfactory-class>com.stc.jmsjca.core.XMCFUnifiedXA</managedconnectionfactory-class>
+                <config-property>
+                    <config-property-name>ConnectionURL</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>UserName</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>Password</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>Options</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <connectionfactory-interface>javax.jms.ConnectionFactory</connectionfactory-interface>
+                <connectionfactory-impl-class>com.stc.jmsjca.core.JConnectionFactoryXA</connectionfactory-impl-class>
+                <connection-interface>javax.jms.Connection</connection-interface>
+                <connection-impl-class>com.stc.jmsjca.core.JConnection</connection-impl-class>
+            </connection-definition>
+
+            <connection-definition>
+                <managedconnectionfactory-class>com.stc.jmsjca.core.XMCFQueueXA</managedconnectionfactory-class>
+                <config-property>
+                    <config-property-name>ConnectionURL</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>UserName</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>Password</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>ProducerPooling</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                    <config-property-value>true</config-property-value>
+                </config-property>
+                <config-property>
+                    <config-property-name>Options</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <connectionfactory-interface>javax.jms.QueueConnectionFactory</connectionfactory-interface>
+                <connectionfactory-impl-class>com.stc.jmsjca.core.JConnectionFactoryQueueXA</connectionfactory-impl-class>
+                <connection-interface>javax.jms.QueueConnection</connection-interface>
+                <connection-impl-class>com.stc.jmsjca.core.JConnection</connection-impl-class>
+            </connection-definition>
+
+            <connection-definition>
+                <managedconnectionfactory-class>com.stc.jmsjca.core.XMCFTopicXA</managedconnectionfactory-class>
+                <config-property>
+                    <config-property-name>ConnectionURL</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>UserName</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>Password</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <config-property>
+                    <config-property-name>ProducerPooling</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                    <config-property-value>true</config-property-value>
+                </config-property>
+                <config-property>
+                    <config-property-name>Options</config-property-name>
+                    <config-property-type>java.lang.String</config-property-type>
+                </config-property>
+                <connectionfactory-interface>javax.jms.TopicConnectionFactory</connectionfactory-interface>
+                <connectionfactory-impl-class>com.stc.jmsjca.core.JConnectionFactoryTopicXA</connectionfactory-impl-class>
+                <connection-interface>javax.jms.TopicConnection</connection-interface>
+                <connection-impl-class>com.stc.jmsjca.core.JConnection</connection-impl-class>
+            </connection-definition>
+
+            <transaction-support>XATransaction</transaction-support>
+            <authentication-mechanism>
+                <authentication-mechanism-type>BasicPassword</authentication-mechanism-type>
+                <credential-interface>javax.resource.spi.security.PasswordCredential</credential-interface>
+            </authentication-mechanism>
+            <reauthentication-support>false</reauthentication-support>
+        </outbound-resourceadapter>
+
+        <inbound-resourceadapter>
+            <messageadapter>
+                <messagelistener>
+                    <messagelistener-type>javax.jms.MessageListener</messagelistener-type>
+                    <activationspec>
+                        <activationspec-class>com.stc.jmsjca.unifiedjms.RAUnifiedActivationSpec</activationspec-class>
+                        <required-config-property>
+                            <config-property-name>destination</config-property-name>
+                        </required-config-property>
+                        <required-config-property>
+                            <config-property-name>destinationType</config-property-name>
+                        </required-config-property>
+                        <!-- 
+                        The following settings are optional
+                        connectionURL          : default: from ra.xml
+                        options                : default: form ra.xml
+                        userName               : default: form ra.xml
+                        password               : default: form ra.xml
+                        subscriptionDurability : either Durable or NonDurable
+                        subscriptionName       : required if Durable
+                        clientId               : default: none / auto-generated if necessary
+                        messageSelector        : default: none
+                        concurrencyMode        : CC, Serial, ...; default: Serial
+                        endpointPoolMaxSize    : default: 15 message driven beans
+                        contextName            : default: none
+                        mBeanName              : default: none
+                        redeliveryHandling     : see below; default: 3:25; 5:50; 10:100; 20:1000; 50:5000
+                        -->                        
+                    </activationspec>
+                </messagelistener>
+            </messageadapter>
+        </inbound-resourceadapter>
+        <!-- Redelivery handling:
+            Is used to deal with "poisonous messages". A poison message is a message that 
+            fails to be processed time and time again, thereby stopping other messages 
+            from being processed.
+            
+            The string specified in redeliveryHandling is of the following format:
+                   format := entry[; entry]*
+                   entry := idx ":" action
+                   idx := number (denotes the n-th time a msg was seen)
+                   action := number (denotes delay in ms) | "delete" | "move"(args)
+                   move := "queue"|"topic" | "same" ":" destname
+                   destname :=  any string, may include "$" which will be replaced with 
+                        the original destination name.
+
+            Examples:
+                5:1000; 10:5000; 50:move(queue:mydlq)
+            This causes no delay up to the 5th delivery; a 1000 ms delay is invoked when the
+            message is seen the 5th, 6th, 7th, 8th, and 9th time. A 5 second delay is invoked
+            when the msg is invoked the 10th, 11th, ..., 49th time. When the msg is seen the 50th
+            time the msg is moved to a queue with the name "mydlq".
+        
+            If the messages were received from "Queue1" and if the string was specified as
+                5:1000; 10:5000; 50:move(queue:dlq$oops)
+            the messages would be moved to the destination "dlqQueue1oops".
+        
+             Another example:
+                5:1000; 10:5000
+             This causes no delay up to the 5th delivery; a 1000 ms delay is invoked when the
+             message is seen the 5th, 6th, 7th, 8th, and 9th time. A 5 second delay is invoked
+             for each time the message is seen thereafter.
+        -->
+
+        <adminobject>
+            <adminobject-interface>javax.jms.Queue</adminobject-interface>
+            <adminobject-class>com.stc.jmsjca.core.AdminQueue</adminobject-class>
+            <config-property>
+                <config-property-name>Name</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+            </config-property>
+        </adminobject>
+
+        <adminobject>
+            <adminobject-interface>javax.jms.Topic</adminobject-interface>
+            <adminobject-class>com.stc.jmsjca.core.AdminTopic</adminobject-class>
+            <config-property>
+                <config-property-name>Name</config-property-name>
+                <config-property-type>java.lang.String</config-property-type>
+            </config-property>
+        </adminobject>
+
+    </resourceadapter>
+</connector>
