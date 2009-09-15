@@ -1,0 +1,112 @@
+.treestyle {
+   white-space: nowrap;	
+   border: 1px solid #ccc;
+   width: 20em;
+   overflow: auto;
+   line-height: 1.5em;         
+   padding-top: 2px;
+}
+.treestyle ul {
+   /* remove the bullets*/
+   list-style-type: none;
+
+   /*draw vertical line down the side of the list*/
+   background-image: url(images/vertical-line.png);
+   background-repeat: repeat-y;
+   background-position: 10px;
+
+   margin: 0;
+   padding-left: 0px;
+   margin-left: 10px;
+}
+.treestyle table tr td {
+ border: 0;
+ margin: 0;
+ padding: 0;
+ width: 0; 
+}
+.treestyle ul.level1{
+   margin-left: 0px;
+}
+.treestyle li {
+   /* li is not needed*/
+   margin: 0;
+   padding: 0;
+   padding-left: 10px;
+   line-height: 1.5em;
+}
+
+.treestyle span.leaf {
+   background-image: url(images/tjunction.png);
+   background-repeat: no-repeat;
+}
+.treestyle span.expanded {
+   background-image: url(images/minus.png);
+   background-repeat: no-repeat;
+}
+.treestyle span.collapsed {
+   background-image: url(images/plus.png);
+   background-repeat: no-repeat;
+}  
+.treestyle span.leafLastNode {
+   background-image: url(images/corner.png);
+   background-repeat: no-repeat;
+   background-color: #fff;
+}                       
+.treestyle span.expandedLastNode {
+   background-image: url(images/minus-corner.png);
+   background-color: #fff;
+   background-repeat: no-repeat;
+}
+.treestyle span.collapsedLastNode {
+   background-image: url(images/plus-corner.png);
+   background-color: #fff;
+   background-repeat: no-repeat;
+}
+.treestyle span.leafIcon {
+    background: url(images/item.png) 0 50% no-repeat;
+    padding-left: 18px;
+}
+.treestyle span.expandedIcon {
+    background: url(images/folder-open.png) 0 50% no-repeat;
+    padding-left: 1.1em;
+}
+.treestyle span.collapsedIcon {
+    background: url(images/folder-closed.png) 0 50% no-repeat;
+    padding-left: 1.1em;
+}
+.treestyle .spacer {
+    float: left;
+    min-height: 18px;
+    padding-left: 18px;
+}
+.treestyle .selected a,
+.treestyle .selected {
+    background-color: #0A246A;
+    color: white;
+    border: 1px solid #000000;
+}
+.treestyle .unselected {
+
+}
+ 
+/*needed for client side */
+.treestyle .hide { 
+   display : none;
+}
+.treestyle .show { 
+}
+
+.treestyle span.leaf,
+.treestyle span.expanded,
+.treestyle span.collapsed,
+.treestyle span.leafLastNode,
+.treestyle span.expandedLastNode,
+.treestyle span.collapsedLastNode,
+.treestyle span.leafIcon,
+.treestyle span.expandedIcon,
+.treestyle span.collapsedIcon,
+.treestyle .spacer {
+    clear: both;
+    _float: none; /*IE only*/
+}

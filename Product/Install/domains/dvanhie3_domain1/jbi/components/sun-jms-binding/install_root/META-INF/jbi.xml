@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!-- jbi.xml descriptor for the binding component (BC) -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+<!-- identification information about this binding -->
+    <component type="binding-component">
+        <identification>
+            <name>sun-jms-binding</name>
+            <description>JMS binding Component: Provides a way to interact with message servers from within the JBI environment</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="The boot strap class" >com.sun.jbi.jmsbc.JMSBindingComponent</component-class-name>
+        <component-class-path>
+            <path-element>lib/jmsbcimpl.jar</path-element>
+            <path-element>lib/wsdl4j.jar</path-element>
+            <path-element>lib/resolver.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+            <path-element>lib/jamsel.jar</path-element>
+            <path-element>lib/com.stc.jmsjca.core.jar</path-element>
+            <path-element>lib/com.stc.jmsjca.raunifiedjms.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.impl.jar</path-element>
+         </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.jmsbc.JMSBindingBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+           <path-element>lib/jmsbcimpl.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>           
+        </bootstrap-class-path>
+        <shared-library>sun-encoder-library</shared-library>
+         <config:Configuration name="jmsbc-configuration">
+		<config:Property name="Threads" 
+			type="xsd:int" 
+			displayName="Number of Threads" 
+			displayDescription="" 
+			defaultValue="16" 
+			showDisplay="all">
+			<config:Constraint facet="minInclusive" value="5"/> 
+			<config:Constraint facet="maxInclusive" value="2147483647"/>     
+		</config:Property>
+		<config:ApplicationConfiguration>
+			<config:Property name="configurationName" 
+				displayName="Application Configuration Name" 
+				displayDescription="Name of the application configuration" type="xsd:string" 
+				required="true" isApplicationRestartRequired="true"/> 
+			<config:Property name="connectionURL" type="xsd:string" 
+				displayName="Connection URL" 
+				displayDescription="The connectivity information to connect to JMS server" 
+				isApplicationRestartRequired="true" required="true"/> 
+			<config:Property name="connectionFactoryName" 
+				displayName="Connection Factory Name" 
+				displayDescription="When JNDI is used. this attribute specifies the JNDI name of the connection factory" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"/> 
+			<config:Property name="initialContextFactory" 
+				displayName="Initial Context Factory" 
+				displayDescription="When JNDI is used. this attribute specifies the initial context factory" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"/> 
+			<config:Property name="providerURL" 
+				displayName="Provider URL" 
+				displayDescription="When JNDI is used. this attribute specifies the service provider to use" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"/> 
+			<config:Property name="securityPrincipal" 
+				displayName="Security Principal" 
+				displayDescription="When JNDI is used. this attribute specifies the identity of the principal for authentication" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true" /> 
+			<config:Property name="securityCredentials" 
+				displayName="Security Credentials" 
+				displayDescription="When JNDI is used. this attribute specifies the credentials of the principal for authentication" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true" encrypted="true"/> 
+			<config:Property name="username" 
+				displayName="User Name" 
+				displayDescription="The user name to use to connect to the JMS server" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"/> 
+			<config:Property name="password" 
+				displayName="Password" 
+				displayDescription="The password to use to connect to the JMS server" 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"  encrypted="true"/> 
+			<config:Property name="jndienv" 
+				displayName="JNDI Environment" 
+				displayDescription="When JNDI is used this property specifies the environment variables to be used while connecting to the provider. The multiple JNDI environment variables are specified using name=value,name=value format.To escape &amp; use %26 ." 
+				type="xsd:string" 
+				isApplicationRestartRequired="true"/> 
+		</config:ApplicationConfiguration>
+		<config:ApplicationVariable isApplicationRestartRequired="true">
+			<config:name/>
+			<config:type/>
+			<config:value/>
+		</config:ApplicationVariable>
+        </config:Configuration>   
+    </component>
+</jbi>

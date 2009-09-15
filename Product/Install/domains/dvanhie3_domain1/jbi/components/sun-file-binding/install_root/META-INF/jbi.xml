@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!-- jbi.xml descriptor for the binding component (BC) -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0"
+    xmlns:logging="http://www.sun.com/jbi/descriptor/logging">
+
+
+<!-- identification information about this binding -->
+    <component type="binding-component">
+        <identification>
+            <name>sun-file-binding</name>
+            <description>File binding. Provides comprehensive file transport capabilities in a JBI 1.0 compliant environment.</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="The boot strap class" >com.sun.jbi.filebc.FileBindingLifeCycle</component-class-name>
+        <component-class-path>
+            <path-element>lib/wsdl4j.jar</path-element>
+            <path-element>lib/filebcimpl.jar</path-element>
+            <path-element>lib/resolver.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>    
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.impl.jar</path-element>
+         </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.filebc.bootstrap.FileBindingBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+           <path-element>lib/filebcimpl.jar</path-element>
+           <path-element>lib/componentsl.jar</path-element>
+		   <path-element>lib/common-util.jar</path-element>
+           <path-element>lib/qos.jar</path-element>               
+        </bootstrap-class-path>
+        <shared-library>sun-encoder-library</shared-library>
+        <logging:Logging root="com.sun.jbi.filebc">
+            <logging:logger displayName="File Binding Deployer">com.sun.jbi.filebc.FileBindingDeployer</logging:logger>
+            <logging:logger displayName="File Binding LifeCycle">com.sun.jbi.filebc.FileBindingLifeCycle</logging:logger>
+            <logging:logger displayName="File Binding InboundProcessor">com.sun.jbi.filebc.InboundMessageProcessor</logging:logger>
+            <logging:logger displayName="File Binding OutboundProcessor">com.sun.jbi.filebc.OutboundMessageProcessor</logging:logger>
+            <logging:logger displayName="File Binding RuntimeConfiguration">com.sun.jbi.filebc.RuntimeConfiguration</logging:logger>
+        </logging:Logging>  
+        <config:Configuration>
+        <!--
+            <config:Threads>10</config:Threads>
+         -->         
+           <config:Property name="Threads" 
+                            type="xsd:int" 
+                            displayName="Number of Outbound Processor Threads" 
+                            displayDescription="Number of Outbound Processor Threads" 
+                            defaultValue="5" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="5"/> 
+               <config:Constraint facet="maxInclusive" value="2147483647"/>
+           </config:Property>
+                       
+            <config:ApplicationConfiguration>
+              <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Name" 
+                               displayDescription="Name of the Application Configuration object" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="fileDirectory" 
+                               type="xsd:string"
+                               displayName="fileDirectory" 
+                               displayDescription="File directory location"  
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+			  <config:Property name="relativePath" 
+                               type="xsd:boolean"
+                               displayName="relativePath" 
+                               displayDescription="Is fileDirectory a relative path"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="pathRelativeTo" 
+                               type="xsd:string"
+                               displayName="pathRelativeTo" 
+                               displayDescription="If fileDirectory is relative, root for the relative path"  
+                               required="false"
+                               isApplicationRestartRequired="true">
+                            <config:Constraint facet="enumeration" value=""/>
+                            <config:Constraint facet="enumeration" value="User Home"/>
+                            <config:Constraint facet="enumeration" value="Default System Temp Dir"/>
+                            <config:Constraint facet="enumeration" value="Current Working Dir"/>
+              </config:Property>
+              <config:Property name="lockName" 
+                               type="xsd:string"
+                               displayName="lockName" 
+                               displayDescription="Lock Name"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="workArea" 
+                               type="xsd:string"
+                               displayName="workArea" 
+                               displayDescription="Work Area"  
+                               required="false"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="seqName" 
+                               type="xsd:string"
+                               displayName="seqName" 
+                               displayDescription="Sequence File Name"  
+                               required="false"
+                               isApplicationRestartRequired="true"/> 
+              <config:Property name="persistenceBaseLoc" 
+                               type="xsd:string"
+                               displayName="persistenceBaseLoc" 
+                               displayDescription="Base directory where lock file, working area, and sequence numbers are stored."  
+                               required="false"
+                               isApplicationRestartRequired="true"/> 
+          </config:ApplicationConfiguration>
+          <config:ApplicationVariable isApplicationRestartRequired="true">
+              <config:name/>
+              <config:type/>
+              <config:value/>
+          </config:ApplicationVariable>
+        </config:Configuration>             
+    </component>
+</jbi>

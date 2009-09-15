@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!-- jbi.xml descriptor for the HTTP SOAP binding component (BC) -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification"
+    xmlns:logging="http://www.sun.com/jbi/descriptor/logging">
+
+    <!-- identification information about this binding -->
+    <component type="binding-component" component-class-loader-delegation="self-first">
+        <identification>
+            <name>sun-http-binding</name>
+            <description>HTTP binding component. Provides message processing capabilities over HTTP protocol in a JBI 1.0 compliant environment.</description>
+            <identification:VersionInfo specification-version="1.0" build-number="080602"/>
+        </identification>
+        <component-class-name description="Component Class name" >com.sun.jbi.httpsoapbc.HttpSoapBindingComponent</component-class-name>
+        <component-class-path>
+            <path-element>httpsoapbcimpl.jar</path-element>
+            <path-element>wsdl4j.jar</path-element>
+            <path-element>resolver.jar</path-element>
+            <path-element>componentsl.jar</path-element>
+            <path-element>net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>net.sf.hulp.meas.impl.jar</path-element>
+            <path-element>common-util.jar</path-element>
+            <path-element>qos.jar</path-element>
+        </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.httpsoapbc.bootstrap.HttpSoapBindingBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+            <path-element>httpsoapbcimpl.jar</path-element>
+            <path-element>componentsl.jar</path-element>
+            <path-element>qos.jar</path-element>    
+            <path-element>common-util.jar</path-element>
+        </bootstrap-class-path>
+        <logging:Logging root="com.sun.jbi.httpsoapbc">
+            <logging:logger displayName="HTTP Extensions">com.sun.jbi.httpsoapbc.Extension</logging:logger>
+            <logging:logger displayName="HTTP Normalizer">com.sun.jbi.httpsoapbc.HttpNormalizer</logging:logger>
+            <logging:logger displayName="HTTP Deployer">com.sun.jbi.httpsoapbc.HttpSoapBindingDeployer</logging:logger>
+            <logging:logger displayName="HTTP LifeCycle">com.sun.jbi.httpsoapbc.HttpSoapBindingLifeCycle</logging:logger>
+            <logging:logger displayName="HTTP SOAP Endpoint">com.sun.jbi.httpsoapbc.HttpSoapEndpoint</logging:logger>
+            <logging:logger displayName="HTTP XML Endpoint">com.sun.jbi.httpsoapbc.HttpEndpoint</logging:logger>
+            <logging:logger displayName="Inbound Message Processor">com.sun.jbi.httpsoapbc.InboundMessageProcessor</logging:logger>
+            <logging:logger displayName="Outbound Action">com.sun.jbi.httpsoapbc.OutboundAction</logging:logger>
+            <logging:logger displayName="Outbound Message Processor">com.sun.jbi.httpsoapbc.OutboundMessageProcessor</logging:logger>
+            <logging:logger displayName="Outbound Receiver">com.sun.jbi.httpsoapbc.OutboundReceiver</logging:logger>
+            <logging:logger displayName="SOAP Denormalizer">com.sun.jbi.httpsoapbc.SoapDenormalizer</logging:logger>
+            <logging:logger displayName="SOAP Normalizer">com.sun.jbi.httpsoapbc.SoapNormalizer</logging:logger>
+            <logging:logger displayName="HTTP Service Unit Processor">com.sun.jbi.httpsoapbc.ServiceUnitImpl</logging:logger>
+            <logging:logger displayName="HTTP Runtime Configuration">com.sun.jbi.httpsoapbc.configuration.RuntimeConfiguration</logging:logger>
+            <logging:logger displayName="Embedded Server Controller">com.sun.jbi.httpsoapbc.embedded.EmbeddedServerController</logging:logger>
+            <logging:logger displayName="HTTP Coyote Request">com.sun.jbi.httpsoapbc.embedded.BCCoyoteRequest</logging:logger>
+            <logging:logger displayName="HTTP Coyote Response">com.sun.jbi.httpsoapbc.embedded.BCCoyoteResponse</logging:logger>
+            <logging:logger displayName="Grizzly Embedded Web Container">com.sun.jbi.httpsoapbc.embedded.GrizzlyEmbeddedWebContainer</logging:logger>
+            <logging:logger displayName="JAX-WS HTTPConnection">com.sun.jbi.httpsoapbc.embedded.JAXWSGrizzlyHttpConnection</logging:logger>
+            <logging:logger displayName="JAX-WS Grizzly Request Processor">com.sun.jbi.httpsoapbc.embedded.JAXWSGrizzlyRequestProcessor</logging:logger>
+            <logging:logger displayName="Grizzly Async Filter">com.sun.jbi.httpsoapbc.embedded.JBIGrizzlyAsyncFilter </logging:logger>
+            <logging:logger displayName="JAX-WS Endpoint Factory">com.sun.jbi.httpsoapbc.jaxwssupport.JAXWSEndpointFactory</logging:logger>
+            <logging:logger displayName="JAX-WS Async SOAP Provider">com.sun.jbi.httpsoapbc.jaxwssupport.AsyncJBIProvider</logging:logger>
+            <logging:logger displayName="JAX-WS Async XML Provider">com.sun.jbi.httpsoapbc.jaxwssupport.AsyncXmlHttpJBIProvider</logging:logger>
+            <logging:logger displayName="JAX-WS SOAP Denormalizer">com.sun.jbi.httpsoapbc.jaxwssupport.JAXWSDenormalizer</logging:logger>
+            <logging:logger displayName="JAX-WS SOAP Normalizer">com.sun.jbi.httpsoapbc.jaxwssupport.JAXWSNormalizer</logging:logger>
+            <logging:logger displayName="JAX-WS XML Denormalizer">com.sun.jbi.httpsoapbc.jaxwssupport.JAXWSXmlHttpDenormalizer</logging:logger>
+            <logging:logger displayName="HTTP Proxy">com.sun.jbi.httpsoapbc.proxy.HttpProxy</logging:logger>
+            <logging:logger displayName="HTTP Proxy Selector">com.sun.jbi.httpsoapbc.proxy.HttpProxySelector</logging:logger>
+            <logging:logger displayName="HTTP Authenticator">com.sun.jbi.httpsoapbc.security.auth.HttpAuthenticator</logging:logger>
+            <logging:logger displayName="Basic Authenticator">com.sun.jbi.httpsoapbc.security.http.impl.BasicAuthenticator</logging:logger>
+        </logging:Logging>  
+       <config:Configuration>
+           <config:Property name="OutboundThreads" 
+                            type="xsd:int" 
+                            displayName="Number of Outbound Threads" 
+                            displayDescription="Maximum number of threads to process outgoing HTTP/SOAP client invocations concurrently. Any integer number between 1 and 2147483647 is allowed." 
+                            defaultValue="100" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="5"/> 
+               <config:Constraint facet="maxInclusive" value="2147483647"/>     
+           </config:Property>
+           <config:Property name="HttpDefaultPort" 
+                            type="xsd:int" 
+                            displayName="Default HTTP Port Number" 
+                            displayDescription="Default HTTP port number for incoming HTTP/SOAP requests. The default value is -1 which indicates there is no valid port number defined. A valid port number is any positive integer between 1 and 65535, but it is highly recommended to avoid system reserved ports." 
+                            defaultValue="-1" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true">
+               <config:Constraint facet="minInclusive" value="-1"/> 
+               <config:Constraint facet="maxInclusive" value="65535"/> 
+           </config:Property>
+           <config:Property name="HttpsDefaultPort" 
+                            type="xsd:int" 
+                            displayName="Default HTTPS Port Number" 
+                            displayDescription="Default HTTPS port number for incoming HTTP/SOAP requests. The default value is -1 which indicates there is no valid port number defined. A valid port number is any positive integer between 1 and 65535, but it is highly recommended to avoid system reserved ports."        
+                            defaultValue="-1" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true">
+               <config:Constraint facet="minInclusive" value="-1"/> 
+               <config:Constraint facet="maxInclusive" value="65535"/> 
+           </config:Property>
+           <config:Property name="AMConfigDirectory" 
+                            type="xsd:string" 
+                            displayName="Sun Access Manager Configuration Directory" 
+                            displayDescription="Sun Access Manager configuration directory containing the AM configuration properties file"  
+                            showDisplay="all"/>
+           <config:Property name="ProxyType" 
+                            type="xsd:string" 
+                            displayName="Proxy Type" 
+                            displayDescription="A valid proxy type. Allowed proxy type values are: SOCKS, HTTP, and DIRECT. This configuration is used for outgoing HTTP/SOAP client invocations only." 
+                            defaultValue="SOCKS" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true">
+               <config:Constraint facet="enumeration" value="SOCKS"/>
+               <config:Constraint facet="enumeration" value="HTTP"/>
+               <config:Constraint facet="enumeration" value="DIRECT"/>
+           </config:Property>
+           <config:Property name="ProxyHost" 
+                            type="xsd:string" 
+                            displayName="Proxy Host" 
+                            displayDescription="A valid proxy host name. This configuration is used for outgoing HTTP/SOAP client invocations only." 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+           <config:Property name="ProxyPort" 
+                            type="xsd:int" 
+                            displayName="Proxy Port" 
+                            displayDescription="A valid proxy port. This configuration is used for outgoing HTTP/SOAP client invocations only." 
+                            defaultValue="-1"
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true">
+               <config:Constraint facet="minInclusive" value="-1"/> 
+               <config:Constraint facet="maxInclusive" value="65535"/> 
+           </config:Property>
+           <config:Property name="NonProxyHosts" 
+                            type="xsd:string" 
+                            displayName="Non-proxy Hosts" 
+                            displayDescription="A list of server hosts whose connections do not require a proxy server" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+           <config:Property name="ProxyUserName" 
+                            type="xsd:string" 
+                            displayName="Proxy User Name" 
+                            displayDescription="A valid proxy user name" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+           <config:Property name="ProxyPassword" 
+                            type="xsd:string" 
+                            displayName="Proxy User Password" 
+                            displayDescription="A valid proxy user password" 
+                            showDisplay="all"
+                            encrypted="true" 
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+           <config:Property name="UseJVMProxySettings" 
+                            type="xsd:boolean" 
+                            defaultValue="true" 
+                            displayName="Use Default JVM Proxy Settings" 
+                            displayDescription="Determines whether or not to use the default JVM system properties for proxy settings" 
+                            showDisplay="all"
+                            isApplicationRestartRequired="true" 
+                            isComponentRestartRequired="true"/>
+          <config:ApplicationConfiguration>
+              <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Application Configuration Name" 
+                               displayDescription="Name of the application configuration" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="httpUrlLocation" 
+                               type="xsd:string"
+                               displayName="HTTP URL Location" 
+                               displayDescription="Endpoint address - HTTP URL location"  
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+          </config:ApplicationConfiguration>
+          <config:ApplicationVariable isApplicationRestartRequired="true">
+              <config:name/>
+              <config:type/>
+              <config:value/>
+          </config:ApplicationVariable>
+       </config:Configuration>
+    </component>
+</jbi>

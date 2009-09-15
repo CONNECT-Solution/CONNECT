@@ -1,0 +1,1329 @@
+# 1252480143093 Do not modify this line
+[09/Sep/2009:03:09:03 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[09/Sep/2009:03:09:03 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[09/Sep/2009:03:09:03 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[09/Sep/2009:03:09:03 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[09/Sep/2009:03:09:03 EDT] Java Heap Size: max=1217536k, current=20460k
+[09/Sep/2009:03:09:03 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[09/Sep/2009:03:09:03 EDT] Embedded Broker 
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[09/Sep/2009:03:09:03 EDT] [B1060]: Loading persistent data...
+[09/Sep/2009:03:09:03 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[09/Sep/2009:03:09:03 EDT] [B1041]: Cluster initialization successful.
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[09/Sep/2009:03:09:03 EDT] [B1136]: Processing stored transactions
+[09/Sep/2009:03:09:03 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[09/Sep/2009:03:09:03 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[09/Sep/2009:03:09:03 EDT] [B1013]: Auto Creation of Queues is enabled
+[09/Sep/2009:03:09:03 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[09/Sep/2009:03:09:03 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[09/Sep/2009:03:09:03 EDT] [B1239]: Using platform MBean server
+[09/Sep/2009:03:09:03 EDT] JESMF classes not present - JESMF support will not be enabled.
+[09/Sep/2009:03:09:03 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[09/Sep/2009:03:09:03 EDT] [B1227]: Using file user repository for admin service connection authentication
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[09/Sep/2009:03:09:03 EDT] [B1227]: Using file user repository for jms service connection authentication
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[09/Sep/2009:03:09:03 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[09/Sep/2009:03:09:03 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1064 ] with min threads 1 and max threads of 1 
+[09/Sep/2009:03:09:03 EDT] [B1228]: Cluster ping interval is 60 seconds
+[09/Sep/2009:03:09:03 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[10/Sep/2009:15:56:51 EDT] [B1047]: Shutting down broker...
+[10/Sep/2009:15:56:51 EDT] [B1077]: Broadcast good-bye to all connections ...
+[10/Sep/2009:15:56:51 EDT] [B1078]: Flushing good-bye messages ...
+[10/Sep/2009:15:56:51 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:15:56:51 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[10/Sep/2009:15:56:51 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:15:56:51 EDT] JMX Connector Server jmxrmi stopped successfully
+[10/Sep/2009:15:56:51 EDT] [B1048]: Shutdown of broker complete.
+[10/Sep/2009:16:04:17 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[10/Sep/2009:16:04:17 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[10/Sep/2009:16:04:17 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[10/Sep/2009:16:04:17 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[10/Sep/2009:16:04:17 EDT] Java Heap Size: max=1217536k, current=29808k
+[10/Sep/2009:16:04:17 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[10/Sep/2009:16:04:17 EDT] Embedded Broker 
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:04:17 EDT] [B1060]: Loading persistent data...
+[10/Sep/2009:16:04:17 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[10/Sep/2009:16:04:17 EDT] [B1041]: Cluster initialization successful.
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:04:17 EDT] [B1136]: Processing stored transactions
+[10/Sep/2009:16:04:17 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[10/Sep/2009:16:04:17 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[10/Sep/2009:16:04:17 EDT] [B1013]: Auto Creation of Queues is enabled
+[10/Sep/2009:16:04:17 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[10/Sep/2009:16:04:17 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[10/Sep/2009:16:04:17 EDT] [B1239]: Using platform MBean server
+[10/Sep/2009:16:04:17 EDT] JESMF classes not present - JESMF support will not be enabled.
+[10/Sep/2009:16:04:17 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[10/Sep/2009:16:04:17 EDT] [B1227]: Using file user repository for admin service connection authentication
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[10/Sep/2009:16:04:17 EDT] [B1227]: Using file user repository for jms service connection authentication
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[10/Sep/2009:16:04:17 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[10/Sep/2009:16:04:17 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3187 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:04:17 EDT] [B1228]: Cluster ping interval is 60 seconds
+[10/Sep/2009:16:04:17 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[10/Sep/2009:16:09:56 EDT] [B1047]: Shutting down broker...
+[10/Sep/2009:16:09:56 EDT] [B1077]: Broadcast good-bye to all connections ...
+[10/Sep/2009:16:09:56 EDT] [B1078]: Flushing good-bye messages ...
+[10/Sep/2009:16:09:56 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:16:09:56 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[10/Sep/2009:16:09:56 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:16:09:56 EDT] JMX Connector Server jmxrmi stopped successfully
+[10/Sep/2009:16:09:56 EDT] [B1048]: Shutdown of broker complete.
+[10/Sep/2009:16:19:16 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[10/Sep/2009:16:19:16 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[10/Sep/2009:16:19:16 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[10/Sep/2009:16:19:16 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[10/Sep/2009:16:19:16 EDT] Java Heap Size: max=1217536k, current=27524k
+[10/Sep/2009:16:19:16 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[10/Sep/2009:16:19:16 EDT] Embedded Broker 
+[10/Sep/2009:16:19:16 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:19:16 EDT] [B1060]: Loading persistent data...
+[10/Sep/2009:16:19:16 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[10/Sep/2009:16:19:16 EDT] [B1041]: Cluster initialization successful.
+[10/Sep/2009:16:19:16 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:19:16 EDT] [B1136]: Processing stored transactions
+[10/Sep/2009:16:19:16 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[10/Sep/2009:16:19:16 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[10/Sep/2009:16:19:16 EDT] [B1013]: Auto Creation of Queues is enabled
+[10/Sep/2009:16:19:16 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[10/Sep/2009:16:19:16 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[10/Sep/2009:16:19:16 EDT] [B1239]: Using platform MBean server
+[10/Sep/2009:16:19:16 EDT] JESMF classes not present - JESMF support will not be enabled.
+[10/Sep/2009:16:19:16 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[10/Sep/2009:16:19:16 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[10/Sep/2009:16:19:16 EDT] [B1227]: Using file user repository for admin service connection authentication
+[10/Sep/2009:16:19:16 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[10/Sep/2009:16:19:16 EDT] [B1227]: Using file user repository for jms service connection authentication
+[10/Sep/2009:16:19:16 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[10/Sep/2009:16:19:16 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[10/Sep/2009:16:19:17 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3234 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:16:19:17 EDT] [B1228]: Cluster ping interval is 60 seconds
+[10/Sep/2009:16:19:17 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[10/Sep/2009:17:05:28 EDT] [B1047]: Shutting down broker...
+[10/Sep/2009:17:05:28 EDT] [B1077]: Broadcast good-bye to all connections ...
+[10/Sep/2009:17:05:28 EDT] [B1078]: Flushing good-bye messages ...
+[10/Sep/2009:17:05:28 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:17:05:28 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[10/Sep/2009:17:05:28 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:17:05:28 EDT] JMX Connector Server jmxrmi stopped successfully
+[10/Sep/2009:17:05:28 EDT] [B1048]: Shutdown of broker complete.
+[10/Sep/2009:17:05:40 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[10/Sep/2009:17:05:40 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[10/Sep/2009:17:05:40 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[10/Sep/2009:17:05:40 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[10/Sep/2009:17:05:40 EDT] Java Heap Size: max=1217536k, current=29700k
+[10/Sep/2009:17:05:40 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[10/Sep/2009:17:05:40 EDT] Embedded Broker 
+[10/Sep/2009:17:05:40 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:05:40 EDT] [B1060]: Loading persistent data...
+[10/Sep/2009:17:05:40 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[10/Sep/2009:17:05:40 EDT] [B1041]: Cluster initialization successful.
+[10/Sep/2009:17:05:40 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:05:40 EDT] [B1136]: Processing stored transactions
+[10/Sep/2009:17:05:40 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[10/Sep/2009:17:05:40 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[10/Sep/2009:17:05:40 EDT] [B1013]: Auto Creation of Queues is enabled
+[10/Sep/2009:17:05:40 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[10/Sep/2009:17:05:40 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[10/Sep/2009:17:05:40 EDT] [B1239]: Using platform MBean server
+[10/Sep/2009:17:05:40 EDT] JESMF classes not present - JESMF support will not be enabled.
+[10/Sep/2009:17:05:40 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[10/Sep/2009:17:05:40 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[10/Sep/2009:17:05:40 EDT] [B1227]: Using file user repository for admin service connection authentication
+[10/Sep/2009:17:05:40 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[10/Sep/2009:17:05:40 EDT] [B1227]: Using file user repository for jms service connection authentication
+[10/Sep/2009:17:05:40 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[10/Sep/2009:17:05:40 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[10/Sep/2009:17:05:41 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3417 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:05:41 EDT] [B1228]: Cluster ping interval is 60 seconds
+[10/Sep/2009:17:05:41 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[10/Sep/2009:17:58:22 EDT] [B1047]: Shutting down broker...
+[10/Sep/2009:17:58:22 EDT] [B1077]: Broadcast good-bye to all connections ...
+[10/Sep/2009:17:58:22 EDT] [B1078]: Flushing good-bye messages ...
+[10/Sep/2009:17:58:22 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:17:58:22 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[10/Sep/2009:17:58:22 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[10/Sep/2009:17:58:22 EDT] JMX Connector Server jmxrmi stopped successfully
+[10/Sep/2009:17:58:22 EDT] [B1048]: Shutdown of broker complete.
+[10/Sep/2009:17:58:33 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[10/Sep/2009:17:58:33 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[10/Sep/2009:17:58:33 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[10/Sep/2009:17:58:33 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[10/Sep/2009:17:58:33 EDT] Java Heap Size: max=1217536k, current=28220k
+[10/Sep/2009:17:58:33 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[10/Sep/2009:17:58:33 EDT] Embedded Broker 
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:58:33 EDT] [B1060]: Loading persistent data...
+[10/Sep/2009:17:58:33 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[10/Sep/2009:17:58:33 EDT] [B1041]: Cluster initialization successful.
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:58:33 EDT] [B1136]: Processing stored transactions
+[10/Sep/2009:17:58:33 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[10/Sep/2009:17:58:33 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[10/Sep/2009:17:58:33 EDT] [B1013]: Auto Creation of Queues is enabled
+[10/Sep/2009:17:58:33 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[10/Sep/2009:17:58:33 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[10/Sep/2009:17:58:33 EDT] [B1239]: Using platform MBean server
+[10/Sep/2009:17:58:33 EDT] JESMF classes not present - JESMF support will not be enabled.
+[10/Sep/2009:17:58:33 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[10/Sep/2009:17:58:33 EDT] [B1227]: Using file user repository for admin service connection authentication
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[10/Sep/2009:17:58:33 EDT] [B1227]: Using file user repository for jms service connection authentication
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[10/Sep/2009:17:58:33 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[10/Sep/2009:17:58:33 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3687 ] with min threads 1 and max threads of 1 
+[10/Sep/2009:17:58:33 EDT] [B1228]: Cluster ping interval is 60 seconds
+[10/Sep/2009:17:58:33 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[11/Sep/2009:10:11:29 EDT] [B1047]: Shutting down broker...
+[11/Sep/2009:10:11:29 EDT] [B1077]: Broadcast good-bye to all connections ...
+[11/Sep/2009:10:11:29 EDT] [B1078]: Flushing good-bye messages ...
+[11/Sep/2009:10:11:29 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:10:11:29 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[11/Sep/2009:10:11:29 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:10:11:29 EDT] JMX Connector Server jmxrmi stopped successfully
+[11/Sep/2009:10:11:29 EDT] [B1048]: Shutdown of broker complete.
+[11/Sep/2009:10:12:10 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[11/Sep/2009:10:12:10 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[11/Sep/2009:10:12:10 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[11/Sep/2009:10:12:10 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[11/Sep/2009:10:12:10 EDT] Java Heap Size: max=1217536k, current=29652k
+[11/Sep/2009:10:12:10 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[11/Sep/2009:10:12:10 EDT] Embedded Broker 
+[11/Sep/2009:10:12:10 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[11/Sep/2009:10:12:10 EDT] [B1060]: Loading persistent data...
+[11/Sep/2009:10:12:10 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[11/Sep/2009:10:12:10 EDT] [B1041]: Cluster initialization successful.
+[11/Sep/2009:10:12:10 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:10:12:10 EDT] [B1136]: Processing stored transactions
+[11/Sep/2009:10:12:10 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[11/Sep/2009:10:12:10 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[11/Sep/2009:10:12:10 EDT] [B1013]: Auto Creation of Queues is enabled
+[11/Sep/2009:10:12:10 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[11/Sep/2009:10:12:10 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[11/Sep/2009:10:12:10 EDT] [B1239]: Using platform MBean server
+[11/Sep/2009:10:12:10 EDT] JESMF classes not present - JESMF support will not be enabled.
+[11/Sep/2009:10:12:10 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[11/Sep/2009:10:12:10 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[11/Sep/2009:10:12:10 EDT] [B1227]: Using file user repository for admin service connection authentication
+[11/Sep/2009:10:12:11 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[11/Sep/2009:10:12:11 EDT] [B1227]: Using file user repository for jms service connection authentication
+[11/Sep/2009:10:12:11 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[11/Sep/2009:10:12:11 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[11/Sep/2009:10:12:11 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:2376 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:10:12:11 EDT] [B1228]: Cluster ping interval is 60 seconds
+[11/Sep/2009:10:12:11 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[11/Sep/2009:12:59:19 EDT] [B1047]: Shutting down broker...
+[11/Sep/2009:12:59:19 EDT] [B1077]: Broadcast good-bye to all connections ...
+[11/Sep/2009:12:59:19 EDT] [B1078]: Flushing good-bye messages ...
+[11/Sep/2009:12:59:19 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:12:59:19 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[11/Sep/2009:12:59:19 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:12:59:19 EDT] JMX Connector Server jmxrmi stopped successfully
+[11/Sep/2009:12:59:19 EDT] [B1048]: Shutdown of broker complete.
+[11/Sep/2009:12:59:32 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[11/Sep/2009:12:59:32 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[11/Sep/2009:12:59:32 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[11/Sep/2009:12:59:32 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[11/Sep/2009:12:59:32 EDT] Java Heap Size: max=1217536k, current=29624k
+[11/Sep/2009:12:59:32 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[11/Sep/2009:12:59:32 EDT] Embedded Broker 
+[11/Sep/2009:12:59:32 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[11/Sep/2009:12:59:32 EDT] [B1060]: Loading persistent data...
+[11/Sep/2009:12:59:32 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[11/Sep/2009:12:59:33 EDT] [B1041]: Cluster initialization successful.
+[11/Sep/2009:12:59:33 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:12:59:33 EDT] [B1136]: Processing stored transactions
+[11/Sep/2009:12:59:33 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[11/Sep/2009:12:59:33 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[11/Sep/2009:12:59:33 EDT] [B1013]: Auto Creation of Queues is enabled
+[11/Sep/2009:12:59:33 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[11/Sep/2009:12:59:33 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[11/Sep/2009:12:59:33 EDT] [B1239]: Using platform MBean server
+[11/Sep/2009:12:59:33 EDT] JESMF classes not present - JESMF support will not be enabled.
+[11/Sep/2009:12:59:33 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[11/Sep/2009:12:59:33 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[11/Sep/2009:12:59:33 EDT] [B1227]: Using file user repository for admin service connection authentication
+[11/Sep/2009:12:59:33 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[11/Sep/2009:12:59:33 EDT] [B1227]: Using file user repository for jms service connection authentication
+[11/Sep/2009:12:59:33 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[11/Sep/2009:12:59:33 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[11/Sep/2009:12:59:33 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4127 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:12:59:33 EDT] [B1228]: Cluster ping interval is 60 seconds
+[11/Sep/2009:12:59:33 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[11/Sep/2009:16:16:50 EDT] [B1047]: Shutting down broker...
+[11/Sep/2009:16:16:50 EDT] [B1077]: Broadcast good-bye to all connections ...
+[11/Sep/2009:16:16:50 EDT] [B1078]: Flushing good-bye messages ...
+[11/Sep/2009:16:16:50 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:16:16:50 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[11/Sep/2009:16:16:50 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:16:16:50 EDT] JMX Connector Server jmxrmi stopped successfully
+[11/Sep/2009:16:16:50 EDT] [B1048]: Shutdown of broker complete.
+[11/Sep/2009:16:17:05 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[11/Sep/2009:16:17:05 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[11/Sep/2009:16:17:05 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[11/Sep/2009:16:17:05 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[11/Sep/2009:16:17:05 EDT] Java Heap Size: max=1217536k, current=26948k
+[11/Sep/2009:16:17:05 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[11/Sep/2009:16:17:05 EDT] Embedded Broker 
+[11/Sep/2009:16:17:05 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:17:05 EDT] [B1060]: Loading persistent data...
+[11/Sep/2009:16:17:05 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[11/Sep/2009:16:17:05 EDT] [B1041]: Cluster initialization successful.
+[11/Sep/2009:16:17:05 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:17:05 EDT] [B1136]: Processing stored transactions
+[11/Sep/2009:16:17:05 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[11/Sep/2009:16:17:05 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[11/Sep/2009:16:17:05 EDT] [B1013]: Auto Creation of Queues is enabled
+[11/Sep/2009:16:17:05 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[11/Sep/2009:16:17:05 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[11/Sep/2009:16:17:05 EDT] [B1239]: Using platform MBean server
+[11/Sep/2009:16:17:05 EDT] JESMF classes not present - JESMF support will not be enabled.
+[11/Sep/2009:16:17:05 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[11/Sep/2009:16:17:06 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[11/Sep/2009:16:17:06 EDT] [B1227]: Using file user repository for admin service connection authentication
+[11/Sep/2009:16:17:06 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[11/Sep/2009:16:17:06 EDT] [B1227]: Using file user repository for jms service connection authentication
+[11/Sep/2009:16:17:06 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[11/Sep/2009:16:17:06 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[11/Sep/2009:16:17:06 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3091 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:17:06 EDT] [B1228]: Cluster ping interval is 60 seconds
+[11/Sep/2009:16:17:06 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[11/Sep/2009:16:28:33 EDT] [B1047]: Shutting down broker...
+[11/Sep/2009:16:28:33 EDT] [B1077]: Broadcast good-bye to all connections ...
+[11/Sep/2009:16:28:33 EDT] [B1078]: Flushing good-bye messages ...
+[11/Sep/2009:16:28:33 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:16:28:33 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[11/Sep/2009:16:28:33 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[11/Sep/2009:16:28:33 EDT] JMX Connector Server jmxrmi stopped successfully
+[11/Sep/2009:16:28:33 EDT] [B1048]: Shutdown of broker complete.
+[11/Sep/2009:16:28:43 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[11/Sep/2009:16:28:43 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[11/Sep/2009:16:28:43 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[11/Sep/2009:16:28:43 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[11/Sep/2009:16:28:43 EDT] Java Heap Size: max=1217536k, current=26932k
+[11/Sep/2009:16:28:43 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[11/Sep/2009:16:28:43 EDT] Embedded Broker 
+[11/Sep/2009:16:28:43 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:28:43 EDT] [B1060]: Loading persistent data...
+[11/Sep/2009:16:28:43 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[11/Sep/2009:16:28:43 EDT] [B1041]: Cluster initialization successful.
+[11/Sep/2009:16:28:43 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:28:43 EDT] [B1136]: Processing stored transactions
+[11/Sep/2009:16:28:43 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[11/Sep/2009:16:28:43 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[11/Sep/2009:16:28:43 EDT] [B1013]: Auto Creation of Queues is enabled
+[11/Sep/2009:16:28:43 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[11/Sep/2009:16:28:43 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[11/Sep/2009:16:28:43 EDT] [B1239]: Using platform MBean server
+[11/Sep/2009:16:28:43 EDT] JESMF classes not present - JESMF support will not be enabled.
+[11/Sep/2009:16:28:44 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[11/Sep/2009:16:28:44 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[11/Sep/2009:16:28:44 EDT] [B1227]: Using file user repository for admin service connection authentication
+[11/Sep/2009:16:28:44 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[11/Sep/2009:16:28:44 EDT] [B1227]: Using file user repository for jms service connection authentication
+[11/Sep/2009:16:28:44 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[11/Sep/2009:16:28:44 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[11/Sep/2009:16:28:44 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3273 ] with min threads 1 and max threads of 1 
+[11/Sep/2009:16:28:44 EDT] [B1228]: Cluster ping interval is 60 seconds
+[11/Sep/2009:16:28:44 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[12/Sep/2009:21:56:34 EDT] [B1047]: Shutting down broker...
+[12/Sep/2009:21:56:34 EDT] [B1077]: Broadcast good-bye to all connections ...
+[12/Sep/2009:21:56:34 EDT] [B1078]: Flushing good-bye messages ...
+[12/Sep/2009:21:56:34 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[12/Sep/2009:21:56:34 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[12/Sep/2009:21:56:34 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[12/Sep/2009:21:56:34 EDT] JMX Connector Server jmxrmi stopped successfully
+[12/Sep/2009:21:56:34 EDT] [B1048]: Shutdown of broker complete.
+[12/Sep/2009:21:56:46 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[12/Sep/2009:21:56:46 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[12/Sep/2009:21:56:46 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[12/Sep/2009:21:56:46 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[12/Sep/2009:21:56:46 EDT] Java Heap Size: max=1217536k, current=30276k
+[12/Sep/2009:21:56:46 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[12/Sep/2009:21:56:46 EDT] Embedded Broker 
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[12/Sep/2009:21:56:46 EDT] [B1060]: Loading persistent data...
+[12/Sep/2009:21:56:46 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[12/Sep/2009:21:56:46 EDT] [B1041]: Cluster initialization successful.
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[12/Sep/2009:21:56:46 EDT] [B1136]: Processing stored transactions
+[12/Sep/2009:21:56:46 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[12/Sep/2009:21:56:46 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[12/Sep/2009:21:56:46 EDT] [B1013]: Auto Creation of Queues is enabled
+[12/Sep/2009:21:56:46 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[12/Sep/2009:21:56:46 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[12/Sep/2009:21:56:46 EDT] [B1239]: Using platform MBean server
+[12/Sep/2009:21:56:46 EDT] JESMF classes not present - JESMF support will not be enabled.
+[12/Sep/2009:21:56:46 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[12/Sep/2009:21:56:46 EDT] [B1227]: Using file user repository for admin service connection authentication
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[12/Sep/2009:21:56:46 EDT] [B1227]: Using file user repository for jms service connection authentication
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[12/Sep/2009:21:56:46 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[12/Sep/2009:21:56:46 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:2329 ] with min threads 1 and max threads of 1 
+[12/Sep/2009:21:56:46 EDT] [B1228]: Cluster ping interval is 60 seconds
+[12/Sep/2009:21:56:46 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[13/Sep/2009:18:21:01 EDT] [B1047]: Shutting down broker...
+[13/Sep/2009:18:21:01 EDT] [B1077]: Broadcast good-bye to all connections ...
+[13/Sep/2009:18:21:01 EDT] [B1078]: Flushing good-bye messages ...
+[13/Sep/2009:18:21:01 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[13/Sep/2009:18:21:01 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[13/Sep/2009:18:21:01 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[13/Sep/2009:18:21:01 EDT] JMX Connector Server jmxrmi stopped successfully
+[13/Sep/2009:18:21:01 EDT] [B1048]: Shutdown of broker complete.
+[13/Sep/2009:18:21:16 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[13/Sep/2009:18:21:16 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[13/Sep/2009:18:21:16 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[13/Sep/2009:18:21:16 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[13/Sep/2009:18:21:16 EDT] Java Heap Size: max=1217536k, current=26216k
+[13/Sep/2009:18:21:16 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[13/Sep/2009:18:21:16 EDT] Embedded Broker 
+[13/Sep/2009:18:21:16 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[13/Sep/2009:18:21:16 EDT] [B1060]: Loading persistent data...
+[13/Sep/2009:18:21:16 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[13/Sep/2009:18:21:17 EDT] [B1041]: Cluster initialization successful.
+[13/Sep/2009:18:21:17 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[13/Sep/2009:18:21:17 EDT] [B1136]: Processing stored transactions
+[13/Sep/2009:18:21:17 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[13/Sep/2009:18:21:17 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[13/Sep/2009:18:21:17 EDT] [B1013]: Auto Creation of Queues is enabled
+[13/Sep/2009:18:21:17 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[13/Sep/2009:18:21:17 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[13/Sep/2009:18:21:17 EDT] [B1239]: Using platform MBean server
+[13/Sep/2009:18:21:17 EDT] JESMF classes not present - JESMF support will not be enabled.
+[13/Sep/2009:18:21:17 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[13/Sep/2009:18:21:17 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[13/Sep/2009:18:21:17 EDT] [B1227]: Using file user repository for admin service connection authentication
+[13/Sep/2009:18:21:17 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[13/Sep/2009:18:21:17 EDT] [B1227]: Using file user repository for jms service connection authentication
+[13/Sep/2009:18:21:17 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[13/Sep/2009:18:21:17 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[13/Sep/2009:18:21:17 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1109 ] with min threads 1 and max threads of 1 
+[13/Sep/2009:18:21:17 EDT] [B1228]: Cluster ping interval is 60 seconds
+[13/Sep/2009:18:21:17 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:11:15:20 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:11:15:20 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:11:15:20 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:11:15:20 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:15:20 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:11:15:20 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:15:20 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:11:15:20 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:11:18:43 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:11:18:43 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:11:18:43 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:11:18:43 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[14/Sep/2009:11:18:43 EDT] Java Heap Size: max=1217536k, current=26904k
+[14/Sep/2009:11:18:43 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:11:18:43 EDT] Embedded Broker 
+[14/Sep/2009:11:18:43 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:18:43 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:11:18:43 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:11:18:43 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:11:18:43 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:18:43 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:11:18:43 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:11:18:43 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:11:18:43 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:11:18:43 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:11:18:43 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:11:18:43 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:11:18:43 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:11:18:43 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:11:18:44 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:11:18:44 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:11:18:44 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:11:18:44 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:11:18:44 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:11:18:44 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:11:18:44 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4119 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:18:44 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:11:18:44 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:11:32:28 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:11:32:28 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:11:32:28 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:11:32:28 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:32:28 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:11:32:28 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:32:28 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:11:32:28 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:11:32:42 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:11:32:42 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:11:32:42 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:11:32:42 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[14/Sep/2009:11:32:42 EDT] Java Heap Size: max=1217536k, current=26212k
+[14/Sep/2009:11:32:42 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:11:32:42 EDT] Embedded Broker 
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:32:42 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:11:32:42 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:11:32:42 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:32:42 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:11:32:42 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:11:32:42 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:11:32:42 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:11:32:42 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:11:32:42 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:11:32:42 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:11:32:42 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:11:32:42 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:11:32:42 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:11:32:42 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:11:32:42 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:11:32:42 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4280 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:32:42 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:11:32:42 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:11:36:33 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:11:36:33 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:11:36:33 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:11:36:33 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:36:33 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:11:36:33 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:11:36:33 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:11:36:33 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:11:36:48 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:11:36:48 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:11:36:48 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:11:36:48 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[14/Sep/2009:11:36:48 EDT] Java Heap Size: max=1217536k, current=31072k
+[14/Sep/2009:11:36:48 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:11:36:48 EDT] Embedded Broker 
+[14/Sep/2009:11:36:48 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:36:48 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:11:36:48 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:11:36:48 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:11:36:48 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:36:48 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:11:36:48 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:11:36:48 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:11:36:48 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:11:36:48 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:11:36:48 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:11:36:48 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:11:36:48 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:11:36:48 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:11:36:49 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:11:36:49 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:11:36:49 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:11:36:49 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:11:36:49 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:11:36:49 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:11:36:49 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4381 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:11:36:49 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:11:36:49 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:13:49:57 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:13:49:57 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:13:49:57 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:13:49:57 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[14/Sep/2009:13:49:57 EDT] Java Heap Size: max=1217536k, current=29680k
+[14/Sep/2009:13:49:57 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:13:49:57 EDT] Embedded Broker 
+[14/Sep/2009:13:49:57 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:49:57 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:13:49:57 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:13:49:57 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:13:49:57 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:49:57 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:13:49:57 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:13:49:57 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:13:49:57 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:13:49:57 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:13:49:57 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:13:49:57 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:13:49:57 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:13:49:57 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:13:49:57 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:13:49:57 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:13:49:58 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:13:49:58 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:13:49:58 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:13:49:58 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:13:49:58 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1064 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:49:58 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:13:49:58 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:13:58:19 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:13:58:19 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:13:58:19 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:13:58:19 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:13:58:19 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:13:58:19 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:13:58:19 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:13:58:19 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:13:59:42 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:13:59:42 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:13:59:42 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:13:59:42 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[14/Sep/2009:13:59:42 EDT] Java Heap Size: max=1217536k, current=29376k
+[14/Sep/2009:13:59:42 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:13:59:42 EDT] Embedded Broker 
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:59:42 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:13:59:42 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:13:59:42 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:59:42 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:13:59:42 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:13:59:42 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:13:59:42 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:13:59:42 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:13:59:42 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:13:59:42 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:13:59:42 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:13:59:42 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:13:59:42 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:13:59:42 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:13:59:42 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:13:59:42 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1223 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:13:59:42 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:13:59:42 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:15:00:37 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:15:00:37 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:15:00:37 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:15:00:37 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:00:37 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:15:00:37 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:00:37 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:15:00:37 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:15:10:35 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:15:10:35 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:15:10:35 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:15:10:35 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) SYSTEM
+[14/Sep/2009:15:10:35 EDT] Java Heap Size: max=1217536k, current=31048k
+[14/Sep/2009:15:10:35 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:15:10:35 EDT] Embedded Broker 
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:10:35 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:15:10:35 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:15:10:35 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:10:35 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:15:10:35 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:15:10:35 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:15:10:35 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:15:10:35 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:15:10:35 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:15:10:35 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:15:10:35 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:15:10:35 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:15:10:35 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:15:10:35 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:15:10:35 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:15:10:35 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1676 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:10:35 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:15:10:35 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:15:16:12 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:15:16:12 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:15:16:12 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:15:16:12 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:16:12 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:15:16:12 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:16:12 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:15:16:12 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:15:34:26 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:15:34:27 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:15:34:27 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:15:34:27 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (4 cpu) Administrator
+[14/Sep/2009:15:34:27 EDT] Java Heap Size: max=1217536k, current=29492k
+[14/Sep/2009:15:34:27 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:15:34:27 EDT] Embedded Broker 
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:34:27 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:15:34:27 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:15:34:27 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:34:27 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:15:34:27 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:15:34:27 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:15:34:27 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:15:34:27 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:15:34:27 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:15:34:27 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:15:34:27 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:15:34:27 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:15:34:27 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:15:34:27 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:15:34:27 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:15:34:27 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1824 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:34:27 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:15:34:27 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:15:42:08 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:15:42:08 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:15:42:08 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:15:42:08 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) SYSTEM
+[14/Sep/2009:15:42:08 EDT] Java Heap Size: max=1217536k, current=27500k
+[14/Sep/2009:15:42:08 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:15:42:08 EDT] Embedded Broker 
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:42:08 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:15:42:08 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:15:42:08 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:15:42:08 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:15:42:08 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:15:42:08 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:42:08 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:15:42:08 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:15:42:08 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:15:42:08 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:15:42:08 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:15:42:08 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:15:42:08 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:15:42:08 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:15:42:08 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:15:42:08 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1063 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:15:42:08 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:15:42:08 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:15:45:16 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:15:45:16 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:15:45:16 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:15:45:16 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:45:16 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:15:45:16 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:15:45:16 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:15:45:16 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:16:17:56 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:16:17:56 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:16:17:56 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:16:17:56 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) SYSTEM
+[14/Sep/2009:16:17:56 EDT] Java Heap Size: max=1217536k, current=26928k
+[14/Sep/2009:16:17:56 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:16:17:56 EDT] Embedded Broker 
+[14/Sep/2009:16:17:56 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:17:56 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:16:17:56 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:16:17:56 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:16:17:56 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:16:17:56 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:16:17:56 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:16:17:56 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:16:17:56 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:16:17:56 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:16:17:56 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:16:17:56 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:17:56 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:16:17:56 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:16:17:57 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:16:17:57 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:16:17:57 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:16:17:57 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:16:17:57 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:16:17:57 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:16:17:57 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1138 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:17:57 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:16:17:57 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:16:44:23 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:16:44:23 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:16:44:23 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:16:44:23 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:16:44:23 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:16:44:23 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:16:44:23 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:16:44:23 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:16:45:10 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:16:45:10 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:16:45:10 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:16:45:10 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) Administrator
+[14/Sep/2009:16:45:10 EDT] Java Heap Size: max=1217536k, current=26480k
+[14/Sep/2009:16:45:10 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:16:45:10 EDT] Embedded Broker 
+[14/Sep/2009:16:45:10 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:45:10 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:16:45:10 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:16:45:11 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:16:45:11 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:45:11 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:16:45:11 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:16:45:11 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:16:45:11 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:16:45:11 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:16:45:11 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:16:45:11 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:16:45:11 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:16:45:11 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:16:45:11 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:16:45:11 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:16:45:11 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:16:45:11 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:16:45:11 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:16:45:11 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:16:45:11 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1587 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:45:11 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:16:45:11 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:16:53:03 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:16:53:03 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:16:53:03 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:16:53:03 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:16:53:03 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:16:53:03 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:16:53:03 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:16:53:03 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:16:54:30 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:16:54:30 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:16:54:30 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:16:54:30 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) Administrator
+[14/Sep/2009:16:54:30 EDT] Java Heap Size: max=1217536k, current=26580k
+[14/Sep/2009:16:54:30 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:16:54:30 EDT] Embedded Broker 
+[14/Sep/2009:16:54:30 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:54:31 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:16:54:31 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:16:54:31 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:16:54:31 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:54:31 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:16:54:31 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:16:54:31 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:16:54:31 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:16:54:31 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:16:54:31 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:16:54:31 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:16:54:31 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:16:54:31 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:16:54:31 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:16:54:31 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:16:54:31 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:16:54:31 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:16:54:31 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:16:54:31 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:16:54:31 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1748 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:16:54:31 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:16:54:31 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[14/Sep/2009:17:01:17 EDT] [B1047]: Shutting down broker...
+[14/Sep/2009:17:01:17 EDT] [B1077]: Broadcast good-bye to all connections ...
+[14/Sep/2009:17:01:17 EDT] [B1078]: Flushing good-bye messages ...
+[14/Sep/2009:17:01:17 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:17:01:17 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[14/Sep/2009:17:01:17 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[14/Sep/2009:17:01:17 EDT] JMX Connector Server jmxrmi stopped successfully
+[14/Sep/2009:17:01:17 EDT] [B1048]: Shutdown of broker complete.
+[14/Sep/2009:17:03:11 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[14/Sep/2009:17:03:11 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[14/Sep/2009:17:03:11 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[14/Sep/2009:17:03:11 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) Administrator
+[14/Sep/2009:17:03:11 EDT] Java Heap Size: max=1217536k, current=28968k
+[14/Sep/2009:17:03:11 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[14/Sep/2009:17:03:11 EDT] Embedded Broker 
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[14/Sep/2009:17:03:11 EDT] [B1060]: Loading persistent data...
+[14/Sep/2009:17:03:11 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[14/Sep/2009:17:03:11 EDT] [B1041]: Cluster initialization successful.
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:17:03:11 EDT] [B1136]: Processing stored transactions
+[14/Sep/2009:17:03:11 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[14/Sep/2009:17:03:11 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[14/Sep/2009:17:03:11 EDT] [B1013]: Auto Creation of Queues is enabled
+[14/Sep/2009:17:03:11 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[14/Sep/2009:17:03:11 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[14/Sep/2009:17:03:11 EDT] [B1239]: Using platform MBean server
+[14/Sep/2009:17:03:11 EDT] JESMF classes not present - JESMF support will not be enabled.
+[14/Sep/2009:17:03:11 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[14/Sep/2009:17:03:11 EDT] [B1227]: Using file user repository for admin service connection authentication
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[14/Sep/2009:17:03:11 EDT] [B1227]: Using file user repository for jms service connection authentication
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[14/Sep/2009:17:03:11 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[14/Sep/2009:17:03:11 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:1885 ] with min threads 1 and max threads of 1 
+[14/Sep/2009:17:03:11 EDT] [B1228]: Cluster ping interval is 60 seconds
+[14/Sep/2009:17:03:11 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:09:07:19 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:09:07:19 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:09:07:19 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:09:07:19 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:07:19 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:09:07:19 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:07:19 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:09:07:19 EDT] [B1048]: Shutdown of broker complete.
+[15/Sep/2009:09:07:40 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[15/Sep/2009:09:07:40 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[15/Sep/2009:09:07:40 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[15/Sep/2009:09:07:40 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) SYSTEM
+[15/Sep/2009:09:07:40 EDT] Java Heap Size: max=1217536k, current=24108k
+[15/Sep/2009:09:07:40 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[15/Sep/2009:09:07:40 EDT] Embedded Broker 
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:07:40 EDT] [B1060]: Loading persistent data...
+[15/Sep/2009:09:07:40 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[15/Sep/2009:09:07:40 EDT] [B1041]: Cluster initialization successful.
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:07:40 EDT] [B1136]: Processing stored transactions
+[15/Sep/2009:09:07:40 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[15/Sep/2009:09:07:40 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[15/Sep/2009:09:07:40 EDT] [B1013]: Auto Creation of Queues is enabled
+[15/Sep/2009:09:07:40 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[15/Sep/2009:09:07:40 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[15/Sep/2009:09:07:40 EDT] [B1239]: Using platform MBean server
+[15/Sep/2009:09:07:40 EDT] JESMF classes not present - JESMF support will not be enabled.
+[15/Sep/2009:09:07:40 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[15/Sep/2009:09:07:40 EDT] [B1227]: Using file user repository for admin service connection authentication
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[15/Sep/2009:09:07:40 EDT] [B1227]: Using file user repository for jms service connection authentication
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[15/Sep/2009:09:07:40 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[15/Sep/2009:09:07:40 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3452 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:07:40 EDT] [B1228]: Cluster ping interval is 60 seconds
+[15/Sep/2009:09:07:40 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:09:18:44 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:09:18:44 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:09:18:44 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:09:18:44 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:18:44 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:09:18:44 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:18:44 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:09:18:44 EDT] [B1048]: Shutdown of broker complete.
+[15/Sep/2009:09:18:59 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[15/Sep/2009:09:18:59 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[15/Sep/2009:09:18:59 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[15/Sep/2009:09:18:59 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) SYSTEM
+[15/Sep/2009:09:18:59 EDT] Java Heap Size: max=1217536k, current=29680k
+[15/Sep/2009:09:18:59 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[15/Sep/2009:09:18:59 EDT] Embedded Broker 
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:18:59 EDT] [B1060]: Loading persistent data...
+[15/Sep/2009:09:18:59 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[15/Sep/2009:09:18:59 EDT] [B1041]: Cluster initialization successful.
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:18:59 EDT] [B1136]: Processing stored transactions
+[15/Sep/2009:09:18:59 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[15/Sep/2009:09:18:59 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[15/Sep/2009:09:18:59 EDT] [B1013]: Auto Creation of Queues is enabled
+[15/Sep/2009:09:18:59 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[15/Sep/2009:09:18:59 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[15/Sep/2009:09:18:59 EDT] [B1239]: Using platform MBean server
+[15/Sep/2009:09:18:59 EDT] JESMF classes not present - JESMF support will not be enabled.
+[15/Sep/2009:09:18:59 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[15/Sep/2009:09:18:59 EDT] [B1227]: Using file user repository for admin service connection authentication
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[15/Sep/2009:09:18:59 EDT] [B1227]: Using file user repository for jms service connection authentication
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[15/Sep/2009:09:18:59 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[15/Sep/2009:09:18:59 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3589 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:18:59 EDT] [B1228]: Cluster ping interval is 60 seconds
+[15/Sep/2009:09:18:59 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:09:33:32 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:09:33:32 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:09:33:32 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:09:33:32 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:33:32 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:09:33:32 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:09:33:32 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:09:33:32 EDT] [B1048]: Shutdown of broker complete.
+[15/Sep/2009:09:33:57 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[15/Sep/2009:09:33:57 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[15/Sep/2009:09:33:57 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[15/Sep/2009:09:33:57 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) Administrator
+[15/Sep/2009:09:33:57 EDT] Java Heap Size: max=1217536k, current=27552k
+[15/Sep/2009:09:33:57 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[15/Sep/2009:09:33:57 EDT] Embedded Broker 
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:33:57 EDT] [B1060]: Loading persistent data...
+[15/Sep/2009:09:33:57 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[15/Sep/2009:09:33:57 EDT] [B1041]: Cluster initialization successful.
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:33:57 EDT] [B1136]: Processing stored transactions
+[15/Sep/2009:09:33:57 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[15/Sep/2009:09:33:57 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[15/Sep/2009:09:33:57 EDT] [B1013]: Auto Creation of Queues is enabled
+[15/Sep/2009:09:33:57 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[15/Sep/2009:09:33:57 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[15/Sep/2009:09:33:57 EDT] [B1239]: Using platform MBean server
+[15/Sep/2009:09:33:57 EDT] JESMF classes not present - JESMF support will not be enabled.
+[15/Sep/2009:09:33:57 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[15/Sep/2009:09:33:57 EDT] [B1227]: Using file user repository for admin service connection authentication
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[15/Sep/2009:09:33:57 EDT] [B1227]: Using file user repository for jms service connection authentication
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[15/Sep/2009:09:33:57 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[15/Sep/2009:09:33:57 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:3727 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:09:33:57 EDT] [B1228]: Cluster ping interval is 60 seconds
+[15/Sep/2009:09:33:57 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:11:07:12 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:11:07:12 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:11:07:12 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:11:07:12 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:07:12 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:11:07:12 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:07:12 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:11:07:12 EDT] [B1048]: Shutdown of broker complete.
+[15/Sep/2009:11:13:43 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[15/Sep/2009:11:13:43 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[15/Sep/2009:11:13:43 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[15/Sep/2009:11:13:43 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) Administrator
+[15/Sep/2009:11:13:43 EDT] Java Heap Size: max=1217536k, current=28604k
+[15/Sep/2009:11:13:43 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[15/Sep/2009:11:13:43 EDT] Embedded Broker 
+[15/Sep/2009:11:13:43 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:13:43 EDT] [B1060]: Loading persistent data...
+[15/Sep/2009:11:13:43 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[15/Sep/2009:11:13:43 EDT] [B1041]: Cluster initialization successful.
+[15/Sep/2009:11:13:44 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:13:44 EDT] [B1136]: Processing stored transactions
+[15/Sep/2009:11:13:44 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[15/Sep/2009:11:13:44 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[15/Sep/2009:11:13:44 EDT] [B1013]: Auto Creation of Queues is enabled
+[15/Sep/2009:11:13:44 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[15/Sep/2009:11:13:44 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[15/Sep/2009:11:13:44 EDT] [B1239]: Using platform MBean server
+[15/Sep/2009:11:13:44 EDT] JESMF classes not present - JESMF support will not be enabled.
+[15/Sep/2009:11:13:44 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[15/Sep/2009:11:13:44 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[15/Sep/2009:11:13:44 EDT] [B1227]: Using file user repository for admin service connection authentication
+[15/Sep/2009:11:13:44 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[15/Sep/2009:11:13:44 EDT] [B1227]: Using file user repository for jms service connection authentication
+[15/Sep/2009:11:13:44 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[15/Sep/2009:11:13:44 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[15/Sep/2009:11:13:44 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4234 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:13:44 EDT] [B1228]: Cluster ping interval is 60 seconds
+[15/Sep/2009:11:13:44 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:11:35:32 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:11:35:32 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:11:35:32 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:11:35:32 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:35:32 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:11:35:32 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:35:32 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:11:35:32 EDT] [B1048]: Shutdown of broker complete.
+[15/Sep/2009:11:41:27 EDT] 
+================================================================================
+Open Message Queue 4.3
+Sun Microsystems, Inc.
+Version:  4.3  (Build 7-g)
+Compile:  Fri 11/07/2008 
+
+Copyright (c) 2007 Sun Microsystems, Inc.  All rights reserved.  Use is
+subject to license terms.
+================================================================================
+Java Runtime: 1.6.0_13 Sun Microsystems Inc. C:\Java\jdk1.6.0_13\jre
+[15/Sep/2009:11:41:28 EDT]    IMQ_HOME=C:\GlassFishESB\glassfish\imq
+[15/Sep/2009:11:41:28 EDT] IMQ_VARHOME=C:\GlassFishESB\glassfish\domains\domain1\imq
+[15/Sep/2009:11:41:28 EDT] Windows 2003 5.2 x86 DVANHIE3.fedsconnect.org (2 cpu) SYSTEM
+[15/Sep/2009:11:41:28 EDT] Java Heap Size: max=1217536k, current=24984k
+[15/Sep/2009:11:41:28 EDT] Arguments: -port 7676 -name imqbroker -imqhome C:\GlassFishESB\glassfish\imq\bin\.. -varhome C:\GlassFishESB\glassfish\domains\domain1\imq -libhome C:\GlassFishESB\glassfish\imq\lib -useRmiRegistry -rmiRegistryPort 8686 -save -silent
+[15/Sep/2009:11:41:28 EDT] Embedded Broker 
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the portmapper service using tcp [ 7676, 50, * ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:41:28 EDT] [B1060]: Loading persistent data...
+[15/Sep/2009:11:41:28 EDT] Using built-in file-based persistent store: C:\GlassFishESB\glassfish\domains\domain1\imq\instances\imqbroker\
+[15/Sep/2009:11:41:28 EDT] [B1041]: Cluster initialization successful.
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the cluster_discovery service using tcp [ 0, 100 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:41:28 EDT] [B1136]: Processing stored transactions
+[15/Sep/2009:11:41:28 EDT] [B1284]: 0 cluster transactions remain in PREPARED state, 0 in COMMITTED state waiting for remote broker completion
+[15/Sep/2009:11:41:28 EDT] Of 0 remote transactions, 0 in PREPARED state, 0 in COMMITTED state
+[15/Sep/2009:11:41:28 EDT] [B1013]: Auto Creation of Queues is enabled
+[15/Sep/2009:11:41:28 EDT] [B1151]: Loading destination mq.sys.dmq [Queue] with 0 messages
+[15/Sep/2009:11:41:28 EDT] [B1152]: Loading of destination mq.sys.dmq [Queue] complete
+[15/Sep/2009:11:41:28 EDT] [B1239]: Using platform MBean server
+[15/Sep/2009:11:41:28 EDT] JESMF classes not present - JESMF support will not be enabled.
+[15/Sep/2009:11:41:28 EDT] JMX Connector Server jmxrmi started successfully with url service:jmx:rmi://DVANHIE3/jndi/rmi://DVANHIE3.fedsconnect.org:8686/DVANHIE3.fedsconnect.org/7676/jmxrmi
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the admin service using tcp(host = *, port=0, mode=dedicated) with min threads 4 and max threads of 10 
+[15/Sep/2009:11:41:28 EDT] [B1227]: Using file user repository for admin service connection authentication
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the jms service using tcp(host = *, port=0, mode=dedicated) with min threads 10 and max threads of 1000 
+[15/Sep/2009:11:41:28 EDT] [B1227]: Using file user repository for jms service connection authentication
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the jmsdirect service using  with min threads 0 and max threads of 0 
+[15/Sep/2009:11:41:28 EDT] [B1227]: Using file user repository for jmsdirect service connection authentication
+[15/Sep/2009:11:41:28 EDT] [B1004]: Starting the cluster service using tcp [ 0.0.0.0/0.0.0.0:4482 ] with min threads 1 and max threads of 1 
+[15/Sep/2009:11:41:28 EDT] [B1228]: Cluster ping interval is 60 seconds
+[15/Sep/2009:11:41:28 EDT] [B1039]: Broker "imqbroker@DVANHIE3.fedsconnect.org:7676" ready.
+[15/Sep/2009:11:45:10 EDT] [B1047]: Shutting down broker...
+[15/Sep/2009:11:45:10 EDT] [B1077]: Broadcast good-bye to all connections ...
+[15/Sep/2009:11:45:10 EDT] [B1078]: Flushing good-bye messages ...
+[15/Sep/2009:11:45:10 EDT] [B1007]: Stopping Service admin with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:45:10 EDT] [B1007]: Stopping Service jmsdirect with protocol 
+[15/Sep/2009:11:45:10 EDT] [B1007]: Stopping Service jms with protocol tcp(host = *, port=0, mode=dedicated)
+[15/Sep/2009:11:45:10 EDT] JMX Connector Server jmxrmi stopped successfully
+[15/Sep/2009:11:45:10 EDT] [B1048]: Shutdown of broker complete.

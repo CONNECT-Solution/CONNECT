@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<componentConfig:Configuration name="sun-file-binding"
+                               xmlns:componentConfig="http://com.sun.jbi.component/schema/configuration"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://com.sun.jbi.component/schema/configuration ./componentConfiguration.xsd">
+    
+    <componentConfig:Threads displayName="Number of outbound threads" 
+                                     displayDescription="Number of threads to concurrently process outbound file writes" 
+                                     isPasswordField="false">10</componentConfig:Threads>
+                                     
+</componentConfig:Configuration>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InternalConnectionInfos>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.198</homeCommunityId>
+		<name>DoD</name>
+		<description>DoD Description</description>
+		<services>
+                  	<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+			</service>
+		  	<service>
+				<name>documentquery</name>
+				<description>documentquery</description>
+				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+		  	<service>
+				<name>documentretrieve</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
+		  	<service>
+				<name>nhincdocumentretrieve</name>
+				<description>NHIN-CONNECT Internal Document Retrieve</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:9081/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>https://localhost:9181/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+			<service>
+				<name>notificationconsumer</name>
+				<description>notificationconsumer</description>
+				<endpointURL>https://127.0.0.1:8089/mockNotificationConsumerBinding</endpointURL>
+<!--				<endpointURL>https://localhost:9081/NotificationProducerService/NotificationConsumerPort</endpointURL> -->
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description>agencynotificationconsumer</description>
+				<endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencysubscription</name>
+				<description>agencysubscription</description>
+				<endpointURL>http://localhost:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>
+			<service>
+				<name>policyenginedte</name>
+				<description>policyenginedte</description>
+				<endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+			</service>
+			<service>
+				<name>policyenginefacade</name>
+				<description>policyenginefacade</description>
+				<endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+			</service>
+			<service>
+				<name>auditlog</name>
+				<description>auditlog</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdsbdocrepository</name>
+				<description>Adapter Document Retrieve</description>
+				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
+			</service>
+			<service>
+				<name>adapterxdsbdocregistry</name>
+				<description>Adapter Document Query</description>
+			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>2.16.840.1.113883.3.200</homeCommunityId>
+		<name>Federal Agency - VA</name>
+		<description>Health Information Exchange in the Federal VA region</description>
+		<services>
+                  	<service>
+				<name>subjectdiscovery</name>
+				<description>subjectdiscovery</description>
+				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+			</service>
+		  	<service>
+				<name>documentquery</name>
+				<description>documentquery</description>
+				<endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
+			</service>
+		  	<service>
+				<name>documentretrieve</name>
+				<description>documentretrieve</description>
+				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+			</service>
+		  	<service>
+				<name>nhincdocumentretrieve</name>
+				<description>NHIN-CONNECT Internal Document Retrieve</description>
+				<endpointURL>http://localhost:9080/NhinConnect/NhincDocRetrieve</endpointURL>
+			</service>
+			<service>
+				<name>auditquery</name>
+				<description>auditquery</description>
+				<endpointURL>https://localhost:9081/findAuditEvents/AuditLogQuery</endpointURL>
+			</service>
+			<service>
+				<name>notificationproducer</name>
+				<description>notificationproducer</description>
+				<endpointURL>https://localhost:9181/NotificationProducerService/NotificationProducerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencynotificationconsumer</name>
+				<description>agencynotificationconsumer</description>
+				<endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
+			</service>
+			<service>
+				<name>agencysubscription</name>
+				<description>agencysubscription</description>
+				<endpointURL>http://localhost:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
+			</service>
+			<service>
+				<name>policyenginedte</name>
+				<description>policyenginedte</description>
+				<endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+			</service>
+			<service>
+				<name>policyenginefacade</name>
+				<description>policyenginefacade</description>
+				<endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+			</service>
+			<service>
+				<name>auditlog</name>
+				<description>auditlog</description>
+				<endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdsbdocrepository</name>
+				<description>Adapter Document Retrieve</description>
+				<endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
+			</service>
+			<service>
+				<name>adapterxdsbdocregistry</name>
+				<description>Adapter Document Query</description>
+			<endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL> 
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
+			</service>
+		</services>
+	</internalConnectionInfo>
+	<internalConnectionInfo>
+		<homeCommunityId>1.19.6.24.109.42.1.3</homeCommunityId>
+		<name>NISTXDS</name>
+		<description>NIST XDS Repository</description>
+		<services>
+			<service>
+				<name>adapterxdsbdocrepository</name>
+				<description>Adapter Document Retrieve</description>
+				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL>
+			</service>
+			<service>
+				<name>adapterxdsbdocregistry</name>
+				<description>Adapter Document Query</description>
+				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL>
+			</service>
+		</services>
+	</internalConnectionInfo>
+</InternalConnectionInfos>

@@ -1,0 +1,46 @@
+amSSOProvider:07/16/2009 12:22:17:188 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+**********************************************
+amSSOProvider:07/16/2009 12:22:17:188 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+cookieMode is :true
+amSession:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+**********************************************
+amSession:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+CookieMode is:true
+amSSOProvider:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+cookieMode is :true
+amSession:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+CookieMode is:true
+amSSOProvider:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+cookieMode is :true
+amSession:07/16/2009 12:22:17:204 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+CookieMode is:true
+amSSOProvider:07/16/2009 12:22:17:235 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+cookieMode is :true
+amSession:07/16/2009 12:22:17:235 PM EDT: Thread[httpSSLWorkerThread-8080-4,10,Grizzly]
+CookieMode is:true
+amSession:07/16/2009 12:23:41:437 PM EDT: Thread[RMI TCP Connection(20)-127.0.0.1,5,RMI Runtime]
+Running sendEvent, type = 5
+amSession:07/16/2009 12:23:41:453 PM EDT: Thread[RMI TCP Connection(20)-127.0.0.1,5,RMI Runtime]
+SESSION NOTIFICATION : <Session sid="AQIC5wM2LY4SfcxngsIssA02eAVSJFx+/dqW/VLtWeVEujM=@AAJTSQACMDE=#" stype="user" cid="dsameuser" cdomain="dc=opensso,dc=java,dc=net" maxtime="153722867280912930" maxidle="153722867280912930" maxcaching="153722867280912930" timeidle="0" timeleft="153722867280912930" state="destroyed">
+<Property name="CharSet" value="UTF-8"></Property>
+<Property name="UserId" value="dsameuser"></Property>
+<Property name="successURL" value="/opensso/console"></Property>
+<Property name="cookieSupport" value="true"></Property>
+<Property name="AuthLevel" value="0"></Property>
+<Property name="SessionHandle" value="shandle:AQIC5wM2LY4SfcygHxoZ/M6jKkDexAoPyOLdTt3BaK8Re6k=@AAJTSQACMDE=#"></Property>
+<Property name="UserToken" value="dsameuser"></Property>
+<Property name="IndexType" value="module_instance"></Property>
+<Property name="Principals" value="cn=dsameuser,ou=DSAME Users,dc=opensso,dc=java,dc=net"></Property>
+<Property name="sun.am.UniversalIdentifier" value="id=dsameuser,ou=user,dc=opensso,dc=java,dc=net"></Property>
+<Property name="amlbcookie" value="01"></Property>
+<Property name="Organization" value="dc=opensso,dc=java,dc=net"></Property>
+<Property name="Locale" value="en_US"></Property>
+<Property name="HostName" value="172.16.50.54"></Property>
+<Property name="AuthType" value="Application"></Property>
+<Property name="Host" value="172.16.50.54"></Property>
+<Property name="UserProfile" value="Required"></Property>
+<Property name="AMCtxId" value="7c9fa4d0659745bf01"></Property>
+<Property name="clientType" value="genericHTML"></Property>
+<Property name="authInstant" value="2009-07-16T16:02:51Z"></Property>
+<Property name="Principal" value="cn=dsameuser,ou=DSAME Users,dc=opensso,dc=java,dc=net"></Property>
+</Session>

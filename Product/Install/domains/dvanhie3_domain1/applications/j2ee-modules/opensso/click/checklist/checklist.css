@@ -1,0 +1,13 @@
+.checkList {
+	border: 1px solid #ccc;
+}
+
+.checkList ul {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+.checkList, .checkList li { margin-left: 0; padding: 0; }
+.checkListLabel { display: block; padding-left: 25px; text-indent: -25px; }
+.checkListLabel:hover, .checkListLabel.hover { background: #777; color: #fff; }
+		
