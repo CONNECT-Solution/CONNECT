@@ -78,97 +78,6 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init,wsimport-service-check-EntityNotifyService">
-<!--
-        <property name="service-wsdl-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <echo message="Deleting jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/b_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/t_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsrf/bf_2" />
-        <echo message="Deleted jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
--->
-        <!-- Delete the artifacts that we do not want -->
-        <!-- end of deleting artifacts -->
-
-        <property name="targetLocation-EntityNotifyService" location="${meta.inf}/wsdl/EntityNotifyService"/>
-        <property name="sourceLocation-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/"/>
-        <copy todir="${targetLocation-EntityNotifyService}">
-            <fileset dir="${sourceLocation-EntityNotifyService}"/>
-        </copy>
-        <property name="targetLocation-EntityNotifyServiceSchemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-EntityNotifyServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/schemas/"/>
-        <copy todir="${targetLocation-EntityNotifyServiceSchemas}">
-            <fileset dir="${sourceLocation-EntityNotifyServiceSchemas}"/>
-        </copy>
-    </target>
-    
-    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribe" >
-<!--
-        <property name="service-wsdl-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <echo message="Deleting jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/b_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/t_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsrf/bf_2" />
-        <echo message="Deleted jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
--->
-        <!-- Delete the artifacts that we do not want -->
-        <!-- end of deleting artifacts -->
-
-        <property name="targetLocation-ProxyHiemSubscribe" location="${meta.inf}/wsdl/ProxyHiemSubscribe"/>
-        <property name="sourceLocation-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
-        <copy todir="${targetLocation-ProxyHiemSubscribe}">
-            <fileset dir="${sourceLocation-ProxyHiemSubscribe}"/>
-        </copy>
-        <property name="targetLocation-ProxyHiemSubscribeSchemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-ProxyHiemSubscribeSchemas" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/schemas/"/>
-        <copy todir="${targetLocation-ProxyHiemSubscribeSchemas}">
-            <fileset dir="${sourceLocation-ProxyHiemSubscribeSchemas}"/>
-        </copy>
-    </target>
-    
-    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init,wsimport-service-check-ProxyHiemNotify" >
-<!--
-        <property name="service-wsdl-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
--->
-        <property name="targetLocation-ProxyHiemNotify" location="${meta.inf}/wsdl/ProxyHiemNotify"/>
-        <property name="sourceLocation-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
-        <copy todir="${targetLocation-ProxyHiemNotify}">
-            <fileset dir="${sourceLocation-ProxyHiemNotify}"/>
-        </copy>
-        <property name="targetLocation-ProxyHiemNotifySchemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-ProxyHiemNotifySchemas" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/schemas/"/>
-        <copy todir="${targetLocation-ProxyHiemNotifySchemas}">
-            <fileset dir="${sourceLocation-ProxyHiemNotifySchemas}"/>
-        </copy>
-    </target>
-    
-    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init,wsimport-service-check-EntitySubscribeService" >
-<!--
-        <property name="service-wsdl-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <echo message="Deleting jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/b_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/t_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsrf/bf_2" />
-        <echo message="Deleted jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
--->
-        <!-- Delete the artifacts that we do not want -->
-        <!-- end of deleting artifacts -->
-
-        <property name="targetLocation-EntitySubscribeService" location="${meta.inf}/wsdl/EntitySubscribeService"/>
-        <property name="sourceLocation-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/"/>
-        <copy todir="${targetLocation-EntitySubscribeService}">
-            <fileset dir="${sourceLocation-EntitySubscribeService}"/>
-        </copy>
-        <property name="targetLocation-EntitySubscribeServiceSchemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-EntitySubscribeServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/schemas/"/>
-        <copy todir="${targetLocation-EntitySubscribeServiceSchemas}">
-            <fileset dir="${sourceLocation-EntitySubscribeServiceSchemas}"/>
-        </copy>
-    </target>
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
@@ -322,63 +231,114 @@
             <attribute name="Class-Path" value="${included.lib.reference.HiemProcessorLib.jar} ${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhinHiemProxy.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.reference.HiemUtilityLib.jar} ${reference.HiemSubscriptionRepository.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} "/>
         </manifest>
     </target>
+    
+    
+    
+    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeSecuredService" unless="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
+        <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/wsdl/EntityUnsubscribeSecuredService"/>
+        <property name="sourceLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/"/>
+        <copy todir="${targetLocation-EntityUnsubscribeSecuredService}">
+            <fileset dir="${sourceLocation-EntityUnsubscribeSecuredService}"/>
+        </copy>
+ 
+        <copy todir="${meta.inf}/wsdl/schemas">
+            <fileset dir="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/schemas/"/>
+        </copy>
+        
+    </target>    
+    
+    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntitySubscribeSecuredService" unless="wsimport-service-EntitySubscribeSecuredService.notRequired">
+        <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-EntitySubscribeSecuredService" location="${meta.inf}/wsdl/EntitySubscribeSecuredService"/>
+        <property name="sourceLocation-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/"/>
+        <copy todir="${targetLocation-EntitySubscribeSecuredService}">
+            <fileset dir="${sourceLocation-EntitySubscribeSecuredService}"/>
+        </copy>
+        
+        <copy todir="${meta.inf}/wsdl/schemas">
+            <fileset dir="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/schemas/"/>
+        </copy>
+        
+    </target>
+    
+    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init,wsimport-service-check-EntityNotifySecured" unless="wsimport-service-EntityNotifySecured.notRequired">
+        <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-EntityNotifySecured" location="${meta.inf}/wsdl/EntityNotifySecured"/>
+        <property name="sourceLocation-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntityNotifySecured}">
+            <fileset dir="${sourceLocation-EntityNotifySecured}"/>
+        </copy>
+        
+        <copy todir="${meta.inf}/wsdl/schemas">
+            <fileset dir="${meta.inf}/xml-resources/web-services/EntityNotifySecured/schemas/"/>
+        </copy>
+    </target>
+    
+    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init,wsimport-service-check-ProxyHiemNotifySecured" unless="wsimport-service-ProxyHiemNotifySecured.notRequired">
+        <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-ProxyHiemNotifySecured" location="${meta.inf}/wsdl/ProxyHiemNotifySecured"/>
+        <property name="sourceLocation-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemNotifySecured}">
+            <fileset dir="${sourceLocation-ProxyHiemNotifySecured}"/>
+        </copy>
+        
+        <copy todir="${meta.inf}/wsdl/schemas">
+            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/schemas/"/>
+        </copy>
+        
+    </target>    
+    
+    
+    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribeSecured" unless="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
+        <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemUnsubscribeSecured"/>
+        <property name="sourceLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemUnsubscribeSecured}">
+            <fileset dir="${sourceLocation-ProxyHiemUnsubscribeSecured}"/>
+        </copy>
+        
+        <copy todir="${meta.inf}/wsdl/schemas"> 
+            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/schemas/"/>
+        </copy>
+        
+    </target>
+    
+    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribeSecured" unless="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
+        <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
+        <!--
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        -->
+        <property name="targetLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemSubscribeSecured"/>
+        <property name="sourceLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemSubscribeSecured}">
+            <fileset dir="${sourceLocation-ProxyHiemSubscribeSecured}"/>
+        </copy>
+        
+        <copy todir="${meta.inf}/wsdl/schemas">
+            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/schemas/"/>
+        </copy>
+        
+    </target>    
+    
+            
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
 
-
-    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeService" >
-<!--
-        <property name="service-wsdl-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <echo message="Deleting jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/b_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/t_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsrf/bf_2" />
-        <echo message="Deleted jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
--->
-        <!-- Delete the artifacts that we do not want -->
-        <!-- end of deleting artifacts -->
-
-        <property name="targetLocation-EntityUnsubscribeService" location="${meta.inf}/wsdl/EntityUnsubscribeService"/>
-        <property name="sourceLocation-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
-        <copy todir="${targetLocation-EntityUnsubscribeService}">
-            <fileset dir="${sourceLocation-EntityUnsubscribeService}"/>
-        </copy>
-
-        <property name="targetLocation-EntityUnsubscribeServiceSchemas" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocation-EntityUnsubscribeServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/schemas/"/>
-        <copy todir="${targetLocation-EntityUnsubscribeServiceSchemas}">
-            <fileset dir="${sourceLocation-EntityUnsubscribeServiceSchemas}"/>
-        </copy>
-
-    </target>
-    <target name="wsimport-service-NhincProxyUnsubscribe" depends="wsimport-init,wsimport-service-check-NhincProxyUnsubscribe">
-<!--
-        <property name="service-wsdl-NhincProxyUnsubscribe" location="${meta.inf}/xml-resources/web-services/NhincProxyUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <echo message="Deleting jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/b_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsn/t_2" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/oasis_open/docs/wsrf/bf_2" />
-        <echo message="Deleted jaxb artifacts from directory ${build.generated.dir}/wsimport/client/..." />
--->
-        <!-- Delete the artifacts that we do not want -->
-        <!-- end of deleting artifacts -->
-
-        <property name="targetLocation-NhincProxyUnsubscribe" location="${meta.inf}/wsdl/NhincProxyUnsubscribe"/>
-        <property name="sourceLocation-NhincProxyUnsubscribe" location="${meta.inf}/xml-resources/web-services/NhincProxyUnsubscribe/wsdl/"/>
-        <echo message="copy wsdl's [${sourceLocation-NhincProxyUnsubscribe}]->[${targetLocation-NhincProxyUnsubscribe}]" />
-        <copy todir="${targetLocation-NhincProxyUnsubscribe}">
-            <fileset dir="${sourceLocation-NhincProxyUnsubscribe}"/>
-        </copy>
-
-        <property name="targetLocation-NhincProxyUnsubscribeSchemas" location="${meta.inf}/wsdl/NhincProxyUnsubscribe"/>
-        <property name="sourceLocation-NhincProxyUnsubscribeSchemas" location="${meta.inf}/xml-resources/web-services/NhincProxyUnsubscribe/schemas/"/>
-        <echo message="copy schemas [${sourceLocation-NhincProxyUnsubscribeSchemas}]->[${targetLocation-NhincProxyUnsubscribeSchemas}]" />
-        <copy todir="${targetLocation-NhincProxyUnsubscribeSchemas}">
-            <fileset dir="${sourceLocation-NhincProxyUnsubscribeSchemas}"/>
-        </copy>
-        <echo message="end wsimport-service-NhincProxyUnsubscribe" />
-    </target>
 </project>

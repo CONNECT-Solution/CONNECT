@@ -17,6 +17,7 @@ import gov.hhs.fha.nhinc.hiem.processor.entity.handler.EntitySubscribeHandlerFac
 import gov.hhs.fha.nhinc.hiem.processor.common.PatientIdExtractor;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import javax.xml.xpath.XPathExpressionException;
 import org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault;
 
@@ -37,6 +38,7 @@ public class EntitySubscribeProcessor
         try
         {
             log.debug("determine topic configuration");
+            log.debug(XmlUtility.serializeElementIgnoreFaults(subscribeElement));
             topicConfig = getTopicConfiguration(subscribeElement);
             log.debug("getTopicConfiguration complete.  isnull=" + (topicConfig == null));
 

@@ -23,7 +23,7 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 //import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 //import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.w3c.dom.Element;
-
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 /**
  *
  *
@@ -45,12 +45,49 @@ public class EntitySubscribeServiceImpl
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
+    //Deprecated
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest, WebServiceContext context) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
     {
         log.debug("In subscribe");
         SubscribeResponse response = null;
         Subscribe subscribe = subscribeRequest.getSubscribe();
         AssertionType assertion = subscribeRequest.getAssertion();
+        NhinTargetCommunitiesType targetCommunitites = subscribeRequest.getNhinTargetCommunities();
+        Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
+
+        EntitySubscribeProcessor processor = new EntitySubscribeProcessor();
+        try
+        {
+            response = processor.processSubscribe(subscribe, subscribeElement, assertion, targetCommunitites);
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault ex)
+        {
+            throw new TopicNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault ex)
+        {
+            throw new InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault ex)
+        {
+            throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex)
+        {
+            throw new ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
+        }
+
+        return response;
+    }
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequest, WebServiceContext context) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
+    {
+        log.debug("In subscribe");
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        
+        SubscribeResponse response = null;
+        Subscribe subscribe = subscribeRequest.getSubscribe();
+
+
         NhinTargetCommunitiesType targetCommunitites = subscribeRequest.getNhinTargetCommunities();
         Element subscribeElement = new SoapUtil().extractFirstElement(context, "subscribeSoapMessage", "Subscribe");
 

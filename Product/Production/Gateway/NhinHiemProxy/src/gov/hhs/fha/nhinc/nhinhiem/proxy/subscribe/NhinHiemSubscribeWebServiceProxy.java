@@ -20,6 +20,7 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
@@ -58,6 +59,8 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
         SubscribeResponse response = null;
         String url = null;
 
+        log.debug("In NhinSubscribeWebserviceProxy.subscribe()");
+
         if (target != null) {
             try {
                 url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
@@ -93,10 +96,12 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             
             SubscribeResponseMarshaller responseMarshaller = new SubscribeResponseMarshaller();
             responseElement = responseMarshaller.marshal(response);
+            log.debug(XmlUtility.serializeElementIgnoreFaults(responseElement));
         } else {
             log.error("The URL for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME + " is null");
         }
 
+        log.debug("Exit NhinSubscribeWebserviceProxy.subscribe()");
         return responseElement;
     }
 

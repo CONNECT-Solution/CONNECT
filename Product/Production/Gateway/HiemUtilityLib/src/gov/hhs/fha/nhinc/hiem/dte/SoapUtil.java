@@ -179,11 +179,28 @@ public class SoapUtil {
         List<Header> headers = new ArrayList<Header>();
         if (referenceParametersElements != null) {
             for (Element referenceParametersElement : referenceParametersElements.getElements()) {
-                log.debug("attaching header " + referenceParametersElement.getNodeName());
-                Header header = Headers.create(referenceParametersElement);
-                headers.add(header);
+
+                if (validateHeader(referenceParametersElement.getNodeName()))
+                {
+                    log.debug("attaching header " + referenceParametersElement.getNodeName());
+                    Header header = Headers.create(referenceParametersElement);
+                    headers.add(header);
+                }
             }
             port.setOutboundHeaders(headers);
         }
+    }
+    private boolean validateHeader(String headerName)
+    {
+        boolean result = true;
+        String testCondition = headerName.toLowerCase();
+
+        if ((testCondition.equals("to")) || testCondition.equals("replyto") || 
+                testCondition.equals("action") || testCondition.equals("messageid"))
+        {
+            result = false;
+            log.warn("Invalid header: " + headerName);
+        }
+        return result;
     }
 }

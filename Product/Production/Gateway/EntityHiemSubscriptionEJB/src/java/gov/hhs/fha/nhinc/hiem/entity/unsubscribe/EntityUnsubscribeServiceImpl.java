@@ -62,6 +62,7 @@ import javax.xml.ws.WebServiceContext;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.UnsubscribeRequestSecuredType;
 import gov.hhs.fha.nhinc.common.subscription.ReferenceParameterType;
 import gov.hhs.fha.nhinc.common.subscription.ReferenceParametersType;
 import gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType;
@@ -84,6 +85,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory;
 import org.oasis_open.docs.wsn.b_2.UnableToDestroySubscriptionFaultType;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+
 
 /**
  *
@@ -218,4 +220,133 @@ public class EntityUnsubscribeServiceImpl {
             throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
         }
     }
+
+    public UnsubscribeResponse unsubscribe(UnsubscribeRequestSecuredType unsubscribeRequest, WebServiceContext context) throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault {
+        gov.hhs.fha.nhinc.genericheaderhandler.SoapHeaderHandler handler;
+
+        UnsubscribeResponse response = null;
+        try {
+            response = unsubscribeOps(unsubscribeRequest, context);
+        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
+            throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault(ex.getMessage(), null);
+        } catch (UnableToDestroySubscriptionFault ex) {
+            throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(), null);
+        }
+        return response;
+    }
+
+    private UnsubscribeResponse unsubscribeOps(UnsubscribeRequestSecuredType unsubscribeRequest, WebServiceContext context) throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault, gov.hhs.fha.nhinc.entitysubscriptionmanagement.ResourceUnknownFault, org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault, UnableToDestroySubscriptionFault {
+        log.debug("Entering EntityUnsubscribeServiceImpl.unsubscribe");
+
+        log.debug("extracting reference parameters from soap header");
+        ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
+        log.debug("extracted reference parameters from soap header");
+
+        log.debug("extracting assertion");
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        log.debug("extracted assertion");
+
+        //retrieve by consumer reference
+        SubscriptionRepositoryService repo = new SubscriptionRepositoryService();
+        SubscriptionItem subscriptionItem = null;
+        try {
+            log.debug("lookup subscription by reference parameters");
+            subscriptionItem = repo.retrieveByLocalSubscriptionReferenceParameters(referenceParametersElements);
+            log.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
+        } catch (SubscriptionRepositoryException ex) {
+            log.error(ex);
+            throw new SubscriptionManagerSoapFaultFactory().getErrorDuringSubscriptionRetrieveFault(ex);
+        }
+
+        if (subscriptionItem == null) {
+            throw new SubscriptionManagerSoapFaultFactory().getUnableToFindSubscriptionFault();
+        }
+
+        //todo: if has parent, retrieve parent, forward unsubscribe to agency
+        List<SubscriptionItem> childSubscriptions = null;
+        try {
+            log.debug("checking to see if subscription has child subscription");
+            childSubscriptions = repo.retrieveByParentSubscriptionReference(subscriptionItem.getSubscriptionReferenceXML());
+            log.debug("childSubscriptions isnull? = " + (childSubscriptions == null));
+        } catch (SubscriptionRepositoryException ex) {
+            log.warn("failed to check for child subscription", ex);
+        }
+
+        if (NullChecker.isNotNullish(childSubscriptions)) {
+            log.debug("send unsubscribe(s) to child [" + childSubscriptions.size() + "]");
+            for (SubscriptionItem childSubscription : childSubscriptions) {
+                log.debug("sending unsubscribe to child");
+                unsubscribeToChild(unsubscribeRequest, childSubscription, assertion);
+            }
+        }
+
+        //"remove" from local repo
+        log.debug("invoking subscription storage service to delete subscription");
+        try {
+            repo.deleteSubscription(subscriptionItem);
+        } catch (SubscriptionRepositoryException ex) {
+            log.error("unable to delete subscription.  This should result in a unable to remove subscription fault", ex);
+            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
+        }
+
+        UnsubscribeResponse response = new UnsubscribeResponse();
+
+        log.debug("Exiting HiemUnsubscribeImpl.unsubscribe");
+        return response;
+    }
+
+    private void unsubscribeToChild(UnsubscribeRequestSecuredType parentUnsubscribeRequest, SubscriptionItem childSubscriptionItem, AssertionType parentAssertion) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+        try {
+            log.debug("unsubscribing to child subscription");
+
+            log.debug("building target");
+            NhinTargetSystemType target;
+
+            target = new TargetBuilder().buildSubscriptionManagerTarget(childSubscriptionItem.getSubscriptionReferenceXML());
+            log.debug("target url = " + target.getUrl());
+            if (NullChecker.isNullish(target.getUrl())) {
+                throw new UnableToDestroySubscriptionFault("Unable to determine where to send the unsubscribe for the child subscription", new UnableToDestroySubscriptionFaultType());
+            }
+
+            log.debug("unmarshalling unsubscribe");
+            Unsubscribe parentUnsubscribe = parentUnsubscribeRequest.getUnsubscribe();
+            WsntUnsubscribeMarshaller unsubscribeMarshaller = new WsntUnsubscribeMarshaller();
+            Element unsubscribeElement = unsubscribeMarshaller.marshal(parentUnsubscribe);
+            log.debug(XmlUtility.formatElementForLogging(null, unsubscribeElement));
+
+            log.debug("extracting reference parameters from subscription reference");
+            ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
+            ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem.getSubscriptionReferenceXML());
+            log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
+
+            log.debug("initialize proxy");
+            NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
+            NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemSubscribeProxy();
+            log.debug("initialized proxy [" + proxy.toString() + "]");
+
+            log.debug("sending unsubscribe");
+            Element unsubscribeResponseElement = proxy.unsubscribe(unsubscribeElement, referenceParametersElements, parentAssertion, target);
+            log.debug("unsubscribe response received");
+
+            log.debug("unmarshalling response");
+            WsntUnsubscribeResponseMarshaller unsubscribeResponseMarshaller = new WsntUnsubscribeResponseMarshaller();
+            UnsubscribeResponse unsubscribeResponse = unsubscribeResponseMarshaller.unmarshal(unsubscribeResponseElement);
+            log.debug("unmarshalled response");
+
+            log.debug("invoking subscription repository to remove child subscription");
+            SubscriptionRepositoryService repo = new SubscriptionRepositoryService();
+            repo.deleteSubscription(childSubscriptionItem);
+            log.debug("child subscription deleted");
+        } catch (SubscriptionRepositoryException ex) {
+            log.error("failed to remove child subscription for repository");
+            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
+        } catch (XPathExpressionException ex) {
+            log.error("failed to parse subscription reference");
+            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
+        }
+    }
+
+
+
 }

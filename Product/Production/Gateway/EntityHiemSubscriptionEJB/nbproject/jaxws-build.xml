@@ -18,109 +18,109 @@
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-EntityNotifyService" depends="wsimport-init">
-        <condition property="wsimport-service-EntityNotifyService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitynotificationconsumer/EntityNotificationConsumer.java"/>
+    <target name="wsimport-service-check-EntityUnsubscribeSecuredService" depends="wsimport-init">
+        <condition property="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntitySubscriptionManagerSecured.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init,wsimport-service-check-EntityNotifyService" unless="wsimport-service-EntityNotifyService.notRequired">
-        <property name="service-wsdl-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-EntityNotifyService" location="${meta.inf}/wsdl/EntityNotifyService"/>
-        <property name="sourceLocation-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/"/>
-        <copy todir="${targetLocation-EntityNotifyService}">
-            <fileset dir="${sourceLocation-EntityNotifyService}"/>
+    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeSecuredService" unless="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
+        <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/wsdl/EntityUnsubscribeSecuredService"/>
+        <property name="sourceLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/"/>
+        <copy todir="${targetLocation-EntityUnsubscribeSecuredService}">
+            <fileset dir="${sourceLocation-EntityUnsubscribeSecuredService}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-EntityNotifyService" depends="-init-project">
+    <target name="wsimport-service-clean-EntityUnsubscribeSecuredService" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+    </target>
+    <target name="wsimport-service-check-EntitySubscribeSecuredService" depends="wsimport-init">
+        <condition property="wsimport-service-EntitySubscribeSecuredService.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntityNotificationProducerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntitySubscribeSecuredService" unless="wsimport-service-EntitySubscribeSecuredService.notRequired">
+        <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntitySubscribeSecuredService" location="${meta.inf}/wsdl/EntitySubscribeSecuredService"/>
+        <property name="sourceLocation-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/"/>
+        <copy todir="${targetLocation-EntitySubscribeSecuredService}">
+            <fileset dir="${sourceLocation-EntitySubscribeSecuredService}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntitySubscribeSecuredService" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+    </target>
+    <target name="wsimport-service-check-EntityNotifySecured" depends="wsimport-init">
+        <condition property="wsimport-service-EntityNotifySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitynotificationconsumer/EntityNotificationConsumerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init,wsimport-service-check-EntityNotifySecured" unless="wsimport-service-EntityNotifySecured.notRequired">
+        <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-EntityNotifySecured" location="${meta.inf}/wsdl/EntityNotifySecured"/>
+        <property name="sourceLocation-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntityNotifySecured}">
+            <fileset dir="${sourceLocation-EntityNotifySecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityNotifySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
     </target>
-    <target name="wsimport-service-check-ProxyHiemSubscribe" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyHiemSubscribe.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxyNotificationProducer.java"/>
+    <target name="wsimport-service-check-ProxyHiemNotifySecured" depends="wsimport-init">
+        <condition property="wsimport-service-ProxyHiemNotifySecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxynotificationconsumer/NhincProxyNotificationConsumerSecured.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribe" unless="wsimport-service-ProxyHiemSubscribe.notRequired">
-        <property name="service-wsdl-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-ProxyHiemSubscribe" location="${meta.inf}/wsdl/ProxyHiemSubscribe"/>
-        <property name="sourceLocation-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
-        <copy todir="${targetLocation-ProxyHiemSubscribe}">
-            <fileset dir="${sourceLocation-ProxyHiemSubscribe}"/>
+    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init,wsimport-service-check-ProxyHiemNotifySecured" unless="wsimport-service-ProxyHiemNotifySecured.notRequired">
+        <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-ProxyHiemNotifySecured" location="${meta.inf}/wsdl/ProxyHiemNotifySecured"/>
+        <property name="sourceLocation-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemNotifySecured}">
+            <fileset dir="${sourceLocation-ProxyHiemNotifySecured}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-ProxyHiemSubscribe" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
-    </target>
-    <target name="wsimport-service-check-EntitySubscribeService" depends="wsimport-init">
-        <condition property="wsimport-service-EntitySubscribeService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntityNotificationProducer.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init,wsimport-service-check-EntitySubscribeService" unless="wsimport-service-EntitySubscribeService.notRequired">
-        <property name="service-wsdl-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-EntitySubscribeService" location="${meta.inf}/wsdl/EntitySubscribeService"/>
-        <property name="sourceLocation-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/"/>
-        <copy todir="${targetLocation-EntitySubscribeService}">
-            <fileset dir="${sourceLocation-EntitySubscribeService}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-EntitySubscribeService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
-    </target>
-    <target name="wsimport-service-check-ProxyHiemNotify" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyHiemNotify.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxynotificationconsumer/NhincProxyNotificationConsumer.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init,wsimport-service-check-ProxyHiemNotify" unless="wsimport-service-ProxyHiemNotify.notRequired">
-        <property name="service-wsdl-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-ProxyHiemNotify" location="${meta.inf}/wsdl/ProxyHiemNotify"/>
-        <property name="sourceLocation-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
-        <copy todir="${targetLocation-ProxyHiemNotify}">
-            <fileset dir="${sourceLocation-ProxyHiemNotify}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-ProxyHiemNotify" depends="-init-project">
+    <target name="wsimport-service-clean-ProxyHiemNotifySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxynotificationconsumer"/>
     </target>
-    <target name="wsimport-service-check-EntityUnsubscribeService" depends="wsimport-init">
-        <condition property="wsimport-service-EntityUnsubscribeService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntitySubscriptionManager.java"/>
+    <target name="wsimport-service-check-ProxyHiemSubscribeSecured" depends="wsimport-init">
+        <condition property="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxyNotificationProducerSecured.java"/>
         </condition>
     </target>
-    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeService" unless="wsimport-service-EntityUnsubscribeService.notRequired">
-        <property name="service-wsdl-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-EntityUnsubscribeService" location="${meta.inf}/wsdl/EntityUnsubscribeService"/>
-        <property name="sourceLocation-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
-        <copy todir="${targetLocation-EntityUnsubscribeService}">
-            <fileset dir="${sourceLocation-EntityUnsubscribeService}"/>
+    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribeSecured" unless="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
+        <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemSubscribeSecured"/>
+        <property name="sourceLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemSubscribeSecured}">
+            <fileset dir="${sourceLocation-ProxyHiemSubscribeSecured}"/>
         </copy>
     </target>
-    <target name="wsimport-service-clean-EntityUnsubscribeService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
-    </target>
-    <target name="wsimport-service-check-NhincProxyUnsubscribe" depends="wsimport-init">
-        <condition property="wsimport-service-NhincProxyUnsubscribe.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxySubscriptionManager.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-NhincProxyUnsubscribe" depends="wsimport-init,wsimport-service-check-NhincProxyUnsubscribe" unless="wsimport-service-NhincProxyUnsubscribe.notRequired">
-        <property name="service-wsdl-NhincProxyUnsubscribe" location="${meta.inf}/xml-resources/web-services/NhincProxyUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        <property name="targetLocation-NhincProxyUnsubscribe" location="${meta.inf}/wsdl/NhincProxyUnsubscribe"/>
-        <property name="sourceLocation-NhincProxyUnsubscribe" location="${meta.inf}/xml-resources/web-services/NhincProxyUnsubscribe/wsdl/"/>
-        <copy todir="${targetLocation-NhincProxyUnsubscribe}">
-            <fileset dir="${sourceLocation-NhincProxyUnsubscribe}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-NhincProxyUnsubscribe" depends="-init-project">
+    <target name="wsimport-service-clean-ProxyHiemSubscribeSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-EntityNotifyService, wsimport-service-ProxyHiemSubscribe, wsimport-service-EntitySubscribeService, wsimport-service-ProxyHiemNotify, wsimport-service-EntityUnsubscribeService, wsimport-service-NhincProxyUnsubscribe"/>
+    <target name="wsimport-service-check-ProxyHiemUnsubscribeSecured" depends="wsimport-init">
+        <condition property="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxySubscriptionManagerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribeSecured" unless="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
+        <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemUnsubscribeSecured"/>
+        <property name="sourceLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/"/>
+        <copy todir="${targetLocation-ProxyHiemUnsubscribeSecured}">
+            <fileset dir="${sourceLocation-ProxyHiemUnsubscribeSecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyHiemUnsubscribeSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityNotifySecured, wsimport-service-ProxyHiemNotifySecured, wsimport-service-ProxyHiemSubscribeSecured, wsimport-service-ProxyHiemUnsubscribeSecured"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>
