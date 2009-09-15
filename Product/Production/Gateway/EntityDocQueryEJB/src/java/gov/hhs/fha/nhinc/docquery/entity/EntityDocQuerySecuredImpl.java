@@ -54,6 +54,7 @@ public class EntityDocQuerySecuredImpl
         List<NhinTargetCommunityType> targets = null;
         RegistryObjectListType regObjList = null;
         RegistryErrorList regErrList = null;
+        String responseStatus = "";
 
         // Collect assertion
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
@@ -92,6 +93,7 @@ public class EntityDocQuerySecuredImpl
                 NhincProxyDocQuerySecuredImpl nhincDocQueryProxy = new NhincProxyDocQuerySecuredImpl();
 
                 // For each correlation send out a document query request
+                boolean hasError = false;
                 for (QualifiedSubjectIdentifierType subId : correlationsResult.getQualifiedPatientIdentifier()) {
                     gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType docQuery = new gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQuerySecuredRequestType();
                     docQuery.setAdhocQueryRequest(request.getAdhocQueryRequest());
@@ -135,6 +137,10 @@ public class EntityDocQuerySecuredImpl
                         for (JAXBElement<? extends IdentifiableType> oJAXBElement : regObjs) {
                             regObjList.getIdentifiable().add(oJAXBElement);
                         }
+                        if(!hasError)
+                        {
+                            responseStatus = queryResults.getStatus();
+                        }
                     }
 
                     // Aggregate document query error cases.
@@ -149,6 +155,8 @@ public class EntityDocQuerySecuredImpl
                         for (RegistryError regError : regErrors) {
                             regErrList.getRegistryError().add(regError);
                         }
+                        responseStatus = queryResults.getStatus();
+                        hasError = true;
                     }
                 }
             }
@@ -162,6 +170,11 @@ public class EntityDocQuerySecuredImpl
         // Set the Registry Error List
         if (regErrList != null) {
             response.setRegistryErrorList(regErrList);
+            response.setStatus(responseStatus);
+        }
+        else
+        {
+            response.setStatus(responseStatus);
         }
 
         // Audit the Document Query Response Message received on the Nhin Interface
