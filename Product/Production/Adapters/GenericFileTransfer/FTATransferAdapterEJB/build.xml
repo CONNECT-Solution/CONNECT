@@ -88,7 +88,9 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSubcriptionManagement/schemas"/>
         </copy>
     </target>
-    
+		
+		<target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumerSecured" unless="wsimport-client-EntityNotificationConsumerSecured.notRequired"/>    
+		
 		<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
 		        <nbundeploy failOnError="false" startServer="false"/>
 		</target>

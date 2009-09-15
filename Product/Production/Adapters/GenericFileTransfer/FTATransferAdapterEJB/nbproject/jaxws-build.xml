@@ -47,6 +47,18 @@
     <target name="wsimport-client-clean-EntityNotificationConsumer" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitynotificationconsumer"/>
     </target>
+    <target name="wsimport-client-check-EntityNotificationConsumerSecured" depends="wsimport-init">
+        <condition property="wsimport-client-EntityNotificationConsumerSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitynotificationconsumer/EntityNotificationConsumerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumerSecured" unless="wsimport-client-EntityNotificationConsumerSecured.notRequired">
+        <property name="wsdl-EntityNotificationConsumerSecured" location="${meta.inf}/xml-resources/web-service-references/EntityNotificationConsumerSecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityNotificationConsumerSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumerSecured.wsdl" xnocompile="true"/>
+    </target>
+    <target name="wsimport-client-clean-EntityNotificationConsumerSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitynotificationconsumer"/>
+    </target>
     <target name="wsimport-service-check-AdapterFTAService" depends="wsimport-init">
         <condition property="wsimport-service-AdapterFTAService.notRequired">
             <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapternotificationconsumer/AdapterNotificationConsumer.java"/>
@@ -81,7 +93,7 @@
     <target name="wsimport-service-clean-AdapterSubcriptionManagement" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntityNotificationConsumer"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntityNotificationConsumer, wsimport-client-EntityNotificationConsumerSecured"/>
     <target name="wsimport-client-compile" depends="wsimport-client-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
         <copy todir="${classes.dir}">
