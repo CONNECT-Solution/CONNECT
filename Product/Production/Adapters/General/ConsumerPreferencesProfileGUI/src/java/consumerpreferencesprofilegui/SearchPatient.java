@@ -27,10 +27,15 @@ import gov.hhs.fha.nhinc.adapter.cppgui.servicefacade.PatientSearchFacade;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.adapter.cppgui.UserSession;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 import javax.faces.FacesException;
+import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -130,6 +135,17 @@ public class SearchPatient extends AbstractPageBean {
         optInDefaultOptions.setOptions(options);
         return optInDefaultOptions;
     }
+    private UIParameter userSelectedPolicyOID = new UIParameter();
+
+    public UIParameter getUserSelectedPolicyOID() {
+        return userSelectedPolicyOID;
+    }
+
+    public void setUserSelectedPolicyOID(UIParameter userSelectedPolicyOID) {
+        this.userSelectedPolicyOID = userSelectedPolicyOID;
+    }
+
+
 
     public void setOptInDefaultOptions(SingleSelectOptionsList ssol) {
         this.optInDefaultOptions = ssol;
@@ -137,17 +153,6 @@ public class SearchPatient extends AbstractPageBean {
     private DefaultSelectItemsArray permissionListDefaultItems = new DefaultSelectItemsArray();
 
     public DefaultSelectItemsArray getPermissionListDefaultItems() {
-        /*
-        SelectItem item1 = new SelectItem();
-        item1.setLabel("Permit");
-        item1.setValue("Permit");
-
-        SelectItem item2 = new SelectItem();
-        item2.setLabel("Deny");
-        item2.setValue("Deny");
-        permissionListDefaultItems.add(item1);
-        permissionListDefaultItems.add(item2);
-         */
         permissionListDefaultItems.setItems(new String[]{"Permit", "Deny"});
 
         return permissionListDefaultItems;
@@ -159,19 +164,8 @@ public class SearchPatient extends AbstractPageBean {
     private SingleSelectOptionsList documentTypeDefaultOptions = new SingleSelectOptionsList();
 
     public SingleSelectOptionsList getDocumentTypeDefaultOptions() {
-        Option option1 = new Option();
-        option1.setLabel("Doc Type1");
-        option1.setValue("Doc Type1");
 
-        Option option2 = new Option();
-        option2.setLabel("Doc Type2");
-        option2.setValue("Doc Type2");
-
-        Option option3 = new Option();
-        option3.setLabel("Doc Type3");
-        option3.setValue("Doc Type3");
-
-        Option[] options = new Option[]{option1, option2, option3};
+        Option[] options = createOptionsFromPropertiesFile(CPPConstants.DOCUMENT_TYPE_CODE_PROPERTIES);
         documentTypeDefaultOptions.setOptions(options);
 
         return documentTypeDefaultOptions;
@@ -183,19 +177,7 @@ public class SearchPatient extends AbstractPageBean {
     private SingleSelectOptionsList userRoleDefaultOptions = new SingleSelectOptionsList();
 
     public SingleSelectOptionsList getUserRoleDefaultOptions() {
-        Option option1 = new Option();
-        option1.setLabel("User Role1");
-        option1.setValue("User Role1");
-
-        Option option2 = new Option();
-        option2.setLabel("User Role2");
-        option2.setValue("User Role2");
-
-        Option option3 = new Option();
-        option3.setLabel("User Role3");
-        option3.setValue("User Role3");
-
-        Option[] options = new Option[]{option1, option2, option3};
+        Option[] options = createOptionsFromPropertiesFile(CPPConstants.USER_ROLE_PROPERTIES);
         userRoleDefaultOptions.setOptions(options);
 
         return userRoleDefaultOptions;
@@ -207,19 +189,7 @@ public class SearchPatient extends AbstractPageBean {
     private SingleSelectOptionsList purposeOfUseDefaultOptions = new SingleSelectOptionsList();
 
     public SingleSelectOptionsList getPurposeOfUseDefaultOptions() {
-        Option option1 = new Option();
-        option1.setLabel("Purpose of Use1");
-        option1.setValue("Purpose of Use1");
-
-        Option option2 = new Option();
-        option2.setLabel("Purpose of Use2");
-        option2.setValue("Purpose of Use2");
-
-        Option option3 = new Option();
-        option3.setLabel("Purpose of Use3");
-        option3.setValue("Purpose of Use3");
-
-        Option[] options = new Option[]{option1, option2, option3};
+        Option[] options = createOptionsFromPropertiesFile(CPPConstants.PURPOSE_OF_USE_PROPERTIES);
         purposeOfUseDefaultOptions.setOptions(options);
 
         return purposeOfUseDefaultOptions;
@@ -231,21 +201,8 @@ public class SearchPatient extends AbstractPageBean {
     private SingleSelectOptionsList confidentialityCodeDefaultOptions = new SingleSelectOptionsList();
 
     public SingleSelectOptionsList getConfidentialityCodeDefaultOptions() {
-        Option option1 = new Option();
-        option1.setLabel("Con Code1");
-        option1.setValue("Con Code1");
-
-        Option option2 = new Option();
-        option2.setLabel("Con Code2");
-        option2.setValue("Con Code2");
-
-        Option option3 = new Option();
-        option3.setLabel("Con Code3");
-        option3.setValue("Con Code3");
-
-        Option[] options = new Option[]{option1, option2, option3};
+        Option[] options = createOptionsFromPropertiesFile(CPPConstants.CONFIDENTIALITY_CODE_PROPERTIES);
         confidentialityCodeDefaultOptions.setOptions(options);
-
         return confidentialityCodeDefaultOptions;
     }
 
@@ -427,6 +384,16 @@ public class SearchPatient extends AbstractPageBean {
     @Override
     public void prerender() {
         this.deactivatePatientPreferencesTab();
+        UserSession userSession = (UserSession) getBean("UserSession");
+        String token = userSession.getAuthToken();
+
+        if (token == null || token.isEmpty()) {
+            try {
+                this.getExternalContext().redirect("UserLogin.jsp");
+            } catch (IOException ex) {
+                log.error("CPP can not prerender SearchPatient.jsp: " + ex.getMessage(), ex);
+            }
+        }
     }
 
     /**
@@ -561,6 +528,7 @@ public class SearchPatient extends AbstractPageBean {
             this.preferencesTable.setVisible(true);
             this.fineGrainedPolicyPrefPanel.setVisible(true);
             this.savePreferences.setVisible(false);
+            this.resetFineGrainedPrefencesForm();
         } else {
             this.preferencesTable.setVisible(false);
             this.fineGrainedPolicyPrefPanel.setVisible(false);
@@ -635,6 +603,12 @@ public class SearchPatient extends AbstractPageBean {
             this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
+        // Refresh ths list
+        ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(patientVO.getPatientID(),
+                patientVO.getAssigningAuthorityID());
+        PatientPreferencesVO patientPreferences = adapterPIPFacade.retriveConsumerPreferences(criteria);
+        patientVO.setPatientPreferences(patientPreferences);
+
         return null;
     }
 
@@ -696,6 +670,8 @@ public class SearchPatient extends AbstractPageBean {
             this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
+        resetFineGrainedPrefencesForm();
+        
         return null;
     }
 
@@ -736,6 +712,8 @@ public class SearchPatient extends AbstractPageBean {
         } else {
             this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
+
+        resetFineGrainedPrefencesForm();
 
         return null;
     }
@@ -809,6 +787,8 @@ public class SearchPatient extends AbstractPageBean {
             this.errorMessages.setText("Unable to save Opt-In/Opt-Out preferences");
         }
 
+        resetFineGrainedPrefencesForm();
+        
         return null;
     }
 
@@ -821,7 +801,12 @@ public class SearchPatient extends AbstractPageBean {
 
     public String displayFineGrainedPreferences() {
         this.errorMessages.setText("");
-        String selectedPolicyOID = this.policyOID.getText().toString();
+
+        //this.policyOID.setStyle("color: green; text-decoration: underline");
+
+        //String selectedPolicyOID = this.policyOID.getText().toString();
+
+        String selectedPolicyOID = this.userSelectedPolicyOID.getValue().toString();
 
         UserSession userSession = (UserSession) getBean("UserSession");
         PatientVO patientVO = userSession.getPatient();
@@ -834,11 +819,76 @@ public class SearchPatient extends AbstractPageBean {
                 this.userRole.setValue(fineGrainedPolicyCriterion.getUserRole());
                 this.purposeOfUse.setValue(fineGrainedPolicyCriterion.getPurposeOfUse());
                 this.confidentialityCode.setValue(fineGrainedPolicyCriterion.getConfidentialityCode());
-            }
                 break;
             }
-
-            return null;
         }
+
+        return null;
     }
+
+    public String logOut_action() {
+        // TODO: Process the action. Return value is a navigation
+        // case name where null will return to the same page.
+
+        HttpSession session = (HttpSession) this.getExternalContext().getSession(false);
+        session.invalidate();
+        return "login_required";
+    }
+
+    /**
+     * 
+     * @param propertiesFile
+     */
+    private Option[] createOptionsFromPropertiesFile(String propertiesFile)
+    {
+        Properties properties = null;
+
+        try
+        {
+            properties = PropertyAccessor.getProperties(propertiesFile);
+        }
+        catch (Exception e)
+        {
+            log.error("Exception while reading properties file: " + propertiesFile, e);
+        }
+
+        Option defaultOption = new Option();
+        defaultOption.setLabel("Select an Option");
+        defaultOption.setValue("");
+        int index = 0;
+
+        Option [] options = null;
+
+        if (properties != null && properties.size()>0)
+        {
+            int size = properties.size() + 1;
+            options = new Option[size];
+            options[index] = defaultOption;
+
+            for(String propertyKey : properties.stringPropertyNames())
+            {
+                Option option = new Option();
+                option.setLabel(properties.getProperty(propertyKey));
+                option.setValue(propertyKey);
+                options[++index] = option;
+            }
+        }
+        else
+        {
+            options = new Option[1];
+            options[index] = defaultOption;
+        }
+        
+        return options;
+    }
+
+
+    private void resetFineGrainedPrefencesForm() {
+        this.permission.setValue("");
+        this.documentType.setValue("");
+        this.userRole.setValue("");
+        this.purposeOfUse.setValue("");
+        this.confidentialityCode.setValue("");
+    }
+}
 

@@ -14,7 +14,7 @@
                 </webuijsf:head>
                 <webuijsf:body id="body1" style="-rave-layout: grid">
                     <webuijsf:form id="form1">
-                        <webuijsf:image height="96" id="image1" style="left: 0px; top: 0px; position: absolute" url="/resources/connect.GIF" width="312"/>
+                        <webuijsf:image height="96" id="image1" style="left: 0px; top: 0px; position: absolute" url="/resources/connect.gif" width="264"/>
                         <webuijsf:label id="info1"
                             style="font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 48px; top: 144px; position: absolute" text="Enter your account details below to login"/>
                         <webuijsf:label for="nameField" id="nameLabel"
@@ -28,7 +28,7 @@
                         <webuijsf:staticText binding="#{UserLogin.verifyMsg}" id="verifyMsg" style="font-family: 'Times New Roman',Times,serif; font-size: 18px; left: 48px; top: 312px; position: absolute"/>
                         <webuijsf:staticText binding="#{UserLogin.agencyLogo}" id="agencyLogo" style="color: gray; font-family: Arial,Helvetica,sans-serif; font-size: 30px; left: 360px; top: 0px; position: absolute"/>
                         <webuijsf:label id="UCLabel"
-                            style="color: gray; font-family: Arial,Helvetica,sans-serif; font-size: 30px; left: 360px; top: 48px; position: absolute" text="Consumer Preferences Profile Management"/>
+                            style="color: gray; font-family: 'Times New Roman','Times',serif; font-size: 24px; left: 264px; top: 48px; position: absolute" text="Consumer Preferences Profile Management"/>
                     </webuijsf:form>
                 </webuijsf:body>
             </webuijsf:html>

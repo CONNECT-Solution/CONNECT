@@ -139,12 +139,12 @@ public class UserLogin extends AbstractPageBean {
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        log.debug("Page1.prerender Authentication Service " +  adapterAuthenticationProxy + " Avail: " + authResp.isIsAuthenticationAvailable());
+        log.debug("UserLogin.prerender Authentication Service " +  adapterAuthenticationProxy + " Avail: " + authResp.isIsAuthenticationAvailable());
         if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
             try {
                 getUserSession().setAuthToken("NoOpToken");
                 FacesContext context = FacesContext.getCurrentInstance();
-                context.getExternalContext().redirect("faces/searchPatient.jsp");
+                context.getExternalContext().redirect("faces/SearchPatient.jsp");
             } catch (IOException ex) {
                 log.error("CPP GUI can not prerender UserLogin: ",ex);
             }
@@ -189,7 +189,7 @@ public class UserLogin extends AbstractPageBean {
                 loginDecision = "login_success";
                 getUserSession().setAuthToken(authToken);
             } else {
-                verifyMsg.setText("User: " + name + " is unknown, or password is invalid. Try again.");
+                verifyMsg.setText("User Name: " + name + " is unknown, or password is invalid. Please try again.");
             }
         } else {
             verifyMsg.setText("User authentication service is unavailable.");

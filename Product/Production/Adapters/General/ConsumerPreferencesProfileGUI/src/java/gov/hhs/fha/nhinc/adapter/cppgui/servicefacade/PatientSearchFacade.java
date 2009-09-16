@@ -4,13 +4,12 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 
+import gov.hhs.fha.nhinc.adapter.cppgui.PatientSearchCriteria;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
-import gov.hhs.fha.nhinc.adapter.cppgui.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.mpilib.Identifier;
-import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;

@@ -23,13 +23,13 @@
                                     <webuijsf:staticText id="staticText2"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bolder; left: 24px; top: 48px; position: absolute" text="Enter the following Patient Search Criteria:"/>
                                     <webuijsf:label id="firstNameLbl"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 96px; position: absolute" text="First Name: "/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; height: 24px; left: 24px; top: 120px; position: absolute" text="First Name: "/>
                                     <webuijsf:label id="lastNameLbl"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 120px; position: absolute" text="Last Name:"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 96px; position: absolute" text="Last Name:"/>
                                     <webuijsf:label id="identifierLbl"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 24px; top: 144px; position: absolute" text="Identifier:"/>
-                                    <webuijsf:textField binding="#{SearchPatient.firstName}" columns="30" id="firstName" style="left: 96px; top: 96px; position: absolute"/>
-                                    <webuijsf:textField binding="#{SearchPatient.lastName}" columns="30" id="lastName" style="left: 96px; top: 120px; position: absolute"/>
+                                    <webuijsf:textField binding="#{SearchPatient.firstName}" columns="30" id="firstName" style="left: 96px; top: 120px; position: absolute"/>
+                                    <webuijsf:textField binding="#{SearchPatient.lastName}" columns="30" id="lastName" style="left: 96px; top: 96px; position: absolute"/>
                                     <webuijsf:textField binding="#{SearchPatient.identifier}" columns="30" id="identifier" style="left: 96px; top: 144px; position: absolute"/>
                                     <webuijsf:button id="resetButton" reset="true"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 95px; top: 192px; position: absolute; width: 72px" text="Reset"/>
@@ -69,24 +69,23 @@
                                         style="left: 24px; top: 240px; position: absolute; width: 624px" title="Fine Grained Policy Preferences" visible="false" width="624">
                                         <webuijsf:tableRowGroup id="preferencesGroup"
                                             sourceData="#{UserSession.patient.patientPreferences.fineGrainedPolicyCriteria}" sourceVar="fineGrainedPolicyCriterion">
-                                            <webuijsf:tableColumn headerText="Policy OID" id="policyOIDCol">
-                                                <webuijsf:hyperlink actionExpression="#{SearchPatient.displayFineGrainedPreferences}"
-                                                    binding="#{SearchPatient.policyOID}" id="policyOIDLink" style="color: blue; text-decoration: underline" text="#{fineGrainedPolicyCriterion.value['policyOID']}"/>
+                                            <webuijsf:tableColumn headerText="Document Type" id="documentTypeCol">
+                                                <webuijsf:hyperlink actionExpression="#{SearchPatient.displayFineGrainedPreferences}" id="documentTypeLink"
+                                                    style="color: blue; text-decoration: underline" text="#{fineGrainedPolicyCriterion.value['documentTypeCodeDesc']}">
+                                                    <f:param binding="#{SearchPatient.userSelectedPolicyOID}" value="#{fineGrainedPolicyCriterion.value['policyOID']}"/>
+                                                </webuijsf:hyperlink>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Permit/Deny" id="permitORDenyCol">
                                                 <webuijsf:staticText id="staticText3" text="#{fineGrainedPolicyCriterion.value['permit']}"/>
                                             </webuijsf:tableColumn>
-                                            <webuijsf:tableColumn headerText="Document Type" id="documentTypeCol">
-                                                <webuijsf:staticText id="staticText4" text="#{fineGrainedPolicyCriterion.value['documentTypeCode']}"/>
-                                            </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="User Role" id="userRoleCol">
-                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['userRole']}"/>
+                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['userRoleDesc']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Purpose of Use" id="purposeOfUseCol">
-                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['purposeOfUse']}"/>
+                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['purposeOfUseDesc']}"/>
                                             </webuijsf:tableColumn>
                                             <webuijsf:tableColumn headerText="Confidentiality Code" id="confidentialityCodeCol">
-                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['confidentialityCode']}"/>
+                                                <webuijsf:staticText id="staticText5" text="#{fineGrainedPolicyCriterion.value['confidentialityCodeDesc']}"/>
                                             </webuijsf:tableColumn>
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
@@ -129,6 +128,8 @@
                             </webuijsf:tab>
                         </webuijsf:tabSet>
                         <webuijsf:staticText binding="#{SearchPatient.errorMessages}" id="errorMessages" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 12px; left: 72px; top: 72px; position: absolute"/>
+                        <webuijsf:button actionExpression="#{SearchPatient.logOut_action}" id="logOut"
+                            style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 767px; top: 72px; position: absolute" text="Log Off"/>
                     </webuijsf:form>
                 </webuijsf:body>
             </webuijsf:html>
