@@ -180,7 +180,7 @@
     </trycatch>
   </target>
 
-  <target name="DeployToTest" depends="SetUps">
+  <target name="Deploy" depends="SetUps">
     <trycatch>
       <try>
         <call target="TargetProcess.Get.Release.Report"/>

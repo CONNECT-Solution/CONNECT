@@ -84,7 +84,9 @@
       logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
     >
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
-      <args/>
+      <args>
+        <arg line="-Ddeployment.glassfish.domain.source.directory=${GlassFish.Domain1.Template.Directory.Name}"/>
+      </args>
     </ant>
   </target>
   

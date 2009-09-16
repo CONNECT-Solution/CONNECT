@@ -7,7 +7,6 @@
 
     <call target="Common.FindBuild"/>
     <regex input="${build}" pattern="log(?'BuildArchiveFolderName'\d+)Lbuild\.${CCNetLabel}\.xml$"/>
-    <regex input="${BuildArchiveFolderName}" pattern="(?'Year'\d\d\d\d)(?'Month'\d\d)(?'Day'\d\d)"/>
 
     <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
     <property name="Release.Application.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Application.Zip.File.Name}"/>

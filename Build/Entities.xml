@@ -1,4 +1,5 @@
 <!ENTITY HostName                               'build.nhiegateway.org' >
+<!ENTITY Integration.Server.Host.Name           '192.168.25.157' >
 <!ENTITY EmailHost                              '127.0.0.1'>
 
 <!ENTITY ProjectName                           'NHINC' >
