@@ -128,7 +128,6 @@ public class FTATimerTask  {
 
 
             // TODO initialize WS operation arguments here
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestSecuredType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestSecuredType();
             NotificationMessageHolderType messageHolder = new NotificationMessageHolderType();
 
 
@@ -151,8 +150,6 @@ public class FTATimerTask  {
 
             notify.getNotificationMessage().add(messageHolder);
             
-            
-            notifyRequest.setNotify(notify);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             AssertionType assertion = Util.createAssertion();
