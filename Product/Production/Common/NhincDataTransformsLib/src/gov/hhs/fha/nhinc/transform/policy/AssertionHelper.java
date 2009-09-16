@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-//import gov.hhs.fha.nhinc.common.nhinccommonadapter.RequestType;
-import gov.hhs.fha.nhinc.transform.marshallers.CheckPolicyRequestMarshaller;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
@@ -124,7 +117,11 @@ public class AssertionHelper {
             throw new NullPointerException("policy request is null");
         }
 
-        ResourceType resource = policyRequest.getResource().get(0);
+        ResourceType resource = null;
+        if(!policyRequest.getResource().isEmpty())
+        {
+            resource = policyRequest.getResource().get(0);
+        }
         if (resource == null) {
             resource = new ResourceType();
             policyRequest.getResource().add(resource);

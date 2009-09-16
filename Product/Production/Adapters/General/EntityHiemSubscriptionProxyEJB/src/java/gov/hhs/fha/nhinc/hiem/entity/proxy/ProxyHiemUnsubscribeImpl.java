@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
 import org.apache.commons.logging.Log;
@@ -13,7 +8,6 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecured;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecuredPortType;
@@ -24,24 +18,26 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import com.sun.xml.ws.developer.WSBindingProvider;
 import javax.xml.ws.WebServiceContext;
+
 /**
  *
  * @author dunnek
  */
 public class ProxyHiemUnsubscribeImpl
 {
-    private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
 
+    private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
     private static NhincProxySubscriptionManagerSecured service = new NhincProxySubscriptionManagerSecured();
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType request, WebServiceContext context) throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType request, WebServiceContext context) throws ResourceUnknownFault, UnableToDestroySubscriptionFault
+    {
         org.oasis_open.docs.wsn.b_2.UnsubscribeResponse result = null;
         log.debug("Begin Proxy UnSubscribe");
         log.debug("extracting reference parameters from soap header");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
         ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
         log.debug("extracted reference parameters from soap header");
-        
+
         String url = getURL();
         NhincProxySubscriptionManagerSecuredPortType port = getPort(url);
 
@@ -56,17 +52,14 @@ public class ProxyHiemUnsubscribeImpl
         securedRequest.setUnsubscribe(request.getUnsubscribe());
         securedRequest.setNhinTargetSystem(request.getNhinTargetSystem());
 
-
         SoapUtil soapUtil = new SoapUtil();
         soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
 
-        
         result = port.unsubscribe(securedRequest);
-
-        
 
         return result;
     }
+
     private String getURL()
     {
         String url = "";
@@ -75,18 +68,16 @@ public class ProxyHiemUnsubscribeImpl
         {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error(ex.getMessage(), ex);
         }
 
         return url;
     }
+
     private NhincProxySubscriptionManagerSecuredPortType getPort(String url)
     {
-
-
-
         NhincProxySubscriptionManagerSecuredPortType port = service.getNhincProxySubscriptionManagerSecuredPortSoap11();
 
         log.info("Setting endpoint address to Proxy Unsubscribe Secured Service to " + url);

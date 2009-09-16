@@ -9,12 +9,11 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="EntityHiemSubscriptionEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project EntityHiemSubscriptionEJB.</description>
+    <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
 
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
-
-    <import file="../../../build.lib.xml" />
 
     <target name="build">
         <property name="target-to-call" value="dist" />
@@ -23,6 +22,13 @@
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
     <target name="build-test" depends="dist" />
+    <!--
+    <target name="redeploy">
+    	<antcall target="undeploy" />
+    	<antcall target="build-test" />
+    	<antcall target="deploy" />
+    </target>
+    -->
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -235,8 +241,8 @@
     
     
     <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeSecuredService" unless="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
-        <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/wsdl/EntityUnsubscribeSecuredService"/>
@@ -252,8 +258,8 @@
     </target>    
     
     <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntitySubscribeSecuredService" unless="wsimport-service-EntitySubscribeSecuredService.notRequired">
-        <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-EntitySubscribeSecuredService" location="${meta.inf}/wsdl/EntitySubscribeSecuredService"/>
@@ -269,8 +275,8 @@
     </target>
     
     <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init,wsimport-service-check-EntityNotifySecured" unless="wsimport-service-EntityNotifySecured.notRequired">
-        <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-EntityNotifySecured" location="${meta.inf}/wsdl/EntityNotifySecured"/>
@@ -285,8 +291,8 @@
     </target>
     
     <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init,wsimport-service-check-ProxyHiemNotifySecured" unless="wsimport-service-ProxyHiemNotifySecured.notRequired">
-        <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-ProxyHiemNotifySecured" location="${meta.inf}/wsdl/ProxyHiemNotifySecured"/>
@@ -303,8 +309,8 @@
     
     
     <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribeSecured" unless="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
-        <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemUnsubscribeSecured"/>
@@ -320,8 +326,8 @@
     </target>
     
     <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribeSecured" unless="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
-        <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <!--
+        <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
         -->
         <property name="targetLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemSubscribeSecured"/>

@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
+
 import java.util.Collections;
 import java.util.Set;
 import javax.xml.namespace.QName;
@@ -18,6 +14,7 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
  */
 public class ProxyHiemUnsubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext>
 {
+
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(ProxyHiemUnsubscribeHeaderHandler.class);
 
     @SuppressWarnings("unchecked")

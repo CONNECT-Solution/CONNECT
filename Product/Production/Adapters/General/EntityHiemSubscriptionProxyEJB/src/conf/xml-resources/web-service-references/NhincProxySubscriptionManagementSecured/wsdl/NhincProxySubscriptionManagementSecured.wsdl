@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!-- 
-
+  
 		OASIS takes no position regarding the validity or scope of any 
 		intellectual property or other rights that might be claimed to 
 		pertain to the implementation or use of the technology described 
@@ -204,7 +204,7 @@
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
                   
-    <wsp:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>                
+    <wsp:PolicyReference URI="#NhincProxyNotificationProducerSecuredPortType_SoapPolicy"/>                
                   
     <wsdl:operation name="Subscribe">
       <soap:operation soapAction="urn:Subscribe"/>
@@ -297,73 +297,27 @@
     </wsdl:port>
   </wsdl:service>
   
-  <wsp:Policy wsu:Id="NhincProxySubscriptionManagement_SoapPolicy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-        <sc:KeyStore wspp:visibility="private"
-                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
-                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-        <sc:TrustStore wspp:visibility="private"
-                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-        <sp:TransportBinding>
-          <wsp:Policy>
-            <sp:TransportToken>
-              <wsp:Policy>
-                <sp:HttpsToken>
-                  <wsp:Policy>
-                    <sp:RequireClientCertificate/>
-                  </wsp:Policy>
-                </sp:HttpsToken>
-              </wsp:Policy>
-            </sp:TransportToken>
-            <sp:Layout>
-              <wsp:Policy>
-                <sp:Strict/>
-              </wsp:Policy>
-            </sp:Layout>
-            <sp:IncludeTimestamp/>
-            <sp:AlgorithmSuite>
-              <wsp:Policy>
-                <sp:Basic128/>
-              </wsp:Policy>
-            </sp:AlgorithmSuite>
-          </wsp:Policy>
-        </sp:TransportBinding>
-        <sp:EndorsingSupportingTokens>
-          <wsp:Policy>
-            <sp:SamlToken
-                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-              <wsp:Policy>
-                <sp:WssSamlV20Token11/>
-              </wsp:Policy>
-            </sp:SamlToken>
-          </wsp:Policy>
-        </sp:EndorsingSupportingTokens>
-        <sp:Wss11>
-          <wsp:Policy>
-            <sp:MustSupportRefKeyIdentifier/>
-            <sp:MustSupportRefIssuerSerial/>
-            <sp:RequireSignatureConfirmation/>
-          </wsp:Policy>
-        </sp:Wss11>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>    
-	  <wsp:Policy wsu:Id="FindCandidates_Binding_Soap_Input_Policy">
-	    <wsp:ExactlyOne>
-	      <wsp:All>
-	            </wsp:All>
-	    </wsp:ExactlyOne>
-	  </wsp:Policy>    
-	  <wsp:Policy wsu:Id="FindCandidates_Binding_Soap_Output_Policy">
-	    <wsp:ExactlyOne>
-	      <wsp:All>
-	            </wsp:All>
-	    </wsp:ExactlyOne>
-	  </wsp:Policy>
+  <plnk:partnerLinkType name="NhincProxyNotificationProducer">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="NhincProxyNotificationProducerSecuredPortTypeRole" 
+               portType="tns:NhincProxyNotificationProducerSecuredPortType"/>
+  </plnk:partnerLinkType>
   
-
+  <plnk:partnerLinkType name="NhincProxySubscriptionManager">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="NhincProxySubscriptionManagerSecuredPortTypeRole" 
+               portType="tns:NhincProxySubscriptionManagerSecuredPortType"/>
+  </plnk:partnerLinkType>
   
   <wsp:Policy wsu:Id="NhincProxyNotificationProducerSecuredPortType_SoapPolicy">
         <wsp:ExactlyOne>
@@ -500,26 +454,4 @@
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>   
-    
-  <plnk:partnerLinkType name="NhincProxyNotificationProducer">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxyNotificationProducerSecuredPortTypeRole" 
-               portType="tns:NhincProxyNotificationProducerSecuredPortType"/>
-  </plnk:partnerLinkType>
-  
-  <plnk:partnerLinkType name="NhincProxySubscriptionManager">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
-         partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxySubscriptionManagerSecuredPortTypeRole" 
-               portType="tns:NhincProxySubscriptionManagerSecuredPortType"/>
-  </plnk:partnerLinkType>
 </wsdl:definitions>

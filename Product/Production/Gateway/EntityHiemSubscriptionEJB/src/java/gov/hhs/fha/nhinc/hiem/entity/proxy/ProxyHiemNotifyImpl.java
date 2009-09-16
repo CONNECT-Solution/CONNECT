@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -17,15 +13,18 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+
 /**
  *
  * @author jhoppesc
  */
-public class ProxyHiemNotifyImpl {
+public class ProxyHiemNotifyImpl
+{
 
     private static Log log = LogFactory.getLog(ProxyHiemNotifyImpl.class);
 
-    public void notify(NotifyRequestType notifyRequest, WebServiceContext context) {
+    public void notify(NotifyRequestType notifyRequest, WebServiceContext context)
+    {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
@@ -45,7 +44,9 @@ public class ProxyHiemNotifyImpl {
 
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
-    public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context) {
+
+    public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context)
+    {
         log.debug("Entering ProxyHiemNotifyImpl.notify...");
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
@@ -66,12 +67,15 @@ public class ProxyHiemNotifyImpl {
         log.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
-    private AcknowledgementType audit(NotifyRequestType notifyRequest) {
+    private AcknowledgementType audit(NotifyRequestType notifyRequest)
+    {
         AcknowledgementType ack = null;
 
         return ack;
     }
-    private AcknowledgementType audit(NotifyRequestSecuredType notifyRequest) {
+
+    private AcknowledgementType audit(NotifyRequestSecuredType notifyRequest)
+    {
         AcknowledgementType ack = null;
 
         return ack;

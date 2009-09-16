@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.subscribe;
 
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType;
@@ -21,15 +16,16 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnsupportedPolicyRequestFa
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.xml.ws.WebServiceContext;
+
 /**
  *
  * @author dunnek
  */
 @WebService(serviceName = "EntityNotificationProducer", portName = "EntityNotificationProducerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/EntitySubscribeService/EntitySubscriptionManagement.wsdl")
 @Stateless
-public class EntitySubscribeService implements EntityNotificationProducerPortType {
+public class EntitySubscribeService implements EntityNotificationProducerPortType
+{
 
     @Resource
     private WebServiceContext context;
@@ -48,5 +44,4 @@ public class EntitySubscribeService implements EntityNotificationProducerPortTyp
     {
         return new EntitySubscribeServiceImpl().subscribe(subscribeRequest, context);
     }
-
 }

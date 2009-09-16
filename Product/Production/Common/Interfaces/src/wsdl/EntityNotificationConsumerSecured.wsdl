@@ -50,25 +50,21 @@
 	
 	-->
 <wsdl:definitions 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumer"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntityNotificationConsumerSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumer" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"
    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-   xmlns:wsaw="http://www.w3.org/2005/08/addressing"
-   xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
-   xmlns:sc="http://schemas.sun.com/2006/03/wss/server">
-       
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
  
     <wsdl:types>
         <xsd:schema>
@@ -76,8 +72,11 @@
                   schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
         </xsd:schema>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured">
+            <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+        </xsd:schema>
     </wsdl:types>
-    
+
     <wsdl:message name="NotifySubscribersOfDocumentRequestSecuredMessage">
         <wsdl:part name="NotifySubscribersOfDocumentRequestSecured" element="nccommonentity:NotifySubscribersOfDocumentRequestSecured"/>
     </wsdl:message>
@@ -85,7 +84,7 @@
         <wsdl:part name="NotifySubscribersOfDocumentResponse" element="nccommon:Acknowledgement"/>
     </wsdl:message>
     <wsdl:message name="NotifyRequestSecured">
-        <wsdl:part name="NotifyRequestSecured" element="nccommonentity:NotifyRequestSecured"/>
+        <wsdl:part name="NotifyRequestSecured" element="wsnt:Notify"/>
     </wsdl:message>
     <wsdl:message name="NotifyResponse">
         <wsdl:part name="Acknowledgement" element="nccommon:Acknowledgement"/>

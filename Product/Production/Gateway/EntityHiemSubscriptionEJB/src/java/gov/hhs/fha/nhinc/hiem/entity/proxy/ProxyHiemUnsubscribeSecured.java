@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecuredPortType;
@@ -13,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 import javax.jws.HandlerChain;
+
 /**
  *
  * @author dunnek
@@ -20,12 +16,15 @@ import javax.jws.HandlerChain;
 @WebService(serviceName = "NhincProxySubscriptionManagerSecured", portName = "NhincProxySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/ProxyHiemUnubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl")
 @Stateless
 @HandlerChain(file = "ProxyHiemUnsubscribeHeaderHandler.xml")
-public class ProxyHiemUnsubscribeSecured implements NhincProxySubscriptionManagerSecuredPortType {
+public class ProxyHiemUnsubscribeSecured implements NhincProxySubscriptionManagerSecuredPortType
+{
+
     @Resource
     private WebServiceContext context;
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequestSecured) throws ResourceUnknownFault, UnableToDestroySubscriptionFault {
+
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequestSecured) throws ResourceUnknownFault, UnableToDestroySubscriptionFault
+    {
         ProxyHiemUnsubscribeImpl hiemUnsubscribeImpl = new ProxyHiemUnsubscribeImpl();
         return hiemUnsubscribeImpl.unsubscribe(unsubscribeRequestSecured, context);
     }
-
 }

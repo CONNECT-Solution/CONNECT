@@ -15,8 +15,9 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
  */
 public class ProxyHiemSubscribeHeaderHandler implements SOAPHandler<SOAPMessageContext>
 {
+
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(ProxyHiemSubscribeHeaderHandler.class);
-    
+
     @SuppressWarnings("unchecked")
     public Set<QName> getHeaders()
     {

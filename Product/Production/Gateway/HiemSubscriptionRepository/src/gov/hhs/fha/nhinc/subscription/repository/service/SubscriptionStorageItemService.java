@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.subscription.repository.service;
 
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.dao.SubscriptionStorageItemDao;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionStorageItem;
 import java.io.ByteArrayInputStream;
@@ -119,14 +120,17 @@ public class SubscriptionStorageItemService {
      */
     public List<SubscriptionStorageItem> retrieveByParentSubscriptionReference(String parentSubscriptionReferenceXML) throws SubscriptionRepositoryException {
         List<SubscriptionStorageItem> subscriptionItems = null;
-        String parentSubscriptionId = SubscriptionIdHelper.extractSubscriptionIdFromSubscriptionReferenceXml(parentSubscriptionReferenceXML);
+        if(NullChecker.isNotNullish(parentSubscriptionReferenceXML))
+        {
+            String parentSubscriptionId = SubscriptionIdHelper.extractSubscriptionIdFromSubscriptionReferenceXml(parentSubscriptionReferenceXML);
 
-        if (parentSubscriptionId != null) {
-            SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
-            subscriptionItems = storageService.findByParentSubscriptionId(parentSubscriptionId);
-        } else {
-            // TODO: Perform query on full sub ref
-            throw new SubscriptionRepositoryException("Retreive by full parent subscription reference not yet implemented.");
+            if (parentSubscriptionId != null) {
+                SubscriptionStorageItemService storageService = new SubscriptionStorageItemService();
+                subscriptionItems = storageService.findByParentSubscriptionId(parentSubscriptionId);
+            } else {
+                // TODO: Perform query on full sub ref
+                throw new SubscriptionRepositoryException("Retreive by full parent subscription reference not yet implemented.");
+            }
         }
 
         return subscriptionItems;

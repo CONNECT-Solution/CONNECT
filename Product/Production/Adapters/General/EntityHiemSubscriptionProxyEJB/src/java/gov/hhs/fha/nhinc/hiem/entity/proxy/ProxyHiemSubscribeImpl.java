@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -12,12 +8,10 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxyNotificationProducerSecured;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxyNotificationProducerSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.InvalidFilterFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.InvalidMessageContentExpressionFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.InvalidProducerPropertiesExpressionFault;
@@ -31,20 +25,22 @@ import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnacceptableInitialTer
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnrecognizedPolicyRequestFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnsupportedPolicyRequestFault;
 
-
 /**
  *
  * @author dunnek
  */
-public class ProxyHiemSubscribeImpl {
+public class ProxyHiemSubscribeImpl
+{
+
     private static NhincProxyNotificationProducerSecured service = new NhincProxyNotificationProducerSecured();
     //private static NhincProxyNotificationProducerSecured service;
     private static Log log = LogFactory.getLog(ProxyHiemSubscribeImpl.class);
 
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType request) throws InvalidMessageContentExpressionFault, TopicExpressionDialectUnknownFault, InvalidProducerPropertiesExpressionFault, InvalidFilterFault, UnrecognizedPolicyRequestFault, TopicNotSupportedFault, UnsupportedPolicyRequestFault, InvalidTopicExpressionFault, ResourceUnknownFault, UnacceptableInitialTerminationTimeFault, SubscribeCreationFailedFault, NotifyMessageNotSupportedFault {
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType request) throws InvalidMessageContentExpressionFault, TopicExpressionDialectUnknownFault, InvalidProducerPropertiesExpressionFault, InvalidFilterFault, UnrecognizedPolicyRequestFault, TopicNotSupportedFault, UnsupportedPolicyRequestFault, InvalidTopicExpressionFault, ResourceUnknownFault, UnacceptableInitialTerminationTimeFault, SubscribeCreationFailedFault, NotifyMessageNotSupportedFault
+    {
         SubscribeResponse result = null;
 
-        log.debug ("Begin Proxy Subscribe");
+        log.debug("Begin Proxy Subscribe");
 
         String url = getURL();
         NhincProxyNotificationProducerSecuredPortType port = getPort(url);
@@ -60,11 +56,11 @@ public class ProxyHiemSubscribeImpl {
         securedRequest.setSubscribe(request.getSubscribe());
         securedRequest.setNhinTargetSystem(request.getNhinTargetSystem());
         result = port.subscribe(securedRequest);
-        
-       
+
         return result;
     }
-     private String getURL()
+
+    private String getURL()
     {
         String url = "";
 
@@ -72,7 +68,7 @@ public class ProxyHiemSubscribeImpl {
         {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error(ex.getMessage(), ex);
         }
@@ -82,9 +78,6 @@ public class ProxyHiemSubscribeImpl {
 
     private NhincProxyNotificationProducerSecuredPortType getPort(String url)
     {
-
-
-
         NhincProxyNotificationProducerSecuredPortType port = service.getNhincProxyNotificationProducerPortSoap11();
 
         log.info("Setting endpoint address to Proxy Subscribe Secured Service to " + url);
@@ -92,6 +85,4 @@ public class ProxyHiemSubscribeImpl {
 
         return port;
     }
-
-
 }

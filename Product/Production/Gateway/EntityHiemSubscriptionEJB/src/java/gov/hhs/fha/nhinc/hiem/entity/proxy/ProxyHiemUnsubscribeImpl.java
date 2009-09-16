@@ -1,31 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.soap.SOAPException;
-import javax.xml.soap.SOAPHeader;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerPortType;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.ResourceUnknownFault;
 import gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.UnableToDestroySubscriptionFault;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
-import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxy;
-import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe.NhinHiemUnsubscribeProxyObjectFactory;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
@@ -41,11 +24,13 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
  *
  * @author rayj
  */
-public class ProxyHiemUnsubscribeImpl {
+public class ProxyHiemUnsubscribeImpl
+{
 
     private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
 
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault
+    {
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
         SoapUtil soaputil = new SoapUtil();
@@ -73,7 +58,8 @@ public class ProxyHiemUnsubscribeImpl {
         UnsubscribeResponse response = null;
         NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemSubscribeProxy();
-        try {
+        try
+        {
             log.debug("invoke unsubscribe nhin component proxy");
             Element responseElement = proxy.unsubscribe(unsubscribeElement, consumerReferenceElements, assertion, target);
             log.debug("invoked unsubscribe nhin component proxy");
@@ -81,12 +67,16 @@ public class ProxyHiemUnsubscribeImpl {
             WsntUnsubscribeResponseMarshaller marshaller = new WsntUnsubscribeResponseMarshaller();
             response = marshaller.unmarshal(responseElement);
             log.debug("unmarshalled unsubscribe response to object");
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex)
+        {
             log.error("error occurred", ex);
             //todo: throw proper exception
             response = new UnsubscribeResponse();
             response.getAny().add(ex);
-        } catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex) {
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex)
+        {
             log.error("error occurred", ex);
             //todo: throw proper exception
             response = new UnsubscribeResponse();
@@ -97,8 +87,8 @@ public class ProxyHiemUnsubscribeImpl {
         return response;
     }
 
-
-    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault {
+    public org.oasis_open.docs.wsn.b_2.UnsubscribeResponse unsubscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest, WebServiceContext context) throws UnableToDestroySubscriptionFault, ResourceUnknownFault
+    {
         log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
         SoapUtil soaputil = new SoapUtil();
@@ -115,7 +105,7 @@ public class ProxyHiemUnsubscribeImpl {
         log.debug("extracted target");
 
         log.debug("extracting assertion");
-        AssertionType assertion =  SamlTokenExtractor.GetAssertion(context);
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
         log.debug("extracted assertion");
 
         log.debug("extracting consumer reference elements");
@@ -126,7 +116,8 @@ public class ProxyHiemUnsubscribeImpl {
         UnsubscribeResponse response = null;
         NhinHiemUnsubscribeProxyObjectFactory factory = new NhinHiemUnsubscribeProxyObjectFactory();
         NhinHiemUnsubscribeProxy proxy = factory.getNhinHiemSubscribeProxy();
-        try {
+        try
+        {
             log.debug("invoke unsubscribe nhin component proxy");
             Element responseElement = proxy.unsubscribe(unsubscribeElement, consumerReferenceElements, assertion, target);
             log.debug("invoked unsubscribe nhin component proxy");
@@ -134,12 +125,16 @@ public class ProxyHiemUnsubscribeImpl {
             WsntUnsubscribeResponseMarshaller marshaller = new WsntUnsubscribeResponseMarshaller();
             response = marshaller.unmarshal(responseElement);
             log.debug("unmarshalled unsubscribe response to object");
-        } catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex) {
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.ResourceUnknownFault ex)
+        {
             log.error("error occurred", ex);
             //todo: throw proper exception
             response = new UnsubscribeResponse();
             response.getAny().add(ex);
-        } catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex) {
+        }
+        catch (org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault ex)
+        {
             log.error("error occurred", ex);
             //todo: throw proper exception
             response = new UnsubscribeResponse();

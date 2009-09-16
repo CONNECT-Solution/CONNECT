@@ -97,6 +97,14 @@
     </xsd:complexType>
     <xsd:element name="SubscribeRequest" type="tns:SubscribeRequestType" />
 
+    <xsd:complexType name="SubscribeRequestSecuredType" >
+        <xsd:sequence>
+            <xsd:element ref="wsnt:Subscribe" />
+            <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeRequestSecured" type="tns:SubscribeRequestSecuredType" />
+
     <xsd:complexType name="SubscribeDocumentRequestType">
         <xsd:sequence>
             <xsd:element name="subscribe" type="subb2obdoc:SubscribeDocumentType"/>
@@ -105,6 +113,13 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="SubscribeDocumentRequest" type="tns:SubscribeDocumentRequestType"/>
+    <xsd:complexType name="SubscribeDocumentRequestSecuredType">
+        <xsd:sequence>
+            <xsd:element name="subscribe" type="subb2obdoc:SubscribeDocumentType"/>
+            <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeDocumentRequestSecured" type="tns:SubscribeDocumentRequestSecuredType"/>
 
     <xsd:complexType name="SubscribeCdcBioPackageRequestType">
         <xsd:sequence>
@@ -149,6 +164,14 @@
     </xsd:complexType>
     <xsd:element name="NotifySubscribersOfDocumentRequest" type="tns:NotifySubscribersOfDocumentRequestType" />
     
+    <xsd:complexType name="NotifySubscribersOfDocumentRequestSecuredType" >
+        <xsd:sequence>
+            <xsd:element name="notify" type="subb2obdoc:NotifyDocumentType" />
+            <xsd:element ref="rim:RegistryObjectList" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="NotifySubscribersOfDocumentRequestSecured" type="tns:NotifySubscribersOfDocumentRequestSecuredType" />
+    
     <xsd:complexType name="NotifySubscribersOfCdcBioPackageRequestType" >
         <xsd:sequence>
             <xsd:element name="notify" type="subb2obcdc:NotifyCdcBioPackageType" />
@@ -163,4 +186,5 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="NotifyRequest" type="tns:NotifyRequestType"></xsd:element>
+    
 </xsd:schema>

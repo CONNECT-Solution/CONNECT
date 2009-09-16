@@ -113,6 +113,13 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="SubscribeDocumentRequest" type="tns:SubscribeDocumentRequestType"/>
+    <xsd:complexType name="SubscribeDocumentRequestSecuredType">
+        <xsd:sequence>
+            <xsd:element name="subscribe" type="subb2obdoc:SubscribeDocumentType"/>
+            <xsd:element name="nhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SubscribeDocumentRequestSecured" type="tns:SubscribeDocumentRequestSecuredType"/>
 
     <xsd:complexType name="SubscribeCdcBioPackageRequestType">
         <xsd:sequence>
@@ -144,13 +151,6 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="UnsubscribeRequest" type="tns:UnsubscribeRequestType" />
-    
-    <xsd:complexType name="UnsubscribeRequestSecuredType" >
-        <xsd:sequence>
-            <xsd:element ref="wsnt:Unsubscribe" />
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="UnsubscribeRequestSecured" type="tns:UnsubscribeRequestSecuredType" />
     
     <!-- ====================================================================
          Notification Schemas.
@@ -187,10 +187,4 @@
     </xsd:complexType>
     <xsd:element name="NotifyRequest" type="tns:NotifyRequestType"></xsd:element>
     
-    <xsd:complexType name="NotifyRequestSecuredType">
-        <xsd:sequence>
-            <xsd:element ref="wsnt:Notify"/>
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="NotifyRequestSecured" type="tns:NotifyRequestSecuredType"></xsd:element>
 </xsd:schema>

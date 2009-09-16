@@ -12,12 +12,10 @@
 		<name>NhinInterfaceTestHelperEJB</name>
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
 	</project>
-	<!--
 	<project>
 		<name>EntityHiemSubscriptionProxyEJB</name>
 		<directory>/Production/Adapters/General/EntityHiemSubscriptionProxyEJB</directory>
 	</project>
-	-->
 	<project>
 		<name>AdapterMPIProxyEJB</name>
 		<directory>/Production/Adapters/General/AdapterMPIProxyEJB</directory>
@@ -27,12 +25,10 @@
 		<name>NhincHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
 	</project>
-	<!--
 	<project>
 		<name>EntityHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/EntityHiemSubscriptionEJB</directory>
 	</project>
-	-->
 	<project>
 		<name>HiemSubscriptionRepositoryUtilEJB</name>
 		<directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>

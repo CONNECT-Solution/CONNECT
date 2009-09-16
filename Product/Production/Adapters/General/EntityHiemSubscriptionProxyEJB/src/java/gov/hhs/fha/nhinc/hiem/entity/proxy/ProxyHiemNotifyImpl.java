@@ -1,9 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -12,22 +8,22 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-
-
 import gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerSecured;
-import gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerSecuredPortType;       
+import gov.hhs.fha.nhinc.nhincproxynotificationconsumer.NhincProxyNotificationConsumerSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestSecuredType;
-
 
 /**
  *
  * @author dunnek
  */
-public class ProxyHiemNotifyImpl {
+public class ProxyHiemNotifyImpl
+{
+
     private static Log log = LogFactory.getLog(ProxyHiemNotifyImpl.class);
     private static NhincProxyNotificationConsumerSecured service = new NhincProxyNotificationConsumerSecured();
 
-    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType request) {
+    public void notify(gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestType request)
+    {
         log.debug("Begin Proxy Notify");
 
         String url = getURL();
@@ -56,7 +52,7 @@ public class ProxyHiemNotifyImpl {
         {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error(ex.getMessage(), ex);
         }
@@ -64,13 +60,8 @@ public class ProxyHiemNotifyImpl {
         return url;
     }
 
-
-
     private NhincProxyNotificationConsumerSecuredPortType getPort(String url)
     {
-
-
-
         NhincProxyNotificationConsumerSecuredPortType port = service.getNhincProxyNotificationConsumerPortSoap11();
 
         log.info("Setting endpoint address to Proxy Unsubscribe Secured Service to " + url);

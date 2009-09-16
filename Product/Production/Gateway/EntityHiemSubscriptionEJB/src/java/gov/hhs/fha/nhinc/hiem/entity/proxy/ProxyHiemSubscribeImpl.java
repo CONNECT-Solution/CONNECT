@@ -1,10 +1,8 @@
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
-import com.sun.xml.registry.common.util.XMLUtil;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestSecuredType;
-//import gov.hhs.fha.nhinc.hiem.dte.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxyObjectFactory;
 import org.apache.commons.logging.Log;

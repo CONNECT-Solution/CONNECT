@@ -1,13 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hiem.entity.subscribe;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerSecured;
-import gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerSecuredPortType;
+
+import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecured;
+import gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidFilterFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidMessageContentExpressionFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidProducerPropertiesExpressionFault;
@@ -20,15 +14,8 @@ import gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnacceptableInitialTerminationTimeFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnrecognizedPolicyRequestFault;
 import gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnsupportedPolicyRequestFault;
-//import gov.hhs.fha.nhinc.hiem.processor.entity.EntitySubscribeProcessor;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import javax.xml.ws.WebServiceContext;
-//import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-//import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
-//import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
-//import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
-import org.w3c.dom.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
@@ -45,6 +32,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
  */
 public class EntitySubscribeServiceImpl
 {
+
     private static Log log = LogFactory.getLog(EntitySubscribeServiceImpl.class);
     private static EntityNotificationProducerSecured service = new EntityNotificationProducerSecured();
 
@@ -59,9 +47,10 @@ public class EntitySubscribeServiceImpl
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
-    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest, WebServiceContext context) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
+
+    public SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestType subscribeRequest, WebServiceContext context) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
     {
-        log.debug("begin notify");
+        log.debug("begin subscribe");
         SubscribeResponse result = null;
 
         String url = getURL();
@@ -77,13 +66,61 @@ public class EntitySubscribeServiceImpl
 
         securedRequest.setSubscribe(subscribeRequest.getSubscribe());
         securedRequest.setNhinTargetCommunities(subscribeRequest.getNhinTargetCommunities());
-
-        result = port.subscribe(securedRequest);
+        try
+        {
+            result = port.subscribe(securedRequest);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidFilterFault ex)
+        {
+            throw new InvalidFilterFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidMessageContentExpressionFault ex)
+        {
+            throw new InvalidMessageContentExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidProducerPropertiesExpressionFault ex)
+        {
+            throw new InvalidProducerPropertiesExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.InvalidTopicExpressionFault ex)
+        {
+            throw new InvalidTopicExpressionFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.NotifyMessageNotSupportedFault ex)
+        {
+            throw new NotifyMessageNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.ResourceUnknownFault ex)
+        {
+            throw new ResourceUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.SubscribeCreationFailedFault ex)
+        {
+            throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicExpressionDialectUnknownFault ex)
+        {
+            throw new TopicExpressionDialectUnknownFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.TopicNotSupportedFault ex)
+        {
+            throw new TopicNotSupportedFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnacceptableInitialTerminationTimeFault ex)
+        {
+            throw new UnacceptableInitialTerminationTimeFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnrecognizedPolicyRequestFault ex)
+        {
+            throw new UnrecognizedPolicyRequestFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
+        catch (gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnsupportedPolicyRequestFault ex)
+        {
+            throw new UnsupportedPolicyRequestFault(ex.getMessage(), ex.getFaultInfo(), ex);
+        }
 
         return result;
-
     }
-
 
     private String getURL()
     {
@@ -93,7 +130,7 @@ public class EntitySubscribeServiceImpl
         {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.HIEM_SUBSCRIBE_ENTITY_SERVICE_NAME_SECURED);
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             log.error(ex.getMessage(), ex);
         }
@@ -103,9 +140,6 @@ public class EntitySubscribeServiceImpl
 
     private EntityNotificationProducerSecuredPortType getPort(String url)
     {
-
-
-
         EntityNotificationProducerSecuredPortType port = service.getEntityNotificationProducerSecuredPortSoap11();
 
         log.info("Setting endpoint address to Entity Notification Secured Service to " + url);
@@ -113,5 +147,4 @@ public class EntitySubscribeServiceImpl
 
         return port;
     }
-
 }
