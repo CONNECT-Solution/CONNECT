@@ -22,10 +22,12 @@
 		<name>AdapterMPIProxyEJB</name>
 		<directory>/Production/Adapters/General/AdapterMPIProxyEJB</directory>
 	</project>
+	<!--
 	<project>
 		<name>NhincHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
 	</project>
+	-->
 	<project>
 		<name>EntityHiemSubscriptionEJB</name>
 		<directory>/Production/Gateway/EntityHiemSubscriptionEJB</directory>
