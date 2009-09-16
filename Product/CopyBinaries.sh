@@ -1,0 +1,59 @@
+cp $GATEWAY_DIR/GatewayPolicyEngineTransformationEjb/dist/GatewayPolicyEngineTransformationEjb.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AdapterDocQueryProxyEJB/dist/AdapterDocQueryProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/GatewaySubscriptionRepositoryEJB/dist/GatewaySubscriptionRepositoryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AuditRepositoryEJB/dist/AuditRepositoryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/NhincSubjectDiscoveryEJB/dist/NhincSubjectDiscoveryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/EntityDocRetrieveEJB/dist/EntityDocRetrieveEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AdapterDocRetrieveProxyEJB/dist/AdapterDocRetrieveProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AggregatorEJB/dist/AggregatorEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/EntitySubjectDiscoveryEJB/dist/EntitySubjectDiscoveryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/PatientCorrelationFacadeDteEjb/dist/PatientCorrelationFacadeDteEjb.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/NhincDocRetrieveEJB/dist/NhincDocRetrieveEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AdapterSubjectDiscoveryProxyEJB/dist/AdapterSubjectDiscoveryProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/PatientCorrelationEJB/dist/PatientCorrelationEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/NhincHiemSubscriptionEJB/dist/NhincHiemSubscriptionEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/NhincDocQueryEJB/dist/NhincDocQueryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/NhincAuditQueryEJB/dist/NhincAuditQueryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/EntityHiemSubscriptionEJB/dist/EntityHiemSubscriptionEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/HiemSubscriptionRepositoryUtilEJB/dist/HiemSubscriptionRepositoryUtilEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/EntityDocQueryEJB/dist/EntityDocQueryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/AdapterPolicyEngineProxyEJB/dist/AdapterPolicyEngineProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/GatewayPolicyEngineFacadeEJB/dist/GatewayPolicyEngineFacadeEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $GATEWAY_DIR/EntityAuditLogQueryEJB/dist/EntityAuditLogQueryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+
+cp $ADAPTER_DIR/General/UniversalClientGUI/UniversalClientGUI.war  /export/home/nhinb1/NHINC_Binaries/
+
+cp $ADAPTER_DIR/Mural/MuralMpiEJB/dist/MuralMpiEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/GenericFileTransfer/FTATransferAdapterEJB/dist/FTATransferAdapterEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/EntityDocRetrieveProxyEJB/dist/EntityDocRetrieveProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/DocumentRepositoryEJB/dist/DocumentRepositoryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterAuthenticationEJB/dist/AdapterAuthenticationEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterPolicyEngineTransformEJB/dist/AdapterPolicyEngineTransformEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterPEPEJB/dist/AdapterPEPEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterMpiEJB/dist/AdapterMpiEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterPolicyEngineOrchestratorEJB/dist/AdapterPolicyEngineOrchestratorEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/EntitySubjectDiscoveryProxyEJB/dist/EntitySubjectDiscoveryProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterSubjectDiscoveryEJB/dist/AdapterSubjectDiscoveryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterMPIProxyEJB/dist/AdapterMPIProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterPIPEJB/dist/AdapterPIPEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/EntityAuditQueryProxyEJB/dist/EntityAuditQueryProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/MpiEJB/dist/MpiEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterDocRepository2Soap12EJB/dist/AdapterDocRepository2Soap12EJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/MpiManagerEJB/dist/MpiManagerEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterReidentificationEJB/dist/AdapterReidentificationEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterDocRegistryAndRepositoryEJB/dist/AdapterDocRegistryAndRepositoryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterPolicyEngineEJB/dist/AdapterPolicyEngineEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/EntityDocQueryProxyEJB/dist/EntityDocQueryProxyEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $ADAPTER_DIR/General/AdapterAuditQueryEJB/dist/AdapterAuditQueryEJB.jar /export/home/nhinb1/NHINC_Binaries/
+
+cp $COMMON_DIR/PropAccessorEJB/dist/PropAccessorEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $COMMON_DIR/UDDIUpdateManagerEJB/dist/UDDIUpdateManagerEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $COMMON_DIR/ConnectionManagerEJB/dist/ConnectionManagerEJB.jar /export/home/nhinb1/NHINC_Binaries/
+cp $COMMON_DIR/DocumentTransformEJB/dist/DocumentTransformEJB.jar /export/home/nhinb1/NHINC_Binaries/
+
+cp passfile ~/NHINC_Binaries/.
+cp DeployAllBinaries.sh ~/NHINC_Binaries/.
+chmod +x ~/NHINC_Binaries/DeployAllBinaries.sh
+cp UndeployAllBinaries.sh ~/NHINC_Binaries/.
+chmod +x ~/NHINC_Binaries/UndeployAllBinaries.sh
+
