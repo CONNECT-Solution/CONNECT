@@ -5,5 +5,5 @@
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig"
  >
-    <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumer"/>
+    <import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
 </definitions>

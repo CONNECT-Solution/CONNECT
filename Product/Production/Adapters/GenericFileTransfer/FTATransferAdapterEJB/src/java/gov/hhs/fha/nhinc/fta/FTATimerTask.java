@@ -8,7 +8,7 @@ package gov.hhs.fha.nhinc.fta;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfiguration;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAChannel;
 import  gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.BindingProvider;
 
 import org.apache.commons.logging.Log;
@@ -19,16 +19,17 @@ import java.io.File;
 import java.io.StringWriter;
 import java.io.PrintWriter;
 
-import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumer;
-import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType;
-
+import gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecured;
+import gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import java.util.Map;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 /**
  *
@@ -116,8 +117,8 @@ public class FTATimerTask  {
   private static void sendNotification(String contents, String topic)
   {
         try { // Call Web Service Operation
-            EntityNotificationConsumer service = new EntityNotificationConsumer();
-            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
+            EntityNotificationConsumerSecured service = new EntityNotificationConsumerSecured();
+            EntityNotificationConsumerSecuredPortType port = service.getEntityNotificationConsumerSecuredPortSoap11();
 
 
            String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
@@ -127,7 +128,7 @@ public class FTATimerTask  {
 
 
             // TODO initialize WS operation arguments here
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType();
+            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestSecuredType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestSecuredType();
             NotificationMessageHolderType messageHolder = new NotificationMessageHolderType();
 
 
@@ -137,10 +138,6 @@ public class FTATimerTask  {
             message.setAny(Util.marshalPayload(contents));
             
             messageHolder.setMessage(message);
-
-            //TopicExpressionType topicExpression = new TopicExpressionType();
-            //topicExpression.setDialect("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple");
-            //topicExpression.getContent().add(topic);
 
             TopicExpressionType topicExpression;
             gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
@@ -154,11 +151,16 @@ public class FTATimerTask  {
 
             notify.getNotificationMessage().add(messageHolder);
             
-            notifyRequest.setAssertion(Util.createAssertion());
             
             notifyRequest.setNotify(notify);
 
-            AcknowledgementType result = port.notify(notifyRequest);
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            AssertionType assertion = Util.createAssertion();
+            
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, endpointURL, NhincConstants.PAT_CORR_ACTION);
+			((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            AcknowledgementType result = port.notify(notify);
 
             log.info("Result = "+result);
         } catch (Exception ex) {
