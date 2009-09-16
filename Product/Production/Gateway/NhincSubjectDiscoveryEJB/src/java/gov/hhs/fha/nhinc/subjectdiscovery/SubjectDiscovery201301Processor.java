@@ -219,14 +219,22 @@ public class SubjectDiscovery201301Processor {
                     localPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
                 patient = localPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
 
-                if (NullChecker.isNotNullish(patient.getId()) &&
-                        patient.getId().get(0) != null &&
-                        NullChecker.isNotNullish(patient.getId().get(0).getExtension()) &&
-                        NullChecker.isNotNullish(patient.getId().get(0).getRoot())) {
-                    remotePatId = patient.getId().get(0).getExtension();
-                    remoteDeviceId = patient.getId().get(0).getRoot();
-                }
             }
+
+            if (request.getControlActProcess() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject()) &&
+                    request.getControlActProcess().getSubject().get(0) != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                    request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension()) &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                remotePatId = request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
+                remoteDeviceId = request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+            }
+
 
             // Set the Sender OID to the Receiver OID from the original request
             if (NullChecker.isNotNullish(request.getReceiver()) &&
@@ -266,7 +274,7 @@ public class SubjectDiscovery201301Processor {
         AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
         QualifiedSubjectIdentifierType localSubId = new QualifiedSubjectIdentifierType();
         QualifiedSubjectIdentifierType remoteSubId = new QualifiedSubjectIdentifierType();
-        
+
         if (remotePatient != null &&
                 localPatient != null) {
             if (localPatient.getControlActProcess() != null &&
@@ -282,6 +290,7 @@ public class SubjectDiscovery201301Processor {
                     localSubId.setAssigningAuthorityIdentifier(localPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
                     localSubId.setSubjectIdentifier(localPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
                 }
+
             }
 
             if (remotePatient.getControlActProcess() != null &&
@@ -305,6 +314,7 @@ public class SubjectDiscovery201301Processor {
                     log.info("Set Id 2 to PAT Id: " + localSubId.getSubjectIdentifier());
                     log.info("Set Id 2 to AA Id: " + localSubId.getAssigningAuthorityIdentifier());
                 }
+
             }
 
             if (request.getQualifiedPatientIdentifier().isEmpty() == false) {
