@@ -110,6 +110,12 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SubscribeDocumentRequest" type="tns:SubscribeDocumentRequestType"/>
+	<xsd:complexType name="SubscribeDocumentRequestSecuredType">
+		<xsd:sequence>
+			<xsd:element name="subscribe" type="subb2obdoc:SubscribeDocumentType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SubscribeDocumentRequestSecured" type="tns:SubscribeDocumentRequestSecuredType"/>
 	<xsd:complexType name="SubscribeCdcBioPackageRequestType">
 		<xsd:sequence>
 			<xsd:element name="subscribe" type="subb2obcdc:SubscribeCdcBioPackageType"/>
@@ -153,6 +159,14 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="NotifySubscribersOfDocumentRequest" type="tns:NotifySubscribersOfDocumentRequestType"/>
+	
+	<xsd:complexType name="NotifySubscribersOfDocumentRequestSecuredType">
+		<xsd:sequence>
+			<xsd:element name="notify" type="subb2obdoc:NotifyDocumentType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="NotifySubscribersOfDocumentRequestSecured" type="tns:NotifySubscribersOfDocumentRequestSecuredType"/>
+		
 	<xsd:complexType name="NotifySubscribersOfCdcBioPackageRequestType">
 		<xsd:sequence>
 			<xsd:element name="notify" type="subb2obcdc:NotifyCdcBioPackageType"/>
