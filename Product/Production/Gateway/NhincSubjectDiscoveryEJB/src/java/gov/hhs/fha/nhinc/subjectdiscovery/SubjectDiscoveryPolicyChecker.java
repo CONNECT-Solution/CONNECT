@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
@@ -42,13 +43,14 @@ public class SubjectDiscoveryPolicyChecker {
     public boolean check201301Policy(PIXConsumerPRPAIN201301UVRequestType message, II patIdOverride) {
         boolean policyIsValid = false;
         SubjectAddedMessageType request = new SubjectAddedMessageType();
-        String oid = message.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId().get(0).getRoot();
+        String roid = message.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId().get(0).getRoot();
+        String soid = message.getPRPAIN201301UV().getSender().getDevice().getId().get(0).getRoot();
         log.info("Patient Id Right before Override: " + message.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
         log.info("AA Id Right before Override: " + message.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
 
         JAXBElement<PRPAMT201301UVPerson> patientPerson = HL7PatientTransforms.create201301PatientPerson(message.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getName().get(0), null, null, null);
         PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(patientPerson, patIdOverride);
-        request.setPRPAIN201301UV(HL7PRPA201301Transforms.createPRPA201301(patient, null, oid, oid));
+        request.setPRPAIN201301UV(HL7PRPA201301Transforms.createPRPA201301(patient, null, roid, soid));
         request.setAssertion(message.getAssertion());
 
         // Check to see if the patient id should be overwritten
@@ -63,6 +65,12 @@ public class SubjectDiscoveryPolicyChecker {
         policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
         policyCheckReq.setMessage(request);
+        HomeCommunityType senderHC = new HomeCommunityType();
+        senderHC.setHomeCommunityId(soid);
+        policyCheckReq.setSendingHomeCommunity(senderHC);
+        HomeCommunityType receiverHC = new HomeCommunityType();
+        receiverHC.setHomeCommunityId(roid);
+        policyCheckReq.setReceivingHomeCommunity(receiverHC);
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectAdded(policyCheckReq);
@@ -115,6 +123,19 @@ public class SubjectDiscoveryPolicyChecker {
         request.setPRPAIN201303UV(message.getPRPAIN201303UV());
         policyCheckReq.setMessage(request);
 
+        // Sent sendingHomeCommunity
+        String soid = null;
+        if (message.getPRPAIN201303UV() != null &&
+                message.getPRPAIN201303UV().getSender() != null &&
+                message.getPRPAIN201303UV().getSender().getDevice() != null &&
+                message.getPRPAIN201303UV().getSender().getDevice().getId() != null &&
+                message.getPRPAIN201303UV().getSender().getDevice().getId().size() > 0) {
+            soid = message.getPRPAIN201303UV().getSender().getDevice().getId().get(0).getRoot();
+        }
+        HomeCommunityType senderHC = new HomeCommunityType();
+        senderHC.setHomeCommunityId(soid);
+        policyCheckReq.setSendingHomeCommunity(senderHC);
+
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectRevoked(policyCheckReq);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
@@ -139,6 +160,20 @@ public class SubjectDiscoveryPolicyChecker {
         request.setAssertion(message.getAssertion());
         request.setPRPAIN201309UV(message.getPRPAIN201309UV());
         policyCheckReq.setMessage(request);
+
+        // Sent sendingHomeCommunity
+        String soid = null;
+        if (message.getPRPAIN201309UV() != null &&
+                message.getPRPAIN201309UV().getSender() != null &&
+                message.getPRPAIN201309UV().getSender().getDevice() != null &&
+                message.getPRPAIN201309UV().getSender().getDevice().getId() != null &&
+                message.getPRPAIN201309UV().getSender().getDevice().getId().size() > 0) {
+            soid = message.getPRPAIN201309UV().getSender().getDevice().getId().get(0).getRoot();
+        }
+        HomeCommunityType senderHC = new HomeCommunityType();
+        senderHC.setHomeCommunityId(soid);
+        policyCheckReq.setSendingHomeCommunity(senderHC);
+
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicySubjectReidentification(policyCheckReq);
