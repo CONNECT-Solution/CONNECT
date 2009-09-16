@@ -11,8 +11,9 @@
   
   <property name="deployment.glassfish.domain.name" value="domain1"/>
   <property name="deployment.glassfish.domain.home" value="${glassfish.home}\domains\${deployment.glassfish.domain.name}"/>
-  <property name="deployment.glassfish.domain.source.directory" value="${script.root.directory}/domains/test"/>
-
+  <property name="deployment.glassfish.domain.source.directory.name" value="test"/>
+  <property name="deployment.glassfish.domain.source.directory" value="${script.root.directory}/domains/${deployment.glassfish.domain.source.directory.name}"/>
+    
   <property name="deployment.glassfish.server.username" value="admin" />
   <property name="deployment.glassfish.server.password" value="adminadmin" />
 
