@@ -307,7 +307,6 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
@@ -315,10 +314,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
@@ -326,8 +325,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
