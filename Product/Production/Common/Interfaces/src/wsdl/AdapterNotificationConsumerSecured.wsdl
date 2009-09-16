@@ -84,7 +84,7 @@
     </wsdl:message>
     
     <wsdl:message name="NotifySubscribersOfDocumentRequestSecuredMessage">
-        <wsdl:part name="NotifySubscribersOfDocumentRequestSecured" element="nccommonentity:NotifySubscribersOfDocumentRequestSecured"/>
+        <wsdl:part name="NotifySubscribersOfDocumentRequestSecured" element="nccommonadapter:NotifySubscribersOfDocumentRequestSecured"/>
     </wsdl:message>
     <wsdl:message name="NotifySubscribersOfDocumentResponseMessage">
         <wsdl:part name="NotifySubscribersOfDocumentResponse" element="nccommon:Acknowledgement"/>
