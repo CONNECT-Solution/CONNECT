@@ -93,6 +93,7 @@
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -106,6 +107,7 @@
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
@@ -121,6 +123,7 @@
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -134,6 +137,7 @@
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
@@ -150,6 +154,7 @@
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -163,6 +168,7 @@
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 

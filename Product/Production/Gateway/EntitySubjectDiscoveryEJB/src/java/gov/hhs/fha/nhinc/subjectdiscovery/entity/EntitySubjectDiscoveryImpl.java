@@ -125,21 +125,24 @@ public class EntitySubjectDiscoveryImpl {
                 List<String> aaResponse = dao.getAssigningAuthoritiesByHomeCommunity(h.getHomeCommunityId());
 
                 // For each AA, look for patient correlations
-                for (String aa : aaResponse) {
-                    QualifiedSubjectIdentifierType qualifiedSubject = assignQualifiedSubjectFrom201301(pixConsumerPRPAIN201301UVRequest.getPRPAIN201301UV());
-                    RetrievePatientCorrelationsRequestType patientRetrieveRequest = new RetrievePatientCorrelationsRequestType();
-                    patientRetrieveRequest.setQualifiedPatientIdentifier(qualifiedSubject);
-                    patientRetrieveRequest.getTargetAssigningAuthority().add(aa);
-                    patientRetrieveRequest.setAssertion(request.getAssertion());
+                if (aaResponse != null && aaResponse.size() > 0) {
+                    for (String aa : aaResponse) {
+                        QualifiedSubjectIdentifierType qualifiedSubject = assignQualifiedSubjectFrom201301(pixConsumerPRPAIN201301UVRequest.getPRPAIN201301UV());
+                        RetrievePatientCorrelationsRequestType patientRetrieveRequest = new RetrievePatientCorrelationsRequestType();
+                        patientRetrieveRequest.setQualifiedPatientIdentifier(qualifiedSubject);
+                        patientRetrieveRequest.getTargetAssigningAuthority().add(aa);
+                        patientRetrieveRequest.setAssertion(request.getAssertion());
 
-                    // Retreive Patient Correlations this patient
-                    PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
-                    PatientCorrelationFacadeProxy proxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
-                    RetrievePatientCorrelationsResponseType results = proxy.retrievePatientCorrelations(patientRetrieveRequest);
+                        // Retreive Patient Correlations this patient
+                        PatientCorrelationFacadeProxyObjectFactory patCorrelationFactory = new PatientCorrelationFacadeProxyObjectFactory();
+                        PatientCorrelationFacadeProxy proxy = patCorrelationFactory.getPatientCorrelationFacadeProxy();
+                        RetrievePatientCorrelationsResponseType results = proxy.retrievePatientCorrelations(patientRetrieveRequest);
 
-                    if (results.getQualifiedPatientIdentifier().size() > 0) {
-                        patientHasCorrelation = true;
-                        log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- found patientCorrelation");
+                        if (results.getQualifiedPatientIdentifier().size() > 0) {
+                            patientHasCorrelation = true;
+                            log.debug("EntitySubjectDiscoveryImpl.pixConsumerPRPAIN201301UV -- found patientCorrelation");
+                            break;
+                        }
                     }
                 }
 
@@ -249,7 +252,7 @@ public class EntitySubjectDiscoveryImpl {
             removeRequest.getQualifiedPatientIdentifier().add(removeSubject1);
             removeRequest.getQualifiedPatientIdentifier().add(removeSubject2);
             removeRequest.setAssertion(request.getAssertion());
-  
+
             RemovePatientCorrelationResponseType removeResponse = proxy.removePatientCorrelation(removeRequest);
 
         }

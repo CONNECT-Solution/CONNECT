@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"
+   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:hl7="urn:hl7-org:v3"
+   xmlns:samlData="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   name="EntitySubjectDiscoverySecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
+    <wsdl:documentation>
+     WSDL for Entity interface of Subject Discovery
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
+        </xsd:schema>
+        <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                xmlns:samlData="urn:gov:hhs:fha:nhinc:gateway:samltokendata">
+      <!-- Include schema defining the Saml Token Data -->
+            <xsd:include schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+        </xsd:schema>
+
+    </wsdl:types>
+    <wsdl:message name="PIXConsumer_PRPA_IN201301UVRequestMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201301UVSecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201301UVResponseMessage">
+        <wsdl:part name="Body"
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+
+    <wsdl:message name="PIXConsumer_PRPA_IN201302UVRequestMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201302UVSecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201302UVResponseMessage">
+        <wsdl:part name="Body"
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+
+    <wsdl:message name="PIXConsumer_PRPA_IN201303UVRequestMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201303UVSecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201303UVResponseMessage">
+        <wsdl:part name="Body"
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+
+    <wsdl:message name="PIXConsumer_PRPA_IN201304UVRequestMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201304UVSecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201304UVResponseMessage">
+        <wsdl:part name="Body"
+               element="hl7:MCCI_IN000002UV01"/>
+    </wsdl:message>
+
+    <wsdl:message name="PIXConsumer_PRPA_IN201309UVRequestMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201309UVSecuredRequest"/>
+    </wsdl:message>
+    <wsdl:message name="PIXConsumer_PRPA_IN201309UVResponseMessage">
+        <wsdl:part name="Body"
+               element="hl7:PIXConsumer_PRPA_IN201309UVResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EntitySubjectDiscoverySecuredPortType">
+        <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"
+                  wsaw:Action="hl7:PIXConsumer_PRPA_IN201301UVSecuredRequest"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"
+                   wsaw:Action="hl7:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"
+                  wsaw:Action="hl7:PIXConsumer_PRPA_IN201302UVSecuredRequest"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"
+                   wsaw:Action="hl7:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201303UVRequestMessage"
+                  wsaw:Action="hl7:PIXConsumer_PRPA_IN201303UVSecuredRequest"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"
+                   wsaw:Action="hl7:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201304UVRequestMessage"
+                  wsaw:Action="hl7:PIXConsumer_PRPA_IN201304UVSecuredRequest"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201304UVResponseMessage"
+                   wsaw:Action="hl7:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+            <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest"
+                  message="tns:PIXConsumer_PRPA_IN201309UVRequestMessage"
+                  wsaw:Action="hl7:PIXConsumer_PRPA_IN201309UVSecuredRequest"/>
+            <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse"
+                   message="tns:PIXConsumer_PRPA_IN201309UVResponseMessage"
+                   wsaw:Action="hl7:MCCI_IN000002UV01"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EntitySubjectDiscoverySecuredBindingSoap11"
+                type="tns:EntitySubjectDiscoverySecuredPortType">
+        <wsp1:PolicyReference URI="#EntitySubjectDiscoverySecuredBindingSoap11Policy"/>
+        <wsoap11:binding style="document"
+                     transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201301UVRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201301UVResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201302UVRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201304UVResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+            <wsdl:input name="PIXConsumer_PRPA_IN201309UVRequest" >
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIXConsumer_PRPA_IN201309UVResponse" >
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="EntitySubjectDiscoverySecured">
+        <wsdl:port name="EntitySubjectDiscoverySecuredPortSoap11"
+               binding="tns:EntitySubjectDiscoverySecuredBindingSoap11">
+            <wsoap11:address
+          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntitySubjectDiscoverySecured"/>
+        </wsdl:port>
+    </wsdl:service>
+
+    <!-- Define action property on each receiving message -->
+    <vprop:property name="action" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+    </vprop:propertyAlias>
+    <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+    </vprop:propertyAlias>
+
+      <!-- Define resource property on each receiving message -->
+  <vprop:property name="resource" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:resource">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:resource">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:resource">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:resource">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:resource">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define purposeForUseRoleCode property on each receiving message -->
+  <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseRoleCode">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseRoleCode">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseRoleCode">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseRoleCode">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseRoleCode">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define purposeForUseCodeSystem property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystem">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystem">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystem">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystem">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystem">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define purposeForUseCodeSystemName property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystemName">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystemName">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystemName">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystemName">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseCodeSystemName">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define purposeForUseDisplayName property on each receiving message -->
+  <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseDisplayName">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseDisplayName">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseDisplayName">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseDisplayName">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:purposeForUseDisplayName">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userFirstName property on each receiving message -->
+  <vprop:property name="userFirstName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userFirstName">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userFirstName">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userFirstName">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userFirstName">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userFirstName">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userMiddleName property on each receiving message -->
+  <vprop:property name="userMiddleName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userMiddleName">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userMiddleName">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userMiddleName">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userMiddleName">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userMiddleName">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userLastName property on each receiving message -->
+  <vprop:property name="userLastName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userLastName">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userLastName">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userLastName">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userLastName">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userLastName">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userName property on each receiving message -->
+  <vprop:property name="userName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userName">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userName">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userName">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userName">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userName">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userOrganization property on each receiving message -->
+  <vprop:property name="userOrganization" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userOrganization">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userOrganization">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userOrganization">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userOrganization">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userOrganization">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userRoleCode property on each receiving message -->
+  <vprop:property name="userRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCode">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCode">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCode">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCode">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCode">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userRoleCodeSystem property on each receiving message -->
+  <vprop:property name="userRoleCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystem">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystem">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystem">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystem">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystem">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userRoleCodeSystemName property on each receiving message -->
+  <vprop:property name="userRoleCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystemName">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystemName">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystemName">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystemName">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeSystemName">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define userRoleCodeDisplayName property on each receiving message -->
+  <vprop:property name="userRoleCodeDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeDisplayName">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeDisplayName">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeDisplayName">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeDisplayName">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:userRoleCodeDisplayName">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define expirationDate property on each receiving message -->
+  <vprop:property name="expirationDate" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:expirationDate">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:expirationDate">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:expirationDate">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:expirationDate">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:expirationDate">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define signDate property on each receiving message -->
+  <vprop:property name="signDate" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:signDate">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:signDate">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:signDate">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:signDate">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:signDate">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define contentReference property on each receiving message -->
+  <vprop:property name="contentReference" type="xsd:string"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:contentReference">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:contentReference">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:contentReference">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:contentReference">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:contentReference">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+
+  <!-- Define content property on each receiving message -->
+  <vprop:property name="content" type="xsd:base64Binary"/>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201301UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:content">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201302UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:content">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:content">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:content">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+  <vprop:propertyAlias messageType="tns:PIXConsumer_PRPA_IN201309UVRequestMessage" part="Body"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties"
+     propertyName="tns:content">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+
+    <plnk:partnerLinkType name="EntitySubjectDiscoverySecured">
+    <!-- A partner link type is automatically generated when a new port type is added.
+         Partner link types are used by BPEL processes. In a BPEL process, a partner
+         link represents the interaction between the BPEL process and a partner service.
+         Each partner link is associated with a partner link type. A partner link type
+         characterizes the conversational relationship between two services. The
+         partner link type can have one or two roles.-->
+        <plnk:role name="EntitySubjectDiscoverySecuredPortTypeRole"
+               portType="tns:EntitySubjectDiscoverySecuredPortType"/>
+    </plnk:partnerLinkType>
+    <wsp1:Policy wsu:Id="EntitySubjectDiscoverySecuredBindingSoap11Policy">
+        <wsp1:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+</wsdl:definitions>
