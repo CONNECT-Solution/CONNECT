@@ -21,6 +21,9 @@
       <name>NhinInterfaceTestHelperEJB</name>
     </ejb>
     <ejb>
+      <name>EntityHiemSubscriptionProxyEJB</name>
+    </ejb>
+    <ejb>
       <name>AdapterPolicyEngineProxyEJB</name>
     </ejb>
     <ejb>
