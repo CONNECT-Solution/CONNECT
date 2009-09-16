@@ -21,7 +21,7 @@ import org.hl7.v3.PRPAIN201303UVMFMIMT700701UV01Subject1;
  */
 public class SubjectRevokedTransformHelper {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubjectRevokedTransformHelper.class);
-    private static final String ActionValue = "SubjectRevokedIn";
+    private static final String ActionValue = "SubjectDiscoveryRevokeIn";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
     
