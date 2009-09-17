@@ -52,6 +52,54 @@
     <service name="FTAService">
       <implementation-class>gov.hhs.fha.nhinc.fta.FTAService</implementation-class>
     </service>
+    <service name="AdapterSubscriptionManagementSecured">
+      <implementation-class>gov.hhs.fha.nhinc.fta.AdapterSubscriptionManagementSecured</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterSubscriptionManagementSecured.wsdl</local-wsdl-file>
+      <service-name>AdapterNotificationProducerSecured</service-name>
+      <port-name>AdapterNotificationProducerPortSecuredSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterFTAServiceSecured">
+      <implementation-class>gov.hhs.fha.nhinc.fta.AdapterFTAServiceSecured</implementation-class>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterNotificationConsumerSecured.wsdl</local-wsdl-file>
+      <service-name>AdapterNotificationConsumerSecured</service-name>
+      <port-name>AdapterNotificationConsumerPortSecureType</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapternotificationconsumer</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityNotificationConsumer">

@@ -97,9 +97,6 @@
         <copy todir="${targetLocation-AdapterFTAServiceSecured}">
             <fileset dir="${sourceLocation-AdapterFTAServiceSecured}"/>
         </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterFTAServiceSecured/schemas"/>
-        </copy>
     </target>
     
     

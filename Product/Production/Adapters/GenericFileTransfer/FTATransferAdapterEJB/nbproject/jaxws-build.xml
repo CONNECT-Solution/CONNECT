@@ -93,6 +93,40 @@
     <target name="wsimport-service-clean-AdapterSubcriptionManagement" depends="-init-project">
         <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
     </target>
+    <target name="wsimport-service-check-AdapterSubscriptionManagementSecured" depends="wsimport-init">
+        <condition property="wsimport-service-AdapterSubscriptionManagementSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured/AdapterNotificationProducerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-AdapterSubscriptionManagementSecured" depends="wsimport-init,wsimport-service-check-AdapterSubscriptionManagementSecured" unless="wsimport-service-AdapterSubscriptionManagementSecured.notRequired">
+        <property name="service-wsdl-AdapterSubscriptionManagementSecured" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionManagementSecured/wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubscriptionManagementSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-AdapterSubscriptionManagementSecured" location="${meta.inf}/wsdl/AdapterSubscriptionManagementSecured"/>
+        <property name="sourceLocation-AdapterSubscriptionManagementSecured" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionManagementSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterSubscriptionManagementSecured}">
+            <fileset dir="${sourceLocation-AdapterSubscriptionManagementSecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterSubscriptionManagementSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured"/>
+    </target>
+    <target name="wsimport-service-check-AdapterFTAServiceSecured" depends="wsimport-init">
+        <condition property="wsimport-service-AdapterFTAServiceSecured.notRequired">
+            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapternotificationconsumer/AdapterNotificationConsumerSecured.java"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-AdapterFTAServiceSecured" depends="wsimport-init,wsimport-service-check-AdapterFTAServiceSecured" unless="wsimport-service-AdapterFTAServiceSecured.notRequired">
+        <property name="service-wsdl-AdapterFTAServiceSecured" location="${meta.inf}/xml-resources/web-services/AdapterFTAServiceSecured/wsdl/AdapterNotificationConsumerSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterFTAServiceSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <property name="targetLocation-AdapterFTAServiceSecured" location="${meta.inf}/wsdl/AdapterFTAServiceSecured"/>
+        <property name="sourceLocation-AdapterFTAServiceSecured" location="${meta.inf}/xml-resources/web-services/AdapterFTAServiceSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterFTAServiceSecured}">
+            <fileset dir="${sourceLocation-AdapterFTAServiceSecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterFTAServiceSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapternotificationconsumer"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntityNotificationConsumer, wsimport-client-EntityNotificationConsumerSecured"/>
     <target name="wsimport-client-compile" depends="wsimport-client-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
@@ -100,7 +134,7 @@
             <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
         </copy>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterFTAService, wsimport-service-AdapterSubcriptionManagement, wsimport-init"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterFTAService, wsimport-service-AdapterSubcriptionManagement, wsimport-init, wsimport-service-AdapterSubscriptionManagementSecured, wsimport-service-AdapterFTAServiceSecured"/>
     <target name="wsimport-service-compile" depends="wsimport-service-generate">
         <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
     </target>
