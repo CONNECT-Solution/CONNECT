@@ -121,7 +121,12 @@ public class NhincConstants {
     public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducer";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanager";
     public static final String HIEM_NOTIFY_ADAPTER_SERVICE_NAME = "adapternotificationconsumer";
-    
+
+    // HIEM - adapter interface secured
+    public static final String HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME = "adapternotificationproducersecured";
+    public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_SECURED_NAME = "adaptersubscriptionmanagersecured";
+    public static final String HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME = "adapternotificationconsumersecured";
+
     public static final String HIEM_SUBSCRIPTION_SERVICE_PROPERTY = "serviceSubscription";
     public static final String HIEM_SUBSCRIPTION_SERVICE_PASSTHRU_PROPERTY = "subscriptionPassthrough";
     public static final String HIEM_NOTIFY_SERVICE_PROPERTY = "serviceNotify";

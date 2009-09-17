@@ -178,6 +178,21 @@
                 <endpointURL>http://localhost:9080/NhinConnect/AdapterSubscriptionManager</endpointURL>
             </service>
             <service>
+                <name>adapternotificationproducersecured</name>
+                <description>Adapter HIEM Subscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumersecured</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubscriptionmanagersecured</name>
+                <description>Adapter HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
+            </service>
+            <service>
                 <name>policyenginedte</name>
                 <description>policyenginedte</description>
                 <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
