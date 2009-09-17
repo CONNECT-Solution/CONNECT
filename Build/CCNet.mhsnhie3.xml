@@ -3,7 +3,7 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
 
   %entities;
-  <!ENTITY webURLi                   'http://192.168.25.157/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+  <!ENTITY webURLi 'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
             <user name="Jay Flowers"            group="buildmaster" address="jay.flowers@agilex.com"/>
@@ -79,7 +79,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestFailed '<projectFilter
-               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
@@ -100,7 +100,7 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
-  <project name="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; MHS3 Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
@@ -148,24 +148,22 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
+  <project name="&ProjectName;-&ProjectCodeLineName;-MHS3">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName;-Release"
+          serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+          project="&ProjectName;-&ProjectCodeLineName;-Test"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &Test;
-          &Staging;
-          &ReleaseFailed;
+          &TestFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -173,9 +171,6 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &Test;
-          &Staging;
-          &ReleaseFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -195,8 +190,8 @@
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
     <labeller type="remoteProjectLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
-      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
+      <project>&ProjectName;-&ProjectCodeLineName;-Test</project>
+      <serverUri>tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
     </labeller>
     <tasks>
       <nant>
@@ -204,20 +199,20 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger</logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:GlassFish.Domain1.Template.Directory.Name=test -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-D:GlassFish.Domain1.Template.Directory.Name=mhsnhie3_domain1 -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Deploy</target>
         </targetList>
-
+        
         <buildTimeoutSeconds>4200</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />
@@ -238,113 +233,6 @@
           <group name="buildmaster" notification="always"/>
           <group name="testers" notification="always"/>
           <group name="managers" notification="success"/>
-        </groups>
-      </email>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Test">
-    <webURL>&webURLi;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter name="Project">
-        <trigger
-          type="projectTrigger"
-          serverUri="tcp://192.168.25.157:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName;-Deploy"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
-        <projectFilters>
-          &ScriptsBuilding;
-          &Deploy;
-          &Staging;
-          &DeployFailed;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter name="Force">
-        <projectFilters>
-          &ScriptsBuilding;
-          &Deploy;
-          &Staging;
-          &DeployFailed;
-        </projectFilters>
-      </projectForceFilter>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider type="svn" tagOnSuccess="false" autoGetSource="false">
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
-    </labeller>
-    <tasks>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>Test</target>
-        </targetList>
-
-        <buildTimeoutSeconds>2700</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\SoapUITestReports\*.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
-        <users>
-          <user name="Jay Flowers"          group="buildmaster"   address="jay.flowers@agilex.com"/>
-          <user name="Srikanth Vadlamani"   group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
-          <user name="Mark Goldman"         group="buildmaster"   address="mark.goldman@agilex.com"/>
-          <user name="Kieran Dunne"         group="buildmaster"   address="kieran.dunne@agilex.com"/>
-          <user name="Jason Ray"            group="buildmaster"   address="jason.ray@agilex.com"/>
-          <user name="Brian Mowbray"        group="buildmaster"   address="brian.mowbray@agilex.com"/>
-
-          <user name="borsts"               group="testers"       address="scott.borst@agilex.com"/>
-        </users>
-        <groups>
-          <group name="buildmaster" notification="always"/>
-          <group name="testers" notification="always"/>
         </groups>
       </email>
     </publishers>

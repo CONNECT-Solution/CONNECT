@@ -35,14 +35,6 @@
   </loadpackages>
   
   <target name="test">
-    <call target="Workspace.CheckForRequieredSoftware" />
-    <call target="Workspace.ConfigureEnvironment" />
-    
-    <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
-    <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
-
-    <call target="Ant.SetUp" />
-    <call target="Ant.CompileSource" />
   </target>
   
   <target name="rebuild-setups">
