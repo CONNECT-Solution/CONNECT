@@ -34,7 +34,7 @@ public class SubjectHelper {
         subject.setSubjectCategory(SubjectCategory);
         // removed as this causes the user-role-code to show up twice
         //subject.getAttribute().add(AttributeHelper.attributeFactory(UserRoleAttributeId, Constants.DataTypeString, AssertionHelper.extractUserRole(assertion)));
-        subject.getAttribute().add(AttributeHelper.attributeFactory(PurposeAttributeId, Constants.DataTypeString, AssertionHelper.extractPurpose(assertion)));
+        //subject.getAttribute().add(AttributeHelper.attributeFactory(PurposeAttributeId, Constants.DataTypeString, AssertionHelper.extractPurpose(assertion)));
         subject.getAttribute().add(AttributeHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
