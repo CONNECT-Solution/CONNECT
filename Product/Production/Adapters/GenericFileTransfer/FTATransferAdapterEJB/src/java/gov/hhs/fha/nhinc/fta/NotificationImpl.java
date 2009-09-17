@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfigurationHelper;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfiguration;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAChannel;
 
+import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType.Message;
 import org.apache.commons.logging.Log;
@@ -28,6 +29,25 @@ public class NotificationImpl
 {
     private static Log log = LogFactory.getLog(NotificationImpl.class);
 
+        public static AcknowledgementType processNotify(Notify request)
+        {
+        AcknowledgementType result = new AcknowledgementType();
+
+        try
+        {
+            for(NotificationMessageHolderType msgHolder : request.getNotificationMessage())
+            {
+                result = processNotifyMsg(msgHolder);
+            }
+        }
+        catch(Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+            result.setMessage("Unable to process: " + ex.getMessage());
+        }
+
+        return result;
+        }
     public static AcknowledgementType processNotify(NotifyRequestType notifyRequest)
     {
         AcknowledgementType result = new AcknowledgementType();
