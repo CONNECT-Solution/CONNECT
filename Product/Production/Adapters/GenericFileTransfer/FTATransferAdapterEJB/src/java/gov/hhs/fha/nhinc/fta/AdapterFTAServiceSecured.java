@@ -19,12 +19,13 @@ public class AdapterFTAServiceSecured implements AdapterNotificationConsumerPort
 
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notifySubscribersOfDocument(gov.hhs.fha.nhinc.common.nhinccommonadapter.NotifySubscribersOfDocumentRequestSecuredType notifySubscribersOfDocumentRequestSecured) {
         //TODO implement this method
-         return NotificationImpl.processNotify(notifyRequest);
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType notify(org.oasis_open.docs.wsn.b_2.Notify notifyRequestSecured) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        return NotificationImpl.processNotify(notifyRequestSecured);
     }
 
 }
