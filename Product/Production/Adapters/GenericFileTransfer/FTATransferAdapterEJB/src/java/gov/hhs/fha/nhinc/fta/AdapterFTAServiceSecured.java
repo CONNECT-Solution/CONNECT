@@ -5,7 +5,7 @@
 
 package gov.hhs.fha.nhinc.fta;
 
-import gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortSecureType;
+import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 

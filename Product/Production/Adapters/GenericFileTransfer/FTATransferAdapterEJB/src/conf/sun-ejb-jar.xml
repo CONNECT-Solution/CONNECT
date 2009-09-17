@@ -6,6 +6,7 @@
             <ejb-name>AdapterFTAServiceSecured</ejb-name>
             <webservice-endpoint>
                 <port-component-name>AdapterFTAServiceSecured</port-component-name>
+                <endpoint-address-uri>/AdapterNotificationConsumerSecured/AdapterFTAServiceSecured</endpoint-address-uri>
                 <login-config>
                     <auth-method>CLIENT-CERT</auth-method>
                     <realm>certificate</realm>
