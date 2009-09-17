@@ -13,7 +13,7 @@ import javax.jws.WebService;
  *
  * @author dunnek
  */
-@WebService(serviceName = "AdapterNotificationConsumerSecured", portName = "AdapterNotificationConsumerPortSecureType", endpointInterface = "gov.hhs.fha.nhinc.adapternotificationconsumer.AdapterNotificationConsumerPortSecureType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapternotificationconsumer", wsdlLocation = "META-INF/wsdl/AdapterFTAServiceSecured/AdapterNotificationConsumerSecured.wsdl")
+@WebService(serviceName = "AdapterNotificationConsumerSecured", portName = "AdapterNotificationConsumerPortSecureType", endpointInterface = "gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapternotificationconsumersecured", wsdlLocation = "META-INF/wsdl/AdapterFTAServiceSecured/AdapterNotificationConsumerSecured.wsdl")
 @Stateless
 public class AdapterFTAServiceSecured implements AdapterNotificationConsumerPortSecureType {
 

@@ -26,6 +26,7 @@
             <included-library>reference.HiemUtilityLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>reference.NhincSamlTokenLib.jar</included-library>
+            <included-library>file.reference.NhincSAMLCallbackLib.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

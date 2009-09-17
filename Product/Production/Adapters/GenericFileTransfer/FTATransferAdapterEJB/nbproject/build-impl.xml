@@ -321,6 +321,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.FTAConfigManager.dist}" manifestproperty="manifest.reference.FTAConfigManager.dist" todir="${dist.ear.dir}"/>
@@ -334,8 +335,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.FTAConfigManager.dist} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.reference.NhincLib.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.FTAConfigManager.dist} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.reference.NhincLib.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
