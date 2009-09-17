@@ -122,5 +122,8 @@
         <!-- Delete the artifacts that we do not want -->
         <!-- end of deleting artifacts -->
     </target>
-
+    <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-AdapterSubscriptionManagementSecured" depends="wsimport-init"/>
+        
+    </target>
 </project>
