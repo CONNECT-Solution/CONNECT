@@ -1,5 +1,5 @@
 <!ENTITY HostName                              'build.nhiegateway.org' >
-<!ENTITY Integration.Server.Host.Name          '192.168.25.157' >
+<!ENTITY Integration.Server.Host.Name          '172.16.50.157' >
 <!ENTITY MHSNHIE3.Server.Host.Name             'mhsnhie3.fedsconnect.org' >
 <!ENTITY DVANHIE3.Server.Host.Name             'dvanhie3.fedsconnect.org' >
 <!ENTITY EmailHost                             '127.0.0.1'>
