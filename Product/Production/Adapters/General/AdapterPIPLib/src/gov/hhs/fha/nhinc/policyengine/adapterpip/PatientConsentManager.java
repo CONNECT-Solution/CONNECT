@@ -121,7 +121,9 @@ public class PatientConsentManager
     private static Unmarshaller oXACMLUnmarshaller = null;
     private static DocumentRegistryService oDocRegService = null;
     private static DocumentRepositoryService oDocRepService = null;
-
+    private static final String ADAPTER_PROPFILE_NAME = "adapter";
+    private static final String XDS_HC_VALUE = "XDSbHomeCommunityId";
+    
     static
     {
         try
@@ -164,7 +166,16 @@ public class PatientConsentManager
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------
-            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+            String sEndpointURL = "";
+            String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
+            if(xdsHomeCommunityId!=null &&
+                    !xdsHomeCommunityId.equals(""))
+            {
+                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+            } else {
+                sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REGISTRY_SERVICE_NAME);
+            }
+            
 
             if ((sEndpointURL == null) ||
                 (sEndpointURL.length() <= 0))
@@ -209,7 +220,16 @@ public class PatientConsentManager
 
             // Get the real endpoint URL for this service.
             //--------------------------------------------
-            String sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+            String sEndpointURL = "";
+            String xdsHomeCommunityId = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, XDS_HC_VALUE);
+            if(xdsHomeCommunityId!=null &&
+                    !xdsHomeCommunityId.equals(""))
+            {
+                sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(xdsHomeCommunityId, CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+            } else {
+                sEndpointURL = ConnectionManagerCache.getLocalEndpointURLByServiceName(CDAConstants.DOC_REPOSITORY_SERVICE_NAME);
+            }
+
 
             if ((sEndpointURL == null) ||
                 (sEndpointURL.length() <= 0))
