@@ -125,5 +125,5 @@
     <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterSubscriptionManagementSecured" depends="wsimport-init"/>
         
-    </target>
+
 </project>
