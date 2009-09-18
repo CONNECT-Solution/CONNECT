@@ -509,7 +509,7 @@ public class EntitySubjectDiscoveryImpl {
             org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess input = request.getPRPAIN201309UV().getControlActProcess();
             if (input.getQueryByParameter() != null) {
                 org.hl7.v3.PRPAMT201307UVPatientIdentifier patientId = new org.hl7.v3.PRPAMT201307UVPatientIdentifier();
-                patientId.setTypeId(request.getPRPAIN201309UV().getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0));
+                patientId.getValue().add(request.getPRPAIN201309UV().getControlActProcess().getQueryByParameter().getValue().getParameterList().getPatientIdentifier().get(0).getValue().get(0));
                 org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess controlAct = new org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess();
                 org.hl7.v3.PRPAMT201307UVQueryByParameter param = new org.hl7.v3.PRPAMT201307UVQueryByParameter();
                 org.hl7.v3.PRPAMT201307UVParameterList paramList = new org.hl7.v3.PRPAMT201307UVParameterList();
