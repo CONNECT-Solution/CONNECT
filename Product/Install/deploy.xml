@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project basedir="." name="Chapter33.deployment" default="deploy">
+<project basedir="." name="nhinc.deployment" default="deploy">
 
   <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
