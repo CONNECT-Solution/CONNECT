@@ -275,7 +275,7 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
       </value>
     </largeproperty>
 
-    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\ccnetproject.xml' id='CCNetProjects' />
+    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\CCNET.build.xml' id='CCNetProjects' />
     <property name='CCTrayProjects' value=''/>
 
     <loopthrough property='CCNetProjectName'>

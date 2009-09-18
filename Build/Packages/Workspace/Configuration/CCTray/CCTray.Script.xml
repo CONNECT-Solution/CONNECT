@@ -5,7 +5,7 @@
   <property name="CCTray.ExeFilePath" value="${CCTray.Install.Path}\cctray.exe"/>
 
   <target name="Workspace.Configuration.CCTray">
-    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\ccnetproject.xml' id='CCNetProjects' />
+    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\CCNET.build.xml' id='CCNetProjects' />
     <property name='CCTray.NeedRecycle' value='false'/>
 
     <loopthrough property='CCNetProjectName'>
