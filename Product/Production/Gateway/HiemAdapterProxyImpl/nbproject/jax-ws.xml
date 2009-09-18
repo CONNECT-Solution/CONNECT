@@ -54,7 +54,7 @@
     <client name="AdapterNotificationConsumerSecured">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterNotificationConsumerSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapternotificationconsumer</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapternotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -78,7 +78,7 @@
     <client name="AdapterSubscriptionManagementSecured">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagementSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

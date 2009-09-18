@@ -32,20 +32,20 @@
     <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init">
         <property name="wsdl-AdapterNotificationConsumerSecured" location="xml-resources/web-service-references/AdapterNotificationConsumerSecured/wsdl/AdapterNotificationConsumerSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterNotificationConsumerSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapternotificationconsumer" includes="AdapterNotificationConsumerSecured.java" casesensitive="no"/>
+            <produces dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adapternotificationconsumersecured" includes="AdapterNotificationConsumerSecured.java" casesensitive="no"/>
         </wsimport>
     </target>
     <target name="wsimport-client-clean-AdapterNotificationConsumerSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapternotificationconsumer"/>
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adapternotificationconsumersecured"/>
     </target>
     <target name="wsimport-client-AdapterSubscriptionManagementSecured" depends="wsimport-init">
         <property name="wsdl-AdapterSubscriptionManagementSecured" location="xml-resources/web-service-references/AdapterSubscriptionManagementSecured/wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterSubscriptionManagementSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured" includes="AdapterSubscriptionManagementSecured.java" casesensitive="no"/>
+            <produces dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured" includes="AdapterSubscriptionManagementSecured.java" casesensitive="no"/>
         </wsimport>
     </target>
     <target name="wsimport-client-clean-AdapterSubscriptionManagementSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured"/>
+        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured"/>
     <target name="wsimport-client-compile-depend" if="do.depend.true">
