@@ -15,7 +15,7 @@
     </classpath>
   </taskdef>
 
-  <target name="buildrelease" description="Do all steps to build release." depends="showvars,bundlesrc,bundleprops,bundleinterfaces,getbindist,bundle3rdpartycomps,bundlemural" >
+  <target name="buildrelease" description="Do all steps to build release." depends="showvars,bundlesrc,bundleprops,bundleinterfaces,getbindist,bundleopensso,bundle3rdpartycomps,bundlemural" >
       <echo message="Build Release complete."/>
   </target>
 
@@ -162,12 +162,12 @@
       </patternset>
       <mapper type="flatten"/>
     </unzip>
-    <unzip src="${OpenSSODistDir}/nhinc/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
+    <unzip src="${OpenSSODistDir}/AdapterPDPOpenSSO.war" dest="${OpenSSODistDir}" >
       <patternset>
         <include name="**/*QueryHandler.class"/>
       </patternset>
     </unzip>
-    <delete file="${OpenSSODistDir}/nhinc/AdapterPDPOpenSSO.war"/>
+    <delete file="${OpenSSODistDir}/AdapterPDPOpenSSO.war"/>
     <copy todir="${OpenSSODistDir}/OpenSSO">
       <fileset dir="${OpenSSODistDir}/WEB-INF">
           <include name="**/*QueryHandler.class"/>
