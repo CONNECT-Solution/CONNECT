@@ -1,3 +1,8 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package gov.hhs.fha.nhinc.hiem.entity.subscribe;
 
 import gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType;
@@ -20,27 +25,24 @@ import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceContext;
-import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
  *
  * @author dunnek
  */
-@WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
+@WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/EntitySubscribeServiceSecured/EntitySubscriptionManagementSecured.wsdl")
 @Stateless
-public class EntitySubscribeSecuredService implements EntityNotificationProducerSecuredPortType
-{
-
+public class EntitySubscribeSecuredService implements EntityNotificationProducerSecuredPortType {
     @Resource
     private WebServiceContext context;
-
-    public SubscribeDocumentResponseType subscribeDocument(SubscribeDocumentRequestSecuredType subscribeRequest)
-    {
-        return new EntitySubscribeServiceImpl().subscribeDocument(subscribeRequest);
+    
+    public gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentResponseType subscribeDocument(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeDocumentRequestSecuredType subscribeDocumentRequestSecured) {
+        //TODO implement this method
+        throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequestSecured) throws InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, InvalidTopicExpressionFault, NotifyMessageNotSupportedFault, ResourceUnknownFault, SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault, TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault
-    {
-        return new EntitySubscribeServiceImpl().subscribe(subscribeRequestSecured, context);
+    public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonentity.SubscribeRequestSecuredType subscribeRequestSecured) throws ResourceUnknownFault, InvalidFilterFault, InvalidMessageContentExpressionFault, InvalidProducerPropertiesExpressionFault, SubscribeCreationFailedFault, UnrecognizedPolicyRequestFault, UnsupportedPolicyRequestFault, TopicNotSupportedFault, TopicExpressionDialectUnknownFault, NotifyMessageNotSupportedFault, UnacceptableInitialTerminationTimeFault, InvalidTopicExpressionFault {
+				return new EntitySubscribeServiceImpl().subscribe(subscribeRequestSecured, context);
     }
+
 }

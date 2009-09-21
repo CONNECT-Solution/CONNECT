@@ -14,7 +14,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
  *
  * @author dunnek
  */
-@WebService(serviceName = "EntitySubscriptionManagerSecured", portName = "EntitySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/EntityUnsubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
+@WebService(serviceName = "EntitySubscriptionManagerSecured", portName = "EntitySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntitySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/EntityUnsubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
 @Stateless
 public class EntityUnsubscribeSecuredService implements EntitySubscriptionManagerSecuredPortType
 {
