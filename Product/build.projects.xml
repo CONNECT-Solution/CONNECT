@@ -38,8 +38,8 @@
 		<directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
 	</project>
 	<project>
-		<name>MuralMPIEJB</name>
-		<directory>/Production/Adapters/Mural/MuralMPIEJB</directory>
+		<name>MuralMpiEJB</name>
+		<directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
 	</project>
 	<project>
 		<name>AdapterPolicyEngineEJB</name>
