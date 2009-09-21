@@ -50,7 +50,7 @@
 	
 	-->
 <wsdl:definitions 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement" 
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured" 
    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
    xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -59,7 +59,7 @@
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntitySubscriptionManagementSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
     xmlns:wsp1="http://schemas.xmlsoap.org/ws/2004/09/policy"
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
