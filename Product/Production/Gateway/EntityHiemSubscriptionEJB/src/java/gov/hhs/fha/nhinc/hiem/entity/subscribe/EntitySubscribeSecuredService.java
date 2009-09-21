@@ -25,13 +25,15 @@ import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.xml.ws.WebServiceContext;
+import javax.jws.HandlerChain;
 
 /**
  *
  * @author dunnek
  */
-@WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/EntitySubscribeServiceSecured/EntitySubscriptionManagementSecured.wsdl")
+@WebService(serviceName = "EntityNotificationProducerSecured", portName = "EntityNotificationProducerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntityNotificationProducerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/EntitySubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
 @Stateless
+@HandlerChain(file = "EntitySubscribeSoapHeaderHandler.xml")
 public class EntitySubscribeSecuredService implements EntityNotificationProducerSecuredPortType {
     @Resource
     private WebServiceContext context;

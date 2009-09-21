@@ -9,6 +9,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
+import javax.jws.HandlerChain;
 
 /**
  *
@@ -16,6 +17,7 @@ import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
  */
 @WebService(serviceName = "EntitySubscriptionManagerSecured", portName = "EntitySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.EntitySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured", wsdlLocation = "META-INF/wsdl/EntityUnsubscribeSecuredService/EntitySubscriptionManagementSecured.wsdl")
 @Stateless
+@HandlerChain(file = "EntityUnsubscribeSoapHeaderHandler.xml")
 public class EntityUnsubscribeSecuredService implements EntitySubscriptionManagerSecuredPortType
 {
 
