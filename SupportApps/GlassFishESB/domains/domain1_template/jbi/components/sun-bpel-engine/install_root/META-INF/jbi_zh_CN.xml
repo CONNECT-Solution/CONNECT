@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:config="http://www.sun.com/jbi/Configuration/V1.0" xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0" xmlns:logging="http://www.sun.com/jbi/descriptor/logging" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+
+	<!-- identification information about this engine -->
+    <component type="service-engine">
+        <identification>
+            <name>${project.name}</name>
+            <description>这是 BPEL 服务引擎。</description>
+            <identification:VersionInfo build-number="${BUILD_NUMBER}" component-version="${bpelse.release.version}"/>
+        </identification>
+        <component-class-name description="LifeCycleMBean">com.sun.jbi.engine.bpel.BPELSELifeCycle</component-class-name>
+        <component-class-path>
+	    	<path-element>lib</path-element>
+ 	    	<path-element>lib/bpeljbiadapter.jar</path-element>
+            <path-element>lib/bpelcore.jar</path-element>
+            <path-element>lib/jxpath.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+            <path-element>lib/bpelmodel.jar</path-element>
+            <path-element>lib/xpathmodel.jar</path-element>
+            <path-element>lib/bdi.jar</path-element>
+            <path-element>lib/xmltransformer.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/rhino.jar</path-element>
+             <!-- <path-element>lib/ojdbc14.jar</path-element> -->
+        </component-class-path>
+        <bootstrap-class-name>com.sun.jbi.engine.bpel.BPELSEBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+            <path-element>lib/bpelcore.jar</path-element>
+            <path-element>lib/bpeljbiadapter.jar</path-element>
+	    	<path-element>lib/componentsl.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/common-util.jar</path-element>
+        </bootstrap-class-path>
+        <shared-library>sun-wsdl-ext-library</shared-library>
+        <shared-library>sun-saxon-library</shared-library>
+        <config:Configuration>
+    		<config:PropertyGroup displayDescription="Configure Debugger" displayName="Debug" name="Debug" showDisplay="all">
+        		<config:Property defaultValue="false" displayDescription="如果设置为“true”，可以附加调试器和调试业务流程定义。" displayName="已启用调试" name="DebugEnabled" showDisplay="all" type="xsd:boolean"/>
+        		<config:Property defaultValue="3343" displayDescription="sun-bpel-engine 侦听要连接的调试器 UI 所用的端口号。默认值应适用于大多数情况，请确保此端口未被其他应用程序使用。如果您在一台计算机（PC/服务器）上运行多个 BPEL SE 实例，请确保分配不发生冲突的唯一端口。" displayName="调试端口" name="DebugPort" showDisplay="all" type="xsd:int">
+						<config:Constraint facet="minInclusive" value="1000"/>
+						<config:Constraint facet="maxInclusive" value="65535"/>
+    			</config:Property>
+			</config:PropertyGroup>
+    		<config:PropertyGroup displayDescription="Manage Persistance/Recovery" displayName="Persistance" name="Persistance" showDisplay="all">
+        		<config:Property defaultValue="false" displayDescription="启用后，sun-bpel-engine 将保持已配置数据源中的业务流程实例的状态，以便在崩溃时进行恢复" displayName="启用持久性" name="PersistenceEnabled" showDisplay="all" type="xsd:boolean"/>
+				<config:Property defaultValue="jdbc/bpelseNonXA" displayDescription="sun-bpel-engine 将保持已配置数据源中的业务流程实例的状态，以便在崩溃时进行恢复" displayName="非 XA 数据源名称" name="DatabaseNonXAJNDIName" showDisplay="all" type="xsd:string"/>
+				<config:Property defaultValue="jdbc/bpelseXA" displayDescription="sun-bpel-engine 将保持已配置数据源中的业务流程实例的状态，以便在崩溃时进行恢复" displayName="XA 数据源名称" name="DatabaseXAJNDIName" showDisplay="all" type="xsd:string">
+    			</config:Property>
+			</config:PropertyGroup>
+    		<config:Property defaultValue="10" displayDescription="执行 BPEL 定义的线程数。请将此属性配置为等于系统的 CPU 数，以获得最大吞吐量。" displayName="线程数" name="ThreadCount" showDisplay="all" type="xsd:int">
+				        <config:Constraint facet="minInclusive" value="1"/>
+				        <config:Constraint facet="maxInclusive" value="100"/>
+		    </config:Property>
+    		<config:Property defaultValue="60" displayDescription="仅适用于群集环境。sun-bpel-engine 组件续订租用以继续拥有它所执行的业务流程实例的时间间隔。" displayName="租用续订时间间隔" name="EngineExpiryInterval" showDisplay="all" type="xsd:int">
+   				        <config:Constraint facet="minInclusive" value="1"/>
+				        <config:Constraint facet="maxInclusive" value="120"/>
+            </config:Property>
+            <config:Property defaultValue="0" displayDescription="The life span of a request in seconds after it is received by the sun-bpel-engine. If the request is not consumed within the specified time the sun-bpel-engine responds with an error for that request. Requests will wait indefinitely if a value of '0' is set." displayName="Life Span of Waiting Requests" name="WaitingRequestLifeSpan" showDisplay="all" type="xsd:int">
+				        <config:Constraint facet="minInclusive" value="0"/>
+		    </config:Property>
+    		<config:PropertyGroup displayDescription="Manage Monitoring" displayName="Monitoring" name="Monitoring" showDisplay="all">
+        		<config:Property defaultValue="false" displayDescription="启用后，sun-bpel-engine 将对已配置数据源中的业务流程实例和活动进行监视" displayName="已启用监视" name="MonitoringEnabled" showDisplay="all" type="xsd:boolean"/>
+				<config:Property defaultValue="false" displayDescription="仅当使用 MonitoringEnabled 属性时该属性才可用，sun-bpel-engine 将允许监视已配置数据源中的变量值变化" displayName="已启用对变量的监视" name="MonitoringVariableEnabled" showDisplay="all" type="xsd:boolean"/>
+				<config:Property defaultValue="false" displayDescription="启用后，sun-bpel-engine 将发布实时 KPI 事件" displayName="启用 KPI" name="KPIEnabled" showDisplay="all" type="xsd:boolean"/>
+			</config:PropertyGroup>
+            <config:Property defaultValue="XSLT_1_0" displayDescription="Identifies which transformation processor will be used to execute XSL stylesheets." displayName="Transformation Engine" isComponentRestartRequired="true" name="TransformEngine" showDisplay="all" type="xsd:string">
+                <config:Constraint facet="enumeration" value="XSLT_1_0"/>
+                <config:Constraint facet="enumeration" value="XSLT_2_0"/>
+            </config:Property>
+        </config:Configuration>
+        <logging:Logging root="com.sun.jbi.engine.bpel">
+            <logging:logger addPrefix="false" displayName="BPELSEInOutThread">com.sun.jbi.engine.bpel.BPELSEInOutThread</logging:logger>
+            <logging:logger addPrefix="false" displayName="Engine Channel">com.sun.jbi.engine.bpel.EngineChannel</logging:logger>
+            <logging:logger addPrefix="false" displayName="Service Unit Manager">com.sun.jbi.engine.bpel.BPELSEDeployer</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL Interpreter">com.sun.jbi.engine.bpel.core.bpel.engine.impl.BPELInterpreter</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL Process Manager">com.sun.jbi.engine.bpel.core.bpel.engine.impl.BPELProcessManagerImpl</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL Scalability Manager">com.sun.jbi.engine.bpel.core.bpel.engine.impl.ScalabilityManager</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL Cluster Manager">com.sun.jbi.engine.bpel.core.bpel.engine.impl.ClusterManager</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL State Manager">com.sun.jbi.engine.bpel.core.bpel.persist.impl.StateManagerImpl</logging:logger>
+            <logging:logger addPrefix="false" displayName="BPEL Assignment">com.sun.jbi.engine.bpel.core.bpel.model.runtime.impl.AssignUnitImpl</logging:logger>
+
+            <!--this is an example of logger where logger can not be created from CC -->
+            <logging:logger addPrefix="false" displayName="BPEL Model (independent)">com.sun.bpel.model.impl</logging:logger>
+        </logging:Logging>
+    </component>
+</jbi>

@@ -1,0 +1,62 @@
+/* 
+ * The Control CSS styles. 
+ */
+
+a.error {
+	color: red;
+}
+a:visited.error {
+	color: red;
+}
+input.disabled {
+	background: lightgray;
+}
+input.error {
+	background: #FFFF80;
+}
+label.error {
+    /* color: red; */
+}
+select.error {
+	background: #FFFF80;
+}
+span.disabled {
+	color: #808080;
+}
+span.error {
+	color: red;
+}
+span.required {
+	color: red;
+}
+textarea.error {
+	background: #FFFF80;
+}
+table.form {
+	border-width: 0px;
+	margin: 0px;
+	padding: 0px;
+}
+table.fields {
+	border-width: 0px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: baseline;
+	white-space: nowrap;
+}
+table.errors {
+	border-width: 0px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: baseline;
+}
+table.buttons {
+	border-width: 0px;
+	padding: 0px;
+	margin-top: 0.5em;
+	vertical-align: baseline;
+	white-space: pre;
+}
+label {
+  white-space: nowrap;
+}

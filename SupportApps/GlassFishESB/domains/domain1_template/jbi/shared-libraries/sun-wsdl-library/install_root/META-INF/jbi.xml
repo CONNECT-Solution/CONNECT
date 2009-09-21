@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- jbi.xml file for a sample shared library. -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<!-- identification information about this shared library-->
+    <shared-library>
+        <identification>
+            <name>sun-wsdl-library</name>
+            <description>This library provides WSDL 1.1/2.0 parsing support and message-wrapping utilities used to send WSDL 1.1-defined messages over the Normalized Message Router (NMR).</description>
+        </identification>
+        <shared-library-class-path>
+            <path-element>wsdl11-wrapper.jar</path-element>
+            <path-element>wsdl2.jar</path-element>            
+            <path-element>wsdl4j.jar</path-element>
+         </shared-library-class-path>
+    </shared-library>
+</jbi>

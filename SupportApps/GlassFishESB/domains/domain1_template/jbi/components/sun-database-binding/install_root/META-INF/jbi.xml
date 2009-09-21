@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!-- jbi.xml descriptor for the binding component (BC) -->
+<jbi
+    version="1.0"
+    xmlns="http://java.sun.com/xml/ns/jbi"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:config="http://www.sun.com/jbi/Configuration/V1.0"
+    xmlns:logging="http://www.sun.com/jbi/descriptor/logging"
+    xmlns:identification="http://www.sun.com/jbi/descriptor/identification/v1.0" 
+    xsi:schemaLocation="http://java.sun.com/xml/ns/jbi ./jbi.xsd">
+
+<!-- identification information about this binding -->
+    <component type="binding-component">
+        <identification>
+            <name>sun-database-binding</name>
+            <description>DatabaseBC binding</description>
+            <identification:VersionInfo component-version="2.5.0" build-number="090410"/>
+        </identification>
+        <component-class-name description="The boot strap class" >org.glassfish.openesb.databasebc.JDBCBindingLifeCycle</component-class-name>
+        <component-class-path>
+            <path-element>lib/databasebcimpl.jar</path-element>
+            <path-element>lib/wsdl4j.jar</path-element>
+            <path-element>lib/resolver.jar</path-element>
+            <path-element>lib/componentsl.jar</path-element>
+  	    <path-element>lib/common-util.jar</path-element>
+            <path-element>lib/qos.jar</path-element>
+            <path-element>lib/wsdl4jext.jar</path-element>
+            <path-element>lib/customized-xmlbeans.jar</path-element>
+            <path-element>lib/jsr173_api.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.itf.jar</path-element>
+            <path-element>lib/net.sf.hulp.meas.impl.jar</path-element>
+         </component-class-path>
+        <bootstrap-class-name>org.glassfish.openesb.databasebc.bootstrap.JDBCBindingBootstrap</bootstrap-class-name>
+        <bootstrap-class-path>
+           <path-element>lib/databasebcimpl.jar</path-element>
+           <path-element>lib/componentsl.jar</path-element>
+           <path-element>lib/qos.jar</path-element>
+           <path-element>lib/common-util.jar</path-element>
+        </bootstrap-class-path>
+	<logging:Logging>
+            <logging:logger displayName="DatabaseBC Deployer">org.glassfish.openesb.databasebc.JDBCBindingDeployer</logging:logger>
+            <logging:logger displayName="DatabaseBC LifeCycle">org.glassfish.openesb.databasebc.SQLSEBindingLifeCycle</logging:logger>
+            <logging:logger displayName="DatabaseBC Endpoint">org.glassfish.openesb.databasebc.EndpointBean</logging:logger>
+            <logging:logger displayName="DatabaseBC Inbound Message Processor">org.glassfish.openesb.databasebc.InboundMessageProcessor</logging:logger>
+            <logging:logger displayName="Outbound Message Processor">org.glassfish.openesb.databasebc.OutboundMessageProcessor</logging:logger>
+            <logging:logger displayName="Outbound Receiver">org.glassfish.openesb.databasebc.OutboundReceiver</logging:logger>
+            <logging:logger displayName="DatabaseBC Normalizer">org.glassfish.openesb.databasebc.JDBCNormalizer</logging:logger>
+            <logging:logger displayName="DatabaseBC Denormalizer">org.glassfish.openesb.databasebc.JDBCDenormalizer</logging:logger>
+            <logging:logger displayName="DatabaseBC Runtime Configuration">org.glassfish.openesb.databasebc.configuration.RuntimeConfiguration</logging:logger>
+        </logging:Logging>
+        <config:Configuration version="1.0">
+           <config:Property name="Threads" 
+                            type="xsd:int" 
+                            displayName="Number of Outbound Threads" 
+                            displayDescription="Number of threads to concurrently process outbound sql requests"
+                            defaultValue="10" 
+                            showDisplay="all">
+               <config:Constraint facet="minInclusive" value="1"/> 
+               <config:Constraint facet="maxInclusive" value="10000"/>     
+           </config:Property>
+		   <config:Property name="ClusterDatabaseJNDIName" 
+                            type="xsd:string" 
+                            displayName="Cluster Database JNDI Name" 
+                            displayDescription="JNDI name is to be used in cluster environment"
+                            defaultValue="jdbc/__defaultDS" 
+                            showDisplay="all">
+           </config:Property>
+          <config:ApplicationConfiguration>
+              <config:Property name="configurationName" 
+                               type="xsd:string" 
+                               displayName="Application Configuration Name" 
+                               displayDescription="Name of the application configuration for Database BC" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+              <config:Property name="DatabaseJNDIName"
+                               type="xsd:string" 
+                               displayName="Database JNDI Name" 
+                               displayDescription="JNDI Name for Database Connection Pool" 
+                               required="true"
+                               isApplicationRestartRequired="true"/>
+           </config:ApplicationConfiguration>
+           <config:ApplicationVariable isApplicationRestartRequired="true">
+               <config:name/>
+               <config:type/>
+               <config:value/>
+           </config:ApplicationVariable>
+        </config:Configuration>
+    </component>
+</jbi>

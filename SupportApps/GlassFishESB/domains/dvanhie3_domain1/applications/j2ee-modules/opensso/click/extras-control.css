@@ -1,0 +1,62 @@
+/* AutoCompleteTextField */
+div.auto_complete {
+	position: absolute;
+	background-color: white;
+	border: 0px solid #888;
+	margin: 0px;
+	padding: 0px;
+}
+div.auto_complete ul {
+	border: 1px solid #888;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	list-style-type: none;
+}
+div.auto_complete ul li {
+	margin: 0;
+	padding: 3px;
+}
+div.auto_complete ul li.selected {
+	background-color: #ffb;
+}
+
+div.auto_complete ul strong.highlight {
+	color: #800;
+	margin: 0;
+	padding: 0;
+}
+
+/* TabbedForm */
+table.tf_tab {
+	border-collapse: collapse;
+}
+
+td.tf_separator {
+	border-bottom: 1px solid #336699;
+}
+
+td.tf_tab {
+	border-left: 1px solid #336699;
+	border-top: 1px solid #336699;
+	border-right: 1px solid #336699;
+	border-bottom: 1px solid #336699;
+	padding: 5px;
+	white-space: nowrap;
+	text-decoration: none;
+}
+
+td.tf_sheet {
+	border-left: 1px solid #336699;
+	border-right: 1px solid #336699;
+	border-bottom: 1px solid #336699;
+	vertical-align: top;
+	padding: 0.75em;
+}
+
+td.tf_error {
+	color: red;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+	padding-left: 0.5em;
+}
