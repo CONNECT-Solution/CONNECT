@@ -2,7 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.Properties">
 
   <property name="Alerts.ReportAppenderFilePath" value="${Common.Project.TempDirectory}\Alerts.xml" />
-  <property name="Alerts.Message.CCList" value=""/>
+  <property name="Alerts.Message.CCList" value="mark.goldman@agilex.com;jay.flowers@agilex.com;srikanth.vadlamani@agilex.com;zach.gibson@agilex.com"/>
 
   <strings id="Alerts.TargetListId">
 		<string value="Alerts.DiskSpace"/>
