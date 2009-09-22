@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 
+
+		OASIS takes no position regarding the validity or scope of any 
+		intellectual property or other rights that might be claimed to 
+		pertain to the implementation or use of the technology described 
+		in this document or the extent to which any license under such 
+		rights might or might not be available; neither does it represent 
+		that it has made any effort to identify any such rights. 
+		Information on OASIS's procedures with respect to rights in 
+		OASIS specifications can be found at the OASIS website. Copies 
+		of claims of rights made available for publication and any 
+		assurances of licenses to be made available, or the result of 
+		an attempt made to obtain a general license or permission for 
+		the use of such proprietary rights by implementors or users 
+		of this specification, can be obtained from the OASIS Executive 
+		Director.
+		
+		OASIS invites any interested party to bring to its attention 
+		any copyrights, patents or patent applications, or other 
+		proprietary rights which may cover technology that may be 
+		required to implement this specification. Please address the 
+		information to the OASIS Executive Director.
+		
+		Copyright (C) OASIS Open (2004-2006). All Rights Reserved.
+		
+		This document and translations of it may be copied and furnished 
+		to others, and derivative works that comment on or otherwise 
+		explain it or assist in its implementation may be prepared, 
+		copied, published and distributed, in whole or in part, without 
+		restriction of any kind, provided that the above copyright notice 
+		and this paragraph are included on all such copies and derivative 
+		works. However, this document itself may not be modified in any 
+		way, such as by removing the copyright notice or references to 
+		OASIS, except as needed for the purpose of developing OASIS 
+		specifications, in which case the procedures for copyrights 
+		defined in the OASIS Intellectual Property Rights document must 
+		be followed, or as required to translate it into languages other 
+		than English. 
+	
+		The limited permissions granted above are perpetual and will not 
+		be revoked by OASIS or its successors or assigns. 
+		
+		This document and the information contained herein is provided 
+		on an "AS IS" basis and OASIS DISCLAIMS ALL WARRANTIES, EXPRESS 
+		OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTY THAT THE 
+		USE OF THE INFORMATION HEREIN WILL NOT INFRINGE ANY RIGHTS OR 
+		ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A 
+		PARTICULAR PURPOSE.
+	
+	-->
+<wsdl:definitions xmlns:wsntw="http://docs.oasis-open.org/wsn/bw-2" 
+   xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+   xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+   xmlns:wsaw="http://www.w3.org/2005/08/addressing" 
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+   xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy"
+   name="WS-BaseNotification" 
+   targetNamespace="http://docs.oasis-open.org/wsn/bw-2">
+ <!-- <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" location="rw-2.wsdl"/> -->
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Notify">
+    <wsdl:part name="Notify" element="wsnt:Notify"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeRequest">
+    <wsdl:part name="SubscribeRequest" element="wsnt:Subscribe"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeResponse">
+    <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SubscribeCreationFailedFault">
+    <wsdl:part name="SubscribeCreationFailedFault" 
+               element="wsnt:SubscribeCreationFailedFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicExpressionDialectUnknownFault">
+    <wsdl:part name="TopicExpressionDialectUnknownFault" 
+               element="wsnt:TopicExpressionDialectUnknownFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidTopicExpressionFault">
+    <wsdl:part name="InvalidTopicExpressionFault" 
+               element="wsnt:InvalidTopicExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="TopicNotSupportedFault">
+    <wsdl:part name="TopicNotSupportedFault" 
+               element="wsnt:TopicNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidFilterFault">
+    <wsdl:part name="InvalidFilterFault" 
+               element="wsnt:InvalidFilterFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidProducerPropertiesExpressionFault">
+    <wsdl:part name="InvalidProducerPropertiesExpressionFault" 
+               element="wsnt:InvalidProducerPropertiesExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="InvalidMessageContentExpressionFault">
+    <wsdl:part name="InvalidMessageContentExpressionFault" 
+               element="wsnt:InvalidMessageContentExpressionFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnrecognizedPolicyRequestFault">
+    <wsdl:part name="UnrecognizedPolicyRequestFault" 
+               element="wsnt:UnrecognizedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnsupportedPolicyRequestFault">
+    <wsdl:part name="UnsupportedPolicyRequestFault" 
+               element="wsnt:UnsupportedPolicyRequestFault"/>
+  </wsdl:message>
+  <wsdl:message name="NotifyMessageNotSupportedFault">
+    <wsdl:part name="NotifyMessageNotSupportedFault" 
+               element="wsnt:NotifyMessageNotSupportedFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnacceptableInitialTerminationTimeFault">
+    <wsdl:part name="UnacceptableInitialTerminationTimeFault" 
+               element="wsnt:UnacceptableInitialTerminationTimeFault"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeRequest">
+    <wsdl:part name="UnsubscribeRequest" element="wsnt:Unsubscribe"/>
+  </wsdl:message>
+  <wsdl:message name="UnsubscribeResponse">
+    <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UnableToDestroySubscriptionFault">
+    <wsdl:part name="UnableToDestroySubscriptionFault" 
+               element="wsnt:UnableToDestroySubscriptionFault"/>
+  </wsdl:message>
+  <wsdl:portType name="NotificationConsumer">
+    <wsdl:operation name="Notify">
+      <wsdl:input message="wsntw:Notify" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="NotificationProducer">
+    <wsdl:operation name="Subscribe">
+      <wsdl:input message="wsntw:SubscribeRequest" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest"/>
+      <wsdl:output message="wsntw:SubscribeResponse" 
+                   wsaw:Action="http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeResponse"/>
+      <wsdl:fault name="ResourceUnknownFault" message="wsrf-rw:ResourceUnknownFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="InvalidFilterFault" message="wsntw:InvalidFilterFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="TopicExpressionDialectUnknownFault" 
+                  message="wsntw:TopicExpressionDialectUnknownFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="InvalidTopicExpressionFault" 
+                  message="wsntw:InvalidTopicExpressionFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="TopicNotSupportedFault" 
+                  message="wsntw:TopicNotSupportedFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault" 
+                  message="wsntw:InvalidProducerPropertiesExpressionFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="InvalidMessageContentExpressionFault" 
+                  message="wsntw:InvalidMessageContentExpressionFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault" 
+                  message="wsntw:UnacceptableInitialTerminationTimeFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="UnrecognizedPolicyRequestFault" 
+                  message="wsntw:UnrecognizedPolicyRequestFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="UnsupportedPolicyRequestFault" 
+                  message="wsntw:UnsupportedPolicyRequestFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="NotifyMessageNotSupportedFault" 
+                  message="wsntw:NotifyMessageNotSupportedFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="SubscribeCreationFailedFault" 
+                  message="wsntw:SubscribeCreationFailedFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="SubscriptionManager">
+    <wsdl:operation name="Unsubscribe">
+      <wsdl:input name="UnsubscribeRequest" 
+                  message="wsntw:UnsubscribeRequest" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest"/>
+      <wsdl:output name="UnsubscribeResponse" 
+                   message="wsntw:UnsubscribeResponse" 
+                   wsaw:Action="http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeResponse"/>
+      <wsdl:fault name="ResourceUnknownFault" 
+                  message="wsrf-rw:ResourceUnknownFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+      <wsdl:fault name="UnableToDestroySubscriptionFault" 
+                  message="wsntw:UnableToDestroySubscriptionFault" 
+                  wsaw:Action="http://docs.oasis-open.org/wsn/fault"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NotificationConsumerBinding" type="wsntw:NotificationConsumer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
+    <wsp:PolicyReference URI="#Reliable_Messaging_Policy"/>
+    <wsdl:operation name="Notify">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationConsumer/Notify"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NotificationProducerBinding" type="wsntw:NotificationProducer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
+    <wsdl:operation name="Subscribe">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidFilterFault">
+        <soap:fault name="InvalidFilterFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicExpressionDialectUnknownFault">
+        <soap:fault name="TopicExpressionDialectUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidTopicExpressionFault">
+        <soap:fault name="InvalidTopicExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="TopicNotSupportedFault">
+        <soap:fault name="TopicNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidProducerPropertiesExpressionFault">
+        <soap:fault name="InvalidProducerPropertiesExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="InvalidMessageContentExpressionFault">
+        <soap:fault name="InvalidMessageContentExpressionFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnacceptableInitialTerminationTimeFault">
+        <soap:fault name="UnacceptableInitialTerminationTimeFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecognizedPolicyRequestFault">
+        <soap:fault name="UnrecognizedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnsupportedPolicyRequestFault">
+        <soap:fault name="UnsupportedPolicyRequestFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="NotifyMessageNotSupportedFault">
+        <soap:fault name="NotifyMessageNotSupportedFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="SubscribeCreationFailedFault">
+        <soap:fault name="SubscribeCreationFailedFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SubscriptionManagerBinding" type="wsntw:SubscriptionManager">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#Subscription_Binding_SoapPolicy"/>
+    <wsdl:operation name="Unsubscribe">
+      <soap:operation soapAction="http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest"/>
+      <wsdl:input name="UnsubscribeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UnsubscribeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ResourceUnknownFault">
+        <soap:fault name="ResourceUnknownFault" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnableToDestroySubscriptionFault">
+        <soap:fault name="UnableToDestroySubscriptionFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NotificationConsumerService">
+    <wsdl:port name="NotificationConsumerPort" binding="wsntw:NotificationConsumerBinding">
+      <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationConsumerPort"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="NotificationProducerService">
+    <wsdl:port name="NotificationProducerPort" binding="wsntw:NotificationProducerBinding">
+      <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/NotificationProducerService/NotificationProducerPort"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsdl:service name="SubscriptionManagerService">
+    <wsdl:port name="SubscriptionManagerPort" binding="wsntw:SubscriptionManagerBinding">
+      <soap:address 
+         location="https://localhost:${HttpsDefaultPort}/SubscriptionManagerService/SubscriptionManagerPort"/>
+    </wsdl:port>
+  </wsdl:service>
+  <!-- ===================== Types Definitions ====================== -->
+  <!-- ========================== Imports ===========================  -->
+  <!--   
+     <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
+                  location="rw-2.wsdl"/> 
+  -->
+  <!--   ================ NotificationConsumer::Notify ================ 
+         Notify(
+           NotificationMessage
+             (SubscriptionReference, TopicExpression, ProducerReference,
+              Message)*
+         returns: n/a (one way)
+  -->
+  <!-- ============== NotificationProducer::Subscribe =============== 
+       Subscribe(
+         (ConsumerEndpointReference, [Filter], [SubscriptionPolicy], 
+           [InitialTerminationTime])   
+             returns: WS-Resource qualified EPR to a Subscription
+  -->
+  <!-- ============== SubscriptionManager::Unsubscribe ===============
+       Unsubscribe()
+       returns: empty
+  -->
+  <!-- =================== PortType Definitions ===================== -->
+  <!-- ========= NotificationConsumer PortType Definition =========== -->
+  <!-- ========= NotificationProducer PortType Definition =========== -->
+  <!-- ========== SubscriptionManager PortType Definition =========== -->
+  
+  <wsp:Policy wsu:Id="Reliable_Messaging_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsrm:RMAssertion/>
+             <!--       <wsrm:BaseRetransmissionInterval Milliseconds="5000"/>
+                </wsrm:RMAssertion>  -->
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>

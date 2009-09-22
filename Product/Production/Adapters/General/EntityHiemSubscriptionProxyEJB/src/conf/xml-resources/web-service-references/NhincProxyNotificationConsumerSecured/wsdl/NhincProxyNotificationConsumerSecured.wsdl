@@ -50,14 +50,14 @@
 	
 	-->
 <wsdl:definitions 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
    name="NhincProxyNotificationConsumerSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer"
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"
     xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
     xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
     xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
