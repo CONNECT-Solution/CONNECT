@@ -40,10 +40,6 @@ public class EntityUnsubscribeServiceImpl
 
         AssertionType assertIn = unsubscribeRequest.getAssertion();
 
-        SamlTokenCreator tokenCreator = new SamlTokenCreator();
-        Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
-        ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
         log.debug("extracting reference parameters from soap header");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
         ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
@@ -51,6 +47,11 @@ public class EntityUnsubscribeServiceImpl
 
         SoapUtil soapUtil = new SoapUtil();
         soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+
+        SamlTokenCreator tokenCreator = new SamlTokenCreator();
+        Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED);
+        ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
         try
         {
             result = port.unsubscribe(unsubscribeRequest.getUnsubscribe());

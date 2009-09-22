@@ -50,14 +50,14 @@
 	
 	-->
 <wsdl:definitions 
-   xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumer"
+   xmlns:tns="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
    name="EntityNotificationConsumerSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumer" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"
    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"

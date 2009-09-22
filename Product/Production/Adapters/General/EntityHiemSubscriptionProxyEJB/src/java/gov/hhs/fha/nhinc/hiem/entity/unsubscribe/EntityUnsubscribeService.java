@@ -7,13 +7,14 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.annotation.Resource;
 import javax.xml.ws.WebServiceContext;
-
+import javax.jws.HandlerChain;
 /**
  *
  * @author dunnek
  */
 @WebService(serviceName = "EntitySubscriptionManager", portName = "EntitySubscriptionManagerPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitysubscriptionmanagement.EntitySubscriptionManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/EntityUnsubscribeService/EntitySubscriptionManagement.wsdl")
 @Stateless
+@HandlerChain(file = "EntityUnsubscribeSoapHeaderHandler.xml")
 public class EntityUnsubscribeService implements EntitySubscriptionManagerPortType
 {
 
