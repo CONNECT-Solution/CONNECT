@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
 /**
@@ -45,6 +46,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
    public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,AssertionType assertion, NhinTargetSystemType target) {
         String url = null;
 
+        log.debug("Notify element received in NhinHiemNotifyWebServiceProxy: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+
         if (target != null) {
             try {
                 url = ConnectionManagerCache.getEndpontURLFromNhinTarget(target, NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
@@ -56,38 +59,56 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
             log.error("Target system passed into the proxy is null");
         }
 
-        if (NullChecker.isNotNullish(url)) {
-            NotificationConsumer port = getPort(url);
+        try
+        {
+            if (NullChecker.isNotNullish(url)) {
+                NotificationConsumer port = getPort(url);
 
-                        log.debug("attaching reference parameter headers");
-            SoapUtil soapUtil = new SoapUtil();
-            soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+                log.debug("unmarshaling notify message");
+                WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
+                Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBSCRIBE_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+//                Element reMarshalled = notifyMarshaller.marshalNotifyRequest(notify);
+//                log.debug("REMARSHALLED: " + XmlUtility.serializeElementIgnoreFaults(reMarshalled));
 
-            WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
-            Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
-            // Policy check
-            if(checkPolicy(notify, assertion))
-            {
-                auditInputMessage(notify, assertion);
-                try {
-                    port.notify(notify);
-                } catch (Exception ex) {
-                    log.error("Error occurred while trying to invoke notify", ex);
+                // Policy check
+                log.debug("Calling checkPolicy");
+                if(checkPolicy(notify, assertion))
+                {
+                    log.debug("attaching reference parameter headers");
+                    SoapUtil soapUtil = new SoapUtil();
+                    soapUtil.attachReferenceParameterElements((WSBindingProvider) port, referenceParametersElements);
+
+                    auditInputMessage(notify, assertion);
+
+                    log.debug("Calling token creator");
+                    SamlTokenCreator tokenCreator = new SamlTokenCreator();
+                    Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBSCRIBE_ACTION);
+                    ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+                    try {
+                        log.debug("Calling notification consumer port in NhinHiemWebServiceProxy.");
+                        port.notify(notify);
+                    } catch (Exception ex) {
+                        log.error("Error occurred while trying to invoke notify", ex);
+                    }
+
+                    ((Closeable)port).close();
                 }
-
-                ((Closeable)port).close();
+                else
+                {
+                    log.error("Failed policy check on send NHIN notify message");
+                }
+            } else {
+                log.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
             }
-            else
-            {
-                log.error("Failed policy check on send NHIN notify message");
-            }
-        } else {
-            log.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
         }
+        catch(Throwable t)
+        {
+            // TODO: Figure out what to do with the exception
+            log.error("Error sending notify to remote gateway: " + t.getMessage(), t);
+        }
+
     }
 
     private NotificationConsumer getPort(String url) {
@@ -115,6 +136,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         policyReq.setAssertion(assertion);
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+
         CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
 
         if (policyResp.getResponse() != null &&

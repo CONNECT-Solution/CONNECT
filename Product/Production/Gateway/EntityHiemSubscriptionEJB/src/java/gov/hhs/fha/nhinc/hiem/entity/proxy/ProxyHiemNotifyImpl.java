@@ -13,6 +13,7 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
  *
@@ -51,9 +52,12 @@ public class ProxyHiemNotifyImpl
 
         Element notifyElement = new SoapUtil().extractFirstElement(context, "notifySoapMessage", "Notify");
 
+        log.debug("NOTIFY MESSAGE RECEIVED FROM SECURED INTERFACE: " + XmlUtility.serializeElementIgnoreFaults(notifyElement));
+
         log.debug("extracting soap header elements");
         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
-        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "unsubscribeSoapMessage");
+//        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "unsubscribeSoapMessage");
+        ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElements(context, "notifySoapMessage");
         log.debug("extracted soap header elements");
 
         // Audit the HIEM Notify Request Message sent on the Nhin Interface

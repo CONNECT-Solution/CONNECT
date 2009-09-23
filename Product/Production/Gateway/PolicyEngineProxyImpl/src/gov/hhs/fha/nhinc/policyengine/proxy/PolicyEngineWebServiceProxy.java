@@ -35,7 +35,7 @@ public class PolicyEngineWebServiceProxy implements PolicyEngineProxy {
         }
 
         AdapterPolicyEnginePortType port = getPort(url);
-
+        log.debug("####### Sending policy request to secure service");
         return port.checkPolicy(checkPolicyRequest);
     }
 
