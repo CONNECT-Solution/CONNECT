@@ -1,38 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Custom">
   
-	<target name="Build.PublishZip">
-    <zip zipfile="${Common.Project.TempDirectory}\AdapterSDK.zip" includeemptydirs="true">
-      <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Common\Interfaces\src\schemas\Agency\**" />
-      </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Common\Interfaces\src\wsdl\AdapterService.wsdl" />
-      </fileset>
-      <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Common\Interfaces\src\wsdl\EntityService.wsdl" />
-      </fileset>
-    </zip>
-    
+	<target name="Build.PublishZips">
+    <call target="Build.PublishZip.Release.Installer"/>
+    <call target="Build.PublishZip.Release.Domains"/>
+    <call target="Build.PublishZip.Release.Interfaces"/>
+  </target>
+
+  <target name="Build.PublishZip.Release.Installer">
     <saveproperties file="${Common.Project.TempDirectory}\ReleaseInfo.txt" format="CommandLine" >
       <property name="CCNetLabel"/>
-      <property name="CnCNetBuildDate"/>
+      <property name="CCNetBuildDate"/>
       <property name="CCNetBuildTime"/>
     </saveproperties>
+    
+    <property name="Installer.Zip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
+    <property name="Installer.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Installer.Zip.FileName}"/>
 
-    <property name="InstallerZip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
-    <property name='InstallerZip.FilePath' value='${Common.Directory.Artifact.Path}\${InstallerZip.FileName}'/>
-
-    <zip zipfile="${InstallerZip.FilePath}">
+    <zip zipfile="${Installer.Zip.FilePath}">
       <fileset basedir="${Common.Project.TempDirectory}">
         <include name="ReleaseInfo.txt"/>
-        <include name="AdapterSDK.zip"/>
-      </fileset>
-      <fileset prefix="nhinc" basedir="${Common.Directory.Production.Path}\CommonBin">
-        <include name="*.jar" />
-      </fileset>
-      <fileset prefix="SoapUI" basedir="${Common.Directory.Product.Path}\UnitTest\SoapUI">
-        <include name="**\*" />
       </fileset>
       <fileset prefix="nhinc">
         <include name="${Common.Directory.Production.Path}\Adapters\**\dist\*"/>
@@ -45,12 +32,44 @@
       </fileset>
     </zip>
 
-    <property name="Publish.Web.File.Name" value="${InstallerZip.FileName}"/>
+    <property name="Publish.Web.File.Name" value="${Installer.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-   
-    <call target="Publish.Link" />
-	</target>
 
+    <call target="Publish.Link" />
+  </target>
+
+  <target name="Build.PublishZip.Release.Domains">
+    <property name="Domains.Zip.FileName" value="${ProjectName}-Release-Installer-Domains-${CCNetLabel}.zip"/>
+    <property name="Domains.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Zip.FileName}"/>
+
+    <zip zipfile="${Domains.Zip.FilePath}">
+      <fileset basedir="${GlassFish.Domains.Directory.Path}">
+        <include name="**\*"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Domains.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+  </target>
+
+  <target name="Build.PublishZip.Release.Interfaces">
+    <property name="Interfaces.Zip.FileName" value="${ProjectName}-Release-Installer-Interfaces-${CCNetLabel}.zip"/>
+    <property name="Interfaces.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Interfaces.Zip.FileName}"/>
+
+    <zip zipfile="${Interfaces.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\" >
+        <include name="Common\Interfaces\**" />
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Interfaces.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+  </target>
+  
   <target name="Common.FindBuild">
     <strings id="builds"/>
 

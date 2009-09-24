@@ -163,7 +163,7 @@
         <property name="Compile.Debug" value="False" />
         <call target="Ant.Package" />-->
 
-        <call target="Build.PublishZip"/>
+        <call target="Build.PublishZips"/>
         
         <waitforexit>
           <tasknames>
