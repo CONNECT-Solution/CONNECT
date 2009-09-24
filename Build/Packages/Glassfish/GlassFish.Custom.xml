@@ -10,7 +10,9 @@
 
     <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
     <property name="Release.Application.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Application.Zip.File.Name}"/>
-
+    <property name="Release.Domains.Zip.File.Name" value="${ProjectName}-Release-Installer-Domains-${CCNetLabel}.zip"/>
+    <property name="Release.Domains.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Domains.Zip.File.Name}"/>
+    
     <get
       dest="${Release.Application.Zip.File.Path}"
       src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Application.Zip.File.Name}"
@@ -18,9 +20,19 @@
     >
       <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
     </get>
+    
+    <get
+      dest="${Release.Domains.Zip.File.Path}"
+      src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Domains.File.Name}"
+      verbose="true"
+    >
+      <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
+    </get>
 
     <delete dir="${GlassFish.Deploy.Directory.Path}" if="${directory::exists(GlassFish.Deploy.Directory.Path)}"/>
+    
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
+    <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Domains.Zip.File.Path}"/>
 
     <call target="GlassFish.Redeploy"/>
   </target>
