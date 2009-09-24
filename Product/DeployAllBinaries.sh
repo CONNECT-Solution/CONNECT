@@ -1,4 +1,9 @@
 #
+# Shared libraries
+#
+#cp ~/NHINC_Binaries/NhincCommonTypesLib.jar $AS_HOME/lib/.
+#cp ~/NHINC_Binaries/NhincSAMLCallbackLib.jar $AS_HOME/lib/.
+#
 # Deploy the GUI modules
 #
 $AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/UniversalClientGUI.war
@@ -28,6 +33,9 @@ $AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/pas
 $AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterDocRepository2Soap12EJB.jar
 $AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntitySubjectDiscoveryProxyEJB.jar
 $AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntityDocRetrieveProxyEJB.jar
+$AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/PatientCorrelationProxy.jar
+$AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterMPIProxyEJB.jar
+$AS_HOME/bin/asadmin deploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterSubjectDiscoveryProxyEJB.jar
 #
 # Deploy the Gateway EJB modules
 #

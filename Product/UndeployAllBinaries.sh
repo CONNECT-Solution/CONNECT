@@ -28,6 +28,9 @@ $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/p
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterDocRepository2Soap12EJB.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntitySubjectDiscoveryProxyEJB.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntityDocRetrieveProxyEJB.jar
+$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/PatientCorrelationProxy.jar
+$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterMPIProxyEJB.jar
+$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterSubjectDiscoveryProxyEJB.jar
 #
 # undeploy the Gateway EJB modules
 #
