@@ -30,7 +30,6 @@ $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/p
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntityDocRetrieveProxyEJB.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/PatientCorrelationProxy.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterMPIProxyEJB.jar
-$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterSubjectDiscoveryProxyEJB.jar
 #
 # undeploy the Gateway EJB modules
 #
@@ -55,6 +54,7 @@ $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/p
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/NhincHiemSubscriptionEJB.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/HiemSubscriptionRepositoryUtilEJB.jar
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/EntityDocRetrieveEJB.jar
+$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile ~/NHINC_Binaries/AdapterSubjectDiscoveryProxyEJB.jar
 #
 # undeploy the Commom EJB modules
 #
