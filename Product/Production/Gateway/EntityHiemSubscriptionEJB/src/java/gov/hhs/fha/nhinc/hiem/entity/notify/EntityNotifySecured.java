@@ -11,7 +11,7 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  *
  * @author dunnek
  */
-@WebService(serviceName = "EntityNotificationConsumerSecured", portName = "EntityNotificationConsumerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "META-INF/wsdl/EntityNotifySecured/EntityNotificationConsumerSecured.wsdl")
+@WebService(serviceName = "EntityNotificationConsumerSecured", portName = "EntityNotificationConsumerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "META-INF/wsdl/EntityNotifySecured/EntityNotificationConsumerSecured.wsdl")
 @Stateless
 public class EntityNotifySecured implements EntityNotificationConsumerSecuredPortType
 {
