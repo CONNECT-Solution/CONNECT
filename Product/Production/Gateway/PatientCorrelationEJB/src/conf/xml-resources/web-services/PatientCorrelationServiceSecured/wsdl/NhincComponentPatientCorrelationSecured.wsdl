@@ -23,52 +23,52 @@
     >
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation">
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/common/PatientCorrelation.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/common/PatientCorrelationSecured.xsd"/>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata" schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
         </xsd:schema>
     </types>
-    <message name="RetrievePatientCorrelationsRequestMessage">
+    <message name="RetrievePatientCorrelationsRequestMessageSecured">
         <part name="RetrievePatientCorrelationsRequest" 
-              element="pc:RetrievePatientCorrelationsRequest"/>
+              element="pc:RetrievePatientCorrelationsRequestSecured"/>
     </message>
-    <message name="RetrievePatientCorrelationsResponseMessage">
+    <message name="RetrievePatientCorrelationsResponseMessageSecured">
         <part name="RetrievePatientCorrelationsResponse" 
-              element="pc:RetrievePatientCorrelationsResponse"/>
+              element="pc:RetrievePatientCorrelationsResponseSecured"/>
     </message>
-    <message name="AddPatientCorrelationRequestMessage">
+    <message name="AddPatientCorrelationRequestMessageSecured">
         <part name="AddPatientCorrelationRequest" 
-              element="pc:AddPatientCorrelationRequest"/>
+              element="pc:AddPatientCorrelationRequestSecured"/>
     </message>
-    <message name="AddPatientCorrelationResponseMessage">
+    <message name="AddPatientCorrelationResponseMessageSecured">
         <part name="AddPatientCorrelationResponse" 
-              element="pc:AddPatientCorrelationResponse"/>
+              element="pc:AddPatientCorrelationResponseSecured"/>
     </message>
-    <message name="RemovePatientCorrelationRequestMessage">
+    <message name="RemovePatientCorrelationRequestMessageSecured">
         <part name="RemovePatientCorrelationRequest" 
-              element="pc:RemovePatientCorrelationRequest"/>
+              element="pc:RemovePatientCorrelationRequestSecured"/>
     </message>
-    <message name="RemovePatientCorrelationResponseMessage">
+    <message name="RemovePatientCorrelationResponseMessageSecured">
         <part name="RemovePatientCorrelationResponse" 
-              element="pc:RemovePatientCorrelationResponse"/>
+              element="pc:RemovePatientCorrelationResponseSecured"/>
     </message>
     <portType name="PatientCorrelationSecuredPortType">
         <operation name="RetrievePatientCorrelations">
             <input name="RetrievePatientCorrelationsRequest" 
-                   message="tns:RetrievePatientCorrelationsRequestMessage"/>
+                   message="tns:RetrievePatientCorrelationsRequestMessageSecured"/>
             <output name="RetrievePatientCorrelationsResponse" 
-                    message="tns:RetrievePatientCorrelationsResponseMessage"/>
+                    message="tns:RetrievePatientCorrelationsResponseMessageSecured"/>
         </operation>
         <operation name="AddPatientCorrelation">
             <input name="AddPatientCorrelationRequest" 
-                   message="tns:AddPatientCorrelationRequestMessage"/>
+                   message="tns:AddPatientCorrelationRequestMessageSecured"/>
             <output name="AddPatientCorrelationResponse" 
-                    message="tns:AddPatientCorrelationResponseMessage"/>
+                    message="tns:AddPatientCorrelationResponseMessageSecured"/>
         </operation>
         <operation name="RemovePatientCorrelation">
             <input name="RemovePatientCorrelationRequest" 
-                   message="tns:RemovePatientCorrelationRequestMessage"/>
+                   message="tns:RemovePatientCorrelationRequestMessageSecured"/>
             <output name="RemovePatientCorrelationResponse" 
-                    message="tns:RemovePatientCorrelationResponseMessage"/>
+                    message="tns:RemovePatientCorrelationResponseMessageSecured"/>
         </operation>
     </portType>
     <binding name="PatientCorrelationSecuredBinding" type="tns:PatientCorrelationSecuredPortType">
@@ -79,78 +79,138 @@
             <soap:operation soapAction="RetrievePatientCorrelations"/>
             <input name="RetrievePatientCorrelationsRequest">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RetrievePatientCorrelations_Binding_Soap_Input_Policy"/>
             </input>
             <output name="RetrievePatientCorrelationsResponse">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RetrievePatientCorrelations_Binding_Soap_Output_Policy"/>
             </output>
         </operation>
         <operation name="AddPatientCorrelation">
             <soap:operation soapAction="AddPatientCorrelation"/>
             <input name="AddPatientCorrelationRequest">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#AddPatientCorrelation_Binding_Soap_Input_Policy"/>
             </input>
             <output name="AddPatientCorrelationResponse">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#AddPatientCorrelation_Binding_Soap_Output_Policy"/>
             </output>
         </operation>
         <operation name="RemovePatientCorrelation">
             <soap:operation soapAction="RemovePatientCorrelation"/>
             <input name="RemovePatientCorrelationRequest">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RemovePatientCorrelationRequest_Binding_Soap_Input_Policy"/>
             </input>
             <output name="RemovePatientCorrelationResponse">
                 <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RemovePatientCorrelationResponse_Binding_Soap_Output_Policy"/>
             </output>
         </operation>
     </binding>
     <service name="PatientCorrelationServiceSecured">
-        <port name="PatientCorrelationSecuredPort"
+        <port name="PatientCorrelationSecuredPort" 
               binding="tns:PatientCorrelationSecuredBinding">
-            <soap:address
+            <soap:address 
                 location="https://localhost:${HttpsDefaultPort}/PatientCorrelationServiceSecured"/>
         </port>
     </service>
-
+    
   <wsp:Policy wsu:Id="PatientCorrelationService_Binding_SoapPolicy">
     <wsp:ExactlyOne>
       <wsp:All>
-        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl" wsp:Optional="false"/>
-          <sp:TransportBinding>
+        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+        <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+        <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
               <wsp:Policy>
-                  <sp:TransportToken>
-                      <wsp:Policy>
-                          <sp:HttpsToken RequireClientCertificate="false"/>
-                      </wsp:Policy>
-                  </sp:TransportToken>
-                  <sp:Layout>
-                      <wsp:Policy>
-                          <sp:Lax/>
-                      </wsp:Policy>
-                  </sp:Layout>
-                  <sp:IncludeTimestamp/>
-                  <sp:AlgorithmSuite>
-                      <wsp:Policy>
-                          <sp:Basic128/>
-                      </wsp:Policy>
-                  </sp:AlgorithmSuite>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:RequireClientCertificate/>
+                  </wsp:Policy>
+                </sp:HttpsToken>
               </wsp:Policy>
-          </sp:TransportBinding>
-          <sp:Wss10/>
-          <sp:SignedSupportingTokens>
+            </sp:TransportToken>
+            <sp:Layout>
               <wsp:Policy>
-                  <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
-                      <wsp:Policy>
-                          <sp:WssUsernameToken10/>
-                      </wsp:Policy>
-                  </sp:UsernameToken>
+                <sp:Strict/>
               </wsp:Policy>
-          </sp:SignedSupportingTokens>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens>
+          <wsp:Policy>
+            <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssSamlV20Token11/>
+              </wsp:Policy>
+            </sp:SamlToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier/>
+            <sp:MustSupportRefIssuerSerial/>
+            <sp:RequireSignatureConfirmation/>
+          </wsp:Policy>
+        </sp:Wss11>
       </wsp:All>
     </wsp:ExactlyOne>
+  </wsp:Policy>    
+	  <wsp:Policy wsu:Id="RetrievePatientCorrelations_Binding_Soap_Input_Policy">
+	    <wsp:ExactlyOne>
+	      <wsp:All>
+	            </wsp:All>
+	    </wsp:ExactlyOne>
+	  </wsp:Policy>    
+	  <wsp:Policy wsu:Id="RetrievePatientCorrelations_Binding_Soap_Output_Policy">
+	    <wsp:ExactlyOne>
+	      <wsp:All>
+	            </wsp:All>
+	    </wsp:ExactlyOne>
+	  </wsp:Policy>
+  
+	  <wsp:Policy wsu:Id="AddPatientCorrelation_Binding_Soap_Input_Policy">
+	    <wsp:ExactlyOne>
+	      <wsp:All>
+	            </wsp:All>
+	    </wsp:ExactlyOne>
+	  </wsp:Policy>    
+	  <wsp:Policy wsu:Id="AddPatientCorrelation_Binding_Soap_Output_Policy">
+	    <wsp:ExactlyOne>
+	      <wsp:All>
+	            </wsp:All>
+	    </wsp:ExactlyOne>
+	  </wsp:Policy>
+      
+  <wsp:Policy wsu:Id="RemovePatientCorrelationRequest_Binding_Soap_Input_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+            </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>    
+  <wsp:Policy wsu:Id="RemovePatientCorrelationResponse_Binding_Soap_Output_Policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+            </wsp:All>
+    </wsp:ExactlyOne>
   </wsp:Policy>
-
+  
     <plnk:partnerLinkType name="PatientCorrelationSecured">
-        <plnk:role name="PatientCorrelationSecuredPortTypeRole"
+        <plnk:role name="PatientCorrelationSecuredPortTypeRole" 
                    portType="tns:PatientCorrelationSecuredPortType"/>
     </plnk:partnerLinkType>
 </definitions>
