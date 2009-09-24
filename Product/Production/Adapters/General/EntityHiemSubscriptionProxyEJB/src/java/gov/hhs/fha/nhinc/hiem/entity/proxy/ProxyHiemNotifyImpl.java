@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
+import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,10 +69,12 @@ public class ProxyHiemNotifyImpl
 //            log.debug("Sending notify message to secured interface");
 //            port.notify(securedRequest);
 
-            log.debug("Marshalling notify message");
-            WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
-            Element notifyElement = notifyMarshaller.marshalNotifyRequest(request.getNotify());
+//            log.debug("Marshalling notify message");
+//            WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
+//            Element notifyElement = notifyMarshaller.marshalNotifyRequest(request.getNotify());
             
+            Element notifyElement = new SoapUtil().extractFirstElement(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE, "Notify");
+
             NhinHiemNotifyProxyObjectFactory hiemNotifyFactory = new NhinHiemNotifyProxyObjectFactory();
             NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
