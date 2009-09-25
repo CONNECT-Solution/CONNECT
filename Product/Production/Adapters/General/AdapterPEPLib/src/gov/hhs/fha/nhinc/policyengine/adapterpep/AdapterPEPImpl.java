@@ -293,15 +293,15 @@ public class AdapterPEPImpl {
                     // The policy for the Subject Discovery Reidentification is based on the 
                     // user role code = "307969004" and the purpose for use = "PUBLICHEALTH"
                     // The patient identifiers passed in are the Pseudonyms not the real ones.
-                    if(extractedServices.contains("SubjectDiscoveryReidentificationIn") ||
-                            extractedServices.contains("SubjectDiscoveryReidentificationOut")){
-                        if(!extractedUserRoles.isEmpty() && !extractedPurpose.isEmpty()){
+                    if (extractedServices.contains("SubjectDiscoveryReidentificationIn") ||
+                            extractedServices.contains("SubjectDiscoveryReidentificationOut")) {
+                        if (!extractedUserRoles.isEmpty() && !extractedPurpose.isEmpty()) {
                             resourcePatientOptInList.addAll(createReidentOptStatusAttrs(extractedUserRoles, extractedPurpose));
                         }
                     } else {
-                    // The existance of a patient identifier in the request indicates that
-                    // the policy engine needs to check the patient opt-in status (Yes or No)
-                    resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds));
+                        // The existance of a patient identifier in the request indicates that
+                        // the policy engine needs to check the patient opt-in status (Yes or No)
+                        resourcePatientOptInList.addAll(createPatientOptStatusAttrs(extractedResourceIds, extractedCommunityIds));
                     }
                     // Patient Opt-In or Opt-Out is optional - assume opt-out (No) if missing
                     if (resourcePatientOptInList.isEmpty()) {
@@ -335,20 +335,24 @@ public class AdapterPEPImpl {
                     // If it is not patient specific nor document specific then look for subscription
                     List<String> extractedSubscription = new ArrayList<String>();
                     createResourceAttrs(checkPolicyRequest, XACML_SUBSCRIPTION_ID, XSPA_RESOURCE_ID, extractedSubscription);
-                    if(!extractedSubscription.isEmpty()){
+                    if (!extractedSubscription.isEmpty()) {
                         // Subscription requests are automatically opted-In
                         log.debug("Subscription request assigns " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-In");
                         resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                     } else {
                         //This message type is not identifiable as patient specific, document specific, or subscription based
                         // The only other valid type that is known is AuditLogQuery
-                        if(extractedServices.contains("AuditLogQueryIn") ||
-                            extractedServices.contains("AuditLogQueryOut")){
+                        if (extractedServices.contains("AuditLogQueryIn") ||
+                                extractedServices.contains("AuditLogQueryOut")) {
                             log.debug("Audit Log Query request assigns " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-In");
-                        resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
+                            resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
+                        } else if (extractedServices.contains("HIEMNotifyIn") ||
+                                extractedServices.contains("HIEMNotifyOut")) {
+                            log.debug("HIEM Notify request assigns " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-In");
+                            resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "Yes"));
                         } else {
-                        log.debug("Unknown message type assign " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
-                        resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
+                            log.debug("Unknown message type assign " + XSPA_PATIENT_OPT_IN + " Attribute with value Opt-Out");
+                            resourcePatientOptInList.addAll(createDefaultAttrs(XSPA_PATIENT_OPT_IN, "No"));
                         }
                     }
                 }
@@ -584,7 +588,7 @@ public class AdapterPEPImpl {
             String homeCommunityId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
             log.debug("Adding attribute value: " + homeCommunityId + " for " + XSPA_SUBJECT_LOCALITY);
             homeCommunityVals.add(homeCommunityId);
-            
+
             xspaAttr.setAttributeStringValues(homeCommunityVals);
             xspaAttrs.add(xspaAttr);
         } catch (PropertyAccessException pex) {
@@ -648,13 +652,13 @@ public class AdapterPEPImpl {
                 String userRole = userRoleList.get(idx).trim();
                 String purpose = purposeList.get(idx).trim();
                 log.debug("Process role: " + userRole + " Purpose: " + purpose);
-                if(purpose.toUpperCase().contains(VALID_PURPOSE)){
-                    if(userRole.contains(VALID_USER_ROLE_CODE)){
+                if (purpose.toUpperCase().contains(VALID_PURPOSE)) {
+                    if (userRole.contains(VALID_USER_ROLE_CODE)) {
                         optStatus.add("Yes");
-                    log.debug("Determined Reidentification Opt-In Status as: Yes");
+                        log.debug("Determined Reidentification Opt-In Status as: Yes");
                     } else {
                         log.debug("User role is not valid set Reidentification Opt-In Status: No");
-                    optStatus.add("No");
+                        optStatus.add("No");
                     }
                 } else {
                     log.debug("Purpose for Use is not valid set Reidentification Opt-In Status: No");
