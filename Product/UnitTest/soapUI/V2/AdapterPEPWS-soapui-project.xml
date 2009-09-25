@@ -7240,10 +7240,10 @@ This document and the information contained herein is provided on an "AS IS" bas
          <urn:request>
             <urn1:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
                <urn1:Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string">
-                  <urn1:AttributeValue>John Smith</urn1:AttributeValue>
+                  <urn1:AttributeValue>Gallow Younger</urn1:AttributeValue>
                </urn1:Attribute>
                <urn1:Attribute AttributeId="urn:gov:hhs:fha:nhinc:home-community-id" DataType="http://www.w3.org/2001/XMLSchema#string">
-                  <urn1:AttributeValue>1.2</urn1:AttributeValue>
+                  <urn1:AttributeValue>1.1</urn1:AttributeValue>
                </urn1:Attribute>
             </urn1:Subject>
             <urn1:Resource>
@@ -9028,4 +9028,644 @@ This document and the information contained herein is provided on an "AS IS" bas
          </urn:request>
       </urn:CheckPolicyRequest>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpep/AdapterPEPPortType/CheckPolicyRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpep/AdapterPEPPortType/CheckPolicyRequest"/></con:call><con:call name="HIEMNotifyIn"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/AdapterPolicyEngine</con:endpoint><con:request><![CDATA[<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns19:CheckPolicyRequest xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns7="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://www.w3.org/2005/08/addressing" xmlns:ns10="http://docs.oasis-open.org/wsn/b-2" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns13="urn:ihe:iti:xds-b:2007" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns15="http://docs.oasis-open.org/wsn/t-1" xmlns:ns16="http://nhinc.services.com/schema/auditmessage" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+         <ns19:assertion>
+            <ns11:address>
+               <ns11:addressType>
+                  <ns11:code>AddrCode</ns11:code>
+                  <ns11:codeSystem>AddrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>AddrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>AddrCode</ns11:displayName>
+                  <ns11:originalText>AddrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>AddrCity</ns11:city>
+               <ns11:country>AddrCountry</ns11:country>
+               <ns11:state>AddrState</ns11:state>
+               <ns11:streetAddress>AddrStreet</ns11:streetAddress>
+               <ns11:zipCode>AddrZip</ns11:zipCode>
+            </ns11:address>
+            <ns11:dateOfBirth>06/04/1959 05:21:00</ns11:dateOfBirth>
+            <ns11:dateOfSignature>09/23/2009 21:21:25</ns11:dateOfSignature>
+            <ns11:expirationDate>10/23/2009 21:26:25</ns11:expirationDate>
+            <ns11:explanationNonClaimantSignature>Electronic</ns11:explanationNonClaimantSignature>
+            <ns11:haveSecondWitnessSignature>false</ns11:haveSecondWitnessSignature>
+            <ns11:haveSignature>false</ns11:haveSignature>
+            <ns11:haveWitnessSignature>false</ns11:haveWitnessSignature>
+            <ns11:homeCommunity>
+               <ns11:description>Federal - DoD</ns11:description>
+               <ns11:homeCommunityId>2.16.840.1.113883.3.198</ns11:homeCommunityId>
+               <ns11:name>Federal - DoD</ns11:name>
+            </ns11:homeCommunity>
+            <ns11:personName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Sandy</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>S</ns11:secondNameOrInitials>
+               <ns11:fullName>Sandy S. Smith</ns11:fullName>
+            </ns11:personName>
+            <ns11:phoneNumber>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>5436</ns11:extension>
+               <ns11:localNumber>253-6849</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:phoneNumber>
+            <ns11:purposeOfDisclosure>TREATMENT</ns11:purposeOfDisclosure>
+            <ns11:secondWitnessAddress>
+               <ns11:addressType>
+                  <ns11:code>AddrCode</ns11:code>
+                  <ns11:codeSystem>AddrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>AddrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>AddrCode</ns11:displayName>
+                  <ns11:originalText>AddrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>Addr2City</ns11:city>
+               <ns11:country>Addr2Country</ns11:country>
+               <ns11:state>Addr2State</ns11:state>
+               <ns11:streetAddress>Addr2Street</ns11:streetAddress>
+               <ns11:zipCode>Addr2Zip</ns11:zipCode>
+            </ns11:secondWitnessAddress>
+            <ns11:secondWitnessName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Sammy</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>s</ns11:secondNameOrInitials>
+               <ns11:fullName>Sammy S. Smith</ns11:fullName>
+            </ns11:secondWitnessName>
+            <ns11:secondWitnessPhone>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>5424</ns11:extension>
+               <ns11:localNumber>542-6823</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:secondWitnessPhone>
+            <ns11:SSN>253-98-7546</ns11:SSN>
+            <ns11:uniquePatientId>500000000</ns11:uniquePatientId>
+            <ns11:witnessAddress>
+               <ns11:addressType>
+                  <ns11:code>addrCode</ns11:code>
+                  <ns11:codeSystem>addrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>addrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>addrCode</ns11:displayName>
+                  <ns11:originalText>addrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>Burnell</ns11:city>
+               <ns11:country>USA</ns11:country>
+               <ns11:state>FL</ns11:state>
+               <ns11:streetAddress>825 North</ns11:streetAddress>
+               <ns11:zipCode>32184</ns11:zipCode>
+            </ns11:witnessAddress>
+            <ns11:witnessName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Scott</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>S.</ns11:secondNameOrInitials>
+               <ns11:fullName>Scott S. Smith</ns11:fullName>
+            </ns11:witnessName>
+            <ns11:witnessPhone>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>8432</ns11:extension>
+               <ns11:localNumber>985-2239</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:witnessPhone>
+            <ns11:userInfo>
+               <ns11:personName>
+                  <ns11:familyName>Skagerberg</ns11:familyName>
+                  <ns11:givenName>Karl</ns11:givenName>
+                  <ns11:nameType>
+                     <ns11:code>nameCode</ns11:code>
+                     <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                     <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                     <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                     <ns11:displayName>nameCode</ns11:displayName>
+                     <ns11:originalText>nameCode</ns11:originalText>
+                  </ns11:nameType>
+                  <ns11:secondNameOrInitials>S</ns11:secondNameOrInitials>
+                  <ns11:fullName>Kasrl S. Skagerberg</ns11:fullName>
+               </ns11:personName>
+               <ns11:userName>kskagerb</ns11:userName>
+               <ns11:role>Pharmacy</ns11:role>
+               <ns11:org>
+                  <ns11:description>Federal - DoD</ns11:description>
+                  <ns11:homeCommunityId>2.16.840.1.113883.3.198</ns11:homeCommunityId>
+                  <ns11:name>Federal - DoD</ns11:name>
+               </ns11:org>
+               <ns11:roleCoded>
+                  <ns11:code>307969004</ns11:code>
+                  <ns11:codeSystem>2.16.840.1.113883.6.96</ns11:codeSystem>
+                  <ns11:codeSystemName>SNOMED_CT</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>Public Health</ns11:displayName>
+                  <ns11:originalText>Public Health</ns11:originalText>
+               </ns11:roleCoded>
+            </ns11:userInfo>
+            <ns11:authorized>true</ns11:authorized>
+            <ns11:purposeOfDisclosureCoded>
+               <ns11:code>PUBLICHEALTH</ns11:code>
+               <ns11:codeSystem>2.16.840.1.113883.3.18.7.1</ns11:codeSystem>
+               <ns11:codeSystemName>nhin-purpose</ns11:codeSystemName>
+               <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+               <ns11:displayName>Use or disclosure of Psychotherapy Notes</ns11:displayName>
+               <ns11:originalText>Use or disclosure of Psychotherapy Notes</ns11:originalText>
+            </ns11:purposeOfDisclosureCoded>
+            <ns11:samlAuthnStatement>
+               <ns11:authInstant>2009-04-16T13:15:39Z</ns11:authInstant>
+               <ns11:sessionIndex>987</ns11:sessionIndex>
+               <ns11:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</ns11:authContextClassRef>
+               <ns11:subjectLocalityAddress>158.147.185.168</ns11:subjectLocalityAddress>
+               <ns11:subjectLocalityDNSName>cs.myharris.net</ns11:subjectLocalityDNSName>
+            </ns11:samlAuthnStatement>
+            <ns11:samlAuthzDecisionStatement>
+               <ns11:decision>Permit</ns11:decision>
+               <ns11:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</ns11:resource>
+               <ns11:action>TestSaml</ns11:action>
+               <ns11:evidence>
+                  <ns11:assertion>
+                     <ns11:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</ns11:id>
+                     <ns11:issueInstant>2009-04-16T13:10:39.093Z</ns11:issueInstant>
+                     <ns11:version>2.0</ns11:version>
+                     <ns11:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</ns11:issuer>
+                     <ns11:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</ns11:issuerFormat>
+                     <ns11:conditions>
+                        <ns11:notBefore>2009-04-16T13:10:39.093Z</ns11:notBefore>
+                        <ns11:notOnOrAfter>2009-12-31T12:00:00.000Z</ns11:notOnOrAfter>
+                     </ns11:conditions>
+                     <ns11:contentReference>Claim-Ref-1234</ns11:contentReference>
+                     <ns11:contentType>application/pdf</ns11:contentType>
+                     <ns11:content>YWVvbGlhbQ==</ns11:content>
+                  </ns11:assertion>
+               </ns11:evidence>
+            </ns11:samlAuthzDecisionStatement>
+         </ns19:assertion>
+         <ns19:request>
+            <ns6:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:home-community-id">
+                  <ns6:AttributeValue>2.16.840.1.113883.3.198</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-for-use">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant">
+                  <ns6:AttributeValue>2009-04-16T13:15:39Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index">
+                  <ns6:AttributeValue>987</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref">
+                  <ns6:AttributeValue>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address">
+                  <ns6:AttributeValue>158.147.185.168</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name">
+                  <ns6:AttributeValue>cs.myharris.net</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id">
+                  <ns6:AttributeValue>kskagerb</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-organization-name">
+                  <ns6:AttributeValue>Federal - DoD</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code">
+                  <ns6:AttributeValue>307969004</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code-system">
+                  <ns6:AttributeValue>2.16.840.1.113883.6.96</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code-system-name">
+                  <ns6:AttributeValue>SNOMED_CT</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-description">
+                  <ns6:AttributeValue>Public Health</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code-system">
+                  <ns6:AttributeValue>2.16.840.1.113883.3.18.7.1</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name">
+                  <ns6:AttributeValue>nhin-purpose</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-display-name">
+                  <ns6:AttributeValue>Use or disclosure of Psychotherapy Notes</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Subject>
+            <ns6:Resource>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision">
+                  <ns6:AttributeValue>Permit</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource">
+                  <ns6:AttributeValue>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action">
+                  <ns6:AttributeValue>TestSaml</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id">
+                  <ns6:AttributeValue>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant">
+                  <ns6:AttributeValue>2009-04-16T13:10:39.093Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version">
+                  <ns6:AttributeValue>2.0</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer">
+                  <ns6:AttributeValue>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#date" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before">
+                  <ns6:AttributeValue>2009-04-16T13:10:39.093Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#date" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after">
+                  <ns6:AttributeValue>2009-12-31T12:00:00.000Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference">
+                  <ns6:AttributeValue>Claim-Ref-1234</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type">
+                  <ns6:AttributeValue>application/pdf</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#base64Binary" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content">
+                  <ns6:AttributeValue>YWVvbGlhbQ==</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Resource>
+            <ns6:Action>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id">
+                  <ns6:AttributeValue>HIEMNotifyIn</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:2.0:action:purpose">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Action>
+         </ns19:request>
+      </ns19:CheckPolicyRequest>
+   </S:Body>
+</S:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpep/AdapterPEPPortType/CheckPolicyRequest"/></con:call><con:call name="HIEMNotifyOut"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/AdapterPolicyEngine</con:endpoint><con:request><![CDATA[<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+   <S:Body>
+      <ns19:CheckPolicyRequest xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns7="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns8="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns9="http://www.w3.org/2005/08/addressing" xmlns:ns10="http://docs.oasis-open.org/wsn/b-2" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns12="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns13="urn:ihe:iti:xds-b:2007" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns15="http://docs.oasis-open.org/wsn/t-1" xmlns:ns16="http://nhinc.services.com/schema/auditmessage" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+         <ns19:assertion>
+            <ns11:address>
+               <ns11:addressType>
+                  <ns11:code>AddrCode</ns11:code>
+                  <ns11:codeSystem>AddrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>AddrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>AddrCode</ns11:displayName>
+                  <ns11:originalText>AddrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>AddrCity</ns11:city>
+               <ns11:country>AddrCountry</ns11:country>
+               <ns11:state>AddrState</ns11:state>
+               <ns11:streetAddress>AddrStreet</ns11:streetAddress>
+               <ns11:zipCode>AddrZip</ns11:zipCode>
+            </ns11:address>
+            <ns11:dateOfBirth>06/04/1959 05:21:00</ns11:dateOfBirth>
+            <ns11:dateOfSignature>09/23/2009 21:21:25</ns11:dateOfSignature>
+            <ns11:expirationDate>10/23/2009 21:26:25</ns11:expirationDate>
+            <ns11:explanationNonClaimantSignature>Electronic</ns11:explanationNonClaimantSignature>
+            <ns11:haveSecondWitnessSignature>false</ns11:haveSecondWitnessSignature>
+            <ns11:haveSignature>false</ns11:haveSignature>
+            <ns11:haveWitnessSignature>false</ns11:haveWitnessSignature>
+            <ns11:homeCommunity>
+               <ns11:description>Federal - DoD</ns11:description>
+               <ns11:homeCommunityId>2.16.840.1.113883.3.198</ns11:homeCommunityId>
+               <ns11:name>Federal - DoD</ns11:name>
+            </ns11:homeCommunity>
+            <ns11:personName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Sandy</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>S</ns11:secondNameOrInitials>
+               <ns11:fullName>Sandy S. Smith</ns11:fullName>
+            </ns11:personName>
+            <ns11:phoneNumber>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>5436</ns11:extension>
+               <ns11:localNumber>253-6849</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:phoneNumber>
+            <ns11:purposeOfDisclosure>TREATMENT</ns11:purposeOfDisclosure>
+            <ns11:secondWitnessAddress>
+               <ns11:addressType>
+                  <ns11:code>AddrCode</ns11:code>
+                  <ns11:codeSystem>AddrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>AddrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>AddrCode</ns11:displayName>
+                  <ns11:originalText>AddrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>Addr2City</ns11:city>
+               <ns11:country>Addr2Country</ns11:country>
+               <ns11:state>Addr2State</ns11:state>
+               <ns11:streetAddress>Addr2Street</ns11:streetAddress>
+               <ns11:zipCode>Addr2Zip</ns11:zipCode>
+            </ns11:secondWitnessAddress>
+            <ns11:secondWitnessName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Sammy</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>s</ns11:secondNameOrInitials>
+               <ns11:fullName>Sammy S. Smith</ns11:fullName>
+            </ns11:secondWitnessName>
+            <ns11:secondWitnessPhone>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>5424</ns11:extension>
+               <ns11:localNumber>542-6823</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:secondWitnessPhone>
+            <ns11:SSN>253-98-7546</ns11:SSN>
+            <ns11:uniquePatientId>500000000</ns11:uniquePatientId>
+            <ns11:witnessAddress>
+               <ns11:addressType>
+                  <ns11:code>addrCode</ns11:code>
+                  <ns11:codeSystem>addrCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>addrCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>addrCode</ns11:displayName>
+                  <ns11:originalText>addrCode</ns11:originalText>
+               </ns11:addressType>
+               <ns11:city>Burnell</ns11:city>
+               <ns11:country>USA</ns11:country>
+               <ns11:state>FL</ns11:state>
+               <ns11:streetAddress>825 North</ns11:streetAddress>
+               <ns11:zipCode>32184</ns11:zipCode>
+            </ns11:witnessAddress>
+            <ns11:witnessName>
+               <ns11:familyName>Smith</ns11:familyName>
+               <ns11:givenName>Scott</ns11:givenName>
+               <ns11:nameType>
+                  <ns11:code>nameCode</ns11:code>
+                  <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>nameCode</ns11:displayName>
+                  <ns11:originalText>nameCode</ns11:originalText>
+               </ns11:nameType>
+               <ns11:secondNameOrInitials>S.</ns11:secondNameOrInitials>
+               <ns11:fullName>Scott S. Smith</ns11:fullName>
+            </ns11:witnessName>
+            <ns11:witnessPhone>
+               <ns11:areaCode>321</ns11:areaCode>
+               <ns11:countryCode>1</ns11:countryCode>
+               <ns11:extension>8432</ns11:extension>
+               <ns11:localNumber>985-2239</ns11:localNumber>
+               <ns11:phoneNumberType>
+                  <ns11:code>phoneCode</ns11:code>
+                  <ns11:codeSystem>phoneCodeSyst</ns11:codeSystem>
+                  <ns11:codeSystemName>phoneCodeSystName</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>phoneCode</ns11:displayName>
+                  <ns11:originalText>phoneCode</ns11:originalText>
+               </ns11:phoneNumberType>
+            </ns11:witnessPhone>
+            <ns11:userInfo>
+               <ns11:personName>
+                  <ns11:familyName>Skagerberg</ns11:familyName>
+                  <ns11:givenName>Karl</ns11:givenName>
+                  <ns11:nameType>
+                     <ns11:code>nameCode</ns11:code>
+                     <ns11:codeSystem>nameCodeSyst</ns11:codeSystem>
+                     <ns11:codeSystemName>nameCodeSystName</ns11:codeSystemName>
+                     <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                     <ns11:displayName>nameCode</ns11:displayName>
+                     <ns11:originalText>nameCode</ns11:originalText>
+                  </ns11:nameType>
+                  <ns11:secondNameOrInitials>S</ns11:secondNameOrInitials>
+                  <ns11:fullName>Kasrl S. Skagerberg</ns11:fullName>
+               </ns11:personName>
+               <ns11:userName>kskagerb</ns11:userName>
+               <ns11:role>Pharmacy</ns11:role>
+               <ns11:org>
+                  <ns11:description>Federal - DoD</ns11:description>
+                  <ns11:homeCommunityId>2.16.840.1.113883.3.198</ns11:homeCommunityId>
+                  <ns11:name>Federal - DoD</ns11:name>
+               </ns11:org>
+               <ns11:roleCoded>
+                  <ns11:code>307969004</ns11:code>
+                  <ns11:codeSystem>2.16.840.1.113883.6.96</ns11:codeSystem>
+                  <ns11:codeSystemName>SNOMED_CT</ns11:codeSystemName>
+                  <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+                  <ns11:displayName>Public Health</ns11:displayName>
+                  <ns11:originalText>Public Health</ns11:originalText>
+               </ns11:roleCoded>
+            </ns11:userInfo>
+            <ns11:authorized>true</ns11:authorized>
+            <ns11:purposeOfDisclosureCoded>
+               <ns11:code>PUBLICHEALTH</ns11:code>
+               <ns11:codeSystem>2.16.840.1.113883.3.18.7.1</ns11:codeSystem>
+               <ns11:codeSystemName>nhin-purpose</ns11:codeSystemName>
+               <ns11:codeSystemVersion>1.0</ns11:codeSystemVersion>
+               <ns11:displayName>Use or disclosure of Psychotherapy Notes</ns11:displayName>
+               <ns11:originalText>Use or disclosure of Psychotherapy Notes</ns11:originalText>
+            </ns11:purposeOfDisclosureCoded>
+            <ns11:samlAuthnStatement>
+               <ns11:authInstant>2009-04-16T13:15:39Z</ns11:authInstant>
+               <ns11:sessionIndex>987</ns11:sessionIndex>
+               <ns11:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</ns11:authContextClassRef>
+               <ns11:subjectLocalityAddress>158.147.185.168</ns11:subjectLocalityAddress>
+               <ns11:subjectLocalityDNSName>cs.myharris.net</ns11:subjectLocalityDNSName>
+            </ns11:samlAuthnStatement>
+            <ns11:samlAuthzDecisionStatement>
+               <ns11:decision>Permit</ns11:decision>
+               <ns11:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</ns11:resource>
+               <ns11:action>TestSaml</ns11:action>
+               <ns11:evidence>
+                  <ns11:assertion>
+                     <ns11:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</ns11:id>
+                     <ns11:issueInstant>2009-04-16T13:10:39.093Z</ns11:issueInstant>
+                     <ns11:version>2.0</ns11:version>
+                     <ns11:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</ns11:issuer>
+                     <ns11:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</ns11:issuerFormat>
+                     <ns11:conditions>
+                        <ns11:notBefore>2009-04-16T13:10:39.093Z</ns11:notBefore>
+                        <ns11:notOnOrAfter>2009-12-31T12:00:00.000Z</ns11:notOnOrAfter>
+                     </ns11:conditions>
+                     <ns11:contentReference>Claim-Ref-1234</ns11:contentReference>
+                     <ns11:contentType>application/pdf</ns11:contentType>
+                     <ns11:content>YWVvbGlhbQ==</ns11:content>
+                  </ns11:assertion>
+               </ns11:evidence>
+            </ns11:samlAuthzDecisionStatement>
+         </ns19:assertion>
+         <ns19:request>
+            <ns6:Subject SubjectCategory="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:home-community-id">
+                  <ns6:AttributeValue>2.16.840.1.113883.3.198</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-for-use">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant">
+                  <ns6:AttributeValue>2009-04-16T13:15:39Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index">
+                  <ns6:AttributeValue>987</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref">
+                  <ns6:AttributeValue>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address">
+                  <ns6:AttributeValue>158.147.185.168</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name">
+                  <ns6:AttributeValue>cs.myharris.net</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id">
+                  <ns6:AttributeValue>kskagerb</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-organization-name">
+                  <ns6:AttributeValue>Federal - DoD</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code">
+                  <ns6:AttributeValue>307969004</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code-system">
+                  <ns6:AttributeValue>2.16.840.1.113883.6.96</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-code-system-name">
+                  <ns6:AttributeValue>SNOMED_CT</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:user-role-description">
+                  <ns6:AttributeValue>Public Health</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code-system">
+                  <ns6:AttributeValue>2.16.840.1.113883.3.18.7.1</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name">
+                  <ns6:AttributeValue>nhin-purpose</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:purpose-of-use-display-name">
+                  <ns6:AttributeValue>Use or disclosure of Psychotherapy Notes</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Subject>
+            <ns6:Resource>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision">
+                  <ns6:AttributeValue>Permit</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource">
+                  <ns6:AttributeValue>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action">
+                  <ns6:AttributeValue>TestSaml</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id">
+                  <ns6:AttributeValue>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant">
+                  <ns6:AttributeValue>2009-04-16T13:10:39.093Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version">
+                  <ns6:AttributeValue>2.0</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer">
+                  <ns6:AttributeValue>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#date" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before">
+                  <ns6:AttributeValue>2009-04-16T13:10:39.093Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#date" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after">
+                  <ns6:AttributeValue>2009-12-31T12:00:00.000Z</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference">
+                  <ns6:AttributeValue>Claim-Ref-1234</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type">
+                  <ns6:AttributeValue>application/pdf</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#base64Binary" AttributeId="urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content">
+                  <ns6:AttributeValue>YWVvbGlhbQ==</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Resource>
+            <ns6:Action>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id">
+                  <ns6:AttributeValue>HIEMNotifyOut</ns6:AttributeValue>
+               </ns6:Attribute>
+               <ns6:Attribute DataType="http://www.w3.org/2001/XMLSchema#string" AttributeId="urn:oasis:names:tc:xacml:2.0:action:purpose">
+                  <ns6:AttributeValue>PUBLICHEALTH</ns6:AttributeValue>
+               </ns6:Attribute>
+            </ns6:Action>
+         </ns19:request>
+      </ns19:CheckPolicyRequest>
+   </S:Body>
+</S:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterpep/AdapterPEPPortType/CheckPolicyRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>
