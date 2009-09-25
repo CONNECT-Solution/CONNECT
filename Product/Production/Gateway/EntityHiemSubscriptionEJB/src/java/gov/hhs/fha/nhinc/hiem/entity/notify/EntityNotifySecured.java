@@ -6,6 +6,7 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 import javax.annotation.Resource;
 import org.oasis_open.docs.wsn.b_2.Notify;
+import javax.jws.HandlerChain;
 
 /**
  *
@@ -13,6 +14,7 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  */
 @WebService(serviceName = "EntityNotificationConsumerSecured", portName = "EntityNotificationConsumerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.entitynotificationconsumersecured.EntityNotificationConsumerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:entitynotificationconsumer", wsdlLocation = "META-INF/wsdl/EntityNotifySecured/EntityNotificationConsumerSecured.wsdl")
 @Stateless
+@HandlerChain(file = "EntityNotifySoapHeaderHandler.xml")
 public class EntityNotifySecured implements EntityNotificationConsumerSecuredPortType
 {
 
