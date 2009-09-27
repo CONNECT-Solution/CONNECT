@@ -30,6 +30,8 @@ import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumer;
+import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType;
 
 /**
  *
@@ -113,8 +115,59 @@ public class FTATimerTask  {
         }
 
     }
-
   private static void sendNotification(String contents, String topic)
+  {
+        try { // Call Web Service Operation
+            EntityNotificationConsumer service = new EntityNotificationConsumer();
+            EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
+
+
+           String endpointURL = PropertyAccessor.getProperty("adapter", "EntityNotificationConsumerURL");
+           //String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
+           log.info("EntitySubscriptionURL :"+endpointURL);
+           ((BindingProvider)port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
+
+
+            // TODO initialize WS operation arguments here
+            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType();
+            NotificationMessageHolderType messageHolder = new NotificationMessageHolderType();
+
+
+            NotificationMessageHolderType.Message message = new NotificationMessageHolderType.Message();
+            Notify notify = new Notify();
+
+            message.setAny(Util.marshalPayload(contents));
+
+            messageHolder.setMessage(message);
+
+            //TopicExpressionType topicExpression = new TopicExpressionType();
+            //topicExpression.setDialect("http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple");
+            //topicExpression.getContent().add(topic);
+
+            TopicExpressionType topicExpression;
+            gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller marshaller;
+            marshaller = new gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller();
+
+            //topic = "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
+            log.info("topic :"+topic);
+            topicExpression =  (TopicExpressionType) marshaller.unmarshal(topic);
+
+            messageHolder.setTopic(topicExpression);
+
+            notify.getNotificationMessage().add(messageHolder);
+
+            notifyRequest.setAssertion(Util.createAssertion());
+
+            notifyRequest.setNotify(notify);
+
+            AcknowledgementType result = port.notify(notifyRequest);
+
+            log.info("Result = "+result);
+        } catch (Exception ex) {
+            log.error(ex.getMessage(),ex);
+        }
+  }
+  private static void sendNotificationSecured(String contents, String topic)
   {
         try { // Call Web Service Operation
             EntityNotificationConsumerSecured service = new EntityNotificationConsumerSecured();
