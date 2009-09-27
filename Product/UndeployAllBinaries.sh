@@ -30,6 +30,7 @@ $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/p
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile EntityDocRetrieveProxyEJB
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile PatientCorrelationProxy
 $AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile AdapterMpiProxyEJB
+$AS_HOME/bin/asadmin undeploy --user admin --passwordfile $HOME/NHINC_Binaries/passfile AdapterAuditQueryEJB
 #
 # undeploy the Gateway EJB modules
 #
