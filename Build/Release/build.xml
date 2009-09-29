@@ -342,4 +342,24 @@
         <zipfileset dir="${MuralSrcDir}" prefix="projects/NHINC/Current/Product/Production/Adapters" includes="**/*"/>
     </zip>
   </target>
+  
+  <target name="getFTATransferAdapter" description="Export FTA Transfer Adapter from svn.">
+    <delete dir="${FTATransferAdapter.source.dist.dir.path}"/>
+    <mkdir dir="${FTATransferAdapter.source.dist.dir.path}" />
+    <exec dir="${FTATransferAdapter.source.dist.dir.path}" executable="svn.exe">
+        <arg line="export"/>
+        <arg line="--force"/>
+        <arg line="${ReleaseURL}/Product/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB"/>
+    </exec>
+    <exec dir="${FTATransferAdapter.source.dist.dir.path}" executable="svn.exe">
+        <arg line="export"/>
+        <arg line="--force"/>
+        <arg line="${ReleaseURL}/Product/Production/Adapters/GenericFileTransfer/FTAConfigManager"/>
+    </exec>
+  </target>
+  <target name="bundleFTATransferAdapter" depends="getFTATransferAdapter" description="Generate FTA Transfer Adapter bundle.">
+    <zip destfile="${basedir}/NHIN_Connect_HIEM_Generic_FileTransfer_Source_${ReleaseNumber}.zip">
+        <zipfileset dir="${FTATransferAdapter.source.dist.dir.path}" includes="**/*"/>
+    </zip>
+  </target>
 </project>
