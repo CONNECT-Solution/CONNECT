@@ -201,7 +201,12 @@ public class NhincConstants {
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SERVICE_NAME = "nhincproxysubjectdiscovery";
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxysubjectdiscoverysecured";
 
-
+    // Hibernate Config Files
+    public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
+    public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
+    public static final String HIBERNATE_PATIENT_CORRELATION = "CorrelatedIdentifers.hibernate.cfg.xml";
+    public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
+    
     private NhincConstants() {
     }
 }
