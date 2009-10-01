@@ -21,11 +21,6 @@
                 <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
             <service>
-                <name>nhincdocumentretrieve</name>
-                <description>NHIN-CONNECT Internal Document Retrieve</description>
-                <endpointURL>http://localhost:9080/NhinConnect/NhincDocRetrieve</endpointURL>
-            </service>
-            <service>
                 <name>auditquery</name>
                 <description>auditquery</description>
                 <endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
@@ -44,16 +39,6 @@
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
                 <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
-            </service>
-            <service>
-                <name>agencynotificationconsumer</name>
-                <description>agencynotificationconsumer</description>
-                <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
-            </service>
-            <service>
-                <name>agencysubscription</name>
-                <description>agencysubscription</description>
-                <endpointURL>http://localhost:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -153,29 +138,39 @@
                 <endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
-                <name>muralmpi</name>
-                <description>Mural MPI Database</description>
-                <endpointURL>http://localhost:9080/PatientEJBService/PatientEJB</endpointURL>
-            </service>
-            <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
                 <endpointURL>http://localhost:8080/NhinConnect/AdapterReidentification</endpointURL>
             </service>
             <service>
-                <name>adapternotificationproducer</name>
+                <name>adapternotificationproducersecured</name>
                 <description>Adapter HIEM Subscribe</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
             </service>
             <service>
-                <name>adapternotificationconsumer</name>
+                <name>adapternotificationconsumersecured</name>
                 <description>Adapter HIEM Notify</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
             </service>
             <service>
-                <name>adaptersubscriptionmanager</name>
+                <name>adaptersubscriptionmanagersecured</name>
                 <description>Adapter HIEM Unsubscribe</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterSubscriptionManager</endpointURL>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationproducersecured</name>
+                <description>Adapter HIEM Subscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumersecured</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubscriptionmanagersecured</name>
+                <description>Adapter HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
             </service>
             <service>
                 <name>policyenginedte</name>
@@ -191,16 +186,6 @@
                 <name>auditlog</name>
                 <description>auditlog</description>
                 <endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
-            </service>
-            <service>
-                <name>mocknotificationconsumer</name>
-                <description>mocknotificationconsumer</description>
-                <endpointURL>http://localhost:18080/nhincNotificationMock</endpointURL>
-            </service>
-            <service>
-                <name>mocknotificationproducer</name>
-                <description>mocknotificationconsumer</description>
-                <endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
             </service>
             <service>
                 <name>adapterxdsbdocrepositorysoap12</name>
@@ -254,7 +239,7 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://localhost:9080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
@@ -369,11 +354,6 @@
                 <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
-                <name>adapterdocquery</name>
-                <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterDocQuery</endpointURL>
-            </service>
-            <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>https://localhost:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
@@ -382,11 +362,6 @@
                 <name>documentretrieve</name>
                 <description>documentretrieve</description>
                 <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
-            </service>
-            <service>
-                <name>nhincdocumentretrieve</name>
-                <description>NHIN-CONNECT Internal Document Retrieve</description>
-                <endpointURL>http://localhost:9080/NhinConnect/NhincDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
@@ -439,16 +414,6 @@
                 <endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
-                <name>agencynotificationconsumer</name>
-                <description>agencynotificationconsumer</description>
-                <endpointURL>http://localhost:9081/SubscriptionManager/SubscriptionManagerPort</endpointURL>
-            </service>
-            <service>
-                <name>agencysubscription</name>
-                <description>agencysubscription</description>
-                <endpointURL>http://localhost:9080/AdapterSubscriptionService/AdapterSubscriptionPort</endpointURL>
-            </service>
-            <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
                 <endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
@@ -490,11 +455,6 @@
                 <endpointURL>https://localhost:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
-                <name>adapterdocquery</name>
-                <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterDocQuery</endpointURL>
-            </service>
-            <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
                 <endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
@@ -515,29 +475,9 @@
                 <endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
-                <name>muralmpi</name>
-                <description>Mural MPI Database</description>
-                <endpointURL>http://localhost:9080/PatientEJBService/PatientEJB</endpointURL>
-            </service>
-            <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
                 <endpointURL>http://localhost:8080/NhinConnect/AdapterReidentification</endpointURL>
-            </service>
-            <service>
-                <name>adapternotificationproducer</name>
-                <description>Adapter HIEM Subscribe</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterNotificationProducer</endpointURL>
-            </service>
-            <service>
-                <name>adapternotificationconsumer</name>
-                <description>Adapter HIEM Notify</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterNotificationConsumer</endpointURL>
-            </service>
-            <service>
-                <name>adaptersubscriptionmanager</name>
-                <description>Adapter HIEM Unsubscribe</description>
-                <endpointURL>http://localhost:9080/NhinConnect/AdapterSubscriptionManager</endpointURL>
             </service>
             <service>
                 <name>policyenginedte</name>
@@ -587,11 +527,6 @@
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
                 <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
-            </service>
-            <service>
-                <name>mocknotificationproducer</name>
-                <description>mocknotificationconsumer</description>
-                <endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>
@@ -704,11 +639,6 @@
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
                 <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
-            </service>
-            <service>
-                <name>mocknotificationproducer</name>
-                <description>mocknotificationconsumer</description>
-                <endpointURL>http://localhost:18080/nhincSubscriptionMock</endpointURL>
             </service>
             <service>
                 <name>subscriptionmanager</name>
