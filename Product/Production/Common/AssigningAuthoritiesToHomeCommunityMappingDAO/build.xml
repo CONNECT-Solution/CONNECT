@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -72,4 +72,14 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target depends="init" name="deps-jar" unless="no.deps">
+    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+    		
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" name="deps-clean" unless="no.deps">
+    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+    		
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
 </project>
