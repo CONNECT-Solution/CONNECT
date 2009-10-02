@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="ValidateServices" resourceRoot="" soapui-version="2.5.1" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\projects\nhinc\Current\Product\IntegrationTest</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap11" soapVersion="1_1" anonymous="optional" definition="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl"><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=3</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
+<con:soapui-project name="ValidateServices" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="NhincComponentConnectionManagerBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap11" soapVersion="1_1" anonymous="optional" definition="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?wsdl"><con:part><con:url>http://192.168.25.157:8080/NhinConnect/NhincComponentConnectionManager?xsd=3</con:url><con:content><![CDATA[<!--Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.6-hudson-317-.-->
 <!--Copyright © 2002-2004 BEA Systems Inc., International Business Machines Corporation, 
 Microsoft Corporation, Inc, SAP AG, and Sun Microsystems, Inc.. All rights reserved. 
 
@@ -1244,8 +1244,8 @@ if (location == "A") {
   hostname = adapterHostname;
 } 
 
-def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"]
-assert (url =~ IP) || (url =~ hostname)</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Output"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def url = holder["//ns1:ConnectionInfo[1]/ns1:serviceConnectionInfos[1]/ns1:serviceConnectionInfo[1]/ns1:url[1]"];
+if (location != "O") assert (url =~ IP) || (url =~ hostname);</scriptText></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Output"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "ValidateServices Properties" );
 def service = dataSource.getPropertyValue( "Service" );
 def serviceResponseHolder = groovyUtils.getXmlHolder( "GetConnectionInfoByServiceName#Response" );
@@ -1262,4 +1262,4 @@ def dataSource = testRunner.testCase.getTestStepByName( "ValidateServices Proper
 def serviceCount = dataSource.getPropertyValue( "ServiceCount" );
 def currentServiceID = dataSource.getPropertyValue( "Current Service ID" );
 
-if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService" );</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/></con:soapui-project>
+if (currentServiceID != serviceCount) testRunner.gotoStepByName( "GetNextService" );</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
