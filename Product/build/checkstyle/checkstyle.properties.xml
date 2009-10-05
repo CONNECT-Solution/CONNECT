@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="checkstyle.properties">
+	
+<!--	<property name="corbertura.bin" value="c:/Projects/NHINC/Current/Build/Packages/Corbertura/bin"/>
+
+	<if>
+		<isset property="env.CORBERTURA_BIN"/>
+		<then>
+			<var name="corbertura.bin" unset="true"/>
+			<property name="corbertura.bin" value="${env.CORBERTURA_BIN}"/>
+		</then>
+	</if> -->
+
+  <property name="checkstyle.report.dir.path" value="${project.dir}/checkstyle-reports"/>
+  <property name="checkstyle.report.file.name" value="checkstyle.xml"/>
+	<property name="checkstyle.report.file.path" value="${checkstyle.report.dir.path}/${checkstyle.report.file.name}"/>
+	<property name="checkstyle.configuration.file.path" value="C:/Projects/NHINC/Current/Product/checkstyle.settings.xml"/>
+  <property name="checkstyle.xsl.file.path" value="C:/Projects/NHINC/Current/Product/build/checkstyle/checkstyle-noframes-sorted.xsl"/>
+	<property name="src.dir" value="src" />
+    <property name="checkstyle.report.html.dir" value="src_html"/>
+</project>

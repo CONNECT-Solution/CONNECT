@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="checkstyle.targets" xmlns:cs="antlib:com.puppycrawl.tools.checkstyle">
+
+	<import file="checkstyle.properties.xml" />
+
+	<!--<taskdef resource="tasks.properties">
+		<classpath>
+			<fileset dir="${corbertura.bin}">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>-->
+
+	<target name="checkstyle.help">
+	
+	</target>
+
+	<target name="checkstyle.clean">
+		<delete dir="${checkstyle.report.dir.path}" failonerror="true" />
+	</target>
+
+  
+  <!-- -->
+  <!-- Run checkstyle and generate error report with links to source code -->
+  <!-- -->
+  <target name="checkstyle.style"
+          description="Runs checkstyle and generates an error report">
+    
+    <mkdir dir="${checkstyle.report.dir.path}"/>
+    <cs:checkstyle failonviolation="false" config="${checkstyle.configuration.file.path}">
+      <fileset dir="${src.dir}"
+               includes="**/*.java,**/*.properties"
+               excludes="**/Generated*.java"/>
+      <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
+    </cs:checkstyle>
+
+    <style basedir="${checkstyle.report.dir.path}"
+           destdir="${checkstyle.report.dir.path}"
+           includes="${checkstyle.report.file.name}"
+           style="${checkstyle.xsl.file.path}">
+           <param name="output.dir" expression="${checkstyle.report.dir.path}"/>
+     </style>
+  </target>
+  
+</project>
