@@ -6,8 +6,8 @@
   <target name="Simian.Run">
     <loglevel level="None">
       <do>
-        <exec workingdir="${path::get-short-path(Common.Directory.Product.Path)}" program="${Simian.Console}" failonerror="false" >
-          <arg line='"**/*.java"' />
+        <exec workingdir="${path::get-short-path(Common.Directory.Production.Path)}" program="${Simian.Console}" failonerror="false" >
+          <arg line='"**/src/**/*.java"' />
           <arg line='-formatter=xml:${Simian.ReportFilePath}' />
         </exec>
       </do>
