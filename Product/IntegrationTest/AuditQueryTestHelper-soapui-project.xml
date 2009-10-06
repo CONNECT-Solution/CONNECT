@@ -15542,7 +15542,15 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
          </ns17:findAuditEventsReturn>
       </ns17:FindAuditEventsResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Restore internalConnectionInfo file" disabled="true"><con:settings/><con:config><script>import java.io.File;
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="Undo mods to internalConnectionInfo file"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
+def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
+def auditQueryURL = "https://" + NHINGatewayHost + ":8181/findAuditEvents/AuditQuery";
+def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
+
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)
+</script></con:config></con:testStep><con:testStep type="groovy" name="Restore internalConnectionInfo file" disabled="true"><con:settings/><con:config><script>import java.io.File;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def propertyList = testRunner.testCase.getTestStepByName( "Test Case Properties" );
