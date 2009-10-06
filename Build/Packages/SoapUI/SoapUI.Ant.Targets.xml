@@ -20,10 +20,10 @@
     <for param="file">
       <path>
         <fileset dir="${IntegrationTest.Dir}">
-<!--          <include name="InternalSelfTest-soapui-project.xml"/>
+          <include name="InternalSelfTest-soapui-project.xml"/>
           <include name="EndToEndSelfTest-soapui-project.xml"/>
           <include name="ValidateServices-soapui-project.xml"/>
-          <include name="PatientCorrelation-soapui-project.xml"/>-->
+          <include name="PatientCorrelation-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
         </fileset>
       </path>
