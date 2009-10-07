@@ -3,14 +3,6 @@
 
 	<import file="checkstyle.properties.xml" />
 
-	<!--<taskdef resource="tasks.properties">
-		<classpath>
-			<fileset dir="${corbertura.bin}">
-				<include name="*.jar" />
-			</fileset>
-		</classpath>
-	</taskdef>-->
-
 	<target name="checkstyle.help">
 	
 	</target>
@@ -19,7 +11,6 @@
 		<delete dir="${checkstyle.report.dir.path}" failonerror="true" />
 	</target>
 
-  
   <!-- -->
   <!-- Run checkstyle and generate error report with links to source code -->
   <!-- -->
@@ -28,18 +19,17 @@
     
     <mkdir dir="${checkstyle.report.dir.path}"/>
     <cs:checkstyle failonviolation="false" config="${checkstyle.configuration.file.path}">
-      <fileset dir="${src.dir}"
-               includes="**/*.java,**/*.properties"
-               excludes="**/Generated*.java"/>
+      <fileset dir="${checkstyle.src.dir}"
+               includes="**/src/**/*.java, **/src/**/*.properties"/>
       <formatter type="xml" toFile="${checkstyle.report.file.path}"/>
     </cs:checkstyle>
 
-    <style basedir="${checkstyle.report.dir.path}"
+    <xslt basedir="${checkstyle.report.dir.path}"
            destdir="${checkstyle.report.dir.path}"
            includes="${checkstyle.report.file.name}"
            style="${checkstyle.xsl.file.path}">
            <param name="output.dir" expression="${checkstyle.report.dir.path}"/>
-     </style>
+     </xslt>
   </target>
   
 </project>
