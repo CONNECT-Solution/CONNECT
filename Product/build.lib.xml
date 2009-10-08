@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="build.lib" default="none" >
-  <property environment="env"/>
   <property name="project.dir" location="." />
   <basename file="${project.dir}" property="project.name" />
-
-  <property file="build.properties"/>
-
+	
   <import file="Properties.build.xml"/>
   <import file="Install/deploy.xml"/>
   <import file="build/checkstyle/checkstyle.targets.xml"/>
@@ -119,7 +116,7 @@
           <property name="target-to-call" value="${target-to-call}" />
           <property name="base" value="${project-to-build}/lib" />
           <property file="${project-to-build}/lib/nblibraries.properties" />
-          <property file="${project-to-build}/nbproject/project.properties" />		  
+          <property file="${project-to-build}/nbproject/project.properties" />
           <antcall target="build-project-if-out-of-date" />
         </target>
       </project>
