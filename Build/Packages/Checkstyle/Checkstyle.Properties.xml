@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Checkstyle.Properties">
+
+  <property name="Checkstyle.Directory" value="${path::get-short-path(Common.Project.Common.Directory.Transient.Path)}\CheckstyleReport" dynamic="true"/>
+  <property name="Checkstyle.XML.Report.File.Name" value="CheckstyleReport.xml" dynamic="true"/>
+  <property name="Checkstyle.HTML.Report.File.Name" value="CheckstyleReport.html" dynamic="true"/>
+  <property name="Checkstyle.PublishReport" value="true"/>
+  
+</project>
