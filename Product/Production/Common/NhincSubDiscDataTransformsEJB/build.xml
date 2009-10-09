@@ -73,7 +73,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-SubjectDiscoveryDataTransforms" depends="wsimport-init,wsimport-service-check-SubjectDiscoveryDataTransforms" unless="wsimport-service-SubjectDiscoveryDataTransformsi.notRequired">
+    <target name="wsimport-service-SubjectDiscoveryDataTransforms" depends="wsimport-init">
         <echo message="copy wsdl's" />
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/SubjectDiscoveryDataTransforms/wsdl/NhincComponentSubDiscTransforms.wsdl" catalog="catalog.xml"/>

@@ -73,7 +73,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-DocumentTransform" depends="wsimport-init,wsimport-service-check-DocumentTransform" unless="wsimport-service-DocumentTransform.notRequired">
+    <target name="wsimport-service-DocumentTransform" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/DocumentTransform/wsdl/NhincComponentDocumentTransform.wsdl" catalog="catalog.xml"/>
 -->

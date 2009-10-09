@@ -76,19 +76,20 @@
     
     <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
-    <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init,wsimport-service-check-NhincComponentConnectionManager" unless="wsimport-service-NhincComponentConnectionManager.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${basedir}/${meta.inf}/wsdl/NhincComponentConnectionManager">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
+    <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+        <property name="service-wsdl-NhincComponentConnectionManager" location="${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl"/>
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" wsdl="${service-wsdl-NhincComponentConnectionManager}" catalog="catalog.xml"/> -->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
-
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/schemas/" />
+        <property name="targetLocation-NhincComponentConnectionManager" location="${meta.inf}/wsdl/NhincComponentConnectionManager"/>
+        <property name="sourceLocation-NhincComponentConnectionManager" location="${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
+        <copy todir="${targetLocation-NhincComponentConnectionManager}">
+            <fileset dir="${sourceLocation-NhincComponentConnectionManager}"/>
         </copy>
-
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
     		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>

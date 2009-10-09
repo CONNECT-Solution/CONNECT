@@ -11,34 +11,42 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-NhincComponentAuditRepository" depends="wsimport-init">
-        <condition property="wsimport-client-NhincComponentAuditRepository.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository/NhincComponentAuditRepository.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init,wsimport-client-check-NhincComponentAuditRepository" unless="wsimport-client-NhincComponentAuditRepository.notRequired">
+    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository"/>
         <property name="wsdl-NhincComponentAuditRepository" location="${meta.inf}/xml-resources/web-service-references/NhincComponentAuditRepository/wsdl/NhincComponentAuditRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincComponentAuditRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository" destdir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository" wsdl="${wsdl-NhincComponentAuditRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincComponentAuditRepository}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincComponentAuditRepository" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     </target>
-    <target name="wsimport-service-check-AuditLog" depends="wsimport-init">
-        <condition property="wsimport-service-AuditLog.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentinternalauditrepository/NhincComponentInternalAuditRepositoryService.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AuditLog" depends="wsimport-init,wsimport-service-check-AuditLog" unless="wsimport-service-AuditLog.notRequired">
+    <target name="wsimport-service-AuditLog" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AuditLog"/>
         <property name="service-wsdl-AuditLog" location="${meta.inf}/xml-resources/web-services/AuditLog/wsdl/NhincComponentInternalAuditRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AuditLog}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AuditLog" destdir="${build.generated.dir}/jax-wsCache/service/AuditLog" wsdl="${service-wsdl-AuditLog}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AuditLog}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AuditLog"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AuditLog">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AuditLog" location="${meta.inf}/wsdl/AuditLog"/>
         <property name="sourceLocation-AuditLog" location="${meta.inf}/xml-resources/web-services/AuditLog/wsdl/"/>
         <copy todir="${targetLocation-AuditLog}">
@@ -46,17 +54,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AuditLog" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentinternalauditrepository"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AuditLog"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentinternalauditrepository"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentAuditRepository"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AuditLog"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

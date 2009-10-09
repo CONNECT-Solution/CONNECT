@@ -78,7 +78,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-       <target name="wsimport-service-AuditLog" depends="wsimport-init,wsimport-service-check-AuditLog" unless="wsimport-service-AuditLog.notRequired">
+       <target name="wsimport-service-AuditLog" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AuditLog/wsdl/NhincComponentInternalAuditRepository.wsdl" catalog="catalog.xml"/>
 -->
@@ -92,24 +92,8 @@
         </copy>
     </target>
     
-    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init,wsimport-client-check-NhincComponentAuditRepository" unless="wsimport-client-NhincComponentAuditRepository.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentAuditRepository/wsdl/NhincComponentAuditRepository.wsdl" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl" catalog="catalog.xml"/>
--->
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincComponentAuditRepository">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentAuditRepository/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentAuditRepository/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init">
+
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
