@@ -1,0 +1,104 @@
+<project name="keycopy" default="main" basedir=".">
+<property environment="env"/>
+<property name="proxy.host" value="webcache.sfbay.sun.com"/>
+<property name="proxy.port" value="8080"/>
+<property name="AS_HOME" value="${env.GF_HOME}"/>
+<target name="main" 
+            description="copy v3 keypair to GF Keystore">
+    <echo message="WARNING: currently we add non-CA certs to GF truststore, this will be changed later" />
+    <setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}"/>
+    <get src="https://xwss.dev.java.net/keystores/server-keystore.jks"
+	    dest="./server-keystore.jks" />
+    <get src="https://xwss.dev.java.net/keystores/server-truststore.jks"
+	    dest="./server-truststore.jks" />
+    <get src="https://xwss.dev.java.net/keystores/client-keystore.jks"
+	    dest="./client-keystore.jks" />
+    <get src="https://xwss.dev.java.net/keystores/client-truststore.jks"
+	    dest="./client-truststore.jks" />
+    <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=server-keystore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/keystore.jks" />
+         <arg value="srcalias=xws-security-server" />
+         <arg value="dstalias=xws-security-server"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+    <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=client-keystore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/keystore.jks" />
+         <arg value="srcalias=xws-security-client" />
+         <arg value="dstalias=xws-security-client"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+    <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=server-truststore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/cacerts.jks" />
+         <arg value="srcalias=certificate-authority" />
+         <arg value="dstalias=xwss-certificate-authority"/>
+         <arg value="trustedentry=true"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+    
+    <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=server-keystore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/keystore.jks" />
+         <arg value="srcalias=wssip" />
+         <arg value="dstalias=wssip"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+    
+    <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=server-truststore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/cacerts.jks" />
+         <arg value="srcalias=xws-security-client" />
+         <arg value="dstalias=xws-security-client"/>
+         <arg value="trustedentry=true"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+     <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=client-truststore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/cacerts.jks" />
+         <arg value="srcalias=xws-security-server" />
+         <arg value="dstalias=xws-security-server"/>
+         <arg value="trustedentry=true"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+
+   <java  classname="KeyImport"
+           dir="."
+           fork="true"> 
+         <arg value="srcstore=client-truststore.jks"/>
+         <arg value="dststore=${AS_HOME}/domains/domain1/config/cacerts.jks" />
+         <arg value="srcalias=wssip" />
+         <arg value="dstalias=wssip"/>
+         <arg value="trustedentry=true"/>
+         <classpath>
+           <pathelement location="./test.jar"/>
+         </classpath>
+    </java>
+
+</target>
+</project>

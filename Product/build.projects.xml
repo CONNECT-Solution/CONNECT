@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
-	<project>
+	<!-- <project>
 		<name>NhincCommonTypesLib</name>
 		<directory>/Production/Common/NhincCommonTypesLib</directory>
 	</project>
@@ -232,5 +232,5 @@
 		<project>
 		<name>AdapterDocRegistryAndRepositoryEJB</name>
 		<directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
-	</project>
+	</project> -->
 </projects>

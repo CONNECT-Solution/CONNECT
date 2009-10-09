@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.GlassFish.Scripts">
+
+  <property name="GlassFish.Install.FriendlyName" value="GlassFish 2.1"/>
+  <property name="GlassFish.Install.Path" value="${GlassFish.Install.Path}"/>
+  <property name="NetBeans.Install.Path" value="${ProgramFiles.32.Path}\NetBeans 6.7.1"/>
+  <property name="GlassFish.Installer.File.Name" value="netbeans-6.7.1-ml-java-windows.exe"/>
+  <property name="GlassFish.Installer.File.Path" value="C:\Temp\${GlassFish.Installer.File.Name}"/>
+  <property name="GlassFish.Installer.Download.URL" value="${Workspace.Ftp.Url}/${GlassFish.Installer.File.Name}"/>
+  <property name="GlassFish.Installer.StateFilePath" value="${Common.Directory.Packages.Path}\Workspace\Software\GlassFish\InstallState.xml"/>
+  <property name="GlassFish.LibPath" value="${GlassFish.Install.Path}\lib"/>
+
+  <target name="Workspace.RequieredSoftware.GlassFish">
+    <ifnot test="${directory::exists(GlassFish.Install.Path) and directory::exists(NetBeans.Install.Path)}" >
+      <call target="GlassFish.DownloadAndInstall"/>
+    </ifnot>
+    <call target="GlassFish.Update" />
+    <call target="GlassFish.Configure"/>
+  </target>
+
+  <target name="GlassFish.Update">
+    <call target="GlassFish.Update.Metro"/>
+    <call target="GlassFish.Update.C3PO"/>
+    <call target="GlassFish.Update.Log4J"/>
+    <call target="GlassFish.Update.Hibernate"/>
+    <call target="GlassFish.Update.MySQL"/>
+    <call target="GlassFish.Update.Certificates"/>
+  </target>
+
+  <target name="GlassFish.Update.Certificates">
+    <property name="Certificates.Tag.FilePath" value="${GlassFish.Install.Path}\glassfish\domains\domain1\config\10-08-2009.certificates.tag "/>
+
+    <ifnot test="${file::exists(Certificates.Tag.FilePath)}">
+      <setenv>
+        <environment refid="${Common.EnvironmentVariables.RefId}" />
+      </setenv>
+      <ant
+        target="main"
+        buildfile="${Package.Workspace.Directory.Path}\Software\GlassFish\Certificates\build.xml"
+      >
+        <environment/>
+        <args/>
+      </ant>
+      <echo message="" file="${Certificates.Tag.FilePath}"/>
+    </ifnot>
+  </target>
+
+  <target name="GlassFish.Update.MySQL">
+    <copy
+      todir="${GlassFish.Lib.Directory.Path}"
+      file="${Common.Directory.ThirdParty.Path}\MySQLDB\mysql-connector-java-5.1.8-bin.jar"
+      unless="${file::exists(GlassFish.Lib.Directory.Path + '\mysql-connector-java-5.1.8-bin.jar')}"
+    />
+  </target>
+
+  <target name="GlassFish.Update.Hibernate">
+    <property name="Hibernate.Tag.FileName" value="3.2.5.ga.Hibernate.tag"/>
+
+    <ifnot test="${file::exists(GlassFish.Lib.Directory.Path + '\' + Hibernate.Tag.FileName)}">
+      <copy todir="${GlassFish.Lib.Directory.Path}">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\HibernateLibraries">
+          <include name="*.jar"/>
+        </fileset>
+      </copy>
+      <echo message="" file="${GlassFish.Lib.Directory.Path}\${Hibernate.Tag.FileName}"/>
+    </ifnot>
+  </target>
+
+  <target name="GlassFish.Update.Log4J">
+    <copy
+      todir="${GlassFish.Lib.Directory.Path}"
+      file="${Common.Directory.ThirdParty.Path}\log4j\log4j-1.2.15.jar"
+      unless="${file::exists(GlassFish.Lib.Directory.Path + '\log4j-1.2.15.jar')}"
+    />
+    <copy
+      todir="${GlassFish.Lib.Directory.Path}"
+      file="${Common.Directory.ThirdParty.Path}\log4j\commons-logging-1.1.1.jar"
+      unless="${file::exists(GlassFish.Lib.Directory.Path + '\commons-logging-1.1.1.jar')}"
+    />
+  </target>
+
+  <target name="GlassFish.Update.C3PO">
+    <copy
+      todir="${GlassFish.Lib.Directory.Path}"
+      file="${Common.Directory.ThirdParty.Path}\C3PO\c3p0-0.9.1.2.jar"
+      unless="${file::exists(GlassFish.Lib.Directory.Path + '\c3p0-0.9.1.2.jar')}"
+    />
+  </target>
+
+  <target name="GlassFish.Update.Metro">
+    <property name="Metro.Tag.FileName" value="WSIT-Tools 1.3 06-08-2008.metro.tag"/>
+    <property name="GlassFish.LibPath" value="${GlassFish.Lib.Directory.Path}"/>
+
+    <ifnot test="${file::exists(GlassFish.LibPath + '\' + Metro.Tag.FileName)}">
+      <copy todir="${GlassFish.Lib.Directory.Path}" overwrite="True">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\Metro">
+          <include name="webservices-rt.jar"/>
+          <include name="webservices-tools.jar"/>
+        </fileset>
+      </copy>
+      <echo message="" file="${GlassFish.LibPath}\${Metro.Tag.FileName}"/>
+    </ifnot>
+
+    <ifnot test="${file::exists(GlassFish.LibPath + '\' + Metro.Tag.FileName)}">
+      <copy todir="${GlassFish.Lib.Directory.Path}" overwrite="True">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\Metro">
+          <include name="webservices-api.jar"/>
+        </fileset>
+      </copy>
+      <echo message="" file="${GlassFish.LibPath}\${Metro.Tag.FileName}"/>
+    </ifnot>
+  </target>
+
+  <target name="GlassFish.Configure">
+    <call target="GlassFish.Config.Domain"/>
+  </target>
+
+  <target name="GlassFish.Config.Domain">
+    <property name="GlassFish.Config.Domain.FilePath" value="${GlassFish.Install.Path}\domains\domain1\config\domain.xml"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Dcom.sun.xml.ws.transport.http.client.HttpTransportPipe.dump=true']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.enterprise.resource.xml.webservices.security.level=FINE</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.enterprise.resource.xml.webservices.security.level=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.enterprise.resource.xml.webservices.security.level=FINE']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+    
+    
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.enterprise.resource.webservices.jaxws=FINE</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.enterprise.resource.webservices.jaxws=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.enterprise.resource.webservices.jaxws=FINE']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Dcom.sun.jbi.httpbc.enableClientAuth=true</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Dcom.sun.jbi.httpbc.enableClientAuth=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Dcom.sun.jbi.httpbc.enableClientAuth=true']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.net.ssl.keyStore=${'$'}{com.sun.aas.instanceRoot}/config/keystore.jks</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.net.ssl.keyStore=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.net.ssl.keyStore=${'$'}{com.sun.aas.instanceRoot}/config/keystore.jks']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.net.ssl.keyStorePassword=changeit</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.net.ssl.keyStorePassword=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.net.ssl.keyStorePassword=changeit']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.net.ssl.trustStore=${'$'}{com.sun.aas.instanceRoot}/config/cacerts.jks</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.net.ssl.trustStore=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.net.ssl.trustStore=${'$'}{com.sun.aas.instanceRoot}/config/cacerts.jks']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Djavax.net.ssl.trustStorePassword=changeit</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.net.ssl.trustStorePassword=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.net.ssl.trustStorePassword=changeit']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-DSERVER_KEY_ALIAS=xws-security-server</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-DSERVER_KEY_ALIAS=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-DSERVER_KEY_ALIAS=xws-security-server']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-DCLIENT_KEY_ALIAS=xws-security-client</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-DCLIENT_KEY_ALIAS=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-DCLIENT_KEY_ALIAS=xws-security-client']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Xmx1024m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Xmx')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Xmx1024m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-XX:MaxPermSize=256m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:MaxPermSize=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:MaxPermSize=256m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-XX:PermSize=256m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:PermSize=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:PermSize=256m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+  </target>
+
+  <target name="GlassFish.Edit.Config.Domain">
+
+    <xmlpeek
+      file="${GlassFish.Config.Domain.FilePath}"
+      xpath="boolean(${GlassFish.Config.Domain.XPathExists})"
+      property="GlassFish.Config.Domain.XmlValue.Exists"
+      nodeindex="0"
+      verbose="true"
+    />
+
+    <ifnot test="${GlassFish.Config.Domain.XmlValue.Exists}">
+      <xmlpeek
+          file="${GlassFish.Config.Domain.FilePath}"
+          xpath="boolean(${GlassFish.Config.Domain.XPathUpdate})"
+          property="GlassFish.Config.Domain.XmlValue.NeedsUpdate"
+          nodeindex="0"
+          verbose="true"
+      />
+
+      <ifthenelse test="${GlassFish.Config.Domain.XmlValue.NeedsUpdate}">
+        <then>
+          <xmlpoke
+            file="${GlassFish.Config.Domain.FilePath}"
+            pokemode="ReplaceOuter"
+            value="${GlassFish.Config.Domain.XmlValue}"
+            xpath="${GlassFish.Config.Domain.XPathUpdate}"
+            verbose="true"
+        />
+        </then>
+        <else>
+          <xmlpoke
+            file="${GlassFish.Config.Domain.FilePath}"
+            pokemode="Add"
+            value="${GlassFish.Config.Domain.XmlValue}"
+            xpath="/domain/configs/config/java-config"
+            verbose="true"
+        />
+        </else>
+      </ifthenelse>
+    </ifnot>
+  </target>
+
+  <target name="GlassFish.DownloadAndInstall">
+    <ask answer="Answer"
+           question="It looks like ${GlassFish.Install.FriendlyName} is not installed.  This software is required.  Do you wish to install the software?"
+           caption="Proceed Without Required Software?"
+           showdialog="true" >
+      <options>
+        <string value="Install"/>
+        <string value="Exit"/>
+      </options>
+    </ask>
+    <ifthenelse test="${Answer == 'Install'}">
+      <then>
+        <get
+          src="${GlassFish.Installer.Download.URL}"
+          dest="${GlassFish.Installer.File.Path}"
+          unless="${file::exists(GlassFish.Installer.File.Path)}"
+        />
+        <exec
+          workingdir="${path::get-directory-name(GlassFish.Installer.File.Path)}"
+          program="${GlassFish.Installer.File.Path}"
+          commandline='--silent --state "${GlassFish.Installer.StateFilePath}"'
+          verbose="true"
+        />
+      </then>
+      <elseif if="${Answer == 'Exit'}">
+        <fail message="Please install ${GlassFish.Install.FriendlyName}!" />
+      </elseif>
+    </ifthenelse>
+  </target>
+
+</project>

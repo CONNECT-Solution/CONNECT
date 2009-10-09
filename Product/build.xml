@@ -3,12 +3,14 @@
 <project name="nhinc" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
 
   <description>Builds nhinc, tests, runs NHINC projects</description>
-
+  	
   <import file="build.lib.xml" />
 
   <property file="build.properties"/>
 
   <echo message="ant.home=${ant.home}" />
+  <echo message="glassfish.home=${env.AS_HOME}" />
+  <echo message="netbeans.home=${env.IDE_HOME}" />
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
 	<classpath>
 		<pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar" />
