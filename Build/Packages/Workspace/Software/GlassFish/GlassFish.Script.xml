@@ -2,7 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.GlassFish.Scripts">
 
   <property name="GlassFish.Install.FriendlyName" value="GlassFish 2.1"/>
-  <property name="GlassFish.Install.Path" value="${GlassFish.Install.Path}"/>
+  <property name="GlassFish.Install.Path" value="C:\Sun\AppServer"/>
   <property name="NetBeans.Install.Path" value="${ProgramFiles.32.Path}\NetBeans 6.7.1"/>
   <property name="GlassFish.Installer.File.Name" value="netbeans-6.7.1-ml-java-windows.exe"/>
   <property name="GlassFish.Installer.File.Path" value="C:\Temp\${GlassFish.Installer.File.Name}"/>
