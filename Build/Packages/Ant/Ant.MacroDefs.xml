@@ -26,10 +26,10 @@
           <property name="Ant.LogParams" value='' overwrite="true"/>
         </else>
       </ifthenelse>
-
-      <exec program="${antbat}" failonerror="true" verbose="true">
+      <setenv>
         <element name="environment"/>
-
+      </setenv>
+      <exec program="${antbat}" failonerror="true" verbose="true">
         <arg line='${target} -buildfile "${buildfile}"' />
         <arg line='${Ant.LogParams}' />
         <arg line='-Dprogress-filepath="${CCNetListenerFile}"' />
