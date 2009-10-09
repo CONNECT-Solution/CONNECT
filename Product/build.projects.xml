@@ -144,7 +144,7 @@
 	<project>
 		<name>GatewaySubscriptionRepositoryEJB</name>
 		<directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
-	</project>
+	</project> -->
 	<project>
 		<name>ConnectionManagerEJB</name>
 		<directory>/Production/Common/ConnectionManagerEJB</directory>
@@ -157,7 +157,7 @@
 		<name>DocumentTransformEJB</name>
 		<directory>/Production/Common/DocumentTransformEJB</directory>
 	</project>
-	<project>
+<!--	<project>
 		<name>UDDIUpdateManagerEJB</name>
 		<directory>/Production/Common/UDDIUpdateManagerEJB</directory>
 	</project>
