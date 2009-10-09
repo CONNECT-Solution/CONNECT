@@ -74,14 +74,14 @@
 
     -->
 
-    <target name="wsimport-client-uddi_v3_service" depends="wsimport-init,wsimport-client-check-uddi_v3_service" unless="wsimport-client-uddi_v3_service.notRequired">
+    <target name="wsimport-client-uddi_v3_service" depends="wsimport-init">
         <property name="wsdl-uddi_v3_service" location="${meta.inf}/xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl"/>
 <!--
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-uddi_v3_service}" catalog="catalog.xml"/>
 -->
     </target>
 
-    <target name="wsimport-service-UDDIUpdateManager" depends="wsimport-init,wsimport-service-check-UDDIUpdateManager" unless="wsimport-service-UDDIUpdateManager.notRequired">
+    <target name="wsimport-service-UDDIUpdateManager" depends="wsimport-init">
         <property name="service-wsdl-UDDIUpdateManager" location="${meta.inf}/xml-resources/web-services/UDDIUpdateManager/wsdl/NhincComponentUDDIUpdateManager.wsdl"/>
 <!--
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-UDDIUpdateManager}" catalog="catalog.xml"/>
