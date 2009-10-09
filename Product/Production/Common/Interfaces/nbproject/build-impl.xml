@@ -11,6 +11,13 @@
     - cleanup
 -->
 <project name="Interfaces-impl" default="default" basedir="..">
+    <fail message="Please build using Ant 1.7.1 or higher.">
+        <condition>
+            <not>
+                <antversion atleast="1.7.1"/>
+            </not>
+        </condition>
+    </fail>
     <target name="default" depends="dist_se" description="Build whole project."/>
     <!-- 
         ======================
@@ -48,42 +55,33 @@
     </target>
     <target name="-init-taskdefs" if="from.commandline">
         <path id="ant.task.classpath">
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/ext/resolver-1.2.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-apache-xml-resolver.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-project-ant.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-project-libraries.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-projectapi.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-projectuiapi.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-xml-catalog.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-xml-xam.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-xml-schema-model.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-xml-wsdl-model.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../ide10/modules/org-netbeans-modules-xml-retriever.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/core/core.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/core/org-openide-filesystems.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/lib/boot.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/lib/org-openide-modules.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/lib/org-openide-util.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-openide-dialogs.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-openide-loaders.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-openide-nodes.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-openide-text.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-netbeans-modules-masterfs.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../platform9/modules/org-netbeans-modules-queries.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/ant/nblib/org-netbeans-modules-bpel-project.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-bpel-debugger-api.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-bpel-model.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-bpel-project.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-bpel-validation.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-soa-ui.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-soa-validation.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../soa2/modules/org-netbeans-modules-compapp-projects-base.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/ext/jxpath/jxpath1.1.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/org-netbeans-modules-xml-catalogsupport.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/org-netbeans-modules-xml-search.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/org-netbeans-modules-xml-wsdl-extensions.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/org-netbeans-modules-xml-xpath.jar"/>
-            <pathelement location="${esb.netbeans.platform}/../xml2/modules/org-netbeans-modules-xml-xpath-ext.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/ext/resolver-1.2.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-apache-xml-resolver.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-project-ant.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-projectapi.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-xml-xam.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-xml-schema-model.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-xml-wsdl-model.jar"/>
+            <pathelement location="${netbeans.home}/../ide11/modules/org-netbeans-modules-xml-retriever.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/core/org-openide-filesystems.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/lib/org-openide-util.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-openide-dialogs.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-openide-loaders.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-openide-nodes.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-openide-text.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-netbeans-modules-masterfs.jar"/>
+            <pathelement location="${netbeans.home}/../platform10/modules/org-netbeans-modules-queries.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/modules/org-netbeans-modules-soa-validation.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/modules/org-netbeans-modules-soa-ui.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/modules/org-netbeans-modules-bpel-model.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/modules/org-netbeans-modules-bpel-project.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/modules/org-netbeans-modules-bpel-validation.jar"/>
+            <pathelement location="${netbeans.home}/../soa2/ant/nblib/org-netbeans-modules-bpel-project.jar"/>
+            <pathelement location="${netbeans.home}/../xml2/modules/ext/jxpath/jxpath1.1.jar"/>
+            <pathelement location="${netbeans.home}/../xml2/modules/org-netbeans-modules-xml-search.jar"/>
+            <pathelement location="${netbeans.home}/../xml2/modules/org-netbeans-modules-xml-xpath.jar"/>
+            <pathelement location="${netbeans.home}/../xml2/modules/org-netbeans-modules-xml-xpath-ext.jar"/>
+            <pathelement location="${netbeans.home}/../xml2/modules/org-netbeans-modules-xml-wsdl-extensions.jar"/>
         </path>
         <taskdef name="validate-project" classname="org.netbeans.modules.bpel.project.anttasks.cli.CliValidateBpelProjectTask">
             <classpath refid="ant.task.classpath"/>
@@ -109,15 +107,15 @@
     <target name="-do-dist" depends="init,-pre-dist">
         <mkdir dir="${build.dir}"/>
         <!--validation-->
-        <validate-project buildDirectory="${basedir}/${build.dir}" sourceDirectory="${basedir}/${src.dir}" projectClassPath="${javac.classpath}" buildDependentProjectDir="${basedir}/${build.dir}/dependentProjectFiles" classpathRef="ant.task.classpath" allowBuildWithError="${allow.build.with.error}" validation="${validation}"/>
+        <validate-project buildDirectory="${basedir}/${build.dir}" sourceDirectory="${basedir}/${src.dir}" projectClassPath="${javac.classpath}" buildDependentProjectDir="${basedir}/${build.dir}/dependentProjectFiles" classpathRef="ant.task.classpath" allowBuildWithError="${allow.build.with.error}"/>
         <!-- copy all files from project source directory to build directory. -->
         <copy todir="${build.dir}" preservelastmodified="true">
-            <fileset includes="**/*.bpel,**/*.wsdl,**/*.xsd, **/*.xsl, **/*.xslt, **/*.jar" dir="${src.dir}"/>
+            <fileset includes="**/*.bpel,**/*.wsdl,**/*.xsd, **/*.xsl, **/*.xslt" dir="${src.dir}"/>
         </copy>
         <generate-catalog-xml buildDirectory="${basedir}/${build.dir}" sourceDirectory="${basedir}/${src.dir}" projectClassPath="${javac.classpath}" classpathRef="ant.task.classpath"/>
         <generate-jbi-xml buildDirectory="${basedir}/${build.dir}" sourceDirectory="${basedir}/${src.dir}" projectClassPath="${javac.classpath}" classpathRef="ant.task.classpath"/>
         <jar compress="${jar.compress}" jarfile="${build.dir}/SEDeployment.jar">
-            <fileset includes="**/*.bpel,**/*.wsdl,**/*.xsd, **/*.xsl, **/*.xslt, **/*.jar" excludes="SEDeployment.jar" dir="${basedir}/${build.dir}"/>
+            <fileset includes="**/*.bpel,**/*.wsdl,**/*.xsd, **/*.xsl, **/*.xslt" dir="${basedir}/${build.dir}"/>
             <fileset dir="${basedir}/${build.dir}">
                 <include name="**/jbi.xml"/>
                 <include name="**/catalog.xml"/>
