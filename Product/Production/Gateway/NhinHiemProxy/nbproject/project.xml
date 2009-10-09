@@ -4,8 +4,6 @@
     <configuration>
         <buildExtensions xmlns="http://www.netbeans.org/ns/ant-build-extender/1">
             <extension file="jaxws-build.xml" id="jaxws">
-                <dependency dependsOn="wsimport-client-compile" target="-do-compile"/>
-                <dependency dependsOn="wsimport-client-compile" target="-do-compile-single"/>
                 <dependency dependsOn="wsimport-client-generate" target="-pre-pre-compile"/>
             </extension>
         </buildExtensions>

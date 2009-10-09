@@ -6,28 +6,27 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
     <target name="wsimport-client-NhinAuditLogQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
         <property name="wsdl-NhinAuditLogQuery" location="xml-resources/web-service-references/NhinAuditLogQuery/wsdl/NhinAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/com/nhin/services/wsdl/auditlogquery" includes="NhinAuditLogQuery.java" casesensitive="no"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhinAuditLogQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
         </wsimport>
-    </target>
-    <target name="wsimport-client-clean-NhinAuditLogQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/com/nhin/services/wsdl/auditlogquery"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery"/>
-    <target name="wsimport-client-compile-depend" if="do.depend.true">
-        <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-    </target>
-    <target name="wsimport-client-compile" depends="-pre-pre-compile, wsimport-client-compile-depend">
-        <j2seproject3:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-        <copy todir="${build.classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/client" includes="**/*.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
+    <target name="wsimport-client-clean-NhinAuditLogQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/nhin/services/wsdl/auditlogquery"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery"/>
 </project>

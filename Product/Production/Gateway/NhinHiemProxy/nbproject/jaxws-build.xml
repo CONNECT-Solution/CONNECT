@@ -6,28 +6,27 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
     <target name="wsimport-client-NhinSubscription" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinSubscription"/>
         <property name="wsdl-NhinSubscription" location="xml-resources/web-service-references/NhinSubscription/wsdl/NhinSubscription.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhinSubscription}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/org/oasis-open/docs/wsn/bw-2" includes="NhinSubscription.java" casesensitive="no"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinSubscription" destdir="${build.generated.dir}/jax-wsCache/NhinSubscription" wsdl="${wsdl-NhinSubscription}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhinSubscription}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinSubscription"/>
         </wsimport>
-    </target>
-    <target name="wsimport-client-clean-NhinSubscription" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/org/oasis-open/docs/wsn/bw-2"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NhinSubscription"/>
-    <target name="wsimport-client-compile-depend" if="do.depend.true">
-        <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-    </target>
-    <target name="wsimport-client-compile" depends="-pre-pre-compile, wsimport-client-compile-depend">
-        <j2seproject3:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-        <copy todir="${build.classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/client" includes="**/*.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinSubscription">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
+    <target name="wsimport-client-clean-NhinSubscription" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinSubscription"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis-open/docs/wsn/bw-2"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhinSubscription"/>
 </project>
