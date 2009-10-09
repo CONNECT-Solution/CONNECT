@@ -12,6 +12,7 @@
     <package name="SourceModificationReport" />
     <package name="TargetProcess" />
     <package name="Simian" />
+    <package name="Checkstyle" />
     <package name="Ant" />
     <package name="Selenium" />
     <package name="FitNesse" />
@@ -49,8 +50,10 @@
         </asyncexec>
 
         <call target="Ant.CompileSource" />
+
+        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
-        
+
         <description>Begin Varification Actions</description>
         <!--<call target="UnitTest.RunTests" />
         <call target="Coverage.PublishReports" />-->
@@ -97,6 +100,8 @@
         </asyncexec>
         
         <call target="Ant.CompileSource" />
+
+        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
@@ -150,6 +155,8 @@
         </asyncexec>
         
         <call target="Ant.CompileSource" />
+
+        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
