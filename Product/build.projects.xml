@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
-	<!-- <project>
+	<project>
 		<name>NhincCommonTypesLib</name>
 		<directory>/Production/Common/NhincCommonTypesLib</directory>
 	</project>
@@ -8,7 +8,7 @@
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
 	</project>
-	<project>
+<!--	<project>
 		<name>NhinInterfaceTestHelperEJB</name>
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
 	</project>
