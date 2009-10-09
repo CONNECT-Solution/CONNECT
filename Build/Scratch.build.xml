@@ -34,7 +34,7 @@
   </loadpackages>
 
   <target name="test">
-    <call target="Workspace.RequieredSoftware.Java"/>
+    <call target="Workspace.RequieredSoftware.GlassFish"/>
   </target>
 
   <target name="rebuild-setups">
