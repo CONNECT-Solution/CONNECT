@@ -17,6 +17,7 @@
       <call target="GlassFish.DownloadAndInstall"/>
     </ifnot>
     <call target="GlassFish.Update" />
+    
     <call target="GlassFish.Configure"/>
   </target>
 
@@ -128,12 +129,16 @@
   </target>
 
   <target name="GlassFish.Configure">
-    <call target="GlassFish.Config.Domain"/>
+    <property name="Domain.Xml.Tag" value="${GlassFish.Install.Path}\domains\domain1\config\10-08-2009.domain.xml.tag "/>
+    <ifnot test="${file::exists(Domain.Xml.Tag)}">
+      <call target="GlassFish.Config.Domain"/>
+      <echo message="" file="${Domain.Xml.Tag}"/>
+    </ifnot>
   </target>
 
   <target name="GlassFish.Config.Domain">
     <property name="GlassFish.Config.Domain.FilePath" value="${GlassFish.Install.Path}\domains\domain1\config\domain.xml"/>
-
+    
     <largeproperty name="GlassFish.Config.Domain.XmlValue">
       <value expand="false" xml="true">
         <jvm-options>-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true</jvm-options>
@@ -273,7 +278,6 @@
   </target>
 
   <target name="GlassFish.Edit.Config.Domain">
-
     <xmlpeek
       file="${GlassFish.Config.Domain.FilePath}"
       xpath="boolean(${GlassFish.Config.Domain.XPathExists})"
