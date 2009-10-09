@@ -11,9 +11,8 @@
     </target>
     <target name="jaxb-clean-code-generation" depends="clean,jaxb-code-generation"/>
     <target name="jaxb-code-generation" depends="xjc-typedef-target,-do-init,-init-macrodef-javac">
-        <mkdir dir="build/generated/addons/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
+        <mkdir dir="${build.generated.sources.dir}/jaxb" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
-        <mkdir dir="${build.classes.dir}" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig"/>
         <mkdir dir="build/generated/jaxbCache/NhincCommonAdapter"/>
         <xjc destdir="build/generated/jaxbCache/NhincCommonAdapter" catalog="catalog.xml">
             <classpath>
@@ -25,9 +24,8 @@
             <depends file="xml-resources/jaxb/NhincCommonAdapter/NhincCommonAdapter.xsd"/>
             <produces dir="build/generated/jaxbCache/NhincCommonAdapter"/>
         </xjc>
-        <copy todir="build/generated/addons/jaxb">
+        <copy todir="${build.generated.sources.dir}/jaxb">
             <fileset dir="build/generated/jaxbCache/NhincCommonAdapter"/>
         </copy>
-        <ns0:javac xmlns:ns0="http://www.netbeans.org/ns/j2se-project/3" includes="" excludes="" destdir="${build.classes.dir}" srcdir="build/generated/addons/jaxb" classpath="${jaxbwiz.gensrc.classpath}" sourcepath="${src.dir}"/>
     </target>
 </project>

@@ -4,7 +4,7 @@
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="DocumentRepository" default="default" basedir=".">
     <description>Builds, tests, and runs the project DocumentRepository.</description>
-<import file="../../../../build.lib.xml" />
+    <import file="../../../../build.lib.xml" /> 
     <import file="nbproject/build-impl.xml"/>
     <!--
 
