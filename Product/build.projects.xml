@@ -157,11 +157,11 @@
 		<name>DocumentTransformEJB</name>
 		<directory>/Production/Common/DocumentTransformEJB</directory>
 	</project>
-<!--	<project>
+	<project>
 		<name>UDDIUpdateManagerEJB</name>
 		<directory>/Production/Common/UDDIUpdateManagerEJB</directory>
 	</project>
-	<project>
+<!--	<project>
 		<name>PatientCorrelationFacadeDteEjb</name>
 		<directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
 	</project>
