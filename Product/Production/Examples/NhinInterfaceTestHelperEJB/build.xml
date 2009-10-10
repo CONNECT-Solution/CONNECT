@@ -73,102 +73,27 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-client-NhincSubscription" depends="wsimport-init,wsimport-client-check-NhincSubscription">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubscription/wsdl/NhincSubscription.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" catalog="catalog.xml"/>
-         <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
--->        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincSubscription">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubscription/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubscription/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincSubscription" depends="wsimport-init">
+
         </target>
     
-    <target name="wsimport-client-NhincSubjectDiscovery" depends="wsimport-init,wsimport-client-check-NhincSubjectDiscovery" unless="wsimport-client-NhincSubjectDiscovery.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/wsdl/NhincSubjectDiscovery.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubjectDiscovery.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincSubjectDiscovery">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincSubjectDiscovery/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincSubjectDiscovery" depends="wsimport-init">
+
     </target>
     
-    <target name="wsimport-client-NhincDocQuery" depends="wsimport-init,wsimport-client-check-NhincDocQuery">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocQuery/wsdl/NhincDocQuery.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincDocQuery">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocQuery/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocQuery/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincDocQuery" depends="wsimport-init">
+
     </target>
     
-   <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init,wsimport-client-check-NhincDocRetrieve" unless="wsimport-client-NhincDocRetrieve.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/wsdl/NhincDocRetrieve.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincDocRetrieve">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincDocRetrieve/schemas/" />
-        </copy>
+   <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init">
+
     </target> 
 
-    <target name="wsimport-client-NhincAuditLogQuery" depends="wsimport-init,wsimport-client-check-NhincAuditLogQuery" unless="wsimport-client-NhincAuditLogQuery.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincAuditLogQuery/wsdl/NhincAuditLogQuery.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincAuditLogQuery">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincAuditLogQuery/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincAuditLogQuery/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincAuditLogQuery" depends="wsimport-init">
+
     </target>
     
-    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init,wsimport-service-check-SubjectDiscovery" unless="wsimport-service-SubjectDiscovery.notRequired">
+    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml"/>
 -->
@@ -182,7 +107,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-DocQuery" depends="wsimport-init,wsimport-service-check-DocQuery" unless="wsimport-service-DocQuery.notRequired">
+    <target name="wsimport-service-DocQuery" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/DocQuery/wsdl/NhinDocQuery.wsdl" catalog="catalog.xml"/>
 -->
@@ -196,7 +121,7 @@
         </copy>
     </target>
 
-    <target name="wsimport-service-DocRetrieve" depends="wsimport-init,wsimport-service-check-DocRetrieve">
+    <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl" catalog="catalog.xml"/>
 -->
@@ -210,7 +135,7 @@
         </copy>
     </target> 
    
-    <target name="wsimport-service-AuditQuery" depends="wsimport-init,wsimport-service-check-AuditQuery" unless="wsimport-service-AuditQuery.notRequired">
+    <target name="wsimport-service-AuditQuery" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl" catalog="catalog.xml"/>
 -->
@@ -224,7 +149,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-HiemSubscription" depends="wsimport-init,wsimport-service-check-HiemSubscription">
+    <target name="wsimport-service-HiemSubscription" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/HiemSubscription/wsdl/NhinSubscription.wsdl" catalog="catalog.xml"/>
 -->
@@ -238,7 +163,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init,wsimport-service-check-HiemUnsubscribe">
+    <target name="wsimport-service-HiemUnsubscribe" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/HiemUnsubscribe/wsdl/NhinSubscription.wsdl" catalog="catalog.xml"/>
 -->
@@ -252,7 +177,7 @@
         </copy>
     </target>
   
-    <target name="wsimport-service-HiemNotify" depends="wsimport-init,wsimport-service-check-HiemNotify">
+    <target name="wsimport-service-HiemNotify" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/HiemNotify/wsdl/NhinSubscription.wsdl" catalog="catalog.xml"/>
 -->
