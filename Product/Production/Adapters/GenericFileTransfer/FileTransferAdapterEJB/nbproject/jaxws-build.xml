@@ -11,21 +11,24 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-AdapterSubscriptionService" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterSubscriptionService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagement/AdapterNotificationProducer.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AdapterSubscriptionService" depends="wsimport-init,wsimport-service-check-AdapterSubscriptionService" unless="wsimport-service-AdapterSubscriptionService.notRequired">
+    <target name="wsimport-service-AdapterSubscriptionService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService"/>
         <property name="service-wsdl-AdapterSubscriptionService" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionService/wsdl/AdapterSubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubscriptionService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService" wsdl="${service-wsdl-AdapterSubscriptionService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterSubscriptionService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterSubscriptionService" location="${meta.inf}/wsdl/AdapterSubscriptionService"/>
         <property name="sourceLocation-AdapterSubscriptionService" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionService/wsdl/"/>
         <copy todir="${targetLocation-AdapterSubscriptionService}">
@@ -33,10 +36,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AdapterSubscriptionService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterSubscriptionService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterSubscriptionService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

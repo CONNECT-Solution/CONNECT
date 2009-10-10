@@ -74,7 +74,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target name="wsimport-service-AdapterSubscriptionService" depends="wsimport-init,wsimport-service-check-AdapterSubscriptionService" unless="wsimport-service-AdapterSubscriptionService.notRequired">
+	<target name="wsimport-service-AdapterSubscriptionService" depends="wsimport-init">
         <property name="service-wsdl-AdapterSubscriptionService" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionService/wsdl/AdapterSubscriptionManagement.wsdl"/>
 <!--
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubscriptionService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

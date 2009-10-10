@@ -52,14 +52,14 @@
         <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
-    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumer" unless="wsimport-client-EntityNotificationConsumer.notRequired">
+    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init">
 <!--
         <property name="wsdl-EntityNotificationConsumer" location="${meta.inf}/xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true"/>
 -->
     </target>
 
-    <target name="wsimport-service-AdapterFTAService" depends="wsimport-init,wsimport-service-check-AdapterFTAService" unless="wsimport-service-AdapterFTAService.notRequired">
+    <target name="wsimport-service-AdapterFTAService" depends="wsimport-init">
         <property name="service-wsdl-AdapterFTAService" location="${meta.inf}/xml-resources/web-services/AdapterFTAService/wsdl/AdapterNotificationConsumer.wsdl"/>
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterFTAService}" catalog="catalog.xml" extension="true" verbose="true" />
@@ -74,7 +74,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-AdapterSubcriptionManagement" depends="wsimport-init,wsimport-service-check-AdapterSubcriptionManagement" unless="wsimport-service-AdapterSubcriptionManagement.notRequired">
+    <target name="wsimport-service-AdapterSubcriptionManagement" depends="wsimport-init">
         <property name="service-wsdl-AdapterSubcriptionManagement" location="${meta.inf}/xml-resources/web-services/AdapterSubcriptionManagement/wsdl/AdapterSubscriptionManagement.wsdl"/>
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubcriptionManagement}" catalog="catalog.xml" extension="true" verbose="true"/>
@@ -90,7 +90,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-AdapterFTAServiceSecured" depends="wsimport-init,wsimport-service-check-AdapterFTAServiceSecured" unless="wsimport-service-AdapterFTAServiceSecured.notRequired">
+    <target name="wsimport-service-AdapterFTAServiceSecured" depends="wsimport-init">
         <property name="service-wsdl-AdapterFTAServiceSecured" location="${meta.inf}/xml-resources/web-services/AdapterFTAServiceSecured/wsdl/AdapterNotificationConsumerSecured.wsdl"/>
  
         <property name="targetLocation-AdapterFTAServiceSecured" location="${meta.inf}/wsdl/AdapterFTAServiceSecured"/>
@@ -104,7 +104,7 @@
     </target>
     
     
-    <target name="wsimport-service-AdapterSubscriptionManagementSecured" depends="wsimport-init,wsimport-service-check-AdapterSubscriptionManagementSecured" unless="wsimport-service-AdapterSubscriptionManagementSecured.notRequired">
+    <target name="wsimport-service-AdapterSubscriptionManagementSecured" depends="wsimport-init">
         <property name="service-wsdl-AdapterSubscriptionManagementSecured" location="${meta.inf}/xml-resources/web-services/AdapterSubscriptionManagementSecured/wsdl/AdapterSubscriptionManagementSecured.wsdl"/>
 
         <property name="targetLocation-AdapterSubscriptionManagementSecured" location="${meta.inf}/wsdl/AdapterSubscriptionManagementSecured"/>
@@ -117,7 +117,7 @@
         </copy>
     </target>
             
-		<target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumerSecured" unless="wsimport-client-EntityNotificationConsumerSecured.notRequired"/>    
+		<target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init"/>    
 		
 		<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
 		        <nbundeploy failOnError="false" startServer="false"/>
