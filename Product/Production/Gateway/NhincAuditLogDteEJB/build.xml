@@ -73,7 +73,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-NhincAuditLogDTE" depends="wsimport-init,wsimport-service-check-NhincAuditLogDTE" unless="wsimport-service-NhincAuditLogDTE.notRequired">
+    <target name="wsimport-service-NhincAuditLogDTE" depends="wsimport-init">
         <echo message="copy wsdl's" />
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/NhincAuditLogDTE/wsdl/NhincComponentAuditLogDte.wsdl" catalog="catalog.xml"/>

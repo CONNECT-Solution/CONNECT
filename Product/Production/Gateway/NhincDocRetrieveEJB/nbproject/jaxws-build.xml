@@ -11,21 +11,21 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-DocRetrieve" depends="wsimport-init">
-        <condition property="wsimport-service-DocRetrieve.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007/RespondingGateway_Retrieve_Service.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-DocRetrieve" depends="wsimport-init,wsimport-service-check-DocRetrieve" unless="wsimport-service-DocRetrieve.notRequired">
+    <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
         <property name="service-wsdl-DocRetrieve" location="${meta.inf}/xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-DocRetrieve}" catalog="catalog.xml"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" wsdl="${service-wsdl-DocRetrieve}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-DocRetrieve" location="${meta.inf}/wsdl/DocRetrieve"/>
         <property name="sourceLocation-DocRetrieve" location="${meta.inf}/xml-resources/web-services/DocRetrieve/wsdl/"/>
         <copy todir="${targetLocation-DocRetrieve}">
@@ -33,10 +33,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-DocRetrieve" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-DocRetrieve"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

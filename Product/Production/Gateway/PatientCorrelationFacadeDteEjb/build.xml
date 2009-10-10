@@ -83,7 +83,7 @@
     </target>
     -->
 
-    <target name="wsimport-service-PatientCorrelationFacadeDteService" depends="wsimport-init,wsimport-service-check-PatientCorrelationFacadeDteService" unless="wsimport-service-PatientCorrelationFacadeDteService.notRequired">
+    <target name="wsimport-service-PatientCorrelationFacadeDteService" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationFacadeDteService/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl" catalog="catalog.xml"/>
 -->

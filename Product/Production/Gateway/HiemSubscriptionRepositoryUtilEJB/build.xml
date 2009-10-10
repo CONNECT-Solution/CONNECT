@@ -96,7 +96,7 @@
 
 
 
-    <target name="wsimport-service-HiemSubscriptionRepositoryUtilService" depends="wsimport-init,wsimport-service-check-HiemSubscriptionRepositoryUtilService" unless="wsimport-service-HiemSubscriptionRepositoryUtilService.notRequired">
+    <target name="wsimport-service-HiemSubscriptionRepositoryUtilService" depends="wsimport-init">
 <!--
         <property name="service-wsdl-HiemSubscriptionRepositoryUtilService" location="${meta.inf}/xml-resources/web-services/HiemSubscriptionRepositoryUtilService/wsdl/HiemSubscriptionRepositoryUtil.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-HiemSubscriptionRepositoryUtilService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

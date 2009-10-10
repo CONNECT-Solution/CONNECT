@@ -75,7 +75,7 @@
     -->
      <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
-    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init,wsimport-service-check-SubjectDiscovery" unless="wsimport-service-SubjectDiscovery.notRequired">
+    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml"/>
 -->

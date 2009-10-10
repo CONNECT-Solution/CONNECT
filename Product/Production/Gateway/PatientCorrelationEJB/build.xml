@@ -75,7 +75,7 @@
     -->
 
 
-    <target name="wsimport-service-PatientCorrelationServiceSecured" depends="wsimport-init,wsimport-service-check-PatientCorrelationServiceSecured" unless="wsimport-service-PatientCorrelationServiceSecured.notRequired">
+    <target name="wsimport-service-PatientCorrelationServiceSecured" depends="wsimport-init">
         <property name="service-wsdl-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
         <property name="targetLocation-PatientCorrelationServiceSecured" location="${meta.inf}/wsdl/PatientCorrelationServiceSecured"/>
         <property name="sourceLocation-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/"/>

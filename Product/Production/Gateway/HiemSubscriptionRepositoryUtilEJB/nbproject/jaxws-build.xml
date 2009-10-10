@@ -11,21 +11,24 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-HiemSubscriptionRepositoryUtilService" depends="wsimport-init">
-        <condition property="wsimport-service-HiemSubscriptionRepositoryUtilService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/hiemsubscriptionrepositoryutil/HiemSubscriptionRepositoryUtilService.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-HiemSubscriptionRepositoryUtilService" depends="wsimport-init,wsimport-service-check-HiemSubscriptionRepositoryUtilService" unless="wsimport-service-HiemSubscriptionRepositoryUtilService.notRequired">
+    <target name="wsimport-service-HiemSubscriptionRepositoryUtilService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService"/>
         <property name="service-wsdl-HiemSubscriptionRepositoryUtilService" location="${meta.inf}/xml-resources/web-services/HiemSubscriptionRepositoryUtilService/wsdl/HiemSubscriptionRepositoryUtil.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-HiemSubscriptionRepositoryUtilService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService" destdir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService" wsdl="${service-wsdl-HiemSubscriptionRepositoryUtilService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-HiemSubscriptionRepositoryUtilService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-HiemSubscriptionRepositoryUtilService" location="${meta.inf}/wsdl/HiemSubscriptionRepositoryUtilService"/>
         <property name="sourceLocation-HiemSubscriptionRepositoryUtilService" location="${meta.inf}/xml-resources/web-services/HiemSubscriptionRepositoryUtilService/wsdl/"/>
         <copy todir="${targetLocation-HiemSubscriptionRepositoryUtilService}">
@@ -33,10 +36,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-HiemSubscriptionRepositoryUtilService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/hiemsubscriptionrepositoryutil"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/HiemSubscriptionRepositoryUtilService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/hiemsubscriptionrepositoryutil"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-HiemSubscriptionRepositoryUtilService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>
