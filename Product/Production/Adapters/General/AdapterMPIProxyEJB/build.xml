@@ -82,16 +82,22 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-AdapterMpi" depends="wsimport-init,wsimport-service-check-AdapterMpi" unless="wsimport-service-AdapterMpi.notRequired">
+    <target name="wsimport-service-AdapterMpi" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
         <property name="service-wsdl-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
-        <!--<wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterMpi}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/> -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" wsdl="${service-wsdl-AdapterMpi}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterMpi}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterMpi" location="${meta.inf}/wsdl/AdapterMpi"/>
         <property name="sourceLocation-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/"/>
         <copy todir="${targetLocation-AdapterMpi}">
             <fileset dir="${sourceLocation-AdapterMpi}"/>
-        </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpi/schemas"/>
         </copy>
     </target>
  
@@ -120,6 +126,18 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
-    <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init,wsimport-client-check-AdapterMpiSecured" unless="wsimport-client-AdapterMpiSecured.notRequired"/>
+    <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured"/>
+        <property name="wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-service-references/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured" wsdl="${wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterMpiSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
 
 </project>

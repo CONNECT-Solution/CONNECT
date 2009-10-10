@@ -9,18 +9,18 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="EntityHiemSubscriptionProxyEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project EntityHiemSubscriptionProxyEJB.</description>
-	<import file="../../../../build.lib.xml"/>
+    <import file="../../../../build.lib.xml"/>
     <import file="nbproject/build-impl.xml"/>
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
 	
     <target name="build">
-      <property name="target-to-call" value="dist" />
-      <antcall target="call-target-in-isolation-if-out-of-date" />
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist" />	
+    <target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -77,116 +77,138 @@
 
     -->
     
-    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init,wsimport-service-check-EntityNotifyService" unless="wsimport-service-EntityNotifyService.notRequired">
-<!--
+    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
         <property name="service-wsdl-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
--->
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" destdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityNotifyService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
+        </wsimport>-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityNotifyService" location="${meta.inf}/wsdl/EntityNotifyService"/>
         <property name="sourceLocation-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/"/>
         <copy todir="${targetLocation-EntityNotifyService}">
             <fileset dir="${sourceLocation-EntityNotifyService}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/EntityNotifyService/schemas/"/>
-        </copy>
-
     </target>
-    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init,wsimport-service-check-EntitySubscribeService" unless="wsimport-service-EntitySubscribeService.notRequired">
-        <!--
+    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
         <property name="service-wsdl-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntitySubscribeService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
+        </wsimport> -->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntitySubscribeService" location="${meta.inf}/wsdl/EntitySubscribeService"/>
         <property name="sourceLocation-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/"/>
         <copy todir="${targetLocation-EntitySubscribeService}">
             <fileset dir="${sourceLocation-EntitySubscribeService}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/EntitySubscribeService/schemas/"/>
-        </copy>
-    </target>    
+    </target>
     
-    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeService" unless="wsimport-service-EntityUnsubscribeService.notRequired">
-        <!--
+    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
         <property name="service-wsdl-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityUnsubscribeService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
+        </wsimport> -->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityUnsubscribeService" location="${meta.inf}/wsdl/EntityUnsubscribeService"/>
         <property name="sourceLocation-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
-        
         <copy todir="${targetLocation-EntityUnsubscribeService}">
             <fileset dir="${sourceLocation-EntityUnsubscribeService}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/schemas/"/>
-        </copy>
-    </target>    
-    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init,wsimport-service-check-ProxyHiemNotify" unless="wsimport-service-ProxyHiemNotify.notRequired">
-        <!--
+    </target>
+    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
         <property name="service-wsdl-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemNotify}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
+        </wsimport>-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemNotify" location="${meta.inf}/wsdl/ProxyHiemNotify"/>
         <property name="sourceLocation-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemNotify}">
             <fileset dir="${sourceLocation-ProxyHiemNotify}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/schemas/"/>
-        </copy>
     </target>
-    <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribe" unless="wsimport-service-ProxyHiemUnsubscribe.notRequired">
-        <!--
+    <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
         <property name="service-wsdl-ProxyHiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" wsdl="${service-wsdl-ProxyHiemUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemUnsubscribe}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
+        </wsimport>-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemUnsubscribe" location="${meta.inf}/wsdl/ProxyHiemUnsubscribe"/>
         <property name="sourceLocation-ProxyHiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemUnsubscribe}">
             <fileset dir="${sourceLocation-ProxyHiemUnsubscribe}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/schemas/"/>
-        </copy>
-    </target>   
+    </target>
     
     
-    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribe" unless="wsimport-service-ProxyHiemSubscribe.notRequired">
-        <!--
+    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
         <property name="service-wsdl-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+       <!-- <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemSubscribe}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
+        </wsimport>-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemSubscribe" location="${meta.inf}/wsdl/ProxyHiemSubscribe"/>
         <property name="sourceLocation-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemSubscribe}">
             <fileset dir="${sourceLocation-ProxyHiemSubscribe}"/>
         </copy>
-        <copy todir="${meta.inf}/wsdl/schemas">
-            <fileset dir="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/schemas/"/>
-        </copy>
-    </target>     
+    </target>
     
     
-    <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init,wsimport-client-check-EntityNotificationConsumerSecured" unless="wsimport-client-EntityNotificationConsumerSecured.notRequired"/>
-    <target name="wsimport-client-EntitySubscriptionManagementSecured" depends="wsimport-init,wsimport-client-check-EntitySubscriptionManagementSecured" unless="wsimport-client-EntitySubscriptionManagementSecured.notRequired"/>       
-    <target name="wsimport-client-NhincProxyNotificationConsumerSecured" depends="wsimport-init,wsimport-client-check-NhincProxyNotificationConsumerSecured" unless="wsimport-client-NhincProxyNotificationConsumerSecured.notRequired"/>
-    <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init,wsimport-client-check-NhincProxySubscriptionManagementSecured" unless="wsimport-client-NhincProxySubscriptionManagementSecured.notRequired"/>
+    <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntitySubscriptionManagementSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init"/>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
-		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
 
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -195,19 +217,19 @@
         <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
-		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
 
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -218,29 +240,29 @@
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
-		<property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-		<property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
 
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-		<ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>          
+    </target>
         
         
-   <target depends="compile" name="library-inclusion-in-archive">
+    <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
@@ -261,7 +283,7 @@
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>      
+        <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
@@ -274,10 +296,7 @@
             <attribute name="Class-Path" value="${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar ${manifest.reference.NhinHiemProxy.jar ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} "/>
         </manifest>
     </target>
-         
-        
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
-    
 </project>

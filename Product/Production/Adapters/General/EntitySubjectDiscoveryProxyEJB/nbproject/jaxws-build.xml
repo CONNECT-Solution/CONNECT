@@ -11,46 +11,59 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-EntitySubjectDiscoverySecured" depends="wsimport-init">
-        <condition property="wsimport-client-EntitySubjectDiscoverySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/entitysubjectdiscoverysecured/EntitySubjectDiscoverySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init,wsimport-client-check-EntitySubjectDiscoverySecured" unless="wsimport-client-EntitySubjectDiscoverySecured.notRequired">
+    <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
         <property name="wsdl-EntitySubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-service-references/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntitySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" wsdl="${wsdl-EntitySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntitySubjectDiscoverySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-EntitySubjectDiscoverySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov/hhs/fha/nhinc/entitysubjectdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubjectdiscoverysecured"/>
     </target>
-    <target name="wsimport-client-check-NhincProxySubjectDiscoverySecured" depends="wsimport-init">
-        <condition property="wsimport-client-NhincProxySubjectDiscoverySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured/NhincProxySubjectDiscoverySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init,wsimport-client-check-NhincProxySubjectDiscoverySecured" unless="wsimport-client-NhincProxySubjectDiscoverySecured.notRequired">
+    <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
         <property name="wsdl-NhincProxySubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxySubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured" wsdl="${wsdl-NhincProxySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincProxySubjectDiscoverySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincProxySubjectDiscoverySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
     </target>
-    <target name="wsimport-service-check-EntitySubjectDiscovery" depends="wsimport-init">
-        <condition property="wsimport-service-EntitySubjectDiscovery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubjectdiscovery/EntitySubjectDiscovery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init,wsimport-service-check-EntitySubjectDiscovery" unless="wsimport-service-EntitySubjectDiscovery.notRequired">
+    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
         <property name="service-wsdl-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/EntitySubjectDiscovery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" wsdl="${service-wsdl-EntitySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntitySubjectDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntitySubjectDiscovery" location="${meta.inf}/wsdl/EntitySubjectDiscovery"/>
         <property name="sourceLocation-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
         <copy todir="${targetLocation-EntitySubjectDiscovery}">
@@ -58,16 +71,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntitySubjectDiscovery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubjectdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubjectdiscovery"/>
     </target>
-    <target name="wsimport-service-check-NhincProxySubjectDiscovery" depends="wsimport-init">
-        <condition property="wsimport-service-NhincProxySubjectDiscovery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery/NhincProxySubjectDiscovery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init,wsimport-service-check-NhincProxySubjectDiscovery" unless="wsimport-service-NhincProxySubjectDiscovery.notRequired">
+    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
         <property name="service-wsdl-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/NhincProxySubjectDiscovery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" wsdl="${service-wsdl-NhincProxySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-NhincProxySubjectDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/NhincProxySubjectDiscovery"/>
         <property name="sourceLocation-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
         <copy todir="${targetLocation-NhincProxySubjectDiscovery}">
@@ -75,17 +93,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-NhincProxySubjectDiscovery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-NhincProxySubjectDiscoverySecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

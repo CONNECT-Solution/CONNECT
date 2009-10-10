@@ -9,7 +9,7 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
 
- 		<import file="../../../../build.lib.xml" />
+		<import file="../../../../build.lib.xml" /> 
 		
 		<target name="build">
 			<property name="target-to-call" value="dist" />
@@ -75,43 +75,47 @@
     -->
     <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
-
- 
-     <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init,wsimport-service-check-AdapterMpiSecured" unless="wsimport-service-AdapterMpiSecured.notRequired">
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
         <property name="service-wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" wsdl="${service-wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterMpiSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterMpiSecured" location="${meta.inf}/wsdl/AdapterMpiSecured"/>
         <property name="sourceLocation-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterMpiSecured}">
             <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
         </copy>
-        
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpiSecured/schemas/" />
-        </copy>
-        
     </target>
-   
-    <target name="wsimport-client-AdapterComponentMpi" depends="wsimport-init,wsimport-client-check-AdapterComponentMpi" unless="wsimport-client-AdapterComponentMpi.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl" catalog="catalog.xml"/>
--->
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+    <target name="wsimport-client-AdapterComponentMpi" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi"/>
+        <property name="wsdl-AdapterComponentMpi" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi" wsdl="${wsdl-AdapterComponentMpi}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/AdapterComponentMpi">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/schemas/" />
+    </target>	
+    <target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi"/>
+        <property name="wsdl-AdapterComponentSecuredMpi" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentSecuredMpi/wsdl/AdapterComponentSecuredMpi.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi" wsdl="${wsdl-AdapterComponentSecuredMpi}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterComponentSecuredMpi}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
-		<target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init,wsimport-client-check-AdapterComponentSecuredMpi" unless="wsimport-client-AdapterComponentSecuredMpi.notRequired"/>
-
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>

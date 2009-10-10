@@ -78,25 +78,22 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-AdapterPEPService" depends="wsimport-init,wsimport-service-check-AdapterPEPService" unless="wsimport-service-AdapterPEPService.notRequired">
+    <target name="wsimport-service-AdapterPEPService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
         <property name="service-wsdl-AdapterPEPService" location="${meta.inf}/xml-resources/web-services/AdapterPEPService/wsdl/AdapterPEP.wsdl"/>
-<!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPEPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
--->
-        <!-- Delete the artifacts that we do not want -->
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
-        <!-- end of deleting artifacts -->
-
-        <!-- copy wsdls and schemas so that it will deploy -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" wsdl="${service-wsdl-AdapterPEPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterPEPService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterPEPService" location="${meta.inf}/wsdl/AdapterPEPService"/>
         <property name="sourceLocation-AdapterPEPService" location="${meta.inf}/xml-resources/web-services/AdapterPEPService/wsdl/"/>
         <copy todir="${targetLocation-AdapterPEPService}">
             <fileset dir="${sourceLocation-AdapterPEPService}"/>
-        </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterPEPService/schemas"/>
         </copy>
     </target>
 

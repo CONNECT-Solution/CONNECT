@@ -11,21 +11,21 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-DocumentRegistryService" depends="wsimport-init">
-        <condition property="wsimport-service-DocumentRegistryService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007/DocumentRegistry_Service.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init,wsimport-service-check-DocumentRegistryService" unless="wsimport-service-DocumentRegistryService.notRequired">
+    <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
         <property name="service-wsdl-DocumentRegistryService" location="${meta.inf}/xml-resources/web-services/DocumentRegistryService/wsdl/AdapterComponentDocRegistry.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-DocumentRegistryService}" catalog="catalog.xml"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" wsdl="${service-wsdl-DocumentRegistryService}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-DocumentRegistryService" location="${meta.inf}/wsdl/DocumentRegistryService"/>
         <property name="sourceLocation-DocumentRegistryService" location="${meta.inf}/xml-resources/web-services/DocumentRegistryService/wsdl/"/>
         <copy todir="${targetLocation-DocumentRegistryService}">
@@ -33,16 +33,18 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-DocumentRegistryService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
-    <target name="wsimport-service-check-DocumentRepositoryService" depends="wsimport-init">
-        <condition property="wsimport-service-DocumentRepositoryService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007/DocumentRepository_Service.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init,wsimport-service-check-DocumentRepositoryService" unless="wsimport-service-DocumentRepositoryService.notRequired">
+    <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
         <property name="service-wsdl-DocumentRepositoryService" location="${meta.inf}/xml-resources/web-services/DocumentRepositoryService/wsdl/AdapterComponentDocRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-DocumentRepositoryService}" catalog="catalog.xml"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" wsdl="${service-wsdl-DocumentRepositoryService}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-DocumentRepositoryService" location="${meta.inf}/wsdl/DocumentRepositoryService"/>
         <property name="sourceLocation-DocumentRepositoryService" location="${meta.inf}/xml-resources/web-services/DocumentRepositoryService/wsdl/"/>
         <copy todir="${targetLocation-DocumentRepositoryService}">
@@ -50,10 +52,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-DocumentRepositoryService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

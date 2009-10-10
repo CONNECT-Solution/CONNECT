@@ -73,18 +73,19 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-AdapterReidentification" depends="wsimport-init,wsimport-service-check-AdapterReidentification" unless="wsimport-service-AdapterReidentification.notRequired">
-        <echo message="copy wsdl's" />
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${basedir}/${meta.inf}/wsdl/AdapterReidentification">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/"/>
+    <target name="wsimport-service-AdapterReidentification" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
+        <property name="service-wsdl-AdapterReidentification" location="${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" destdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" wsdl="${service-wsdl-AdapterReidentification}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterReidentification/schemas/" />
+        <property name="targetLocation-AdapterReidentification" location="${meta.inf}/wsdl/AdapterReidentification"/>
+        <property name="sourceLocation-AdapterReidentification" location="${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/"/>
+        <copy todir="${targetLocation-AdapterReidentification}">
+            <fileset dir="${sourceLocation-AdapterReidentification}"/>
         </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">

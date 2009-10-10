@@ -9,7 +9,7 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
     
-    <import file="../../../../build.lib.xml" />
+    <import file="../../../../build.lib.xml" /> 
 		
 		<target name="build">
         <property name="target-to-call" value="dist" />

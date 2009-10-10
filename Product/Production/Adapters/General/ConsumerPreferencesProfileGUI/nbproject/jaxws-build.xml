@@ -6,8 +6,7 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
         </taskdef>
@@ -15,22 +14,21 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-client-check-identityservices" depends="wsimport-init">
-        <condition property="wsimport-client-identityservices.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/com/sun/identity/idsvcs/opensso/identityservices.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-identityservices" depends="wsimport-init,wsimport-client-check-identityservices" unless="wsimport-client-identityservices.notRequired">
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true"/>
-    </target>
-    <target name="wsimport-client-clean-identityservices" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/com/sun/identity/idsvcs/opensso"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-identityservices"/>
-    <target name="wsimport-client-compile" depends="-pre-pre-compile">
-        <webproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-        <copy todir="${build.classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
+    <target name="wsimport-client-identityservices" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/identityservices"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/identityservices" destdir="${build.generated.dir}/jax-wsCache/identityservices" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/identityservices"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/identityservices">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
+    <target name="wsimport-client-clean-identityservices" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/sun/identity/idsvcs/opensso"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/identityservices"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-identityservices"/>
 </project>

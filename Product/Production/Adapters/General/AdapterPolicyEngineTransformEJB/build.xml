@@ -74,19 +74,20 @@
 
     -->
     
-    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init,wsimport-service-check-AdapterPolicyEngineTransform" unless="wsimport-service-AdapterPolicyEngineTransform.notRequired">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl" catalog="catalog.xml"/>
--->
-        <copy todir="${basedir}/${meta.inf}/wsdl/AdapterPolicyEngineTransform">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
+    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
+        <property name="service-wsdl-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" wsdl="${service-wsdl-AdapterPolicyEngineTransform}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/schemas/" />
+        <property name="targetLocation-AdapterPolicyEngineTransform" location="${meta.inf}/wsdl/AdapterPolicyEngineTransform"/>
+        <property name="sourceLocation-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
+        <copy todir="${targetLocation-AdapterPolicyEngineTransform}">
+            <fileset dir="${sourceLocation-AdapterPolicyEngineTransform}"/>
         </copy>
-        
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive"/>

@@ -78,25 +78,22 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init,wsimport-service-check-AdapterAuthenticationService" unless="wsimport-service-AdapterAuthenticationService.notRequired">
+    <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
         <property name="service-wsdl-AdapterAuthenticationService" location="${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/wsdl/AdapterAuthentication.wsdl"/>
-<!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterAuthenticationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
--->
-        <!-- Delete the artifacts that we do not want -->
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
-        <!-- end of deleting artifacts -->
-
-        <!-- copy wsdls and schemas so that it will deploy -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" wsdl="${service-wsdl-AdapterAuthenticationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterAuthenticationService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterAuthenticationService" location="${meta.inf}/wsdl/AdapterAuthenticationService"/>
         <property name="sourceLocation-AdapterAuthenticationService" location="${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/wsdl/"/>
         <copy todir="${targetLocation-AdapterAuthenticationService}">
             <fileset dir="${sourceLocation-AdapterAuthenticationService}"/>
-        </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/schemas"/>
         </copy>
     </target>
 

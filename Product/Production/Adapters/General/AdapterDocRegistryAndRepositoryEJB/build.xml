@@ -10,7 +10,7 @@
 <project name="AdapterDocRegistryAndRepositoryEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project AdapterDocRegistryAndRepositoryEJB.</description>
     <import file="nbproject/build-impl.xml"/>
-	<property name="deploy.type" value="ejb" />
+    <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
 
     <import file="../../../../build.lib.xml" />
@@ -77,11 +77,11 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
-		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
-		<property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
         <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -92,81 +92,105 @@
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
-		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
-		<property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
         <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-		<ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterDocumentRepositoryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
-		<property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
-		<property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
         <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
         <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-		<ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterDocumentRepositoryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.classes.dir}"/>
-		<copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRegistryProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocumentRegistryProxyImpl.jar" todir="${dist.ear.dir}"/>
-		<copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${manifest.reference.AdapterDocumentRegistryProxy.jar} ${manifest.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.reference.AdapterDocumentRepositoryProxyImpl.jar} ${manifest.reference.NhincLib.jar} "/>
         </manifest>
     </target>
-    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init,wsimport-service-check-AdapterDocQuerySecured" unless="wsimport-service-AdapterDocQuerySecured.notRequired">
+    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
+        <property name="service-wsdl-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
+<!--
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" wsdl="${service-wsdl-AdapterDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocQuerySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
+        </wsimport> -->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterDocQuerySecured" location="${meta.inf}/wsdl/AdapterDocQuerySecured"/>
         <property name="sourceLocation-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocQuerySecured}">
             <fileset dir="${sourceLocation-AdapterDocQuerySecured}"/>
         </copy>
-        <property name="targetLocationSchema-AdapterDocQuerySecured" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchema-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/schemas/"/>
-        <copy todir="${targetLocationSchema-AdapterDocQuerySecured}">
-            <fileset dir="${sourceLocationSchema-AdapterDocQuerySecured}"/>
-        </copy>
     </target>
-	<target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init,wsimport-service-check-AdapterDocRetrieveSecured" unless="wsimport-service-AdapterDocRetrieveSecured.notRequired">
+    <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        <property name="service-wsdl-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
+<!--
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" wsdl="${service-wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocRetrieveSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        </wsimport>
+-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterDocRetrieveSecured" location="${meta.inf}/wsdl/AdapterDocRetrieveSecured"/>
         <property name="sourceLocation-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocRetrieveSecured}">
             <fileset dir="${sourceLocation-AdapterDocRetrieveSecured}"/>
         </copy>
-        <property name="targetLocationSchema-AdapterDocRetrieveSecured" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchema-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/"/>
-        <copy todir="${targetLocationSchema-AdapterDocRetrieveSecured}">
-            <fileset dir="${sourceLocationSchema-AdapterDocRetrieveSecured}"/>
-        </copy>
     </target>
-	<target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init,wsimport-service-check-AdapterDocProvideAndRegisterservice" unless="wsimport-service-AdapterDocProvideAndRegisterservice.notRequired">
-	<property name="targetLocation-AdapterDocProvideAndRegisterservice" location="${meta.inf}/wsdl/AdapterDocProvideAndRegisterservice"/>
+    <target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
+        <property name="service-wsdl-AdapterDocProvideAndRegisterservice" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/AdapterDocProvideAndRegister.wsdl"/>
+<!--
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" wsdl="${service-wsdl-AdapterDocProvideAndRegisterservice}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocProvideAndRegisterservice}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
+        </wsimport>
+        -->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdapterDocProvideAndRegisterservice" location="${meta.inf}/wsdl/AdapterDocProvideAndRegisterservice"/>
         <property name="sourceLocation-AdapterDocProvideAndRegisterservice" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocProvideAndRegisterservice}">
             <fileset dir="${sourceLocation-AdapterDocProvideAndRegisterservice}"/>
         </copy>
-        <property name="targetLocationSchema-AdapterDocProvideAndRegisterservice" location="${meta.inf}/wsdl/schemas"/>
-        <property name="sourceLocationSchema-AdapterDocProvideAndRegisterservice" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/schemas/"/>
-        <copy todir="${targetLocationSchema-AdapterDocProvideAndRegisterservice}">
-            <fileset dir="${sourceLocationSchema-AdapterDocProvideAndRegisterservice}"/>
-        </copy>
     </target>
-	<target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
-		<nbundeploy failOnError="false" startServer="false"/>
-	</target>
+
+    <target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>

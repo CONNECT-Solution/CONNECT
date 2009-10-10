@@ -79,28 +79,23 @@
 
     -->
 
-    <target name="wsimport-service-AdapterPIPService" depends="wsimport-init,wsimport-service-check-AdapterPIPService" unless="wsimport-service-AdapterPIPService.notRequired">
+    <target name="wsimport-service-AdapterPIPService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
         <property name="service-wsdl-AdapterPIPService" location="${meta.inf}/xml-resources/web-services/AdapterPIPService/wsdl/AdapterPIP.wsdl"/>
-<!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPIPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
--->
-        <!-- Delete the artifacts that we do not want -->
-<!--
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/service/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/service/org/hl7" />
--->
-        <!-- end of deleting artifacts -->
-
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" wsdl="${service-wsdl-AdapterPIPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterPIPService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterPIPService" location="${meta.inf}/wsdl/AdapterPIPService"/>
         <property name="sourceLocation-AdapterPIPService" location="${meta.inf}/xml-resources/web-services/AdapterPIPService/wsdl/"/>
         <copy todir="${targetLocation-AdapterPIPService}">
             <fileset dir="${sourceLocation-AdapterPIPService}"/>
         </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterPIPService/schemas"/>
-        </copy>
-
     </target>
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">

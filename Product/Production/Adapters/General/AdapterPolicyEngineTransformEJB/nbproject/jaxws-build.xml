@@ -11,21 +11,21 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-AdapterPolicyEngineTransform" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterPolicyEngineTransform.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyenginetransform/AdapterPolicyEngineTransform.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init,wsimport-service-check-AdapterPolicyEngineTransform" unless="wsimport-service-AdapterPolicyEngineTransform.notRequired">
+    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
         <property name="service-wsdl-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPolicyEngineTransform}" catalog="catalog.xml"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" wsdl="${service-wsdl-AdapterPolicyEngineTransform}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterPolicyEngineTransform" location="${meta.inf}/wsdl/AdapterPolicyEngineTransform"/>
         <property name="sourceLocation-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
         <copy todir="${targetLocation-AdapterPolicyEngineTransform}">
@@ -33,10 +33,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AdapterPolicyEngineTransform" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterpolicyenginetransform"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyenginetransform"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterPolicyEngineTransform"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

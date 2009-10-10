@@ -11,46 +11,59 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-EntityAuditLogQuerySecured" depends="wsimport-init">
-        <condition property="wsimport-client-EntityAuditLogQuerySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entityauditlogquerysaml/EntityAuditLogQuerySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-EntityAuditLogQuerySecured" unless="wsimport-client-EntityAuditLogQuerySecured.notRequired">
+    <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
         <property name="wsdl-EntityAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" wsdl="${wsdl-EntityAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntityAuditLogQuerySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-EntityAuditLogQuerySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
     </target>
-    <target name="wsimport-client-check-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
-        <condition property="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured/NhincProxyAuditLogQuerySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init,wsimport-client-check-NhincProxyAuditLogQuerySecured" unless="wsimport-client-NhincProxyAuditLogQuerySecured.notRequired">
+    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
         <property name="wsdl-NhincProxyAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxyAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" wsdl="${wsdl-NhincProxyAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincProxyAuditLogQuerySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincProxyAuditLogQuerySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
     </target>
-    <target name="wsimport-service-check-EntityAuditQuery" depends="wsimport-init">
-        <condition property="wsimport-service-EntityAuditQuery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entityauditlogquery/EntityAuditLogQuery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init,wsimport-service-check-EntityAuditQuery" unless="wsimport-service-EntityAuditQuery.notRequired">
+    <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
         <property name="service-wsdl-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/EntityAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" wsdl="${service-wsdl-EntityAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityAuditQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityAuditQuery" location="${meta.inf}/wsdl/EntityAuditQuery"/>
         <property name="sourceLocation-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/"/>
         <copy todir="${targetLocation-EntityAuditQuery}">
@@ -58,16 +71,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntityAuditQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entityauditlogquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entityauditlogquery"/>
     </target>
-    <target name="wsimport-service-check-ProxyAuditQuery" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyAuditQuery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquery/NhincProxyAuditLogQuery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init,wsimport-service-check-ProxyAuditQuery" unless="wsimport-service-ProxyAuditQuery.notRequired">
+    <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
         <property name="service-wsdl-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/NhincProxyAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" wsdl="${service-wsdl-ProxyAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyAuditQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyAuditQuery" location="${meta.inf}/wsdl/ProxyAuditQuery"/>
         <property name="sourceLocation-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
         <copy todir="${targetLocation-ProxyAuditQuery}">
@@ -75,17 +93,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-ProxyAuditQuery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxyauditlogquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxyauditlogquery"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

@@ -11,46 +11,59 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-NhincProxyDocRetrieveSecured" depends="wsimport-init">
-        <condition property="wsimport-client-NhincProxyDocRetrieveSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxydocretrievesecured/NhincProxyDocRetrieveSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincProxyDocRetrieveSecured" depends="wsimport-init,wsimport-client-check-NhincProxyDocRetrieveSecured" unless="wsimport-client-NhincProxyDocRetrieveSecured.notRequired">
+    <target name="wsimport-client-NhincProxyDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured"/>
         <property name="wsdl-NhincProxyDocRetrieveSecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincProxyDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured" wsdl="${wsdl-NhincProxyDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincProxyDocRetrieveSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincProxyDocRetrieveSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyDocRetrieveSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
     </target>
-    <target name="wsimport-client-check-EntityDocRetrieveSecured" depends="wsimport-init">
-        <condition property="wsimport-client-EntityDocRetrieveSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitydocretrievesecured/EntityDocRetrieveSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-EntityDocRetrieveSecured" depends="wsimport-init,wsimport-client-check-EntityDocRetrieveSecured" unless="wsimport-client-EntityDocRetrieveSecured.notRequired">
+    <target name="wsimport-client-EntityDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured"/>
         <property name="wsdl-EntityDocRetrieveSecured" location="${meta.inf}/xml-resources/web-service-references/EntityDocRetrieveSecured/wsdl/EntityDocRetrieveSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured" wsdl="${wsdl-EntityDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntityDocRetrieveSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-EntityDocRetrieveSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitydocretrievesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityDocRetrieveSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitydocretrievesecured"/>
     </target>
-    <target name="wsimport-service-check-NhincProxyDocRetrieve" depends="wsimport-init">
-        <condition property="wsimport-service-NhincProxyDocRetrieve.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocretrieve/NhincProxyDocRetrieve.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-NhincProxyDocRetrieve" depends="wsimport-init,wsimport-service-check-NhincProxyDocRetrieve" unless="wsimport-service-NhincProxyDocRetrieve.notRequired">
+    <target name="wsimport-service-NhincProxyDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
         <property name="service-wsdl-NhincProxyDocRetrieve" location="${meta.inf}/xml-resources/web-services/NhincProxyDocRetrieve/wsdl/NhincProxyDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve" wsdl="${service-wsdl-NhincProxyDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-NhincProxyDocRetrieve}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-NhincProxyDocRetrieve" location="${meta.inf}/wsdl/NhincProxyDocRetrieve"/>
         <property name="sourceLocation-NhincProxyDocRetrieve" location="${meta.inf}/xml-resources/web-services/NhincProxyDocRetrieve/wsdl/"/>
         <copy todir="${targetLocation-NhincProxyDocRetrieve}">
@@ -58,16 +71,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-NhincProxyDocRetrieve" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxydocretrieve"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrieve"/>
     </target>
-    <target name="wsimport-service-check-EntityDocRetrieve" depends="wsimport-init">
-        <condition property="wsimport-service-EntityDocRetrieve.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocretrieve/EntityDocRetrieve.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntityDocRetrieve" depends="wsimport-init,wsimport-service-check-EntityDocRetrieve" unless="wsimport-service-EntityDocRetrieve.notRequired">
+    <target name="wsimport-service-EntityDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
         <property name="service-wsdl-EntityDocRetrieve" location="${meta.inf}/xml-resources/web-services/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve" wsdl="${service-wsdl-EntityDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityDocRetrieve}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityDocRetrieve" location="${meta.inf}/wsdl/EntityDocRetrieve"/>
         <property name="sourceLocation-EntityDocRetrieve" location="${meta.inf}/xml-resources/web-services/EntityDocRetrieve/wsdl/"/>
         <copy todir="${targetLocation-EntityDocRetrieve}">
@@ -75,17 +93,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntityDocRetrieve" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitydocretrieve"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitydocretrieve"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincProxyDocRetrieveSecured, wsimport-client-EntityDocRetrieveSecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyDocRetrieve, wsimport-service-EntityDocRetrieve"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

@@ -8,20 +8,20 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="AdapterAuditQueryEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-  <description>Builds, tests, and runs the project AdapterAuditQueryEJB.</description>
-  <import file="nbproject/build-impl.xml"/>
+    <description>Builds, tests, and runs the project AdapterAuditQueryEJB.</description>
+    <import file="nbproject/build-impl.xml"/>
 	
-  <property name="deploy.type" value="ejb" />
-	<property name="deploy.isDeployable" value="true"/>
+    <property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
   
-	<import file="../../../../build.lib.xml" />
-	<target name="build">
-	  <property name="target-to-call" value="dist" />
-	  <antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,build" />
-	<target name="clean-test" depends="clean-build,test" />
-	<target name="build-test" depends="build,test" />
+    <import file="../../../../build.lib.xml" />
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
 
     <!--
 
@@ -87,7 +87,7 @@
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
-		<ant dir="${project.AdapterAuditQueryProxy.Absolute}" antfile="${project.AdapterAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterAuditQueryProxy.Absolute}" antfile="${project.AdapterAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuditQueryProxyImpl.Absolute}" antfile="${project.AdapterAuditQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -95,12 +95,12 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-		<property name="project.AdapterAuditQueryProxy.Absolute" location="${project.AdapterAuditQueryProxy}"/>
-		<property name="project.AdapterAuditQueryProxyImpl.Absolute" location="${project.AdapterAuditQueryProxyImpl}"/>
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.AdapterAuditQueryProxy.Absolute" location="${project.AdapterAuditQueryProxy}"/>
+        <property name="project.AdapterAuditQueryProxyImpl.Absolute" location="${project.AdapterAuditQueryProxyImpl}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		
         <ant dir="${project.AdapterAuditQueryProxy.Absolute}" antfile="${project.AdapterAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterAuditQueryProxyImpl.Absolute}" antfile="${project.AdapterAuditQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -117,7 +117,7 @@
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 		
-		<ant dir="${project.AdapterAuditQueryProxy.Absolute}" antfile="${project.AdapterAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterAuditQueryProxy.Absolute}" antfile="${project.AdapterAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterAuditQueryProxyImpl.Absolute}" antfile="${project.AdapterAuditQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -125,48 +125,52 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
-    <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init,wsimport-service-check-AdapterSecuredAuditLogQuery" unless="wsimport-service-AdapterSecuredAuditLogQuery.notRequired">
-
+    <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
+        <property name="service-wsdl-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" wsdl="${service-wsdl-AdapterSecuredAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterSecuredAuditLogQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/wsdl/AdapterSecuredAuditLogQuery"/>
         <property name="sourceLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
         <copy todir="${targetLocation-AdapterSecuredAuditLogQuery}">
             <fileset dir="${sourceLocation-AdapterSecuredAuditLogQuery}"/>
         </copy>
-		
-		<echo message="copy schemas" />
-		<copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-			<fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/" />
-		</copy>
-
     </target>
 
-	<target depends="compile" name="library-inclusion-in-archive">
-		<copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.AdapterAuditQueryProxyImpl.jar}" todir="${build.classes.dir}"/>
-		<copy file="${reference.AdapterAuditQueryProxy.jar}" todir="${build.classes.dir}"/>
-	</target>
+    <target depends="compile" name="library-inclusion-in-archive">
+        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterAuditQueryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.AdapterAuditQueryProxy.jar}" todir="${build.classes.dir}"/>
+    </target>
 	
-	<target depends="compile" name="library-inclusion-in-manifest">
-		<basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-		<copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
-		<copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${reference.AuditRepositoryProxyImpl.jar}" property="included.lib.reference.AuditRepositoryProxyImpl.jar"/>
-		<copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${reference.AuditRepositoryProxy.jar}" property="included.lib.reference.AuditRepositoryProxy.jar"/>
-		<copy file="${reference.AuditRepositoryProxy.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${reference.AdapterAuditQueryProxyImpl.jar}" property="included.lib.reference.AdapterAuditQueryProxyImpl.jar"/>
-		<copy file="${reference.AdapterAuditQueryProxyImpl.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${reference.AdapterAuditQueryProxy.jar}" property="included.lib.reference.AdapterAuditQueryProxy.jar"/>
-		<copy file="${reference.AdapterAuditQueryProxy.jar}" todir="${dist.ear.dir}"/>
-		<manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.AdapterAuditQueryProxyImpl.jar} ${included.lib.reference.AdapterAuditQueryProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}"/>
-		</manifest>
-	</target>
-	<target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
-		<nbundeploy failOnError="false" startServer="false"/>
-	</target>
+    <target depends="compile" name="library-inclusion-in-manifest">
+        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
+        <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AuditRepositoryProxyImpl.jar}" property="included.lib.reference.AuditRepositoryProxyImpl.jar"/>
+        <copy file="${reference.AuditRepositoryProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AuditRepositoryProxy.jar}" property="included.lib.reference.AuditRepositoryProxy.jar"/>
+        <copy file="${reference.AuditRepositoryProxy.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterAuditQueryProxyImpl.jar}" property="included.lib.reference.AdapterAuditQueryProxyImpl.jar"/>
+        <copy file="${reference.AdapterAuditQueryProxyImpl.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.AdapterAuditQueryProxy.jar}" property="included.lib.reference.AdapterAuditQueryProxy.jar"/>
+        <copy file="${reference.AdapterAuditQueryProxy.jar}" todir="${dist.ear.dir}"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.AdapterAuditQueryProxyImpl.jar} ${included.lib.reference.AdapterAuditQueryProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}"/>
+        </manifest>
+    </target>
+    <target name="undeploy-clean" depends="init" if="netbeans.home" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
