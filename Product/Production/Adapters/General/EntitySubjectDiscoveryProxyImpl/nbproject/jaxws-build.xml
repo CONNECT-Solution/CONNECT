@@ -6,28 +6,27 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
     </target>
     <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
         <property name="wsdl-EntitySubjectDiscoverySecured" location="xml-resources/web-service-references/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-EntitySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitysubjectdiscoverysecured" includes="EntitySubjectDiscoverySecured.java" casesensitive="no"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured" wsdl="${wsdl-EntitySubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntitySubjectDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-EntitySubjectDiscoverySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
         </wsimport>
-    </target>
-    <target name="wsimport-client-clean-EntitySubjectDiscoverySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured"/>
-    <target name="wsimport-client-compile-depend" if="do.depend.true">
-        <j2seproject3:depend srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-    </target>
-    <target name="wsimport-client-compile" depends="-pre-pre-compile, wsimport-client-compile-depend">
-        <j2seproject3:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${libs.jaxws21.classpath}:${javac.classpath}" destdir="${build.classes.dir}"/>
-        <copy todir="${build.classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/client" includes="**/*.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
         </copy>
     </target>
+    <target name="wsimport-client-clean-EntitySubjectDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured"/>
 </project>
