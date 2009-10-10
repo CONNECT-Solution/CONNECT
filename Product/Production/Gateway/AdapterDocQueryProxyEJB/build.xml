@@ -102,13 +102,13 @@
         <ant dir="${project.NhincSAMLCallbackLib.Absolute}" antfile="${project.NhincSAMLCallbackLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    <target name="wsimport-client-AdapterDocQuerySecured" depends="wsimport-init,wsimport-client-check-AdapterDocQuerySecured" unless="wsimport-client-AdapterDocQuerySecured.notRequired">
+    <target name="wsimport-client-AdapterDocQuerySecured" depends="wsimport-init">
 <!--
         <property name="wsdl-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-service-references/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl" xnocompile="true"/>
 -->
     </target>
-    <target name="wsimport-service-AdapterDocQueryService" depends="wsimport-init,wsimport-service-check-AdapterDocQueryService" unless="wsimport-service-AdapterDocQueryService.notRequired">
+    <target name="wsimport-service-AdapterDocQueryService" depends="wsimport-init">
 <!--
         <property name="service-wsdl-AdapterDocQueryService" location="${meta.inf}/xml-resources/web-services/AdapterDocQueryService/wsdl/AdapterDocQuery.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterDocQueryService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

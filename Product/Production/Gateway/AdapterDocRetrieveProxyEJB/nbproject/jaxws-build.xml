@@ -11,34 +11,42 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-AdapterDocRetrieveSecured" depends="wsimport-init">
-        <condition property="wsimport-client-AdapterDocRetrieveSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterdocretrievesecured/AdapterDocRetrieveSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-AdapterDocRetrieveSecured" depends="wsimport-init,wsimport-client-check-AdapterDocRetrieveSecured" unless="wsimport-client-AdapterDocRetrieveSecured.notRequired">
+    <target name="wsimport-client-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
         <property name="wsdl-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-service-references/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured" wsdl="${wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterDocRetrieveSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-AdapterDocRetrieveSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
     </target>
-    <target name="wsimport-service-check-AdapterDocRetrieveService" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterDocRetrieveService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterdocretrieve/AdapterDocRetrieve.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AdapterDocRetrieveService" depends="wsimport-init,wsimport-service-check-AdapterDocRetrieveService" unless="wsimport-service-AdapterDocRetrieveService.notRequired">
+    <target name="wsimport-service-AdapterDocRetrieveService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService"/>
         <property name="service-wsdl-AdapterDocRetrieveService" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveService/wsdl/AdapterDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterDocRetrieveService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService" wsdl="${service-wsdl-AdapterDocRetrieveService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocRetrieveService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterDocRetrieveService" location="${meta.inf}/wsdl/AdapterDocRetrieveService"/>
         <property name="sourceLocation-AdapterDocRetrieveService" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveService/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocRetrieveService}">
@@ -46,17 +54,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AdapterDocRetrieveService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterdocretrieve"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrieve"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocRetrieveSecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterDocRetrieveService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

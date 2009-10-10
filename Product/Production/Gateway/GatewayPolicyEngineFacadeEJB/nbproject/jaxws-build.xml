@@ -11,46 +11,59 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-NhincComponentInternalPolicyEngineTransform" depends="wsimport-init">
-        <condition property="wsimport-client-NhincComponentInternalPolicyEngineTransform.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform/NhincComponentInternalPolicyEngineTransform.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincComponentInternalPolicyEngineTransform" depends="wsimport-init,wsimport-client-check-NhincComponentInternalPolicyEngineTransform" unless="wsimport-client-NhincComponentInternalPolicyEngineTransform.notRequired">
+    <target name="wsimport-client-NhincComponentInternalPolicyEngineTransform" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform"/>
         <property name="wsdl-NhincComponentInternalPolicyEngineTransform" location="${meta.inf}/xml-resources/web-service-references/NhincComponentInternalPolicyEngineTransform/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincComponentInternalPolicyEngineTransform}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform" destdir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform" wsdl="${wsdl-NhincComponentInternalPolicyEngineTransform}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincComponentInternalPolicyEngineTransform}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincComponentInternalPolicyEngineTransform" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentInternalPolicyEngineTransform"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform"/>
     </target>
-    <target name="wsimport-client-check-AdapterPolicyEngine" depends="wsimport-init">
-        <condition property="wsimport-client-AdapterPolicyEngine.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterpolicyengine/AdapterPolicyEngine.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-AdapterPolicyEngine" depends="wsimport-init,wsimport-client-check-AdapterPolicyEngine" unless="wsimport-client-AdapterPolicyEngine.notRequired">
+    <target name="wsimport-client-AdapterPolicyEngine" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine"/>
         <property name="wsdl-AdapterPolicyEngine" location="${meta.inf}/xml-resources/web-service-references/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterPolicyEngine}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine" destdir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine" wsdl="${wsdl-AdapterPolicyEngine}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterPolicyEngine}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-AdapterPolicyEngine" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterpolicyengine"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngine"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpolicyengine"/>
     </target>
-    <target name="wsimport-service-check-GatewayPolicyEngineFacade" depends="wsimport-init">
-        <condition property="wsimport-service-GatewayPolicyEngineFacade.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentinternalpolicyenginefacade/NhincComponentInternalPolicyEngineFacadeService.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init,wsimport-service-check-GatewayPolicyEngineFacade" unless="wsimport-service-GatewayPolicyEngineFacade.notRequired">
+    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
         <property name="service-wsdl-GatewayPolicyEngineFacade" location="${meta.inf}/xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-GatewayPolicyEngineFacade}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" destdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" wsdl="${service-wsdl-GatewayPolicyEngineFacade}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-GatewayPolicyEngineFacade}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-GatewayPolicyEngineFacade" location="${meta.inf}/wsdl/GatewayPolicyEngineFacade"/>
         <property name="sourceLocation-GatewayPolicyEngineFacade" location="${meta.inf}/xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/"/>
         <copy todir="${targetLocation-GatewayPolicyEngineFacade}">
@@ -58,17 +71,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-GatewayPolicyEngineFacade" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentinternalpolicyenginefacade"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentinternalpolicyenginefacade"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentInternalPolicyEngineTransform, wsimport-client-AdapterPolicyEngine"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-GatewayPolicyEngineFacade"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

@@ -11,34 +11,42 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-AdapterAuditLogQuerySaml" depends="wsimport-init">
-        <condition property="wsimport-client-AdapterAuditLogQuerySaml.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterauditlogquerysaml/AdapterAuditLogQuerySaml.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-AdapterAuditLogQuerySaml" depends="wsimport-init,wsimport-client-check-AdapterAuditLogQuerySaml" unless="wsimport-client-AdapterAuditLogQuerySaml.notRequired">
+    <target name="wsimport-client-AdapterAuditLogQuerySaml" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml"/>
         <property name="wsdl-AdapterAuditLogQuerySaml" location="${meta.inf}/xml-resources/web-service-references/AdapterAuditLogQuerySaml/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterAuditLogQuerySaml}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml" destdir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml" wsdl="${wsdl-AdapterAuditLogQuerySaml}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterAuditLogQuerySaml}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-AdapterAuditLogQuerySaml" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterAuditLogQuerySaml"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterauditlogquerysaml"/>
     </target>
-    <target name="wsimport-service-check-AdapterAuditQueryService" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterAuditQueryService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquery/AdapterAuditLogQuery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AdapterAuditQueryService" depends="wsimport-init,wsimport-service-check-AdapterAuditQueryService" unless="wsimport-service-AdapterAuditQueryService.notRequired">
+    <target name="wsimport-service-AdapterAuditQueryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService"/>
         <property name="service-wsdl-AdapterAuditQueryService" location="${meta.inf}/xml-resources/web-services/AdapterAuditQueryService/wsdl/AdapterAuditLogQuery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterAuditQueryService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService" wsdl="${service-wsdl-AdapterAuditQueryService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterAuditQueryService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterAuditQueryService" location="${meta.inf}/wsdl/AdapterAuditQueryService"/>
         <property name="sourceLocation-AdapterAuditQueryService" location="${meta.inf}/xml-resources/web-services/AdapterAuditQueryService/wsdl/"/>
         <copy todir="${targetLocation-AdapterAuditQueryService}">
@@ -46,17 +54,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AdapterAuditQueryService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adapterauditlogquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterauditlogquery"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterAuditLogQuerySaml"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterAuditQueryService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

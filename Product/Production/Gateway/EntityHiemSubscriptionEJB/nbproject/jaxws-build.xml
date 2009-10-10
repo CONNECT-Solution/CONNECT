@@ -11,21 +11,24 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-service-check-EntityUnsubscribeSecuredService" depends="wsimport-init">
-        <condition property="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntitySubscriptionManagerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeSecuredService" unless="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
+    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService"/>
         <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService" destdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityUnsubscribeSecuredService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/wsdl/EntityUnsubscribeSecuredService"/>
         <property name="sourceLocation-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/"/>
         <copy todir="${targetLocation-EntityUnsubscribeSecuredService}">
@@ -33,16 +36,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntityUnsubscribeSecuredService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeSecuredService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
     </target>
-    <target name="wsimport-service-check-EntitySubscribeSecuredService" depends="wsimport-init">
-        <condition property="wsimport-service-EntitySubscribeSecuredService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement/EntityNotificationProducerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntitySubscribeSecuredService" unless="wsimport-service-EntitySubscribeSecuredService.notRequired">
+    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService"/>
         <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntitySubscribeSecuredService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntitySubscribeSecuredService" location="${meta.inf}/wsdl/EntitySubscribeSecuredService"/>
         <property name="sourceLocation-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/"/>
         <copy todir="${targetLocation-EntitySubscribeSecuredService}">
@@ -50,16 +58,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntitySubscribeSecuredService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeSecuredService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
     </target>
-    <target name="wsimport-service-check-EntityNotifySecured" depends="wsimport-init">
-        <condition property="wsimport-service-EntityNotifySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitynotificationconsumer/EntityNotificationConsumerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init,wsimport-service-check-EntityNotifySecured" unless="wsimport-service-EntityNotifySecured.notRequired">
+    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured"/>
         <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityNotifySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-EntityNotifySecured" location="${meta.inf}/wsdl/EntityNotifySecured"/>
         <property name="sourceLocation-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/"/>
         <copy todir="${targetLocation-EntityNotifySecured}">
@@ -67,16 +80,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-EntityNotifySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityNotifySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
     </target>
-    <target name="wsimport-service-check-ProxyHiemNotifySecured" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyHiemNotifySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxynotificationconsumer/NhincProxyNotificationConsumerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init,wsimport-service-check-ProxyHiemNotifySecured" unless="wsimport-service-ProxyHiemNotifySecured.notRequired">
+    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured"/>
         <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemNotifySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemNotifySecured" location="${meta.inf}/wsdl/ProxyHiemNotifySecured"/>
         <property name="sourceLocation-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemNotifySecured}">
@@ -84,16 +102,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-ProxyHiemNotifySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxynotificationconsumer"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotifySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxynotificationconsumer"/>
     </target>
-    <target name="wsimport-service-check-ProxyHiemSubscribeSecured" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxyNotificationProducerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribeSecured" unless="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
+    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured"/>
         <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemSubscribeSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemSubscribeSecured"/>
         <property name="sourceLocation-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemSubscribeSecured}">
@@ -101,16 +124,21 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-ProxyHiemSubscribeSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribeSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
     </target>
-    <target name="wsimport-service-check-ProxyHiemUnsubscribeSecured" depends="wsimport-init">
-        <condition property="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement/NhincProxySubscriptionManagerSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribeSecured" unless="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
+    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured"/>
         <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ProxyHiemUnsubscribeSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/wsdl/ProxyHiemUnsubscribeSecured"/>
         <property name="sourceLocation-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemUnsubscribeSecured}">
@@ -118,10 +146,8 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-ProxyHiemUnsubscribeSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribeSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
     </target>
     <target name="wsimport-service-generate" depends="wsimport-service-EntityUnsubscribeSecuredService, wsimport-service-EntitySubscribeSecuredService, wsimport-service-EntityNotifySecured, wsimport-service-ProxyHiemNotifySecured, wsimport-service-ProxyHiemSubscribeSecured, wsimport-service-ProxyHiemUnsubscribeSecured"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

@@ -73,7 +73,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-GatewaySubscriptionRepository" depends="wsimport-init,wsimport-service-check-GatewaySubscriptionRepository" unless="wsimport-service-GatewaySubscriptionRepository.notRequired">
+    <target name="wsimport-service-GatewaySubscriptionRepository" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/GatewaySubscriptionRepository/wsdl/NhincComponentSubscriptionRepository.wsdl" catalog="catalog.xml"/>
 -->
@@ -84,7 +84,7 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/GatewaySubscriptionRepository/schemas/"/>
         </copy>
     </target>
-    <target name="wsimport-service-GatewaySubscriptionReferenceRepository" depends="wsimport-init,wsimport-service-check-GatewaySubscriptionReferenceRepository" unless="wsimport-service-GatewaySubscriptionReferenceRepository.notRequired">
+    <target name="wsimport-service-GatewaySubscriptionReferenceRepository" depends="wsimport-init">
 <!--
         <property name="service-wsdl-GatewaySubscriptionReferenceRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionReferenceRepository/wsdl/NhincComponentSubscriptionReferenceRepository.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-GatewaySubscriptionReferenceRepository}" catalog="catalog.xml"/>

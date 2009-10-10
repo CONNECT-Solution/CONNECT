@@ -79,7 +79,7 @@
 
     -->
     
-    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init,wsimport-service-check-GatewayPolicyEngineFacade">
+    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" catalog="catalog.xml"/>
 -->
@@ -93,44 +93,12 @@
         </copy>
     </target>
     
-    <target name="wsimport-client-NhincComponentInternalPolicyEngineTransform" depends="wsimport-init,wsimport-client-check-NhincComponentInternalPolicyEngineTransform">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentInternalPolicyEngineTransform/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" catalog="catalog.xml"/>
--->
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/NhincComponentInternalPolicyEngineTransform">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentInternalPolicyEngineTransform/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/NhincComponentInternalPolicyEngineTransform/schemas/" />
-        </copy>
+    <target name="wsimport-client-NhincComponentInternalPolicyEngineTransform" depends="wsimport-init">
+
     </target>
     
-    <target name="wsimport-client-AdapterPolicyEngine" depends="wsimport-init,wsimport-client-check-AdapterPolicyEngine">
-<!--
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl" catalog="catalog.xml"/>
--->
-        <echo message="generating binaries for referenced wsdl"/>        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/AdapterPolicyEngine">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterPolicyEngine/wsdl/"/>
-        </copy>
-        
-        <echo message="copy schemas" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/AdapterPolicyEngine/schemas/" />
-        </copy>
+    <target name="wsimport-client-AdapterPolicyEngine" depends="wsimport-init">
+
     </target>
     
       <target depends="compile" name="library-inclusion-in-archive">

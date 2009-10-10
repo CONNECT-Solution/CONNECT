@@ -240,7 +240,7 @@
     
     
     
-    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntityUnsubscribeSecuredService" unless="wsimport-service-EntityUnsubscribeSecuredService.notRequired">
+    <target name="wsimport-service-EntityUnsubscribeSecuredService" depends="wsimport-init">
         <!--
         <property name="service-wsdl-EntityUnsubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityUnsubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -257,7 +257,7 @@
         
     </target>    
     
-    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init,wsimport-service-check-EntitySubscribeSecuredService" unless="wsimport-service-EntitySubscribeSecuredService.notRequired">
+    <target name="wsimport-service-EntitySubscribeSecuredService" depends="wsimport-init">
         <!--
         <property name="service-wsdl-EntitySubscribeSecuredService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeSecuredService/wsdl/EntitySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntitySubscribeSecuredService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -274,7 +274,7 @@
         
     </target>
     
-    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init,wsimport-service-check-EntityNotifySecured" unless="wsimport-service-EntityNotifySecured.notRequired">
+    <target name="wsimport-service-EntityNotifySecured" depends="wsimport-init">
         <!--
         <property name="service-wsdl-EntityNotifySecured" location="${meta.inf}/xml-resources/web-services/EntityNotifySecured/wsdl/EntityNotificationConsumerSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -290,7 +290,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init,wsimport-service-check-ProxyHiemNotifySecured" unless="wsimport-service-ProxyHiemNotifySecured.notRequired">
+    <target name="wsimport-service-ProxyHiemNotifySecured" depends="wsimport-init">
         <!--
         <property name="service-wsdl-ProxyHiemNotifySecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotifySecured/wsdl/NhincProxyNotificationConsumerSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemNotifySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -308,7 +308,7 @@
     </target>    
     
     
-    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemUnsubscribeSecured" unless="wsimport-service-ProxyHiemUnsubscribeSecured.notRequired">
+    <target name="wsimport-service-ProxyHiemUnsubscribeSecured" depends="wsimport-init">
         <!--
         <property name="service-wsdl-ProxyHiemUnsubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemUnsubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -325,7 +325,7 @@
         
     </target>
     
-    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init,wsimport-service-check-ProxyHiemSubscribeSecured" unless="wsimport-service-ProxyHiemSubscribeSecured.notRequired">
+    <target name="wsimport-service-ProxyHiemSubscribeSecured" depends="wsimport-init">
         <!--
         <property name="service-wsdl-ProxyHiemSubscribeSecured" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribeSecured/wsdl/NhincProxySubscriptionManagementSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-ProxyHiemSubscribeSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

@@ -78,13 +78,13 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-client-AdapterPolicyEngineSecured" depends="wsimport-init,wsimport-client-check-AdapterPolicyEngineSecured" unless="wsimport-client-AdapterPolicyEngineSecured.notRequired">
+    <target name="wsimport-client-AdapterPolicyEngineSecured" depends="wsimport-init">
 <!--
         <property name="wsdl-AdapterPolicyEngineSecured" location="${meta.inf}/xml-resources/web-service-references/AdapterPolicyEngineSecured/wsdl/AdapterPolicyEngineSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterPolicyEngineSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineSecured.wsdl" xnocompile="true"/>
 -->
     </target>
-    <target name="wsimport-service-AdapterPolicyEngine" depends="wsimport-init,wsimport-service-check-AdapterPolicyEngine" unless="wsimport-service-AdapterPolicyEngine.notRequired">
+    <target name="wsimport-service-AdapterPolicyEngine" depends="wsimport-init">
 <!--
         <property name="service-wsdl-AdapterPolicyEngine" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterPolicyEngine}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

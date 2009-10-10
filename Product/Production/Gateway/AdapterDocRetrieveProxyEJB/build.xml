@@ -78,13 +78,13 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-client-AdapterDocRetrieveSecured" depends="wsimport-init,wsimport-client-check-AdapterDocRetrieveSecured" unless="wsimport-client-AdapterDocRetrieveSecured.notRequired">
+    <target name="wsimport-client-AdapterDocRetrieveSecured" depends="wsimport-init">
 <!--
         <property name="wsdl-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-service-references/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl" xnocompile="true"/>
 -->
     </target>
-    <target name="wsimport-service-AdapterDocRetrieveService" depends="wsimport-init,wsimport-service-check-AdapterDocRetrieveService" unless="wsimport-service-AdapterDocRetrieveService.notRequired">
+    <target name="wsimport-service-AdapterDocRetrieveService" depends="wsimport-init">
 <!--
         <property name="service-wsdl-AdapterDocRetrieveService" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveService/wsdl/AdapterDocRetrieve.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterDocRetrieveService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>

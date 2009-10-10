@@ -73,7 +73,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-PolicyEngineTransformationService" depends="wsimport-init,wsimport-service-check-PolicyEngineTransformationService" unless="wsimport-service-PolicyEngineTransformationService.notRequired">
+    <target name="wsimport-service-PolicyEngineTransformationService" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/PolicyEngineTransformationService/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" catalog="catalog.xml"/>
 -->

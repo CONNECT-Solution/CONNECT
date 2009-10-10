@@ -11,34 +11,42 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-AdapterSubjectDiscoverySecured" depends="wsimport-init">
-        <condition property="wsimport-client-AdapterSubjectDiscoverySecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured/AdapterSubjectDiscoverySecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-AdapterSubjectDiscoverySecured" depends="wsimport-init,wsimport-client-check-AdapterSubjectDiscoverySecured" unless="wsimport-client-AdapterSubjectDiscoverySecured.notRequired">
+    <target name="wsimport-client-AdapterSubjectDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured"/>
         <property name="wsdl-AdapterSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-service-references/AdapterSubjectDiscoverySecured/wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-AdapterSubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured" wsdl="${wsdl-AdapterSubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterSubjectDiscoverySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-AdapterSubjectDiscoverySecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
     </target>
-    <target name="wsimport-service-check-AdapterSubjectDiscovery" depends="wsimport-init">
-        <condition property="wsimport-service-AdapterSubjectDiscovery.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubjectdiscovery/AdapterSubjectDiscovery.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-AdapterSubjectDiscovery" depends="wsimport-init,wsimport-service-check-AdapterSubjectDiscovery" unless="wsimport-service-AdapterSubjectDiscovery.notRequired">
+    <target name="wsimport-service-AdapterSubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery"/>
         <property name="service-wsdl-AdapterSubjectDiscovery" location="${meta.inf}/xml-resources/web-services/AdapterSubjectDiscovery/wsdl/AdapterSubjectDiscovery.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-AdapterSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery" wsdl="${service-wsdl-AdapterSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterSubjectDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-AdapterSubjectDiscovery" location="${meta.inf}/wsdl/AdapterSubjectDiscovery"/>
         <property name="sourceLocation-AdapterSubjectDiscovery" location="${meta.inf}/xml-resources/web-services/AdapterSubjectDiscovery/wsdl/"/>
         <copy todir="${targetLocation-AdapterSubjectDiscovery}">
@@ -46,17 +54,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-AdapterSubjectDiscovery" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/adaptersubjectdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubjectdiscovery"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterSubjectDiscoverySecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-AdapterSubjectDiscovery"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

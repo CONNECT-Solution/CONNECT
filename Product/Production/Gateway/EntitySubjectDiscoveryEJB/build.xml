@@ -77,7 +77,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-EntitySubjectDiscoverySecured" depends="wsimport-init,wsimport-service-check-EntitySubjectDiscoverySecured" unless="wsimport-service-EntitySubjectDiscoverySecured.notRequired">
+    <target name="wsimport-service-EntitySubjectDiscoverySecured" depends="wsimport-init">
 
         <property name="targetLocation-EntitySubjectDiscoverySecured" location="${meta.inf}/wsdl/EntitySubjectDiscoverySecured"/>
         <property name="sourceLocation-EntitySubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscoverySecured/wsdl/"/>
@@ -91,7 +91,7 @@
         </copy>
     </target>
     
-    <target name="wsimport-service-NhincSubjectDiscoverySecured" depends="wsimport-init,wsimport-service-check-NhincSubjectDiscoverySecured" unless="wsimport-service-NhincSubjectDiscoverySecured.notRequired">
+    <target name="wsimport-service-NhincSubjectDiscoverySecured" depends="wsimport-init">
         <property name="targetLocation-NhincSubjectDiscoverySecured" location="${meta.inf}/wsdl/NhincSubjectDiscoverySecured"/>
         <property name="sourceLocation-NhincSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/NhincSubjectDiscoverySecured/wsdl/"/>
         <copy todir="${targetLocation-NhincSubjectDiscoverySecured}">

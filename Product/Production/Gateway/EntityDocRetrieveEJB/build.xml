@@ -17,8 +17,8 @@
     <import file="../../../build.lib.xml" />
 
     <target name="build">
-      <property name="target-to-call" value="dist" />
-      <antcall target="call-target-in-isolation-if-out-of-date" />
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
@@ -78,7 +78,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-NhincProxyDocRetrieveSecured" depends="wsimport-init,wsimport-service-check-NhincProxyDocRetrieveSecured" unless="wsimport-service-NhincProxyDocRetrieveSecured.notRequired">
+    <target name="wsimport-service-NhincProxyDocRetrieveSecured" depends="wsimport-init">
 <!--
         <property name="service-wsdl-NhincProxyDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-NhincProxyDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -94,7 +94,7 @@
             <fileset dir="${sourceLocationSchemas-NhincProxyDocRetrieveSecured}"/>
         </copy>
     </target>
-    <target name="wsimport-service-EntityDocRetrieveSecured" depends="wsimport-init,wsimport-service-check-EntityDocRetrieveSecured" unless="wsimport-service-EntityDocRetrieveSecured.notRequired">
+    <target name="wsimport-service-EntityDocRetrieveSecured" depends="wsimport-init">
 <!--
         <property name="service-wsdl-EntityDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/EntityDocRetrieveSecured/wsdl/EntityDocRetrieveSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-EntityDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -111,14 +111,14 @@
         </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-		<property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
         <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -129,14 +129,14 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-		<property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
         <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -147,14 +147,14 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-		<property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
-		<property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-		<property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.NhinDocRetrieveProxy.Absolute" location="${project.NhinDocRetrieveProxy}"/>
         <property name="project.NhinDocRetrieveProxyImpl.Absolute" location="${project.NhinDocRetrieveProxyImpl}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -187,7 +187,7 @@
             <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinDocRetrieveProxy.jar} ${manifest.reference.NhinDocRetrieveProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.AggregatorLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
-	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-		<nbundeploy failOnError="false" startServer="false"/>
-	</target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>

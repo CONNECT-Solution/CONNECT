@@ -96,10 +96,10 @@
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    <target name="wsimport-client-AdapterAuditLogQuerySaml" depends="wsimport-init,wsimport-client-check-AdapterAuditLogQuerySaml" unless="wsimport-client-AdapterAuditLogQuerySaml.notRequired">
+    <target name="wsimport-client-AdapterAuditLogQuerySaml" depends="wsimport-init">
 
     </target>
-    <target name="wsimport-service-AdapterAuditQueryService" depends="wsimport-init,wsimport-service-check-AdapterAuditQueryService" unless="wsimport-service-AdapterAuditQueryService.notRequired">
+    <target name="wsimport-service-AdapterAuditQueryService" depends="wsimport-init">
 
         <property name="targetLocation-AdapterAuditQueryService" location="${meta.inf}/wsdl/AdapterAuditQueryService"/>
         <property name="sourceLocation-AdapterAuditQueryService" location="${meta.inf}/xml-resources/web-services/AdapterAuditQueryService/wsdl/"/>
