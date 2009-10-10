@@ -8,7 +8,7 @@
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
 	</project>
-<!--	<project>
+	<project>
 		<name>NhinInterfaceTestHelperEJB</name>
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
 	</project>
@@ -33,10 +33,10 @@
 		<name>HiemSubscriptionRepositoryUtilEJB</name>
 		<directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
 	</project>
-	<project>
+	<!--<project>
 		<name>FTATransferAdapterEJB</name>
 		<directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
-	</project>
+	</project>-->
 	<project>
 		<name>MuralMpiEJB</name>
 		<directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
@@ -85,14 +85,14 @@
 		<name>AdapterAuthenticationProxyImpl</name>
 		<directory>/Production/Adapters/General/AdapterAuthenticationProxyImpl</directory>
 	</project>
-	<project>
+	<!--<project>
 		<name>ConsumerPreferencesProfileGUI</name>
 		<directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
 	</project>
 	<project>
 		<name>UniversalClientGUI</name>
 		<directory>/Production/Adapters/General/UniversalClientGUI</directory>
-	</project>
+	</project>-->
 	<project>
 		<name>NhincAuditQueryEJB</name>
 		<directory>/Production/Gateway/NhincAuditQueryEJB</directory>
@@ -144,7 +144,7 @@
 	<project>
 		<name>GatewaySubscriptionRepositoryEJB</name>
 		<directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
-	</project> -->
+	</project> 
 	<project>
 		<name>ConnectionManagerEJB</name>
 		<directory>/Production/Common/ConnectionManagerEJB</directory>
@@ -161,7 +161,7 @@
 		<name>UDDIUpdateManagerEJB</name>
 		<directory>/Production/Common/UDDIUpdateManagerEJB</directory>
 	</project>
-<!--	<project>
+	<project>
 		<name>PatientCorrelationFacadeDteEjb</name>
 		<directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
 	</project>
@@ -232,5 +232,5 @@
 		<project>
 		<name>AdapterDocRegistryAndRepositoryEJB</name>
 		<directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
-	</project> -->
+	</project>
 </projects>
