@@ -43,7 +43,7 @@
       style="display: none;"
       frameborder="0">
       <xsl:attribute name="src">
-        <xsl:value-of select="$URL"/>/CheckstyleReport.html
+        <xsl:value-of select="$URL"/>/CheckstyleReport/CheckstyleReport.html
       </xsl:attribute>
       This option will not work correctly.  Unfortunately, your browser does not support Inline Frames
     </iframe>
