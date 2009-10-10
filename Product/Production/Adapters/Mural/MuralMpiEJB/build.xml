@@ -74,7 +74,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-     <target name="wsimport-service-MuralMPI" depends="wsimport-init,wsimport-service-check-MuralMPI" unless="wsimport-service-MuralMPI.notRequired">
+     <target name="wsimport-service-MuralMPI" depends="wsimport-init">
         <property name="service-wsdl-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/AdapterComponentMpi.wsdl"/>
 <!--
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-MuralMPI}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -90,22 +90,7 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/MuralMPI/schemas/" />
         </copy>
     </target>
-    <target name="wsimport-client-PatientEJB" depends="wsimport-init,wsimport-client-check-PatientEJB" unless="wsimport-client-PatientEJB.notRequired">
-        <property name="wsdl-PatientEJB" location="${meta.inf}/xml-resources/web-service-references/PatientEJB/wsdl/PatientEJB.wsdl"/>
-<!--
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-PatientEJB}" catalog="catalog.xml" extension="true" verbose="true"  xnocompile="true"/>
--->
-        
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-        
-        <echo message="copy wsdl's" />
-        <copy todir="${basedir}/${meta.inf}/wsdl/client/PatientEJB">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-service-references/PatientEJB/wsdl/"/>
-        </copy>
-        
-                
+    <target name="wsimport-client-PatientEJB" depends="wsimport-init">
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">

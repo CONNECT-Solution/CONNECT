@@ -18,6 +18,13 @@ is divided into following sections:
 <project xmlns:ejbjarproject1="http://www.netbeans.org/ns/j2ee-ejbjarproject/1" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:ejbjarproject3="http://www.netbeans.org/ns/j2ee-ejbjarproject/3" basedir=".." default="default" name="MuralMpiEJB-impl">
     <import file="jaxws-build.xml"/>
     <import file="ant-deploy.xml"/>
+    <fail message="Please build using Ant 1.7.1 or higher.">
+        <condition>
+            <not>
+                <antversion atleast="1.7.1"/>
+            </not>
+        </condition>
+    </fail>
     <target depends="dist,javadoc" description="Build whole project." name="default"/>
     <!-- 
                 INITIALIZATION SECTION 
@@ -66,6 +73,24 @@ is divided into following sections:
             <isfalse value="${javadoc.preview}"/>
         </condition>
         <available file="${meta.inf}/MANIFEST.MF" property="has.custom.manifest"/>
+        <!--
+                    Variables needed to support directory deployment.
+                -->
+        <condition property="do.package.with.custom.manifest.not.directory.deploy">
+            <and>
+                <isset property="has.custom.manifest"/>
+                <isfalse value="${directory.deployment.supported}"/>
+            </and>
+        </condition>
+        <condition property="do.package.without.custom.manifest.not.directory.deploy">
+            <and>
+                <not>
+                    <isset property="has.custom.manifest"/>
+                </not>
+                <isfalse value="${directory.deployment.supported}"/>
+            </and>
+        </condition>
+        <!--End Variables needed to support directory deployment.-->
         <condition property="classes.dir" value="${build.ear.classes.dir}">
             <isset property="dist.ear.dir"/>
         </condition>
@@ -143,10 +168,18 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <attribute default="${includes}" name="includes"/>
             <attribute default="${excludes}" name="excludes"/>
             <attribute default="${javac.debug}" name="debug"/>
+            <attribute default="${empty.dir}" name="gensrcdir"/>
             <element name="customize" optional="true"/>
             <sequential>
                 <property name="javac.compilerargs" value=""/>
+                <property location="${build.dir}/empty" name="empty.dir"/>
+                <mkdir dir="${empty.dir}"/>
                 <javac debug="@{debug}" deprecation="${javac.deprecation}" destdir="@{destdir}" encoding="${source.encoding}" excludes="@{excludes}" includeantruntime="false" includes="@{includes}" source="${javac.source}" srcdir="@{srcdir}" target="${javac.target}">
+                    <src>
+                        <dirset dir="@{gensrcdir}" erroronmissingdir="false">
+                            <include name="*"/>
+                        </dirset>
+                    </src>
                     <classpath>
                         <path path="@{classpath}"/>
                     </classpath>
@@ -287,12 +320,20 @@ exists or setup the property manually. For example like this:
                 COMPILATION SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
     </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-service-generate,wsimport-client-generate" name="-pre-pre-compile">
@@ -326,8 +367,8 @@ exists or setup the property manually. For example like this:
             <fileset dir="${meta.inf}" excludes="**/*.dbschema **/xml-resources/** ${meta.inf.excludes}"/>
         </copy>
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf,wsimport-service-compile,wsimport-client-compile" if="have.sources" name="-do-compile">
-        <ejbjarproject2:javac destdir="${classes.dir}"/>
+    <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf" if="have.sources" name="-do-compile">
+        <ejbjarproject2:javac destdir="${classes.dir}" gensrcdir="${build.generated.sources.dir}"/>
         <copy todir="${classes.dir}">
             <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
@@ -341,9 +382,9 @@ exists or setup the property manually. For example like this:
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target depends="init,deps-jar,-pre-pre-compile,wsimport-service-compile,wsimport-client-compile" name="-do-compile-single">
+    <target depends="init,deps-jar,-pre-pre-compile" name="-do-compile-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
-        <ejbjarproject2:javac excludes="" includes="${javac.includes}"/>
+        <ejbjarproject2:javac excludes="" gensrcdir="${build.generated.sources.dir}" includes="${javac.includes}"/>
     </target>
     <target name="-post-compile-single">
         <!-- Empty placeholder for easier customization. -->
@@ -371,6 +412,28 @@ exists or setup the property manually. For example like this:
             <fileset dir="${build.classes.dir}"/>
         </jar>
     </target>
+    <!--
+                TARGETS NEEDED TO SUPPORT DIRECTORY DEPLOYMENT
+            -->
+    <target depends="init,compile,-pre-dist,library-inclusion-in-archive" if="do.package.with.custom.manifest.not.directory.deploy" name="-do-tmp-dist-with-manifest">
+        <dirname file="${dist.jar}" property="dist.jar.dir"/>
+        <mkdir dir="${dist.jar.dir}"/>
+        <jar compress="${jar.compress}" jarfile="${dist.jar}" manifest="${build.classes.dir}/META-INF/MANIFEST.MF">
+            <fileset dir="${build.classes.dir}"/>
+        </jar>
+    </target>
+    <target depends="init,compile,-pre-dist,library-inclusion-in-archive" if="do.package.without.custom.manifest.not.directory.deploy" name="-do-tmp-dist-without-manifest">
+        <dirname file="${dist.jar}" property="dist.jar.dir"/>
+        <mkdir dir="${dist.jar.dir}"/>
+        <jar compress="${jar.compress}" jarfile="${dist.jar}">
+            <fileset dir="${build.classes.dir}"/>
+        </jar>
+    </target>
+    <target depends="init,compile,-pre-dist,library-inclusion-in-archive, -do-tmp-dist-without-manifest, -do-tmp-dist-with-manifest" name="-do-dist-directory-deploy"/>
+    <target depends="init,compile,-pre-dist,-do-dist-directory-deploy,-post-dist" description="Build distribution (JAR) - if directory deployment is not supported." name="dist-directory-deploy"/>
+    <!--
+                END TARGETS NEEDED TO SUPPORT DIRECTORY DEPLOYMENT
+            -->
     <target depends="init,compile,-pre-dist,library-inclusion-in-archive, -do-dist-without-manifest, -do-dist-with-manifest" name="-do-dist"/>
     <target depends="init,compile,-pre-dist,library-inclusion-in-manifest" name="-do-ear-dist">
         <dirname file="${dist.ear.jar}" property="dist.jar.dir"/>
@@ -411,7 +474,7 @@ exists or setup the property manually. For example like this:
     <target name="-run-deploy-am">
         <!-- Task to deploy to the Access Manager runtime. -->
     </target>
-    <target depends="init,-init-cos,-init-deploy,compile,library-inclusion-in-archive,dist,pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,post-run-deploy" name="run-deploy">
+    <target depends="init,-init-cos,-init-deploy,compile,library-inclusion-in-archive,dist-directory-deploy,pre-run-deploy,-pre-nbmodule-run-deploy,-run-deploy-nb,-init-deploy-ant,-deploy-ant,-run-deploy-am,-post-nbmodule-run-deploy,post-run-deploy" name="run-deploy">
         <nbjpdaappreloaded/>
     </target>
     <target if="netbeans.home" name="-run-deploy-nb">
@@ -436,7 +499,7 @@ exists or setup the property manually. For example like this:
     <!--
                 DEBUGGING SECTION
             -->
-    <target depends="init,compile,dist" description="Debug project in IDE." if="netbeans.home" name="debug">
+    <target depends="init,compile,dist-directory-deploy" description="Debug project in IDE." if="netbeans.home" name="debug">
         <nbdeploy debugmode="true"/>
         <antcall target="connect-debugger"/>
     </target>
@@ -477,6 +540,9 @@ exists or setup the property manually. For example like this:
             </classpath>
             <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
+            </fileset>
+            <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
+                <include name="**/*.java"/>
             </fileset>
         </javadoc>
     </target>
@@ -528,7 +594,7 @@ exists or setup the property manually. For example like this:
         <ejbjarproject2:junit testincludes="**/*Test.java"/>
     </target>
     <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-        <fail if="tests.failed">Some tests failed; see details above.</fail>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
     <target depends="init" if="have.tests" name="test-report"/>
     <target depends="init" if="netbeans.home+have.tests" name="-test-browse"/>
@@ -541,7 +607,7 @@ exists or setup the property manually. For example like this:
         <ejbjarproject2:junit excludes="" includes="${test.includes}"/>
     </target>
     <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single" if="have.tests" name="-post-test-run-single">
-        <fail if="tests.failed">Some tests failed; see details above.</fail>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
     <target depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single,-post-test-run-single" description="Run single unit test." name="test-single"/>
     <!--
