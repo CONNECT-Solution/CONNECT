@@ -118,8 +118,9 @@
       <ant
         target="main"
         buildfile="${Package.Workspace.Directory.Path}\Software\GlassFish\Certificates\build.xml"
+		
       >
-        <environment/>
+        <environment refid="${Common.EnvironmentVariables.RefId}" />
         <args/>
       </ant>
       <echo message="" file="${Certificates.Tag.FilePath}"/>
