@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="settings">
+  <property name="glassfish.home" value="${env.AS_HOME}"/>
+  
+  <property name="deployment.dir" value="C:\NHINC" />
+
   <property name="deployment.binaries.dir" value="${deployment.dir}\nhinc" />
 
   <property name="deployment.glassfish.port" value="4848"/>
