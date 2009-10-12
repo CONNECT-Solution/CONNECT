@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="checkstyle.properties">
-	
-	<property name="checkstyle.bin" value="c:/Projects/NHINC/Current/Build/Packages/Checkstyle/bin"/>
-
-	<if>
-		<isset property="env.CHECKSTYLE_BIN"/>
-		<then>
-			<var name="checkstyle.bin" unset="true"/>
-			<property name="checkstyle.bin" value="${env.CHECKSTYLE_BIN}"/>
-		</then>
-	</if>
 
   <property name="checkstyle.report.dir.path" value="CheckstyleReport"/>
   <property name="checkstyle.report.file.name" value="CheckstyleReport.xml"/>
