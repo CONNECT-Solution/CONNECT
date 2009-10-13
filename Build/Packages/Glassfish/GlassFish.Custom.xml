@@ -33,7 +33,7 @@
     <delete dir="${GlassFish.Deploy.Directory.Path}" if="${directory::exists(GlassFish.Deploy.Directory.Path)}"/>
     
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
-    <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Domains.Zip.File.Path}"/>
+    <!--<unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Domains.Zip.File.Path}"/>-->
 
     <call target="GlassFish.Redeploy"/>
   </target>
