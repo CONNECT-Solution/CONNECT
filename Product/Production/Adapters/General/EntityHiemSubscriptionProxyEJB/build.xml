@@ -78,114 +78,156 @@
     -->
     
     <target name="wsimport-service-EntityNotifyService" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
         <property name="service-wsdl-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" destdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+		<wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" destdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" wsdl="${service-wsdl-EntityNotifyService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-EntityNotifyService}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntityNotifyService" location="${meta.inf}/wsdl/EntityNotifyService"/>
         <property name="sourceLocation-EntityNotifyService" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/wsdl/"/>
         <copy todir="${targetLocation-EntityNotifyService}">
             <fileset dir="${sourceLocation-EntityNotifyService}"/>
         </copy>
+        <property name="targetLocation-EntityNotifyServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-EntityNotifyServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntityNotifyService/schemas/"/>
+        <copy todir="${targetLocation-EntityNotifyServiceSchemas}">
+            <fileset dir="${sourceLocation-EntityNotifyServiceSchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
         <property name="service-wsdl-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+		<wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" wsdl="${service-wsdl-EntitySubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-EntitySubscribeService}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
-        </wsimport> -->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntitySubscribeService" location="${meta.inf}/wsdl/EntitySubscribeService"/>
         <property name="sourceLocation-EntitySubscribeService" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/wsdl/"/>
         <copy todir="${targetLocation-EntitySubscribeService}">
             <fileset dir="${sourceLocation-EntitySubscribeService}"/>
         </copy>
+        <property name="targetLocation-EntitySubscribeServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-EntitySubscribeServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntitySubscribeService/schemas/"/>
+        <copy todir="${targetLocation-EntitySubscribeServiceSchemas}">
+            <fileset dir="${sourceLocation-EntitySubscribeServiceSchemas}"/>
+        </copy>
     </target>
     
     <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init">
+<!--        
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
         <property name="service-wsdl-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+		<wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" wsdl="${service-wsdl-EntityUnsubscribeService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-EntityUnsubscribeService}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntityUnsubscribeService" location="${meta.inf}/wsdl/EntityUnsubscribeService"/>
         <property name="sourceLocation-EntityUnsubscribeService" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
         <copy todir="${targetLocation-EntityUnsubscribeService}">
             <fileset dir="${sourceLocation-EntityUnsubscribeService}"/>
         </copy>
+        <property name="targetLocation-EntityUnsubscribeServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-EntityUnsubscribeServiceSchemas" location="${meta.inf}/xml-resources/web-services/EntityUnsubscribeService/schemas/"/>
+        <copy todir="${targetLocation-EntityUnsubscribeServiceSchemas}">
+            <fileset dir="${sourceLocation-EntityUnsubscribeServiceSchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
         <property name="service-wsdl-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" wsdl="${service-wsdl-ProxyHiemNotify}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-ProxyHiemNotify}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
-        <property name="targetLocation-ProxyHiemNotify" location="${meta.inf}/wsdl/ProxyHiemNotify"/>
+-->
+		<property name="targetLocation-ProxyHiemNotify" location="${meta.inf}/wsdl/ProxyHiemNotify"/>
         <property name="sourceLocation-ProxyHiemNotify" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemNotify}">
             <fileset dir="${sourceLocation-ProxyHiemNotify}"/>
         </copy>
+		<property name="targetLocation-ProxyHiemNotifySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-ProxyHiemNotifySchemas" location="${meta.inf}/xml-resources/web-services/ProxyHiemNotify/schemas/"/>
+        <copy todir="${targetLocation-ProxyHiemNotifySchemas}">
+            <fileset dir="${sourceLocation-ProxyHiemNotifySchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
         <property name="service-wsdl-ProxyHiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" wsdl="${service-wsdl-ProxyHiemUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" wsdl="${service-wsdl-ProxyHiemUnsubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-ProxyHiemUnsubscribe}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-ProxyHiemUnsubscribe" location="${meta.inf}/wsdl/ProxyHiemUnsubscribe"/>
         <property name="sourceLocation-ProxyHiemUnsubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemUnsubscribe}">
             <fileset dir="${sourceLocation-ProxyHiemUnsubscribe}"/>
         </copy>
+        <property name="targetLocation-ProxyHiemUnsubscribeSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-ProxyHiemUnsubscribeSchemas" location="${meta.inf}/xml-resources/web-services/ProxyHiemUnsubscribe/schemas/"/>
+        <copy todir="${targetLocation-ProxyHiemUnsubscribeSchemas}">
+            <fileset dir="${sourceLocation-ProxyHiemUnsubscribeSchemas}"/>
+        </copy>
     </target>
     
     
     <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
         <property name="service-wsdl-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
-       <!-- <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" wsdl="${service-wsdl-ProxyHiemSubscribe}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-ProxyHiemSubscribe}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-ProxyHiemSubscribe" location="${meta.inf}/wsdl/ProxyHiemSubscribe"/>
         <property name="sourceLocation-ProxyHiemSubscribe" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
         <copy todir="${targetLocation-ProxyHiemSubscribe}">
             <fileset dir="${sourceLocation-ProxyHiemSubscribe}"/>
+        </copy>
+        <property name="targetLocation-ProxyHiemSubscribeSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-ProxyHiemSubscribeSchemas" location="${meta.inf}/xml-resources/web-services/ProxyHiemSubscribe/schemas/"/>
+        <copy todir="${targetLocation-ProxyHiemSubscribeSchemas}">
+            <fileset dir="${sourceLocation-ProxyHiemSubscribeSchemas}"/>
         </copy>
     </target>
     

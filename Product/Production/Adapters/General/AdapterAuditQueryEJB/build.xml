@@ -126,6 +126,7 @@
     </target>
 
     <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
         <property name="service-wsdl-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" wsdl="${service-wsdl-AdapterSecuredAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -137,10 +138,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/wsdl/AdapterSecuredAuditLogQuery"/>
         <property name="sourceLocation-AdapterSecuredAuditLogQuery" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
         <copy todir="${targetLocation-AdapterSecuredAuditLogQuery}">
             <fileset dir="${sourceLocation-AdapterSecuredAuditLogQuery}"/>
+        </copy>
+        <property name="targetLocation-AdapterSecuredAuditLogQuerySchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterSecuredAuditLogQuerySchemas" location="${meta.inf}/xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/"/>
+        <copy todir="${targetLocation-AdapterSecuredAuditLogQuerySchemas}">
+            <fileset dir="${sourceLocation-AdapterSecuredAuditLogQuerySchemas}"/>
         </copy>
     </target>
 

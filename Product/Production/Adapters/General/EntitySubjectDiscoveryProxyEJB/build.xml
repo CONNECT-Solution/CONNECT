@@ -11,7 +11,7 @@
     <description>Builds, tests, and runs the project EntitySubjectDiscoveryProxyEJB.</description>
     <import file="nbproject/build-impl.xml"/>
     
-     <property name="deploy.type" value="ejb" />
+    <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
     
     <import file="../../../../build.lib.xml"/>
@@ -84,40 +84,54 @@
     </target> 
     
     <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
         <property name="service-wsdl-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/EntitySubjectDiscovery.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" wsdl="${service-wsdl-EntitySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" wsdl="${service-wsdl-EntitySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-EntitySubjectDiscovery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntitySubjectDiscovery" location="${meta.inf}/wsdl/EntitySubjectDiscovery"/>
         <property name="sourceLocation-EntitySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
         <copy todir="${targetLocation-EntitySubjectDiscovery}">
             <fileset dir="${sourceLocation-EntitySubjectDiscovery}"/>
         </copy>
+        <property name="targetLocation-EntitySubjectDiscoverySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-EntitySubjectDiscoverySchemas" location="${meta.inf}/xml-resources/web-services/EntitySubjectDiscovery/schemas/"/>
+        <copy todir="${targetLocation-EntitySubjectDiscoverySchemas}">
+            <fileset dir="${sourceLocation-EntitySubjectDiscoverySchemas}"/>
+        </copy>
     </target>
     
    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
         <property name="service-wsdl-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/NhincProxySubjectDiscovery.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" wsdl="${service-wsdl-NhincProxySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" wsdl="${service-wsdl-NhincProxySubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-NhincProxySubjectDiscovery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->        
         <property name="targetLocation-NhincProxySubjectDiscovery" location="${meta.inf}/wsdl/NhincProxySubjectDiscovery"/>
         <property name="sourceLocation-NhincProxySubjectDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
         <copy todir="${targetLocation-NhincProxySubjectDiscovery}">
             <fileset dir="${sourceLocation-NhincProxySubjectDiscovery}"/>
+        </copy>
+        <property name="targetLocation-NhincProxySubjectDiscoverySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-NhincProxySubjectDiscoverySchemas" location="${meta.inf}/xml-resources/web-services/NhincProxySubjectDiscovery/schemas/"/>
+        <copy todir="${targetLocation-NhincProxySubjectDiscoverySchemas}">
+            <fileset dir="${sourceLocation-NhincProxySubjectDiscoverySchemas}"/>
         </copy>
     </target>
     

@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -76,35 +76,48 @@
 
 
     <target name="wsimport-service-PatientCorrelationServiceSecured" depends="wsimport-init">
+<!--        
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationServiceSecured"/>
         <property name="service-wsdl-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationServiceSecured" destdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationServiceSecured" wsdl="${service-wsdl-PatientCorrelationServiceSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-PatientCorrelationServiceSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationServiceSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationServiceSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
         <property name="targetLocation-PatientCorrelationServiceSecured" location="${meta.inf}/wsdl/PatientCorrelationServiceSecured"/>
         <property name="sourceLocation-PatientCorrelationServiceSecured" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/wsdl/"/>
-
         <copy todir="${targetLocation-PatientCorrelationServiceSecured}">
             <fileset dir="${sourceLocation-PatientCorrelationServiceSecured}"/>
         </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/schemas"/>
+        <property name="targetLocation-PatientCorrelationServiceSecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-PatientCorrelationServiceSecuredSchemas" location="${meta.inf}/xml-resources/web-services/PatientCorrelationServiceSecured/schemas/"/>
+        <copy todir="${targetLocation-PatientCorrelationServiceSecuredSchemas}">
+            <fileset dir="${sourceLocation-PatientCorrelationServiceSecuredSchemas}"/>
         </copy>
     </target>
 
- <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+ 	<target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -115,7 +128,7 @@
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-         <basename file="${reference.PatientCorrelationDAO.jar}" property="included.lib.reference.PatientCorrelationDAO.jar"/>
+        <basename file="${reference.PatientCorrelationDAO.jar}" property="included.lib.reference.PatientCorrelationDAO.jar"/>
         <copy file="${reference.PatientCorrelationDAO.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>

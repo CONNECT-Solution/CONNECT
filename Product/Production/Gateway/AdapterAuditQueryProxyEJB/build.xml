@@ -78,7 +78,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-       <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
     	<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>

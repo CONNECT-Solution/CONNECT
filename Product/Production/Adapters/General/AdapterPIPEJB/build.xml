@@ -16,13 +16,13 @@
 
     <import file="../../../../build.lib.xml" />
 
-		<target name="build">
-			<property name="target-to-call" value="dist" />
-			<antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -80,6 +80,7 @@
     -->
 
     <target name="wsimport-service-AdapterPIPService" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
         <property name="service-wsdl-AdapterPIPService" location="${meta.inf}/xml-resources/web-services/AdapterPIPService/wsdl/AdapterPIP.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" wsdl="${service-wsdl-AdapterPIPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -91,10 +92,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterPIPService" location="${meta.inf}/wsdl/AdapterPIPService"/>
         <property name="sourceLocation-AdapterPIPService" location="${meta.inf}/xml-resources/web-services/AdapterPIPService/wsdl/"/>
         <copy todir="${targetLocation-AdapterPIPService}">
             <fileset dir="${sourceLocation-AdapterPIPService}"/>
+        </copy>
+        <property name="targetLocation-AdapterPIPServiceSchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterPIPServiceSchemas" location="${meta.inf}/xml-resources/web-services/AdapterPIPService/schemas/"/>
+        <copy todir="${targetLocation-AdapterPIPServiceSchemas}">
+            <fileset dir="${sourceLocation-AdapterPIPServiceSchemas}"/>
         </copy>
     </target>
 

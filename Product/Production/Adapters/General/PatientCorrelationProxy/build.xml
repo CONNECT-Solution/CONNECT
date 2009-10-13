@@ -16,13 +16,13 @@
 
     <import file="../../../../build.lib.xml" />
 		
-		<target name="build">
-			<property name="target-to-call" value="dist" />
-			<antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -79,17 +79,19 @@
 
     -->
     <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init,wsimport-service-check-PatientCorrelationService" unless="wsimport-service-PatientCorrelationService.notRequired">
+<!--
         <property name="service-wsdl-PatientCorrelationService" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl"/>
-        <!--
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-PatientCorrelationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
-        -->
+-->
         <property name="targetLocation-PatientCorrelationService" location="${meta.inf}/wsdl/PatientCorrelationService"/>
         <property name="sourceLocation-PatientCorrelationService" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/"/>
         <copy todir="${targetLocation-PatientCorrelationService}">
             <fileset dir="${sourceLocation-PatientCorrelationService}"/>
         </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/PatientCorrelationService/schemas"/>
+        <property name="targetLocation-PatientCorrelationServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-PatientCorrelationServiceSchemas" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/schemas/"/>
+        <copy todir="${targetLocation-PatientCorrelationServiceSchemas}">
+            <fileset dir="${sourceLocation-PatientCorrelationServiceSchemas}"/>
         </copy>
     </target>
     <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init,wsimport-client-check-NhincComponentPatientCorrelationSecured" unless="wsimport-client-NhincComponentPatientCorrelationSecured.notRequired"/>

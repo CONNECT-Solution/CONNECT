@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -93,6 +93,11 @@
         <property name="sourceLocation-GatewaySubscriptionReferenceRepository" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionReferenceRepository/wsdl/"/>
         <copy todir="${targetLocation-GatewaySubscriptionReferenceRepository}">
             <fileset dir="${sourceLocation-GatewaySubscriptionReferenceRepository}"/>
+        </copy>
+        <property name="targetLocation-GatewaySubscriptionReferenceRepositorySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-GatewaySubscriptionReferenceRepositorySchemas" location="${meta.inf}/xml-resources/web-services/GatewaySubscriptionReferenceRepository/schemas/"/>
+        <copy todir="${targetLocation-GatewaySubscriptionReferenceRepositorySchemas}">
+            <fileset dir="${sourceLocation-GatewaySubscriptionReferenceRepositorySchemas}"/>
         </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">

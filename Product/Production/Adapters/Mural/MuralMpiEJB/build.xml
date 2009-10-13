@@ -11,13 +11,13 @@
     <description>Builds, tests, and runs the project MuralMpiEJB.</description>
 <import file="../../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
-		<target name="build">
-			<property name="target-to-call" value="dist" />
-			<antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     
     <!--
 
@@ -75,8 +75,8 @@
 
     -->
      <target name="wsimport-service-MuralMPI" depends="wsimport-init">
-        <property name="service-wsdl-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/AdapterComponentMpi.wsdl"/>
 <!--
+        <property name="service-wsdl-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/AdapterComponentMpi.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-MuralMPI}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
 -->
 
@@ -94,16 +94,15 @@
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
     
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>    
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>    
     
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}"	antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -111,7 +110,7 @@
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
     
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>

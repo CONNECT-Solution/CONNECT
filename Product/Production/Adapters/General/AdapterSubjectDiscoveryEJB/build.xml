@@ -76,6 +76,7 @@
     -->
     
     <target name="wsimport-service-AdapterSubjectDiscoverySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured"/>
         <property name="service-wsdl-AdapterSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured" wsdl="${service-wsdl-AdapterSubjectDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -87,10 +88,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterSubjectDiscoverySecured" location="${meta.inf}/wsdl/AdapterSubjectDiscoverySecured"/>
         <property name="sourceLocation-AdapterSubjectDiscoverySecured" location="${meta.inf}/xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterSubjectDiscoverySecured}">
             <fileset dir="${sourceLocation-AdapterSubjectDiscoverySecured}"/>
+        </copy>
+        <property name="targetLocation-AdapterSubjectDiscoverySecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterSubjectDiscoverySecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterSubjectDiscoverySecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterSubjectDiscoverySecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterSubjectDiscoverySecuredSchemas}"/>
         </copy>
     </target>
     <target name="-deps-module-jar" depends="init" if="no.dist.ear.dir" unless="no.deps">

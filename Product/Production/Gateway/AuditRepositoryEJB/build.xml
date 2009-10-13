@@ -9,15 +9,15 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
     
- 		<import file="../../../build.lib.xml" />
-		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<import file="../../../build.lib.xml" />
+
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -104,10 +104,10 @@
       
      <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
     
-    		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		    		
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -117,10 +117,10 @@
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
     
-    		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
+		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		    	
         <ant dir="${project.AuditRepositoryDAO.Absolute}" antfile="${project.AuditRepositoryDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>

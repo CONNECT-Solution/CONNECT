@@ -12,13 +12,13 @@
     <import file="nbproject/build-impl.xml"/>
     <import file="../../../../build.lib.xml" />
     
-		<target name="build">
-			<property name="target-to-call" value="dist" />
-			<antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
 		
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
@@ -83,6 +83,7 @@
 
     -->
     <target name="wsimport-service-AdapterMpi" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
         <property name="service-wsdl-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" wsdl="${service-wsdl-AdapterMpi}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -94,10 +95,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterMpi" location="${meta.inf}/wsdl/AdapterMpi"/>
         <property name="sourceLocation-AdapterMpi" location="${meta.inf}/xml-resources/web-services/AdapterMpi/wsdl/"/>
         <copy todir="${targetLocation-AdapterMpi}">
             <fileset dir="${sourceLocation-AdapterMpi}"/>
+        </copy>
+        <property name="targetLocation-AdapterMpiSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterMpiSchemas" location="${meta.inf}/xml-resources/web-services/AdapterMpi/schemas/"/>
+        <copy todir="${targetLocation-AdapterMpiSchemas}">
+            <fileset dir="${sourceLocation-AdapterMpiSchemas}"/>
         </copy>
     </target>
  
@@ -127,6 +134,7 @@
     </target>
 
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured"/>
         <property name="wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-service-references/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/AdapterMpiSecured" wsdl="${wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl" xnocompile="true">
@@ -138,6 +146,7 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
 
 </project>

@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" /> 
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -78,32 +78,39 @@
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
 <!--    <target name="wsimport-service-NhincComponentPropAccessor" depends="wsimport-init,wsimport-service-check-NhincComponentPropAccessor" unless="wsimport-service-NhincComponentPropAccessor.notRequired"> -->
 	<target name="wsimport-service-NhincComponentPropAccessor" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor"/>
         <property name="service-wsdl-NhincComponentPropAccessor" location="${meta.inf}/xml-resources/web-services/NhincComponentPropAccessor/wsdl/NhincComponentPropAccessor.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor" wsdl="${service-wsdl-NhincComponentPropAccessor}" catalog="catalog.xml"/> -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor" wsdl="${service-wsdl-NhincComponentPropAccessor}" catalog="catalog.xml"/> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-NhincComponentPropAccessor" location="${meta.inf}/wsdl/NhincComponentPropAccessor"/>
         <property name="sourceLocation-NhincComponentPropAccessor" location="${meta.inf}/xml-resources/web-services/NhincComponentPropAccessor/wsdl/"/>
         <copy todir="${targetLocation-NhincComponentPropAccessor}">
             <fileset dir="${sourceLocation-NhincComponentPropAccessor}"/>
         </copy>
+        <property name="targetLocation-NhincComponentPropAccessorSchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-NhincComponentPropAccessorSchemas" location="${meta.inf}/xml-resources/web-services/NhincComponentPropAccessor/schemas/"/>
+        <copy todir="${targetLocation-NhincComponentPropAccessorSchemas}">
+            <fileset dir="${sourceLocation-NhincComponentPropAccessorSchemas}"/>
+        </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>     

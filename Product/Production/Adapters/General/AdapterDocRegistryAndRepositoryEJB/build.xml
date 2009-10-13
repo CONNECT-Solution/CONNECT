@@ -131,62 +131,78 @@
         </manifest>
     </target>
     <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
         <property name="service-wsdl-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
-<!--
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" wsdl="${service-wsdl-AdapterDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-AdapterDocQuerySecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterDocQuerySecured" location="${meta.inf}/wsdl/AdapterDocQuerySecured"/>
         <property name="sourceLocation-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocQuerySecured}">
             <fileset dir="${sourceLocation-AdapterDocQuerySecured}"/>
         </copy>
+        <property name="targetLocation-AdapterDocQuerySecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterDocQuerySecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocQuerySecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocQuerySecuredSchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
         <property name="service-wsdl-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
-<!--
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" wsdl="${service-wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-AdapterDocRetrieveSecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
         </wsimport>
--->
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterDocRetrieveSecured" location="${meta.inf}/wsdl/AdapterDocRetrieveSecured"/>
         <property name="sourceLocation-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocRetrieveSecured}">
             <fileset dir="${sourceLocation-AdapterDocRetrieveSecured}"/>
         </copy>
+        <property name="targetLocation-AdapterDocRetrieveSecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterDocRetrieveSecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocRetrieveSecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocRetrieveSecuredSchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
         <property name="service-wsdl-AdapterDocProvideAndRegisterservice" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/AdapterDocProvideAndRegister.wsdl"/>
-<!--
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" wsdl="${service-wsdl-AdapterDocProvideAndRegisterservice}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-AdapterDocProvideAndRegisterservice}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
         </wsimport>
-        -->
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+        -->
         <property name="targetLocation-AdapterDocProvideAndRegisterservice" location="${meta.inf}/wsdl/AdapterDocProvideAndRegisterservice"/>
         <property name="sourceLocation-AdapterDocProvideAndRegisterservice" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocProvideAndRegisterservice}">
             <fileset dir="${sourceLocation-AdapterDocProvideAndRegisterservice}"/>
+        </copy>
+        <property name="targetLocation-AdapterDocProvideAndRegisterserviceSchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterDocProvideAndRegisterserviceSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocProvideAndRegisterservice/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocProvideAndRegisterserviceSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocProvideAndRegisterserviceSchemas}"/>
         </copy>
     </target>
 

@@ -106,8 +106,10 @@
         <copy todir="${targetLocation-HiemSubscriptionRepositoryUtilService}">
             <fileset dir="${sourceLocation-HiemSubscriptionRepositoryUtilService}"/>
         </copy>
-        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
-            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/HiemSubscriptionRepositoryUtilService/schemas/" />
+        <property name="targetLocation-HiemSubscriptionRepositoryUtilServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-HiemSubscriptionRepositoryUtilServiceSchemas" location="${meta.inf}/xml-resources/web-services/HiemSubscriptionRepositoryUtilService/schemas/"/>
+        <copy todir="${targetLocation-HiemSubscriptionRepositoryUtilServiceSchemas}">
+            <fileset dir="${sourceLocation-HiemSubscriptionRepositoryUtilServiceSchemas}"/>
         </copy>
     </target>
 

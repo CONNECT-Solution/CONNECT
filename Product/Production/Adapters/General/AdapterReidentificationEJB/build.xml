@@ -11,13 +11,13 @@
     
     <import file="../../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -74,6 +74,7 @@
 
     -->
     <target name="wsimport-service-AdapterReidentification" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
         <property name="service-wsdl-AdapterReidentification" location="${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" destdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" wsdl="${service-wsdl-AdapterReidentification}" catalog="catalog.xml"/>
@@ -82,10 +83,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterReidentification" location="${meta.inf}/wsdl/AdapterReidentification"/>
         <property name="sourceLocation-AdapterReidentification" location="${meta.inf}/xml-resources/web-services/AdapterReidentification/wsdl/"/>
         <copy todir="${targetLocation-AdapterReidentification}">
             <fileset dir="${sourceLocation-AdapterReidentification}"/>
+        </copy>
+        <property name="targetLocation-AdapterReidentificationSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterReidentificationSchemas" location="${meta.inf}/xml-resources/web-services/AdapterReidentification/schemas/"/>
+        <copy todir="${targetLocation-AdapterReidentificationSchemas}">
+            <fileset dir="${sourceLocation-AdapterReidentificationSchemas}"/>
         </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">

@@ -62,10 +62,6 @@
 		<directory>/Production/Adapters/General/AdapterPEPEJB</directory>
 	</project>
 	<project>
-		<name>AdapterPEPProxyImpl</name>
-		<directory>/Production/Adapters/General/AdapterPEPProxyImpl</directory>
-	</project>
-	<project>
 		<name>AdapterPDPOpenSSO</name>
 		<directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
 	</project>
@@ -80,10 +76,6 @@
 	<project>
 		<name>AdapterAuthenticationEJB</name>
 		<directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
-	</project>
-	<project>
-		<name>AdapterAuthenticationProxyImpl</name>
-		<directory>/Production/Adapters/General/AdapterAuthenticationProxyImpl</directory>
 	</project>
 	<project>
 		<name>ConsumerPreferencesProfileGUI</name>

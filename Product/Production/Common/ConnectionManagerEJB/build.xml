@@ -9,15 +9,15 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
     
- 		<import file="../../../build.lib.xml" />
-		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<import file="../../../build.lib.xml" />
+
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -77,37 +77,44 @@
     <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
     <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
         <property name="service-wsdl-NhincComponentConnectionManager" location="${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" wsdl="${service-wsdl-NhincComponentConnectionManager}" catalog="catalog.xml"/> -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" wsdl="${service-wsdl-NhincComponentConnectionManager}" catalog="catalog.xml"/> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-NhincComponentConnectionManager" location="${meta.inf}/wsdl/NhincComponentConnectionManager"/>
         <property name="sourceLocation-NhincComponentConnectionManager" location="${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
         <copy todir="${targetLocation-NhincComponentConnectionManager}">
             <fileset dir="${sourceLocation-NhincComponentConnectionManager}"/>
         </copy>
+        <property name="targetLocation-NhincComponentConnectionManagerSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-NhincComponentConnectionManagerSchemas" location="${meta.inf}/xml-resources/web-services/NhincComponentConnectionManager/schemas/"/>
+        <copy todir="${targetLocation-NhincComponentConnectionManagerSchemas}">
+            <fileset dir="${sourceLocation-NhincComponentConnectionManagerSchemas}"/>
+        </copy>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-    		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		        
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>

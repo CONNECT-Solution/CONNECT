@@ -141,7 +141,7 @@
 		<property name="project.ConnectionManagerEJB.Absolute" location="${project.ConnectionManagerEJB}"/>
 		<property name="project.NhinSubjectDiscoveryProxy.Absolute" location="${project.NhinSubjectDiscoveryProxy}"/>
 		<property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+    	<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
         <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
 
@@ -169,7 +169,7 @@
 		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
 		<property name="project.NhinSubjectDiscoveryProxy.Absolute" location="${project.NhinSubjectDiscoveryProxy}"/>
 		<property name="project.NhinSubjectDiscoveryProxyImpl.Absolute" location="${project.NhinSubjectDiscoveryProxyImpl}"/>
-    		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+    	<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
         <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
 

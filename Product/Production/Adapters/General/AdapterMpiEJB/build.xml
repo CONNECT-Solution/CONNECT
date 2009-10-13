@@ -9,15 +9,15 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
 
-		<import file="../../../../build.lib.xml" /> 
-		
-		<target name="build">
-			<property name="target-to-call" value="dist" />
-			<antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<import file="../../../../build.lib.xml" /> 
+
+	<target name="build">
+		<property name="target-to-call" value="dist" />
+		<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -76,6 +76,7 @@
     <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
     <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
         <property name="service-wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" wsdl="${service-wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -87,13 +88,20 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterMpiSecured" location="${meta.inf}/wsdl/AdapterMpiSecured"/>
         <property name="sourceLocation-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterMpiSecured}">
             <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
         </copy>
+        <property name="targetLocation-AdapterMpiSecuredSchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterMpiSecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterMpiSecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterMpiSecuredSchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-client-AdapterComponentMpi" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi"/>
         <property name="wsdl-AdapterComponentMpi" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi" wsdl="${wsdl-AdapterComponentMpi}" catalog="catalog.xml"/>
@@ -102,8 +110,10 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>	
     <target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi"/>
         <property name="wsdl-AdapterComponentSecuredMpi" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentSecuredMpi/wsdl/AdapterComponentSecuredMpi.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi" destdir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi" wsdl="${wsdl-AdapterComponentSecuredMpi}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" xnocompile="true">
@@ -115,12 +125,11 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        
-        
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>

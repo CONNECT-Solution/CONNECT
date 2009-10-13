@@ -13,7 +13,7 @@ import javax.jws.HandlerChain;
  *
  * @author dunnek
  */
-@WebService(serviceName = "NhincProxySubscriptionManagerSecured", portName = "NhincProxySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/ProxyHiemUnubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl")
+@WebService(serviceName = "NhincProxySubscriptionManagerSecured", portName = "NhincProxySubscriptionManagerSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.nhincproxysubscriptionmanagement.NhincProxySubscriptionManagerSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement", wsdlLocation = "META-INF/wsdl/ProxyHiemUnsubscribeSecured/NhincProxySubscriptionManagementSecured.wsdl")
 @Stateless
 @HandlerChain(file = "ProxyHiemUnsubscribeHeaderHandler.xml")
 public class ProxyHiemUnsubscribeSecured implements NhincProxySubscriptionManagerSecuredPortType

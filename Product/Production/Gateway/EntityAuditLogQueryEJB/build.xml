@@ -130,10 +130,10 @@
 		<ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
 		<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
 	    <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/> 
-         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/> 
-         <ant dir="${project.NhinAuditQueryProxyImpl.Absolute}" antfile="${project.NhinAuditQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-         <ant dir="${project.NhinAuditQueryProxy.Absolute}" antfile="${project.NhinAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/> 
+        <ant dir="${project.NhinAuditQueryProxyImpl.Absolute}" antfile="${project.NhinAuditQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhinAuditQueryProxy.Absolute}" antfile="${project.NhinAuditQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
 	</target>
 	<target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>

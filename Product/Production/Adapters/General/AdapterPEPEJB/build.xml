@@ -79,6 +79,7 @@
 
     -->
     <target name="wsimport-service-AdapterPEPService" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
         <property name="service-wsdl-AdapterPEPService" location="${meta.inf}/xml-resources/web-services/AdapterPEPService/wsdl/AdapterPEP.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" wsdl="${service-wsdl-AdapterPEPService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -90,10 +91,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterPEPService" location="${meta.inf}/wsdl/AdapterPEPService"/>
         <property name="sourceLocation-AdapterPEPService" location="${meta.inf}/xml-resources/web-services/AdapterPEPService/wsdl/"/>
         <copy todir="${targetLocation-AdapterPEPService}">
             <fileset dir="${sourceLocation-AdapterPEPService}"/>
+        </copy>
+        <property name="targetLocation-AdapterPEPServiceSchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterPEPServiceSchemas" location="${meta.inf}/xml-resources/web-services/AdapterPEPService/schemas/"/>
+        <copy todir="${targetLocation-AdapterPEPServiceSchemas}">
+            <fileset dir="${sourceLocation-AdapterPEPServiceSchemas}"/>
         </copy>
     </target>
 

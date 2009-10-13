@@ -79,6 +79,7 @@
     -->
     
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
         <property name="wsdl-EntityAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" wsdl="${wsdl-EntityAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true">
@@ -90,8 +91,10 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
      <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
         <property name="wsdl-NhincProxyAuditLogQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" wsdl="${wsdl-NhincProxyAuditLogQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true">
@@ -103,9 +106,11 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
     
     <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
         <property name="service-wsdl-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/EntityAuditLogQuery.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" wsdl="${service-wsdl-EntityAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -117,14 +122,21 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntityAuditQuery" location="${meta.inf}/wsdl/EntityAuditQuery"/>
         <property name="sourceLocation-EntityAuditQuery" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/wsdl/"/>
         <copy todir="${targetLocation-EntityAuditQuery}">
             <fileset dir="${sourceLocation-EntityAuditQuery}"/>
         </copy>
+        <property name="targetLocation-EntityAuditQuerySchemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-EntityAuditQuerySchemas" location="${meta.inf}/xml-resources/web-services/EntityAuditQuery/schemas/"/>
+        <copy todir="${targetLocation-EntityAuditQuerySchemas}">
+            <fileset dir="${sourceLocation-EntityAuditQuerySchemas}"/>
+        </copy>
     </target>
     
     <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
         <property name="service-wsdl-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/NhincProxyAuditLogQuery.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" wsdl="${service-wsdl-ProxyAuditQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -136,10 +148,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-ProxyAuditQuery" location="${meta.inf}/wsdl/ProxyAuditQuery"/>
         <property name="sourceLocation-ProxyAuditQuery" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
         <copy todir="${targetLocation-ProxyAuditQuery}">
             <fileset dir="${sourceLocation-ProxyAuditQuery}"/>
+        </copy>
+        <property name="targetLocation-ProxyAuditQuerySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-ProxyAuditQuerySchemas" location="${meta.inf}/xml-resources/web-services/ProxyAuditQuery/schemas/"/>
+        <copy todir="${targetLocation-ProxyAuditQuerySchemas}">
+            <fileset dir="${sourceLocation-ProxyAuditQuerySchemas}"/>
         </copy>
     </target>
     

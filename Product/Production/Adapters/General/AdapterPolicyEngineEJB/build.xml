@@ -80,6 +80,7 @@
     -->
 
     <target name="wsimport-service-AdapterPolicyEngineSecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured"/>
         <property name="service-wsdl-AdapterPolicyEngineSecured" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/AdapterPolicyEngineSecured.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured" wsdl="${service-wsdl-AdapterPolicyEngineSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -91,10 +92,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterPolicyEngineSecured" location="${meta.inf}/wsdl/AdapterPolicyEngineSecured"/>
         <property name="sourceLocation-AdapterPolicyEngineSecured" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterPolicyEngineSecured}">
             <fileset dir="${sourceLocation-AdapterPolicyEngineSecured}"/>
+        </copy>
+        <property name="targetLocation-AdapterPolicyEngineSecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterPolicyEngineSecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineSecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterPolicyEngineSecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterPolicyEngineSecuredSchemas}"/>
         </copy>
     </target>
 

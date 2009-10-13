@@ -96,66 +96,84 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target name="wsimport-client-EntityDocQuerySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured"/>
         <property name="wsdl-EntityDocQuerySecured" location="${meta.inf}/xml-resources/web-service-references/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
-        <!--<wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured" wsdl="${wsdl-EntityDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured" wsdl="${wsdl-EntityDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl" xnocompile="true">
             <depends file="${wsdl-EntityDocQuerySecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/EntityDocQuerySecured">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
     <target name="wsimport-client-NhincProxyDocQuerySecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured"/>
         <property name="wsdl-NhincProxyDocQuerySecured" location="${meta.inf}/xml-resources/web-service-references/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured" wsdl="${wsdl-NhincProxyDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured" wsdl="${wsdl-NhincProxyDocQuerySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl" xnocompile="true">
             <depends file="${wsdl-NhincProxyDocQuerySecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyDocQuerySecured">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
     </target>
     
     <target name="wsimport-service-EntityDocQuery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
         <property name="service-wsdl-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" wsdl="${service-wsdl-EntityDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" wsdl="${service-wsdl-EntityDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-EntityDocQuery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
-        </wsimport>-->
+        </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-EntityDocQuery" location="${meta.inf}/wsdl/EntityDocQuery"/>
         <property name="sourceLocation-EntityDocQuery" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/wsdl/"/>
         <copy todir="${targetLocation-EntityDocQuery}">
             <fileset dir="${sourceLocation-EntityDocQuery}"/>
         </copy>
+        <property name="targetLocation-EntityDocQuerySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-EntityDocQuerySchemas" location="${meta.inf}/xml-resources/web-services/EntityDocQuery/schemas/"/>
+        <copy todir="${targetLocation-EntityDocQuerySchemas}">
+            <fileset dir="${sourceLocation-EntityDocQuerySchemas}"/>
+        </copy>
     </target>
     <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
         <property name="service-wsdl-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" wsdl="${service-wsdl-NhincProxyDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" wsdl="${service-wsdl-NhincProxyDocQuery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-NhincProxyDocQuery}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-NhincProxyDocQuery" location="${meta.inf}/wsdl/NhincProxyDocQuery"/>
         <property name="sourceLocation-NhincProxyDocQuery" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
         <copy todir="${targetLocation-NhincProxyDocQuery}">
             <fileset dir="${sourceLocation-NhincProxyDocQuery}"/>
+        </copy>
+        <property name="targetLocation-NhincProxyDocQuerySchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-NhincProxyDocQuerySchemas" location="${meta.inf}/xml-resources/web-services/NhincProxyDocQuery/schemas/"/>
+        <copy todir="${targetLocation-NhincProxyDocQuerySchemas}">
+            <fileset dir="${sourceLocation-NhincProxyDocQuerySchemas}"/>
         </copy>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">

@@ -11,13 +11,13 @@
     
     <import file="../../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -76,18 +76,25 @@
         <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
     <target name="wsimport-service-MpiManager" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/MpiManager"/>
         <property name="service-wsdl-MpiManager" location="${meta.inf}/xml-resources/web-services/MpiManager/wsdl/AdapterMpiManager.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/MpiManager" destdir="${build.generated.dir}/jax-wsCache/service/MpiManager" wsdl="${service-wsdl-MpiManager}" catalog="catalog.xml"/> -->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/MpiManager" destdir="${build.generated.dir}/jax-wsCache/service/MpiManager" wsdl="${service-wsdl-MpiManager}" catalog="catalog.xml"/> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/MpiManager">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-MpiManager" location="${meta.inf}/wsdl/MpiManager"/>
         <property name="sourceLocation-MpiManager" location="${meta.inf}/xml-resources/web-services/MpiManager/wsdl/"/>
         <copy todir="${targetLocation-MpiManager}">
             <fileset dir="${sourceLocation-MpiManager}"/>
+        </copy>
+        <property name="targetLocation-MpiManagerSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-MpiManagerSchemas" location="${meta.inf}/xml-resources/web-services/MpiManager/schemas/"/>
+        <copy todir="${targetLocation-MpiManagerSchemas}">
+            <fileset dir="${sourceLocation-MpiManagerSchemas}"/>
         </copy>
     </target>
     

@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -87,22 +87,22 @@
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -110,7 +110,7 @@
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-         <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
 

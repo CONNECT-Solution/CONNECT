@@ -11,13 +11,13 @@
     
     <import file="../../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -75,6 +75,7 @@
     -->
     
     <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
         <property name="service-wsdl-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" wsdl="${service-wsdl-AdapterPolicyEngineTransform}" catalog="catalog.xml"/>
@@ -83,10 +84,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterPolicyEngineTransform" location="${meta.inf}/wsdl/AdapterPolicyEngineTransform"/>
         <property name="sourceLocation-AdapterPolicyEngineTransform" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
         <copy todir="${targetLocation-AdapterPolicyEngineTransform}">
             <fileset dir="${sourceLocation-AdapterPolicyEngineTransform}"/>
+        </copy>
+        <property name="targetLocation-AdapterPolicyEngineTransformSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterPolicyEngineTransformSchemas" location="${meta.inf}/xml-resources/web-services/AdapterPolicyEngineTransform/schemas/"/>
+        <copy todir="${targetLocation-AdapterPolicyEngineTransformSchemas}">
+            <fileset dir="${sourceLocation-AdapterPolicyEngineTransformSchemas}"/>
         </copy>
     </target>
     
@@ -94,7 +101,7 @@
 
     <target depends="compile" name="library-inclusion-in-manifest"/>
 
-<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>        
     

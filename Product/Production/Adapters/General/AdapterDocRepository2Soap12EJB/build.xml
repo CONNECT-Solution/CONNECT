@@ -98,6 +98,7 @@
     </target>
 	
     <target name="wsimport-service-AdapterDocRepository2Soap12Service" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRepository2Soap12Service"/>
         <property name="service-wsdl-AdapterDocRepository2Soap12Service" location="${meta.inf}/xml-resources/web-services/AdapterDocRepository2Soap12Service/wsdl/AdapterComponentDocRepository.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRepository2Soap12Service" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRepository2Soap12Service" wsdl="${service-wsdl-AdapterDocRepository2Soap12Service}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -109,10 +110,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterDocRepository2Soap12Service" location="${meta.inf}/wsdl/AdapterDocRepository2Soap12Service"/>
         <property name="sourceLocation-AdapterDocRepository2Soap12Service" location="${meta.inf}/xml-resources/web-services/AdapterDocRepository2Soap12Service/wsdl/"/>
         <copy todir="${targetLocation-AdapterDocRepository2Soap12Service}">
             <fileset dir="${sourceLocation-AdapterDocRepository2Soap12Service}"/>
+        </copy>
+        <property name="targetLocation-AdapterDocRepository2Soap12ServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterDocRepository2Soap12ServiceSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocRepository2Soap12Service/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocRepository2Soap12ServiceSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocRepository2Soap12ServiceSchemas}"/>
         </copy>
     </target>
 	

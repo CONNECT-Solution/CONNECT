@@ -11,13 +11,13 @@
     
     <import file="../../../../build.lib.xml" />
 		
-		<target name="build">
-        <property name="target-to-call" value="dist" />
-        <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,dist" />
-		<target name="clean-test" depends="clean,dist" />
-		<target name="build-test" depends="dist" />
+	<target name="build">
+	<property name="target-to-call" value="dist" />
+	<antcall target="call-target-in-isolation-if-out-of-date" />
+	</target>
+	<target name="clean-build" depends="clean,dist" />
+	<target name="clean-test" depends="clean,dist" />
+	<target name="build-test" depends="dist" />
     <!--
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
@@ -76,59 +76,71 @@
          did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
          
     <target name="wsimport-service-AdapterComponentMpi" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi"/>
         <property name="service-wsdl-AdapterComponentMpi" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" wsdl="${service-wsdl-AdapterComponentMpi}" catalog="catalog.xml"/>-->
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" wsdl="${service-wsdl-AdapterComponentMpi}" catalog="catalog.xml"/>
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterComponentMpi" location="${meta.inf}/wsdl/AdapterComponentMpi"/>
         <property name="sourceLocation-AdapterComponentMpi" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpi/wsdl/"/>
         <copy todir="${targetLocation-AdapterComponentMpi}">
             <fileset dir="${sourceLocation-AdapterComponentMpi}"/>
         </copy>
+        <property name="targetLocation-AdapterComponentMpiSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterComponentMpiSchemas" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpi/schemas/"/>
+        <copy todir="${targetLocation-AdapterComponentMpiSchemas}">
+            <fileset dir="${sourceLocation-AdapterComponentMpiSchemas}"/>
+        </copy>
     </target>
     
     <target name="wsimport-service-AdapterComponentMpiSecured" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
         <property name="service-wsdl-AdapterComponentMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/wsdl/AdapterComponentSecuredMpi.wsdl"/>
-<!--        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" wsdl="${service-wsdl-AdapterComponentMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" wsdl="${service-wsdl-AdapterComponentMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
             <depends file="${wsdl-AdapterComponentMpiSecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
-        </wsimport> -->
+        </wsimport> 
         <copy todir="${build.generated.sources.dir}/jax-ws">
             <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterComponentMpiSecured" location="${meta.inf}/wsdl/AdapterComponentMpiSecured"/>
         <property name="sourceLocation-AdapterComponentMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/wsdl/"/>
         <copy todir="${targetLocation-AdapterComponentMpiSecured}">
             <fileset dir="${sourceLocation-AdapterComponentMpiSecured}"/>
         </copy>
+        <property name="targetLocation-AdapterComponentMpiSecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterComponentMpiSecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterComponentMpiSecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterComponentMpiSecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterComponentMpiSecuredSchemas}"/>
+        </copy>
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
 		    
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-    
-		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
 
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>    
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-		    <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		    <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
-		    
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
 		    
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>

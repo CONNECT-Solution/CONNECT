@@ -79,6 +79,7 @@
 
     -->
     <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init">
+<!--
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
         <property name="service-wsdl-AdapterAuthenticationService" location="${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/wsdl/AdapterAuthentication.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" wsdl="${service-wsdl-AdapterAuthenticationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -90,10 +91,16 @@
                 <include name="**/*.java"/>
             </fileset>
         </copy>
+-->
         <property name="targetLocation-AdapterAuthenticationService" location="${meta.inf}/wsdl/AdapterAuthenticationService"/>
         <property name="sourceLocation-AdapterAuthenticationService" location="${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/wsdl/"/>
         <copy todir="${targetLocation-AdapterAuthenticationService}">
             <fileset dir="${sourceLocation-AdapterAuthenticationService}"/>
+        </copy>
+        <property name="targetLocation-AdapterAuthenticationServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterAuthenticationServiceSchemas" location="${meta.inf}/xml-resources/web-services/AdapterAuthenticationService/schemas/"/>
+        <copy todir="${targetLocation-AdapterAuthenticationServiceSchemas}">
+            <fileset dir="${sourceLocation-AdapterAuthenticationServiceSchemas}"/>
         </copy>
     </target>
 
