@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="settings">
+  <property environment="env"/>
+  
   <property name="glassfish.home" value="${env.AS_HOME}"/>
   
   <property name="deployment.dir" value="C:\NHINC" />
