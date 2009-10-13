@@ -87,15 +87,6 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY Staging '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName;-Staging">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
@@ -109,7 +100,6 @@
         <projectFilters>
           &Deploy;
           &Test;
-          &Staging;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -118,7 +108,6 @@
         <projectFilters>
           &Deploy;
           &Test;
-          &Staging;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -164,7 +153,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &Test;
-          &Staging;
           &ReleaseFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -174,7 +162,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &Test;
-          &Staging;
           &ReleaseFailed;
         </projectFilters>
       </projectForceFilter>
@@ -258,7 +245,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &Deploy;
-          &Staging;
           &DeployFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -268,7 +254,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &Deploy;
-          &Staging;
           &DeployFailed;
         </projectFilters>
       </projectForceFilter>
