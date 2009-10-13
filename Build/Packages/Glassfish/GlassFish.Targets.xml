@@ -72,8 +72,9 @@
   </target>
 
   <target name="GlassFish.Redeploy">
+    <!--
     <call target="GlassFish.Recreate.Domain"/>
-
+    -->
     <call target="GlassFish.Deploy"/>
   </target>
 
