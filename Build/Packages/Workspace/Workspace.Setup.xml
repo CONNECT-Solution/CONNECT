@@ -117,7 +117,7 @@ Title=Setup CI Factory Workspace]]>
 		<property name="SfxConfig.FilePath" value="${Common.Directory.Build.Path}\SfxConfig.txt"/>
 		<echo message="${SfxConfig.Content}" file="${SfxConfig.FilePath}"/>
 
-    <property name="WinRarProgramPath" value="${environment::get-variable('ProgramFiles')}\winrar\winrar.exe" overwrite="false"/>
+    <property name="WinRarProgramPath" value="${ProgramFiles.Default.Path}\winrar\winrar.exe" overwrite="false"/>
 
 		<mkdir dir="${CCNet.Dashboard.Directory.Path}\WorkspaceSetup" />
 		<property name="WorkspaceSetupExe.FilePath" value="${CCNet.Dashboard.Directory.Path}\WorkspaceSetup\${ProjectName}-${ProjectCodeLineName}-WorkspaceSetup.exe"/>

@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Common">
 
+  <script language="C#" prefix="version" >
+    <imports>
+      <import namespace="System.IO" />
+    </imports>
+
+    <code>
+      <![CDATA[
+         [Function("compare")]
+         public static int Compare(Version versionA, Version versionB)
+         {
+                 return versionA.CompareTo(versionB);
+         }
+      ]]>
+    </code>
+  </script>
+  
   <ifthenelse test="${environment::variable-exists('ProgramFiles(x86)')}">
     <then>
       <property name="Processor.Type" value="64"/>
       <property name="ProgramFiles.Default.Path" value="${environment::get-variable('ProgramFiles(x86)')}"/>
-
+      
       <ifthenelse test="${environment::variable-exists('ProgramW6432')}">
         <then>
           <property name="ProgramFiles.64.Path" value="${environment::get-variable('ProgramW6432')}"/>
@@ -14,7 +30,7 @@
           <property name="ProgramFiles.64.Path" value="${environment::get-variable('ProgramFiles')}"/>
         </else>
       </ifthenelse>
-
+      
       <property name="ProgramFiles.32.Path" value="${environment::get-variable('ProgramFiles(x86)')}"/>
     </then>
     <else>
@@ -23,7 +39,9 @@
       <property name="ProgramFiles.32.Path" value="${environment::get-variable('ProgramFiles')}"/>
     </else>
   </ifthenelse>
-  
+
+  <property name="ProgramFiles.Current.Processor.Type.Path" value="${property::get-value('ProgramFiles.' + Processor.Type + '.Path')}"/>
+
   <foreach item="File" property="Tools.Canidate">
     <in>
       <items>
@@ -189,7 +207,65 @@ SET Common.Directory.Install.Path=${Common.Directory.Install.Path}
 SET Common.Directory.Transient.Path=${Common.Directory.Transient.Path}
 SET Common.Directory.Tools.Path=${Common.Directory.Tools.Path}
 
-SET PATH=${environment::get-variable('PATH')}
+IF DEFINED ProgramFiles(x86) goto Processor.Type.64
+IF NOT DEFINED ProgramFiles(x86) goto Processor.Type.32
+
+:Processor.Type.64
+
+set Processor.Type=64
+set ProgramFiles.Current.Processor.Type.Path=%ProgramFiles%
+set ProgramFiles.64.Path=%ProgramFiles%
+set ProgramFiles.32.Path=%ProgramFiles(x86)%
+set ProgramFiles.Default.Path=%ProgramFiles(x86)%
+
+goto TheRest
+
+:Processor.Type.32
+
+set Processor.Type=32
+set ProgramFiles.Current.Processor.Type.Path=%ProgramFiles%
+set ProgramFiles.32.Path=%ProgramFiles%
+set ProgramFiles.Default.Path=%ProgramFiles%
+
+:TheRest
+
+]]>
+      </text>
+    </write>
+
+    <loopthrough property="envvar.name">
+      <items>
+        <xmlquery
+          file="${Common.File.EnvironmentVariables.Path}"
+          query="//*[name()='environment' and @id='${'$'}{Common.EnvironmentVariables.RefId}']/*[name()='variable' and not(@name='PATH')]/@name"
+        />
+      </items>
+      <do>
+        <xmlpeek
+          file="${Common.File.EnvironmentVariables.Path}"
+          xpath="//*[name()='environment' and @id='${'$'}{Common.EnvironmentVariables.RefId}']/*[name()='variable' and @name='${envvar.name}']/@value"
+          property="envvar.value"
+        />
+        <write file="${Common.Directory.Build.Path}\SetEnv.bat" append="True">
+          <text expand="true" xml="false">
+            <![CDATA[
+SET ${envvar.name}=${property::expand(envvar.value)}
+]]>
+          </text>
+        </write>
+      </do>
+    </loopthrough>
+
+
+    <xmlpeek
+      file="${Common.File.EnvironmentVariables.Path}"
+      xpath="//*[name()='environment' and @id='${'$'}{Common.EnvironmentVariables.RefId}']/*[name()='variable' and @name='PATH']/@path"
+      property="envvar.path"
+    />
+    <write file="${Common.Directory.Build.Path}\SetEnv.bat" append="True">
+      <text expand="true" xml="false">
+        <![CDATA[
+SET PATH=${property::expand(envvar.path)}
 ]]>
       </text>
     </write>
@@ -344,7 +420,7 @@ Setup=cmd /C copy "%ProgramFiles%\cctray\cctray.exe.lnk" "%APPDATA%\Microsoft\Wi
     <property name="CCTraySettings.FilePath" value="${Common.Directory.Build.Path}\${CCTraySettings.FileName}"/>
     <echo message="${CCTraySettings.Content}" file="${CCTraySettings.FilePath}"/>
 
-    <property name="WinRarProgramPath" value="${environment::get-variable('ProgramFiles')}\winrar\winrar.exe" overwrite="false"/>
+    <property name="WinRarProgramPath" value="${ProgramFiles.Default.Path}\winrar\winrar.exe" overwrite="false"/>
     <property name="CCTraySetupExe.FilePath" value="${CCNet.Dashboard.Directory.Path}\cctray\CCTraySetup.exe"/>
 
     <property name="CCTrayZip.FilePath" value="${CCNet.Dashboard.Directory.Path}\cctray\cctray.zip"/>

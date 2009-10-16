@@ -21,9 +21,11 @@
   <property name="SVN.RootShare" value="C:\svnrepos" overwrite="false"/>
 	<property name="SourceControl.Update.Interactive" value="false" overwrite="false"/>
 
-	<property name="TortoisePath" value="${environment::get-variable('ProgramFiles')}\TortoiseSVN\bin\TortoiseProc.exe"/>
-
-	<property name="SvnBinPath" value="${environment::get-variable('ProgramFiles')}\Subversion\bin"/>
+  <property name="TortoisePath" value="${ProgramFiles.Current.Processor.Type.Path}\TortoiseSVN\bin\TortoiseProc.exe"/>
+  <property name="SvnBinPath" value="${ProgramFiles.32.Path}\Subversion\bin"/>
+  <findprogram program="TortoiseSVN\bin\TortoiseProc.exe" returnpropertyname="TortoisePath" failonerror="False"/>
+  <findprogram program="Subversion\bin" returnpropertyname="SvnBinPath" failonerror="False" />
+  
 	<setenv name="PATH" value="${environment::get-variable('PATH')};${SvnBinPath}" unless="${string::contains(environment::get-variable('PATH'), SvnBinPath)}" />
 
 </project>

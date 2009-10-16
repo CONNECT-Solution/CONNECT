@@ -5,8 +5,8 @@
   <property name="Java.Install.Path" value="${Java.Home}"/>
   <property name="Java.Installer.FileName" value="jdk-6u16-windows-i586.exe"/>
   <property name="Java.Installer.Download.URL" value="${Workspace.Ftp.Url}${Java.Installer.FileName}"/>
-  
-	<target name="Workspace.RequieredSoftware.Java">
+
+  <target name="Workspace.RequieredSoftware.Java">
     <ifnot test="${directory::exists(Java.Install.Path)}" >
       <call target="Java.DownloadAndInstall"/>
     </ifnot>
@@ -26,11 +26,12 @@
       <then>
         <get
           src="${Java.Installer.Download.URL}"
-          dest="${environment::get-variable('TEMP')}\${Java.Installer.FileName}"
-          />
+          dest="${Java.Installer.File.Path}"
+          unless="${file::exists(Java.Installer.File.Path)}"
+        />
         <exec 
-          workingdir="${environment::get-variable('TEMP')}" 
-          program="${environment::get-variable('TEMP')}\${Java.Installer.FileName}" 
+          workingdir="${path::get-directory-name(Java.Installer.File.Path)}" 
+          program="${Java.Installer.File.Path}" 
           commandline='/s /v "/qn INSTALLDIR=${Java.Install.Path}"' 
           verbose="true"
         />

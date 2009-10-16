@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.WinMerge.Scripts">
 
-  <property name="WinMerge.Installer.FileName" value="WinMerge-2.12.0-Setup.exe"/>
+  <property name="WinMerge.Installer.File.Name" value="WinMerge-2.12.0-Setup.exe"/>
+  <property name="WinMerge.Installer.File.Path" value="C:\Temp\${WinMerge.Installer.File.Name}"/>
+  
   <property name="WinMerge.Version.Double.Expected" value="2.120"/>
-  <property name="WinMerge.Exe" value="${environment::get-variable('ProgramFiles')}\WinMerge\WinMergeU.exe"/>
+  <property name="WinMerge.Exe" value="${ProgramFiles.Default.Path}\WinMerge\WinMergeU.exe"/>
 
   <target name="Workspace.RequieredSoftware.WinMerge">
     <call target="Private.WinMerge.IsInstallNeeded"/>
@@ -19,12 +21,13 @@
       </ask>
       <if test="${Answer == 'Install'}">
         <get
-            src="${Workspace.Ftp.Url}${WinMerge.Installer.FileName}"
-            dest="${environment::get-variable('TEMP')}\${WinMerge.Installer.FileName}"
+            src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/${WinMerge.Installer.File.Name}"
+            dest="${WinMerge.Installer.File.Path}"
+            unless="${file::exists(WinMerge.Installer.File.Path)}"
         />
         <exec 
-          workingdir="${environment::get-variable('TEMP')}" 
-          program="${environment::get-variable('TEMP')}\${WinMerge.Installer.FileName}" 
+          workingdir="${path::get-directory-name(WinMerge.Installer.File.Path)}" 
+          program="${WinMerge.Installer.File.Path}" 
           commandline="/VERYSILENT /SP- /NORESTART" 
           verbose="true" 
         />

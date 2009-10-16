@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.TomCat.Scripts">
 
+  <property name="TomCat.Installer.File.Name" value="tomcat6-silent-setup.msi"/>
+  <property name="TomCat.Installer.File.Path" value="C:\Temp\${TomCat.Installer.File.Name}"/>
+  
   <target name="Workspace.RequieredSoftware.TomCat">
-    <ifnot test="${file::exists(environment::get-variable('ProgramFiles') + '\Apache Software Foundation\Tomcat 6.0\bin\tomcat6.exe')}" >
+    <ifnot test="${file::exists(ProgramFiles.Default.Path + '\Apache Software Foundation\Tomcat 6.0\bin\tomcat6.exe')}" >
       <ask answer="Answer"
            question="It looks like the Tomcat is not installed.  This software is required.  Do you wish to install the software?"
            caption="Proceed Without Required Software?"
@@ -15,20 +18,26 @@
       <ifthenelse test="${Answer == 'Install'}">
         <then>
           <get
-              src="${Workspace.Ftp.Url}tomcat6-silent-setup.msi"
-              dest="${environment::get-variable('TEMP')}\tomcat6-silent-setup.msi"
+              src="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/${TomCat.Installer.File.Name}"
+              dest="${TomCat.Installer.File.Path}"
+              unless="${file::exists(TomCat.Installer.File.Path)}"
           />
-          <exec workingdir="${environment::get-variable('TEMP')}" program="msiexec" commandline="/i ${environment::get-variable('TEMP')}\tomcat6-silent-setup.msi /q" verbose="true" />
+          <exec 
+            workingdir="${path::get-directory-name(TomCat.Installer.File.Path)}" 
+            program="msiexec" 
+            commandline="/i ${TomCat.Installer.File.Path} /q" 
+            verbose="true" 
+          />
           <setenv>
             <environment refid="${Common.EnvironmentVariables.RefId}" />
           </setenv>
           <exec
-            workingdir="${environment::get-variable('ProgramFiles')}\Apache Software Foundation\Tomcat 6.0\bin"
+            workingdir="${ProgramFiles.Default.Path}\Apache Software Foundation\Tomcat 6.0\bin"
             program="cmd"
             commandline="/C service.bat uninstall"
           />
           <exec
-            workingdir="${environment::get-variable('ProgramFiles')}\Apache Software Foundation\Tomcat 6.0\bin"
+            workingdir="${ProgramFiles.Default.Path}\Apache Software Foundation\Tomcat 6.0\bin"
             program="cmd"
             commandline="/C service.bat install"
           />

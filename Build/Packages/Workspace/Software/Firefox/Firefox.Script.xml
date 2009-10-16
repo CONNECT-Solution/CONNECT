@@ -3,10 +3,12 @@
 
   <property name="Firefox.Version.Major"    value="3"/>
   <property name="Firefox.Version.Minor"    value="5"/>
-  <property name="Firefox.Version.Revision"  value="0"/>
+  <property name="Firefox.Version.Revision"  value="3"/>
+
+  <property name="Firefox.Version"    value="${Firefox.Version.Major}.${Firefox.Version.Minor}.${Firefox.Version.Revision}"/>
 
   <target name="Workspace.RequieredSoftware.Firefox">
-    <ifthenelse test="${file::exists(environment::get-variable('ProgramFiles') + '\Mozilla Firefox\firefox.exe')}" >
+    <ifthenelse test="${file::exists(ProgramFiles.Default.Path + '\Mozilla Firefox\firefox.exe')}" >
       <then>
         <call target="Private.Firefox.CheckVersion"/>
         <if test="${Firefox.IsInstallNeeded}">
@@ -21,7 +23,7 @@
 
   <target name="Private.Firefox.Install">
     <ask answer="Answer"
-             question="It looks like Firefox is not installed or it is older than ${Firefox.Version.Major}.${Firefox.Version.Minor}.${Firefox.Version.Revision}.  This software is required.  Do you wish to install the software?"
+             question="It looks like Firefox is not installed or it is older than ${Firefox.Version}.  This software is required.  Do you wish to install the software?"
              caption="Proceed Without Required Software?"
              showdialog="true" >
       <options>
@@ -31,13 +33,14 @@
     </ask>
     <ifthenelse test="${Answer == 'Install'}">
       <then>
-        <property name="Firefox.Ini" value="${environment::get-variable('TEMP')}\firefox.ini"/>
-        <property name="Firefox.Install" value="${environment::get-variable('TEMP')}\firefox-install.exe"/>
+        <property name="Firefox.Ini" value="C:\Temp\firefox.ini"/>
+        <property name="Firefox.Install" value="C:\Temp\firefox-install-${Firefox.Version}.exe"/>
 
         <get
           dest="${Firefox.Install}"
-          src="http://download.mozilla.org/?product=firefox-3.5&amp;os=win&amp;lang=en-US"
-            />
+          src="http://download.mozilla.org/?product=firefox-${Firefox.Version}&amp;os=win&amp;lang=en-US"
+          unless="${file::exists(Firefox.Install)}"
+        />
 
         <write file="${Firefox.Ini}">
           <text expand="true" xml="false">
@@ -54,10 +57,10 @@ StartMenuDirectoryName=Mozilla Firefox
         </write>
 
         <exec
-          workingdir="${environment::get-variable('TEMP')}"
+          workingdir="${path::get-directory-name(Firefox.Install)}"
           program="${Firefox.Install}"
           verbose="true"
-            >
+        >
           <arg line='/INI="${Firefox.Ini}"'/>
         </exec>
       </then>
@@ -69,7 +72,7 @@ StartMenuDirectoryName=Mozilla Firefox
 
   <target name="Private.Firefox.CheckVersion">
     <property name="Firefox.IsInstallNeeded" value="false"/>
-    <property name="Firefox.Exe" value="${environment::get-variable('ProgramFiles')}\Mozilla Firefox\firefox.exe"/>
+    <property name="Firefox.Exe" value="${ProgramFiles.Default.Path}\Mozilla Firefox\firefox.exe"/>
     <regex input="${file::get-product-version(Firefox.Exe)}" pattern="^(?'major'\d+)"/>
     <regex input="${file::get-product-version(Firefox.Exe)}" pattern="^\d+\.(?'minor'\d+)"/>
     <property name="revision" value="0"/>
@@ -112,10 +115,10 @@ StartMenuDirectoryName=Mozilla Firefox
   </target>
 
   <target name="Workspace.RequieredSoftware.Firefox.SeleniumIDE">
-    <ifnot test="${directory::exists(environment::get-variable('ProgramFiles')+ '\Mozilla Firefox\extensions\{a6fd85ed-e919-4a43-a5af-8da18bda539f}')}">
+    <ifnot test="${directory::exists(ProgramFiles.Default.Path+ '\Mozilla Firefox\extensions\{a6fd85ed-e919-4a43-a5af-8da18bda539f}')}">
       <exec program="taskkill" commandline="/IM firefox.exe" verbose="true" failonerror="false"/>
       <unzip
-        todir="${environment::get-variable('ProgramFiles')}\Mozilla Firefox\extensions\{a6fd85ed-e919-4a43-a5af-8da18bda539f}"
+        todir="${ProgramFiles.Default.Path}\Mozilla Firefox\extensions\{a6fd85ed-e919-4a43-a5af-8da18bda539f}"
         zipfile="${Common.Directory.Packages.Path}\Workspace\Software\Firefox\selenium-ide-1.0.2.xpi"
       />
     </ifnot>

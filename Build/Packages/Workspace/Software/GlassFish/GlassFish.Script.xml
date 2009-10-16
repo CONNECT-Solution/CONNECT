@@ -3,13 +3,13 @@
 
   <property name="GlassFish.Install.FriendlyName" value="GlassFish 2.1"/>
   <property name="GlassFish.Install.Path" value="C:\Sun\AppServer"/>
-  <property name="NetBeans.Install.Path" value="${ProgramFiles.32.Path}\NetBeans 6.7.1"/>
+  <property name="NetBeans.Install.Path" value="${ProgramFiles.Current.Processor.Type.Path}\NetBeans 6.7.1"/>
   <property name="GlassFish.Installer.File.Name" value="netbeans-6.7.1-ml-java-windows.exe"/>
   <property name="GlassFish.Installer.File.Path" value="C:\Temp\${GlassFish.Installer.File.Name}"/>
   <property name="GlassFish.Installer.Download.URL" value="${Workspace.Ftp.Url}/${GlassFish.Installer.File.Name}"/>
   <property name="GlassFish.Installer.StateFilePath" value="${Common.Directory.Packages.Path}\Workspace\Software\GlassFish\InstallState.xml"/>
   <property name="GlassFish.LibPath" value="${GlassFish.Install.Path}\lib"/>
-  <property name="NetBeans.Ant.Install.Path" value="${ProgramFiles.32.Path}\NetBeans 6.7.1\java2\ant\lib"/>
+  <property name="NetBeans.Ant.Install.Path" value="${ProgramFiles.Current.Processor.Type.Path}\NetBeans 6.7.1\java2\ant\lib"/>
   <property name="GlassFish.Application.domain.Path" value="${GlassFish.Install.Path}\domains\domain1\config"/>
   <property name="GlassFish.Application.config.Path" value="${GlassFish.Application.domain.Path}\nhin"/>
 
