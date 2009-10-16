@@ -55,12 +55,12 @@
 
   <target name="OpenNetBeans">
     <setenv>
-      <environment refid="${Ant.Environment.RefId}" />
+      <environment refid="${Common.EnvironmentVariables.RefId}" />
     </setenv>
 
     <call target="UpdateWorkspace"/>
 
-    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="C:\GlassFishESB\NetBeans\bin\netbeans.exe"/>
+    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="${NetBeans.Install.Path}\bin\netbeans.exe"/>
   </target>
       
   <target name="UpdateWorkspace">
