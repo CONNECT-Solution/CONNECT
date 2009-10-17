@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
+<!-- BEGIN CORE PROJECTS INCLUDED FOR REFERENCE -->
 	<project>
 		<name>NhincCommonTypesLib</name>
 		<directory>/Production/Common/NhincCommonTypesLib</directory>
@@ -8,6 +9,16 @@
 		<name>NhincSAMLCallbackLib</name>
 		<directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
 	</project>
+<!-- END CORE PROJECTS INCLUDED FOR REFERENCE -->
+
+<!-- BEGIN CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
+	<project>
+		<name>NhincLib</name>
+		<directory>/Production/Common/NhincLib</directory>
+	</project>
+<!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
+
+<!-- BEGIN DEPLOYABLE PROJECTS -->
 	<project>
 		<name>NhinInterfaceTestHelperEJB</name>
 		<directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
