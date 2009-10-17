@@ -26,11 +26,11 @@ public class SampleUnitTest {
     public static void tearDownClass() throws Exception {
     }
 
-    @Test
-    public void failTest() {
-        System.out.println("forcing unit test to fail");
-        fail("force build to fail");
-    }
+//    @Test
+//    public void failTest() {
+//        System.out.println("forcing unit test to fail");
+//        fail("force build to fail");
+//    }
 
     @Test
     public void passTest() {
