@@ -102,6 +102,7 @@
       <fileset dir="$\{build.test.results.dir\}"/>    
    </copy>
 -->
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
 </target>
 <target name="-check-netbeans-home">
    <condition property="no.netbeans.home">
