@@ -16,6 +16,10 @@
 		<name>NhincLib</name>
 		<directory>/Production/Common/NhincLib</directory>
 	</project>
+	<project>
+		<name>NhincDataTransformsLib</name>
+		<directory>/Production/Common/NhincDataTransformsLib</directory>
+	</project>
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
 <!-- BEGIN DEPLOYABLE PROJECTS -->
