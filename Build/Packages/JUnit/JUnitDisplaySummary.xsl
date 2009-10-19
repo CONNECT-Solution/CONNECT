@@ -95,7 +95,7 @@
     
     <xsl:if test="not(boolean(//junitsummary)) and boolean(//testsuite)">
       <xsl:call-template name="show">
-        <xsl:with-param name="stuff" select="ms:ProcessAlertScripts(/, '&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl')"/>
+        <xsl:with-param name="stuff" select="ms:ProcessAlertScripts(/, '&PackagesDirectory;\JUnit\JUnitSummary.xsl')"/>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
