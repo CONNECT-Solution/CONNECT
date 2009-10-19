@@ -55,8 +55,8 @@
         <description>End Compile Actions</description>
 
         <description>Begin Varification Actions</description>
-        <!--<call target="UnitTest.RunTests" />
-        <call target="Coverage.PublishReports" />-->
+        <call target="UnitTest.RunTests" />
+        <call target="Coverage.PublishReports" />
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
@@ -105,8 +105,8 @@
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
-        <!--<call target="UnitTest.RunTests" />
-        <call target="IntegrationTest.RunTests" />
+        <call target="UnitTest.RunTests" />
+        <!--<call target="IntegrationTest.RunTests" />
         <call target="Coverage.PublishReports" />-->
         <description>End Varification Actions</description>
         
@@ -160,8 +160,8 @@
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
-        <!--<call target="UnitTest.RunTests" />
-        <call target="IntegrationTest.RunTests" />
+        <call target="UnitTest.RunTests" />
+        <!--<call target="IntegrationTest.RunTests" />
         <call target="Coverage.PublishReports" />-->
         <description>End Varification Actions</description>
         
