@@ -56,7 +56,7 @@
 
         <description>Begin Varification Actions</description>
         <call target="UnitTest.RunTests" />
-        <call target="Coverage.PublishReports" />
+        <!--<call target="Coverage.PublishReports" />-->
         <description>End Varification Actions</description>
         
         <description>Begin Post Build Actions</description>
