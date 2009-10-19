@@ -17,7 +17,7 @@
     </target>
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist" />
+    <target name="build-test" depends="dist,test" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -73,9 +73,15 @@
     nbproject/build-impl.xml file. 
 
     -->
+	<target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+	   <copy todir="${nhin.project.home}\UnitTestResults">
+		  <fileset dir="${build.test.results.dir}"/>    
+	   </copy>
+	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+	</target>
     
     <!-- Had to pull this out of jaxws-build.xml because it copied the wsdl, but for some reason it 
-         did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->
+         did not copy the schemas.  We have to copy the schemas ourselves or it will not deploy.  -->		 
     <target name="wsimport-service-NhincComponentAggregator" depends="wsimport-init">
 <!--
         <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/service" extension="true" verbose="true" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${basedir}/${meta.inf}/xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl" catalog="catalog.xml"/>

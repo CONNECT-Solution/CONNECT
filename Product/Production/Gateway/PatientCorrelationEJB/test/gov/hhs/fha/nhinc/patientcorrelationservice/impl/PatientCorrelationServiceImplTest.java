@@ -4,27 +4,8 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelationservice.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.CD;
-import org.hl7.v3.CS;
-import org.hl7.v3.II;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201301UV;
-import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01Subject1;
-import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01Subject2;
-import org.hl7.v3.PRPAIN201309UV;
-import org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVPatientIdentifier;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
-import org.hl7.v3.QUQIMT021001UV01AuthorOrPerformer;
-import org.hl7.v3.PRPAIN201310UV;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.XParticipationAuthorPerformer;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -32,11 +13,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.hl7.v3.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author svalluripalli
  */
+@Ignore //Todo : Move this test to integration test suite.
 public class PatientCorrelationServiceImplTest {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PatientCorrelationServiceImplTest.class);
@@ -168,21 +151,21 @@ public class PatientCorrelationServiceImplTest {
         PRPAIN201301UV addRequest = createAddRequestMessage(corr1, corr2);
 
         //send
-        AddPatientCorrelationRequestType addPatientCorrelationRequest = new AddPatientCorrelationRequestType();
+        AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest = new AddPatientCorrelationSecuredRequestType();
         addPatientCorrelationRequest.setPRPAIN201301UV(addRequest);
         PatientCorrelationServiceImpl.addPatientCorrelation(addPatientCorrelationRequest);
 
         //build retrieve
         PRPAIN201309UV retrieveRequest = createRetrieveMessage(corr1);
-        RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsRequestType();
+        RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsSecuredRequestType();
         retrievePatientCorrelationsRequest.setPRPAIN201309UV(retrieveRequest);
-        RetrievePatientCorrelationsResponseType retrievePatientCorrelationsResponse = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
+        RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelationsResponse = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
         PRPAIN201310UV retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV();
         List<II> resultsIds = extractIdsFromRetrieveResult(retrieveResult);
         assertTrue(isIdInList(resultsIds, corr2));
 
         retrieveRequest = createRetrieveMessage(corr2);
-        retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsRequestType();
+        retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsSecuredRequestType();
         retrievePatientCorrelationsRequest.setPRPAIN201309UV(retrieveRequest);
         retrievePatientCorrelationsResponse = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
         retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV();
@@ -200,14 +183,14 @@ public class PatientCorrelationServiceImplTest {
         //clear db
         //create message
         PRPAIN201301UV addRequest = createAddRequestMessage(corr1, corr2);
-        AddPatientCorrelationRequestType addReq = new AddPatientCorrelationRequestType();
+        AddPatientCorrelationSecuredRequestType addReq = new AddPatientCorrelationSecuredRequestType();
         addReq.setPRPAIN201301UV(addRequest);
         //send
         PatientCorrelationServiceImpl.addPatientCorrelation(addReq);
 
         //build retrieve
         PRPAIN201309UV retrieveRequest = createRetrieveMessage(corr1);
-        RetrievePatientCorrelationsRequestType retrRequest = new RetrievePatientCorrelationsRequestType();
+        RetrievePatientCorrelationsSecuredRequestType retrRequest = new RetrievePatientCorrelationsSecuredRequestType();
         retrRequest.setPRPAIN201309UV(retrieveRequest);
         PRPAIN201310UV retrieveResult = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrRequest).getPRPAIN201310UV();
         List<II> resultsIds = extractIdsFromRetrieveResult(retrieveResult);

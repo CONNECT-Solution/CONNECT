@@ -20,6 +20,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -28,6 +29,7 @@ import static org.junit.Assert.*;
  *
  * @author westbergl
  */
+@Ignore //todo: move this to integration test suit
 public class NhincComponentAggregatorTest
 {
     private static final String ADHOC_QUERY_RESPONSE_XML_FILE = "AdhocQueryResponseExample.xml";
