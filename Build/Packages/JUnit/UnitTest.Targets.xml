@@ -3,7 +3,7 @@
 
   <target name="UnitTest.RunTests">
     <exec program="${Ant.Bat}" failonerror="true">
-      <environment refid="${Ant.Environment.RefId}" />
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <arg line="UnitTestReport -buildfile ${AntBuildFileName}" />
 
       <arg line="-DProductVersion=${CCNetLabel}" />
