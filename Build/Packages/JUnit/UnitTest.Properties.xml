@@ -2,6 +2,6 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="UnitTest.Properties">
 
   <property name="UnitTest.PublishXmlReport" value="true" overwrite="false"/>
-  <property name="UnitTestReportsDirectoryPath" value="${Common.Directory.Build.Path}\UnitTestReports"/>
+  <property name="UnitTestReportsDirectoryPath" value="${Common.Project.TempDirectory}}\UnitTestReports"/>
   
 </project>

@@ -4,24 +4,24 @@
   <target name="UnitTest.RunTests">
     <exec program="${Ant.Bat}" failonerror="true">
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
-      <arg line="UnitTestReport -buildfile ${Common.Directory.Build.Path}" />
+      <arg line="UnitTestReport -buildfile ${Common.Directory.Product.Path}\build.xml" />
 
       <arg line="-DProductVersion=${CCNetLabel}" />
     </exec>
 
     <copy failonerror="false" overwrite="true" flatten="true" todir="${UnitTestReportsDirectoryPath}" verbose="true">
-      <fileset basedir="${ProductDirectory}\UnitTestResults">
+      <fileset basedir="${Common.Directory.Product.Path}\UnitTestResults">
         <include name="unittests.xml" />
       </fileset>
     </copy>
 
     <copy
 			file='${UnitTestReportsDirectoryPath}\unittests.xml'
-			todir='${Common.ArtifactDirectoryPath}'
+			todir='${Common.Directory.Artifact.Path}'
 			if="${UnitTest.PublishXmlReport and file::exists(UnitTestReportsDirectoryPath + '\unittests.xml')}"
 		/>
 
-    <ifthenelse  test="${file::exists(BuildDirectory + '\UnitTestReports\unittests.xml')}">
+    <ifthenelse  test="${file::exists(UnitTestReportsDirectoryPath + '\unittests.xml')}">
       <then>
         <property name="UnitTest.HasFailures" value="true"/>
         <xmlpeek

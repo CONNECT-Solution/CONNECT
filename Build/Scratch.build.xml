@@ -34,7 +34,8 @@
   </loadpackages>
 
   <target name="test">
-    <call target="Workspace.RequieredSoftware.GlassFish"/>
+    <call target="UnitTest.SetUp"/>
+    <call target="UnitTest.RunTests"/>
   </target>
 
   <target name="rebuild-setups">
