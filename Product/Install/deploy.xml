@@ -25,15 +25,12 @@
 
       <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-cli.jar"/>
       <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-common.jar"/>
-      <pathelement location="${glassfish.home}/lib/comms-appserv-rt.jar"/>
       <pathelement location="${glassfish.home}/lib/appserv-rt.jar"/>
       <pathelement location="${glassfish.home}/lib/appserv-ext.jar"/>
       <pathelement location="${glassfish.home}/lib/javaee.jar"/>
       <pathelement location="${glassfish.home}/lib/appserv-se.jar"/>
-      <pathelement location="${glassfish.home}/lib/comms-appserv-admin-cli.jar"/>
       <pathelement location="${glassfish.home}/lib/admin-cli.jar"/>
       <pathelement location="${glassfish.home}/lib/appserv-admin.jar"/>
-      <pathelement location="${glassfish.home}/lib/commons-launcher.jar"/>
       <pathelement location="${glassfish.home}/lib/install/applications/jmsra/imqjmsra.jar"/>
     </classpath>
   </taskdef>
@@ -349,7 +346,7 @@
   </target>
 
   <target name="backup.glassfish.domain">
-    <copy todir="${deployment.dir}\backup" verbose="true">
+    <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true">
       <filelist dir="${deployment.glassfish.domain.config.home}">
         <file name="log4j.properties"/>
         <file name="keystore.jks"/>
@@ -360,13 +357,19 @@
   </target>
 
   <target name="restore.glassfish.domain">
-    <copy todir="${deployment.glassfish.domain.config.home}">
-      <filelist dir="${deployment.dir}\backup">
+    <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
+      <filelist dir="${deployment.dir}/backup">
         <file name="log4j.properties"/>
         <file name="keystore.jks"/>
         <file name="cacerts.jks"/>
         <file name="mpi.xml"/>
       </filelist>
+    </copy>
+  </target>
+
+  <target name="deploy.glassfish.nhinc.configuration">
+    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
+      <fileset dir="${deployment.dir}/domains/test/config" includes="nhin/"/>
     </copy>
   </target>
 
@@ -376,6 +379,7 @@
     <runtarget target="create.glassfish.domain"/>
     <runtarget target="restore.glassfish.domain"/>
     <runtarget target="configure.glassfish.domain"/>
+    <runtarget target="deploy.glassfish.nhinc.configuration"/>
   </target>
   
 </project>

@@ -4,16 +4,16 @@
   
   <property name="glassfish.home" value="${env.AS_HOME}"/>
   
-  <property name="deployment.dir" value="C:\NHINC" />
+  <property name="deployment.dir" value="C:/NHINC" />
 
-  <property name="deployment.binaries.dir" value="${deployment.dir}\nhinc" />
+  <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc" />
 
   <property name="deployment.glassfish.admin.port" value="4848"/>
   <property name="deployment.glassfish.server" value="localhost"/>
   
   <property name="deployment.glassfish.domain.name" value="domain1"/>
-  <property name="deployment.glassfish.domain.home" value="${glassfish.home}\domains\${deployment.glassfish.domain.name}"/>
-  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}\domains\${deployment.glassfish.domain.name}\config"/>
+  <property name="deployment.glassfish.domain.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}"/>
+  <property name="deployment.glassfish.domain.config.home" value="${glassfish.home}/domains/${deployment.glassfish.domain.name}/config"/>
     
   <property name="deployment.glassfish.domain.source.directory.name" value="test"/>
   <property name="deployment.glassfish.domain.source.directory" value="${script.root.directory}/domains/${deployment.glassfish.domain.source.directory.name}"/>
