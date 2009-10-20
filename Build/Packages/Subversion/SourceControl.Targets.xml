@@ -295,8 +295,6 @@
         <arg line="checkout" />
         <arg line='"${Uri}"'/>
         <arg line="--non-interactive" />
-        <arg line="--password=${SVN.Username}"/>
-        <arg line="--username=${SVN.Password}"/>
         <arg line='"${SourceControl.GetOf}"'/>
       </exec>
     </if>
@@ -330,8 +328,6 @@
     <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckOut.File)}" verbose="${SVN.Debug}">
       <arg line="update" />
       <arg line="--non-interactive" />
-      <arg line="--username ${SVN.Username}" />
-      <arg line="--password ${SVN.Password}" />
       <arg line='"${path::get-file-name(SourceControl.CheckOut.File)}"' />
     </exec>
     <attrib file='${SourceControl.CheckOut.File}' readonly='false' failonerror='false' />
@@ -346,8 +342,6 @@
     <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
       <arg line="update" />
       <arg line="--non-interactive" />
-      <arg line="--username ${SVN.Username}" />
-      <arg line="--password ${SVN.Password}" />
       <arg line='"${path::get-file-name(SourceControl.CheckIn.File)}"' />
     </exec>
     <exec program="svn" workingdir="${path::get-directory-name(SourceControl.CheckIn.File)}" verbose="${SVN.Debug}">
@@ -394,7 +388,7 @@
       <arg line="--password ${SVN.Password}" />
     </exec>
 
-    <svn-checkout username="${SVN.Username}" password="${SVN.Password}" uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
+    <svn-checkout uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
 
     <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}" >
       <arg line="add"/>
@@ -457,7 +451,7 @@
   <property name="SourceControl.CreateBranch.BranchName" value="${BranchName}"/>
   -->
   <target name="SourceControl.StartCreateBranch">
-    <svn-checkout username="${SVN.Username}" password="${SVN.Password}" uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
+    <svn-checkout uri="${SVN.URI.ProjectName}" recursive ="false" destination ="${Common.Directory.ProjectRoot.Path}" />
 
     <exec program="svn" workingdir="${Common.Directory.ProjectRoot.Path}" verbose="${SVN.Debug}">
       <arg line="copy" />
