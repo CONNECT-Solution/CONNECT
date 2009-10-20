@@ -1,8 +1,11 @@
 package gov.hhs.fha.nhinc.repository.dao;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.repository.model.Document;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
+import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.repository.persistence.HibernateUtil;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -188,7 +191,7 @@ public class EventCodeDao
 
     /**
      * Retrieves all event codes for a given document
-     * 
+     *
      * @param document Reference document object
      * @return EventCode list
      */
@@ -209,6 +212,75 @@ public class EventCodeDao
                     Criteria criteria = sess.createCriteria(EventCode.class);
                     criteria.add(Restrictions.eq("document", document));
                     eventCodes = criteria.list();
+                }
+                else
+                {
+                    log.error("Failed to obtain a session from the sessionFactory");
+                }
+            }
+            else
+            {
+                log.error("Session factory was null");
+            }
+        }
+        finally
+        {
+            if (sess != null)
+            {
+                try
+                {
+                    sess.close();
+                }
+                catch (Throwable t)
+                {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+        return eventCodes;
+    }
+
+    /**
+     * Retrieves all event codes for a given event code value
+     *
+     * @param eventCodeParam Event code query parameter
+     * @return EventCode list
+     */
+    @SuppressWarnings("unchecked")
+    public List<EventCode> eventCodeQuery(EventCodeParam eventCodeParam)
+    {
+        List<EventCode> eventCodes = null;
+
+        Session sess = null;
+        try
+        {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null)
+            {
+                sess = fact.openSession();
+                if (sess != null)
+                {
+                    Criteria criteria = sess.createCriteria(EventCode.class);
+                    boolean performQuery = false;
+                    if((eventCodeParam != null) && NullChecker.isNotNullish(eventCodeParam.getEventCode()))
+                    {
+                        criteria.add(Restrictions.eq("eventCode", eventCodeParam.getEventCode()));
+                        performQuery = true;
+                    }
+                    if(NullChecker.isNotNullish(eventCodeParam.getEventCodeScheme()))
+                    {
+                        criteria.add(Restrictions.eq("eventCodeScheme", eventCodeParam.getEventCodeScheme()));
+                        performQuery = true;
+                    }
+
+                    if(performQuery)
+                    {
+                        eventCodes = criteria.list();
+                    }
+                    else
+                    {
+                        eventCodes = new ArrayList<EventCode>();
+                    }
                 }
                 else
                 {

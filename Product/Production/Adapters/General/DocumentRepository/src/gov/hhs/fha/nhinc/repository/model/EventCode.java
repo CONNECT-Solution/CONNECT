@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.repository.model;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 /**
  * Data class for a document event code.
  * 
@@ -63,4 +65,73 @@ public class EventCode
     {
         this.document = document;
     }
+
+    @Override
+    public int hashCode()
+    {
+        int hashCode = 0;
+        if(eventCodeId != null)
+        {
+            hashCode = eventCodeId.hashCode();
+        }
+        else if(NullChecker.isNotNullish(eventCode))
+        {
+            hashCode = eventCode.hashCode();
+            if(NullChecker.isNotNullish(eventCodeScheme))
+            {
+                hashCode += eventCodeScheme.hashCode();
+            }
+        }
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == null) return false;
+        if (!this.getClass().equals(obj.getClass()))
+        {
+            return false;
+        }
+        EventCode toCheck = (EventCode)obj;
+
+        if((this.getEventCodeId() == null) && (toCheck.getEventCodeId() != null))
+        {
+            return false;
+        }
+        else if((this.getEventCodeId() != null) && (!this.getEventCodeId().equals(toCheck.getEventCodeId())))
+        {
+            return false;
+        }
+
+        if((this.getEventCode() == null) && (toCheck.getEventCode() != null))
+        {
+            return false;
+        }
+        else if((this.getEventCode() != null) && (!this.getEventCode().equals(toCheck.getEventCode())))
+        {
+            return false;
+        }
+
+        if((this.getEventCodeScheme() == null) && (toCheck.getEventCodeScheme() != null))
+        {
+            return false;
+        }
+        else if((this.getEventCodeScheme() != null) && (!this.getEventCodeScheme().equals(toCheck.getEventCodeScheme())))
+        {
+            return false;
+        }
+
+        if((this.getEventCodeDisplayName() == null) && (toCheck.getEventCodeDisplayName() != null))
+        {
+            return false;
+        }
+        else if((this.getEventCodeDisplayName() != null) && (!this.getEventCodeDisplayName().equals(toCheck.getEventCodeDisplayName())))
+        {
+            return false;
+        }
+        return true;
+    }
+
+
 }

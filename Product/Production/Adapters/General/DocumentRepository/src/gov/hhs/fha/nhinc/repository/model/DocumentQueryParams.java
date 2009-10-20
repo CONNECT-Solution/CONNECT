@@ -21,6 +21,7 @@ public class DocumentQueryParams
     private Date serviceStopTimeTo;
     private List<String> statuses;
     private List<String> documentUniqueIds;
+    private List<EventCodeParam> eventCodeParams;
 
     public List<String> getClassCodes()
     {
@@ -131,4 +132,16 @@ public class DocumentQueryParams
     {
         this.statuses = statuses;
     }
+
+    public List<EventCodeParam> getEventCodeParams()
+    {
+        return eventCodeParams;
+    }
+
+    public void setEventCodeParams(List<EventCodeParam> eventCodeParams)
+    {
+        this.eventCodeParams = eventCodeParams;
+    }
+
+    
 }

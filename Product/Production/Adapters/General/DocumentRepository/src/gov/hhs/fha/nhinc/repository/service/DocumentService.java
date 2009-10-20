@@ -1,12 +1,15 @@
 package gov.hhs.fha.nhinc.repository.service;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.repository.model.Document;
 import gov.hhs.fha.nhinc.repository.dao.DocumentDao;
 import gov.hhs.fha.nhinc.repository.dao.EventCodeDao;
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
+import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.commons.logging.Log;
@@ -178,7 +181,102 @@ public class DocumentService
      */
     public List<Document> documentQuery(DocumentQueryParams params)
     {
+        List<Document> documents = new ArrayList<Document>();
         DocumentDao dao = new DocumentDao();
-        return dao.findDocuments(params);
+        List<Document> queryMatchDocs = dao.findDocuments(params);
+        List<Document> eventCodeMatchDocs = null;
+        if((params != null) && NullChecker.isNotNullish(params.getEventCodeParams()))
+        {
+            eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams());
+            if(NullChecker.isNotNullish(queryMatchDocs))
+            {
+                // Both doc parameter and event code query doc matches found. Return union of collections
+                documents = createUnion(queryMatchDocs, eventCodeMatchDocs);
+            }
+            else
+            {
+                // Only event code match docs found.
+                documents = eventCodeMatchDocs;
+            }
+        }
+        else
+        {
+            // Only doc parameter match docs found.
+            documents = queryMatchDocs;
+        }
+
+        return documents;
+    }
+
+    private List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams)
+    {
+        List<Document> documents = new ArrayList<Document>();
+        Set<Document> documentSet = new HashSet<Document>();
+        if(NullChecker.isNotNullish(eventCodeParams))
+        {
+            EventCodeDao eventCodeDao = new EventCodeDao();
+            Set<EventCode> eventCodesAggregate = new HashSet<EventCode>();
+            for(EventCodeParam eventCodeParam : eventCodeParams)
+            {
+                List<EventCode> eventCodes = eventCodeDao.eventCodeQuery(eventCodeParam);
+                if(NullChecker.isNotNullish(eventCodes))
+                {
+                    eventCodesAggregate.addAll(eventCodes);
+                }
+            }
+
+            if(eventCodesAggregate != null)
+            {
+                for(EventCode ec : eventCodesAggregate)
+                {
+                    if(ec != null)
+                    {
+                        documentSet.add(ec.getDocument());
+                    }
+                }
+            }
+        }
+        if(!documentSet.isEmpty())
+        {
+            documents.addAll(documentSet);
+        }
+
+        return documents;
+    }
+
+    private List<Document> createUnion(List<Document> listA, List<Document> listB)
+    {
+        List<Document> docUnion = new ArrayList<Document>();
+
+        if(NullChecker.isNotNullish(listA) && NullChecker.isNotNullish(listB))
+        {
+            for(Document docA : listA)
+            {
+                if(listContainsDoc(listB, docA))
+                {
+                    docUnion.add(docA);
+                }
+            }
+        }
+
+        return docUnion;
+    }
+
+    private boolean listContainsDoc(List<Document> docs, Document doc)
+    {
+        boolean containsDoc = false;
+        if((doc != null) && (doc.getDocumentUniqueId() != null) && NullChecker.isNotNullish(docs))
+        {
+
+            for(Document docFromList : docs)
+            {
+                if((docFromList != null) && (doc.getDocumentUniqueId().equals(docFromList.getDocumentUniqueId())))
+                {
+                    containsDoc = true;
+                    break;
+                }
+            }
+        }
+        return containsDoc;
     }
 }
