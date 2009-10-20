@@ -21,17 +21,31 @@
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
       <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
+      <pathelement location="${glassfish.home}/javadb/lib/derby.jar"/>
+
+      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-cli.jar"/>
+      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-common.jar"/>
+      <pathelement location="${glassfish.home}/lib/comms-appserv-rt.jar"/>
+      <pathelement location="${glassfish.home}/lib/appserv-rt.jar"/>
+      <pathelement location="${glassfish.home}/lib/appserv-ext.jar"/>
+      <pathelement location="${glassfish.home}/lib/javaee.jar"/>
+      <pathelement location="${glassfish.home}/lib/appserv-se.jar"/>
+      <pathelement location="${glassfish.home}/lib/comms-appserv-admin-cli.jar"/>
+      <pathelement location="${glassfish.home}/lib/admin-cli.jar"/>
+      <pathelement location="${glassfish.home}/lib/appserv-admin.jar"/>
+      <pathelement location="${glassfish.home}/lib/commons-launcher.jar"/>
+      <pathelement location="${glassfish.home}/lib/install/applications/jmsra/imqjmsra.jar"/>
     </classpath>
   </taskdef>
 
   <!--
   These properties should be defined in project build.xml files:
   
-  <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared', 'ca']" />
+  <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared']" />
   -->
 
   <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}"/>
-  <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.password}" file="${deploy.glassfish.password.file.path}"/>
+  <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
   <property name="deploy.exclusion.file.path" value="${script.root.directory}/exclusions.txt"/>
 
@@ -82,7 +96,6 @@
   
   <target name="undeploy.from.production">
     <runtarget target="deploy.glassfish.start.server"/>
-    <runtarget target="undeploy.cas.from.glassfish"/>
     <runtarget target="undeploy.wars.from.glassfish"/>
     <runtarget target="undeploy.ejbs.from.glassfish"/>
 
@@ -164,31 +177,6 @@
     </xmltask>
   </target>
 
-  <target name="undeploy.cas.from.glassfish">
-    <var name="target" value="undeploy.ca.from.glassfish"/>
-    <runtarget target="target.to.call.on.cas"/>
-  </target>
-
-  <target name="target.to.call.on.cas">
-    <xmltask source="${deploy.application.list.file.path}">
-      <call path="/applications/cas/ca">
-        <param name="ca.name" path="name/text()" />
-        <actions>
-          <if>
-            <not>
-              <isset property="deploy.exclude.@{ca.name}"/>
-            </not>
-            <then>
-              <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/@{ca.name}.zip"/>
-              <var name="deployment.glassfish.ca.name" value="@{ca.name}"/>
-              <runtarget target="${target}"/>
-            </then>
-          </if>
-        </actions>
-      </call>
-    </xmltask>
-  </target>
-
   <target name="deploy.shared.libs.to.glassfish">
     <var name="target" value="deploy.shared.lib.to.glassfish"/>
     <runtarget target="target.to.call.on.shared.libs"/>
@@ -237,12 +225,6 @@
         <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
         <runtarget target="deploy.war.to.glassfish" />
       </case>
-      <case value="ca">
-        <var unset="true" name="deployment.glassfish.ca.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.ca.name" suffix=".zip" />
-        <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ca.name}.zip" />
-        <runtarget target="deploy.ca.to.glassfish" />
-      </case>
       <case value="shared">
         <var unset="true" name="deployment.glassfish.shared.lib.name" />
         <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
@@ -273,14 +255,8 @@
         <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
         <runtarget target="undeploy.war.from.glassfish" />
       </case>
-      <case value="ca">
-        <var unset="true" name="deployment.glassfish.ca.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.ca.name" suffix=".zip" />
-        <var name="deployment.glassfish.ca.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ca.name}.zip" />
-        <runtarget target="undeploy.ca.from.glassfish" />
-      </case>
       <case value="shared">
-		<echo message="A shared J2EE libraries or optional package cannot be undeployed until all applications that reference the library or package are first undeployed. If no applications reference an application or package you can safely remove it."/>
+		    <echo message="A shared J2EE libraries or optional package cannot be undeployed until all applications that reference the library or package are first undeployed. If no applications reference an application or package you can safely remove it."/>
       </case>
       <default>
         <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
@@ -293,7 +269,7 @@
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
+      port="${deployment.glassfish.admin.port}"
       file="${deployment.glassfish.ejb.file.path}"
       asinstalldir="${glassfish.home}"
     />
@@ -304,7 +280,7 @@
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
+      port="${deployment.glassfish.admin.port}"
       name="${deployment.glassfish.ejb.name}"
       asinstalldir="${glassfish.home}"
     />
@@ -315,7 +291,7 @@
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
+      port="${deployment.glassfish.admin.port}"
       file="${deployment.glassfish.war.file.path}"
       asinstalldir="${glassfish.home}"
     />
@@ -326,46 +302,12 @@
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
+      port="${deployment.glassfish.admin.port}"
       name="${deployment.glassfish.war.name}"
       asinstalldir="${glassfish.home}"
     />
   </target>
 
-  <target name="deploy.ca.to.glassfish">
-    <jbi-deploy-service-assembly
-      host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
-      file="${deployment.glassfish.ca.file.path}"
-      username="${deployment.glassfish.server.username}"
-      password="${deployment.glassfish.server.password}"
-    />
-    <jbi-start-service-assembly
-      host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
-      name="${deployment.glassfish.ca.name}"
-      username="${deployment.glassfish.server.username}"
-      password="${deployment.glassfish.server.password}"
-    />
-  </target>
-
-  <target name="undeploy.ca.from.glassfish">
-    <jbi-shut-down-service-assembly
-      host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
-      name="${deployment.glassfish.ca.name}"
-      username="${deployment.glassfish.server.username}"
-      password="${deployment.glassfish.server.password}"
-    />
-    <jbi-undeploy-service-assembly
-      host="${deployment.glassfish.server}"
-      port="${deployment.glassfish.port}"
-      name="${deployment.glassfish.ca.name}"
-      username="${deployment.glassfish.server.username}"
-      password="${deployment.glassfish.server.password}"
-    />
-  </target>
-  
   <target name="deploy.shared.lib.to.glassfish">
     <copy file="${deployment.glassfish.shared.lib.file.path}" todir="${glassfish.home}/lib" overwrite="true" />
   </target>
@@ -377,20 +319,63 @@
 
   <target name="delete.glassfish.domain">
     <runtarget target="deploy.glassfish.stop.server"/>
-    <delete dir="${deployment.glassfish.domain.home}" />
+    
+    <sun-appserv-admin 
+      explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
+      asinstalldir="${glassfish.home}"
+    />
   </target>
 
   <target name="create.glassfish.domain">
-    <copy todir="${deployment.glassfish.domain.home}">
-      <fileset dir="${deployment.glassfish.domain.source.directory}">
-        <include name="**/*"/>
-      </fileset>
+    <sun-appserv-admin 
+      explicitcommand='create-domain --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
+      asinstalldir="${glassfish.home}"
+    />
+  </target>
+
+  <target name="configure.glassfish.domain">
+    <runtarget target="deploy.glassfish.start.server"/>
+
+    <sun-appserv-admin
+      command='create-jvm-options --target server -${deployment.glassfish.domain.jvm.options}'
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.admin.port}"
+      asinstalldir="${glassfish.home}"
+    />
+
+    <runtarget target="deploy.glassfish.stop.server"/>
+  </target>
+
+  <target name="backup.glassfish.domain">
+    <copy todir="${deployment.dir}\backup" verbose="true">
+      <filelist dir="${deployment.glassfish.domain.config.home}">
+        <file name="log4j.properties"/>
+        <file name="keystore.jks"/>
+        <file name="cacerts.jks"/>
+        <file name="mpi.xml"/>
+      </filelist>
+    </copy>
+  </target>
+
+  <target name="restore.glassfish.domain">
+    <copy todir="${deployment.glassfish.domain.config.home}">
+      <filelist dir="${deployment.dir}\backup">
+        <file name="log4j.properties"/>
+        <file name="keystore.jks"/>
+        <file name="cacerts.jks"/>
+        <file name="mpi.xml"/>
+      </filelist>
     </copy>
   </target>
 
   <target name="recreate.glassfish.domain">
+    <runtarget target="backup.glassfish.domain"/>
     <runtarget target="delete.glassfish.domain"/>
     <runtarget target="create.glassfish.domain"/>
+    <runtarget target="restore.glassfish.domain"/>
+    <runtarget target="configure.glassfish.domain"/>
   </target>
   
 </project>
