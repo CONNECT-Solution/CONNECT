@@ -27,19 +27,19 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.document.CDAConstants;
 import java.util.UUID;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 
 /**
  *
  * @author svalluripalli
  */
+@Ignore //TODO: Move this test to Integration Test Suite
 public class DocumentRepositoryHelperTest {
     private Log log = LogFactory.getLog(DocumentRepositoryHelperTest.class);
     public DocumentRepositoryHelperTest() {

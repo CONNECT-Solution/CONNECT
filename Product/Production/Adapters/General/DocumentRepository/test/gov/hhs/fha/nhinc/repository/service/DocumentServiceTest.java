@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
  * 
  * @author Neil Webb
  */
+@Ignore //TODO: Move this test to Integration Test Suite
 public class DocumentServiceTest
 {
     /**

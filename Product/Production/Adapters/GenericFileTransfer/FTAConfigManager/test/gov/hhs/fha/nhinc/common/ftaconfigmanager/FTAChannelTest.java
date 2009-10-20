@@ -19,6 +19,7 @@ import java.util.ArrayList;
  *
  * @author dunnek
  */
+//TODO: Move test to Integration Test Suite
 public class FTAChannelTest {
     private static final String TEST_TOPIC = "nhinc:topic";
     private static final String TEST_TYPE = "file";

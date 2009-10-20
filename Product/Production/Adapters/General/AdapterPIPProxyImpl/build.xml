@@ -18,7 +18,7 @@
     </target>
     <target name="clean-build" depends="clean,jar" />
     <target name="clean-test" depends="clean,jar" />
-    <target name="build-test" depends="jar" />
+    <target name="build-test" depends="jar,test" />
 
     <!--
 
@@ -81,7 +81,13 @@
     nbproject/build-impl.xml file. 
 
     -->
-
+	<target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+	   <copy todir="${nhin.project.home}\UnitTestResults">
+		  <fileset dir="${build.test.results.dir}"/>    
+	   </copy>
+	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+	</target>
+	
     <target name="wsimport-client-AdapterPIP" depends="wsimport-init">
 <!--
         <property name="wsdl-AdapterPIP" location="xml-resources/web-service-references/AdapterPIP/wsdl/AdapterPIP.wsdl"/>
