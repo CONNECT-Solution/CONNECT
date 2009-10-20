@@ -4,7 +4,6 @@
   <property name="GlassFish.Port"             value="4848" overwrite="false"/>
   <property name="GlassFish.Domain.Name"      value="domain1" overwrite="false"/>
 
-  <property name="GlassFish.ApplicationServer.File.Path"  value="C:\GlassFishESB\glassfish\bin\asadmin.bat" overwrite="false"/>
   <property name="GlassFish.Deploy.Directory.Path"        value="C:\${ProjectName}" overwrite="false"/>
   <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\deploy.xml" overwrite="false"/>
 
