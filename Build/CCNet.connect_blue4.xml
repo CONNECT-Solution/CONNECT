@@ -100,7 +100,7 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
-  <project name="&ProjectName;-&ProjectCodeLineName; DVANHIE3 Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; CONNECT_BLUE4 Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
@@ -148,7 +148,7 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-DVANHIE3">
+  <project name="&ProjectName;-&ProjectCodeLineName;-CONNECT_BLUE4">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
