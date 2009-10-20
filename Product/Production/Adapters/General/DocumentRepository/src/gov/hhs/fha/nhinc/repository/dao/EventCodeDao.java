@@ -22,7 +22,31 @@ import org.hibernate.criterion.Restrictions;
  */
 public class EventCodeDao
 {
-    Log log = LogFactory.getLog(EventCodeDao.class);
+    private Log log = null;
+
+    protected Log getLogger()
+    {
+        if(log == null)
+        {
+            log = LogFactory.getLog(getClass());
+        }
+        return log;
+    }
+
+    protected SessionFactory getSessionFactory()
+    {
+        return HibernateUtil.getSessionFactory();
+    }
+
+    protected Session getSession(SessionFactory sessionFactory)
+    {
+        Session session = null;
+        if(sessionFactory != null)
+        {
+            session = sessionFactory.openSession();
+        }
+        return session;
+    }
 
     /**
      * Save an event code record to the database.
@@ -37,10 +61,10 @@ public class EventCodeDao
         Transaction trans = null;
         try
         {
-            fact = HibernateUtil.getSessionFactory();
+            fact = getSessionFactory();
             if (fact != null)
             {
-                sess = fact.openSession();
+                sess = getSession(fact);
                 if (sess != null)
                 {
                     trans = sess.beginTransaction();
@@ -48,12 +72,12 @@ public class EventCodeDao
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
         }
         finally
@@ -66,7 +90,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    getLogger().error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null)
@@ -77,7 +101,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -94,24 +118,23 @@ public class EventCodeDao
         Transaction trans = null;
         try
         {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null)
             {
-                sess = fact.openSession();
+                sess = getSession(fact);
                 if (sess != null)
                 {
                     trans = sess.beginTransaction();
                     sess.delete(eventCode);
-
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
         }
         finally
@@ -124,7 +147,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    getLogger().error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null)
@@ -135,7 +158,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -154,22 +177,22 @@ public class EventCodeDao
         Session sess = null;
         try
         {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null)
             {
-                sess = fact.openSession();
+                sess = getSession(fact);
                 if (sess != null)
                 {
                     eventCode = (EventCode) sess.get(EventCode.class, eventCodeId);
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
         }
         finally
@@ -182,7 +205,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -203,10 +226,10 @@ public class EventCodeDao
         Session sess = null;
         try
         {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null)
             {
-                sess = fact.openSession();
+                sess = getSession(fact);
                 if (sess != null)
                 {
                     Criteria criteria = sess.createCriteria(EventCode.class);
@@ -215,12 +238,12 @@ public class EventCodeDao
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
         }
         finally
@@ -233,7 +256,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -254,10 +277,10 @@ public class EventCodeDao
         Session sess = null;
         try
         {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null)
             {
-                sess = fact.openSession();
+                sess = getSession(fact);
                 if (sess != null)
                 {
                     Criteria criteria = sess.createCriteria(EventCode.class);
@@ -284,12 +307,12 @@ public class EventCodeDao
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
         }
         finally
@@ -302,7 +325,7 @@ public class EventCodeDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
