@@ -44,7 +44,7 @@
           </projectFilter>'>
   <!ENTITY CONNECT-BLUE4-Deploy '<projectFilter
                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; CONNECT-BLUE4-Deploy">
+               project="&ProjectName;-&ProjectCodeLineName;-CONNECT-BLUE4-Deploy">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
