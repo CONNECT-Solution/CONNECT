@@ -519,6 +519,14 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="CheckPolicySubjDiscReIdentResponse" type="tns:CheckPolicySubjDiscReIdentResponseType"/>
+	<xsd:simpleType name="UserIdFormatType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="none"/>
+			<xsd:enumeration value="email"/>
+			<xsd:enumeration value="X500"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
 	<!--
         This type will be used to to represent the patients preferences.  As new preference
         options are added, they should be reflected in this type.  These types are used by
@@ -539,6 +547,7 @@
 			<xsd:element name="ruleStartDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="ruleEndDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="userIdFormat" type="tns:UserIdFormatType" minOccurs="0" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="FineGrainedPolicyCriterion" type="tns:FineGrainedPolicyCriterionType"/>
@@ -560,51 +569,51 @@
 		<xsd:sequence>
 			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0"/>
 			<xsd:element name="addr" type="nccommon:AddressesType" minOccurs="0"/>
-			<xsd:element name="gender" type="nccommon:CeType" minOccurs="0" />
-			<xsd:element name="birthTime" type="xsd:dateTime" minOccurs="0" />
+			<xsd:element name="gender" type="nccommon:CeType" minOccurs="0"/>
+			<xsd:element name="birthTime" type="xsd:dateTime" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="PolicyPatientInfo" type="tns:PolicyPatientInfoType" />
+	<xsd:element name="PolicyPatientInfo" type="tns:PolicyPatientInfoType"/>
 	<xsd:complexType name="PolicyOriginalAuthorInfoType">
 		<xsd:sequence>
-			<xsd:element name="authorTime" type="xsd:dateTime"  minOccurs="0"/>
-			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0" />
-			<xsd:element name="authorId" type="xsd:string" minOccurs="0" />
-			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0" />
-			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0" />
-			<xsd:element name="representedOrganizationId" type="xsd:string" minOccurs="0" />
-			<xsd:element name="representedOrganizationName" type="xsd:string" minOccurs="0" />
+			<xsd:element name="authorTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0"/>
+			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationName" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="PolicyOriginalAuthorInfo" type="tns:PolicyOriginalAuthorInfoType" />
+	<xsd:element name="PolicyOriginalAuthorInfo" type="tns:PolicyOriginalAuthorInfoType"/>
 	<xsd:complexType name="PolicyScannerAuthorInfoType">
 		<xsd:sequence>
-			<xsd:element name="authorTime" type="xsd:dateTime"  minOccurs="0"/>
-			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0" />
-			<xsd:element name="authorId" type="xsd:string" minOccurs="0" />
-			<xsd:element name="authoringDevice" type="nccommon:CeType" minOccurs="0" />
-			<xsd:element name="deviceManufactureModelName" type="xsd:string" minOccurs="0" />
-			<xsd:element name="deviceSoftwareName" type="xsd:string" minOccurs="0" />
-			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0" />
+			<xsd:element name="authorTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authoringDevice" type="nccommon:CeType" minOccurs="0"/>
+			<xsd:element name="deviceManufactureModelName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="deviceSoftwareName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType" />
+	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType"/>
 	<xsd:complexType name="PolicyDataEntererInfoType">
 		<xsd:sequence>
-			<xsd:element name="dataEntererIdAssigningAuthority" type="xsd:string" minOccurs="0" />
-			<xsd:element name="dataEntererId" type="xsd:string" minOccurs="0" />
+			<xsd:element name="dataEntererIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="dataEntererId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="PolicyDataEntererInfo" type="tns:PolicyDataEntererInfoType" />
+	<xsd:element name="PolicyDataEntererInfo" type="tns:PolicyDataEntererInfoType"/>
 	<xsd:complexType name="PolicyCustodianInfoType">
 		<xsd:sequence>
-			<xsd:element name="organizationIdAssigningAuthority" type="xsd:string" minOccurs="0" />
-			<xsd:element name="organizationId" type="xsd:string" minOccurs="0" />
-			<xsd:element name="organizationName" type="xsd:string" minOccurs="0" />
-			<xsd:element name="organizationAddress" type="nccommon:AddressType" minOccurs="0" />
+			<xsd:element name="organizationIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="organizationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="organizationName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="organizationAddress" type="nccommon:AddressType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:element name="PolicyCustodianInfo" type="tns:PolicyCustodianInfoType" />
+	<xsd:element name="PolicyCustodianInfo" type="tns:PolicyCustodianInfoType"/>
 	<!--
         This type will be used to to represent the patients binary documents (PDF) preferences.  As new preference
         options are added, they should be reflected in this type.  These types are used by
@@ -612,23 +621,23 @@
 	<xsd:complexType name="BinaryDocumentPolicyCriterionType">
 		<xsd:sequence>
 			<xsd:element name="policyOID" type="xsd:string"/>
-			<xsd:element name="documentUniqueId" type="xsd:string" />
+			<xsd:element name="documentUniqueId" type="xsd:string"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="documentTitle" type="xsd:string"/>
 			<xsd:element name="effectiveTime" type="xsd:dateTime"/>
 			<xsd:element name="confidentialityCode" type="nccommon:CeType" minOccurs="0"/>
-			<xsd:element name="patientInfo" type="tns:PolicyPatientInfoType" minOccurs="0" />
-			<xsd:element name="authorOriginal" type="tns:PolicyOriginalAuthorInfoType" minOccurs="0" />
-			<xsd:element name="authorScanner" type="tns:PolicyScannerAuthorInfoType" minOccurs="0" />
-			<xsd:element name="dataEnterer" type="tns:PolicyDataEntererInfoType" minOccurs="0" />
+			<xsd:element name="patientInfo" type="tns:PolicyPatientInfoType" minOccurs="0"/>
+			<xsd:element name="authorOriginal" type="tns:PolicyOriginalAuthorInfoType" minOccurs="0"/>
+			<xsd:element name="authorScanner" type="tns:PolicyScannerAuthorInfoType" minOccurs="0"/>
+			<xsd:element name="dataEnterer" type="tns:PolicyDataEntererInfoType" minOccurs="0"/>
 			<xsd:element name="custodian" type="tns:PolicyCustodianInfoType" minOccurs="0"/>
 			<xsd:element name="startDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="endDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="mimeType" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="binaryDocument" type="xsd:base64Binary"/>
-			<xsd:element name="healthcareFacilityTypeCode" type="nccommon:CeType" minOccurs="0" />
-			<xsd:element name="intendedRecipient" type="xsd:string" minOccurs="0" />
-			<xsd:element name="practiceSettingCode" type="nccommon:CeType" minOccurs="0" />
+			<xsd:element name="healthcareFacilityTypeCode" type="nccommon:CeType" minOccurs="0"/>
+			<xsd:element name="intendedRecipient" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="practiceSettingCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="storeAction" type="tns:BinaryDocumentStoreActionType"/>
 		</xsd:sequence>
 	</xsd:complexType>
