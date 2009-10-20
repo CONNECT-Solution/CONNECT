@@ -35,7 +35,16 @@
 
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName; CONNECT-BLUE4 Build Scripts">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY CONNECT-BLUE4-Deploy '<projectFilter
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               project="&ProjectName;-&ProjectCodeLineName; CONNECT-BLUE4-Deploy">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -91,24 +100,21 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
-  <project name="&ProjectName;-&ProjectCodeLineName; CONNECT_BLUE4 Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; CONNECT-BLUE4 Build Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &Test;
-          &TestFailed;
+          &CONNECT-BLUE4-Deploy;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &Deploy;
-          &Test;
-          &Staging;
+          &CONNECT-BLUE4-Deploy;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -138,7 +144,7 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-CONNECT_BLUE4">
+  <project name="&ProjectName;-&ProjectCodeLineName;-CONNECT-BLUE4-Deploy">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
