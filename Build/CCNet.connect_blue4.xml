@@ -52,7 +52,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Deploy '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+                serverUri="&CCNet.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Deploy">
              <exclusionFilters>
                <activities>
@@ -61,7 +61,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
             <exclusionFilters>
               <conditions>
@@ -70,7 +70,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Test '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+                serverUri="&CCNet.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test">
              <exclusionFilters>
                <activities>
@@ -79,22 +79,13 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestFailed '<projectFilter
-               serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
               </conditions>
             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY Staging '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-                project="&ProjectName;-&ProjectCodeLineName;-Staging">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
@@ -107,9 +98,8 @@
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &Deploy;
           &Test;
-          &Staging;
+          &TestFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -163,6 +153,7 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
+          &Test;
           &TestFailed;
         </projectFilters>
       </projectTriggerFilter>
