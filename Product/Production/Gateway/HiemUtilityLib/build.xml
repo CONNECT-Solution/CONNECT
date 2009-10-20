@@ -9,16 +9,20 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="HiemUtilityLib" default="default" basedir=".">
     <description>Builds, tests, and runs the project HiemUtilityLib.</description>
-<import file="../../../build.lib.xml" />
+    <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
     
-        <target name="build">
-      <property name="target-to-call" value="jar" />
-      <antcall target="call-target-in-isolation-if-out-of-date" />
+    <target name="build">
+        <property name="target-to-call" value="jar" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
     <target name="clean-build" depends="clean,build" />
     <target name="clean-test" depends="clean-build,test" />
     <target name="build-test" depends="build,test" />
+
+    <property name="deploy.type" value="" description="options:['war', 'ejb', 'shared', 'ca']"/>
+    <property name="deploy.isDeployable" value="false"/>
+
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -81,17 +85,17 @@
 
     -->
     <target depends="init" name="deps-jar" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
 
-		<property name="project.DocumentRepositoryAdapterProxy.Absolute" location="${project.DocumentRepositoryAdapterProxy}"/>
+        <property name="project.DocumentRepositoryAdapterProxy.Absolute" location="${project.DocumentRepositoryAdapterProxy}"/>
         <ant dir="${project.DocumentRepositoryAdapterProxy.Absolute}" antfile="${project.DocumentRepositoryAdapterProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" name="deps-clean" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
 
-		<property name="project.DocumentRepositoryAdapterProxy.Absolute" location="${project.DocumentRepositoryAdapterProxy}"/>
+        <property name="project.DocumentRepositoryAdapterProxy.Absolute" location="${project.DocumentRepositoryAdapterProxy}"/>
         <ant dir="${project.DocumentRepositoryAdapterProxy.Absolute}" antfile="${project.DocumentRepositoryAdapterProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 </project>

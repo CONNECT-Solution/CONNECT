@@ -10,7 +10,18 @@
 <project name="HiemProcessorLib" default="default" basedir=".">
     <description>Builds, tests, and runs the project HiemProcessorLib.</description>
     <import file="nbproject/build-impl.xml"/>
-	<import file="../../../build.lib.xml" />
+    <import file="../../../build.lib.xml" />
+
+    <property name="deploy.type" value="" description="options:['war', 'ejb', 'shared', 'ca']"/>
+    <property name="deploy.isDeployable" value="false"/>
+
+    <target name="build">
+        <property name="target-to-call" value="jar" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
 
     <!--
     There exist several targets which are by default empty and which can be 
@@ -73,15 +84,15 @@
 
     -->
     <target depends="init" name="deps-jar" unless="no.deps">
-		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
-		<property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
-		<property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+        <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+        <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
+        <property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
 		
         <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -94,15 +105,15 @@
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" name="deps-clean" unless="no.deps">
-		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
-		<property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
-		<property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
-		<property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-		<property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
+        <property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+        <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
+        <property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
+        <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
+        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
+        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
 		
         <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="clean"/>

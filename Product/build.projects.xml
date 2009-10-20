@@ -20,6 +20,14 @@
 		<name>NhincDataTransformsLib</name>
 		<directory>/Production/Common/NhincDataTransformsLib</directory>
 	</project>
+	<project>
+		<name>HiemProcessorLib</name>
+		<directory>/Production/Gateway/HiemProcessorLib</directory>
+	</project>
+	<project>
+		<name>HiemUtilityLib</name>
+		<directory>/Production/Gateway/HiemUtilityLib</directory>
+	</project>
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
 <!-- BEGIN DEPLOYABLE PROJECTS -->

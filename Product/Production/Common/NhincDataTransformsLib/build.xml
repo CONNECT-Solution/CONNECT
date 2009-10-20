@@ -4,19 +4,19 @@
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="NhincDataTransformsLib" default="default" basedir=".">
     <description>Builds, tests, and runs the project NhincDataTransformsLib.</description>
-		<import file="../../../build.lib.xml" />
+    <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
 
-		<property name="deploy.type" value="" description="options:['war', 'ejb', 'shared', 'ca']"/>
-		<property name="deploy.isDeployable" value="false"/>
+    <property name="deploy.type" value="" description="options:['war', 'ejb', 'shared', 'ca']"/>
+    <property name="deploy.isDeployable" value="false"/>
 				
-		<target name="build">
-		  <property name="target-to-call" value="jar" />
-		  <antcall target="call-target-in-isolation-if-out-of-date" />
-		</target>
-		<target name="clean-build" depends="clean,build" />
-		<target name="clean-test" depends="clean-build,test" />
-		<target name="build-test" depends="build,test" />
+    <target name="build">
+        <property name="target-to-call" value="jar" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
 
     <!--
 
@@ -80,13 +80,36 @@
 
     -->
     <target depends="init" name="deps-jar" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     
     <target depends="init" name="deps-clean" unless="no.deps">
-    		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>    
+    </target>
+
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>
+    <target name="-check-netbeans-home">
+        <condition property="no.netbeans.home">
+            <not>
+                <isset property="netbeans.home"/>
+            </not>
+        </condition>
+    </target>
+    <target name="-init-caps" if="no.netbeans.home">
+        <property file="../../build.properties"/>
+        <property file="nbproject/private/private.properties"/>
+        <property name="netbeans.home" value="${caps.netbeans.home}/platform8"/>
+        <property name="netbeans.user" value="${caps.netbeans.user}"/>
+        <property name="from.commandline" value="true"/>
+    </target>
+    <target name="-pre-init" depends="-check-netbeans-home,-init-caps"/>
+
 </project>

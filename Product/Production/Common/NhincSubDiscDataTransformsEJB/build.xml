@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" />
 		
-	<target name="build">
-	<property name="target-to-call" value="dist" />
-	<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,dist" />
-	<target name="clean-test" depends="clean,dist" />
-	<target name="build-test" depends="dist" />
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist,test" />
+    <target name="build-test" depends="dist,test" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -122,8 +122,31 @@
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
-    </target>    
-	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
+
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>
+    <target name="-check-netbeans-home">
+        <condition property="no.netbeans.home">
+            <not>
+                <isset property="netbeans.home"/>
+            </not>
+        </condition>
+    </target>
+    <target name="-init-caps" if="no.netbeans.home">
+        <property file="../../build.properties"/>
+        <property file="nbproject/private/private.properties"/>
+        <property name="netbeans.home" value="${caps.netbeans.home}/platform8"/>
+        <property name="netbeans.user" value="${caps.netbeans.user}"/>
+        <property name="from.commandline" value="true"/>
+    </target>
+    <target name="-pre-init" depends="-check-netbeans-home,-init-caps"/>
+
 </project>
