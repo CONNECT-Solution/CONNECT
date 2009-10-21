@@ -11,13 +11,13 @@
     
     <import file="../../../build.lib.xml" />
 		
-	<target name="build">
-	<property name="target-to-call" value="dist" />
-	<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,dist" />
-	<target name="clean-test" depends="clean,dist" />
-	<target name="build-test" depends="dist" />
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist,test" />
+    <target name="build-test" depends="dist,test" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -102,19 +102,19 @@
     </target>
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-  	    <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
+        <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.SubscriptionRepository.Absolute}" antfile="${project.SubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-  	    <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
+        <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.SubscriptionRepository.Absolute}" antfile="${project.SubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-  	    <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
+        <property name="project.SubscriptionRepository.Absolute" location="${project.SubscriptionRepository}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.SubscriptionRepository.Absolute}" antfile="${project.SubscriptionRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
@@ -130,9 +130,16 @@
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${included.lib.reference.SubscriptionRepository.jar} ${included.lib.reference.NhincLib.jar}"/>
-            </manifest>
-     </target>
-	 <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        </manifest>
+    </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>
+
 </project>
