@@ -42,7 +42,7 @@
     </project>
     <project>
         <name>HiemSubscriptionRepository</name>
-        <directory>/Production/Adapters/General/HiemSubscriptionRepository</directory>
+        <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
     </project>
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
