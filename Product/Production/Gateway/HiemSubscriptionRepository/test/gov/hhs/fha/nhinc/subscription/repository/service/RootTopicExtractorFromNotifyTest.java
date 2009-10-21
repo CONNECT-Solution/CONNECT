@@ -57,19 +57,6 @@ public class RootTopicExtractorFromNotifyTest {
     }
 
     @Test
-    public void ExtractSimpleRootTopicFromTopicUndefinedNamespace() throws Exception {
-        String TopicXml = "<wsnt:Topic xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" Dialect=\"http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple\">undefined:SomeTopic</wsnt:Topic> ";
-        String expectedRootTopic = null;
-
-        try {
-            executeTopicTest(TopicXml, expectedRootTopic);
-            fail("Expected exception - none occurred");
-        } catch (SubscriptionRepositoryException ex) {
-            //todo: catch more specific error
-        }
-    }
-
-    @Test
     public void ExtractRootTopicFromConcreteTopic() throws Exception {
         String TopicXml = "<wsnt:Topic xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\" Dialect=\"http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete\">nhin:parentTopic/nhin:childTopic</wsnt:Topic>";
         String expectedRootTopic = "{http://www.hhs.gov/healthit/nhin}parentTopic/{http://www.hhs.gov/healthit/nhin}childTopic";
