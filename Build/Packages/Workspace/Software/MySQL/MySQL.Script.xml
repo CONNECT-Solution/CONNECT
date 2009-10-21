@@ -26,7 +26,7 @@
       <ifthenelse test="${Answer == 'Install' or bool::parse(Workspace.Silent)}">
         <then>
           <get
-              src="${Workspace.Ftp.Url}${MySQL.Installer.File.Name}"
+              src="${Workspace.Ftp.Url}/${MySQL.Installer.File.Name}"
               dest="${MySQL.Installer.File.Path}"
               unless="${file::exists(MySQL.Installer.File.Path)}"
           />
@@ -34,11 +34,10 @@
             workingdir="${environment::get-variable('TEMP')}"
             program="msiexec"
             verbose="true">
-            <arg value='/i'>
-            <arg value='${MySQL.Installer.File.Path}'/>
-            <arg value='/quiet'>
-            <arg value='/norestart'/>
-            <arg value='/lv C:\MySQLInstall.log/'>
+            <arg value="/i"/>
+            <arg value="${MySQL.Installer.File.Path}"/>
+            <arg value="/quiet"/>
+            <arg value="/norestart"/>
           </exec>
 
           <exec
