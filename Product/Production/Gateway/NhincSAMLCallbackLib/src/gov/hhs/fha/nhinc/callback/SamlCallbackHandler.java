@@ -92,7 +92,6 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
     private static final int DEFAULT_NAME = 0;
     private static final int PRIMARY_NAME = 1;
-    private static final String STORE_TYPE = "JKS";
     private HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
     private KeyStore keyStore;
     private KeyStore trustStore;
@@ -867,15 +866,26 @@ public class SamlCallbackHandler implements CallbackHandler {
      */
     private void initKeyStore() throws IOException {
         log.debug("SamlCallbackHandler.initKeyStore() -- Begin");
+
         InputStream is = null;
+        String storeType = System.getProperty("javax.net.ssl.keyStoreType");
+        String password = System.getProperty("javax.net.ssl.keyStorePassword");
         String storeLoc = System.getProperty("javax.net.ssl.keyStore");
-        if (storeLoc != null) {
-            String password = System.getProperty("javax.net.ssl.keyStorePassword");
-            if (password != null) {
+
+        if (storeType == null) {
+            log.error("javax.net.ssl.keyStoreType is not defined in domain.xml");
+            log.warn("Default to JKS keyStoreType");
+            storeType = "JKS";
+        }
+        if (password != null) {
+            if ("JKS".equals(storeType) && storeLoc == null) {
+                log.error("javax.net.ssl.keyStore is not defined in domain.xml");
+            } else {
                 try {
-                    keyStore = KeyStore.getInstance(STORE_TYPE);
-                    is =
-                            new FileInputStream(storeLoc);
+                    keyStore = KeyStore.getInstance(storeType);
+                    if ("JKS".equals(storeType)) {
+                        is = new FileInputStream(storeLoc);
+                    }
                     keyStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
                     log.error("Error initializing KeyStore: " + ex);
@@ -886,17 +896,20 @@ public class SamlCallbackHandler implements CallbackHandler {
                 } catch (KeyStoreException ex) {
                     log.error("Error initializing KeyStore: " + ex);
                     throw new IOException(ex.getMessage());
+                } finally {
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+                    } catch (IOException ex) {
+                        log.debug("KeyStoreCallbackHandler " + ex);
+                    }
                 }
-
-                log.debug("SamlCallbackHandler.initKeyStore() -- End");
-            } else {
-                log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
             }
-
         } else {
-            log.error("javax.net.ssl.keyStore is not defined in domain.xml");
+            log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
         }
-
+        log.debug("SamlCallbackHandler.initKeyStore() -- End");
     }
 
     /**
@@ -907,15 +920,26 @@ public class SamlCallbackHandler implements CallbackHandler {
      */
     private void initTrustStore() throws IOException {
         log.debug("SamlCallbackHandler.initTrustStore() -- Begin");
+
         InputStream is = null;
+        String storeType = System.getProperty("javax.net.ssl.trustStoreType");
+        String password = System.getProperty("javax.net.ssl.trustStorePassword");
         String storeLoc = System.getProperty("javax.net.ssl.trustStore");
-        if (storeLoc != null) {
-            String password = System.getProperty("javax.net.ssl.trustStorePassword");
-            if (password != null) {
+
+        if (storeType == null) {
+            log.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
+            log.warn("Default to JKS trustStoreType");
+            storeType = "JKS";
+        }
+        if (password != null) {
+            if ("JKS".equals(storeType) && storeLoc == null) {
+                log.error("javax.net.ssl.trustStore is not defined in domain.xml");
+            } else {
                 try {
-                    trustStore = KeyStore.getInstance(STORE_TYPE);
-                    is =
-                            new FileInputStream(storeLoc);
+                    trustStore = KeyStore.getInstance(storeType);
+                    if ("JKS".equals(storeType)) {
+                        is = new FileInputStream(storeLoc);
+                    }
                     trustStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
                     log.error("Error initializing TrustStore: " + ex);
@@ -926,16 +950,19 @@ public class SamlCallbackHandler implements CallbackHandler {
                 } catch (KeyStoreException ex) {
                     log.error("Error initializing TrustStore: " + ex);
                     throw new IOException(ex.getMessage());
+                } finally {
+                    try {
+                        if (is != null) {
+                            is.close();
+                        }
+                    } catch (IOException ex) {
+                        log.debug("KeyStoreCallbackHandler " + ex);
+                    }
                 }
-
-            } else {
-                log.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
             }
-
         } else {
-            log.error("javax.net.ssl.trustStore is not defined in domain.xml");
+            log.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
         }
-
         log.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
 
@@ -968,10 +995,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                                         if (uniqueAlias == null) {
                                             uniqueAlias = currentAlias;
                                             break;
-
                                         }
-
-
                                     }
                                 }
                             }

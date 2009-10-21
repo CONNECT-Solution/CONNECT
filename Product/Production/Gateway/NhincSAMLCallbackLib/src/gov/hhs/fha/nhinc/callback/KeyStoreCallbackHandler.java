@@ -27,7 +27,6 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
 
     private KeyStore keyStore = null;
     private String password;
-    private static final String storeType = "JKS";
     private static Log log = LogFactory.getLog(KeyStoreCallbackHandler.class);
 
     /**
@@ -37,14 +36,26 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
      */
     public KeyStoreCallbackHandler() {
         log.debug("Entry KeyStoreCallbackHandler Constructor");
+
         InputStream is = null;
+        String storeType = System.getProperty("javax.net.ssl.keyStoreType");
+        password = System.getProperty("javax.net.ssl.keyStorePassword");
         String storeLoc = System.getProperty("javax.net.ssl.keyStore");
-        if (storeLoc != null) {
-            password = System.getProperty("javax.net.ssl.keyStorePassword");
-            if (password != null) {
+
+        if (storeType == null) {
+            log.error("javax.net.ssl.keyStoreType is not defined in domain.xml");
+            log.warn("Default to JKS keyStoreType");
+            storeType = "JKS";
+        }
+        if (password != null) {
+            if ("JKS".equals(storeType) && storeLoc == null) {
+                log.error("javax.net.ssl.keyStore is not defined in domain.xml");
+            } else {
                 try {
                     keyStore = KeyStore.getInstance(storeType);
-                    is = new FileInputStream(storeLoc);
+                    if ("JKS".equals(storeType)) {
+                        is = new FileInputStream(storeLoc);
+                    }
                     keyStore.load(is, password.toCharArray());
                 } catch (IOException ex) {
                     log.debug("KeyStoreCallbackHandler " + ex);
@@ -60,16 +71,16 @@ public class KeyStoreCallbackHandler implements CallbackHandler {
                     throw new RuntimeException(ex);
                 } finally {
                     try {
-                        is.close();
+                        if (is != null) {
+                            is.close();
+                        }
                     } catch (IOException ex) {
                         log.debug("KeyStoreCallbackHandler " + ex);
                     }
                 }
-            } else {
-                log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
             }
         } else {
-            log.error("javax.net.ssl.keyStore is not defined in domain.xml");
+            log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
         }
         log.debug("Exit KeyStoreCallbackHandler Constructor");
     }
