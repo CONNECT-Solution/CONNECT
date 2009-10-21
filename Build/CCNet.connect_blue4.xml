@@ -207,9 +207,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-MHS3\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-CONNECT-BLUE4-Deploy\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-CONNECT-BLUE4-Deploy\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-CONNECT-BLUE4-Deploy\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />
