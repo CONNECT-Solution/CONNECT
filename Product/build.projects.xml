@@ -36,10 +36,10 @@
         <name>NhincSamlTokenLib</name>
         <directory>/Production/Gateway/NhincSamlTokenLib</directory>
     </project>
-	<project>
-		<name>DocumentRepository</name>
-		<directory>/Production/Adapters/General/DocumentRepository</directory>
-	</project>
+    <project>
+        <name>DocumentRepository</name>
+        <directory>/Production/Adapters/General/DocumentRepository</directory>
+    </project>
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
 <!-- BEGIN DEPLOYABLE PROJECTS -->
