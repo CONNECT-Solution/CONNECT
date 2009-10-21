@@ -125,4 +125,10 @@
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>
 </project>
