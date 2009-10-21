@@ -3,7 +3,7 @@
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="NhincSubDiscDataTransformsEJB" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
-    <description>Builds, tests, and runs the project NhincSubDiscDataTransformsEJB.</description>
+    <description>Builds, tests, and runs the project HiemAdapterProxyImpl</description>
     <import file="nbproject/build-impl.xml"/>
 
     <property name="deploy.type" value="ejb" />
