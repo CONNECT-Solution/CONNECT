@@ -526,7 +526,6 @@
 			<xsd:enumeration value="X500"/>
 		</xsd:restriction>
 	</xsd:simpleType>
-
 	<!--
         This type will be used to to represent the patients preferences.  As new preference
         options are added, they should be reflected in this type.  These types are used by
@@ -547,7 +546,7 @@
 			<xsd:element name="ruleStartDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="ruleEndDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="userIdFormat" type="tns:UserIdFormatType" minOccurs="0" />
+			<xsd:element name="userIdFormat" type="tns:UserIdFormatType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="FineGrainedPolicyCriterion" type="tns:FineGrainedPolicyCriterionType"/>
@@ -650,6 +649,7 @@
 	<xsd:element name="BinaryDocumentPolicyCriteria" type="tns:BinaryDocumentPolicyCriteriaType"/>
 	<xsd:complexType name="PatientPreferencesType">
 		<xsd:sequence>
+			<xsd:element name="policyOIDXacml" type="xsd:string"/>
 			<xsd:element name="patientId" type="xsd:string"/>
 			<xsd:element name="assigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="optIn" type="xsd:boolean"/>
