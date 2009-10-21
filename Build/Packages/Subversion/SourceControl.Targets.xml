@@ -17,7 +17,7 @@
 
   <loadtasks assembly="${SVN.Task}" />
 
-  <property name="SVN.Debug" value="true" overwrite="false" />
+  <property name="SVN.Debug" value="false" overwrite="false" />
 
   <!--
 	The following properties should be specified in the calling script.
