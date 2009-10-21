@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  *
  * @author rayj
  */
-public class sampletest {
+public class AuditRepositoryTest {
 
-    public sampletest() {
+    public AuditRepositoryTest() {
     }
 
     @BeforeClass
