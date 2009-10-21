@@ -227,6 +227,16 @@
           <group name="managers" notification="success"/>
         </groups>
       </email>
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test">
@@ -332,6 +342,16 @@
           <group name="testers" notification="always"/>
         </groups>
       </email>
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
     </publishers>
   </project>
 </cruisecontrol>

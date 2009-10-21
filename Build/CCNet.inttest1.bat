@@ -5,4 +5,4 @@ title NHINC %CodeLineName% Integration Test Build Server
 set PATH=%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem
 
 cd server
-CCNET.exe -config:"..\CCNet.intnhie1.xml" -remoting:on
+CCNET.exe -config:"..\CCNet.inttest1.xml" -remoting:on
