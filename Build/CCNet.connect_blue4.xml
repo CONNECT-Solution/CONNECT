@@ -196,7 +196,7 @@
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
         <logger>NAnt.Core.XmlLogger</logger>
         <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-D:GlassFish.Domain1.Template.Directory.Name=dvanhie3_domain1 -listener:NAnt.Core.AppendListener</buildArgs>
+        <buildArgs>-D:GlassFish.Domain1.Template.Directory.Name=test -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
           <target>Deploy</target>
         </targetList>
