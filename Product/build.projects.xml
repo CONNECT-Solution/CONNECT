@@ -40,10 +40,12 @@
         <name>DocumentRepository</name>
         <directory>/Production/Adapters/General/DocumentRepository</directory>
     </project>
+<!--
     <project>
         <name>HiemSubscriptionRepository</name>
         <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
     </project>
+-->
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
 <!-- BEGIN DEPLOYABLE PROJECTS -->
