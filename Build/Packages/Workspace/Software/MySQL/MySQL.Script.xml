@@ -38,6 +38,7 @@
             <arg value="${MySQL.Installer.File.Path}"/>
             <arg value="/quiet"/>
             <arg value="/norestart"/>
+            <arg value="/lv C:\MySQLInstall.log"/>
           </exec>
 
           <exec
