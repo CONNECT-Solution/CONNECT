@@ -3,7 +3,7 @@
 
   <property name="MySQL.Installer.File.Name" value="mysql-5.1.37-win32.msi"/>
   <property name="MySQL.Installer.File.Path" value="${environment::get-variable('TEMP')}\${MySQL.Installer.File.Name}"/>
-  <property name="MySQL.Install.Path" value="${environment::get-variable('ProgramFiles')}\MySQL\MySQL Server 5.1"/>
+  <property name="MySQL.Install.Path" value="${ProgramFiles.Current.Processor.Type.Path}\MySQL\MySQL Server 5.1"/>
 
   <target name="Workspace.RequieredSoftware.MySQL">
     <call target="Workspace.RequieredSoftware.MySQL.InitialInstall"/>
@@ -12,10 +12,9 @@
 
   <target name="Workspace.RequieredSoftware.MySQL.InitialInstall">
     <ifnot test="${directory::exists(MySQL.Install.Path)}" >
-      <property name="Answer" value="NaN"/>
       <ask answer="Answer"
-           question="It looks like the MySQL 5.1 is not installed.  This software is required.  Do you wish to install the software?"
-           caption="Proceed Without Required Software?"
+           question="It looks like the MySQL 5.1 is not installed. This software is optional.  Do you wish to install the software? Please uninstall all previous versions of MySQL prior to this installation."
+           caption="Proceed Without Optional Software?"
            showdialog="true"
            unless="${Workspace.Silent}"
       >
@@ -67,7 +66,7 @@
           </exec>
         </then>
         <elseif if="${Answer == 'Exit'}">
-          <fail message="Please install MySQL 5.1!" />
+          <!--<fail message="Please install MySQL 5.1!" />-->
         </elseif>
       </ifthenelse>
     </ifnot>
