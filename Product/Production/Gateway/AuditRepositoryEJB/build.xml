@@ -9,15 +9,15 @@
     <property name="deploy.type" value="ejb" />
     <property name="deploy.isDeployable" value="true"/>
     
-	<import file="../../../build.lib.xml" />
+    <import file="../../../build.lib.xml" />
 
-	<target name="build">
-	<property name="target-to-call" value="dist" />
-	<antcall target="call-target-in-isolation-if-out-of-date" />
-	</target>
-	<target name="clean-build" depends="clean,dist" />
-	<target name="clean-test" depends="clean,dist" />
-	<target name="build-test" depends="dist" />
+    <target name="build">
+        <property name="target-to-call" value="dist" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,dist" />
+    <target name="clean-test" depends="clean,dist,test" />
+    <target name="build-test" depends="dist,test" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -90,24 +90,24 @@
             <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AuditRepository/schemas/" />
         </copy>
     </target>
-     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-    	<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-    	<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    	<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
-    	<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>	 
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         
-		<ant dir="${project.AuditRepositoryDAO.Absolute}" antfile="${project.AuditRepositoryDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AuditRepositoryDAO.Absolute}" antfile="${project.AuditRepositoryDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>   
+    </target>
       
-     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
     
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		    		
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -117,10 +117,10 @@
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
     
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.AuditRepositoryDAO.Absolute" location="${project.AuditRepositoryDAO}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		    	
         <ant dir="${project.AuditRepositoryDAO.Absolute}" antfile="${project.AuditRepositoryDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -128,7 +128,7 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
-     <target depends="compile" name="library-inclusion-in-archive">
+    <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.AuditRepositoryDAO.jar}" todir="${build.classes.dir}"/>
@@ -147,7 +147,13 @@
             <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryDAO.jar} ${included.lib.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
-	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
+    </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
 </project>

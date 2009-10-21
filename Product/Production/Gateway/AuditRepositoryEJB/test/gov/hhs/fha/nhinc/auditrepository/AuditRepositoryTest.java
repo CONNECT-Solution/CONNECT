@@ -78,27 +78,7 @@ public class AuditRepositoryTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of queryAuditEvents method, of class AuditRepository.
-     */
-    @Test
-    public void testQueryAuditEvents() {
-        log.debug("Begin - testQueryAuditEvents");
-        
-        FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest = new FindCommunitiesAndAuditEventsRequestType();
-        FindAuditEventsType event = new FindAuditEventsType();
-        event.setPatientId("3333333^^^&2.16.840.1.113883.13.25&ISO");
-        queryAuditEventsRequest.setFindAuditEvents(event);
-        AuditRepository instance = new AuditRepository();
-        FindCommunitiesAndAuditEventsResponseType expResult = new FindCommunitiesAndAuditEventsResponseType();
-        FindCommunitiesAndAuditEventsResponseType result = instance.queryAuditEvents(queryAuditEventsRequest);
-        
-        log.debug("result. : " + result.getFindAuditEventResponse().getFindAuditEventsReturn().size());
-        
-//        assertEquals(expResult, result);
-        
-        log.debug("Begin - testQueryAuditEvents");
-    }
+
 
     public II createII(String root, String extension) {
         II newII = new II();
