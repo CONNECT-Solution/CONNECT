@@ -6,6 +6,17 @@
     <description>Builds, tests, and runs the project AggregatorLib.</description>
 <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
+    <import file="../../../build.lib.xml" />
+    <target name="build">
+        <property name="target-to-call" value="jar" />
+        <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
+
+    <property name="deploy.type" value="" />
+    <property name="deploy.isDeployable" value="false"/>
     <!--
 
     There exist several targets which are by default empty and which can be 

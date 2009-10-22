@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.gateway.aggregator.dao;
 
 import gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult;
@@ -15,6 +11,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,10 +19,9 @@ import static org.junit.Assert.*;
  *
  * @author westbergl
  */
+@Ignore // TODO: Move to integration test
 public class AggTransactionDaoTest
 {
-    
-
     public AggTransactionDaoTest()
     {
     }

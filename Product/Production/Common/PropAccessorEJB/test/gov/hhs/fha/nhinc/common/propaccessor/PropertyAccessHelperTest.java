@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
 import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
@@ -34,6 +30,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -41,6 +38,7 @@ import static org.junit.Assert.*;
  *
  * @author westbergl
  */
+@Ignore // TODO: Move this to an integration test
 public class PropertyAccessHelperTest
 {
     private static String m_sPropertiesDir = "";

@@ -40,6 +40,10 @@
         <name>DocumentRepository</name>
         <directory>/Production/Adapters/General/DocumentRepository</directory>
     </project>
+    <project>
+        <name>AggregatorLib</name>
+        <directory>/Production/Gateway/AggregatorLib</directory>
+    </project>
 <!--
     <project>
         <name>HiemSubscriptionRepository</name>
