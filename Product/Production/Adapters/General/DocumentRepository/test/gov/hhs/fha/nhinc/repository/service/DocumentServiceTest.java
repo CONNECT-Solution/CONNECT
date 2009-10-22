@@ -27,7 +27,6 @@ public class DocumentServiceTest
     /**
      * Test of DocumentService operations.
      */
-    @Ignore
     @Test
     public void testDocumentOperations()
     {

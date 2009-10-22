@@ -19,6 +19,7 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.repository.model.Document;
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
+import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
 import gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil;
 import gov.hhs.fha.nhinc.util.StringUtil;
@@ -44,7 +45,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
  */
 public class DocumentRegistryHelper
 {
-    private static Log log = LogFactory.getLog(DocumentRegistryHelper.class);
+    private Log log = null;
     
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
@@ -56,6 +57,10 @@ public class DocumentRegistryHelper
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM = "$XDSDocumentEntryServiceStopTimeFrom";
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_TO = "$XDSDocumentEntryServiceStopTimeTo";
     private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
+    private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
+    private static final String EBXML_EVENT_CODE_LIST_SCHEME = "$XDSDocumentEntryEventCodeListScheme";
+
+
 
     // We need to be able to do a search using AdhocQueryRequest parameters, but 
     // XDS.b does not have a search parameter slot name defined for repository ID
@@ -111,8 +116,19 @@ public class DocumentRegistryHelper
     private static final String PROPERTY_FILE_NAME_GATEWAY = "gateway";
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
 
+    public DocumentRegistryHelper()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
     {
+        //getLogger().debug("Begin DocumentRegistryHelper.documentRegistryRegistryStoredQuery(...)");
         oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory queryObjFact = new oasis.names.tc.ebxml_regrep.xsd.query._3.ObjectFactory();
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response = queryObjFact.createAdhocQueryResponse();
         
@@ -129,11 +145,17 @@ public class DocumentRegistryHelper
         List<String> statuses = null;
         List<String> documentUniqueIds = null;
         String sRepositoryId = null;
+        List<String> eventCodeValues = null;
+        List<String> eventCodeSchemeValues = null;
         
         if(body != null)
         {
             AdhocQueryType adhocQuery = body.getAdhocQuery();
-            List<SlotType1> slots = adhocQuery.getSlot();
+            List<SlotType1> slots = null;
+            if(adhocQuery != null)
+            {
+                slots = adhocQuery.getSlot();
+            }
             
             patientId = extractPatientIdentifier(slots);
             classCodeValues = extractClassCodes(slots);
@@ -151,6 +173,9 @@ public class DocumentRegistryHelper
             // we are not supporting multiple repositories...
             //---------------------------------------------------------
             sRepositoryId = extractRepositoryId(slots);
+
+            eventCodeValues = extractEventCodeList(slots);
+            eventCodeSchemeValues = extractEventCodeListSchemes(slots);
         }
         
         // Perform Query
@@ -166,13 +191,44 @@ public class DocumentRegistryHelper
         params.setServiceStopTimeTo(serviceStopTimeTo);
         params.setStatuses(statuses);
         params.setDocumentUniqueId(documentUniqueIds);
-        DocumentService service = new DocumentService();
+        params.setEventCodeParams(createEventCodeParameters(eventCodeValues, eventCodeSchemeValues));
+        DocumentService service = getDocumentService();
         List<Document> docs = service.documentQuery(params);
         
         // Create response
         loadResponseMessage(response, docs);
         
+        //getLogger().debug("End DocumentRegistryHelper.documentRegistryRegistryStoredQuery(...)");
         return response;
+    }
+
+    protected DocumentService getDocumentService()
+    {
+        return new DocumentService();
+    }
+
+    private List<EventCodeParam> createEventCodeParameters(List<String> eventCodeValues, List<String> eventCodeSchemeValues)
+    {
+        List<EventCodeParam> eventCodeParams = null;
+        if(NullChecker.isNotNullish(eventCodeValues))
+        {
+            eventCodeParams = new ArrayList<EventCodeParam>();
+            boolean hasMatchingSchemes = (NullChecker.isNotNullish(eventCodeSchemeValues) && (eventCodeValues.size() == eventCodeSchemeValues.size()));
+            for(int i = 0; i < eventCodeValues.size(); i++)
+            {
+                String eventCode = eventCodeValues.get(i);
+                EventCodeParam eventCodeParam = new EventCodeParam();
+                eventCodeParam.setEventCode(eventCode);
+                if(hasMatchingSchemes)
+                {
+                    String eventCodeScheme = eventCodeSchemeValues.get(i);
+                    eventCodeParam.setEventCodeScheme(eventCodeScheme);
+                }
+                eventCodeParams.add(eventCodeParam);
+            }
+        }
+
+        return eventCodeParams;
     }
     
     private String extractPatientIdentifier(List<SlotType1> slots)
@@ -337,28 +393,54 @@ public class DocumentRegistryHelper
         return repositoryId;
     }
     
+    private List<String> extractEventCodeList(List<SlotType1> slots)
+    {
+        List<String> classCodes = null;
+        List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST);
+        if((slotValues != null) && (!slotValues.isEmpty()))
+        {
+            classCodes = new ArrayList<String>();
+            for(String slotValue : slotValues)
+            {
+                parseParamFormattedString(slotValue, classCodes);
+            }
+        }
+        return classCodes;
+    }
+
+    private List<String> extractEventCodeListSchemes(List<SlotType1> slots)
+    {
+        List<String> classCodes = null;
+        List<String> slotValues = extractSlotValues(slots, EBXML_EVENT_CODE_LIST_SCHEME);
+        if((slotValues != null) && (!slotValues.isEmpty()))
+        {
+            classCodes = new ArrayList<String>();
+            for(String slotValue : slotValues)
+            {
+                parseParamFormattedString(slotValue, classCodes);
+            }
+        }
+        return classCodes;
+    }
+
     private void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response, List<Document> docs)
     {
-        if(docs != null &&
-                docs.size() > 0)
-        {
-            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        }
-        else
+        if(NullChecker.isNullish(docs))
         {
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_FAILURE);
         }
-        
-        oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
-
-        RegistryObjectListType regObjList = new RegistryObjectListType();
-        response.setRegistryObjectList(regObjList);
-
-        // Collect the home community id
-        String homeCommunityId = retrieveHomeCommunityId();
-        
-        if((docs != null) && (!docs.isEmpty()))
+        else
         {
+            response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+
+            oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
+
+            RegistryObjectListType regObjList = new RegistryObjectListType();
+            response.setRegistryObjectList(regObjList);
+
+            // Collect the home community id
+            String homeCommunityId = retrieveHomeCommunityId();
+
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = regObjList.getIdentifiable();
 
             // Save these so that theyu can be added in later after all of the other items..
@@ -878,27 +960,30 @@ public class DocumentRegistryHelper
     private List<String> extractSlotValues(List<SlotType1> slots, String slotName)
     {
         List<String> returnValues = null;
-        for(SlotType1 slot : slots)
+        if(slots != null)
         {
-            if ((slot.getName() != null) &&
-                (slot.getName().length() > 0) &&
-                (slot.getValueList() != null) &&
-                (slot.getValueList().getValue() != null) &&
-                (slot.getValueList().getValue().size() > 0))
+            for(SlotType1 slot : slots)
             {
-                
-                if(slot.getName().equals(slotName))
+                if ((slot.getName() != null) &&
+                    (slot.getName().length() > 0) &&
+                    (slot.getValueList() != null) &&
+                    (slot.getValueList().getValue() != null) &&
+                    (slot.getValueList().getValue().size() > 0))
                 {
-                    ValueListType valueListType = slot.getValueList();
-                    List<String> slotValues = valueListType.getValue();
-                    returnValues = new ArrayList<String>();
-                    for(String slotValue : slotValues)
+
+                    if(slot.getName().equals(slotName))
                     {
-                        returnValues.add(slotValue);
+                        ValueListType valueListType = slot.getValueList();
+                        List<String> slotValues = valueListType.getValue();
+                        returnValues = new ArrayList<String>();
+                        for(String slotValue : slotValues)
+                        {
+                            returnValues.add(slotValue);
+                        }
                     }
                 }
+
             }
-            
         }
         return returnValues;
     }

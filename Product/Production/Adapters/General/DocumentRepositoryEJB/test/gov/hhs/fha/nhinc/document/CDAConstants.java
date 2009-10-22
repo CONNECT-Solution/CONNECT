@@ -1,11 +1,14 @@
 package gov.hhs.fha.nhinc.document;
 
+import org.junit.Ignore;
+
 /**
  * This class is used to hold the CDA constants that are used when creating the
  * CDA document.
  *
  * @author Les Westberg
  */
+@Ignore
 public class CDAConstants
 {
     public static final String TYPE_ID_EXTENSION_POCD_HD000040 = "POCD_HD000040";

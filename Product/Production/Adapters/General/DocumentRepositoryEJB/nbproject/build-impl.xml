@@ -350,6 +350,13 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.hamcrest-core-1.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.hamcrest-library-1.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-junit4-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.objenesis-1.0.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
@@ -357,8 +364,15 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.hamcrest-core-1.1.jar}" manifestproperty="manifest.file.reference.hamcrest-core-1.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.hamcrest-library-1.1.jar}" manifestproperty="manifest.file.reference.hamcrest-library-1.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jmock-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-2.5.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jmock-junit4-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-junit4-2.5.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-legacy-2.5.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.objenesis-1.0.jar}" manifestproperty="manifest.file.reference.objenesis-1.0.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.hamcrest-core-1.1.jar} ${manifest.file.reference.hamcrest-library-1.1.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.objenesis-1.0.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
