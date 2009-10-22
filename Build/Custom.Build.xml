@@ -3,7 +3,6 @@
   
 	<target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
-    <call target="Build.PublishZip.Release.Domains"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
   </target>
 
@@ -38,7 +37,7 @@
     <call target="Publish.Link" />
   </target>
 
-  <target name="Build.PublishZip.Release.Domains">
+  <target name="Build.PublishZip.Release.Domain.Configuration">
     <property name="Domains.Zip.FileName" value="${ProjectName}-Release-Installer-Domains-${CCNetLabel}.zip"/>
     <property name="Domains.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Zip.FileName}"/>
 
