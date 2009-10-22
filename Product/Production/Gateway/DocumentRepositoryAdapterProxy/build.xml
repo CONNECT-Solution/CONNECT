@@ -10,6 +10,17 @@
 <project name="DocumentRepositoryAdapterProxy" default="default" basedir=".">
     <description>Builds, tests, and runs the project DocumentRepositoryAdapterProxy.</description>
     <import file="nbproject/build-impl.xml"/>
+    <import file="../../../build.lib.xml" />
+    <target name="build">
+      <property name="target-to-call" value="jar" />
+      <antcall target="call-target-in-isolation-if-out-of-date" />
+    </target>
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
+
+    <property name="deploy.type" value="" />
+    <property name="deploy.isDeployable" value="false"/>
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -71,6 +82,13 @@
     nbproject/build-impl.xml file. 
 
     -->
+
+	<target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+	   <copy todir="${nhin.project.home}\UnitTestResults">
+		  <fileset dir="${build.test.results.dir}"/>
+	   </copy>
+	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+	</target>
 
     <target depends="init" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.hibernate;
 
 import java.util.Date;
@@ -16,11 +11,13 @@ import static org.junit.Assert.*;
 
 import org.apache.commons.logging.*;
 import java.util.ArrayList;
+import org.junit.Ignore;
 
 /**
  *
  * @author MFLYNN02
  */
+@Ignore // TODO: Move to an integration test
 public class AuditRepositoryDAOTest {
     private AuditRepositoryDAO auditDao =null;
     private static Log log = LogFactory.getLog(AuditRepositoryDAOTest.class);

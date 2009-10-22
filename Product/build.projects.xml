@@ -44,6 +44,14 @@
         <name>AggregatorLib</name>
         <directory>/Production/Gateway/AggregatorLib</directory>
     </project>
+    <project>
+        <name>AuditRepositoryDAO</name>
+        <directory>/Production/Gateway/AuditRepositoryDAO</directory>
+    </project>
+    <project>
+        <name>DocumentRepositoryAdapterProxy</name>
+        <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
+    </project>
 <!--
     <project>
         <name>HiemSubscriptionRepository</name>
