@@ -152,12 +152,12 @@ public class DocumentDao
      */
     public Document findById(Long documentId)
     {
-        log.debug("Performing document retrieve using id: " + documentId);
+        getLogger().debug("Performing document retrieve using id: " + documentId);
         Document document = null;
         Session sess = null;
         try
         {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
+            SessionFactory fact = getSessionFactory();
             if (fact != null)
             {
                 sess = fact.openSession();
@@ -167,16 +167,16 @@ public class DocumentDao
                 }
                 else
                 {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    getLogger().error("Failed to obtain a session from the sessionFactory");
                 }
             }
             else
             {
-                log.error("Session factory was null");
+                getLogger().error("Session factory was null");
             }
-            if (log.isDebugEnabled())
+            if (getLogger().isDebugEnabled())
             {
-                log.debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "") + "found");
+                getLogger().debug("Completed document retrieve by id. Result was " + ((document == null) ? "not " : "") + "found");
             }
         }
         finally
@@ -189,11 +189,20 @@ public class DocumentDao
                 }
                 catch (Throwable t)
                 {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    getLogger().error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
         return document;
+    }
+
+    protected Log getLogger() {
+        return log;
+    }
+
+    protected SessionFactory getSessionFactory() {
+        SessionFactory fact = HibernateUtil.getSessionFactory();
+        return fact;
     }
 
     /**
@@ -439,4 +448,6 @@ public class DocumentDao
         }
         return documents;
     }
+
+
 }

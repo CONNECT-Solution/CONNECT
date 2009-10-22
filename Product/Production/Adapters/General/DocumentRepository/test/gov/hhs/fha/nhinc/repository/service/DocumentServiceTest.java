@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.repository.service;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.repository.dao.DocumentDao;
 import gov.hhs.fha.nhinc.repository.model.Document;
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
@@ -12,6 +13,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.logging.Log;
+import org.hibernate.SessionFactory;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,12 +26,101 @@ import static org.junit.Assert.*;
  * 
  * @author Neil Webb
  */
-@Ignore //TODO: Move this test to Integration Test Suite
 public class DocumentServiceTest
 {
+ 
+    @Test
+    public void confirmTestSubjectFindByIdReturnsDocumentWithDocumentId(){
+        Mockery mockery = new Mockery();
+        final Document testDocument = new Document();
+        final SessionFactory mockSessionFactory = mockery.mock(SessionFactory.class);
+        final org.hibernate.classic.Session mockSession = mockery.mock(org.hibernate.classic.Session.class);
+        final Log mockLog = mockery.mock(Log.class);
+        
+        DocumentDao testSubject = new DocumentDao(){
+            
+            protected SessionFactory getSessionFactory() {
+                return mockSessionFactory;
+            }
+
+            protected Log getLogger() {
+                return mockLog;
+            }
+        };
+
+        mockery.checking(new Expectations(){{
+            one(mockLog).debug("Performing document retrieve using id: 1");
+            one(mockSessionFactory).openSession();
+            will(returnValue(mockSession));
+            one(mockSession).get(Document.class, 1L);
+            will(returnValue(with(any(Document.class))));
+            one(mockLog).isDebugEnabled();
+            one(mockSession).close();
+            will(returnValue(with(any(Document.class))));
+        }});
+        testSubject.findById(1L);
+        
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void confirmTestSubjectFindByIdFAILSToReturnDocumentWithDocumentId(){
+        Mockery mockery = new Mockery();
+        final Log mockLog = mockery.mock(Log.class);
+
+        DocumentDao testSubject = new DocumentDao(){
+
+            protected SessionFactory getSessionFactory() {
+                return null;
+            }
+
+            protected Log getLogger() {
+                return mockLog;
+            }
+        };
+
+        mockery.checking(new Expectations(){{
+            one(mockLog).debug("Performing document retrieve using id: 1");
+            one(mockLog).error("Session factory was null");
+            one(mockLog).isDebugEnabled();
+        }});
+        testSubject.findById(1L);
+
+        mockery.assertIsSatisfied();
+    }
+
+    @Test
+    public void confirmTestSubjectFindByIdFAILSBecauseSessionIsNULL(){
+        Mockery mockery = new Mockery();
+        final Log mockLog = mockery.mock(Log.class);
+        final SessionFactory mockSessionFactory = mockery.mock(SessionFactory.class);
+
+        DocumentDao testSubject = new DocumentDao(){
+
+            protected SessionFactory getSessionFactory() {
+                return mockSessionFactory;
+            }
+
+            protected Log getLogger() {
+                return mockLog;
+            }
+        };
+
+        mockery.checking(new Expectations(){{
+            one(mockLog).debug("Performing document retrieve using id: 1");
+            one(mockSessionFactory).openSession();
+            will(returnValue(null));
+            one(mockLog).error("Failed to obtain a session from the sessionFactory");
+            one(mockLog).isDebugEnabled();
+        }});
+        testSubject.findById(1L);
+
+        mockery.assertIsSatisfied();
+    }
     /**
      * Test of DocumentService operations.
      */
+    @Ignore //TODO: Move this test to Integration Test Suite
     @Test
     public void testDocumentOperations()
     {
