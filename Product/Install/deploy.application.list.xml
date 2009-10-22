@@ -8,14 +8,14 @@
       <name>NhincSAMLCallbackLib</name>
     </lib>
   </shared>
-  <wars>
+  <!--<wars>
     <war>
       <name>UniversalClientGUI</name>
     </war>
     <war>
       <name>ConsumerPreferencesProfileGUI</name>
     </war>
-  </wars>
+  </wars>-->
   <ejbs>
     <ejb>
       <name>NhinInterfaceTestHelperEJB</name>
