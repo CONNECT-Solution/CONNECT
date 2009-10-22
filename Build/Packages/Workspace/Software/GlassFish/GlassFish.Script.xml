@@ -52,7 +52,7 @@
   </target>
 
   <target name="GlassFish.Update.NHIN.properties">
-    <property name="NHIN.properties.Tag.FileName" value="1.0.NHIN.properties.tag"/>
+    <property name="NHIN.properties.Tag.FileName" value="1.1.NHIN.properties.tag"/>
     
     <ifnot test="${file::exists(GlassFish.Application.config.Path)}" >
       <mkdir dir="${GlassFish.Application.domain.Path}\nhin"/>
@@ -60,7 +60,7 @@
     
     <ifnot test="${file::exists(GlassFish.Application.config.Path + '\' + NHIN.properties.Tag.FileName)}">
       <copy todir="${GlassFish.Application.config.Path}">
-        <fileset basedir="${Common.Directory.Production.Path}\Common\Properties">
+        <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev">
           <include name="*"/>
         </fileset>
       </copy>

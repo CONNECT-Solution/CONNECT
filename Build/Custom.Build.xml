@@ -3,6 +3,7 @@
   
 	<target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
+    <call target="Build.PublishZip.Release.Domains.Configuration"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
   </target>
 
@@ -37,19 +38,23 @@
     <call target="Publish.Link" />
   </target>
 
-  <target name="Build.PublishZip.Release.Domain.Configuration">
-    <property name="Domains.Zip.FileName" value="${ProjectName}-Release-Installer-Domains-${CCNetLabel}.zip"/>
-    <property name="Domains.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Zip.FileName}"/>
+  <target name="Build.PublishZip.Release.Domains.Configuration">
+    <property name="Domains.Configuration.Zip.FileName" value="${ProjectName}-Release-Installer-Domains-Configuration-${CCNetLabel}.zip"/>
+    <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
 
-    <zip zipfile="${Domains.Zip.FilePath}">
-      <fileset basedir="${GlassFish.Domains.Directory.Path}">
-        <include name="**\*"/>
+    <zip zipfile="${Domains.Configuration.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties">
+        <include name="Dev/**"/>
+        <include name="Red4/**"/>
+        <include name="Blue4/**"/>
       </fileset>
     </zip>
 
-    <property name="Publish.Web.File.Name" value="${Domains.Zip.FileName}"/>
+    <property name="Publish.Web.File.Name" value="${Domains.Configuration.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
+    
+    <echo message="Commented out -- call target=Publish.Link"/>>
+    
     <call target="Publish.Link" />
   </target>
 

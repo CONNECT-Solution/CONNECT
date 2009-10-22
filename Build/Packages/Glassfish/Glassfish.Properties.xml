@@ -8,7 +8,8 @@
   <property name="GlassFish.Deploy.Script.File.Path"      value="${GlassFish.Deploy.Directory.Path}\deploy.xml" overwrite="false"/>
 
   <property name="GlassFish.Domains.Directory.Path"       value="C:\Projects\NHINC\Current\SupportApps\GlassFishESB\domains"/>
-  
+  <property name="GlassFish.Domains.Configuration.Directory.Path"       value="C:\Projects\NHINC\Current\SupportApps\GlassFishESB\domains\config\nhin"/>
+
   <environment id="GlassFish.EnvironmentVariables.RefId">
     <variable name="JAVA_HOME" value="${Java.Home}" />
     <variable name="ANT_HOME" value="${Ant.Home}" />
