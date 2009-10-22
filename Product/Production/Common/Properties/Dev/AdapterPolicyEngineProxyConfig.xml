@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="true">
+       
+	<!-- These beans are not initialized when this configuration file is loaded based on the setting 
+	default-lazy-init="true" in the "beans" element. This is done to allow the use of a master configuration
+	file without requireing all of the project libraries to be loaded to run a single component. -->
+
+	<!-- Default AdapterPolicyEngine for always permit implementation -->
+	<bean id="adapterpolicyengine" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy.AdapterPolicyEnginePermitNoOpImpl"/>
+
+	<!-- AdapterPolicyEngine for always deny implementation -->
+	<!-- <bean id="adapterpolicyengine" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy.AdapterPolicyEngineDenyNoOpImpl"/> -->
+
+	<!-- AdapterPolicyEngine java implementation -->
+	<!-- <bean id="adapterpolicyengine" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy.AdapterPolicyEngineJavaProxy"/> -->
+
+	<!-- AdapterPolicyEngine web service implementation -->
+	<!-- <bean id="adapterpolicyengine" class="gov.hhs.fha.nhinc.policyengine.adapterpolicyengine.proxy.AdapterPolicyEngineWebServiceProxy"/> -->
+
+</beans>

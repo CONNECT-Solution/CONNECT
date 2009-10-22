@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+       default-lazy-init="true">
+       
+	<!-- These beans are not initialized when this configuration file is loaded based on the setting 
+	default-lazy-init="true" in the "beans" element. This is done to allow the use of a master configuration
+	file without requireing all of the project libraries to be loaded to run a single component. -->
+
+	<!-- Default AdapterPIP implementation -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyNoOpImpl"/> -->
+
+	<!-- Default AdapterPIP implementation -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPProxyOptInNoOpImpl"/> -->
+
+	<!-- Java Adapter PIP implementation -->
+	<bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPJavaProxy"/>
+
+	<!-- Default Permit AdapterPEP implementation -->
+	<bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyNoOpImpl"/>
+
+	<!-- Default Deny AdapterPEP implementation -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPProxyDenyNoOpImpl"/> -->
+
+	<!-- Java Adapter PEP implementation -->
+	<!-- <bean id="adapterpep" class="gov.hhs.fha.nhinc.policyengine.adapterpep.proxy.AdapterPEPJavaProxy"/> -->
+
+	<!-- Web service adapter PIP implementation -->
+	<!-- <bean id="adapterpip" class="gov.hhs.fha.nhinc.policyengine.adapterpip.proxy.AdapterPIPWebServiceProxy"/> -->
+
+</beans>
