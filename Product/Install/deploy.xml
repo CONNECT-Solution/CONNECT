@@ -376,8 +376,8 @@
   </target>
 
   <target name="deploy.glassfish.nhinc.configuration">
-    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
-      <fileset dir="${deployment.dir}/${deployment.environment.configuration.dir.name}" includes="nhin/"/>
+    <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
+      <fileset dir="${deployment.dir}/${deployment.environment.configuration.dir.name}"/>
     </copy>
   </target>
 
