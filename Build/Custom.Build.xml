@@ -17,13 +17,6 @@
     <property name="Installer.Zip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
     <property name="Installer.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Installer.Zip.FileName}"/>
 
-    <ant  target="copy.deployable.artifacts"
-          buildfile="${Common.Directory.Product.Path}\build.xml">
-          
-        <environment refid="${Common.EnvironmentVariables.RefId}" />
-        <args/>
-     </ant>
-    
     <zip zipfile="${Installer.Zip.FilePath}">
       <fileset basedir="${GlassFish.Deploy.Directory.Path}">
         <include name="**\*"/>

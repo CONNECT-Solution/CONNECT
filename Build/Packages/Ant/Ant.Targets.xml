@@ -40,6 +40,19 @@
     </ant>
   </target>
 
+  <target name="Ant.Copy.Deployable.Artifacts">
+    <ant
+      target="copy.deployable.artifacts"
+      buildfile="${Ant.Build.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\copy_artifacts_log.xml"
+    >
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args>
+        <arg line="-Dcompile.debug=${Compile.Debug}"/>
+      </args>
+    </ant>
+  </target>
+
   <target name="Ant.ShowReport">
     <property name="Common.ShowReport.XmlFile" value="${Ant.Log.File.Path}"/>
     <property name="Common.ShowReport.HtmlFile" value="${Ant.Log.Directory.Path}\AntReport.html"/>

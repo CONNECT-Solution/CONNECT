@@ -170,6 +170,7 @@
         <property name="Compile.Debug" value="False" />
         <call target="Ant.Package" />-->
 
+        <call target="Ant.Copy.Deployable.Artifacts"/>
         <call target="Build.PublishZips"/>
         
         <waitforexit>
