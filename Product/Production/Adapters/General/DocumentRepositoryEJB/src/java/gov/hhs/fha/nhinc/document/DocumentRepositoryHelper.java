@@ -99,9 +99,24 @@ public class DocumentRepositoryHelper
     private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
 
-    private static Log log = LogFactory.getLog(DocumentRepositoryHelper.class);
+    private Log log = null;
 
     private static final String REPOSITORY_UNIQUE_ID = "1";
+
+    public DocumentRepositoryHelper()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected DocumentService getDocumentService()
+    {
+        return new DocumentService();
+    }
 
     /**
      * Perform a document retrieve on the document repository.
@@ -176,7 +191,7 @@ public class DocumentRepositoryHelper
                 {
                     DocumentQueryParams params = new DocumentQueryParams();
                     params.setDocumentUniqueId(documentUniqueIds);
-                    DocumentService service = new DocumentService();
+                    DocumentService service = getDocumentService();
                     List<Document> docs = service.documentQuery(params);
                     loadDocumentResponses(response, docs, homeCommunityId);
                 }
@@ -617,7 +632,7 @@ public class DocumentRepositoryHelper
                         //TODO concatenate the adapter server's uri to the document unique id
                         doc.setDocumentUri(documentUniqueId);
 
-                        DocumentService docService = new DocumentService();
+                        DocumentService docService = getDocumentService();
 
                         //set the NHINC repository documentId value
                         if (requestHasReplacementAssociation)
@@ -634,7 +649,7 @@ public class DocumentRepositoryHelper
                         //determine if the save was successful - Hibernate will generate
                         //a documentId for the record and populate this value in the
                         //document object if the save was successful.
-                        if (doc.getDocumentid() < 1)
+                        if ((doc.getDocumentid() == null) || (doc.getDocumentid() < 1))
                         {
                             RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory().createRegistryError();
                             error.setCodeContext("ProvideAndRegisterDocumentSetRequest message handler did not store a document.");
@@ -1002,12 +1017,14 @@ public class DocumentRepositoryHelper
     private void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType>
             classifications, gov.hhs.fha.nhinc.repository.model.Document doc)
     {
+        log.debug("Begin extractEventCodes");
         Set<EventCode> eventCodes = new HashSet<EventCode>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications)
         {
             String classificationSchemeName = classification.getClassificationScheme();
             if (XDS_EVENT_CODE_LIST_CLASSIFICATION.equals(classificationSchemeName))
             {
+                log.debug("Found event code classification entry. Event code: " + classification.getNodeRepresentation());
                 EventCode eventCode = new EventCode();
                 eventCode.setDocument(doc);
 
@@ -1022,6 +1039,7 @@ public class DocumentRepositoryHelper
         } //for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications)
 
         doc.setEventCodes(eventCodes);
+        log.debug("End extractEventCodes");
     }
 
 }
