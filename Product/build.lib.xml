@@ -83,6 +83,23 @@
     <call target="deploy.to.development" if="${deploy.isDeployable}"/>
   </target>
 
+  <target name="copy.deployable.artifacts">
+    <property file="${project.dir}/nbproject/project.properties"/>
+    <switch value="${deploy.type}">
+      <case value="war">
+        <property name="dist.file" value="${project.dir}/${dist.war}"/>
+      </case>
+      <default>
+        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+          <isset property="sedeployment.jar" />
+        </condition>
+      </default>
+    </switch>
+
+    <echo message="${dist.file}"/>
+    <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
+  </target>
+
   <target name="undeploy">
     <property file="${project.dir}/nbproject/project.properties"/>
     <switch value="${deploy.type}">

@@ -78,6 +78,11 @@
     <antcall target="do-to-projects" />
   </target>
 
+  <target name="copy.deployable.artifacts">
+    <var name="do-to-target" value="copy.deployable.artifacts" />
+    <antcall target="do-to-projects" />
+  </target>
+  
   <target name="redeploy">
     <var name="do-to-target" value="undeploy" />
     <antcall target="do-to-projects" />

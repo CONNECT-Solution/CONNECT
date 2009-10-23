@@ -235,7 +235,15 @@
       </default>
     </switch>
   </target>
+  
+  <target name="copy.artifacts.to.development">
+    <echo message="Attempting to copy package for project ${project.name}." />
 
+    <mkdir dir="${deployment.binaries.dir}" />
+    
+    <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>    
+  </target>
+  
   <target name="undeploy.from.development">
     <echo message="Attempting to undeploy package for project ${project.name}." />
 

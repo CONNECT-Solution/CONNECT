@@ -17,15 +17,17 @@
     <property name="Installer.Zip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
     <property name="Installer.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Installer.Zip.FileName}"/>
 
+    <ant  target="copy.deployable.artifacts"
+          buildfile="${Common.Directory.Product.Path}\build.xml">
+          
+        <environment refid="${Common.EnvironmentVariables.RefId}" />
+        <args/>
+     </ant>
+    
     <zip zipfile="${Installer.Zip.FilePath}">
-      <fileset basedir="${Common.Project.TempDirectory}">
+      <fileset basedir="${GlassFish.Deploy.Directory.Path}">
+        <include name="**\*"/>
         <include name="ReleaseInfo.txt"/>
-      </fileset>
-      <fileset prefix="nhinc">
-        <include name="${Common.Directory.Production.Path}\Adapters\**\dist\*"/>
-        <include name="${Common.Directory.Production.Path}\Common\**\dist\*"/>
-        <include name="${Common.Directory.Production.Path}\Gateway\**\dist\*"/>
-        <include name="${Common.Directory.Production.Path}\Examples\NhinInterfaceTestHelperEJB\**\dist\*"/>
       </fileset>
       <fileset basedir="${Common.Directory.Install.Path}">
         <include name="**\*"/>
@@ -35,7 +37,7 @@
     <property name="Publish.Web.File.Name" value="${Installer.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
-    <call target="Publish.Link" />
+    <!--<call target="Publish.Link" />-->
   </target>
 
   <target name="Build.PublishZip.Release.Domains.Configuration">

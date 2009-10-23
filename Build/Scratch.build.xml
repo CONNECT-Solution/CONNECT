@@ -12,11 +12,14 @@
   <property name="CCNetProject" value="NHINC" />
   <property name="CCNetLogFilePath" value="C:\Temp\junk.xml" />
   <property name="CCNetListenerFile" value="C:\Temp\AntListener.txt" />
-
+  <property name="Web.Credentials.UserName" value="vadlamanis" />
+  <property name="Web.Credentials.Password" value="srikanth99$" />
+  <property name="GlassFish.Domain1.NHINC.Configuration.Directory.Name" value="Dev" />
+  
   <include buildfile="Properties.Build.xml" />
   <include buildfile="Common.Build.xml" />
   <include buildfile="Custom.Build.xml" />
-
+  
   <property name="Compile.ConfigName" value="Debug" />
 
   <loadpackages>
@@ -31,11 +34,11 @@
     <package name="IntegrationTest" />
     <package name="Corbertura" type="Coverage" />
     <package name="Workspace" />
+    <package name="GlassFish" />
   </loadpackages>
 
   <target name="test">
-    <call target="UnitTest.SetUp"/>
-    <call target="UnitTest.RunTests"/>
+    <call target="GlassFish.Redeploy.Release.Build" />
   </target>
 
   <target name="rebuild-setups">

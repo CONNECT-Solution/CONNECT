@@ -72,9 +72,9 @@
   </target>
 
   <target name="GlassFish.Redeploy">
-    <!--
+    
     <call target="GlassFish.Recreate.Domain"/>
-    -->
+    
     <call target="GlassFish.Deploy"/>
   </target>
 
@@ -86,7 +86,7 @@
     >
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args>
-        <arg line="-Ddeployment.glassfish.domain.source.directory.name=${GlassFish.Domain1.Template.Directory.Name}"/>
+        <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
       </args>
     </ant>
   </target>
