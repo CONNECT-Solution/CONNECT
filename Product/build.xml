@@ -3,7 +3,9 @@
 <project name="nhinc" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
 
   <description>Builds nhinc, tests, runs NHINC projects</description>
-  	
+  <property name="ProductDirectory" location='.' id="proddir"/>
+  <import file="Properties.build.xml"/>
+ 	
   <import file="build.lib.xml" />
 
   <property file="build.properties"/>
@@ -17,7 +19,6 @@
 	</classpath>
   </taskdef>
 	
-  <import file="Properties.build.xml"/>
 
   <condition property="progress-filepath" value="${TempDirectory}/ant-progress.txt">
     <not>
@@ -114,6 +115,7 @@
 					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
 					<echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" />
 					<ant dir="${ProductDirectory}/@{project.directory}" antfile="build.xml" inheritAll="false">
+						<property name="ProductDirectory" value="${ProductDirectory}"/>
 						<target name="${do-to-target}" />
 					</ant>
 					<echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${project.count} *************************" file="${progress-filepath}" />
