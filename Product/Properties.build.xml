@@ -9,7 +9,7 @@
   <property name="PackagesDirectory"          value='${BuildDirectory}/Packages'/>
   <property name="UnitTestDirectory"          value='${ProductDirectory}/UnitTest'/>
   <property name="InstallDirectory"           value='${ProductDirectory}/Install'/>
-  <property name="TempDirectory"              value='/temp'/>
+  <property name="TempDirectory"              value='${java.io.tmpdir}'/>
                                                    
 
   <property name="root.project.name" value="NHINC" />
