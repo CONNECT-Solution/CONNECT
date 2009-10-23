@@ -20,7 +20,7 @@
     </get>
 
     <property name="Release.Domains.Configuration.Zip.File.Name" value="${ProjectName}-Release-Installer-Domains-Configuration-${CCNetLabel}.zip"/>
-    <property name="Release.Domains.Configuration.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Domains.Zip.File.Name}"/>
+    <property name="Release.Domains.Configuration.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Domains.Configuration.Zip.File.Name}"/>
     
     <get
       dest="${Release.Domains.Zip.File.Path}"
