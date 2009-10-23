@@ -23,7 +23,7 @@
     <property name="Release.Domains.Configuration.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Domains.Configuration.Zip.File.Name}"/>
     
     <get
-      dest="${Release.Domains.Zip.File.Path}"
+      dest="${Release.Domains.Configuration.Zip.File.Path}"
       src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Domains.Configuration.Zip.File.Name}"
       verbose="true"
     >
