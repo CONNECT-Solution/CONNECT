@@ -14,6 +14,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,6 +22,7 @@ import static org.junit.Assert.*;
  *
  * @author svalluripalli
  */
+@Ignore  // TODO: Move to Integration Test
 public class PatientConsentManagerTest {
 
     public PatientConsentManagerTest() {

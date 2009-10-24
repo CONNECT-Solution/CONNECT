@@ -1,8 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.hl7.v3.POCDMT000040ClinicalDocument;
@@ -35,7 +33,6 @@ import java.util.List;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.HashSet;
-import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -84,25 +81,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import oasis.names.tc.xacml._2_0.policy.schema.os.ActionMatchType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.ActionsType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.ActionType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.AttributeDesignatorType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.AttributeValueType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentMatchType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentsType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceMatchType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.ResourcesType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectAttributeDesignatorType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectsType;
-import oasis.names.tc.xacml._2_0.policy.schema.os.TargetType;
 
 /**
  * This class manages the patient consent form.  It stores or retrieves the patient
@@ -114,11 +93,8 @@ public class PatientConsentManager
 {
     private static Log log = LogFactory.getLog(PatientConsentManager.class);
     private static JAXBContext oJaxbContextHL7 = null;
-    private static JAXBContext oJaxbContextXACML = null;
     private static Marshaller oHL7Marshaller = null;
-    private static Marshaller oXACMLMarshaller = null;
     private static Unmarshaller oHL7Unmarshaller = null;
-    private static Unmarshaller oXACMLUnmarshaller = null;
     private static DocumentRegistryService oDocRegService = null;
     private static DocumentRepositoryService oDocRepService = null;
     private static final String ADAPTER_PROPFILE_NAME = "adapter";
@@ -131,11 +107,6 @@ public class PatientConsentManager
             oJaxbContextHL7 = JAXBContext.newInstance("org.hl7.v3");
             oHL7Marshaller = oJaxbContextHL7.createMarshaller();
             oHL7Unmarshaller = oJaxbContextHL7.createUnmarshaller();
-
-            oJaxbContextXACML = JAXBContext.newInstance("oasis.names.tc.xacml._2_0.policy.schema.os");
-            oXACMLMarshaller = oJaxbContextXACML.createMarshaller();
-            oXACMLUnmarshaller = oJaxbContextXACML.createUnmarshaller();
-
         }
         catch (Exception e)
         {
@@ -253,411 +224,8 @@ public class PatientConsentManager
         return oDocRepositoryPort;
     }
 
-    /**
-     * This formats a string that represents the patient ID in the format of:
-     *
-     * <nhin:PatientId root="1.1" extension="11111" />
-     *
-     * @param oPtPref The patient preference information.
-     * @return
-     */
-    private String createNhinPatientId(PatientPreferencesType oPtPref)
-    {
-        String sPatientId = "";
-        StringBuffer sbPatientId = new StringBuffer();
 
-        // Make sure we have an assigning authority or a patient ID.
-        //-----------------------------------------------------------
-        if (((oPtPref.getAssigningAuthority() != null) &&
-            (oPtPref.getAssigningAuthority().trim().length() > 0)) ||
-            ((oPtPref.getPatientId() != null) &&
-            (oPtPref.getPatientId().trim().length() > 0)))
-        {
-            sbPatientId.append("<" + XACMLConstants.NHIN_PATIENT_ID_TAG + " " + XACMLConstants.NHIN_PATIENT_ID_TAG_ROOT + "=\"");
-            if (oPtPref.getAssigningAuthority() != null)
-            {
-                sbPatientId.append(oPtPref.getAssigningAuthority().trim());
-            }
-            sbPatientId.append("\" " + XACMLConstants.NHIN_PATIENT_ID_TAG_EXTENSION + "=\"");
-            if (oPtPref.getPatientId() != null)
-            {
-                sbPatientId.append(oPtPref.getPatientId().trim());
-            }
-            sbPatientId.append("\" />");
-            sPatientId = sbPatientId.toString();
-        }
 
-        return sPatientId;
-    }
-
-    /**
-     * This method creates the Rule associated with the patient Opt In/Opt Out settings.
-     *
-     * @param iRuleId The ID number for this rule.
-     * @param oPtPref The patient Preferneces
-     * @return The rule showing the patient Opt in Opt Out settings.
-     */
-    private RuleType createOptInOutRule(int iRuleId, PatientPreferencesType oPtPref)
-    {
-        RuleType oRule = new RuleType();
-
-        oRule.setRuleId(Integer.toString(iRuleId));
-
-        // Permission setting
-        //--------------------
-        String sPermitOrDeny = "";
-        if (oPtPref.isOptIn())
-        {
-            oRule.setEffect(EffectType.PERMIT);
-            sPermitOrDeny = "Permit";
-        }
-        else
-        {
-            oRule.setEffect(EffectType.DENY);
-            sPermitOrDeny = "Deny";
-        }
-
-        oRule.setDescription(XACMLConstants.DESCRIPTION_OPT_IN_OUT_RULE);
-
-        // Rule Target
-        //------------
-        TargetType oRuleTarget = new TargetType();
-        oRule.setTarget(oRuleTarget);
-
-        // resources/Resource
-        //--------------------
-        ResourcesType oResources = new ResourcesType();
-        oRuleTarget.setResources(oResources);
-        List<ResourceType> olResource = oResources.getResource();
-        ResourceType oRuleResource = new ResourceType();
-        olResource.add(oRuleResource);
-
-        // Resource match
-        //----------------
-        ResourceMatchType oResMatch = new ResourceMatchType();
-        oRuleResource.getResourceMatch().add(oResMatch);
-        oResMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-        // Attribute Value
-        //----------------
-        AttributeValueType oAttributeValue = new AttributeValueType();
-        oResMatch.setAttributeValue(oAttributeValue);
-        oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-        oAttributeValue.getContent().add(sPermitOrDeny);
-
-        // Resource Attribute Designator
-        //-------------------------------
-        AttributeDesignatorType oResAttrDesig = new AttributeDesignatorType();
-        oResMatch.setResourceAttributeDesignator(oResAttrDesig);
-        oResAttrDesig.setAttributeId(XACMLConstants.RESOURCE_PATIENT_OPT_IN);
-        oResAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-
-        return oRule;
-    }
-    
-    /**
-     * This method creates the Rule associated with a single instance of a
-     * fine grained criterion.
-     *
-     * @param iRuleId The ID number for this rule.
-     * @param oCriterion The patient Preferneces
-     * @return The rule representing a single fine grained policy settings.
-     */
-    private RuleType createFineGrainedRule(int iRuleId, FineGrainedPolicyCriterionType oCriterion)
-    {
-        RuleType oRule = new RuleType();
-
-        oRule.setRuleId(Integer.toString(iRuleId));
-
-        // Permission setting
-        //--------------------
-        String sPermitOrDeny = "";
-        if (oCriterion.isPermit())
-        {
-            oRule.setEffect(EffectType.PERMIT);
-            sPermitOrDeny = "Permit";
-        }
-        else
-        {
-            oRule.setEffect(EffectType.DENY);
-            sPermitOrDeny = "Deny";
-        }
-
-        oRule.setDescription(XACMLConstants.DESCRIPTION_FINE_GRAINED_RULE);
-
-        // Rule Target
-        //------------
-        TargetType oRuleTarget = new TargetType();
-        oRule.setTarget(oRuleTarget);
-
-        // Subjects/Subject
-        // Subject will contain the information for User Role and
-        // purpose of use.
-        //---------------------------------------------------------------------
-        if (((oCriterion.getUserRole() != null) &&
-             (oCriterion.getUserRole().getCode() != null) &&
-             (oCriterion.getUserRole().getCode().length() > 0)) ||
-            ((oCriterion.getPurposeOfUse() != null) &&
-             (oCriterion.getPurposeOfUse().getCode() != null) &&
-             (oCriterion.getPurposeOfUse().getCode().length() > 0)))
-        {
-
-            SubjectsType oSubjects = new SubjectsType();
-            oRuleTarget.setSubjects(oSubjects);
-            List<SubjectType> olSubject = oSubjects.getSubject();
-            SubjectType oSubject = new SubjectType();
-            olSubject.add(oSubject);
-
-            // User Role
-            //-----------
-            if ((oCriterion.getUserRole() != null) &&
-                (oCriterion.getUserRole().getCode() != null) &&
-                (oCriterion.getUserRole().getCode().length() > 0))
-            {
-                // Subject Match
-                //--------------
-                SubjectMatchType oSubjMatch = new SubjectMatchType();
-                oSubject.getSubjectMatch().add(oSubjMatch);
-                oSubjMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-                // Attribute Value
-                //-----------------
-                AttributeValueType oAttributeValue = new AttributeValueType();
-                oSubjMatch.setAttributeValue(oAttributeValue);
-                oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oAttributeValue.getContent().add(oCriterion.getUserRole().getCode());
-
-                // Subject Attribute Designator
-                //-----------------------------
-                SubjectAttributeDesignatorType oSubjAttrDesig = new SubjectAttributeDesignatorType();
-                oSubjMatch.setSubjectAttributeDesignator(oSubjAttrDesig);
-                oSubjAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oSubjAttrDesig.setAttributeId(XACMLConstants.SUBJECT_ROLE);
-            }   // User Role
-
-            // Purpose of Use
-            //----------------
-            if ((oCriterion.getPurposeOfUse() != null) &&
-                (oCriterion.getPurposeOfUse().getCode() != null) &&
-                (oCriterion.getPurposeOfUse().getCode().length() > 0))
-            {
-                // Subject Match
-                //--------------
-                SubjectMatchType oSubjMatch = new SubjectMatchType();
-                oSubject.getSubjectMatch().add(oSubjMatch);
-                oSubjMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-                // Attribute Value
-                //-----------------
-                AttributeValueType oAttributeValue = new AttributeValueType();
-                oSubjMatch.setAttributeValue(oAttributeValue);
-                oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oAttributeValue.getContent().add(oCriterion.getPurposeOfUse().getCode());
-
-                // Subject Attribute Designator
-                //-----------------------------
-                SubjectAttributeDesignatorType oSubjAttrDesig = new SubjectAttributeDesignatorType();
-                oSubjMatch.setSubjectAttributeDesignator(oSubjAttrDesig);
-                oSubjAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oSubjAttrDesig.setAttributeId(XACMLConstants.SUBJECT_PURPOSE_OF_USE);
-            }   // User Role
-        }   // if ((oCriterion.getUserRole() != null) &&
-
-        // resources/Resource
-        // Rsoources will contain the information for Confidentiality Code and
-        // Document Type.
-        //---------------------------------------------------------------------
-        if (((oCriterion.getConfidentialityCode() != null) &&
-             (oCriterion.getConfidentialityCode().getCode() != null) &&
-             (oCriterion.getConfidentialityCode().getCode().length() > 0)) ||
-            ((oCriterion.getDocumentTypeCode() != null) &&
-             (oCriterion.getDocumentTypeCode().getCode() != null) &&
-             (oCriterion.getDocumentTypeCode().getCode().length() > 0)))
-        {
-            ResourcesType oResources = new ResourcesType();
-            oRuleTarget.setResources(oResources);
-            List<ResourceType> olResource = oResources.getResource();
-            ResourceType oRuleResource = new ResourceType();
-            olResource.add(oRuleResource);
-
-            // Confidentiality Code
-            //---------------------
-            if ((oCriterion.getConfidentialityCode() != null) &&
-                 (oCriterion.getConfidentialityCode().getCode() != null) &&
-                 (oCriterion.getConfidentialityCode().getCode().length() > 0))
-            {
-                // Resource match
-                //----------------
-                ResourceMatchType oResMatch = new ResourceMatchType();
-                oRuleResource.getResourceMatch().add(oResMatch);
-                oResMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-                // Attribute Value
-                //----------------
-                AttributeValueType oAttributeValue = new AttributeValueType();
-                oResMatch.setAttributeValue(oAttributeValue);
-                oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oAttributeValue.getContent().add(oCriterion.getConfidentialityCode().getCode());
-
-                // Resource Attribute Designator
-                //-------------------------------
-                AttributeDesignatorType oResAttrDesig = new AttributeDesignatorType();
-                oResMatch.setResourceAttributeDesignator(oResAttrDesig);
-                oResAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oResAttrDesig.setAttributeId(XACMLConstants.RESOURCE_CONFIDENTIALITY_CODE);
-            }
-
-            // Confidentiality Code
-            //---------------------
-            if ((oCriterion.getDocumentTypeCode() != null) &&
-                 (oCriterion.getDocumentTypeCode().getCode() != null) &&
-                 (oCriterion.getDocumentTypeCode().getCode().length() > 0))
-            {
-                // Resource match
-                //----------------
-                ResourceMatchType oResMatch = new ResourceMatchType();
-                oRuleResource.getResourceMatch().add(oResMatch);
-                oResMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-                // Attribute Value
-                //----------------
-                AttributeValueType oAttributeValue = new AttributeValueType();
-                oResMatch.setAttributeValue(oAttributeValue);
-                oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oAttributeValue.getContent().add(oCriterion.getDocumentTypeCode().getCode());
-
-                // Resource Attribute Designator
-                //-------------------------------
-                AttributeDesignatorType oResAttrDesig = new AttributeDesignatorType();
-                oResMatch.setResourceAttributeDesignator(oResAttrDesig);
-                oResAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_STRING);
-                oResAttrDesig.setAttributeId(XACMLConstants.RESOURCE_SNOMEDCT_TYPE);
-            }
-        }
-
-        return oRule;
-    }
-
-    /**
-     * This method creates the XACML policy document that represents the 
-     * patient's consent preference information.
-     * 
-     * @param oPtPref The patient's consent preference information.
-     * @return The XACML Policy that represents this consent information.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *          This exception is thrown if any error occurs.
-     */
-    private PolicyType createConsentXACMLDoc(PatientPreferencesType oPtPref)
-        throws AdapterPIPException
-    {
-        PolicyType oPolicy = new PolicyType();
-
-        // Not sure what this ID is used for at this point...   Not sure if we have to track it
-        // or tie it to the document ID in some fashion....  Now we will just generate it...
-        //--------------------------------------------------------------------------------------
-        UUID oPolicyId = UUID.randomUUID();
-        String sPolicyId = oPolicyId.toString();
-        oPolicy.setPolicyId(sPolicyId);
-
-        // Rule combining algorithm
-        //--------------------------
-        oPolicy.setRuleCombiningAlgId(XACMLConstants.RULE_COMBINING_ALG_FIRST_APPLICABLE);
-        
-        // Description
-        //------------
-        oPolicy.setDescription(XACMLConstants.POLICY_DESCRIPTION);
-
-        // Target
-        //--------
-        TargetType oTarget = new TargetType();
-        oPolicy.setTarget(oTarget);
-
-        // Actions -> Action -> 
-        // Set the action to be specific to Retrieve Documents Service
-        //-------------------------------------------------------------
-        ActionsType oActions = new ActionsType();
-        oTarget.setActions(oActions);
-        ActionType oAction = new ActionType();
-        oActions.getAction().add(oAction);
-        ActionMatchType oActionMatch = new ActionMatchType();
-        oAction.getActionMatch().add(oActionMatch);
-        oActionMatch.setMatchId(XACMLConstants.MATCH_ID_STRING_EQUAL);
-
-        // Action - AttributeValue
-        //-------------------------
-        AttributeValueType oAttributeValue = new AttributeValueType();
-        oActionMatch.setAttributeValue(oAttributeValue);
-        oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI);
-        oAttributeValue.getContent().add(XACMLConstants.ATTRIBUTE_VALUE_RETRIEVE_DOCUMENT);
-
-        // Action - Attribute Designator
-        //-------------------------------
-        AttributeDesignatorType oActionAttrDesig = new AttributeDesignatorType();
-        oActionMatch.setActionAttributeDesignator(oActionAttrDesig);
-        oActionAttrDesig.setAttributeId(XACMLConstants.ACTION_ID);
-        oActionAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI);
-
-        // Set up environment to pertain to the correct home community.
-        // It appears that the NHIN spec has put the patient ID in as
-        // a subject in the environment rather than as a resouce.  I am
-        // matching the spec, but I think the spec is wrong.
-        //-------------------------------------------------------------
-        EnvironmentsType oEnvironments = new EnvironmentsType();
-        oTarget.setEnvironments(oEnvironments);
-        List<EnvironmentType> olEnvironment = oEnvironments.getEnvironment();
-        EnvironmentType oEnvironment = new EnvironmentType();
-        olEnvironment.add(oEnvironment);
-        EnvironmentMatchType oEnvMatch = new EnvironmentMatchType();
-        oEnvironment.getEnvironmentMatch().add(oEnvMatch);
-        oEnvMatch.setMatchId(XACMLConstants.MATCH_ID_IID_EQUAL);
-
-        // Environment - AttributeValue
-        //------------------------------
-        oAttributeValue = new AttributeValueType();
-        oEnvMatch.setAttributeValue(oAttributeValue);
-        oAttributeValue.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_IID);
-        String sNHINPatientId = createNhinPatientId(oPtPref);
-        oAttributeValue.getContent().add(sNHINPatientId);
-
-        // Environment - Environment Designator
-        //-------------------------------------
-        AttributeDesignatorType oEnvAttrDesig = new AttributeDesignatorType();
-        oEnvMatch.setEnvironmentAttributeDesignator(oEnvAttrDesig);
-        oEnvAttrDesig.setAttributeId(XACMLConstants.PATIENT_SUBJECT_ID);
-        oEnvAttrDesig.setDataType(XACMLConstants.ATTRIBUTE_VALUE_TYPE_IID);
-
-        // Rules...
-        //---------
-        int iRuleIdx = 1;           // Index for each rule number.
-
-        // Add in a rule for the Opt-in/Opt-Out setting
-        //----------------------------------------------
-        List<Object> olRules = oPolicy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition();
-        RuleType oRule = createOptInOutRule(iRuleIdx++, oPtPref);
-        if (oRule != null)
-        {
-            olRules.add(oRule);
-        }
-
-        // Add in rule for each of the Fine Grained Policy Settings
-        //----------------------------------------------------------
-        if ((oPtPref.getFineGrainedPolicyCriteria() != null) &&
-            (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion() != null) &&
-            (oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion().size() > 0))
-        {
-            List<FineGrainedPolicyCriterionType> olCriterion = oPtPref.getFineGrainedPolicyCriteria().getFineGrainedPolicyCriterion();
-            for (FineGrainedPolicyCriterionType oCriterion : olCriterion)
-            {
-                oRule = createFineGrainedRule(iRuleIdx++, oCriterion);
-                if (oRule != null)
-                {
-                    olRules.add(oRule);
-                }
-            }
-        }
-        
-        return oPolicy;
-    }
 
 
     /**
@@ -990,52 +558,6 @@ public class PatientConsentManager
         return sPrefCDA;
     }
 
-    /**
-     * This method takes in an object representation of the XACML Policy
-     * and serializes it to a text string representation of the document.
-     *
-     * @param oConsentXACML The object representation of the XACML Consent Policy.
-     * @return The textual string representation of the XACML Consent document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This exception is thrown if an error occurs.
-     */
-    private String serializeConsentXACMLDoc(PolicyType oConsentXACML)
-        throws AdapterPIPException
-    {
-        String sConsentXACML = "";
-
-        try
-        {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContextXACML == null)
-            {
-                oJaxbContextXACML = JAXBContext.newInstance("oasis.names.tc.xacml._2_0.policy.schema.os");
-            }
-
-            if (oXACMLMarshaller == null)
-            {
-                oXACMLMarshaller = oJaxbContextXACML.createMarshaller();
-            }
-
-            StringWriter swXML = new StringWriter();
-
-            oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory oXACMLObjectFactory = new oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory();
-            JAXBElement oJaxbElement = oXACMLObjectFactory.createPolicy(oConsentXACML);
-
-            oXACMLMarshaller.marshal(oJaxbElement, swXML);
-            sConsentXACML = swXML.toString();
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Failed to serialize the XACML document to a string.  Error: " +
-                                   e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new AdapterPIPException(sErrorMessage, e);
-        }
-
-        return sConsentXACML;
-    }
 
     /**
      * This method takes a string version of the Patient Pref document and
@@ -1082,53 +604,6 @@ public class PatientConsentManager
         }
 
         return oPrefCDA;
-    }
-
-    /**
-     * This method takes a string version of the Patient Pref document and
-     * creates the JAXB object version of the same document.
-     *
-     * @param sConsentXACML The string version of the patient preference XACML document.
-     * @return The JAXB object version of the patient preferences XACML document.
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     *         This is thrown if there is an error deserializing the string.
-     */
-    private PolicyType deserializeConsentXACMLDoc(String sConsentXACML)
-        throws AdapterPIPException
-    {
-        PolicyType oConsentXACML = null;
-
-        try
-        {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContextXACML == null)
-            {
-                oJaxbContextXACML = JAXBContext.newInstance("oasis.names.tc.xacml._2_0.policy.schema.os");
-            }
-
-            if (oXACMLUnmarshaller == null)
-            {
-                oXACMLUnmarshaller = oJaxbContextXACML.createUnmarshaller();
-            }
-
-            StringReader srXML = new StringReader(sConsentXACML);
-
-            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oXACMLUnmarshaller.unmarshal(srXML);
-            if (oJAXBElementConsentXACML.getValue() instanceof PolicyType)
-            {
-                oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
-            }
-        }
-        catch (Exception e)
-        {
-            String sErrorMessage = "Failed to deserialize the XACML consent string: " + sConsentXACML + "  Error: " +
-                                   e.getMessage();
-            log.error(sErrorMessage, e);
-            throw new AdapterPIPException(sErrorMessage, e);
-        }
-
-        return oConsentXACML;
     }
 
 
@@ -1647,353 +1122,31 @@ public class PatientConsentManager
 
     }
 
-    /**
-     * This returns true if the given rule contains the specified attribute
-     * designator.  False if it does not.
-     *
-     * @param oRule The rule being checked.
-     * @param sAttrDesignator The attribute designator being checked for.
-     * @return TRUE if the rule contains the attribute designator and false if it does not.
-     */
-    private boolean containsAttributeDesignatorXACML(RuleType oRule, String sAttrDesignator)
-    {
-        // Note that as soon as we find it, we will return out of this routine.  We will not
-        // keep looking through the rest...
-        //-----------------------------------------------------------------------------------
-
-        // Check through the Resources first for this attribute...
-        //----------------------------------------------------------
-        if ((oRule != null) &&
-            (oRule.getTarget() != null) &&
-            (oRule.getTarget().getResources() != null) &&
-            (oRule.getTarget().getResources().getResource() != null) &&
-            (oRule.getTarget().getResources().getResource().size() > 0))
-        {
-            for (ResourceType oResource : oRule.getTarget().getResources().getResource())
-            {
-                if ((oResource != null) &&
-                    (oResource.getResourceMatch() != null) &&
-                    (oResource.getResourceMatch().size() > 0))
-                {
-                    for (ResourceMatchType oResourceMatch : oResource.getResourceMatch())
-                    {
-                        if ((oResourceMatch != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator() != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator().getAttributeId() != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator().getAttributeId().equals(sAttrDesignator)))
-                        {
-                            return true;
-                        }
-                    }   // for (ResourceMatchType oResourceMatch : oResource.getResourceMatch())
-                }   // if ((oResource != null) &&
-            }   // for (ResourceType oResource : oRule.getTarget().getResources().getResource())
-        }   // if ((oRule != null) &&
-
-        // It was not in the resource area - lets look for it in the subjects area.
-        //-------------------------------------------------------------------------
-        if ((oRule != null) &&
-            (oRule.getTarget() != null) &&
-            (oRule.getTarget().getSubjects() != null) &&
-            (oRule.getTarget().getSubjects().getSubject() != null) &&
-            (oRule.getTarget().getSubjects().getSubject().size() > 0))
-        {
-            for (SubjectType oSubject : oRule.getTarget().getSubjects().getSubject())
-            {
-                if ((oSubject != null) &&
-                    (oSubject.getSubjectMatch() != null) &&
-                    (oSubject.getSubjectMatch().size() > 0))
-                {
-                    for (SubjectMatchType oSubjectMatch : oSubject.getSubjectMatch())
-                    {
-                        if ((oSubjectMatch != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator() != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId() != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId().equals(sAttrDesignator)))
-                        {
-                            return true;
-                        }
-                    }   // for (ResourceMatchType oResourceMatch : oResource.getResourceMatch())
-                }   // if ((oResource != null) &&
-            }   // for (ResourceType oResource : oRule.getTarget().getResources().getResource())
-        }   // if ((oRule != null) &&
-
-        return false;       // If we got here we never found it...
-    }
-
-    /**
-     * This extracts the information for one instnce of a FineGrainedPolicyCriterion from the
-     * Rule.
-     *
-     * @param oRule The rule being checked.
-     * @return An instance of the FineGrainedPolicyCriterion that was creatd from the data in the rule.
-     */
-    private FineGrainedPolicyCriterionType extractSingleFineGrainedPolicyXACML(RuleType oRule)
-    {
-        FineGrainedPolicyCriterionType oCriterion = new FineGrainedPolicyCriterionType();
-        boolean bHasData = false;       // True if we find something to put in the oCriterion object
-
-        // Permit or deny
-        //----------------
-        if ((oRule != null) &&
-            (oRule.getEffect() != null))
-        {
-            bHasData = true;
-            if (oRule.getEffect() == EffectType.PERMIT)
-            {
-                oCriterion.setPermit(true);
-            }
-            else
-            {
-                oCriterion.setPermit(false);
-            }
-        }
-
-        // Rule ID
-        //--------
-        if ((oRule != null) &&
-            (oRule.getRuleId() != null) &&
-            (oRule.getRuleId().length() > 0))
-        {
-            bHasData = true;
-            oCriterion.setPolicyOID(oRule.getRuleId());
-        }
-
-        // Extract any values from the Resource section...
-        //------------------------------------------------
-        if ((oRule != null) &&
-            (oRule.getTarget() != null) &&
-            (oRule.getTarget().getResources() != null) &&
-            (oRule.getTarget().getResources().getResource() != null) &&
-            (oRule.getTarget().getResources().getResource().size() > 0))
-        {
-            for (ResourceType oResource : oRule.getTarget().getResources().getResource())
-            {
-                if ((oResource != null) &&
-                    (oResource.getResourceMatch() != null) &&
-                    (oResource.getResourceMatch().size() > 0))
-                {
-                    for (ResourceMatchType oResourceMatch : oResource.getResourceMatch())
-                    {
-                        // Is this the DocumentType field
-                        //--------------------------------
-                        if ((oResourceMatch != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator() != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator().getAttributeId() != null) &&
-                            (oResourceMatch.getResourceAttributeDesignator().getAttributeId().equals(XACMLConstants.RESOURCE_SNOMEDCT_TYPE)) &&
-                            (oResourceMatch.getAttributeValue() != null) &&
-                            (oResourceMatch.getAttributeValue().getContent() != null) &&
-                            (oResourceMatch.getAttributeValue().getContent().size() > 0) &&
-                            (oResourceMatch.getAttributeValue().getContent().get(0) instanceof String))
-                        {
-                            String sValue = (String) oResourceMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) &&
-                                (sValue.length() > 0))
-                            {
-                                bHasData = true;
-                                CeType oCode = new CeType();
-                                oCriterion.setDocumentTypeCode(oCode);
-                                oCode.setCode(sValue);
-                            }
-                        }   // if ((oResourceMatch != null) &&
-                        // Is this the Confidentiality Code field
-                        //----------------------------------------
-                        else if ((oResourceMatch != null) &&
-                                 (oResourceMatch.getResourceAttributeDesignator() != null) &&
-                                 (oResourceMatch.getResourceAttributeDesignator().getAttributeId() != null) &&
-                                 (oResourceMatch.getResourceAttributeDesignator().getAttributeId().equals(XACMLConstants.RESOURCE_CONFIDENTIALITY_CODE)) &&
-                                 (oResourceMatch.getAttributeValue() != null) &&
-                                 (oResourceMatch.getAttributeValue().getContent() != null) &&
-                                 (oResourceMatch.getAttributeValue().getContent().size() > 0) &&
-                                 (oResourceMatch.getAttributeValue().getContent().get(0) instanceof String))
-                        {
-                            String sValue = (String) oResourceMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) &&
-                                (sValue.length() > 0))
-                            {
-                                bHasData = true;
-                                CeType oCode = new CeType();
-                                oCriterion.setConfidentialityCode(oCode);
-                                oCode.setCode(sValue);
-                            }
-                        }   // if ((oResourceMatch != null) &&
-
-                    }   // for (ResourceMatchType oResourceMatch : oResource.getResourceMatch())
-                }   // if ((oResource != null) &&
-            }   // for (ResourceType oResource : oRule.getTarget().getResources().getResource())
-        }   // if ((oRule != null) &&
-
-        // Extract any values from the Subjects section...
-        //------------------------------------------------
-        if ((oRule != null) &&
-            (oRule.getTarget() != null) &&
-            (oRule.getTarget().getSubjects() != null) &&
-            (oRule.getTarget().getSubjects().getSubject() != null) &&
-            (oRule.getTarget().getSubjects().getSubject().size() > 0))
-        {
-            for (SubjectType oSubject : oRule.getTarget().getSubjects().getSubject())
-            {
-                if ((oSubject != null) &&
-                    (oSubject.getSubjectMatch() != null) &&
-                    (oSubject.getSubjectMatch().size() > 0))
-                {
-                    for (SubjectMatchType oSubjectMatch : oSubject.getSubjectMatch())
-                    {
-                        // Is this the Subject Role field
-                        //--------------------------------
-                        if ((oSubjectMatch != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator() != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId() != null) &&
-                            (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId().equals(XACMLConstants.SUBJECT_ROLE)) &&
-                            (oSubjectMatch.getAttributeValue() != null) &&
-                            (oSubjectMatch.getAttributeValue().getContent() != null) &&
-                            (oSubjectMatch.getAttributeValue().getContent().size() > 0) &&
-                            (oSubjectMatch.getAttributeValue().getContent().get(0) instanceof String))
-                        {
-                            String sValue = (String) oSubjectMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) &&
-                                (sValue.length() > 0))
-                            {
-                                bHasData = true;
-                                CeType oCode = new CeType();
-                                oCriterion.setUserRole(oCode);
-                                oCode.setCode(sValue);
-                            }
-                        }   // if ((oSubjectMatch != null) &&
-                        // Is this the Purpose of Use field
-                        //----------------------------------------
-                        else if ((oSubjectMatch != null) &&
-                                 (oSubjectMatch.getSubjectAttributeDesignator() != null) &&
-                                 (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId() != null) &&
-                                 (oSubjectMatch.getSubjectAttributeDesignator().getAttributeId().equals(XACMLConstants.SUBJECT_PURPOSE_OF_USE)) &&
-                                 (oSubjectMatch.getAttributeValue() != null) &&
-                                 (oSubjectMatch.getAttributeValue().getContent() != null) &&
-                                 (oSubjectMatch.getAttributeValue().getContent().size() > 0) &&
-                                 (oSubjectMatch.getAttributeValue().getContent().get(0) instanceof String))
-                        {
-                            String sValue = (String) oSubjectMatch.getAttributeValue().getContent().get(0);
-                            if ((sValue != null) &&
-                                (sValue.length() > 0))
-                            {
-                                bHasData = true;
-                                CeType oCode = new CeType();
-                                oCriterion.setPurposeOfUse(oCode);
-                                oCode.setCode(sValue);
-                            }
-                        }   // if ((oSubjectMatch != null) &&
-
-                    }   // for (SubjectMatchType oSubjectMatch : oSubject.getSubjectMatch())
-                }   // if ((oSubject != null) &&
-            }   // for (SubjectType oSubject : oRule.getTarget().getSubjects().getSubject())
-        }   // if ((oRule != null) &&
-
-        if (bHasData)
-        {
-            return oCriterion;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    /**
-     * This method extracts the fine grained policy information from the XACML consent
-     * information and returns it in a form to be placed in the PatientPreferences object.
-     *
-     * @param oConsentXACML The XACML form of the patient consent.
-     * @return The FineGrainedPolicyCriteria object containing the fine grained consent information.
-     */
-    private FineGrainedPolicyCriteriaType extractFineGrainedCriteriaFromXACML(PolicyType oConsentXACML)
-    {
-        FineGrainedPolicyCriteriaType oFineGrainCriteria = new FineGrainedPolicyCriteriaType();
-
-        if ((oConsentXACML != null) &&
-            (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null) &&
-            (oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size() > 0))
-        {
-            // Loop through each rule and extract what we need...
-            //----------------------------------------------------
-            for (Object oObject : oConsentXACML.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition())
-            {
-                // Currently we only handle "RuleType" objects - Ignore the rest.
-                //----------------------------------------------------------------
-                if (oObject instanceof RuleType)
-                {
-                    RuleType oRule = (RuleType) oObject;
-
-                    // Currently we are looking for only rules that contain the fine-grained policy information.
-                    // These rules will contain one or more of the attributes in the following if statement.
-                    //-------------------------------------------------------------------------------------------
-                    if ((containsAttributeDesignatorXACML(oRule, XACMLConstants.SUBJECT_ROLE)) ||
-                        (containsAttributeDesignatorXACML(oRule, XACMLConstants.SUBJECT_PURPOSE_OF_USE)) ||
-                        (containsAttributeDesignatorXACML(oRule, XACMLConstants.RESOURCE_SNOMEDCT_TYPE)) ||
-                        (containsAttributeDesignatorXACML(oRule, XACMLConstants.RESOURCE_CONFIDENTIALITY_CODE)))
-                    {
-                        FineGrainedPolicyCriterionType oCriterion = extractSingleFineGrainedPolicyXACML(oRule);
-                        if (oCriterion != null)
-                        {
-                            oFineGrainCriteria.getFineGrainedPolicyCriterion().add(oCriterion);
-                        }
-                    }
-                }
-            }
-        }
-
-        if ((oFineGrainCriteria.getFineGrainedPolicyCriterion() != null) &&
-            (oFineGrainCriteria.getFineGrainedPolicyCriterion().size() > 0))
-        {
-            return oFineGrainCriteria;
-        }
-        else
-        {
-            return null;        // No fine grained criteria was found - return null.
-        }
-    }
 
     /**
      * This method takes the XML Patient preference CDA document and it populates
      * the PtPref with the information it finds in it.
      *
      * @param oDocInfo  The CPP document information.
-     * @param oPtPref The Patient Prefernces object.
+     * @return The patient prefernces from the document.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      */
-    private void populateConsentInfo(CPPDocumentInfo oDocInfo, PatientPreferencesType oPtPref)
+    private PatientPreferencesType populateConsentInfo(CPPDocumentInfo oDocInfo)
         throws AdapterPIPException
     {
+        PatientPreferencesType oPtPref = new PatientPreferencesType();
+
         // if we do not have an XML string, then set it to opt out and get out of here.
         //-----------------------------------------------------------------------------
         if ((oDocInfo == null) ||
             (oDocInfo.oPrefCDA == null))
         {
             oPtPref.setOptIn(false);
-            return;         // Get out of here...  Nothing more to do
+            return oPtPref;         // Get out of here...  Nothing more to do
         }
 
         POCDMT000040ClinicalDocument oPrefCDA = oDocInfo.oPrefCDA;
 
-        if ((oPrefCDA != null) &&
-            (oPrefCDA.getDocumentationOf() != null) &&
-            (oPrefCDA.getDocumentationOf().size() > 0) &&
-            (oPrefCDA.getDocumentationOf().get(0) != null) &&
-            (oPrefCDA.getDocumentationOf().get(0).getServiceEvent() != null) &&
-            (oPrefCDA.getDocumentationOf().get(0).getServiceEvent().getCode() != null) &&
-            (oPrefCDA.getDocumentationOf().get(0).getServiceEvent().getCode().getCode() != null))
-        {
-            // If it is not yes - it is no for all other cases.
-            //--------------------------------------------------
-            if (oPrefCDA.getDocumentationOf().get(0).getServiceEvent().getCode().getCode().equals(CDAConstants.CONSENT_CODE_YES))
-            {
-                oPtPref.setOptIn(true);
-            }
-            else
-            {
-                oPtPref.setOptIn(false);
-            }
-        }
-
-        // Check to see if we have any fiine grained policy information...
-        //-----------------------------------------------------------------
         if ((oPrefCDA != null) &&
             (oPrefCDA.getComponent() != null) &&
             (oPrefCDA.getComponent().getNonXMLBody() != null) &&
@@ -2006,17 +1159,17 @@ public class PatientConsentManager
             if ((sConsentXACML != null) &&
                 (sConsentXACML.trim().length() > 0))
             {
-                PolicyType oConsentXACML = deserializeConsentXACMLDoc(sConsentXACML);
+                XACMLSerializer oSerializer = new XACMLSerializer();
+                PolicyType oConsentXACML = oSerializer.deserializeConsentXACMLDoc(sConsentXACML);
                 if (oConsentXACML != null)
                 {
-                    FineGrainedPolicyCriteriaType oFineGrainCriteria = extractFineGrainedCriteriaFromXACML(oConsentXACML);
-                    if (oFineGrainCriteria != null)
-                    {
-                        oPtPref.setFineGrainedPolicyCriteria(oFineGrainCriteria);
-                    }
+                    XACMLExtractor oExtractor = new XACMLExtractor();
+                    oPtPref = oExtractor.extractPatientPreferences(oConsentXACML);
                 }   // if (oConsentXACML != null)
             }   // if ((sConsentXACML != null) &&
         }   // if ((oPrefCDA != null) &&
+
+        return oPtPref;
     }
 
     /**
@@ -2184,8 +1337,11 @@ public class PatientConsentManager
         POCDMT000040ClinicalDocument oPrefCDA = null;
         PolicyType oConsentXACML = null;
 
-        oConsentXACML = createConsentXACMLDoc(oPtPref);
-        String sConsentXACML = serializeConsentXACMLDoc(oConsentXACML);
+        XACMLCreator oCreator = new XACMLCreator();
+        oConsentXACML = oCreator.createConsentXACMLDoc(oPtPref);
+
+        XACMLSerializer oSerializer = new XACMLSerializer();
+        String sConsentXACML = oSerializer.serializeConsentXACMLDoc(oConsentXACML);
         
         oPrefCDA = createConsentCDADoc(oPtPref, sConsentXACML);
         String sPrefCDA = serializeConsentCDADoc(oPrefCDA);
@@ -2220,15 +1376,11 @@ public class PatientConsentManager
             throw new AdapterPIPException(sErrorMessage);
         }
 
-        oPtPref.setPatientId(sPatientId);
-        oPtPref.setAssigningAuthority(sAssigningAuthority);
-        oPtPref.setOptIn(false);        // Default is opt out
-        
         CPPDocumentInfo oDocInfo = retrieveCPPFromRepositoryUsingXDSb(sPatientId, sAssigningAuthority);
 
         if (oDocInfo != null)
         {
-            populateConsentInfo(oDocInfo, oPtPref);
+            oPtPref = populateConsentInfo(oDocInfo);
         }
 
         return oPtPref;
