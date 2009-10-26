@@ -30,7 +30,7 @@
     <property name="Publish.Web.File.Name" value="${Installer.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
-    <!--<call target="Publish.Link" />-->
+    <call target="Publish.Link" />
   </target>
 
   <target name="Build.PublishZip.Release.Domains.Configuration">

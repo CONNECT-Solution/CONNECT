@@ -80,6 +80,11 @@
   </target>
 
   <target name="copy.deployable.artifacts">
+    <echo message="Attempting to remove existing jar from ${deployment.binaries.dir}." />
+    <delete>
+      <fileset dir="${deployment.binaries.dir}" includes="**/*"/>
+    </delete>
+    
     <var name="do-to-target" value="copy.deployable.artifacts" />
     <antcall target="do-to-projects" />
   </target>
