@@ -72,10 +72,7 @@
   </target>
 
   <target name="GlassFish.Redeploy">
-    <if test="${GlassFish.Domain1.NHINC.Configuration.Directory.Name=='Dev'}">
-      <call target="GlassFish.Recreate.Domain"/>
-    </if>    
-    
+    <call target="GlassFish.Recreate.Domain"/>
     <call target="GlassFish.Deploy"/>
   </target>
 
