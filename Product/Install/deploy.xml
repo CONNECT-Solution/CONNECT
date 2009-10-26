@@ -371,6 +371,7 @@
         <file name="log4j.properties"/>
         <file name="keystore.jks"/>
         <file name="cacerts.jks"/>
+        <file name="gateway.jks"/>
         <file name="mpi.xml"/>
       </filelist>
     </copy>
