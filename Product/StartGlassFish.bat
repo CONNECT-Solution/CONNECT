@@ -1,2 +1,1 @@
-CALL ..\Build\SetEnv.bat
-nant.exe -listener:NAnt.Core.XmlLogger -buildfile:Personal.Build.xml GlassFish.StartServer
+..\Build\Tools\nAnt\bin\nant.exe -listener:NAnt.Core.XmlLogger -buildfile:Personal.Build.xml GlassFish.StartServer
