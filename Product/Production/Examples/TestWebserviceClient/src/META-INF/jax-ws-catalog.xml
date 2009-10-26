@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?wsdl" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.wsdl"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=53" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_53.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=40" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_40.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=52" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_52.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=35" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_35.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=36" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_36.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=37" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_37.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=38" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_38.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=39" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_39.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=41" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_41.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=42" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_42.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=28" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_28.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=49" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_49.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=6" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_6.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=4" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_4.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=31" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_31.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=33" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_33.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=50" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_50.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=48" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_48.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=54" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_54.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=29" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_29.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=32" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_32.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=43" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_43.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=44" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_44.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=47" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_47.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=45" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_45.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=51" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_51.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=46" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_46.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=30" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_30.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=34" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_34.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=5" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_5.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=3" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_3.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=11" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_11.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=15" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_15.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=14" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_14.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=13" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_13.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=27" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_27.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=20" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_20.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=25" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_25.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=18" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_18.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=7" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_7.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=10" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_10.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=24" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_24.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=26" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_26.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=22" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_22.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=19" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_19.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=21" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_21.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=1" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=2" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_2.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=9" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_9.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=17" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_17.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=12" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_12.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=8" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_8.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=23" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_23.xsd"/>
+    <system systemId="http://localhost:8080/NhinConnect/AdapterMpiService?xsd=16" uri="wsdl/localhost_8080/NhinConnect/AdapterMpiService.xsd_16.xsd"/>
+</catalog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
