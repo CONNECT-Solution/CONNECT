@@ -47,19 +47,35 @@ public class DocumentRegistryHelper
 {
     private Log log = null;
     
+    /*
+     * The following constants are the parameters defined by IHE for FindDocuments in
+     * section 3.16.4.1.4.1 of the ITI TF-2a specification (revision 6.0 dated August 10, 2009)
+     */
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_DOCENTRY_CLASS_CODE = "$XDSDocumentEntryClassCode";
     private static final String EBXML_DOCENTRY_CLASS_CODE_SCHEME = "$XDSDocumentEntryClassCodeScheme";
+    // Begin new
+    private static final String EBXML_DOCENTRY_PRACTICE_SETTING_CODE = "$XDSDocumentEntryPracticeSettingCode";
+    private static final String EBXML_DOCENTRY_PRACTICE_SETTING_CODE_SCHEME = "$XDSDocumentEntryPracticeSettingCodeScheme";
+    // End new
     private static final String EBXML_DOCENTRY_CREATION_TIME_FROM = "$XDSDocumentEntryCreationTimeFrom";
     private static final String EBXML_DOCENTRY_CREATION_TIME_TO = "$XDSDocumentEntryCreationTimeTo";
     private static final String EBXML_DOCENTRY_SERVICE_START_TIME_FROM = "$XDSDocumentEntryServiceStartTimeFrom";
     private static final String EBXML_DOCENTRY_SERVICE_START_TIME_TO = "$XDSDocumentEntryServiceStartTimeTo";
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM = "$XDSDocumentEntryServiceStopTimeFrom";
     private static final String EBXML_DOCENTRY_SERVICE_STOP_TIME_TO = "$XDSDocumentEntryServiceStopTimeTo";
-    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
+    // Begin new
+    private static final String EBXML_DOCENTRY_HEALTHCARE_FACILITY_CODE = "$XDSDocumentEntryHealthcareFacilityTypeCode";
+    private static final String EBXML_DOCENTRY_HEALTHCARE_FACILITY_CODE_SCHEME = "$XDSDocumentEntryHealthcareFacilityTypeCodeScheme";
+    // End new
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
     private static final String EBXML_EVENT_CODE_LIST_SCHEME = "$XDSDocumentEntryEventCodeListScheme";
-
+    // Begin new
+    private static final String EBXML_DOCENTRY_CONFIDENTIALITY_CODE = "$XDSDocumentEntryConfidentialityCode";
+    private static final String EBXML_DOCENTRY_FORMAT_CODE = "$XDSDocumentEntryFormatCode";
+    // End new
+    private static final String EBXML_DOCENTRY_STATUS = "$XDSDocumentEntryStatus";
+    // -- End IHE defined FindDocuments parameters --
 
 
     // We need to be able to do a search using AdhocQueryRequest parameters, but 
@@ -425,6 +441,9 @@ public class DocumentRegistryHelper
 
     private void loadResponseMessage(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse response, List<Document> docs)
     {
+        RegistryObjectListType regObjList = new RegistryObjectListType();
+        response.setRegistryObjectList(regObjList);
+
         if(NullChecker.isNullish(docs))
         {
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_FAILURE);
@@ -434,9 +453,6 @@ public class DocumentRegistryHelper
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
-
-            RegistryObjectListType regObjList = new RegistryObjectListType();
-            response.setRegistryObjectList(regObjList);
 
             // Collect the home community id
             String homeCommunityId = retrieveHomeCommunityId();

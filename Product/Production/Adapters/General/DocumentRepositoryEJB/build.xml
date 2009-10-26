@@ -16,8 +16,8 @@
 	<antcall target="call-target-in-isolation-if-out-of-date" />
 	</target>
 	<target name="clean-build" depends="clean,dist" />
-	<target name="clean-test" depends="clean,dist" />
-	<target name="build-test" depends="dist, test" />
+	<target name="clean-test" depends="clean-build,test" />
+	<target name="build-test" depends="dist,test" />
     <!--
 
     There exist several targets which are by default empty and which can be 
@@ -121,7 +121,6 @@
      
 		<property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-    		
     		
         <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>

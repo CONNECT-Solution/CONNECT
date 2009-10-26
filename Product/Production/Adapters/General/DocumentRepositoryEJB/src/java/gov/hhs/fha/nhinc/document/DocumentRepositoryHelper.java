@@ -762,7 +762,7 @@ public class DocumentRepositoryHelper
         params.setStatuses(lStatus);
 
         List<Document> documents = docService.documentQuery(params);
-        if (documents != null)
+        if (NullChecker.isNotNullish(documents))
         {
             //the returned list should only have one document because the documentUniqueId should be unique in the repository.
             nhincDocRepositoryDocId = documents.get(0).getDocumentid();

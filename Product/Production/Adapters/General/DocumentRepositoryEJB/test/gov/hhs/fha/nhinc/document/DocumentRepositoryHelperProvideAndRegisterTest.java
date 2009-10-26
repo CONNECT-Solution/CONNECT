@@ -31,8 +31,6 @@ public class DocumentRepositoryHelperProvideAndRegisterTest
 
     Mockery context = new JUnit4Mockery()
     {
-
-
         {
             setImposteriser(ClassImposteriser.INSTANCE);
         }

@@ -107,7 +107,6 @@ public class DocumentRegistryHelperTest
     {
         oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest request = null;
         String contextPath = "oasis.names.tc.ebxml_regrep.xsd.query._3";
-//        String contextPath = "oasis.names.tc.ebxml_regrep.xsd.rim._3";
         Object unmarshalledObject = null;
 
         try
@@ -185,33 +184,4 @@ public class DocumentRegistryHelperTest
         "				</ns2:Slot>" +
         "			</ns2:AdhocQuery>" +
         "		</ns5:AdhocQueryRequest>";
-//    private static final String ADHOC_QUERY_MESSAGE_EVENT_CODE =
-//        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-//        "<S:Envelope xmlns:S=\"http://www.w3.org/2003/05/soap-envelope\" >" +
-//        "	<S:Header>" +
-//        "		<To xmlns=\"http://www.w3.org/2005/08/addressing\">https://localhost:8181/RespondingGateway_Query_Service/DocQuery</To>" +
-//        "		<Action xmlns=\"http://www.w3.org/2005/08/addressing\">urn:ihe:iti:2007:CrossGatewayQuery</Action>" +
-//        "		<ReplyTo xmlns=\"http://www.w3.org/2005/08/addressing\">" +
-//        "			<Address>http://www.w3.org/2005/08/addressing/anonymous</Address>" +
-//        "		</ReplyTo>" +
-//        "		<MessageID xmlns=\"http://www.w3.org/2005/08/addressing\">uuid:f8d2b511-7d7f-46c9-964b-579f250f60f1</MessageID>" +
-//        "	</S:Header>" +
-//        "	<S:Body>" +
-//        "		<ns5:AdhocQueryRequest xmlns:ns2=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\" xmlns:ns3=\"urn:gov:hhs:fha:nhinc:gateway:samltokendata\" xmlns:ns4=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\" xmlns:ns5=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\" xmlns:ns6=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" maxResults=\"-1\" startIndex=\"0\" federated=\"false\">" +
-//        "			<ns5:ResponseOption returnComposedObjects=\"true\" returnType=\"LeafClass\"/>" +
-//        "			<ns2:AdhocQuery home=\"urn:oid:1.1\" id=\"urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d\">" +
-//        "				<ns2:Slot name=\"$XDSDocumentEntryEventCodeList\">" +
-//        "					<ns2:ValueList>" +
-//        "						<ns2:Value>('1234abcd')</ns2:Value>" +
-//        "					</ns2:ValueList>" +
-//        "				</ns2:Slot>" +
-//        "				<ns2:Slot name=\"$XDSDocumentEntryEventCodeListScheme\">" +
-//        "					<ns2:ValueList>" +
-//        "						<ns2:Value>('1234abcdScheme')</ns2:Value>" +
-//        "					</ns2:ValueList>" +
-//        "				</ns2:Slot>" +
-//        "			</ns2:AdhocQuery>" +
-//        "		</ns5:AdhocQueryRequest>" +
-//        "	</S:Body>" +
-//        "</S:Envelope>";
 }

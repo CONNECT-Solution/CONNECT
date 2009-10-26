@@ -28,13 +28,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.junit.Ignore;
 
 /**
  *
  * @author svalluripalli
  */
-@Ignore //TODO: Move this test to Integration Test Suite
 public class DocumentRepositoryHelperTest {
     private Log log = LogFactory.getLog(DocumentRepositoryHelperTest.class);
     public DocumentRepositoryHelperTest() {
