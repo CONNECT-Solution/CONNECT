@@ -342,7 +342,7 @@
     <runtarget target="deploy.glassfish.start.server"/>
 
     <sun-appserv-admin
-      command='create-jvm-options --target server -${deployment.glassfish.domain.jvm.options}'
+      command='create-jvm-options --target server ${deployment.glassfish.domain.jvm.options}'
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
