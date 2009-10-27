@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Subversion.Scripts">
 
-  <property name="Subversion.Console.Version" value="1.6.3.38063"/>
-  <property name="Subversion.Console.Installer.File.Name" value="Setup-Subversion-1.6.3.msi"/>
+  <property name="Subversion.Console.Version" value="1.6.5.38866"/>
+  <property name="Subversion.Console.Installer.File.Name" value="Setup-Subversion-1.6.5.msi"/>
   <property name="Subversion.Console.Installer.File.Path" value="C:\Temp\${Subversion.Console.Installer.File.Name}"/>
-  <property name="Subversion.Console.Installer.File.Url" value="http://subversion.tigris.org/files/documents/15/46163/${Subversion.Console.Installer.File.Name}"/>
+  <property name="Subversion.Console.Installer.File.Url" value="http://subversion.tigris.org/files/documents/15/46531/${Subversion.Console.Installer.File.Name}"/>
 
-  <property name="Subversion.Tortoise.Version" value="1.6.3.16613"/>
+  <property name="Subversion.Tortoise.Version" value="1.6.6.17493"/>
   <switch value="${Processor.Type}">
     <case break="True" value="32">
-      <property name="Subversion.Tortoise.Installer.File.Name" value="TortoiseSVN-1.6.3.16613-win32-svn-1.6.3.msi"/>
+      <property name="Subversion.Tortoise.Installer.File.Name" value="TortoiseSVN-1.6.6.17493-win32-svn-1.6.6.msi"/>
     </case>
     <case break="True" value="64">
-      <property name="Subversion.Tortoise.Installer.File.Name" value="TortoiseSVN-1.6.3.16613-x64-svn-1.6.3.msi"/>
+      <property name="Subversion.Tortoise.Installer.File.Name" value="TortoiseSVN-1.6.6.17493-x64-svn-1.6.6.msi"/>
     </case>
   </switch>
   <property name="Subversion.Tortoise.Installer.File.Path" value="C:\Temp\${Subversion.Tortoise.Installer.File.Name}"/>
