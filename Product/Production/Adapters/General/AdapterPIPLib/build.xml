@@ -118,22 +118,6 @@
 
     </target>
 
-	<target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init">
-<!--
-        <property name="wsdl-EntityNotificationConsumer" location="xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:entitynotificationconsumer" includes="EntityNotificationConsumer.java" casesensitive="no"/>
-        </wsimport>
--->
-		 <!-- Delete the artifacts that we do not want -->
-<!--
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/client/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
--->
-        <!-- end of deleting artifacts -->
-    </target>
-
     <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
        <copy todir="${nhin.project.home}\UnitTestResults">
           <fileset dir="${build.test.results.dir}"/>

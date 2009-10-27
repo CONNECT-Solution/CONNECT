@@ -1,31 +1,33 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
+import java.io.StringReader;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
+import org.apache.commons.logging.Log;
 
 /**
  *
- * @author westbergl
+ * @author webbn
  */
-@Ignore  // TODO: Move to integration test
+@RunWith(JMock.class)
 public class AdapterPIPImplTest {
+    Mockery context = new JUnit4Mockery(){{
+        setImposteriser(ClassImposteriser.INSTANCE);
+    }};
 
     public AdapterPIPImplTest() {
     }
@@ -48,101 +50,89 @@ public class AdapterPIPImplTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of retrievePtConsentByPtId method, of class AdapterPIPImpl.
-     */
     @Test
-    public void testRetrievePtConsentByPtId()
-    {
-        System.out.println("Begin retrievePtConsentByPtId");
-        RetrievePtConsentByPtIdRequestType oRequest = new RetrievePtConsentByPtIdRequestType();
-        oRequest.setAssigningAuthority("1.1");
-        oRequest.setPatientId("123413");
+    public void hello() {
+        // Create mock objects
+        final Log mockLog = context.mock(Log.class);
+        final PatientConsentManager consentManager = context.mock(PatientConsentManager.class);
 
-        AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
-        RetrievePtConsentByPtIdResponseType oResponse = null;
+        AdapterPIPImpl pipImpl = new AdapterPIPImpl(){
+
+            @Override
+            protected Log createLogger()
+            {
+                return mockLog;
+            }
+
+            @Override
+            protected PatientConsentManager getPatientConsentManager()
+            {
+                return consentManager;
+            }
+
+        };
         try
         {
-            oResponse = oAdapterPIPImpl.retrievePtConsentByPtId(oRequest);
+            // Set expectations
+            context.checking(new Expectations(){{
+                allowing (mockLog).isDebugEnabled();
+                allowing (mockLog).debug(with(any(String.class)));
+                oneOf (consentManager).storePatientConsent(with(aNonNull(PatientPreferencesType.class)));
+            }});
+            
+            gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType request = loadRequestMessage(STORE_CONSENT_MESSAGE);
+            StorePtConsentResponseType response = pipImpl.storePtConsent(request);
+            assertNotNull("Store consent response was null", response);
+            assertEquals("Status not as expected", "SUCCESS", response.getStatus());
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            String sErrorMessage = "Exception occurred when calling retrivePtConsentByPtId.  Error: " + e.getMessage();
-            System.out.println(sErrorMessage);
-            e.printStackTrace();
-            fail(sErrorMessage);
+            ex.printStackTrace();
+            fail("Exception calling storePtConsent: " + ex.getMessage());
         }
-        assertNotNull(oResponse);
-        assertNotNull(oResponse.getPatientPreferences());
-        assertEquals("Showed as patient opt out when it should have been opt in.", true, oResponse.getPatientPreferences().isOptIn());
-
-        System.out.println("End retrievePtConsentByPtId");
     }
 
-    /**
-     * Test of retrievePtConsentByPtDocId method, of class AdapterPIPImpl.
-     */
-    @Test
-    public void testRetrievePtConsentByPtDocId()
+    public gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType loadRequestMessage(String message)
     {
-        System.out.println("Begin retrievePtConsentByPtDocId");
-        RetrievePtConsentByPtDocIdRequestType oRequest = new RetrievePtConsentByPtDocIdRequestType();
-        oRequest.setHomeCommunityId("1.1");
-        oRequest.setRepositoryId("1");
-        oRequest.setDocumentId("20.200.20.36");
-
-        AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
-        RetrievePtConsentByPtDocIdResponseType oResponse = null;
+        gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType request = null;
+        String contextPath = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
+        Object unmarshalledObject = null;
 
         try
         {
-            oResponse = oAdapterPIPImpl.retrievePtConsentByPtDocId(oRequest);
-        }
-        catch (Exception e)
+            JAXBContext jc = JAXBContext.newInstance(contextPath);
+            javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
+            StringReader stringReader = new StringReader(message);
+            unmarshalledObject = unmarshaller.unmarshal(stringReader);
+            if (unmarshalledObject instanceof JAXBElement)
+            {
+                JAXBElement jaxb = (JAXBElement) unmarshalledObject;
+                unmarshalledObject = jaxb.getValue();
+            }
+        } catch (Exception e)
         {
-            String sErrorMessage = "Exception occurred when calling retrivePtConsentByDocId.  Error: " + e.getMessage();
-            System.out.println(sErrorMessage);
+            unmarshalledObject = null;
             e.printStackTrace();
-            fail(sErrorMessage);
+            fail("Exception unmarshalling store patient consent message: " + e.getMessage());
         }
-        assertNotNull(oResponse);
-        assertNotNull(oResponse.getPatientPreferences());
-        assertEquals("Showed as patient opt out when it should have been opt in.", true, oResponse.getPatientPreferences().isOptIn());
-
-        System.out.println("End retrievePtConsentByPtDocId");
+        if(unmarshalledObject instanceof gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType)
+        {
+            request = (gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType)unmarshalledObject;
+        }
+        else
+        {
+            fail("Unmarshalled object is not a store patient consent message. Is: " + ((unmarshalledObject == null) ? "null" : unmarshalledObject.getClass().getName()));
+        }
+        return request;
     }
 
-    /**
-     * Test of storePtConsent method, of class AdapterPIPImpl.
-     */
-    @Test
-    public void testStorePtConsent()
-    {
-        System.out.println("Begin storePtConsent");
-        StorePtConsentRequestType oRequest = new StorePtConsentRequestType();
-        PatientPreferencesType oPtPref = new PatientPreferencesType();
-        oRequest.setPatientPreferences(oPtPref);
-        oPtPref.setAssigningAuthority("1.1");
-        oPtPref.setPatientId("123413");
-        oPtPref.setOptIn(true);
-        StorePtConsentResponseType oResponse = null;
-        AdapterPIPImpl oAdapterPIPImpl = new AdapterPIPImpl();
-        try
-        {
-            oResponse = oAdapterPIPImpl.storePtConsent(oRequest);
-        }
-        catch (Exception e)
-        {
-            System.out.println("Failed to store patient consent information.  Exception: " + e.getMessage());
-            e.printStackTrace();
-            fail("Failed to store patient consent information.  Exception: " + e.getMessage());
-        }
-        if(oResponse!=null &&
-                !oResponse.getStatus().equals(""))
-        {
-            System.out.println("Status = "+oResponse.getStatus());
-        }
-        assertNotNull(oResponse.getStatus());
-        System.out.println("End storePtConsent");
-    }
+    private static final String STORE_CONSENT_MESSAGE =
+        "<urn:StorePtConsentRequest xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">" +
+        "	<urn:patientPreferences>" +
+        "		<urn:patientId>ADPTPIPTST98769876Z</urn:patientId>" +
+        "		<urn:assigningAuthority>1.1</urn:assigningAuthority>" +
+        "		<urn:optIn>true</urn:optIn>" +
+        "	</urn:patientPreferences>" +
+        "</urn:StorePtConsentRequest>";
+
 }

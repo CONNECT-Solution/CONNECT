@@ -45,22 +45,5 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
     </target>
-    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
-        <property name="wsdl-EntityNotificationConsumer" location="xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" destdir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true">
-            <depends file="${wsdl-EntityNotificationConsumer}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-EntityNotificationConsumer" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/EntityNotificationConsumer"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterComponentDocRegistry, wsimport-client-AdapterComponentDocRepository, wsimport-client-EntityNotificationConsumer"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterComponentDocRegistry, wsimport-client-AdapterComponentDocRepository"/>
 </project>

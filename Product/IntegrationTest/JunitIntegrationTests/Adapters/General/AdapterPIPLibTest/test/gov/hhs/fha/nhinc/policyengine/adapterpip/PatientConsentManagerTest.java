@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
@@ -22,7 +17,6 @@ import static org.junit.Assert.*;
  *
  * @author svalluripalli
  */
-@Ignore  // TODO: Move to Integration Test
 public class PatientConsentManagerTest {
 
     public PatientConsentManagerTest() {

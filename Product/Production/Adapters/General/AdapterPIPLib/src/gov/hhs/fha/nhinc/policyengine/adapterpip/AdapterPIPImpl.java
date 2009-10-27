@@ -14,7 +14,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 
-import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType;
 import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType;
 import gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumer;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -25,9 +24,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.ws.BindingProvider;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
-import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType.Message;
-import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
  * This contains the implementation of the Adapter PIP (Policy Information Point).
@@ -36,11 +32,26 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  */
 public class AdapterPIPImpl {
 
-    private static Log log = LogFactory.getLog(AdapterPIPImpl.class);
+    private Log log = null;
     private static final String ASSERTIONINFO_PROPFILE_NAME = "assertioninfo";
     private static final String GATEWAY_PROPERTIES_FILE = "gateway";
     private static final String ADAPTER_PROPFILE_NAME = "adapter";
     private static final String HOME_COMMUNITY_PROPERTY = "localHomeCommunityId";
+
+    public AdapterPIPImpl()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected PatientConsentManager getPatientConsentManager()
+    {
+        return new PatientConsentManager();
+    }
 
     /**
      * Retrieve the patient consent settings for the given patient ID.
@@ -131,10 +142,9 @@ public class AdapterPIPImpl {
         try {
             if ((request != null) &&
                     (request.getPatientPreferences() != null)) {
-                PatientConsentManager oManager = new PatientConsentManager();
+                PatientConsentManager oManager = getPatientConsentManager();
                 oManager.storePatientConsent(request.getPatientPreferences());
                 oResponse.setStatus("SUCCESS");
-                sendHIEMEntityNotification(request);
             } else {
                 throw new AdapterPIPException("StorePtConsentRequest requires patient preferences");
             }
@@ -146,79 +156,6 @@ public class AdapterPIPImpl {
             throw new AdapterPIPException(sErrorMessage, e);
         }
         return oResponse;
-    }
-
-    /**
-     * This method sends notification to Entity Notification Consumer gateway
-     * @param request
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException
-     */
-    private void sendHIEMEntityNotification(StorePtConsentRequestType request) throws AdapterPIPException, PropertyAccessException {
-        String sPatientId = "";
-        String sHomeCommunityId = "";
-        String sAssignAuthority ="";
-        String endpointURL = PropertyAccessor.getProperty(ADAPTER_PROPFILE_NAME, CDAConstants.ENTITY_NOTIFICATION_CONSUMER_ENDPOINT_URL);
-        if (request != null) {
-            PatientPreferencesType patientPreferences = new PatientPreferencesType();
-            patientPreferences = request.getPatientPreferences();
-            if (patientPreferences != null) {
-                sPatientId = patientPreferences.getPatientId();
-                sAssignAuthority = patientPreferences.getAssigningAuthority();
-            }
-            sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTIES_FILE, HOME_COMMUNITY_PROPERTY);
-        } else {
-            throw new AdapterPIPException("StorePtConsentRequest requires patient preferences");
-        }
-
-        try { // Call Web Service Operation
-            gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumer service = new gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumer();
-            gov.hhs.fha.nhinc.entitynotificationconsumer.EntityNotificationConsumerPortType port = service.getEntityNotificationConsumerPortSoap11();
-            ((BindingProvider) port).getRequestContext().put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointURL);
-
-            // TODO initialize WS operation arguments here
-            gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType();
-            //build and set Assertion
-            AssertionType assertion = buildAssertionInfo(sHomeCommunityId);
-            notifyRequest.setAssertion(assertion);
-            Notify notify = new Notify();
-            NotificationMessageHolderType notificationMessageHolder = buildNotificationMessageHolderType(sPatientId, sHomeCommunityId, sHomeCommunityId);
-            notify.getNotificationMessage().add(notificationMessageHolder);
-            notifyRequest.setNotify(notify);
-            gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType result = port.notify(notifyRequest);
-            System.out.println("Result = "+result);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
-     * This method is used to build Notification Message Holder Type object
-     * @param sHId
-     * @param sPid
-     * @param sAssignAuthority
-     * @return NotificationMessageHolderType
-     * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
-     */
-    private NotificationMessageHolderType buildNotificationMessageHolderType(String sPid, String sHomeCommunityId, String sAssignAuthority)
-            throws AdapterPIPException
-    {
-        NotificationMessageHolderType notificationMessageHolder = new NotificationMessageHolderType();
-        Message message = new Message();
-        ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
-        RetrieveDocumentSetRequestType retrieveDocumentSetRequest = new RetrieveDocumentSetRequestType();
-        PatientConsentManager oManager = new PatientConsentManager();
-        DocumentRequest documentRequest = oManager.retrieveCPPDocIdentifiers(sPid, sAssignAuthority);
-//        DocumentRequest documentRequest = new DocumentRequest();
-//        documentRequest.setDocumentUniqueId(sPid+'-'+CDAConstants.METADATA_CLASS_CODE);
-//        documentRequest.setHomeCommunityId(sHomeCommunityId);
-//        documentRequest.setRepositoryUniqueId("1");
-        retrieveDocumentSetRequest.getDocumentRequest().add(documentRequest);
-        JAXBElement<RetrieveDocumentSetRequestType> retrieveDocumentSetRequestObject = factory.createRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
-        message.setAny(retrieveDocumentSetRequestObject);
-        notificationMessageHolder.setMessage(message);
-        //notificationMessageHolder.
-        return notificationMessageHolder;
     }
 
     /**
