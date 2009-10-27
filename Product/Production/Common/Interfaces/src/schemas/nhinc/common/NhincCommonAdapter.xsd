@@ -594,8 +594,8 @@
 			<xsd:element name="deviceManufactureModelName" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="deviceSoftwareName" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="representedOrganizationIdName" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="representedOrganizationIdAddress" type="nccommon:AddressType" minOccurs="0"/>
+			<xsd:element name="representedOrganizationName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationAddress" type="nccommon:AddressType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType"/>
@@ -603,6 +603,7 @@
 		<xsd:sequence>
 			<xsd:element name="dataEntererIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="dataEntererId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyDataEntererInfo" type="tns:PolicyDataEntererInfoType"/>
@@ -615,6 +616,16 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyCustodianInfo" type="tns:PolicyCustodianInfoType"/>
+	<xsd:complexType name="PolicyLegalAuthenticatorType">
+		<xsd:sequence>
+			<xsd:element name="authenticationTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authenticatorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authenticatorId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="signatureCode" type="nccommon:CeType" minOccurs="0"/>
+			<xsd:element name="authenticatorPersonName" type="nccommon:PersonNameType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="PolicyLegalAuthenticator" type="tns:PolicyLegalAuthenticatorType"/>
 	<!--
         This type will be used to to represent the patients binary documents (PDF) preferences.  As new preference
         options are added, they should be reflected in this type.  These types are used by
@@ -632,6 +643,7 @@
 			<xsd:element name="authorScanner" type="tns:PolicyScannerAuthorInfoType" minOccurs="0"/>
 			<xsd:element name="dataEnterer" type="tns:PolicyDataEntererInfoType" minOccurs="0"/>
 			<xsd:element name="custodian" type="tns:PolicyCustodianInfoType" minOccurs="0"/>
+			<xsd:element name="legalAuthenticator" type="tns:PolicyLegalAuthenticatorType" minOccurs="0" />
 			<xsd:element name="startDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="endDate" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="mimeType" type="xsd:string" minOccurs="0"/>
