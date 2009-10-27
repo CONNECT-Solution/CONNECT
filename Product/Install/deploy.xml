@@ -333,7 +333,7 @@
 
   <target name="create.glassfish.domain">
     <sun-appserv-admin 
-      explicitcommand='create-domain --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
+      explicitcommand='create-domain --profile developer --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
       asinstalldir="${glassfish.home}"
     />
   </target>
@@ -358,8 +358,6 @@
     <copy todir="${deployment.dir}/backup" verbose="true" overwrite="true">
       <filelist dir="${deployment.glassfish.domain.config.home}">
         <file name="log4j.properties"/>
-        <file name="keystore.jks"/>
-        <file name="cacerts.jks"/>
         <file name="mpi.xml"/>
       </filelist>
     </copy>
@@ -369,11 +367,7 @@
     <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
       <filelist dir="${deployment.dir}/backup">
         <file name="log4j.properties"/>
-        <file name="keystore.jks"/>
-        <file name="cacerts.jks"/>
         <file name="mpi.xml"/>
-        <file name="gateway.jks"/>
-        <file name="ga.jks"/>
       </filelist>
     </copy>
   </target>
@@ -384,10 +378,68 @@
     </copy>
   </target>
 
+  <target name="import.certificates">
+    <!--keytool -import -v -trustcacerts -alias onc _ca -file onc_ca.arm -keystore gateway.jks
+        keytool -import -v -alias gateway -file fedcrsp.pem -keystore gateway.jks
+        keytool -import -v -trustcacerts -alias onc_ca -file onc_ca.arm -keystore <path>/cacerts.jks-->
+    
+    <exec dir="${deployment.glassfish.domain.config.home}" executable="keytool" failonerror="true">
+      <arg value="-import"/>
+      <arg value="-v"/>
+      <arg value="-trustcacerts"/>
+      <arg value="-alias" />
+      <arg value="onc_ca" />
+      <arg value="-file" />
+      <arg value="${deployment.certificate.home}\one_ca.arm" />
+      <arg value="-keystore" />
+      <arg value="keystore.jks" />
+      <arg value="-keypass" />
+      <arg value="changeit" />
+      <arg value="-storepass" />
+      <arg value="changeit" />
+      <arg value="-noprompt" />
+    </exec>
+
+    <exec dir="${deployment.glassfish.domain.config.home}" executable="keytool" failonerror="true">
+      <arg value="-import"/>
+      <arg value="-v"/>
+      <arg value="-trustcacerts"/>
+      <arg value="-alias" />
+      <arg value="gateway" />
+      <arg value="-file" />
+      <arg value="${deployment.certificate.home}\fedcrsp.pem" />
+      <arg value="-keystore" />
+      <arg value="keystore.jks" />
+      <arg value="-keypass" />
+      <arg value="changeit" />
+      <arg value="-storepass" />
+      <arg value="changeit" />
+      <arg value="-noprompt" />
+    </exec>
+
+    <exec dir="${deployment.glassfish.domain.config.home}" executable="keytool" failonerror="true">
+      <arg value="-import"/>
+      <arg value="-v"/>
+      <arg value="-trustcacerts"/>
+      <arg value="-alias" />
+      <arg value="onc_ca" />
+      <arg value="-file" />
+      <arg value="${deployment.certificate.home}\one_ca.arm" />
+      <arg value="-keystore" />
+      <arg value="cacerts.jks" />
+      <arg value="-keypass" />
+      <arg value="changeit" />
+      <arg value="-storepass" />
+      <arg value="changeit" />
+      <arg value="-noprompt" />
+    </exec>
+  </target>
+  
   <target name="recreate.glassfish.domain">
     <runtarget target="backup.glassfish.domain"/>
     <runtarget target="delete.glassfish.domain"/>
     <runtarget target="create.glassfish.domain"/>
+    <runtarget target="import.certificates"/>    
     <runtarget target="restore.glassfish.domain"/>
     <runtarget target="configure.glassfish.domain"/>
     <runtarget target="deploy.glassfish.nhinc.configuration"/>
