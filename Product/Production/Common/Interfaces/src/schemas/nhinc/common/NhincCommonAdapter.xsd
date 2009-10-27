@@ -594,6 +594,8 @@
 			<xsd:element name="deviceManufactureModelName" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="deviceSoftwareName" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="representedOrganizationIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationIdName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="representedOrganizationIdAddress" type="nccommon:AddressType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType"/>
