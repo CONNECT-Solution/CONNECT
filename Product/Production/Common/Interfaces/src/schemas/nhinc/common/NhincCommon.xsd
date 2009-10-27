@@ -164,6 +164,8 @@
 			<xsd:element name="nameType" type="tns:CeType"/>
 			<xsd:element name="secondNameOrInitials" type="xsd:string"/>
 			<xsd:element name="fullName" type="xsd:string"/>
+			<xsd:element name="prefix" type="xsd:string" />
+			<xsd:element name="suffix" type="xsd:string" />
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PersonName" type="tns:PersonNameType"/>
