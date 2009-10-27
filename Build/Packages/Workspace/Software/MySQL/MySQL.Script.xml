@@ -11,9 +11,9 @@
   </target>
 
   <target name="Workspace.RequieredSoftware.MySQL.InitialInstall">
-    <ifnot test="${directory::exists(MySQL.Install.Path)}" >
+    <ifnot test="${directory::exists(MySQL.Install.Path+'\bin')}" >
       <ask answer="Answer"
-           question="It looks like the MySQL 5.1 is not installed. This software is optional.  Do you wish to install the software? Please uninstall all previous versions of MySQL prior to this installation."
+           question="It looks like the MySQL 5.1 is not installed. This software is optional. Do you wish to install the software? Please uninstall all previous versions of MySQL before continue with the installation."
            caption="Proceed Without Optional Software?"
            showdialog="true"
            unless="${Workspace.Silent}"
