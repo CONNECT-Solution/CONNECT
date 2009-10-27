@@ -278,4 +278,8 @@
         <name>AdapterDocRegistryAndRepositoryEJB</name>
         <directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
     </project>
+	<project>
+        <name>UDDIModifierGUI</name>
+        <directory>/Production/Common/UDDIModifierGUI</directory>
+    </project>
 </projects>
