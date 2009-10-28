@@ -84,6 +84,26 @@
   </target>
 
 
+  <target name="GlassFish.Restore.Domain.Certificates">
+    <ant
+      target="glassfish.restore.domain.certificates"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\restore.glassfish.domain.certificates.log.xml"
+    >
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>      
+    </ant>
+  </target>
+
+  <target name="GlassFish.Recreate.Domain.Certificates">
+    <ant
+      target="glassfish.recreate.domain.certificates"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
+    >
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+    </ant>
+  </target>
+  
   <target name="GlassFish.Recreate.Domain">
     <ant
       target="recreate.glassfish.domain"
