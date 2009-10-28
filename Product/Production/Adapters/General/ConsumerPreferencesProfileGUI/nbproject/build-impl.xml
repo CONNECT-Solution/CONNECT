@@ -621,8 +621,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.MpiLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.MpiLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${libs.jstl11.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.jstl11.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterPIPProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterPIPProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jstl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jstl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.standard.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.standard.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.javaee.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.javaee.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
@@ -632,26 +634,70 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${libs.jsf12-support.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.jsf12-support.classpath" todir="${dist.ear.dir}"/>
-        <copyfiles files="${libs.woodstock-components.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.woodstock-components.classpath" todir="${dist.ear.dir}"/>
-        <copyfiles files="${libs.woodstock-theme-default.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.woodstock-theme-default.classpath" todir="${dist.ear.dir}"/>
-        <copyfiles files="${libs.jsf12.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.jsf12.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.javaee5-doc-api.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.javaee5-doc-api.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.activation.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.activation.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.FastInfoset.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.FastInfoset.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.http.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.http.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxb-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxb-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxb-impl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxb-impl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxb-xjc.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxb-xjc.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxws-2_1-api-doc.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxws-2_1-api-doc.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxws-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxws-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxws-rt.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxws-rt.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jaxws-tools.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jaxws-tools.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsr173_api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsr173_api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsr181-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsr181-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsr250-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsr250-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.mimepull.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.mimepull.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.saaj-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.saaj-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.saaj-impl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.saaj-impl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.sjsxp.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.sjsxp.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.stax-ex.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.stax-ex.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.streambuffer.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.streambuffer.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.appbase-doc.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase-doc.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.appbase-src.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase-src.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.appbase.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-beanutils.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-beanutils.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-collections.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-collections.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-digester.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-digester.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-fileupload-1.0.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-fileupload-1.0.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-logging.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.dataprovider-doc.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.dataprovider-doc.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.dataprovider-src.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.dataprovider-src.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.dataprovider.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.dataprovider.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.errorhandler.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.errorhandler.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsf-api.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsf-api.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsf-extensions-common-0.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsf-extensions-common-0.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsf-extensions-dynamic-faces-0.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsf-impl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsf-impl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsfcl-doc.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsfcl-doc.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsfcl-src.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsfcl-src.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.jsfcl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jsfcl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.json-2.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.json-2.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.sqlx.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.sqlx.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.webui-jsf-doc.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-doc.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.webui-jsf-src.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-src.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-suntheme.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.webui-jsf-tld.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-tld.zip" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.MpiLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.libs.jstl11.classpath} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.libs.jsf12.classpath} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.MpiLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.file.reference.jstl.jar} ${manifest.file.reference.standard.jar} ${manifest.file.reference.javaee.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.javaee5-doc-api.zip} ${manifest.file.reference.activation.jar} ${manifest.file.reference.FastInfoset.jar} ${manifest.file.reference.http.jar} ${manifest.file.reference.jaxb-api.jar} ${manifest.file.reference.jaxb-impl.jar} ${manifest.file.reference.jaxb-xjc.jar} ${manifest.file.reference.jaxws-2_1-api-doc.zip} ${manifest.file.reference.jaxws-api.jar} ${manifest.file.reference.jaxws-rt.jar} ${manifest.file.reference.jaxws-tools.jar} ${manifest.file.reference.jsr173_api.jar} ${manifest.file.reference.jsr181-api.jar} ${manifest.file.reference.jsr250-api.jar} ${manifest.file.reference.mimepull.jar} ${manifest.file.reference.saaj-api.jar} ${manifest.file.reference.saaj-impl.jar} ${manifest.file.reference.sjsxp.jar} ${manifest.file.reference.stax-ex.jar} ${manifest.file.reference.streambuffer.jar} ${manifest.file.reference.appbase-doc.zip} ${manifest.file.reference.appbase-src.zip} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider-doc.zip} ${manifest.file.reference.dataprovider-src.zip} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl-doc.zip} ${manifest.file.reference.jsfcl-src.zip} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-doc.zip} ${manifest.file.reference.webui-jsf-src.zip} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${reference.MpiLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.jstl11.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterPIPProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jstl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.standard.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.javaee.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -661,11 +707,53 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.jsf12-support.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.woodstock-components.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.woodstock-theme-default.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.jsf12.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.javaee5-doc-api.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.activation.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.FastInfoset.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.http.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxb-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxb-impl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxb-xjc.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxws-2_1-api-doc.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxws-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxws-rt.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jaxws-tools.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsr173_api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsr181-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsr250-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.mimepull.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.saaj-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.saaj-impl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.sjsxp.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.stax-ex.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.streambuffer.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.appbase-doc.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.appbase-src.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.appbase.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-beanutils.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-collections.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-digester.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-fileupload-1.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.commons-logging.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.dataprovider-doc.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.dataprovider-src.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.dataprovider.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.errorhandler.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsf-api.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsf-extensions-common-0.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsf-extensions-dynamic-faces-0.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsf-impl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsfcl-doc.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsfcl-src.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.jsfcl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.json-2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.sqlx.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.webui-jsf-doc.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.webui-jsf-src.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.webui-jsf-tld.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
