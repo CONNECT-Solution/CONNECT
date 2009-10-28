@@ -38,8 +38,9 @@
   </loadpackages>
 
   <target name="test">
-    <call target="GlassFish.Redeploy.Release.Build" />
-  </target>
+    <call target="test"/>
+
+</target>
 
   <target name="rebuild-setups">
     <call target="Common.WriteSetEnvBatchFile" />

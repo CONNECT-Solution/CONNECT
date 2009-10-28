@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Custom">
 
-  <target name="GlassFish.Redeploy.Release.Build">
+  <target name="GlassFish.Redeploy.Release.Build.SetUp">
     <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
     <property name="ProjectNameToPullFrom" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
 
@@ -34,8 +34,16 @@
     
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Domains.Configuration.Zip.File.Path}"/>
+  </target>
 
+  <target name="GlassFish.Redeploy.Release.Build.Integration">
+    <call target="GlassFish.Redeploy.Release.Build.SetUp"/>
     <call target="GlassFish.Redeploy"/>
   </target>
 
+  <target name="GlassFish.Redeploy.Release.Build.Staging">
+    <call target="GlassFish.Redeploy.Release.Build.SetUp"/>
+    <call target="GlassFish.Staging.Redeploy"/>
+  </target>
+  
 </project>

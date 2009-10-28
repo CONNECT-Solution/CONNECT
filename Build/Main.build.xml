@@ -188,18 +188,30 @@
     </trycatch>
   </target>
 
-  <target name="Deploy" depends="SetUps">
+  <target name="Integration.Deploy" depends="SetUps">
     <trycatch>
       <try>
         <call target="TargetProcess.Get.Release.Report"/>
-        <call target="GlassFish.Redeploy.Release.Build" />
+        <call target="GlassFish.Redeploy.Release.Build.Integration" />
       </try>
       <finally>
         <call target="TearDowns" />
       </finally>
     </trycatch>
   </target>
-
+  
+  <target name="Staging.Deploy" depends="SetUps">
+    <trycatch>
+      <try>
+        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="GlassFish.Redeploy.Release.Build.Staging" />
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+  
   <target name="Test" depends="SetUps" >
     <trycatch>
       <try>

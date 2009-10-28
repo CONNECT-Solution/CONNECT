@@ -198,7 +198,7 @@
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Red4 -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Deploy</target>
+          <target>Staging.Deploy</target>
         </targetList>
 
         <buildTimeoutSeconds>4200</buildTimeoutSeconds>

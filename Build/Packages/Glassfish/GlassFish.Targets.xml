@@ -73,8 +73,16 @@
 
   <target name="GlassFish.Redeploy">
     <call target="GlassFish.Recreate.Domain"/>
+    <call target="GlassFish.Restore.Domain.Certificates"/>
     <call target="GlassFish.Deploy"/>
   </target>
+
+  <target name="GlassFish.Staging.Redeploy">
+    <call target="GlassFish.Recreate.Domain"/>
+    <call target="GlassFish.Recreate.Domain.Certificates"/>
+    <call target="GlassFish.Deploy"/>
+  </target>
+
 
   <target name="GlassFish.Recreate.Domain">
     <ant

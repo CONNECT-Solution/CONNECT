@@ -193,7 +193,7 @@
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Dev -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Deploy</target>
+          <target>Integration.Deploy</target>
         </targetList>
 
         <buildTimeoutSeconds>4200</buildTimeoutSeconds>

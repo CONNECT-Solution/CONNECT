@@ -365,7 +365,7 @@
 
   <target name="restore.glassfish.domain">
     <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
-      <filelist dir="${deployment.dir}/backup">
+      <filelist dir="${deployment.certificate.home}">
         <file name="log4j.properties"/>
         <file name="mpi.xml"/>
       </filelist>
@@ -378,7 +378,16 @@
     </copy>
   </target>
 
-  <target name="import.certificates">
+  <target name="GlassFish.Restore.Domain.Certificates">
+    <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
+      <filelist dir="${deployment.dir}/backup">
+        <file name="keystore.jks"/>
+        <file name="cacerts.jks"/>
+      </filelist>
+    </copy>
+  </target>
+  
+  <target name="GlassFish.Recreate.Domain.Certificates">
     <!--keytool -import -v -trustcacerts -alias onc _ca -file onc_ca.arm -keystore gateway.jks
         keytool -import -v -alias gateway -file fedcrsp.pem -keystore gateway.jks
         keytool -import -v -trustcacerts -alias onc_ca -file onc_ca.arm -keystore <path>/cacerts.jks-->
@@ -439,7 +448,6 @@
     <runtarget target="backup.glassfish.domain"/>
     <runtarget target="delete.glassfish.domain"/>
     <runtarget target="create.glassfish.domain"/>
-    <runtarget target="import.certificates"/>    
     <runtarget target="restore.glassfish.domain"/>
     <runtarget target="configure.glassfish.domain"/>
     <runtarget target="deploy.glassfish.nhinc.configuration"/>
