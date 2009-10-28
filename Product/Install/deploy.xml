@@ -365,7 +365,7 @@
 
   <target name="restore.glassfish.domain">
     <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
-      <filelist dir="${deployment.certificate.home}">
+      <filelist dir="${deployment.dir}/backup">
         <file name="log4j.properties"/>
         <file name="mpi.xml"/>
       </filelist>
@@ -378,16 +378,16 @@
     </copy>
   </target>
 
-  <target name="GlassFish.Restore.Domain.Certificates">
+  <target name="glassfish.restore.domain.certificates">
     <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
-      <filelist dir="${deployment.dir}/backup">
+      <filelist dir="${deployment.certificate.home}">
         <file name="keystore.jks"/>
         <file name="cacerts.jks"/>
       </filelist>
     </copy>
   </target>
   
-  <target name="GlassFish.Recreate.Domain.Certificates">
+  <target name="glassfish.recreate.domain.certificates">
     <!--keytool -import -v -trustcacerts -alias onc _ca -file onc_ca.arm -keystore gateway.jks
         keytool -import -v -alias gateway -file fedcrsp.pem -keystore gateway.jks
         keytool -import -v -trustcacerts -alias onc_ca -file onc_ca.arm -keystore <path>/cacerts.jks-->
