@@ -83,13 +83,15 @@
           <call target="Alerts.SendMessage"/>
           <call target="Alerts.UnitTests.WriteToReportAppender"/>
         </then>
-        <elseif if="${int::parse(Alerts.UnitTests.Previous.Count) > int::parse(Alerts.UnitTests.Count)}">
-          <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Previous.Count) - int::parse(Alerts.UnitTests.Count)} test(s) have been removed!"/>
-          <property name="Alerts.UnitTests.Message.Spin" value="negative" />
-          <call target="Alerts.UnitTests.GenerateWarning"/>
-          <call target="Alerts.SendMessage"/>
-          <call target="Alerts.UnitTests.WriteToReportAppender"/>
-        </elseif>
+        <elseifs>
+          <elseif test="${int::parse(Alerts.UnitTests.Previous.Count) > int::parse(Alerts.UnitTests.Count)}">
+            <property name="Alerts.UnitTests.Message" value="${int::parse(Alerts.UnitTests.Previous.Count) - int::parse(Alerts.UnitTests.Count)} test(s) have been removed!"/>
+            <property name="Alerts.UnitTests.Message.Spin" value="negative" />
+            <call target="Alerts.UnitTests.GenerateWarning"/>
+            <call target="Alerts.SendMessage"/>
+            <call target="Alerts.UnitTests.WriteToReportAppender"/>
+          </elseif>
+        </elseifs>
       </ifthenelse>
     </if>
 
