@@ -178,6 +178,10 @@ public class AddUDDIEntry extends AbstractPageBean {
                this.getApplicationBean1().setErrorText(result);
             }
         }
+        else
+        {
+            this.getApplicationBean1().setErrorText(result);
+        }
 
         return null;
     }
