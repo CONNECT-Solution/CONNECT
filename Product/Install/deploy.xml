@@ -397,7 +397,7 @@
       <arg value="-v"/>
       <arg value="-trustcacerts"/>
       <arg value="-alias" />
-      <arg value="onc_ca" />
+      <arg value="one_ca" />
       <arg value="-file" />
       <arg value="${deployment.certificate.home}\one_ca.arm" />
       <arg value="-keystore" />
@@ -431,7 +431,7 @@
       <arg value="-v"/>
       <arg value="-trustcacerts"/>
       <arg value="-alias" />
-      <arg value="onc_ca" />
+      <arg value="one_ca" />
       <arg value="-file" />
       <arg value="${deployment.certificate.home}\one_ca.arm" />
       <arg value="-keystore" />
