@@ -52,6 +52,11 @@
         <name>DocumentRepositoryAdapterProxy</name>
         <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
     </project>
+    <project>
+        <name>AdapterPIPLib</name>
+        <directory>/Production/Adapters/General/AdapterPIPLib</directory>
+    </project>
+    
 <!--
     <project>
         <name>HiemSubscriptionRepository</name>
