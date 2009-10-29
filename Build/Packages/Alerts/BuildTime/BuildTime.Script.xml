@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Alerts.BuildTime.Script">
 
-	<property name="Alerts.BuildTime.AbsoluteThreshold" value="00:15:00"/>
+	<property name="Alerts.BuildTime.AbsoluteThreshold" value="00:21:00"/>
   <property name="Alerts.BuildTime.IncreaseThreshold" value="00:03:00"/>
 
   <property name="Alerts.BuildTime.PreviousPropertiesFilePath" value="${Common.Directory.Packages.Path}\Alerts\BuildTime\${CCNetProject}.Previous.Properties.xml"/>
