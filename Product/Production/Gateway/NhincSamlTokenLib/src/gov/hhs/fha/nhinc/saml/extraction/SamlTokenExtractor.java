@@ -4,7 +4,7 @@
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
-import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
+import org.apache.xerces.dom.ElementNSImpl;
 import com.sun.xml.wss.SubjectAccessor;
 import com.sun.xml.wss.XWSSecurityException;
 import com.sun.xml.wss.impl.XWSSecurityRuntimeException;
@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceCo
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,10 +65,10 @@ public class SamlTokenExtractor {
     private static final String CONTENTREF_ID = "ContentReference";
     private static final String CONTENT_ID = "Content";
     private static final String CONTENTTYPE_ID = "ContentType";
-    private static final String CE_CODE_ID = "code";
-    private static final String CE_CODESYS_ID = "codesystem";
-    private static final String CE_CODESYSNAME_ID = "codeSystemName";
-    private static final String CE_DISPLAYNAME_ID = "displayName";
+    //private static final String CE_CODE_ID = "code";
+    //private static final String CE_CODESYS_ID = "codesystem";
+    //private static final String CE_CODESYSNAME_ID = "codeSystemName";
+    //private static final String CE_DISPLAYNAME_ID = "displayName";
     private static final String EMPTY_STRING = "";
 
     public static AssertionType GetAssertion(WebServiceContext context) {
@@ -338,12 +339,12 @@ public class SamlTokenExtractor {
                     AttributeType attrib = (AttributeType) attribs.get(idx);
                     String nameAttr = attrib.getName();
                     if (nameAttr != null) {
-                        if (nameAttr.equals(USER_ROLE_ID)) {
+                        if (nameAttr.equals(NhincConstants.USER_ROLE_ATTR)) {
                             log.debug("Extracting Assertion.userInfo.roleCoded:");
-                            assertOut.getUserInfo().setRoleCoded(extractNhinCodedElement(attrib, USER_ROLE_ID));
-                        } else if (nameAttr.equals(PURPOSE_ROLE_ID)) {
+                            assertOut.getUserInfo().setRoleCoded(extractNhinCodedElement(attrib, NhincConstants.USER_ROLE_ATTR));
+                        } else if (nameAttr.equals(NhincConstants.PURPOSE_ROLE_ATTR)) {
                             log.debug("Extracting Assertion.purposeOfDisclosure:");
-                            assertOut.setPurposeOfDisclosureCoded(extractNhinCodedElement(attrib, PURPOSE_ROLE_ID));
+                            assertOut.setPurposeOfDisclosureCoded(extractNhinCodedElement(attrib, NhincConstants.PURPOSE_ROLE_ATTR));
                         } else if (nameAttr.equals(USERNAME_ID)) {
                             extractNameParts(attrib, assertOut);
                         } else if (nameAttr.equals(USERORG_ID)) {
@@ -521,17 +522,19 @@ public class SamlTokenExtractor {
         ce.setDisplayName(EMPTY_STRING);
 
         List attrVals = attrib.getAttributeValue();
+        //log.debug("extractNhinCodedElement: " + attrib.getName() + " has " + attrVals.size() + " values");
 
         if ((attrVals != null) &&
            (attrVals.size() > 0))
         {
+            //log.debug("AttributeValue is: " + attrVals.get(0).getClass());
             // According to the NHIN specifications - there should be exactly one value.
             // If there is more than one. We will take only the first one.
             //---------------------------------------------------------------------------
             if (attrVals.get(0) instanceof ElementNSImpl)
             {
                 ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
-                // log.debug("Element " + elem.getNodeName());
+                //log.debug("Element " + elem.getNodeName());
 
                 NodeList nodelist = elem.getChildNodes();
                 if ((nodelist != null) &&
@@ -539,31 +542,31 @@ public class SamlTokenExtractor {
                     int numNodes = nodelist.getLength();
                     for (int idx = 0; idx < numNodes; idx++) {
                         if (nodelist.item(idx) instanceof Node) {
-                            // log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
+                            //log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
                             Node node = (Node) nodelist.item(idx);
                             NamedNodeMap attrMap = node.getAttributes();
                             if ((attrMap != null) &&
                                 (attrMap.getLength() > 0)) {
                                 int numMapNodes = attrMap.getLength();
                                 for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                    // log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
+                                    //log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
                                     Node attrNode = attrMap.item(attrIdx);
                                     if ((attrNode != null) &&
                                         (attrNode.getNodeName() != null) &&
                                         (!attrNode.getNodeName().isEmpty())) {
-                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODE_ID)) {
+                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
                                             ce.setCode(attrNode.getNodeValue());
                                             log.debug(codeId + ": ce.Code = " + ce.getCode());
                                         }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYS_ID)) {
+                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
                                             ce.setCodeSystem(attrNode.getNodeValue());
                                             log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
                                         }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_CODESYSNAME_ID)) {
+                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
                                             ce.setCodeSystemName(attrNode.getNodeValue());
                                             log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
                                         }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(CE_DISPLAYNAME_ID)) {
+                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
                                             ce.setDisplayName(attrNode.getNodeValue());
                                             log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
                                         }

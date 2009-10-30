@@ -90,6 +90,7 @@ public class SamlCallbackHandler implements CallbackHandler {
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     public static final String SV_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:authorization-over-ssl";
     private static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
+    private static final String HL7_NS = "urn:hl7-org:v3";
     private static final int DEFAULT_NAME = 0;
     private static final int PRIMARY_NAME = 1;
     private HashMap<Object, Object> tokenVals = new HashMap<Object, Object>();
@@ -547,66 +548,72 @@ public class SamlCallbackHandler implements CallbackHandler {
             List attributeValues3 = new ArrayList();
             final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
-            final Element userRole = document.createElementNS(NHIN_NS, "nhin:Role");
+            final Element userRole = document.createElementNS(HL7_NS, "hl7:Role");
             elemURAttr.appendChild(userRole);
+
+            userRole.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:type", "hl7:CE");
+
             if (tokenVals.containsKey(NhincConstants.USER_CODE_PROP) &&
                     tokenVals.get(NhincConstants.USER_CODE_PROP) != null) {
                 log.debug("User Role Code: " + tokenVals.get(NhincConstants.USER_CODE_PROP));
-                userRole.setAttribute("code", tokenVals.get(NhincConstants.USER_CODE_PROP).toString());
+                userRole.setAttribute(NhincConstants.CE_CODE_ID, tokenVals.get(NhincConstants.USER_CODE_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code attribute");
             }
             if (tokenVals.containsKey(NhincConstants.USER_SYST_PROP) &&
                     tokenVals.get(NhincConstants.USER_SYST_PROP) != null) {
                 log.debug("User Role Code System: " + tokenVals.get(NhincConstants.USER_SYST_PROP).toString());
-                userRole.setAttribute("codeSystem", tokenVals.get(NhincConstants.USER_SYST_PROP).toString());
+                userRole.setAttribute(NhincConstants.CE_CODESYS_ID, tokenVals.get(NhincConstants.USER_SYST_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code system attribute");
             }
             if (tokenVals.containsKey(NhincConstants.USER_SYST_NAME_PROP) &&
                     tokenVals.get(NhincConstants.USER_SYST_NAME_PROP) != null) {
                 log.debug("User Role Code System Name: " + tokenVals.get(NhincConstants.USER_SYST_NAME_PROP).toString());
-                userRole.setAttribute("codeSystemName", tokenVals.get(NhincConstants.USER_SYST_NAME_PROP).toString());
+                userRole.setAttribute(NhincConstants.CE_CODESYSNAME_ID, tokenVals.get(NhincConstants.USER_SYST_NAME_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role code system name attribute");
             }
             if (tokenVals.containsKey(NhincConstants.USER_DISPLAY_PROP) &&
                     tokenVals.get(NhincConstants.USER_DISPLAY_PROP) != null) {
                 log.debug("User Role Display: " + tokenVals.get(NhincConstants.USER_DISPLAY_PROP).toString());
-                userRole.setAttribute("displayName", tokenVals.get(NhincConstants.USER_DISPLAY_PROP).toString());
+                userRole.setAttribute(NhincConstants.CE_DISPLAYNAME_ID, tokenVals.get(NhincConstants.USER_DISPLAY_PROP).toString());
             } else {
                 log.warn("No information provided to fill in user role display attribute");
             }
             attributeValues3.add(elemURAttr);
-            attributes.add(factory.createAttribute("UserRole", NHIN_NS, attributeValues3));
+            attributes.add(factory.createAttribute(NhincConstants.USER_ROLE_ATTR, attributeValues3));
 
             // Add the Purpose For Use Attribute
             List attributeValues4 = new ArrayList();
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
-            final Element purpose = document.createElementNS(NHIN_NS, "nhin:PurposeForUse");
+            final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeForUse");
             elemPFUAttr.appendChild(purpose);
+
+            purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:type", "hl7:CE");
+
             if (tokenVals.containsKey(NhincConstants.PURPOSE_CODE_PROP) &&
                     tokenVals.get(NhincConstants.PURPOSE_CODE_PROP) != null) {
                 log.debug("Purpose Code: " + tokenVals.get(NhincConstants.PURPOSE_CODE_PROP).toString());
-                purpose.setAttribute("code", tokenVals.get(NhincConstants.PURPOSE_CODE_PROP).toString());
+                purpose.setAttribute(NhincConstants.CE_CODE_ID, tokenVals.get(NhincConstants.PURPOSE_CODE_PROP).toString());
             }
             if (tokenVals.containsKey(NhincConstants.PURPOSE_SYST_PROP) &&
                     tokenVals.get(NhincConstants.PURPOSE_SYST_PROP) != null) {
                 log.debug("Purpose Code System: " + tokenVals.get(NhincConstants.PURPOSE_SYST_PROP).toString());
-                purpose.setAttribute("codeSystem", tokenVals.get(NhincConstants.PURPOSE_SYST_PROP).toString());
+                purpose.setAttribute(NhincConstants.CE_CODESYS_ID, tokenVals.get(NhincConstants.PURPOSE_SYST_PROP).toString());
             }
             if (tokenVals.containsKey(NhincConstants.PURPOSE_SYST_NAME_PROP) &&
                     tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP) != null) {
                 log.debug("Purpose Code System Name: " + tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP).toString());
-                purpose.setAttribute("codeSystemName", tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP).toString());
+                purpose.setAttribute(NhincConstants.CE_CODESYSNAME_ID, tokenVals.get(NhincConstants.PURPOSE_SYST_NAME_PROP).toString());
             }
             if (tokenVals.containsKey(NhincConstants.PURPOSE_DISPLAY_PROP) &&
                     tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP) != null) {
                 log.debug("Purpose Display: " + tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP).toString());
-                purpose.setAttribute("displayName", tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP).toString());
+                purpose.setAttribute(NhincConstants.CE_DISPLAYNAME_ID, tokenVals.get(NhincConstants.PURPOSE_DISPLAY_PROP).toString());
             }
             attributeValues4.add(elemPFUAttr);
-            attributes.add(factory.createAttribute("PurposeForUse", NHIN_NS, attributeValues4));
+            attributes.add(factory.createAttribute(NhincConstants.PURPOSE_ROLE_ATTR, attributeValues4));
 
             if (!attributes.isEmpty()) {
                 statements.add(factory.createAttributeStatement(attributes));

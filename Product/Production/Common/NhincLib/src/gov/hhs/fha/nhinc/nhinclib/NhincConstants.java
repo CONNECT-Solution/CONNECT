@@ -65,6 +65,16 @@ public class NhincConstants {
     public static final String POLICY_ENGINE_ACTION = "policyengine";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     public static final String ADAPTER_MPI_ACTION = "mpi";
+    public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
+    public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
+    public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
+    public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
+    public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String CE_CODE_ID = "code";
+    public static final String CE_CODESYS_ID = "codeSystem";
+    public static final String CE_CODESYSNAME_ID = "codeSystemName";
+    public static final String CE_DISPLAYNAME_ID = "displayName";
     
 
     // Audit Logging Constants
