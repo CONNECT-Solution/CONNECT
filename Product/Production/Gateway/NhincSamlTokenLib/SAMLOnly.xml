@@ -28,14 +28,14 @@
 		<saml2:Attribute Name="UserOrganization" NameFormat="http://www.hhs.gov/healthit/nhin">
 			<saml2:AttributeValue xmlns:ns6="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns7="http://www.w3.org/2001/XMLSchema" ns6:type="ns7:string">InternalSelfTest2</saml2:AttributeValue>
 		</saml2:Attribute>
-		<saml2:Attribute Name="UserRole" NameFormat="http://www.hhs.gov/healthit/nhin">
+                <saml2:Attribute Name="urn:oasis:names:tc:xacml:2.0:subject:role">
 			<saml2:AttributeValue>
-				<nhin:Role xmlns:nhin="http://www.hhs.gov/healthit/nhin" code="80584001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED_CT" displayName="Psychiatrist"/>
+				<hl7:Role xmlns:hl7="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" code="80584001" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED_CT" displayName="Psychiatrist" xsi:type="hl7:CE"/>
 			</saml2:AttributeValue>
 		</saml2:Attribute>
-		<saml2:Attribute Name="PurposeForUse" NameFormat="http://www.hhs.gov/healthit/nhin">
+		<saml2:Attribute Name="urn:oasis:names:tc:xspa:1.0:subject:purposeofuse">
 			<saml2:AttributeValue>
-				<nhin:PurposeForUse xmlns:nhin="http://www.hhs.gov/healthit/nhin" code="PSYCHOTHERAPY" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes"/>
+				<hl7:PurposeForUse xmlns:hl7="urn:hl7-org:v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" code="PSYCHOTHERAPY" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes" xsi:type="hl7:CE"/>
 			</saml2:AttributeValue>
 		</saml2:Attribute>
 	</saml2:AttributeStatement>
