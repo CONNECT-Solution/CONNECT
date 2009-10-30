@@ -603,10 +603,11 @@ public class XACMLCreator
         // If this is the first time this is being stored, generate the OID, otherwise
         // use the one we already know.
         //--------------------------------------------------------------------------------------
-        if ((oPtPref.getPolicyOIDXacml() != null) &&
-            (oPtPref.getPolicyOIDXacml().length() > 0))
+        if ((oPtPref.getFineGrainedPolicyMetadata() != null) &&
+            (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID() != null) &&
+            (oPtPref.getFineGrainedPolicyMetadata().getPolicyOID().length() > 0))
         {
-            oPolicy.setPolicyId(oPtPref.getPolicyOIDXacml());
+            oPolicy.setPolicyId(oPtPref.getFineGrainedPolicyMetadata().getPolicyOID());
         }
         else
         {

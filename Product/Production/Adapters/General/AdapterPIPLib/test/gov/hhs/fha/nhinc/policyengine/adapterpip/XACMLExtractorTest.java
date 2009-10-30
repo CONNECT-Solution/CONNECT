@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
@@ -557,7 +553,8 @@ public class XACMLExtractorTest
         assertNotNull("PatientPreferences", oPtPref);
         assertEquals("AssigningAuthority", "1.1", oPtPref.getAssigningAuthority());
         assertEquals("PatientId", "D123401", oPtPref.getPatientId());
-        assertEquals("PolicyOIDXacml", "12345678-1234-1234-1234-123456781234", oPtPref.getPolicyOIDXacml());
+        assertNotNull("FineGrainedPolicyMetadata", oPtPref.getFineGrainedPolicyMetadata());
+        assertEquals("PolicyOIDXacml", "12345678-1234-1234-1234-123456781234", oPtPref.getFineGrainedPolicyMetadata().getPolicyOID());
         assertValidExample1FineGrainedPolicyCriteria(oPtPref.getFineGrainedPolicyCriteria());
 
 
@@ -576,7 +573,8 @@ public class XACMLExtractorTest
         assertNotNull("PatientPreferences", oPtPref);
         assertEquals("AssigningAuthority", "1.1", oPtPref.getAssigningAuthority());
         assertEquals("PatientId", "D123401", oPtPref.getPatientId());
-        assertEquals("PolicyOIDXacml", "12345678-1234-1234-1234-123456781234", oPtPref.getPolicyOIDXacml());
+        assertNotNull("FineGrainedPolicyMetadata", oPtPref.getFineGrainedPolicyMetadata());
+        assertEquals("PolicyOIDXacml", "12345678-1234-1234-1234-123456781234", oPtPref.getFineGrainedPolicyMetadata().getPolicyOID());
         assertEquals("OptIn", false, oPtPref.isOptIn());
         assertNull("FineGranedPolicyCriteria", oPtPref.getFineGrainedPolicyCriteria());
         

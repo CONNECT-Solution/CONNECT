@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  *
  * @author westbergl
  */
-//@Ignore // Failure to get web service port when test is run.
+@Ignore // Failure to get web service port when test is run.
 public class AdapterPIPImplTest {
 
     public AdapterPIPImplTest() {

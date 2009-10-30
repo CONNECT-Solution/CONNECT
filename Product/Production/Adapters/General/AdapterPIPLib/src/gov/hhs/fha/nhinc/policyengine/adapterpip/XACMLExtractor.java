@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.policyengine.adapterpip;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
 import java.util.List;
@@ -720,9 +721,11 @@ public class XACMLExtractor
         throws AdapterPIPException
     {
         PatientPreferencesType oPtPref = new PatientPreferencesType();
+        FineGrainedPolicyMetadataType metadata = new FineGrainedPolicyMetadataType();
+        oPtPref.setFineGrainedPolicyMetadata(metadata);
 
         String sPolicyOid = extractXACMLPolicyOID(oConsentXACML);
-        oPtPref.setPolicyOIDXacml(sPolicyOid);
+        metadata.setPolicyOID(sPolicyOid);
 
         // Get patient ID and Assigning authority
         //-----------------------------------------
