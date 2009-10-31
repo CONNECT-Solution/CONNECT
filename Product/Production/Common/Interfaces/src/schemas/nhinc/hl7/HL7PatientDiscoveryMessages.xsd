@@ -11,8 +11,8 @@
         NOTE:  All schemas that contain references to multiple HL7 files must
                be defined in this schema.
         ========================================================================= -->
-    <xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
-    <xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+    <xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
+    <xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201306UV.xsd"/>
     <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
 	<!-- ====================================================================
      Patient Discovery Schemas.
@@ -20,7 +20,7 @@
 
     <xsd:complexType name="RespondingGateway_PRPA_IN201305UV02RequestType">
         <xsd:sequence>
-            <xsd:element ref="PRPA_IN201305UV02"/>
+            <xsd:element ref="PRPA_IN201305UV"/>
             <xsd:element name="assertion" type="nccommon:AssertionType"/>
             <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
         </xsd:sequence>
@@ -29,7 +29,7 @@
     
     <xsd:complexType name="RespondingGateway_PRPA_IN201305UV02SecuredRequestType">
         <xsd:sequence>
-            <xsd:element ref="PRPA_IN201305UV02"/>
+            <xsd:element ref="PRPA_IN201305UV"/>
             <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
@@ -37,7 +37,7 @@
 
     <xsd:complexType name="RespondingGateway_PRPA_IN201306UV02ResponseType">
         <xsd:sequence>
-            <xsd:element ref="PRPA_IN201306UV02"/>
+            <xsd:element ref="PRPA_IN201306UV"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RespondingGateway_PRPA_IN201306UV02Response" type="RespondingGateway_PRPA_IN201306UV02ResponseType"/>

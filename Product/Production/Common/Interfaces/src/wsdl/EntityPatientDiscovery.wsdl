@@ -31,11 +31,9 @@
     <wsdl:portType name="EntityPatientDiscoveryPortType">
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
             <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request"
-                  message="tns:RespondingGateway_PRPA_IN201305UV02RequestMessage"
-                  wsaw:Action="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+                  message="tns:RespondingGateway_PRPA_IN201305UV02RequestMessage"/>
             <wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response"
-                   message="tns:RespondingGateway_PRPA_IN201306UV02ResponseMessage"
-                   wsaw:Action="hl7:RespondingGateway_PRPA_IN201306UV02Response"/>
+                   message="tns:RespondingGateway_PRPA_IN201306UV02ResponseMessage"/>
         </wsdl:operation>
     </wsdl:portType>
 
