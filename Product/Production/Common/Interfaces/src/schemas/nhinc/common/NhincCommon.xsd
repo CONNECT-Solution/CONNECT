@@ -250,6 +250,8 @@
 	<xsd:complexType name="NhinTargetCommunityType">
 		<xsd:sequence>
 			<xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
+			<xsd:element name="list" type="xsd:string"/>
+			<xsd:element name="region" type="xsd:string"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="NhinTargetCommunitiesType">
