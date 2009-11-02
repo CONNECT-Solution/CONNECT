@@ -27,7 +27,7 @@
     <string value="Java"/>
     <string value="CCTray"/>
     <string value="GlassFish"/>
-    <string value="SOAPUI"/>
+    
   </strings>
 
   <include buildfile="${Package.Workspace.Directory.Path}\Software\CCTray\CCTray.Script.xml"/>
