@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <licenses>
   <!--<license file="" user=""/>-->
-  <license file="pro2139.lic" users="rayj"/>
-  <license file="pro2140.lic" users="valluripallis"/>
-  <license file="pro2141.lic" users="webbn"/>
-  <license file="pro2142.lic" users="hoppeschj"/>
-  <license file="pro2143.lic" users="borsts"/>
-  <license file="pro2144.lic" users="mflynn02"/>
-  <license file="pro2145.lic" users="vvickers"/>
-  <license file="pro2146.lic" users="westbergl"/>
-  <license file="pro2147.lic" users="vpatlolla"/>
-  <license file="pro2148.lic" users="dhara"/>
-  <license file="pro28721.lic" users="shawc"/>
-  <license file="pro28722.lic" users="dunnek"/>
-  <license file="pro5295.lic" users="Integration Test server"/>
+  <license file="pro2139.lic" user="rayj"/>
+  <license file="pro2140.lic" user="valluripallis"/>
+  <license file="pro2141.lic" user="webbn"/>
+  <license file="pro2142.lic" user="hoppeschj"/>
+  <license file="pro2143.lic" user="borsts"/>
+  <license file="pro2144.lic" user="mflynn02"/>
+  <license file="pro2145.lic" user="vvickers"/>
+  <license file="pro2146.lic" user="westbergl"/>
+  <license file="pro2147.lic" user="vpatlolla"/>
+  <license file="pro2148.lic" user="dhara"/>
+  <license file="pro28721.lic" user="shawc"/>
+  <license file="pro28722.lic" user="dunnek"/>
+  <license file="pro5295.lic" user="Integration Test server"/>
 </licenses>
