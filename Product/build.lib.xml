@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="build.lib" default="none" >
   <property environment="env"/>
+  <property name="ProductDirectory" location='.' id="proddir"/>
   <property name="project.dir" location="." />
   <basename file="${project.dir}" property="project.name" />
 
@@ -128,20 +129,17 @@
   -->
 
   <target name="call-target-in-isolation-if-out-of-date">
-    <echoxml file="${TempBuildFilePath}">
-      <project default="temp">
-        <import file="${ProductDirectory}\build.lib.xml" />
-        <target name="temp">
-          <property name="project-to-build" location="." />
-          <property name="target-to-call" value="${target-to-call}" />
-          <property name="base" value="${project-to-build}/lib" />
-          <property file="${project-to-build}/lib/nblibraries.properties" />
-          <property file="${project-to-build}/nbproject/project.properties" />		  
-          <antcall target="build-project-if-out-of-date" />
-        </target>
-      </project>
-    </echoxml>
-    <ant dir="." target="temp" inheritall="false" antfile="${TempBuildFilePath}" />
+    <call target="temp" />
+  </target>
+
+  <target name="temp">
+    <property location="." name="project-to-build" />
+    <echo message="project-to-build=${project-to-build}"/>
+    <property name="target-to-call" value="dist" />
+    <property name="base" value="${project-to-build}/lib" />
+    <property file="${project-to-build}/lib/nblibraries.properties" />
+    <property file="${project-to-build}/nbproject/project.properties" />
+    <antcall target="build-project-if-out-of-date" />
   </target>
   
   <target name="clean-gen" if="is-gen-outofdate">

@@ -3,7 +3,6 @@
 <project name="nhinc" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
 
   <description>Builds nhinc, tests, runs NHINC projects</description>
-  <property name="ProductDirectory" location='.' id="proddir"/>
   <import file="Properties.build.xml"/>
  	
   <import file="build.lib.xml" />
