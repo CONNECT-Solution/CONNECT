@@ -339,11 +339,6 @@
                 <endpointURL>https://<Gateway-IP>:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
-                <name>adapterdocquerysecured</name>
-                <description>Adapter Document Query</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
-            </service>
-            <service>
                 <name>documentretrieve</name>
                 <description>documentretrieve</description>
                 <endpointURL>https://<Gateway-IP>:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
@@ -369,45 +364,17 @@
                 <endpointURL>https://<Gateway-IP>:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
-                <name>entitynotificationconsumersecured</name>
-                <description>Entity Notify Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxynotificationconsumersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
-            </service>
-            <service>
-                <name>entitynotificationproducersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxynotificationproducersecured</name>
-                <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
-            </service>
-            <service>
-                <name>nhincproxysubscriptionmanagersecured</name>
-                <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
-            </service>
-            <service>
-                <name>entitysubscriptionmanagersecured</name>
-                <description>Entity Subscription Manager Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
-            </service>
-            <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
                 <endpointURL>http://<Gateway-IP>:8080/PatientCorrelationService</endpointURL>
             </service>
+			
             <service>
                 <name>patientcorrelationsecured</name>
                 <description>Patient Correlation Secured Service</description>
                 <endpointURL>https://<Gateway-IP>:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
             </service>
+						
             <service>
                 <name>auditrepository</name>
                 <description>Audit Repository</description>
@@ -426,8 +393,12 @@
             <service>
                 <name>policyengineservice</name>
                 <description>Policy Engine Service</description>
-<!--				<endpointURL>http://<Adapter-IP>:9080/NhinConnect/AdapterPolicyEngine</endpointURL> -->
                 <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+            </service>
+            <service>
+                <name>policyengineservicesecured</name>
+                <description>Policy Engine Service Secured</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -438,6 +409,36 @@
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
                 <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscovery</name>
+                <description>Adapter Subject Discovery</description>
+                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscoverysecured</name>
+                <description>Adapter Subject Discovery Secured</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquery</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquerysecured</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquery</name>
+                <description>adapterauditquery</description>
+                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquerysecured</name>
+                <description>adapterauditquerysecured</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
@@ -465,6 +466,21 @@
                 <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterReidentification</endpointURL>
             </service>
             <service>
+                <name>adapternotificationproducersecured</name>
+                <description>Adapter HIEM Subscribe</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumersecured</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubscriptionmanagersecured</name>
+                <description>Adapter HIEM Unsubscribe</description>
+                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
+            </service>
+            <service>
                 <name>policyenginedte</name>
                 <description>policyenginedte</description>
                 <endpointURL>http://<Adapter-IP>:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
@@ -488,15 +504,15 @@
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->				
-<!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>-->
+<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+<!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://<Adapter-IP>:8080/DocumentRegistry_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
-<!--			<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>-->
+<!--				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
             <service>
                 <name>adapterpip</name>
@@ -529,6 +545,41 @@
                 <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxySubjectDiscoverySecured</endpointURL>
             </service>
             <service>
+                <name>entitynotificationconsumer</name>
+                <description>Entity Notify</description>
+                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationconsumersecured</name>
+                <description>Entity Notify Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationconsumersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubscriptionmanagersecured</name>
+                <description>NHINC Proxy Subscription Manager Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitysubscriptionmanagersecured</name>
+                <description>Entity Subscription Manager Secured</description>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
                 <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocQuery</endpointURL>
@@ -545,23 +596,13 @@
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
-                <description>NHINC Proxy Document Query</description>
+                <description>NHINC Proxy Document Query Secured</description>
                 <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
                 <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuthentication</endpointURL>
-            </service>
-            <service>
-                <name>adaptersubjectdiscovery</name>
-                <description>Adapter Subject Discovery</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
-            </service>
-            <service>
-                <name>adaptersubjectdiscoverysecured</name>
-                <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
@@ -601,17 +642,7 @@
             <service>
                 <name>nhincproxyauditquerysecured</name>
                 <description>NHINC ProxyAudit Query Secured</description>
-                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyAuditLogQuerySecure</endpointURL>
-            </service>
-            <service>
-                <name>adapterauditquery</name>
-                <description>adapterauditquery</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuditQuery</endpointURL>
-            </service>
-            <service>
-                <name>adapterauditquerysecured</name>
-                <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
