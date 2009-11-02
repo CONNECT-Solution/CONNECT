@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : xconfig.xml
+    Created on : January 14, 2009, 4:52 PM
+    Author     : Bernie Thuman
+    Description:
+        Master configuration file for XDS.b / XCA profiles
+
+        This file is referenced via the URL: http://localhost:8080/xdsref/config/xconfig.xml
+-->
+
+<Config>
+
+    <HomeCommunity name="home">
+        <Property name="HomeCommunityId">urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</Property>
+        <Property name="InitiatingGateway">localig</Property>
+        <Property name="RespondingGateway">localrg</Property>
+        <Property name="ValidatePatientId">true</Property>
+
+        <!-- Place to find the "codes.xml" file.
+
+             Alternatively, you can set the HIEOSxCodesFile environment variable to include
+             the path to the "codes.xml" file such as c:\dev\vhgate\xds-xca\src\xdstoolkit\codes\codes.xml
+
+             -->
+        <Property name="CodesLocation">http://localhost:8080/xdsref/codes/codes.xml</Property>
+
+        <!-- This is used to configure the local repository. In the future, we may need to find
+        a better way to allow the same instance to support more than one repository ID.  This is really
+        only used for the "Provide and Register" transaction.  The Gateway's lookup the proper repository
+        by using the "repositoryId" in the associated "Retrieve" requests. -->
+        <Property name="LocalRepository">localrepository</Property>
+
+        <!-- ATNA configuration parameters. -->
+        <Property name="ATNAPerformAudit">true</Property>
+        <!--<Property name="ATNAsyslogHost">localhost</Property>
+        <Property name="ATNAsyslogPort">4010</Property>-->
+
+        <!-- NIST ATNA log -->
+        <!-- NIST syslog (browser URL: http://129.6.24.109:9080/SyslogBrowser/) -->
+        <Property name="ATNAsyslogHost">129.6.24.109</Property>
+        <Property name="ATNAsyslogPort">8087</Property>
+        <!-- AXOLOTL ATNA log -->
+        <!--<Property name="ATNAsyslogHost">10.243.0.52</Property>
+        <Property name="ATNAsyslogPort">514</Property>-->
+
+        <!-- SOAP configuration parameters. -->
+        <Property name="SOAPTimeOutInMilliseconds">45000</Property> <!-- 45 seconds -->
+
+        <!-- Used to configure underlying ebXML implementation. -->
+        <Property name="ebXMLHost">localhost</Property>
+        <Property name="ebXMLPort">8080</Property>
+        <Property name="ebXMLUsernamePassword">regop:regop</Property>
+        <Property name="ebXMLRestService">/ebxmlrr/registry/rest</Property>
+
+        <!-- Used to configure ADT database -->
+        <!-- ADTURL of the form: jdbc:postgresql://host:port/database -->
+        <Property name="ADTURL">jdbc:postgresql://localhost:5432/adt</Property>
+        <Property name="ADTUsername">adt</Property>
+        <Property name="ADTPassword">xdsadt</Property>
+
+        <!-- Registry database configuration (to support Patient Identity Feed). -->
+        <Property name="ebXMLdbURL">jdbc:postgresql://localhost:5432/registry</Property>
+        <Property name="ebXMLdbUsername">ebxmlrr</Property>
+        <Property name="ebXMLdbPassword">ebxmlrr</Property>
+
+        <!-- Log file parameters -->
+        <Property name="LogURL">jdbc:postgresql://localhost/log2</Property>
+        <Property name="LogUsername">logs</Property>
+        <Property name="LogPassword">xdslogs</Property>
+
+        <!-- LogMaxBytes determines how many bytes to store in the logger for "Other" messages.
+             Set this value to -1 if you do not want any restrictions on the number of bytes to
+             store in the log.
+        -->
+        <Property name="LogMaxBytes">5000</Property>
+
+        <!-- Other global properties will go here. -->
+    </HomeCommunity>
+
+   <!-- List of assigning authorities (tells the Initiating Gateway where to go when it receives
+        a registry query by patient id). Each patient id has an associated assigning authority.  This
+        is temporary until PIX integration is complete.  -->
+
+    <!-- "xdstest" default assigning authority when generating patient ids. -->
+    <AssigningAuthority name = "xdstest">
+        <UniqueId>&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</UniqueId>
+        <Registry>localregistry</Registry>  <!-- should only have one registry designated (for now). -->
+        <Gateway>localrg</Gateway>
+        <!--
+        <Gateway>EHR_SPIRIT_rg</Gateway>
+        <Gateway>EHR_ITH-ICOSERVE_rg</Gateway>-->
+    </AssigningAuthority>
+
+    <!-- The master assigning authority used in all Connectathon and HIMSS Affinity Domains. -->
+    <AssigningAuthority name = "IHENA">
+        <UniqueId>&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO</UniqueId>
+        <Registry>localregistry</Registry>  <!-- should only have one registry designated (for now). -->
+        <Gateway>localrg</Gateway>
+        <!--<Gateway>XDSb_REP_AXOLOTL_rg</Gateway>
+        <Gateway>GATEWAY_INTERSYSTEMS_rg</Gateway>
+        <Gateway>GATEWAY_INTERSYSTEMS_GE_rg</Gateway>-->
+        <!--<Gateway>localrg</Gateway>-->
+    </AssigningAuthority>
+
+    <!-- HIMSS Registration System. -->
+    <AssigningAuthority name = "PAMX">
+        <UniqueId>&amp;1.3.6.1.4.1.21367.2009.1.2.315&amp;ISO</UniqueId>
+        <Registry>localregistry</Registry>  <!-- should only have one registry designated (for now). -->
+        <Gateway>localrg</Gateway>
+        <!--
+        <Gateway>EHR_SPIRIT_rg</Gateway>
+        <Gateway>EHR_ITH-ICOSERVE_rg</Gateway>-->
+    </AssigningAuthority>
+
+   <!-- List of Registries -->
+    <Registry name="localregistry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://localhost:8080/axis2/services/xdsregistryb</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://localhost:8181/axis2/services/xdsregistryb</Transaction>
+        <Transaction name="RegistryStoredQuery">http://localhost:8080/axis2/services/xdsregistryb</Transaction>
+        <Transaction name="RegistryStoredQuery">https://localhost:8181/axis2/services/xdsregistryb</Transaction>
+        <!-- "ReceiverDeviceId" is used by the patient identity feed to identify the registry in ACKs -->
+        <Property name="ReceiverDeviceId">1.3.6.1.4.1.21367.2009.1.3.4.600</Property>
+        <Property name="ReceiverDeviceName">GATEWAY_SUNVAN_XDSbRegistry</Property>
+    </Registry>
+
+<!--
+    <Registry name="nistregistry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://ihexds.nist.gov:9080/tf5/services/xdsregistryb</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://ihexds.nist.gov:9085/tf5/services/xdsregistryb</Transaction>
+        <Transaction name="RegistryStoredQuery">http://ihexds.nist.gov:9080/tf5/services/xdsregistryb</Transaction>
+        <Transaction name="RegistryStoredQuery">https://ihexds.nist.gov:9085/tf5/services/xdsregistryb</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSb_REP_AXOLOTL_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://axolotl1:80/docregistry/query</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://axolotl1:443/docregistry/query</Transaction>
+        <Transaction name="RegistryStoredQuery">http://axolotl1:80/docregistry/query</Transaction>
+        <Transaction name="RegistryStoredQuery">https://axolotl1:443/docregistry/query</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSa_REP_EBMTECH_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://ebmtech2:80/</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">http://ebmtech2:80/</Transaction>
+        <Transaction name="RegistryStoredQuery">https://XXXX</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSb_REP_ERC_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://erc1:80/</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">http://erc1:80/</Transaction>
+        <Transaction name="RegistryStoredQuery">https://XXXX</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="OTHER_GE_HIE_SERVICES_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://gehealthcare16:80/</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://gehealthcare16:9621/XDSbReg/services/DocumentRegistry_Service</Transaction>
+        <Transaction name="RegistryStoredQuery">http://gehealthcare16:80/</Transaction>
+        <Transaction name="RegistryStoredQuery">https://gehealthcare16:9621/XDSbReg/services/DocumentRegistry_Service</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSab_REG_IBM_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://xds-ibm.lgs.com:9080/IBMXDSRegistry/XDSb/SOAP12/Registry</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://xds-ibm.lgs.com:9443/IBMXDSRegistry/XDSb/SOAP12/Registry</Transaction>
+        <Transaction name="RegistryStoredQuery">http://xds-ibm.lgs.com:9080/IBMXDSRegistry/XDSb/SOAP12/Registry</Transaction>
+        <Transaction name="RegistryStoredQuery">https://xds-ibm.lgs.com:9443/IBMXDSRegistry/XDSb/SOAP12/Registry</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="CIS_LUMEDX_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://lumedx1:8081/DocumentRegistryService</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://lumedx1:9091/DocumentRegistryService</Transaction>
+        <Transaction name="RegistryStoredQuery">http://lumedx1:8081/DocumentRegistryService</Transaction>
+        <Transaction name="RegistryStoredQuery">https://lumedx1:9091/DocumentRegistryService</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSb_REG_MICROSOFT_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://XDSb_REG_MICROSOFT:1125/XDSService/XDSRegistry</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://XDSb_REG_MICROSOFT:9080/XDSService/XDSRegistry</Transaction>
+        <Transaction name="RegistryStoredQuery">http://XDSb_REG_MICROSOFT:1125/XDSService/XDSRegistry</Transaction>
+        <Transaction name="RegistryStoredQuery">https://XDSb_REG_MICROSOFT:9080/XDSService/XDSRegistry</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="XDSab_REG_NIST_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">http://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">https://XXXX</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="CIS_REGENSTRIEF_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://regenstrief1:8443/</Transaction>
+        <Transaction name="RegistryStoredQuery">http://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">https://regenstrief1:8443/</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="OTHER_SAIC_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://saic1:80/</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://XXXX</Transaction>
+        <Transaction name="RegistryStoredQuery">http://saic1:80/</Transaction>
+        <Transaction name="RegistryStoredQuery">https://XXXX</Transaction>
+    </Registry>
+-->
+
+<!--
+    <Registry name="EHR_SPIRIT_registry">
+        <UniqueId>NA</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegisterDocumentSet-b">http://spirit6:8081/XDS3/registry</Transaction>
+        <Transaction name="RegisterDocumentSet-b">https://spirit6:8443/XDS3/registry</Transaction>
+        <Transaction name="RegistryStoredQuery">http://spirit6:8081/XDS3/registry</Transaction>
+        <Transaction name="RegistryStoredQuery">https://spirit6:8443/XDS3/registry</Transaction>
+    </Registry>
+-->
+
+   <!-- List of Repositories -->
+    <Repository name="localrepository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1010</UniqueId>
+      <!-- Can turn off using secure endpoints here. Default is to use secure endpoints. -->
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://localhost:8080/axis2/services/xdsrepositoryb</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://localhost:8181/axis2/services/xdsrepositoryb</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://localhost:8080/axis2/services/xdsrepositoryb</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://localhost:8181/axis2/services/xdsrepositoryb</Transaction>
+
+        <!-- This tells the repository what registry to utilize during "Provide and Register" -->
+        <!--<Registry>XDSb_REG_MICROSOFT_registry</Registry>-->
+        <!--<Registry>XDSab_REG_IBM_registry</Registry>-->
+        <Registry>localregistry</Registry>
+        <!--<Registry>XDSab_REG_IBM_registry</Registry>-->
+
+        <!-- This tells the repository where to put the physical documents. -->
+        <!-- SHOULD PUT IN HARDWIRED IP HERE instead of localhost ... URL MAY NOT CURRENTLY BE USED. -->
+        
+        <Property name="RepositoryBaseDirectory">C:/GlassFishESB/glassfish/domains/domain1/applications/j2ee-modules/Repository/</Property>
+        <Property name="RepositoryBaseURI">https://localhost:8181/Repository/</Property>
+        
+        <!-- Location on remote server. -->
+        <!--
+        <Property name="RepositoryBaseDirectory">/SunVan/GlassFishESB/glassfish/domains/domain1/applications/j2ee-modules/Repository/</Property>
+        <Property name="RepositoryBaseURI">https://69.255.171.1:8181/Repository/</Property>
+        -->
+    </Repository>
+
+    <Repository name="nistrepository">
+        <UniqueId>1.19.6.24.109.42.1.5</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://ihexds.nist.gov:9080/tf5/services/xdsrepositoryb</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://ihexds.nist.gov:9085/tf5/services/xdsrepositoryb</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://ihexds.nist.gov:9080/tf5/services/xdsrepositoryb</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://ihexds.nist.gov:9085/tf5/services/xdsrepositoryb</Transaction>
+    </Repository>
+
+    <Repository name="ADT_DEJAR_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1000</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://dejar1:8081/</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://dejar1:8080/</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://dejar1:8081/</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://dejar1:8080/</Transaction>
+    </Repository>
+
+<!--
+    <Repository name="EHR_SPIRIT_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1005</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://spirit6:8081/XDS3/repository</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://spirit6:8443/XDS3/repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://spirit6:8081/XDS3/repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://spirit6:8443/XDS3/repository</Transaction>
+    </Repository>
+-->
+
+    <Repository name="OTHER_GE_HIE_SERVICES_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1015</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://gehealthcare16:80/</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+
+    <Repository name="PACS_AGFA_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1020</UniqueId>
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://agfa1:8080/dcm4chee-xdsb-repository</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://agfa1:8443/dcm4chee-xdsb-repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://agfa1:8080/dcm4chee-xdsb-repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://agfa1:8443/dcm4chee-xdsb-repository</Transaction>
+    </Repository>
+    
+    <Repository name="PACS_CSH_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1025</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+    
+    <Repository name="XDSab_REG_IBM_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1030</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://xds-ibm.lgs.com:9080/IBMXDSRepository/XDSb/SOAP12/Repository</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://xds-ibm.lgs.com:9443/IBMXDSRepository/XDSb/SOAP12/Repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://xds-ibm.lgs.com:9080/IBMXDSRepository/XDSb/SOAP12/Repository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://xds-ibm.lgs.com:9443/IBMXDSRepository/XDSb/SOAP12/Repository</Transaction>
+    </Repository>
+    
+    <Repository name="XDSab_REP_HDS_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1035</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+    
+    <Repository name="XDSb_REP_AXOLOTL_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1040</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://axolotl1:80/docrepository/submit</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://axolotl1:443/docrepository/submit</Transaction>
+    </Repository>
+    
+    <Repository name="XDSb_REP_ERC_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1045</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://erc1:80//HealthUnityDocRepositoryService/XDSRepositorySoap.asmx</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+    
+    <Repository name="XDSb_REP_MICROSOFT_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1050</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://microsoft2:1125/XDSService/XDSRepository</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://microsoft2:9081/XDSService/XDSRepository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://microsoft2:1125/XDSService/XDSRepository</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://microsoft2:9081/XDSService/XDSRepository</Transaction>
+    </Repository>
+    
+    <Repository name="XDS_REP_HSI_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1055</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://hsi1:8091/</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://hsi1:443/Xdsservice/XdsRepository.svc</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://hsi1:8083/</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://hsi1:8082/</Transaction>
+    </Repository>
+    
+    <Repository name="ADT_GE_CENTRICITY_BUSINESS_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1060</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+    
+    <Repository name="CIS_LUMEDX_repository">
+        <UniqueId>1.3.6.1.4.1.21367.2009.1.2.1065</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RetrieveDocumentSet">http://XXXX</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">http://XXXX</Transaction>
+        <Transaction name="ProvideAndRegisterDocumentSet-b">https://XXXX</Transaction>
+    </Repository>
+
+   <!-- List of Gateways -->   
+
+    <Gateway name="localig"> <!-- Local Initiating Gateway -->
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</UniqueId> <!-- Home Community ID -->
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="RegistryStoredQuery">http://localhost:8080/axis2/services/xcaig</Transaction>
+        <Transaction name="RegistryStoredQuery">https://localhost:8181/axis2/services/xcaig</Transaction>
+        <Transaction name="RetrieveDocumentSet">http://localhost:8080/axis2/services/xcaig</Transaction>
+        <Transaction name="RetrieveDocumentSet">https://localhost:8181/axis2/services/xcaig</Transaction>
+
+      <!-- In support of XDS Affinity Domain Option -->
+        <!-- placed here so the gateway knows where to direct local registry requests. -->
+        <Registry>localregistry</Registry>
+    </Gateway>
+
+    <Gateway name="localrg"> <!-- Local Responding Gateway -->
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</UniqueId>  <!-- Home Community ID -->
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://localhost:8080/axis2/services/xcarg</Transaction>
+        <Transaction name="CrossGatewayQuery">https://localhost:8181/axis2/services/xcarg</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://localhost:8080/axis2/services/xcarg</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://localhost:8181/axis2/services/xcarg</Transaction>
+
+      <!-- In support of XDS Affinity Domain Option -->
+        <!-- placed here so the gateway knows where to direct local registry requests. -->
+        <Registry>localregistry</Registry>
+    </Gateway>
+
+    <Gateway name="nistrg"> <!-- NIST Responding Gateway -->
+        <UniqueId>urn:oid:1.19.6.24.109.42.1.3</UniqueId>  <!-- Home Community ID -->
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://ihexds.nist.gov:9080/tf5/services/rg</Transaction>
+        <Transaction name="CrossGatewayQuery">https://ihexds.nist.gov:9085/tf5/services/rg</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://ihexds.nist.gov:9080/tf5/services/rg</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://ihexds.nist.gov:9085/tf5/services/rg</Transaction>
+    </Gateway>
+
+    <Gateway name="XDSb_REP_AXOLOTL_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2045</UniqueId>  <!-- Home Community ID -->
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://axolotl1:80/respgateway/query</Transaction>
+        <Transaction name="CrossGatewayQuery">https://axolotl1:443/respgateway/query</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://axolotl1:80/respgateway/retrieve</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://axolotl1:443/respgateway/retrieve</Transaction>
+    </Gateway>
+
+    <Gateway name="XDSab_REG_IBM_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2040</UniqueId>  <!-- Home Community ID -->
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://ibm3:9085/XGatewayWS/RespondingGatewayQuery</Transaction>
+        <Transaction name="CrossGatewayQuery">https://ibm3:9443/XGatewayWS/RespondingGatewayQuery</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://ibm3:9085/XGatewayWS/RespondingGatewayRetrieve</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://ibm3:9443/XGatewayWS/RespondingGatewayRetrieve</Transaction>
+    </Gateway>
+
+<!--
+    <Gateway name="GATEWAY_INTERSYSTEMS_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2015</UniqueId>
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://inter1:8080/csp/healthshare/hsaccess/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayQuery">https://inter1/csp/healthshare/hsaccess/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://inter1:8080/csp/healthshare/hsaccess/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://inter1/csp/healthshare/hsaccess/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+    </Gateway>
+-->
+    <Gateway name="GATEWAY_INTERSYSTEMS_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2015</UniqueId>
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <!--<Transaction name="CrossGatewayQuery">http://inter1:80/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>-->
+        <Transaction name="CrossGatewayQuery">http://inter1:57773/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayQuery">https://inter1/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://inter1:57773/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://inter1/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+    </Gateway>
+
+    <Gateway name="GATEWAY_INTERSYSTEMS_GE_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2016</UniqueId>
+        <UseSecureEndpoints>false</UseSecureEndpoints>
+        <!--<Transaction name="CrossGatewayQuery">http://inter1:80/Services/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>-->
+        <Transaction name="CrossGatewayQuery">http://inter1:57773/ServicesGE/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayQuery">https://inter1/ServicesGE/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://inter1:57773/ServicesGE/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://inter1/ServicesGE/HS.IHE.XCA.RespondingGateway.Services.cls</Transaction>
+    </Gateway>
+
+<!--
+    <Gateway name="EHR_ITH-ICOSERVE_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2005</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://ith-icoserve1:8180/XCommunityBridge/services/RespondingGatewayService</Transaction>
+        <Transaction name="CrossGatewayQuery">https://ith-icoserve1:8143/XCommunityBridge/services/RespondingGatewayService</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://ith-icoserve1:8180/XCommunityBridge/services/RespondingGatewayService</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://ith-icoserve1:8143/XCommunityBridge/services/RespondingGatewayService</Transaction>
+    </Gateway>
+-->
+
+<!--
+    <Gateway name="CIS_REGENSTRIEF_rg">
+        <UniqueId>CIS_REGENSTRIEF_rg</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayQuery">https://regenstrief1:8443/</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://regenstrief1:8443/</Transaction>
+    </Gateway>
+-->
+
+<!--
+    <Gateway name="OTHER_SAIC_rg">
+        <UniqueId>OTHER_SAIC_rg</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayQuery">https://XXXX</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://XXXX</Transaction>
+    </Gateway>
+-->
+
+<!--
+    <Gateway name="EHR_SPIRIT_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2010</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://spirit7:8081/XCA/responding</Transaction>
+        <Transaction name="CrossGatewayQuery">https://spirit7:8443/XCA/responding</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://spirit7:8081/XCA/responding</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://spirit7:8443/XCA/responding</Transaction>
+    </Gateway>
+-->
+
+<!--
+    <Gateway name="EHR_WELLOGIC_rg">
+        <UniqueId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2050</UniqueId>
+        <UseSecureEndpoints>true</UseSecureEndpoints>
+        <Transaction name="CrossGatewayQuery">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayQuery">https://XXXX</Transaction>
+        <Transaction name="CrossGatewayRetrieve">http://XXXX</Transaction>
+        <Transaction name="CrossGatewayRetrieve">https://XXXX</Transaction>
+    </Gateway>
+-->
+</Config>

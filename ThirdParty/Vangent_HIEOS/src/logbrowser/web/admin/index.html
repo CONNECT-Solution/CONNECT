@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    
+    <head>
+        <title>Admin page</title>
+        <script type="text/javascript" src="../javascripts/Ajax.js"></script>
+        <script type="text/javascript" src="javascripts/GetAuthentication.js"></script>
+        <script type='text/javascript' src='../javascripts/prototype.js'  > </script>	
+        <script type='text/javascript' src='../javascripts/sha256.js'  > </script>	
+        
+        <script type="text/javascript">
+            
+            function login()
+            {
+            var pw = document.getElementById('password').value ;
+            getAuthentication( sha256_digest( pw ) ) ;
+            }
+            function testKey()
+            {
+            
+            }
+        </script>
+        
+    </head>
+    <body onload="$('password').focus()">
+    <a href = "../index.html" >Back to reader</a>        
+        <center>
+            <div id='loginScreen' style='background:#fff9d9;position:relative ; top:150px;width:40%; border:5px ;'>
+                <fieldset >
+                    <legend>password</legend>
+                    <p>Type password to get administrator privileges: </p>
+                    <label for='password'>password :</label><input type='password' id='password' name='password' onkeydown="if(event.keyCode==13) login();" /> 
+                    <input type='button' value='login' onclick='login();' />
+                </fieldset>
+            </div>
+        </center>
+        
+        <center>
+            <div id='errorMsg' style='position:relative ; top:0px;'></div>
+        </center>
+        
+    </body>
+</html>

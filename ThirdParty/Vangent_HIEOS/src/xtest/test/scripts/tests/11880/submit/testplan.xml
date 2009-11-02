@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>11880/submit</Test>
+    <TestStep id="submit_doc_w_fol">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Accept Create Folder with Initial Document</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <MetadataFile>single_doc_w_fol.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="submit_doc_w_fol_without_assoc">
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Association between SS and Folder/Doc Association missing causes submission to fail</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <MetadataFile>missing_assoc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

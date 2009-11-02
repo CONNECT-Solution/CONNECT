@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12022/submit</Test>
+    <TestStep id="submit">
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>submit 2 documents (doc01, doc02) and a folder, doc02 is in folder</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSb/>
+            <AssignUuids/>
+            <MetadataFile>two_doc_w_fol.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="xfrm_apnd">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>add doc05 as XFRM of doc01, add doc06 as APND of doc01</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSb/>
+            <UseId id="doc01" step="submit" section="AssignedUuids"
+                symbol="$doc01$"/>
+            <UseId id="doc02" step="submit" section="AssignedUuids"
+                symbol="$doc02$"/>
+            <MetadataFile>xfrm_apnd.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

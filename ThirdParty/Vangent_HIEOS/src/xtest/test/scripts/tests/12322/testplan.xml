@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12322</Test>
+    <TestStep id="no_time">
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Submit folder with no lastUpdateTime</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>fol_no_time.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="has_time">
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Submit folder with lastUpdateTime</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>fol_has_time.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="verify_no_time_submission">
+        <Rule>
+            <Assertion>Verify folder submitted in no_time step has today's date</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderEntryUUID">
+                            <ValueList>
+                                <Value>('$uuid1$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="Folder" step="no_time"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="1"/>
+            </ExpectedContents>
+            <Assertions>
+                <DataRef file="THIS" as="output"/>
+                <Assert id="todaysDate">
+                    substring(//StoredQueryTransaction[@step="verify_no_time_submission"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value'],1,8)="$DATE$"                    
+                </Assert>
+            </Assertions>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="verify_has_time_submission">
+        <Rule>
+            <Assertion>Verify folder submitted in has_time step has today's date</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderEntryUUID">
+                            <ValueList>
+                                <Value>('$uuid1$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="Folder" step="has_time"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="1"/>
+            </ExpectedContents>
+            <Assertions>
+                <DataRef file="THIS" as="output"/>
+                <Assert id="todaysDate">
+                    substring(//StoredQueryTransaction[@step="verify_has_time_submission"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value'],1,8)="$DATE$"                    
+                </Assert>
+            </Assertions>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="add_to_folder">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/> 
+            <MetadataFile>add_doc.xml</MetadataFile>
+            <UseId  
+                id="Folder" 
+                step="has_time" 
+                section="AssignedUuids"
+                symbol="$Folder$"/>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="verify_time_updated">
+        <Rule>
+            <Assertion>Verify folder lastUpdatedTime has been updated with document addition</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderEntryUUID">
+                            <ValueList>
+                                <Value>('$uuid1$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="Folder" step="has_time"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="1"/>
+            </ExpectedContents>
+            <Assertions>
+                <DataRef file="THIS" as="output"/>
+                <Assert id="dateUpdated">
+                    //StoredQueryTransaction[@step="verify_time_updated"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value']  !=
+                    //StoredQueryTransaction[@step="verify_has_time_submission"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value']
+                </Assert>
+            </Assertions>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="rplc">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Issue RPLC</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <UseId id="Document01" step="add_to_folder" section="AssignedUuids"
+                symbol="$rplc_doc_uuid$"/>
+            <MetadataFile>rplc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="verify_time_updated_by_rplc">
+        <Rule>
+            <Assertion>Verify folder lastUpdatedTime has been updated with document replace</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderEntryUUID">
+                            <ValueList>
+                                <Value>('$uuid1$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="Folder" step="has_time"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="1"/>
+            </ExpectedContents>
+            <Assertions>
+                <DataRef file="THIS" as="output"/>
+                <Assert id="dateUpdated">
+                    //StoredQueryTransaction[@step="verify_time_updated"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value']  !=
+                    //StoredQueryTransaction[@step="verify_time_updated_by_rplc"]/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='RegistryPackage']/*[local-name()='Slot'][@name='lastUpdateTime']/*[local-name()='ValueList']/*[local-name()='Value']
+                </Assert>
+            </Assertions>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

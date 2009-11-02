@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 2.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-2.0.dtd">
+<!--
+ * ====================================================================
+ * This code is subject to the freebxml License, Version 1.1
+ *
+ * Copyright (c) 2001 - 2003 freebxml.org.  All rights reserved.
+ *
+ * $Header: /cvsroot/ebxmlrr/omar/conf/database/repository.hbm.xml,v 1.10 2006/07/29 05:53:37 dougb62 Exp $
+ * ====================================================================
+
+ HibernateMapping for RepositoryItem, used by
+ server/repository/hibernate/HibernateRepositoryManager
+
+ @author Diego Ballve / Digital Artefacts
+-->
+<hibernate-mapping>
+    <class name="org.freebxml.omar.server.repository.hibernate.RepositoryItemBean" table="RepositoryItem">
+        <composite-id name="key"
+            class="org.freebxml.omar.server.repository.RepositoryItemKey">
+            <key-property name="lid" column="lid" type="string" length="256" />
+            <key-property name="versionName" column="versionName" type="string" length="16" />
+        </composite-id>
+        <property name="binaryContent" column="content" type="binary" />
+        <!--property name="binarySignature" column="signature" type="binary"/-->
+    </class>
+</hibernate-mapping>
+

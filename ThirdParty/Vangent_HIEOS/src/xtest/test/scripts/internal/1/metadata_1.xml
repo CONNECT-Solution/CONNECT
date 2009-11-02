@@ -1,0 +1,17 @@
+<AdhocQueryRequest
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:registry:xsd:2.1"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:rim:xsd:2.1"
+    xmlns:q = "urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1"
+>
+    <ResponseOption returnType = "LeafClass" returnComposedObjects="true"/>
+    <SQLQuery>
+    SELECT *  FROM ExtrinsicObject eo, ExternalIdentifier ei
+        WHERE
+            eo.id = ei.registryobject AND
+            ei.identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427' AND
+	    ei.value='NIST-test-10^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO' AND
+            eo.status = 'Approved'
+    </SQLQuery>
+</AdhocQueryRequest>

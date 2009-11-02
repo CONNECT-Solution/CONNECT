@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Message detail</title>
+
+<link rel="stylesheet" href="css/interface.css" />
+<link rel="stylesheet" href="css/interfacePanel.css" />
+<script type="text/javascript" src="javascripts/interface.js"></script>
+<script src='javascripts/Ajax.js' type='text/javascript'> </script>	
+<script src='javascripts/GetMessage.js' type='text/javascript'> </script>	
+<script src='javascripts/prototype.js' type='text/javascript'> </script>
+	
+<script type='text/javascript'>
+
+ var ptrFuncGetMessage = getMessage ;
+ 
+
+function initPosition()
+{
+  document.getElementById('RightPanel').style.width = '60%' ;
+  document.getElementById('RightPanel').style.left  =  '20%' ;
+  document.getElementById('RightPanel').style.top   =  '15%' ;
+  document.getElementById('RightPanel').style.overflow  =  'auto' ;
+  window.width = "800" ;
+
+}
+
+</script>
+
+</head>
+<body onload="ptrFuncGetMessage( gup( 'message' ) );initPosition();" >
+	<div id ="RightPanel" class="RightPanel" >
+	
+	   	<div id='messageId' class='messageId' style = 'display:block;'>
+	   	</div>
+		<div id="info" style = 'display:block;'>
+		</div>
+	</div>
+	
+<div id="sqlCommand" style="position:absolute; top : 150px ; left:700px ; display:none;">
+Hey from sqlCommand
+</div>
+
+<div class="loading" id="loading">Loading...</div>
+</body>
+	
+</body>
+</html>
+</html>

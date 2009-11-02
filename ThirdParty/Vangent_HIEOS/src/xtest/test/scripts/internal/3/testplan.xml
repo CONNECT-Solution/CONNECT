@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>3</Test>
+    <RegistryEndpoint>http://129.6.24.109:9080/axis2/services/xdsregistrya</RegistryEndpoint>
+    <TestStep id="object_ref">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <SqlQueryTransaction>
+            <Metadata>
+<AdhocQueryRequest 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1">
+  <ResponseOption returnType="ObjectRef" />
+  <SQLQuery>
+SELECT eo.id  FROM ExtrinsicObject eo, ExternalIdentifier ei 
+WHERE 
+  eo.id = ei.registryobject and 
+  ei.identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427' and  
+  ei.value='$patient_id$' and  
+  eo.status = 'Approved'
+</SQLQuery>
+</AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../testdata/11890" id="SubmissionSet01" step="submit_doc"
+                section="AssignedPatientId" symbol="$patient_id$"/>
+        </SqlQueryTransaction>
+    </TestStep>
+    <TestStep id="leafclass">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <SqlQueryTransaction>
+            <Metadata>
+<AdhocQueryRequest 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  xmlns="urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1">
+  <ResponseOption returnType="LeafClass" />
+  <SQLQuery>
+SELECT eo.id  FROM ExtrinsicObject eo, ExternalIdentifier ei 
+WHERE 
+  eo.id = ei.registryobject and 
+  ei.identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427' and  
+  ei.value='$patient_id$' and  
+  eo.status = 'Approved'
+</SQLQuery>
+</AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../testdata/11890" id="SubmissionSet01" step="submit_doc"
+                section="AssignedPatientId" symbol="$patient_id$"/>
+        </SqlQueryTransaction>
+    </TestStep>
+</TestPlan>

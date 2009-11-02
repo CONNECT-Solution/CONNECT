@@ -1,0 +1,18 @@
+#!/bin/bash
+if [ -z "$HIEOSXTESTDIR" ] ; then
+	echo 'Environment variable $HIEOSxTestDir is not defined'
+	exit
+fi
+source $HIEOSXTESTDIR/classpath
+
+keystore=$HIEOSXTESTDIR/keystores/keystore
+
+keyref="-Djavax.net.ssl.keyStore=$keystore -Djavax.net.ssl.keyStorePassword=changeit -Djavax.net.ssl.trustStore=$keystore -Djavax.net.ssl.trustStorePassword=changeit"
+
+ciphers='-Dhttps.cipherSuites=SSL_RSA_WITH_3DES_EDE_CBC_SHA,TLS_RSA_WITH_AES_128_CBC_SHA'
+
+#export tlsConfigured=true
+
+#debug='-Djavax.net.debug=ssl'
+
+java $keyref $ciphers $debug com.vangent.hieos.xtest.main.XTestDriverGroovy $*

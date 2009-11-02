@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12325/create_folder</Test>
+    <TestStep id="submit_fol">
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Submit single folder and a document not in the folder</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>fol.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/dev_NEW/hieos/src/xutil/healthcare-security-audit.xsd" uri="xml-resources/jaxb/ATNA_JAXB/healthcare-security-audit.xsd"/>
+</catalog>

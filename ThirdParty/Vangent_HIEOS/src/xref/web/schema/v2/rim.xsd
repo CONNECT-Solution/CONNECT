@@ -1,0 +1,336 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!--
+    There are limits to what XML Schema can detect. It judges document structure well
+    but it cannot answer the following questions:
+    1) Are all required Slots present as required by the profile?
+    2) Does this slot belong in an XDSDocumentEntry or is it used only in 
+       XDSSubmissionSet.
+    3) Repeat the same issues with Classifications and ExternalIdentifiers.
+
+-->
+
+<!--$Revision: 1.1 $-->
+<schema xmlns = "http://www.w3.org/2001/XMLSchema"
+    targetNamespace = "urn:oasis:names:tc:ebxml-regrep:rim:xsd:2.1"     
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:tns = "urn:oasis:names:tc:ebxml-regrep:rim:xsd:2.1"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+	>
+	<annotation>
+		<documentation xml:lang = "en">The schema for OASIS ebXML Registry Information Model</documentation>
+	</annotation>	
+	<import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
+	<!--Begin information model mapping from ebRIM.-->
+	
+	<!--Define Data Types -->
+	<simpleType name = "String4">
+		<restriction base = "string">
+			<maxLength value = "4" />
+		</restriction>
+	</simpleType>	
+	
+	<simpleType name = "String8">
+		<restriction base = "string">
+			<maxLength value = "8" />
+		</restriction>
+	</simpleType>	
+
+	<simpleType name = "String16">
+		<restriction base = "string">
+			<maxLength value = "16" />
+		</restriction>
+	</simpleType>	
+
+	<simpleType name = "String32">
+		<restriction base = "string">
+			<maxLength value = "32" />
+		</restriction>
+	</simpleType>	
+
+	<simpleType name = "ShortName">
+		<restriction base = "string">
+			<maxLength value = "64" />
+		</restriction>
+	</simpleType>	
+
+	<simpleType name = "LongName">
+		<restriction base = "string">
+			<maxLength value = "128" />
+		</restriction>
+	</simpleType>	
+
+	<simpleType name = "FreeFormText">
+		<restriction base = "string">
+			<maxLength value = "256" />
+		</restriction>
+	</simpleType>	
+
+	<complexType name = "AssociationType1">
+		<annotation>
+			<documentation xml:lang = "en">
+Association is the mapping of the same named interface in ebRIM.
+It extends RegistryObject.
+
+An Association specifies references to two previously submitted
+registry entrys.
+
+The sourceObject is id of the sourceObject in association
+The targetObject is id of the targetObject in association
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base = "tns:RegistryObjectType">
+				<attribute name = "associationType" use = "required">
+                                    <simpleType>
+                                        <restriction base = "NMTOKEN">
+                                            <enumeration value = "HasMember"/>
+                                            <enumeration value = "RPLC"/>
+                                            <enumeration value = "APND"/>
+                                            <enumeration value = "XFRM"/>
+                                            <enumeration value = "XFRM_RPLC"/>
+                                            <enumeration value = "signs"/>
+                                        </restriction>
+                                    </simpleType>
+                                </attribute>
+				<attribute name = "sourceObject" use = "required" type = "IDREF"/>
+				<attribute name = "targetObject" use = "required" type = "IDREF"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "Association" type = "tns:AssociationType1"/>
+
+	<complexType name = "ClassificationType">
+		<annotation>
+			<documentation xml:lang = "en">
+Classification is the mapping of the same named interface in ebRIM.
+It extends RegistryObject.
+
+A Classification specifies references to two registry entrys.
+
+The classifiedObject is id of the Object being classified.
+The classificationNode is id of the ClassificationNode classying the object
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base = "tns:RegistryObjectType">
+				<attribute name = "classificationScheme" use = "optional" type = "IDREF"/>
+				<attribute name = "classifiedObject" use = "required" type = "IDREF"/>
+				<attribute name = "classificationNode" use = "optional" type = "IDREF"/>
+				<attribute name = "nodeRepresentation" use = "optional" type = "tns:LongName"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "Classification" type = "tns:ClassificationType"/>
+
+
+	<complexType name = "ExternalIdentifierType">
+		<annotation>
+			<documentation xml:lang = "en">
+ExternalIdentifier is the mapping of the same named interface in ebRIM.
+It extends RegistryObject.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base = "tns:RegistryObjectType">
+				<attribute name = "registryObject" use = "optional" type = "IDREF"/>
+				<attribute name = "identificationScheme" use = "required" type = "IDREF"/>
+				<attribute name = "value" use = "required" type = "tns:ShortName"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "ExternalIdentifier" type = "tns:ExternalIdentifierType"/>
+
+	<complexType name = "ExtrinsicObjectType">
+		<annotation>
+			<documentation xml:lang = "en">
+ExtrinsicObject are attributes from the ExtrinsicObject interface in ebRIM.
+It inherits RegistryEntryAttributes
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base = "tns:RegistryEntryType">
+				<attribute name = "mimeType" type = "tns:LongName"/>
+				<attribute name = "isOpaque" use = "optional" type = "boolean"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	
+	<!--Following element decl nneds to be lower case but using upper camel case for backward compatibility-->
+	
+	<element name = "ExtrinsicObject" type = "tns:ExtrinsicObjectType"/>
+
+	<complexType name = "SlotType1">
+		<sequence>
+			<element ref = "tns:ValueList" minOccurs = "1" maxOccurs="1"/>
+		</sequence>
+                
+                <!-- These values are for XDSDocumentEntry -  need separate list
+                     for XDSSubmissionSet and XDSFolder -->
+		<attribute name = "name" use = "required">
+                      
+                </attribute>
+		<attribute name = "slotType" use = "optional" type = "tns:LongName"/>
+	</complexType>
+	<element name = "Slot" type = "tns:SlotType1"/>
+
+        <complexType name = "ValueListType">
+		<sequence minOccurs = "0" maxOccurs = "unbounded">
+			<element ref = "tns:Value" />
+		</sequence>
+	</complexType>
+	<element name = "ValueList" type = "tns:ValueListType"/>
+	<element name = "Value" type = "tns:LongName"/>
+
+	<complexType name = "RegistryEntryType">
+		<complexContent>
+			<extension base = "tns:RegistryObjectType">
+				<attribute name = "expiration" use = "optional" type = "dateTime"/>
+				<attribute name = "majorVersion" default = "1" type = "integer"/>
+				<attribute name = "minorVersion" default = "0" type = "integer"/>
+				<attribute name = "stability" use = "optional">
+					<simpleType>
+						<restriction base = "NMTOKEN">
+							<enumeration value = "Dynamic"/>
+							<enumeration value = "DynamicCompatible"/>
+							<enumeration value = "Static"/>
+						</restriction>
+					</simpleType>
+				</attribute>
+
+				<attribute name = "status">
+					<simpleType>
+						<restriction base = "NMTOKEN">
+							<enumeration value = "Submitted"/>
+							<enumeration value = "Approved"/>
+							<enumeration value = "Deprecated"/>
+							<enumeration value = "Withdrawn"/>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<attribute name = "userVersion" use = "optional" type = "tns:ShortName"/>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "RegistryEntry" type = "tns:RegistryEntryType"/>
+	
+	<complexType name = "InternationalStringType">
+		<sequence minOccurs = "0" maxOccurs = "unbounded">
+			<element ref = "tns:LocalizedString" />
+		</sequence>
+	</complexType>
+	<element name = "InternationalString" type = "tns:InternationalStringType"/>
+
+	<complexType name = "LocalizedStringType">
+	<!--	<attribute name = "lang" default = "en-us" form = "qualified" type = "language"/> -->
+		<attribute ref = "xml:lang" default = "en-us" />
+		<attribute name = "charset" default = "UTF-8" />
+		<attribute name = "value" use = "required" type = "tns:FreeFormText"/>
+	</complexType>
+	<element name = "LocalizedString" type = "tns:LocalizedStringType"/>
+
+	<complexType name = "RegistryObjectType">
+		<annotation>
+			<documentation xml:lang = "en">
+id may be empty. If specified it may be in urn:uuid format or be in some
+arbitrary format. If id is empty registry must generate globally unique id.
+
+If id is provided and in proper UUID syntax (starts with urn:uuid:) 
+registry will honour it.
+
+If id is provided and is not in proper UUID syntax then it is used for
+linkage within document and is ignored by the registry. In this case the
+registry generates a UUID for id attribute.
+
+id must not be null when object is being retrieved from the registry.
+
+			</documentation>
+		</annotation>
+		<sequence minOccurs = "0" maxOccurs = "1">
+			<element ref = "tns:Name" minOccurs = "0" maxOccurs = "1"/>
+			<element ref = "tns:Description" minOccurs = "0" maxOccurs = "1"/>
+			<element ref = "tns:Slot" minOccurs = "0" maxOccurs = "unbounded"/>
+			<element ref = "tns:Classification" minOccurs = "0" maxOccurs = "unbounded"/>
+			<element ref = "tns:ExternalIdentifier" minOccurs = "0" maxOccurs = "unbounded"/>
+		</sequence>
+		<attribute name = "id" type = "ID"/>
+		<attribute name = "objectType" use = "optional" type = "tns:LongName"/>
+	</complexType>
+	<element name = "RegistryObject" type = "tns:RegistryObjectType"/>
+	<element name = "Name" type = "tns:InternationalStringType" />
+	<element name = "Description" type = "tns:InternationalStringType" />
+
+	<complexType name = "RegistryPackageType">
+		<annotation>
+			<documentation xml:lang = "en">
+RegistryPackage is the mapping of the same named interface in ebRIM.
+It extends RegistryEntry.
+
+A RegistryPackage is a named collection of objects.
+			</documentation>
+		</annotation>
+		<complexContent>
+			<extension base = "tns:RegistryEntryType">
+				<sequence>
+					<element ref = "tns:RegistryObjectList" minOccurs="0" maxOccurs="1"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "RegistryPackage" type = "tns:RegistryPackageType"/>
+
+
+	<complexType name = "ObjectRefType">
+		<annotation>
+			<documentation xml:lang = "en"> 
+Use to reference an Object by its id.
+Specifies the id attribute of the object as its id attribute.
+id attribute in ObjectAttributes is exactly the same syntax and semantics as
+id attribute in RegistryObject.
+			</documentation>
+		</annotation>
+		<attribute name = "id" type = "ID"/>
+	</complexType>
+	<element name = "ObjectRef" type = "tns:ObjectRefType"/>
+
+	<element name = "ObjectRefList">
+		<annotation>
+			<documentation xml:lang = "en">A list of ObjectRefs</documentation>
+		</annotation>
+		<complexType>
+			<sequence minOccurs = "0" maxOccurs = "unbounded">
+				<element ref = "tns:ObjectRef"/>
+			</sequence>
+		</complexType>
+	</element>
+
+
+	<complexType name = "LeafRegistryObjectListType">
+		<choice minOccurs = "0" maxOccurs = "unbounded">
+			<element ref = "tns:ObjectRef"/>
+			<element ref = "tns:Association"/>
+			<element ref = "tns:Classification"/>
+			<element ref = "tns:ExternalIdentifier"/>
+			<element ref = "tns:ExtrinsicObject"/>
+			<element ref = "tns:RegistryPackage"/>
+		</choice>
+	</complexType>
+	<element name = "LeafRegistryObjectList" type = "tns:LeafRegistryObjectListType"/>
+	
+	<complexType name = "RegistryObjectListType">
+		<complexContent>
+			<extension base = "tns:LeafRegistryObjectListType">
+				
+					<choice minOccurs = "0" maxOccurs = "unbounded">
+						<element ref = "tns:RegistryEntry" />
+						<element ref = "tns:RegistryObject"/>
+					</choice>
+			</extension>
+		</complexContent>
+	</complexType>
+	<element name = "RegistryObjectList" type = "tns:RegistryObjectListType"/>
+	
+	
+</schema>

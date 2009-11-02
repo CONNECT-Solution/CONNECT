@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12330/query</Test>
+    <Rule>Retrieve metadata to get access to XDSDocumentEntry.repositoryUniqueId and XDSDocumentEntry.uniqueId</Rule>
+    <TestStep id="by_uid">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <UseId testdir="../submit" id="Document01" step="submit"
+                section="AssignedUids" symbol="$docuid$"/>
+            <Metadata>
+<query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+    <!-- GetDocuments Stored Query -->
+    <AdhocQuery id="urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4">
+        <Slot name="$XDSDocumentEntryUniqueId">
+            <ValueList>
+                <Value>('$docuid$')</Value>
+            </ValueList>
+        </Slot>
+    </AdhocQuery>
+</query:AdhocQueryRequest>
+</Metadata>
+            <ExpectedContents>
+                <Documents count="1"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

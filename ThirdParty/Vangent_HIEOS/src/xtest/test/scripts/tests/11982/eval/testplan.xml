@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>11982/eval</Test>
+    <TestStep id="doc_metadata_missing">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef"/>
+                    <AdhocQuery id="urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4">
+                        <Slot name="$XDSDocumentEntryUniqueId">
+                            <ValueList>
+                                <Value>('$doc_uid$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../submit" id="Document01" step="doc_metadata_missing"
+                section="AssignedUids" symbol="$doc_uid$"/>
+            <ExpectedContents>
+                <ObjectRefs count="0"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="doc_missing">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef"/>
+                    <AdhocQuery id="urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4">
+                        <Slot name="$XDSDocumentEntryUniqueId">
+                            <ValueList>
+                                <Value>('$doc_uid$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../submit" id="Document01" step="doc_missing"
+                section="AssignedUids" symbol="$doc_uid$"/>
+            <ExpectedContents>
+                <ObjectRefs count="0"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>12320/simple</Test>
+   <Rule>Send SIMPLE SOAP message to Registry. Content is Stored Query request</Rule>
+    <TestStep id="submit">
+        <MswTransaction>
+        	<type>SIMPLE</type>
+        </MswTransaction>
+    </TestStep>
+</TestPlan>

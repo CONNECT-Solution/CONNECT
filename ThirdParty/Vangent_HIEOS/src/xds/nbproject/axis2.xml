@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<axis2 xmlns="http://www.netbeans.org/ns/axis2/1">
+    <service name="xdsregistryb">
+        <service-class>com.vangent.hieos.services.xds.registry.serviceimpl.XDSbRegistry</service-class>
+    </service>
+    <service name="xdsrepositoryb">
+        <service-class>com.vangent.hieos.services.xds.repository.serviceimpl.XDSbRepository</service-class>
+    </service>
+    <libraries>
+        <library-ref name="commons-collections.jar"/>
+        <library-ref name="dom4j-1.4.jar"/>
+        <library-ref name="ehcache-0.9.jar"/>
+        <library-ref name="hibernate2.jar"/>
+        <library-ref name="jaxr-api.jar"/>
+        <library-ref name="oasis-regrep.jar"/>
+        <library-ref name="stax-api-1.0.1.jar"/>
+        <library-ref name="adt.jar"/>
+        <library-ref name="xutil.jar"/>
+        <library-ref name="omar.jar"/>
+        <library-ref name="mysql-connector-java-5.0.8-bin.jar"/>
+        <library-ref name="postgresql-8.3-604.jdbc4.jar"/>
+        <library-ref name="xlog.jar"/>
+    </libraries>
+</axis2>

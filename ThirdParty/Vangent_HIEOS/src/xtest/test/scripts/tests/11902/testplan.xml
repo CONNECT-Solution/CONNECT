@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>11902</Test>
+    <TestStep id="uuid">
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>GetFolders</SQ>
+            <Assertion>Operation with UUID</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderEntryUUID">
+                            <ValueList>
+                                <Value>('$uuid1$','$uuid2$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../testdata/11890" id="Folder" step="submit_doc_w_fol"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <UseId testdir="../../testdata/11890" id="Folder" step="submit_2doc_w_fol"
+                section="AssignedUuids" symbol="$uuid2$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="2"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="uniqueid">
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>GetFolders</SQ>
+            <Assertion>Operation with UniqueId</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4">
+                        <Slot name="$XDSFolderUniqueId">
+                            <ValueList>
+                                <Value>('$uniqueid1$','$uniqueid2$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../testdata/11890" id="Folder" step="submit_doc_w_fol"
+                section="AssignedUids" symbol="$uniqueid1$"/>
+            <UseId testdir="../../testdata/11890" id="Folder" step="submit_2doc_w_fol"
+                section="AssignedUids" symbol="$uniqueid2$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <Folders count="2"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

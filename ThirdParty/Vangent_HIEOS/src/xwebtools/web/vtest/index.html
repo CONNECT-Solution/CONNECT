@@ -1,0 +1,438 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>IHE Virtual Testing Configuration (System = HIEOS)</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>IHE Virtual Testing Configuration (System = HIEOS)</h1>
+        <p>Welcome!  This page provides configuration details to support Internet based testing for HIEOS, Vangent's IHE conformant XDS.b/XCA implementation.
+        <p>Contact information to support testing is provided at the end of this page.</p>
+        <p><b>Please note</b> that we have currently enabled extensive logging on our system. This might result in some system latency.
+        <br>
+        <u><h2>TLS Configuration (optional)</h2></u>
+        The HIEOS platform uses 2-way TLS encryption. In our testing environment, the HIEOS server has been configured with a self-signed X.509 server
+        <br>certificate. It has also been pre-configured to accept another self-signed X.509 certificate as a client certificate.
+        <br><br>In order to enable your system to communicate with HIEOS using TLS, the following steps need to be followed:
+            <ul>
+                <li>Download and configure your truststore to accept our <a href="http://208.81.185.143:8080/xwebtools/hieos_test_server_cert.pem">server certificate</a>.
+            </ul>
+            Additionally, perform one of the following two steps:
+             <ul>
+                <li>Download and configure your truststore and keystore with our test <a href="http://208.81.185.143:8080/xwebtools/hieos_test_client_cert.pem">client certificate</a>
+                <br>and corresponding <a href="http://208.81.185.143:8080/xwebtools/hieos_test_client_key.pem">private key</a>.
+                <li>Alternatively, provide us with your X.509 client certificate and we would configure the HIEOS server to accept it.
+            </ul>
+         <br>
+        <u><h2>Patient Identifiers</h2></u>
+        <p>Patient identifiers need to be registered with the XDS.b Registry before "Provide & Register" transactions can be issued. One of the following options
+        <br>can be chosen to register patient ids with the XDS.b Registry:
+            <ol>
+                <li>
+                    XDS.b Registry web services endpoints (Patient Identify Feed) have been exposed by HIEOS to accept HL7 V3 messages for
+                    <br>patient add, update and merge transactions. Patient information can therefore be manipulated in HIEOS
+                    <br>by invoking the mentioned services. Please ensure that patient identifiers are valid HL7 V3 representations.
+                    <br>It is recommended that one of the assigning authorities from the table, <b>XCA Key Parameters</b> (near the end of this page),
+                    <br>is used to qualify the patient id.
+                    <br><br>
+                    <table border="1" cellpadding="3">
+                        <caption align="bottom"><b>XDS.b Registry "Patient Identity Feed" Web Service Endpoints</b></caption>
+                        <thead>
+                            <tr>
+                                <th>Actor</th>
+                                <th>Transaction</th>
+                                <th>URL</th>
+                                <th>TLS?</th>
+                                <th>MTOM?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201301UV02 (Add Patient)</td>
+                                <td>http://208.81.185.143:8080/axis2/services/xdsregistryb</td>
+                                <td align="center">no</td>
+                                <td align="center">no</td>
+                            </tr>
+                           <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201301UV02 (Add Patient)</td>
+                                <td>https://208.81.185.143:8181/axis2/services/xdsregistryb</td>
+                                <td align="center">yes</td>
+                                <td align="center">no</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201302UV02 (Update Patient)</td>
+                                <td>http://208.81.185.143:8080/axis2/services/xdsregistryb</td>
+                                <td align="center">no</td>
+                                <td align="center">no</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201302UV02 (Update Patient)</td>
+                                <td>https://208.81.185.143:8181/axis2/services/xdsregistryb</td>
+                                <td align="center">yes</td>
+                                <td align="center">no</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201304UV02 (Merge Patient)</td>
+                                <td>http://208.81.185.143:8080/axis2/services/xdsregistryb</td>
+                                <td align="center">no</td>
+                                <td align="center">no</td>
+                            </tr>
+                            <tr>
+                                <td align="center">Registry</td>
+                                <td align="center">PRPA_IN201304UV02 (Merge Patient)</td>
+                                <td>https://208.81.185.143:8181/axis2/services/xdsregistryb</td>
+                                <td align="center">yes</td>
+                                <td align="center">no</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                </li>
+                <li>
+                    A valid patient identifier can be generated by going to <a href="http://208.81.185.143:8080/xwebtools/pidallocate">Patient ID Generator</a>.
+                    <br/>You can then use the generated patient identifier in subsequent XDS.b/XCA transactions that require a patient id.
+                </li>
+                <li>
+                    A valid patient identifier can be generated programmatically by using the rest
+                    service <a href="http://208.81.185.143:8080/xwebtools/pidallocate?rest=1">http://208.81.185.143:8080/xwebtools/pidallocate?rest=1</a>.
+                    <br/>Similarly, you can then use the generated patient identifier in subsequent XDS.b/XCA
+                    transactions that require a patient id.
+                    <br/>
+                </li>
+                <li>
+                    You can use the preconfigured patient id "b1f770dad41c457^^^&1.3.6.1.4.1.21367.2009.1.2.315&ISO" which contains 3 valid
+                    <br/>documents (pdf, xml, txt) stored in our XDS.b Registry/Repository.
+                    <!--<br/>Since we leveraged "xdstest" to generate the test data for this patient id, some of the document references do not
+                    relate to valid documents
+                    <br/>in our XDS.b Repository. -->
+                </li>
+                <!--
+                <li>
+                    You can also use the preconfigured patient id "babd8047d898473^^^&1.3.6.1.4.1.21367.2009.1.2.315&ISO" which contains 27 valid
+                    <br/>documents (pdf, xml, txt) stored in our XDS.b Repository.  Please note that you will need to set the ResponseOption to
+                    <br/>"ObjectRef" to query the document references since the Registry is restricted to 25 documents when using the "LeafClass"
+                    </br/>ResponseOption.
+                </li>
+                <li>
+                    You can also use the preconfigured patient id "d7916d63b85f4b2^^^&1.3.6.1.4.1.21367.2009.1.2.315&ISO" which contains 6 valid
+                    <br/>documents (pdf, xml, txt) stored in our XDS.b Repository.
+                </li>
+                -->
+            </ol>
+        </p>
+
+        <u><h2>IHE XDS.b Test Configuration Details</h2></u>
+        <h3>Parameters</h3>
+        <p>The table below provides the identifier assigned to our XDS.b Repository.</p>
+        <table border="1" cellpadding="3">
+            <caption align="bottom"><b>XDS.b Repository Unique Id</b></caption>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">RepositoryUniqueId</td>
+                    <td align="left">1.3.6.1.4.1.21367.2009.1.2.1010</td>
+                    <td align="left">The unique id assigned to our XDS.b Repository.</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+
+       <!-- <h3>TLS</h3>
+        The HIEOS platform uses 2-way TLS encryption. In our testing environment, the HIEOS server has been
+        <br> configured with a self-signed X.509 server certificate. It has also been pre-configured to accept another
+        <br>self-signed X.509 certificate as a client certificate.
+        <br><br>In order to enable your system to communicate with HIEOS using TLS, the following steps need to be followed -
+            <ul>
+                <li>Download and configure your truststore to accept our <a href="http://208.81.185.143:8080/xwebtools/hieos_test_server_cert.pem">server certificate</a>.
+            </ul>
+            <br>Additionally, perform one of the following two steps -
+             <ul>
+                <li>Download and configure your truststore and keystore with our test <a href="http://208.81.185.143:8080/xwebtools/hieos_test_client_cert.pem">client certificate</a>
+                <br>and corresponding <a href="http://208.81.185.143:8080/xwebtools/hieos_test_client_key.pem">private key</a>.
+                <li>Alternatively, provide us with your X.509 client certificate and we would configure the HIEOS server to accept it.
+            </ul>
+
+        -->
+        <h3>Web Service Endpoints</h3>
+        <p>The table below provides the web service endpoints for all transactions supported by this XDS.b test configuration.</p>
+
+        <table border="1" cellpadding="3">
+            <caption align="bottom"><b>XDS.b Web Service Endpoints</b></caption>
+            <thead>
+                <tr>
+                    <th>Actor</th>
+                    <th>Transaction</th>
+                    <th>URL</th>
+                    <th>TLS?</th>
+                    <th>MTOM?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">Registry</td>
+                    <td align="center">RegisterDocumentSet-b</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xdsregistryb</td>
+                    <td align="center">no</td>
+                    <td align="center">no</td>
+                </tr>
+               <tr>
+                    <td align="center">Registry</td>
+                    <td align="center">RegisterDocumentSet-b</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xdsregistryb</td>
+                    <td align="center">yes</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Registry</td>
+                    <td align="center">RegistryStoredQuery</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xdsregistryb</td>
+                    <td align="center">no</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Registry</td>
+                    <td align="center">RegistryStoredQuery</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xdsregistryb</td>
+                    <td align="center">yes</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Repository</td>
+                    <td align="center">ProvideAndRegisterDocumentSet-b</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xdsrepositoryb</td>
+                    <td align="center">no</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Repository</td>
+                    <td align="center">ProvideAndRegisterDocumentSet-b</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xdsrepositoryb</td>
+                    <td align="center">yes</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Repository</td>
+                    <td align="center">RetrieveDocumentSet</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xdsrepositoryb</td>
+                    <td align="center">no</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Repository</td>
+                    <td align="center">RetrieveDocumentSet</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xdsrepositoryb</td>
+                    <td align="center">yes</td>
+                    <td align="center">yes</td>
+                </tr>
+            </tbody>
+        </table>
+        <u><h2>IHE XCA Test Configuration Details</h2></u>
+        <h3>Expected Behavior</h3>
+        <table border="1" cellpadding="1">
+            <caption align="bottom"><b>XCA Expected Behavior</b></caption>
+            <thead>
+                <tr>
+                    <th>Actor</th>
+                    <th>Expected Behavior</th>
+                </tr>
+            </thead>
+            <tr>
+                <td align="center">Initiatiating Gateway</td>
+                <td align="left">
+                    <ul>
+                        <li>RegistryStoredQuery transactions that specify:
+                        <ul>
+                            <li><i>a patientId</i> will be directed to the Initiating Gateway's local XDS.b Registry and also possibly IBM/NIST
+                            <br/>XCA Responding Gateways, depending upon the assigning authority for the patient id specified.  One of the
+                            <br>assigning authorities below must be present in the patient id.
+                            <li><i>this Initiating Gateway's homeCommunityId</i> will be directed to the local XDS.b Registry.
+                            <li><i>the NIST homeCommunityId</i> will be directed to NIST's XCA Responding Gateway.
+                        </ul>
+                        <li>RetrieveDocumentSet transactions that specify:
+                        <ul>
+                            <li><i>this Initiating Gateway's homeCommunityId</i> will be directed to the local XDS.b Repository.
+                            <li>Otherwise, requests will be directed to the appropriate XCA Responding Gateway.
+                        </ul>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">Responding Gateway</td>
+                <td align="left">
+                    <ul>
+                        <li>CrossGatewayQuery requests will be directed to the Responding Gateway's local XDS.b Registry.
+                        <li>CrossGatewayRetrieve requests will be directed to the Responding Gateway's local XDS.b Repository.
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <h3>Parameters</h3>
+        <p>The table below provides key identifiers used by this XCA test configuration.</p>
+        <table border="1" cellpadding="3">
+            <caption align="bottom"><b>XCA Key Parameters</b></caption>
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">HomeCommunityId</td>
+                    <td align="left">urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</td>
+                    <td align="left">The identifier of our home community.</td>
+                </tr>
+                <tr>
+                    <td align="center">HomeCommunityId</td>
+                    <td align="left">urn:oid:1.19.6.24.109.42.1.3</td>
+                    <td align="left">The HomeCommunityId used by the NIST Responding Gateway.</td>
+                </tr>
+                <tr>
+                    <td align="center">RepositoryUniqueId</td>
+                    <td align="left">1.3.6.1.4.1.21367.2009.1.2.1010</td>
+                    <td align="left">The identifier of our local XDS.b Repository.</td>
+                </tr>
+                <tr>
+                    <td align="center">RepositoryUniqueId</td>
+                    <td align="left">1.19.6.24.109.42.1.5</td>
+                    <td align="left">The identifier of the NIST XDS.b Repository.</td>
+                </tr>
+                <tr>
+                    <td align="center">AssigningAuthority</td>
+                    <td align="left">&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</td>
+                    <td align="left">The default assigning authority used by xdstest.  Also, known by the NIST registry.</td>
+                </tr>
+                <tr>
+                    <td align="center">AssigningAuthority</td>
+                    <td align="left">&amp;1.3.6.1.4.1.21367.2009.1.2.300&amp;ISO</td>
+                    <td align="left">The master assigning authority used in all Connectathon and HIMSS Affinity Domains.</td>
+                </tr>
+                <tr>
+                    <td align="center">AssigningAuthority</td>
+                    <td align="left">&amp;1.3.6.1.4.1.21367.2009.1.2.315&amp;ISO</td>
+                    <td align="left">HIMSS Registration System.</td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+       <!-- <h3>TLS</h3>
+        The server should be configured to accept your X.509 client certificate and uses <b>SUNVAN</b> as the X.509 server certificate (both provided by IHE).
+        <h3>Web Service Endpoints</h3>
+        <p>The table below provides the web service endpoints for all transactions supported by this XCA test configuration.</p>
+-->
+        <table border="1" cellpadding="3">
+            <caption align="bottom"><b>XCA Web Service Endpoints</b></caption>
+            <thead>
+                <tr>
+                    <th>Actor</th>
+                    <th>Transaction</th>
+                    <th>URL</th>
+                    <th>TLS?</th>
+                    <th>MTOM?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="center">Initiating Gateway</td>
+                    <td align="center">RegistryStoredQuery</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xcaig</td>
+                    <td align="center">no</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Initiating Gateway</td>
+                    <td align="center">RegistryStoredQuery</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xcaig</td>
+                    <td align="center">yes</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Initiating Gateway</td>
+                    <td align="center">RetrieveDocumentSet</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xcaig</td>
+                    <td align="center">no</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Initiating Gateway</td>
+                    <td align="center">RetrieveDocumentSet</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xcaig</td>
+                    <td align="center">yes</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Responding Gateway</td>
+                    <td align="center">CrossGatewayQuery</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xcarg</td>
+                    <td align="center">no</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Responding Gateway</td>
+                    <td align="center">CrossGatewayQuery</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xcarg</td>
+                    <td align="center">yes</td>
+                    <td align="center">no</td>
+                </tr>
+                <tr>
+                    <td align="center">Responding Gateway</td>
+                    <td align="center">CrossGatewayRetrieve</td>
+                    <td>http://208.81.185.143:8080/axis2/services/xcarg</td>
+                    <td align="center">no</td>
+                    <td align="center">yes</td>
+                </tr>
+                <tr>
+                    <td align="center">Responding Gateway</td>
+                    <td align="center">CrossGatewayRetrieve</td>
+                    <td>https://208.81.185.143:8181/axis2/services/xcarg</td>
+                    <td align="center">yes</td>
+                    <td align="center">yes</td>
+                </tr>
+            </tbody>
+        </table>
+        <!--
+        <h2>Log Reader</h2>
+        <p>You can go to <a href="http://208.81.185.143:8080/LogReader">XDS.b/XCA Log Reader</a> to view results submitted from your IP address.  If you have used the NIST public registry,
+        <br/>this interface should be familiar to you.</p>
+        -->
+        <u><h2>Contact Information</h2></u>
+        <p>The following can be contacted to provide assistance in testing.</p>
+        <table border="1" cellpadding="3">
+            <caption align="bottom"><b>Contacts</b></caption>
+            <thead>
+                <tr>
+                    <th>Contact Name</th>
+                    <th>Email Address</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tr>
+                <td align="center">Bernie Thuman</td>
+                <td align="center"><a href="mailto:Bernie.Thuman@vangent.com">Bernie.Thuman@vangent.com</a> </td>
+                <td align="center">XDS.b/XCA Technical Assistance</td>
+            </tr>
+            <tr>
+                <td align="center">Anand Sastry</td>
+                <td align="center"><a href="mailto:Anand.Sastry@vangent.com">Anand.Sastry@vangent.com</a> </td>
+                <td align="center">XDS.b/XCA Technical Assistance</td>
+            </tr>
+        </table>
+    </body>
+</html>

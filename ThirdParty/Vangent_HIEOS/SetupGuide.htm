@@ -1,0 +1,910 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+  
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Health Information Exchange Open Source: Wiki: SetupGuide — Project Kenai</title>
+    <link href="SetupGuide_files/base_packaged.css" media="screen" rel="stylesheet" type="text/css">
+<link href="SetupGuide_files/style.css" media="screen" rel="stylesheet" type="text/css">    <!--[if IE 7]>
+    <link href="http://asset-2.kenai.com/stylesheets/ie7_packaged.css?20091023.d0cdb92" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <!--[if IE 6]>
+    <link href="http://asset-3.kenai.com/stylesheets/iex60.css?20091023.d0cdb92" media="screen" rel="stylesheet" type="text/css" />    <![endif]-->
+    <link href="SetupGuide_files/print_packaged.css" media="print" rel="stylesheet" type="text/css">
+    <script src="SetupGuide_files/head_packaged.js" type="text/javascript"></script>
+<script src="SetupGuide_files/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+//<![CDATA[
+var page={"token":"1a3ba83f0ffb50531cf85c1f3a4cf8e445eeccfc"};
+//]]>
+</script>
+    <script type="text/javascript" charset="utf-8">
+      function debug(m){}
+    </script>
+      <link rel="alternate" type="application/atom+xml" title="Health Information Exchange Open Source Wiki Updates (Atom)" href="http://kenai.com/projects/hieos/pages.atom">
+  <link rel="alternate" type="application/atom+xml" title="Health Information Exchange Open Source SetupGuide Page Updates (Atom)" href="http://kenai.com/projects/hieos/pages/SetupGuide/revisions.atom">
+  <link href="SetupGuide_files/wiki_packaged.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="SetupGuide_files/shCore.css" media="screen" rel="stylesheet" type="text/css">
+<link href="SetupGuide_files/shThemeDefault.css" media="screen" rel="stylesheet" type="text/css">
+
+
+  </head><body id="bg">
+    <div align="center">
+      <div id="container">
+        <div id="headCurves"></div>
+        <div id="masthead">
+          <div class="topLeft"></div><div class="topRight"></div>
+          <div class="contentmast">
+            <div id="logo" onclick="document.location='/?clear=1'"></div>
+            <div class="controls">
+                <div class="links">
+          
+        <a href="http://kenai.com/people/login?original_uri=%2Fprojects%2Fhieos%2Fpages%2FSetupGuide" rel="nofollow">Login</a>
+    <span class="separator">|</span> <a href="http://kenai.com/people/signup">Join Now</a>
+  <span class="separator">|</span>
+    <a href="http://kenai.com/projects/help/pages/Wikis" target="_blank">Help</a>
+  </div>
+<form><input id="live-search" value="Jump to..." autocomplete="off" type="text"></form>
+
+            </div>
+          </div>
+          <div class="bottomLeft"></div><div class="bottomRight"></div>
+        </div>
+        <div id="breadcrumbs"><a href="http://kenai.com/">kenai.com</a><span>&gt;</span>
+  <a href="http://kenai.com/projects">projects</a>
+  <span>&gt;</span><a href="http://kenai.com/projects/hieos">hieos</a>
+  <span>&gt;</span><a href="http://kenai.com/projects/hieos/pages/Home">wiki</a>
+  
+    <span>&gt;</span><a href="http://kenai.com/projects/hieos/pages/SetupGuide" class="current">SetupGuide</a>
+  
+</div>
+        <div id="main">
+          <div id="printSideColumn">
+            <div id="sideColumn" style="display: block; min-height: 11402px;">
+              <div id="hAccordion" class="hAccordion home">
+                <a href="http://kenai.com/forums" id="hTab_0" title="Forums"></a>
+                <a href="http://kenai.com/people" id="hTab_1" title="People"></a>
+                <a href="http://kenai.com/projects" id="hTab_2" title="Projects"></a>
+                <a href="http://kenai.com/mypage" id="hTab_3" title="My Page"></a>
+                <a href="http://kenai.com/" id="hTab_4" title="Home"></a>
+              </div>
+              <div id="nav2">
+                  <div class="vAccordion">
+
+    <button class="tab" id="sidebar_project_features"><div class="title">Project Features</div><div class="expCol">-</div></button>
+    <div class="bucket" style="">
+  <ul>
+          
+      <li><strong>
+        
+          Wiki        
+      </strong></li>
+            <li><a href="http://kenai.com/projects/hieos/pages/Home">» Wiki</a></li>
+                
+      <li><strong>
+        
+          Message Forums        
+      </strong></li>
+            <li><a href="http://kenai.com/projects/hieos/forums/announcements">» Announcements</a></li>
+            <li><a href="http://kenai.com/projects/hieos/forums/forum">» General Discussion</a></li>
+                
+      <li><strong>
+        
+          <a href="http://kenai.com/projects/hieos/lists">Mailing Lists</a>
+        
+      </strong></li>
+            <li><a href="http://kenai.com/projects/hieos/lists/commits/archive">» Commits Mailing List</a></li>
+            <li><a href="http://kenai.com/projects/hieos/lists/issues/archive">» Issues Mailing List</a></li>
+                
+      <li><strong>
+        
+          Source Code Repository        
+      </strong></li>
+            <li><a href="http://kenai.com/projects/hieos/sources/subversion/show">» Source Code Repository</a></li>
+                
+      <li><strong>
+        
+          Issue Tracking        
+      </strong></li>
+            <li><a href="http://kenai.com/bugzilla/buglist.cgi?product=hieos&amp;order=Importance&amp;limit=25" target="_blank">» Issue Tracking</a></li>
+                
+      <li><strong>
+        
+          Downloads        
+      </strong></li>
+            <li><a href="http://kenai.com/projects/hieos/downloads">» Downloads</a></li>
+            </ul>
+</div>
+</div>
+      <div class="vAccordion">
+    <button class="tab" id="sidebar_wiki_controls"><div class="title">Wiki Controls</div><div class="expCol">-</div></button>
+    <div class="bucket" style="">
+
+  
+  
+    <ul>
+      <li>» Show Page</li>
+      <li><a href="http://kenai.com/projects/hieos/pages/SetupGuide/edit">» Edit Page</a></li>
+      <li><a href="http://kenai.com/projects/hieos/pages/SetupGuide/text">» Show Page as Text</a></li>
+      <li><a href="http://kenai.com/projects/hieos/pages/SetupGuide/revisions">» Show Page Revision History</a></li>
+    </ul>
+  
+
+  <!-- Jump to page -->
+  <div class="vAccLabel" align="left"><label for="jumpToPage" class="vAccTextLabel">Jump&nbsp;to&nbsp;Page:</label></div>
+  <div class="vAccForm" align="left">
+    <select class="vAccPullDown" name="jumpToPage" style="width: 150px;" onchange="window.location='/projects/hieos/pages'+'/' +this.value">
+      <option value="Architecture">Architecture</option>
+<option value="BinaryInstallGuide">BinaryInstallGuide</option>
+<option value="ConfigurationFiles">ConfigurationFiles</option>
+<option value="Home">Home</option>
+<option value="License">License</option>
+<option value="NISTXDSEnhancements">NISTXDSEnhancements</option>
+<option value="SetupGuide" selected="selected">SetupGuide</option>
+<option value="TestTools">TestTools</option>
+<option value="WebServices">WebServices</option>
+    </select>
+  </div>
+  <div class="clear"></div>
+  <ul>
+    <li><a href="http://kenai.com/projects/hieos/pages">» List all Pages</a></li>
+    <li><a href="http://kenai.com/projects/hieos/wiki_images">» Manage Images</a></li>
+  </ul>
+  <div class="clear"></div>
+  <!--Create new page -->
+  <form id="wiki_page_create" action="" method="GET">
+    <div class="vAccLabel" align="left"><label for="newPage" class="vAccTextLabel">Create&nbsp;New&nbsp;Page:</label></div>
+    <div class="vAccForm" align="left">
+      <div class="vAccError" id="wiki_page_create_errors"></div>
+      <input id="wiki_page_create_path" value="/projects/hieos/pages/_id_/edit" type="hidden">
+      <input id="wiki_page_create_id" maxlength="128" name="id" class="vAccTextField" type="text">
+      <button id="wiki_page_create_submit" title="go" class="vAccGoButton" type="submit"> </button>
+    </div>
+    <div class="clear"></div>
+  </form>
+</div>
+</div>
+    <div class="vAccordion">  
+  
+    <button class="tab" id="sidebar_project_links"><div class="title">Project Links</div><div class="expCol">-</div></button>
+    <div class="bucket" style="">
+    <ul>
+      
+        <li><a href="http://www.ihe.net/" target="_NEW"><span class="bullet">»</span> IHE</a></li>
+      
+        <li><a href="http://www.vangent.com/markets-healthcare.php" target="_NEW"><span class="bullet">»</span> Vangent Health Solutions</a></li>
+      
+    </ul>
+  </div>    
+
+    <button class="tab" id="sidebar_project_about"><div class="title">About this Project</div><div class="expCol">-</div></button>
+    <div class="bucket" style="">
+  <div style="margin: 5px; text-align: left;">
+    <a href="http://kenai.com/projects/hieos">Health Information Exchange Open Source</a> was started in 
+    May 2009, is owned by 
+    <a href="http://kenai.com/people/8685-Bernie-Thuman"><span class="person -kenai-berniet">Bernie Thuman</span></a>,
+    and has <a href="http://kenai.com/projects/hieos/members">12 members</a>.
+  </div>
+ 
+  <ul>
+    
+      
+         <li><a href="http://kenai.com/projects/hieos/watch">» Bookmark This Project</a></li>
+      
+        
+  </ul>
+</div></div>
+
+              </div>
+            </div>
+            
+      <div style="min-height: 11402px;" id="sideColumnShow" class="side_nav" title="hide side navigation"></div>
+    
+          </div>
+          <div id="pageContent" class="content">
+            <!--BEGIN CONTENT AREA-->
+            
+            
+
+
+
+
+
+
+<!--BEGIN CONTENT AREA-->
+<div class="contentPadding">
+    <div class="wikiMainHeader">
+    <div class="twoColumns">
+      <div class="column">
+        <span>Last updated <span class="pretty-date" title="2009-09-15 19:23:09 UTC">September 15, 2009 19:23</span>, by</span>&nbsp;<a href="http://kenai.com/people/8685-Bernie-Thuman">Bernie Thuman</a>
+      </div>
+      <div class="column" style="float: right; width: 10em; margin-right: 50px;" align="right">
+        <span>    <a href="#" class="contextMenuAnchor" id="social-bookmarks__">»&nbsp;Share this </a><div style="display: none;" id="social-bookmarks___content">
+    <div style="padding: 3px; width: 100px;">
+      <a href="http://del.icio.us/post?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="del.icio.us"><img alt="del.icio.us" src="SetupGuide_files/delicious.png"></a> <a href="http://reddit.com/submit?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="Reddit"><img alt="Reddit" src="SetupGuide_files/reddit.png"></a> <a href="http://digg.com/submit?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai&amp;phase=2" class="socialBookMarkItem" title="Digg"><img alt="Digg" src="SetupGuide_files/digg.png"></a> <a href="http://www.newsvine.com/_tools/seed&amp;save?u=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;h=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="NewsVine"><img alt="NewsVine" src="SetupGuide_files/newsvine.png"></a> <a href="http://www.blinklist.com/index.php?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;Title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai&amp;Action=Blink/addblink.php" class="socialBookMarkItem" title="BlinkList"><img alt="BlinkList" src="SetupGuide_files/blinklist.png"></a> <a href="http://blogmarks.net/my/new.php?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai&amp;mini=1&amp;simple=1" class="socialBookMarkItem" title="Blogmarks"><img alt="Blogmarks" src="SetupGuide_files/blogmarks.png"></a> <a href="http://co.mments.com/track?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="co.mments"><img alt="co.mments" src="SetupGuide_files/comments.png"></a> <a href="http://www.furl.net/storeIt.jsp?t=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;u=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="Furl"><img alt="Furl" src="SetupGuide_files/furl.png"></a> <a href="http://ma.gnolia.com/beta/bookmarklet/add?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="Ma.gnolia"><img alt="Ma.gnolia" src="SetupGuide_files/magnolia.png"></a> <a href="http://www.netvouz.com/action/submitBookmark?url=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="Netvouz"><img alt="Netvouz" src="SetupGuide_files/netvouz.png"></a> <a href="http://www.simpy.com/simpy/LinkAdd.do?href=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;title=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="Simpy"><img alt="Simpy" src="SetupGuide_files/simpy.png"></a> <a href="http://myweb2.search.yahoo.com/myresults/bookmarklet?u=http%3A%2F%2Fkenai.com%2Fprojects%2Fhieos%2Fpages%2FSetupGuide&amp;=Health%20Information%20Exchange%20Open%20Source:%20Wiki:%20SetupGuide%20&amp;mdash;%20Project%20Kenai" class="socialBookMarkItem" title="YahooMyWeb"><img alt="YahooMyWeb" src="SetupGuide_files/yahoomyweb.png"></a>
+    </div>
+  </div>&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+      <div class="wikiMainBody"><div id="toc" class="toc">
+           <div id="toctitle" class="toc-title">Contents [<a id="toctoggle" class="toc-toggle">hide</a>]</div>
+           <div id="toccontents" class="toc-contents"><ul><li>1 <a href="#Installation_Overview"> Installation Overview </a></li>
+<li>2 <a href="#Prerequisite_Software"> Prerequisite Software </a></li>
+<li>3 <a href="#Check-out_Procedure"> Check-out Procedure </a></li>
+<li>4 <a href="#Directory_Structure_Overview"> Directory Structure Overview </a></li>
+<li>5 <a href="#Source_Code_Project_Structure"> Source Code Project Structure </a></li>
+<li>6 <a href="#Database_Setup"> Database Setup </a></li>
+<ul><li>6.1 <a href="#MySQL_Setup"> MySQL Setup </a></li>
+<ul><li>6.1.1 <a href="#Installation"> Installation </a></li>
+<li>6.1.2 <a href="#Configuration"> Configuration </a></li>
+</ul><li>6.2 <a href="#PostGres_Setup"> PostGres Setup </a></li>
+<ul><li>6.2.1 <a href="#Installation"> Installation </a></li>
+<li>6.2.2 <a href="#Configuration"> Configuration </a></li>
+</ul></ul><li>7 <a href="#Application_Server_Setup"> Application Server Setup </a></li>
+<ul><li>7.1 <a href="#JDK_Installation"> JDK Installation </a></li>
+<li>7.2 <a href="#GlassFish_Installation"> GlassFish Installation  </a></li>
+<li>7.3 <a href="#Axis2_Installation"> Axis2 Installation </a></li>
+<li>7.4 <a href="#Connection_Pool_Configuration"> Connection Pool Configuration </a></li>
+<ul><li>7.4.1 <a href="#Data_Source_Setup"> Data Source Setup </a></li>
+<ul><li>7.4.1.1 <a href="#MySQL_Configuration"> MySQL Configuration </a></li>
+<li>7.4.1.2 <a href="#PostGres_Configuration"> PostGres Configuration </a></li>
+</ul><li>7.4.2 <a href="#JNDI_Connection_Pool_Configuration"> JNDI Connection Pool Configuration </a></li>
+</ul></ul><li>8 <a href="#IDE_Setup"> IDE Setup </a></li>
+<ul><li>8.1 <a href="#NetBeans_Installation"> NetBeans Installation </a></li>
+<li>8.2 <a href="#NetBeans/GlassFish_Integration"> NetBeans/GlassFish Integration </a></li>
+<li>8.3 <a href="#NetBeans/Axis2_Integration"> NetBeans/Axis2 Integration </a></li>
+</ul><li>9 <a href="#Configuration_Files"> Configuration Files </a></li>
+<li>10 <a href="#Environment_Variable_Setup"> Environment Variable Setup </a></li>
+<li>11 <a href="#Build_and_Deployment_Steps"> Build and Deployment Steps </a></li>
+<ul><li>11.1 <a href="#Build_Steps"> Build Steps </a></li>
+<li>11.2 <a href="#Deployment_Steps"> Deployment Steps </a></li>
+</ul><li>12 <a href="#TLS_Configuration"> TLS Configuration </a></li>
+<ul><li>12.1 <a href="#Prerequisite_Software"> Prerequisite Software </a></li>
+<li>12.2 <a href="#GlassFish_Configuration"> GlassFish Configuration </a></li>
+</ul></ul></div>
+         </div><h1><a name="Installation_Overview"></a> Installation Overview </h1>
+<p>The following steps highlight the HIEOS installation process (if you
+want to build and deploy from binary files, you shoud go to <a href="http://kenai.com/projects/hieos/pages/BinaryInstallGuide" class="internal">Binary Installation Guide</a>):
+</p><dl><dd> This process is described in detail in upcoming sections.
+</dd></dl><ol><li> Source code check-out
+</li><li> Database setup
+</li><li> Application server setup
+</li><li> IDE setup
+</li><li> Environment variable setup
+</li><li> Build and deployment
+</li><li> Validate and test the deployment
+</li></ol><p>If you just want to test against an XCA and/or XDS.b implementation, please consult the following URL: <a class="external" href="http://208.81.185.143:8080/xwebtools">http://208.81.185.143:8080/xwebtools</a>.
+</p><h1><a name="Prerequisite_Software"></a> Prerequisite Software </h1>
+<p>The prerequisite software for building and deploying HIEOS is summarized below:
+</p><div style="overflow-x: auto;"><div style="margin: 0px 2px;">
+<table -="" border="1"><tbody><tr><th> Category
+</th><th> Software
+</th></tr>
+<tr><td> IDE
+</td><td> Netbeans 6.7.1
+</td></tr>
+<tr><td> JDK
+</td><td> JDK 1.6.x
+</td></tr>
+<tr><td> Application Server
+</td><td> GlassFish v2.1
+</td></tr>
+<tr><td> Web Service Stack
+</td><td> Axis2 1.4.1
+</td></tr>
+<tr><td> Database
+</td><td> MySQL, PostGres
+</td></tr>
+</tbody></table>
+</div></div>
+<p><i>Note: HIEOS has been tested under both Linux and Windows
+operating system environments. This guide currently assumes a
+Windows-based installation. A future version of this setup guide will
+more clearly delineate Windows vs. Linux configuration variations (e.g.
+environment variables, etc.)</i> 
+</p><h1><a name="Check-out_Procedure"></a> Check-out Procedure </h1>
+<p>HIEOS’s distribution is available in a subversion repository at <a class="external" href="http://kenai.com/projects/hieos">http://kenai.com/projects/hieos</a> 
+</p><ol><li> Download and install a subversion client such as TortoiseSVN (<a class="external" href="http://tortoisesvn.tigris.org/">http://tortoisesvn.tigris.org/</a>) to be able to obtain HIEOS’s source.
+</li><li> Create a directory on your local file system to store the
+HIEOS source code. This location will be referred to as «HIEOS_ROOT»
+throughout this setup guide.
+</li><li> Go to <a class="external" href="http://kenai.com/projects/hieos">http://kenai.com/projects/hieos</a> and navigate to the link “Get Source Code” and copy the URL which should resemble <a class="external" href="https://kenai.com/svn/hieos%7Esubversion/">https://kenai.com/svn/hieos~subversion/.</a></li><li> "Check-out" the trunk (main branch), or tagged release of the source code by entering the repository URL, <a class="external" href="https://kenai.com/svn/hieos%7Esubversion/trunk/">https://kenai.com/svn/hieos~subversion/trunk/</a>, in the subversion client.
+</li></ol><h1><a name="Directory_Structure_Overview"></a> Directory Structure Overview </h1>
+<p>A layout of the HIEOS distribution is described in the table below:
+</p><div style="overflow-x: auto;"><div style="margin: 0px 2px;">
+<table -="" border="1"><tbody><tr><th> Directory
+</th><th> Description
+</th></tr>
+<tr><td> <tt>certs</tt></td><td> Contains test certificates (client and server) for encrypted communication between HIEOS and test client software such as "<a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a>".  See <a href="#TLS_Configuration" class="internal">TLS Configuration</a>  for setup details.
+</td></tr>
+<tr><td> <tt>data</tt></td><td> Contains DDL and DML scripts required to setup the data stores required by HIEOS.
+</td></tr>
+<tr><td> <tt>doc</tt></td><td> Contains HIEOS related documentation.
+</td></tr>
+<tr><td> <tt>lib</tt></td><td> Contains third-party library files referenced by HIEOS.
+</td></tr>
+<tr><td> <tt>src</tt></td><td> Contains HIEOS source code and associated NetBeans IDE project files.
+</td></tr>
+</tbody></table>
+</div></div>
+<h1><a name="Source_Code_Project_Structure"></a> Source Code Project Structure </h1>
+<p>A description of the NetBeans projects contained in the <tt>«HIEOS_ROOT»\src</tt> directory are listed in the table below:
+</p><div style="overflow-x: auto;"><div style="margin: 0px 2px;">
+<table -="" border="1"><tbody><tr><th> Project
+</th><th> Description
+</th><th> Type
+</th></tr>
+<tr><td> <tt>adt</tt></td><td> Encapsulates patient registration information as required by XDS.b registry.
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>logbrowser</tt></td><td> Web based tool for viewing transaction logs generated by web service interactions. 
+</td><td> Web Application Archive (WAR)
+</td></tr>
+<tr><td> <tt>omar</tt></td><td> Underlying ebXML v3 Registry implementation used to store XDS.b Registry meta-data. 
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>xca</tt></td><td> Implementation of IHE XCA Profile.
+</td><td> Axis2 Web Service archive (AAR file)
+</td></tr>
+<tr><td> <tt>xds</tt></td><td> Implementation of IHE XDS Profile.
+</td><td> Axis2 Web Service archive (AAR file)
+</td></tr>
+<tr><td> <tt>xclient</tt></td><td> Rudimentary (to support testing) classes that can be used on the "client-side" to interact with XDS.b and XCA web services.
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>xlog</tt></td><td> Enterprise archive to package xlogmdb for easier deployment. 
+</td><td> Enterprise Application Archive (EAR)
+</td></tr>
+<tr><td> <tt>xlogmdb</tt></td><td> Message driven bean implementing asynchronous transaction logger.
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>xref</tt></td><td> HIEOS configuration files and XSD files to support schema validation.
+</td><td> Web Application Archive (WAR)
+</td></tr>
+<tr><td> <tt>xtest</tt></td><td> Command line test tool and test framework to exercise HIEOS web service implementations.
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>xutil</tt></td><td> Common library used by most other projects.
+</td><td> Java Archive (JAR)
+</td></tr>
+<tr><td> <tt>xwebtools</tt></td><td> Web based tools to query XDS.b registry/repository.
+</td><td> Web Application Archive (WAR)
+</td></tr>
+<tr><td> <tt>xwebtoolsconfig</tt></td><td> Configuration support for xwebtools.  <i>Note: Hope to replace/remove in a future release.</i></td><td> Java Archive (JAR)
+</td></tr>
+</tbody></table>
+</div></div>
+<h1><a name="Database_Setup"></a> Database Setup </h1>
+<p>HIEOS has been tested with both MySQL and PostgreSQL relational
+database management systems and includes DDL and DML for these
+environments. To support its various functions, HIEOS requires that the
+following data stores be created: </p><div style="overflow-x: auto;"><div style="margin: 0px 2px;">
+<table -="" border="1"><tbody><tr><th> Actor
+</th><th> Data Store
+</th><th> Description
+</th></tr>
+<tr><td> XDS.b Registry
+</td><td> adt
+</td><td> Stores patient registration information as required by XDS.b registry. 
+</td></tr>
+<tr><td> ALL
+</td><td> log
+</td><td> Stores transaction logging information generated during XDS.b and XCA web service invocations.
+</td></tr>
+<tr><td> XDS.b Registry
+</td><td> omar
+</td><td> Stores XDS.b Registry meta-data.
+</td></tr>
+<tr><td> XDS.b Repository
+</td><td> repo
+</td><td> Stores documents (e.g. images, TXT, PDF, Microsoft Word documents, XML, HL7 CDA) submitted to XDS.b Repository.
+</td></tr>
+</tbody></table>
+</div></div>
+<p>In addition to creating each data store, the application server must be setup with designated connection pools (see <a href="#Connection_Pool_Configuration" class="internal"> Connection Pool Configuration</a>).
+</p><h2><a name="MySQL_Setup"></a> MySQL Setup </h2>
+<p>This section describes the procedure for setting up HIEOS MySQL-based data stores.
+</p><h3><a name="Installation"></a> Installation </h3>
+<p><i>Note: You can choose any ports/passwords, but you will need to note these as this guide assumes default ports, etc.</i></p><ol><li> MySQL 5.1 Community Server (Windows MSI Installer (x86) version) can be downloaded from <a class="external" href="http://www.sun.com/software/products/mysql/getit.jsp">http://www.sun.com/software/products/mysql/getit.jsp</a></li><li> During the installation:
+<ol><li> Accept all default settings (port = 3306 etc.).
+</li><li> Provide password: “admin” (user=”root” by default).
+</li></ol></li><li> It is also recommended that GUI tools 5.x that contains MySQL Admin, Client Browser etc. be downloaded from <a class="external" href="http://dev.mysql.com/downloads/gui-tools/5.0.html">http://dev.mysql.com/downloads/gui-tools/5.0.html</a></li></ol><h3><a name="Configuration"></a> Configuration </h3>
+<ol><li> Ensure that the MySQL Server is running
+</li><li> Connect to the MySQL Server (localhost: 3306) with credentials (root/admin) using the MySQL Administrator tool.
+</li><li> The first task is to create the required HIEOS data stores.
+On the left navigation pane, select “Catalogs”. This opens up a pane
+right below called “Schemata”. Right click on this pane and select
+“Create New Schema”.
+<ol><li> To create the “adt” data store
+<ol><li> Enter Schema name –  "adt"
+</li><li> Go to “Tools”-&gt;”MySQL Query Browser”
+</li><li> In the Query Browser go to “File”-&gt;”Open Script”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\adt\mysql\createadtddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “log” data store
+<ol><li> Enter Schema name –  “log”
+</li><li> Go to “Tools”-&gt;”MySQL Query Browser” 
+</li><li> In the Query Browser go to “File”-&gt;”Open Script”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\log\mysql\createlogddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “repo” data store
+<ol><li> Enter Schema name – “repo”
+</li><li> Go to “Tools”-&gt;”MySQL Query Browser”
+</li><li> In the Query Browser go to “File”-&gt;”Open Script”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\repo\mysql\createrepoddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “omar” data store
+<ol><li> Enter Schema Name – “omar”
+</li><li> Go to “Tools”-&gt;”MySQL Query Browser” 
+</li><li> In the Query Browser go to “File”-&gt;”Open Script”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\registry\mysql\createregistryddl.sql</tt> 
+</li><li> Hit Execute
+</li><li> Similarly, load the seed data script <tt>«HIEOS_ROOT»\data\registry\common\loadseedregistrydbddl.sql</tt></li><li> Select the database “omar”  in the Schemata pane of the Query Browser
+</li><li> Hit Execute 
+</li></ol></li></ol></li><li> The next task is to provide access to the
+created data stores. On the left navigation pane, select “User
+Administration”. This opens up a pane right below called “User
+Accounts”. Right click on this pane and select “Add new User”. A view
+is presented on the right pane to enter user information.
+<ol><li> To create access credentials for the "adt" data store
+<ol><li> Enter MySQL User/Password – adt/xdsadt
+</li><li> Select the schema privileges tab and assign ‘SELECT’,
+‘INSERT’, ‘UPDATE’ and ‘DELETE’ privileges against schemata “adt”, and
+hit “Apply Changes”
+</li><li> In the User Accounts Pane, right click on “adt” -&gt; “Add host from which the user can connect”
+</li><li> Enter “localhost” and hit “Apply Changes”
+</li></ol></li><li> To create access credentials for the "log" data store
+<ol><li> Enter MySQL User/Password – log/xdslog
+</li><li> Select the schema privileges tab and assign ‘SELECT’,
+‘INSERT’, ‘UPDATE’ and ‘DELETE’ privileges against schemata log, and
+hit ‘Apply Changes’.
+</li><li> In the User Accounts Pane, right click on “log” -&gt; “Add host from which the user can connect” 
+</li><li> Enter “localhost” and hit “Apply Changes”
+</li></ol></li><li> To create access credentials for the "repo" data store
+<ol><li> Enter MySQL User/Password – repo/xdsrepo
+</li><li> Select the schema privileges tab and assign ‘SELECT’,
+‘INSERT’, ‘UPDATE’ and ‘DELETE’ privileges against schemata repo, and
+hit ‘Apply Changes’
+</li><li> In the User Accounts Pane, right click on “repo” -&gt; “Add host from which the user can connect” 
+</li><li> Enter “localhost” and hit “Apply Changes”
+</li></ol></li><li> To create access credentials for the "omar" data store
+<ol><li> Enter MySQL User/Password – omar/omar
+</li><li> Select the schema privileges tab and assign ‘SELECT’,
+‘INSERT’, ‘UPDATE’ and ‘DELETE’ privileges against schemata omar, to
+this user and hit ‘Apply Changes’
+</li><li> In the User Accounts Pane, right click on “omar” -&gt; “Add host from which the user can connect”
+</li><li> Enter “localhost” and hit “Apply Changes”
+</li></ol></li></ol></li></ol><h2><a name="PostGres_Setup"></a> PostGres Setup </h2>
+<p>This section describes the procedure for setting up HIEOS PostGres-based data stores.
+</p><h3><a name="Installation"></a> Installation </h3>
+<p><i>Note: You can choose any ports/passwords, but you will need to note these as this guide assumes default ports, etc.</i></p><ol><li> PostgreSQL 8.X can be downloaded from <a class="external" href="http://www.postgresql.org/download/">http://www.postgresql.org/download/.</a>  The core distribution contains the "pgadmin" administration tool that is referenced in this setup guide.
+</li><li> During installation:
+<ol><li> Accept all default settings (ex: port = 5432)
+</li><li> Provide password.  PostgreSQL requires that a complex  password be used (Ex: adminadmin123X, user = postgres by default)
+</li></ol></li></ol><h3><a name="Configuration"></a> Configuration </h3>
+<ol><li> Connect to the PostGres server using the "pgadmin" tool
+</li><li> The first task is to create access roles by going to the object browser and clicking on “Login Roles” -&gt; “New Login Role”
+<ol><li> Role Name/Password – adt/xdsadt with all role privileges except Super user
+</li><li> Role Name/Password – log/xdslog with all role privileges except Super user
+</li><li> Role Name/Password – repo/xdsrepo with all role privileges except Super user
+</li><li> Role Name/Password – omar/omar with all role privileges except Super user
+</li></ol></li><li> The next task is to create the following databases
+(in the default table space for now) by going to the object browser and
+clicking on “Databases” -&gt; “New Database”
+<ol><li> To create the “adt” data store
+<ol><li> Enter “Name” – “adt”
+</li><li> Set “owner” – “adt” and hit “OK”
+</li><li> Select the database “adt” in the object browser
+</li><li> Go to “Tools”-&gt;”Query Tool”
+</li><li> In the Query Tool go to “File”-&gt;”Open”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\adt\postgres\createadtddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “log” data store
+<ol><li> Enter “Name” – “log”
+</li><li> Set “owner” – “log” and hit “OK”
+</li><li> Select the database “log” in the object browser
+</li><li> Go to “Tools”-&gt;”Query Tool”
+</li><li> In the Query Tool go to “File”-&gt;”Open”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\log\postgres\createlogddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “repo” data store
+<ol><li> Enter “Name” – “repo”
+</li><li> Set “owner” – “repo” and hit “OK”
+</li><li> Select the database “repo” in the object browser
+</li><li> Go to “Tools”-&gt;”Query Tool”
+</li><li> In the Query Tool go to “File”-&gt;”Open”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\repo\postgres\createrepoddl.sql</tt></li><li> Hit Execute
+</li></ol></li><li> To create the “omar” data store
+<ol><li> Enter “Name” – “omar”
+</li><li> Set “owner” – “omar” and hit “OK”
+</li><li> Select the database “omar” in the object browser
+</li><li> Go to “Tools”-&gt;” Query Tool”
+</li><li> In the Query Tool go to “File”-&gt;”Open”
+</li><li> Select the DDL <tt>«HIEOS_ROOT»\data\registry\createregistryddl.sql</tt> 
+</li><li> Hit Execute
+</li><li> Similarly, load the seed data script <tt>«HIEOS_ROOT»\data\registry\common\loadseedregistrydbddl.sql</tt></li><li> Hit Execute
+</li></ol></li></ol></li></ol><h1><a name="Application_Server_Setup"></a> Application Server Setup </h1>
+<p>GlassFish was chosen as the application server for the HIEOS project. The SOAP stack is being provided by Axis2.
+</p><h2><a name="JDK_Installation"></a> JDK Installation </h2>
+<ol><li> Download and install JDK 1.6.x <a class="external" href="http://www.sun.com/download/index.jsp">http://www.sun.com/download/index.jsp</a></li><li> Add the JDK <tt>bin</tt> directory to the <tt>PATH</tt> environment variable
+</li></ol><h2><a name="GlassFish_Installation"></a> GlassFish Installation  </h2>
+<p><i>Note: You can skip to the <a href="#IDE_Setup" class="internal">IDE Setup</a> and use Glassfish v2.1 bundled with NetBeans.</i></p><ol><li> Download GlassFish v2.1 from <a class="external" href="https://glassfish.dev.java.net/public/downloadsindex.html#top">https://glassfish.dev.java.net/public/downloadsindex.html#top</a></li><li>
+During installation, note the directory where GlassFish will be
+installed. It will be referred to as the «GLASSFISH_HOME» directory in
+the remainder of this setup guide.
+</li><li> Also note that the correct JDK (see step 1 in <a href="#JDK%20Installation" class="internal">JDK Installation</a>) is being referenced
+</li><li> Accept all default properties
+</li></ol><h2><a name="Axis2_Installation"></a> Axis2 Installation </h2>
+<ol><li> Download Axis2 v1.4.1 (WAR distribution) from <a class="external" href="http://ws.apache.org/axis2/download.cgi">http://ws.apache.org/axis2/download.cgi</a>  The distribution is a zip file.
+</li><li> Extract <tt>axis2.war</tt> from the zip file and copy it to <tt>«GLASSFISH_HOME»\domains\domain1\autodeploy</tt></li></ol><h2><a name="Connection_Pool_Configuration"></a> Connection Pool Configuration </h2>
+<p>Data sources associated with HIEOS data stores need to be registered
+with the application server to leverage benefits provided by database
+connection pooling. These data sources should then be associated with
+JNDI names thereby rendering them accessible in the application
+server’s JNDI namespace. HEIOS depends on these JNDI names to connect
+to the various HIEOS data sources.
+</p><h3><a name="Data_Source_Setup"></a> Data Source Setup </h3>
+<p>Based on the RDBMS chosen, the appropriate set of configuration instructions described in this section should be followed.
+</p><h4><a name="MySQL_Configuration"></a> MySQL Configuration </h4>
+<ol><li> Copy the JDBC driver JAR file, <tt>«HIEOS_ROOT»\lib\mysql-connector-java-5.0.8-bin.jar</tt>, to <tt>«GLASSFISH_HOME»\domains\domain1\lib\ext</tt></li><li> Restart GlassFish and log on to the admin console (e.g. <tt>http://localhost:4848</tt>)
+</li><li> Set up connection pools by going to Resources-&gt;JDBC-&gt;Connection Pool
+<ol><li> For the "adt" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-adt-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: MySQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except Password, Url and User
+</li><li> Set User: adt, Password: xdsadt
+</li><li> Set Url: <tt>jdbc:mysql://localhost:3306/adt</tt></li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "log" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-log-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: MySQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except Password, Url and User
+</li><li> Set User: log, Password: xdslog
+</li><li> Set Url: <tt>jdbc:mysql://localhost:3306/log</tt></li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "omar" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-registry-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: MySQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except Password, Url and User
+</li><li> Set User: omar, Password: omar
+</li><li> Set Url: <tt>jdbc:mysql://localhost:3306/omar</tt></li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "repo" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-repo-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: MySQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except Password, Url and User
+</li><li> Set User: repo, Password: xdsrepo
+</li><li> Set Url: <tt>jdbc:mysql://localhost:3306/repo</tt></li><li> Click Finish.
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li></ol></li></ol><h4><a name="PostGres_Configuration"></a> PostGres Configuration </h4>
+<ol><li> Copy the JDBC driver JAR file, <tt>«HIEOS_ROOT»\lib\postgresql-8.3-604.jdbc4.jar</tt>, to <tt>«GLASSFISH_HOME»\domains\domain1\lib\ext</tt></li><li> Restart GlassFish and log on to the admin console (e.g. <tt>http://localhost:4848</tt>)
+</li><li> Set up connection pools by going to Resources-&gt;JDBC-&gt;Connection Pool
+<ol><li> For the "adt" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-adt-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: PostgreSQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except User, Password, ServerName, DatabaseName and PortNumber
+</li><li> Set User: adt, Password: xdsadt
+</li><li> Set DatabaseName: adt, ServerName: localhost, PortNumber: 5432 
+</li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "log" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-log-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: PostgreSQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except User, Password, ServerName, DatabaseName and PortNumber
+</li><li> Set User: log, Password: xdslog
+</li><li> Set DatabaseName: log, ServerName: localhost, PortNumber: 5432
+</li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "omar" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-registry-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: PostgreSQL.
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except User, Password, ServerName, DatabaseName and PortNumber
+</li><li> Set User: omar, Password: omar
+</li><li> Set DatabaseName: omar, ServerName: localhost, PortNumber: 5432
+</li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li><li> For the "repo" data store
+<ol><li> Select “New”
+</li><li> Enter Name: hieos-repo-pool
+</li><li> Enter Resource Type: javax.sql.ConnectionPoolDataSource
+</li><li> Enter Vendor: PostgreSQL
+</li><li> Click “Next”
+</li><li> Delete all properties from the “Additional Properties section” except User, Password, ServerName, DatabaseName and PortNumber
+</li><li> Set User: repo, Password: xdsrepo
+</li><li> Set DatabaseName: repo, ServerName: localhost, PortNumber: 5432
+</li><li> Click “Finish”
+</li><li> Select the newly created connection pool and  click “Ping”
+</li></ol></li></ol></li></ol><h3><a name="JNDI_Connection_Pool_Configuration"></a> JNDI Connection Pool Configuration </h3>
+<p>Once connection pools are setup for required HIEOS data stores, they must be associated with JNDI names as shown below:
+<br><br><i>You will set up the HIEOS JNDI configuration by going to Resources-&gt;JDBC-&gt;JDBC Resources</i></p><ol><li> For the “hieos-adt-pool” connection pool 
+<ol><li> Select “New”
+</li><li> Set JNDI Name: jdbc/hieos-adt, Pool Name: hieos-adt-pool
+</li><li> Click “OK”
+</li></ol></li><li> For the “hieos-log-pool” connection pool 
+<ol><li> Select “New”
+</li><li> Set JNDI Name: jdbc/hieos-log, Pool Name: hieos-log-pool
+</li><li> Click “OK”
+</li></ol></li><li> For the “hieos-registry-pool” connection pool 
+<ol><li> Select “New”
+</li><li> Set JNDI Name: jdbc/hieos-registry, Pool Name: hieos-registry-pool
+</li><li> Click “OK”
+</li></ol></li><li> For the “hieos-repo-pool” connection pool 
+<ol><li> Select “New”
+</li><li> Set JNDI Name: jdbc/hieos-repo, Pool Name: hieos-repo-pool
+</li><li> Click “OK”
+</li></ol></li></ol><h1><a name="IDE_Setup"></a> IDE Setup </h1>
+<p>NetBeans 6.7.1 was chosen as the IDE for development of the HIEOS project.
+</p><h2><a name="NetBeans_Installation"></a> NetBeans Installation </h2>
+<ol><li> Download NetBeans 6.7.1 (IDE bundle “All”) from <a class="external" href="http://www.netbeans.org/downloads/index.html">http://www.netbeans.org/downloads/index.html</a> 
+</li><li> During installation ensure that it is pointing to the downloaded JDK
+</li><li> Accept all default properties
+</li></ol><h2><a name="NetBeans/GlassFish_Integration"></a> NetBeans/GlassFish Integration </h2>
+<p>NetBeans can be integrated with GlassFish. This enables deployment,
+debugging, lifecycle control etc. of the GlassFish server from inside
+NetBeans.
+</p><ol><li> Start NetBeans and click on “Services”
+</li><li> Right click on “Servers”-&gt;”Add Server”
+</li><li> Choose “GlassFish v2.x” as the server type and provide a unique server name. Ex: Glassfish v2.1
+</li><li> In the “Platform Location” entry box enter the directory where the Glassfish was installed. i.e. <tt>«GLASSFISH_HOME»</tt></li><li> Accept the other default properties
+</li><li> Enter userid/password as admin/adminadmin
+</li></ol><h2><a name="NetBeans/Axis2_Integration"></a> NetBeans/Axis2 Integration </h2>
+<ol><li> In NetBeans, go to Tools-&gt;Plugins and install Axis2 plugin support
+</li><li> Shutdown and restart NetBeans to see Axis2 under “Tools”-&gt;”Options”
+</li><li> In “Tools”-&gt;”Options”-&gt;”Axis2”, set target location for Axis2 to <tt>«GLASSFISH_HOME»\domains\domain1\autodeploy\axis2.war</tt></li></ol><h1><a name="Configuration_Files"></a> Configuration Files </h1>
+<p>XML-based configuration files are used to control the behavior of
+HIEOS at run-time. For a description of these files, please refer to <a href="http://kenai.com/projects/hieos/pages/ConfigurationFiles" class="internal">Configuration Files</a>.
+</p><h1><a name="Environment_Variable_Setup"></a> Environment Variable Setup </h1>
+<p>The following environment variables are required for functioning of
+HIEOS. Under Windows, add the following environment variables by going
+to "My Computer -&gt; Properties -&gt; Advanced -&gt; Environment
+Variables":
+</p><div style="overflow-x: auto;"><div style="margin: 0px 2px;">
+<table -="" border="1"><tbody><tr><th> Variable
+</th><th> Description
+</th><th> Location
+</th></tr>
+<tr><td> <tt>HIEOSxCodesFile</tt></td><td> Location of file containing standardized XDS.b Affinity Domain healthcare codes.
+</td><td> <tt>«HIEOS_ROOT»\src\xref\web\codes\codes.xml</tt></td></tr>
+<tr><td> <tt>HIEOSxConfigFile</tt></td><td> Location of HIEOS master configuration file.
+</td><td> <tt>«HIEOS_ROOT»\src\xref\web\config\xconfig.xml</tt></td></tr>
+<tr><td> <tt>HIEOSxSchemaDir</tt></td><td> Directory location where XSD files reside in order to perform schema validation.
+</td><td> <tt>«HIEOS_ROOT»\src\xref\web\schema</tt></td></tr>
+<tr><td> <tt>HIEOSxTestDir</tt><br>(required by <a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a> only)
+</td><td> Directory location of base <a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a> program and related files.
+</td><td> <tt>«HIEOS_ROOT»\src\xtest\test</tt></td></tr>
+<tr><td> <tt>HIEOSxLogDir</tt><br>(required by <a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a> only)
+</td><td> Directory location where test logs are stored as generated by <a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a> program.
+</td><td> <tt>«HIEOS_ROOT»\logs</tt> or any other appropriate directory. Ensure the directory exists on the file system.
+</td></tr>
+</tbody></table>
+</div></div>
+<p>Once the above variables have been set, set “<tt>PATH=%PATH%;%HIEOSxTestDir%;</tt>” to enable execution of <a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a> from any location.
+<i>Note: NetBeans and/or GlassFish should be restarted once these environment variables have been established.</i></p><h1><a name="Build_and_Deployment_Steps"></a> Build and Deployment Steps </h1>
+<p>This section describes how to build the various HIEOS components
+from within NetBeans and then deploy these components to the GlassFish
+environment.
+</p><h2><a name="Build_Steps"></a> Build Steps </h2>
+<p>The following projects should be opened in NetBeans and built in the order below:
+</p><ol><li> omar
+</li><li> xutil
+</li><li> adt
+</li><li> xclient
+</li><li> xwebtoolsconfig
+</li><li> xtest
+</li><li> logbrowser
+</li><li> xlogmdb
+</li><li> xlog
+</li><li> xwebtools
+</li><li> xref 
+</li><li> xds
+</li><li> xca
+</li></ol><h2><a name="Deployment_Steps"></a> Deployment Steps </h2>
+<p>The following artifacts should be deployed to GlassFish, either
+directly from inside NetBeans or through the GlassFish admin console.
+These instructions relate to deployment from inside NetBeans:
+</p><ol><li> Start the server, by clicking on Services-&gt;Servers-&gt;GlassFish v2.1-&gt;Start
+</li><li> Deploy "xref"
+<ol><li> Right click xref-&gt;properties-&gt;Run and ensure “Server=GlassFish v2.1” and “Context Path=/xref”
+</li><li> Right click xref -&gt;Deploy
+</li></ol></li><li> Deploy "logbrowser"
+<ol><li> Right click logbrowser-&gt;properties-&gt;Run and ensure “Server=GlassFish v2.1” and “Context Path=/logbrowser”
+</li><li> Right click logbrowser-&gt;Deploy
+</li></ol></li><li> Deploy "xwebtools"
+<ol><li> Right click logbrowser-&gt;properties-&gt;Run and ensure “Server=GlassFish v2.1” and “Context Path=/xwebtools”
+</li><li> Right click xwebtools -&gt;Deploy
+</li></ol></li><li> Deploy "xlog"
+<ol><li> Right click xlog -&gt;properties-&gt;Run and ensure “Server=GlassFish v2.1”
+</li><li> Right click xlog -&gt;Deploy
+</li></ol></li><li> Deploy "xca"
+<ol><li> Right click xca -&gt; Axis2 Web Services -&gt;Deploy to Server
+</li></ol></li><li> Deploy "xds"
+<ol><li> Right click xds -&gt; Axis2 Web Services -&gt;Deploy to Server
+</li></ol></li></ol><h1><a name="TLS_Configuration"></a> TLS Configuration </h1>
+<p>Transport Layer Security (TLS) is used to encrypt XDS.b and XCA web services transactions.
+As a part of the HIEOS distribution, the following directories are included to support the test client, "<a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a>" (TLS is enabled using the <tt>xtest -S</tt> command line option), and the HIEOS platform running under the GlassFish application server, to interact over TLS.
+</p><ol><li> Sample certificates and keys under <tt>«HIEOS_ROOT»\certs</tt></li><li> A keystore under <tt>«HIEOS_ROOT»\src\xtest\test\keystores</tt> to support "<a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a>"
+</li></ol><p>The following configuration steps demonstrate how "<a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a>"
+and HIEOS should be setup for 2-way, TLS authentication. To setup HIEOS
+in live environments, please follow the same sequence of steps with CA
+issued certificates instead of the sample certificates provided by
+HIEOS.
+</p><h2><a name="Prerequisite_Software"></a> Prerequisite Software </h2>
+<p>Install OpenSSL software (location = <a class="external" href="http://www.openssl.org/">http://www.openssl.org/</a>);
+OpenSSL will be used to transform X.509 certificates into PKCS#12
+format which is a portable format that stores certificates, root
+certificate, private key all in a single file.
+</p><ol><li> Go to: <a class="external" href="http://www.slproweb.com/products/Win32OpenSSL.html">http://www.slproweb.com/products/Win32OpenSSL.html</a> for the Windows binary.   We chose Win32OpenSSL0.9.8k. 
+</li><li> We also chose to have the installation deploy DLLs into OpenSSL’s bin directory as opposed to System32
+</li><li> Add OpenSSL’s bin directory to the Path environment variable
+</li></ol><p><i>Note: (under Windows): if prompted, download Microsoft Visual C++ Redistributable from the same location and install it</i> 
+</p><h2><a name="GlassFish_Configuration"></a> GlassFish Configuration </h2>
+<ol><li> The default keystore location for GlassFish is at <tt>«GLASSFISH_HOME»\domains\domain1\config\keystore.jks</tt>. This file contains the private key.
+</li><li> The default trust store location for GlassFish is at <tt>«GLASSFISH_HOME»\domains\domain1\config\cacerts.jks</tt>.  This file contains the public certificates that need to be trusted.
+</li><li> The default password for both is "changeit". [This is the default GlassFish setup]
+</li><li> Make a back up of both these files
+</li><li> Copy the following files below to the location <tt>«GLASSFISH_HOME»\domains\domain1\config</tt>:
+<ol><li> <tt>«HIEOS_ROOT»\certs\hieos_test_server_key.pem</tt></li><li> <tt>«HIEOS_ROOT»\certs\hieos_test_client_cert.pem</tt></li><li> <tt>«HIEOS_ROOT»\certs\hieos_test_server_cert.pem</tt></li></ol></li><li> Clear the keystore (<tt>keystore.jks</tt>) and truststore (<tt>cacerts.jks</tt>) in GlassFish:
+<ol><li> First navigate to the directory (from the command line): <tt>«GLASSFISH_HOME»\domains\domain1\config</tt></li><li> Delete the existing certificate from the GlassFish keystore, <tt>keystore.jks</tt>, by the following command:<br><tt>» keytool -delete -alias s1as -keystore keystore.jks</tt> [enter password “changeit” when requested]
+</li><li> Validate the deletion with the following command: <br><tt>» keytool -list -v -keystore keystore.jks</tt> [enter password “changeit” when requested; you should see 0 entries returned]
+</li><li> Similarly delete the certificate from the GlassFish trust store, <tt>cacerts.jks</tt> by the following command:<br><tt>» keytool -delete -keystore cacerts.jks -alias s1as</tt></li><li> Double check with the following command:<br><tt>» keytool -list -v -keystore cacerts.jks -alias s1as</tt> [should get an exception message]
+</li></ol></li><li> Transform HIEOS  X509 certificates to pkcs#12 format:
+<ol><li> When in <tt>«GLASSFISH_HOME»\domains\domain1\config</tt>, execute “<tt>openssl</tt>”, this should present an “OpenSSL” prompt
+</li><li> On the prompt, execute the following commands:
+<ol><li> <tt>OpenSSL&gt; pkcs12 -export -out my_keystore.pkcs12 -in hieos_test_server_cert.pem –inkey hieos_test_server_key.pem </tt><ol><li> You should get the message <tt>Loading 'screen' into random state – done</tt></li><li> Enter Export Password: <tt>changeit</tt> (this will be invisible) 
+</li><li> Verifying - Enter Export Password:<tt>changeit</tt> (this will be invisible)
+</li></ol></li><li> OpenSSL&gt; exit
+</li></ol></li><li> A file called <tt>my_keystore.pkcs12</tt> would have been created
+</li></ol></li><li> Import the pkcs#12 certificate into <tt>keystore.jks</tt><ol><li> Ensure you are in <tt>«GLASSFISH_HOME»\domains\domain1\config</tt> and issue the command:<br><tt>»
+keytool -importkeystore -deststorepass changeit -destkeystore
+keystore.jks -srckeystore my_keystore.pkcs12 -srcstoretype PKCS12
+-srcstorepass changeit</tt> [You should see, "<tt>Import command completed:  1 entries successfully imported, 0 entries failed or cancelled</tt>"]
+</li><li> The above command will create a default alias of "1". We need
+to change it to alias "s1as" which is GlassFish default with the
+following command:<br><tt>» keytool -keystore keystore.jks -storepass changeit -changealias -alias 1 -destalias s1as</tt></li></ol></li><li> Import the public keys (<tt>hieos_test_client_cert.pem</tt> and <tt>hieos_test_server_cert.pem</tt>) for "<a href="http://kenai.com/projects/hieos/pages/TestTools" class="internal">xtest</a>"  into the trust store by the commands:<br><tt>» keytool -import -noprompt -trustcacerts -file hieos_test_client_cert.pem -keystore cacerts.jks -alias client</tt> [The password is <tt>changeit</tt>; you should see a message "<tt>Certificate was added to keystore</tt>”]<br><tt>» keytool -import -noprompt -trustcacerts -file hieos_test_server_cert.pem -keystore cacerts.jks -alias s1as</tt> [The password is <tt>changeit</tt>; you should see a message “<tt>Certificate was added to keystore</tt>”]
+</li><li> Enable client side authentication for 2-way SSL (TLS) from within GlassFish admin console
+<ol><li> Go to <tt>http://localhost:4848/login.jsf</tt><ol><li> User: <tt>admin</tt></li><li> Password: <tt>adminadmin</tt></li></ol></li><li> On left of screen, go to Configuration -&gt; HTTP Service -&gt; HTTP Listeners
+<ol><li> Select “http-listener-2” [the one with port 8181]
+</li><li> Go to SSL tab and check the option "Client Authentication"
+</li><li> Select “Save”
+</li></ol></li><li> Be sure to restart the server [in NetBeans or otherwise]</li></ol></li></ol></div>
+    <div class="clear"></div>
+  </div>
+
+            <!--END CONTENT AREA-->
+          </div>
+        </div>
+        <div id="footer" style="position: relative;">
+          <a href="http://kenai.com/">Home</a> <span class="separator">|</span>
+          <a href="http://kenai.com/mypage">My Page</a> <span class="separator">|</span>
+          <a href="http://kenai.com/projects">Projects</a> <span class="separator">|</span>
+          <a href="http://kenai.com/people">People</a> <span class="separator">|</span>
+          <a href="mailto:kenai-admin@sun.com">Contact Us</a> <span class="separator">|</span>
+                      <a href="http://kenai.com/people/signup">Join Now</a> <span class="separator">|</span>
+                    <a href="http://kenai.com/projects/help/pages/Home" target="_blank">Documentation</a>
+        </div>
+        <div id="footerCurves"></div>
+
+        <div style="padding-left: 75px;">
+          <ul class="hList">
+             <li><a href="http://www.sun.com/" title="Sun Microsystems"><div style="width: 69px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="" class="reflected" src="SetupGuide_files/sun.png"><canvas width="69" height="15" style="height: 15px; width: 69px;"></canvas></div></a></li>
+             <li><a href="http://www.opensolaris.org/" title="OpenSolaris"><div style="width: 102px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="" class="reflected" src="SetupGuide_files/opensolaris.png"><canvas width="102" height="15" style="height: 15px; width: 102px;"></canvas></div></a></li>
+             <li><a href="http://www.mysql.org/" title="MySQL"><div style="width: 58px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="Mysql" class="reflected" src="SetupGuide_files/mysql.png"><canvas width="58" height="15" style="height: 15px; width: 58px;"></canvas></div></a></li>
+             <li><a href="https://glassfish.dev.java.net/" title="GlassFish"><div style="width: 60px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="Glassfish" class="reflected" src="SetupGuide_files/glassfish.png"><canvas width="60" height="15" style="height: 15px; width: 60px;"></canvas></div></a></li>
+             <li><a href="http://www.jruby.org/" title="JRuby"><div style="width: 80px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="Jruby" class="reflected" src="SetupGuide_files/jruby.png"><canvas width="80" height="15" style="height: 15px; width: 80px;"></canvas></div></a></li>
+             <li><a href="http://www.rubyonrails.org/" title="Rails"><div style="width: 23px; height: 45px;" class=""><img style="vertical-align: bottom;" alt="Rails" class="reflected" src="SetupGuide_files/rails.png"><canvas width="23" height="15" style="height: 15px; width: 23px;"></canvas></div></a></li>
+             <li><a href="http://www.netbeans.org/" title="Netbeans"><div style="width: 124px; height: 40px;" class=""><img style="vertical-align: bottom;" alt="Nblogo" class="reflected" src="SetupGuide_files/nblogo.png"><canvas width="124" height="13" style="height: 13px; width: 124px;"></canvas></div></a></li>
+          </ul>
+        </div>
+
+        <small class="finePrint">
+          <a href="http://kenai.com/terms_of_use" class="largeOverlayLink" title="Terms of Use">Terms of Use</a>;
+          <a href="http://www.sun.com/privacy/index.html">Privacy Policy</a>;
+          Copyright ©2008-2009 (<a href="http://kenai.com/projects/help/pages/ReleaseNotes">revision 20091023.d0cdb92</a>)
+        </small>
+      </div>
+    </div>
+        <!-- popups that are anchored to specific elements -->
+    <div style="display: none;" class="popupMenuShadow" id="contextMenuShadow"></div>
+    <div class="popupMenuContainer" id="contextMenu">
+      <div class="popupMenu inline">	
+        <div class="upArrow"></div>
+        <div class="header"></div>
+        <div class="contextMenuBody" id="contextMenuBody">&nbsp;</div>
+      </div>
+    </div> 
+    
+    <!-- large content loaded via ajax. Faded but not modal. -->
+    <div class="jqmWindow jqmID1" id="jqm_large_overlay">
+      <div class="jqmHeader">
+        <div class="jqmTitle">&nbsp;</div>
+        <img class="jqmClose" src="SetupGuide_files/close.gif">
+      </div>
+      <div class="jqmTarget">
+        <img src="SetupGuide_files/activity.gif" alt="loading">
+      </div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" title="Done"> Done </button></div>
+      </div>
+    </div>
+    
+    <!-- confirmation dialogs with buttons. Faded and modal. -->
+    <div class="jqmWindow jqmID2" id="jqm_dialog">
+      <div class="jqmHeader">
+        <div class="jqmTitle">Please Confirm</div>
+        <img class="jqmClose" src="SetupGuide_files/close.gif">
+      </div>
+      <div class="jqmTarget">&nbsp;</div>
+      <div class="jqmFooter">
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_no_button" title="No" onclick="Modal.no()"> No </button></div>
+      	<div class="jqmClose functionButtonContainer"><button class="functionButton" id="jq_yes_button" title="Yes" onclick="Modal.yes();"> Yes </button></div>
+      </div>
+    </div>    
+    <div id="jq-ui-autocomplete-parent"></div>
+
+     <script src="SetupGuide_files/s_code_remote_packaged.js" type="text/javascript"></script><script type="text/javascript" src="SetupGuide_files/metrics_group1.js"></script>
+    
+  
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script src="SetupGuide_files/ga.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-10118830-1");
+        pageTracker._trackPageview();
+      } catch(err) {}</script>
+  
+
+  <script src="SetupGuide_files/body_packaged.js" type="text/javascript"></script>
+
+    <script src="SetupGuide_files/shCore.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shLegacy.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushAS3.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushBash.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushCpp.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushCSharp.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushCss.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushDelphi.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushDiff.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushGroovy.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushJava.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushJavaFX.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushJScript.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushPerl.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushPhp.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushPlain.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushPowerShell.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushPython.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushRuby.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushScala.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushSql.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushVb.js" type="text/javascript"></script>
+<script src="SetupGuide_files/shBrushXml.js" type="text/javascript"></script>
+
+  <script language="JavaScript">
+      $(document).ready(function(){
+          initWikiPageToc();
+          initWikiPagePreformattedBlocks();
+          initWikiPageSyntaxHighlight();
+          initWikiAccordionPageCreate();
+      });
+  </script>
+
+</body></html>

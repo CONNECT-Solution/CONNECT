@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+    <!-- XCA Initiating Gateway Actor -->
+    <service name="xcaig" class="com.vangent.hieos.services.xca.gateway.serviceimpl.XCAGateway" scope="application">
+        <description>XCA Initiating Gateway Interface</description>
+        <parameter name="ServiceClass" locked="false">com.vangent.hieos.services.xca.gateway.serviceimpl.XCAGateway</parameter>
+        <parameter name="ActorName">InitiatingGateway</parameter>
+        <operation name="AdhocQueryRequest">
+            <messageReceiver class="com.vangent.hieos.xutil.services.framework.XDSRawXMLInOutMessageReceiver"/>
+            <actionMapping>urn:ihe:iti:2007:RegistryStoredQuery</actionMapping>
+        </operation>
+        <operation name="RetrieveDocumentSetRequest">
+            <messageReceiver class="com.vangent.hieos.xutil.services.framework.XDSRawXMLInOutMessageReceiver"/>
+            <actionMapping>urn:ihe:iti:2007:RetrieveDocumentSet</actionMapping>
+            <parameter name="enableMTOM" locked="false">true</parameter>
+        </operation>
+    </service>
+
+    <!-- XCA Responding Gateway Actor -->
+    <service name="xcarg" class="com.vangent.hieos.services.xca.gateway.serviceimpl.XCAGateway" scope="application">
+        <description>XCA Responding Gateway Interface</description>
+        <parameter name="ServiceClass" locked="false">com.vangent.hieos.services.xca.gateway.serviceimpl.XCAGateway</parameter>
+        <parameter name="ActorName">RespondingGateway</parameter>
+        <operation name="AdhocQueryRequest">
+            <messageReceiver class="com.vangent.hieos.xutil.services.framework.XDSRawXMLInOutMessageReceiver"/>
+            <actionMapping>urn:ihe:iti:2007:CrossGatewayQuery</actionMapping>
+        </operation>
+        <operation name="RetrieveDocumentSetRequest">
+            <messageReceiver class="com.vangent.hieos.xutil.services.framework.XDSRawXMLInOutMessageReceiver"/>
+            <actionMapping>urn:ihe:iti:2007:CrossGatewayRetrieve</actionMapping>
+            <parameter name="enableMTOM" locked="false">true</parameter>
+        </operation>
+    </service>
+
+</serviceGroup>

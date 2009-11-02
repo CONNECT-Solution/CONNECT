@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>multitest/xds_query</Test>
+
+<!--
+    <TestStep id="xds_finddocs_ref">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>Test FindDocuments SQ</SQ>
+            <Assertion>ObjectRef return</Assertion>
+        </Rule>
+        <StoredQueryTransaction>
+            <UseId symbol="$patient_id$" value="007baa587387419^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO"/>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef"/>
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'$patient_id$'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+        </StoredQueryTransaction>
+    </TestStep>
+
+    <TestStep id="xds_finddocs_leaf">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>Test FindDocuments SQ</SQ>
+            <Assertion>ObjectRef return</Assertion>
+        </Rule>
+        <StoredQueryTransaction>
+            <UseId symbol="$patient_id$" value="007baa587387419^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO"/>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'$patient_id$'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+        </StoredQueryTransaction>
+    </TestStep>
+
+    <TestStep id="xcaig_finddocs_ref">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>Test FindDocuments XCQ</SQ>
+            <Assertion>ObjectRef return</Assertion>
+        </Rule>
+        <XCAIGStoredQueryTransaction>
+            <UseId symbol="$patient_id$" value="007baa587387419^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO"/>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef"/>
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'$patient_id$'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+        </XCAIGStoredQueryTransaction>
+    </TestStep>
+
+    <TestStep id="xcaig_finddocs_leaf">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>Test FindDocuments XCQ</SQ>
+            <Assertion>ObjectRef return</Assertion>
+        </Rule>
+        <XCAIGStoredQueryTransaction>
+            <UseId symbol="$patient_id$" value="007baa587387419^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO"/>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'$patient_id$'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+        </XCAIGStoredQueryTransaction>
+    </TestStep>
+-->
+    <TestStep id="xcaig_retrieve">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <XCAIGRetrieveTransaction>
+            <Metadata>
+              <RetrieveDocumentSetRequest xmlns="urn:ihe:iti:xds-b:2007"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="urn:ihe:iti:xds-b:2007 file:/Users/bill/ihe/Frameworks/ITI-4/XDS.b/schema/IHE/XDS.b_DocumentRepository.xsd">
+                   <DocumentRequest>
+                     <HomeCommunityId>urn:oid:1.19.6.24.109.42.1.3</HomeCommunityId>
+                     <RepositoryUniqueId>1.19.6.24.109.42.1.5</RepositoryUniqueId>
+                     <DocumentUniqueId>129.6.58.92.1016748</DocumentUniqueId>
+                   </DocumentRequest>
+                  <DocumentRequest>
+                     <HomeCommunityId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</HomeCommunityId>
+                     <RepositoryUniqueId>1.3.6.1.4.1.21367.2009.1.2.1010</RepositoryUniqueId>
+                     <DocumentUniqueId>129.6.58.92.1016750</DocumentUniqueId>
+                   </DocumentRequest>
+               </RetrieveDocumentSetRequest>
+            </Metadata>
+            <XDSb/>
+        </XCAIGRetrieveTransaction>
+    </TestStep>
+
+<!--
+    <TestStep id="xcarg_retrieve">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <XCRTransaction>
+            <Metadata>
+              <RetrieveDocumentSetRequest xmlns="urn:ihe:iti:xds-b:2007"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="urn:ihe:iti:xds-b:2007 file:/Users/bill/ihe/Frameworks/ITI-4/XDS.b/schema/IHE/XDS.b_DocumentRepository.xsd">
+                   <DocumentRequest>
+                     <HomeCommunityId>urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020</HomeCommunityId>
+                     <RepositoryUniqueId>1.3.6.1.4.1.21367.2009.1.2.1010</RepositoryUniqueId>
+                     <DocumentUniqueId>129.6.58.92.1016750</DocumentUniqueId>
+                   </DocumentRequest>
+			 <DocumentRequest>
+                     <HomeCommunityId>urn:oid:1.19.6.24.109.42.1.3</HomeCommunityId>
+                     <RepositoryUniqueId>1.19.6.24.109.42.1.5</RepositoryUniqueId>
+                     <DocumentUniqueId>129.6.58.92.1016748</DocumentUniqueId>
+                   </DocumentRequest>
+               </RetrieveDocumentSetRequest>
+            </Metadata>
+            <XDSb/>
+        </XCRTransaction>
+    </TestStep>
+-->
+</TestPlan>

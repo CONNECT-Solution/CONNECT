@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+ <Test>11994/eval</Test>
+ <TestStep id="validate_original">
+  <ExpectedStatus>Success</ExpectedStatus>
+  <StoredQueryTransaction>
+   <UseId testdir="../submit" id="SubmissionSet01" step="submit"
+                section="AssignedUids" symbol="$ssuid$"/>
+   <Metadata>
+    <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+     <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+     <AdhocQuery id="urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83">
+      <Slot name="$XDSSubmissionSetUniqueId">
+       <ValueList>
+        <Value>'$ssuid$'</Value>
+       </ValueList>
+      </Slot>
+     </AdhocQuery>
+    </query:AdhocQueryRequest>
+   </Metadata>
+   <ExpectedContents>
+    <SSwithOneDoc/>
+    <DocApp/>
+   </ExpectedContents>
+  </StoredQueryTransaction>
+ </TestStep>
+ <TestStep id="validate_xfrm">
+  <ExpectedStatus>Success</ExpectedStatus>
+  <StoredQueryTransaction>
+   <UseId testdir="../xfrm" id="SubmissionSet01" step="xfrm"
+                section="AssignedUids" symbol="$ssuid$"/>
+   <Metadata>
+    <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+     <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+     <AdhocQuery id="urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83">
+      <Slot name="$XDSSubmissionSetUniqueId">
+       <ValueList>
+        <Value>'$ssuid$'</Value>
+       </ValueList>
+      </Slot>
+     </AdhocQuery>
+    </query:AdhocQueryRequest>
+   </Metadata>
+   <ExpectedContents>
+    <SSwithOneDoc/>
+    <DocApp/>
+   </ExpectedContents>
+  </StoredQueryTransaction>
+ </TestStep>
+ <TestStep id="no_validate_rplc_xfrm">
+  <ExpectedStatus>Success</ExpectedStatus>
+  <StoredQueryTransaction>
+   <UseId testdir="../xfrm" id="SubmissionSet01" step="xfrm_rplc"
+                section="AssignedUids" symbol="$ssuid$"/>
+   <Metadata>
+    <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+     <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+     <AdhocQuery id="urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83">
+      <Slot name="$XDSSubmissionSetUniqueId">
+       <ValueList>
+        <Value>'$ssuid$'</Value>
+       </ValueList>
+      </Slot>
+     </AdhocQuery>
+    </query:AdhocQueryRequest>
+   </Metadata>
+   <ExpectedContents>
+    <None/>
+   </ExpectedContents>
+  </StoredQueryTransaction>
+ </TestStep>
+</TestPlan>

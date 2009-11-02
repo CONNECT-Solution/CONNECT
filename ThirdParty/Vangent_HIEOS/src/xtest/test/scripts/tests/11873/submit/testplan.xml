@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11873/submit</Test>
+    <TestStep id="submit">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="submit_copy">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

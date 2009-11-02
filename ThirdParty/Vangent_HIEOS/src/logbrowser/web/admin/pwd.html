@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+ <head>
+  <title>Change password</title>
+  <script type="text/javascript" src="../javascripts/Ajax.js"></script>
+  <script type="text/javascript" src="javascripts/GetAuthentication.js"></script>
+  <script type='text/javascript' src='../javascripts/prototype.js'  > </script>	
+  <script type='text/javascript' src='../javascripts/sha256.js'  > </script>	
+  <script type='text/javascript' src='javascripts/changePassword.js'  > </script>	
+ 
+ </head>
+ <body onload = "$('oldPassword').focus();"  >
+ <a href = "../index.html" >Back to reader</a>
+ <center>
+ <div id='loginScreen' style='background:#fff9d9;position:relative ; top: 150px ; ; width:40%; border = 5px ;'>
+ <fieldset >
+	 <legend>password</legend>
+	 <p>Type password to change administrator password: </p>
+	 <table >
+		 <tr>
+		 	<td align="right">Old password :</td>
+		 	<td><input type='password' id='oldPassword' name='oldPassword' /> </td>
+		 </tr>
+		 <tr>
+		 	<td align="right">New password :</td>
+		 	<td><input type='password' id='newPassword' name='NewPassword' /> </td>
+		 </tr>
+		 <tr>
+		 	<td align="right">Retype password :</td>
+		 	<td><input type='password' id='reTypePassword' name='ReTypePassword' /></td>
+		 </tr>	
+	</table> 
+    <br/>
+	 <input type='button' value='Change' onclick='check();'></input>
+ </fieldset>
+ </div>
+ </center>
+ 
+ <center>
+ <div id='errorMsg' style='position:relative ; top:-100px;'></div>
+ </center>
+ 
+ </body>
+ </html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12028/retrieve</Test>
+    <TestStep id="retrieve">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RetrieveTransaction>
+            <UseXPath testdir="../query" step="uniqueid" symbol="$repositoryuid$">
+                /TestResults/TestStep[1]/StoredQueryTransaction[@step='uniqueid']/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='ExtrinsicObject'][1]/*[local-name()='Slot'][@name='repositoryUniqueId']/*[local-name()='ValueList']/*[local-name()='Value']/text()</UseXPath>
+            <UseId testdir="../submit" id="Document01" step="submit"
+                section="AssignedUids" symbol="$docuid$"/>
+            <ExpectedMimeType>text/plain</ExpectedMimeType>
+            <Metadata>
+<RetrieveDocumentSetRequest xmlns="urn:ihe:iti:xds-b:2007"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:ihe:iti:xds-b:2007 file:/Users/bill/ihe/Frameworks/ITI-4/XDS.b/schema/IHE/XDS.b_DocumentRepository.xsd">
+    <DocumentRequest>
+        <RepositoryUniqueId>$repositoryuid$</RepositoryUniqueId>
+        <DocumentUniqueId>$docuid$</DocumentUniqueId>
+    </DocumentRequest>
+</RetrieveDocumentSetRequest>
+            </Metadata>
+            <ExpectedContents>
+            </ExpectedContents>
+            <ReferenceDocument uid="$docuid$">../submit/my_document.txt</ReferenceDocument>
+            <XDSb/>
+        </RetrieveTransaction>
+    </TestStep>
+</TestPlan>

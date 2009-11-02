@@ -1,0 +1,12 @@
+<AdhocQueryRequest
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:registry:xsd:2.1"
+    xmlns:rim="urn:oasis:names:tc:ebxml-regrep:rim:xsd:2.1"
+    xmlns:q = "urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1"
+    xmlns="urn:oasis:names:tc:ebxml-regrep:query:xsd:2.1"
+>
+    <ResponseOption returnType = "LeafClass" returnComposedObjects="true"/>
+    <SQLQuery>
+    SELEC
+    </SQLQuery>
+</AdhocQueryRequest>

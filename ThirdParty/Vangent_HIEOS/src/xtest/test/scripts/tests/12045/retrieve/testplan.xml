@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12045/retrieve</Test>
+    <TestStep id="retrieve">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RetrieveTransaction>
+            <XDSa/>
+            <URIRef log_file="../query/log.xml" step_id="uniqueid" trans_type="StoredQueryTransaction" />
+        </RetrieveTransaction>
+    </TestStep>
+</TestPlan>

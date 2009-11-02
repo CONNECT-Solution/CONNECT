@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11966/submit</Test>
+   <RegistryEndpoint>http://129.6.24.109:9080/axis2/services/test11966a</RegistryEndpoint> 
+    <TestStep id="MTOM/XOP">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSb/>
+            <SOAP11/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+            <Document id="Document01">my_document.txt</Document>
+        </ProvideAndRegisterTransaction>
+    </TestStep>
+    <TestStep id="MTOM">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSb/>
+            <SOAP11/>
+            <NoXOP/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+            <Document id="Document01">my_document.txt</Document>
+        </ProvideAndRegisterTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12028/query</Test>
+    <Rule>GetDocuments Stored Query</Rule>
+    <TestStep id="uniqueid">
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>GetDocuments</SQ>
+            <Assertion>Get DocumentEntry info via UniqueId</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4">
+                        <Slot name="$XDSDocumentEntryUniqueId">
+                            <ValueList>
+                                <Value>('$uid$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../submit" id="Document01" step="submit"
+                section="AssignedUids" symbol="$uid$"/>
+            <ExpectedContents>
+                <Documents count="1"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11827</Test>
+   <RegistryEndpoint>http://129.6.24.109:9080/axis2/services/test11827a</RegistryEndpoint> 
+    <TestStep id="submit">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSa/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+            <Document id="Document01">my_document.txt</Document>
+        </ProvideAndRegisterTransaction>
+    </TestStep>
+</TestPlan>

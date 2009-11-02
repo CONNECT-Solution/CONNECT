@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12324</Test>
+    <TestStep id="submit_doc_w_fol">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Accept Create Folder with Initial Document</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <AssignUuids/>
+            <MetadataFile>single_doc_w_fol.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="verify_submission">
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>GetSubmissionSetAndContents</SQ>
+            <Assertion>Query based on uniqueId</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <!-- GetSubmissionSetAndContents  -->
+                    <AdhocQuery id="urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83">
+                        <Slot name="$XDSSubmissionSetUniqueId">
+                            <ValueList>
+                                <Value>'$uniqueid$'</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="SubmissionSet01" step="submit_doc_w_fol"
+                section="AssignedUids" symbol="$uniqueid$"/>
+            <ExpectedContents>
+                <SubmissionSets count="1"/>
+                <Associations count="4"/>
+                <Documents count="1"/>
+                <Folders count="1"/>
+                <SSwithOneDocOneFol/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+    <TestStep id="rplc">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Issue RPLC</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <UseId id="Document01" step="submit_doc_w_fol" section="AssignedUuids"
+                symbol="$rplc_doc_uuid$"/>
+            <MetadataFile>rplc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="verify_folder_contents">
+        <Rule>
+            <Transaction>SQ</Transaction>
+            <SQ>GetFolderAndContents</SQ>
+            <Assertion>Evaluate association between folder and document</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <!-- GetFolderAndContents  -->
+                    <AdhocQuery id="urn:uuid:b909a503-523d-4517-8acf-8e5834dfc4c7">
+                        <Slot name="$XDSFolderUniqueId">
+                            <ValueList>
+                                <Value>'$uniqueid$'</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId id="Folder" step="submit_doc_w_fol"
+                section="AssignedUids" symbol="$uniqueid$"/>
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="2"/>
+                <Documents count="2"/>
+                <Folders count="1"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

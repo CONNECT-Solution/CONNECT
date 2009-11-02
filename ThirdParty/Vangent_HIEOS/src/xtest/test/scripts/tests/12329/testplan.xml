@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12329</Test>
+    <Rule>Allocate a new Patient ID</Rule>
+    <TestStep id="allocate_patient_id">
+        <NewPatientId/>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,56 @@
+= Document Source.a Tests =
+
+== 11728 ==
+
+'''Submit a Folder via XDS.a'''
+
+Verify that the XDS.a Document Source can submit a Folder via [[XDS_Transactions#Provide_and_Register_Document_Set-a|Provide and Register Document Set-a]] transaction.
+
+'''References'''
+: ITI TF-2 3.15
+
+'''Actors Tested'''
+: Document Source
+
+'''Dependencies'''
+: None
+
+'''You will need to'''
+: none
+
+'''Resources'''
+: testkit/examples/11728
+: [[XDS_Test_Log_Browser|XDS Test Log Browser]]
+
+'''Testing Document Source Actor'''
+# Configure your Document Source actor to submit to the Public Repository. See configuration here.
+# Submit a [[Metadata_Patterns#Submission_Set_containing_a_Single_Folder|Submission Set containing a single Folder]] using the [[XDS_Transactions#Provide_and_Register_Document_Set-a|Provide and Register Document Set-a]] transaction 
+# [[XDS_Test_Management#Tests_run_against_the_Public_Registry|Submit your results]]
+
+== 11729 ==
+
+'''Submit a Folder with an initial document via XDS.a'''
+
+Verify that the XDS.a Document Source can submit a Folder and initial document via [[XDS_Transactions#Provide_and_Register_Document_Set|Provide and Register Document Set]] transaction.
+
+'''References'''
+: ITI TF-2 3.15
+
+'''Actors Tested'''
+: Document Source
+
+'''Dependencies'''
+: None
+
+'''You will need to'''
+: none
+
+'''Resources'''
+: testkit/examples/11729
+: [[XDS_Test_Log_Browser|XDS Test Log Browser]]
+
+'''Testing Document Source Actor'''
+# Configure your Document Source actor to submit to the Public Repository at EndPoint <nowiki>http://ihexds.nist.gov:9080/tf5/services/test11729</nowiki>
+# Submit a [[Metadata_Patterns# Submission Set containing a Single Folder with initial Document| Submission Set containing a Single Folder with initial Document]] using the [[XDS_Transactions#Provide_and_Register_Document_Set|Provide and Register Document Set]] transaction 
+# [[XDS_Test_Management#Tests_run_against_the_Public_Registry|Submit your results]]
+

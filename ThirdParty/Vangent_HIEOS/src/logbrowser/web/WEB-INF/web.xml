@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <description>Log Browser</description>
+
+    <display-name>Log Browser</display-name>
+
+    <servlet>
+        <servlet-name>GetEVSServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetEVSServlet</servlet-class>
+
+
+    </servlet>
+
+        <servlet-mapping>
+
+        <servlet-name>GetEVSServlet</servlet-name>
+
+        <url-pattern>/GetEVSServlet</url-pattern>
+
+    </servlet-mapping>
+
+    <servlet>
+
+        <servlet-name>GetMessageServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetMessageServlet</servlet-class>
+
+
+
+
+
+
+
+
+
+
+
+
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>GetMessageServlet</servlet-name>
+
+        <url-pattern>/GetMessageServlet</url-pattern>
+
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>GetTableServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetTableServlet</servlet-class>
+
+        <init-param>
+
+            <param-name>sqlCommand</param-name>
+
+            <param-value>SELECT main.messageid , main.is_secure,
+                         main.timereceived as "Timestamp",
+                         ip.company_name as "Company Name or IP", main.ip  as "ip",
+                         main.test as "Test", main.pass
+                         FROM main, ip where main.ip = ip.ip order
+                         by main.messageid desc ;
+            </param-value>
+
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>GetTableServlet</servlet-name>
+
+        <url-pattern>/GetTableServlet</url-pattern>
+
+    </servlet-mapping>
+
+
+    <servlet>
+
+        <servlet-name>GetCompanyServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetCompanyServlet</servlet-class>
+
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>GetCompanyServlet</servlet-name>
+
+        <url-pattern>/GetCompanyServlet</url-pattern>
+
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetTestNameServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetTestNameServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>GetTestNameServlet</servlet-name>
+
+        <url-pattern>/GetTestNameServlet</url-pattern>
+
+    </servlet-mapping>
+
+
+    <servlet>
+
+        <servlet-name>GetDateServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.GetDateServlet</servlet-class>
+        <init-param>
+
+            <param-name>sqlCommand</param-name>
+
+            <param-value>SELECT timereceived FROM main order by timereceived desc ;</param-value>
+
+        </init-param>
+
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>GetDateServlet</servlet-name>
+
+        <url-pattern>/GetDateServlet</url-pattern>
+
+    </servlet-mapping>
+
+    <servlet>
+
+        <servlet-name>AuthenticationServlet</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.AuthenticationServlet</servlet-class>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>AuthenticationServlet</servlet-name>
+
+        <url-pattern>/AuthenticationServlet</url-pattern>
+
+    </servlet-mapping>
+
+    <servlet>
+
+        <servlet-name>DeleteMessages</servlet-name>
+
+        <servlet-class>com.vangent.hieos.logbrowser.servlets.DeleteMessages</servlet-class>
+
+    </servlet>
+    <servlet-mapping>
+
+        <servlet-name>DeleteMessages</servlet-name>
+
+        <url-pattern>/DeleteMessages</url-pattern>
+
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        </welcome-file-list>
+    </web-app>

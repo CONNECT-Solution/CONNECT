@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<?xml-stylesheet type="text/xsl" href="CCD.xsl"?>-->
+<!-- The following sample document depicts a fictional characters health summary. Any resemblance to a real person is coincidental. -->
+
+<ClinicalDocument xsi:schemaLocation="urn:hl7-org:v3 http://xreg2.nist.gov:8080/hitspValidation/schema/cdar2c32/infrastructure/cda/C32_CDA.xsd" xmlns:sdtc="urn:hl7-org:sdtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:hl7-org:v3">
+  <typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+  <templateId assigningAuthorityName="CDA/R2" root="2.16.840.1.113883.3.27.1776"/>
+  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1"/>
+  <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.1"/>
+  <id extension="Laika C32 Test" assigningAuthorityName="Laika: An Open Source EHR Testing Framework projectlaika.org" root="2.16.840.1.113883.3.72"/>
+  <code code="34133-9" displayName="Summarization of patient data" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1"/>
+  <title>VA WW TEF #1</title>
+  <effectiveTime value="20080522100845-0500"/>
+  <confidentialityCode/>
+  <languageCode code="en-US"/>
+  <recordTarget>
+    <patientRole>
+      <id extension="1234567890"/>
+      <addr>
+        <streetAddressLine>1980 Aggrrttooff Court</streetAddressLine>
+        <city>Dulles</city>
+        <state>VA</state>
+        <postalCode>20165</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom value="tel:703-555-3311" use="HP"/>
+      <telecom value="tel:703-555-2332" use="WP"/>
+      <telecom value="mailto:ca@yahoo.com"/>
+      <patient>
+        <name>
+          <prefix>Mr.</prefix>
+          <given qualifier="CL">Cxey</given>
+          <family qualifier="BR">Aaaactxy</family>
+        </name>
+        <administrativeGenderCode code="M" displayName="Male" codeSystemName="HL7 AdministrativeGenderCodes" codeSystem="2.16.840.1.113883.5.1">
+          <originalText>AdministrativeGender codes are: M (Male), F (Female) or UN (Undifferentiated).</originalText>
+        </administrativeGenderCode>
+        <birthTime value="19800808"/>
+        <maritalStatusCode code="M" displayName="Married" codeSystemName="MaritalStatusCode" codeSystem="2.16.840.1.113883.5.2"/>
+        <religiousAffiliationCode code="1013" displayName="Christian" codeSystemName="Religious Affiliation" codeSystem="2.16.840.1.113883.5.1076"/>
+        <languageCommunication>
+          <templateId root="2.16.840.1.113883.3.88.11.32.2"/>
+          <languageCode code="en-US"/>
+          <preferenceInd value="false"/>
+        </languageCommunication>
+      </patient>
+    </patientRole>
+  </recordTarget>
+  <author>
+    <time value="20080417"/>
+    <assignedAuthor>
+      <id root="C320417200800000000001"/>
+      <assignedPerson>
+        <name>
+        </name>
+      </assignedPerson>
+      <representedOrganization>
+        <id root="2.16.840.1.113883.19.5"/>
+        <name>Depertment of Veterans Affairs</name>
+      </representedOrganization>
+    </assignedAuthor>
+  </author>
+  <custodian>
+    <assignedCustodian>
+      <representedCustodianOrganization>
+        <id/>
+      </representedCustodianOrganization>
+    </assignedCustodian>
+  </custodian>
+  <participant typeCode="IND">
+    <templateId root="2.16.840.1.113883.3.88.11.32.3"/>
+    <time>
+      <low value="19990919"/>
+    </time>
+    <associatedEntity classCode="NOK">
+      <code code="WIFE" displayName="Wife" codeSystemName="RoleCode" codeSystem="2.16.840.1.113883.5.111"/>
+      <addr>
+        <streetAddressLine>1980 Aggrrttooff Court</streetAddressLine>
+        <city>Dulles</city>
+        <state>VA</state>
+        <postalCode>20165</postalCode>
+        <country>US</country>
+      </addr>
+      <telecom value="tel:703-555-1980" use="HP"/>
+      <telecom value="tel:703-555-4466" use="WP"/>
+      <telecom value="mailto:wja@msn.com"/>
+      <associatedPerson>
+        <name>
+          <prefix>Mrs.</prefix>
+          <given qualifier="CL">Jikkklaan</given>
+          <family qualifier="BR">Aaaactxy</family>
+        </name>
+      </associatedPerson>
+    </associatedEntity>
+  </participant>
+  <documentationOf>
+    <serviceEvent classCode="PCPR">
+      <effectiveTime>
+        <low value="0"/>
+        <high value="2010"/>
+      </effectiveTime>
+      <performer typeCode="PRF">
+        <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.4"/>
+        <functionCode code="PP" displayName="Primary Care Provider" codeSystemName="Provider Role" codeSystem="2.16.840.1.113883.12.443">
+        </functionCode>
+        <time>
+          <low value="19990707"/>
+        </time>
+        <assignedEntity>
+          <id/>
+          <code code="320000000X" displayName="Residential Treatment Facilities" codeSystemName="ProviderCodes" codeSystem="2.16.840.1.113883.6.101"/>
+          <addr>
+            <streetAddressLine>5445 Rhhojjkk Blvd</streetAddressLine>
+            <streetAddressLine>Suite #6789</streetAddressLine>
+            <city>Dulles</city>
+            <state>VA</state>
+            <postalCode>20165</postalCode>
+            <country>US</country>
+          </addr>
+          <telecom value="tel:703-555-8998" use="WP"/>
+          <assignedPerson>
+            <name>
+              <prefix>Dr.</prefix>
+              <given qualifier="CL">Peppplrrr</given>
+              <family qualifier="BR">Wdssjhheeem</family>
+            </name>
+          </assignedPerson>
+        </assignedEntity>
+      </performer>
+    </serviceEvent>
+  </documentationOf>
+  <component>
+    <structuredBody>
+      <component>
+        <section>
+          <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.11"/>
+          <code code="11450-4" displayName="Problems" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Conditions or Problems</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Problem Name</th>
+                  <th>Problem Type</th>
+                  <th>Problem Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520673">Patient complains of pain in the right foot.</content>
+                  </td>
+                  <td>Complaint</td>
+                  <td>20080215</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520674">some discoloration of the skin on right foot/2nd toe.</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20080215</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520675">Roadsie bomb injury.</content>
+                  </td>
+                  <td>Problem</td>
+                  <td>20060101</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520676">Prior surgeries to the right leg occurred at several Army Medical Treatment Facilities for shrapnel removal.</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20060101</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520677">X-ray of the right foot shows a radio-opaque fragment overlying the distal 2nd metatarsal bone</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20080215</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520678">309.81-Posttraumatic stress disorder</content>
+                  </td>
+                  <td>Diagnosis</td>
+                  <td>20060101</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520679">Surgery advised for collection of the fragment, surrounding tissue and lavage fluid</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20080217</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520680">CPT 20520-Removal of foreign body in muscle or tendon sheath; simple</content>
+                  </td>
+                  <td>Condition</td>
+                  <td>20080307</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520681">Urine bio-monitoring kit recommended for home use.</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20080403</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520682">401.1-Hypertension</content>
+                  </td>
+                  <td>Diagnosis</td>
+                  <td>20060101</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520683">Foot lump dorsum of the foot just below the 2nd toe</content>
+                  </td>
+                  <td>Symptom</td>
+                  <td>20080215</td>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="problem-1021520684">URINE  Heavy Metal:  Fe 25mg/24h, CU 0.03mg/24h, Pb 0.2mg/24h</content>
+                  </td>
+                  <td>Finding</td>
+                  <td>20080615</td>
+                </tr>
+              </tbody>
+            </table>
+          </text>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080215"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="409586006" displayName="Complaint" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520673"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080215"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520674"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20060101"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="55607006" displayName="Problem" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520675"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20060101"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520676"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080215"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520677"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20060101"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="282291009" displayName="Diagnosis" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520678"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080217"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520679"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080307"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="64572001" displayName="Condition" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520680"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080403"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520681"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20060101"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="282291009" displayName="Diagnosis" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520682"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080215"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="418799008" displayName="Symptom" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520683"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+              <id/>
+              <code nullFlavor="NA"/>
+              <effectiveTime>
+                <low value="20080615"/>
+                <high nullFlavor="UNK"/>
+              </effectiveTime>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+                  <code code="404684003" displayName="Finding" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <text>
+                    <reference value="#problem-1021520684"/>
+                  </text>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.2"/>
+          <code code="48765-2" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Allergies, Adverse Reactions, Alerts</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Substance</th>
+                  <th>Event Type</th>
+                  <th>Severity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Lactose</td>
+                  <td>Food Allergy</td>
+                  <td>
+                    <content ID="severity-823358887">Mild</content>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Penicillin</td>
+                  <td>Drug Allergy</td>
+                  <td/>
+                </tr>
+              </tbody>
+            </table>
+          </text>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId root="2.16.840.1.113883.3.88.11.32.6"/>
+              <id root="2C748172-7CC2-4902-8AF0-23A105C4401B"/>
+              <code nullFlavor="NA"/>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.1.18"/>
+                  <code code="414285001" displayName="Food Allergy" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <low value="20061010"/>
+                    <high nullFlavor="UNK"/>
+                  </effectiveTime>
+                  <participant typeCode="CSM">
+                    <participantRole classCode="MANU">
+                      <playingEntity classCode="MMAT">
+                        <code code="" displayName="Lactose" codeSystemName="RxNorm" codeSystem="2.16.840.1.113883.6.88"/>
+                        <name>Lactose</name>
+                      </playingEntity>
+                    </participantRole>
+                  </participant>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+          <entry>
+            <act classCode="ACT" moodCode="EVN">
+              <templateId root="2.16.840.1.113883.10.20.1.27"/>
+              <templateId root="2.16.840.1.113883.3.88.11.32.6"/>
+              <id root="2C748172-7CC2-4902-8AF0-23A105C4401B"/>
+              <code nullFlavor="NA"/>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.10.20.1.18"/>
+                  <code code="416098002" displayName="Drug Allergy" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                  <effectiveTime>
+                    <low value="19901215"/>
+                    <high nullFlavor="UNK"/>
+                  </effectiveTime>
+                  <participant typeCode="CSM">
+                    <participantRole classCode="MANU">
+                      <playingEntity classCode="MMAT">
+                        <code code="" displayName="Penicillin" codeSystemName="RxNorm" codeSystem="2.16.840.1.113883.6.88"/>
+                        <name>Penicillin</name>
+                      </playingEntity>
+                    </participantRole>
+                  </participant>
+                </observation>
+              </entryRelationship>
+            </act>
+          </entry>
+        </section>
+      </component>
+      <component>
+        <section>
+          <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.8"/>
+          <code code="10160-0" displayName="History of medication use" codeSystemName="LOINC" codeSystem="2.16.840.1.113883.6.1"/>
+          <title>Medications</title>
+          <text>
+            <table border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Product Display Name</th>
+                  <th>Free Text Brand Name</th>
+                  <th>Ordered Value</th>
+                  <th>Ordered Unit</th>
+                  <th>Expiration Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <content ID="medication-809983340">Quetiapine 25MG</content>
+                  </td>
+                  <td/>
+                  <td/>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="medication-809983341">Lisinopril 20MG</content>
+                  </td>
+                  <td/>
+                  <td/>
+                  <td/>
+                  <td/>
+                </tr>
+                <tr>
+                  <td>
+                    <content ID="medication-809983342">Sertraline 50MG</content>
+                  </td>
+                  <td/>
+                  <td/>
+                  <td/>
+                  <td/>
+                </tr>
+              </tbody>
+            </table>
+          </text>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.24"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+              <id/>
+              <consumable>
+                <manufacturedProduct classCode="MANU">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.53"/>
+                  <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.9"/>
+                  <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                  </manufacturedMaterial>
+                </manufacturedProduct>
+              </consumable>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.3.88.11.32.10"/>
+                  <code code="73639000" displayName="Prescription Drug" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.24"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+              <id/>
+              <consumable>
+                <manufacturedProduct classCode="MANU">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.53"/>
+                  <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.9"/>
+                  <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                  </manufacturedMaterial>
+                </manufacturedProduct>
+              </consumable>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.3.88.11.32.10"/>
+                  <code code="73639000" displayName="Prescription Drug" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+          <entry>
+            <substanceAdministration classCode="SBADM" moodCode="EVN">
+              <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.24"/>
+              <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+              <id/>
+              <consumable>
+                <manufacturedProduct classCode="MANU">
+                  <templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.53"/>
+                  <templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.9"/>
+                  <manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+                  </manufacturedMaterial>
+                </manufacturedProduct>
+              </consumable>
+              <entryRelationship typeCode="SUBJ">
+                <observation classCode="OBS" moodCode="EVN">
+                  <templateId root="2.16.840.1.113883.3.88.11.32.10"/>
+                  <code code="73639000" displayName="Prescription Drug" codeSystemName="SNOMED CT" codeSystem="2.16.840.1.113883.6.96"/>
+                  <statusCode code="completed"/>
+                </observation>
+              </entryRelationship>
+            </substanceAdministration>
+          </entry>
+        </section>
+      </component>
+    </structuredBody>
+  </component>
+</ClinicalDocument>

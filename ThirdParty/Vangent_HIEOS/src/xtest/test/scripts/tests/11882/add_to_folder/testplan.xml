@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11881/add_to_folder</Test>
+    <TestStep id="add">
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <NewPatientId/>
+        <RegisterTransaction>
+            <XDSa/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+            <UseId testdir="../create_folder" 
+                   id="Folder" 
+                   step="submit_fol" 
+                   section="AssignedUuids"
+                   symbol="$Folder$"/>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

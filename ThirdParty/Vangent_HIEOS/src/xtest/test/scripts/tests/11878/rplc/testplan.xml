@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>11878/rplc</Test>
+    <TestStep id="rplc">
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Issue RPLC with different patient id - must fail</Assertion>
+        </Rule>
+        <NewPatientId/>
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <ExpectedErrorMessage>XDSPatientIdDoesNotMatch</ExpectedErrorMessage>
+        <RegisterTransaction>
+            <XDSa/>
+            <UseId testdir="../submit" id="Document01" step="submit" section="AssignedUuids"
+                symbol="$rplc_doc_uuid$"/>
+            <MetadataFile>rplc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

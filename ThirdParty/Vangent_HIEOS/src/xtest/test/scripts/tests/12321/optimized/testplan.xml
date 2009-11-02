@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>12321/optimized</Test>
+   <Rule>Send optimized MTOM/XOP message to Repository. Content is Provide and Register request</Rule>
+    <TestStep id="optimized">
+        <MswTransaction>
+        	<type>MTOM</type>
+        </MswTransaction>
+    </TestStep>
+</TestPlan>

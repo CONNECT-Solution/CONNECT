@@ -1,0 +1,376 @@
+<!--
+xdstest actor configuration file
+
+
+transaction 
+   values for name attribute
+	r.a    - Register.a transaction
+	r.b    - Register.b transaction
+	pr.a   - Provide and Register.a transaction
+	pr.b   - Provide and Register.b transaction
+	q      - SQL query transaction
+	sq     - Stored Query transaction
+
+    values for secure attribute
+  	1      - use TLS
+	0      - don't use TLS
+	not present - don't use TLS
+
+    element value is WS Endpoint
+    
+Note: when testing a Document Repository, it is best to include the Stored Query transaction and
+have it point at the Public Registry.  Most Repository tests make use of Stored Query to validate
+the response of your Repository.
+
+    
+PidAllocateEndpoint
+   defines a REST style endpoint for allocating a patient ID for testing.  Issuing an HTTP GET
+   against this endpoint will return a newly allocated patient ID guaranteed not to have any registry
+   contents. The return content will have content-type of text/plain and the only content in the body 
+   will be the patient ID.
+
+-->
+
+
+<sites>
+    <!-- The default site. The one xdstest uses if the -s sitename is not specified -->
+    <defaultsite>dev</defaultsite>
+    
+    <!-- Declaration of all services offered by this site. If the site name below is loaded into 
+        defaultsite above then xdstest will use this configuration by default. If not, use 
+        -s pub  on the xdstest command line to select this site.  The site below defines the interfaces
+        for the public registry.
+        
+        The transaction names are referenced by test description in the testkit. If you use TLS by starting
+        a test with xdstestS instead of xdstest, the secure="1" version of each transaction will be used.
+        
+        <repository> elements define Document Repositories, specifically the mapping between the repositoryUnqiueId
+        and the repository's endpoint for the Retrieve Document Set transaction.
+        
+        <rg> elements do the same for Responding Gateways in XCA.
+        
+        <PidAllocateEndpoint> defines a URI (REST style endpoint) that will accept a HTTP GET.  The return 
+        from the GET will be a newly allocated Patient ID. The return content will have content-type of 
+        text/plain and the only content in the body will be the patient ID.This is used by tests that must 
+        allocate multiple patient IDs to execute the test. As delivered, this element points to the Public 
+        Registry. When using xdstest to test your Document Repository or Document Registry actor, you may
+        define your own allocation service or use the one on the Public Registry server.
+        -->
+    <!-- Public Registry -->
+    <site name="pub">
+        <transaction name="r.a"            >http://ihexds.nist.gov:9080/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a"           >http://ihexds.nist.gov:9080/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q"              >http://ihexds.nist.gov:9080/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq"             >http://ihexds.nist.gov:9080/tf5/services/xdsregistryb</transaction>
+        <transaction name="r.b"            >http://ihexds.nist.gov:9080/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b"           >http://ihexds.nist.gov:9080/tf5/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://ihexds.nist.gov:9085/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://ihexds.nist.gov:9085/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://ihexds.nist.gov:9085/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://ihexds.nist.gov:9085/tf5/services/xdsregistryb</transaction>
+        <transaction name="r.b" secure="1" >https://ihexds.nist.gov:9085/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://ihexds.nist.gov:9085/tf5/services/xdsrepositoryb</transaction>
+
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="1">https://ihexds.nist.gov:9085/tf5/services/rg</transaction>
+        <transaction name="xcr" home="urn:oid:1.19.6.24.109.42.1.3" secure="1">https://ihexds.nist.gov:9085/tf5/services/rg</transaction>
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://ihexds.nist.gov:9080/tf5/services/rg</transaction>
+        <transaction name="xcr" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://ihexds.nist.gov:9080/tf5/services/rg</transaction>
+        
+        <transaction name="sq.ig" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://ihexds.nist.gov:9080/tf5/services/xdsregistryb</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.19.6.24.109.42.1.3" secure="1">https://ihexds.nist.gov:9085/tf5/services/xdsregistryb</transaction>
+        <transaction name="r.ig" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://ihexds.nist.gov:9080/tf5/services/xdsrepositoryb</transaction>
+        <transaction name="r.ig" home="urn:oid:1.19.6.24.109.42.1.3" secure="1">https://ihexds.nist.gov:9085/tf5/services/xdsrepositoryb</transaction>
+ 
+        <repository uid="1.19.6.24.109.42.1"           >http://ihexds.nist.gov:9080/tf5/services/xdsrepositoryb</repository>
+        <repository uid="1.19.6.24.109.42.1" secure="1">https://ihexds.nist.gov:9085/tf5/services/xdsrepositoryb</repository>
+		
+	  <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://ihexds.nist.gov:9080/xdstools/pidallocate?rest=1</PidAllocateEndpoint>
+        
+    </site>
+
+    <!-- Development copy of Public Registry -->
+    <site name="dev">
+<!--        <transaction name="r.a"             >http://localhost:50967/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a"            >http://localhost:50967/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q"               >http://localhost:50967/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq"              >http://localhost:50967/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b"             >http://localhost:50967/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b"            >http://localhost:50967/axis2/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://localhost:50969/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://localhost:50969/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://localhost:50969/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://localhost:50969/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b" secure="1" >https://localhost:50969/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://localhost:50969/axis2/services/xdsrepositoryb</transaction>
+-->
+        <transaction name="r.a"             >http://192.168.25.94:8080/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a"            >http://192.168.25.94:8080/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q"               >http://192.168.25.94:8080/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq"              >http://192.168.25.94:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b"             >http://192.168.25.94:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b"            >http://192.168.25.94:8080/axis2/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://192.168.25.94:8181/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://192.168.25.94:8181/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://192.168.25.94:8181/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://192.168.25.94:8181/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b" secure="1" >https://192.168.25.94:8181/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://192.168.25.94:8181/axis2/services/xdsrepositoryb</transaction>
+
+<!--	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010">http://localhost:50967/axis2/services/xdsrepositoryb</repository>
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010" secure="1">https://localhost:50969/axis2/services/xdsrepositoryb</repository>
+-->	
+<!--	<repository uid="1">http://localhost:50967/axis2/services/xdsrepositoryb</repository>
+	<repository uid="1" secure="1">https://localhost:50969/axis2/services/xdsrepositoryb</repository>
+-->	
+<repository uid="1">http://192.168.25.94:8080/axis2/services/xdsrepositoryb</repository>
+	<repository uid="1" secure="1">https://192.168.25.94:8181/axis2/services/xdsrepositoryb</repository>
+
+
+        <!-- These are for the Responding Gateway -->
+<!--        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:50969/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:50969/axis2/services/xcarg</transaction>
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:50967/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:50967/axis2/services/xcarg</transaction>
+-->        
+		<transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://192.168.25.94:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://l192.168.25.94:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://192.168.25.94:8080/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://192.168.25.94:8080/axis2/services/xcarg</transaction>
+
+        <!-- These are for the Initiating Gateway -->
+<!--        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:50967/axis2/services/xcaig</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:50969/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:50967/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:50969/axis2/services/xcaig</transaction>
+-->
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://192.168.25.94:8080/axis2/services/xcaig</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://192.168.25.94:8080/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://192.168.25.94:8080/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://192.168.25.94:8080/axis2/services/xcaig</transaction>
+        
+        <!-- Patient ID allocation service to use with this site -->
+        <!--<PidAllocateEndpoint>http://localhost:50967/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>-->
+        <PidAllocateEndpoint>http://192.168.25.94:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+    <!-- Virtual Testing - Development copy of Public Registry -->
+    <site name="vdev">
+        <transaction name="r.a"             >http://69.255.171.1:8080/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a"            >http://69.255.171.1:8080/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q"               >http://69.255.171.1:8080/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq"              >http://69.255.171.1:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b"             >http://69.255.171.1:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b"            >http://69.255.171.1:8080/axis2/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://69.255.171.1:8181/axis2/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://69.255.171.1:8181/axis2/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://69.255.171.1:8181/axis2/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://69.255.171.1:8181/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b" secure="1" >https://69.255.171.1:8181/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://69.255.171.1:8181/axis2/services/xdsrepositoryb</transaction>
+
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010">http://69.255.171.1:8080/axis2/services/xdsrepositoryb</repository>
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010" secure="1">https://69.255.171.1:8181/axis2/services/xdsrepositoryb</repository>
+
+
+        <!-- These are for the Responding Gateway -->
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://69.255.171.1:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://69.255.171.1:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://69.255.171.1:8080/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://69.255.171.1:8080/axis2/services/xcarg</transaction>
+
+        <!-- These are for the Initiating Gateway -->
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://69.255.171.1:8080/axis2/services/xcaig</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://69.255.171.1:8181/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://69.255.171.1:8080/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://69.255.171.1:8181/axis2/services/xcaig</transaction>
+        
+        <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://69.255.171.1:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+    <!-- Development copy of Microsoft Registry/Repo (Uses Vangent XCA) -->
+    <site name="msdev">
+        <transaction name="sq"              >http://microsoft2:1125/XDSService/XDSRegistry</transaction>
+        <transaction name="r.b"             >http://microsoft2:1125/XDSService/XDSRegistry</transaction>
+        <transaction name="pr.b"            >http://microsoft2:1125/XdsService/XDSRepository</transaction>
+        <transaction name="sq" secure="1"  >https://microsoft2:9080/XDSService/XDSRegistry</transaction>
+        <transaction name="r.b" secure="1" >https://microsoft2:9080/XDSService/XDSRegistry</transaction>
+        <transaction name="pr.b" secure="1">https://microsoft2:9080/XdsService/XDSRepository</transaction>
+
+	  <repository uid="1.3.6.1.4.1.21367.2009.1.2.1050">http://microsoft2:1125/XdsService/XDSRepository</repository>
+	  <repository uid="1.3.6.1.4.1.21367.2009.1.2.1050" secure="1">https://microsoft2:9080/XdsService/XDSRepository</repository>
+      
+      <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://localhost:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+ <!-- IBM -->
+    <site name="ibm">
+        <transaction name="sq"              >http://ibm3:9085/IBMXDSRegistry/XDSb/SOAP12/Registry</transaction>
+        <transaction name="r.b"             >http://ibm3:9085/IBMXDSRegistry/XDSb/SOAP12/Registry</transaction>
+        <transaction name="pr.b"            >http://ibm3:9085/IBMXDSRepository/XDSb/SOAP12/Repository</transaction>
+        <transaction name="sq" secure="1"  >https://ibm3:9448/IBMXDSRegistry/XDSb/SOAP12/Registry</transaction>
+        <transaction name="r.b" secure="1" >https://ibm3:9448/IBMXDSRegistry/XDSb/SOAP12/Registry</transaction>
+        <transaction name="pr.b" secure="1">https://ibm3:9448/IBMXDSRepository/XDSb/SOAP12/Repository</transaction>
+
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1030">http://ibm3:9085/IBMXDSRepository/XDSb/SOAP12/Repository</repository>
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1030" secure="1">https://ibm3:9448/IBMXDSRepository/XDSb/SOAP12/Repository</repository>
+
+
+        <!-- These are for the Responding Gateway -->
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcarg</transaction>
+
+        <!-- These are for the Initiating Gateway -->
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2040" secure="0">http://ibm3:9085/XGatewayWS/InitiatingGatewayQuery</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2040" secure="1">XXXX</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2040" secure="0">http://ibm3:9085/XGatewayWS/InitiatingGatewayRetrieve</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2040" secure="1">XXXX</transaction>
+        
+        <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://localhost:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+ <!-- AGFA -->
+    <site name="agfa">
+        <transaction name="sq"              >http://69.255.171.1:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="r.b"             >http://69.255.171.1:8080/axis2/services/xdsregistryb</transaction>
+        <transaction name="pr.b"            >http://97.66.135.203:8080/dcm4chee-xdsb-repository</transaction>
+        <transaction name="sq" secure="1"  >https://XXX</transaction>
+        <transaction name="r.b" secure="1" >https://XXX</transaction>
+        <transaction name="pr.b" secure="1">https://97.66.135.203:8443/dcm4chee-xdsb-repository</transaction>
+
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1020">http://97.66.135.203:8080/dcm4chee-xdsb-repository</repository>
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1020" secure="1">https://97.66.135.203:8443/dcm4chee-xdsb-repository</repository>
+        
+        <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://69.255.171.1:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+ <!-- AXOLOTL -->
+    <site name="axolotl">
+        <transaction name="sq"              >XXX</transaction>-->
+        <transaction name="r.b"             >XXX</transaction>
+        <transaction name="pr.b"            >http://axolotl1:80/docrepository/submit</transaction>
+        <transaction name="sq" secure="1"  >XXX</transaction>
+        <transaction name="r.b" secure="1" >XXX</transaction>
+        <transaction name="pr.b" secure="1">https://axolotl1:443/docrepository/submit</transaction>
+
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1040">http://axolotl1:80/docrepository/submit</repository>
+	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1040" secure="1">https://axolotl1:443/docrepository/submit</repository>
+
+
+        <!-- These are for the Responding Gateway -->
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcarg</transaction>
+        <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcarg</transaction>
+        <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcarg</transaction>
+
+        <!-- These are for the Initiating Gateway -->
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcaig</transaction>
+        <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://localhost:8080/axis2/services/xcaig</transaction>
+        <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://localhost:8181/axis2/services/xcaig</transaction>
+        
+        <!-- Patient ID allocation service to use with this site -->
+        <PidAllocateEndpoint>http://localhost:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+
+
+    <site name="msw">
+        <transaction name="r.a"            >http://localhost:5555/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a"           >http://localhost:5555/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q"              >http://localhost:5555/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq"             >http://localhost:5555/tf5/services/xdsregistrya</transaction>
+        <transaction name="r.b"            >http://localhost:5555/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b"           >http://localhost:5555/tf5/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://localhost:9443/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="r.b" secure="1" >https://localhost:9443/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://localhost:9443/tf5/services/xdsrepositoryb</transaction>
+        
+        <repository uid="1.19.6.24.109.42.2"           >http://localhost:5555/tf5/services/xdsrepositoryb</repository>
+        <repository uid="1.19.6.24.109.42.2" secure="1">https://localhost:9443/tf5/services/xdsrepositoryb</repository>
+        
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:5555/tf5/services/rg</transaction>
+        <transaction name="xcr" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:5555/tf5/services/rg</transaction>
+        
+        <PidAllocateEndpoint>http://localhost:9080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+    
+    <site name="async">
+        <transaction name="r.a"            >http://localhost:6666/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a"           >http://localhost:6666/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q"              >http://localhost:6666/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq"             >http://localhost:6666/tf5/services/xdsregistrya</transaction>
+        <transaction name="r.b"            >http://localhost:6666/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b"           >http://localhost:6666/tf5/services/xdsrepositoryb</transaction>
+        <transaction name="r.a" secure="1" >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a" secure="1">https://localhost:9443/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q" secure="1"   >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq" secure="1"  >https://localhost:9443/tf5/services/xdsregistrya</transaction>
+        <transaction name="r.b" secure="1" >https://localhost:9443/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b" secure="1">https://localhost:9443/tf5/services/xdsrepositoryb</transaction>
+        
+        <repository uid="1.19.6.24.109.42.2"           >http://localhost:6666/tf5/services/xdsrepositoryb</repository>
+        <repository uid="1.19.6.24.109.42.2" secure="1">https://localhost:9443/tf5/services/xdsrepositoryb</repository>
+        
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:6666/tf5/services/rg</transaction>
+        <transaction name="xcr" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:6666/tf5/services/rg</transaction>
+        
+        <PidAllocateEndpoint>http://localhost:9080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+    
+    <site name="tcpmon">
+        <transaction name="r.a" >http://localhost:5000/tf5/services/xdsregistrya</transaction>
+        <transaction name="pr.a">http://localhost:5000/tf5/services/xdsrepositorya</transaction>
+        <transaction name="q"   >http://localhost:5000/tf5/services/xdsregistrya</transaction>
+        <transaction name="sq"  >http://localhost:5000/tf5/services/xdsregistryb</transaction>
+        <transaction name="r.b" >http://localhost:5000/tf5/services/xdsregistryb</transaction>
+        <transaction name="pr.b">http://localhost:5000/tf5/services/xdsrepositoryb</transaction>
+        
+        <repository uid="1.19.6.24.109.42.2">http://localhost:5000/tf5/services/xdsrepositoryb</repository>
+        <repository uid="1.19.6.24.109.42.2" secure="1">https://localhost:9443/tf5/services/xdsrepositoryb</repository>
+        
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:5000/tf5/services/rg</transaction>
+        <transaction name="xcq" home="urn:oid:1.19.6.24.109.42.1.3" secure="0">http://localhost:5000/tf5/services/rg</transaction>
+        
+        <PidAllocateEndpoint>http://localhost:9080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+    
+    
+     <!-- Lab (VMWare server) copy of Public Registry -->
+     <site name="lab">
+            <transaction name="sq"              >http://208.81.185.143:8080/axis2/services/xdsregistryb</transaction>
+            <transaction name="r.b"             >http://208.81.185.143:8080/axis2/services/xdsregistryb</transaction>
+            <transaction name="pr.b"            >http://208.81.185.143:8080/axis2/services/xdsrepositoryb</transaction>
+            <transaction name="sq" secure="1"  >https://208.81.185.143:8181/axis2/services/xdsregistryb</transaction>
+            <transaction name="r.b" secure="1" >https://208.81.185.143:8181/axis2/services/xdsregistryb</transaction>
+            <transaction name="pr.b" secure="1">https://208.81.185.143:8181/axis2/services/xdsrepositoryb</transaction>
+    
+    	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010">http://208.81.185.143:8080/axis2/services/xdsrepositoryb</repository>
+    	<repository uid="1.3.6.1.4.1.21367.2009.1.2.1010" secure="1">https://208.81.185.143:8181/axis2/services/xdsrepositoryb</repository>
+    
+    
+            <!-- These are for the Responding Gateway -->
+            <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://208.81.185.143:8181/axis2/services/xcarg</transaction>
+            <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://208.81.185.143:8181/axis2/services/xcarg</transaction>
+            <transaction name="xcq" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://208.81.185.143:8080/axis2/services/xcarg</transaction>
+            <transaction name="xcr" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://208.81.185.143:8080/axis2/services/xcarg</transaction>
+    
+            <!-- These are for the Initiating Gateway -->
+            <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://208.81.185.143:8080/axis2/services/xcaig</transaction>
+            <transaction name="sq.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://208.81.185.143:8181/axis2/services/xcaig</transaction>
+            <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="0">http://208.81.185.143:8080/axis2/services/xcaig</transaction>
+            <transaction name="r.ig" home="urn:oid:1.3.6.1.4.1.21367.2009.1.2.2020" secure="1">https://208.81.185.143:8181/axis2/services/xcaig</transaction>
+            
+            <!-- Patient ID allocation service to use with this site -->
+            <PidAllocateEndpoint>http://208.81.185.143:8080/xwebtools/pidallocate?rest=1</PidAllocateEndpoint>
+    </site>
+    
+</sites>

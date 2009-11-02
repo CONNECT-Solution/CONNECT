@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>multitest/submit</Test>
+    <TestStep id="xds_submit_docs">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSb/>
+		<!--<NoXOP/>-->
+	  	<AssignUuids/>
+		<NoPatientId/>
+            <UseId symbol="$patient_id$" value="007baa587387419^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO"/>
+
+            <MetadataFile>sor_one.xml</MetadataFile>
+		<Document id="Document01">test_txt_doc.txt</Document>
+            <!--
+            <MetadataFile>sor.xml</MetadataFile>
+		<Document id="Document01">test_pdf_doc.pdf</Document>
+            <Document id="Document02">test_hitsp_c32.xml</Document> 
+		<Document id="Document03">test_txt_doc.txt</Document>
+		-->
+        </ProvideAndRegisterTransaction>
+    </TestStep>  
+</TestPlan>

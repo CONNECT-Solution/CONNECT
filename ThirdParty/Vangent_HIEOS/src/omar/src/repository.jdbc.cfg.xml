@@ -1,0 +1,45 @@
+<?xml version='1.0'?>
+<!DOCTYPE hibernate-configuration
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+<!-- 
+ * ====================================================================
+ * This code is subject to the freebxml License, Version 1.1
+ *
+ * Copyright (c) 2001 - 2003 freebxml.org.  All rights reserved.
+ *
+ * $Header: /cvsroot/ebxmlrr/omar/conf/database/repository.jdbc.cfg.xml,v 1.1 2004/08/11 10:46:19 doballve Exp $
+ * ====================================================================
+
+ HibernateSession cfg file for HibernateRepositoryManager.
+ When using this, Hibernate will handle connection to database.
+
+ @author Diego Ballve / Digital Artefacts
+-->
+<hibernate-configuration>
+  <session-factory>
+
+    <!--
+    <property name="dialect">net.sf.hibernate.dialect.HSQLDialect</property>
+    <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+    <property name="connection.url">jdbc:hsqldb:hsql://localhost/omar_registry</property>
+    <property name="connection.username">sa</property>
+    <property name="connection.password"></property>
+    -->
+
+    <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <property name="connection.url">jdbc:postgresql://localhost:5432/omar</property>
+    <property name="connection.username">omar</property>
+    <property name="connection.password">omar</property>
+
+    <property name="connection.pool_size">2</property>
+    <property name="show_sql">false</property>
+    <property name="hibernate.transaction.factory_class">net.sf.hibernate.transaction.JDBCTransactionFactory</property>
+
+    <!-- Mapping files -->
+    <mapping resource="repository.hbm.xml"/>
+
+  </session-factory>
+
+</hibernate-configuration>

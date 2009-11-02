@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>7</Test>
+   <RegistryEndpoint>http://129.6.24.109:9080/axis2/services/xdsregistryb</RegistryEndpoint> 
+    <TestStep id="object_type">
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <ExpectedErrorMessage>is not available in this Affinity Domain</ExpectedErrorMessage>
+        <RegisterTransaction>
+            <XDSb/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

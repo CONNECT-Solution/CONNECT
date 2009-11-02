@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12038/retrieve</Test>
+    <RegistryEndpoint>ENDPOINT</RegistryEndpoint>
+    <TestStep id="retrieve">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RetrieveTransaction>
+            <Metadata>
+<RetrieveDocumentSetRequest xmlns="urn:ihe:iti:xds-b:2007"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <DocumentRequest>
+        <RepositoryUniqueId>REPID</RepositoryUniqueId>
+        <DocumentUniqueId>DOCUID</DocumentUniqueId>
+    </DocumentRequest>
+</RetrieveDocumentSetRequest>
+            </Metadata>
+            <ExpectedContents>
+            </ExpectedContents>
+        </RetrieveTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<!DOCTYPE hibernate-configuration
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-2.0.dtd">
+<!-- 
+ * ====================================================================
+ * This code is subject to the freebxml License, Version 1.1
+ *
+ * Copyright (c) 2001 - 2003 freebxml.org.  All rights reserved.
+ *
+ * $Header: /cvsroot/ebxmlrr/omar/conf/database/repository.datasource.cfg.xml,v 1.4 2006/06/08 16:02:02 doballve Exp $
+ * ====================================================================
+
+ Alternative HibernateSession cfg file for HibernateRepositoryManager.
+ When using this settings, Hibernate will delegate DB connection handling to
+ application server (recommended, but requires changes to app server cfg).
+
+ @author Diego Ballve / Digital Artefacts
+-->
+<hibernate-configuration>
+
+    <session-factory>
+
+        <property name="connection.datasource">java:comp/env/jdbc/omar-registry</property>
+        <property name="show_sql">false</property>
+        <property name="dialect">net.sf.hibernate.dialect.PostgreSQLDialect</property>
+
+        <!-- Mapping files -->
+        <mapping resource="repository.hbm.xml"/>
+
+    </session-factory>
+
+</hibernate-configuration>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11885/submit</Test>
+    <TestStep id="submit">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="resubmit_doc">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RegisterTransaction>
+            <XDSa/>
+            <NoAssignUids id="Document01"/>
+            <MetadataFile>single_doc2.xml</MetadataFile>
+            <UseId id="Document01" step="submit"
+                section="AssignedUids" symbol="$doc_uid$"/>
+        </RegisterTransaction>
+    </TestStep>
+    <TestStep id="resubmit_doc_diff_hash">
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <ExpectedErrorMessage>XDSNonIdenticalHash</ExpectedErrorMessage>
+        <RegisterTransaction>
+            <XDSa/>
+            <NoAssignUids id="Document01"/>
+            <MetadataFile>single_doc3.xml</MetadataFile>
+            <UseId id="Document01" step="submit"
+                section="AssignedUids" symbol="$doc_uid$"/>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

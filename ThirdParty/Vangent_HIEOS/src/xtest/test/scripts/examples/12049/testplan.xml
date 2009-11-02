@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>12049</Test>
+    <RegistryEndpoint>http://localhost:9080/tf5/services/repositoryBonedoc</RegistryEndpoint>
+    <TestStep id="good">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSb/>
+            <MetadataFile>single_doc.xml</MetadataFile>
+            <Document id="Document01">my_document.txt</Document>
+            <AssignUuids/>
+        </ProvideAndRegisterTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>11801</Test>
+    <TestStep id="query">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <SqlQueryTransaction>
+            <MetadataFile>metadata.xml</MetadataFile>
+            <UseId testdir="../../testdata/11890" id="SubmissionSet01" step="submit_doc"
+                section="AssignedPatientId" symbol="$patientid$"/>
+
+            <ExpectedContents>
+                <SubmissionSets count="0"/>
+                <Associations count="0"/>
+                <Documents count="0"/>
+                <ObjectRefs count="5"/>
+                <Folders count="0"/>
+            </ExpectedContents>
+        </SqlQueryTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>V_XCA2</Test>
+    <TestStep id="getdocs_leaf">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>XCAIGStoredQueryTransaction</Transaction>
+            <SQ>Test GetDocuments XCA Initiating Gateway</SQ>
+            <Assertion>LeafClass return</Assertion>
+        </Rule>
+        <XCAIGStoredQueryTransaction>
+            <UseXPath testdir="../V_XCA1" step="finddocs_leaf" symbol="$home$">
+/TestResults/TestStep[@id='finddocs_ref']/XCAIGStoredQueryTransaction/Result/*[local-name()='AdhocQueryResponse']/*[local-name()='RegistryObjectList']/*[local-name()='ObjectRef'][1]/@home
+            </UseXPath>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4" home="$home$">
+                        <Slot name="$XDSDocumentEntryEntryUUID">
+                            <ValueList>
+                                <Value>('$doc_uuid_1$', '$doc_uuid_2$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseObjectRef testdir="../V_XCA1" step="finddocs_ref" index="0" symbol="$doc_uuid_1$"/>
+            <UseObjectRef testdir="../V_XCA1" step="finddocs_ref" index="1" symbol="$doc_uuid_2$"/>
+            <Assertions>
+               <DataRef file="THIS" as="output"/>
+               <Assert id="ExtrinsicObjectCount"> 
+count(//XCAIGStoredQueryTransaction[@step="getdocs_leaf"]/Result/*[local-name(.)='AdhocQueryResponse']/*[local-name(.)='RegistryObjectList']/*[local-name(.)='ExtrinsicObject']) = 2
+               </Assert>
+            </Assertions>
+        </XCAIGStoredQueryTransaction>
+    </TestStep>
+</TestPlan>

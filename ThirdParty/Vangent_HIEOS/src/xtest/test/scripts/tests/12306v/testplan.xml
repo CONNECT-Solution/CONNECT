@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12306v</Test>
+    <!--<RegistryEndpoint>http://localhost:8080/axis2/services/test12306</RegistryEndpoint>-->
+    <TestStep id="finddocs">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>XCAIGStoredQueryTransaction</Transaction>
+            <SQ>Test FindDocuments XCA Initiating Gateway</SQ>
+            <Assertion>ObjectRef return</Assertion>
+        </Rule>
+        <XCAIGStoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="ObjectRef"/>
+                    <AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+                        <Slot name="$XDSDocumentEntryPatientId">
+                            <ValueList>
+                                <Value>'$patient_id$'</Value>
+                            </ValueList>
+                        </Slot>
+                        <Slot name="$XDSDocumentEntryStatus">
+                            <ValueList>
+                                <Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../testdata/12318" id="SubmissionSet01" step="init"
+                section="AssignedPatientId" symbol="$patient_id$"/>
+            <Assertions>
+               <DataRef file="THIS" as="output"/>
+               <Assert id="ObjectRefCount"> 
+count(//XCAIGStoredQueryTransaction[@step="finddocs"]/Result/*[local-name(.)='AdhocQueryResponse']/*[local-name(.)='RegistryObjectList']/*[local-name(.)='ObjectRef']) = 2
+               </Assert>
+            </Assertions>
+        </XCAIGStoredQueryTransaction>
+    </TestStep>
+</TestPlan>

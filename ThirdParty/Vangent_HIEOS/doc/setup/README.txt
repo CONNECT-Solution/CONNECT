@@ -1,0 +1,1 @@
+Setup guide can be found at http://kenai.com/projects/hieos/pages/SetupGuide

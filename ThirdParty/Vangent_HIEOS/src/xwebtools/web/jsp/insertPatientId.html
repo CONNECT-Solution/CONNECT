@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>Allocate Patient ID for XDS testing</title>
+	</head>
+	<body>
+		<h1>Allocate Patient ID for XDS testing</h1>
+		<p>Pressing button will allocate a new patient ID, register it with
+		this XDS Registry Server, and display it on the next screen.</p>
+		<p>Remember when coding metadata in XML, the &amp; char must be
+		escaped as &amp;amp;</p>
+
+		<form   method="post" 
+        	action="jsp/insert_patient_id.jsp" enctype="multipart/form-data">
+			<input 	type=submit name="Allocate" value="Allocate"/>
+		</form>
+
+	</body>
+</html>

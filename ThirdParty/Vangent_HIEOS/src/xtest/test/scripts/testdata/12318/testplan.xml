@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>12318</Test>
+    <TestStep id="init">
+        <NewPatientId/>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <ProvideAndRegisterTransaction>
+            <XDSb/>
+            <MetadataFile>two_doc.xml</MetadataFile>
+            <Document id="Document01">largepdf.pdf</Document>
+            <Document id="Document02">summary.xml</Document>
+        </ProvideAndRegisterTransaction>
+    </TestStep>
+    <TestStep id="reset_patient_id">
+        <NewPatientId/>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12048/apnd</Test>
+    <TestStep id="apnd">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <Rule>
+            <Transaction>R</Transaction>
+            <Assertion>Issue APND</Assertion>
+        </Rule>
+        <RegisterTransaction>
+            <XDSa/>
+            <UseId testdir="../submit" id="Document01" step="submit" section="AssignedUuids"
+                symbol="$apnd_doc_uuid$"/>
+            <MetadataFile>apnd.xml</MetadataFile>
+        </RegisterTransaction>
+    </TestStep>
+</TestPlan>

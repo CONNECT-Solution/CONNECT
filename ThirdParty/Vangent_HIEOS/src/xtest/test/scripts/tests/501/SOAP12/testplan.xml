@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>501</Test>
+    <TestStep id="two_doc_uuid_one_ss">
+        <Rule>
+            <Transaction>sq</Transaction>
+            <SQ>getsubmissionsets</SQ>
+            <Assertion>two document uuids as parameters, both from same submission set</Assertion>
+        </Rule>
+        <ExpectedStatus>Success</ExpectedStatus>
+        <StoredQueryTransaction>
+            <Metadata>
+                <query:AdhocQueryRequest xmlns:xsi="http://www.w3.org/2001/xmlschema-instance"
+                    xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                    xmlns="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+                    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+                    <query:ResponseOption returnComposedObjects="true" returnType="LeafClass"/>
+                    <AdhocQuery id="urn:uuid:51224314-5390-4169-9b91-b1980040715a">
+                        <Slot name="$uuid">
+                            <ValueList>
+                                <Value>('$uuid1$', '$uuid2$')</Value>
+                            </ValueList>
+                        </Slot>
+                    </AdhocQuery>
+                </query:AdhocQueryRequest>
+            </Metadata>
+            <UseId testdir="../../../testdata/500" id="Document01" step="submit_2doc_w_fol"
+                section="AssignedUuids" symbol="$uuid1$"/>
+            <UseId testdir="../../../testdata/500" id="Document02" step="submit_2doc_w_fol"
+                section="AssignedUuids" symbol="$uuid2$"/>
+            <ExpectedContents>
+                <SubmissionSets count="1"/>
+                <Associations count="2"/>
+            </ExpectedContents>
+        </StoredQueryTransaction>
+    </TestStep>
+</TestPlan>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+   <Test>11710</Test>
+   <RegistryEndpoint>http://localhost:9080/axis2/services/xdsrepositoryb</RegistryEndpoint> 
+    <TestStep id="submit">
+        <ExpectedStatus>Failure</ExpectedStatus>
+        <ExpectedErrorMessage>The following UUIDs</ExpectedErrorMessage>
+        <SimpleTransaction>
+          <ParseMetadata>False</ParseMetadata>
+          <Action>urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b</Action>
+          <Addressing/>
+          <Mtom/>
+          <MetadataFile>metadata3.xml</MetadataFile>
+        </SimpleTransaction>
+    </TestStep>
+</TestPlan>

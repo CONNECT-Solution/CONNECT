@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan>
+    <Test>12029/retrieve</Test>
+    <TestStep id="MTOM/XOP">
+        <ExpectedStatus>Success</ExpectedStatus>
+        <RetrieveTransaction>
+            <XDSa/>
+            <URI>https://localhost:9443/Repository/129.6.58.91.11305.txt</URI>
+            <ExpectedMimeType>text/plain</ExpectedMimeType>
+        </RetrieveTransaction>
+    </TestStep>
+</TestPlan>

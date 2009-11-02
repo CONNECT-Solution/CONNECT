@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm -f *.tc
+
+xdstest -ls | awk '{print $2 " " $1}' > listing
+
