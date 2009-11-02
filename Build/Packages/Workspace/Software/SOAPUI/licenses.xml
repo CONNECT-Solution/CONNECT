@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <licenses>
   <!--<license file="" user=""/>-->
-  <license file="pro2139.lic" users="Jason"/>
-  <license file="pro2140.lic" users="Sai"/>
-  <license file="pro2141.lic" users="Neil"/>
-  <license file="pro2142.lic" users="Jon"/>
-  <license file="pro2143.lic" users="Scott"/>
-  <license file="pro2144.lic" users="Martha"/>
-  <license file="pro2145.lic" users="Vicky"/>
-  <license file="pro2146.lic" users="Les"/>
-  <license file="pro2147.lic" users="Visu"/>
-  <license file="pro2148.lic" users="Aleena"/>
-  <license file="pro28721.lic" users="Clark"/>
-  <license file="pro28722.lic" users="Kieran"/>
+  <license file="pro2139.lic" users="rayj"/>
+  <license file="pro2140.lic" users="valluripallis"/>
+  <license file="pro2141.lic" users="webbn"/>
+  <license file="pro2142.lic" users="hoppeschj"/>
+  <license file="pro2143.lic" users="borsts"/>
+  <license file="pro2144.lic" users="mflynn02"/>
+  <license file="pro2145.lic" users="vvickers"/>
+  <license file="pro2146.lic" users="westbergl"/>
+  <license file="pro2147.lic" users="vpatlolla"/>
+  <license file="pro2148.lic" users="dhara"/>
+  <license file="pro28721.lic" users="shawc"/>
+  <license file="pro28722.lic" users="dunnek"/>
   <license file="pro5295.lic" users="Integration Test server"/>
 </licenses>
