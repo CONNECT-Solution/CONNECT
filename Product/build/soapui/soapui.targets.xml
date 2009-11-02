@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="soapui.targets">
+
+  <import file="soapui.properties.xml" />
+  <import file="soapui.macros.xml" />
+
+  <target name="soapui.help">
+
+  </target>
+
+  <target name="soapui.clean">
+    <delete dir="${soapui.report.dir}" failonerror="true" />
+  </target>
+
+  <target name="-soapui.run">
+    <if>
+      <istrue value="${soapui.hasTests}" />
+      <then>
+		<call target="-soapui.find.and.run.tests"/>
+      	<call target="-soapui.generate.report"/>
+      </then>
+      <else>
+        <echo message="The project ${project.name} is not marked as having soapui tests: property soapui.hasTests=${soapui.hasTests}." />
+      </else>
+    </if>
+  </target>
+
+  <target name="-soapui.find.and.run.tests">
+    <delete dir="${soapui.report.dir}" />
+  	<mkdir dir="${soapui.report.dir}"/>
+    <for param="soapui.project.file.path">
+      <path>
+        <fileset dir="${project.dir}">
+          <include name="**/${soapui.project.file.pattern}"/>
+        </fileset>
+      </path>
+      <sequential>
+      	<basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
+      	<echo message='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}"'/>
+        <exec dir="${soapui.install.bin.directory.path}" executable="cmd.exe">
+          <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}"'/>
+        </exec>
+      	<move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>
+      </sequential>
+    </for>
+  </target>
+	
+	<target name="-soapui.generate.report">
+		<if>
+			<isfalse value="${called.from.main.build}" />
+			<then>
+				<replace dir="${soapui.report.dir}" token="&lt;testsuites&gt;" value="">
+			      <include name="**/*.xml"/>
+			    </replace>
+			    
+			    <replace dir="${soapui.report.dir}" token="&lt;/testsuites&gt;" value="">
+			      <include name="**/*.xml"/>
+			    </replace>
+				
+				<junitreportplus reportfile="${soapui.report.dir}/SoapUITests.xml" testtype="soapui">
+					<xmlreports>
+						<fileset dir="${soapui.report.dir}">
+							<include name="**/TEST-*.xml" />
+						</fileset>
+					</xmlreports>
+				</junitreportplus>
+			</then>
+		</if>
+	</target>
+
+</project>

@@ -88,7 +88,7 @@
 			</targetfiles>
 			<mapper refid="compile.source.mapper" />
 			<sequential>
-				<delete>
+				<delete verbose="true">
 					<path refid="build.files.that.need.updating" />
 				</delete>
 				<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
@@ -192,7 +192,7 @@
 					</targetfiles>
 					<mapper refid="compile.unittest.source.mapper" />
 					<sequential>
-						<delete>
+						<delete verbose="true">
 							<path refid="build.files.that.need.updating" />
 						</delete>
 						<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}" includes="**/*.java" source="1.6" target="1.6">

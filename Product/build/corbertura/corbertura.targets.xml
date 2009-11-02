@@ -24,30 +24,16 @@
 		<if>
 			<istrue value="${coverage.isneeded}" />
 			<then>
+				<delete dir="${build.instrumented.classes.dir}" />
 				<mkdir dir="${build.instrumented.classes.dir}" />
-				<outofdate verbose="true" outputtargetspath="instrumented.files.that.need.updating">
-					<sourcefiles>
-						<fileset dir="${build.classes.dir}">
-							<include name="**/*.class" />
-						</fileset>
-						<path refid="build.classpath" />
-					</sourcefiles>
-					<targetfiles>
-						<fileset dir="${build.instrumented.classes.dir}">
-							<include name="**/*.class" />
-						</fileset>
-					</targetfiles>
-					<sequential>
-						<delete>
-							<path refid="instrumented.files.that.need.updating" />
-						</delete>
+				<delete dir="${coverage.report.dir}"/>
+				<mkdir dir="${coverage.report.dir}"/>
+				
 						<cobertura-instrument datafile="${coverage.classes.report.file}" todir="${build.instrumented.classes.dir}">
 							<includeClasses regex=".*${root.project.name}.*" />
 
 							<instrumentationClasspath refid="instrument.classpath" />
 						</cobertura-instrument>
-					</sequential>
-				</outofdate>
 			</then>
 		</if>
 	</target>

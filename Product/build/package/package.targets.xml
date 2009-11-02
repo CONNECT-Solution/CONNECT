@@ -8,7 +8,7 @@
 	</target>
 
 	<target name="package.clean">
-		<delete dir="${dist.dir}" failonerror="true" />
+		<delete dir="${dist.root.dir}" failonerror="true" />
 	</target>
 
 	<target name="-package.create">
@@ -85,7 +85,7 @@
 				<copy todir="${build.dist.root}" flatten="true" overwrite="true">
 					<path refid="ear.libs" />
 				</copy>
-				<ear compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}" appxml="${build.dist.meta-inf.dir}/application.xml">
+				<ear compress="true" destfile="${dist.file}" manifest="${build.dist.manifest.file}" appxml="${project.dir}/EarContent/META-INF/application.xml">
 					<path refid="ear.files" />
 					<fileset dir="${build.dist.root}" />
 				</ear>

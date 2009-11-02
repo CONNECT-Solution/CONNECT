@@ -27,12 +27,14 @@
     <string value="Java"/>
     <string value="CCTray"/>
     <string value="GlassFish"/>
+    <string value="SOAPUI"/>
   </strings>
 
   <include buildfile="${Package.Workspace.Directory.Path}\Software\CCTray\CCTray.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\Java\Java.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\MySQL\MySQL.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\GlassFish\GlassFish.Script.xml"/>
+  <include buildfile="${Package.Workspace.Directory.Path}\Software\SOAPUI\SOAPUI.Script.xml"/>
 
   <strings id="Workspace.Configuration">
     <string value="CCTray"/>

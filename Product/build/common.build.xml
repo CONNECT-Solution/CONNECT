@@ -11,6 +11,7 @@
 
 	<property name="called.from.main.build" value="false" />
 
+	<property name="deploy.isDeployable" value="false"/>
 	<property name="compile.debug" value="true" />
 	<property name="build.config" value="debug" />
 

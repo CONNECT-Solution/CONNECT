@@ -22,7 +22,17 @@
 	<import file="compile/compile.targets.xml"/>
 	<import file="package/package.targets.xml"/>
 	<import file="junit/junit.targets.xml"/>
+	<import file="soapui/soapui.targets.xml"/>
 	<import file="corbertura/corbertura.targets.xml"/>
+	<import file="../Install/deploy.xml"/>
+	
+	<target name="deploy">
+		<call target="deploy.to.development" if="${deploy.isDeployable}"/>
+	</target>
+
+	<target name="undeploy">
+		<call target="undeploy.to.development" if="${deploy.isDeployable}"/>
+	</target>
 	
 	<target name="clean">
 		<call target="ivy.clean"/>
@@ -30,6 +40,7 @@
 		<call target="package.clean"/>
 		<call target="junit.clean"/>
 		<call target="coverage.clean"/>
+		<call target="soapui.clean"/>
 	</target>
 	
 	<target name="source.compile">
@@ -53,6 +64,10 @@
 		<call target="-integrationtest.run"/>
 		<call target="-coverage.write.report" if="${integrationtest.hasTests}"/>
 		<call target="-coverage.check.project" if="${integrationtest.hasTests}"/>
+	</target>
+	
+	<target name="soapui.run">
+		<call target="-soapui.run"/>
 	</target>
 	
 	<target name="webtest.run">
@@ -107,6 +122,7 @@ webtest.run - executes all tests in ${unittest.source.dir}.
 		<call target="package.help"/>
 		<call target="junit.help"/>
 		<call target="coverage.help"/>
+		<call target="soapui.help"/>
 		
 	</target>
 	
