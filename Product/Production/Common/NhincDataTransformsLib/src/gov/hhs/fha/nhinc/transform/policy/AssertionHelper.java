@@ -1,11 +1,14 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.hl7.v3.II;
 
 /**
  *
@@ -26,7 +29,7 @@ public class AssertionHelper {
 //        }
 
 
-        PurposeForUseHelper.appendPurposeForUse(policyRequest, assertion);
+        //PurposeForUseHelper.appendPurposeForUse(policyRequest, assertion);
 
         if (assertion != null) {
             appendAuthnStatementAuthnInstant(policyRequest, assertion);
@@ -36,6 +39,9 @@ public class AssertionHelper {
             appendAuthnStatementDNSName(policyRequest, assertion);
             appendUserPersonName(policyRequest, assertion);
             appendUserOrganizationName(policyRequest, assertion);
+            appendUserOrganizationId(policyRequest, assertion);
+            appendHomeCommunityName(policyRequest, assertion);
+            appendUniquePatientId(policyRequest, assertion);
             appendUserRoleCode(policyRequest, assertion);
             appendUserRoleCodeSystem(policyRequest, assertion);
             appendUserRoleCodeSystemName(policyRequest, assertion);
@@ -75,7 +81,6 @@ public class AssertionHelper {
 //        AttributeHelper.appendAttributeToParent(subject, attributeId, dataType, attributeValue);
 //        log.debug("end appending auth instant");
 //    }
-
 //    private static String extractAuthId(AssertionType assertion) {
 //        String value = null;
 //        if (assertion.getSamlAuthnStatement() != null) {
@@ -103,8 +108,10 @@ public class AssertionHelper {
             throw new NullPointerException("policy request request is null");
         }
 
-        SubjectType subject = policyXacmlRequest.getSubject().get(0);
-        if (subject == null) {
+        SubjectType subject = null;
+        if(policyXacmlRequest.getSubject() != null && !policyXacmlRequest.getSubject().isEmpty()){
+            subject = policyXacmlRequest.getSubject().get(0);
+        }else {
             subject = new SubjectType();
             policyXacmlRequest.getSubject().add(subject);
         }
@@ -118,11 +125,9 @@ public class AssertionHelper {
         }
 
         ResourceType resource = null;
-        if(!policyRequest.getResource().isEmpty())
-        {
+        if (policyRequest.getResource() != null &&!policyRequest.getResource().isEmpty()) {
             resource = policyRequest.getResource().get(0);
-        }
-        if (resource == null) {
+        } else {
             resource = new ResourceType();
             policyRequest.getResource().add(resource);
         }
@@ -335,6 +340,86 @@ public class AssertionHelper {
             log.debug("Unable to find User Organization in SAML, will not be included in message to policy engine");
         }
         return value;
+    }
+
+    private static void appendUserOrganizationId(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending UserOrganizationId");
+        SubjectType parent = getSubject(policyRequest);
+        String attributeId = XacmlAttributeId.UserOrganizationId;
+        String dataType = Constants.DataTypeAnyURI;
+        String attributeValue = extractUserOrganizationId(assertion);
+        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        log.debug("end appending UserOrganizationId");
+    }
+
+    private static String extractUserOrganizationId(AssertionType assertion) {
+        String value = null;
+        if ((assertion.getUserInfo() != null) && (assertion.getUserInfo().getOrg() != null)) {
+            log.debug("Extracting UserOrganizationId");
+            value = assertion.getUserInfo().getOrg().getHomeCommunityId();
+            log.debug("Extracted UserOrganizationId value=" + value);
+        } else {
+            log.debug("Unable to find User Organization in SAML, will not be included in message to policy engine");
+        }
+        return value;
+    }
+
+    private static void appendHomeCommunityName(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending HomeCommunityName");
+        SubjectType parent = getSubject(policyRequest);
+        String attributeId = XacmlAttributeId.HomeCommunityName;
+        String dataType = Constants.DataTypeAnyURI;
+        String attributeValue = extractHomeCommunityName(assertion);
+        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        log.debug("end appending HomeCommunityName");
+    }
+
+    private static String extractHomeCommunityName(AssertionType assertion) {
+        String value = null;
+        if ((assertion.getHomeCommunity() != null)) {
+            log.debug("Extracting HomeCommunityName");
+            value = assertion.getHomeCommunity().getHomeCommunityId();
+            log.debug("Extracted HomeCommunityName value=" + value);
+        } else {
+            log.debug("Unable to find Home Community in SAML, will not be included in message to policy engine");
+        }
+        return value;
+    }
+
+    private static void appendUniquePatientId(RequestType policyRequest, AssertionType assertion) {
+        log.debug("begin appending UniquePatientId");
+        ResourceType parent = getResource(policyRequest);
+        String attributeId = XacmlAttributeId.UniquePatientId;
+        String dataType = Constants.DataTypeHL7II;
+        II attributeValue = extractUniquePatientId(assertion);
+        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        log.debug("end appending UniquePatientId");
+    }
+
+    private static II extractUniquePatientId(AssertionType assertion) {
+        II iiValue = null;
+        String patId = null;
+        if ((assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0)) {
+            log.debug("Extracting UniquePatientId");
+            // Take first identifier found
+            for (String id : assertion.getUniquePatientId()) {
+                if (!id.isEmpty()) {
+                    patId = id;
+                    break;
+                }
+            }
+            if (patId != null) {
+                String patRoot = PatientIdFormatUtil.parsePatientId(patId);
+                String patExt = PatientIdFormatUtil.parseCommunityId(patId);
+                log.debug("UniquePatientId value=" + patId + " => root:" + patRoot + " extension:" + patExt);
+                iiValue = HL7DataTransformHelper.IIFactory(patRoot, patExt);
+            } else {
+                log.debug("Unable to find Unique Patient in SAML, will not be included in message to policy engine");
+            }
+        } else {
+            log.debug("Unable to find Unique Patient in SAML, will not be included in message to policy engine");
+        }
+        return iiValue;
     }
 
     private static void appendUserRoleCode(RequestType policyRequest, AssertionType assertion) {

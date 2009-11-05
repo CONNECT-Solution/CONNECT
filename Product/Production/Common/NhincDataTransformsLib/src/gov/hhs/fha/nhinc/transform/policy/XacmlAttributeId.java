@@ -17,11 +17,14 @@ public class XacmlAttributeId {
     public static final String AuthnStatementDNSName = "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name";
     public static final String UserPersonName = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
     public static final String UserOrganizationName = "urn:gov:hhs:fha:nhinc:user-organization-name";
-    public static final String UserRoleCode = "urn:gov:hhs:fha:nhinc:user-role-code";
+    public static final String UserOrganizationId = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    public static final String HomeCommunityName = "http://www.hhs.gov/healthit/nhin#HomeCommunityId";
+    public static final String UniquePatientId = "http://www.hhs.gov/healthit/nhin#subject-id";
+    public static final String UserRoleCode = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String UserRoleCodeSystem = "urn:gov:hhs:fha:nhinc:user-role-code-system";
     public static final String UserRoleCodeSystemName = "urn:gov:hhs:fha:nhinc:user-role-code-system-name";
     public static final String UserRoleCodeDiplayName = "urn:gov:hhs:fha:nhinc:user-role-description";
-    public static final String PurposeForUseCode = "urn:gov:hhs:fha:nhinc:purpose-of-use-code";
+    public static final String PurposeForUseCode = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PurposeForUseCodeSystem = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system";
     public static final String PurposeForUseCodeSystemName = "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name";
     public static final String PurposeForUseCodeDisplayName = "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name";

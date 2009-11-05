@@ -100,7 +100,6 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static Element hokAssertion20;
     private static HashMap<String, String> factoryVersionMap = new HashMap<String, String>();
 
-
     static {
         //WORKAROUND NEEDED IN METRO1.4. TO BE REMOVED LATER.
         javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
@@ -527,7 +526,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
             log.debug("UserName: " + nameConstruct.toString());
             attributeValues1.add(nameConstruct.toString());
-            attributes.add(factory.createAttribute("UserName", NHIN_NS, attributeValues1));
+            attributes.add(factory.createAttribute(NhincConstants.USERNAME_ATTR, attributeValues1));
         } else {
             log.warn("No information provided to fill in user name attribute");
         }
@@ -538,9 +537,31 @@ public class SamlCallbackHandler implements CallbackHandler {
                 tokenVals.get(NhincConstants.USER_ORG_PROP) != null) {
             log.debug("UserOrg: " + tokenVals.get(NhincConstants.USER_ORG_PROP).toString());
             attributeValues2.add(tokenVals.get(NhincConstants.USER_ORG_PROP).toString());
-            attributes.add(factory.createAttribute("UserOrganization", NHIN_NS, attributeValues2));
+            attributes.add(factory.createAttribute(NhincConstants.USER_ORG_ATTR, attributeValues2));
         } else {
             log.warn("No information provided to fill in user organization attribute");
+        }
+
+        // Set the User Organization ID Attribute
+        List attributeValues5 = new ArrayList();
+        if (tokenVals.containsKey(NhincConstants.USER_ORG_ID_PROP) &&
+                tokenVals.get(NhincConstants.USER_ORG_ID_PROP) != null) {
+            log.debug("UserOrgID: " + tokenVals.get(NhincConstants.USER_ORG_ID_PROP).toString());
+            attributeValues5.add(tokenVals.get(NhincConstants.USER_ORG_ID_PROP).toString());
+            attributes.add(factory.createAttribute(NhincConstants.USER_ORG_ID_ATTR, attributeValues5));
+        } else {
+            log.warn("No information provided to fill in user organization ID attribute");
+        }
+
+        // Set the Home Community ID Attribute
+        List attributeValues6 = new ArrayList();
+        if (tokenVals.containsKey(NhincConstants.HOME_COM_PROP) &&
+                tokenVals.get(NhincConstants.HOME_COM_PROP) != null) {
+            log.debug("HomeCommunityID: " + tokenVals.get(NhincConstants.HOME_COM_PROP).toString());
+            attributeValues6.add(tokenVals.get(NhincConstants.HOME_COM_PROP).toString());
+            attributes.add(factory.createAttribute(NhincConstants.HOME_COM_ID_ATTR, attributeValues6));
+        } else {
+            log.warn("No information provided to fill in home community ID attribute");
         }
 
         try {
@@ -551,7 +572,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             final Element userRole = document.createElementNS(HL7_NS, "hl7:Role");
             elemURAttr.appendChild(userRole);
 
-            userRole.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:type", "hl7:CE");
+            userRole.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
             if (tokenVals.containsKey(NhincConstants.USER_CODE_PROP) &&
                     tokenVals.get(NhincConstants.USER_CODE_PROP) != null) {
@@ -583,14 +604,19 @@ public class SamlCallbackHandler implements CallbackHandler {
             }
             attributeValues3.add(elemURAttr);
             attributes.add(factory.createAttribute(NhincConstants.USER_ROLE_ATTR, attributeValues3));
+        } catch (ParserConfigurationException ex) {
+            log.debug("Unable to create an XML Document to set Attributes" + ex.getMessage());
+        }
 
+        try {
             // Add the Purpose For Use Attribute
             List attributeValues4 = new ArrayList();
+            final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "AttibuteValue");
             final Element purpose = document.createElementNS(HL7_NS, "hl7:PurposeForUse");
             elemPFUAttr.appendChild(purpose);
 
-            purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance","xsi:type", "hl7:CE");
+            purpose.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "hl7:CE");
 
             if (tokenVals.containsKey(NhincConstants.PURPOSE_CODE_PROP) &&
                     tokenVals.get(NhincConstants.PURPOSE_CODE_PROP) != null) {
@@ -621,6 +647,18 @@ public class SamlCallbackHandler implements CallbackHandler {
         } catch (ParserConfigurationException ex) {
             log.debug("Unable to create an XML Document to set Attributes" + ex.getMessage());
         }
+
+        // Set the Patient ID Attribute
+        List attributeValues7 = new ArrayList();
+        if (tokenVals.containsKey(NhincConstants.PATIENT_ID_PROP) &&
+                tokenVals.get(NhincConstants.PATIENT_ID_PROP) != null) {
+            log.debug("PatientID: " + tokenVals.get(NhincConstants.PATIENT_ID_PROP).toString());
+            attributeValues7.add(tokenVals.get(NhincConstants.PATIENT_ID_PROP).toString());
+            attributes.add(factory.createAttribute(NhincConstants.PATIENT_ID_ATTR, attributeValues7));
+        } else {
+            log.warn("No information provided to fill in patient ID attribute");
+        }
+
         log.debug("SamlCallbackHandler.addAssertStatements() -- End");
         return statements;
 

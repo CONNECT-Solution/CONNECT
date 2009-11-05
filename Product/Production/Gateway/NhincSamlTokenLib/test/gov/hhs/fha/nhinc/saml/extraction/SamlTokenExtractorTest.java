@@ -119,6 +119,8 @@ public class SamlTokenExtractorTest
         AssertionType oAssertOut = SamlTokenExtractor.CreateAssertion(xrSamlAssertionXML);
         assertNotNull(oAssertOut);
 
+        // Authn Statement
+        //----------------
         assertNotNull("oAssertOut.SamlAuthnStatement was null:", oAssertOut.getSamlAuthnStatement());
         assertEquals("oAssertOut.SamlAuthnStatement.AuthInstant failed.", "2109-09-01T16:42:23.445Z", oAssertOut.getSamlAuthnStatement().getAuthInstant());
         assertEquals("oAssertOut.SamlAuthnStatement.SessionIndex failed.", "123456", oAssertOut.getSamlAuthnStatement().getSessionIndex());
@@ -135,10 +137,19 @@ public class SamlTokenExtractorTest
         assertEquals("oAssertOut.UserInfo.PersonName.GivenName", "MARK", oAssertOut.getUserInfo().getPersonName().getGivenName());
         assertEquals("oAssertOut.UserInfo.PersonName.SecondNameOrInitials", "ALAN", oAssertOut.getUserInfo().getPersonName().getSecondNameOrInitials());
 
-        // User organization
+        // User Organization
         //------------------
         assertNotNull("oAssertOut.UserInfo.Org was null.", oAssertOut.getUserInfo().getOrg());
         assertEquals("oAssertOut.UserInfo.Org.Name", "InternalSelfTest2", oAssertOut.getUserInfo().getOrg().getName());
+
+        // User Organization ID
+        //---------------------
+        assertEquals("oAssertOut.UserInfo.Org.Id", "2.2", oAssertOut.getUserInfo().getOrg().getHomeCommunityId());
+
+        // Home Community ID
+        //------------------
+        assertNotNull("oAssertOut.HomeCommunity was null.", oAssertOut.getHomeCommunity());
+        assertEquals("oAssertOut.HomeCommunity.Id", "urn:oid:2.16.840.1.113883.3.190", oAssertOut.getHomeCommunity().getHomeCommunityId());
 
         // User Role
         //----------
@@ -155,6 +166,11 @@ public class SamlTokenExtractorTest
         assertEquals("oAssertOut.PurposeOfDisclosureCoded.CodeSystem", "2.16.840.1.113883.3.18.7.1", oAssertOut.getPurposeOfDisclosureCoded().getCodeSystem());
         assertEquals("oAssertOut.PurposeOfDisclosureCoded.CodeSystemName", "nhin-purpose", oAssertOut.getPurposeOfDisclosureCoded().getCodeSystemName());
         assertEquals("oAssertOut.PurposeOfDisclosureCoded.DisplayName", "Use or disclosure of Psychotherapy Notes", oAssertOut.getPurposeOfDisclosureCoded().getDisplayName());
+
+        // Patient ID
+        //------------------
+        assertNotNull("oAssertOut.UniquePatient was null.", oAssertOut.getUniquePatientId());
+        assertEquals("oAssertOut.UniquePatientId", "543797436^^^&1.2.840.113619.6.197&ISO", oAssertOut.getUniquePatientId().get(0));
 
         // Authorization Decision Statement
         //----------------------------------

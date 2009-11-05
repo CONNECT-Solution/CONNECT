@@ -4,7 +4,8 @@
  */
 package gov.hhs.fha.nhinc.saml.extraction;
 
-import org.apache.xerces.dom.ElementNSImpl;
+//import org.apache.xerces.dom.ElementNSImpl;
+import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import com.sun.xml.wss.SubjectAccessor;
 import com.sun.xml.wss.XWSSecurityException;
 import com.sun.xml.wss.impl.XWSSecurityRuntimeException;
@@ -58,17 +59,9 @@ public class SamlTokenExtractor {
 
     private static Log log = LogFactory.getLog(SamlTokenExtractor.class);
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-    private static final String USER_ROLE_ID = "UserRole";
-    private static final String PURPOSE_ROLE_ID = "PurposeForUse";
-    private static final String USERNAME_ID = "UserName";
-    private static final String USERORG_ID = "UserOrganization";
     private static final String CONTENTREF_ID = "ContentReference";
     private static final String CONTENT_ID = "Content";
     private static final String CONTENTTYPE_ID = "ContentType";
-    //private static final String CE_CODE_ID = "code";
-    //private static final String CE_CODESYS_ID = "codesystem";
-    //private static final String CE_CODESYSNAME_ID = "codeSystemName";
-    //private static final String CE_DISPLAYNAME_ID = "displayName";
     private static final String EMPTY_STRING = "";
 
     public static AssertionType GetAssertion(WebServiceContext context) {
@@ -133,7 +126,6 @@ public class SamlTokenExtractor {
         } catch (SAMLException ex) {
             log.error("SAML Exception Thrown: " + ex.getMessage());
             assertion = null;
-            ;
         } catch (XWSSecurityException ex) {
             log.error("Security Exception Thrown: " + ex.getMessage());
             assertion = null;
@@ -143,13 +135,13 @@ public class SamlTokenExtractor {
         return assertion;
     }
 
-        /**
+    /**
      * Initializes the assertion object to contain empty strings for all values.
      * These are overwritten in the extraction process with real values if they
      * are available
      * @param assertOut The Assertion element being written to
      */
-    private static AssertionType  initializeAssertion() {
+    private static AssertionType initializeAssertion() {
 
         System.out.println("Initializing Assertion to Default: " + EMPTY_STRING);
         AssertionType assertOut = new AssertionType();
@@ -159,6 +151,7 @@ public class SamlTokenExtractor {
         PersonNameType userPerson = new PersonNameType();
         CeType userRole = new CeType();
         HomeCommunityType userHc = new HomeCommunityType();
+        HomeCommunityType homeCom = new HomeCommunityType();
         SamlAuthnStatementType samlAuthnStatement = new SamlAuthnStatementType();
         SamlAuthzDecisionStatementType samlAuthzDecisionStatement = new SamlAuthzDecisionStatementType();
         SamlAuthzDecisionStatementEvidenceType samlAuthzDecisionStatementEvidence = new SamlAuthzDecisionStatementEvidenceType();
@@ -166,6 +159,11 @@ public class SamlTokenExtractor {
         SamlAuthzDecisionStatementEvidenceConditionsType samlAuthzDecisionStatementEvidenceConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
         SamlSignatureType samlSignature = new SamlSignatureType();
         SamlSignatureKeyInfoType samlSignatureKeyInfo = new SamlSignatureKeyInfoType();
+
+        assertOut.setHomeCommunity(homeCom);
+        homeCom.setHomeCommunityId(EMPTY_STRING);
+
+        assertOut.getUniquePatientId().clear();
 
         user.setPersonName(userPerson);
         user.setOrg(userHc);
@@ -179,6 +177,7 @@ public class SamlTokenExtractor {
         userPerson.setFullName(EMPTY_STRING);
 
         userHc.setName(EMPTY_STRING);
+        userHc.setHomeCommunityId(EMPTY_STRING);
         user.setUserName(EMPTY_STRING);
         userRole.setCode(EMPTY_STRING);
         userRole.setCodeSystem(EMPTY_STRING);
@@ -345,12 +344,24 @@ public class SamlTokenExtractor {
                         } else if (nameAttr.equals(NhincConstants.PURPOSE_ROLE_ATTR)) {
                             log.debug("Extracting Assertion.purposeOfDisclosure:");
                             assertOut.setPurposeOfDisclosureCoded(extractNhinCodedElement(attrib, NhincConstants.PURPOSE_ROLE_ATTR));
-                        } else if (nameAttr.equals(USERNAME_ID)) {
+                        } else if (nameAttr.equals(NhincConstants.USERNAME_ATTR)) {
                             extractNameParts(attrib, assertOut);
-                        } else if (nameAttr.equals(USERORG_ID)) {
+                        } else if (nameAttr.equals(NhincConstants.USER_ORG_ATTR)) {
                             String sUserOrg = extractAttributeValueString(attrib);
                             assertOut.getUserInfo().getOrg().setName(sUserOrg);
                             log.debug("Assertion.userInfo.org.Name = " + sUserOrg);
+                        } else if (nameAttr.equals(NhincConstants.USER_ORG_ID_ATTR)) {
+                            String sUserOrgId = extractAttributeValueString(attrib);
+                            assertOut.getUserInfo().getOrg().setHomeCommunityId(sUserOrgId);
+                            log.debug("Assertion.userInfo.org.homeCommunityId = " + sUserOrgId);
+                        } else if (nameAttr.equals(NhincConstants.HOME_COM_ID_ATTR)) {
+                            String sHomeComId = extractAttributeValueString(attrib);
+                            assertOut.getHomeCommunity().setHomeCommunityId(sHomeComId);
+                            log.debug("Assertion.homeCommunity.homeCommunityId = " + sHomeComId);
+                        } else if (nameAttr.equals(NhincConstants.PATIENT_ID_ATTR)) {
+                            String sPatientId = extractAttributeValueString(attrib);
+                            assertOut.getUniquePatientId().add(sPatientId);
+                            log.debug("Assertion.uniquePatientId = " + sPatientId);
                         } else if (nameAttr.equals(CONTENTREF_ID)) {
                             String sContentRefId = extractAttributeValueString(attrib);
                             assertOut.setClaimFormRef(sContentRefId);
@@ -363,8 +374,7 @@ public class SamlTokenExtractor {
                             log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.ContentType = " + sContentType);
                         } else if (nameAttr.equals(CONTENT_ID)) {
                             byte[] byteContent = extractFirstAttributeValueBase64Binary(attrib);
-                            if (byteContent != null)
-                            {
+                            if (byteContent != null) {
                                 assertOut.setClaimFormRaw(byteContent);
                                 log.debug("Assertion.ClaimFormRaw = " + new String(assertOut.getClaimFormRaw()));
                                 assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContent(byteContent);
@@ -398,7 +408,7 @@ public class SamlTokenExtractor {
 
         List attrVals = attrib.getAttributeValue();
         if ((attrVals != null) &&
-            (attrVals.size() > 0)) {
+                (attrVals.size() > 0)) {
             StringBuffer strBuf = new StringBuffer();
             for (Object o : attrVals) {
                 strBuf.append(o + " ");
@@ -407,7 +417,7 @@ public class SamlTokenExtractor {
         }
 
         return retValue.trim();
-        
+
     }
 
     /**
@@ -422,15 +432,14 @@ public class SamlTokenExtractor {
 
         List attrVals = attrib.getAttributeValue();
         if ((attrVals != null) &&
-            (attrVals.size() > 0)) {
+                (attrVals.size() > 0)) {
             if (attrVals.get(0) instanceof byte[]) {
                 retValue = (byte[]) attrVals.get(0);
             }
         }
-        
+
         return retValue;
     }
-
 
     /**
      * The value of the UserName attribute is assumed to be a user's name in 
@@ -447,7 +456,7 @@ public class SamlTokenExtractor {
         // after the last space is the last name, anything between is the middle name
         List attrVals = attrib.getAttributeValue();
         if ((attrVals != null) &&
-            (attrVals.size() >= 1)) {
+                (attrVals.size() >= 1)) {
             PersonNameType personName = assertOut.getUserInfo().getPersonName();
 
             // Although SAML allows for multiple attribute values, the NHIN Specification
@@ -499,7 +508,7 @@ public class SamlTokenExtractor {
             log.error("User Name attribute is empty: " + attrVals);
         }
 
-        log.debug("Token_Rcv.extractNameParts() -- End");
+        log.debug("SamlTokenExtractor.extractNameParts() -- End");
     }
 
     /**
@@ -525,67 +534,67 @@ public class SamlTokenExtractor {
         //log.debug("extractNhinCodedElement: " + attrib.getName() + " has " + attrVals.size() + " values");
 
         if ((attrVals != null) &&
-           (attrVals.size() > 0))
-        {
-            //log.debug("AttributeValue is: " + attrVals.get(0).getClass());
+                (attrVals.size() > 0)) {
+            log.debug("AttributeValue is: " + attrVals.get(0).getClass());
             // According to the NHIN specifications - there should be exactly one value.
             // If there is more than one. We will take only the first one.
             //---------------------------------------------------------------------------
-            if (attrVals.get(0) instanceof ElementNSImpl)
-            {
+            NodeList nodelist = null;
+            if (attrVals.get(0) instanceof ElementNSImpl) {
                 ElementNSImpl elem = (ElementNSImpl) attrVals.get(0);
-                //log.debug("Element " + elem.getNodeName());
-
-                NodeList nodelist = elem.getChildNodes();
-                if ((nodelist != null) &&
+                nodelist = elem.getChildNodes();
+            } else if (attrVals.get(0) instanceof org.apache.xerces.dom.ElementNSImpl) {
+                org.apache.xerces.dom.ElementNSImpl elem = (org.apache.xerces.dom.ElementNSImpl) attrVals.get(0);
+                nodelist = elem.getChildNodes();
+            } else {
+                log.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass() + " expected a ElementNSImpl");
+            }
+            if ((nodelist != null) &&
                     (nodelist.getLength() > 0)) {
-                    int numNodes = nodelist.getLength();
-                    for (int idx = 0; idx < numNodes; idx++) {
-                        if (nodelist.item(idx) instanceof Node) {
-                            //log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
-                            Node node = (Node) nodelist.item(idx);
-                            NamedNodeMap attrMap = node.getAttributes();
-                            if ((attrMap != null) &&
+                int numNodes = nodelist.getLength();
+                for (int idx = 0; idx < numNodes; idx++) {
+                    if (nodelist.item(idx) instanceof Node) {
+                        //log.debug("Processing index:" + idx + " node as " + nodelist.item(idx).getNodeName());
+                        Node node = (Node) nodelist.item(idx);
+                        NamedNodeMap attrMap = node.getAttributes();
+                        if ((attrMap != null) &&
                                 (attrMap.getLength() > 0)) {
-                                int numMapNodes = attrMap.getLength();
-                                for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                    //log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
-                                    Node attrNode = attrMap.item(attrIdx);
-                                    if ((attrNode != null) &&
+                            int numMapNodes = attrMap.getLength();
+                            for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                                //log.debug("Processing attribute index:" + attrIdx + " as " + attrMap.item(attrIdx));
+                                Node attrNode = attrMap.item(attrIdx);
+                                if ((attrNode != null) &&
                                         (attrNode.getNodeName() != null) &&
                                         (!attrNode.getNodeName().isEmpty())) {
-                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
-                                            ce.setCode(attrNode.getNodeValue());
-                                            log.debug(codeId + ": ce.Code = " + ce.getCode());
-                                        }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
-                                            ce.setCodeSystem(attrNode.getNodeValue());
-                                            log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
-                                        }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
-                                            ce.setCodeSystemName(attrNode.getNodeValue());
-                                            log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
-                                        }
-                                        if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
-                                            ce.setDisplayName(attrNode.getNodeValue());
-                                            log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
-                                        }
-                                    } else {
-                                        log.debug("Attribute name can not be processed");
+                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
+                                        ce.setCode(attrNode.getNodeValue());
+                                        log.debug(codeId + ": ce.Code = " + ce.getCode());
                                     }
-                                }   // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYS_ID)) {
+                                        ce.setCodeSystem(attrNode.getNodeValue());
+                                        log.debug(codeId + ": ce.CodeSystem = " + ce.getCodeSystem());
+                                    }
+                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODESYSNAME_ID)) {
+                                        ce.setCodeSystemName(attrNode.getNodeValue());
+                                        log.debug(codeId + ": ce.CodeSystemName = " + ce.getCodeSystemName());
+                                    }
+                                    if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_DISPLAYNAME_ID)) {
+                                        ce.setDisplayName(attrNode.getNodeValue());
+                                        log.debug(codeId + ": ce.DisplayName = " + ce.getDisplayName());
+                                    }
+                                } else {
+                                    log.debug("Attribute name can not be processed");
+                                }
+                            }   // for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
                             } else {
-                                log.debug("Attribute map is null");
-                            }
-                        } else {
-                            log.debug("Expected AttributeValue to have a Node child");
+                            log.debug("Attribute map is null");
                         }
-                    }   // for (int idx = 0; idx < numNodes; idx++) {
+                    } else {
+                        log.debug("Expected AttributeValue to have a Node child");
+                    }
+                }   // for (int idx = 0; idx < numNodes; idx++) {
                 } else {
-                    log.error("The AttributeValue for " + codeId + " should have a Child Node");
-                }
-            } else {
-                log.error("The value for the " + codeId + " attribute is not a proper AttributeValue.");
+                log.error("The AttributeValue for " + codeId + " should have a Child Node");
             }
         } else {
             log.error("Attributes for " + codeId + " are invalid: " + attrVals);
@@ -629,11 +638,11 @@ public class SamlTokenExtractor {
         // AuthContextClassRef
         //--------------------
         if ((authnStatement.getAuthnContext() != null) &&
-            (authnStatement.getAuthnContext().getContent() != null)) {
+                (authnStatement.getAuthnContext().getContent() != null)) {
             log.debug("authnContext has " + authnStatement.getAuthnContext().getContent().size() + " content entries. ");
             List<JAXBElement<?>> contents = authnStatement.getAuthnContext().getContent();
             if ((contents != null) &&
-                (contents.size() > 0)) {
+                    (contents.size() > 0)) {
                 for (JAXBElement jaxElem1 : contents) {
                     // When you look at the actual XML string, it looks as follows:
                     // 		<saml2:AuthnContext>
@@ -656,8 +665,8 @@ public class SamlTokenExtractor {
         // SubjectLocalityAddress
         //-----------------------
         if ((authnStatement.getSubjectLocality() != null) &&
-            (authnStatement.getSubjectLocality().getAddress() != null) &&
-            (authnStatement.getSubjectLocality().getAddress().length() > 0)) {
+                (authnStatement.getSubjectLocality().getAddress() != null) &&
+                (authnStatement.getSubjectLocality().getAddress().length() > 0)) {
             samlAuthnStatement.setSubjectLocalityAddress(authnStatement.getSubjectLocality().getAddress());
             log.debug("Assertion.samlAuthnStatement.subjectlocalityAddress = " + samlAuthnStatement.getSubjectLocalityAddress());
         }
@@ -665,8 +674,8 @@ public class SamlTokenExtractor {
         // SubjectLocalityDNSName
         //------------------------
         if ((authnStatement.getSubjectLocality() != null) &&
-            (authnStatement.getSubjectLocality().getDNSName() != null) &&
-            (authnStatement.getSubjectLocality().getDNSName().length() > 0)) {
+                (authnStatement.getSubjectLocality().getDNSName() != null) &&
+                (authnStatement.getSubjectLocality().getDNSName().length() > 0)) {
             samlAuthnStatement.setSubjectLocalityDNSName(authnStatement.getSubjectLocality().getDNSName());
             log.debug("Assertion.samlAuthnStatement.subjectlocalityDNSName = " + samlAuthnStatement.getSubjectLocalityDNSName());
         }
@@ -690,7 +699,7 @@ public class SamlTokenExtractor {
         // @Decision
         //-----------
         if ((authzState.getDecision() != null) &&
-            (authzState.getDecision().value() != null)) {
+                (authzState.getDecision().value() != null)) {
             oSamlAuthzDecision.setDecision(authzState.getDecision().value());
             log.debug("Assertion.SamlAuthzDecisionStatement.Decision = " + oSamlAuthzDecision.getDecision());
         }
@@ -707,9 +716,9 @@ public class SamlTokenExtractor {
         // one we will only take the first one.
         //--------------------------------------------------------------------------------------------------
         if ((authzState.getAction() != null) &&
-            (authzState.getAction().size() > 0) &&
-            (authzState.getAction().get(0) != null) &&
-            (authzState.getAction().get(0).getValue() != null)) {
+                (authzState.getAction().size() > 0) &&
+                (authzState.getAction().get(0) != null) &&
+                (authzState.getAction().get(0).getValue() != null)) {
             oSamlAuthzDecision.setAction(authzState.getAction().get(0).getValue());
             log.debug("Assertion.SamlAuthzDecisionStatement.Action = " + oSamlAuthzDecision.getAction());
         }
@@ -729,14 +738,13 @@ public class SamlTokenExtractor {
      * @param evidence The evidence that was part of the authroization decision statement.
      * @param assertOut The class where the data will be placed.
      */
-    private static void extractEvidence(EvidenceType evidence, AssertionType assertOut)
-    {
+    private static void extractEvidence(EvidenceType evidence, AssertionType assertOut) {
         log.debug("Entering SamlTokenExtractor.extractEvidence...");
         SamlAuthzDecisionStatementEvidenceAssertionType oSamlEvidAssert = assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion();
 
         List<JAXBElement<?>> oaAsserts = evidence.getAssertionIDRefOrAssertionURIRefOrAssertion();
         if ((oaAsserts != null) &&
-            (oaAsserts.size() > 0)) {
+                (oaAsserts.size() > 0)) {
             // Loop looking for the tags we need.
             //----------------------------------------
             for (JAXBElement<?> oElement : oaAsserts) {
@@ -770,7 +778,7 @@ public class SamlTokenExtractor {
                     // Issuer Format
                     //---------------
                     if ((oAssert.getIssuer() != null) &&
-                        (oAssert.getIssuer().getFormat() != null)) {
+                            (oAssert.getIssuer().getFormat() != null)) {
                         oSamlEvidAssert.setIssuerFormat(oAssert.getIssuer().getFormat());
                         log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.IssuerFormat = " + oSamlEvidAssert.getIssuerFormat());
                     }
@@ -778,7 +786,7 @@ public class SamlTokenExtractor {
                     // Issuer
                     //-------
                     if ((oAssert.getIssuer() != null) &&
-                        (oAssert.getIssuer().getValue() != null)) {
+                            (oAssert.getIssuer().getValue() != null)) {
                         oSamlEvidAssert.setIssuer(oAssert.getIssuer().getValue());
                         log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Issuer = " + oSamlEvidAssert.getIssuer());
                     }

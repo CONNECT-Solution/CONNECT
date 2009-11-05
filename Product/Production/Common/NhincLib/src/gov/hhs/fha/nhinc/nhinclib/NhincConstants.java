@@ -30,6 +30,9 @@ public class NhincConstants {
     public static final String USER_LAST_PROP = "userLastName";
     public static final String USER_NAME_PROP = "userName";
     public static final String USER_ORG_PROP = "userOrganization";
+    public static final String USER_ORG_ID_PROP = "userOrganizationID";
+    public static final String HOME_COM_PROP = "homeCommunity";
+    public static final String PATIENT_ID_PROP = "patientID";
     public static final String USER_CODE_PROP = "userRoleCode";
     public static final String USER_SYST_PROP = "userRoleCodeSystem";
     public static final String USER_SYST_NAME_PROP = "userRoleCodeSystemName";
@@ -71,6 +74,7 @@ public class NhincConstants {
     public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
+    public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String CE_CODE_ID = "code";
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";

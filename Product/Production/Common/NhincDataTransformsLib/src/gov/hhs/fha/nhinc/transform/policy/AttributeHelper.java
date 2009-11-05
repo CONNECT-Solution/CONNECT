@@ -9,6 +9,10 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import gov.hhs.fha.nhinc.callback.Base64Coder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.hl7.v3.II;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -24,14 +28,13 @@ public class AttributeHelper {
 
     public static AttributeType attributeFactory(String attributeId, String dataType, Object value) {
         log.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType + "']");
-        
+
         // There is a problem if the value is null.  If that occurs then we get a XACML Attribute outer tag
         // and no inner "<AttributeValue> tag.  This causes the receiving PEP to error out because it should not occur.
         // if we return null, then the entire attribute will not be added - which is what we want.  Note that an "add" to
         // a JAXB list where the value is null turns into a noop.
         //-----------------------------------------------------------------------------------------------------------------
-        if (value == null)
-        {
+        if (value == null) {
             log.debug("XACML attribute [id='" + attributeId + "' was null - returning null - no atribute will be added.");
             return null;
         }
@@ -43,13 +46,22 @@ public class AttributeHelper {
         AttributeValueType atttibuteValue = new AttributeValueType();
         if (value instanceof String) {
             atttibuteValue.getContent().add(value);
-        }
-        else if (value  instanceof byte[]) {
+        } else if (value instanceof byte[]) {
             String sValue = new String((byte[]) value);     // Note that JAXB already decoded this.  We need to re-encode it.
             String sEncodedValue = Base64Coder.encodeString(sValue);
             atttibuteValue.getContent().add(sEncodedValue);
-        }
-        else {
+        } else if (value instanceof II) {
+            II iiValue = (II) value;
+            try {
+                Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+                Element iiElement = doc.createElementNS("urn:hl7-org:v3", "hl7:PatientId");
+                iiElement.setAttribute("root", iiValue.getRoot());
+                iiElement.setAttribute("extension", iiValue.getExtension());
+                atttibuteValue.getContent().add(iiElement);
+            } catch (Exception e) {
+                log.error("Unable to add II attribute " + e.getMessage());
+            }
+        } else {
             // Note sure what to do with the rest - just put them in...
             //----------------------------------------------------------
             atttibuteValue.getContent().add(value);
