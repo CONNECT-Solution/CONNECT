@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.auditlog;
 
 import gov.hhs.fha.nhinc.auditrepositoryproxy.AuditRepositoryProxyFactory;
@@ -34,7 +30,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
-import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType;
 import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerService;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -68,7 +63,7 @@ public class AuditLogImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         if (isServiceEnabled()) {
-            LogEventRequestType auditMsg = DocumentQueryTransforms.transformDocQueryReq2AuditMsg(logAdhocQueryRequest);
+            LogEventRequestType auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logAdhocQueryRequest);
             ack.setMessage(audit(auditMsg));
         } else {
             ack.setMessage(NhincConstants.AUDIT_DISABLED_ACK_MSG);
@@ -116,7 +111,7 @@ public class AuditLogImpl {
         AcknowledgementType ack = new AcknowledgementType();
 
         if (isServiceEnabled()) {
-            LogEventRequestType auditMsg = DocumentQueryTransforms.transformDocQueryResp2AuditMsg(logAdhocQueryResultRequest);
+            LogEventRequestType auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logAdhocQueryResultRequest);
             ack.setMessage(audit(auditMsg));
         } else {
             ack.setMessage(NhincConstants.AUDIT_DISABLED_ACK_MSG);

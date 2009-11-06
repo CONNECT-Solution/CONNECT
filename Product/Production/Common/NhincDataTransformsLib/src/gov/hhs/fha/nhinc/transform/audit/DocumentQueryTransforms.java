@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.transform.audit;
 
 import java.util.List;
@@ -20,7 +16,6 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 
@@ -28,6 +23,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryResultRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 
 /**
  *
@@ -35,10 +32,21 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
  */
 public class DocumentQueryTransforms {
 
-    private static Log log = LogFactory.getLog(DocumentQueryTransforms.class);
+    private Log log = null;
+
     private static final String PATIENT_ID_SLOT = "$XDSDocumentEntryPatientId";
 
-    public static LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message) {
+    public DocumentQueryTransforms()
+    {
+        log = createLogger();
+    }
+
+    protected Log createLogger()
+	{
+		return ((log != null) ? log : LogFactory.getLog(getClass()));
+	}
+
+    public LogEventRequestType transformDocQueryReq2AuditMsg(LogAdhocQueryRequestType message) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -122,7 +130,7 @@ public class DocumentQueryTransforms {
         return response;
     }
 
-    public static LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message) {
+    public LogEventRequestType transformDocQueryResp2AuditMsg(LogAdhocQueryResultRequestType message) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
         response.setDirection(message.getDirection());
@@ -160,6 +168,7 @@ public class DocumentQueryTransforms {
             // Create Audit Source Identification Section
             List<JAXBElement<? extends IdentifiableType>> objList = message.getMessage().getAdhocQueryResponse().getRegistryObjectList().getIdentifiable();
             ExtrinsicObjectType oExtObj = null;
+            ObjectRefType oObjRef = null;
 
             // Look for the first ExtrinsicObject type..  We will use that one to extract the data.
             //-------------------------------------------------------------------------------------
@@ -174,18 +183,34 @@ public class DocumentQueryTransforms {
                     oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
                     break;          // We have what we want let's get out of here...
                 }
+                else if ((oJAXBObj != null) &&
+                        (oJAXBObj.getDeclaredType() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType")) &&
+                        (oJAXBObj.getValue() != null)) {
+                    oObjRef = (ObjectRefType) oJAXBObj.getValue();
+                    break;          // We have what we want let's get out of here...
+                }
+
             }   //for (int i = 0; i < objList.size(); i++)
 
             // Home Community ID                      
             //-------------------
+            String communityId = null;
             if ((oExtObj != null) &&
                     (oExtObj.getHome() != null) &&
                     (oExtObj.getHome().length() > 0)) {
-                String communityId = oExtObj.getHome();
+                communityId = oExtObj.getHome();
+            }
+            else if((oObjRef != null) && (NullChecker.isNotNullish(oObjRef.getHome())))
+            {
+                communityId = oObjRef.getHome();
+            }
+            if(communityId != null)
+            {
                 AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, null);
                 auditMsg.getAuditSourceIdentification().add(auditSrcId);
             }
-
 
             // Patient ID
             //------------

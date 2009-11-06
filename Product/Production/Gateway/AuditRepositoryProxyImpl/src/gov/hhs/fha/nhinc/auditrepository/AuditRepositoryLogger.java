@@ -113,7 +113,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
             
-            auditMsg = DocumentQueryTransforms.transformDocQueryReq2AuditMsg(logReqMsg);
+            auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logReqMsg);
         }
 
         return auditMsg;
@@ -204,7 +204,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
             
-            auditMsg = DocumentQueryTransforms.transformDocQueryResp2AuditMsg(logReqMsg);
+            auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg);
         }
 
         return auditMsg;
