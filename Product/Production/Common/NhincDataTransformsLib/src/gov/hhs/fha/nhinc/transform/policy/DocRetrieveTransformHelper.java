@@ -28,7 +28,8 @@ public class DocRetrieveTransformHelper {
         //DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
-        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity() ,  event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity() ,  event.getMessage().getAssertion());
         request.getSubject().add(subject);
         DocRetrieveMessageType docMessage = event.getMessage();
         RetrieveDocumentSetRequestType retrieveDocumentSetRequest = docMessage.getRetrieveDocumentSetRequest();
@@ -40,7 +41,8 @@ public class DocRetrieveTransformHelper {
                 request.getResource().add(getResource(docReq));
             }
         }
-        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
         policyRequest.setRequest(request);

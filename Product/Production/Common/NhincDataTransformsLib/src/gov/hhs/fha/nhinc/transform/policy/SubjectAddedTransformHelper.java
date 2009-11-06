@@ -36,7 +36,8 @@ public class SubjectAddedTransformHelper {
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
 
-        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         log.debug("transformSubjectAddedInToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
@@ -51,7 +52,8 @@ public class SubjectAddedTransformHelper {
         }
 
         log.debug("transformSubjectAddedInToCheckPolicy - adding assertion data");
-        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
 //        CheckPolicyRequestType oPolicyRequest = new CheckPolicyRequestType();
 //        oPolicyRequest.setRequest(request);

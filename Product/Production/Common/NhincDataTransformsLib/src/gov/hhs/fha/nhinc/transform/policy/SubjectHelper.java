@@ -21,7 +21,7 @@ public class SubjectHelper {
     private static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-for-use";
     private static final String UserHomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
 
-    public static SubjectType subjectFactory(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
+    public SubjectType subjectFactory(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectCategory);
         //subject.getAttribute().add(AttributeHelper.attributeFactory(UserAttributeId, Constants.DataTypeString, AssertionHelper.extractUserName(assertion)));
@@ -29,7 +29,7 @@ public class SubjectHelper {
         return subject;
     }
     
-    public static SubjectType subjectFactoryReident(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
+    public SubjectType subjectFactoryReident(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectCategory);
         // removed as this causes the user-role-code to show up twice
@@ -39,7 +39,7 @@ public class SubjectHelper {
         return subject;
     }
 
-    private static String determineSendingHomeCommunityId(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
+    private String determineSendingHomeCommunityId(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         String homeCommunityId = null;
 
         if (sendingHomeCommunity != null) {
@@ -47,7 +47,8 @@ public class SubjectHelper {
         }
 
         if (NullChecker.isNullish(homeCommunityId)) {
-            homeCommunityId = AssertionHelper.extractUserHomeCommunity(assertion);
+            AssertionHelper assertHelp = new AssertionHelper();
+            homeCommunityId = assertHelp.extractUserHomeCommunity(assertion);
         }
 
         return homeCommunityId;

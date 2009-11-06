@@ -35,7 +35,7 @@ public class SubjectReidentificationTransformHelper {
         SubjectReidentificationMessageType message = event.getMessage();
         PRPAIN201309UV subjectReidentification = message.getPRPAIN201309UV();
         RequestType request = new RequestType();
-        if (event.getDirection() !=  null) {
+        if (event.getDirection() != null) {
             System.out.println("event.getDirection() is " + event.getDirection());
         }
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
@@ -45,7 +45,8 @@ public class SubjectReidentificationTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         System.out.println("Action is >>>" + request.getAction().getAttribute().get(0).getAttributeId() + "<<<");
-        SubjectType subject = SubjectHelper.subjectFactoryReident(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactoryReident(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
         II ii = extractPatientIdentifier(subjectReidentification);
         if (ii != null) {
@@ -56,7 +57,8 @@ public class SubjectReidentificationTransformHelper {
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
-                AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         genericPolicyRequest.setRequest(request);
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());

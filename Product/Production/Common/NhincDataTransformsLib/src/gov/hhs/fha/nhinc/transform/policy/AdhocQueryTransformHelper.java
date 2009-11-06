@@ -5,19 +5,12 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.transform.marshallers.AdhocQueryRequestEventMarshaller;
-import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
@@ -72,10 +65,12 @@ public class AdhocQueryTransformHelper {
         resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 
-        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
 
-        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
         policyRequest.setRequest(request);

@@ -25,8 +25,8 @@ import org.w3c.dom.Element;
  * @author svalluripalli
  */
 public class SubscribeTransformHelper {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscribeTransformHelper.class);
 
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscribeTransformHelper.class);
     private static final String ActionInValue = "HIEMSubscriptionRequestIn";
     private static final String ActionOutValue = "HIEMSubscriptionRequestOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
@@ -44,7 +44,8 @@ public class SubscribeTransformHelper {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
 
-        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
 
         AdhocQueryRequest adhocReq = new AdhocQueryRequest();
@@ -70,7 +71,8 @@ public class SubscribeTransformHelper {
 
         request.getResource().add(resource);
 
-        AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
 
         genericPolicyRequest.setRequest(request);
@@ -78,25 +80,19 @@ public class SubscribeTransformHelper {
         return genericPolicyRequest;
     }
 
-    private static void setTopic(SubscribeEventType event, ResourceType resource)
-    {
+    private static void setTopic(SubscribeEventType event, ResourceType resource) {
         String topic = null;
-        try
-        {
+        try {
             log.debug("######## BEGIN TOPIC EXTRACTION ########");
             JAXBElement<TopicExpressionType> jbElement = (JAXBElement<TopicExpressionType>) event.getMessage().getSubscribe().getFilter().getAny().get(0);
             TopicExpressionType topicExpression = jbElement.getValue();
             topic = (String) topicExpression.getContent().get(0);
             log.debug("Topic extracted: " + topic);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error extracting the topic: " + t.getMessage(), t);
         }
-        if(NullChecker.isNotNullish(topic))
-        {
-            if(log.isDebugEnabled())
-            {
+        if (NullChecker.isNotNullish(topic)) {
+            if (log.isDebugEnabled()) {
                 log.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: " + Constants.DataTypeString);
             }
             resource.getAttribute().add(AttributeHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
@@ -113,25 +109,21 @@ public class SubscribeTransformHelper {
             if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
                 log.debug("Any item was oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType");
                 adhocQuery = (AdhocQueryType) anyItem;
-            }
-            else if (anyItem instanceof JAXBElement) {
+            } else if (anyItem instanceof JAXBElement) {
                 log.debug("Any item was JAXBElement");
                 if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
                     log.debug("Any item - JAXBElement value was AdhocQueryType");
                     adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
                 }
-            }
-            else if (anyItem instanceof Element) {
+            } else if (anyItem instanceof Element) {
                 log.debug("Any item was Element");
                 Element element = (Element) anyItem;
                 log.debug("SubscribeTransformHelper.getAdhocQuery - element name of any in list: " + element.getLocalName());
                 adhocQuery = unmarshalAdhocQuery(element);
                 //Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
 
-            //  Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
-            }
-            else
-            {
+                //  Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
+            } else {
                 log.debug("Any type did not fit any expected value");
             }
         }
@@ -159,7 +151,7 @@ public class SubscribeTransformHelper {
                 log.debug("init stringReader");
                 StringReader stringReader = new StringReader(serializedElement);
                 log.debug("Calling unmarshal");
-                JAXBElement<AdhocQueryType> jaxbElement = (JAXBElement<AdhocQueryType>)unmarshaller.unmarshal(stringReader);
+                JAXBElement<AdhocQueryType> jaxbElement = (JAXBElement<AdhocQueryType>) unmarshaller.unmarshal(stringReader);
                 log.debug("unmarshalled to JAXBElement");
                 unmarshalledObject = jaxbElement.getValue();
                 log.debug("end unmarshal");
@@ -173,5 +165,4 @@ public class SubscribeTransformHelper {
 
         return unmarshalledObject;
     }
-
 }

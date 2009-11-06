@@ -36,7 +36,8 @@ public class FindAuditEventsTransformHelper {
             if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
                 request.setAction(ActionHelper.actionFactory(ActionOutValue));
             }
-            SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+            SubjectHelper subjHelp = new SubjectHelper();
+            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
             request.getSubject().add(subject);
             FindAuditEventsMessageType message = event.getMessage();
             if (message != null) {
@@ -57,7 +58,8 @@ public class FindAuditEventsTransformHelper {
                     request.getResource().add(resource);
                 }
             }
-            AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+            AssertionHelper assertHelp = new AssertionHelper();
+            assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
         }
 
         genericPolicyRequest.setRequest(request);

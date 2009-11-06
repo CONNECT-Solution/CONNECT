@@ -18,22 +18,23 @@ public class PurposeForUseHelper {
     private static final String PurposeForUseActionAttributeId = "urn:oasis:names:tc:xacml:2.0:action:purpose";
     private static final String PurposeForUseSubjectAttributeId = "urn:gov:hhs:fha:nhinc:purpose-for-use";
 
-    public static void appendPurposeForUse( RequestType policyXacmlRequest, AssertionType assertion) {
-        String purposeForUse = AssertionHelper.extractPurpose(assertion);
+    public void appendPurposeForUse( RequestType policyXacmlRequest, AssertionType assertion) {
+        AssertionHelper assertHelp = new AssertionHelper();
+        String purposeForUse = assertHelp.extractPurpose(assertion);
 
         //there are two ways to do this, not sure which will be "correct", so adding to both for the moment - fix this before releasing the code
         appendPurposeForUseToAction(policyXacmlRequest, purposeForUse);
         appendPurposeForUseToSubject(policyXacmlRequest, purposeForUse);
     }
 
-    private static void appendPurposeForUseToAction( RequestType policyXacmlRequest, String purposeForUse) {
+    private void appendPurposeForUseToAction( RequestType policyXacmlRequest, String purposeForUse) {
         if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getAction() != null)) {
             AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseActionAttributeId, Constants.DataTypeString, purposeForUse);
             policyXacmlRequest.getAction().getAttribute().add(purposeForUseAttribute);
         }
     }
 
-    private static void appendPurposeForUseToSubject( RequestType policyXacmlRequest, String purposeForUse) {
+    private void appendPurposeForUseToSubject( RequestType policyXacmlRequest, String purposeForUse) {
         if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getSubject() != null)) {
             AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseSubjectAttributeId, Constants.DataTypeString, purposeForUse);
             policyXacmlRequest.getSubject().get(0).getAttribute().add(purposeForUseAttribute);

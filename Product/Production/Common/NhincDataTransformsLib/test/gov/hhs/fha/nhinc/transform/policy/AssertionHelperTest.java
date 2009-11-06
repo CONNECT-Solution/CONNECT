@@ -18,7 +18,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceCo
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
@@ -33,6 +35,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -105,7 +109,8 @@ public class AssertionHelperTest {
         log.info("testAppendAssertionDataToRequest");
 
         RequestType policyRequest = new RequestType();
-        AssertionHelper.appendAssertionDataToRequest(policyRequest, assertion);
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(policyRequest, assertion);
 
         verifyPolicySubject(policyRequest);
         verifyPolicyResource(policyRequest);
@@ -114,16 +119,32 @@ public class AssertionHelperTest {
     /**
      * Test of appendAssertionDataToRequest method, of class AssertionHelper.
      */
-    /*@Test
+    @Test
     public void testNullAssertionDataToRequest() {
-    log.info("testAppendAssertionDataToRequest");
+        log.info("testNullAssertionDataToRequest");
+        Mockery mockery = new Mockery();
+        final Log mockLog = mockery.mock(Log.class);
 
-    RequestType policyRequest = new RequestType();
-    AssertionHelper.appendAssertionDataToRequest(policyRequest, null);
+        RequestType policyRequest = new RequestType();
+        AssertionHelper assertHelp = new AssertionHelper() {
 
-    mockLogger
-    }*/
-    
+            @Override
+            protected Log createLogger() {
+                return mockLog;
+            }
+        };
+        mockery.checking(new Expectations() {
+
+            {
+                oneOf(mockLog).debug("begin appending assertion data to xacml request");
+                oneOf(mockLog).warn("assertion was not set - unable to extract assertion related data to send to policy engine");
+                oneOf(mockLog).debug("end appending assertion data to xacml request");
+            }
+        });
+        assertHelp.appendAssertionDataToRequest(policyRequest, null);
+
+    }
+
     private AssertionType createTestAssertion() {
         AssertionType assertOut = new AssertionType();
 
@@ -252,6 +273,7 @@ public class AssertionHelperTest {
             TEST_USER_PURPOSE_CODE_SY_VAL,
             TEST_USER_PURPOSE_CODE_SY_NM_VAL,
             TEST_USER_PURPOSE_CODE_DSP_NM_VAL};
+        List matchIdList = new ArrayList();
 
         for (int idx = 0; idx < ids.length; idx++) {
             expectSubjAttr.put(ids[idx], vals[idx]);
@@ -270,10 +292,14 @@ public class AssertionHelperTest {
                         String idMessage = "Subject Attribute: " + attr.getAttributeId() + " not found";
                         assertTrue(idMessage, expectSubjAttr.containsKey(attr.getAttributeId()));
                         if (expectSubjAttr.containsKey(attr.getAttributeId())) {
+                            matchIdList.add(attr.getAttributeId());
                             String expectedVal = (String) expectSubjAttr.get(attr.getAttributeId());
                             AttributeValueType expectedAttrVal = new AttributeValueType();
                             expectedAttrVal.getContent().add(expectedVal);
 
+                            String noAttrValMessage = "Request Subject Attribute " + attr.getAttributeId() + "has no AttributeValues";
+                            assertNotNull(noAttrValMessage, attr.getAttributeValue());
+                            assertFalse(noAttrValMessage, attr.getAttributeValue().isEmpty());
                             for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
                                 String valMessage = "Subject Attribute: " + attr.getAttributeId() + " expects value: " + expectedVal;
                                 assertArrayEquals(valMessage, expectedAttrVal.getContent().toArray(), actAttrVal.getContent().toArray());
@@ -282,6 +308,11 @@ public class AssertionHelperTest {
                     }
                 }
             }
+        }
+
+        for (int idx = 0; idx < ids.length; idx++) {
+            String missingAttrMessage = "Constructed Subject is missing attribute: " + ids[idx];
+            assertTrue(missingAttrMessage, matchIdList.contains(ids[idx]));
         }
     }
 
@@ -309,6 +340,7 @@ public class AssertionHelperTest {
             TEST_EV_COND_AFTER_VAL,
             TEST_EV_CONTENT_REF_VAL,
             TEST_EV_CONTENT_TYPE_VAL};
+        List matchIdList = new ArrayList();
 
         for (int idx = 0; idx < ids.length; idx++) {
             expectResAttr.put(ids[idx], vals[idx]);
@@ -324,6 +356,7 @@ public class AssertionHelperTest {
                 assertFalse(noAttrMessage, res.getAttribute().isEmpty());
                 if (res.getAttribute() != null && !res.getAttribute().isEmpty()) {
                     for (AttributeType attr : res.getAttribute()) {
+                        matchIdList.add(attr.getAttributeId());
                         //handle II and binary types separately
                         if ("http://www.hhs.gov/healthit/nhin#subject-id".equals(attr.getAttributeId())) {
                             verifyUniquePatientId(attr);
@@ -337,6 +370,9 @@ public class AssertionHelperTest {
                                 AttributeValueType expectedAttrVal = new AttributeValueType();
                                 expectedAttrVal.getContent().add(expectedVal);
 
+                                String noAttrValMessage = "Request Resource Attribute " + attr.getAttributeId() + "has no AttributeValues";
+                                assertNotNull(noAttrValMessage, attr.getAttributeValue());
+                                assertFalse(noAttrValMessage, attr.getAttributeValue().isEmpty());
                                 for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
                                     String valMessage = "Resource Attribute: " + attr.getAttributeId() + " expects value: " + expectedVal;
                                     assertArrayEquals(valMessage, expectedAttrVal.getContent().toArray(), actAttrVal.getContent().toArray());
@@ -347,10 +383,19 @@ public class AssertionHelperTest {
                 }
             }
         }
+
+        for (int idx = 0; idx < ids.length; idx++) {
+            String missingAttrMessage = "Constructed Resource is missing attribute: " + ids[idx];
+            assertTrue(missingAttrMessage, matchIdList.contains(ids[idx]));
+        }
+        String missingAttrMessage = "Constructed Resource is missing attribute http://www.hhs.gov/healthit/nhin#subject-id";
+        assertTrue(missingAttrMessage, matchIdList.contains("http://www.hhs.gov/healthit/nhin#subject-id"));
+        missingAttrMessage = "Constructed Resource is missing attribute urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content";
+        assertTrue(missingAttrMessage, matchIdList.contains("urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content"));
     }
 
     private void verifyUniquePatientId(AttributeType attr) {
-        
+
         for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
             if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
                 for (Object obj : actAttrVal.getContent()) {

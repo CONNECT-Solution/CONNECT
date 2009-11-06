@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.transform.policy;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -15,34 +14,38 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201303UV;
 import org.hl7.v3.PRPAIN201303UVMFMIMT700701UV01Subject1;
+
 /**
  *
  * @author svalluripalli
  */
 public class SubjectRevokedTransformHelper {
+
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubjectRevokedTransformHelper.class);
     private static final String ActionValue = "SubjectDiscoveryRevokeIn";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
-    
+
     public static CheckPolicyRequestType transformSubjectRevokedToCheckPolicy(SubjectRevokedEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         SubjectRevokedMessageType message = event.getMessage();
         PRPAIN201303UV subjectRevoked = message.getPRPAIN201303UV();
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
-        SubjectType subject = SubjectHelper.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         request.getSubject().add(subject);
         II ii = extractPatientIdentifier(subjectRevoked);
         if (ii != null) {
             ResourceType resource = new ResourceType();
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()  ));
+            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
             log.debug("transformSubjectRevokedToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
             resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
-                AssertionHelper.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
         CheckPolicyRequestType oPolicyrequest = new CheckPolicyRequestType();
         oPolicyrequest.setRequest(request);
@@ -50,7 +53,7 @@ public class SubjectRevokedTransformHelper {
         genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
-    
+
     private static II extractPatientIdentifier(PRPAIN201303UV message) {
         II ii = null;
 
