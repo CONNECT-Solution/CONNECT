@@ -9,6 +9,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import gov.hhs.fha.nhinc.callback.Base64Coder;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.hl7.v3.II;
 import org.w3c.dom.Document;
@@ -95,5 +96,41 @@ public class AttributeHelper {
             resource.getAttribute().add(attribute);
         }
         return attribute;
+    }
+
+    public static AttributeType getSingleAttribute(List<AttributeType> attributeList, String attributeID) {
+        AttributeType matchingAttribute = null;
+        for (AttributeType attribute : attributeList) {
+            if (attribute.getAttributeId().contentEquals(attributeID)) {
+                if (matchingAttribute == null) {
+                    matchingAttribute = attribute;
+                } else {
+                    throw new IllegalArgumentException("getSingleAttribute() assumes that there is a single matching attribute in list.  List contained multiple items with attributeId='" + attributeID + "'.");
+                }
+            }
+        }
+        return matchingAttribute;
+    }
+
+    public static Object getSingleContentValue(AttributeType attribute) {
+        //returns attribute.getAttributeValue().get(0).getContent().get(0);
+        //if there a multiple attribute value or contents, return error
+        //if no attribute value or content, return null
+        Object contentValue = null;
+        if (attribute != null) {
+            if (attribute.getAttributeValue().size() > 1) {
+                throw new IllegalArgumentException("getSingleContentValue assumes that attribute contains a single attribute value.");
+            }
+            if (attribute.getAttributeValue().size() == 1) {
+                AttributeValueType attributeValue = attribute.getAttributeValue().get(0);
+                if (attributeValue.getContent().size() > 1) {
+                    throw new IllegalArgumentException("getSingleContentValue assumes that attribute value contains a single content item.");
+                }
+                if (attributeValue.getContent().size() == 1) {
+                    contentValue = attributeValue.getContent().get(0);
+                }
+            }
+        }
+        return contentValue;
     }
 }

@@ -79,7 +79,7 @@ public class AssertionHelperTest {
     private static final String TEST_EV_CONTENT_TYPE_VAL = "Daughter";
     private static final String TEST_EV_COND_BEFORE_VAL = "July 19, 1553";
     private static final String TEST_EV_COND_AFTER_VAL = "Nov 17 1558";
-    private AssertionType assertion;
+    private AssertionType defaultAssertion;
 
     public AssertionHelperTest() {
     }
@@ -94,7 +94,7 @@ public class AssertionHelperTest {
 
     @Before
     public void setUp() {
-        assertion = createTestAssertion();
+        defaultAssertion = createTestAssertion();
     }
 
     @After
@@ -110,8 +110,7 @@ public class AssertionHelperTest {
 
         RequestType policyRequest = new RequestType();
         AssertionHelper assertHelp = new AssertionHelper();
-        assertHelp.appendAssertionDataToRequest(policyRequest, assertion);
-
+        assertHelp.appendAssertionDataToRequest(policyRequest, defaultAssertion);
         verifyPolicySubject(policyRequest);
         verifyPolicyResource(policyRequest);
     }
@@ -124,7 +123,6 @@ public class AssertionHelperTest {
         log.info("testNullAssertionDataToRequest");
         Mockery mockery = new Mockery();
         final Log mockLog = mockery.mock(Log.class);
-
         RequestType policyRequest = new RequestType();
         AssertionHelper assertHelp = new AssertionHelper() {
 
@@ -144,6 +142,57 @@ public class AssertionHelperTest {
         assertHelp.appendAssertionDataToRequest(policyRequest, null);
 
     }
+
+    @Test
+    public void userNameFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getUserInfo().getUserName();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+    }
+
+    @Test
+    public void userNameFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUserInfo().setUserName("");
+        String sourceValue = assertion.getUserInfo().getUserName();
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+    }
+
+    @Test
+    public void userNameFromAssertionToXacmlWithNullValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUserInfo().setUserName(null);
+        String sourceValue = assertion.getUserInfo().getUserName();
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+    }
+
+    @Test
+    public void samlAuthStatementFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getSamlAuthnStatement().getAuthInstant();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, Constants.DataTypeString);
+    }
+
+
+    //todo: re-enable
+//    @Test
+//    public void samlAuthStatementFromAssertionToXacmlWithBlankValue() {
+//        AssertionType assertion = createTestAssertion();
+//        assertion.getUserInfo().setUserName("");
+//        String sourceValue = assertion.getUserInfo().getUserName();
+//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, Constants.DataTypeString);
+//    }
+
+    //todo: re-enable
+//    @Test
+//    public void samlAuthStatementFromAssertionToXacmlWithNullValue() {
+//        AssertionType assertion = createTestAssertion();
+//        assertion.getUserInfo().setUserName(null);
+//        String sourceValue = assertion.getUserInfo().getUserName();
+//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, Constants.DataTypeString);
+//    }
 
     private AssertionType createTestAssertion() {
         AssertionType assertOut = new AssertionType();
@@ -445,5 +494,39 @@ public class AssertionHelperTest {
             String valMessage = "Resource Attribute: " + attr.getAttributeId() + " expects value: " + sEncodedValue;
             assertArrayEquals(valMessage, expectedAttrVal.getContent().toArray(), actAttrVal.getContent().toArray());
         }
+    }
+
+    private void executeAssertionToXacmlSingleFieldTest(AssertionType assertion, String xacmlGroup, String xacmlAttributeId, Object expectedDestinationValue, String expectedDataType) {
+        RequestType policyRequest = new RequestType();
+        AssertionHelper assertionHelper = new AssertionHelper();
+        assertionHelper.appendAssertionDataToRequest(policyRequest, assertion);
+        verifyPolicySubjectField(policyRequest, xacmlAttributeId, expectedDestinationValue, Constants.DataTypeString);
+    }
+
+    private void verifyPolicySubjectField(RequestType policyRequest, String attributeID, Object expectedValue, String expectedDataType) {
+        //in this particular assertion, it is assuming/asserting that there is a single subject.  If that changes test would need to be refactored
+        assertNotNull(policyRequest.getSubject());
+        assertFalse(policyRequest.getSubject().isEmpty());
+        assertEquals(1, policyRequest.getSubject().size());
+        SubjectType subject = policyRequest.getSubject().get(0);
+
+        AttributeType attribute = SubjectHelper.getSingleAttribute(subject, attributeID);
+        verifyAttributeField(attribute, expectedValue, expectedDataType);
+    }
+
+    private void verifyAttributeField(AttributeType attribute, Object expectedValue, String expectedDataType) {
+        Object contentValue = AttributeHelper.getSingleContentValue(attribute);
+        if (expectedValue != null) {
+            assertNotNull(attribute);
+
+            assertEquals(expectedDataType, attribute.getDataType());
+
+            assertEquals(expectedValue, contentValue);
+            log.info("asserting that value was copied to attribute [attributeID='" + attribute.getAttributeId() + "';content='" + contentValue + "';datatype='" + expectedDataType + "']");
+        } else {
+            assertNull("Expected attribute to be null, but found one with value of " + contentValue + ".", attribute);
+            log.info("asserting that attribute was not created");
+        }
+
     }
 }

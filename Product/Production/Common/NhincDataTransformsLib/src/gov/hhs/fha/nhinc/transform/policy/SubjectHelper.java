@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 
 /**
  *
@@ -28,7 +29,7 @@ public class SubjectHelper {
         subject.getAttribute().add(AttributeHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
-    
+
     public SubjectType subjectFactoryReident(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectCategory);
@@ -52,5 +53,9 @@ public class SubjectHelper {
         }
 
         return homeCommunityId;
+    }
+
+    public static AttributeType getSingleAttribute(SubjectType subject, String attributeID) {
+        return AttributeHelper.getSingleAttribute(subject.getAttribute(), attributeID);
     }
 }
