@@ -113,7 +113,7 @@ public class PatientDiscoveryPolicyTransformHelper {
 
     protected void setSubjectToRequestType(RespondingGatewayPRPAIN201305UV02RequestType event, RequestType request) {
         HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201305(event);
-        SubjectType subject = SubjectHelper.subjectFactory(senderHomeCommunity, event.getAssertion());
+        SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, event.getAssertion());
         request.getSubject().add(subject);
     }
 
