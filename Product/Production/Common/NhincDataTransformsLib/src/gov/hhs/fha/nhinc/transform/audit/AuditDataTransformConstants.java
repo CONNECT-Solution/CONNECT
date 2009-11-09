@@ -37,12 +37,16 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_SUB = "SUB";
     public static final String EVENT_ID_CODE_SYS_NAME_UNS = "UNS";
     public static final String EVENT_ID_CODE_SYS_NAME_NOT = "NOT";
+    public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; //Patient Discovery Request - EventID from spec: EV(110112, DCM, “Query”)
+    public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, “Query”)
     public static final String EVENT_ID_DISPLAY_NAME_DOCQUERY = "Query";
     public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE = "Retrieve";
     public static final String EVENT_ID_DISPLAY_NAME_SDNEW = "Subject Discovery New";
     public static final String EVENT_ID_DISPLAY_NAME_SDREV = "Subject Discovery Revised";
     public static final String EVENT_ID_DISPLAY_NAME_SDDEL = "Subject Discovery Revoke";
     public static final String EVENT_ID_DISPLAY_NAME_SDRID = "Subject Discovery Reidentification";
+    public static final String EVENT_ID_DISPLAY_NAME_PDREQ = "Patient Discovery Request";
+    public static final String EVENT_ID_DISPLAY_NAME_PDRES = "Patient Discovery Response";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_DOCQUERY = "EntityQuery";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_DOCRETRIEVE = "EntityRetrieve";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_SD = "EntityAnnouncePatient";
