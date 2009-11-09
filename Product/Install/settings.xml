@@ -10,6 +10,7 @@
   <condition property="deploy.os.settings.file" value="settings.unix.xml">
     <os family="unix"/>
   </condition>
+  <import file="${deploy.os.settings.file}" />
 
   <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc" />
   <property name="deployment.glassfish.admin.port" value="4848"/>

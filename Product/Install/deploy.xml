@@ -14,10 +14,9 @@
       <property name="script.root.directory" value="${basedir}"/>
     </else>
   </if>
-  
+
   <import file="settings.xml" />
-  <import file="${deploy.os.settings.file}" />
-  
+
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
