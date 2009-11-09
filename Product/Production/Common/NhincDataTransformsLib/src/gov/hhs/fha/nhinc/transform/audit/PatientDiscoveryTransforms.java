@@ -83,30 +83,17 @@ public class PatientDiscoveryTransforms {
         
         oAuditMessageType = new AuditMessageType();
         
+        //check to see that the required fields are not null
+        boolean bRequiredFieldsAreNull = areRequired201305fieldsNull(oPatientDiscoveryRequestMessage, oAssertion);
+        if (bRequiredFieldsAreNull) 
+        {
+            //TODO add a unit test case...
+            addLogError("One or more of the required fields needed to transform to an audit message request were null.");
+            return null;
+        } //else continue
+
         // Extract UserInfo from request assertion
-        UserType oUserInfo = new UserType();
-
-        if ((oAssertion != null) &&
-             (oAssertion.getUserInfo() != null))
-        {
-            oUserInfo = oAssertion.getUserInfo();
-            addLogDebug("Incomming request.getAssertion.getUserInfo.getUserName: " + oUserInfo.getUserName());
-            addLogDebug("Incomming request.getAssertion.getUserInfo.getRole: " + oUserInfo.getRole());
-        }
-        else
-        {
-            //TODO add a unit test case...
-            addLogError("The incomming UserType object or request assertion object containing the assertion user info was null.");
-            return null;
-        } //else continue
-
-        boolean bRequiredFieldsAreNull = areRequired201305fieldsNull(oPatientDiscoveryRequestMessage);
-        if (bRequiredFieldsAreNull) //TODO call method to test to see if all required fields are not null.
-        {
-            //TODO add a unit test case...
-            addLogError("The PRPA_IN201305UV patient discovery object was null.");
-            return null;
-        } //else continue
+        UserType oUserInfo = oAssertion.getUserInfo();//new UserType();
 
         oReturnLogEventRequestType = new LogEventRequestType();
         
@@ -745,8 +732,49 @@ public class PatientDiscoveryTransforms {
      * @param oPatientDiscoveryRequestMessage
      * @return
      */
-    private boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage) {
+    private boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion) {
         boolean bReturnVal = false;
+
+        //check the userInfo object from the assertion object
+        if ((oAssertion != null) &&
+             (oAssertion.getUserInfo() != null))
+        {
+            if (oAssertion.getUserInfo().getUserName() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+                return true;
+            }
+
+            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+                return true;
+            }
+
+            if (oAssertion.getUserInfo().getOrg().getName() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
+                return true;
+            }
+        }
+        else
+        {
+            addLogError("The UserType object or request assertion object containing the assertion user info was null.");
+            return true;
+        } //else continue
+
 
         // Create EventIdentification - values are not comming from the request, they are internal to this class
 
