@@ -2,10 +2,10 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Klocwork">
 
   <target name="Klocwork.CreateBuildSpecification">
-    <setenv>
+    <!--<setenv>
       <environment refid="${Common.EnvironmentVariables.RefId}" />
     </setenv>
-    <!--<exec program="kwant.exe"
+    <exec program="kwant.exe"
 				  commandline='-o nhin_kwinject.out build-test'
           failonerror="true"
 				  workingdir="${Common.Directory.Product.Path}"
@@ -14,11 +14,14 @@
     <ant
       antbat="kwant.exe"
       target="build-test"
-      verbose="true"
+      buildfile="${Ant.Build.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\copy_artifacts_log.xml"
     >
-       <args>
-         <arg line="-o nhin_kwinject.out"/>
-       </args>
+      <environment refid="${Common.EnvironmentVariables.RefId}"/>
+      <args>
+        <arg line="-o nhin_kwinject.out"/>
+        <arg line="-Dcompile.debug=${Compile.Debug}"/>
+      </args>
     </ant>
   </target>
 
