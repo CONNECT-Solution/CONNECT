@@ -167,6 +167,11 @@ public class PatientDiscoveryTransforms {
   
     }
 
+    protected PRPAIN201306UVMFMIMT700711UV01RegistrationEvent getRegistrationEventFromSubject(List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1) {
+        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+        return oRegistrationEvent;
+    }
+
     /**
      * This method translates a patient discovery response to an audit log request.
      * It leave the direction decision needed for the audit log up to the caller.
@@ -174,7 +179,7 @@ public class PatientDiscoveryTransforms {
      * @param oRequest
      * @return
      */
-    private LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         AuditMessageType oAuditMessageType = null;
@@ -207,6 +212,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
+        oAuditMessageType = new AuditMessageType();
         oReturnLogEventRequestType = new LogEventRequestType();
 
         CodedValueType eventID = getCodedValueTypeFor201306UV();
@@ -225,9 +231,9 @@ public class PatientDiscoveryTransforms {
         //get the patient id from the request
         PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
         List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
-        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = getRegistrationEventFromSubject(oSubject1);
         PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
-        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+        PRPAMT201310UVPatient oPatient = getPatient(oSubject2);
         List<II> oII = oPatient.getId();
         sPatientId = oII.get(0).getExtension();
         sCommunityId = oII.get(0).getRoot();
@@ -275,6 +281,12 @@ public class PatientDiscoveryTransforms {
 
         return oReturnLogEventRequestType;
     }
+
+     protected PRPAMT201310UVPatient getPatient(PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2) {
+        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+        return oPatient;
+    }
+
 
     /**
      * this method tranforms a patient discovery request from an inbound entity into an audit log message.
@@ -732,7 +744,7 @@ public class PatientDiscoveryTransforms {
      * @param oPatientDiscoveryRequestMessage
      * @return
      */
-    private boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion) {
+    protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion) {
         boolean bReturnVal = false;
 
         //check the userInfo object from the assertion object
