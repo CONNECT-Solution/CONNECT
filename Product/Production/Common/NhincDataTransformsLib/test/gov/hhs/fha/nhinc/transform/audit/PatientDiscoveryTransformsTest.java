@@ -535,7 +535,6 @@ public class PatientDiscoveryTransformsTest {
 
                 final PRPAMT201310UVPatient pRPAMT201310UVPatient = new PRPAMT201310UVPatient();
 
-
                 final PRPAIN201306UVMFMIMT700711UV01Subject2 pRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UVMFMIMT700711UV01Subject2();
                 pRPAIN201306UVMFMIMT700711UV01Subject2.setPatient(pRPAMT201310UVPatient);
 
@@ -574,6 +573,9 @@ public class PatientDiscoveryTransformsTest {
 
         Assert.assertNotNull(expectedResult);
         Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expectedResult.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+
     }
 
     private UserType getTestUserType() {
