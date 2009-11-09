@@ -16,16 +16,20 @@ import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.MCCIMT000300UV01Sender;
 import org.hl7.v3.PRPAIN201305UV;
+import org.hl7.v3.PRPAIN201306UV;
 import org.hl7.v3.PRPAMT201301UVPatient;
 import org.hl7.v3.PRPAMT201301UVPerson;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.After;
@@ -94,6 +98,52 @@ public class PatientDiscoveryTransformsTest {
     }
 
     @Test
+    public void testTransformNhinPRPAIN201305RequestToAuditMsgWillFailForNullRequest() {
+        final Log mockLogger = context.mock(Log.class);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The incomming Patient Discovery request message was null.");
+                will(returnValue(null));
+            }
+        });
+
+        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(null, null);
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void testTransformAdapterPRPAIN201305RequestToAuditMsgWillFailForNullRequest() {
+        final Log mockLogger = context.mock(Log.class);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The incomming Patient Discovery request message was null.");
+                will(returnValue(null));
+            }
+        });
+
+        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(null, null);
+        context.assertIsSatisfied();
+    }
+
+    @Test
     public void testTransformEntityPRPAIN201305RequestToAuditMsgWillFailForNullAssertionTypeParameter() {
         final Log mockLogger = context.mock(Log.class);
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
@@ -119,10 +169,102 @@ public class PatientDiscoveryTransformsTest {
     }
 
     @Test
-    public void testTransformEntityPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredFields() {
+    public void testTransformNhinPRPAIN201305RequestToAuditMsgWillFailForNullAssertionTypeParameter() {
+        final Log mockLogger = context.mock(Log.class);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockLogger).error("The AssertionType object was null.");
+//                oneOf(mockLogger).error("There was a problem translating the request into an audit log request object.");
+                will(returnValue(null));
+            }
+        });
+
+        PRPAIN201305UV oPatientDiscoveryRequest = new PRPAIN201305UV();
+        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
+        context.assertIsSatisfied();
+    }
+
+    @Test
+    public void testTransformAdapterPRPAIN201305RequestToAuditMsgWillFailForNullAssertionTypeParameter() {
+        final Log mockLogger = context.mock(Log.class);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                oneOf(mockLogger).error("The AssertionType object was null.");
+//                oneOf(mockLogger).error("There was a problem translating the request into an audit log request object.");
+                will(returnValue(null));
+            }
+        });
+
+        PRPAIN201305UV oPatientDiscoveryRequest = new PRPAIN201305UV();
+        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
+        context.assertIsSatisfied();
+    }
+
+   /**
+    * This method tests the transformPRPAIN201305RequestToAuditMsg private method
+    * using the transformEntityPRPAIN201305RequestToAuditMsg method as an entry point.
+    */
+    @Test
+    public void testTransformPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredUserInfoFields() {
         final Log mockLogger = context.mock(Log.class);
         PatientDiscoveryTransforms testSubject = getNewRequestObject();
         
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+//                allowing(mockLogger).error(with(any(String.class)));
+
+//                oneOf(mockLogger).error("The UserType object or request assertion object containing the assertion user info was null.");
+//                oneOf(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
+//                atLeast(1).of(mockLogger).error("There was a problem translating the request into an audit log request object.");
+
+                will(returnValue(null));
+            }
+        });
+
+        RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+        AssertionType oAssertion = new AssertionType();
+//        UserType oUserInfo = new UserType();
+//        String sUserRole = "test user role";
+//        String sUserName = "Test Name";
+//        oUserInfo.setRole(sUserRole);
+//        oUserInfo.setUserName(sUserName);
+//        oAssertion.setUserInfo(oUserInfo);
+
+        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion);
+        
+        context.assertIsSatisfied();
+    }
+
+     /**
+    * This method tests the transformPRPAIN201305RequestToAuditMsg private method 
+    * using the transformEntityPRPAIN201305RequestToAuditMsg method as an entry point.
+    */
+    @Test
+    public void testTransformPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredPatientIdFields() {
+        final Log mockLogger = context.mock(Log.class);
+        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+
         context.checking(new Expectations() {
 
             {
@@ -142,16 +284,23 @@ public class PatientDiscoveryTransformsTest {
         });
 
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+//        oPatientDiscoveryRequest.getPRPAIN201305UV().setControlActProcess(null);
         AssertionType oAssertion = new AssertionType();
         UserType oUserInfo = new UserType();
         String sUserRole = "test user role";
         String sUserName = "Test Name";
+        String sHomeCommunityId = "Test Home Community Id";
+        String sHomeCommunityName = "Test Home Community Name";
         oUserInfo.setRole(sUserRole);
         oUserInfo.setUserName(sUserName);
+        HomeCommunityType oHomeCommunityType = new HomeCommunityType();
+        oHomeCommunityType.setHomeCommunityId(sHomeCommunityId);
+        oHomeCommunityType.setName(sHomeCommunityName);
+        oUserInfo.setOrg(oHomeCommunityType);
         oAssertion.setUserInfo(oUserInfo);
 
         testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion);
-        
+
         context.assertIsSatisfied();
     }
 
@@ -162,33 +311,19 @@ public class PatientDiscoveryTransformsTest {
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         AssertionType oAssertionType = new AssertionType();
 
-        MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
-        II typeId = new II();
-
-        typeId.setRoot("2.16.840.1.113883.3.200");
-        sender.setTypeId(typeId);
-
-        //TODO mock the next 3 lines
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, typeId);
-        PRPAIN201305UV message = HL7PRPA201305Transforms.createPRPA201305(patient, sender.getTypeId().getRoot(), "receiverId", "localDeviceId");//new PRPAIN201305UV();
-        message.setSender(sender);
+        PRPAIN201305UV oPRPAIN201305UV = getTestPatientDiscoveryRequest();
 
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        typeId.setRoot("2.16.840.1.113883.3.200");
-        typeId.setExtension("11111");
-        sender.setTypeId(typeId);
-
         //create a LogEventRequestType that holds the same data as what should 
         //be returned by the dte method.
-        AuditMessageType expResult = getTestAuditMessageType(userInfo, typeId);
+        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPRPAIN201305UV.getTypeId());
         final LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
 
         oPatientDiscoveryRequest.setAssertion(oAssertionType);
-        oPatientDiscoveryRequest.setPRPAIN201305UV(message);
+        oPatientDiscoveryRequest.setPRPAIN201305UV(oPRPAIN201305UV);
 
         PatientDiscoveryTransforms testSubject = getNewRequestObject();
         
@@ -210,6 +345,77 @@ public class PatientDiscoveryTransformsTest {
         //assertNotNull(expectedReturnValue.getAssertion());
     }
 
+    @Test
+    public void testTransformNhinPRPAIN201305RequestToAuditMsgWillPass() {
+        final Log mockLogger = context.mock(Log.class);
+
+        PRPAIN201305UV oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
+
+        UserType userInfo = getTestUserType();
+        AssertionType oAssertionType = new AssertionType();
+        oAssertionType.setUserInfo(userInfo);
+
+        //create a LogEventRequestType that holds the same data as what should
+        //be returned by the dte method.
+        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPatientDiscoveryRequest.getTypeId());
+        final LogEventRequestType expected = new LogEventRequestType();
+        expected.setAuditMessage(expResult);
+
+        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+
+
+        context.checking(new Expectations()
+        {
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+               
+                //create mock 2 calls to the helper classes
+                will(returnValue(with(any(LogEventRequestType.class))));
+                will(returnValue(expected));
+            }
+        });
+
+        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        context.assertIsSatisfied();
+        //assertNotNull(expectedReturnValue.getAssertion());
+    }
+
+    @Test
+    public void testTransformAdapterPRPAIN201305RequestToAuditMsgWillPass() {
+        final Log mockLogger = context.mock(Log.class);
+
+        PRPAIN201305UV oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
+
+        UserType userInfo = getTestUserType();
+        AssertionType oAssertionType = new AssertionType();
+        oAssertionType.setUserInfo(userInfo);
+
+        //create a LogEventRequestType that holds the same data as what should
+        //be returned by the dte method.
+        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPatientDiscoveryRequest.getTypeId());
+        final LogEventRequestType expected = new LogEventRequestType();
+        expected.setAuditMessage(expResult);
+
+        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+
+
+        context.checking(new Expectations()
+        {
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+
+                //create mock 2 calls to the helper classes
+                will(returnValue(with(any(LogEventRequestType.class))));
+                will(returnValue(expected));
+            }
+        });
+
+        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        context.assertIsSatisfied();
+        //assertNotNull(expectedReturnValue.getAssertion());
+    }
         @Test
     public void testTransformEntityPRPAIN201306ResponseToAuditMsgWillFailForNullRequest() {
         final Log mockLogger = context.mock(Log.class);
@@ -239,6 +445,65 @@ public class PatientDiscoveryTransformsTest {
     {
         final Log mockLogger = context.mock(Log.class);
 
+        RespondingGatewayPRPAIN201306UV02ResponseType oPatientDiscoveryResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
+        AssertionType oAssertion = new AssertionType();
+
+        MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
+        II typeId = new II();
+
+        String receiverAAID = "1.2.3.4";
+        String receiverOID = "1.2.3.4.5";
+        String localDeviceId = "localdeviceId";
+        PRPAIN201305UV query = new PRPAIN201305UV();
+        typeId.setRoot("2.16.840.1.113883.3.200");
+        sender.setTypeId(typeId);
+
+        //TODO mock the next 3 lines
+        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
+        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, typeId);
+        PRPAIN201306UV message = HL7PRPA201306Transforms.createPRPA201306(patient, sender.getTypeId().getRoot(), receiverAAID, receiverOID, localDeviceId, query);
+        message.setSender(sender);
+
+        UserType userInfo = getTestUserType();
+        oAssertion.setUserInfo(userInfo);
+
+//        PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
+//        List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
+//        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+//        PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
+//        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+//        List<II> oII = oPatient.getId();
+//        sPatientId = oII.get(0).getExtension();
+//        sCommunityId = oII.get(0).getRoot();
+
+        typeId.setRoot("2.16.840.1.113883.3.200");
+        typeId.setExtension("11111");
+        sender.setTypeId(typeId);
+
+        //create a LogEventRequestType that holds the same data as what should
+        //be returned by the dte method.
+        AuditMessageType expResult = getTestAuditMessageType(userInfo, typeId);
+        final LogEventRequestType expected = new LogEventRequestType();
+        expected.setAuditMessage(expResult);
+
+        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+
+
+        context.checking(new Expectations()
+        {
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+
+                //create mock 2 calls to the helper classes
+                will(returnValue(with(any(LogEventRequestType.class))));
+                will(returnValue(expected));
+            }
+        });
+
+        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponse, oAssertion);
+
+        context.assertIsSatisfied();
     }
 
     private UserType getTestUserType()
@@ -271,6 +536,24 @@ public class PatientDiscoveryTransformsTest {
         expResult.getParticipantObjectIdentification().add(partObjectId);
 
         return expResult;
+    }
+
+    private PRPAIN201305UV getTestPatientDiscoveryRequest()
+    {
+        MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
+        II typeId = new II();
+        typeId.setRoot("2.16.840.1.113883.3.200");
+        typeId.setExtension("11111");
+        sender.setTypeId(typeId);
+
+        //TODO mock the next 3 lines
+        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
+        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, typeId);
+        PRPAIN201305UV oPatientDiscoveryRequest = HL7PRPA201305Transforms.createPRPA201305(patient, sender.getTypeId().getRoot(), "receiverId", "localDeviceId");//new PRPAIN201305UV();
+        oPatientDiscoveryRequest.setSender(sender);
+        oPatientDiscoveryRequest.setTypeId(typeId);
+
+        return oPatientDiscoveryRequest;
     }
 
     private PatientDiscoveryTransforms getNewRequestObject()
