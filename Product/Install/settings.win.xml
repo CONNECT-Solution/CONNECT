@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="settings">
+  
+  <property name="deployment.binaries.dir" value="C:/NHINC" />
+
+  <property name="deployment.certificate.home" value="C:/certificates" />
+</project>
