@@ -11,6 +11,7 @@
     <os family="unix"/>
   </condition>
 
+  <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc" />
   <property name="deployment.glassfish.admin.port" value="4848"/>
   <property name="deployment.glassfish.server" value="localhost"/>
   
