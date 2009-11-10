@@ -3,7 +3,7 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
 
   %entities;
-  <!ENTITY webURLi 'http://&Staging1.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
+  <!ENTITY webURLi 'http://&Staging2.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; CONNECT_RED4">
         <users>
           <user name="Jay Flowers"            group="buildmaster"     address="jay.flowers@agilex.com"/>
