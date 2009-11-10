@@ -8,17 +8,11 @@
   <property file="build.properties"/>
 
   <import file="Properties.build.xml"/>
-  <import file="Install/deploy.xml"/>
   <import file="build/checkstyle/checkstyle.targets.xml"/>
   <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
 
-  <condition property="buildpropertiesfile" value="build.win.properties">
-    <os family="windows"/>
-  </condition>
-  <condition property="buildpropertiesfile" value="build.unix.properties">
-    <os family="unix"/>
-  </condition>
-  <property file="${ProductDirectory}/${buildpropertiesfile}"/> 
+  <property file="${ProductDirectory}/build.properties"/> 
+  <import file="Install/deploy.xml"/>
 
   <path id="ant.contrib.task.classpath">
     <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
