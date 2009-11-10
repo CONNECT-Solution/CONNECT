@@ -18,10 +18,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceCo
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
@@ -43,15 +50,18 @@ import org.w3c.dom.Node;
 public class AssertionHelperTest {
 
     private static Log log = LogFactory.getLog(AssertionHelperTest.class);
+    public static final String STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
+    public static final String ANY_URI_DATATYPE = "http://www.w3.org/2001/XMLSchema#anyURI";
+    public static final String DATE_DATATYPE = "http://www.w3.org/2001/XMLSchema#date";
     private static final String EMPTY_STRING = "";
-    private static final String TEST_HC_VAL = "England";
+    private static final String TEST_HC_VAL = "urn:oid:1.1.1.1.1.1.1";
     private static final String TEST_PAT_ID_VAL = "12345^^^&1.2.333&ISO";
     private static final String TEST_USER_FIRST_NAME_VAL = "Henry";
     private static final String TEST_USER_MIDDLE_NAME_VAL = "The";
     private static final String TEST_USER_LAST_NAME_VAL = "Eighth";
     private static final String TEST_USER_NAME_VAL = "henry8";
     private static final String TEST_USER_HC_VAL = "Wales";
-    private static final String TEST_USER_HC_ID_VAL = "UK2";
+    private static final String TEST_USER_HC_ID_VAL = "urn:oid:2.2.2.2.2.2.2";
     private static final String TEST_USER_ROLE_CODE_VAL = "Tudor2";
     private static final String TEST_USER_ROLE_CODE_SY_VAL = "Royality";
     private static final String TEST_USER_ROLE_CODE_SY_NM_VAL = "House of Tudor";
@@ -60,10 +70,10 @@ public class AssertionHelperTest {
     private static final String TEST_USER_PURPOSE_CODE_SY_VAL = "Religion";
     private static final String TEST_USER_PURPOSE_CODE_SY_NM_VAL = "Church of England";
     private static final String TEST_USER_PURPOSE_CODE_DSP_NM_VAL = "Split from Roman Catholic Authority";
-    private static final String TEST_SIGN_DATE_VAL = "June 28, 1491";
-    private static final String TEST_EXP_DATE_VAL = "Jan 28, 1547";
+    private static final String TEST_SIGN_DATE_VAL = "1491-06-28T12:00:00Z";
+    private static final String TEST_EXP_DATE_VAL = "1547-01-28T12:00:00Z";
     private static final String TEST_CLAIM_REF_VAL = "Henry7";
-    private static final String TEST_AUTH_INSTANCE_VAL = "June 24, 1509";
+    private static final String TEST_AUTH_INSTANCE_VAL = "1509-06-24T12:00:00Z";
     private static final String TEST_SESSION_IDX_VAL = "1509";
     private static final String TEST_AUTH_CNTX_CLS_VAL = "Coronation";
     private static final String TEST_AUTH_SUBJ_LOC_VAL = "Westminister Abbey";
@@ -72,13 +82,13 @@ public class AssertionHelperTest {
     private static final String TEST_RESOURCE_VAL = "RoyalTreasury";
     private static final String TEST_ACTION_VAL = "MarryBrothersWife";
     private static final String TEST_EV_ID_VAL = "Firstborn";
-    private static final String TEST_EV_INSTANCE_VAL = "Feb 18, 1516";
+    private static final String TEST_EV_INSTANCE_VAL = "1516-02-18T12:00:00Z";
     private static final String TEST_EV_VERSION_VAL = "1";
     private static final String TEST_EV_ISSUER_VAL = "Catherine of Aragon";
     private static final String TEST_EV_CONTENT_REF_VAL = "Bloody_Mary_1";
     private static final String TEST_EV_CONTENT_TYPE_VAL = "Daughter";
-    private static final String TEST_EV_COND_BEFORE_VAL = "July 19, 1553";
-    private static final String TEST_EV_COND_AFTER_VAL = "Nov 17 1558";
+    private static final String TEST_EV_COND_BEFORE_VAL = "1553-07-19T12:00:00Z";
+    private static final String TEST_EV_COND_AFTER_VAL = "1558-11-17T12:00:00Z";
     private AssertionType defaultAssertion;
 
     public AssertionHelperTest() {
@@ -148,7 +158,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getUserName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -156,7 +166,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().setUserName("");
         String sourceValue = assertion.getUserInfo().getUserName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -164,7 +174,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().setUserName(null);
         String sourceValue = assertion.getUserInfo().getUserName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, Constants.DataTypeString);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -172,7 +182,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthnStatement().getAuthInstant();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -180,7 +190,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setAuthInstant("");
         String sourceValue = assertion.getSamlAuthnStatement().getAuthInstant();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -188,7 +198,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setAuthInstant(null);
         String sourceValue = assertion.getSamlAuthnStatement().getAuthInstant();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-instant", sourceValue, STRING_DATATYPE);
     }
 
     private AssertionType createTestAssertion() {
@@ -339,15 +349,24 @@ public class AssertionHelperTest {
                         assertTrue(idMessage, expectSubjAttr.containsKey(attr.getAttributeId()));
                         if (expectSubjAttr.containsKey(attr.getAttributeId())) {
                             matchIdList.add(attr.getAttributeId());
-                            String expectedVal = (String) expectSubjAttr.get(attr.getAttributeId());
                             AttributeValueType expectedAttrVal = new AttributeValueType();
-                            expectedAttrVal.getContent().add(expectedVal);
+                            if (attr.getDataType().equals(STRING_DATATYPE)) {
+                                String expectedVal = (String) expectSubjAttr.get(attr.getAttributeId());
+                                expectedAttrVal.getContent().add(expectedVal);
+                            } else if (attr.getDataType().equals(ANY_URI_DATATYPE)) {
+                                try {
+                                    URI expectedVal = new URI((String) expectSubjAttr.get(attr.getAttributeId()));
+                                    expectedAttrVal.getContent().add(expectedVal.toString());
+                                } catch (URISyntaxException ex) {
+                                    fail("Expected value of " + attr.getAttributeId() + " should be a valid URI form");
+                                }
+                            }
 
                             String noAttrValMessage = "Request Subject Attribute " + attr.getAttributeId() + "has no AttributeValues";
                             assertNotNull(noAttrValMessage, attr.getAttributeValue());
                             assertFalse(noAttrValMessage, attr.getAttributeValue().isEmpty());
                             for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
-                                String valMessage = "Subject Attribute: " + attr.getAttributeId() + " expects value: " + expectedVal;
+                                String valMessage = "Subject Attribute: " + attr.getAttributeId() + " has unexpected content: " + actAttrVal.getContent().get(0);
                                 assertArrayEquals(valMessage, expectedAttrVal.getContent().toArray(), actAttrVal.getContent().toArray());
                             }
                         }
@@ -411,16 +430,27 @@ public class AssertionHelperTest {
                         } else {
                             String idMessage = "Resource Attribute: " + attr.getAttributeId() + " not found";
                             assertTrue(idMessage, expectResAttr.containsKey(attr.getAttributeId()));
+                            AttributeValueType expectedAttrVal = new AttributeValueType();
                             if (expectResAttr.containsKey(attr.getAttributeId())) {
-                                String expectedVal = (String) expectResAttr.get(attr.getAttributeId());
-                                AttributeValueType expectedAttrVal = new AttributeValueType();
-                                expectedAttrVal.getContent().add(expectedVal);
+                                if (attr.getDataType().equals(STRING_DATATYPE)) {
+                                    String expectedVal = (String) expectResAttr.get(attr.getAttributeId());
+                                    expectedAttrVal.getContent().add(expectedVal);
+                                } else if (attr.getDataType().equals(DATE_DATATYPE)) {
+                                    try {
+                                        //times must be in UTC format as specified by the XML Schema type (dateTime)
+                                        DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+                                        XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar((String) expectResAttr.get(attr.getAttributeId()));
+                                        expectedAttrVal.getContent().add(xmlDate.toXMLFormat());
+                                    } catch (DatatypeConfigurationException ex) {
+                                        fail("Expected value of " + attr.getAttributeId() + " should be a valid XML dateTime form");
+                                    }
+                                }
 
                                 String noAttrValMessage = "Request Resource Attribute " + attr.getAttributeId() + "has no AttributeValues";
                                 assertNotNull(noAttrValMessage, attr.getAttributeValue());
                                 assertFalse(noAttrValMessage, attr.getAttributeValue().isEmpty());
                                 for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
-                                    String valMessage = "Resource Attribute: " + attr.getAttributeId() + " expects value: " + expectedVal;
+                                    String valMessage = "Resource Attribute: " + attr.getAttributeId() + " has unexpected content: " + actAttrVal.getContent().get(0);
                                     assertArrayEquals(valMessage, expectedAttrVal.getContent().toArray(), actAttrVal.getContent().toArray());
                                 }
                             }
@@ -499,9 +529,9 @@ public class AssertionHelperTest {
         assertionHelper.appendAssertionDataToRequest(policyRequest, assertion);
 
         if (xacmlGroup.toLowerCase().contentEquals("subject")) {
-            verifyPolicySubjectField(policyRequest, xacmlAttributeId, expectedDestinationValue, Constants.DataTypeString);
+            verifyPolicySubjectField(policyRequest, xacmlAttributeId, expectedDestinationValue, expectedDataType);
         } else if (xacmlGroup.toLowerCase().contentEquals("resource")) {
-            verifyPolicyResourceField(policyRequest, xacmlAttributeId, expectedDestinationValue, Constants.DataTypeString);
+            verifyPolicyResourceField(policyRequest, xacmlAttributeId, expectedDestinationValue, expectedDataType);
         } else {
             fail("unknown xacmlGroup " + xacmlGroup);
         }
@@ -514,29 +544,55 @@ public class AssertionHelperTest {
         assertEquals(1, policyRequest.getSubject().size());
         SubjectType subject = policyRequest.getSubject().get(0);
 
-        AttributeType attribute = SubjectHelper.getSingleAttribute(subject, attributeID);
+        AttributeHelper attrHelper = new AttributeHelper();
+        AttributeType attribute = attrHelper.getSingleAttribute(subject.getAttribute(), attributeID);
         verifyAttributeField(attribute, expectedValue, expectedDataType);
     }
 
     private void verifyPolicyResourceField(RequestType policyRequest, String attributeID, Object expectedValue, String expectedDataType) {
-        //in this particular assertion, it is assuming/asserting that there is a single subject.  If that changes test would need to be refactored
+        //in this particular assertion, it is assuming/asserting that there is a single resource.  If that changes test would need to be refactored
         assertNotNull(policyRequest.getResource());
         assertFalse(policyRequest.getResource().isEmpty());
         assertEquals(1, policyRequest.getResource().size());
         ResourceType resource = policyRequest.getResource().get(0);
 
-        AttributeType attribute = AttributeHelper.getSingleAttribute(resource.getAttribute(), attributeID);
+        AttributeHelper attrHelper = new AttributeHelper();
+        AttributeType attribute = attrHelper.getSingleAttribute(resource.getAttribute(), attributeID);
         verifyAttributeField(attribute, expectedValue, expectedDataType);
     }
 
     private void verifyAttributeField(AttributeType attribute, Object expectedValue, String expectedDataType) {
-        Object contentValue = AttributeHelper.getSingleContentValue(attribute);
+        AttributeHelper attrHelper = new AttributeHelper();
+        Object contentValue = attrHelper.getSingleContentValue(attribute);
         if (expectedValue != null) {
-            assertNotNull(attribute);
+            String notExpected = "Expected: " + expectedValue + " but was null";
+            assertNotNull(notExpected, attribute);
+            String wrongDataTypeMsg = "Attribute: " + attribute.getAttributeId() +
+                    " data type: " + attribute.getDataType() +
+                    " was not as expected: " + expectedDataType;
+            assertEquals(wrongDataTypeMsg, expectedDataType, attribute.getDataType());
 
-            assertEquals(expectedDataType, attribute.getDataType());
+            if (expectedDataType.equals(STRING_DATATYPE)) {
+                String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
+                        " content: " + contentValue +
+                        " was not as expected: " + expectedValue;
+                assertEquals(wrongValueMsg, expectedValue, contentValue);
+                /*} else if (expectedDataType.equals(ANY_URI_DATATYPE)) {
+                if (contentValue instanceof URI) {
+                URI value = (URI) contentValue;
+                String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
+                " content: " + contentValue +
+                " was not as expected: " + expectedValue;
+                assertEquals(wrongValueMsg, expectedValue, value);
+                } else {
+                String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
+                "expected a URI content but had: " + contentValue.getClass();
+                fail(wrongValueMsg);
+                }*/
+            } else {
+                System.out.println("verifyAttributeField contentValue: " + contentValue.getClass());
+            }
 
-            assertEquals(expectedValue, contentValue);
             log.info("asserting that value was copied to attribute [attributeID='" + attribute.getAttributeId() + "';content='" + contentValue + "';datatype='" + expectedDataType + "']");
         } else {
             assertNull("Expected attribute to be null, but found one with value of " + contentValue + ".", attribute);
@@ -549,7 +605,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthnStatement().getSessionIndex();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -557,7 +613,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSessionIndex("");
         String sourceValue = assertion.getSamlAuthnStatement().getSessionIndex();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -565,7 +621,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSessionIndex(null);
         String sourceValue = assertion.getSamlAuthnStatement().getSessionIndex();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:session-index", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -573,7 +629,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthnStatement().getAuthContextClassRef();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -581,7 +637,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setAuthContextClassRef("");
         String sourceValue = assertion.getSamlAuthnStatement().getAuthContextClassRef();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -589,7 +645,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setAuthContextClassRef(null);
         String sourceValue = assertion.getSamlAuthnStatement().getAuthContextClassRef();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-authn-statement:auth-context-class-ref", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -597,7 +653,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityAddress();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -605,7 +661,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSubjectLocalityAddress("");
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityAddress();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -613,7 +669,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSubjectLocalityAddress(null);
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityAddress();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:ip-address", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -621,7 +677,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityDNSName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -629,7 +685,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSubjectLocalityDNSName("");
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityDNSName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -637,7 +693,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthnStatement().setSubjectLocalityDNSName(null);
         String sourceValue = assertion.getSamlAuthnStatement().getSubjectLocalityDNSName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:authn-locality:dns-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -645,7 +701,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getUserName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -653,7 +709,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().setUserName("");
         String sourceValue = assertion.getUserInfo().getUserName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -661,84 +717,87 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().setUserName(null);
         String sourceValue = assertion.getUserInfo().getUserName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:1.0:subject:subject-id", sourceValue, STRING_DATATYPE);
     }
 
-//    @Test
-//    public void AssertionUserInfoOrgHomeCommunityIdFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        String sourceValue = assertion.getUserInfo().getOrg().getHomeCommunityId();
-//        assertFalse(sourceValue.contentEquals(""));
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
-//    }
+    @Test
+    public void AssertionUserInfoOrgHomeCommunityIdFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getUserInfo().getOrg().getHomeCommunityId();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, ANY_URI_DATATYPE);
+    }
 
-//    @Test
-//    public void AssertionUserInfoOrgHomeCommunityIdFromAssertionToXacmlWithBlankValue() {
-//        AssertionType assertion = createTestAssertion();
-//        assertion.getUserInfo().getOrg().setHomeCommunityId("");
-//        String sourceValue = assertion.getUserInfo().getOrg().getHomeCommunityId();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
-//    }
+    @Test
+    public void AssertionUserInfoOrgHomeCommunityIdFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUserInfo().getOrg().setHomeCommunityId("");
+        String sourceValue = assertion.getUserInfo().getOrg().getHomeCommunityId();
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, ANY_URI_DATATYPE);
+    }
 
     @Test
     public void AssertionUserInfoOrgHomeCommunityIdFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getOrg().setHomeCommunityId(null);
         String sourceValue = assertion.getUserInfo().getOrg().getHomeCommunityId();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:organization-id", sourceValue, ANY_URI_DATATYPE);
     }
 
-//    @Test
-//    public void AssertionHomeCommunityHomeCommunityIdFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        String sourceValue = assertion.getHomeCommunity().getHomeCommunityId();
-//        assertFalse(sourceValue.contentEquals(""));
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
-//    }
+    @Test
+    public void AssertionHomeCommunityHomeCommunityIdFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getHomeCommunity().getHomeCommunityId();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, ANY_URI_DATATYPE);
+    }
 
-//    @Test
-//    public void AssertionHomeCommunityHomeCommunityIdFromAssertionToXacmlWithBlankValue() {
-//        AssertionType assertion = createTestAssertion();
-//        assertion.getHomeCommunity().setHomeCommunityId("");
-//        String sourceValue = assertion.getHomeCommunity().getHomeCommunityId();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
-//    }
+    @Test
+    public void AssertionHomeCommunityHomeCommunityIdFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getHomeCommunity().setHomeCommunityId("");
+        String sourceValue = assertion.getHomeCommunity().getHomeCommunityId();
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, ANY_URI_DATATYPE);
+    }
 
     @Test
     public void AssertionHomeCommunityHomeCommunityIdFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
         assertion.getHomeCommunity().setHomeCommunityId(null);
         String sourceValue = assertion.getHomeCommunity().getHomeCommunityId();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, "http://www.w3.org/2001/XMLSchema#anyURI");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, ANY_URI_DATATYPE);
     }
 
-//    @Test
-//    public void AssertionUniquePatientIdFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        String sourceValue = assertion.getUniquePatientId();
-//        assertFalse(sourceValue.contentEquals(""));
-//        executeAssertionToXacmlSingleFieldTest(assertion,"Resource","http://www.hhs.gov/healthit/nhin#subject-id",sourceValue,"urn:hl7-org:v3#II");
-//    }
-//    @Test
-//    public void AssertionUniquePatientIdFromAssertionToXacmlWithBlankValue() {
-//        AssertionType assertion = createTestAssertion();
-//     assertion.setuniquePatientId ("");
-//     String sourceValue = assertion.getUniquePatientId();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
-//    }
-//    @Test
-//    public void AssertionUniquePatientIdFromAssertionToXacmlWithNullValue() {
-//        AssertionType assertion = createTestAssertion();
-//     assertion.setuniquePatientId()(null);
-//     String sourceValue = assertion.getuniquePatientId();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
-//    }
+    @Test
+    public void AssertionUniquePatientIdFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getUniquePatientId().get(0);
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+    }
+
+    @Test
+    public void AssertionUniquePatientIdFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUniquePatientId().set(0, "");
+        String sourceValue = null;
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+    }
+
+    @Test
+    public void AssertionUniquePatientIdFromAssertionToXacmlWithNullValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getUniquePatientId().set(0, null);
+        String sourceValue = assertion.getUniquePatientId().get(0);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+    }
+
     @Test
     public void AssertionUserInfoOrgNameFromAssertionToXacml() {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getOrg().getName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -746,7 +805,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getOrg().setName("");
         String sourceValue = assertion.getUserInfo().getOrg().getName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -754,7 +813,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getOrg().setName(null);
         String sourceValue = assertion.getUserInfo().getOrg().getName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-organization-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -762,7 +821,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCode();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -770,7 +829,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCode("");
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCode();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -778,7 +837,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCode(null);
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCode();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xacml:2.0:subject:role", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -786,7 +845,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystem();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -794,7 +853,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCodeSystem("");
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystem();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -802,7 +861,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCodeSystem(null);
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystem();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -810,7 +869,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystemName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -818,7 +877,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCodeSystemName("");
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystemName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -826,7 +885,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setCodeSystemName(null);
         String sourceValue = assertion.getUserInfo().getRoleCoded().getCodeSystemName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -834,7 +893,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUserInfo().getRoleCoded().getDisplayName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -842,7 +901,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setDisplayName("");
         String sourceValue = assertion.getUserInfo().getRoleCoded().getDisplayName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -850,7 +909,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUserInfo().getRoleCoded().setDisplayName(null);
         String sourceValue = assertion.getUserInfo().getRoleCoded().getDisplayName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:user-role-description", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -858,7 +917,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCode();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -866,7 +925,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCode("");
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCode();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -874,7 +933,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCode(null);
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCode();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -882,7 +941,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystem();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -890,7 +949,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCodeSystem("");
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystem();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -898,7 +957,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCodeSystem(null);
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystem();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -906,7 +965,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystemName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -914,7 +973,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCodeSystemName("");
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystemName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -922,7 +981,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setCodeSystemName(null);
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getCodeSystemName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-code-system-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -930,7 +989,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getDisplayName();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -938,7 +997,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setDisplayName("");
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getDisplayName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -946,7 +1005,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getPurposeOfDisclosureCoded().setDisplayName(null);
         String sourceValue = assertion.getPurposeOfDisclosureCoded().getDisplayName();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:purpose-of-use-display-name", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -954,7 +1013,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getDecision();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -962,7 +1021,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setDecision("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getDecision();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -970,7 +1029,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setDecision(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getDecision();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-decision", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -978,7 +1037,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getResource();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -986,7 +1045,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setResource("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getResource();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -994,7 +1053,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setResource(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getResource();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-resource", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1002,7 +1061,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getAction();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1010,7 +1069,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setAction("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getAction();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1018,7 +1077,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().setAction(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getAction();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-action", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1026,7 +1085,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1034,7 +1093,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setId("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1042,7 +1101,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setId(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-id", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1050,7 +1109,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1058,7 +1117,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setIssueInstant("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1066,7 +1125,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setIssueInstant(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issue-instant", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1074,7 +1133,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1082,7 +1141,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setVersion("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1090,7 +1149,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setVersion(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1098,7 +1157,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1106,7 +1165,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setIssuer("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1114,55 +1173,55 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setIssuer(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer", sourceValue, STRING_DATATYPE);
     }
 
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotBeforeFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore();
-//        assertFalse(sourceValue.contentEquals(""));
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
-//    }
+    @Test
+    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotBeforeFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, DATE_DATATYPE);
+    }
 
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotBeforeFromAssertionToXacmlWithBlankValue() {
-//        AssertionType assertion = createTestAssertion();
-//        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
-//        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
-//    }
+    @Test
+    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotBeforeFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
+        String sourceValue = null;
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, DATE_DATATYPE);
+    }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotBeforeFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before", sourceValue, DATE_DATATYPE);
     }
 
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfterFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
-//        assertFalse(sourceValue.contentEquals(""));
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
-//    }
+    @Test
+    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfterFromAssertionToXacml() {
+        AssertionType assertion = createTestAssertion();
+        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
+        assertFalse(sourceValue.contentEquals(""));
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, DATE_DATATYPE);
+    }
 
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfterFromAssertionToXacmlWithBlankValue() {
-//        AssertionType assertion = createTestAssertion();
-//        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter("");
-//        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
-//    }
+    @Test
+    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfterFromAssertionToXacmlWithBlankValue() {
+        AssertionType assertion = createTestAssertion();
+        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter("");
+        String sourceValue = null;
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, DATE_DATATYPE);
+    }
 
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfterFromAssertionToXacmlWithNullValue() {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, "http://www.w3.org/2001/XMLSchema#date");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, DATE_DATATYPE);
     }
 
     @Test
@@ -1170,7 +1229,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1178,7 +1237,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentReference("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, STRING_DATATYPE);
     }
 
     @Test
@@ -1186,90 +1245,6 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentReference(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
-    }
-
-    @Test
-    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionContentTypeFromAssertionToXacml() {
-        AssertionType assertion = createTestAssertion();
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType();
-        assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
-    }
-
-    @Test
-    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionContentTypeFromAssertionToXacmlWithBlankValue() {
-        AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentType("");
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
-    }
-
-    @Test
-    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionContentTypeFromAssertionToXacmlWithNullValue() {
-        AssertionType assertion = createTestAssertion();
-        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentType(null);
-        String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-type", sourceValue, "http://www.w3.org/2001/XMLSchema#string");
-    }
-
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionContentFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        Object sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-//    }
-
-//    @Test
-//    public void AssertionSamlAuthzDecisionStatementEvidenceAssertionContentFromAssertionToXacmlWithNullValue() {
-//        AssertionType assertion = createTestAssertion();
-//        assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContent(null);
-//        Object sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-//    }
-
-//    @Test
-//    public void AssertionSamlSignatureKeyInfoRsaKeyvalueModulusFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        Object sourceValue = assertion.getSamlSignature().getKeyInfo().getRsaKeyValueModulus();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-modulus", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-//    }
-
-    @Test
-    public void AssertionSamlSignatureKeyInfoRsaKeyvalueModulusFromAssertionToXacmlWithNullValue() {
-        AssertionType assertion = createTestAssertion();
-        assertion.getSamlSignature().getKeyInfo().setRsaKeyValueModulus(null);
-        Object sourceValue = assertion.getSamlSignature().getKeyInfo().getRsaKeyValueModulus();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-modulus", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-    }
-
-//    @Test
-//    public void AssertionSamlSignatureKeyInfoRsaKeyvalueExponentFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        Object sourceValue = assertion.getSamlSignature().getKeyInfo().getRsaKeyValueExponent();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-exponent", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-//    }
-
-    @Test
-    public void AssertionSamlSignatureKeyInfoRsaKeyvalueExponentFromAssertionToXacmlWithNullValue() {
-        AssertionType assertion = createTestAssertion();
-        assertion.getSamlSignature().getKeyInfo().setRsaKeyValueExponent(null);
-        Object sourceValue = assertion.getSamlSignature().getKeyInfo().getRsaKeyValueExponent();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-exponent", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-    }
-
-//    @Test
-//    public void AssertionSamlSignatureSignatureValueFromAssertionToXacml() {
-//        AssertionType assertion = createTestAssertion();
-//        Object sourceValue = assertion.getSamlSignature().getSignatureValue();
-//        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-value", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
-//    }
-
-    @Test
-    public void AssertionSamlSignatureSignatureValueFromAssertionToXacmlWithNullValue() {
-        AssertionType assertion = createTestAssertion();
-        assertion.getSamlSignature().setSignatureValue(null);
-        Object sourceValue = assertion.getSamlSignature().getSignatureValue();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Subject", "urn:gov:hhs:fha:nhinc:saml-signature-value", sourceValue, "http://www.w3.org/2001/XMLSchema#base64Binary");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-content-reference", sourceValue, STRING_DATATYPE);
     }
 }

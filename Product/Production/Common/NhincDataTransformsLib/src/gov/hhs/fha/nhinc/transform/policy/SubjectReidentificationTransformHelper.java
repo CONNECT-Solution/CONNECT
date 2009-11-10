@@ -51,10 +51,11 @@ public class SubjectReidentificationTransformHelper {
         II ii = extractPatientIdentifier(subjectReidentification);
         if (ii != null) {
             ResourceType resource = new ResourceType();
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
+            AttributeHelper attrHelper = new AttributeHelper();
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
             log.debug("transformSubjectReidentificationToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
         AssertionHelper assertHelp = new AssertionHelper();

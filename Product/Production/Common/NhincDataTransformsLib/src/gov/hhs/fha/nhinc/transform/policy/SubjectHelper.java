@@ -26,7 +26,8 @@ public class SubjectHelper {
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectCategory);
         //subject.getAttribute().add(AttributeHelper.attributeFactory(UserAttributeId, Constants.DataTypeString, AssertionHelper.extractUserName(assertion)));
-        subject.getAttribute().add(AttributeHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
+        AttributeHelper attrHelper = new AttributeHelper();
+        subject.getAttribute().add(attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
 
@@ -36,7 +37,8 @@ public class SubjectHelper {
         // removed as this causes the user-role-code to show up twice
         //subject.getAttribute().add(AttributeHelper.attributeFactory(UserRoleAttributeId, Constants.DataTypeString, AssertionHelper.extractUserRole(assertion)));
         //subject.getAttribute().add(AttributeHelper.attributeFactory(PurposeAttributeId, Constants.DataTypeString, AssertionHelper.extractPurpose(assertion)));
-        subject.getAttribute().add(AttributeHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
+        AttributeHelper attrHelper = new AttributeHelper();
+        subject.getAttribute().add(attrHelper.attributeFactory(UserHomeCommunityAttributeId, Constants.DataTypeString, determineSendingHomeCommunityId(sendingHomeCommunity, assertion)));
         return subject;
     }
 
@@ -53,9 +55,5 @@ public class SubjectHelper {
         }
 
         return homeCommunityId;
-    }
-
-    public static AttributeType getSingleAttribute(SubjectType subject, String attributeID) {
-        return AttributeHelper.getSingleAttribute(subject.getAttribute(), attributeID);
     }
 }

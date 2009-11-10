@@ -57,9 +57,10 @@ public class DocRetrieveTransformHelper {
         String repositoryUniqueId = documentRequest.getRepositoryUniqueId();
         String documentId = documentRequest.getDocumentUniqueId();
         ResourceType resource = new ResourceType();
-        resource.getAttribute().add(AttributeHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, homeCommunityId));
-        resource.getAttribute().add(AttributeHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString, repositoryUniqueId));
-        resource.getAttribute().add(AttributeHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
+        AttributeHelper attrHelper = new AttributeHelper();
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, homeCommunityId));
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.RespositoryAttributeId, Constants.DataTypeString, repositoryUniqueId));
+        resource.getAttribute().add(attrHelper.attributeFactory(Constants.DocumentAttributeId, Constants.DataTypeString, documentId));
         return resource;
     }
 }

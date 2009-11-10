@@ -45,16 +45,17 @@ public class FindAuditEventsTransformHelper {
                 if (findAudit != null) {
                     findAudit.getPatientId();
                     ResourceType resource = new ResourceType();
+                    AttributeHelper attrHelper = new AttributeHelper();
                     String sPatientId = findAudit.getPatientId();
                     log.debug("transformFindAuditEventsToCheckPolicy: sPatientId = " + sPatientId);
 
                     String sAssigningAuthority = PatientIdFormatUtil.parseCommunityId(sPatientId);
                     log.debug("transformFindAuditEventsToCheckPolicy: sAssigningAuthority = " + sAssigningAuthority);
-                    resource.getAttribute().add(AttributeHelper.attributeFactory(AssigningAuthorityAttributeId, Constants.DataTypeString, sAssigningAuthority));
+                    resource.getAttribute().add(attrHelper.attributeFactory(AssigningAuthorityAttributeId, Constants.DataTypeString, sAssigningAuthority));
 
                     String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(findAudit.getPatientId());
                     log.debug("transformFindAuditEventsToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
-                    resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+                    resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
                     request.getResource().add(resource);
                 }
             }

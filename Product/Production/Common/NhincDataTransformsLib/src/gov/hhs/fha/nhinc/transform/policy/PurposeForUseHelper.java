@@ -29,14 +29,16 @@ public class PurposeForUseHelper {
 
     private void appendPurposeForUseToAction( RequestType policyXacmlRequest, String purposeForUse) {
         if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getAction() != null)) {
-            AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseActionAttributeId, Constants.DataTypeString, purposeForUse);
+            AttributeHelper attrHelper = new AttributeHelper();
+            AttributeType purposeForUseAttribute = attrHelper.attributeFactory(PurposeForUseActionAttributeId, Constants.DataTypeString, purposeForUse);
             policyXacmlRequest.getAction().getAttribute().add(purposeForUseAttribute);
         }
     }
 
     private void appendPurposeForUseToSubject( RequestType policyXacmlRequest, String purposeForUse) {
         if ((policyXacmlRequest != null) &&   (policyXacmlRequest.getSubject() != null)) {
-            AttributeType purposeForUseAttribute = AttributeHelper.attributeFactory(PurposeForUseSubjectAttributeId, Constants.DataTypeString, purposeForUse);
+            AttributeHelper attrHelper = new AttributeHelper();
+            AttributeType purposeForUseAttribute = attrHelper.attributeFactory(PurposeForUseSubjectAttributeId, Constants.DataTypeString, purposeForUse);
             policyXacmlRequest.getSubject().get(0).getAttribute().add(purposeForUseAttribute);
         }
     }

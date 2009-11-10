@@ -829,11 +829,12 @@ public class SamlTokenExtractor {
         SamlAuthzDecisionStatementEvidenceAssertionType oSamlEvidAssert = assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion();
 
         if (conditions != null) {
-            SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            //SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
             XMLGregorianCalendar beginTime = conditions.getNotBefore();
             if (beginTime != null && beginTime.toGregorianCalendar() != null && beginTime.toGregorianCalendar().getTime() != null) {
-                String formBegin = dateForm.format(beginTime.toGregorianCalendar().getTime());
+                String formBegin = beginTime.toXMLFormat();
+                //String formBegin = dateForm.format(beginTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formBegin)) {
                     assertOut.setDateOfSignature(formBegin);
@@ -846,7 +847,8 @@ public class SamlTokenExtractor {
 
             XMLGregorianCalendar endTime = conditions.getNotOnOrAfter();
             if (endTime != null && endTime.toGregorianCalendar() != null && endTime.toGregorianCalendar().getTime() != null) {
-                String formEnd = dateForm.format(endTime.toGregorianCalendar().getTime());
+                String formEnd = endTime.toXMLFormat();
+                //String formEnd = dateForm.format(endTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formEnd)) {
                     assertOut.setExpirationDate(formEnd);

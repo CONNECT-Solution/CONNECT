@@ -57,12 +57,13 @@ public class AdhocQueryTransformHelper {
         request.setAction(ActionHelper.actionFactory(ActionValue));
 
         ResourceType resource = new ResourceType();
-        resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, extractPatientIdentifierAssigningAuthority(docQuery)));
+        AttributeHelper attrHelper = new AttributeHelper();
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, extractPatientIdentifierAssigningAuthority(docQuery)));
         String sPatientId = extractPatientIdentifierId(docQuery);
         String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
         log.debug("transformAdhocQueryToCheckPolicyBase: sPatientId = " + sPatientId);
         log.debug("transformAdhocQueryToCheckPolicyBase: sStrippedPatientId = " + sStrippedPatientId);
-        resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+        resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
@@ -85,7 +86,8 @@ public class AdhocQueryTransformHelper {
 
     private static CheckPolicyRequestType transformAdhocQueryOutboundToCheckPolicy(AdhocQueryRequestEventType event) {
         CheckPolicyRequestType checkPolicy = transformAdhocQueryToCheckPolicyBase(event);
-        checkPolicy.getRequest().getResource().get(0).getAttribute().add(AttributeHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        AttributeHelper attrHelper = new AttributeHelper();
+        checkPolicy.getRequest().getResource().get(0).getAttribute().add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
         return checkPolicy;
     }
 

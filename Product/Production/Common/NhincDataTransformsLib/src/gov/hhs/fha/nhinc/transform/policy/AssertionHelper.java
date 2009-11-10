@@ -3,6 +3,15 @@ package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.xacml._2_0.context.schema.os.ActionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
@@ -72,9 +81,6 @@ public class AssertionHelper {
             appendAuthzDecisionStatementEvidenceAssertionContentReference(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionContentType(policyRequest, assertion);
             appendAuthzDecisionStatementEvidenceAssertionContent(policyRequest, assertion);
-//            appendSignatureKeyModulus(policyRequest, assertion);
-//            appendSignatureKeyExponent(policyRequest, assertion);
-//            appendSignatureValue(policyRequest, assertion);
         } else {
             log.warn("assertion was not set - unable to extract assertion related data to send to policy engine");
         }
@@ -82,22 +88,6 @@ public class AssertionHelper {
         log.debug("end appending assertion data to xacml request");
     }
 
-//    private static void appendAuthInstant(RequestType policyRequest, AssertionType assertion) {
-//        log.debug("begin appending auth instant");
-//        SubjectType subject = getSubject(policyRequest);
-//        String attributeId = XacmlAttributeId.AuthnStatementAuthnInstant;
-//        String dataType = Constants.DataTypeString;
-//        String attributeValue = extractAuthId(assertion);
-//        AttributeHelper.appendAttributeToParent(subject, attributeId, dataType, attributeValue);
-//        log.debug("end appending auth instant");
-//    }
-//    private static String extractAuthId(AssertionType assertion) {
-//        String value = null;
-//        if (assertion.getSamlAuthnStatement() != null) {
-//            value = assertion.getSamlAuthnStatement().getAuthInstant();
-//        }
-//        return value;
-//    }
     private ActionType getAction(RequestType policyRequest) {
         if (policyRequest == null) {
             throw new NullPointerException("policy request is null");
@@ -203,7 +193,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthnStatementAuthnInstant;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthnStatementAuthnInstant(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthnStatementAuthnInstant");
     }
 
@@ -226,7 +217,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthnStatementSessionIndex;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthnStatementSessionIndex(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthnStatementSessionIndex");
     }
 
@@ -248,7 +240,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthnStatementAthnContextClassRef;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthnStatementAthnContextClassRef(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthnStatementAthnContextClassRef");
     }
 
@@ -270,7 +263,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthnStatementSubjectLocalityAddress;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthnStatementSubjectLocalityAddress(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthnStatementSubjectLocalityAddress");
     }
 
@@ -292,7 +286,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthnStatementDNSName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthnStatementDNSName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthnStatementDNSName");
     }
 
@@ -314,7 +309,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserPersonName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserPersonName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserPersonName");
     }
 
@@ -336,7 +332,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserOrganizationName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserOrganizationName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserOrganizationName");
     }
 
@@ -358,7 +355,18 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserOrganizationId;
         String dataType = Constants.DataTypeAnyURI;
         String attributeValue = extractUserOrganizationId(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        URI orgIdURI = null;
+        if (attributeValue != null) {
+            try {
+                orgIdURI = new URI(attributeValue);
+            } catch (URISyntaxException ex) {
+                log.debug("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+            }
+        } else {
+            log.debug("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+        }
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
         log.debug("end appending UserOrganizationId");
     }
 
@@ -369,7 +377,7 @@ public class AssertionHelper {
             value = assertion.getUserInfo().getOrg().getHomeCommunityId();
             log.debug("Extracted UserOrganizationId value=" + value);
         } else {
-            log.debug("Unable to find User Organization in SAML, will not be included in message to policy engine");
+            log.debug("Unable to find User Organization in SAML, it will not be included in message to policy engine");
         }
         return value;
     }
@@ -380,7 +388,18 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.HomeCommunityName;
         String dataType = Constants.DataTypeAnyURI;
         String attributeValue = extractHomeCommunityName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        URI orgIdURI = null;
+        if (attributeValue != null) {
+            try {
+                orgIdURI = new URI(attributeValue);
+            } catch (URISyntaxException ex) {
+                log.error("Home Community in SAML is not a valid URI, it will not be included in message to policy engine");
+            }
+        } else {
+            log.error("User Organization in SAML is not a valid URI, it will not be included in message to policy engine");
+        }
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, orgIdURI, appendAttributesIfNull);
         log.debug("end appending HomeCommunityName");
     }
 
@@ -402,7 +421,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UniquePatientId;
         String dataType = Constants.DataTypeHL7II;
         II attributeValue = extractUniquePatientId(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UniquePatientId");
     }
 
@@ -413,7 +433,7 @@ public class AssertionHelper {
             log.debug("Extracting UniquePatientId");
             // Take first identifier found
             for (String id : assertion.getUniquePatientId()) {
-                if (!id.isEmpty()) {
+                if (id != null && !id.isEmpty()) {
                     patId = id;
                     break;
                 }
@@ -438,7 +458,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserRoleCode;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserRoleCode(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserRoleCode");
     }
 
@@ -459,7 +480,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserRoleCodeSystem;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserRoleCodeSystem(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserRoleCodeSystem");
     }
 
@@ -480,7 +502,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserRoleCodeSystemName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserRoleCodeSystemName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserRoleCodeSystemName");
     }
 
@@ -501,7 +524,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.UserRoleCodeDiplayName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractUserRoleCodeDiplayName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending UserRoleCodeDiplayName");
     }
 
@@ -522,7 +546,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.PurposeForUseCode;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractPurposeForUseCode(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending PurposeForUseCode");
     }
 
@@ -541,7 +566,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.PurposeForUseCodeSystem;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractPurposeForUseCodeSystem(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending PurposeForUseCodeSystem");
     }
 
@@ -560,7 +586,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.PurposeForUseCodeSystemName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractPurposeForUseCodeSystemName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending PurposeForUseCodeSystemName");
     }
 
@@ -579,7 +606,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.PurposeForUseCodeDisplayName;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractPurposeForUseCodeDisplayName(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending PurposeForUseCodeDisplayName");
     }
 
@@ -598,7 +626,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementDecision;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementDecision(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementDecision");
     }
 
@@ -621,7 +650,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementResource;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementResource(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementResource");
     }
 
@@ -644,7 +674,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementAction;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementAction(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementAction");
     }
 
@@ -667,7 +698,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionID;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionID(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionID");
     }
 
@@ -690,7 +722,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssueInstant;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionIssueInstant(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionIssueInstant");
     }
 
@@ -713,7 +746,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionVersion;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionVersion(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionVersion");
     }
 
@@ -737,7 +771,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionIssuer;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionIssuer(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionIssuer");
     }
 
@@ -773,7 +808,9 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotBefore;
         String dataType = Constants.DataTypeDate;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionConditionsNotBefore(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        XMLGregorianCalendar calValue = createCal(attributeValue);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionConditionsNotBefore");
     }
 
@@ -797,8 +834,39 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter;
         String dataType = Constants.DataTypeDate;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        XMLGregorianCalendar calValue = createCal(attributeValue);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, calValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter");
+    }
+
+    private XMLGregorianCalendar createCal(String time) {
+
+        XMLGregorianCalendar xmlDate = null;
+        if (time != null) {
+            try {
+                //times must be in UTC format as specified by the XML Schema type (dateTime)
+                DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+                xmlDate = xmlDateFactory.newXMLGregorianCalendar(time.trim());
+            } catch (IllegalArgumentException iaex) {
+                try {
+                    // try simple date format - backward compatibility
+                    SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+                    GregorianCalendar cal = new GregorianCalendar();
+                    cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+                    cal.setTime(dateForm.parse(time));
+                    DatatypeFactory xmlDateFactory = DatatypeFactory.newInstance();
+                    xmlDate = xmlDateFactory.newXMLGregorianCalendar(cal);
+                } catch (DatatypeConfigurationException ex) {
+                    log.error("Date form is expected to be in dateTime format");
+                } catch (ParseException ex) {
+                    log.error("Date form is expected to be in dateTime format");
+                }
+            } catch (DatatypeConfigurationException dtex) {
+                log.error("Problem in creating XML Date Factory. Setting default date");
+            }
+        }
+        return xmlDate;
     }
 
     private String extractAuthzDecisionStatementEvidenceAssertionContentReference(AssertionType assertion) {
@@ -820,7 +888,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionContentReference;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionContentReference(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionContentReference");
     }
 
@@ -830,7 +899,8 @@ public class AssertionHelper {
         String attributeId = XacmlAttributeId.AuthzDecisionStatementEvidenceAssertionContentType;
         String dataType = Constants.DataTypeString;
         String attributeValue = extractAuthzDecisionStatementEvidenceAssertionContentType(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionContentType");
     }
 
@@ -869,68 +939,12 @@ public class AssertionHelper {
 
         byte[] attributeValueAsByteArray = extractAuthzDecisionStatementEvidenceAssertionContent(assertion);
 
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValueAsByteArray, appendAttributesIfNull);
+        AttributeHelper attrHelper = new AttributeHelper();
+        attrHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValueAsByteArray, appendAttributesIfNull);
 
         //String attributeValue  = new String(attributeValueAsByteArray) ;
         //AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
 
         log.debug("end appending AuthzDecisionStatementEvidenceAssertionContent");
-    }
-
-    private void appendSignatureKeyModulus(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending SignatureKeyModulus");
-        SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.SignatureKeyModulus;
-        String dataType = Constants.DataTypeBinary;
-        String attributeValue = extractSignatureKeyModulus(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending SignatureKeyModulus");
-    }
-
-    private String extractSignatureKeyModulus(AssertionType assertion) {
-        String value = null;
-        if ((assertion != null)) {
-            value = null; //Signature/KeyInfo/KeyValue/RSAKeyValue/Modulus
-        }
-
-        return value;
-    }
-
-    private void appendSignatureKeyExponent(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending SignatureKeyExponent");
-        SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.SignatureKeyExponent;
-        String dataType = Constants.DataTypeBinary;
-        String attributeValue = extractSignatureKeyExponent(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending SignatureKeyExponent");
-    }
-
-    private String extractSignatureKeyExponent(AssertionType assertion) {
-        String value = null;
-        if ((assertion != null)) {
-            value = null; //Signature/KeyInfo/KeyValue/RSAKeyValue/Exponent
-        }
-
-        return value;
-    }
-
-    private void appendSignatureValue(RequestType policyRequest, AssertionType assertion) {
-        log.debug("begin appending SignatureValue");
-        SubjectType parent = getSubject(policyRequest);
-        String attributeId = XacmlAttributeId.SignatureValue;
-        String dataType = Constants.DataTypeBinary;
-        String attributeValue = extractSignatureValue(assertion);
-        AttributeHelper.appendAttributeToParent(parent, attributeId, dataType, attributeValue, appendAttributesIfNull);
-        log.debug("end appending SignatureValue");
-    }
-
-    private String extractSignatureValue(AssertionType assertion) {
-        String value = null;
-        if ((assertion != null)) {
-            value = null; //Signature/SignatureValue
-        }
-
-        return value;
     }
 }

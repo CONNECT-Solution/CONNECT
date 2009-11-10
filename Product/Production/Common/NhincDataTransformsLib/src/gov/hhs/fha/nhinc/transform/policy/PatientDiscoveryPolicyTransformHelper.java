@@ -97,13 +97,14 @@ public class PatientDiscoveryPolicyTransformHelper {
         RequestType request = new RequestType();
         setSubjectToRequestType(event, request);
         ResourceType resource = null;
+        AttributeHelper attrHelper = new AttributeHelper();
         II ii = extractPatientIdentifier(event.getPRPAIN201305UV());
         if (ii != null) {
             resource = new ResourceType();
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
             log.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
             request.getResource().add(resource);
         }
         request.getResource().add(resource);

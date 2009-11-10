@@ -56,15 +56,16 @@ public class SubscribeTransformHelper {
         String assignAuth = AdhocQueryTransformHelper.extractPatientIdentifierAssigningAuthority(adhocReq);
 
         ResourceType resource = new ResourceType();
+        AttributeHelper attrHelper = new AttributeHelper();
 
         if (NullChecker.isNotNullish(assignAuth)) {
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, assignAuth));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, assignAuth));
         }
 
         if (NullChecker.isNotNullish(patId)) {
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(patId);
             log.debug("transformSubscribeToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
-            resource.getAttribute().add(AttributeHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         }
 
         setTopic(event, resource);
@@ -95,7 +96,8 @@ public class SubscribeTransformHelper {
             if (log.isDebugEnabled()) {
                 log.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: " + Constants.DataTypeString);
             }
-            resource.getAttribute().add(AttributeHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
+            AttributeHelper attrHelper = new AttributeHelper();
+            resource.getAttribute().add(attrHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
         }
     }
 
