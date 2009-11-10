@@ -4,7 +4,7 @@
   <property name="MySQL.Installer.File.Name" value="mysql-essential-5.1.40-win32.msi"/>
   <property name="MySQL.Installer.File.Path" value="${environment::get-variable('TEMP')}\${MySQL.Installer.File.Name}"/>
   <property name="MySQL.Install.Path" value="${ProgramFiles.Current.Processor.Type.Path}\MySQL\MySQL Server 5.1"/>
-  <property name="MySQL.Installer.File.Url" value="ftp://mirror.anl.gov/alpacafarm-mounts/21/Downloads/MySQL-5.1/${MySQL.Installer.File.Name}"/>
+  <property name="MySQL.Installer.File.Url" value="ftp://mirror.anl.gov/alpacafarm-mounts/16/Downloads/MySQL-5.1/${MySQL.Installer.File.Name}"/>
 
   <target name="Workspace.RequieredSoftware.MySQL">
     <call target="Workspace.RequieredSoftware.MySQL.InitialInstall"/>
@@ -24,8 +24,7 @@
           <string value="Exit"/>
         </options>
       </ask>
-      <ifthenelse test="${Answer == 'Install' or bool::parse(Workspace.Silent)}">
-        <then>
+      <if test="${Answer == 'Install' or bool::parse(Workspace.Silent)}">
           <get
               src="${MySQL.Installer.File.Url}"
               dest="${MySQL.Installer.File.Path}"
@@ -65,11 +64,7 @@
             <arg value='Charset=latin1'/>
             <arg value='RootPassword="NHIE-Gateway"'/>
           </exec>
-        </then>
-        <elseif if="${Answer == 'Exit'}">
-          <!--<fail message="Please install MySQL 5.1!" />-->
-        </elseif>
-      </ifthenelse>
+      </if>
     </ifnot>
   </target>
 
