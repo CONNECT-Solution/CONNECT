@@ -189,28 +189,16 @@ public class PatientDiscoveryTransforms {
         addLogInfo("Entering transformPRPAIN201306ResponseToAuditMsg() method.");
         addLogInfo("******************************************************************");
 
+        //check to see that the required fields are not null
+        boolean bRequiredFieldsAreNull = areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertion);
+        if (bRequiredFieldsAreNull)
+        {
+            addLogError("One or more of the required fields needed to transform to an audit message request were null.");
+            return null;
+        } //else continue
 
         // Extract UserInfo from request assertion
-        UserType oUserInfo = new UserType();
-        if ((oAssertion != null) &&
-             (oAssertion.getUserInfo() != null))
-        {
-            oUserInfo = oAssertion.getUserInfo();
-            addLogDebug("Incomming request.getAssertion.getUserInfo.getUserName: " + oUserInfo.getUserName());
-            addLogDebug("Incomming request.getAssertion.getUserInfo.getRole: " + oUserInfo.getRole());
-        }
-        else
-        {
-            //TODO add a unit test case...
-            addLogError("The UserType object or request assertion object containing the assertion user info was null.");
-            return null;
-        } //else continue
-
-        if (oPatientDiscoveryResponseMessage == null)
-        {
-            addLogError("The PatientDiscoveryResponseMessage parameter is null.");
-            return null;
-        } //else continue
+        UserType oUserInfo = oAssertion.getUserInfo();
 
         oAuditMessageType = new AuditMessageType();
         oReturnLogEventRequestType = new LogEventRequestType();
@@ -228,15 +216,10 @@ public class PatientDiscoveryTransforms {
         String sCommunityId = "";
         String sCommunityName = "";
         String sPatientId = "";
-        //get the patient id from the request
-        PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
-        List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
-        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = getRegistrationEventFromSubject(oSubject1);
-        PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
-        PRPAMT201310UVPatient oPatient = getPatient(oSubject2);
-        List<II> oII = oPatient.getId();
-        sPatientId = oII.get(0).getExtension();
-        sCommunityId = oII.get(0).getRoot();
+        //get the patient id from the response
+        II oII = getHL7IdentitiersFromResponse(oPatientDiscoveryResponseMessage);
+        sPatientId = oII.getExtension();
+        sCommunityId = oII.getRoot();
 
         sPatientId = getCompositePatientId(sCommunityId, sPatientId);
         addLogDebug("PatientId: " + sPatientId);
@@ -297,7 +280,6 @@ public class PatientDiscoveryTransforms {
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         PRPAIN201305UV oPatientDiscoveryRequestMessage = null;
-//        AssertionType oAssertion = null;
 
         addLogInfo("***************************************************************");
         addLogInfo("Entering transformEntityPRPAIN201305RequestToAuditMsg() method.");
@@ -311,7 +293,6 @@ public class PatientDiscoveryTransforms {
         else
         {
             oPatientDiscoveryRequestMessage = oRequest.getPRPAIN201305UV();
-//            oAssertion = oRequest.getAssertion();
         }
 
         if ((oPatientDiscoveryRequestMessage == null) && (oAssertion == null))
@@ -748,45 +729,13 @@ public class PatientDiscoveryTransforms {
         boolean bReturnVal = false;
 
         //check the userInfo object from the assertion object
-        if ((oAssertion != null) &&
-             (oAssertion.getUserInfo() != null))
+        bReturnVal = areRequiredUserTypeFieldsNull(oAssertion);
+        if (bReturnVal)
         {
-            if (oAssertion.getUserInfo().getUserName() != null)
-            {
-                addLogDebug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
-            }
-            else
-            {
-                addLogError("Incomming request.getAssertion.getUserInfo.getUserName was null.");
-                return true;
-            }
-
-            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
-            {
-                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
-            }
-            else
-            {
-                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
-                return true;
-            }
-
-            if (oAssertion.getUserInfo().getOrg().getName() != null)
-            {
-                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
-            }
-            else
-            {
-                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
-                return true;
-            }
-        }
-        else
-        {
-            addLogError("The UserType object or request assertion object containing the assertion user info was null.");
+            addLogError("One of more UserInfo fields from the Assertion object were null.");
+            bReturnVal = true;
             return true;
-        } //else continue
-
+        }
 
         // Create EventIdentification - values are not comming from the request, they are internal to this class
 
@@ -802,6 +751,162 @@ public class PatientDiscoveryTransforms {
         //AuditSourceIdentification - comes from the UserType/UserInfo object which is checked earlier
 
         return bReturnVal;
+    }
+
+    protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+    {
+         boolean bReturnVal = false;
+
+        //check the userInfo object from the assertion object
+        bReturnVal = areRequiredUserTypeFieldsNull(oAssertion);
+        if (bReturnVal)
+        {
+            addLogError("One of more UserInfo fields from the Assertion object were null.");
+            bReturnVal = true;
+            return true;
+        }
+
+        // Create EventIdentification - values are not comming from the request, they are internal to this class
+
+        // Create Active Participant Section - comes from the UserType/UserInfo object which is checked earlier
+
+        /* Assign AuditSourceIdentification */
+        II oII = getHL7IdentitiersFromResponse(oPatientDiscoveryResponseMessage);
+        if (oII == null)
+        {
+            addLogError("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
+            return true;
+        }
+
+        String sPatientId = oII.getExtension();
+        String sCommunityId = oII.getRoot();
+        if (sPatientId == null)
+        {
+            addLogError("The patient id from the II.getExtension method from the response message's II object was null.");
+            return true;
+        } //else continue
+
+        if (sCommunityId == null)
+        {
+            addLogError("The patient's assigning authority or community id from the response message's II object was null.");
+            return true;
+        }
+
+
+        //AuditSourceIdentification - comes from the UserType/UserInfo object which is checked earlier
+
+        return bReturnVal;
+    }
+
+    protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+    {
+        boolean bReturnVal = false;
+
+        if ((oAssertion != null) &&
+             (oAssertion.getUserInfo() != null))
+        {
+            if (oAssertion.getUserInfo().getUserName() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+                bReturnVal = true;
+                return true;
+            }
+
+            if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+                bReturnVal = true;
+                return true;
+            }
+
+            if (oAssertion.getUserInfo().getOrg().getName() != null)
+            {
+                addLogDebug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
+            }
+            else
+            {
+                addLogError("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
+                bReturnVal = true;
+                return true;
+            }
+        }
+        else
+        {
+            addLogError("The UserType object or request assertion object containing the assertion user info was null.");
+            bReturnVal = true;
+            return true;
+        } //else continue
+
+        return bReturnVal;
+    }
+
+    protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+    {
+        if (oPatientDiscoveryResponseMessage == null)
+        {
+            addLogError("Unable to extract patient identifiers from the response message due to a null value.");
+            return null;
+        } //else continue
+
+        PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
+
+        if (oControlActProcess == null)
+        {
+            addLogError("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+            return null;
+        } //else continue
+
+        List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
+
+        if ((oSubject1 == null) || (oSubject1.size() < 1))
+        {
+            addLogError("Unable to extract patient identifiers from the response message's Subject1 object due to a null or empty value.");
+            return null;
+        } //else continue
+
+        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+
+        if (oRegistrationEvent == null)
+        {
+            addLogError("Unable to extract patient identifiers from the response message's RegistrationEvent object due to a null value.");
+            return null;
+        } //else continue
+
+        PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
+
+        if (oSubject2 == null)
+        {
+            addLogError("Unable to extract patient identifiers from the response message's Subject2 object due to a null value.");
+            return null;
+        } //else continue
+
+        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+
+        if (oPatient == null)
+        {
+            addLogError("Unable to extract patient identifiers from the response message's Patient object due to a null value.");
+            return null;
+        } //else continue
+
+        List<II> olII = oPatient.getId();
+
+        if ((olII == null) || (olII.isEmpty()) || (olII.size() < 1))
+        {
+            addLogError("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
+            return null;
+        } //else continue
+
+        II oII = olII.get(0);
+
+        return oII;
     }
 
 }
