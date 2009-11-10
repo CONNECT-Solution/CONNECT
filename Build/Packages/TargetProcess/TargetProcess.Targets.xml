@@ -66,7 +66,7 @@
 			<taskids refid="TaskIds" />
 		</targetprocessreport>
 
-    <largeproperty name="IterationInfo">
+    <!--<largeproperty name="IterationInfo">
       <value expand="true" xml="true">
         <Iteration
           name="${tp::get-current-iteration-name('TargetProcess.ConnectionInformation', TargetProcess.ProjectName)}"
@@ -83,8 +83,7 @@
       pokemode="Add"
       value="${IterationInfo}"
       xpath="/TargetProcess"
-    />
-    
+    />-->
     <copy
       file="${TargetProcess.ReportFilePath}"
       todir="${Common.Directory.Artifact.Path}"
