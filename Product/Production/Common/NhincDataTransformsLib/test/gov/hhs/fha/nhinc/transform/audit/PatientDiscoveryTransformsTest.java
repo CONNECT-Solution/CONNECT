@@ -224,7 +224,6 @@ public class PatientDiscoveryTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockLogger).error("The AssertionType object was null.");
-//                oneOf(mockLogger).error("There was a problem translating the request into an audit log request object.");
                 will(returnValue(null));
             }
         });
@@ -241,18 +240,18 @@ public class PatientDiscoveryTransformsTest {
     @Test
     public void testTransformPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredUserInfoFields() {
         final Log mockLogger = context.mock(Log.class);
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+        PatientDiscoveryTransforms testSubject = getNewPatientDiscoveryTransformsObject(mockLogger);
 
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-//                allowing(mockLogger).error(with(any(String.class)));
 
-                allowing(mockLogger).error("The UserType object or request assertion object containing the assertion user info was null.");
-//                oneOf(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
-//                atLeast(1).of(mockLogger).error("There was a problem translating the request into an audit log request object.");
+                one(mockLogger).error("The UserType object or request assertion object containing the assertion user info was null.");
+                one(mockLogger).error("One of more UserInfo fields from the Assertion object were null.");
+                one(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
+                one(mockLogger).error("There was a problem translating the request into an audit log request object.");
 
                 will(returnValue(null));
             }
@@ -260,12 +259,6 @@ public class PatientDiscoveryTransformsTest {
 
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         AssertionType oAssertion = new AssertionType();
-//        UserType oUserInfo = new UserType();
-//        String sUserRole = "test user role";
-//        String sUserName = "Test Name";
-//        oUserInfo.setRole(sUserRole);
-//        oUserInfo.setUserName(sUserName);
-//        oAssertion.setUserInfo(oUserInfo);
 
         testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion);
 
@@ -279,28 +272,23 @@ public class PatientDiscoveryTransformsTest {
     @Test
     public void testTransformPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredPatientIdFields() {
         final Log mockLogger = context.mock(Log.class);
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+        PatientDiscoveryTransforms testSubject = getNewPatientDiscoveryTransformsObject(mockLogger);
 
         context.checking(new Expectations() {
 
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
 
                 //TODO create additional expectations centered around why we are getting a null return value
-//                oneOf(mockLogger).error("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
-//                oneOf(mockLogger).error("The ControlActProcess object was missing from the request");
-//                oneOf(mockLogger).error("The QueryByParameter object was missing from the request");
-//                oneOf(mockLogger).error("The ParameterList object was missing from the request");
-//                oneOf(mockLogger).error("The LivingSubjectId object was missing from the request");
-//                oneOf(mockLogger).error("Unable to extract the HL7 Identifiers (II) object containing the patient id and community id needed for the audit request message");
+                one(mockLogger).error("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
+                one(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
+                one(mockLogger).error("There was a problem translating the request into an audit log request object.");
                 will(returnValue(null));
             }
         });
 
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-//        oPatientDiscoveryRequest.getPRPAIN201305UV().setControlActProcess(null);
         AssertionType oAssertion = new AssertionType();
         UserType oUserInfo = new UserType();
         String sUserRole = "test user role";
@@ -332,16 +320,37 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        //create a LogEventRequestType that holds the same data as what should 
-        //be returned by the dte method.
-        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPRPAIN201305UV.getTypeId());
-        final LogEventRequestType expected = new LogEventRequestType();
-        expected.setAuditMessage(expResult);
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
 
         oPatientDiscoveryRequest.setAssertion(oAssertionType);
         oPatientDiscoveryRequest.setPRPAIN201305UV(oPRPAIN201305UV);
 
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms()
+        {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            {
+                return mockListII.get(0);
+            }
+        };
 
 
         context.checking(new Expectations() {
@@ -349,16 +358,18 @@ public class PatientDiscoveryTransformsTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-
-                //create mock 2 calls to the helper classes
-                will(returnValue(with(any(LogEventRequestType.class))));
-                will(returnValue(expected));
             }
         });
 
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
         context.assertIsSatisfied();
-        //assertNotNull(expectedReturnValue.getAssertion());
+
+        Assert.assertNotNull(expected);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification());
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification().getEventID());
     }
 
     @Test
@@ -371,13 +382,35 @@ public class PatientDiscoveryTransformsTest {
         AssertionType oAssertionType = new AssertionType();
         oAssertionType.setUserInfo(userInfo);
 
-        //create a LogEventRequestType that holds the same data as what should
-        //be returned by the dte method.
-        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPatientDiscoveryRequest.getTypeId());
-        final LogEventRequestType expected = new LogEventRequestType();
-        expected.setAuditMessage(expResult);
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
 
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms()
+        {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            {
+                return mockListII.get(0);
+            }
+        };
+
 
 
         context.checking(new Expectations() {
@@ -385,16 +418,18 @@ public class PatientDiscoveryTransformsTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-
-                //create mock 2 calls to the helper classes
-                will(returnValue(with(any(LogEventRequestType.class))));
-                will(returnValue(expected));
             }
         });
 
-        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
         context.assertIsSatisfied();
-        //assertNotNull(expectedReturnValue.getAssertion());
+
+        Assert.assertNotNull(expected);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification());
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification().getEventID());
     }
 
     @Test
@@ -407,13 +442,34 @@ public class PatientDiscoveryTransformsTest {
         AssertionType oAssertionType = new AssertionType();
         oAssertionType.setUserInfo(userInfo);
 
-        //create a LogEventRequestType that holds the same data as what should
-        //be returned by the dte method.
-        AuditMessageType expResult = getTestAuditMessageType(userInfo, oPatientDiscoveryRequest.getTypeId());
-        final LogEventRequestType expected = new LogEventRequestType();
-        expected.setAuditMessage(expResult);
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
 
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms()
+        {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            {
+                return mockListII.get(0);
+            }
+        };
 
 
         context.checking(new Expectations() {
@@ -421,16 +477,18 @@ public class PatientDiscoveryTransformsTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-
-                //create mock 2 calls to the helper classes
-                will(returnValue(with(any(LogEventRequestType.class))));
-                will(returnValue(expected));
             }
         });
 
-        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
         context.assertIsSatisfied();
-        //assertNotNull(expectedReturnValue.getAssertion());
+
+        Assert.assertNotNull(expected);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expected.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification());
+        Assert.assertNotNull(expected.getAuditMessage().getEventIdentification().getEventID());
     }
 
     @Test
@@ -468,7 +526,6 @@ public class PatientDiscoveryTransformsTest {
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
         II typeId = new II();
 
-        PRPAIN201305UV query = new PRPAIN201305UV();
         typeId.setRoot("2.16.840.1.113883.3.200");
         sender.setTypeId(typeId);
 
@@ -479,26 +536,35 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertion.setUserInfo(userInfo);
 
-//        PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
-//        List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
-//        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
-//        PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
-//        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
-//        List<II> oII = oPatient.getId();
-//        sPatientId = oII.get(0).getExtension();
-//        sCommunityId = oII.get(0).getRoot();
+        oPatientDiscoveryResponse.setPRPAIN201306UV(message);
 
-        typeId.setRoot("2.16.840.1.113883.3.200");
-        typeId.setExtension("11111");
-        sender.setTypeId(typeId);
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
 
-        //create a LogEventRequestType that holds the same data as what should
-        //be returned by the dte method.
-        AuditMessageType expResult = getTestAuditMessageType(userInfo, typeId);
-        final LogEventRequestType expected = new LogEventRequestType();
-        expected.setAuditMessage(expResult);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
 
-        PatientDiscoveryTransforms testSubject = getNewRequestObject();
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            {
+                return mockListII.get(0);
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            {
+                return false;
+            }
+        };
 
 
         context.checking(new Expectations() {
@@ -506,46 +572,49 @@ public class PatientDiscoveryTransformsTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-
-                //create mock 2 calls to the helper classes
-                will(returnValue(with(any(LogEventRequestType.class))));
-                will(returnValue(expected));
             }
         });
 
-        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponse, oAssertion);
+        LogEventRequestType expectedResult = testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponse, oAssertion);
 
         context.assertIsSatisfied();
+
+        Assert.assertNotNull(expectedResult);
+        Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
+        Assert.assertTrue(expectedResult.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+        Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification());
+        Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification().getEventID());
     }
 
     @Test
     public void confirmTransformPRPAIN201306ResponseToAuditMsgDoesTransformation() {
         final Log mockLogger = context.mock(Log.class);
-        final PRPAMT201310UVPatient mockPatient = context.mock(PRPAMT201310UVPatient.class);
         final List<II> mockListII = new ArrayList<II>();
-        II ii = new II();
-        ii.setExtension("");
-        ii.setRoot("");
-        mockListII.add(ii);
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
 
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
-
-            protected PRPAIN201306UVMFMIMT700711UV01RegistrationEvent getRegistrationEventFromSubject(List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1) {
-                List<II> oII = new ArrayList<II>();
-
-                final PRPAMT201310UVPatient pRPAMT201310UVPatient = new PRPAMT201310UVPatient();
-
-                final PRPAIN201306UVMFMIMT700711UV01Subject2 pRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UVMFMIMT700711UV01Subject2();
-                pRPAIN201306UVMFMIMT700711UV01Subject2.setPatient(pRPAMT201310UVPatient);
-
-                final PRPAIN201306UVMFMIMT700711UV01RegistrationEvent pRPAIN201306UVMFMIMT700711UV01RegistrationEvent = new PRPAIN201306UVMFMIMT700711UV01RegistrationEvent();
-
-                pRPAIN201306UVMFMIMT700711UV01RegistrationEvent.setSubject1(pRPAIN201306UVMFMIMT700711UV01Subject2);
-                return pRPAIN201306UVMFMIMT700711UV01RegistrationEvent;
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
             }
 
-            protected PRPAMT201310UVPatient getPatient(PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2) {
-                return mockPatient;
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            {
+                return mockListII.get(0);
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return false;
+            }
+
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            {
+                return false;
             }
         };
 
@@ -554,13 +623,12 @@ public class PatientDiscoveryTransformsTest {
             {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockPatient).getId();
-                will(returnValue(mockListII));
             }
         });
 
         AssertionType oAssertionType = new AssertionType();
-        oAssertionType.setUserInfo(new UserType());
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
 
         final PRPAIN201306UV pRPAIN201306UV = new PRPAIN201306UV();
         final PRPAIN201306UVMFMIMT700711UV01ControlActProcess pRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UVMFMIMT700711UV01ControlActProcess();
@@ -575,6 +643,483 @@ public class PatientDiscoveryTransformsTest {
         Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expectedResult.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expectedResult.getAuditMessage().getParticipantObjectIdentification().size() == 1);
+        Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification());
+        Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification().getEventID());
+//        Assert.assertTrue(expectedResult.getAuditMessage().getEventIdentification().getEventID().getCode().equalsIgnoreCase(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_PRQ));
+//        Assert.assertTrue(expectedResult.getAuditMessage().getEventIdentification().getEventID().getCodeSystem().equalsIgnoreCase(AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_PDREQ));
+        /*AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_PRQ,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_PDREQ*/
+
+    }
+
+    @Test
+    public void testTransformPRPAIN201306ResponseToAuditMsgWillFailForNullRequiredFields()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            {
+                return true;
+            }
+
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                one(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
+                will(returnValue(null));
+
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201306UV pRPAIN201306UV = new PRPAIN201306UV();
+
+        LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType);
+
+        context.assertIsSatisfied();
+
+    }
+
+    @Test
+    public void testAreRequired201306fieldsNullWillFailForMissingUserName()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                one(mockLogger).error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+                one(mockLogger).error("One of more UserInfo fields from the Assertion object were null.");
+
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        userInfo.setUserName(null);
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+
+        boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+    }
+
+    @Test
+    public void testAreRequired201306fieldsNullWillFailForNullHL7Identifiers()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+                one(mockLogger).error("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+
+        boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+    }
+
+    @Test
+    public void testAreRequired201306fieldsNullWillFailForNullPatientId()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockListII.add(mockII);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            {
+                return mockListII.get(0);
+            }
+
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The patient id from the II.getExtension method from the response message's II object was null.");
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+
+        boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+    }
+
+    @Test
+    public void testAreRequired201306fieldsNullWillFailForNullCommunityId()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockListII.add(mockII);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            {
+                return mockListII.get(0);
+            }
+
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The patient's assigning authority or community id from the response message's II object was null.");
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+
+        boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+    }
+
+    @Test
+    public void testAreRequiredUserTypeFieldsNullMethod()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+            }
+        };
+        context.checking(oExpectation);
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        boolean bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertFalse(bExpectedResult);
+
+        //test with null username
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+            }
+        };
+        context.checking(oExpectation);
+        oAssertionType.getUserInfo().setUserName(null);
+        bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+        //test with null home community id
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+            }
+        };
+        context.checking(oExpectation);
+        oAssertionType.getUserInfo().setUserName("Test User");
+        oAssertionType.getUserInfo().getOrg().setHomeCommunityId(null);
+        bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+        //test with null home community name
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
+            }
+        };
+        context.checking(oExpectation);
+        oAssertionType.getUserInfo().setUserName("Test User");
+        oAssertionType.getUserInfo().getOrg().setHomeCommunityId("2.16.840.1.113883.3.200");
+        oAssertionType.getUserInfo().getOrg().setName(null);
+        bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+        //test with null UserType object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The UserType object or request assertion object containing the assertion user info was null.");
+            }
+        };
+        context.checking(oExpectation);
+        oAssertionType.setUserInfo(null);
+        bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
+
+    }
+
+    @Test
+    public void testGetHL7IdentitiersFromResponseMethod()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV oPRPAIN201306UV = new PRPAIN201306UV();
+        final PRPAIN201306UVMFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UVMFMIMT700711UV01ControlActProcess();
+        final PRPAIN201306UVMFMIMT700711UV01Subject1 oPRPAIN201306UVMFMIMT700711UV01Subject1 = new PRPAIN201306UVMFMIMT700711UV01Subject1();
+        final PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent = new PRPAIN201306UVMFMIMT700711UV01RegistrationEvent();
+        final PRPAIN201306UVMFMIMT700711UV01Subject2 oPRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UVMFMIMT700711UV01Subject2();
+        final PRPAMT201310UVPatient oPRPAMT201310UVPatient = new PRPAMT201310UVPatient();
+        final II oII = new II();
+        oPRPAMT201310UVPatient.getId().add(oII);
+        oPRPAIN201306UVMFMIMT700711UV01Subject2.setPatient(oPRPAMT201310UVPatient);
+        oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent.setSubject1(oPRPAIN201306UVMFMIMT700711UV01Subject2);
+        oPRPAIN201306UVMFMIMT700711UV01Subject1.setRegistrationEvent(oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent);
+        oPRPAIN201306UVMFMIMT700711UV01ControlActProcess.getSubject().add(oPRPAIN201306UVMFMIMT700711UV01Subject1);
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        //test that all requirements are met
+        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+
+        context.assertIsSatisfied();
+        Assert.assertNotNull(oExpectedResult);
+
+        //test with null or empty List<II>
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+        //test with null or empty List<II>
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+        //test with null patient object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's Patient object due to a null value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().setPatient(null);
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+        //test with null subject2 object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's Subject2 object due to a null value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().setSubject1(null);
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+        //test with null registration object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's RegistrationEvent object due to a null value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).setRegistrationEvent(null);
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+        //test with null subject1 object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's Subject1 object due to a null or empty value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.getControlActProcess().getSubject().clear();
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+        //test with null subject1 object
+        oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+            }
+        };
+        context.checking(oExpectation);
+        oPRPAIN201306UV.setControlActProcess(null);
+        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+
+    }
+
+    @Test
+    public void testAreRequired201305fieldsNullMethod()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        final List<II> mockListII = new ArrayList<II>();
+        final II mockII = new II();
+        mockII.setExtension("1111");
+        mockII.setRoot("2.2.2.2");
+        mockListII.add(mockII);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+            protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
+            {
+                return true;
+            }
+        };
+
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("One of more UserInfo fields from the Assertion object were null.");
+            }
+        });
+
+        AssertionType oAssertionType = new AssertionType();
+        UserType userInfo = getTestUserType();
+        oAssertionType.setUserInfo(userInfo);
+
+        final PRPAIN201305UV oPatientDiscoveryRequestMessage = new PRPAIN201305UV();
+
+        boolean bExpectedResult = testSubject.areRequired201305fieldsNull(oPatientDiscoveryRequestMessage, oAssertionType);
+
+        context.assertIsSatisfied();
+        Assert.assertTrue(bExpectedResult);
 
     }
 
@@ -589,6 +1134,7 @@ public class PatientDiscoveryTransformsTest {
         home.setHomeCommunityId("2.16.840.1.113883.3.200");
         home.setName("Federal - VA");
         userInfo.setOrg(home);
+        userInfo.setUserName("Test User");
 
         return userInfo;
     }
@@ -622,8 +1168,12 @@ public class PatientDiscoveryTransformsTest {
         return oPatientDiscoveryRequest;
     }
 
-    private PatientDiscoveryTransforms getNewRequestObject() {
+    private PatientDiscoveryTransforms getNewPatientDiscoveryTransformsObject(final Log mockLogger) {
         PatientDiscoveryTransforms oRequest = new PatientDiscoveryTransforms() {
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
 
             protected CodedValueType getCodedValueTypeFor201305UV() {
                 return new CodedValueType();
