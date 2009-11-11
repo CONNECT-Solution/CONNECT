@@ -15,11 +15,10 @@
       antbat="kwant.exe"
       target="build-test"
       buildfile="${Ant.Build.File.Path}"
-      logfile="${Ant.Log.Directory.Path}\copy_artifacts_log.xml"
-    >
+      logfile="${Ant.Log.Directory.Path}\kwant_log.xml">
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args>
-        <arg line="-o nhin_kwinject.out"/>
+        <arg line="-o ${Common.Directory.Product.Path}\${Klocwork.Build.Specification}"/>
         <arg line="-Dcompile.debug=${Compile.Debug}"/>
       </args>
     </ant>
