@@ -5,7 +5,7 @@
     <client name="NhinSubjectDiscovery">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:pixv3:2007</package-name>
+      <package-name>ihe.iti.pixv3._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

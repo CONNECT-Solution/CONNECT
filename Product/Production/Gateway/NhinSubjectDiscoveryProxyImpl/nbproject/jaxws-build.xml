@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-NhinSubjectDiscovery" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:pixv3:2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/pixv3/_2007"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhinSubjectDiscovery"/>
 </project>
