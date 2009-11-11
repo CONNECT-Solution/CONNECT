@@ -7,33 +7,32 @@
             elementFormDefault="qualified" 
             >
 
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201301UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201302UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201303UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201304UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201306UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201309UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201304UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201309UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
 
     <xsd:complexType name="RetrievePatientCorrelationsSecuredRequestType">
         <xsd:sequence>
-            <xsd:element ref="hl7:PRPA_IN201309UV"/>
+            <xsd:element ref="hl7:PRPA_IN201309UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RetrievePatientCorrelationsRequestSecured" type="tns:RetrievePatientCorrelationsSecuredRequestType"></xsd:element>
 
     <xsd:complexType name="RetrievePatientCorrelationsSecuredResponseType">
         <xsd:sequence>
-            <xsd:element ref="hl7:PRPA_IN201310UV"/>
+            <xsd:element ref="hl7:PRPA_IN201310UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RetrievePatientCorrelationsResponseSecured" type="tns:RetrievePatientCorrelationsSecuredResponseType"></xsd:element>
 
     <xsd:complexType name="AddPatientCorrelationSecuredRequestType">
         <xsd:sequence>
-            <xsd:element ref="hl7:PRPA_IN201301UV"/>
+            <xsd:element ref="hl7:PRPA_IN201301UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="AddPatientCorrelationRequestSecured" type="tns:AddPatientCorrelationSecuredRequestType"></xsd:element>
@@ -45,7 +44,7 @@
     </xsd:complexType>
     <xsd:element name="AddPatientCorrelationResponseSecured" type="tns:AddPatientCorrelationSecuredResponseType"></xsd:element>
 
-    <xsd:complexType name="RemovePatientCorrelationSecuredRequestType">
+   <!-- <xsd:complexType name="RemovePatientCorrelationSecuredRequestType">
         <xsd:sequence>
             <xsd:element ref="hl7:PRPA_IN201303UV"/>
         </xsd:sequence>
@@ -57,5 +56,5 @@
             <xsd:element ref="hl7:MCCI_IN000002UV01"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="RemovePatientCorrelationResponseSecured" type="tns:RemovePatientCorrelationSecuredResponseType"></xsd:element>
+    <xsd:element name="RemovePatientCorrelationResponseSecured" type="tns:RemovePatientCorrelationSecuredResponseType"></xsd:element>-->
 </xsd:schema>

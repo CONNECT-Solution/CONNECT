@@ -11,34 +11,42 @@
                 ===================
             -->
     <target name="wsimport-init" depends="init">
-        <mkdir dir="${build.generated.dir}/wsimport/client"/>
-        <mkdir dir="${build.generated.dir}/wsimport/service"/>
-        <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <mkdir dir="${classes.dir}"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${j2ee.platform.wsimport.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsimport-client-check-NhincComponentPatientCorrelationSecured" depends="wsimport-init">
-        <condition property="wsimport-client-NhincComponentPatientCorrelationSecured.notRequired">
-            <available file="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation/NhincComponentPatientCorrelationSecured.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init,wsimport-client-check-NhincComponentPatientCorrelationSecured" unless="wsimport-client-NhincComponentPatientCorrelationSecured.notRequired">
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
         <property name="wsdl-NhincComponentPatientCorrelationSecured" location="${meta.inf}/xml-resources/web-service-references/NhincComponentPatientCorrelationSecured/wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-NhincComponentPatientCorrelationSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured" destdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured" wsdl="${wsdl-NhincComponentPatientCorrelationSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincComponentPatientCorrelationSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="wsimport-client-clean-NhincComponentPatientCorrelationSecured" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation"/>
     </target>
-    <target name="wsimport-service-check-PatientCorrelationService" depends="wsimport-init">
-        <condition property="wsimport-service-PatientCorrelationService.notRequired">
-            <available file="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation/PatientCorrelationService.java"/>
-        </condition>
-    </target>
-    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init,wsimport-service-check-PatientCorrelationService" unless="wsimport-service-PatientCorrelationService.notRequired">
+    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
         <property name="service-wsdl-PatientCorrelationService" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-PatientCorrelationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService" destdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService" wsdl="${service-wsdl-PatientCorrelationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-PatientCorrelationService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
         <property name="targetLocation-PatientCorrelationService" location="${meta.inf}/wsdl/PatientCorrelationService"/>
         <property name="sourceLocation-PatientCorrelationService" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/"/>
         <copy todir="${targetLocation-PatientCorrelationService}">
@@ -46,17 +54,9 @@
         </copy>
     </target>
     <target name="wsimport-service-clean-PatientCorrelationService" depends="-init-project">
-        <delete dir="${build.generated.dir}/wsimport/service/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentPatientCorrelationSecured"/>
-    <target name="wsimport-client-compile" depends="wsimport-client-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/client" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${build.generated.dir}/wsimport/binaries" includes="**/*.xml"/>
-        </copy>
-    </target>
     <target name="wsimport-service-generate" depends="wsimport-service-PatientCorrelationService"/>
-    <target name="wsimport-service-compile" depends="wsimport-service-generate">
-        <ejbjarproject2:javac srcdir="${build.generated.dir}/wsimport/service" classpath="${j2ee.platform.wsimport.classpath}:${javac.classpath}" destdir="${classes.dir}"/>
-    </target>
 </project>

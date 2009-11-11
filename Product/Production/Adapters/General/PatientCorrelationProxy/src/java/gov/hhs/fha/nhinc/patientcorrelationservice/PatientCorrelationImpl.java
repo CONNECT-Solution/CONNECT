@@ -40,13 +40,13 @@ public class PatientCorrelationImpl
 
             org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType body = new org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType();
                         
-            body.setPRPAIN201309UV(retrievePatientCorrelationsRequest.getPRPAIN201309UV());
+            body.setPRPAIN201309UV02(retrievePatientCorrelationsRequest.getPRPAIN201309UV02());
 
             securedResponse = port.retrievePatientCorrelations(body);
             
             response = new org.hl7.v3.RetrievePatientCorrelationsResponseType();
 
-            response.setPRPAIN201310UV(securedResponse.getPRPAIN201310UV());
+            response.setPRPAIN201310UV02(securedResponse.getPRPAIN201310UV02());
         }
         catch(Exception ex)
         {
@@ -73,42 +73,11 @@ public class PatientCorrelationImpl
             org.hl7.v3.AddPatientCorrelationSecuredRequestType body = new org.hl7.v3.AddPatientCorrelationSecuredRequestType();
 
  
-            body.setPRPAIN201301UV(addPatientCorrelationRequest.getPRPAIN201301UV());
+            body.setPRPAIN201301UV02(addPatientCorrelationRequest.getPRPAIN201301UV02());
 
             securedResponse = port.addPatientCorrelation(body);
 
             response = new org.hl7.v3.AddPatientCorrelationResponseType();
-
-            response.setMCCIIN000002UV01(securedResponse.getMCCIIN000002UV01());
-        }
-        catch(Exception ex)
-        {
-            log.error(ex.getMessage(), ex);
-        }
-
-        return response;
-    }
-    public org.hl7.v3.RemovePatientCorrelationResponseType removePatientCorrelation(org.hl7.v3.RemovePatientCorrelationRequestType removePatientCorrelationRequest)
-    {
-        org.hl7.v3.RemovePatientCorrelationResponseType response = null;
-        org.hl7.v3.RemovePatientCorrelationSecuredResponseType securedResponse = null;
-        try
-        {
-            String url = getURL();
-            PatientCorrelationSecuredPortType port = getPort(url);
-            AssertionType assertIn = removePatientCorrelationRequest.getAssertion();
-
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.PAT_CORR_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            org.hl7.v3.RemovePatientCorrelationSecuredRequestType body = new org.hl7.v3.RemovePatientCorrelationSecuredRequestType();
-
-            body.setPRPAIN201303UV(removePatientCorrelationRequest.getPRPAIN201303UV());
-
-            securedResponse = port.removePatientCorrelation(body);
-
-            response = new org.hl7.v3.RemovePatientCorrelationResponseType();
 
             response.setMCCIIN000002UV01(securedResponse.getMCCIIN000002UV01());
         }

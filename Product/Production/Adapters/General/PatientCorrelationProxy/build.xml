@@ -78,7 +78,7 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init,wsimport-service-check-PatientCorrelationService" unless="wsimport-service-PatientCorrelationService.notRequired">
+    <target name="wsimport-service-PatientCorrelationService" unless="wsimport-service-PatientCorrelationService.notRequired">
 <!--
         <property name="service-wsdl-PatientCorrelationService" location="${meta.inf}/xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl"/>
         <wsimport sourcedestdir="${build.generated.dir}/wsimport/service" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${service-wsdl-PatientCorrelationService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true"/>
@@ -94,7 +94,7 @@
             <fileset dir="${sourceLocation-PatientCorrelationServiceSchemas}"/>
         </copy>
     </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init,wsimport-client-check-NhincComponentPatientCorrelationSecured" unless="wsimport-client-NhincComponentPatientCorrelationSecured.notRequired"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init" unless="wsimport-client-NhincComponentPatientCorrelationSecured.notRequired"/>
     
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
