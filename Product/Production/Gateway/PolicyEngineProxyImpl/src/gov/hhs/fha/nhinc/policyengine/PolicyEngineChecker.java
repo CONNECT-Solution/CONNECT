@@ -11,7 +11,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -45,18 +44,6 @@ public class PolicyEngineChecker {
     public CheckPolicyRequestType checkPolicySubjectRevised(SubjectRevisedEventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformSubjectRevisedToCheckPolicy(request);
-    }
-
-    /**
-     * This method will create the generic Policy Check Request Message from
-     * a subject discovery revoke request
-     *
-     * @param request Policy check request message for the subject discovery revoke
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
-    public CheckPolicyRequestType checkPolicySubjectRevoked(SubjectRevokedEventType request) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
-        return policyTransformer.transformSubjectRevokedToCheckPolicy(request);
     }
 
     /**
