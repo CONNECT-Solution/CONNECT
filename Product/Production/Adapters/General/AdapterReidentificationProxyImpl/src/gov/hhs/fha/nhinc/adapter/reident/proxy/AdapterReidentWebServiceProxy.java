@@ -16,8 +16,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
-import org.hl7.v3.PRPAIN201309UV;
-import org.hl7.v3.PRPAIN201310UV;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02;
 
 /**
  *
@@ -28,9 +28,9 @@ public class AdapterReidentWebServiceProxy implements AdapterReidentProxy {
     private static Log log = LogFactory.getLog(AdapterReidentWebServiceProxy.class);
     static AdapterReidentification service = new AdapterReidentification();
 
-    public PRPAIN201310UV getRealIdentifier(PRPAIN201309UV request, AssertionType assertion, NhinTargetCommunitiesType target) {
+    public PRPAIN201310UV02 getRealIdentifier(PRPAIN201309UV02 request, AssertionType assertion, NhinTargetCommunitiesType target) {
         String url = null;
-        PRPAIN201310UV result = new PRPAIN201310UV();
+        PRPAIN201310UV02 result = new PRPAIN201310UV02();
 
         try {
             url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.SUBJECT_DISCOVERY_REIDENT_SERVICE_NAME);
@@ -45,13 +45,13 @@ public class AdapterReidentWebServiceProxy implements AdapterReidentProxy {
             PIXConsumerPRPAIN201309UVRequestType reidentRequest = new PIXConsumerPRPAIN201309UVRequestType();
             reidentRequest.setAssertion(assertion);
             reidentRequest.setNhinTargetCommunities(target);
-            reidentRequest.setPRPAIN201309UV(request);
+            reidentRequest.setPRPAIN201309UV02(request);
 
             PIXConsumerPRPAIN201310UVRequestType reidentResp = port.getRealIdentifier(reidentRequest);
 
             if (reidentResp != null &&
-                    reidentResp.getPRPAIN201310UV() != null) {
-                result = reidentResp.getPRPAIN201310UV();
+                    reidentResp.getPRPAIN201310UV02() != null) {
+                result = reidentResp.getPRPAIN201310UV02();
             }
         }
 

@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterReidentification" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterReidentification"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterreidentification"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterreidentification"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterReidentification"/>
 </project>
