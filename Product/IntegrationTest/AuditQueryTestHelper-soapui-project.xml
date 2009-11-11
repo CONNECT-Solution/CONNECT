@@ -15349,12 +15349,12 @@ def mockAuditQueryURL = "http://" + mockHost + ":18088/mockNhincAuditLogQuery";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockauditquery", mockAuditQueryURL, context, log)</script></con:config></con:testStep><con:testStep type="request" name="findAuditEvents"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityAuditLogQueryBindingSoap11</con:interface><con:operation>findAuditEvents</con:operation><con:request name="findAuditEvents"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/EntityAuditQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockauditquery", mockAuditQueryURL, context, log)</script></con:config></con:testStep><con:testStep type="request" name="findAuditEvents"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityAuditLogQueryBindingSoap11</con:interface><con:operation>findAuditEvents</con:operation><con:request name="findAuditEvents"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntityAuditQuery</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:FindAuditEventsRequest>
          <aud:FindAuditEvents>
-            <aud:patientId>'null^^^&amp;2.16.840.1.113883.3.198&amp;ISO'</aud:patientId>
+            <aud:patientId>D123401^^^&amp;1.1&amp;ISO</aud:patientId>
             <aud:userId>mfranklin</aud:userId>
             <aud:beginDateTime>2009-07-06T16:59:19Z</aud:beginDateTime>
             <aud:endDateTime>2009-07-06T18:04:19Z</aud:endDateTime>
