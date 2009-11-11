@@ -14,7 +14,7 @@
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapterreidentification">
             <xsd:import namespace="urn:hl7-org:v3" 
-            schemaLocation="../schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
+            schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
         </xsd:schema>
     </types>
     <message name="GetRealIdentifierRequestMessage">

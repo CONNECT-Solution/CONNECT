@@ -8,12 +8,12 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
-import org.hl7.v3.PRPAIN201309UV;
-import org.hl7.v3.PRPAIN201310UV;
-import org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVPatientIdentifier;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02;
+import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
@@ -35,8 +35,8 @@ class AdapterReidentificationImpl {
         if (realIdentifierRequest != null) {
             ret201310RequestType.setAssertion(realIdentifierRequest.getAssertion());
 
-            PRPAIN201310UV response201310 = null;
-            PRPAIN201309UV request201309 = realIdentifierRequest.getPRPAIN201309UV();
+            PRPAIN201310UV02 response201310 = null;
+            PRPAIN201309UV02 request201309 = realIdentifierRequest.getPRPAIN201309UV02();
             if (request201309 != null) {
                 // extract information from the 201309 request message
                 // extract sender OID and set to the receiver OID for the 201310
@@ -47,7 +47,7 @@ class AdapterReidentificationImpl {
 
                 if (senderOID != null && receiverOID != null) {
                     // extract queryByParameter
-                    PRPAMT201307UVQueryByParameter queryByParameter = extractQueryByParameter(request201309);
+                    JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = extractQueryByParameter(request201309);
 
                     // extract pseudonymPatientId and pseudonymPatientIdAssigningAuthority
                     // and translate to real patient IDs
@@ -81,18 +81,18 @@ class AdapterReidentificationImpl {
                 //create error response
                 response201310 = HL7PRPA201310Transforms.createFaultPRPA201310();
             }
-            ret201310RequestType.setPRPAIN201310UV(response201310);
+            ret201310RequestType.setPRPAIN201310UV02(response201310);
         }
         return ret201310RequestType;
     }
 
-    private II extractPseudoPatientIds(PRPAMT201307UVQueryByParameter queryByParameter) {
+    private II extractPseudoPatientIds(JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter) {
         II pseudoPatientItem = null;
         if (queryByParameter != null) {
-            PRPAMT201307UVParameterList parameterList = queryByParameter.getParameterList();
+            PRPAMT201307UV02ParameterList parameterList = queryByParameter.getValue().getParameterList();
             if (parameterList != null) {
-                PRPAMT201307UVPatientIdentifier patientIdentifier = null;
-                List<PRPAMT201307UVPatientIdentifier> patientIdentifierList = parameterList.getPatientIdentifier();
+                PRPAMT201307UV02PatientIdentifier patientIdentifier = null;
+                List<PRPAMT201307UV02PatientIdentifier> patientIdentifierList = parameterList.getPatientIdentifier();
                 if (patientIdentifierList != null && !patientIdentifierList.isEmpty()) {
                     patientIdentifier = patientIdentifierList.get(0);
                     List<II> iiList = patientIdentifier.getValue();
@@ -105,19 +105,16 @@ class AdapterReidentificationImpl {
         return pseudoPatientItem;
     }
 
-    private PRPAMT201307UVQueryByParameter extractQueryByParameter(PRPAIN201309UV request201309) {
-        PRPAMT201307UVQueryByParameter queryByParameter = null;
-        PRPAIN201309UVQUQIMT021001UV01ControlActProcess controlAct = request201309.getControlActProcess();
+    private JAXBElement<PRPAMT201307UV02QueryByParameter> extractQueryByParameter(PRPAIN201309UV02 request201309) {
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = null;
+        PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlAct = request201309.getControlActProcess();
         if (controlAct != null) {
-            JAXBElement<PRPAMT201307UVQueryByParameter> queryByParameterElem = controlAct.getQueryByParameter();
-            if (queryByParameterElem != null) {
-                queryByParameter = queryByParameterElem.getValue();
-            }
+            queryByParameter = controlAct.getQueryByParameter();
         }
         return queryByParameter;
     }
 
-    private String extractReceiverOID(PRPAIN201309UV request201309) {
+    private String extractReceiverOID(PRPAIN201309UV02 request201309) {
         String receiverOID201309 = null;
         List<MCCIMT000100UV01Receiver> receiver201309List = request201309.getReceiver();
         if (receiver201309List != null && !receiver201309List.isEmpty()) {
@@ -135,7 +132,7 @@ class AdapterReidentificationImpl {
         return receiverOID201309;
     }
 
-    private String extractSenderOID(PRPAIN201309UV request201309) {
+    private String extractSenderOID(PRPAIN201309UV02 request201309) {
         String senderOID201309 = null;
         MCCIMT000100UV01Sender sender201309 = request201309.getSender();
         if (sender201309 != null) {
