@@ -30,7 +30,7 @@
     </target>
     <target name="wsimport-client-clean-NhincSubjectDiscovery" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincSubjectDiscovery"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincsubjectdiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincsubjectdiscovery"/>
     </target>
     <target name="wsimport-client-NhincDocQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
