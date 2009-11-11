@@ -52,14 +52,14 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
-import org.hl7.v3.PRPAIN201301UV;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201301UVPerson;
-import org.hl7.v3.PRPAMT201310UVOtherIDs;
-import org.hl7.v3.PRPAMT201310UVPatient;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAMT201310UV02OtherIDs;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -454,29 +454,29 @@ public class Page2 extends AbstractPageBean {
 
                 II patId = new II();
                 patId.setRoot(assigningAuthId);
-                PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, lastName, null, null, null), patId);
-                PRPAIN201305UV searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
+                PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(firstName, lastName, null, null, null), patId);
+                PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, orgId, orgId, assigningAuthId);
 
                 AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
                 AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
-                PRPAIN201306UV patients = mpiProxy.findCandidates(searchPat);
+                PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchPat);
 
-                List<PRPAMT201310UVPatient> mpiPatResultList = new ArrayList<PRPAMT201310UVPatient>();
+                List<PRPAMT201310UV02Patient> mpiPatResultList = new ArrayList<PRPAMT201310UV02Patient>();
                 if (patients != null && patients.getControlActProcess() != null && patients.getControlActProcess().getSubject() != null) {
-                    List<PRPAIN201306UVMFMIMT700711UV01Subject1> subjectList = patients.getControlActProcess().getSubject();
+                    List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjectList = patients.getControlActProcess().getSubject();
                     log.debug("Search MPI found " + subjectList.size() + " candidates");
-                    for (PRPAIN201306UVMFMIMT700711UV01Subject1 subject1 : subjectList) {
+                    for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject1 : subjectList) {
                         if (subject1 != null &&
                                 subject1.getRegistrationEvent() != null &&
                                 subject1.getRegistrationEvent().getSubject1() != null &&
                                 subject1.getRegistrationEvent().getSubject1().getPatient() != null) {
-                            PRPAMT201310UVPatient mpiPat = subject1.getRegistrationEvent().getSubject1().getPatient();
+                            PRPAMT201310UV02Patient mpiPat = subject1.getRegistrationEvent().getSubject1().getPatient();
                             mpiPatResultList.add(mpiPat);
                         }
                     }
                     if (!mpiPatResultList.isEmpty()) {
                         List<String> data = new ArrayList<String>();
-                        for (PRPAMT201310UVPatient resultPatient : mpiPatResultList) {
+                        for (PRPAMT201310UV02Patient resultPatient : mpiPatResultList) {
                             //extract first and last name
                             if (resultPatient.getPatientPerson() != null &&
                                     resultPatient.getPatientPerson().getValue() != null &&
@@ -515,8 +515,8 @@ public class Page2 extends AbstractPageBean {
                                 //extract SSN
                                 String resultPatientSSN = "";
                                 if (resultPatient.getPatientPerson().getValue().getAsOtherIDs() != null) {
-                                    List<PRPAMT201310UVOtherIDs> ssnIdsList = resultPatient.getPatientPerson().getValue().getAsOtherIDs();
-                                    for (PRPAMT201310UVOtherIDs ssnId : ssnIdsList) {
+                                    List<PRPAMT201310UV02OtherIDs> ssnIdsList = resultPatient.getPatientPerson().getValue().getAsOtherIDs();
+                                    for (PRPAMT201310UV02OtherIDs ssnId : ssnIdsList) {
                                         if (ssnId.getId() != null && !ssnId.getId().isEmpty()) {
                                             for (II idxId : ssnId.getId()) {
                                                 if (idxId != null &&
@@ -745,10 +745,10 @@ public class Page2 extends AbstractPageBean {
             String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
 
             PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
-            JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
-            PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
-            PRPAIN201301UV prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
-            request.setPRPAIN201301UV(prpain201301);
+            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
+            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
+            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
+            request.setPRPAIN201301UV02(prpain201301);
 
             MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
             if (sdAck != null) {
