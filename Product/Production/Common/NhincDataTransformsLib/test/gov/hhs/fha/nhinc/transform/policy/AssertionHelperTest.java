@@ -18,14 +18,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceCo
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -53,6 +52,7 @@ public class AssertionHelperTest {
     public static final String STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
     public static final String ANY_URI_DATATYPE = "http://www.w3.org/2001/XMLSchema#anyURI";
     public static final String DATE_DATATYPE = "http://www.w3.org/2001/XMLSchema#date";
+    public static final String II_DATATYPE = "urn:hl7-org:v3#II";
     private static final String EMPTY_STRING = "";
     private static final String TEST_HC_VAL = "urn:oid:1.1.1.1.1.1.1";
     private static final String TEST_PAT_ID_VAL = "12345^^^&1.2.333&ISO";
@@ -116,8 +116,6 @@ public class AssertionHelperTest {
      */
     @Test
     public void testAppendAssertionDataToRequest() {
-        log.info("testAppendAssertionDataToRequest");
-
         RequestType policyRequest = new RequestType();
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(policyRequest, defaultAssertion);
@@ -360,6 +358,8 @@ public class AssertionHelperTest {
                                 } catch (URISyntaxException ex) {
                                     fail("Expected value of " + attr.getAttributeId() + " should be a valid URI form");
                                 }
+                            } else {
+                                fail("Datatype: " + attr.getDataType() + " was not expected as a Subject");
                             }
 
                             String noAttrValMessage = "Request Subject Attribute " + attr.getAttributeId() + "has no AttributeValues";
@@ -424,7 +424,7 @@ public class AssertionHelperTest {
                         matchIdList.add(attr.getAttributeId());
                         //handle II and binary types separately
                         if ("http://www.hhs.gov/healthit/nhin#subject-id".equals(attr.getAttributeId())) {
-                            verifyUniquePatientId(attr);
+                            verifyUniquePatientId(attr, TEST_PAT_ID_VAL);
                         } else if ("urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content".equals(attr.getAttributeId())) {
                             verifyEvidenceContent(attr);
                         } else {
@@ -444,6 +444,8 @@ public class AssertionHelperTest {
                                     } catch (DatatypeConfigurationException ex) {
                                         fail("Expected value of " + attr.getAttributeId() + " should be a valid XML dateTime form");
                                     }
+                                } else {
+                                    fail("Datatype: " + attr.getDataType() + " was not expected as a Resource");
                                 }
 
                                 String noAttrValMessage = "Request Resource Attribute " + attr.getAttributeId() + "has no AttributeValues";
@@ -470,43 +472,50 @@ public class AssertionHelperTest {
         assertTrue(missingAttrMessage, matchIdList.contains("urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-asssertion-content"));
     }
 
-    private void verifyUniquePatientId(AttributeType attr) {
+    private void verifyUniquePatientId(AttributeType attr, String expectedPatId) {
 
-        for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
-            if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
-                for (Object obj : actAttrVal.getContent()) {
-                    if (obj instanceof ElementNSImpl) {
-                        ElementNSImpl elem = (ElementNSImpl) obj;
-                        NamedNodeMap attrMap = elem.getAttributes();
-                        if ((attrMap != null) &&
-                                (attrMap.getLength() > 0)) {
-                            int numMapNodes = attrMap.getLength();
-                            for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
-                                Node attrNode = attrMap.item(attrIdx);
-                                if ((attrNode != null) &&
-                                        (attrNode.getNodeName() != null) &&
-                                        (!attrNode.getNodeName().isEmpty())) {
-                                    if (attrNode.getNodeName().equals("extension")) {
-                                        assertTrue("1.2.333".equals(attrNode.getNodeValue()));
-                                    } else if (attrNode.getNodeName().equals("root")) {
-                                        assertTrue("12345".equals(attrNode.getNodeValue()));
+        if (expectedPatId != null && !expectedPatId.isEmpty()) {
+            String patRoot = PatientIdFormatUtil.parsePatientId(expectedPatId);
+            String patExt = PatientIdFormatUtil.parseCommunityId(expectedPatId);
+
+            for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
+                if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
+                    for (Object obj : actAttrVal.getContent()) {
+                        if (obj instanceof ElementNSImpl) {
+                            ElementNSImpl elem = (ElementNSImpl) obj;
+                            NamedNodeMap attrMap = elem.getAttributes();
+                            if ((attrMap != null) &&
+                                    (attrMap.getLength() > 0)) {
+                                int numMapNodes = attrMap.getLength();
+                                for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
+                                    Node attrNode = attrMap.item(attrIdx);
+                                    if ((attrNode != null) &&
+                                            (attrNode.getNodeName() != null) &&
+                                            (!attrNode.getNodeName().isEmpty())) {
+                                        if (attrNode.getNodeName().equals("extension")) {
+                                            assertTrue(patExt.equals(attrNode.getNodeValue()));
+                                        } else if (attrNode.getNodeName().equals("root")) {
+                                            assertTrue(patRoot.equals(attrNode.getNodeValue()));
+                                        } else {
+                                            fail("Unique Patient Element should have 2 attributes: extension and root");
+                                        }
                                     } else {
                                         fail("Unique Patient Element should have 2 attributes: extension and root");
                                     }
-                                } else {
-                                    fail("Unique Patient Element should have 2 attributes: extension and root");
                                 }
+                            } else {
+                                fail("Unique Patient Element should have 2 attributes: extension and root");
                             }
                         } else {
-                            fail("Unique Patient Element should have 2 attributes: extension and root");
+                            fail("Unique Patient should be an Element type");
                         }
-                    } else {
-                        fail("Unique Patient should be an Element type");
                     }
+                } else {
+                    fail("No content was found for the Unique Patient Id");
                 }
-            } else {
-                fail("No content was found for the Unique Patient Id");
             }
+        } else {
+            fail("Expected Patient Id is either null or empty");
         }
     }
 
@@ -572,31 +581,20 @@ public class AssertionHelperTest {
                     " was not as expected: " + expectedDataType;
             assertEquals(wrongDataTypeMsg, expectedDataType, attribute.getDataType());
 
-            if (expectedDataType.equals(STRING_DATATYPE)) {
+            if (expectedDataType.equals(STRING_DATATYPE) ||
+                    expectedDataType.equals(ANY_URI_DATATYPE) ||
+                    expectedDataType.equals(DATE_DATATYPE)) {
                 String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
                         " content: " + contentValue +
                         " was not as expected: " + expectedValue;
                 assertEquals(wrongValueMsg, expectedValue, contentValue);
-                /*} else if (expectedDataType.equals(ANY_URI_DATATYPE)) {
-                if (contentValue instanceof URI) {
-                URI value = (URI) contentValue;
-                String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
-                " content: " + contentValue +
-                " was not as expected: " + expectedValue;
-                assertEquals(wrongValueMsg, expectedValue, value);
-                } else {
-                String wrongValueMsg = "Attribute: " + attribute.getAttributeId() +
-                "expected a URI content but had: " + contentValue.getClass();
-                fail(wrongValueMsg);
-                }*/
+            } else if (expectedDataType.equals(II_DATATYPE)) {
+                verifyUniquePatientId(attribute, (String) expectedValue);
             } else {
-                System.out.println("verifyAttributeField contentValue: " + contentValue.getClass());
+                fail("verifyAttributeField expectedDataType: " + expectedDataType.getClass() + " contentValue: " + contentValue.getClass());
             }
-
-            log.info("asserting that value was copied to attribute [attributeID='" + attribute.getAttributeId() + "';content='" + contentValue + "';datatype='" + expectedDataType + "']");
         } else {
             assertNull("Expected attribute to be null, but found one with value of " + contentValue + ".", attribute);
-            log.info("asserting that attribute was not created");
         }
     }
 
@@ -773,7 +771,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getUniquePatientId().get(0);
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, II_DATATYPE);
     }
 
     @Test
@@ -781,7 +779,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUniquePatientId().set(0, "");
         String sourceValue = null;
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, II_DATATYPE);
     }
 
     @Test
@@ -789,7 +787,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getUniquePatientId().set(0, null);
         String sourceValue = assertion.getUniquePatientId().get(0);
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, "urn:hl7-org:v3#II");
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "http://www.hhs.gov/healthit/nhin#subject-id", sourceValue, II_DATATYPE);
     }
 
     @Test
