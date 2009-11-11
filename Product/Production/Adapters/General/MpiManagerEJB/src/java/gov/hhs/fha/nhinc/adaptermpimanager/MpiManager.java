@@ -10,25 +10,17 @@ import javax.jws.WebService;
 
 /**
  *
- * @author mflynn02
+ * @author jhoppesc
  */
 @WebService(serviceName = "AdapterMpiManagerService", portName = "AdapterMpiManagerPortTypeBindingPort", endpointInterface = "gov.hhs.fha.nhinc.adaptermpimanager.AdapterMpiManagerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpimanager", wsdlLocation = "META-INF/wsdl/MpiManager/AdapterMpiManager.wsdl")
 @Stateless
-public class MpiManager implements AdapterMpiManagerPortType {
+public class MpiManager {
 
-    public org.hl7.v3.MCCIIN000002UV01 addPatient(org.hl7.v3.PRPAIN201301UV addPatientRequest) {
+    public org.hl7.v3.MCCIIN000002UV01 addPatient(org.hl7.v3.PRPAIN201301UV02 addPatientRequest) {
         org.hl7.v3.MCCIIN000002UV01 result;
         // Add Patient to MPI
         result = PatientSaver.SavePatient(addPatientRequest);
-        
-        return result;
-    }
 
-    public org.hl7.v3.MCCIIN000002UV01 removePatient(org.hl7.v3.PRPAIN201303UV removePatientRequest) {
-        org.hl7.v3.MCCIIN000002UV01 result;
-        // Add Patient to MPI
-        result = PatientSaver.RevokePatient(removePatientRequest);
-        
         return result;
     }
 

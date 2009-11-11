@@ -22,13 +22,13 @@ public class HL7Parser201301 {
 
     private static Log log = LogFactory.getLog(HL7Parser201301.class);
 
-    public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV message) {
+    public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         if (!(message == null)) {
             HL7Parser.PrintId(message.getId(), "message");
         }
     }
 
-    public static String ExtractGender(PRPAMT201301UVPerson person) {
+    public static String ExtractGender(PRPAMT201301UV02Person person) {
         String genderCode = null;
         CE administrativeGenderCode = person.getAdministrativeGenderCode();
         if (administrativeGenderCode == null) {
@@ -41,7 +41,7 @@ public class HL7Parser201301 {
         return genderCode;
     }
 
-    public static String ExtractBirthdate(PRPAMT201301UVPerson person) {
+    public static String ExtractBirthdate(PRPAMT201301UV02Person person) {
         String birthDate = null;
         if (person.getBirthTime() == null) {
             log.info("message does not contain a birthtime");
@@ -56,7 +56,7 @@ public class HL7Parser201301 {
         return birthDate;
     }
 
-    public static PersonName ExtractPersonName(PRPAMT201301UVPerson person) {
+    public static PersonName ExtractPersonName(PRPAMT201301UV02Person person) {
         //temp logic to prove i can get to name - long term would want to store discrete name parts
         //also assume one name, not multiple names
         PersonName personname = new PersonName();
@@ -135,7 +135,7 @@ public class HL7Parser201301 {
         return personname;
     }
 
-    public static Identifiers ExtractPersonIdentifiers(PRPAMT201301UVPatient patient) {
+    public static Identifiers ExtractPersonIdentifiers(PRPAMT201301UV02Patient patient) {
         Identifiers ids = new Identifiers();
         for (II patientid : patient.getId()) {
             Identifier id = new Identifier();
@@ -145,7 +145,7 @@ public class HL7Parser201301 {
             ids.add(id);
         }
 
-        PRPAMT201301UVPerson person = ExtractHL7PatientPersonFromHL7Patient(patient);
+        PRPAMT201301UV02Person person = ExtractHL7PatientPersonFromHL7Patient(patient);
         for (II personid : person.getId()) {
             Identifier id = new Identifier();
             id.setId(personid.getExtension());
@@ -154,8 +154,8 @@ public class HL7Parser201301 {
             ids.add(id);
         }
 
-        List<PRPAMT201301UVOtherIDs> OtherIds = person.getAsOtherIDs();
-        for (PRPAMT201301UVOtherIDs otherPersonIds : OtherIds) {
+        List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
+        for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
                 if (!(otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID))) {
                     Identifier id = new Identifier();
@@ -170,11 +170,11 @@ public class HL7Parser201301 {
         return ids;
     }
     
-    public static String ExtractSsn (PRPAMT201301UVPerson person) {
+    public static String ExtractSsn (PRPAMT201301UV02Person person) {
         String ssn = null;
         
-        List<PRPAMT201301UVOtherIDs> OtherIds = person.getAsOtherIDs();
-        for (PRPAMT201301UVOtherIDs otherPersonIds : OtherIds) {
+        List<PRPAMT201301UV02OtherIDs> OtherIds = person.getAsOtherIDs();
+        for (PRPAMT201301UV02OtherIDs otherPersonIds : OtherIds) {
             for (II otherPersonId : otherPersonIds.getId()) {
                 if (otherPersonId.getRoot().contentEquals(HL7Parser.SSN_OID)) {
                     ssn = otherPersonId.getExtension();
@@ -185,53 +185,53 @@ public class HL7Parser201301 {
         return ssn;
     }
 
-    public static PRPAMT201301UVPerson ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UVPatient patient) {
-        JAXBElement<PRPAMT201301UVPerson> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201301UVPerson patientPerson = patientPerson = patientPersonElement.getValue();
+    public static PRPAMT201301UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UV02Patient patient) {
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = patient.getPatientPerson();
+        PRPAMT201301UV02Person patientPerson = patientPerson = patientPersonElement.getValue();
         return patientPerson;
     }
 
-    public static PRPAMT201301UVPerson ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV message) {
+    public static PRPAMT201301UV02Person ExtractHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         //assume one subject for now
-        PRPAMT201301UVPatient patient = ExtractHL7PatientFromMessage(message);
-        PRPAMT201301UVPerson patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
+        PRPAMT201301UV02Patient patient = ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
         return patientPerson;
     }
 
-    public static PRPAMT201301UVPatient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV message) {
+    public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         //assume one subject for now
-        PRPAMT201301UVPatient patient = null;
+        PRPAMT201301UV02Patient patient = null;
         log.info("in ExtractPatient");
 
         if (message == null) {
             log.info("message is null - no patient");
             return null;
         }
-        PRPAIN201301UVMFMIMT700701UV01ControlActProcess controlActProcess = message.getControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = message.getControlActProcess();
         if (controlActProcess == null) {
             log.info("controlActProcess is null - no patient");
             return null;
         }
         HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
-        List<PRPAIN201301UVMFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
         if ((subjects == null) || (subjects.size() == 0)) {
             log.info("subjects is blank/null - no patient");
             return null;
         }
 
         //for now, assume we only need one subject, this will need to be modified later
-        PRPAIN201301UVMFMIMT700701UV01Subject1 subject = subjects.get(0);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = subjects.get(0);
         HL7Parser.PrintId(subject.getTypeId(), "subject");
 
-        PRPAIN201301UVMFMIMT700701UV01RegistrationEvent registrationevent = subject.getRegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = subject.getRegistrationEvent();
         if (registrationevent == null) {
             log.info("registrationevent is null - no patient");
             return null;
         }
         HL7Parser.PrintId(registrationevent.getTypeId(), "registrationevent");
 
-        PRPAIN201301UVMFMIMT700701UV01Subject2 subject1 = registrationevent.getSubject1();
+        PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = registrationevent.getSubject1();
         if (subject1 == null) {
             log.info("subject1 is null - no patient");
             return null;
@@ -249,14 +249,14 @@ public class HL7Parser201301 {
         return patient;
     }
 
-    public static Patient ExtractMpiPatientFromMessage(org.hl7.v3.PRPAIN201301UV message) {
-        PRPAMT201301UVPatient hl7patient = ExtractHL7PatientFromMessage(message);
+    public static Patient ExtractMpiPatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
+        PRPAMT201301UV02Patient hl7patient = ExtractHL7PatientFromMessage(message);
         Patient mpipatient = ExtractMpiPatientFromHL7Patient(hl7patient);
         return mpipatient;
     }
 
-    public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UVPatient patient) {
-        PRPAMT201301UVPerson patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
+    public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UV02Patient patient) {
+        PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
         Patient mpiPatient = new Patient();
         mpiPatient.setName(ExtractPersonName(patientPerson));
         mpiPatient.setGender(ExtractGender(patientPerson));
@@ -269,27 +269,27 @@ public class HL7Parser201301 {
         return mpiPatient;
     }
 
-    public static org.hl7.v3.PRPAIN201301UV BuildMessagePRPAIN201301UV(Patient mpiPatient) {
+    public static org.hl7.v3.PRPAIN201301UV02 BuildMessagePRPAIN201301UV(Patient mpiPatient) {
         ObjectFactory factory = new ObjectFactory();
-        org.hl7.v3.PRPAIN201301UV resultMessage = new org.hl7.v3.PRPAIN201301UV();
+        org.hl7.v3.PRPAIN201301UV02 resultMessage = new org.hl7.v3.PRPAIN201301UV02();
 
-        PRPAIN201301UVMFMIMT700701UV01Subject1 subject = new PRPAIN201301UVMFMIMT700701UV01Subject1();
-        PRPAIN201301UVMFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UVMFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         subject.setRegistrationEvent(registrationevent);
 
-        PRPAIN201301UVMFMIMT700701UV01Subject2 subjectA = new PRPAIN201301UVMFMIMT700701UV01Subject2();
+        PRPAIN201301UV02MFMIMT700701UV01Subject2 subjectA = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         registrationevent.setSubject1(subjectA);
 
-        PRPAMT201301UVPatient patient = new PRPAMT201301UVPatient();
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         subjectA.setPatient(patient);
-        PRPAMT201301UVPerson patientPerson = new PRPAMT201301UVPerson();
+        PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UVPerson> patientPersonElement = new JAXBElement<PRPAMT201301UVPerson>(xmlqname, PRPAMT201301UVPerson.class, patientPerson);
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname, PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPersonElement.setValue(patientPerson);
-        PRPAIN201301UVMFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UVMFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         resultMessage.setControlActProcess(controlActProcess);
-        List<PRPAIN201301UVMFMIMT700701UV01Subject1> subjects = resultMessage.getControlActProcess().getSubject();
+        List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = resultMessage.getControlActProcess().getSubject();
         subjects.add(subject);
         if (!(mpiPatient.getDateOfBirth() == null)) {
             TSExplicit birthtime = new TSExplicit();

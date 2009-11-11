@@ -22,12 +22,10 @@ public class HL7Parser {
     public static void PrintMessageIdFromMessage(Object message) {
         log.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
         if (message != null) {
-            if (message instanceof PRPAIN201301UV) {
-                HL7Parser201301.PrintMessageIdFromMessage((PRPAIN201301UV) message);
+            if (message instanceof PRPAIN201301UV02) {
+                HL7Parser201301.PrintMessageIdFromMessage((PRPAIN201301UV02) message);
             }
-            if (message instanceof PRPAIN201303UV) {
-                HL7Parser201303.PrintMessageIdFromMessage((PRPAIN201303UV) message);
-            }
+
         }
         log.debug("End HL7Parser.PrintMessageIdFromMessage(Object)");
     }

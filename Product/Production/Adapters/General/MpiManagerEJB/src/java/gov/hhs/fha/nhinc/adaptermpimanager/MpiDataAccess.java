@@ -17,11 +17,11 @@ import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
  */
 public class MpiDataAccess {
     private static Log log = LogFactory.getLog(MpiDataAccess.class);
-    public static Patients LookupPatients(PRPAMT201301UVPatient patient) {
+    public static Patients LookupPatients(PRPAMT201301UV02Patient patient) {
         return LookupPatients(patient, true);
     }
 
-    public static Patients LookupPatients(PRPAMT201301UVPatient patient, boolean AllowSearchByDemographics) {
+    public static Patients LookupPatients(PRPAMT201301UV02Patient patient, boolean AllowSearchByDemographics) {
         return LookupPatients(HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient), AllowSearchByDemographics);
     }
 

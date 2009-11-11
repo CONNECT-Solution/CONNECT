@@ -25,90 +25,14 @@ public class PatientSaver {
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
 
-    public static org.hl7.v3.MCCIIN000002UV01 SavePatient(org.hl7.v3.PRPAIN201301UV message) {
+    public static org.hl7.v3.MCCIIN000002UV01 SavePatient(org.hl7.v3.PRPAIN201301UV02 message) {
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         result = PatientSaver.SaveAnnouncePatient(message, true, true, true, false);
 
         return result;
     }
 
-    public static org.hl7.v3.MCCIIN000002UV01 RevokePatient(org.hl7.v3.PRPAIN201303UV message) {
-        boolean AllowSearchByDemographicsForDeletePatient = true;
-        log.info("in DeletePatient");
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
-        HL7Parser201303.PrintMessageIdFromMessage(message);
-        PRPAMT201305UVPatient patient = HL7Parser201303.ExtractHL7PatientFromMessage(message);
-        MCCIMT000100UV01Sender sender = message.getSender();
-        String senderOID = null;
-        String receiverOID = null;
-        String msgText = null;
-        String localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
-        
-                // Set the senderOID in the Ack message
-        if (NullChecker.isNotNullish(message.getReceiver()) &&
-                message.getReceiver().get(0).getDevice() != null &&
-                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId()) &&
-                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-            senderOID = message.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-        }
-        
-        // Set the receiverOID in the Ack Message
-        if (message.getSender() != null &&
-                message.getSender().getDevice() != null &&
-                NullChecker.isNotNullish(message.getSender().getDevice().getId()) &&
-                NullChecker.isNotNullish(message.getSender().getDevice().getId().get(0).getRoot())) {
-            receiverOID = message.getSender().getDevice().getId().get(0).getRoot();
-        }
-        
-        // Set the localDeviceId in the Ack Message
-        try {
-           localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME);
-        }
-        catch (Exception e) {
-            localDeviceId = HL7Constants.DEFAULT_LOCAL_DEVICE_ID;
-        }
-
-        if (patient == null) {
-            log.info("WARNING: no patient supplied");
-            msgText = "Error: There was no patient supplied in 201303 Message";
-        } else if (sender == null ||
-                sender.getDevice() == null) {
-            log.warn("WARNING: no sender supplied");
-            msgText = "Error: There was not a valid sender supplied in 201303 Message";
-        } else {
-            log.info("Found patient in message");
-            Patient sourcePatient = HL7Parser201303.ExtractMpiPatientFromHL7Patient(patient);
-            Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographicsForDeletePatient);
-
-            if (CommonChecks.isZeroSearchResult(searchResults)) {
-                log.info("patient not found in MPI");
-                msgText = "Warning: The patient was not found in the MPI";
-            } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
-                log.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
-                msgText = "Error: Multiple patients were found in the MPI";
-            } else {
-                log.info("patient found in MPI");
-
-                log.info("removing patient correlation");
-                if (sender.getDevice().getId() != null &&
-                        sender.getDevice().getId().size() > 0 &&
-                        sender.getDevice().getId().get(0) != null &&
-                        sender.getDevice().getId().get(0).getRoot() != null &&
-                        sender.getDevice().getId().get(0).getRoot().length() > 0) {
-                    MpiDataAccess.DeletePatient(sourcePatient, sender.getDevice().getId().get(0).getRoot());
-                } else {
-                    log.warn("WARNING: An invalid sender was supplied");
-                    msgText = "Error: There was not a valid sender supplied in 201303 Message";
-                }
-
-                msgText = "Successfully revoked patient";
-            }
-        }
-        response = HL7AckTransforms.createAckMessage(localDeviceId, message.getId(), msgText, senderOID, receiverOID);
-        return response;
-    }
-
-    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV message, boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded, boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
+    private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message, boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded, boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
         log.info("in SaveAnnouncePatient (PRPAIN201301UV)");
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         String senderOID = null;
@@ -142,7 +66,7 @@ public class PatientSaver {
 
         HL7Parser201301.PrintMessageIdFromMessage(message);
 
-        PRPAMT201301UVPatient patient = HL7Parser201301.ExtractHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = HL7Parser201301.ExtractHL7PatientFromMessage(message);
         MCCIMT000100UV01Sender sender = message.getSender();
 
         if (patient == null) {

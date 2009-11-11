@@ -8,32 +8,23 @@
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpimanager">
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201301UV.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201303UV.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
         </xsd:schema>
     </types>
     <message name="AddPatientRequestMessage">
-        <part name="AddPatientRequest" element="hl7:PRPA_IN201301UV"/>
+        <part name="AddPatientRequest" element="hl7:PRPA_IN201301UV02"/>
     </message>
     <message name="AddPatientResponseMessage">
         <part name="AddPatientResponse" element="hl7:MCCI_IN000002UV01"/>
     </message>
-    <message name="RemovePatientRequestMessage">
-        <part name="RemovePatientRequest" element="hl7:PRPA_IN201303UV"/>
-    </message>
-    <message name="RemovePatientResponseMessage">
-        <part name="RemovePatientResponse" element="hl7:MCCI_IN000002UV01"/>
-    </message>
+    
     <portType name="AdapterMpiManagerPortType">
         <operation name="AddPatient">
             <input name="AddPatientRequest" message="tns:AddPatientRequestMessage"/>
             <output name="AddPatientResponse" message="tns:AddPatientResponseMessage"/>
         </operation>
-        <operation name="RemovePatient">
-            <input name="RemovePatientRequest" message="tns:RemovePatientRequestMessage"/>
-            <output name="RemovePatientResponse" message="tns:RemovePatientResponseMessage"/>
-        </operation>
+        
     </portType>
     <binding name="AdapterMpiManagerPortTypeBinding" type="tns:AdapterMpiManagerPortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
@@ -46,15 +37,7 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
-        <operation name="RemovePatient">
-            <soap:operation style="document" soapAction="urn:RemovePatient"/>
-            <input name="RemovePatientRequest">
-                <soap:body use="literal"/>
-            </input>
-            <output name="RemovePatientResponse">
-                <soap:body use="literal"/>
-            </output>
-        </operation>
+       
     </binding>
     <service name="AdapterMpiManagerService">
         <port name="AdapterMpiManagerPortTypeBindingPort" binding="tns:AdapterMpiManagerPortTypeBinding">
