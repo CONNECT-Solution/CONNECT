@@ -8,16 +8,13 @@ package gov.hhs.fha.nhinc.adaptermpi;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PIXConsumerPRPAIN201305UVRequestType;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAIN201305UV;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import javax.xml.ws.WebServiceContext;
@@ -41,7 +38,7 @@ public class AdapterMpiQuery {
     * @param 
     * @return
     */
-   public static PRPAIN201306UV query(PRPAIN201305UV findCandidatesRequest, WebServiceContext context) {
+   public static PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context) {
         log.debug("Entering AdapterMpiQuery.query secured method...");
        String url = getURL();
        AdapterComponentMpiSecuredPortType port = getPort(url);
@@ -56,9 +53,9 @@ public class AdapterMpiQuery {
        return port.findCandidates(findCandidatesRequest);
 
    }
-   public static PRPAIN201306UV query(PRPAIN201305UV findCandidatesRequest) {
+   public static PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest) {
        log.debug("Entering AdapterMpiQuery.query method...");
-       PRPAIN201306UV  queryResponse = null;
+       PRPAIN201306UV02  queryResponse = null;
        AdapterComponentMpiService mpiService = new AdapterComponentMpiService ();
        AdapterComponentMpiPortType mpiPort = mpiService.getAdapterComponentMpiPort(); 
        
