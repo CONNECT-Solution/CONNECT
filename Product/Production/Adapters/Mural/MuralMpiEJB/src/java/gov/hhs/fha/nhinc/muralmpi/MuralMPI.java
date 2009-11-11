@@ -5,22 +5,18 @@
 
 package gov.hhs.fha.nhinc.muralmpi;
 
-import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 /**
  *
- * @author dunnek
+ * @author jhoppesc
  */
 @WebService(serviceName = "AdapterComponentMpiService", portName = "AdapterComponentMpiPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "META-INF/wsdl/MuralMPI/AdapterComponentMpi.wsdl")
 @Stateless
+public class MuralMPI {
 
-public class MuralMPI implements AdapterComponentMpiPortType {
-
-    public org.hl7.v3.PRPAIN201306UV findCandidates(org.hl7.v3.PRPAIN201305UV findCandidatesRequest)
-    {
-        //TODO implement this method
+    public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest) {
         return MuralMPIQuery.query(findCandidatesRequest);
     }
 

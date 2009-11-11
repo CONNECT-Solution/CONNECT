@@ -6,8 +6,7 @@
 package gov.hhs.fha.nhinc.muralmpi;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PIXConsumerPRPAIN201305UVRequestType;
-import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 
@@ -36,14 +35,14 @@ public class MuralMPIQuery
     private static final String DEFAULT_AA_OID = "1.1";
     private static final String MURAL_SERVICE_NAME = "muralmpi";
 
-    public static org.hl7.v3.PRPAIN201306UV query(org.hl7.v3.PRPAIN201305UV findCandidatesRequest) 
+    public static org.hl7.v3.PRPAIN201306UV02 query(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest)
     {
        PatientEJBService mpiService = new PatientEJBService ();
        PatientEJB mpiPort =  mpiService.getPatientEJBPort();
        String receiverAA = "";
        String receiverOID = "";
        String muralEndPoint = "";
-       org.hl7.v3.PRPAIN201306UV retVal = new org.hl7.v3.PRPAIN201306UV();
+       org.hl7.v3.PRPAIN201306UV02 retVal = new org.hl7.v3.PRPAIN201306UV02();
 
        log.debug("Begin MuralMPIQuery.query");
 

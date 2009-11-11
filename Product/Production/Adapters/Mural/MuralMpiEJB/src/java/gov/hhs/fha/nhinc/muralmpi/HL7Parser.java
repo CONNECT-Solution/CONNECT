@@ -8,24 +8,24 @@ import com.sun.mdm.index.webservice.SearchPatientResult;
 import com.sun.mdm.index.webservice.PatientBean;
 import com.sun.mdm.index.webservice.EnterprisePatient;
 import com.sun.mdm.index.webservice.SystemPatient;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201306UVParameterList;
-import org.hl7.v3.PRPAMT201306UVQueryByParameter;
-import org.hl7.v3.PRPAIN201305UVQUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectAdministrativeGender;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectName;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
+import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.ENXPExplicit;
 import org.hl7.v3.IVLTSExplicit;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectBirthTime;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.CE;
 import  gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import  gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201301UVPerson;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.util.List;
@@ -43,10 +43,10 @@ import gov.hhs.fha.nhinc.muralmpi.PersonName;
 public class HL7Parser {
      private static Log log = LogFactory.getLog(HL7Parser.class);
      
-    public static JAXBElement<PRPAMT201301UVPerson>  createPatientPerson(PatientBean patient)
+    public static JAXBElement<PRPAMT201301UV02Person>  createPatientPerson(PatientBean patient)
     {
 
-        JAXBElement<PRPAMT201301UVPerson> result;
+        JAXBElement<PRPAMT201301UV02Person> result;
         log.debug("begin createPatientPerson");
         String patFirstName;
         String patLastName;
@@ -96,17 +96,17 @@ public class HL7Parser {
 
         return result;
     }
-    public static PRPAIN201306UV createPRPA201306(SearchPatientResult muralPatient, PRPAIN201305UV query, String localId, String localAAID, String localOID)
+    public static PRPAIN201306UV02 createPRPA201306(SearchPatientResult muralPatient, PRPAIN201305UV02 query, String localId, String localAAID, String localOID)
     {
         log.debug("Begin createPRPA201306");
-        JAXBElement<PRPAMT201301UVPerson> person;
+        JAXBElement<PRPAMT201301UV02Person> person;
         String senderOID = "";
 
         person = createPatientPerson(muralPatient.getPatient());
         log.debug("Created HL7 Person");
         
         log.debug("mural patient id = " + localId );
-        PRPAMT201301UVPatient hl7Patient;
+        PRPAMT201301UV02Patient hl7Patient;
         hl7Patient = HL7PatientTransforms.create201301Patient(person, localId, localAAID);
         log.debug("Created HL7 patient");
 
@@ -118,7 +118,7 @@ public class HL7Parser {
         return HL7PRPA201306Transforms.createPRPA201306(hl7Patient, senderOID, localAAID, localOID, localId, query);
     }
    
-    public static String ExtractGender(PRPAMT201306UVParameterList params) {
+    public static String ExtractGender(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractGender method...");
 
         String genderCode = "";
@@ -127,7 +127,7 @@ public class HL7Parser {
         if (params.getLivingSubjectAdministrativeGender() != null &&
                 params.getLivingSubjectAdministrativeGender().size() > 0 &&
                 params.getLivingSubjectAdministrativeGender().get(0) != null) {
-            PRPAMT201306UVLivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender().get(0);
+            PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender().get(0);
 
             if (gender.getValue() != null &&
                     gender.getValue().size() > 0 &&
@@ -147,7 +147,7 @@ public class HL7Parser {
         return genderCode;
     }
 
-    public static String ExtractBirthdate(PRPAMT201306UVParameterList params) {
+    public static String ExtractBirthdate(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractBirthdate method...");
 
         String birthDate = "";
@@ -159,7 +159,7 @@ public class HL7Parser {
         if (params.getLivingSubjectBirthTime() != null &&
                 params.getLivingSubjectBirthTime().size() > 0 &&
                 params.getLivingSubjectBirthTime().get(0) != null) {
-            PRPAMT201306UVLivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
+            PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
             if (birthTime.getValue() != null &&
                     birthTime.getValue().size() > 0 &&
@@ -190,10 +190,10 @@ public class HL7Parser {
         return birthDate;
     }
     
-    public static PatientBean extractPatientSearchCritieria(org.hl7.v3.PRPAIN201305UV findCandidatesRequest)
+    public static PatientBean extractPatientSearchCritieria(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest)
     {
         PatientBean result = new PatientBean();
-        PRPAMT201306UVParameterList queryParams = ExtractHL7QueryParamsFromMessage(findCandidatesRequest);
+        PRPAMT201306UV02ParameterList queryParams = ExtractHL7QueryParamsFromMessage(findCandidatesRequest);
 
         if (queryParams == null) {
             log.error("no query parameters were supplied");
@@ -211,17 +211,17 @@ public class HL7Parser {
 
         return result;
     }
-    public static PRPAMT201306UVParameterList ExtractHL7QueryParamsFromMessage(
-            org.hl7.v3.PRPAIN201305UV message) {
+    public static PRPAMT201306UV02ParameterList ExtractHL7QueryParamsFromMessage(
+            org.hl7.v3.PRPAIN201305UV02 message) {
         log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
-        PRPAMT201306UVParameterList queryParamList = null;
+        PRPAMT201306UV02ParameterList queryParamList = null;
 
         if (message == null) {
             log.warn("input message was null, no query parameters present in message");
             return null;
         }
 
-        PRPAIN201305UVQUQIMT021001UV01ControlActProcess controlActProcess = message.getControlActProcess();
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = message.getControlActProcess();
         if (controlActProcess == null) {
             log.info("controlActProcess is null - no query parameters present in message");
             return null;
@@ -229,7 +229,7 @@ public class HL7Parser {
 
         if (controlActProcess.getQueryByParameter() != null &&
                 controlActProcess.getQueryByParameter().getValue() != null) {
-            PRPAMT201306UVQueryByParameter queryParams = (PRPAMT201306UVQueryByParameter) controlActProcess.getQueryByParameter().getValue();
+            PRPAMT201306UV02QueryByParameter queryParams = (PRPAMT201306UV02QueryByParameter) controlActProcess.getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
                 queryParamList = queryParams.getParameterList();
@@ -241,7 +241,7 @@ public class HL7Parser {
         return queryParamList;
     }
 
-     public static PersonName ExtractPersonName(PRPAMT201306UVParameterList params) {
+     public static PersonName ExtractPersonName(PRPAMT201306UV02ParameterList params) {
         log.debug("Entering HL7Parser201305.ExtractPersonName method...");
 
         PersonName personname = new PersonName();
@@ -250,7 +250,7 @@ public class HL7Parser {
         if (params.getLivingSubjectName() != null &&
                 params.getLivingSubjectName().size() > 0 &&
                 params.getLivingSubjectName().get(0) != null) {
-            PRPAMT201306UVLivingSubjectName name = params.getLivingSubjectName().get(0);
+            PRPAMT201306UV02LivingSubjectName name = params.getLivingSubjectName().get(0);
 
             if (name.getValue() != null &&
                     name.getValue().size() > 0 &&

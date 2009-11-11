@@ -8,10 +8,10 @@ package gov.hhs.fha.nhinc.muralmpi;
 import com.sun.mdm.index.webservice.PatientBean;
 import com.sun.mdm.index.webservice.SearchPatientResult;
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAMT201301UVPerson;
-import org.hl7.v3.PRPAMT201306UVParameterList;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.EnExplicitFamily;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -36,7 +36,7 @@ public class HL7ParserTest {
     private static final String DEFAULT_LOCAL_ID = "99";
 
     private static final String DEFAULT_201305 = " " +
-      "<PRPA_IN201305UV ITSVersion=\"XML_1.0\" xmlns=\"urn:hl7-org:v3\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns3=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\">" +
+      "<PRPA_IN201305UV02 ITSVersion=\"XML_1.0\" xmlns=\"urn:hl7-org:v3\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns3=\"http://schemas.xmlsoap.org/ws/2004/08/addressing\">" +
       "   <id extension=\"-f6a0b28:121a183116b:-7f1a\" root=\"1.1\"/>                                                                                                                         " +
       "   <creationTime value=\"200962153243\"/>                                                                                                                                              " +
       "   <interactionId extension=\"PRPA_IN201305UV\" root=\"2.16.840.1.113883.1.6\"/>                                                                                                       " +
@@ -81,7 +81,7 @@ public class HL7ParserTest {
       "         </parameterList>                                                                                                                                                              " +
       "      </queryByParameter>                                                                                                                                                              " +
       "   </controlActProcess>                                                                                                                                                                " +
-      "</PRPA_IN201305UV>                                                                                                                                                                     ";
+      "</PRPA_IN201305UV02>                                                                                                                                                                     ";
 
     
     public HL7ParserTest() {
@@ -114,9 +114,9 @@ public class HL7ParserTest {
         result.setGender(DEFAULT_GENDER);
         return result;
     }
-    private PRPAIN201305UV createPatientRequest()
+    private PRPAIN201305UV02 createPatientRequest()
     {
-        PRPAIN201305UV result;
+        PRPAIN201305UV02 result;
 
         try
         {
@@ -130,27 +130,12 @@ public class HL7ParserTest {
         return result;
     }
 
-    @Test
-    public void testExtraction()
-    {
-        PRPAIN201305UV instance;
 
-        instance = createPatientRequest();
-        PatientBean patient = HL7Parser.extractPatientSearchCritieria(instance);
-
-        assertEquals(DEFAULT_FIRST_NAME, patient.getFirstName());
-        assertEquals(DEFAULT_LAST_NAME, patient.getLastName());
-        assertEquals(DEFAULT_MIDDLE_NAME, patient.getMiddleName());
-        assertEquals(MURAL_FORMATTED_DOB, patient.getDOB());
-        assertEquals(DEFAULT_GENDER, patient.getGender());
-
-
-    }
     @Test
     public void testCreatePatientPerson()
     {
-        PRPAIN201305UV hl7Req;
-        JAXBElement<PRPAMT201301UVPerson> person;
+        PRPAIN201305UV02 hl7Req;
+        JAXBElement<PRPAMT201301UV02Person> person;
 
         System.out.println("testCreatePatientPerson");
         hl7Req = createPatientRequest();
@@ -172,11 +157,30 @@ public class HL7ParserTest {
         assertEquals(DEFAULT_GENDER,person.getValue().getAdministrativeGenderCode().getCode());
         
     }
-    private org.hl7.v3.PRPAIN201305UV jaxbUnmarshalFromString0(String str) throws javax.xml.bind.JAXBException {
-        org.hl7.v3.PRPAIN201305UV ret = null;
-        javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(org.hl7.v3.PRPAIN201305UV.class.getPackage().getName());
+
+        @Test
+    public void testExtraction()
+    {
+        PRPAIN201305UV02 instance;
+
+        instance = createPatientRequest();
+        PatientBean patient = HL7Parser.extractPatientSearchCritieria(instance);
+
+        assertEquals(DEFAULT_FIRST_NAME, patient.getFirstName());
+        assertEquals(DEFAULT_LAST_NAME, patient.getLastName());
+        assertEquals(DEFAULT_MIDDLE_NAME, patient.getMiddleName());
+        assertEquals(MURAL_FORMATTED_DOB, patient.getDOB());
+        assertEquals(DEFAULT_GENDER, patient.getGender());
+
+
+    }
+
+        
+    private org.hl7.v3.PRPAIN201305UV02 jaxbUnmarshalFromString0(String str) throws javax.xml.bind.JAXBException {
+        org.hl7.v3.PRPAIN201305UV02 ret = null;
+        javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(org.hl7.v3.PRPAIN201305UV02.class.getPackage().getName());
         javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
-        ret = (org.hl7.v3.PRPAIN201305UV) unmarshaller.unmarshal(new java.io.StringReader(str));
+        ret = (org.hl7.v3.PRPAIN201305UV02) unmarshaller.unmarshal(new java.io.StringReader(str));
         //NOI18N
         return ret;
     }
