@@ -30,7 +30,7 @@
     <client name="AdapterComponentMpi">
       <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentMpi.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptercomponentmpi</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptercomponentmpi</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <use-dispatch>true</use-dispatch>
     </client>

@@ -30,7 +30,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterComponentMpi" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterComponentMpi"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptercomponentmpi"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptercomponentmpi"/>
     </target>
     <target name="wsimport-client-AdapterComponentSecuredMpi" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentSecuredMpi"/>
