@@ -60,9 +60,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="administrativeGenderCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="birthTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="birthTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="languageCommunication" type="COCT_MT030203UV02.LanguageCommunication"
                      nillable="true"
                      minOccurs="0"

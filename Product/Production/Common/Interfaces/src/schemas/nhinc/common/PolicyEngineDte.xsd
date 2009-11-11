@@ -11,7 +11,7 @@
     <xsd:element name="TransformSubjectAddedToCheckPolicyRequest" type="nccommonevent:SubjectAddedEventType">
     </xsd:element>
     <xsd:element name="TransformSubjectRevisedToCheckPolicyRequest" type="nccommonevent:SubjectRevisedEventType"/>
-    <xsd:element name="TransformSubjectRevokedToCheckPolicyRequest" type="nccommonevent:SubjectRevokedEventType"/>
+  <!--  <xsd:element name="TransformSubjectRevokedToCheckPolicyRequest" type="nccommonevent:SubjectRevokedEventType"/> -->
     <xsd:element name="TransformSubjectReidentificationToCheckPolicyRequest" type="nccommonevent:SubjectReidentificationEventType"/>
     <xsd:element name="TransformAdhocQueryToCheckPolicyRequest" type="nccommonevent:AdhocQueryRequestEventType"/>
     <xsd:element name="TransformAdhocQueryResultToCheckPolicyRequest" type="nccommonevent:AdhocQueryResultEventType"/>
@@ -28,7 +28,7 @@
     <xsd:element name="CheckPolicySubjectAddedRequest" type="nccommonevent:SubjectAddedEventType">
     </xsd:element>
     <xsd:element name="CheckPolicySubjectRevisedRequest" type="nccommonevent:SubjectRevisedEventType"/>
-    <xsd:element name="CheckPolicySubjectRevokedRequest" type="nccommonevent:SubjectRevokedEventType"/>
+   <!-- <xsd:element name="CheckPolicySubjectRevokedRequest" type="nccommonevent:SubjectRevokedEventType"/> -->
     <xsd:element name="CheckPolicySubjectReidentificationRequest" type="nccommonevent:SubjectReidentificationEventType"/>
     <xsd:element name="CheckPolicyAdhocQueryRequest" type="nccommonevent:AdhocQueryRequestEventType"/>
     <xsd:element name="CheckPolicyAdhocQueryResultRequest" type="nccommonevent:AdhocQueryResultEventType"/>

@@ -54,9 +54,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
@@ -81,8 +81,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:choice>
 				<xs:element name="assignedPerson" type="POCD_MT000040.Person" minOccurs="0"/>
 				<xs:element name="assignedAuthoringDevice" type="POCD_MT000040.AuthoringDevice" minOccurs="0"/>
@@ -109,8 +109,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="assignedPerson" type="POCD_MT000040.Person" minOccurs="0"/>
 			<xs:element name="representedOrganization" type="POCD_MT000040.Organization" minOccurs="0"/>
 		</xs:sequence>
@@ -124,8 +124,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="associatedPerson" type="POCD_MT000040.Person" minOccurs="0"/>
 			<xs:element name="scopingOrganization" type="POCD_MT000040.Organization" minOccurs="0"/>
 		</xs:sequence>
@@ -137,7 +137,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="TS"/>
+			<xs:element name="time" type="TS_explicit"/>
 			<xs:element name="signatureCode" type="CS"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
@@ -150,7 +150,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="functionCode" type="CE" minOccurs="0"/>
-			<xs:element name="time" type="TS"/>
+			<xs:element name="time" type="TS_explicit"/>
 			<xs:element name="assignedAuthor" type="POCD_MT000040.AssignedAuthor"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -205,12 +205,12 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 					</xs:appinfo>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="effectiveTime" type="TS"/>
+			<xs:element name="effectiveTime" type="TS_explicit"/>
 			<xs:element name="confidentialityCode" type="CE"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
 			<xs:element name="setId" type="II" minOccurs="0"/>
 			<xs:element name="versionNumber" type="INT" minOccurs="0"/>
-			<xs:element name="copyTime" type="TS" minOccurs="0"/>
+			<xs:element name="copyTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="recordTarget" type="POCD_MT000040.RecordTarget" maxOccurs="unbounded"/>
 			<xs:element name="author" type="POCD_MT000040.Author" maxOccurs="unbounded"/>
 			<xs:element name="dataEnterer" type="POCD_MT000040.DataEnterer" minOccurs="0"/>
@@ -329,7 +329,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="value" type="ANY" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -352,9 +352,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" maxOccurs="unbounded"/>
-			<xs:element name="name" type="ON" minOccurs="0"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0"/>
+			<xs:element name="name" type="ON_explicit" minOccurs="0"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassOrganization" use="optional" fixed="ORG"/>
@@ -365,7 +365,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="TS" minOccurs="0"/>
+			<xs:element name="time" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -402,7 +402,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit"/>
 			<xs:element name="dischargeDispositionCode" type="CE" minOccurs="0"/>
 			<xs:element name="responsibleParty" type="POCD_MT000040.ResponsibleParty" minOccurs="0"/>
 			<xs:element name="encounterParticipant" type="POCD_MT000040.EncounterParticipant" minOccurs="0" maxOccurs="unbounded"/>
@@ -419,9 +419,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
 			<xs:element name="specimen" type="POCD_MT000040.Specimen" minOccurs="0" maxOccurs="unbounded"/>
@@ -442,7 +442,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -455,7 +455,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="desc" type="ED" minOccurs="0"/>
+			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassRoot" use="optional" default="ENT"/>
@@ -514,7 +514,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="ActClassRoot" use="optional" default="ACT"/>
@@ -527,7 +527,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="setId" type="II" minOccurs="0"/>
 			<xs:element name="versionNumber" type="INT" minOccurs="0"/>
 		</xs:sequence>
@@ -542,7 +542,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="ActClassObservation" use="optional" default="OBS"/>
@@ -555,7 +555,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="ActClass" use="optional" fixed="PROC"/>
@@ -568,8 +568,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:choice>
 				<xs:element name="guardianPerson" type="POCD_MT000040.Person"/>
 				<xs:element name="guardianOrganization" type="POCD_MT000040.Organization"/>
@@ -631,8 +631,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="informationRecipient" type="POCD_MT000040.Person" minOccurs="0"/>
 			<xs:element name="receivedOrganization" type="POCD_MT000040.Organization" minOccurs="0"/>
 		</xs:sequence>
@@ -645,7 +645,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="name" type="EN" minOccurs="0"/>
+			<xs:element name="name" type="EN_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassManufacturedMaterial" use="optional" fixed="MMAT"/>
@@ -668,7 +668,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="TS"/>
+			<xs:element name="time" type="TS_explicit"/>
 			<xs:element name="signatureCode" type="CS"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
@@ -691,7 +691,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="maintainingPerson" type="POCD_MT000040.Person"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -718,7 +718,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="name" type="EN" minOccurs="0"/>
+			<xs:element name="name" type="EN_explicit" minOccurs="0"/>
 			<xs:element name="lotNumberText" type="ST" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -752,9 +752,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD"/>
 			<xs:element name="derivationExpr" type="ST" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
@@ -785,7 +785,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
-			<xs:element name="value" type="ED"/>
+			<xs:element name="value" type="ED_explicit"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
 			<xs:element name="specimen" type="POCD_MT000040.Specimen" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="performer" type="POCD_MT000040.Performer2" minOccurs="0" maxOccurs="unbounded"/>
@@ -813,7 +813,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="value" type="ANY" minOccurs="0"/>
 			<xs:element name="interpretationCode" type="CE" minOccurs="0"/>
 		</xs:sequence>
@@ -840,9 +840,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="ON" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="ON_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="standardIndustryClassCode" type="CE" minOccurs="0"/>
 			<xs:element name="asOrganizationPartOf" type="POCD_MT000040.OrganizationPartOf" minOccurs="0"/>
 		</xs:sequence>
@@ -858,7 +858,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="wholeOrganization" type="POCD_MT000040.Organization" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -872,7 +872,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
 			<xs:element name="specimen" type="POCD_MT000040.Specimen" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="performer" type="POCD_MT000040.Performer2" minOccurs="0" maxOccurs="unbounded"/>
@@ -894,7 +894,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="setId" type="II" minOccurs="0"/>
 			<xs:element name="versionNumber" type="INT" minOccurs="0"/>
 		</xs:sequence>
@@ -908,7 +908,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="functionCode" type="CE" minOccurs="0"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="associatedEntity" type="POCD_MT000040.AssociatedEntity"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -920,7 +920,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="awarenessCode" type="CE" minOccurs="0"/>
 			<xs:element name="participantRole" type="POCD_MT000040.ParticipantRole"/>
 		</xs:sequence>
@@ -935,8 +935,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:choice>
 				<xs:element name="playingDevice" type="POCD_MT000040.Device" minOccurs="0"/>
 				<xs:element name="playingEntity" type="POCD_MT000040.PlayingEntity" minOccurs="0"/>
@@ -952,9 +952,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0"/>
-			<xs:element name="name" type="PN" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="administrativeGenderCode" type="CE" minOccurs="0"/>
-			<xs:element name="birthTime" type="TS" minOccurs="0"/>
+			<xs:element name="birthTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="maritalStatusCode" type="CE" minOccurs="0"/>
 			<xs:element name="religiousAffiliationCode" type="CE" minOccurs="0"/>
 			<xs:element name="raceCode" type="CE" minOccurs="0"/>
@@ -973,8 +973,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="patient" type="POCD_MT000040.Patient" minOccurs="0"/>
 			<xs:element name="providerOrganization" type="POCD_MT000040.Organization" minOccurs="0"/>
 		</xs:sequence>
@@ -987,7 +987,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="functionCode" type="CE" minOccurs="0"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -998,7 +998,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="modeCode" type="CE" minOccurs="0"/>
 			<xs:element name="assignedEntity" type="POCD_MT000040.AssignedEntity"/>
 		</xs:sequence>
@@ -1010,7 +1010,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="PN" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClass" use="optional" fixed="PSN"/>
@@ -1021,8 +1021,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="EN" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0"/>
+			<xs:element name="name" type="EN_explicit" minOccurs="0"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassPlace" use="optional" fixed="PLC"/>
@@ -1034,9 +1034,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="quantity" type="PQ" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="PN" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="desc" type="ED" minOccurs="0"/>
+			<xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassRoot" use="optional" default="ENT"/>
@@ -1059,9 +1059,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
 			<xs:element name="methodCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
@@ -1181,9 +1181,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="relatedPerson" type="POCD_MT000040.Person" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -1195,8 +1195,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="subject" type="POCD_MT000040.SubjectPerson" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -1317,9 +1317,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="PN" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="administrativeGenderCode" type="CE" minOccurs="0"/>
-			<xs:element name="birthTime" type="TS" minOccurs="0"/>
+			<xs:element name="birthTime" type="TS_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClass" use="optional" fixed="PSN"/>
@@ -1332,9 +1332,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="routeCode" type="CE" minOccurs="0"/>
@@ -1366,14 +1366,14 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD" minOccurs="0"/>
-			<xs:element name="text" type="ED" minOccurs="0"/>
+			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="independentInd" type="BL" minOccurs="0"/>
-			<xs:element name="quantity" type="PQ" minOccurs="0"/>
-			<xs:element name="expectedUseTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="quantity" type="PQ_explicit" minOccurs="0"/>
+			<xs:element name="expectedUseTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="subject" type="POCD_MT000040.Subject" minOccurs="0"/>
 			<xs:element name="specimen" type="POCD_MT000040.Specimen" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="product" type="POCD_MT000040.Product" minOccurs="0"/>

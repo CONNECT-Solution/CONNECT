@@ -51,8 +51,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="contactPerson" type="COCT_MT150000UV02.Person" nillable="true"
                      minOccurs="0"
                      maxOccurs="1"/>
@@ -66,11 +66,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="ON" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="desc" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="ON_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="standardIndustryClassCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="asOrganizationPartOf" type="COCT_MT150000UV02.OrganizationPartOf"
                      nillable="true"
@@ -110,7 +110,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="wholeOrganization" type="COCT_MT150000UV02.Organization" nillable="true"
                      minOccurs="0"
                      maxOccurs="1"/>
@@ -122,7 +122,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT150000UV02.Person">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="asLocatedEntity" type="COCT_MT070000UV01.LocatedEntity" nillable="true"
                      minOccurs="0"
                      maxOccurs="1"/>

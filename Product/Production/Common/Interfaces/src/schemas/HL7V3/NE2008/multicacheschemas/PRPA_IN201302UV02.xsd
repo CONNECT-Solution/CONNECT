@@ -35,7 +35,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="creationTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="creationTime" type="TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="securityText" type="ST" minOccurs="0" maxOccurs="1"/>
          <xs:element name="versionCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="interactionId" type="II" minOccurs="1" maxOccurs="1"/>
@@ -44,7 +44,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
          <xs:element name="processingModeCode" type="CS" minOccurs="1" maxOccurs="1"/>
          <xs:element name="acceptAckCode" type="CS" minOccurs="1" maxOccurs="1"/>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="attachmentText" type="ED" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="attachmentText" type="ED_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="receiver" type="MCCI_MT000100UV01.Receiver" minOccurs="1"
                      maxOccurs="unbounded"/>
          <xs:element name="respondTo" type="MCCI_MT000100UV01.RespondTo" nillable="true"
@@ -67,8 +67,8 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
@@ -116,7 +116,7 @@ This document was rendered into XML using software provided to HL7 by Beeler Con
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="statusCode" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="subject1" type="PRPA_IN201302UV02.MFMI_MT700701UV01.Subject2"
                      minOccurs="1"
                      maxOccurs="1"/>

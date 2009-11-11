@@ -76,7 +76,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
          <xs:element name="text" type="ST" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="CD" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -212,7 +212,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="author" type="COCT_MT600000UV06.Author" nillable="true" minOccurs="0"
                      maxOccurs="1"/>
       </xs:sequence>
@@ -247,7 +247,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT600000UV06.ProviderPerson">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="PN" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -258,7 +258,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="product" type="COCT_MT600000UV06.Product" minOccurs="1" maxOccurs="2"/>
          <xs:element name="performer" type="COCT_MT600000UV06.Performer" nillable="true"
@@ -313,7 +313,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT600000UV06.VisionProduct">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>

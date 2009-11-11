@@ -13,7 +13,7 @@
             xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
 
     <xsd:import namespace="urn:hl7-org:v3" 
-                schemaLocation="../hl7/HL7SubjectDiscoveryMessages.xsd"/>
+                schemaLocation="../hl7/HL7PatientDiscoveryMessages.xsd"/>
     <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" 
                 schemaLocation="../../ebRS/query.xsd"/>
     <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
@@ -73,13 +73,13 @@
     <!-- end subject revised -->
     
     <!-- begin subject revoked -->
-    <xsd:complexType name="SubjectRevokedMessageType">
+  <!--  <xsd:complexType name="SubjectRevokedMessageType">
         <xsd:complexContent>
             <xsd:extension xmlns="urn:hl7-org:v3" base="hl7:PIXConsumer_PRPA_IN201303UVRequestType">
                 <xsd:sequence/>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
+    </xsd:complexType> 
 
     <xsd:complexType name="SubjectRevokedEventType">
         <xsd:sequence>
@@ -89,7 +89,7 @@
             <xsd:element name="sendingHomeCommunity" type="nccommon:HomeCommunityType" />
             <xsd:element name="receivingHomeCommunity" type="nccommon:HomeCommunityType" />
         </xsd:sequence>
-    </xsd:complexType>
+    </xsd:complexType> -->
 <!-- end subject revoked -->
 
     <!-- begin subject reidentification -->

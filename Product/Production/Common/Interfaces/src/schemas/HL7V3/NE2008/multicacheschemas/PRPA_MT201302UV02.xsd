@@ -73,7 +73,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="id" type="PRPA_MT201302UV02.AdministrativeObservation.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="value" type="ANY"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -84,7 +84,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 	<xs:complexType name="PRPA_MT201302UV02.BirthPlace">
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
-			<xs:element name="addr" type="AD" minOccurs="0"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0"/>
 			<xs:element name="birthplace" type="COCT_MT710007UV.Place" nillable="true" minOccurs="0"/>
 			<xs:element name="subjectOf" type="PRPA_MT201302UV02.Subject2" nillable="true" minOccurs="0"/>
 		</xs:sequence>
@@ -110,10 +110,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.CareGiver.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="careGiverPerson" type="COCT_MT030207UV.Person" nillable="true"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -137,7 +137,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Citizen.id" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="politicalNation" type="PRPA_MT201302UV02.Nation"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -162,10 +162,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.ContactParty.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:choice>
 				<xs:element name="contactPerson" type="COCT_MT030207UV.Person" nillable="true"/>
 				<xs:element name="contactOrganization" type="COCT_MT150007UV.Organization" nillable="true"/>
@@ -180,7 +180,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="sequenceNumber" type="INT" minOccurs="0"/>
-			<xs:element name="time" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="time" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="coverageRecord" type="COCT_MT510000UV06.CoverageRecord" nillable="true"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -204,10 +204,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Employee.id" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="jobTitleName" type="SC" minOccurs="0"/>
 			<xs:element name="jobClassCode" type="CE" minOccurs="0"/>
 			<xs:element name="occupationCode" type="CE" minOccurs="0"/>
@@ -223,12 +223,12 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="desc" type="ED" minOccurs="0"/>
+			<xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="existenceTime" type="IVL_TS" minOccurs="0"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0"/>
+			<xs:element name="existenceTime" type="IVL_TS_explicit" minOccurs="0"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -252,11 +252,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Guardian.id" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
-			<xs:element name="certificateText" type="ED" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
+			<xs:element name="certificateText" type="ED_explicit" minOccurs="0"/>
 			<xs:choice>
 				<xs:element name="guardianPerson" type="COCT_MT030207UV.Person" nillable="true"/>
 				<xs:element name="guardianOrganization" type="COCT_MT150007UV.Organization" nillable="true"/>
@@ -297,7 +297,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="id" type="PRPA_MT201302UV02.Member.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="group" type="PRPA_MT201302UV02.Group" nillable="true"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -308,7 +308,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="code" type="CD"/>
-			<xs:element name="name" type="ON" minOccurs="0"/>
+			<xs:element name="name" type="ON_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -333,20 +333,20 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.NonPersonLivingSubject.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="desc" type="ED" minOccurs="0"/>
-			<xs:element name="existenceTime" type="IVL_TS" minOccurs="0"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
+			<xs:element name="existenceTime" type="IVL_TS_explicit" minOccurs="0"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="riskCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="handlingCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="administrativeGenderCode" type="CE" minOccurs="0"/>
-			<xs:element name="birthTime" type="TS" minOccurs="0"/>
+			<xs:element name="birthTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="deceasedInd" type="BL" minOccurs="0"/>
 			<xs:element name="deceasedTime" type="TS" minOccurs="0"/>
 			<xs:element name="multipleBirthInd" type="BL" minOccurs="0"/>
 			<xs:element name="multipleBirthOrderNumber" type="INT" minOccurs="0"/>
 			<xs:element name="organDonorInd" type="BL" minOccurs="0"/>
-			<xs:element name="strainText" type="ED" minOccurs="0"/>
+			<xs:element name="strainText" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="genderStatusCode" type="CE" minOccurs="0"/>
 			<xs:element name="asPatientOfOtherProvider" type="PRPA_MT201302UV02.PatientOfOtherProvider" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="asMember" type="PRPA_MT201302UV02.Member" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -381,7 +381,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.OtherIDs.id" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="scopingOrganization" type="COCT_MT150002UV01.Organization" nillable="true"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -441,10 +441,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Patient.id" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="PRPA_MT201302UV02.Patient.statusCode"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="veryImportantPersonCode" type="CE" minOccurs="0"/>
 			<xs:choice>
@@ -487,17 +487,17 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Person.id" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="name" type="PN" maxOccurs="unbounded"/>
-			<xs:element name="desc" type="ED" minOccurs="0"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="name" type="PN_explicit" maxOccurs="unbounded"/>
+			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="administrativeGenderCode" type="CE" minOccurs="0"/>
-			<xs:element name="birthTime" type="TS" minOccurs="0"/>
+			<xs:element name="birthTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="deceasedInd" type="BL" minOccurs="0"/>
-			<xs:element name="deceasedTime" type="TS" minOccurs="0"/>
+			<xs:element name="deceasedTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="multipleBirthInd" type="BL" minOccurs="0"/>
 			<xs:element name="multipleBirthOrderNumber" type="INT" minOccurs="0"/>
 			<xs:element name="organDonorInd" type="BL" minOccurs="0"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="maritalStatusCode" type="CE" minOccurs="0"/>
 			<xs:element name="educationLevelCode" type="CE" minOccurs="0"/>
 			<xs:element name="disabilityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
@@ -542,10 +542,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.PersonalRelationship.id" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:choice>
 				<xs:element name="relationshipHolder1" type="COCT_MT030007UV.Person" nillable="true"/>
 				<xs:element name="relationshipHolder2" type="COCT_MT030007UV.NonPersonLivingSubject" nillable="true"/>
@@ -573,10 +573,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 		<xs:sequence>
 			<xs:group ref="InfrastructureRootElements"/>
 			<xs:element name="id" type="PRPA_MT201302UV02.Student.id" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<xs:element name="effectiveTime" type="IVL_TS" minOccurs="0"/>
+			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="schoolOrganization" type="COCT_MT150007UV.Organization" nillable="true" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attributeGroup ref="InfrastructureRootAttributes"/>

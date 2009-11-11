@@ -55,10 +55,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="uncertaintyCode" type="CE" minOccurs="0" maxOccurs="1"/>
@@ -110,7 +110,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -142,11 +142,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CE" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="quantity" type="PQ" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="desc" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="administrativeGenderCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="birthTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="birthTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="strainText" type="ST" minOccurs="0" maxOccurs="1"/>
          <xs:element name="genderStatusCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="asRole" type="COCT_MT530000UV.Role" nillable="true" minOccurs="0"
@@ -163,11 +163,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.Author">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="noteText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="noteText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="signatureCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="relatedEntity" type="COCT_MT530000UV.RelatedEntity" nillable="true"
                         minOccurs="1"
@@ -268,7 +268,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="reasonCode" type="CV" minOccurs="0" maxOccurs="1"/>
          <xs:element name="responsibleParty" type="COCT_MT530000UV.ResponsibleParty1"
                      nillable="true"
@@ -286,7 +286,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="ANY" minOccurs="1" maxOccurs="1"/>
          <xs:element name="interpretationCode" type="CE" minOccurs="1" maxOccurs="1"/>
          <xs:element name="precondition" type="COCT_MT530000UV.Precondition2" nillable="true"
@@ -302,10 +302,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.DataEnterer">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="time" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="signatureCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedEntity" type="COCT_MT090000UV01.AssignedEntity" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -346,14 +346,14 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="admissionReferralSourceCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="lengthOfStayQuantity" type="PQ" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="lengthOfStayQuantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="dischargeDispositionCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="preAdmitTestInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:element name="specialCourtesiesCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
@@ -405,9 +405,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="quantity" type="PQ" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="desc" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="riskCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="handlingCode" type="CE" minOccurs="0" maxOccurs="1"/>
@@ -439,7 +439,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="functionCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="relatedEntity" type="COCT_MT530000UV.RelatedEntity" nillable="true"
@@ -461,8 +461,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="expirationTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="expirationTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -508,9 +508,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="lotNumberText" type="ST" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="expirationTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="expirationTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -558,10 +558,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="1" maxOccurs="1"/>
          <xs:element name="derivationExpr" type="ST" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="repeatNumber" type="IVL_INT" minOccurs="0" maxOccurs="1"/>
@@ -620,7 +620,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.ObservationRange">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="ANY" minOccurs="1" maxOccurs="1"/>
          <xs:element name="interpretationCode" type="CE" minOccurs="1" maxOccurs="1"/>
          <xs:element name="precondition" type="COCT_MT530000UV.Precondition1" nillable="true"
@@ -637,9 +637,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="name" type="ON" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="ON_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -651,10 +651,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="subject" type="COCT_MT530000UV.Subject2" nillable="true" minOccurs="0"
@@ -705,7 +705,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="functionCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="relatedEntity" type="COCT_MT530000UV.RelatedEntity" nillable="true"
@@ -726,10 +726,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.Person">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="PN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="administrativeGenderCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="birthTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="birthTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="multipleBirthInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:element name="multipleBirthOrderNumber" type="INT" minOccurs="0" maxOccurs="1"/>
          <xs:element name="maritalStatusCode" type="CE" minOccurs="0" maxOccurs="1"/>
@@ -750,8 +750,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.Place">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -791,10 +791,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="interruptibleInd" type="BL" minOccurs="0" maxOccurs="1"/>
@@ -904,8 +904,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:choice>
             <xs:choice>
                <xs:element name="relatedPerson" type="COCT_MT530000UV.Person" nillable="true"
@@ -977,7 +977,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="pauseQuantity" type="PQ" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="pauseQuantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="conjunctionCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="seperatableInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:element name="actReference" type="COCT_MT530000UV.ActReference" nillable="true"
@@ -996,7 +996,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="pauseQuantity" type="PQ" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="pauseQuantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="conjunctionCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="seperatableInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
@@ -1030,7 +1030,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="pauseQuantity" type="PQ" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="pauseQuantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="conjunctionCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="seperatableInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
@@ -1098,10 +1098,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="repeatNumber" type="IVL_INT" minOccurs="0" maxOccurs="1"/>
@@ -1164,17 +1164,17 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="SXCM_TS" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="availabilityTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="availabilityTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="repeatNumber" type="IVL_INT" minOccurs="0" maxOccurs="1"/>
          <xs:element name="independentInd" type="BL" minOccurs="0" maxOccurs="1"/>
          <xs:element name="languageCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="quantity" type="PQ" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="expectedUseTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="expectedUseTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="subject" type="COCT_MT530000UV.Subject2" nillable="true" minOccurs="0"
                      maxOccurs="unbounded"/>
          <xs:element name="product" type="COCT_MT530000UV.Product1" minOccurs="1"
@@ -1222,11 +1222,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT530000UV.Verifier">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="noteText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="noteText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="signatureCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedEntity" type="COCT_MT090000UV01.AssignedEntity" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>

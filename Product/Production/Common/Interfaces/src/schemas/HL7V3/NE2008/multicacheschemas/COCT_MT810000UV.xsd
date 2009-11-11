@@ -85,7 +85,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="signatureCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedEntity" type="COCT_MT090002UV01.AssignedEntity" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -112,7 +112,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="reasonCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="methodCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>

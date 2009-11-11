@@ -117,9 +117,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="activityTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="activityTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="ST" minOccurs="0" maxOccurs="1"/>
          <xs:element name="device" type="COCT_MT960000UV05.Device2" nillable="true" minOccurs="0"
                      maxOccurs="unbounded"/>
@@ -152,7 +152,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CE" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="value" type="ANY" minOccurs="1" maxOccurs="1"/>
          <xs:element name="methodCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="device" type="COCT_MT960000UV05.Device1" nillable="true" minOccurs="0"

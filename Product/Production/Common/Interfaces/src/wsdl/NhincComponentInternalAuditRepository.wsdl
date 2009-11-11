@@ -23,9 +23,9 @@
     <message name="LogSubjectRevisedRequestMessage">
         <part name="LogSubjectRevisedRequest" element="audit:LogSubjectRevisedRequest"/>
     </message>
-    <message name="LogSubjectRevokedRequestMessage">
+ <!--   <message name="LogSubjectRevokedRequestMessage">
         <part name="LogSubjectRevokedRequest" element="audit:LogSubjectRevokedRequest"/>
-    </message>
+    </message>-->
     <message name="LogNhinSubjectDiscoveryAckRequestMessage">
         <part name="LogNhinSubjectDiscoveryAckRequest" element="audit:LogNhinSubjectDiscoveryAckRequest"/>
     </message>
@@ -102,10 +102,10 @@
             <input name="LogSubjectRevisedRequest" message="tns:LogSubjectRevisedRequestMessage"/>
             <output name="LogSubjectRevisedResponse" message="tns:LogEventResponseMessage"/>
         </operation>
-        <operation name="LogSubjectRevoked">
+ <!--       <operation name="LogSubjectRevoked">
             <input name="LogSubjectRevokedRequest" message="tns:LogSubjectRevokedRequestMessage"/>
             <output name="LogSubjectRevokedResponse" message="tns:LogEventResponseMessage"/>
-        </operation>
+        </operation>-->
         <operation name="LogNhinSubjectDiscoveryAck">
             <input name="LogNhinSubjectDiscoveryAckRequest" message="tns:LogNhinSubjectDiscoveryAckRequestMessage"/>
             <output name="LogNhinSubjectDiscoveryAckResponse" message="tns:LogEventResponseMessage"/>
@@ -213,7 +213,7 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
-        <operation name="LogSubjectRevoked">
+  <!--      <operation name="LogSubjectRevoked">
             <soap:operation soapAction="urn:LogSubjectRevoked"/>
             <input name="LogSubjectRevokedRequest">
                 <soap:body use="literal"/>
@@ -221,7 +221,7 @@
             <output name="LogSubjectRevokedResponse">
                 <soap:body use="literal"/>
             </output>
-        </operation>
+        </operation>-->
         <operation name="LogNhinSubjectDiscoveryAck">
             <soap:operation soapAction="urn:LogNhinSubjectDiscoveryAck"/>
             <input name="LogNhinSubjectDiscoveryAckRequest">

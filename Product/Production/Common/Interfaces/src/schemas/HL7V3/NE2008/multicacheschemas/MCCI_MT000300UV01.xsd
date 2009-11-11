@@ -83,7 +83,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="text" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="text" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="location" type="ST" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -115,10 +115,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="desc" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="existenceTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="existenceTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="manufacturerModelName" type="SC" minOccurs="0" maxOccurs="1"/>
          <xs:element name="softwareName" type="SC" minOccurs="0" maxOccurs="1"/>
          <xs:element name="asAgent" type="MCCI_MT000300UV01.Agent" nillable="true" minOccurs="0"
@@ -136,8 +136,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -187,8 +187,8 @@ Placeholder for element referencing stub: ControlActProcess
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="notificationParty" type="COCT_MT040203UV01.NotificationParty"
                      nillable="true"
                      minOccurs="0"
@@ -203,8 +203,8 @@ Placeholder for element referencing stub: ControlActProcess
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -214,7 +214,7 @@ Placeholder for element referencing stub: ControlActProcess
    <xs:complexType name="MCCI_MT000300UV01.Receiver">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="device" type="MCCI_MT000300UV01.Device" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -224,7 +224,7 @@ Placeholder for element referencing stub: ControlActProcess
    <xs:complexType name="MCCI_MT000300UV01.RespondTo">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="entityRsp" type="MCCI_MT000300UV01.EntityRsp" nillable="true"
                      minOccurs="1"
                      maxOccurs="unbounded"/>
@@ -236,7 +236,7 @@ Placeholder for element referencing stub: ControlActProcess
    <xs:complexType name="MCCI_MT000300UV01.Sender">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="device" type="MCCI_MT000300UV01.Device" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>

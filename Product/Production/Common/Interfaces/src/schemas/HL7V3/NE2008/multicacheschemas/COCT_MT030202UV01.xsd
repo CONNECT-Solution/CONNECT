@@ -59,9 +59,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="administrativeGenderCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="birthTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="birthTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="birthplace" type="COCT_MT030202UV01.Birthplace" nillable="true"
                      minOccurs="0"
                      maxOccurs="1"/>
@@ -74,10 +74,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT030202UV01.Place">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="directionsText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="positionText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="directionsText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="positionText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="gpsText" type="ST" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>

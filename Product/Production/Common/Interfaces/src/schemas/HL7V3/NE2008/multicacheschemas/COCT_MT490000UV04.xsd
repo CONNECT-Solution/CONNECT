@@ -51,7 +51,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
          <xs:element name="code" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="product" type="COCT_MT490000UV04.Product" minOccurs="1" maxOccurs="1"/>
          <xs:element name="referrer" type="COCT_MT490000UV04.Referrer" nillable="true" minOccurs="0"
                      maxOccurs="1"/>
@@ -187,8 +187,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT490000UV04.ManufacturedProductOrganization">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="ON" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="ON_explicit" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -233,9 +233,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT490000UV04.ProviderPerson">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="PN" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="addr" type="AD" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="addr" type="AD_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -257,7 +257,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT490000UV04.Warrantor">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="warrantingWarrantorOrganization"
                      type="COCT_MT490000UV04.WarrantorOrganization"
                      nillable="true"
@@ -271,8 +271,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT490000UV04.WarrantorOrganization">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="ON" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="ON_explicit" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>

@@ -50,7 +50,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CD" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="unitQuantity" type="RTO_PQ_PQ" minOccurs="0" maxOccurs="1"/>
          <xs:element name="unitPriceAmt" type="RTO_MO_PQ" minOccurs="1" maxOccurs="1"/>
          <xs:element name="netAmt" type="MO" minOccurs="0" maxOccurs="1"/>

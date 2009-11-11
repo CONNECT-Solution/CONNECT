@@ -85,7 +85,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="modifyCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="responseElementGroupId" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="responsePriorityCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="executionAndDeliveryTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="executionAndDeliveryTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="parameterList" type="PRPA_MT201307UV02.ParameterList" minOccurs="1"
                      maxOccurs="1"/>
       </xs:sequence>

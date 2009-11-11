@@ -27,9 +27,9 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte"
     <message name="TransformSubjectRevisedToGenericAuditRequestMessage">
         <part name="TransformSubjectRevisedToGenericAuditRequest" element="auditlog:LogSubjectRevisedRequest"/>
     </message>
-    <message name="TransformSubjectRevokedToGenericAuditRequestMessage">
+ <!--   <message name="TransformSubjectRevokedToGenericAuditRequestMessage">
         <part name="TransformSubjectRevokedToGenericAuditRequest" element="auditlog:LogSubjectRevokedRequest"/>
-    </message>
+    </message>-->
     <message name="TransformAdhocQueryRequestToGenericAuditRequestMessage">
         <part name="TransformAdhocQueryRequestToGenericAuditRequest" element="auditlog:LogAdhocQueryRequest"/>
     </message>
@@ -96,10 +96,10 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte"
             <input name="TransformSubjectRevisedToGenericAuditRequest" message="tns:TransformSubjectRevisedToGenericAuditRequestMessage"/>
             <output name="TransformSubjectRevisedToGenericAuditResponse" message="tns:GenericAuditMessage"/>
         </operation>
-        <operation name="TransformSubjectRevokedToGenericAudit">
+<!--        <operation name="TransformSubjectRevokedToGenericAudit">
             <input name="TransformSubjectRevokedToGenericAuditRequest" message="tns:TransformSubjectRevokedToGenericAuditRequestMessage"/>
             <output name="TransformSubjectRevokedToGenericAuditResponse" message="tns:GenericAuditMessage"/>
-        </operation>
+        </operation>-->
         <operation name="TransformAdhocQueryRequestToGenericAudit">
             <input name="TransformAdhocQueryRequestToGenericAuditRequest" message="tns:TransformAdhocQueryRequestToGenericAuditRequestMessage"/>
             <output name="TransformAdhocQueryRequestToGenericAuditResponse" message="tns:GenericAuditMessage"/>
@@ -197,7 +197,7 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte"
                 <soap:body use="literal"/>
             </output>
         </operation>
-        <operation name="TransformSubjectRevokedToGenericAudit">
+  <!--      <operation name="TransformSubjectRevokedToGenericAudit">
             <soap:operation soapAction="urn:TransformSubjectRevokedToGenericAudit"/>
             <input name="TransformSubjectRevokedToGenericAuditRequest">
                 <soap:body use="literal"/>
@@ -205,7 +205,7 @@ targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentaditlogdte"
             <output name="TransformSubjectRevokedToGenericAuditResponse">
                 <soap:body use="literal"/>
             </output>
-        </operation>
+        </operation>-->
         <operation name="TransformAdhocQueryRequestToGenericAudit">
             <soap:operation soapAction="urn:TransformAdhocQueryRequestToGenericAudit"/>
             <input name="TransformAdhocQueryRequestToGenericAuditRequest">

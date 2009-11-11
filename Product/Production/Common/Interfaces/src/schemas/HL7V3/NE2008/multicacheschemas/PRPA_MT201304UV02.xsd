@@ -54,7 +54,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="politicalNation" type="PRPA_MT201304UV02.Nation" minOccurs="1"
                      maxOccurs="1"/>
       </xs:sequence>
@@ -66,7 +66,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="sequenceNumber" type="INT" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="coverageRecord" type="COCT_MT510000UV06.CoverageRecord" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -80,7 +80,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="employerOrganization" type="COCT_MT150007UV.Organization" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -107,7 +107,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="group" type="PRPA_MT201304UV02.Group" nillable="true" minOccurs="1"
                      maxOccurs="1"/>
       </xs:sequence>
@@ -131,7 +131,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="asPatientOfOtherProvider" type="PRPA_MT201304UV02.PatientOfOtherProvider"
                      nillable="true"
                      minOccurs="0"
@@ -152,7 +152,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="scopingOrganization" type="COCT_MT150002UV01.Organization"
                      nillable="true"
                      minOccurs="1"
@@ -167,7 +167,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="statusCode" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="veryImportantPersonCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="patientPerson" type="PRPA_MT201304UV02.Person" nillable="true"
@@ -204,7 +204,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="name" type="PN" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="asPatientOfOtherProvider" type="PRPA_MT201304UV02.PatientOfOtherProvider"
                      nillable="true"
                      minOccurs="0"
@@ -232,7 +232,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="statusCode" type="CS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="schoolOrganization" type="COCT_MT150007UV.Organization" nillable="true"
                      minOccurs="0"
                      maxOccurs="1"/>

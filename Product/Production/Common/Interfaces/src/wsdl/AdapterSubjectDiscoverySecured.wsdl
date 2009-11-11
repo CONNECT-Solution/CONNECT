@@ -23,8 +23,8 @@
     <wsdl:types>
         <xsd:schema elementFormDefault="qualified" 
                 targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
-            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
-            <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
         </xsd:schema>
     </wsdl:types>
     
@@ -44,14 +44,14 @@
         <wsdl:part name="PIXConsumer_PRPA_IN201302UVResponse" 
                element="hl7:MCCI_IN000002UV01"/>
     </wsdl:message>
-    <wsdl:message name="PIXConsumer_PRPA_IN201303UVRequestMessage">
+<!--    <wsdl:message name="PIXConsumer_PRPA_IN201303UVRequestMessage">
         <wsdl:part name="PIXConsumer_PRPA_IN201303UVRequest" 
                element="hl7:PIXConsumer_PRPA_IN201303UVRequest"/>
     </wsdl:message>
     <wsdl:message name="PIXConsumer_PRPA_IN201303UVResponseMessage">
         <wsdl:part name="PIXConsumer_PRPA_IN201303UVResponse" 
                element="hl7:MCCI_IN000002UV01"/>
-    </wsdl:message>
+    </wsdl:message>-->
     <wsdl:message name="PIXConsumer_PRPA_IN201304UVRequestMessage">
         <wsdl:part name="PIXConsumer_PRPA_IN201304UVRequest" 
                element="hl7:PIXConsumer_PRPA_IN201304UVRequest"/>
@@ -82,12 +82,12 @@
             <wsdl:output name="PIXConsumer_PRPA_IN201302UVResponse"  
                    message="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
         </wsdl:operation>
-        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+<!--        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
             <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest"
                   message="tns:PIXConsumer_PRPA_IN201303UVRequestMessage" />
             <wsdl:output name="PIXConsumer_PRPA_IN201303UVResponse"
                    message="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
-        </wsdl:operation>
+        </wsdl:operation>-->
         <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
             <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest"
                   message="tns:PIXConsumer_PRPA_IN201304UVRequestMessage" />
@@ -129,7 +129,7 @@
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
-        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+<!--        <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
             <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201303UVRequest" >
                 <wsoap11:body use="literal"/>
@@ -139,7 +139,7 @@
                 <wsoap11:body use="literal"/>
                 <wsp:PolicyReference URI="#Adapter_SubjectDiscovery_Output_Policy"/>
             </wsdl:output>
-        </wsdl:operation>
+        </wsdl:operation>-->
         <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
             <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
             <wsdl:input name="PIXConsumer_PRPA_IN201304UVRequest" >

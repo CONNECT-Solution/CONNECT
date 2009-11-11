@@ -33,14 +33,7 @@
         <part name="AddPatientCorrelationResponse" 
               element="pc:AddPatientCorrelationResponse"/>
     </message>
-    <message name="RemovePatientCorrelationRequestMessage">
-        <part name="RemovePatientCorrelationRequest" 
-              element="pc:RemovePatientCorrelationRequest"/>
-    </message>
-    <message name="RemovePatientCorrelationResponseMessage">
-        <part name="RemovePatientCorrelationResponse" 
-              element="pc:RemovePatientCorrelationResponse"/>
-    </message>
+
     <portType name="PatientCorrelationPortType">
         <operation name="RetrievePatientCorrelations">
             <input name="RetrievePatientCorrelationsRequest" 
@@ -54,12 +47,7 @@
             <output name="AddPatientCorrelationResponse" 
                     message="tns:AddPatientCorrelationResponseMessage"/>
         </operation>
-        <operation name="RemovePatientCorrelation">
-            <input name="RemovePatientCorrelationRequest" 
-                   message="tns:RemovePatientCorrelationRequestMessage"/>
-            <output name="RemovePatientCorrelationResponse" 
-                    message="tns:RemovePatientCorrelationResponseMessage"/>
-        </operation>
+
     </portType>
     <binding name="PatientCorrelationBinding" type="tns:PatientCorrelationPortType">
         <soap:binding style="document" 
@@ -82,15 +70,7 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
-        <operation name="RemovePatientCorrelation">
-            <soap:operation soapAction="RemovePatientCorrelation"/>
-            <input name="RemovePatientCorrelationRequest">
-                <soap:body use="literal"/>
-            </input>
-            <output name="RemovePatientCorrelationResponse">
-                <soap:body use="literal"/>
-            </output>
-        </operation>
+ 
     </binding>
     <service name="PatientCorrelationService">
         <port name="PatientCorrelationPort" 

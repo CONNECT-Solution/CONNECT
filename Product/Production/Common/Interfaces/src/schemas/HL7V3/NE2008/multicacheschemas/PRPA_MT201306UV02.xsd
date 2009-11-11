@@ -57,7 +57,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.LivingSubjectBirthPlaceAddress">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="AD" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="AD_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -66,7 +66,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.LivingSubjectBirthPlaceName">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="EN" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="EN_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -75,7 +75,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.LivingSubjectBirthTime">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="IVL_TS" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="IVL_TS_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -84,7 +84,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.LivingSubjectDeceasedTime">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="IVL_TS" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="IVL_TS_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -102,7 +102,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.LivingSubjectName">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="EN" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="EN_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -156,7 +156,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.MothersMaidenName">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="PN" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="PN_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -241,7 +241,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.PatientAddress">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="AD" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="AD_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -259,7 +259,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="PRPA_MT201306UV02.PatientTelecom">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="value" type="TEL" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="value" type="TEL_explicit" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="semanticsText" type="ST" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -294,7 +294,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:element name="responsePriorityCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="initialQuantity" type="INT" minOccurs="0" maxOccurs="1"/>
          <xs:element name="initialQuantityCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="executionAndDeliveryTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="executionAndDeliveryTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="matchCriterionList" type="PRPA_MT201306UV02.MatchCriterionList"
                      nillable="true"
                      minOccurs="0"

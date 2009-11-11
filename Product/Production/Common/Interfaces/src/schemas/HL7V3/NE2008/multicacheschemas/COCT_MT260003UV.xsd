@@ -113,7 +113,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT260003UV.DetectedMedicationIssueDefinition">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -188,9 +188,9 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT260003UV.OtherSupply">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="quantity" type="PQ" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="expectedUseTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="expectedUseTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="location" type="COCT_MT260003UV.Location" nillable="true" minOccurs="0"
                      maxOccurs="1"/>
       </xs:sequence>
@@ -202,7 +202,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT260003UV.Pharmacy">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="telecom" type="TEL" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>

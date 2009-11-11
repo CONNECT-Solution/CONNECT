@@ -7,15 +7,14 @@
     <xsd:import 
        schemaLocation="../../../schemas/nhinc/common/PatientCorrelationFacade.xsd" 
        namespace="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" />
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201301UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201302UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201303UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201304UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201306UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201309UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201304UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201309UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
     <xsd:import schemaLocation="../../../schemas/nhinc/common/NhincCommon.xsd" namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"/>
     <xsd:complexType name="CreatePixRetrieveRequestType">
         <xsd:sequence>
@@ -26,14 +25,14 @@
 
     <xsd:complexType name="CreatePixRetrieveResponseType">
         <xsd:sequence>
-            <xsd:element ref="tns:PRPA_IN201309UV"/>
+            <xsd:element ref="tns:PRPA_IN201309UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="CreatePixRetrieveResponse" type="tns:CreatePixRetrieveResponseType" />
 
     <xsd:complexType name="CreateFacadeRetrieveResultRequestType">
         <xsd:sequence>
-            <xsd:element ref="tns:PRPA_IN201310UV"/>
+            <xsd:element ref="tns:PRPA_IN201310UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="CreateFacadeRetrieveResultRequest" type="tns:CreateFacadeRetrieveResultRequestType"></xsd:element>
@@ -54,12 +53,12 @@
 
     <xsd:complexType name="CreatePixAddResponseType">
         <xsd:sequence>
-            <xsd:element ref="tns:PRPA_IN201301UV"/>
+            <xsd:element ref="tns:PRPA_IN201301UV02"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="CreatePixAddResponse" type="tns:CreatePixAddResponseType" />
 
-    <xsd:complexType name="CreatePixRevokeRequestType">
+<!--    <xsd:complexType name="CreatePixRevokeRequestType">
         <xsd:sequence>
             <xsd:element ref="ncpcf:RemovePatientCorrelationRequest"/>
         </xsd:sequence>
@@ -71,7 +70,7 @@
             <xsd:element ref="tns:PRPA_IN201303UV"/>
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="CreatePixRevokeResponse" type="tns:CreatePixRevokeResponseType"></xsd:element>
+    <xsd:element name="CreatePixRevokeResponse" type="tns:CreatePixRevokeResponseType"></xsd:element>-->
 
     <xsd:complexType name="CreateAckRequestType">
         <xsd:sequence>

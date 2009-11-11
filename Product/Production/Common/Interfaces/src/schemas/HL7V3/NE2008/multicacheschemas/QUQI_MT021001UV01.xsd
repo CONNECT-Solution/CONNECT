@@ -67,11 +67,11 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="QUQI_MT021001UV01.AuthorOrPerformer">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="noteText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="noteText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="signatureCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:choice>
             <xs:element name="assignedDevice" type="COCT_MT090300UV01.AssignedDevice" nillable="true"
                         minOccurs="1"
@@ -120,7 +120,7 @@ Placeholder for element referencing stub: QueryByParameter
    </xs:complexType>--><xs:complexType name="QUQI_MT021001UV01.DataEnterer">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedPerson" type="COCT_MT090100UV01.AssignedPerson" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -133,7 +133,7 @@ Placeholder for element referencing stub: QueryByParameter
    <xs:complexType name="QUQI_MT021001UV01.InformationRecipient">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedPerson" type="COCT_MT090100UV01.AssignedPerson" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>
@@ -146,11 +146,11 @@ Placeholder for element referencing stub: QueryByParameter
    <xs:complexType name="QUQI_MT021001UV01.Overseer">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="noteText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="time" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="noteText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="time" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="modeCode" type="CE" minOccurs="0" maxOccurs="1"/>
          <xs:element name="signatureCode" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="signatureText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="signatureText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="assignedPerson" type="COCT_MT090100UV01.AssignedPerson" nillable="true"
                      minOccurs="1"
                      maxOccurs="1"/>

@@ -50,7 +50,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="author" type="COCT_MT310000UV04.Author" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
@@ -75,7 +75,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="code" type="CS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="reasonCode" type="CS" minOccurs="1" maxOccurs="1"/>
          <xs:element name="location" type="COCT_MT310000UV04.Location" minOccurs="1" maxOccurs="1"/>
          <xs:element name="inFulfillmentOf" type="COCT_MT310000UV04.InFulfillmentOf" minOccurs="1"
@@ -96,7 +96,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT310000UV04.AcommodationRequestor">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="PN" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="1" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -119,7 +119,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="pertinentInformation" type="COCT_MT310000UV04.PertinentInformation3"
                      minOccurs="1"
                      maxOccurs="1"/>

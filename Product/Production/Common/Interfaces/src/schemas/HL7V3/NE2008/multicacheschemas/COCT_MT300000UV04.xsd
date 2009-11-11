@@ -189,8 +189,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT300000UV04.PrescriberPerson">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="name" type="PN" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="telecom" type="TEL" minOccurs="0" maxOccurs="3"/>
+         <xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="telecom" type="TEL_explicit" minOccurs="0" maxOccurs="3"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
@@ -262,7 +262,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="priorityCode" type="CS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="inFulfillmentOf" type="COCT_MT300000UV04.InFulfillmentOf" nillable="true"
                      minOccurs="1"
@@ -324,8 +324,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="1"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="effectiveTime" type="TS" minOccurs="1" maxOccurs="1"/>
-         <xs:element name="quantity" type="PQ" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="TS_explicit" minOccurs="1" maxOccurs="1"/>
+         <xs:element name="quantity" type="PQ_explicit" minOccurs="1" maxOccurs="1"/>
          <xs:element name="expectedUseTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
          <xs:element name="product" type="COCT_MT300000UV04.Product" nillable="true" minOccurs="1"
                      maxOccurs="1"/>
@@ -349,7 +349,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
    <xs:complexType name="COCT_MT300000UV04.SupplyOrder">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="effectiveTime" type="IVL_TS" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="repeatNumber" type="IVL_INT" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>

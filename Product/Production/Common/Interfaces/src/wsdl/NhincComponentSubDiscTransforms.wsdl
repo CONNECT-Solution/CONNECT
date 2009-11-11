@@ -10,11 +10,11 @@
     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
     <types>
         <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentsubdisctransforms">
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7SubjectDiscoveryMessages.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201302UV.xsd"/>
-            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
         </xsd:schema>
     </types>
     <message name="CreateAckRequestMessage">
@@ -27,25 +27,25 @@
         <part name="Create201305Request" element="hl7:Create201305Request"/>
     </message>
     <message name="Create201305ResponseMessage">
-        <part name="Create201305Response" element="hl7:PRPA_IN201305UV"/>
+        <part name="Create201305Response" element="hl7:PRPA_IN201305UV02"/>
     </message>
     <message name="Create201302RequestMessage">
         <part name="Create201302Request" element="hl7:Create201302Request"/>
     </message>
     <message name="Create201302ResponseMessage">
-        <part name="Create201302Response" element="hl7:PRPA_IN201302UV"/>
+        <part name="Create201302Response" element="hl7:PRPA_IN201302UV02"/>
     </message>
     <message name="Create201310RequestMessage">
         <part name="Create201310Request" element="hl7:Create201310Request"/>
     </message>
     <message name="Create201310ResponseMessage">
-        <part name="Create201310Response" element="hl7:PRPA_IN201310UV"/>
+        <part name="Create201310Response" element="hl7:PRPA_IN201310UV02"/>
     </message>
     <message name="CreateFault201310RequestMessage">
         <part name="CreateFault201310Request" element="hl7:CreateFault201310Request"/>
     </message>
     <message name="CreateFault201310ResponseMessage">
-        <part name="CreateFault201310Response" element="hl7:PRPA_IN201310UV"/>
+        <part name="CreateFault201310Response" element="hl7:PRPA_IN201310UV02"/>
     </message>
     <portType name="NhincComponentSubDiscTransformsPortType">
         <operation name="CreateAck">

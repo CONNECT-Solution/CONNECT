@@ -73,10 +73,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="name" type="EN" minOccurs="0" maxOccurs="unbounded"/>
-         <xs:element name="desc" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="directionsText" type="ED" minOccurs="0" maxOccurs="1"/>
-         <xs:element name="positionText" type="ED" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="name" type="EN_explicit" minOccurs="0" maxOccurs="unbounded"/>
+         <xs:element name="desc" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="directionsText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="positionText" type="ED_explicit" minOccurs="0" maxOccurs="1"/>
          <xs:element name="gpsText" type="ST" minOccurs="0" maxOccurs="1"/>
          <xs:element name="asLocatedEntityPartOf" type="COCT_MT710000UV01.LocatedEntityPartOf"
                      nillable="true"
