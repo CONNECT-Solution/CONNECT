@@ -10,13 +10,13 @@ import javax.jws.WebService;
 
 /**
  *
- * @author dunnek
+ * @author jhoppesc
  */
 @WebService(serviceName = "AdapterMpiService", portName = "AdapterMpiPort", endpointInterface = "gov.hhs.fha.nhinc.adaptermpi.AdapterMpiPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptermpi", wsdlLocation = "META-INF/wsdl/AdapterMpi/AdapterMpi.wsdl")
 @Stateless
-public class AdapterMpi implements AdapterMpiPortType {
+public class AdapterMpi {
 
-    public org.hl7.v3.PRPAIN201306UV findCandidates(org.hl7.v3.PIXConsumerPRPAIN201305UVRequestType findCandidatesRequest) {
+    public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
         return new AdapterMpiProxyImpl().query(findCandidatesRequest);
     }
 

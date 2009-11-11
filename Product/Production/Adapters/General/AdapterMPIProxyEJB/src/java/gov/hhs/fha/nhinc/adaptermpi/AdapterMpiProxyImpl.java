@@ -5,20 +5,16 @@
 
 package gov.hhs.fha.nhinc.adaptermpi;
 
-import gov.hhs.fha.nhinc.adaptercomponentmpi.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PIXConsumerPRPAIN201305UVRequestType;
-import org.hl7.v3.PRPAIN201306UV;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import org.hl7.v3.PRPAIN201306UV02;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  *
@@ -36,7 +32,7 @@ public class AdapterMpiProxyImpl {
     * @param
     * @return
     */
-   public  PRPAIN201306UV query(PIXConsumerPRPAIN201305UVRequestType findCandidatesRequest)
+   public  PRPAIN201306UV02 query(RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest)
    {
        log.debug("Entering AdapterMpiProxyImpl.query method...");
        String url = getURL();
@@ -47,7 +43,7 @@ public class AdapterMpiProxyImpl {
        log.debug("Calling Secured Endpoint");
 
        
-       return port.findCandidates(findCandidatesRequest.getPRPAIN201305UV());
+       return port.findCandidates(findCandidatesRequest.getPRPAIN201305UV02());
 
        
    }
