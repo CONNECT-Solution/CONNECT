@@ -30731,7 +30731,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
    <soapenv:Header/>
    <soapenv:Body>
       <urn:AddPatientCorrelationRequest>
-         <urn:PRPA_IN201301UV nullFlavor="?" ITSVersion="XML_1.0">
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
             <urn:creationTime value="20090310210651"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
@@ -30764,7 +30764,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
                   </urn:registrationEvent>
                </urn:subject>
             </urn:controlActProcess>
-         </urn:PRPA_IN201301UV>
+         </urn:PRPA_IN201301UV02>
       </urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop"><con:settings/><con:config><dataSourceStep>Correlations</dataSourceStep><targetStep>FindSelected</targetStep></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Retrieve Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>SubjectIdentifier</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -30875,7 +30875,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
    <soapenv:Header/>
    <soapenv:Body>
       <urn:AddPatientCorrelationRequest>
-         <urn:PRPA_IN201301UV nullFlavor="?" ITSVersion="XML_1.0">
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
             <urn:creationTime value="20090310210656"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
@@ -30908,7 +30908,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
                   </urn:registrationEvent>
                </urn:subject>
             </urn:controlActProcess>
-         </urn:PRPA_IN201301UV>
+         </urn:PRPA_IN201301UV02>
       </urn:AddPatientCorrelationRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop"><con:settings/><con:config><dataSourceStep>Correlations</dataSourceStep><targetStep>FindSelected</targetStep></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Retrieve Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>SubjectIdentifier</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
