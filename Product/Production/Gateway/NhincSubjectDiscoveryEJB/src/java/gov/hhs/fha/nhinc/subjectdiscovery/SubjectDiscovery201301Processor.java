@@ -24,12 +24,12 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
-import org.hl7.v3.PRPAIN201301UV;
-import org.hl7.v3.PRPAIN201302UV;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201310UVPatient;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAIN201302UV02;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
  *
@@ -48,7 +48,7 @@ public class SubjectDiscovery201301Processor {
         storeMapping(request);
 
         // Query the MPI to see if we have a match
-        PRPAIN201306UV patient = queryMpi(request);
+        PRPAIN201306UV02 patient = queryMpi(request);
 
         // Check to see if the Patient was found
         if (patient != null &&
@@ -75,10 +75,10 @@ public class SubjectDiscovery201301Processor {
             SubjectDiscoveryPolicyChecker policyChecker = new SubjectDiscoveryPolicyChecker();
             if (policyChecker.check201301Policy(request, patIdOverride)) {
                 // Create 201302
-                PRPAIN201302UV msg201302 = create201302(patient, request.getPRPAIN201301UV());
+                PRPAIN201302UV02 msg201302 = create201302(patient, request.getPRPAIN201301UV02());
 
                 // Create a patient correlation
-                createPatientCorrelation(request.getPRPAIN201301UV(), msg201302, request.getAssertion());
+                createPatientCorrelation(request.getPRPAIN201301UV02(), msg201302, request.getAssertion());
 
                 // Set up the target
                 NhinTargetSystemType target = new NhinTargetSystemType();
@@ -115,25 +115,25 @@ public class SubjectDiscovery201301Processor {
 
 
         if (request != null &&
-                request.getPRPAIN201301UV() != null) {
-            if (request.getPRPAIN201301UV().getSender() != null &&
-                    request.getPRPAIN201301UV().getSender().getDevice() != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getSender().getDevice().getId()) &&
-                    request.getPRPAIN201301UV().getSender().getDevice().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getSender().getDevice().getId().get(0).getRoot())) {
-                hcid = request.getPRPAIN201301UV().getSender().getDevice().getId().get(0).getRoot();
+                request.getPRPAIN201301UV02() != null) {
+            if (request.getPRPAIN201301UV02().getSender() != null &&
+                    request.getPRPAIN201301UV02().getSender().getDevice() != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getSender().getDevice().getId()) &&
+                    request.getPRPAIN201301UV02().getSender().getDevice().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getSender().getDevice().getId().get(0).getRoot())) {
+                hcid = request.getPRPAIN201301UV02().getSender().getDevice().getId().get(0).getRoot();
             }
 
-            if (request.getPRPAIN201301UV().getControlActProcess() != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getControlActProcess().getSubject()) &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0) != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
-                assigningAuthority = request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
+            if (request.getPRPAIN201301UV02().getControlActProcess() != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getControlActProcess().getSubject()) &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0) != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot())) {
+                assigningAuthority = request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot();
             }
         }
 
@@ -147,34 +147,34 @@ public class SubjectDiscovery201301Processor {
         }
     }
 
-    private PRPAIN201306UV queryMpi(PIXConsumerPRPAIN201301UVRequestType request) {
-        PRPAIN201306UV queryResults = new PRPAIN201306UV();
-        PRPAIN201305UV query = new PRPAIN201305UV();
+    private PRPAIN201306UV02 queryMpi(PIXConsumerPRPAIN201301UVRequestType request) {
+        PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
+        PRPAIN201305UV02 query = new PRPAIN201305UV02();
         String oid = null;
 
         if (request != null &&
-                request.getPRPAIN201301UV() != null) {
+                request.getPRPAIN201301UV02() != null) {
             // Set the sender and receiver oid to be the receiver OID from the original 201301
-            if (NullChecker.isNotNullish(request.getPRPAIN201301UV().getReceiver()) &&
-                    request.getPRPAIN201301UV().getReceiver().get(0) != null &&
-                    request.getPRPAIN201301UV().getReceiver().get(0).getDevice() != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId()) &&
-                    request.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-                oid = request.getPRPAIN201301UV().getReceiver().get(0).getDevice().getId().get(0).getRoot();
+            if (NullChecker.isNotNullish(request.getPRPAIN201301UV02().getReceiver()) &&
+                    request.getPRPAIN201301UV02().getReceiver().get(0) != null &&
+                    request.getPRPAIN201301UV02().getReceiver().get(0).getDevice() != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getReceiver().get(0).getDevice().getId()) &&
+                    request.getPRPAIN201301UV02().getReceiver().get(0).getDevice().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
+                oid = request.getPRPAIN201301UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot();
             } else {
                 log.error("Failed to extract OID from receiver node in 201301");
             }
 
             // Extract patient from the 201301
-            PRPAMT201301UVPatient patient = null;
-            if (request.getPRPAIN201301UV().getControlActProcess() != null &&
-                    NullChecker.isNotNullish(request.getPRPAIN201301UV().getControlActProcess().getSubject()) &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0) != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
-                    request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
-                patient = request.getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+            PRPAMT201301UV02Patient patient = null;
+            if (request.getPRPAIN201301UV02().getControlActProcess() != null &&
+                    NullChecker.isNotNullish(request.getPRPAIN201301UV02().getControlActProcess().getSubject()) &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0) != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                    request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
+                patient = request.getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
             } else {
                 log.error("Failed to extract PATIENT from receiver node in 201301");
             }
@@ -200,9 +200,9 @@ public class SubjectDiscovery201301Processor {
         return queryResults;
     }
 
-    private PRPAIN201302UV create201302(PRPAIN201306UV localPatient, PRPAIN201301UV request) {
-        PRPAIN201302UV result = new PRPAIN201302UV();
-        PRPAMT201310UVPatient patient = new PRPAMT201310UVPatient();
+    private PRPAIN201302UV02 create201302(PRPAIN201306UV02 localPatient, PRPAIN201301UV02 request) {
+        PRPAIN201302UV02 result = new PRPAIN201302UV02();
+        PRPAMT201310UV02Patient patient = new PRPAMT201310UV02Patient();
         String senderOID = null;
         String receiverOID = null;
         String remotePatId = null;
@@ -270,7 +270,7 @@ public class SubjectDiscovery201301Processor {
         return result;
     }
 
-    private void createPatientCorrelation(PRPAIN201301UV remotePatient, PRPAIN201302UV localPatient, AssertionType assertion) {
+    private void createPatientCorrelation(PRPAIN201301UV02 remotePatient, PRPAIN201302UV02 localPatient, AssertionType assertion) {
         AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
         QualifiedSubjectIdentifierType localSubId = new QualifiedSubjectIdentifierType();
         QualifiedSubjectIdentifierType remoteSubId = new QualifiedSubjectIdentifierType();

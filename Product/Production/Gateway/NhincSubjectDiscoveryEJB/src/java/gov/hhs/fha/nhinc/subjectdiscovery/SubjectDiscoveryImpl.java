@@ -22,7 +22,7 @@ public class SubjectDiscoveryImpl {
 
     private static Log log = LogFactory.getLog(SubjectDiscoveryImpl.class);
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PRPAIN201301UV message, WebServiceContext context) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201301UV(PRPAIN201301UV02 message, WebServiceContext context) {
         log.debug("Entering SubjectDiscoveryImpl.pixConsumerPRPAIN201301UV");
 
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
@@ -30,7 +30,7 @@ public class SubjectDiscoveryImpl {
         SubjectDiscoveryAckCreater ackCreater = new SubjectDiscoveryAckCreater();
         String errMsg = null;
 
-        pix201301Request.setPRPAIN201301UV(message);
+        pix201301Request.setPRPAIN201301UV02(message);
         pix201301Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
         // Audit the incoming 201301 message
@@ -60,7 +60,7 @@ public class SubjectDiscoveryImpl {
         return ackMsg;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201302UV(PRPAIN201302UV message, WebServiceContext context) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201302UV(PRPAIN201302UV02 message, WebServiceContext context) {
         log.debug("Entering SubjectDiscoveryImpl.pixConsumerPRPAIN201302UV");
 
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
@@ -68,7 +68,7 @@ public class SubjectDiscoveryImpl {
         SubjectDiscoveryAckCreater ackCreater = new SubjectDiscoveryAckCreater();
         String errMsg = null;
 
-        pix201302Request.setPRPAIN201302UV(message);
+        pix201302Request.setPRPAIN201302UV02(message);
         pix201302Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
         // Audit the incoming 201302 message
@@ -105,69 +105,22 @@ public class SubjectDiscoveryImpl {
 
         log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201302UV");
         return ackMsg;
-    }
+    }       
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PRPAIN201303UV message, WebServiceContext context) {
-        log.debug("Entering SubjectDiscoveryImpl.pixConsumerPRPAIN201303UV");
-
-        MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
-        PIXConsumerPRPAIN201303UVRequestType pix201303Request = new PIXConsumerPRPAIN201303UVRequestType();
-        SubjectDiscoveryAckCreater ackCreater = new SubjectDiscoveryAckCreater();
-        String errMsg = null;
-
-        pix201303Request.setPRPAIN201303UV(message);
-        pix201303Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-
-        // Audit the incoming 201303 message
-        SubjectDiscoveryAuditLogger auditLogger = new SubjectDiscoveryAuditLogger();
-        AcknowledgementType ack = auditLogger.audit201303(pix201303Request, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
-        // Check if the Subject Discovery Service is in passthrough mode
-        if (!(isInPassThroughMode())) {
-            // Check if the Subject Discovery Service is enabled
-            if (isServiceEnabled()) {
-                // Check to make sure the policy is valid - Need to add a call to the MPI here first
-                SubjectDiscoveryPolicyChecker policyChecker = new SubjectDiscoveryPolicyChecker();
-                if (policyChecker.check201303Policy(pix201303Request)) {
-                    // Policy is valid continue with process the subject discovery request
-                    SubjectDiscovery201303Processor processor = new SubjectDiscovery201303Processor();
-                    ackMsg = processor.process201303(pix201303Request);
-                } else {
-                    errMsg = "Policy Check failed for the 201303 request";
-                    log.error(errMsg);
-                    ackMsg = ackCreater.createAck(pix201303Request, errMsg);
-                }
-            } else {
-                log.error(NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
-                ackMsg = ackCreater.createAck(pix201303Request, NhincConstants.SUBJECT_DISCOVERY_DISABLED_ACK_MSG);
-            }
-        } else {
-            // Just forward the request to the Agency
-            SubjectDiscoveryAdapterSender sdAdapterSender = new SubjectDiscoveryAdapterSender();
-            ackMsg = sdAdapterSender.send201303ToAgency(pix201303Request);
-        }
-
-        // Audit the outgoing ack message
-        ack = auditLogger.auditNhinAck(ackMsg, pix201303Request.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
-        log.debug("Exiting SubjectDiscoveryImpl.pixConsumerPRPAIN201303UV");
-        return ackMsg;
-    }
-
-    public MCCIIN000002UV01 pixConsumerPRPAIN201304UV(PRPAIN201304UV message, WebServiceContext context) {
+    public MCCIIN000002UV01 pixConsumerPRPAIN201304UV(PRPAIN201304UV02 message, WebServiceContext context) {
         //TODO implement this method
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
-    public PRPAIN201310UV pixConsumerPRPAIN201309UV(PRPAIN201309UV message, WebServiceContext context) {
+    public PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PRPAIN201309UV02 message, WebServiceContext context) {
         log.debug("Entering SubjectDiscoveryImpl.pixConsumerPRPAIN201309UV");
 
-        PRPAIN201310UV ret310 = new PRPAIN201310UV();
+        PRPAIN201310UV02 ret310 = new PRPAIN201310UV02();
         PIXConsumerPRPAIN201309UVRequestType pix201309Request = new PIXConsumerPRPAIN201309UVRequestType();
         SubjectDiscoveryAckCreater ackCreater = new SubjectDiscoveryAckCreater();
         String errMsg = null;
 
-        pix201309Request.setPRPAIN201309UV(message);
+        pix201309Request.setPRPAIN201309UV02(message);
         pix201309Request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
         // Audit the incoming 201309 message

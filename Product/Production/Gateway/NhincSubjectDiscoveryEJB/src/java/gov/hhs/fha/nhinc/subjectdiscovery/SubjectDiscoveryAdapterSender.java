@@ -9,10 +9,9 @@ import gov.hhs.fha.nhinc.adapter.subjectdiscovery.proxy.AdapterSubjectDiscoveryP
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
-import org.hl7.v3.PRPAIN201310UV;
+import org.hl7.v3.PRPAIN201310UV02;
 
 /**
  *
@@ -40,23 +39,13 @@ public class SubjectDiscoveryAdapterSender {
         return ack;
     }
 
-    public MCCIIN000002UV01 send201303ToAgency(PIXConsumerPRPAIN201303UVRequestType request) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-
-        AdapterSubjectDiscoveryProxyObjectFactory factory = new AdapterSubjectDiscoveryProxyObjectFactory();
-        AdapterSubjectDiscoveryProxy proxy = factory.getNhinSubjectDiscoveryProxy();
-        ack = proxy.pixConsumerPRPAIN201303UV(request);
-
-        return ack;
-    }
-
-    public PRPAIN201310UV send201309ToAgency(PIXConsumerPRPAIN201309UVRequestType request) {
+    public PRPAIN201310UV02 send201309ToAgency(PIXConsumerPRPAIN201309UVRequestType request) {
         PIXConsumerPRPAIN201309UVResponseType results = new PIXConsumerPRPAIN201309UVResponseType();
 
         AdapterSubjectDiscoveryProxyObjectFactory factory = new AdapterSubjectDiscoveryProxyObjectFactory();
         AdapterSubjectDiscoveryProxy proxy = factory.getNhinSubjectDiscoveryProxy();
         results = proxy.pixConsumerPRPAIN201309UV(request);
 
-        return results.getPRPAIN201310UV();
+        return results.getPRPAIN201310UV02();
     }
 }
