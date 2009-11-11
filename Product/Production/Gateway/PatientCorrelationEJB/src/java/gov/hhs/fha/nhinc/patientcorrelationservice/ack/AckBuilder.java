@@ -23,7 +23,7 @@ public class AckBuilder {
     private static final String ProcessingModeCode = "R";
     private static final String SubjectTypeCode = "SUBJ";
 
-    public static MCCIIN000002UV01 BuildAck(PRPAIN201301UV originalMessage) {
+    public static MCCIIN000002UV01 BuildAck(PRPAIN201301UV02 originalMessage) {
         II receiverId = null;
         II senderId = null;
         String acknowledgementTypeCode = "CA";

@@ -44,14 +44,14 @@ public class PatientCorrelationServiceImplTest {
     public void tearDown() {
     }
 
-    private PRPAIN201309UV createRetrieveMessage(II correlation) {
-        PRPAIN201309UV requestMessage = new PRPAIN201309UV();
+    private PRPAIN201309UV02 createRetrieveMessage(II correlation) {
+        PRPAIN201309UV02 requestMessage = new PRPAIN201309UV02();
         II interactionId = new II();
         interactionId.setExtension("PRPA_IN201309");
         requestMessage.setInteractionId(interactionId);
-        PRPAIN201309UVQUQIMT021001UV01ControlActProcess cntlAccess = new PRPAIN201309UVQUQIMT021001UV01ControlActProcess();
+        PRPAIN201309UV02QUQIMT021001UV01ControlActProcess cntlAccess = new PRPAIN201309UV02QUQIMT021001UV01ControlActProcess();
         requestMessage.setControlActProcess(cntlAccess);
-        cntlAccess.setMoodCode("RQO");
+        cntlAccess.setMoodCode(XActMoodIntentEvent.fromValue("RQO"));
         CD code = new CD();
         code.setCode("PRPA_TE201309UV");
         code.setCodeSystem("2.16.840.1.113883.1.6");
@@ -59,53 +59,53 @@ public class PatientCorrelationServiceImplTest {
         QUQIMT021001UV01AuthorOrPerformer authPerformer = new QUQIMT021001UV01AuthorOrPerformer();
         authPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
         cntlAccess.getAuthorOrPerformer().add(authPerformer);
-        PRPAMT201307UVQueryByParameter qParam = new PRPAMT201307UVQueryByParameter();
+        PRPAMT201307UV02QueryByParameter qParam = new PRPAMT201307UV02QueryByParameter();
         CS csValue = new CS();
         csValue.setCode("new");
         qParam.setStatusCode(csValue);
         CS resValue = new CS();
         resValue.setCode("I");
         qParam.setResponsePriorityCode(csValue);
-        PRPAMT201307UVParameterList paramsList = new PRPAMT201307UVParameterList();
-        PRPAMT201307UVPatientIdentifier patId = new PRPAMT201307UVPatientIdentifier();
+        PRPAMT201307UV02ParameterList paramsList = new PRPAMT201307UV02ParameterList();
+        PRPAMT201307UV02PatientIdentifier patId = new PRPAMT201307UV02PatientIdentifier();
         patId.getValue().add(correlation);
         paramsList.getPatientIdentifier().add(patId);
         qParam.setParameterList(paramsList);
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "PRPAMT201307UVQueryByParameter");
-        JAXBElement<PRPAMT201307UVQueryByParameter> qP = new JAXBElement<PRPAMT201307UVQueryByParameter>(xmlqname, PRPAMT201307UVQueryByParameter.class, qParam);
+        JAXBElement<PRPAMT201307UV02QueryByParameter> qP = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname, PRPAMT201307UV02QueryByParameter.class, qParam);
         cntlAccess.setQueryByParameter(qP);
         return requestMessage;
     }
 
-    private PRPAIN201301UV createAddRequestMessage(II corr1, II corr2) {
-        PRPAIN201301UV addRequest = new PRPAIN201301UV();
+    private PRPAIN201301UV02 createAddRequestMessage(II corr1, II corr2) {
+        PRPAIN201301UV02 addRequest = new PRPAIN201301UV02();
         II interactionId = new II();
         interactionId.setExtension("PRPA_IN201301UV");
         addRequest.setInteractionId(interactionId);
-        PRPAIN201301UVMFMIMT700701UV01ControlActProcess cntrlAccess = new PRPAIN201301UVMFMIMT700701UV01ControlActProcess();
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess cntrlAccess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         addRequest.setControlActProcess(cntrlAccess);
-        cntrlAccess.setMoodCode("EVN");
+        cntrlAccess.setMoodCode(XActMoodIntentEvent.EVN);
 
-        PRPAIN201301UVMFMIMT700701UV01Subject1 subj = new PRPAIN201301UVMFMIMT700701UV01Subject1();
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subj = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         cntrlAccess.getSubject().add(subj);
         subj.getTypeCode().add("SUBJ");
-        PRPAIN201301UVMFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201301UVMFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent regEvent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         subj.setRegistrationEvent(regEvent);
         CS csValue = new CS();
         csValue.setCode("active");
         regEvent.setStatusCode(csValue);
-        PRPAIN201301UVMFMIMT700701UV01Subject2 subj1 = new PRPAIN201301UVMFMIMT700701UV01Subject2();
+        PRPAIN201301UV02MFMIMT700701UV01Subject2 subj1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
         regEvent.setSubject1(subj1);
-        PRPAMT201301UVPatient pat = new PRPAMT201301UVPatient();
+        PRPAMT201301UV02Patient pat = new PRPAMT201301UV02Patient();
         subj1.setPatient(pat);
-        pat.setClassCode("PAT");
+        pat.getClassCode().add("PAT");
         pat.getId().add(corr1);
         pat.getId().add(corr2);
 
         return addRequest;
     }
 
-    private List<II> extractIdsFromRetrieveResult(PRPAIN201310UV retrieveResult) {
+    private List<II> extractIdsFromRetrieveResult(PRPAIN201310UV02 retrieveResult) {
         return retrieveResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
     }
 
@@ -148,27 +148,27 @@ public class PatientCorrelationServiceImplTest {
 
         //clear db
         //create message
-        PRPAIN201301UV addRequest = createAddRequestMessage(corr1, corr2);
+        PRPAIN201301UV02 addRequest = createAddRequestMessage(corr1, corr2);
 
         //send
         AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest = new AddPatientCorrelationSecuredRequestType();
-        addPatientCorrelationRequest.setPRPAIN201301UV(addRequest);
+        addPatientCorrelationRequest.setPRPAIN201301UV02(addRequest);
         PatientCorrelationServiceImpl.addPatientCorrelation(addPatientCorrelationRequest);
 
         //build retrieve
-        PRPAIN201309UV retrieveRequest = createRetrieveMessage(corr1);
+        PRPAIN201309UV02 retrieveRequest = createRetrieveMessage(corr1);
         RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsSecuredRequestType();
-        retrievePatientCorrelationsRequest.setPRPAIN201309UV(retrieveRequest);
+        retrievePatientCorrelationsRequest.setPRPAIN201309UV02(retrieveRequest);
         RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelationsResponse = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
-        PRPAIN201310UV retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV();
+        PRPAIN201310UV02 retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV02();
         List<II> resultsIds = extractIdsFromRetrieveResult(retrieveResult);
         assertTrue(isIdInList(resultsIds, corr2));
 
         retrieveRequest = createRetrieveMessage(corr2);
         retrievePatientCorrelationsRequest = new RetrievePatientCorrelationsSecuredRequestType();
-        retrievePatientCorrelationsRequest.setPRPAIN201309UV(retrieveRequest);
+        retrievePatientCorrelationsRequest.setPRPAIN201309UV02(retrieveRequest);
         retrievePatientCorrelationsResponse = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
-        retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV();
+        retrieveResult = retrievePatientCorrelationsResponse.getPRPAIN201310UV02();
         resultsIds = extractIdsFromRetrieveResult(retrieveResult);
         assertTrue(isIdInList(resultsIds, corr1));
     }
@@ -182,17 +182,17 @@ public class PatientCorrelationServiceImplTest {
 
         //clear db
         //create message
-        PRPAIN201301UV addRequest = createAddRequestMessage(corr1, corr2);
+        PRPAIN201301UV02 addRequest = createAddRequestMessage(corr1, corr2);
         AddPatientCorrelationSecuredRequestType addReq = new AddPatientCorrelationSecuredRequestType();
-        addReq.setPRPAIN201301UV(addRequest);
+        addReq.setPRPAIN201301UV02(addRequest);
         //send
         PatientCorrelationServiceImpl.addPatientCorrelation(addReq);
 
         //build retrieve
-        PRPAIN201309UV retrieveRequest = createRetrieveMessage(corr1);
+        PRPAIN201309UV02 retrieveRequest = createRetrieveMessage(corr1);
         RetrievePatientCorrelationsSecuredRequestType retrRequest = new RetrievePatientCorrelationsSecuredRequestType();
-        retrRequest.setPRPAIN201309UV(retrieveRequest);
-        PRPAIN201310UV retrieveResult = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrRequest).getPRPAIN201310UV();
+        retrRequest.setPRPAIN201309UV02(retrieveRequest);
+        PRPAIN201310UV02 retrieveResult = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrRequest).getPRPAIN201310UV02();
         List<II> resultsIds = extractIdsFromRetrieveResult(retrieveResult);
         for(II aII : resultsIds)
         {

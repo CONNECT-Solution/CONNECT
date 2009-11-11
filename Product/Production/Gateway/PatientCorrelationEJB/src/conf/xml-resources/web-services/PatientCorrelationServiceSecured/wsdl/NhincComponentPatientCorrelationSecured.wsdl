@@ -43,14 +43,7 @@
         <part name="AddPatientCorrelationResponse" 
               element="pc:AddPatientCorrelationResponseSecured"/>
     </message>
-    <message name="RemovePatientCorrelationRequestMessageSecured">
-        <part name="RemovePatientCorrelationRequest" 
-              element="pc:RemovePatientCorrelationRequestSecured"/>
-    </message>
-    <message name="RemovePatientCorrelationResponseMessageSecured">
-        <part name="RemovePatientCorrelationResponse" 
-              element="pc:RemovePatientCorrelationResponseSecured"/>
-    </message>
+
     <portType name="PatientCorrelationSecuredPortType">
         <operation name="RetrievePatientCorrelations">
             <input name="RetrievePatientCorrelationsRequest" 
@@ -64,12 +57,7 @@
             <output name="AddPatientCorrelationResponse" 
                     message="tns:AddPatientCorrelationResponseMessageSecured"/>
         </operation>
-        <operation name="RemovePatientCorrelation">
-            <input name="RemovePatientCorrelationRequest" 
-                   message="tns:RemovePatientCorrelationRequestMessageSecured"/>
-            <output name="RemovePatientCorrelationResponse" 
-                    message="tns:RemovePatientCorrelationResponseMessageSecured"/>
-        </operation>
+
     </portType>
     <binding name="PatientCorrelationSecuredBinding" type="tns:PatientCorrelationSecuredPortType">
     		<wsp:PolicyReference URI="#PatientCorrelationService_Binding_SoapPolicy"/>
@@ -97,17 +85,7 @@
                 <wsp:PolicyReference URI="#AddPatientCorrelation_Binding_Soap_Output_Policy"/>
             </output>
         </operation>
-        <operation name="RemovePatientCorrelation">
-            <soap:operation soapAction="RemovePatientCorrelation"/>
-            <input name="RemovePatientCorrelationRequest">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#RemovePatientCorrelationRequest_Binding_Soap_Input_Policy"/>
-            </input>
-            <output name="RemovePatientCorrelationResponse">
-                <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#RemovePatientCorrelationResponse_Binding_Soap_Output_Policy"/>
-            </output>
-        </operation>
+
     </binding>
     <service name="PatientCorrelationServiceSecured">
         <port name="PatientCorrelationSecuredPort" 

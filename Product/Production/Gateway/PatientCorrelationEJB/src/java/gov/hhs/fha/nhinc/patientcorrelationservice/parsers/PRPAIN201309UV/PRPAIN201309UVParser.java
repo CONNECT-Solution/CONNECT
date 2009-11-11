@@ -14,19 +14,19 @@ import org.hl7.v3.CS;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000300UV01Acknowledgement;
 import org.hl7.v3.MFMIMT700711UV01QueryAck;
-import org.hl7.v3.PRPAIN201309UV;
-import org.hl7.v3.PRPAIN201309UVQUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201310UV;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01Subject2;
-import org.hl7.v3.PRPAMT201304UVPatient;
-import org.hl7.v3.PRPAMT201304UVPerson;
-import org.hl7.v3.PRPAMT201307UVDataSource;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVPatientIdentifier;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201309UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201310UV02;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201304UV02Patient;
+import org.hl7.v3.PRPAMT201304UV02Person;
+import org.hl7.v3.PRPAMT201307UV02DataSource;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 
 /**
  *
@@ -51,40 +51,40 @@ public class PRPAIN201309UVParser {
         return cs;
     }
 
-    public static PRPAMT201307UVParameterList parseHL7ParameterListFrom201309Message(PRPAIN201309UV message) {
+    public static PRPAMT201307UV02ParameterList parseHL7ParameterListFrom201309Message(PRPAIN201309UV02 message) {
         if (message == null) {
             return null;
         }
-        PRPAIN201309UVQUQIMT021001UV01ControlActProcess ctrlAccess = message.getControlActProcess();
+        PRPAIN201309UV02QUQIMT021001UV01ControlActProcess ctrlAccess = message.getControlActProcess();
         if (ctrlAccess == null) {
             return null;
         }
-        JAXBElement<PRPAMT201307UVQueryByParameter> queryByParameter = ctrlAccess.getQueryByParameter();
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = ctrlAccess.getQueryByParameter();
         if (queryByParameter == null) {
             return null;
         }
-        PRPAMT201307UVParameterList parameterList = (queryByParameter.getValue() != null) ? queryByParameter.getValue().getParameterList() : null;
+        PRPAMT201307UV02ParameterList parameterList = (queryByParameter.getValue() != null) ? queryByParameter.getValue().getParameterList() : null;
         if (parameterList == null) {
             return null;
         }
         return parameterList;
     }
 
-    public static PRPAMT201307UVPatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV message) {
+    public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
         log.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
-        PRPAMT201307UVParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        PRPAMT201307UVPatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier() != null) ? parameterList.getPatientIdentifier().get(0) : null;
+        PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier() != null) ? parameterList.getPatientIdentifier().get(0) : null;
         log.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         return patientIdentifier;
     }
 
-    public static List<II> buildAssigningAuthorityInclusionFilterList(PRPAIN201309UV message) {
+    public static List<II> buildAssigningAuthorityInclusionFilterList(PRPAIN201309UV02 message) {
         List<II> list = new ArrayList<II>();
-        PRPAMT201307UVParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        List<PRPAMT201307UVDataSource> dataSourceList;
+        PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
+        List<PRPAMT201307UV02DataSource> dataSourceList;
         if (parameterList != null) {
             dataSourceList = parameterList.getDataSource();
-            for (PRPAMT201307UVDataSource dataSource : dataSourceList) {
+            for (PRPAMT201307UV02DataSource dataSource : dataSourceList) {
                 for (II dataSourceValue : dataSource.getValue()) {
                     list.add(dataSourceValue);
                 }
@@ -93,13 +93,10 @@ public class PRPAIN201309UVParser {
         return list;
     }
 
-    public static PRPAMT201307UVQueryByParameter ExtractQueryId(PRPAIN201309UV message) {
-        PRPAMT201307UVQueryByParameter queryByParameter = null;
+    public static JAXBElement<PRPAMT201307UV02QueryByParameter> ExtractQueryId(PRPAIN201309UV02 message) {
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = null;
         if (message.getControlActProcess() != null) {
-            JAXBElement<PRPAMT201307UVQueryByParameter> queryByParamterElement = message.getControlActProcess().getQueryByParameter();
-            if (queryByParamterElement != null) {
-                queryByParameter = queryByParamterElement.getValue();
-            }
+            queryByParameter = message.getControlActProcess().getQueryByParameter();
         }
         return queryByParameter;
     }
