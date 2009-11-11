@@ -22,13 +22,11 @@ import gov.hhs.fha.nhinc.common.auditlog.LogSubjectAddedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationResponseType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevisedRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevokedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.NhinSubjectDiscoveryAckMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectAddedMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationRequestMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectRevisedMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectRevokedMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcNotifyRequestMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityCdcSubscribeRequestMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.EntityDocumentNotifyRequestMessageType;
@@ -137,29 +135,6 @@ public class AuditRepositoryLogger {
             logReqMsg.setMessage(message);
             
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013022AuditMsg(logReqMsg);
-        }
-
-        return auditMsg;
-    }
-
-    /**
-     * This method will create the generic Audit Log Message from a subject discovery revoke request
-     *
-     * @param message The Subject Discovery Revoke Request message to be audit logged.
-     * @param direction  The direction this message is going (Inbound or Outbound)
-     * @param _interface The interface this message is being received/sent on (Entity, Adapter, or Nhin)
-     * @return A generic audit log message that can be passed to the Audit Repository
-     */
-    public LogEventRequestType logSubjectRevoked(SubjectRevokedMessageType message, String direction, String _interface) {
-        LogEventRequestType auditMsg = null;
-
-        if (isServiceEnabled()) {
-            LogSubjectRevokedRequestType logReqMsg = new LogSubjectRevokedRequestType();
-            logReqMsg.setDirection(direction);
-            logReqMsg.setInterface(_interface);
-            logReqMsg.setMessage(message);
-
-            auditMsg = SubjectDiscoveryTransforms.transformPRPA2013032AuditMsg(logReqMsg);
         }
 
         return auditMsg;
