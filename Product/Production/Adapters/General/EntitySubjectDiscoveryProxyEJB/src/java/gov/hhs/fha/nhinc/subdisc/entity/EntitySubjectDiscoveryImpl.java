@@ -17,8 +17,6 @@ import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVSecuredRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201304UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
@@ -47,7 +45,7 @@ public class EntitySubjectDiscoveryImpl {
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             PIXConsumerPRPAIN201301UVSecuredRequestType body = new PIXConsumerPRPAIN201301UVSecuredRequestType();
-            body.setPRPAIN201301UV(request.getPRPAIN201301UV());
+            body.setPRPAIN201301UV02(request.getPRPAIN201301UV02());
             body.setNhinTargetCommunities(request.getNhinTargetCommunities());
             ack = port.pixConsumerPRPAIN201301UV(body);
         }
@@ -72,34 +70,9 @@ public class EntitySubjectDiscoveryImpl {
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             PIXConsumerPRPAIN201302UVSecuredRequestType body = new PIXConsumerPRPAIN201302UVSecuredRequestType();
-            body.setPRPAIN201302UV(request.getPRPAIN201302UV());
+            body.setPRPAIN201302UV02(request.getPRPAIN201302UV02());
             body.setNhinTargetCommunities(request.getNhinTargetCommunities());
             ack = port.pixConsumerPRPAIN201302UV(body);
-        }
-        catch (Exception ex) {
-            log.error("Failed to send entity subject discovery from proxy EJB to secure interface: " + ex.getMessage(), ex);
-        }
-
-        return ack;
-    }
-
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType request) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-
-        try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
-
-            EntitySubjectDiscoverySecuredPortType port = getPort(url);
-
-            AssertionType assertIn = request.getAssertion();
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            PIXConsumerPRPAIN201303UVSecuredRequestType body = new PIXConsumerPRPAIN201303UVSecuredRequestType();
-            body.setPRPAIN201303UV(request.getPRPAIN201303UV());
-            body.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            ack = port.pixConsumerPRPAIN201303UV(body);
         }
         catch (Exception ex) {
             log.error("Failed to send entity subject discovery from proxy EJB to secure interface: " + ex.getMessage(), ex);
@@ -127,7 +100,7 @@ public class EntitySubjectDiscoveryImpl {
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             PIXConsumerPRPAIN201309UVSecuredRequestType body = new PIXConsumerPRPAIN201309UVSecuredRequestType();
-            body.setPRPAIN201309UV(request.getPRPAIN201309UV());
+            body.setPRPAIN201309UV02(request.getPRPAIN201309UV02());
             body.setNhinTargetCommunities(request.getNhinTargetCommunities());
             response = port.pixConsumerPRPAIN201309UV(body);
         }

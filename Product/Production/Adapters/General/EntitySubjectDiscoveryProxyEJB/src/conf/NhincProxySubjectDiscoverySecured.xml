@@ -6,8 +6,8 @@
 	<wsdl:types>
 		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
 			<xsd:include schemaLocation="../schemas/nhinc/hl7/HL7ProxySubjectDiscoveryMessages.xsd"/>
-			<xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-			<xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
+			<xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+			<xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
 	<wsdl:message name="PIXConsumer_PRPA_IN201301UVProxyRequestMessage">
@@ -38,7 +38,7 @@
 		<wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyRequest" element="hl7:PIXConsumer_PRPA_IN201309UVProxySecuredRequest"/>
 	</wsdl:message>
 	<wsdl:message name="PIXConsumer_PRPA_IN201309UVProxyResponseMessage">
-		<wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyResponse" element="hl7:PRPA_IN201310UV"/>
+		<wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyResponse" element="hl7:PRPA_IN201310UV02"/>
 	</wsdl:message>
 	<wsdl:portType name="NhincProxySubjectDiscoverySecuredPortType">
 		<wsdl:operation name="PIXConsumer_PRPA_IN201301UV">

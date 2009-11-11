@@ -16,8 +16,8 @@
     <xsd:schema elementFormDefault="qualified" 
                 targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
       <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7ProxySubjectDiscoveryMessages.xsd"/>
-      <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/MCCI_IN000002UV01.xsd"/>
-      <xsd:include schemaLocation="../schemas/HL7V3/multicacheschemas/PRPA_IN201310UV.xsd"/>
+      <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+      <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="PIXConsumer_PRPA_IN201301UVProxyRequestMessage">
@@ -38,16 +38,7 @@
                element="hl7:MCCI_IN000002UV01"/>
   </wsdl:message>
 
-  <wsdl:message name="PIXConsumer_PRPA_IN201303UVProxyRequestMessage">
-    <wsdl:part name="PIXConsumer_PRPA_IN201303UVProxyRequest" 
-               element="hl7:PIXConsumer_PRPA_IN201303UVProxyRequest"/>
-  </wsdl:message>
-  <wsdl:message name="PIXConsumer_PRPA_IN201303UVProxyResponseMessage">
-    <wsdl:part name="PIXConsumer_PRPA_IN201303UVProxyResponse" 
-               element="hl7:MCCI_IN000002UV01"/>
-  </wsdl:message>
-
-  <wsdl:message name="PIXConsumer_PRPA_IN201304UVProxyRequestMessage">
+   <wsdl:message name="PIXConsumer_PRPA_IN201304UVProxyRequestMessage">
     <wsdl:part name="PIXConsumer_PRPA_IN201304UVProxyRequest" 
                element="hl7:PIXConsumer_PRPA_IN201304UVProxyRequest"/>
   </wsdl:message>
@@ -62,7 +53,7 @@
   </wsdl:message>
   <wsdl:message name="PIXConsumer_PRPA_IN201309UVProxyResponseMessage">
     <wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyResponse" 
-               element="hl7:PRPA_IN201310UV"/>
+               element="hl7:PRPA_IN201310UV02"/>
   </wsdl:message>
   
   <wsdl:portType name="NhincProxySubjectDiscoveryPortType">
@@ -77,12 +68,6 @@
                   message="tns:PIXConsumer_PRPA_IN201302UVProxyRequestMessage"/>
       <wsdl:output name="PIXConsumer_PRPA_IN201302UVProxyResponse"  
                    message="tns:PIXConsumer_PRPA_IN201302UVProxyResponseMessage"/>
-    </wsdl:operation>
-    <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
-      <wsdl:input name="PIXConsumer_PRPA_IN201303UVProxyRequest"
-                  message="tns:PIXConsumer_PRPA_IN201303UVProxyRequestMessage" />
-      <wsdl:output name="PIXConsumer_PRPA_IN201303UVProxyResponse"
-                   message="tns:PIXConsumer_PRPA_IN201303UVProxyResponseMessage"/>
     </wsdl:operation>
     <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
       <wsdl:input name="PIXConsumer_PRPA_IN201304UVProxyRequest"
@@ -118,16 +103,7 @@
         <wsoap11:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
-      <wsdl:input name="PIXConsumer_PRPA_IN201303UVProxyRequest" >
-        <wsoap11:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="PIXConsumer_PRPA_IN201303UVProxyResponse" >
-        <wsoap11:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+     <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
       <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
       <wsdl:input name="PIXConsumer_PRPA_IN201304UVProxyRequest" >
         <wsoap11:body use="literal"/>

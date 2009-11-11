@@ -16,11 +16,9 @@ import javax.xml.ws.BindingProvider;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxySecuredRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVProxyRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVProxySecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVProxySecuredRequestType;
-import org.hl7.v3.PRPAIN201310UV;
+import org.hl7.v3.PRPAIN201310UV02;
 
 /**
  *
@@ -44,7 +42,7 @@ public class NhincProxySubjectDiscoveryImpl {
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             PIXConsumerPRPAIN201301UVProxySecuredRequestType body = new PIXConsumerPRPAIN201301UVProxySecuredRequestType();
-            body.setPRPAIN201301UV(request.getPRPAIN201301UV());
+            body.setPRPAIN201301UV02(request.getPRPAIN201301UV02());
             body.setNhinTargetSystem(request.getNhinTargetSystem());
             ack = port.pixConsumerPRPAIN201301UV(body);
         }
@@ -55,33 +53,8 @@ public class NhincProxySubjectDiscoveryImpl {
         return ack;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVProxyRequestType request) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-
-        try {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
-
-            NhincProxySubjectDiscoverySecuredPortType port = getPort(url);
-
-            AssertionType assertIn = request.getAssertion();
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            PIXConsumerPRPAIN201303UVProxySecuredRequestType body = new PIXConsumerPRPAIN201303UVProxySecuredRequestType();
-            body.setPRPAIN201303UV(request.getPRPAIN201303UV());
-            body.setNhinTargetSystem(request.getNhinTargetSystem());
-            ack = port.pixConsumerPRPAIN201303UV(body);
-        }
-        catch (Exception ex) {
-            log.error("Failed to send proxy subject discovery from proxy EJB to secure interface: " + ex.getMessage(), ex);
-        }
-
-        return ack;
-    }
-
-    public PRPAIN201310UV pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxyRequestType request) {
-        PRPAIN201310UV response = new PRPAIN201310UV();
+    public PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxyRequestType request) {
+        PRPAIN201310UV02 response = new PRPAIN201310UV02();
 
         try {
             String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
@@ -94,7 +67,7 @@ public class NhincProxySubjectDiscoveryImpl {
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             PIXConsumerPRPAIN201309UVProxySecuredRequestType body = new PIXConsumerPRPAIN201309UVProxySecuredRequestType();
-            body.setPRPAIN201309UV(request.getPRPAIN201309UV());
+            body.setPRPAIN201309UV02(request.getPRPAIN201309UV02());
             body.setNhinTargetSystem(request.getNhinTargetSystem());
             response = port.pixConsumerPRPAIN201309UV(body);
         }
