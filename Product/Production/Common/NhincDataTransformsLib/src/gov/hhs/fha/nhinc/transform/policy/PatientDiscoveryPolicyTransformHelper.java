@@ -16,11 +16,11 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Sender;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAMT201306UVQueryByParameter;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectId;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 
 /**
  * This class is used to transform 201305 request message to a CheckPolicyRequestType
@@ -82,7 +82,7 @@ public class PatientDiscoveryPolicyTransformHelper {
 
     protected HomeCommunityType getHomeCommunityFrom201305(RespondingGatewayPRPAIN201305UV02RequestType event) {
         HomeCommunityType senderHomeCommunity = new HomeCommunityType();
-        final PRPAIN201305UV pRPAIN201305UV = event.getPRPAIN201305UV();
+        final PRPAIN201305UV02 pRPAIN201305UV = event.getPRPAIN201305UV02();
         final MCCIMT000100UV01Sender sender = pRPAIN201305UV.getSender();
         final MCCIMT000100UV01Device device = sender.getDevice();
         final List<II> id = device.getId();
@@ -98,7 +98,7 @@ public class PatientDiscoveryPolicyTransformHelper {
         setSubjectToRequestType(event, request);
         ResourceType resource = null;
         AttributeHelper attrHelper = new AttributeHelper();
-        II ii = extractPatientIdentifier(event.getPRPAIN201305UV());
+        II ii = extractPatientIdentifier(event.getPRPAIN201305UV02());
         if (ii != null) {
             resource = new ResourceType();
             resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
@@ -150,14 +150,14 @@ public class PatientDiscoveryPolicyTransformHelper {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
-    private static II extractPatientIdentifier(PRPAIN201305UV message) {
+    private static II extractPatientIdentifier(PRPAIN201305UV02 message) {
         II ii = null;
 
         if ((message != null) && (message.getControlActProcess() != null) && (message.getControlActProcess().getQueryByParameter() != null)) {
-            JAXBElement<PRPAMT201306UVQueryByParameter> queryParam = message.getControlActProcess().getQueryByParameter();
-            PRPAMT201306UVQueryByParameter queryParam201306 = queryParam.getValue();
+            JAXBElement<PRPAMT201306UV02QueryByParameter> queryParam = message.getControlActProcess().getQueryByParameter();
+            PRPAMT201306UV02QueryByParameter queryParam201306 = queryParam.getValue();
             if (queryParam201306.getParameterList() != null && queryParam201306.getParameterList().getLivingSubjectId() != null) {
-                List<PRPAMT201306UVLivingSubjectId> livingSubjectIdList = queryParam201306.getParameterList().getLivingSubjectId();
+                List<PRPAMT201306UV02LivingSubjectId> livingSubjectIdList = queryParam201306.getParameterList().getLivingSubjectId();
                 if (livingSubjectIdList != null) {
                     List<II> patinetIdList = livingSubjectIdList.get(0).getValue();
                     if (patinetIdList != null) {

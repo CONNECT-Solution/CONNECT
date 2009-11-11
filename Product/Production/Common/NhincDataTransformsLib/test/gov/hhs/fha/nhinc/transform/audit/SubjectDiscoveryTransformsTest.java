@@ -7,7 +7,6 @@ package gov.hhs.fha.nhinc.transform.audit;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import java.util.ArrayList;
 
 import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
@@ -19,8 +18,6 @@ import gov.hhs.fha.nhinc.common.auditlog.LogSubjectAddedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectAddedMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevisedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectRevisedMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevokedRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.SubjectRevokedMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.NhinSubjectDiscoveryAckMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogNhinSubjectDiscoveryAckRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.SubjectReidentificationRequestMessageType;
@@ -94,18 +91,18 @@ public class SubjectDiscoveryTransformsTest {
         typeId.setRoot("2.16.840.1.113883.3.198");
         typeId.setExtension("user111");
         sender.setTypeId(typeId);
-        PRPAMT201301UVPatient patient = new PRPAMT201301UVPatient();
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
         patient = HL7PatientTransforms.create201301Patient(person, typeId);
                 
-        PRPAIN201301UV message201301 = HL7PRPA201301Transforms.createPRPA201301(patient, home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId());
+        PRPAIN201301UV02 message201301 = HL7PRPA201301Transforms.createPRPA201301(patient, home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId());
  
         message201301.setSender(sender);
         
         // Assign to logMessage
         SubjectAddedMessageType subjectAdded = new SubjectAddedMessageType();
         subjectAdded.setAssertion(assertion);
-        subjectAdded.setPRPAIN201301UV(message201301);
+        subjectAdded.setPRPAIN201301UV02(message201301);
         logMessage.setMessage(subjectAdded);
 
         AuditMessageType expResult = new AuditMessageType();
@@ -151,7 +148,7 @@ public class SubjectDiscoveryTransformsTest {
 
         typeId.setRoot("2.16.840.1.113883.3.200");
         sender.setTypeId(typeId);
-        PRPAIN201302UV message = new PRPAIN201302UV();
+        PRPAIN201302UV02 message = new PRPAIN201302UV02();
         message.setSender(sender);
 
         personName.setFamilyName("Kennedy");
@@ -166,18 +163,18 @@ public class SubjectDiscoveryTransformsTest {
         typeId.setRoot("2.16.840.1.113883.3.200");
         typeId.setExtension("11111");
         sender.setTypeId(typeId);
-        PRPAMT201301UVPatient patient = new PRPAMT201301UVPatient();
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson("Joe", "Smith", "M", "20080226", "123456789");
         patient = HL7PatientTransforms.create201301Patient(person, typeId);
                 
-        PRPAIN201302UV message201302 = HL7PRPA201302Transforms.createPRPA201302(patient, home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId());
+        PRPAIN201302UV02 message201302 = HL7PRPA201302Transforms.createPRPA201302(patient, home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId());
  
         message201302.setSender(sender);
         
         // Assign to logMessage
         SubjectRevisedMessageType subjectRevised = new SubjectRevisedMessageType();
         subjectRevised.setAssertion(assertion);
-        subjectRevised.setPRPAIN201302UV(message201302);
+        subjectRevised.setPRPAIN201302UV02(message201302);
         logMessage.setMessage(subjectRevised);
 
         AuditMessageType expResult = new AuditMessageType();
@@ -208,82 +205,7 @@ public class SubjectDiscoveryTransformsTest {
     }
 
     /**
-     * Test of transformPRPA2013012AuditMsg method, of class SubjectDiscoveryTransforms.
-     */
-    @Test
-    public void testTransformPRPA2013032AuditMsg() {
-        log.debug("Begin - testTransformPRPA2013032AuditMsg");
-
-        MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
-        II typeId = new II();
-        PersonNameType personName = new PersonNameType();
-        HomeCommunityType home = new HomeCommunityType();
-        AssertionType assertion = new AssertionType();
-       
-        LogSubjectRevokedRequestType logMessage = new LogSubjectRevokedRequestType();
-
-        typeId.setRoot("2.16.840.1.113883.3.166.4");
-        typeId.setExtension("12345");
-        sender.setTypeId(typeId);
-        PRPAIN201303UV message = new PRPAIN201303UV();
-        message.setSender(sender);
-
-        personName.setFamilyName("Franklin");
-        personName.setGivenName("Benjamin");
-        UserType userInfo = new UserType();
-        userInfo.setPersonName(personName);
-        home.setHomeCommunityId("2.16.840.1.113883.3.166.4");
-        home.setName("CareSpark");
-        userInfo.setOrg(home);
-        assertion.setUserInfo(userInfo);
-
-        typeId.setRoot("2.16.840.1.113883.3.166.4");
-        typeId.setExtension("12345");
-        sender.setTypeId(typeId);
-        PRPAMT201305UVPatient patient = new PRPAMT201305UVPatient();
-        log.debug("= = = = = = = = extension " + typeId.getExtension());
-        JAXBElement<PRPAMT201305UVPerson> person = HL7PatientTransforms.create201305PatientPerson("Joe", "Smith", "M", "20080226", "123456789", typeId);
-        patient = HL7PatientTransforms.create201305Patient(person, typeId);
-                
-        PRPAIN201303UV message201303 = HL7PRPA201303Transforms.createPRPA201303(patient, home.getHomeCommunityId(), home.getHomeCommunityId(), home.getHomeCommunityId());
- 
-        message201303.setSender(sender);
-        
-        // Assign to logMessage
-        SubjectRevokedMessageType subjectRevoked = new SubjectRevokedMessageType();
-        subjectRevoked.setAssertion(assertion);
-        subjectRevoked.setPRPAIN201303UV(message201303);
-        logMessage.setMessage(subjectRevoked);
-
-
-        AuditMessageType expResult = new AuditMessageType();
-        AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
-        participant.setUserName("Benjamin Franklin");
-        expResult.getActiveParticipant().add(participant);
-        AuditSourceIdentificationType auditSource = new AuditSourceIdentificationType();
-        auditSource.setAuditEnterpriseSiteID(home.getName());
-        expResult.getAuditSourceIdentification().add(auditSource);
-        ParticipantObjectIdentificationType partObjectId = new ParticipantObjectIdentificationType();
-        partObjectId.setParticipantObjectID(typeId.getExtension() + "^^^&" + home.getHomeCommunityId() + "&ISO");
-        expResult.getParticipantObjectIdentification().add(partObjectId);
-
-        LogEventRequestType expected = new LogEventRequestType();
-        expected.setAuditMessage(expResult);
-
-        LogEventRequestType result = SubjectDiscoveryTransforms.transformPRPA2013032AuditMsg(logMessage);
-        assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
-        log.debug("result.userName : " + result.getAuditMessage().getActiveParticipant().get(0).getUserName());
-        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(),
-                result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        assertEquals(expected.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID(),
-                result.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
-        log.debug("result.patientId : " + result.getAuditMessage().getParticipantObjectIdentification().get(0).getParticipantObjectID());
-
-        log.debug("End - testTransformPRPA2013032AuditMsg");
-
-    }
-        /**
-     * Test of transformPRPA2013012AuditMsg method, of class SubjectDiscoveryTransforms.
+     * Test of transformAck2AuditMsg method, of class SubjectDiscoveryTransforms.
      */
     @Test
     public void testTransformAck2AuditMsg() {
@@ -370,13 +292,13 @@ public class SubjectDiscoveryTransformsTest {
         typeId.setRoot("2.16.840.1.113883.3.190");
         typeId.setExtension("4444");
                 
-        PRPAIN201309UV message201309 = HL7PRPA201309Transforms.createPRPA201309(home.getHomeCommunityId(), typeId.getExtension());
+        PRPAIN201309UV02 message201309 = HL7PRPA201309Transforms.createPRPA201309(home.getHomeCommunityId(), typeId.getExtension());
  
         
         // Assign to logMessage
         SubjectReidentificationRequestMessageType subjectReident = new SubjectReidentificationRequestMessageType();
         subjectReident.setAssertion(assertion);
-        subjectReident.setPRPAIN201309UV(message201309);
+        subjectReident.setPRPAIN201309UV02(message201309);
         logMessage.setMessage(subjectReident);
 
         AuditMessageType expResult = new AuditMessageType();
@@ -429,13 +351,14 @@ public class SubjectDiscoveryTransformsTest {
 
         typeId.setRoot("2.16.840.1.113883.3.74");
         typeId.setExtension("09890");
-        
-        PRPAMT201307UVQueryByParameter queryByParam = new PRPAMT201307UVQueryByParameter();
-        PRPAIN201310UV message201310 = HL7PRPA201310Transforms.createPRPA201310(typeId.getExtension(), typeId.getRoot(), typeId.getRoot(), home.getHomeCommunityId(), home.getHomeCommunityId(), queryByParam);
+
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParam = null;
+
+        PRPAIN201310UV02 message201310 = HL7PRPA201310Transforms.createPRPA201310(typeId.getExtension(), typeId.getRoot(), typeId.getRoot(), home.getHomeCommunityId(), home.getHomeCommunityId(), queryByParam);
         
         // Assign to logMessage
         SubjectReidentificationResponseMessageType subjectReident = new SubjectReidentificationResponseMessageType();
-        subjectReident.setPRPAIN201310UV(message201310);
+        subjectReident.setPRPAIN201310UV02(message201310);
         logMessage.setMessage(subjectReident);
         logMessage.setAssertion(assertion);
 

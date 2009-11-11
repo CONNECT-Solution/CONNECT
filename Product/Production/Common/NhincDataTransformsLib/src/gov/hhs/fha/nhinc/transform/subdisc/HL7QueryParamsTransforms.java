@@ -12,16 +12,16 @@ import org.hl7.v3.CE;
 import org.hl7.v3.II;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.PNExplicit;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201301UVPerson;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectAdministrativeGender;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectBirthTime;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectId;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectName;
-import org.hl7.v3.PRPAMT201306UVParameterList;
-import org.hl7.v3.PRPAMT201306UVPatientAddress;
-import org.hl7.v3.PRPAMT201306UVPatientTelecom;
-import org.hl7.v3.PRPAMT201306UVQueryByParameter;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectName;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
+import org.hl7.v3.PRPAMT201306UV02PatientAddress;
+import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.ST;
 import org.hl7.v3.TEL;
 import org.hl7.v3.TELExplicit;
@@ -32,8 +32,8 @@ import org.hl7.v3.TELExplicit;
  */
 public class HL7QueryParamsTransforms {
 
-    public static JAXBElement<PRPAMT201306UVQueryByParameter> createQueryParams(PRPAMT201301UVPatient patient, String localDeviceId) {
-        PRPAMT201306UVQueryByParameter params = new PRPAMT201306UVQueryByParameter();
+    public static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(PRPAMT201301UV02Patient patient, String localDeviceId) {
+        PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
         params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
         params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
@@ -41,15 +41,15 @@ public class HL7QueryParamsTransforms {
         params.setParameterList(createParamList(patient));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UVQueryByParameter> queryParams = new JAXBElement<PRPAMT201306UVQueryByParameter>(xmlqname, PRPAMT201306UVQueryByParameter.class, params);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
         return queryParams;
     }
 
-    public static PRPAMT201306UVParameterList createParamList(PRPAMT201301UVPatient patient) {
-        PRPAMT201306UVParameterList paramList = new PRPAMT201306UVParameterList();
-        JAXBElement<PRPAMT201301UVPerson> jaxbPerson = patient.getPatientPerson();
-        PRPAMT201301UVPerson person = jaxbPerson.getValue();
+    public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {
+        PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
+        JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
+        PRPAMT201301UV02Person person = jaxbPerson.getValue();
 
         // Set the Subject Gender Code  
         if (person.getAdministrativeGenderCode() != null &&
@@ -93,8 +93,8 @@ public class HL7QueryParamsTransforms {
         return paramList;
     }
 
-    public static PRPAMT201306UVLivingSubjectId createSubjectId(II subjectId) {
-        PRPAMT201306UVLivingSubjectId id = new PRPAMT201306UVLivingSubjectId();
+    public static PRPAMT201306UV02LivingSubjectId createSubjectId(II subjectId) {
+        PRPAMT201306UV02LivingSubjectId id = new PRPAMT201306UV02LivingSubjectId();
 
         if (subjectId != null) {
             id.getValue().add(subjectId);
@@ -105,12 +105,12 @@ public class HL7QueryParamsTransforms {
         return id;
     }
 
-    public static PRPAMT201306UVLivingSubjectName createName(List<PNExplicit> patientNames) {
+    public static PRPAMT201306UV02LivingSubjectName createName(List<PNExplicit> patientNames) {
         if (patientNames.size() == 0) {
             return null;
         }
         
-        PRPAMT201306UVLivingSubjectName subjectName = new PRPAMT201306UVLivingSubjectName();
+        PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
         
         for (PNExplicit name : patientNames) {
            subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
@@ -121,8 +121,8 @@ public class HL7QueryParamsTransforms {
         return subjectName;
     }
 
-    public static PRPAMT201306UVLivingSubjectBirthTime createBirthTime(String birthTime) {
-        PRPAMT201306UVLivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UVLivingSubjectBirthTime();
+    public static PRPAMT201306UV02LivingSubjectBirthTime createBirthTime(String birthTime) {
+        PRPAMT201306UV02LivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UV02LivingSubjectBirthTime();
         IVLTSExplicit bday = new IVLTSExplicit();
 
         if (birthTime != null &&
@@ -136,8 +136,8 @@ public class HL7QueryParamsTransforms {
         return subjectBirthTime;
     }
 
-    public static PRPAMT201306UVLivingSubjectAdministrativeGender createGender(String gender) {
-        PRPAMT201306UVLivingSubjectAdministrativeGender adminGender = new PRPAMT201306UVLivingSubjectAdministrativeGender();
+    public static PRPAMT201306UV02LivingSubjectAdministrativeGender createGender(String gender) {
+        PRPAMT201306UV02LivingSubjectAdministrativeGender adminGender = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
         CE genderCode = new CE();
 
         if (gender != null &&
@@ -152,9 +152,9 @@ public class HL7QueryParamsTransforms {
         return adminGender;
     }
 
-    public static PRPAMT201306UVPatientAddress createAddress(List<ADExplicit> patientAddress)
+    public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress)
     {
-        PRPAMT201306UVPatientAddress subjectAddress = new PRPAMT201306UVPatientAddress();
+        PRPAMT201306UV02PatientAddress subjectAddress = new PRPAMT201306UV02PatientAddress();
         ST text = null;
         for (ADExplicit address : patientAddress) {
            subjectAddress.getValue().add(address);
@@ -164,9 +164,9 @@ public class HL7QueryParamsTransforms {
         return subjectAddress;
     }
 
-    public static PRPAMT201306UVPatientTelecom createTelecom(List<TELExplicit> patientTelecom)
+    public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom)
     {
-        PRPAMT201306UVPatientTelecom subjectTele = new PRPAMT201306UVPatientTelecom();
+        PRPAMT201306UV02PatientTelecom subjectTele = new PRPAMT201306UV02PatientTelecom();
         ST text = null;
         for(TELExplicit tele : patientTelecom)
         {

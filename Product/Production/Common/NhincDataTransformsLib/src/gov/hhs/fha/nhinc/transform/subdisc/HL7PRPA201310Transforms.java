@@ -8,15 +8,16 @@ import javax.xml.bind.JAXBElement;
 import org.hl7.v3.II;
 import org.hl7.v3.MFMIMT700711UV01QueryAck;
 import org.hl7.v3.PNExplicit;
-import org.hl7.v3.PRPAIN201310UV;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201310UVMFMIMT700711UV01Subject2;
-import org.hl7.v3.PRPAMT201304UVPatient;
-import org.hl7.v3.PRPAMT201304UVPerson;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
+import org.hl7.v3.PRPAIN201310UV02;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201310UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201304UV02Patient;
+import org.hl7.v3.PRPAMT201304UV02Person;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.hl7.v3.XActMoodIntentEvent;
 
 /**
  *
@@ -39,18 +40,18 @@ public class HL7PRPA201310Transforms {
     private static final String REG_EVENT_STATUS_CODE = "active";
     private static final String CONTROL_QUERY_RESPONSE_CODE = "OK";
 
-    public static PRPAIN201310UV createFaultPRPA201310() {
+    public static PRPAIN201310UV02 createFaultPRPA201310() {
         return createPRPA201310("", "", "", "", "", null);
     }
     
-    public static PRPAIN201310UV createFaultPRPA201310(String senderOID, String receiverOID) {
+    public static PRPAIN201310UV02 createFaultPRPA201310(String senderOID, String receiverOID) {
         return createPRPA201310("", "", "", senderOID, receiverOID, null);
     }
     
-    public static PRPAIN201310UV createPRPA201310(String patientId, String assigningAuthorityId, String localDeviceId, String senderOID, String receiverOID, PRPAMT201307UVQueryByParameter queryParam) {
+    public static PRPAIN201310UV02 createPRPA201310(String patientId, String assigningAuthorityId, String localDeviceId, String senderOID, String receiverOID, JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
 
         // Create Transmission header
-        PRPAIN201310UV ret201310 = createTransmissionWrapper(localDeviceId);
+        PRPAIN201310UV02 ret201310 = createTransmissionWrapper(localDeviceId);
 
         // Create the Sender
         ret201310.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
@@ -59,14 +60,14 @@ public class HL7PRPA201310Transforms {
         ret201310.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
 
         // Create the control act process
-        PRPAMT201304UVPatient patient201304 = createPRPAMT201304UVPatient(patientId, assigningAuthorityId);
+        PRPAMT201304UV02Patient patient201304 = createPRPAMT201304UVPatient(patientId, assigningAuthorityId);
         ret201310.setControlActProcess(createMFMIMT700711UV01ControlActProcess(patient201304, localDeviceId, queryParam));
 
         return ret201310;
     }
 
-    private static PRPAIN201310UV createTransmissionWrapper(String localDeviceId) {
-        PRPAIN201310UV message = new PRPAIN201310UV();
+    private static PRPAIN201310UV02 createTransmissionWrapper(String localDeviceId) {
+        PRPAIN201310UV02 message = new PRPAIN201310UV02();
 
         message.setITSVersion(HL7Constants.ITS_VERSION);
         message.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
@@ -79,10 +80,10 @@ public class HL7PRPA201310Transforms {
         return message;
     }
 
-    private static PRPAMT201304UVPatient createPRPAMT201304UVPatient(String patientId, String assigningAuthorityId) {
+    private static PRPAMT201304UV02Patient createPRPAMT201304UVPatient(String patientId, String assigningAuthorityId) {
 
-        PRPAMT201304UVPatient patient = new PRPAMT201304UVPatient();
-        patient.setClassCode(PATIENT_CLASS_CODE);
+        PRPAMT201304UV02Patient patient = new PRPAMT201304UV02Patient();
+        patient.getClassCode().add(PATIENT_CLASS_CODE);
         if(patientId != null && assigningAuthorityId != null){
         patient.getId().add(HL7DataTransformHelper.IIFactory(assigningAuthorityId, patientId));
         } else {
@@ -90,12 +91,12 @@ public class HL7PRPA201310Transforms {
         }
         patient.setStatusCode(HL7DataTransformHelper.CSFactory(STATUS_CODE_VALUE));
 
-        PRPAMT201304UVPerson patientPerson = new PRPAMT201304UVPerson();
+        PRPAMT201304UV02Person patientPerson = new PRPAMT201304UV02Person();
         // create patient person element
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201304UVPerson> patientPersonElement = new JAXBElement<PRPAMT201304UVPerson>(xmlqname, PRPAMT201304UVPerson.class, patientPerson);
+        JAXBElement<PRPAMT201304UV02Person> patientPersonElement = new JAXBElement<PRPAMT201304UV02Person>(xmlqname, PRPAMT201304UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
-        patientPerson.setClassCode(PATIENT_PERSON_CLASSCODE);
+        patientPerson.getClassCode().add(PATIENT_PERSON_CLASSCODE);
 
         patientPerson.setDeterminerCode(DETERMINER_CODE);
 
@@ -105,31 +106,38 @@ public class HL7PRPA201310Transforms {
         return patient;
     }
 
-    private static PRPAIN201310UVMFMIMT700711UV01ControlActProcess createMFMIMT700711UV01ControlActProcess(PRPAMT201304UVPatient patient201304, String localDeviceId, PRPAMT201307UVQueryByParameter queryParam) {
-        PRPAIN201310UVMFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UVMFMIMT700711UV01ControlActProcess();
+    private static PRPAIN201310UV02MFMIMT700711UV01ControlActProcess createMFMIMT700711UV01ControlActProcess(PRPAMT201304UV02Patient patient201304, String localDeviceId, JAXBElement<PRPAMT201307UV02QueryByParameter> queryParam) {
+        PRPAIN201310UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201310UV02MFMIMT700711UV01ControlActProcess();
 
-        controlActProcess.setMoodCode(CONTROL_MOOD_CODE);
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory(CONTROL_CODE_CODE));
 
-        controlActProcess.getSubject().add(createPRPAIN201310UVMFMIMT700711UV01Subject1(patient201304, localDeviceId, queryParam));
+        controlActProcess.getSubject().add(createPRPAIN201310UVMFMIMT700711UV01Subject1(patient201304, localDeviceId));
 
-        controlActProcess.setQueryAck(createMFMIMT700711UV01QueryAck(queryParam));
+        if (queryParam != null) {
+            controlActProcess.setQueryByParameter(queryParam);
+        } else {
+            controlActProcess.setQueryByParameter(createNullQueryByParameter());
+        }
+
+        controlActProcess.setQueryAck(createMFMIMT700711UV01QueryAck(controlActProcess.getQueryByParameter().getValue()));
+
         return controlActProcess;
     }
 
-    private static PRPAIN201310UVMFMIMT700711UV01Subject1 createPRPAIN201310UVMFMIMT700711UV01Subject1(PRPAMT201304UVPatient patient201304, String localDeviceId, PRPAMT201307UVQueryByParameter queryParam) {
-        PRPAIN201310UVMFMIMT700711UV01Subject1 subject1 = new PRPAIN201310UVMFMIMT700711UV01Subject1();
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject1 createPRPAIN201310UVMFMIMT700711UV01Subject1(PRPAMT201304UV02Patient patient201304, String localDeviceId) {
+        PRPAIN201310UV02MFMIMT700711UV01Subject1 subject1 = new PRPAIN201310UV02MFMIMT700711UV01Subject1();
 
         subject1.getTypeCode().add("SUBJ");
         subject1.setContextConductionInd(false);
 
-        subject1.setRegistrationEvent(createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304, localDeviceId, queryParam));
+        subject1.setRegistrationEvent(createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(patient201304, localDeviceId));
 
         return subject1;
     }
 
-    private static PRPAIN201310UVMFMIMT700711UV01RegistrationEvent createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(PRPAMT201304UVPatient patient201304, String localDeviceId, PRPAMT201307UVQueryByParameter queryParam) {
-        PRPAIN201310UVMFMIMT700711UV01RegistrationEvent regevent = new PRPAIN201310UVMFMIMT700711UV01RegistrationEvent();
+    private static PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent createPRPAIN201310UVMFMIMT700711UV01RegistrationEvent(PRPAMT201304UV02Patient patient201304, String localDeviceId) {
+        PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent regevent = new PRPAIN201310UV02MFMIMT700711UV01RegistrationEvent();
 
         regevent.getClassCode().add(REG_EVENT_CLASS_CODE);
         regevent.getMoodCode().add(REG_EVENT_MOOD_CODE);
@@ -140,38 +148,39 @@ public class HL7PRPA201310Transforms {
 
         regevent.setStatusCode(HL7DataTransformHelper.CSFactory(REG_EVENT_STATUS_CODE));
 
-        regevent.setSubject1(createPRPAIN201310UVMFMIMT700711UV01Subject2(patient201304, queryParam));
+        regevent.setSubject1(createPRPAIN201310UVMFMIMT700711UV01Subject2(patient201304));
 
         regevent.setCustodian(HL7CustodianTransforms.createMFMIMT700711UV01Custodian(localDeviceId));
 
         return regevent;
     }
 
-    private static PRPAIN201310UVMFMIMT700711UV01Subject2 createPRPAIN201310UVMFMIMT700711UV01Subject2(PRPAMT201304UVPatient patient201304, PRPAMT201307UVQueryByParameter queryParam) {
-        PRPAIN201310UVMFMIMT700711UV01Subject2 subject = new PRPAIN201310UVMFMIMT700711UV01Subject2();
+    private static PRPAIN201310UV02MFMIMT700711UV01Subject2 createPRPAIN201310UVMFMIMT700711UV01Subject2(PRPAMT201304UV02Patient patient201304) {
+        PRPAIN201310UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201310UV02MFMIMT700711UV01Subject2();
 
         subject.setPatient(patient201304);
-        if (queryParam != null) {
-            subject.setQueryByParameter(queryParam);
-        } else {
-            subject.setQueryByParameter(createNullQueryByParameter());
-        }
+
 
         return subject;
     }
 
-    private static PRPAMT201307UVQueryByParameter createNullQueryByParameter() {
-        PRPAMT201307UVQueryByParameter params = new PRPAMT201307UVQueryByParameter();
+    private static JAXBElement<PRPAMT201307UV02QueryByParameter> createNullQueryByParameter() {
+        
+        PRPAMT201307UV02QueryByParameter queryParams = new PRPAMT201307UV02QueryByParameter();
 
-        params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(null));
-        params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
+        queryParams.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(null));
+        queryParams.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
 
-        PRPAMT201307UVParameterList paramList = new PRPAMT201307UVParameterList();
-        params.setParameterList(paramList);
+        PRPAMT201307UV02ParameterList paramList = new PRPAMT201307UV02ParameterList();
+        queryParams.setParameterList(paramList);
+
+        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
+        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,PRPAMT201307UV02QueryByParameter.class,queryParams);
+
         return params;
     }
 
-    private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UVQueryByParameter queryParam) {
+    private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UV02QueryByParameter queryParam) {
         MFMIMT700711UV01QueryAck queryAck = new MFMIMT700711UV01QueryAck();
 
         if (queryParam != null) {

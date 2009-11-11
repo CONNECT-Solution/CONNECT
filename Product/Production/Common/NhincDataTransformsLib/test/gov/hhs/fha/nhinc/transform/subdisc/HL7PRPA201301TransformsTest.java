@@ -5,8 +5,8 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.hl7.v3.PRPAIN201301UV;
-import org.hl7.v3.PRPAMT201301UVPatient;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAMT201301UVPerson;
+import org.hl7.v3.PRPAMT201301UV02Person;
 
 /**
  *
@@ -62,10 +62,10 @@ public class HL7PRPA201301TransformsTest {
     @Test
     public void testCreatePRPA201301() {
         log.info("testCreatePRPA201301");
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, birthTime, ssn);
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, birthTime, ssn);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
         
-        PRPAIN201301UV result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
+        PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
         
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);
@@ -82,10 +82,10 @@ public class HL7PRPA201301TransformsTest {
     @Test
     public void testCreatePRPA201301_NoBirthTime() {
         log.info("testCreatePRPA201301_NoBirthTime");
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, null, ssn);
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, null, ssn);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
         
-        PRPAIN201301UV result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
+        PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
         
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);
@@ -102,10 +102,10 @@ public class HL7PRPA201301TransformsTest {
     @Test
     public void testCreatePRPA201301_NoSSN() {
         log.info("testCreatePRPA201301_NoSSN");
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, birthTime, null);
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, gender, birthTime, null);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
         
-        PRPAIN201301UV result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
+        PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
         
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);
@@ -122,10 +122,10 @@ public class HL7PRPA201301TransformsTest {
     @Test
     public void testCreatePRPA201301_NoGender() {
         log.info("testCreatePRPA201301_NoGender");
-        JAXBElement<PRPAMT201301UVPerson> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, null, birthTime, ssn);
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
+        JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(patientFirstName, patientLastName, null, birthTime, ssn);
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, patId, localDeviceId);
         
-        PRPAIN201301UV result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
+        PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, senderOID, receiverOID);
         
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);

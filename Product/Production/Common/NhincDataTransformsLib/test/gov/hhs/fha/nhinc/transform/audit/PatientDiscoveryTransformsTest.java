@@ -24,13 +24,13 @@ import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000300UV01Sender;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject2;
-import org.hl7.v3.PRPAMT201310UVPatient;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
@@ -203,7 +203,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        PRPAIN201305UV oPatientDiscoveryRequest = new PRPAIN201305UV();
+        PRPAIN201305UV02 oPatientDiscoveryRequest = new PRPAIN201305UV02();
         testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
         context.assertIsSatisfied();
     }
@@ -228,7 +228,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        PRPAIN201305UV oPatientDiscoveryRequest = new PRPAIN201305UV();
+        PRPAIN201305UV02 oPatientDiscoveryRequest = new PRPAIN201305UV02();
         testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
         context.assertIsSatisfied();
     }
@@ -315,7 +315,7 @@ public class PatientDiscoveryTransformsTest {
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         AssertionType oAssertionType = new AssertionType();
 
-        PRPAIN201305UV oPRPAIN201305UV = getTestPatientDiscoveryRequest();
+        PRPAIN201305UV02 oPRPAIN201305UV = getTestPatientDiscoveryRequest();
 
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
@@ -327,7 +327,7 @@ public class PatientDiscoveryTransformsTest {
         mockListII.add(mockII);
 
         oPatientDiscoveryRequest.setAssertion(oAssertionType);
-        oPatientDiscoveryRequest.setPRPAIN201305UV(oPRPAIN201305UV);
+        oPatientDiscoveryRequest.setPRPAIN201305UV02(oPRPAIN201305UV);
 
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms()
         {
@@ -336,7 +336,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion)
             {
                 return false;
             }
@@ -346,7 +346,7 @@ public class PatientDiscoveryTransformsTest {
                 return false;
             }
 
-            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
             {
                 return mockListII.get(0);
             }
@@ -376,7 +376,7 @@ public class PatientDiscoveryTransformsTest {
     public void testTransformNhinPRPAIN201305RequestToAuditMsgWillPass() {
         final Log mockLogger = context.mock(Log.class);
 
-        PRPAIN201305UV oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
+        PRPAIN201305UV02 oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
 
         UserType userInfo = getTestUserType();
         AssertionType oAssertionType = new AssertionType();
@@ -395,7 +395,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion)
             {
                 return false;
             }
@@ -405,7 +405,7 @@ public class PatientDiscoveryTransformsTest {
                 return false;
             }
 
-            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
             {
                 return mockListII.get(0);
             }
@@ -436,7 +436,7 @@ public class PatientDiscoveryTransformsTest {
     public void testTransformAdapterPRPAIN201305RequestToAuditMsgWillPass() {
         final Log mockLogger = context.mock(Log.class);
 
-        PRPAIN201305UV oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
+        PRPAIN201305UV02 oPatientDiscoveryRequest = getTestPatientDiscoveryRequest();
 
         UserType userInfo = getTestUserType();
         AssertionType oAssertionType = new AssertionType();
@@ -455,7 +455,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+            protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion)
             {
                 return false;
             }
@@ -465,7 +465,7 @@ public class PatientDiscoveryTransformsTest {
                 return false;
             }
 
-            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+            protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
             {
                 return mockListII.get(0);
             }
@@ -530,13 +530,13 @@ public class PatientDiscoveryTransformsTest {
         sender.setTypeId(typeId);
 
         //TODO mock the next 3 lines
-        PRPAIN201306UV message = new PRPAIN201306UV();
+        PRPAIN201306UV02 message = new PRPAIN201306UV02();
         message.setSender(sender);
 
         UserType userInfo = getTestUserType();
         oAssertion.setUserInfo(userInfo);
 
-        oPatientDiscoveryResponse.setPRPAIN201306UV(message);
+        oPatientDiscoveryResponse.setPRPAIN201306UV02(message);
 
         final List<II> mockListII = new ArrayList<II>();
         final II mockII = new II();
@@ -550,7 +550,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
                 return mockListII.get(0);
             }
@@ -560,7 +560,7 @@ public class PatientDiscoveryTransformsTest {
                 return false;
             }
 
-            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
             {
                 return false;
             }
@@ -602,7 +602,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
                 return mockListII.get(0);
             }
@@ -612,7 +612,7 @@ public class PatientDiscoveryTransformsTest {
                 return false;
             }
 
-            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
             {
                 return false;
             }
@@ -630,8 +630,8 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV pRPAIN201306UV = new PRPAIN201306UV();
-        final PRPAIN201306UVMFMIMT700711UV01ControlActProcess pRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UVMFMIMT700711UV01ControlActProcess();
+        final PRPAIN201306UV02 pRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess pRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         pRPAIN201306UV.setControlActProcess(pRPAIN201306UVMFMIMT700711UV01ControlActProcess);
 
@@ -664,7 +664,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+            protected boolean areRequired201306fieldsNull(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
             {
                 return true;
             }
@@ -685,7 +685,7 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV pRPAIN201306UV = new PRPAIN201306UV();
+        final PRPAIN201306UV02 pRPAIN201306UV = new PRPAIN201306UV02();
 
         LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType);
 
@@ -721,7 +721,7 @@ public class PatientDiscoveryTransformsTest {
         userInfo.setUserName(null);
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+        final PRPAIN201306UV02 oPatientDiscoveryResponseMessage = new PRPAIN201306UV02();
 
         boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
 
@@ -762,7 +762,7 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+        final PRPAIN201306UV02 oPatientDiscoveryResponseMessage = new PRPAIN201306UV02();
 
         boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
 
@@ -787,7 +787,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
                 return mockListII.get(0);
             }
@@ -806,7 +806,7 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+        final PRPAIN201306UV02 oPatientDiscoveryResponseMessage = new PRPAIN201306UV02();
 
         boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
 
@@ -831,7 +831,7 @@ public class PatientDiscoveryTransformsTest {
                 return mockLogger;
             }
 
-            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+            protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
             {
                 return mockListII.get(0);
             }
@@ -850,7 +850,7 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201306UV oPatientDiscoveryResponseMessage = new PRPAIN201306UV();
+        final PRPAIN201306UV02 oPatientDiscoveryResponseMessage = new PRPAIN201306UV02();
 
         boolean bExpectedResult = testSubject.areRequired201306fieldsNull(oPatientDiscoveryResponseMessage, oAssertionType);
 
@@ -966,12 +966,12 @@ public class PatientDiscoveryTransformsTest {
         };
         context.checking(oExpectation);
 
-        final PRPAIN201306UV oPRPAIN201306UV = new PRPAIN201306UV();
-        final PRPAIN201306UVMFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UVMFMIMT700711UV01ControlActProcess();
-        final PRPAIN201306UVMFMIMT700711UV01Subject1 oPRPAIN201306UVMFMIMT700711UV01Subject1 = new PRPAIN201306UVMFMIMT700711UV01Subject1();
-        final PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent = new PRPAIN201306UVMFMIMT700711UV01RegistrationEvent();
-        final PRPAIN201306UVMFMIMT700711UV01Subject2 oPRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UVMFMIMT700711UV01Subject2();
-        final PRPAMT201310UVPatient oPRPAMT201310UVPatient = new PRPAMT201310UVPatient();
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        final PRPAIN201306UV02MFMIMT700711UV01Subject1 oPRPAIN201306UVMFMIMT700711UV01Subject1 = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
+        final PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
+        final PRPAIN201306UV02MFMIMT700711UV01Subject2 oPRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
+        final PRPAMT201310UV02Patient oPRPAMT201310UVPatient = new PRPAMT201310UV02Patient();
         final II oII = new II();
         oPRPAMT201310UVPatient.getId().add(oII);
         oPRPAIN201306UVMFMIMT700711UV01Subject2.setPatient(oPRPAMT201310UVPatient);
@@ -1114,7 +1114,7 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertionType.setUserInfo(userInfo);
 
-        final PRPAIN201305UV oPatientDiscoveryRequestMessage = new PRPAIN201305UV();
+        final PRPAIN201305UV02 oPatientDiscoveryRequestMessage = new PRPAIN201305UV02();
 
         boolean bExpectedResult = testSubject.areRequired201305fieldsNull(oPatientDiscoveryRequestMessage, oAssertionType);
 
@@ -1154,14 +1154,14 @@ public class PatientDiscoveryTransformsTest {
         return expResult;
     }
 
-    private PRPAIN201305UV getTestPatientDiscoveryRequest() {
+    private PRPAIN201305UV02 getTestPatientDiscoveryRequest() {
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
         II typeId = new II();
         typeId.setRoot("2.16.840.1.113883.3.200");
         typeId.setExtension("11111");
         sender.setTypeId(typeId);
 
-        PRPAIN201305UV oPatientDiscoveryRequest = new PRPAIN201305UV();
+        PRPAIN201305UV02 oPatientDiscoveryRequest = new PRPAIN201305UV02();
         oPatientDiscoveryRequest.setSender(sender);
         oPatientDiscoveryRequest.setTypeId(typeId);
 
@@ -1187,7 +1187,7 @@ public class PatientDiscoveryTransformsTest {
                 return new EventIdentificationType();
             }
 
-            protected void marshalPatientDiscoveryMessage(ByteArrayOutputStream baOutStrm, PRPAIN201305UV oPatientDiscoveryRequestMessage) throws RuntimeException {
+            protected void marshalPatientDiscoveryMessage(ByteArrayOutputStream baOutStrm, PRPAIN201305UV02 oPatientDiscoveryRequestMessage) throws RuntimeException {
             }
 
             protected ActiveParticipant getActiveParticipant(UserType oUserInfo) {

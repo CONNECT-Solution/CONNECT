@@ -18,7 +18,6 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectAddedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevisedRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.LogSubjectRevokedRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogNhinSubjectDiscoveryAckRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogSubjectReidentificationResponseType;
@@ -73,10 +72,10 @@ public class SubjectDiscoveryTransforms {
 
         if (message != null &&
                 message.getMessage() != null &&
-                message.getMessage().getPRPAIN201301UV() != null) {
-            PRPAMT201301UVPatient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201301UV());
+                message.getMessage().getPRPAIN201301UV02() != null) {
+            PRPAMT201301UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201301UV02());
             communityId = patient.getId().get(0).getRoot();
-            patientId = message.getMessage().getPRPAIN201301UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
+            patientId = message.getMessage().getPRPAIN201301UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
             patientId = AuditDataTransformHelper.createCompositePatientId(communityId, patientId);
 
         }
@@ -103,7 +102,7 @@ public class SubjectDiscoveryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getPRPAIN201301UV(), baOutStrm);
+            marshaller.marshal(message.getMessage().getPRPAIN201301UV02(), baOutStrm);
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -159,10 +158,10 @@ public class SubjectDiscoveryTransforms {
 
         if (message != null &&
                 message.getMessage() != null &&
-                message.getMessage().getPRPAIN201302UV() != null) {
-            PRPAMT201302UVPatient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201302UV());
+                message.getMessage().getPRPAIN201302UV02() != null) {
+            PRPAMT201302UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201302UV02());
             communityId = patient.getId().get(0).getRoot();
-            patientId = message.getMessage().getPRPAIN201302UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
+            patientId = message.getMessage().getPRPAIN201302UV02().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
             patientId = AuditDataTransformHelper.createCompositePatientId(communityId, patientId);
 
         }
@@ -189,7 +188,7 @@ public class SubjectDiscoveryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getPRPAIN201302UV(), baOutStrm);
+            marshaller.marshal(message.getMessage().getPRPAIN201302UV02(), baOutStrm);
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -206,93 +205,7 @@ public class SubjectDiscoveryTransforms {
         return response;
     }
 
-    public static LogEventRequestType transformPRPA2013032AuditMsg(LogSubjectRevokedRequestType message) {
-        AuditMessageType auditMsg = new AuditMessageType();
-        LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
-
-        log.info("******************************************************************");
-        log.info("Entering transformPRPA2013032AuditMsg() method.");
-        log.info("******************************************************************");
-
-        // Extract UserInfo from Message.Assertion
-        UserType userInfo = new UserType();
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getAssertion() != null &&
-                message.getMessage().getAssertion().getUserInfo() != null) {
-            userInfo = message.getMessage().getAssertion().getUserInfo();
-        }
-
-        // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
-        eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SDD, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SDDEL, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SDD, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SDDEL);
-        auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_DELETE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
-
-
-        // Create Active Participant Section   
-        if (message != null) {
-            AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
-            auditMsg.getActiveParticipant().add(participant);
-        }
-
-        /* Assign AuditSourceIdentification */
-        String communityId = "";
-        String communityName = "";
-        String patientId = "";
-
-        if (message != null &&
-                message.getMessage() != null &&
-                message.getMessage().getPRPAIN201303UV() != null) {
-            PRPAMT201305UVPatient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201303UV());
-            communityId = patient.getId().get(0).getRoot();
-            patientId = message.getMessage().getPRPAIN201303UV().getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension();
-            patientId = AuditDataTransformHelper.createCompositePatientId(communityId, patientId);
-
-        }
-
-        if (userInfo != null &&
-                userInfo.getOrg() != null) {
-            if (userInfo.getOrg().getHomeCommunityId() != null) {
-                communityId = userInfo.getOrg().getHomeCommunityId();
-            }
-            if (userInfo.getOrg().getName() != null) {
-                communityName = userInfo.getOrg().getName();
-            }
-        }
-
-
-        AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
-        auditMsg.getAuditSourceIdentification().add(auditSource);
-
-        /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper.createParticipantObjectIdentification(patientId);
-
-        // Fill in the message field with the contents of the event message
-        try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
-            Marshaller marshaller = jc.createMarshaller();
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getPRPAIN201303UV(), baOutStrm);
-
-            participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
-
-        log.info("******************************************************************");
-        log.info("Exiting transformPRPA2013032AuditMsg() method.");
-        log.info("******************************************************************");
-
-        response.setAuditMessage(auditMsg);
-        return response;
-    }
-
-    public static LogEventRequestType transformAck2AuditMsg(LogNhinSubjectDiscoveryAckRequestType message) {
+       public static LogEventRequestType transformAck2AuditMsg(LogNhinSubjectDiscoveryAckRequestType message) {
 
         log.info("******************************************************************");
         log.info("Entering transformAck2AuditMsg() method.");
@@ -417,17 +330,17 @@ public class SubjectDiscoveryTransforms {
 
         if (message != null &&
                 message.getMessage() != null &&
-                message.getMessage().getPRPAIN201309UV() != null) {
+                message.getMessage().getPRPAIN201309UV02() != null) {
             log.debug("201309 is not null");
-            if (message.getMessage().getPRPAIN201309UV().getControlActProcess() != null &&
-                    message.getMessage().getPRPAIN201309UV().getControlActProcess().getQueryByParameter() != null) {
+            if (message.getMessage().getPRPAIN201309UV02().getControlActProcess() != null &&
+                    message.getMessage().getPRPAIN201309UV02().getControlActProcess().getQueryByParameter() != null) {
                 log.debug("querybyparameter is not null");
-                PRPAMT201307UVQueryByParameter parameter = message.getMessage().getPRPAIN201309UV().getControlActProcess().getQueryByParameter().getValue();
+                PRPAMT201307UV02QueryByParameter parameter = message.getMessage().getPRPAIN201309UV02().getControlActProcess().getQueryByParameter().getValue();
                 if (parameter.getParameterList() != null &&
                         parameter.getParameterList().getPatientIdentifier() != null &&
                         parameter.getParameterList().getPatientIdentifier().size() > 0) {
                     log.debug("parameterList has " + parameter.getParameterList().getPatientIdentifier().size() + " element(s)");
-                    org.hl7.v3.PRPAMT201307UVPatientIdentifier patient = parameter.getParameterList().getPatientIdentifier().get(0);
+                    org.hl7.v3.PRPAMT201307UV02PatientIdentifier patient = parameter.getParameterList().getPatientIdentifier().get(0);
                     if (patient.getValue() != null &&
                             patient.getValue().size() > 0) {
                         communityId = patient.getValue().get(0).getRoot();
@@ -461,7 +374,7 @@ public class SubjectDiscoveryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getPRPAIN201309UV(), baOutStrm);
+            marshaller.marshal(message.getMessage().getPRPAIN201309UV02(), baOutStrm);
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -516,8 +429,8 @@ public class SubjectDiscoveryTransforms {
 
         if (message != null &&
                 message.getMessage() != null &&
-                message.getMessage().getPRPAIN201310UV() != null) {
-            PRPAMT201304UVPatient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201310UV());
+                message.getMessage().getPRPAIN201310UV02() != null) {
+            PRPAMT201304UV02Patient patient = HL7Extractors.ExtractHL7PatientFromMessage(message.getMessage().getPRPAIN201310UV02());
             communityId = patient.getId().get(0).getRoot();
             patientId = patient.getId().get(0).getExtension();
             patientId = AuditDataTransformHelper.createCompositePatientId(communityId, patientId);
@@ -546,7 +459,7 @@ public class SubjectDiscoveryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getPRPAIN201310UV(), baOutStrm);
+            marshaller.marshal(message.getMessage().getPRPAIN201310UV02(), baOutStrm);
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {

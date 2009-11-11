@@ -12,7 +12,7 @@ import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Sender;
-import org.hl7.v3.PRPAIN201305UV;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -139,7 +139,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
     }
 
     protected HomeCommunityType getHomeCommunityType(RespondingGatewayPRPAIN201305UV02RequestType event) {
-        PRPAIN201305UV request201305 = new PRPAIN201305UV();
+        PRPAIN201305UV02 request201305 = new PRPAIN201305UV02();
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
         MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
         II e = new II();
@@ -147,7 +147,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         device.getId().add(e);
         sender.setDevice(device);
         request201305.setSender(sender);
-        event.setPRPAIN201305UV(request201305);
+        event.setPRPAIN201305UV02(request201305);
         final HomeCommunityType expectedReturnvalue = new HomeCommunityType();
         expectedReturnvalue.setHomeCommunityId("1.1");
         return expectedReturnvalue;

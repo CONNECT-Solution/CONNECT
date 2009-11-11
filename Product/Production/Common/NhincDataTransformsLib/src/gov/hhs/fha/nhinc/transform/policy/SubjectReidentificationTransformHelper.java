@@ -13,10 +13,10 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201309UV;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVPatientIdentifier;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 
 /**
  *
@@ -33,7 +33,7 @@ public class SubjectReidentificationTransformHelper {
     public static CheckPolicyRequestType transformSubjectReidentificationToCheckPolicy(SubjectReidentificationEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         SubjectReidentificationMessageType message = event.getMessage();
-        PRPAIN201309UV subjectReidentification = message.getPRPAIN201309UV();
+        PRPAIN201309UV02 subjectReidentification = message.getPRPAIN201309UV02();
         RequestType request = new RequestType();
         if (event.getDirection() != null) {
             System.out.println("event.getDirection() is " + event.getDirection());
@@ -71,13 +71,13 @@ public class SubjectReidentificationTransformHelper {
      * @param message
      * @return II (PatientId root and extension)
      */
-    private static II extractPatientIdentifier(PRPAIN201309UV message) {
+    private static II extractPatientIdentifier(PRPAIN201309UV02 message) {
         II ii = null;
-        PRPAMT201307UVQueryByParameter queryByParameter = null;
-        PRPAMT201307UVParameterList parameterList = null;
-        PRPAMT201307UVPatientIdentifier patientIdentifier = null;
+        PRPAMT201307UV02QueryByParameter queryByParameter = null;
+        PRPAMT201307UV02ParameterList parameterList = null;
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = null;
         if ((message != null) && (message.getControlActProcess() != null)) {
-            JAXBElement<PRPAMT201307UVQueryByParameter> queryByParamterElement = message.getControlActProcess().getQueryByParameter();
+            JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParamterElement = message.getControlActProcess().getQueryByParameter();
             if (null != queryByParamterElement) {
                 queryByParameter = queryByParamterElement.getValue();
                 if (null != queryByParameter) {

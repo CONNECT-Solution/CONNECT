@@ -25,17 +25,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201305UVQUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01ControlActProcess;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01RegistrationEvent;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject1;
-import org.hl7.v3.PRPAIN201306UVMFMIMT700711UV01Subject2;
-import org.hl7.v3.PRPAMT201306UVLivingSubjectId;
-import org.hl7.v3.PRPAMT201306UVParameterList;
-import org.hl7.v3.PRPAMT201306UVQueryByParameter;
-import org.hl7.v3.PRPAMT201310UVPatient;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
@@ -71,7 +71,7 @@ public class PatientDiscoveryTransforms {
     * @param message
     * @return
     */
-    private LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+    private LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         
@@ -167,8 +167,8 @@ public class PatientDiscoveryTransforms {
   
     }
 
-    protected PRPAIN201306UVMFMIMT700711UV01RegistrationEvent getRegistrationEventFromSubject(List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1) {
-        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+    protected PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent getRegistrationEventFromSubject(List<PRPAIN201306UV02MFMIMT700711UV01Subject1> oSubject1) {
+        PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
         return oRegistrationEvent;
     }
 
@@ -179,7 +179,7 @@ public class PatientDiscoveryTransforms {
      * @param oRequest
      * @return
      */
-    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         AuditMessageType oAuditMessageType = null;
@@ -265,8 +265,8 @@ public class PatientDiscoveryTransforms {
         return oReturnLogEventRequestType;
     }
 
-     protected PRPAMT201310UVPatient getPatient(PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2) {
-        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+     protected PRPAMT201310UV02Patient getPatient(PRPAIN201306UV02MFMIMT700711UV01Subject2 oSubject2) {
+        PRPAMT201310UV02Patient oPatient = oSubject2.getPatient();
         return oPatient;
     }
 
@@ -279,7 +279,7 @@ public class PatientDiscoveryTransforms {
     public LogEventRequestType transformEntityPRPAIN201305RequestToAuditMsg(RespondingGatewayPRPAIN201305UV02RequestType oRequest, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
-        PRPAIN201305UV oPatientDiscoveryRequestMessage = null;
+        PRPAIN201305UV02 oPatientDiscoveryRequestMessage = null;
 
         addLogInfo("***************************************************************");
         addLogInfo("Entering transformEntityPRPAIN201305RequestToAuditMsg() method.");
@@ -292,7 +292,7 @@ public class PatientDiscoveryTransforms {
         }
         else
         {
-            oPatientDiscoveryRequestMessage = oRequest.getPRPAIN201305UV();
+            oPatientDiscoveryRequestMessage = oRequest.getPRPAIN201305UV02();
         }
 
         if ((oPatientDiscoveryRequestMessage == null) && (oAssertion == null))
@@ -329,7 +329,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
 //        PRPAIN201305UV oPatientDiscoveryRequestMessage = null;
@@ -378,7 +378,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -429,7 +429,7 @@ public class PatientDiscoveryTransforms {
     public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
-          PRPAIN201306UV oPatientDiscoveryResponseMessage = null;
+          PRPAIN201306UV02 oPatientDiscoveryResponseMessage = null;
 
           addLogInfo("****************************************************************");
           addLogInfo("Entering transformEntityPRPAIN201306ResponseToAuditMsg() method.");
@@ -442,7 +442,7 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oPatientDiscoveryResponseMessage = oRequest.getPRPAIN201306UV();
+              oPatientDiscoveryResponseMessage = oRequest.getPRPAIN201306UV02();
           }
 
           if (oPatientDiscoveryResponseMessage == null)
@@ -484,7 +484,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV oResponseMessage, AssertionType oAssertion)
+    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -531,7 +531,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV oResponseMessage, AssertionType oAssertion)
+    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -645,14 +645,14 @@ public class PatientDiscoveryTransforms {
         }
     }
 
-    protected II getHL7IdentifiersFromRequest(PRPAIN201305UV oPatientDiscoveryRequestMessage)
+    protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
     {
         if (oPatientDiscoveryRequestMessage == null)
         {
             addLogError("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
             return null;
         }
-        PRPAIN201305UVQUQIMT021001UV01ControlActProcess oControlActProcess =
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess oControlActProcess =
                     oPatientDiscoveryRequestMessage.getControlActProcess();
         if (oControlActProcess == null)
         {
@@ -660,7 +660,7 @@ public class PatientDiscoveryTransforms {
             return null;
         }
 
-        JAXBElement<PRPAMT201306UVQueryByParameter> oQueryByParameter =
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter =
                 oControlActProcess.getQueryByParameter();
         if (oQueryByParameter == null)
         {
@@ -668,7 +668,7 @@ public class PatientDiscoveryTransforms {
             return null;
         }
 
-        PRPAMT201306UVParameterList oParamList =
+        PRPAMT201306UV02ParameterList oParamList =
                 oQueryByParameter.getValue().getParameterList();
         if (oParamList == null)
         {
@@ -676,7 +676,7 @@ public class PatientDiscoveryTransforms {
             return null;
         }
 
-        List<PRPAMT201306UVLivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
+        List<PRPAMT201306UV02LivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
         if (oLivingSubjectId == null)
         {
             addLogError("The LivingSubjectId object was missing from the request");
@@ -725,7 +725,7 @@ public class PatientDiscoveryTransforms {
      * @param oPatientDiscoveryRequestMessage
      * @return
      */
-    protected boolean areRequired201305fieldsNull(PRPAIN201305UV oPatientDiscoveryRequestMessage, AssertionType oAssertion) {
+    protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion) {
         boolean bReturnVal = false;
 
         //check the userInfo object from the assertion object
@@ -753,7 +753,7 @@ public class PatientDiscoveryTransforms {
         return bReturnVal;
     }
 
-    protected boolean areRequired201306fieldsNull(PRPAIN201306UV oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+    protected boolean areRequired201306fieldsNull(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
     {
          boolean bReturnVal = false;
 
@@ -848,7 +848,7 @@ public class PatientDiscoveryTransforms {
         return bReturnVal;
     }
 
-    protected II getHL7IdentitiersFromResponse(PRPAIN201306UV oPatientDiscoveryResponseMessage)
+    protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
     {
         if (oPatientDiscoveryResponseMessage == null)
         {
@@ -856,7 +856,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        PRPAIN201306UVMFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oControlActProcess = oPatientDiscoveryResponseMessage.getControlActProcess();
 
         if (oControlActProcess == null)
         {
@@ -864,7 +864,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        List<PRPAIN201306UVMFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
+        List<PRPAIN201306UV02MFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
 
         if ((oSubject1 == null) || (oSubject1.size() < 1))
         {
@@ -872,7 +872,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
+        PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent oRegistrationEvent = oSubject1.get(0).getRegistrationEvent();
 
         if (oRegistrationEvent == null)
         {
@@ -880,7 +880,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        PRPAIN201306UVMFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
+        PRPAIN201306UV02MFMIMT700711UV01Subject2 oSubject2 = oRegistrationEvent.getSubject1();
 
         if (oSubject2 == null)
         {
@@ -888,7 +888,7 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        PRPAMT201310UVPatient oPatient = oSubject2.getPatient();
+        PRPAMT201310UV02Patient oPatient = oSubject2.getPatient();
 
         if (oPatient == null)
         {

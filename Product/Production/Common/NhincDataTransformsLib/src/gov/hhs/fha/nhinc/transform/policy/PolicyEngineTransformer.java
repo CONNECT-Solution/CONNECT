@@ -13,7 +13,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -31,10 +30,6 @@ public class PolicyEngineTransformer {
 
     public CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest) {
         return SubjectRevisedTransformHelper.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformSubjectRevokedToCheckPolicy(SubjectRevokedEventType transformSubjectRevokedToCheckPolicyRequest) {
-        return SubjectRevokedTransformHelper.transformSubjectRevokedToCheckPolicy(transformSubjectRevokedToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {

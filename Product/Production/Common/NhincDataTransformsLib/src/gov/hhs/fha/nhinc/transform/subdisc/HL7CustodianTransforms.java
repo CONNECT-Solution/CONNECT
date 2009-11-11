@@ -5,7 +5,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import org.hl7.v3.COCTMT090003UVAssignedEntity;
+import org.hl7.v3.COCTMT090003UV01AssignedEntity;
 import org.hl7.v3.MFMIMT700701UV01Custodian;
 import org.hl7.v3.MFMIMT700711UV01Custodian;
 
@@ -27,8 +27,8 @@ public class HL7CustodianTransforms {
         return custodian;
     }
 
-    public static COCTMT090003UVAssignedEntity createCOCTMT090003UVAssignedEntity(String localDeviceId) {
-        COCTMT090003UVAssignedEntity entity = new COCTMT090003UVAssignedEntity();
+    public static COCTMT090003UV01AssignedEntity createCOCTMT090003UVAssignedEntity(String localDeviceId) {
+        COCTMT090003UV01AssignedEntity entity = new COCTMT090003UV01AssignedEntity();
 
         if (NullChecker.isNullish(localDeviceId)) {
             localDeviceId = getDefaultLocalDeviceId();

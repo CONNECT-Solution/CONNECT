@@ -11,8 +11,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201301UV;
-import org.hl7.v3.PRPAIN201301UVMFMIMT700701UV01Subject1;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
 
 /**
  *
@@ -32,7 +32,7 @@ public class SubjectAddedTransformHelper {
     public static CheckPolicyRequestType transformSubjectAddedInToCheckPolicy(SubjectAddedEventType event) {
         log.debug("begin transformSubjectAddedInToCheckPolicy");
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
-        PRPAIN201301UV subjectAdded = event.getMessage().getPRPAIN201301UV();
+        PRPAIN201301UV02 subjectAdded = event.getMessage().getPRPAIN201301UV02();
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
 
@@ -65,12 +65,12 @@ public class SubjectAddedTransformHelper {
         return genericPolicyRequest;
     }
 
-    private static II extractPatientIdentifier(PRPAIN201301UV message) {
+    private static II extractPatientIdentifier(PRPAIN201301UV02 message) {
         II ii = null;
 
         if ((message != null) && (message.getControlActProcess() != null)) {
             if (message.getControlActProcess().getSubject().size() >= 1) {
-                PRPAIN201301UVMFMIMT700701UV01Subject1 subject;
+                PRPAIN201301UV02MFMIMT700701UV01Subject1 subject;
                 subject = message.getControlActProcess().getSubject().get(0);
                 //todo: check each sub-class for null
                 ii = subject.getRegistrationEvent().getSubject1().getPatient().getId().get(0);

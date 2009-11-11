@@ -5,19 +5,19 @@
 
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import javax.xml.bind.JAXBElement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAMT201307UVQueryByParameter;
+import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 import org.hl7.v3.II;
 import org.hl7.v3.CS;
-import org.hl7.v3.PRPAIN201310UV;
+import org.hl7.v3.PRPAIN201310UV02;
 import org.hl7.v3.ST;
-import org.hl7.v3.PRPAMT201307UVParameterList;
-import org.hl7.v3.PRPAMT201307UVPatientIdentifier;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 
 /**
  *
@@ -62,19 +62,22 @@ public class HL7PRPA201310TransformsTest {
         
         String pidValue = "Pat_Id";
         
-        PRPAMT201307UVPatientIdentifier pid = new PRPAMT201307UVPatientIdentifier();
+        PRPAMT201307UV02PatientIdentifier pid = new PRPAMT201307UV02PatientIdentifier();
         pid.setSemanticsText(semantics);
         pid.getValue().add(HL7DataTransformHelper.IIFactory(pidValue));
         
-        PRPAMT201307UVParameterList pList = new PRPAMT201307UVParameterList();
+        PRPAMT201307UV02ParameterList pList = new PRPAMT201307UV02ParameterList();
         pList.getPatientIdentifier().add(pid);
-        
-        PRPAMT201307UVQueryByParameter queryParam = new PRPAMT201307UVQueryByParameter();
+
+        PRPAMT201307UV02QueryByParameter queryParam = new PRPAMT201307UV02QueryByParameter();
         queryParam.setQueryId(queryId);
         queryParam.setStatusCode(statusCode);
         queryParam.setParameterList(pList);
+
+        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
+        JAXBElement<PRPAMT201307UV02QueryByParameter> params = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname,PRPAMT201307UV02QueryByParameter.class,queryParam);
         
-        PRPAIN201310UV result = HL7PRPA201310Transforms.createPRPA201310(patientId, assigningAuthorityId, localDeviceId, senderOID, receiverOID, queryParam);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createPRPA201310(patientId, assigningAuthorityId, localDeviceId, senderOID, receiverOID, params);
         
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);
@@ -89,13 +92,13 @@ public class HL7PRPA201310TransformsTest {
     public void testCreateNullPRPA201310() {
         log.info("testCreateNullPRPA201310");
         
-        PRPAIN201310UV result = HL7PRPA201310Transforms.createPRPA201310(null, null, null, null, null, null);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createPRPA201310(null, null, null, null, null, null);
     
         TestHelper.assertReceiverIdEquals("", result);
         TestHelper.assertSenderIdEquals("", result);
         TestHelper.assertPatientIdEquals("", "", HL7Constants.DEFAULT_LOCAL_DEVICE_ID, result);
         
-        PRPAMT201307UVQueryByParameter queryParam = new PRPAMT201307UVQueryByParameter();
+        PRPAMT201307UV02QueryByParameter queryParam = new PRPAMT201307UV02QueryByParameter();
         TestHelper.assertQueryParam(queryParam, result);
     }
     
@@ -108,13 +111,13 @@ public class HL7PRPA201310TransformsTest {
         
         String senderOID = "Sender1";
         String receiverOID = "Receiver1";
-        PRPAIN201310UV result = HL7PRPA201310Transforms.createFaultPRPA201310(senderOID, receiverOID);
+        PRPAIN201310UV02 result = HL7PRPA201310Transforms.createFaultPRPA201310(senderOID, receiverOID);
     
         TestHelper.assertReceiverIdEquals(receiverOID, result);
         TestHelper.assertSenderIdEquals(senderOID, result);
         TestHelper.assertPatientIdEquals("", "", HL7Constants.DEFAULT_LOCAL_DEVICE_ID, result);
         
-        PRPAMT201307UVQueryByParameter queryParam = new PRPAMT201307UVQueryByParameter();
+        PRPAMT201307UV02QueryByParameter queryParam = new PRPAMT201307UV02QueryByParameter();
         TestHelper.assertQueryParam(queryParam, result);
     }
 }
