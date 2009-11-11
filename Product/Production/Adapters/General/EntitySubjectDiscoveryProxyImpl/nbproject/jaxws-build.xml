@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-EntitySubjectDiscoverySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/EntitySubjectDiscoverySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubjectdiscoverysecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntitySubjectDiscoverySecured"/>
 </project>

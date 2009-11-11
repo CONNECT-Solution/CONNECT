@@ -16,8 +16,6 @@ import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVSecuredRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201304UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201304UVSecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
@@ -71,7 +69,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
 
             PIXConsumerPRPAIN201301UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201301UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            securedReq.setPRPAIN201301UV(request.getPRPAIN201301UV());
+            securedReq.setPRPAIN201301UV02(request.getPRPAIN201301UV02());
             response = entitySecuredPort.pixConsumerPRPAIN201301UV(securedReq);
 
         } catch (Exception ex) {
@@ -90,30 +88,11 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
 
             PIXConsumerPRPAIN201302UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201302UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            securedReq.setPRPAIN201302UV(request.getPRPAIN201302UV());
+            securedReq.setPRPAIN201302UV02(request.getPRPAIN201302UV02());
             response = entitySecuredPort.pixConsumerPRPAIN201302UV(securedReq);
 
         } catch (Exception ex) {
             String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201302UV.  Error: " +
-                    ex.getMessage();
-            log.error(message, ex);
-            throw new RuntimeException(message, ex);
-        }
-        return response;
-    }
-
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType request) {
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
-        try {
-            EntitySubjectDiscoverySecuredPortType entitySecuredPort = getEntitySubjectDiscoveryPort(request.getAssertion());
-
-            PIXConsumerPRPAIN201303UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201303UVSecuredRequestType();
-            securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            securedReq.setPRPAIN201303UV(request.getPRPAIN201303UV());
-            response = entitySecuredPort.pixConsumerPRPAIN201303UV(securedReq);
-
-        } catch (Exception ex) {
-            String message = "Error occurred calling EntitySubjectDiscoveryWebServiceProxy.pixConsumerPRPAIN201303UV.  Error: " +
                     ex.getMessage();
             log.error(message, ex);
             throw new RuntimeException(message, ex);
@@ -128,7 +107,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
 
             PIXConsumerPRPAIN201304UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201304UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            securedReq.setPRPAIN201304UV(request.getPRPAIN201304UV());
+            securedReq.setPRPAIN201304UV02(request.getPRPAIN201304UV02());
             response = entitySecuredPort.pixConsumerPRPAIN201304UV(securedReq);
 
         } catch (Exception ex) {
@@ -147,7 +126,7 @@ public class EntitySubjectDiscoveryWebServiceProxy implements EntitySubjectDisco
 
             PIXConsumerPRPAIN201309UVSecuredRequestType securedReq = new PIXConsumerPRPAIN201309UVSecuredRequestType();
             securedReq.setNhinTargetCommunities(request.getNhinTargetCommunities());
-            securedReq.setPRPAIN201309UV(request.getPRPAIN201309UV());
+            securedReq.setPRPAIN201309UV02(request.getPRPAIN201309UV02());
             response = entitySecuredPort.pixConsumerPRPAIN201309UV(securedReq);
 
         } catch (Exception ex) {
