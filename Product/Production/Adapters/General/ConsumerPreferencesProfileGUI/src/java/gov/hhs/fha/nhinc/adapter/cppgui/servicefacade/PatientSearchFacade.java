@@ -21,10 +21,10 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.util.ArrayList;
 import java.util.List;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201310UVPatient;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
  *
@@ -38,11 +38,11 @@ public class PatientSearchFacade {
 
         List<PatientVO> patientVOs = null;
 
-        PRPAIN201305UV searchRequest = createPRPAMT201301UVPatient(patientSearchCriteria);
+        PRPAIN201305UV02 searchRequest = createPRPAMT201301UVPatient(patientSearchCriteria);
 
         AdapterMpiProxy mpiProxy = getAdapterMpiProxy();
 
-        PRPAIN201306UV patients = mpiProxy.findCandidates(searchRequest);
+        PRPAIN201306UV02 patients = mpiProxy.findCandidates(searchRequest);
 
         Patients mpiPatients = convertPRPAIN201306UVToPatients(patients);
 
@@ -56,13 +56,13 @@ public class PatientSearchFacade {
      * @param patientSearchCriteria
      * @return
      */
-    private PRPAIN201305UV createPRPAMT201301UVPatient(PatientSearchCriteria patientSearchCriteria) {
+    private PRPAIN201305UV02 createPRPAMT201301UVPatient(PatientSearchCriteria patientSearchCriteria) {
 
         II patId = new II();
         patId.setExtension(patientSearchCriteria.getPatientID());
         patId.setRoot(patientSearchCriteria.getAssigningAuthorityID());
-        PRPAMT201301UVPatient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(patientSearchCriteria.getFirstName(), patientSearchCriteria.getLastName(), null, null, null), patId);
-        PRPAIN201305UV searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getAssigningAuthorityID());
+        PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(HL7PatientTransforms.create201301PatientPerson(patientSearchCriteria.getFirstName(), patientSearchCriteria.getLastName(), null, null, null), patId);
+        PRPAIN201305UV02 searchPat = HL7PRPA201305Transforms.createPRPA201305(patient, patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getOrganizationID(), patientSearchCriteria.getAssigningAuthorityID());
         return searchPat;
     }
 
@@ -81,7 +81,7 @@ public class PatientSearchFacade {
      * @param patients
      * @return
      */
-    private Patients convertPRPAIN201306UVToPatients(PRPAIN201306UV patients) {
+    private Patients convertPRPAIN201306UVToPatients(PRPAIN201306UV02 patients) {
         Patients mpiPatients = new Patients();
         Patient searchPatient = new Patient();
 
@@ -92,7 +92,7 @@ public class PatientSearchFacade {
                 patients.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
                 patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
                 patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null) {
-            PRPAMT201310UVPatient mpiPatResult = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
+            PRPAMT201310UV02Patient mpiPatResult = patients.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient();
 
             if (NullChecker.isNotNullish(mpiPatResult.getId()) &&
                     mpiPatResult.getId().get(0) != null &&
