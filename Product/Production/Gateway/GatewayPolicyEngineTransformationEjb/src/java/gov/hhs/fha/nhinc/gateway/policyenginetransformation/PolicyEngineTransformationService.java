@@ -2,20 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package gov.hhs.fha.nhinc.gateway.policyenginetransformation;
 
-import gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 /**
  *
- * @author rayj
+ * @author jhoppesc
  */
 @WebService(serviceName = "NhincComponentInternalPolicyEngineTransformService", portName = "NhincInternalComponentPolicyEngineTransformPort", endpointInterface = "gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform.NhincInternalComponentPolicyEngineTransformPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincinternalcomponentpolicyenginetransform", wsdlLocation = "META-INF/wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl")
 @Stateless
-public class PolicyEngineTransformationService implements NhincInternalComponentPolicyEngineTransformPortType {
+public class PolicyEngineTransformationService {
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectAddedToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
@@ -25,11 +25,6 @@ public class PolicyEngineTransformationService implements NhincInternalComponent
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformSubjectRevisedToCheckPolicy(transformSubjectRevisedToCheckPolicyRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevokedToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType transformSubjectRevokedToCheckPolicyRequest) {
-        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
-        return policyTransformer.transformSubjectRevokedToCheckPolicy(transformSubjectRevokedToCheckPolicyRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformAdhocQueryToCheckPolicy(gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
@@ -76,4 +71,5 @@ public class PolicyEngineTransformationService implements NhincInternalComponent
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }
+
 }
