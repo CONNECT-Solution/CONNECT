@@ -15,7 +15,6 @@ import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201304UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
@@ -55,22 +54,6 @@ public class AdapterSubjectDiscoveryWebServiceProxy
             AdapterSubjectDiscoverySecuredPortType port = getPort(url, request.getAssertion());
 
             ack = port.pixConsumerPRPAIN201302UV(request);
-        }
-
-        return ack;
-    }
-
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType request) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-
-        // Get the URL to the Adapter Subject Discovery
-        String url = getUrl();
-
-        if (NullChecker.isNotNullish(url) && (request != null))
-        {
-            AdapterSubjectDiscoverySecuredPortType port = getPort(url, request.getAssertion());
-
-            ack = port.pixConsumerPRPAIN201303UV(request);
         }
 
         return ack;
