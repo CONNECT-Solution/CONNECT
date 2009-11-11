@@ -10,7 +10,7 @@ import gov.hhs.fha.nhinc.mpilib.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
-import org.hl7.v3.PRPAIN201305UV;
+import org.hl7.v3.PRPAIN201305UV02;
 /**
  *
  * @author Jon Hoppesch
@@ -19,11 +19,11 @@ public class PatientChecker {
 
     private static Log log = LogFactory.getLog(PatientChecker.class);
 
-    public static PRPAIN201306UV FindPatient(PRPAIN201305UV query) {
+    public static PRPAIN201306UV02 FindPatient(PRPAIN201305UV02 query) {
         log.debug("Entering PatientChecker.FindPatient method...");
-        PRPAIN201306UV result = null;
+        PRPAIN201306UV02 result = null;
 
-        PRPAMT201306UVParameterList queryParams = HL7Parser201305.ExtractHL7QueryParamsFromMessage(query);
+        PRPAMT201306UV02ParameterList queryParams = HL7Parser201305.ExtractHL7QueryParamsFromMessage(query);
 
         if (queryParams == null) {
             log.error("no query parameters were supplied");

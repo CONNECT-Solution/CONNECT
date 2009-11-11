@@ -10,14 +10,13 @@ import javax.jws.WebService;
 
 /**
  *
- * @author dunnek
+ * @author jhoppesc
  */
 @WebService(serviceName = "AdapterComponentMpiSecuredService", portName = "AdapterComponentMpiSecuredPort", endpointInterface = "gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi", wsdlLocation = "META-INF/wsdl/AdapterComponentMpiSecured/AdapterComponentSecuredMpi.wsdl")
 @Stateless
-public class AdapterComponentMpiSecured implements AdapterComponentMpiSecuredPortType {
+public class AdapterComponentMpiSecured {
 
-    public org.hl7.v3.PRPAIN201306UV findCandidates(org.hl7.v3.PRPAIN201305UV findCandidatesRequest) {
-        //TODO implement this method
+    public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest) {
         return PatientChecker.FindPatient(findCandidatesRequest);
     }
 

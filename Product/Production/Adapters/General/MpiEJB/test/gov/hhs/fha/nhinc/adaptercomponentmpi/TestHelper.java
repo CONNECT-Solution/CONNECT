@@ -22,7 +22,7 @@ public class TestHelper {
     
     private static Log log = LogFactory.getLog(TestHelper.class);
 
-    public static void AssertPatientIdsAreSame(PRPAIN201306UV expected, PRPAIN201306UV result) {
+    public static void AssertPatientIdsAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientNotNull(expected);
         AssertPatientNotNull(result);
 
@@ -30,7 +30,7 @@ public class TestHelper {
                 result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
     }
 
-    public static void AssertPatientNamesAreSame(PRPAIN201306UV expected, PRPAIN201306UV result) {
+    public static void AssertPatientNamesAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
@@ -38,7 +38,7 @@ public class TestHelper {
                 result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
-    public static void AssertPatientGendersAreSame(PRPAIN201306UV expected, PRPAIN201306UV result) {
+    public static void AssertPatientGendersAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
@@ -46,7 +46,7 @@ public class TestHelper {
                 result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
-    public static void AssertPatientBdaysAreSame(PRPAIN201306UV expected, PRPAIN201306UV result) {
+    public static void AssertPatientBdaysAreSame(PRPAIN201306UV02 expected, PRPAIN201306UV02 result) {
         AssertPatientPersonNotNull(expected);
         AssertPatientPersonNotNull(result);
 
@@ -54,7 +54,7 @@ public class TestHelper {
                 result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
-    public static void AssertPatientNamesEqual(PRPAMT201310UVPerson patient1, PRPAMT201310UVPerson patient2) {
+    public static void AssertPatientNamesEqual(PRPAMT201310UV02Person patient1, PRPAMT201310UV02Person patient2) {
         assertNotNull(patient1.getName());
         assertNotNull(patient1.getName().get(0));
         assertNotNull(patient1.getName().get(0).getContent());
@@ -101,7 +101,7 @@ public class TestHelper {
         return nameString;
     }
 
-    public static void AssertPatientGendersEqual(PRPAMT201310UVPerson patient1, PRPAMT201310UVPerson patient2) {
+    public static void AssertPatientGendersEqual(PRPAMT201310UV02Person patient1, PRPAMT201310UV02Person patient2) {
         assertNotNull(patient1.getAdministrativeGenderCode());
         assertNotNull(patient1.getAdministrativeGenderCode().getCode());
         assertNotNull(patient2.getAdministrativeGenderCode());
@@ -110,7 +110,7 @@ public class TestHelper {
         assertEquals(patient1.getAdministrativeGenderCode().getCode(), patient1.getAdministrativeGenderCode().getCode());
     }
 
-    public static void AssertPatientBdaysEqual(PRPAMT201310UVPerson patient1, PRPAMT201310UVPerson patient2) {
+    public static void AssertPatientBdaysEqual(PRPAMT201310UV02Person patient1, PRPAMT201310UV02Person patient2) {
         assertNotNull(patient1.getBirthTime());
         assertNotNull(patient1.getBirthTime().getValue());
         assertNotNull(patient2.getBirthTime());
@@ -119,7 +119,7 @@ public class TestHelper {
         assertEquals(patient1.getBirthTime().getValue(), patient2.getBirthTime().getValue());
     }
 
-    public static void AssertPatientIdsEqual(PRPAMT201310UVPatient patient1, PRPAMT201310UVPatient patient2) {
+    public static void AssertPatientIdsEqual(PRPAMT201310UV02Patient patient1, PRPAMT201310UV02Patient patient2) {
         AssertPatientIdNotNull(patient1);
         AssertPatientIdNotNull(patient2);
 
@@ -127,20 +127,20 @@ public class TestHelper {
         assertEquals(patient1.getId().get(0).getExtension(), patient1.getId().get(0).getExtension());
     }
 
-    public static void AssertPatientIdNotNull(PRPAMT201310UVPatient patient) {
+    public static void AssertPatientIdNotNull(PRPAMT201310UV02Patient patient) {
         assertNotNull(patient.getId());
         assertNotNull(patient.getId().get(0));
         assertNotNull(patient.getId().get(0).getRoot());
         assertNotNull(patient.getId().get(0).getExtension());
     }
 
-    public static void AssertPatientPersonNotNull(PRPAIN201306UV queryResp) {
+    public static void AssertPatientPersonNotNull(PRPAIN201306UV02 queryResp) {
         AssertPatientNotNull(queryResp);
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson());
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
 
-    public static void AssertPatientNotNull(PRPAIN201306UV queryResp) {
+    public static void AssertPatientNotNull(PRPAIN201306UV02 queryResp) {
         assertNotNull(queryResp);
         assertNotNull(queryResp.getControlActProcess());
         assertNotNull(queryResp.getControlActProcess().getSubject());
@@ -150,8 +150,8 @@ public class TestHelper {
         assertNotNull(queryResp.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
     }
 
-    public static PRPAIN201305UV build201305(String firstName, String lastName, String gender, String birthTime, II subjectId) {
-        PRPAIN201305UV msg = new PRPAIN201305UV();
+    public static PRPAIN201305UV02 build201305(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+        PRPAIN201305UV02 msg = new PRPAIN201305UV02();
 
         // Set up message header fields
         msg.setITSVersion("XML_1.0");
@@ -190,10 +190,10 @@ public class TestHelper {
         return msg;
     }
 
-    private static PRPAIN201305UVQUQIMT021001UV01ControlActProcess createControlActProcess(String firstName, String lastName, String gender, String birthTime, II subjectId) {
-        PRPAIN201305UVQUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UVQUQIMT021001UV01ControlActProcess();
+    private static PRPAIN201305UV02QUQIMT021001UV01ControlActProcess createControlActProcess(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
 
-        controlActProcess.setMoodCode("EVN");
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
         CD code = new CD();
         code.setCode("PRPA_TE201305UV");
@@ -205,8 +205,8 @@ public class TestHelper {
         return controlActProcess;
     }
 
-    private static JAXBElement<PRPAMT201306UVQueryByParameter> createQueryParams(String firstName, String lastName, String gender, String birthTime, II subjectId) {
-        PRPAMT201306UVQueryByParameter params = new PRPAMT201306UVQueryByParameter();
+    private static JAXBElement<PRPAMT201306UV02QueryByParameter> createQueryParams(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+        PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
         II id = new II();
         id.setRoot("12345");
@@ -219,13 +219,13 @@ public class TestHelper {
         params.setParameterList(createParamList(firstName, lastName, gender, birthTime, subjectId));
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        JAXBElement<PRPAMT201306UVQueryByParameter> queryParams = new JAXBElement<PRPAMT201306UVQueryByParameter>(xmlqname, PRPAMT201306UVQueryByParameter.class, params);
+        JAXBElement<PRPAMT201306UV02QueryByParameter> queryParams = new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params);
 
         return queryParams;
     }
 
-    private static PRPAMT201306UVParameterList createParamList(String firstName, String lastName, String gender, String birthTime, II subjectId) {
-        PRPAMT201306UVParameterList paramList = new PRPAMT201306UVParameterList();
+    private static PRPAMT201306UV02ParameterList createParamList(String firstName, String lastName, String gender, String birthTime, II subjectId) {
+        PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
 
         // Set the Subject Gender Code  
         paramList.getLivingSubjectAdministrativeGender().add(createGender(gender));
@@ -242,8 +242,8 @@ public class TestHelper {
         return paramList;
     }
 
-    private static PRPAMT201306UVLivingSubjectId createSubjectId(II subjectId) {
-        PRPAMT201306UVLivingSubjectId id = new PRPAMT201306UVLivingSubjectId();
+    private static PRPAMT201306UV02LivingSubjectId createSubjectId(II subjectId) {
+        PRPAMT201306UV02LivingSubjectId id = new PRPAMT201306UV02LivingSubjectId();
         if (subjectId != null) {
             id.getValue().add(subjectId);
         }
@@ -251,8 +251,8 @@ public class TestHelper {
         return id;
     }
 
-    private static PRPAMT201306UVLivingSubjectName createName(String firstName, String lastName) {
-        PRPAMT201306UVLivingSubjectName subjectName = new PRPAMT201306UVLivingSubjectName();
+    private static PRPAMT201306UV02LivingSubjectName createName(String firstName, String lastName) {
+        PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit name = (ENExplicit) (factory.createENExplicit());
         List namelist = name.getContent();
@@ -280,8 +280,8 @@ public class TestHelper {
         return subjectName;
     }
 
-    private static PRPAMT201306UVLivingSubjectBirthTime createBirthTime(String birthTime) {
-        PRPAMT201306UVLivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UVLivingSubjectBirthTime();
+    private static PRPAMT201306UV02LivingSubjectBirthTime createBirthTime(String birthTime) {
+        PRPAMT201306UV02LivingSubjectBirthTime subjectBirthTime = new PRPAMT201306UV02LivingSubjectBirthTime();
         IVLTSExplicit bday = new IVLTSExplicit();
 
         if (birthTime != null &&
@@ -293,8 +293,8 @@ public class TestHelper {
         return subjectBirthTime;
     }
 
-    private static PRPAMT201306UVLivingSubjectAdministrativeGender createGender(String gender) {
-        PRPAMT201306UVLivingSubjectAdministrativeGender adminGender = new PRPAMT201306UVLivingSubjectAdministrativeGender();
+    private static PRPAMT201306UV02LivingSubjectAdministrativeGender createGender(String gender) {
+        PRPAMT201306UV02LivingSubjectAdministrativeGender adminGender = new PRPAMT201306UV02LivingSubjectAdministrativeGender();
         CE genderCode = new CE();
 
         if (gender != null &&

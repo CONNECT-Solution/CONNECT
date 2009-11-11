@@ -29,10 +29,10 @@ public class HL7Parser201306 {
     private static final String PROPERTY_NAME = "assigningAuthorityId";
     private static final String DEFAULT_AA_OID = "1.1";
 
-    public static PRPAIN201306UV BuildMessageFromMpiPatient(Patient patient, PRPAIN201305UV query) {
+    public static PRPAIN201306UV02 BuildMessageFromMpiPatient(Patient patient, PRPAIN201305UV02 query) {
         log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatient method...");
 
-        PRPAIN201306UV msg = new PRPAIN201306UV();
+        PRPAIN201306UV02 msg = new PRPAIN201306UV02();
 
         // Set up message header fields
         msg.setITSVersion("XML_1.0");
@@ -96,10 +96,10 @@ public class HL7Parser201306 {
         return msg;
     }
 
-    private static PRPAIN201306UVMFMIMT700711UV01ControlActProcess createControlActProcess(Patient patient, PRPAIN201305UV query) {
-        PRPAIN201306UVMFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UVMFMIMT700711UV01ControlActProcess();
+    private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
-        controlActProcess.setMoodCode("EVN");
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
         CD code = new CD();
         code.setCode("PRPA_TE201306UV");
@@ -107,13 +107,20 @@ public class HL7Parser201306 {
         controlActProcess.setCode(code);
 
         controlActProcess.getSubject().add(createSubject(patient, query));
+
+        // Add in query parameters
+        if (query.getControlActProcess() != null &&
+                query.getControlActProcess().getQueryByParameter() != null &&
+                query.getControlActProcess().getQueryByParameter().getValue() != null) {
+           controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
+        }
         
         controlActProcess.setQueryAck(createQueryAck(query));
         
         return controlActProcess;
     }
     
-    private static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201305UV query) {
+    private static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201305UV02 query) {
         MFMIMT700711UV01QueryAck  result = new MFMIMT700711UV01QueryAck();
         
         if (query.getControlActProcess() != null &&
@@ -143,8 +150,8 @@ public class HL7Parser201306 {
         return result;
     }
 
-    private static PRPAIN201306UVMFMIMT700711UV01Subject1 createSubject(Patient patient, PRPAIN201305UV query) {
-        PRPAIN201306UVMFMIMT700711UV01Subject1 subject = new PRPAIN201306UVMFMIMT700711UV01Subject1();
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
 
         subject.getTypeCode().add("SUBJ");
 
@@ -153,8 +160,8 @@ public class HL7Parser201306 {
         return subject;
     }
 
-    private static PRPAIN201306UVMFMIMT700711UV01RegistrationEvent createRegEvent(Patient patient, PRPAIN201305UV query) {
-        PRPAIN201306UVMFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UVMFMIMT700711UV01RegistrationEvent();
+    private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
 
         II id = new II();
         id.getNullFlavor().add("NA");
@@ -180,8 +187,8 @@ public class HL7Parser201306 {
         return result;
     }
     
-    private static COCTMT090003UVAssignedEntity createAssignEntity (Patient patient) {
-        COCTMT090003UVAssignedEntity  assignedEntity = new COCTMT090003UVAssignedEntity();
+    private static COCTMT090003UV01AssignedEntity createAssignEntity (Patient patient) {
+        COCTMT090003UV01AssignedEntity  assignedEntity = new COCTMT090003UV01AssignedEntity();
         
         II id = new II();
         id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());       
@@ -190,26 +197,19 @@ public class HL7Parser201306 {
         return assignedEntity;
     }
 
-    private static PRPAIN201306UVMFMIMT700711UV01Subject2 createSubject1(Patient patient, PRPAIN201305UV query) {
-        PRPAIN201306UVMFMIMT700711UV01Subject2 subject = new PRPAIN201306UVMFMIMT700711UV01Subject2();
+    private static PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject1(Patient patient, PRPAIN201305UV02 query) {
+        PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
 
         // Add in patient
         subject.setPatient(createPatient(patient, query));
         
-        // Add in query parameters
-        if (query.getControlActProcess() != null &&
-                query.getControlActProcess().getQueryByParameter() != null &&
-                query.getControlActProcess().getQueryByParameter().getValue() != null) {
-           subject.setQueryByParameter(query.getControlActProcess().getQueryByParameter().getValue());
-        }
-
         return subject;
     }
 
-    private static PRPAMT201310UVPatient createPatient(Patient patient, PRPAIN201305UV query) {
-        PRPAMT201310UVPatient subjectPatient = new PRPAMT201310UVPatient();
+    private static PRPAMT201310UV02Patient createPatient(Patient patient, PRPAIN201305UV02 query) {
+        PRPAMT201310UV02Patient subjectPatient = new PRPAMT201310UV02Patient();
 
-        subjectPatient.setClassCode("PAT");
+        subjectPatient.getClassCode().add("PAT");
         
         // TODO: Temporary value until confirmation can be made on the actual value
         CS statusCode = new CS();
@@ -231,15 +231,15 @@ public class HL7Parser201306 {
         return subjectPatient;
     }
     
-    private static PRPAMT201310UVSubject createSubjectOf1 () {
-        PRPAMT201310UVSubject result = new PRPAMT201310UVSubject();
+    private static PRPAMT201310UV02Subject createSubjectOf1 () {
+        PRPAMT201310UV02Subject result = new PRPAMT201310UV02Subject();
         
         result.setQueryMatchObservation(createQueryMatch());
         return result;
     }
     
-    private static PRPAMT201310UVQueryMatchObservation createQueryMatch () {
-        PRPAMT201310UVQueryMatchObservation queryMatch = new PRPAMT201310UVQueryMatchObservation();
+    private static PRPAMT201310UV02QueryMatchObservation createQueryMatch () {
+        PRPAMT201310UV02QueryMatchObservation queryMatch = new PRPAMT201310UV02QueryMatchObservation();
         
         CD code = new CD();
         code.setCode("IHE_PDQ");
@@ -296,8 +296,8 @@ public class HL7Parser201306 {
         return id;
     }
 
-    private static JAXBElement<PRPAMT201310UVPerson> createPatientPerson (Patient patient, PRPAIN201305UV query) {
-        PRPAMT201310UVPerson person = new PRPAMT201310UVPerson();
+    private static JAXBElement<PRPAMT201310UV02Person> createPatientPerson (Patient patient, PRPAIN201305UV02 query) {
+        PRPAMT201310UV02Person person = new PRPAMT201310UV02Person();
         
         // Set the Subject Gender
         if (patient.getGender() != null &&
@@ -326,7 +326,7 @@ public class HL7Parser201306 {
         }
         
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201310UVPerson> result = new JAXBElement<PRPAMT201310UVPerson>(xmlqname, PRPAMT201310UVPerson.class, person);
+        JAXBElement<PRPAMT201310UV02Person> result = new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
         
         return result;
     }
@@ -373,11 +373,11 @@ public class HL7Parser201306 {
         return address;
     }
     
-    private static PRPAMT201310UVOtherIDs createOtherIds (Patient patient) {
-        PRPAMT201310UVOtherIDs  otherIds = new PRPAMT201310UVOtherIDs();
+    private static PRPAMT201310UV02OtherIDs createOtherIds (Patient patient) {
+        PRPAMT201310UV02OtherIDs  otherIds = new PRPAMT201310UV02OtherIDs();
         
         // TODO: Temporary assignment until actual value can be determined
-        otherIds.setClassCode("SD");
+        otherIds.getClassCode().add("SD");
         
         // Set the SSN
         if (patient.getSSN() != null &&
@@ -446,7 +446,7 @@ public class HL7Parser201306 {
         }
         return gender;
     }
-    private static MCCIMT000300UV01Acknowledgement createAck(PRPAIN201305UV query) {
+    private static MCCIMT000300UV01Acknowledgement createAck(PRPAIN201305UV02 query) {
         MCCIMT000300UV01Acknowledgement ack = new MCCIMT000300UV01Acknowledgement();
         ack.setTypeId(query.getInteractionId());
 

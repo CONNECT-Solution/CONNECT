@@ -8,8 +8,8 @@ package gov.hhs.fha.nhinc.adaptercomponentmpi;
 import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers.HL7Parser201306;
 import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -55,16 +55,16 @@ public class PatientCheckerTest {
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1234");
         
-        PRPAIN201305UV query = TestHelper.build201305("Joe", "Smith", "M", "March 1, 1956", subjectId);
+        PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Smith", "M", "March 1, 1956", subjectId);
         
         Identifier patId = new Identifier();
         patId.setId("1234");
         patId.setOrganizationId("2.16.840.1.113883.3.200");
         Patient patient = TestHelper.createMpiPatient("Joe", "Smith", "M", "March 1, 1956", patId);
         
-        PRPAIN201306UV expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
+        PRPAIN201306UV02 expResult = HL7Parser201306.BuildMessageFromMpiPatient(patient, query);
         
-        PRPAIN201306UV result = PatientChecker.FindPatient(query);
+        PRPAIN201306UV02 result = PatientChecker.FindPatient(query);
         
         // Verify the messages match
         TestHelper.AssertPatientIdsAreSame(expResult, result);
@@ -79,8 +79,8 @@ public class PatientCheckerTest {
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1239");
-        PRPAIN201305UV query = TestHelper.build201305("Joe", "Anderson", "M", "March 1, 1956", subjectId);
-        PRPAIN201306UV result = PatientChecker.FindPatient(query);
+        PRPAIN201305UV02 query = TestHelper.build201305("Joe", "Anderson", "M", "March 1, 1956", subjectId);
+        PRPAIN201306UV02 result = PatientChecker.FindPatient(query);
         assertNull(result);
     }
 }

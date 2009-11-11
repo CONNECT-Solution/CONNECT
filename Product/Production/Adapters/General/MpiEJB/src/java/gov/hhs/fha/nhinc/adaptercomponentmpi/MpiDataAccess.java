@@ -16,11 +16,11 @@ import org.hl7.v3.*;
  */
 public class MpiDataAccess {
     private static Log log = LogFactory.getLog(MpiDataAccess.class);
-    public static Patients LookupPatients(PRPAMT201306UVParameterList queryParams) {
+    public static Patients LookupPatients(PRPAMT201306UV02ParameterList queryParams) {
         return LookupPatients(queryParams, true);
     }
 
-    public static Patients LookupPatients(PRPAMT201306UVParameterList queryParams, boolean AllowSearchByDemographics) {
+    public static Patients LookupPatients(PRPAMT201306UV02ParameterList queryParams, boolean AllowSearchByDemographics) {
         return LookupPatients(HL7Parser201305.ExtractMpiPatientFromQueryParams(queryParams), AllowSearchByDemographics);
     }
 
