@@ -31,13 +31,4 @@ public interface PatientCorrelationFacadeProxy
      * @return Repsonse that is a simple ack.
      */
     public AddPatientCorrelationResponseType addPatientCorrelation(AddPatientCorrelationRequestType request);
-
-    /**
-     * Remove a patient correlation record.
-     * 
-     * @param request Remove correlation request that includes local and remote
-     * identifiers.
-     * @return Repsonse that is a simple ack.
-     */
-    public RemovePatientCorrelationResponseType removePatientCorrelation(RemovePatientCorrelationRequestType request);
 }
