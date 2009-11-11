@@ -5,7 +5,6 @@
 
 package gov.hhs.fha.nhinc.policy;
 
-import gov.hhs.fha.nhinc.nhinccomponentinternalpolicyenginefacade.NhincComponentInternalPolicyEngineFacadePortType;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
@@ -15,7 +14,7 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "NhincComponentInternalPolicyEngineFacadeService", portName = "NhincComponentInternalPolicyEngineFacadePort", endpointInterface = "gov.hhs.fha.nhinc.nhinccomponentinternalpolicyenginefacade.NhincComponentInternalPolicyEngineFacadePortType", targetNamespace = "urn:gov:hhs:fha:nhinc:NhincComponentInternalPolicyEngineFacade", wsdlLocation = "META-INF/wsdl/GatewayPolicyEngineFacade/NhincComponentInternalPolicyEngineFacade.wsdl")
 @Stateless
-public class GatewayPolicyEngineFacade implements NhincComponentInternalPolicyEngineFacadePortType {
+public class GatewayPolicyEngineFacade {
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicySubjectAdded(gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType checkPolicySubjectAddedRequest) {
         GatewayPolicyEngineFacadeImpl policyEngFacade = new GatewayPolicyEngineFacadeImpl();
@@ -25,11 +24,6 @@ public class GatewayPolicyEngineFacade implements NhincComponentInternalPolicyEn
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicySubjectRevised(gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType checkPolicySubjectRevisedRequest) {
         GatewayPolicyEngineFacadeImpl policyEngFacade = new GatewayPolicyEngineFacadeImpl();
         return policyEngFacade.checkPolicySubjectRevised(checkPolicySubjectRevisedRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicySubjectRevoked(gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType checkPolicySubjectRevokedRequest) {
-        GatewayPolicyEngineFacadeImpl policyEngFacade = new GatewayPolicyEngineFacadeImpl();
-        return policyEngFacade.checkPolicySubjectRevoked(checkPolicySubjectRevokedRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicySubjectReidentification(gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType checkPolicySubjectReidentificationRequest) {
@@ -66,6 +60,5 @@ public class GatewayPolicyEngineFacade implements NhincComponentInternalPolicyEn
         GatewayPolicyEngineFacadeImpl policyEngFacade = new GatewayPolicyEngineFacadeImpl();
         return policyEngFacade.checkPolicyNotify(checkPolicyNotifyRequest);
     }
-
 
 }

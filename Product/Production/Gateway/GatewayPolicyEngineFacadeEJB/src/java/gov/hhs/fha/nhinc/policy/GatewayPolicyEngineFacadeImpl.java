@@ -11,7 +11,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevokedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -50,17 +49,6 @@ public class GatewayPolicyEngineFacadeImpl {
         CheckPolicyRequestType policyReq = proxy.transformSubjectRevisedToCheckPolicy(checkPolicySubjectRevisedRequest);
 
         log.debug("Exiting GatewayPolicyEngineFacadeImpl.checkPolicySubjectRevised...");
-        return checkPolicy(policyReq);
-    }
-
-    public CheckPolicyResponseType checkPolicySubjectRevoked(SubjectRevokedEventType checkPolicySubjectRevokedRequest) {
-        log.debug("Entering GatewayPolicyEngineFacadeImpl.checkPolicySubjectRevoked...");
-
-        IPolicyDteProxy proxy = PolicyDteProxyFactory.getPolicyDteProxy();
-
-        CheckPolicyRequestType policyReq = proxy.transformSubjectRevokedToCheckPolicy(checkPolicySubjectRevokedRequest);
-
-        log.debug("Exiting GatewayPolicyEngineFacadeImpl.checkPolicySubjectRevoked...");
         return checkPolicy(policyReq);
     }
 
