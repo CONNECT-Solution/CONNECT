@@ -47,9 +47,9 @@ public class TransformHelper
      * @param request Retrieve correlations request message
      * @return 201309 retrieve message.
      */
-    public org.hl7.v3.PRPAIN201309UV createPixRetrieve(RetrievePatientCorrelationsRequestType request)
+    public org.hl7.v3.PRPAIN201309UV02 createPixRetrieve(RetrievePatientCorrelationsRequestType request)
     {
-        org.hl7.v3.PRPAIN201309UV result = null;
+        org.hl7.v3.PRPAIN201309UV02 result = null;
         try
         { // Call Web Service Operation
             PatientCorrelationFacadeDte port = getPort();
@@ -62,7 +62,7 @@ public class TransformHelper
             org.hl7.v3.CreatePixRetrieveResponseType response = port.createPixRetrieve(createPixRetrieveRequest);
             if(response != null)
             {
-                result = response.getPRPAIN201309UV();
+                result = response.getPRPAIN201309UV02();
             }
         }
         catch (Exception ex)
@@ -78,7 +78,7 @@ public class TransformHelper
      * @param request 201310 retreival response message
      * @return Retrieve patient correlations response message.
      */
-    public RetrievePatientCorrelationsResponseType createFacadeRetrieveResult(org.hl7.v3.PRPAIN201310UV request)
+    public RetrievePatientCorrelationsResponseType createFacadeRetrieveResult(org.hl7.v3.PRPAIN201310UV02 request)
     {
         RetrievePatientCorrelationsResponseType response = null;
         try
@@ -86,7 +86,7 @@ public class TransformHelper
             PatientCorrelationFacadeDte port = getPort();
 
             org.hl7.v3.CreateFacadeRetrieveResultRequestType createFacadeRetrieveResultRequest = new org.hl7.v3.CreateFacadeRetrieveResultRequestType();
-            createFacadeRetrieveResultRequest.setPRPAIN201310UV(request);
+            createFacadeRetrieveResultRequest.setPRPAIN201310UV02(request);
             
             // Capture results for return
             org.hl7.v3.CreateFacadeRetrieveResultResponseType result = port.createFacadeRetrieveResult(createFacadeRetrieveResultRequest);
@@ -109,9 +109,9 @@ public class TransformHelper
      * @param request Add correlation request message
      * @return 201301 add message
      */
-    public org.hl7.v3.PRPAIN201301UV createPixAdd(AddPatientCorrelationRequestType request)
+    public org.hl7.v3.PRPAIN201301UV02 createPixAdd(AddPatientCorrelationRequestType request)
     {
-        org.hl7.v3.PRPAIN201301UV response = null;
+        org.hl7.v3.PRPAIN201301UV02 response = null;
         try
         { // Call Web Service Operation
             PatientCorrelationFacadeDte port = getPort();
@@ -123,7 +123,7 @@ public class TransformHelper
             org.hl7.v3.CreatePixAddResponseType result = port.createPixAdd(createPixAddRequest);
             if(result != null)
             {
-                response = result.getPRPAIN201301UV();
+                response = result.getPRPAIN201301UV02();
             }
         }
         catch (Exception ex)
@@ -132,36 +132,4 @@ public class TransformHelper
         }
         return response;
     }
-
-    /**
-     * Call the web service operation to create a PIX Revoke message that is
-     * used to remove a patient correlation record.
-     *
-     * @param request Remove correlation request message
-     * @return 201303 revoke message.
-     */
-    public org.hl7.v3.PRPAIN201303UV createPixRevoke(RemovePatientCorrelationRequestType request)
-    {
-        org.hl7.v3.PRPAIN201303UV response = null;
-        try
-        { // Call Web Service Operation
-            PatientCorrelationFacadeDte port = getPort();
-
-            org.hl7.v3.CreatePixRevokeRequestType createPixRevokeRequest = new org.hl7.v3.CreatePixRevokeRequestType();
-            createPixRevokeRequest.setRemovePatientCorrelationRequest(request);
-
-            // Capture results for return
-            org.hl7.v3.CreatePixRevokeResponseType result = port.createPixRevoke(createPixRevokeRequest);
-            if(result != null)
-            {
-                response = result.getPRPAIN201303UV();
-            }
-        }
-        catch (Exception ex)
-        {
-            log.error("Exception encountered calling createPixRevoke: " + ex.getMessage(), ex);
-        }
-        return response;
-    }
-
 }

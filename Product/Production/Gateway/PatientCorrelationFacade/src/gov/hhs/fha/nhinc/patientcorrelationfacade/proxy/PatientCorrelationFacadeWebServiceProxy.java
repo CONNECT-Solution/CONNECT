@@ -7,7 +7,6 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RemovePatientCorrelatio
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationCreator;
-import gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationRemover;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.PatientCorrelationRetriever;
 
 /**
@@ -39,17 +38,6 @@ public class PatientCorrelationFacadeWebServiceProxy implements PatientCorrelati
     {
        
         return new PatientCorrelationCreator().addPatientCorrelation(request);
-    }
-
-    /**
-     * Call the Java library to remove a patient correlation record.
-     *
-     * @param request Remove correlation request message
-     * @return Remove correlation response message
-     */
-    public RemovePatientCorrelationResponseType removePatientCorrelation(RemovePatientCorrelationRequestType request)
-    {
-        return new PatientCorrelationRemover().removePatientCorrelation(request);
     }
     
 }

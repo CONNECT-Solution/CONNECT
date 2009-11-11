@@ -22,12 +22,12 @@ public class PatientCorrelationRetriever
     {
         // Create patient correlation input
         TransformHelper transformHelper = new TransformHelper();
-        org.hl7.v3.PRPAIN201309UV correlationInput =  transformHelper.createPixRetrieve(request);
+        org.hl7.v3.PRPAIN201309UV02 correlationInput =  transformHelper.createPixRetrieve(request);
 
         // Call the patient correlation service
         PatientCorrelationHelper correlationHelper = new PatientCorrelationHelper();
         
-        org.hl7.v3.PRPAIN201310UV correlationOutput = correlationHelper.retrievePatientCorrelations(correlationInput, request.getAssertion());
+        org.hl7.v3.PRPAIN201310UV02 correlationOutput = correlationHelper.retrievePatientCorrelations(correlationInput, request.getAssertion());
 
         // Create response message
         RetrievePatientCorrelationsResponseType response = transformHelper.createFacadeRetrieveResult(correlationOutput);

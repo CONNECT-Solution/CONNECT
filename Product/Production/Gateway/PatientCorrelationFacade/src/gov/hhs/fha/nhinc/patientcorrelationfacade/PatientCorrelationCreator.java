@@ -23,7 +23,7 @@ public class PatientCorrelationCreator
     {
         // Create patient correlation input
         TransformHelper transformHelper = new TransformHelper();
-        org.hl7.v3.PRPAIN201301UV addInput =  transformHelper.createPixAdd(request);
+        org.hl7.v3.PRPAIN201301UV02 addInput =  transformHelper.createPixAdd(request);
 
         // Call the patient correlation service
         PatientCorrelationHelper correlationHelper = new PatientCorrelationHelper();

@@ -57,17 +57,17 @@ public class PatientCorrelationHelper
      * @param correlationInput 201309 retrieve request message
      * @return Retrieved patient correlations
      */
-    public org.hl7.v3.PRPAIN201310UV retrievePatientCorrelations(org.hl7.v3.PRPAIN201309UV correlationInput)
+    public org.hl7.v3.PRPAIN201310UV02 retrievePatientCorrelations(org.hl7.v3.PRPAIN201309UV02 correlationInput)
     {
-        org.hl7.v3.PRPAIN201310UV response = null;
+        org.hl7.v3.PRPAIN201310UV02 response = null;
 
         log.error("Method No longer Supported. Must pass assertion information");
         return response;
     }
 
-    public org.hl7.v3.PRPAIN201310UV retrievePatientCorrelations(org.hl7.v3.PRPAIN201309UV correlationInput, AssertionType assertion)
+    public org.hl7.v3.PRPAIN201310UV02 retrievePatientCorrelations(org.hl7.v3.PRPAIN201309UV02 correlationInput, AssertionType assertion)
     {
-        org.hl7.v3.PRPAIN201310UV response = null;
+        org.hl7.v3.PRPAIN201310UV02 response = null;
         log.debug("in PatientCorrelationHelper retrievePatientCorrelations");
         try
         { // Call Web Service Operation
@@ -77,13 +77,13 @@ public class PatientCorrelationHelper
 
             retrievePatientCorrelationsRequest.setAssertion(assertion);
 
-            retrievePatientCorrelationsRequest.setPRPAIN201309UV(correlationInput);
+            retrievePatientCorrelationsRequest.setPRPAIN201309UV02(correlationInput);
 
             org.hl7.v3.RetrievePatientCorrelationsResponseType result = port.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
 
             if(result != null)
             {
-                response = result.getPRPAIN201310UV();
+                response = result.getPRPAIN201310UV02();
             }
         }
         catch (Exception ex)
@@ -99,14 +99,14 @@ public class PatientCorrelationHelper
      * @param request 201301 request message
      * @return Add correlation response message
      */
-    public org.hl7.v3.MCCIIN000002UV01 addPatientCorrelation(org.hl7.v3.PRPAIN201301UV request)
+    public org.hl7.v3.MCCIIN000002UV01 addPatientCorrelation(org.hl7.v3.PRPAIN201301UV02 request)
     {
         org.hl7.v3.MCCIIN000002UV01 response = null;
         log.error("Method No longer Supported. Must pass assertion information");
 
         return response;
     }
-    public org.hl7.v3.MCCIIN000002UV01 addPatientCorrelation(org.hl7.v3.PRPAIN201301UV request, AssertionType assertion)
+    public org.hl7.v3.MCCIIN000002UV01 addPatientCorrelation(org.hl7.v3.PRPAIN201301UV02 request, AssertionType assertion)
     {
   
         log.debug("in PatientCorrelationHelper.removePatientCorrelation");
@@ -117,7 +117,7 @@ public class PatientCorrelationHelper
 
             org.hl7.v3.AddPatientCorrelationRequestType addPatientCorrelationRequest = new org.hl7.v3.AddPatientCorrelationRequestType();
 
-            addPatientCorrelationRequest.setPRPAIN201301UV(request);
+            addPatientCorrelationRequest.setPRPAIN201301UV02(request);
             addPatientCorrelationRequest.setAssertion(assertion);
 
             // TODO process result here
@@ -130,44 +130,6 @@ public class PatientCorrelationHelper
         catch (Exception ex)
         {
             log.error("Exception encountered adding a patient correlation: " + ex.getMessage(), ex);
-        }
-        return response;
-    }
-
-    /**
-     * Call the web service operation to remove a patient correlation record.
-     *
-     * @param request 201303 request message
-     * @return Removal response message
-     */
-    public org.hl7.v3.MCCIIN000002UV01 removePatientCorrelation(org.hl7.v3.PRPAIN201303UV request)
-    {
-        org.hl7.v3.MCCIIN000002UV01 response = null;
-        log.error("Method No longer Supported. Must pass assertion information");
-
-        return response;
-    }
-    public org.hl7.v3.MCCIIN000002UV01 removePatientCorrelation(org.hl7.v3.PRPAIN201303UV request, AssertionType assertion)
-    {
-        org.hl7.v3.MCCIIN000002UV01 response = null;
-        log.debug("in PatientCorrelationHelper.removePatientCorrelation");
-        try
-        { // Call Web Service Operation
-            PatientCorrelationPortType port = getPatientCorrelationPort();
-
-            org.hl7.v3.RemovePatientCorrelationRequestType removePatientCorrelationRequest = new org.hl7.v3.RemovePatientCorrelationRequestType();
-            removePatientCorrelationRequest.setPRPAIN201303UV(request);
-            removePatientCorrelationRequest.setAssertion(assertion);
-            // TODO process result here
-            org.hl7.v3.RemovePatientCorrelationResponseType result = port.removePatientCorrelation(removePatientCorrelationRequest);
-            if(result != null)
-            {
-                response = result.getMCCIIN000002UV01();
-            }
-        }
-        catch (Exception ex)
-        {
-            log.error("Exception encountered removing a patient correlation: " + ex.getMessage(), ex);
         }
         return response;
     }
