@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.hl7.v3.POCDMT000040ClinicalDocument;
@@ -20,7 +19,6 @@ import org.hl7.v3.POCDMT000040StructuredBody;
 import org.hl7.v3.CS;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.IVXBTSExplicit;
-import org.hl7.v3.TS;
 import org.hl7.v3.XActClassDocumentEntryAct;
 import org.hl7.v3.XDocumentActMood;
 
@@ -82,6 +80,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
+import org.hl7.v3.TSExplicit;
 
 /**
  * This class manages the patient consent form.  It stores or retrieves the patient
@@ -415,7 +414,7 @@ public class PatientConsentManager
 
         // EffectiveTime
         //---------------
-        TS oEffectiveTime = new TS();
+        TSExplicit oEffectiveTime = new TSExplicit();
         oPrefCDA.setEffectiveTime(oEffectiveTime);
         oEffectiveTime.setValue(sNow);
 
