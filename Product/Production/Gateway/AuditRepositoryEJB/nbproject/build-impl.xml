@@ -370,10 +370,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jta.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.aspectjrt.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.mysql-connector-mxj-gpl-5-0-9-db-files.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.mysql-connector-java-5.1.8-bin.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.mysql-connector-mxj-gpl-5-0-9.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AuditRepositoryDAO.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
@@ -394,17 +391,14 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jta.jar}" manifestproperty="manifest.file.reference.jta.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.aspectjrt.jar}" manifestproperty="manifest.file.reference.aspectjrt.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.mysql-connector-mxj-gpl-5-0-9-db-files.jar}" manifestproperty="manifest.file.reference.mysql-connector-mxj-gpl-5-0-9-db-files.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.mysql-connector-java-5.1.8-bin.jar}" manifestproperty="manifest.file.reference.mysql-connector-java-5.1.8-bin.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.mysql-connector-mxj-gpl-5-0-9.jar}" manifestproperty="manifest.file.reference.mysql-connector-mxj-gpl-5-0-9.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AuditRepositoryDAO.jar}" manifestproperty="manifest.reference.AuditRepositoryDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.c3p0-0.9.1.2.jar} ${manifest.file.reference.antlr-2.7.6.jar} ${manifest.file.reference.asm-attrs.jar} ${manifest.file.reference.asm.jar} ${manifest.file.reference.cglib-2.1.3.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.ehcache-1.2.3.jar} ${manifest.file.reference.hibernate3.jar} ${manifest.file.reference.jdbc2_0-stdext.jar} ${manifest.file.reference.jta.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.aspectjrt.jar} ${manifest.file.reference.mysql-connector-mxj-gpl-5-0-9-db-files.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.file.reference.mysql-connector-mxj-gpl-5-0-9.jar} ${manifest.reference.AuditRepositoryDAO.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.c3p0-0.9.1.2.jar} ${manifest.file.reference.antlr-2.7.6.jar} ${manifest.file.reference.asm-attrs.jar} ${manifest.file.reference.asm.jar} ${manifest.file.reference.cglib-2.1.3.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.ehcache-1.2.3.jar} ${manifest.file.reference.hibernate3.jar} ${manifest.file.reference.jdbc2_0-stdext.jar} ${manifest.file.reference.jta.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.reference.AuditRepositoryDAO.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
