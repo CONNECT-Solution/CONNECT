@@ -16,7 +16,6 @@ import javax.xml.ws.BindingProvider;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201302UVRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201304UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType;
@@ -69,31 +68,6 @@ public class AdapterSubjectDiscoveryImpl {
             com.services.nhinc.schema.auditmessage.FindAuditEventsType request = new com.services.nhinc.schema.auditmessage.FindAuditEventsType();
 
             ack = port.pixConsumerPRPAIN201302UV(pixConsumerPRPAIN201302UVRequest);
-        }
-        catch (Exception ex)
-        {
-            log.error("Error calling adapter subject discovery secured service: " + ex.getMessage(), ex);
-        }
-
-        return ack;
-    }
-
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVRequestType pixConsumerPRPAIN201303UVRequest) {
-        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-
-                try
-        {
-            String url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME);
-            AdapterSubjectDiscoverySecuredPortType port = getPort(url);
-
-            AssertionType assertIn = pixConsumerPRPAIN201303UVRequest.getAssertion();
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            com.services.nhinc.schema.auditmessage.FindAuditEventsType request = new com.services.nhinc.schema.auditmessage.FindAuditEventsType();
-
-            ack = port.pixConsumerPRPAIN201303UV(pixConsumerPRPAIN201303UVRequest);
         }
         catch (Exception ex)
         {

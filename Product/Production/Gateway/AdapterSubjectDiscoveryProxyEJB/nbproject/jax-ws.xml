@@ -30,7 +30,7 @@
     <client name="AdapterSubjectDiscoverySecured">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscoverySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
