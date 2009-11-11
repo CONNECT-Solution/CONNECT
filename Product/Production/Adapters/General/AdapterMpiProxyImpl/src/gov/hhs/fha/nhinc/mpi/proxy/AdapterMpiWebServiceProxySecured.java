@@ -15,8 +15,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV;
-import org.hl7.v3.PRPAIN201306UV;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
@@ -30,7 +30,7 @@ public class AdapterMpiWebServiceProxySecured implements AdapterMpiProxy {
     static AdapterComponentMpiService mpiService = new AdapterComponentMpiService();
     static AdapterComponentMpiSecuredService mpiSecuredService = new AdapterComponentMpiSecuredService();
 
-    public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest, AssertionType assertion)
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion)
     {
         log.debug("In findCandidates secured method.");
        String url = getSecuredURL();
@@ -45,9 +45,9 @@ public class AdapterMpiWebServiceProxySecured implements AdapterMpiProxy {
     /*
      * Without passing in the Assertion, we need to call the unsecured service.
      **/
-    public PRPAIN201306UV findCandidates(PRPAIN201305UV findCandidatesRequest) {
+    public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest) {
         String url = null;
-        PRPAIN201306UV result = new PRPAIN201306UV();
+        PRPAIN201306UV02 result = new PRPAIN201306UV02();
 
         log.warn("Calling unsecured interface from secured implementation");
 
