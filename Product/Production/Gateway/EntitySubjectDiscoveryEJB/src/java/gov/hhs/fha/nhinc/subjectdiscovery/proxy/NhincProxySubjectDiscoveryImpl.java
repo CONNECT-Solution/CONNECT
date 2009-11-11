@@ -13,16 +13,14 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxyRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVProxyRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType;
 import org.hl7.v3.PIXConsumerMCCIIN000002UV01RequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PIXConsumerPRPAIN201301UVProxySecuredRequestType;
-import org.hl7.v3.PIXConsumerPRPAIN201303UVProxySecuredRequestType;
 import org.hl7.v3.PIXConsumerPRPAIN201309UVProxySecuredRequestType;
-import org.hl7.v3.PRPAIN201310UV;
+import org.hl7.v3.PRPAIN201310UV02;
 
 /**
  *
@@ -36,7 +34,7 @@ public class NhincProxySubjectDiscoveryImpl {
        MCCIIN000002UV01 ack = new MCCIIN000002UV01();
        PIXConsumerPRPAIN201301UVProxyRequestType request = new PIXConsumerPRPAIN201301UVProxyRequestType();
        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-       request.setPRPAIN201301UV(secureRequest.getPRPAIN201301UV());
+       request.setPRPAIN201301UV02(secureRequest.getPRPAIN201301UV02());
        request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
        ack = pixConsumerPRPAIN201301UV(request);
 
@@ -61,7 +59,7 @@ public class NhincProxySubjectDiscoveryImpl {
         NhinSubjectDiscoveryProxyObjectFactory subjectDiscoveryFactory = new NhinSubjectDiscoveryProxyObjectFactory();
         NhinSubjectDiscoveryProxy proxy = subjectDiscoveryFactory.getNhinSubjectDiscoveryProxy();
 
-        response = proxy.pixConsumerPRPAIN201301UV(request.getPRPAIN201301UV(), request.getAssertion(), request.getNhinTargetSystem());
+        response = proxy.pixConsumerPRPAIN201301UV(request.getPRPAIN201301UV02(), request.getAssertion(), request.getNhinTargetSystem());
 
         // Audit the Subject Added Response Message received on the Nhin Interface
         PIXConsumerMCCIIN000002UV01RequestType auditMsg = new PIXConsumerMCCIIN000002UV01RequestType();
@@ -73,52 +71,11 @@ public class NhincProxySubjectDiscoveryImpl {
         return response;
     }
 
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVProxySecuredRequestType secureRequest, WebServiceContext context) {
-       MCCIIN000002UV01 ack = new MCCIIN000002UV01();
-       PIXConsumerPRPAIN201303UVProxyRequestType request = new PIXConsumerPRPAIN201303UVProxyRequestType();
-       request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-       request.setPRPAIN201303UV(secureRequest.getPRPAIN201303UV());
-       request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
-       ack = pixConsumerPRPAIN201303UV(request);
-
-       return ack;
-    }
-
-    /**
-     * This method will perform an subject revoke to a specified community on the Nhin Interface
-     * and return an acknowledgment message.
-     *
-     * @param request The subject revoke message
-     * @return Acknowledgment message
-     */
-    public MCCIIN000002UV01 pixConsumerPRPAIN201303UV(PIXConsumerPRPAIN201303UVProxyRequestType request) {
-        log.debug("Entering NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV...");
-        MCCIIN000002UV01 response = new MCCIIN000002UV01();
-
-        // Audit the Subject Revoke Request Message sent on the Nhin Interface
-        SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.audit(request);
-
-        NhinSubjectDiscoveryProxyObjectFactory subjectDiscoveryFactory = new NhinSubjectDiscoveryProxyObjectFactory();
-        NhinSubjectDiscoveryProxy proxy = subjectDiscoveryFactory.getNhinSubjectDiscoveryProxy();
-
-        response = proxy.pixConsumerPRPAIN201303UV(request.getPRPAIN201303UV(), request.getAssertion(), request.getNhinTargetSystem());
-
-        // Audit the Subject Revoked Response Message received on the Nhin Interface
-        PIXConsumerMCCIIN000002UV01RequestType auditMsg = new PIXConsumerMCCIIN000002UV01RequestType();
-        auditMsg.setMCCIIN000002UV01(response);
-        auditMsg.setAssertion(request.getAssertion());
-        ack = auditLog.audit(auditMsg, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
-        log.debug("Exiting NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201303UV...");
-        return response;
-    }
-
-    public PRPAIN201310UV pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxySecuredRequestType secureRequest, WebServiceContext context) {
-       PRPAIN201310UV response = new PRPAIN201310UV();
+    public PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxySecuredRequestType secureRequest, WebServiceContext context) {
+       PRPAIN201310UV02 response = new PRPAIN201310UV02();
        PIXConsumerPRPAIN201309UVProxyRequestType request = new PIXConsumerPRPAIN201309UVProxyRequestType();
        request.setAssertion(SamlTokenExtractor.GetAssertion(context));
-       request.setPRPAIN201309UV(secureRequest.getPRPAIN201309UV());
+       request.setPRPAIN201309UV02(secureRequest.getPRPAIN201309UV02());
        request.setNhinTargetSystem(secureRequest.getNhinTargetSystem());
        response = pixConsumerPRPAIN201309UV(request);
 
@@ -132,9 +89,9 @@ public class NhincProxySubjectDiscoveryImpl {
      * @param request The subject reidentification
      * @return Reidentification Response message
      */
-    public org.hl7.v3.PRPAIN201310UV pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxyRequestType request) {
+    public org.hl7.v3.PRPAIN201310UV02 pixConsumerPRPAIN201309UV(PIXConsumerPRPAIN201309UVProxyRequestType request) {
         log.debug("Entering NhincProxySubjectDiscoveryImpl.pixConsumerPRPAIN201309UV...");
-        org.hl7.v3.PRPAIN201310UV response = new org.hl7.v3.PRPAIN201310UV();
+        org.hl7.v3.PRPAIN201310UV02 response = new org.hl7.v3.PRPAIN201310UV02();
 
         // Audit the Subject Revoke Request Message sent on the Nhin Interface
         SubjectDiscoveryAuditLog auditLog = new SubjectDiscoveryAuditLog();
@@ -143,11 +100,11 @@ public class NhincProxySubjectDiscoveryImpl {
         NhinSubjectDiscoveryProxyObjectFactory subjectDiscoveryFactory = new NhinSubjectDiscoveryProxyObjectFactory();
         NhinSubjectDiscoveryProxy proxy = subjectDiscoveryFactory.getNhinSubjectDiscoveryProxy();
 
-        response = proxy.pixConsumerPRPAIN201309UV(request.getPRPAIN201309UV(), request.getAssertion(), request.getNhinTargetSystem());
+        response = proxy.pixConsumerPRPAIN201309UV(request.getPRPAIN201309UV02(), request.getAssertion(), request.getNhinTargetSystem());
 
         // Audit the Subject Revoked Response Message received on the Nhin Interface
         PIXConsumerPRPAIN201310UVRequestType auditMsg = new PIXConsumerPRPAIN201310UVRequestType();
-        auditMsg.setPRPAIN201310UV(response);
+        auditMsg.setPRPAIN201310UV02(response);
         auditMsg.setAssertion(request.getAssertion());
         ack = auditLog.audit(auditMsg);
 
