@@ -2,19 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte;
 
-import gov.hhs.fha.nhinc.componentpatientcorrelationfacadedte.PatientCorrelationFacadeDte;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 /**
  *
- * @author rayj
+ * @author jhoppesc
  */
 @WebService(serviceName = "NhincComponentPatientCorrelationFacadeDteService", portName = "PatientCorrelationFacadeDteBindingPort", endpointInterface = "gov.hhs.fha.nhinc.componentpatientcorrelationfacadedte.PatientCorrelationFacadeDte", targetNamespace = "urn:gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte", wsdlLocation = "META-INF/wsdl/PatientCorrelationFacadeDteService/NhincComponentPatientCorrelationFacadeDte.wsdl")
 @Stateless
-public class PatientCorrelationFacadeDteService implements PatientCorrelationFacadeDte {
+public class PatientCorrelationFacadeDteService {
 
     public org.hl7.v3.CreatePixRetrieveResponseType createPixRetrieve(org.hl7.v3.CreatePixRetrieveRequestType createPixRetrieveRequest) {
         return PixRetrieveBuilder.createPixRetrieve(createPixRetrieveRequest);
@@ -28,11 +28,8 @@ public class PatientCorrelationFacadeDteService implements PatientCorrelationFac
         return PixAddBuilder.createPixAdd(createPixAddRequest);
     }
 
-    public org.hl7.v3.CreatePixRevokeResponseType createPixRevoke(org.hl7.v3.CreatePixRevokeRequestType createPixRevokeRequest) {
-        return PixRevokeBuilder.createPixRevoke(createPixRevokeRequest);
-    }
-
     public org.hl7.v3.CreateAckResponseType createAck(org.hl7.v3.CreateAckRequestType createAckRequest) {
         return FacadeAckBuilder.createAck(createAckRequest);
     }
+
 }

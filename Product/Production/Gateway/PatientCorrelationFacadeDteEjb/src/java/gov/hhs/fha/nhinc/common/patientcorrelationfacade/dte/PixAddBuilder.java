@@ -5,7 +5,6 @@
 package gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.*;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.helpers.CSHelper;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.helpers.Configuration;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.helpers.CreationTimeHelper;
@@ -17,9 +16,6 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 import org.hl7.v3.*;
-import java.util.Calendar;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
@@ -40,13 +36,13 @@ public class PixAddBuilder {
 
     public static CreatePixAddResponseType createPixAdd(CreatePixAddRequestType createPixAddRequest) {
         CreatePixAddResponseType createPixAddResponse = new CreatePixAddResponseType();
-        createPixAddResponse.setPRPAIN201301UV(createPixAdd(createPixAddRequest.getAddPatientCorrelationRequest()));
+        createPixAddResponse.setPRPAIN201301UV02(createPixAdd(createPixAddRequest.getAddPatientCorrelationRequest()));
         return createPixAddResponse;
     }
 
-    public static PRPAIN201301UV createPixAdd(gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType addPatientCorrelationRequest) {
+    public static PRPAIN201301UV02 createPixAdd(gov.hhs.fha.nhinc.common.patientcorrelationfacade.AddPatientCorrelationRequestType addPatientCorrelationRequest) {
         log.info("begin createPixAdd");
-        PRPAIN201301UV message = null;
+        PRPAIN201301UV02 message = null;
 
         List<QualifiedSubjectIdentifierType> qualifiedIds = addPatientCorrelationRequest.getQualifiedPatientIdentifier();
         log.info("qualifiedIds is null? -> " + (qualifiedIds == null));
@@ -59,8 +55,8 @@ public class PixAddBuilder {
         return message;
     }
 
-    private static PRPAIN201301UV createTransmissionWrapper(String senderId, String receiverId) {
-        PRPAIN201301UV message = new PRPAIN201301UV();
+    private static PRPAIN201301UV02 createTransmissionWrapper(String senderId, String receiverId) {
+        PRPAIN201301UV02 message = new PRPAIN201301UV02();
 
         message.setITSVersion(ITSVersion);
         message.setId(UniqueIdHelper.createUniqueId());
@@ -77,15 +73,15 @@ public class PixAddBuilder {
         return message;
     }
 
-    private static PRPAIN201301UVMFMIMT700701UV01ControlActProcess buildControlActProcess(List<QualifiedSubjectIdentifierType> qualifiedIds) {
+    private static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess buildControlActProcess(List<QualifiedSubjectIdentifierType> qualifiedIds) {
         log.info("begin buildControlActProcess");
 
-        PRPAIN201301UVMFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UVMFMIMT700701UV01ControlActProcess();
-        controlActProcess.setMoodCode(MoodCodeValue);
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
-        PRPAIN201301UVMFMIMT700701UV01Subject1 subject = new PRPAIN201301UVMFMIMT700701UV01Subject1();
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = new PRPAIN201301UV02MFMIMT700701UV01Subject1();
         subject.getTypeCode().add(SubjectTypeCode);
-        PRPAIN201301UVMFMIMT700701UV01RegistrationEvent registrationEvent = buildRegistrationEvent(qualifiedIds);
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationEvent = buildRegistrationEvent(qualifiedIds);
         subject.setRegistrationEvent(registrationEvent);
 
         controlActProcess.getSubject().add(subject);
@@ -96,16 +92,16 @@ public class PixAddBuilder {
         return controlActProcess;
     }
 
-    private static PRPAIN201301UVMFMIMT700701UV01RegistrationEvent buildRegistrationEvent(List<QualifiedSubjectIdentifierType> qualifiedIds) {
+    private static PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent buildRegistrationEvent(List<QualifiedSubjectIdentifierType> qualifiedIds) {
         log.info("begin buildRegistrationEvent");
 
-        PRPAIN201301UVMFMIMT700701UV01RegistrationEvent registrationEvent = new PRPAIN201301UVMFMIMT700701UV01RegistrationEvent();
+        PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationEvent = new PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent();
         registrationEvent.getId().add(IIHelper.IIFactoryCreateNull());
         registrationEvent.setStatusCode(CSHelper.buildCS("active"));
 
-        PRPAIN201301UVMFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UVMFMIMT700701UV01Subject2();
-        PRPAMT201301UVPatient patient = new PRPAMT201301UVPatient();
-        patient.setClassCode(PatientClassCode);
+        PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = new PRPAIN201301UV02MFMIMT700701UV01Subject2();
+        PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
+        patient.getClassCode().add(PatientClassCode);
         patient.setStatusCode(CSHelper.buildCS(PatientStatusCode));
 
         log.info("adding qualifiedSubjectIdentifiers");
@@ -117,15 +113,15 @@ public class PixAddBuilder {
         log.info("patient.getId().size()=" + patient.getId().size());
 
         log.info("building patientPerson");
-        JAXBElement<PRPAMT201301UVPerson> patientPersonElement;
-        PRPAMT201301UVPerson patientPerson = new PRPAMT201301UVPerson();
+        JAXBElement<PRPAMT201301UV02Person> patientPersonElement;
+        PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
 
         PNExplicit patientName = new PNExplicit();
         patientName.getNullFlavor().add("NA");
         patientPerson.getName().add(patientName);
         
         QName xmlqname = new QName("urn:hl7-org:v3", "patientPerson");
-        patientPersonElement = new JAXBElement<PRPAMT201301UVPerson>(xmlqname, PRPAMT201301UVPerson.class, patientPerson);
+        patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname, PRPAMT201301UV02Person.class, patientPerson);
 
         patient.setPatientPerson(patientPersonElement);
         subject1.setPatient(patient);

@@ -15,6 +15,7 @@
             <xsd:element name="TargetAssigningAuthority" type="xsd:string" maxOccurs="unbounded" minOccurs="0" />
             
             <xsd:element name="TargetHomeCommunity" type="xsd:string" maxOccurs="unbounded" minOccurs="0" />
+            <xsd:element name="assertion" type="nccommon:AssertionType"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RetrievePatientCorrelationsRequest" type="tns:RetrievePatientCorrelationsRequestType" />
@@ -22,6 +23,7 @@
     <xsd:complexType name="RetrievePatientCorrelationsResponseType">
         <xsd:sequence>
             <xsd:element name="QualifiedPatientIdentifier" type="nccommon:QualifiedSubjectIdentifierType" maxOccurs="unbounded" minOccurs="0" />
+            <xsd:element name="assertion" type="nccommon:AssertionType"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RetrievePatientCorrelationsResponse" type="tns:RetrievePatientCorrelationsResponseType" />
@@ -29,6 +31,7 @@
     <xsd:complexType name="AddPatientCorrelationRequestType">
         <xsd:sequence>
             <xsd:element name="QualifiedPatientIdentifier" type="nccommon:QualifiedSubjectIdentifierType" maxOccurs="2" minOccurs="2" />
+            <xsd:element name="assertion" type="nccommon:AssertionType"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="AddPatientCorrelationRequest" type="tns:AddPatientCorrelationRequestType" />
@@ -43,6 +46,7 @@
     <xsd:complexType name="RemovePatientCorrelationRequestType">
         <xsd:sequence>
             <xsd:element name="QualifiedPatientIdentifier" type="nccommon:QualifiedSubjectIdentifierType" maxOccurs="2" minOccurs="2" />
+            <xsd:element name="assertion" type="nccommon:AssertionType"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="RemovePatientCorrelationRequest" type="tns:RemovePatientCorrelationRequestType" />

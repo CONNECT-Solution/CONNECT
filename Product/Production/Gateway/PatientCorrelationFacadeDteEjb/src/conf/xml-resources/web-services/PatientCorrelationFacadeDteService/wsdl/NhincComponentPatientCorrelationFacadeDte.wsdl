@@ -34,13 +34,6 @@
         <part name="CreatePixAddResponse"  element="hl7:CreatePixAddResponse"/>
     </message>
 
-    <message name="CreatePixRevokeRequestMessage">
-        <part name="CreatePixRevokeRequest" element="hl7:CreatePixRevokeRequest"/>
-    </message>
-    <message name="CreatePixRevokeResponseMessage">
-        <part name="CreatePixRevokeResponse"  element="hl7:CreatePixRevokeResponse"/>
-    </message>
-
     <message name="CreateAckRequestMessage">
         <part name="CreateAckRequest" element="hl7:CreateAckRequest"/>
     </message>
@@ -60,10 +53,6 @@
         <operation name="CreatePixAdd">
             <input name="CreatePixAddInput" message="tns:CreatePixAddRequestMessage"/>
             <output name="CreatePixAddOutput" message="tns:CreatePixAddResponseMessage"/>
-        </operation>
-        <operation name="CreatePixRevoke">
-            <input name="CreatePixRevokeInput" message="tns:CreatePixRevokeRequestMessage"/>
-            <output name="CreatePixRevokeOutput" message="tns:CreatePixRevokeResponseMessage"/>
         </operation>
         <operation name="CreateAck">
             <input name="CreateAckInput" message="tns:CreateAckRequestMessage"/>
@@ -96,15 +85,6 @@
                 <soap:body use="literal"/>
             </input>
             <output name="CreatePixAddOutput">
-                <soap:body use="literal"/>
-            </output>
-        </operation>
-        <operation name="CreatePixRevoke">
-            <soap:operation soapAction="urn:CreatePixRevoke"/>
-            <input name="CreatePixRevokeInput">
-                <soap:body use="literal"/>
-            </input>
-            <output name="CreatePixRevokeOutput">
                 <soap:body use="literal"/>
             </output>
         </operation>

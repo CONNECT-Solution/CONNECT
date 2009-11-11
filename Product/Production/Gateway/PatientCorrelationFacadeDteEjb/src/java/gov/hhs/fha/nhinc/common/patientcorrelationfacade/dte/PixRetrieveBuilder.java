@@ -42,20 +42,20 @@ public class PixRetrieveBuilder {
     private static final String MoodCodeValue = "EVN";
 
     public static CreatePixRetrieveResponseType createPixRetrieve(CreatePixRetrieveRequestType createPixRetrieveRequest) {
-        PRPAIN201309UV pixRetrieve = createPixRetrieve(createPixRetrieveRequest.getRetrievePatientCorrelationsRequest());
+        PRPAIN201309UV02 pixRetrieve = createPixRetrieve(createPixRetrieveRequest.getRetrievePatientCorrelationsRequest());
         CreatePixRetrieveResponseType response = new CreatePixRetrieveResponseType();
-        response.setPRPAIN201309UV(pixRetrieve);
+        response.setPRPAIN201309UV02(pixRetrieve);
         return response;
     }
 
-    public static PRPAIN201309UV createPixRetrieve(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
+    public static PRPAIN201309UV02 createPixRetrieve(RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         List<String> targetAssigningAuthorities = extractTargetAssigningAuthorities(retrievePatientCorrelationsRequest);
-        PRPAIN201309UV pixRetrieve = createTransmissionWrapper(Configuration.getMyCommunityId(), null);
+        PRPAIN201309UV02 pixRetrieve = createTransmissionWrapper(Configuration.getMyCommunityId(), null);
 
-        PRPAIN201309UVQUQIMT021001UV01ControlActProcess controlActProcess = createBaseControlActProcess();
+        PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess = createBaseControlActProcess();
 
-        PRPAMT201307UVQueryByParameter queryByParameter = createQueryByParameter(retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
-        JAXBElement<PRPAMT201307UVQueryByParameter> createQueryByParameterElement = createQueryByParameterElement(queryByParameter);
+        PRPAMT201307UV02QueryByParameter queryByParameter = createQueryByParameter(retrievePatientCorrelationsRequest.getQualifiedPatientIdentifier(), targetAssigningAuthorities);
+        JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameterElement = createQueryByParameterElement(queryByParameter);
         controlActProcess.setQueryByParameter(createQueryByParameterElement);
 
         pixRetrieve.setControlActProcess(controlActProcess);
@@ -99,14 +99,14 @@ public class PixRetrieveBuilder {
         return author;
     }
 
-    private static PRPAMT201307UVParameterList createParameterList(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
-        PRPAMT201307UVParameterList parameterList = new PRPAMT201307UVParameterList();
-        PRPAMT201307UVPatientIdentifier patId = createPatientIdentifier(qualifiedSubjectIdentifier);
+    private static PRPAMT201307UV02ParameterList createParameterList(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
+        PRPAMT201307UV02ParameterList parameterList = new PRPAMT201307UV02ParameterList();
+        PRPAMT201307UV02PatientIdentifier patId = createPatientIdentifier(qualifiedSubjectIdentifier);
         parameterList.getPatientIdentifier().add(patId);
 
         if (targetAssigningAuthorities != null) {
             for (String targetAssigningAuthority : targetAssigningAuthorities) {
-                PRPAMT201307UVDataSource dataSourceItem = new PRPAMT201307UVDataSource();
+                PRPAMT201307UV02DataSource dataSourceItem = new PRPAMT201307UV02DataSource();
                 II dataSourceValue = new II();
                 dataSourceValue.setRoot(targetAssigningAuthority);
                 dataSourceItem.getValue().add(dataSourceValue);
@@ -117,8 +117,8 @@ public class PixRetrieveBuilder {
         return parameterList;
     }
 
-    private static PRPAIN201309UV createTransmissionWrapper(String senderId, String receiverId) {
-        PRPAIN201309UV message = new PRPAIN201309UV();
+    private static PRPAIN201309UV02 createTransmissionWrapper(String senderId, String receiverId) {
+        PRPAIN201309UV02 message = new PRPAIN201309UV02();
 
         message.setITSVersion(ITSVersion);
         message.setId(UniqueIdHelper.createUniqueId());
@@ -135,18 +135,18 @@ public class PixRetrieveBuilder {
         return message;
     }
 
-    private static PRPAIN201309UVQUQIMT021001UV01ControlActProcess createBaseControlActProcess() {
-        PRPAIN201309UVQUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201309UVQUQIMT021001UV01ControlActProcess();
+    private static PRPAIN201309UV02QUQIMT021001UV01ControlActProcess createBaseControlActProcess() {
+        PRPAIN201309UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201309UV02QUQIMT021001UV01ControlActProcess();
 
-        controlActProcess.setMoodCode(MoodCodeValue);
+        controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setCode(CDHelper.CDFactory(ControlActProcessCode, Constants.HL7_OID));
         controlActProcess.getAuthorOrPerformer().add(createAuthor());
 
         return controlActProcess;
     }
 
-    private static PRPAMT201307UVQueryByParameter createQueryByParameter(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
-        PRPAMT201307UVQueryByParameter queryByParameter = new PRPAMT201307UVQueryByParameter();
+    private static PRPAMT201307UV02QueryByParameter createQueryByParameter(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier, List<String> targetAssigningAuthorities) {
+        PRPAMT201307UV02QueryByParameter queryByParameter = new PRPAMT201307UV02QueryByParameter();
         queryByParameter.setQueryId(UniqueIdHelper.createUniqueId(Configuration.getMyCommunityId()));
         queryByParameter.setStatusCode(CSHelper.buildCS("new"));
         queryByParameter.setResponsePriorityCode(CSHelper.buildCS("I"));
@@ -154,10 +154,10 @@ public class PixRetrieveBuilder {
         return queryByParameter;
     }
 
-    private static JAXBElement<PRPAMT201307UVQueryByParameter> createQueryByParameterElement(PRPAMT201307UVQueryByParameter queryByParameter) {
-        JAXBElement<PRPAMT201307UVQueryByParameter> queryByParameterElement;
+    private static JAXBElement<PRPAMT201307UV02QueryByParameter> createQueryByParameterElement(PRPAMT201307UV02QueryByParameter queryByParameter) {
+        JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameterElement;
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-        queryByParameterElement = new JAXBElement<PRPAMT201307UVQueryByParameter>(xmlqname, PRPAMT201307UVQueryByParameter.class, new PRPAMT201307UVQueryByParameter());
+        queryByParameterElement = new JAXBElement<PRPAMT201307UV02QueryByParameter>(xmlqname, PRPAMT201307UV02QueryByParameter.class, new PRPAMT201307UV02QueryByParameter());
         queryByParameterElement.setValue(queryByParameter);
         return queryByParameterElement;
     }
@@ -172,8 +172,8 @@ public class PixRetrieveBuilder {
         return val;
     }
 
-    private static PRPAMT201307UVPatientIdentifier createPatientIdentifier(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
-        PRPAMT201307UVPatientIdentifier patientIdentifier = new PRPAMT201307UVPatientIdentifier();
+    private static PRPAMT201307UV02PatientIdentifier createPatientIdentifier(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = new PRPAMT201307UV02PatientIdentifier();
         patientIdentifier.getValue().add(IIHelper.IIFactory(qualifiedSubjectIdentifier));
         patientIdentifier.setSemanticsText(SemanticsTextHelper.CreateSemanticsText("Patient.Id"));
         return patientIdentifier;

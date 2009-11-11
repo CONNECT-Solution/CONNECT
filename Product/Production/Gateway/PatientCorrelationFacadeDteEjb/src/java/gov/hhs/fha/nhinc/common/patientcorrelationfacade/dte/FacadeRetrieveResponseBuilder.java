@@ -16,14 +16,14 @@ import org.hl7.v3.*;
 public class FacadeRetrieveResponseBuilder {
 
     public static CreateFacadeRetrieveResultResponseType createFacadeRetrieveResult(CreateFacadeRetrieveResultRequestType createFacadeRetrieveResultRequest) {
-        PRPAIN201310UV pixRetrieveResponse = createFacadeRetrieveResultRequest.getPRPAIN201310UV();
+        PRPAIN201310UV02 pixRetrieveResponse = createFacadeRetrieveResultRequest.getPRPAIN201310UV02();
         RetrievePatientCorrelationsResponseType facadeRetrieveResult = createFacadeRetrieveResult(pixRetrieveResponse);
         CreateFacadeRetrieveResultResponseType response = new CreateFacadeRetrieveResultResponseType();
         response.setRetrievePatientCorrelationsResponse(facadeRetrieveResult);
         return response;
     }
 
-    public static RetrievePatientCorrelationsResponseType createFacadeRetrieveResult(PRPAIN201310UV pixRetrieveResponse) {
+    public static RetrievePatientCorrelationsResponseType createFacadeRetrieveResult(PRPAIN201310UV02 pixRetrieveResponse) {
         RetrievePatientCorrelationsResponseType response = new RetrievePatientCorrelationsResponseType();
 
         List<II> idList;
