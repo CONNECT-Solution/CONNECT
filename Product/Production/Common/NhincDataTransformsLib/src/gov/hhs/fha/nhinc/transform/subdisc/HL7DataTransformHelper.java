@@ -185,29 +185,4 @@ public class HL7DataTransformHelper {
         log.debug("end CreatePNExplicit");
         return name;
     }
-
-    public static ADExplicit CreateADExplicit(boolean notOrdered, String street, String city, String state, String zip)
-    {
-        ADExplicit result = new ADExplicit();
-
-        result.setIsNotOrdered(notOrdered);
-        
-        result.getUse().add(street);
-        result.getUse().add(city);
-        result.getUse().add(state);
-        result.getUse().add(zip);
-        return result;
-    }
-    public static ADExplicit CreateADExplicit(String street, String city, String state, String zip)
-    {
-        return CreateADExplicit(false, street, city, state, zip);
-    }
-    public static TELExplicit createTELExplicit(String value)
-    {
-        TELExplicit result = new TELExplicit();
-
-        result.setValue(value);
-        
-        return result;
-    }
 }

@@ -9,9 +9,7 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.hl7.v3.CE;
 import org.hl7.v3.II;
-import org.hl7.v3.ADExplicit;
 import org.hl7.v3.PNExplicit;
-import org.hl7.v3.TELExplicit;
 import org.hl7.v3.PRPAMT201301UV02OtherIDs;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.TSExplicit;
@@ -21,18 +19,13 @@ import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201302UV02OtherIDs;
 import org.hl7.v3.PRPAMT201302UV02OtherIDsId;
 import org.hl7.v3.PRPAMT201302UV02Patient;
-import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.PRPAMT201302UV02PatientId;
 import org.hl7.v3.PRPAMT201302UV02PatientPatientPerson;
 import org.hl7.v3.PRPAMT201302UV02PatientStatusCode;
 import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Person;
-import org.hl7.v3.PRPAMT201301UVPatient;
-import org.hl7.v3.PRPAMT201302UVPatient;
-import org.hl7.v3.PRPAMT201301UVPerson;
-import org.hl7.v3.PRPAMT201302UVPerson;
-import org.hl7.v3.PRPAMT201301UVBirthPlace;
-import org.hl7.v3.PRPAMT201302UVBirthPlace;
+import org.hl7.v3.PRPAMT201310UV02Patient;
+
 /**
  *
  * @author Jon Hoppesch
@@ -43,45 +36,6 @@ public class HL7PatientTransforms {
 
     public static PRPAMT201301UV02Patient create201301Patient(JAXBElement<PRPAMT201301UV02Person> person, String patId) {
         return create201301Patient(person, HL7DataTransformHelper.IIFactory(patId));
-    }
-
-    public static PRPAMT201301UVPatient createPRPAMT201301UVPatient(PRPAMT201302UVPatient patient)
-    {
-        PRPAMT201301UVPatient result = new PRPAMT201301UVPatient();
-
-        if (patient == null)
-        {
-            return null;
-        }
-
-        result.setClassCode(patient.getClassCode());
-        result.setEffectiveTime(patient.getEffectiveTime());
-        if(patient.getProviderOrganization() != null)
-        {
-            result.setProviderOrganization(patient.getProviderOrganization().getValue());
-        }
-
-        result.setStatusCode(patient.getStatusCode());
-        result.setTypeId(patient.getTypeId());
-        result.setVeryImportantPersonCode(patient.getVeryImportantPersonCode());
-
-        for(ADExplicit address : patient.getAddr())
-        {
-            result.getAddr().add(address);
-        }
-        for(TELExplicit telephone : patient.getTelecom())
-        {
-            result.getTelecom().add(telephone);
-        }
-
-        for(CE code: patient.getConfidentialityCode())
-        {
-            result.getConfidentialityCode().add(code);
-        }
-
-
-        result.setPatientPerson(create201301PatientPerson(patient.getPatientPerson()));
-        return result;
     }
 
     public static PRPAMT201301UV02Patient create201301Patient(JAXBElement<PRPAMT201301UV02Person> person, String patId, String assigningAuthority) {
@@ -481,91 +435,6 @@ public class HL7PatientTransforms {
         }
 
         return otherIds;
-    }
-        public static JAXBElement<PRPAMT201301UVPerson> create201301PatientPerson( JAXBElement<PRPAMT201302UVPerson> person)
-    {
-         PRPAMT201301UVPerson result = new PRPAMT201301UVPerson();
-
-         if (person == null)
-         {
-             return null;
-         }
-
-         for(PNExplicit name : person.getValue().getName())
-         {
-             result.getName().add(name);
-         }
-
-        result.setAdministrativeGenderCode(person.getValue().getAdministrativeGenderCode());
-
-        result.setBirthTime(person.getValue().getBirthTime());
-
-
-        for(ADExplicit add : person.getValue().getAddr())
-        {
-            result.getAddr().add(add);
-        }
-
-        if(person.getValue().getBirthPlace() != null)
-        {
-            result.setBirthPlace(createPRPAMT201301UVBirthPlace(person.getValue().getBirthPlace()));
-        }
-
-        for(II id : person.getValue().getId())
-        {
-            result.getId().add(id);
-        }
-
-        for(TELExplicit telephone : person.getValue().getTelecom())
-        {
-            result.getTelecom().add(telephone);
-        }
-
-        result.setDeceasedInd(person.getValue().getDeceasedInd());
-        result.setDeceasedTime(person.getValue().getDeceasedTime());
-        result.setDeterminerCode(person.getValue().getDeterminerCode());
-        result.setDesc(person.getValue().getDesc());
-        result.setEducationLevelCode(person.getValue().getEducationLevelCode());
-        result.setLivingArrangementCode(person.getValue().getLivingArrangementCode());
-        result.setMaritalStatusCode(person.getValue().getMaritalStatusCode());
-        result.setMultipleBirthInd(person.getValue().getMultipleBirthInd());
-        result.setMultipleBirthOrderNumber(person.getValue().getMultipleBirthOrderNumber());
-        result.setOrganDonorInd(person.getValue().getOrganDonorInd());
-        result.setReligiousAffiliationCode(person.getValue().getReligiousAffiliationCode());
-        result.setTypeId(person.getValue().getTypeId());
-
-
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
-        JAXBElement<PRPAMT201301UVPerson> element = new JAXBElement<PRPAMT201301UVPerson>(xmlqname, PRPAMT201301UVPerson.class, result);
-
-         return element;
-
-    }
-    public static JAXBElement<PRPAMT201301UVBirthPlace> createPRPAMT201301UVBirthPlace( JAXBElement<PRPAMT201302UVBirthPlace> value)
-    {
-        PRPAMT201301UVBirthPlace result = new PRPAMT201301UVBirthPlace();
-        PRPAMT201302UVBirthPlace birthPlace;
-
-        if(value == null)
-        {
-            return null;
-        }
-
-        birthPlace = value.getValue();
-
-        if (birthPlace.getBirthplace() != null)
-        {
-            result.setBirthplace(birthPlace.getBirthplace());
-        }
-        if (NullChecker.isNotNullish(birthPlace.getClassCode()))
-        {
-            result.setClassCode(birthPlace.getClassCode());
-        }
-        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "birthPlace");
-        JAXBElement<PRPAMT201301UVBirthPlace> element = new JAXBElement<PRPAMT201301UVBirthPlace>(xmlqname, PRPAMT201301UVBirthPlace.class, result);
-
-
-        return element;
     }
 
 }
