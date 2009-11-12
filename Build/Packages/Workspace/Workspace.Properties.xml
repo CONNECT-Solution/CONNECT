@@ -24,17 +24,20 @@
   <property name="Workspace.Ftp.Url" value="ftp://FTPOut:Ag1l3xHC0ut!@ftp.agilexhealth.com/Outgoing/Build/"/>
   
   <strings id="Workspace.RequieredSoftware">
+    <string value="Subversion"/>
     <string value="Java"/>
     <string value="CCTray"/>
     <string value="GlassFish"/>
     <string value="SoapUI"/>
+    <!--<string value="MySQL"/>-->
   </strings>
 
+  <include buildfile="${Package.Workspace.Directory.Path}\Software\Subversion\Subversion.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\CCTray\CCTray.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\Java\Java.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\MySQL\MySQL.Script.xml"/>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\GlassFish\GlassFish.Script.xml"/>
-  <include buildfile="${Package.Workspace.Directory.Path}\Software\SoapUI\SOAPUI.Script.xml"/>
+  <include buildfile="${Package.Workspace.Directory.Path}\Software\SOAPUI\SoapUI.Script.xml"/>
 
   <strings id="Workspace.Configuration">
     <string value="CCTray"/>
@@ -42,7 +45,7 @@
   
   <include buildfile="${Package.Workspace.Directory.Path}\Configuration\CCTray\CCTray.Script.xml"/>
 
-  <!--<ifnot test="${property::exists('SourceControl.PackageName')}">
+  <ifnot test="${property::exists('SourceControl.PackageName')}">
     <property name="SourceControl.PackageName" value="${package::find-name-by-type('SourceControl')}"/>
   </ifnot>
 
@@ -50,6 +53,6 @@
     <function execute="${stringlist::add('Workspace.RequieredSoftware', SourceControl.PackageName)}" />
   </ifnot>
   <include buildfile="${Package.Workspace.Directory.Path}\Software\${SourceControl.PackageName}\${SourceControl.PackageName}.Script.xml"
-           unless="${target::exists('Workspace.RequieredSoftware.' + SourceControl.PackageName)}"/>-->
+           unless="${target::exists('Workspace.RequieredSoftware.' + SourceControl.PackageName)}"/>
 
 </project>
