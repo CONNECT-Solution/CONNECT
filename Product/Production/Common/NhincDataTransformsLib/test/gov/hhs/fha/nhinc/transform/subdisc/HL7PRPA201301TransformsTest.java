@@ -25,7 +25,9 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
+
 
 /**
  *
@@ -246,7 +248,7 @@ public class HL7PRPA201301TransformsTest {
         List<TELExplicit> phoneList = new java.util.ArrayList<TELExplicit>();
         phoneList.add(phone);
         
-        PRPAIN201305UV02QUQIMT021001UV01ControlActProcess value = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess value = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
