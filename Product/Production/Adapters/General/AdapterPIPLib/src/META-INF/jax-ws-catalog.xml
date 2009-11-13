@@ -2,5 +2,6 @@
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" uri="wsdl/AdapterComponentDocRegistry.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" uri="wsdl/AdapterComponentDocRepository.wsdl"/>
+    <system systemId="file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" uri="wsdl/EntityNotificationConsumer.wsdl"/>
 </catalog>
 

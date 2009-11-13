@@ -94,18 +94,26 @@ public class CDAConstants
     public static final String PROVIDE_REGISTER_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     public static final String SLOT_NAME_CREATION_TIME = "creationTime";
     public static final String SLOT_NAME_LANGUAGE_CODE = "languageCode";
+    public static final String SLOT_NAME_LEGAL_AUTHENTICATOR = "legalAuthenticator";
+    public static final String SLOT_NAME_SOURCE_PATIENT_INFO = "sourcePatientInfo";
+    public static final String SLOT_NAME_SERVICE_START_TIME = "serviceStartTime";
+    public static final String SLOT_NAME_SERVICE_STOP_TIME = "serviceStopTime";
+    public static final String SLOT_NAME_URI = "URI";
+
+
     public static final String CHARACTER_SET = "UTF-8";
     public static final String EXTERNAL_OBJECT_IDENTIFIER_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier";
     public static final String EXTERNAL_IDENTIFICATION_SCHEMA_UNIQUEID = "urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8";
     public static final String EXTERNAL_IDENTIFICATION_SCHEMA_PATIENTID = "urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446";
     public static final String EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT = "SubmissionSet01";
     public static final String CLASSIFICATION_SCHEMA_IDENTIFIER_CDAR2 = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
+    public static final String CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     public static final String NODE_REPRESENTATION_CDAR2 = "CDAR2/IHE 1.0";
     public static final String CDAR2_VALUE = "Connect-a-thon formatCodes";
     public static final String CLASSIFICATION_REGISTRY_OBJECT = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification";
     public static final String CLASSIFICATION_SCHEMA_CDNAME = "codingScheme";
     public static final String CLASSIFICATION_SCHEMA_AUTHOR_IDENTIFIER = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
-    //public static final String XDS_EVENT_CODE_LIST_CLASSIFICATION = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
+    public static final String XDS_EVENT_CODE_LIST_CLASSIFICATION = "urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4";
     public static final String XDS_REGISTRY_ASSOCIATION_TYPE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:HasMember";
     public static final String XDS_REGISTRY_ASSOCIATION_OBJECT_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Association";
     public static final String XDS_REGISTRY_REGISTRY_PACKAGE_TYPE = "urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:RegistryPackage";
@@ -114,6 +122,11 @@ public class CDAConstants
     public static final String XDS_REGISTRY_CONTENT_TYPE_UUID = "urn:uuid:aa543740-bdda-424e-8c96-df4873be8500";
     public static final String XDS_REGISTRY_ASSOCIATION_TYPE_RPLC = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     public static final String XDS_REGISTRY_ASSOCIATION_TYPE_TARGET_OBJECT = "urn:uuid:6f5d07b7-81f4-4865-836a-c2d9134e1687";
+    public static final String XDS_AUTHOR = "urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d";
+    public static final String CLASSIFICATION_SLOT_AUTHOR_PERSON = "authorPerson";
+    public static final String CLASSIFICATION_SLOT_AUTHOR_INSTITUTION = "authorInstitution";
+    public static final String CLASSIFICATION_SLOT_AUTHOR_ROLE = "authorRole";
+    public static final String CLASSIFICATION_SLOT_AUTHOR_SPECIALTY = "authorSpecialty";
     public static final String PROVIDE_REGISTER_SUBMISSION_SET_SOURCE_ID_UUID = "urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832";
     public static final String XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
     public static final String PROVIDE_REGISTER_CONFIDENTIALITY_CODE_UUID = "urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f";
