@@ -601,6 +601,7 @@
 	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType"/>
 	<xsd:complexType name="PolicyDataEntererInfoType">
 		<xsd:sequence>
+			<xsd:element name="dataEntererTime" type="xsd:dateTime" minOccurs="0"/>
 			<xsd:element name="dataEntererIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="dataEntererId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0" />
