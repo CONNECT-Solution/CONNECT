@@ -276,6 +276,10 @@
         <directory>/Production/Adapters/General/EntitySubjectDiscoveryProxyEJB</directory>
     </project>
     <project>
+        <name>EntityPatientDiscoveryProxyEJB</name>
+        <directory>/Production/Adapters/General/EntityPatientDiscoveryProxyEJB</directory>
+    </project>
+    <project>
         <name>AdapterSubjectDiscoveryProxyEJB</name>
         <directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
     </project>
