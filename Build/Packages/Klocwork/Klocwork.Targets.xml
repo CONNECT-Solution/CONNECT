@@ -2,15 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Klocwork">
 
   <target name="Klocwork.CreateBuildSpecification">
-    <!--<setenv>
-      <environment refid="${Common.EnvironmentVariables.RefId}" />
-    </setenv>
-    <exec program="kwant.exe"
-				  commandline='-o nhin_kwinject.out build-test'
-          failonerror="true"
-				  workingdir="${Common.Directory.Product.Path}"
-          verbose="true"/>-->
-          
+
     <ant
       antbat="kwant.exe"
       target="build-test"
@@ -29,17 +21,18 @@
       <environment refid="${Common.EnvironmentVariables.RefId}" />
     </setenv>
     <exec program="kwbuildproject"
-				  commandline='${Klocwork.Build.Specification} --tables-directory ${Klocwork.Tables.Directory.Path} --force'
-				  workingdir='${Common.Directory.Product.Path}'/>
+				  commandline='--force  --jobs-num auto --verbose ${Klocwork.Build.Specification} --tables-directory ${Klocwork.Tables.Directory.Path}'
+				  workingdir='${Common.Directory.Product.Path}' verbose="true"/>
   </target>
 
   <target name="Klocwork.LoadAnalysisResults">
     <setenv>
       <environment refid="${Common.EnvironmentVariables.RefId}" />
     </setenv>
+    <property name="klocwork.build.name" value="${string::replace(CCNetLabel, '.', '_')}"/>
     <exec program="kwadmin"
-				  commandline='load ${Klocwork.Project.Name} ${Klocwork.Tables.Directory.Path}'
-				  workingdir='${Common.Directory.Product.Path}'/>
+				  commandline='--verbose load ${Klocwork.Project.Name} ${Klocwork.Tables.Directory.Path} --name ${klocwork.build.name} --copy-sources'
+				  workingdir='${Common.Directory.Product.Path}' verbose="true"/>
   </target>
 
 </project>
