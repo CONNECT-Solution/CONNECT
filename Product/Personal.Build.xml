@@ -68,7 +68,7 @@
       <environment refid="${Common.EnvironmentVariables.RefId}" />
     </setenv>
 
-    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="${SoapUI.Install.Directory.Path}\bin\soapUI-Pro-3.0.1.exe"/>
+    <asyncexec createnowindow="false" redirectoutput="false" useshellexecute="true" waitforexit="false" program="${SoapUI.Install.Directory.Path}\bin\soapui-pro.bat"/>
   </target>
 
   <target name="UpdateWorkspace">
