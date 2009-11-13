@@ -738,10 +738,12 @@ public class PatientConsentManager
             (oPrefCDA.getComponent() != null) &&
             (oPrefCDA.getComponent().getNonXMLBody() != null) &&
             (oPrefCDA.getComponent().getNonXMLBody().getText() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getTextContent() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getTextContent().length() > 0))
+            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent() != null) &&
+            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().size() > 0) &&  // Sould only be one, if there is more than one, take the first.
+            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0) != null) &&
+            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0) instanceof  String))
         {
-            String sConsentXACML = StringUtil.unwrapCdata(oPrefCDA.getComponent().getNonXMLBody().getText().getTextContent());
+            String sConsentXACML = StringUtil.unwrapCdata((String) oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0));
 
             if ((sConsentXACML != null) &&
                 (sConsentXACML.trim().length() > 0))

@@ -27,6 +27,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.EDExplicit;
 
 /**
  *
@@ -234,10 +235,18 @@ public class ConsentDocumentCreator
         POCDMT000040NonXMLBody oNonXMLBody = new POCDMT000040NonXMLBody();
         oMainComponent.setNonXMLBody(oNonXMLBody);
 
-        Element oElementXACMLConsent = null;
-        oElementXACMLConsent = oDOMDocument.createElement(CDAConstants.TEXT_TAG);
-        oElementXACMLConsent.setTextContent(StringUtil.wrapCdata(sConsentXACML));
-        oNonXMLBody.setText(oElementXACMLConsent);
+        // This set of code is used if we are using DOM to set this.
+        // The XML Schema would have to be set to use DOM for this node.
+        //---------------------------------------------------------------
+//        Element oElementXACMLConsent = null;
+//        oElementXACMLConsent = oDOMDocument.createElement(CDAConstants.TEXT_TAG);
+//        oElementXACMLConsent.setTextContent(StringUtil.wrapCdata(sConsentXACML));
+//        oNonXMLBody.setText(oElementXACMLConsent);
+
+        EDExplicit oEd = new EDExplicit();
+        oNonXMLBody.setText(oEd);
+        oEd.getContent().add(StringUtil.wrapCdata(sConsentXACML));
+
 
         return oPrefCDA;
     }

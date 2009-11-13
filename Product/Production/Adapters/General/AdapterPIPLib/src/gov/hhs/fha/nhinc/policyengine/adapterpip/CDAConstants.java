@@ -12,6 +12,8 @@ public class CDAConstants
     public static final String TYPE_ID_ROOT = "2.16.840.1.113883.1.3";
     public static final String TEMPLATE_ID_ROOT_MEDICAL_DOCUMENTS = "1.3.6.1.4.1.19376.1.5.3.1.1.1";
     public static final String TEMPLATE_ID_ROOT_CONSENT_TO_SHARE = "1.3.6.1.4.1.19376.1.5.3.1.1.7";
+    public static final String TEMPLATE_ID_ROOT_AUTHOR_ORIGINAL = "1.3.6.1.4.1.19376.1.2.20.1";
+    public static final String TEMPLATE_ID_ROOT_AUTHOR_SCANNER = "1.3.6.1.4.1.19376.1.2.20.2";
     public static final String CODE_SYSTEM_LOINC_OID = "2.16.840.1.113883.6.1";
     public static final String CODE_SYSTEM_NAME_LOINC = "LOINC";
     public static final String TITLE_TAG = "title";
