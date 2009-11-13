@@ -51,7 +51,7 @@
     <variable name="JAVA_HOME" value="${Java.Home}" />
     <variable name="ANT_HOME" value="${Ant.Home}" />
     <variable name="ANT_OPTS" value='-Xmx872m -XX:MaxPermSize=512m "-Dcom.sun.aas.instanceName=server" "-Dlibs.CopyLibs.classpath=${NetBeans.Property.Libs.CopyLibs.Classpath}" "-Dj2ee.platform.classpath=${NetBeans.Property.J2ee.Platform.Classpath}"'/>
-    <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${environment::get-variable('ProgramFiles')}\Subversion\bin;${environment::get-variable('ProgramFiles')}\Klocwork\Klocwork 8.2 Server\bin;" />
+    <variable name="PATH" path="${Java.Home}\bin;${Java.Home};${Ant.Bin};${Common.EnvironmentVariables.Path};${environment::get-variable('ProgramFiles')}\Subversion\bin;${environment::get-variable('ProgramFiles')}\Klocwork\Klocwork 8.2 Server\bin;${GlassFish.Home.Directory.Path}\bin;" />
     <variable name="JAVAEXE" value="${Java.Exe}"/>
     <variable name="CORBERTURA_BIN" value="${Corbertura.Bin}"/>
     <variable name="NHINC_PROPERTIES_DIR" value="${Common.Directory.Production.Path}\Common\Properties" />
