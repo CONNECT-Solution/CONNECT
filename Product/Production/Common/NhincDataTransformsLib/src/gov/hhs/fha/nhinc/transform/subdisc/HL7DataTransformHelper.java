@@ -158,7 +158,31 @@ public class HL7DataTransformHelper {
 
         return enName;
     }
-    
+
+    public static PNExplicit convertENtoPN(ENExplicit value)
+    {
+        PNExplicit result = new PNExplicit();
+        String lastName = "";
+        String firstName = "";
+
+
+        for(Object item : value.getContent())
+        {
+            if(item instanceof EnFamily)
+            {
+                EnFamily familyName = (EnFamily) item;
+                lastName = familyName.getRepresentation().value();
+            }
+            else if(item instanceof EnGiven)
+            {
+                EnGiven givenName = (EnGiven) item;
+                firstName = givenName.getRepresentation().value();
+            }
+        }
+
+        return CreatePNExplicit(firstName, lastName);
+    }
+
     public static PNExplicit CreatePNExplicit (String firstName, String lastName) {
         log.debug("begin CreatePNExplicit");
         log.debug("firstName = " + firstName + "; lastName = " + lastName);
@@ -184,5 +208,30 @@ public class HL7DataTransformHelper {
 
         log.debug("end CreatePNExplicit");
         return name;
+    }
+
+    public static ADExplicit CreateADExplicit(boolean notOrdered, String street, String city, String state, String zip)
+    {
+        ADExplicit result = new ADExplicit();
+
+        result.setIsNotOrdered(notOrdered);
+        
+        result.getUse().add(street);
+        result.getUse().add(city);
+        result.getUse().add(state);
+        result.getUse().add(zip);
+        return result;
+    }
+    public static ADExplicit CreateADExplicit(String street, String city, String state, String zip)
+    {
+        return CreateADExplicit(false, street, city, state, zip);
+    }
+    public static TELExplicit createTELExplicit(String value)
+    {
+        TELExplicit result = new TELExplicit();
+
+        result.setValue(value);
+        
+        return result;
     }
 }

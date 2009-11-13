@@ -400,4 +400,49 @@ public class HL7DataTransformHelperTest {
         
         TestHelper.assertPNNameEquals (result, null, firstName);
     }
+    @Test
+    public void testConvertENtoPN()
+    {
+        log.info("testCreatePNExplicit_OnlyGiven");
+
+        String firstName = "Frank";
+        String lastName= "Smith";
+
+        PNExplicit value = HL7DataTransformHelper.CreatePNExplicit(firstName, lastName);
+        ENExplicit result = HL7DataTransformHelper.ConvertPNToEN(value);
+
+        TestHelper.assertENNameEquals(result, lastName, firstName);
+    }
+    @Test
+    public void testCreateADExplict()
+    {
+        ADExplicit addr;
+        String street = "123 Main Street";
+        String city = "Fairfax";
+        String state = "VA";
+        String zip = "20120";
+
+        addr = HL7DataTransformHelper.CreateADExplicit(street, city, state, zip);
+
+        assertEquals(4, addr.getUse().size());
+        assertEquals(false, addr.isIsNotOrdered());
+        assertEquals(street, addr.getUse().get(0));
+        assertEquals(city, addr.getUse().get(1));
+        assertEquals(state, addr.getUse().get(2));
+        assertEquals(zip, addr.getUse().get(3));
+
+
+    }
+
+    @Test
+    public void testCreateTelExplicit()
+    {
+        TELExplicit phone;
+
+        String phoneNumber = "7031231234";
+
+        phone = HL7DataTransformHelper.createTELExplicit(phoneNumber);
+
+        assertEquals(phoneNumber, phone.getValue());
+    }
 }
