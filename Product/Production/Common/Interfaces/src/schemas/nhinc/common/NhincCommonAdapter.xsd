@@ -732,7 +732,7 @@
         <xsd:sequence>
             <xsd:element name="policyOID" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="authorPerson" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="authorInstitution" type="xsd:short" minOccurs="0"></xsd:element>
+            <xsd:element name="authorInstitution" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="authorRole" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="authorSpecialty" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="availabilityStatus" type="xsd:string" minOccurs="0"></xsd:element>
@@ -743,9 +743,10 @@
             <xsd:element name="confidentialityCode" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="confidentialityCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="confidentialityCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="creationTime" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="creationTime" type="xsd:dateTime" minOccurs="0"></xsd:element>
             <xsd:element name="formatCode" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="formatCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="formatCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="hash" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="healthcareFacilityCode" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="healthcareFacilityCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
@@ -753,11 +754,11 @@
             <xsd:element name="languageCode" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="legalAuthenticator" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="mimeType" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSetting" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSettingScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSettingDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="serviceStartTime" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="serviceStopTime" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="practiceSettingCode" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="practiceSettingCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="practiceSettingCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="serviceStartTime" type="xsd:dateTime" minOccurs="0"></xsd:element>
+            <xsd:element name="serviceStopTime" type="xsd:dateTime" minOccurs="0"></xsd:element>
             <xsd:element name="size" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="sourcePatientId" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="Pid3" type="xsd:string" minOccurs="0"></xsd:element>
@@ -771,8 +772,18 @@
             <xsd:element name="typeCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="documentUniqueId" type="xsd:string" minOccurs="0"></xsd:element>
             <xsd:element name="documentURI" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="eventCodes" type="tns:CodedElementType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="CodedElementType">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:string"></xsd:element>
+            <xsd:element name="codingScheme" type="xsd:string" minOccurs="0"></xsd:element>
+            <xsd:element name="codeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
         </xsd:sequence>
     </xsd:complexType>
 </xsd:schema>
+
+
 
 
