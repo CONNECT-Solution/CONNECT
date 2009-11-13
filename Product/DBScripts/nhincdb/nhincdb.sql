@@ -148,8 +148,9 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
   PatientAssigningAuthorityId varchar(45) NOT NULL,
   PatientId varchar(45) NOT NULL,
-  CorrelatedPatientAssigningAuthorityId varchar(45) NOT NULL,
+  CorrelatedPatientAssignAuthId varchar(45) NOT NULL,
   CorrelatedPatientId varchar(45) NOT NULL,
+  CorrelationExpirationDate datetime NOT NULL,
   PRIMARY KEY  (correlationId)
 );
 
