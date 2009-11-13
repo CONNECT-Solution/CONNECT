@@ -11,6 +11,11 @@
                 <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
             </service>
             <service>
+                <name>patientdiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/PatientDiscovery</endpointURL>
+            </service>
+            <service>
                 <name>documentquery</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
@@ -96,6 +101,16 @@
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
                 <endpointURL>https://localhost:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscovery</name>
+                <description>Adapter Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecured</name>
+                <description>Adapter Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -220,6 +235,21 @@
                 <name>nhincproxysubjectdiscoverysecured</name>
                 <description>NHINC Proxy Subject Discovery Secured</description>
                 <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecured</name>
+                <description>Entity Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscovery</name>
+                <description>NHINC Proxy Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecured</name>
+                <description>NHINC Proxy Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumer</name>
@@ -334,6 +364,11 @@
                 <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
             </service>
             <service>
+                <name>patientdiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/PatientDiscovery</endpointURL>
+            </service>
+            <service>
                 <name>documentquery</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
@@ -644,6 +679,21 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
+            <service>
+                <name>entitypatientdiscoverysecured</name>
+                <description>Entity Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscovery</name>
+                <description>NHINC Proxy Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecured</name>
+                <description>NHINC Proxy Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyPatientDiscoverySecured</endpointURL>
+            </service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -705,6 +755,16 @@
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
                 <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscovery</name>
+                <description>Adapter Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecured</name>
+                <description>Adapter Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterPatientDiscoverySecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
