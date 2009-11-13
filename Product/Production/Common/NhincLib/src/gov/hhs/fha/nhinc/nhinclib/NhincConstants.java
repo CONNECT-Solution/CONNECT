@@ -64,6 +64,7 @@ public class NhincConstants {
     public static final String DOC_QUERY_ACTION = "queryDocuments";
     public static final String DOC_RETRIEVE_ACTION = "retrieveDocuments";
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
+    public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
     public static final String AUDIT_REPO_ACTION = "auditrepository";
     public static final String POLICY_ENGINE_ACTION = "policyengine";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
@@ -202,6 +203,7 @@ public class NhincConstants {
     //Patient Correlation Constants
     public static final String PATIENT_CORRELATION_SERVICE_NAME = "patientcorrelation";
     public static final String PATIENT_CORRELATION_SECURED_SERVICE_NAME = "patientcorrelationsecured";
+
     // Subject Discovery Constants
     public static final String NHINC_SUBJECT_DISCOVERY_SERVICE_NAME = "serviceSubjectDiscovery";
     public static final String SUBJECT_DISCOVERY_SERVICE_NAME = "subjectdiscovery";
@@ -214,6 +216,18 @@ public class NhincConstants {
     public static final String ENTITY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "entitysubjectdiscoverysecured";
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SERVICE_NAME = "nhincproxysubjectdiscovery";
     public static final String NHINC_PROXY_SUBJECT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxysubjectdiscoverysecured";
+
+    // Patient Discovery Constants
+    public static final String NHINC_PATIENT_DISCOVERY_SERVICE_NAME = "servicePatientDiscovery";
+    public static final String PATIENT_DISCOVERY_SERVICE_NAME = "patientdiscovery";
+    public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
+    public static final String PATIENT_DISCOVERY_DISABLED_ACK_MSG = "Patient Discovery Service is not enabled";
+    public static final String PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Patient Discovery";
+    public static final String PATIENT_DISCOVERY_ADAPTER_SERVICE_NAME = "adapterpatientdiscovery";
+    public static final String ADAPTER_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "adapterpatientdiscoverysecured";
+    public static final String ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "entitypatientdiscoverysecured";
+    public static final String NHINC_PROXY_PATIENT_DISCOVERY_SERVICE_NAME = "nhincproxypatientdiscovery";
+    public static final String NHINC_PROXY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxypatientdiscoverysecured";
 
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
