@@ -83,4 +83,7 @@
     nbproject/build-impl.xml file. 
 
     -->
+	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
