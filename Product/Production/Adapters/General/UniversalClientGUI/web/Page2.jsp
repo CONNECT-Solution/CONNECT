@@ -11,6 +11,12 @@
             <webuijsf:html id="html1">
                 <webuijsf:head id="head1">
                     <webuijsf:link id="link1" url="/resources/stylesheet.css"/>
+                    <webuijsf:script>
+                        if((navigator.userAgent.match(/iPhone/i)) || (navigator.userAgent.match(/iPod/i))) {
+                            document.write('<link id="link2" rel="stylesheet" type="text/css" href="/UniversalClientGUI/resources/universalclient.css" />');
+                            document.write('<meta content="width=320" name="viewport" id="j_id_id9"/>');
+                        }
+                    </webuijsf:script>
                 </webuijsf:head>
                 <webuijsf:body id="body1" style="-rave-layout: grid">
                     <webuijsf:form id="form1">
@@ -18,7 +24,7 @@
                         <webuijsf:tabSet binding="#{Page2.clientTabSet}" id="clientTabSet" selected="patientSearchTab" style="left: 0px; top: 144px; position: absolute; width: 694px">
                             <webuijsf:tab actionExpression="#{Page2.patientSearchTab_action}" binding="#{Page2.patientSearchTab}" id="patientSearchTab"
                                 style="font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Search">
-                                <webuijsf:panelLayout id="patientSearchLayoutPanel" style="height: 537px; position: relative; width: 647px; -rave-layout: grid">
+                                <webuijsf:panelLayout id="patientSearchLayoutPanel" style="height: 537px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:label id="searchInstruct"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 24px; position: absolute" text="Enter the following Patient Search Criteria:"/>
                                     <webuijsf:label for="lastNameField" id="lastNameLabel"
