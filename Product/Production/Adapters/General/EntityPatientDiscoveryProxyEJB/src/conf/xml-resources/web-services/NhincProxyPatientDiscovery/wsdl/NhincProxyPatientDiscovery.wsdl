@@ -18,33 +18,33 @@
       <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="PIXConsumer_PRPA_IN201305UVProxyRequestMessage">
-    <wsdl:part name="PIXConsumer_PRPA_IN201305UVProxyRequest"
-               element="hl7:PIXConsumer_PRPA_IN201305UVProxyRequest"/>
+  <wsdl:message name="Proxy_PRPA_IN201305UVProxyRequestMessage">
+    <wsdl:part name="Proxy_PRPA_IN201305UVProxyRequest"
+               element="hl7:Proxy_PRPA_IN201305UVProxyRequest"/>
   </wsdl:message>
-  <wsdl:message name="PIXConsumer_PRPA_IN201306UVProxyResponseMessage">
-    <wsdl:part name="PIXConsumer_PRPA_IN201306UVProxyResponse"
+  <wsdl:message name="Proxy_PRPA_IN201306UVProxyResponseMessage">
+    <wsdl:part name="Proxy_PRPA_IN201306UVProxyResponse"
                element="hl7:PRPA_IN201306UV02"/>
   </wsdl:message>
 
   <wsdl:portType name="NhincProxyPatientDiscoveryPortType">
-    <wsdl:operation name="PIXConsumer_PRPA_IN201305UV">
-      <wsdl:input name="PIXConsumer_PRPA_IN201305UVProxyRequest"
-                  message="tns:PIXConsumer_PRPA_IN201305UVProxyRequestMessage" />
-      <wsdl:output name="PIXConsumer_PRPA_IN201306UVProxyResponse"
-                   message="tns:PIXConsumer_PRPA_IN201306UVProxyResponseMessage" />
+    <wsdl:operation name="Proxy_PRPA_IN201305UV">
+      <wsdl:input name="Proxy_PRPA_IN201305UVProxyRequest"
+                  message="tns:Proxy_PRPA_IN201305UVProxyRequestMessage" />
+      <wsdl:output name="Proxy_PRPA_IN201306UVProxyResponse"
+                   message="tns:Proxy_PRPA_IN201306UVProxyResponseMessage" />
     </wsdl:operation>
   </wsdl:portType>
 
   <wsdl:binding name="NhincProxyPatientDiscoveryBinding"
                 type="tns:NhincProxyPatientDiscoveryPortType">
     <wsoap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsdl:operation name="PIXConsumer_PRPA_IN201305UV">
-      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201305UV"/>
-      <wsdl:input name="PIXConsumer_PRPA_IN201305UVProxyRequest" >
+    <wsdl:operation name="Proxy_PRPA_IN201305UV">
+      <wsoap11:operation soapAction="urn:Proxy_PRPA_IN201305UV"/>
+      <wsdl:input name="Proxy_PRPA_IN201305UVProxyRequest" >
         <wsoap11:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="PIXConsumer_PRPA_IN201306UVProxyResponse" >
+      <wsdl:output name="Proxy_PRPA_IN201306UVProxyResponse" >
         <wsoap11:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
