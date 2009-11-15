@@ -16,8 +16,8 @@ import javax.jws.WebService;
 @Stateless
 public class NhincProxyPatientDiscovery {
 
-    public org.hl7.v3.PRPAIN201306UV02 pixConsumerPRPAIN201305UV(org.hl7.v3.PIXConsumerPRPAIN201305UVProxyRequestType pixConsumerPRPAIN201305UVProxyRequest) {
-        return new NhincProxyPatientDiscoveryImpl().pixConsumerPRPAIN201305UV(pixConsumerPRPAIN201305UVProxyRequest);
+    public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
+        return new NhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest);
     }
 
 }
