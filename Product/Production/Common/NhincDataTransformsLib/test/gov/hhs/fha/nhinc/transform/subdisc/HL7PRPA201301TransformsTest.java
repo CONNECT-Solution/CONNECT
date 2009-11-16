@@ -31,6 +31,7 @@ import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.XActMoodIntentEvent;
 
 /**
  *
@@ -342,12 +343,24 @@ public class HL7PRPA201301TransformsTest {
         PRPAIN201306UV02 value = new PRPAIN201306UV02();
 
         value.setControlActProcess(create201306ControlActProcess());
+        // Create the Receiver
+        value.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
+
+        // Create the Sender
+        value.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
         PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(value,localDeviceId);
         
         assert201301HeaderInfo(result);
         assertPRPAIN201301UV02MFMIMT700701UV01ControlActProcess(result.getControlActProcess());
         //TestHelper.assertSsnEquals(ssn,result);
+        TestHelper.assertPatientIdEquals(patId, localDeviceId, result);
+        TestHelper.assertGenderEquals(gender, result);
+        TestHelper.assertPatientNameEquals(patientFirstName, patientLastName, result);
+        TestHelper.assertBirthTimeEquals(birthTime, result);
+        TestHelper.assertReceiverIdEquals(receiverOID, result);
+        TestHelper.assertSenderIdEquals(senderOID, result);
+        
     }
     private void assertPRPAIN201301UV02MFMIMT700701UV01ControlActProcess(PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result)
     {
@@ -364,8 +377,10 @@ public class HL7PRPA201301TransformsTest {
         String actualGender = result.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode().getCode();
         assertEquals(gender, actualGender);
         assertEquals(localDeviceId, result.getSubject().get(0).getRegistrationEvent().getCustodian().getAssignedEntity().getId().get(0).getRoot());
-
         
+        assertNotNull(result.getSubject().get(0).getRegistrationEvent().getId());
+        assertEquals("NA", result.getSubject().get(0).getRegistrationEvent().getId().get(0).getNullFlavor().get(0));
+
     }
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess create201306ControlActProcess()
     {
@@ -374,7 +389,9 @@ public class HL7PRPA201301TransformsTest {
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
-  
+        result.setMoodCode(XActMoodIntentEvent.EVN);
+
+
         paramList.getLivingSubjectName().add(create201306_Name());
         paramList.getLivingSubjectBirthTime().add(create201306_birthTime());
         paramList.getLivingSubjectAdministrativeGender().add(HL7QueryParamsTransforms.createGender(gender));
@@ -398,7 +415,9 @@ public class HL7PRPA201301TransformsTest {
     private PRPAMT201306UV02LivingSubjectId create201306_PatientId()
     {
         PRPAMT201306UV02LivingSubjectId result = new PRPAMT201306UV02LivingSubjectId();
-        II id = HL7DataTransformHelper.IIFactory(patId, localDeviceId);
+        II id = HL7DataTransformHelper.IIFactory(localDeviceId, patId);
+
+        result.getValue().add(id);
         return result;
     }
     private PRPAMT201306UV02LivingSubjectName create201306_Name()

@@ -8,6 +8,8 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.II;
 import org.hl7.v3.CS;
+import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -32,7 +34,8 @@ import org.hl7.v3.MFMIMT700711UV01InformationRecipient;
 import org.hl7.v3.MFMIMT700701UV01InformationRecipient;
 import org.hl7.v3.ParticipationInformationRecipient;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
-
+import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.MCCIMT000300UV01Sender;
 /**
  *
  * @author Jon Hoppesch
@@ -152,12 +155,14 @@ public class HL7PRPA201301Transforms
 
 
         result.setVersionCode(original.getVersionCode());
-
+        result.setSender(copySender(original.getSender()));
+        
         result = HL7ArrayTransforms.copyMCCIMT000100UV01AttentionLine(original, result);
         result = HL7ArrayTransforms.copyMCCIMT000100UV01Receiver(original, result);
 
+
         result.setSecurityText(original.getSecurityText());
-                
+          
         result.setControlActProcess(copyControlActProcess(original.getControlActProcess(), localDeviceId));
 
         result = HL7ArrayTransforms.copyNullFlavors(original, result);
@@ -491,4 +496,38 @@ public class HL7PRPA201301Transforms
         return result;
     }
 
+    private static MCCIMT000100UV01Sender copySender(MCCIMT000300UV01Sender orig)
+    {
+        MCCIMT000100UV01Sender result = null;
+        org.hl7.v3.MCCIMT000100UV01Device newDevice;
+
+        if (orig != null)
+        {
+            result = new MCCIMT000100UV01Sender();
+
+
+            result.setTelecom(orig.getTelecom());
+            result.setTypeCode(orig.getTypeCode());
+            result.setTypeId(orig.getTypeId());
+
+            if(orig.getDevice() != null)
+            {
+                newDevice = new org.hl7.v3.MCCIMT000100UV01Device();
+                newDevice.setClassCode(orig.getDevice().getClassCode());
+                newDevice.setDesc(orig.getDevice().getDesc());
+                newDevice.setDeterminerCode(orig.getDevice().getDeterminerCode());
+                newDevice.setExistenceTime(orig.getDevice().getExistenceTime());
+                newDevice.setManufacturerModelName(orig.getDevice().getManufacturerModelName());
+                newDevice.setSoftwareName(orig.getDevice().getSoftwareName());
+                newDevice.setTypeId(orig.getDevice().getTypeId());
+                newDevice.getId().add(orig.getDevice().getId().get(0));
+                result.setDevice(newDevice);
+            }
+
+            
+        }
+
+        return result;
+
+    }
 }

@@ -23,10 +23,16 @@ import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.MCCIMT000100UV01AttentionLine;
 import org.hl7.v3.MCCIMT000300UV01AttentionLine;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
+import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.II;
 import org.hl7.v3.CS;
+import org.hl7.v3.CommunicationFunctionType;
+import org.hl7.v3.EntityClassDevice;
+import org.hl7.v3.MCCIMT000100UV01Device;
+
+
 /**
  *
  * @author dunnek
@@ -265,6 +271,7 @@ public class HL7ArrayTransforms
 
         return to;
     }
+
     public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(PRPAIN201306UV02 from, PRPAIN201301UV02 to)
     {
         if (to == null)
@@ -274,13 +281,40 @@ public class HL7ArrayTransforms
         if(from.getReceiver() !=null)
         {
             to.getReceiver().clear();
-            for(MCCIMT000100UV01Receiver rec : to.getReceiver())
-            {
-                to.getReceiver().add(rec);
+            for(MCCIMT000300UV01Receiver rec : from.getReceiver())
+            {                
+                to.getReceiver().add(copyReceiver(rec));
             }
         }
 
         return to;
+    }
+    private static MCCIMT000100UV01Receiver copyReceiver(MCCIMT000300UV01Receiver orig)
+    {
+        MCCIMT000100UV01Receiver result = null;
+        MCCIMT000100UV01Device newDevice = new MCCIMT000100UV01Device();
+
+        if(orig != null)
+        {
+            result = new MCCIMT000100UV01Receiver();
+            newDevice.setDesc(orig.getDevice().getDesc());
+            newDevice.setClassCode(orig.getDevice().getClassCode());
+            newDevice.setDeterminerCode(orig.getDevice().getDeterminerCode());
+            newDevice.setExistenceTime(orig.getDevice().getExistenceTime());
+            newDevice.setManufacturerModelName(orig.getDevice().getManufacturerModelName());
+            newDevice.setSoftwareName(orig.getDevice().getSoftwareName());
+            newDevice.setTypeId(orig.getDevice().getTypeId());
+
+            II deviceId = orig.getDevice().getId().get(0);
+            newDevice.getId().add(deviceId);
+            result.setTelecom(orig.getTelecom());
+            result.setTypeCode(orig.getTypeCode());
+            result.setTypeId(orig.getTypeId());
+            result.setDevice(newDevice);
+        }
+
+
+        return result;
     }
     public static PRPAIN201301UV02 copyMCCIMT000100UV01Receiver(PRPAIN201305UV02 from, PRPAIN201301UV02 to)
     {
