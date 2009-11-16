@@ -274,8 +274,6 @@ public class EntitySubjectDiscoveryImpl {
         if (request.getAssertion() != null) {
             AssertionType assertion = new AssertionType();
             AssertionType input = request.getAssertion();
-            assertion.setDateOfSignature(input.getDateOfSignature());
-            assertion.setExpirationDate(input.getExpirationDate());
             if (input.getUserInfo() != null) {
                 UserType proxyUser = new UserType();
                 if (input.getUserInfo().getOrg() != null) {
@@ -300,8 +298,6 @@ public class EntitySubjectDiscoveryImpl {
             }
             assertion.setAuthorized(input.isAuthorized());
             assertion.setPurposeOfDisclosureCoded(copyCeType(input.getPurposeOfDisclosureCoded()));
-            assertion.setClaimFormRaw(input.getClaimFormRaw());
-            assertion.setClaimFormRef(input.getClaimFormRef());
             proxyRequest.setAssertion(assertion);
         }
         log.debug("EntitySubjectDiscoveryImpl.createProxy201301 -- End");
@@ -349,8 +345,6 @@ public class EntitySubjectDiscoveryImpl {
         if (request.getAssertion() != null) {
             AssertionType assertion = new AssertionType();
             AssertionType input = request.getAssertion();
-            assertion.setDateOfSignature(input.getDateOfSignature());
-            assertion.setExpirationDate(input.getExpirationDate());
             if (input.getUserInfo() != null) {
                 UserType proxyUser = new UserType();
                 if (input.getUserInfo().getOrg() != null) {
@@ -375,8 +369,6 @@ public class EntitySubjectDiscoveryImpl {
             }
             assertion.setAuthorized(input.isAuthorized());
             assertion.setPurposeOfDisclosureCoded(copyCeType(input.getPurposeOfDisclosureCoded()));
-            assertion.setClaimFormRaw(input.getClaimFormRaw());
-            assertion.setClaimFormRef(input.getClaimFormRef());
             proxyRequest.setAssertion(assertion);
         }
         if (request.getNhinTargetCommunities() != null &&

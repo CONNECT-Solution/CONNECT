@@ -35,9 +35,8 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_USER_DISPLAY = "AssertionUserDisplay";
     private static final String PROPERTY_KEY_EXPIRE = "AssertionExpiration";
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
-    private static final String PROPERTY_KEY_CONTENT_REF = "AssertionContentRef";
-    private static final String PROPERTY_KEY_CONTENT_FILENAME = "AssertionContentFile";
-    private static final String NHINC_PROPERTIES_DIR = "NHINC_PROPERTIES_DIR";
+    private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
+
     private static Log log = LogFactory.getLog(AssertionCreator.class);
 
     AssertionType createAssertion() {
@@ -70,94 +69,14 @@ public class AssertionCreator {
             purposeCoded.setCodeSystemName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_SYSTEM_NAME));
             purposeCoded.setDisplayName(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_PURPOSE_DISPLAY));
 
-            assertOut.setDateOfSignature(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
-            assertOut.setExpirationDate(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
-            assertOut.setClaimFormRef(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_REF));
+            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_SIGN));
+            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_EXPIRE));
+            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_ACCESS_CONSENT));
 
-            byte[] binData = getBinaryClaimForm();
-            if (binData != null && binData.length > 0) {
-                assertOut.setClaimFormRaw(binData);
-            }
         } catch (PropertyAccessException ex) {
             log.error("Universal Client can not access property: " + ex.getMessage());
         }
         return assertOut;
     }
 
-    private byte[] getBinaryClaimForm() {
-        log.debug("AssertionCreator.getBinaryClaimForm() -- Begin");
-
-        String binFileName = null;
-        FileInputStream in = null;
-        byte[] binOut = null;
-        try {
-            String propDir = getPropertyDir();
-            binFileName = propDir + PropertyAccessor.getProperty(PROPERTY_FILE_NAME, PROPERTY_KEY_CONTENT_FILENAME);
-            System.out.println("Requesting file: " + binFileName);
-            File inFile = new File(binFileName);
-            if (inFile.exists()) {
-                long fileLen = inFile.length();
-                if (fileLen <= Integer.MAX_VALUE && fileLen > 0) {
-                    binOut = new byte[(int) fileLen];
-
-                    in = new FileInputStream(binFileName);
-                    // Read in the bytes
-                    int offset = 0;
-                    int numRead = 0;
-                    while (offset < binOut.length && (numRead = in.read(binOut, offset, binOut.length - offset)) >= 0) {
-                        offset += numRead;
-                    }
-                    // Ensure all the bytes have been read in
-                    if (offset < binOut.length) {
-                        log.error("AssertionCreator: Could only read " + offset + " of " + binOut.length + " bytes of file " + binFileName);
-                    } else {
-                        log.debug ("Binary A27 form read: " + binOut.length + " bytes");
-                    }
-                } else {
-                    log.error(binFileName + " file is too long to read");
-                }
-            } else {
-                log.error("File " + binFileName + " containing Binary A27 form does not exist");
-            }
-        } catch (IOException ex) {
-            log.error("AssertionCreator " + ex.getMessage());
-        } catch (PropertyAccessException ex) {
-            log.error("AssertionCreator " + ex.getMessage());
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException iOException) {
-                log.error("AssertionCreator " + iOException.getMessage());
-            }
-        }
-
-        log.debug("AssertionCreator.getBinaryClaimForm() -- End");
-        return binOut;
-    }
-
-    private String getPropertyDir() {
-        String propertyFileDir = "";
-        String sValue = System.getenv(NHINC_PROPERTIES_DIR);
-        if ((sValue != null) && (sValue.length() > 0))
-        {
-            // Set it up so that we always have a "/" at the end - in case
-            //------------------------------------------------------------
-            if ((sValue.endsWith("/")) || (sValue.endsWith("\\")))
-            {
-                propertyFileDir = sValue;
-            }
-            else
-            {
-                String sFileSeparator = System.getProperty("file.separator");
-                propertyFileDir = sValue + sFileSeparator;
-            }
-        }
-        else
-        {
-            log.error("");
-        }
-        return propertyFileDir;
-    }
 }

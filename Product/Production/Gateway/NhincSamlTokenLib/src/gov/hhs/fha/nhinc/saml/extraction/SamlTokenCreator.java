@@ -48,26 +48,6 @@ public class SamlTokenCreator {
         }
 
         if (assertion != null) {
-            // This is maintained but will be overwritten if a value is available in
-            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions.getNotOnOrAfter()
-            if (NullChecker.isNotNullish(assertion.getExpirationDate())) {
-                requestContext.put(NhincConstants.EXPIRE_PROP, assertion.getExpirationDate());
-            }
-            // This is maintained but will be overwritten if a value is available in
-            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions.getNotBefore()
-            if (NullChecker.isNotNullish(assertion.getDateOfSignature())) {
-                requestContext.put(NhincConstants.SIGN_PROP, assertion.getDateOfSignature());
-            }
-            // This is maintained but will be overwritten if a value is available in
-            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference()
-            if (NullChecker.isNotNullish(assertion.getClaimFormRef())) {
-                requestContext.put(NhincConstants.CONTENT_REF_PROP, assertion.getClaimFormRef());
-            }
-            // This is maintainted but will be overwritten if a value is available in
-            // assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent()
-            if (assertion.getClaimFormRaw() != null) {
-                requestContext.put(NhincConstants.CONTENT_PROP, assertion.getClaimFormRaw());
-            }
             if (assertion.getUserInfo() != null) {
                 if (NullChecker.isNotNullish(assertion.getUserInfo().getUserName())) {
                     requestContext.put(NhincConstants.USER_NAME_PROP, assertion.getUserInfo().getUserName());
@@ -196,14 +176,11 @@ public class SamlTokenCreator {
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat())) {
                         requestContext.put(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
                     }
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference())) {
-                        requestContext.put(NhincConstants.EVIDENCE_CONTENT_REF_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference());
+                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy())) {
+                        requestContext.put(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
                     }
-                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType())) {
-                        requestContext.put(NhincConstants.EVIDENCE_CONTENT_TYPE_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType());
-                    }
-                    if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent() != null) {
-                        requestContext.put(NhincConstants.EVIDENCE_CONTENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent());
+                    if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy())) {
+                        requestContext.put(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP, assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
                     }
                     if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null) {
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore())) {

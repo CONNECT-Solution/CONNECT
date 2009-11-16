@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -59,9 +58,6 @@ public class SamlTokenExtractor {
 
     private static Log log = LogFactory.getLog(SamlTokenExtractor.class);
     private static final String X509_FORMAT = "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName";
-    private static final String CONTENTREF_ID = "ContentReference";
-    private static final String CONTENT_ID = "Content";
-    private static final String CONTENTTYPE_ID = "ContentType";
     private static final String EMPTY_STRING = "";
 
     public static AssertionType GetAssertion(WebServiceContext context) {
@@ -189,13 +185,6 @@ public class SamlTokenExtractor {
         purposeCoded.setCodeSystemName(EMPTY_STRING);
         purposeCoded.setDisplayName(EMPTY_STRING);
 
-        assertOut.setDateOfSignature(EMPTY_STRING);
-        assertOut.setExpirationDate(EMPTY_STRING);
-        assertOut.setClaimFormRef(EMPTY_STRING);
-
-        byte[] formRaw = EMPTY_STRING.getBytes();
-        assertOut.setClaimFormRaw(formRaw);
-
         assertOut.setSamlAuthnStatement(samlAuthnStatement);
         samlAuthnStatement.setAuthInstant(EMPTY_STRING);
         samlAuthnStatement.setSessionIndex(EMPTY_STRING);
@@ -215,14 +204,14 @@ public class SamlTokenExtractor {
         samlAuthzDecisionStatementAssertion.setIssueInstant(EMPTY_STRING);
         samlAuthzDecisionStatementAssertion.setVersion(EMPTY_STRING);
         samlAuthzDecisionStatementAssertion.setIssuer(EMPTY_STRING);
-        samlAuthzDecisionStatementAssertion.setContentReference(EMPTY_STRING);
-        samlAuthzDecisionStatementAssertion.setContentType(EMPTY_STRING);
-        samlAuthzDecisionStatementAssertion.setContent(formRaw);
+        samlAuthzDecisionStatementAssertion.setAccessConsentPolicy(EMPTY_STRING);
+        samlAuthzDecisionStatementAssertion.setInstanceAccessConsentPolicy(EMPTY_STRING);
 
         samlAuthzDecisionStatementAssertion.setConditions(samlAuthzDecisionStatementEvidenceConditions);
         samlAuthzDecisionStatementEvidenceConditions.setNotBefore(EMPTY_STRING);
         samlAuthzDecisionStatementEvidenceConditions.setNotOnOrAfter(EMPTY_STRING);
 
+        byte[] formRaw = EMPTY_STRING.getBytes();
         assertOut.setSamlSignature(samlSignature);
         samlSignature.setSignatureValue(formRaw);
 
@@ -323,7 +312,7 @@ public class SamlTokenExtractor {
      * AttributeStatements found in the Evidence element.  The permitted names 
      * of the Attributes in the Assertion element are: UserRole, PurposeForUse, 
      * UserName, UserOrganization. The permitted names of the Attributes in the 
-     * Evidence element are: ContentReference, ContentType, and Content.
+     * Evidence element are: AccessConsentPolicy and InstanceAccessConsentPolicy
      * @param statement The attribute statement to be extracted
      * @param assertOut The Assertion element being written to
      */
@@ -362,24 +351,14 @@ public class SamlTokenExtractor {
                             String sPatientId = extractAttributeValueString(attrib);
                             assertOut.getUniquePatientId().add(sPatientId);
                             log.debug("Assertion.uniquePatientId = " + sPatientId);
-                        } else if (nameAttr.equals(CONTENTREF_ID)) {
-                            String sContentRefId = extractAttributeValueString(attrib);
-                            assertOut.setClaimFormRef(sContentRefId);
-                            log.debug("Assertion.ClaimFormRef = " + sContentRefId);
-                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentReference(sContentRefId);
-                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.ContentReference = " + sContentRefId);
-                        } else if (nameAttr.equals(CONTENTTYPE_ID)) {
-                            String sContentType = extractAttributeValueString(attrib);
-                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContentType(sContentType);
-                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.ContentType = " + sContentType);
-                        } else if (nameAttr.equals(CONTENT_ID)) {
-                            byte[] byteContent = extractFirstAttributeValueBase64Binary(attrib);
-                            if (byteContent != null) {
-                                assertOut.setClaimFormRaw(byteContent);
-                                log.debug("Assertion.ClaimFormRaw = " + new String(assertOut.getClaimFormRaw()));
-                                assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setContent(byteContent);
-                                log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Content = " + new String(assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent()));
-                            }
+                        } else if (nameAttr.equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
+                            String sAccessConsentId = extractAttributeValueString(attrib);
+                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(sAccessConsentId);
+                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = " + sAccessConsentId);
+                        } else if (nameAttr.equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
+                            String sInstAccessConsentId = extractAttributeValueString(attrib);
+                            assertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(sInstAccessConsentId);
+                            log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = " + sInstAccessConsentId);
                         } else {
                             log.warn("Unrecognized Name Attribute: " + nameAttr);
                         }
@@ -834,12 +813,8 @@ public class SamlTokenExtractor {
             XMLGregorianCalendar beginTime = conditions.getNotBefore();
             if (beginTime != null && beginTime.toGregorianCalendar() != null && beginTime.toGregorianCalendar().getTime() != null) {
                 String formBegin = beginTime.toXMLFormat();
-                //String formBegin = dateForm.format(beginTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formBegin)) {
-                    assertOut.setDateOfSignature(formBegin);
-                    log.info("Assertion.DateOfSignature = " + assertOut.getDateOfSignature());
-
                     oSamlEvidAssert.getConditions().setNotBefore(formBegin);
                     log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotBefore = " + oSamlEvidAssert.getConditions().getNotBefore());
                 }
@@ -851,9 +826,6 @@ public class SamlTokenExtractor {
                 //String formEnd = dateForm.format(endTime.toGregorianCalendar().getTime());
 
                 if (NullChecker.isNotNullish(formEnd)) {
-                    assertOut.setExpirationDate(formEnd);
-                    log.info("Assertion.ExpirationDate = " + assertOut.getExpirationDate());
-
                     oSamlEvidAssert.getConditions().setNotOnOrAfter(formEnd);
                     log.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotOnOrAfter = " + oSamlEvidAssert.getConditions().getNotOnOrAfter());
                 }

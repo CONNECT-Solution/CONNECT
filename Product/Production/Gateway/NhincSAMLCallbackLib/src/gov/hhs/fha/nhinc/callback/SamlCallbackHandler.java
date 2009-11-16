@@ -52,6 +52,9 @@ public class SamlCallbackHandler implements CallbackHandler {
     private static final String[] VALID_AUTHZ_DECISION_ARRAY = {AUTHZ_DECISION_PERMIT,
         AUTHZ_DECISION_DENY, AUTHZ_DECISION_INDETERMINATE};
     private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
+    // Authorization Decision Action is always set to EXECUTE
+    private static final String AUTHZ_DECISION_ACTION_EXECUTE = "EXECUTE";
+    private static final String AUTHZ_DECISION_ACTION_NS = "urn:nhin:names:hl7:rbac:4.00:operation";
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
     private static final String EMAIL_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
@@ -461,23 +464,20 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("Create default Authentication Decision as: " + AUTHZ_DECISION_PERMIT);
         }
 
+        // As of Authorization Framework Spec 2.2 Action is a hard-coded value
+        // Therefore the value of the ACTION_PROP is no longer used
         List actions = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.ACTION_PROP) &&
-                tokenVals.get(NhincConstants.ACTION_PROP) != null) {
-            String actionAttr = tokenVals.get(NhincConstants.ACTION_PROP).toString();
+            String actionAttr = AUTHZ_DECISION_ACTION_EXECUTE;
             log.debug("Setting Authentication Decision Action to: " + actionAttr);
             try {
                 final Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
                 final Element elemURAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion", "Action");
-                elemURAttr.setAttribute("Namespace", NHIN_NS);
+                elemURAttr.setAttribute("Namespace", AUTHZ_DECISION_ACTION_NS);
                 elemURAttr.setTextContent(actionAttr);
                 actions.add(elemURAttr);
             } catch (ParserConfigurationException ex) {
                 actions.add(actionAttr);
             }
-        } else {
-            log.debug("Default Authentication Decision Action to empty list");
-        }
 
         // Evidence Assertion generation           
         Evidence evidence = createEvidence();
@@ -754,9 +754,6 @@ public class SamlCallbackHandler implements CallbackHandler {
             if ((tokenVals.containsKey(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) &&
                     tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP) != null)) {
                 beginValidTime = createCal(tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP).toString());
-            } else if (tokenVals.containsKey(NhincConstants.SIGN_PROP) &&
-                    tokenVals.get(NhincConstants.SIGN_PROP) != null) {
-                beginValidTime = createCal(tokenVals.get(NhincConstants.SIGN_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotBefore condition to: current time");
             }
@@ -765,9 +762,6 @@ public class SamlCallbackHandler implements CallbackHandler {
             if ((tokenVals.containsKey(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) &&
                     tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP) != null)) {
                 endValidTime = createCal(tokenVals.get(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP).toString());
-            } else if (tokenVals.containsKey(NhincConstants.EXPIRE_PROP) &&
-                    tokenVals.get(NhincConstants.EXPIRE_PROP) != null) {
-                endValidTime = createCal(tokenVals.get(NhincConstants.EXPIRE_PROP).toString());
             } else {
                 log.debug("Defaulting Evidence NotAfter condition to: current time");
             }
@@ -828,8 +822,8 @@ public class SamlCallbackHandler implements CallbackHandler {
 
     /**
      * Creates the Attribute Statements needed for the Evidence element.  These
-     * include the Attributes for the ContentType, ContentReference, and the
-     * base64binary Content as well.
+     * include the Attributes for the Access Consent Policy and the Instance
+     * Access Consent Policy
      * @param factory The factory object used to assist in the construction of
      * the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
@@ -841,60 +835,29 @@ public class SamlCallbackHandler implements CallbackHandler {
         List statements = new ArrayList();
         List attributes = new ArrayList();
 
-        // Set the Reference to the SSA-827 form
+        // Set the Access Consent
         List attributeValues1 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_CONTENT_REF_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_CONTENT_REF_PROP) != null) {
-            log.debug("Setting Evidence Content Reference to: " + tokenVals.get(NhincConstants.EVIDENCE_CONTENT_REF_PROP).toString());
-            attributeValues1.add(tokenVals.get(NhincConstants.EVIDENCE_CONTENT_REF_PROP).toString());
-        } else if (tokenVals.containsKey(NhincConstants.CONTENT_REF_PROP) &&
-                tokenVals.get(NhincConstants.CONTENT_REF_PROP) != null) {
-            log.debug("Setting Evidence Content Reference to: " + tokenVals.get(NhincConstants.CONTENT_REF_PROP).toString());
-            attributeValues1.add(tokenVals.get(NhincConstants.CONTENT_REF_PROP).toString());
+        if (tokenVals.containsKey(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP) &&
+                tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Access Consent to: " + tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
+            attributeValues1.add(tokenVals.get(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP).toString());
         } else {
-            log.debug("No Content Reference found for Evidence");
+            log.debug("No Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("ContentReference", NHIN_NS, attributeValues1));
+        attributes.add(factory.createAttribute("AccessConsentPolicy", NHIN_NS, attributeValues1));
 
-        // Set the format of the SSA-827 form
+       // Set the Instance Access Consent
         List attributeValues2 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_CONTENT_TYPE_PROP) &&
-                tokenVals.get(NhincConstants.EVIDENCE_CONTENT_TYPE_PROP) != null) {
-            log.debug("Setting Evidence Content Type to: " + tokenVals.get(NhincConstants.EVIDENCE_CONTENT_TYPE_PROP).toString());
-            attributeValues2.add(tokenVals.get(NhincConstants.EVIDENCE_CONTENT_TYPE_PROP).toString());
+        if (tokenVals.containsKey(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) &&
+                tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP) != null) {
+            log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
+            attributeValues2.add(tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
         } else {
-            log.debug("Defaulting Evidence type to: " + EVIDENCE_FORM_TYPE);
-            attributeValues2.add(EVIDENCE_FORM_TYPE);
+            log.debug("No Access Consent found for Evidence");
         }
 
-        attributes.add(factory.createAttribute("ContentType", NHIN_NS, attributeValues2));
-
-        // Set the content of the SSA-827 form
-        List attributeValues3 = new ArrayList();
-        if (tokenVals.containsKey(NhincConstants.EVIDENCE_CONTENT_PROP)) {
-            if (tokenVals.get(NhincConstants.EVIDENCE_CONTENT_PROP) instanceof String) {
-                byte[] contentForm = Base64Coder.decode(tokenVals.get(NhincConstants.EVIDENCE_CONTENT_PROP).toString());
-                attributeValues3.add(contentForm);
-            } else {
-                attributeValues3.add(tokenVals.get(NhincConstants.EVIDENCE_CONTENT_PROP));
-            }
-
-            log.debug("Setting Evidence Content");
-        } else if (tokenVals.containsKey(NhincConstants.CONTENT_PROP)) {
-            if (tokenVals.get(NhincConstants.CONTENT_PROP) instanceof String) {
-                byte[] contentForm = Base64Coder.decode(tokenVals.get(NhincConstants.CONTENT_PROP).toString());
-                attributeValues3.add(contentForm);
-            } else {
-                attributeValues3.add(tokenVals.get(NhincConstants.CONTENT_PROP));
-            }
-
-            log.debug("Setting Evidence Content");
-        } else {
-            log.debug("No Content found for Evidence");
-        }
-
-        attributes.add(factory.createAttribute("Content", NHIN_NS, attributeValues3));
+        attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
 
         if (!attributes.isEmpty()) {
             statements.add(factory.createAttributeStatement(attributes));

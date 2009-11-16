@@ -66,8 +66,8 @@ public class CDAConstants
     public static final String DOC_REPOSITORY_SERVICE_DEFAULT_URL = "http://localhost:8080/DocumentRepository_Service";
 
     //To build Assertion for Notification
-    public static final String DATE_OF_SIGNATURE = "SignDate";
-    public static final String EXPIRATION_DATE = "ExpirationDate";
+    public static final String PERMISSION_DATE = "NotBeforeDate";
+    public static final String EXPIRATION_DATE = "NotOnOrAfterDate";
     public static final String FIRST_NAME = "UserFirstName";
     public static final String LAST_NAME = "UserLastName";
     public static final String USER_NAME = "UserName";
@@ -80,8 +80,8 @@ public class CDAConstants
     public static final String PURPOSE_FOR_USE_CODE_SYSTEM = "PurposeForUseCodeSystem";
     public static final String PURPOSE_FOR_USE_CODE_SYSTEM_NAME = "PurposeForUseCodeSystemName";
     public static final String PURPOSE_FOR_USE_DISPLAY_NAME = "PurposeForUseDisplayName";
-    public static final String CONTENT_REFERENCE = "ContentReference";
-    public static final String CONTENT = "Content";
+    public static final String ACCESS_POLICY_CONSENT = "AccessPolicyConsent";
+    public static final String INSTANCE_ACCESS_POLICY_CONSENT = "InstanceAccessPolicyConsent";
     public static final String SubscribeeCommunityList_PROPFILE_NAME = "SubscribeeCommunityList";
     public static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427";
     public static final String ENTITY_NOTIFICATION_CONSUMER_ENDPOINT_URL ="EntityNotificationConsumerURL";

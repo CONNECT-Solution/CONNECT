@@ -37,10 +37,6 @@ public class NhincConstants {
     public static final String USER_SYST_PROP = "userRoleCodeSystem";
     public static final String USER_SYST_NAME_PROP = "userRoleCodeSystemName";
     public static final String USER_DISPLAY_PROP = "userRoleCodeDisplayName";
-    public static final String EXPIRE_PROP = "expirationDate";
-    public static final String SIGN_PROP = "signDate";
-    public static final String CONTENT_REF_PROP = "contentReference";
-    public static final String CONTENT_PROP = "content";
     public static final String AUTHN_INSTANT_PROP = "authnInstant";
     public static final String AUTHN_SESSION_INDEX_PROP = "authnSessionIndex";
     public static final String AUTHN_CONTEXT_CLASS_PROP = "authnContextClass";
@@ -54,9 +50,8 @@ public class NhincConstants {
     public static final String EVIDENCE_ISSUER_FORMAT_PROP = "evidenceAssertionIssuerFormat";
     public static final String EVIDENCE_CONDITION_NOT_BEFORE_PROP = "evidenceConditionNotBefore";
     public static final String EVIDENCE_CONDITION_NOT_AFTER_PROP = "evidenceConditionNotAfter";
-    public static final String EVIDENCE_CONTENT_REF_PROP = "evidenceContentReference";
-    public static final String EVIDENCE_CONTENT_TYPE_PROP = "evidenceContentType";
-    public static final String EVIDENCE_CONTENT_PROP = "evidenceContent";
+    public static final String EVIDENCE_ACCESS_CONSENT_PROP = "evidenceAccessConsent";
+    public static final String EVIDENCE_INST_ACCESS_CONSENT_PROP = "evidenceInstanceAccessConsent";
     public static final String AUDIT_QUERY_ACTION = "queryAuditLog";
     public static final String NOTIFY_ACTION = "notify";
     public static final String SUBSCRIBE_ACTION = "subscribe";
@@ -76,6 +71,8 @@ public class NhincConstants {
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
+    public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
     public static final String CE_CODE_ID = "code";
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";

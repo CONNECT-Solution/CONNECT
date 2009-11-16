@@ -31,6 +31,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201310UV02;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
@@ -40,6 +41,13 @@ import static org.junit.Assert.*;
 public class TestHelper {
 
     private static Log log = LogFactory.getLog(TestHelper.class);
+
+    public TestHelper() {
+    }
+
+    @Test
+    public void testDefault() {
+    }
 
     public static void assertENNameEquals(ENExplicit enName, String family, String given) {
         List<Serializable> choice = enName.getContent();
@@ -142,6 +150,7 @@ public class TestHelper {
             assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
         }
     }
+
     public static void assertReceiverIdEquals(String receiverOID, PRPAIN201306UV02 message) {
         assertNotNull(message.getReceiver());
         assertNotNull(message.getReceiver().get(0));
@@ -151,6 +160,7 @@ public class TestHelper {
             assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
         }
     }
+
     static void assertReceiverIdEquals(String receiverOID, PRPAIN201310UV02 message) {
         assertNotNull(message.getReceiver());
         assertNotNull(message.getReceiver().get(0));
@@ -205,6 +215,7 @@ public class TestHelper {
             assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
         }
     }
+
     public static void assertSenderIdEquals(String senderOID, PRPAIN201306UV02 message) {
         assertNotNull(message.getSender());
         assertSendDeviceNotNull(message.getSender());
@@ -213,6 +224,7 @@ public class TestHelper {
             assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
         }
     }
+
     static void assertSenderIdEquals(String senderOID, PRPAIN201310UV02 message) {
         assertNotNull(message.getSender());
         assertSendDeviceNotNull(message.getSender());
@@ -282,6 +294,7 @@ public class TestHelper {
             assertEquals(patId, message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().get(0).getValue().get(0).getExtension());
         }
     }
+
     public static void assertPatientIdEquals(String patId, String localDeviceId, PRPAIN201306UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientNotNull(message.getControlActProcess());
@@ -293,6 +306,7 @@ public class TestHelper {
             assertEquals(patId, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
         }
     }
+
     static void assertPatientIdEquals(String patientId, String assigningAuthorityId, String localDeviceId, PRPAIN201310UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getCustodian().getAssignedEntity().getId().get(0));
@@ -403,6 +417,7 @@ public class TestHelper {
 
         assertNameEquals(iterSerialObjects, lastName, firstName);
     }
+
     public static void assertPatientNameEquals(String firstName, String lastName, PRPAIN201306UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -467,6 +482,7 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectAdministrativeGender().get(0).getValue().get(0).getCode());
         assertEquals(gender, message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectAdministrativeGender().get(0).getValue().get(0).getCode());
     }
+
     public static void assertGenderEquals(String gender, PRPAIN201306UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -475,6 +491,7 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode().getCode());
         assertEquals(gender, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode().getCode());
     }
+
     public static void assertGenderNull(PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -525,6 +542,7 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectBirthTime().get(0).getValue().get(0).getValue());
         assertEquals(birthTime, message.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectBirthTime().get(0).getValue().get(0).getValue());
     }
+
     public static void assertBirthTimeEquals(String birthTime, PRPAIN201306UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -533,6 +551,7 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
         assertEquals(birthTime, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
     }
+
     public static void assertBirthTimeNull(PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
@@ -575,6 +594,7 @@ public class TestHelper {
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0));
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
     }
+
     public static void assertPatientNotNull(PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess) {
         assertNotNull(controlActProcess.getSubject());
         assertNotNull(controlActProcess.getSubject().get(0));
@@ -585,6 +605,7 @@ public class TestHelper {
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0));
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getRoot());
     }
+
     public static void assertPatientPersonNotNull(PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess) {
         assertPatientNotNull(controlActProcess);
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson());
@@ -596,11 +617,13 @@ public class TestHelper {
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson());
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
+
     public static void assertPatientPersonNotNull(PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess) {
         assertPatientNotNull(controlActProcess);
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson());
         assertNotNull(controlActProcess.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue());
     }
+
     public static void assertParamListNotNull(PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess) {
         assertNotNull(controlActProcess.getQueryByParameter());
         assertNotNull(controlActProcess.getQueryByParameter().getValue());

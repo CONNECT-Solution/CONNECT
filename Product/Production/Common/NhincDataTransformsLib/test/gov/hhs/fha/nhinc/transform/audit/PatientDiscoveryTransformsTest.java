@@ -291,11 +291,9 @@ public class PatientDiscoveryTransformsTest {
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         AssertionType oAssertion = new AssertionType();
         UserType oUserInfo = new UserType();
-        String sUserRole = "test user role";
         String sUserName = "Test Name";
         String sHomeCommunityId = "Test Home Community Id";
         String sHomeCommunityName = "Test Home Community Name";
-        oUserInfo.setRole(sUserRole);
         oUserInfo.setUserName(sUserName);
         HomeCommunityType oHomeCommunityType = new HomeCommunityType();
         oHomeCommunityType.setHomeCommunityId(sHomeCommunityId);

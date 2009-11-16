@@ -172,22 +172,22 @@ public class AdapterPIPImpl {
         {
             assertion.setHaveSignature(true);
             assertion.setHaveWitnessSignature(true);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.DATE_OF_SIGNATURE);
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.PERMISSION_DATE);
             if (svalue != null && svalue.length() > 0)
             {
-                assertion.setDateOfSignature(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore(svalue.trim());
             } 
             else
             {
-                assertion.setDateOfSignature("");
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotBefore("");
             }
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.EXPIRATION_DATE);
             if (null != svalue && svalue.length() > 0)
             {
-                assertion.setExpirationDate(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter(svalue.trim());
             } else
             {
-                assertion.setExpirationDate("");
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().setNotOnOrAfter("");
             }
             PersonNameType aPersonName = new PersonNameType();
             svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.FIRST_NAME);
@@ -318,24 +318,23 @@ public class AdapterPIPImpl {
                 ce.setDisplayName("");
             }
             assertion.setPurposeOfDisclosureCoded(ce);
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.CONTENT_REFERENCE);
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0)
             {
-                assertion.setClaimFormRef(svalue.trim());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(svalue.trim());
             } 
             else
             {
-                assertion.setClaimFormRef("");
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy("");
             }
-            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.CONTENT);
-            svalue = svalue.trim();
+            svalue = PropertyAccessor.getProperty(ASSERTIONINFO_PROPFILE_NAME, CDAConstants.INSTANCE_ACCESS_POLICY_CONSENT);
             if (null != svalue && svalue.length() > 0)
             {
-                assertion.setClaimFormRaw(svalue.getBytes());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(svalue.trim());
             } 
             else
             {
-                assertion.setClaimFormRaw("".getBytes());
+                assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy("");
             }
         } 
         catch (PropertyAccessException propExp)

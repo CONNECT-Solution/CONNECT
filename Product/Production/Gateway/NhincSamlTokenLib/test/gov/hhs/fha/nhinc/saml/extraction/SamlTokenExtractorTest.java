@@ -177,27 +177,23 @@ public class SamlTokenExtractorTest
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement was null.", oAssertOut.getSamlAuthzDecisionStatement());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Decision", "Permit", oAssertOut.getSamlAuthzDecisionStatement().getDecision());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Resource", "https://localhost:8181/findAuditEvents/AuditQuery", oAssertOut.getSamlAuthzDecisionStatement().getResource());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Action", "queryAuditLog", oAssertOut.getSamlAuthzDecisionStatement().getAction());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Action", "EXECUTE", oAssertOut.getSamlAuthzDecisionStatement().getAction());
 
         // Authorization Decision Statement Evidence
         //-------------------------------------------
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement.Evidence was null.", oAssertOut.getSamlAuthzDecisionStatement().getEvidence());
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion was null.", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Id", "5b0e3336-3c51-4df3-88a3-6622c8c41165", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getId());
-//        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.IssueInstant", "2009-09-01T16:42:23.445Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.IssueInstant", "2009-09-01T16:42:23.445Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Version", "2.0", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.IssuerFormat", "urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Issuer", "CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions was null.", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions());
-//        assertEquals("oAssertOut.DateOfSignature", "09/01/2109 15:42:23", oAssertOut.getDateOfSignature());
-//        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotBefore", "09/01/2009 15:42:23", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
-//        assertEquals("oAssertOut.ExpirationDate", "10/01/2109 16:42:23", oAssertOut.getExpirationDate());
-//        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotOnOrAfter", "10/01/2009 16:42:23", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
-        assertEquals("oAssertOut.ClaimFormRef", "Ref-Clm-123", oAssertOut.getClaimFormRef());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.ContentReference", "Ref-Clm-123", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentReference());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.ContentType", "application/pdf", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContentType());
-        assertEquals("oAssertOut.ClaimFormRaw", "aeoliam", new String(oAssertOut.getClaimFormRaw()));
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Content", "aeoliam", new String(oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getContent()));
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotBefore", "2009-09-01T21:42:23.000Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotBefore());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.Conditions.NotOnOrAfter", "2009-10-01T22:42:23.000Z", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy", "urn:oid:1.2.3.4", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy", "urn:oid:1.2.3.4.123456789", oAssertOut.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy());
+
 
 
 

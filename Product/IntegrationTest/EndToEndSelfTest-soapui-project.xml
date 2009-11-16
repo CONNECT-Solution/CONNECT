@@ -71085,11 +71085,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:NhinTargetCommunities[1]/urn3:nhinTargetCommunity[1]/urn3:homeCommunity[1]/urn3:description[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>targetName</con:name><con:sourceType>RemoteHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:NhinTargetCommunities[1]/urn3:nhinTargetCommunity[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:NhinTargetCommunities[1]/urn3:nhinTargetCommunity[1]/urn3:homeCommunity[1]/urn3:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayQueryRequest[1]/urn:assertion[1]/urn3:homeCommunity[1]/urn3:homeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCName</con:name><con:sourceType>LocalHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -71132,8 +71128,6 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">10/29/2009 20:38:18</urn3:dateOfSignature>
-            <urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/28/2009 21:43:18</urn3:expirationDate>
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -71171,7 +71165,6 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure>
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -71216,7 +71209,7 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -71276,7 +71269,6 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>InternalTest1</urn3:description>
                   <urn3:homeCommunityId>1.1</urn3:homeCommunityId>
@@ -71322,9 +71314,8 @@ declare namespace urn3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <urn3:contentReference>Claim-Ref-1234</urn3:contentReference>
-                     <urn3:contentType>application/pdf</urn3:contentType>
-                     <urn3:content>YWVvbGlhbQ==</urn3:content>
+                     <urn3:accessConsentPolicy>Claim-Ref-1234</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>Claim-Instance-1</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -71415,11 +71406,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:description[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>targetName</con:name><con:sourceType>RemoteHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:nhinTargetSystem[1]/urn2:homeCommunity[1]/urn2:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCName</con:name><con:sourceType>LocalHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -71431,7 +71418,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>orgHCDescription</con:name><con:sourceType>LocalHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:description[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+//urn:RespondingGateway_CrossGatewayRetrieveRequest[1]/urn:assertion[1]/urn2:userInfo[1]/urn2:org[1]/urn2:description[1]</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Document Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EntityDocRetrieveBindingSoap11</con:interface><con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation><con:request name="Document Retrieve" outgoingWss="" incomingWss="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@expand-mtom-attachments">true</con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/NhinConnect/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -71459,8 +71446,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">10/29/2009 20:38:29</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/28/2009 21:43:29</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -71498,7 +71483,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure>
             <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -71543,7 +71527,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </urn2:phoneNumberType>
             </urn2:secondWitnessPhone>
             <urn2:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn2:SSN>
-            <urn2:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn2:uniquePatientId>
+            <urn2:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn2:uniquePatientId>
             <urn2:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>addrCode</urn2:code>
@@ -71603,7 +71587,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <urn2:role>Pharmacy</urn2:role>
                <urn2:org>
                   <urn2:description>InternalTest1</urn2:description>
                   <urn2:homeCommunityId>1.1</urn2:homeCommunityId>
@@ -71649,9 +71632,8 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
                      </urn2:conditions>
-                     <urn2:contentReference>Claim-Ref-1234</urn2:contentReference>
-                     <urn2:contentType>application/pdf</urn2:contentType>
-                     <urn2:content>YWVvbGlhbQ==</urn2:content>
+                     <urn2:accessConsentPolicy>Claim-Ref-1234</urn2:accessConsentPolicy>
+                     <urn2:instanceAccessConsentPolicy>Claim-Instance-1</urn2:instanceAccessConsentPolicy>
                   </urn2:assertion>
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
@@ -71756,11 +71738,7 @@ void clearTable(host, port, dbName, user, password, table) {
 
 clearTable(host, port, db, user, pass, table);
 
-</script></con:config></con:testStep><con:testStep type="transfer" name="set subscribe properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-Subscribe</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace ns10='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns18:SubscribeRequest[1]/ns18:assertion[1]/ns10:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace ns10='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//ns18:SubscribeRequest[1]/ns18:assertion[1]/ns10:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>notificationEndpoint</con:name><con:sourceType>NotificationEndpoint</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+</script></con:config></con:testStep><con:testStep type="transfer" name="set subscribe properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-Subscribe</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>notificationEndpoint</con:name><con:sourceType>NotificationEndpoint</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace ns9='http://docs.oasis-open.org/wsn/b-2';
 declare namespace ns8='http://www.w3.org/2005/08/addressing';
 //ns18:SubscribeRequest[1]/ns9:Subscribe[1]/ns9:ConsumerReference[1]/ns8:Address[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" transferChildNodes="false" useXQuery="false" ignoreEmpty="false"><con:name>orgHCName</con:name><con:sourceType>RemoteHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Subscribe</con:targetStep><con:targetPath>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -71804,8 +71782,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">10/29/2009 20:38:33</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/28/2009 21:43:33</nccommon:expirationDate>
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -71843,7 +71819,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -71888,7 +71863,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </nccommon:phoneNumberType>
             </nccommon:secondWitnessPhone>
             <nccommon:SSN xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</nccommon:SSN>
-            <nccommon:uniquePatientId xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</nccommon:uniquePatientId>
+            <nccommon:uniquePatientId xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</nccommon:uniquePatientId>
             <nccommon:witnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>addrCode</nccommon:code>
@@ -71948,7 +71923,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>InternalTest2</nccommon:description>
                   <nccommon:homeCommunityId>2.2</nccommon:homeCommunityId>
@@ -71994,9 +71968,8 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
                         <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
                      </nccommon:conditions>
-                     <nccommon:contentReference>Claim-Ref-1234</nccommon:contentReference>
-                     <nccommon:contentType>application/pdf</nccommon:contentType>
-                     <nccommon:content>YWVvbGlhbQ==</nccommon:content>
+                     <nccommon:accessConsentPolicy>Claim-Ref-1234</nccommon:accessConsentPolicy>
+                     <nccommon:instanceAccessConsentPolicy>Claim-Instance-1</nccommon:instanceAccessConsentPolicy>
                   </nccommon:assertion>
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
@@ -72101,11 +72074,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:NotifyRequest[1]/urn:nhinTargetSystem[1]/urn1:homeCommunity[1]/urn1:description[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>targetName</con:name><con:sourceType>LocalHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType xsi:nil="true"/><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
 declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:NotifyRequest[1]/urn:nhinTargetSystem[1]/urn1:homeCommunity[1]/urn1:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:NotifyRequest[1]/urn:Assertion[1]/urn4:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:NotifyRequest[1]/urn:Assertion[1]/urn4:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:NotifyRequest[1]/urn:nhinTargetSystem[1]/urn1:homeCommunity[1]/urn1:name[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>assertionHCID</con:name><con:sourceType>LocalHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:NotifyRequest[1]/urn:Assertion[1]/urn4:homeCommunity[1]/urn4:homeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCName</con:name><con:sourceType>LocalHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Notify</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -72157,8 +72126,6 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn4:zipCode>AddrZip</urn4:zipCode>
             </urn4:address>
             <urn4:dateOfBirth>06/04/1959 05:21:00</urn4:dateOfBirth>
-            <urn4:dateOfSignature>10/29/2009 20:38:40</urn4:dateOfSignature>
-            <urn4:expirationDate>11/28/2009 21:43:40</urn4:expirationDate>
             <urn4:explanationNonClaimantSignature>Electronic</urn4:explanationNonClaimantSignature>
             <urn4:haveSecondWitnessSignature>false</urn4:haveSecondWitnessSignature>
             <urn4:haveSignature>false</urn4:haveSignature>
@@ -72196,7 +72163,6 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn4:originalText>phoneCode</urn4:originalText>
                </urn4:phoneNumberType>
             </urn4:phoneNumber>
-            <urn4:purposeOfDisclosure>TREATMENT</urn4:purposeOfDisclosure>
             <urn4:secondWitnessAddress>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -72241,7 +72207,7 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </urn4:phoneNumberType>
             </urn4:secondWitnessPhone>
             <urn4:SSN>253-98-7546</urn4:SSN>
-            <urn4:uniquePatientId>500000000</urn4:uniquePatientId>
+            <urn4:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn4:uniquePatientId>
             <urn4:witnessAddress>
                <urn4:addressType>
                   <urn4:code>addrCode</urn4:code>
@@ -72301,7 +72267,6 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn4:fullName>Kasrl S. Skagerberg</urn4:fullName>
                </urn4:personName>
                <urn4:userName>kskagerb</urn4:userName>
-               <urn4:role>Pharmacy</urn4:role>
                <urn4:org>
                   <urn4:description>InternalTest1</urn4:description>
                   <urn4:homeCommunityId>1.1</urn4:homeCommunityId>
@@ -72347,9 +72312,8 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <urn4:notBefore>2009-04-16T13:10:39.093Z</urn4:notBefore>
                         <urn4:notOnOrAfter>2009-12-31T12:00:00.000Z</urn4:notOnOrAfter>
                      </urn4:conditions>
-                     <urn4:contentReference>Claim-Ref-1234</urn4:contentReference>
-                     <urn4:contentType>application/pdf</urn4:contentType>
-                     <urn4:content>YWVvbGlhbQ==</urn4:content>
+                     <urn4:accessConsentPolicy>Claim-Ref-1234</urn4:accessConsentPolicy>
+                     <urn4:instanceAccessConsentPolicy>Claim-Instance-1</urn4:instanceAccessConsentPolicy>
                   </urn4:assertion>
                </urn4:evidence>
             </urn4:samlAuthzDecisionStatement>
@@ -72462,11 +72426,7 @@ runSQL(host, port, db, user, pass, table, unsubSubscriptionID, startDate);
 </script></con:config></con:testStep><con:testStep type="transfer" name="set unsubscribe properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-Unsubscribe</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath/></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>subscriptionID</con:name><con:sourceType>UnsubSubscriptionID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace ns5='http://www.hhs.gov/healthit/nhin';
 //ns5:SubscriptionId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>subscriptionMgrEndpoint</con:name><con:sourceType>SubscriptionManagerEndpointAddress</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:UnsubscribeRequest[1]/urn:nhinTargetSystem[1]/urn2:url[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:UnsubscribeRequest[1]/urn:assertion[1]/urn2:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:UnsubscribeRequest[1]/urn:assertion[1]/urn2:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCID</con:name><con:sourceType>RemoteHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:UnsubscribeRequest[1]/urn:nhinTargetSystem[1]/urn2:url[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>assertionHCID</con:name><con:sourceType>RemoteHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:UnsubscribeRequest[1]/urn:assertion[1]/urn2:homeCommunity[1]/urn2:homeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>assertionHCName</con:name><con:sourceType>RemoteHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Unsubscribe</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -72505,8 +72465,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">10/29/2009 20:38:42</nccommon:dateOfSignature>
-            <nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">11/28/2009 21:43:42</nccommon:expirationDate>
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -72544,7 +72502,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure>
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -72589,7 +72546,7 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </nccommon:phoneNumberType>
             </nccommon:secondWitnessPhone>
             <nccommon:SSN xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</nccommon:SSN>
-            <nccommon:uniquePatientId xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</nccommon:uniquePatientId>
+            <nccommon:uniquePatientId xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</nccommon:uniquePatientId>
             <nccommon:witnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>addrCode</nccommon:code>
@@ -72649,7 +72606,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <nccommon:role>Pharmacy</nccommon:role>
                <nccommon:org>
                   <nccommon:description>InternalTest2</nccommon:description>
                   <nccommon:homeCommunityId>2.2</nccommon:homeCommunityId>
@@ -72695,9 +72651,8 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
                         <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
                      </nccommon:conditions>
-                     <nccommon:contentReference>Claim-Ref-1234</nccommon:contentReference>
-                     <nccommon:contentType>application/pdf</nccommon:contentType>
-                     <nccommon:content>YWVvbGlhbQ==</nccommon:content>
+                     <nccommon:accessConsentPolicy>Claim-Ref-1234</nccommon:accessConsentPolicy>
+                     <nccommon:instanceAccessConsentPolicy>Claim-Instance-1</nccommon:instanceAccessConsentPolicy>
                   </nccommon:assertion>
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
@@ -72798,11 +72753,7 @@ declare namespace aud='http://nhinc.services.com/schema/auditmessage';
 declare namespace aud='http://nhinc.services.com/schema/auditmessage';
 //urn:FindAuditEventsRequest[1]/aud:FindAuditEvents[1]/aud:beginDateTime[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>endDate</con:name><con:sourceType>endDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace aud='http://nhinc.services.com/schema/auditmessage';
-//urn:FindAuditEventsRequest[1]/aud:FindAuditEvents[1]/aud:endDateTime[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>signatureDate</con:name><con:sourceType>sigDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:FindAuditEventsRequest[1]/urn:assertion[1]/urn1:dateOfSignature[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>expirationDate</con:name><con:sourceType>expireDate</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
-declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
-//urn:FindAuditEventsRequest[1]/urn:assertion[1]/urn1:expirationDate[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>targetHCID</con:name><con:sourceType>RemoteHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
+//urn:FindAuditEventsRequest[1]/aud:FindAuditEvents[1]/aud:endDateTime[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>targetHCID</con:name><con:sourceType>RemoteHCID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 //urn:FindAuditEventsRequest[1]/urn:nhinTargetCommunities[1]/urn1:nhinTargetCommunity[1]/urn1:homeCommunity[1]/urn1:homeCommunityId[1]</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>targetDescription</con:name><con:sourceType>RemoteHCDescription</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Audit Log Query</con:targetStep><con:targetPath>declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
@@ -72847,8 +72798,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>10/29/2009 19:43:50</urn1:dateOfSignature>
-            <urn1:expirationDate>11/28/2009 21:43:50</urn1:expirationDate>
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -72886,7 +72835,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -72931,7 +72879,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
             <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000</urn1:uniquePatientId>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
                   <urn1:code>addrCode</urn1:code>
@@ -72991,7 +72939,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>kskagerb</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
                <urn1:org>
                   <urn1:description>InternalTest1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -73037,9 +72984,8 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
                         <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
                      </urn1:conditions>
-                     <urn1:contentReference>Claim-Ref-1234</urn1:contentReference>
-                     <urn1:contentType>application/pdf</urn1:contentType>
-                     <urn1:content>YWVvbGlhbQ==</urn1:content>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -73477,4 +73423,4 @@ int countRows(host, port, dbName, user, password, table) {
 }
 
 def count = countRows(host, port, db, user, pass, table);
-assert count == 0;</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+assert count == 0;</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
