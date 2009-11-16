@@ -13,6 +13,8 @@ import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201309UV.PixRet
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -57,11 +59,17 @@ public class PatientCorrelationServiceImpl {
         
         CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDao();
         QualifiedPatientIdentifier inputQualifiedPatientIdentifier = QualifiedPatientIdentifierFactory(inputPatientId);
+
+        //only non-expired patient correlation records will be returned
+        //expired correlation records will be removed by the following call.
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(inputQualifiedPatientIdentifier , dataSourceList);
+
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(IN201309, iiList);
+
         RetrievePatientCorrelationsSecuredResponseType result = new RetrievePatientCorrelationsSecuredResponseType();
         result.setPRPAIN201310UV02(IN201310);
+
         return result;
     }
     //controlActProcess/queryByParameter/parameterList/DataSource/value/@root
@@ -115,6 +123,7 @@ public class PatientCorrelationServiceImpl {
         String patientAssigningAuthId = "";
         String correlatedPatientId = "";
         String correlatedPatientAssigningAuthId = "";
+        
         if (patient == null) {
             log.warn("Patient was null");
             return null;
@@ -160,11 +169,16 @@ public class PatientCorrelationServiceImpl {
             log.warn("patient was self-correlated");
             return null;
         }
+
+        //calculate the correlation expiration date
+        Date newExpirationDate = calculateCorrelationExpirationDate();
+
         CorrelatedIdentifiers correlatedIdentifers = new CorrelatedIdentifiers();
         correlatedIdentifers.setCorrelatedPatientAssigningAuthorityId(correlatedPatientAssigningAuthId);
         correlatedIdentifers.setCorrelatedPatientId(correlatedPatientId);
         correlatedIdentifers.setPatientId(patientId);
         correlatedIdentifers.setPatientAssigningAuthorityId(patientAssigningAuthId);
+        correlatedIdentifers.setCorrelationExpirationDate(newExpirationDate);
         CorrelatedIdentifiersDao dao = new CorrelatedIdentifiersDao();
         dao.addPatientCorrelation(correlatedIdentifers);
 
@@ -172,5 +186,51 @@ public class PatientCorrelationServiceImpl {
         AddPatientCorrelationSecuredResponseType result = new AddPatientCorrelationSecuredResponseType();
         result.setMCCIIN000002UV01(AckBuilder.BuildAck(IN201301) );
         return result;
+    }
+
+    private static Date calculateCorrelationExpirationDate() {
+        // get a calendar instance, which defaults to "now"
+        Calendar calendar = Calendar.getInstance();
+
+        //get the expirationUnits from the patientcorrelationproperties.xml file
+        //if there isn't a value for the assigning authority, use the global setting.
+        //temporary until more is known about the way we are getting values from the properties file
+        String expirationUnits = "minutes";
+        int expiration = 10;
+
+        if ("YEAR".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.YEAR, expiration);
+        }
+        else if ("MONTH".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.MONTH, expiration);
+        }
+        else if("WEEK".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.WEEK_OF_YEAR, expiration);
+        }
+        else if("DAY".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.DAY_OF_YEAR, expiration);
+        }
+        else if("HOUR".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.HOUR_OF_DAY, expiration);
+        }
+        else if("MINUTE".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.MINUTE, expiration);
+        }
+        else if("SECOND".equalsIgnoreCase(expirationUnits))
+        {
+            calendar.add(Calendar.SECOND, expiration);
+        }
+
+
+        // get a date to represent the new expiration date
+        Date returnDate = calendar.getTime();
+
+        return returnDate;
     }
 }
