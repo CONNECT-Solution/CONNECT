@@ -16,8 +16,9 @@
     </id>
     <property name="patientAssigningAuthorityId" column="PatientAssigningAuthorityId" type="string" length="45" not-null="true" />
     <property name="patientId" column="PatientId" type="string" length="45" not-null="true" />
-    <property name="correlatedPatientAssigningAuthorityId" column="CorrelatedPatientAssigningAuthorityId" type="string" length="45" not-null="true" />
+    <property name="correlatedPatientAssigningAuthorityId" column="CorrelatedPatientAssignAuthId" type="string" length="45" not-null="true" />
     <property name="correlatedPatientId" column="CorrelatedPatientId" type="string" length="45" not-null="true" />
+    <property name="correlationExpirationDate" column="CorrelationExpirationDate" type="timestamp" length="45" not-null="true" />
   </class>
   
 </hibernate-mapping>
