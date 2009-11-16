@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.model.QualifiedPatientIdentifier;
 import gov.hhs.fha.nhinc.patientcorrelation.persistence.HibernateUtil;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -164,6 +165,7 @@ public class Retriever {
         SessionFactory fact = null;
         Session sess = null;
         List<CorrelatedIdentifiers> result = null;
+        List<CorrelatedIdentifiers> modifiedResult = null;
 
         try {
             fact = HibernateUtil.getSessionFactory();
@@ -207,6 +209,38 @@ public class Retriever {
 
             }
         }
-        return result;
+
+        //only non-expired patient correlation records will be returned.
+        //expired correlation records will be removed from the datebase.
+        modifiedResult = removeExpiredCorrelations(result);
+
+        return modifiedResult;
+    }
+
+    /**
+     * This method removes expired records from the list of records returned from the database
+     * and also removes the expired records from the database.
+     * @param result List of correlationIdentifiers objects returned from the database
+     * @return Returns a list of correlationIdentifiers that have not expired
+     */
+    private static List<CorrelatedIdentifiers> removeExpiredCorrelations(List<CorrelatedIdentifiers> result) {
+        List<CorrelatedIdentifiers> modifiedResult = null;
+        Date now = new Date();
+
+        //loop through list and remove the expired correlations from list then from db
+        for (CorrelatedIdentifiers correlatedIdentifiers : result)
+        {
+            if (now.before(correlatedIdentifiers.getCorrelationExpirationDate()))
+            {
+                modifiedResult.add(correlatedIdentifiers);
+            }
+            else
+            {
+                //remove expired record from database
+                Storer.removePatientCorrelation(correlatedIdentifiers);
+            }
+        }
+
+        return modifiedResult;
     }
 }
