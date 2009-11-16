@@ -341,9 +341,19 @@
   <target name="configure.glassfish.domain">
     <runtarget target="deploy.glassfish.start.server"/>
 
-    <propertycopy  name="test" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.jvm.options"/>
+    <propertycopy  name="deployment.glassfish.domain.delete.jvm.options" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.delete.jvm.options"/>
     <sun-appserv-admin
-      command='create-jvm-options --target server ${test}'
+      command='delete-jvm-options --target server ${deployment.glassfish.domain.delete.jvm.options}'
+      user="${deployment.glassfish.server.username}"
+      passwordfile="${deploy.glassfish.password.file.path}"
+      host="${deployment.glassfish.server}"
+      port="${deployment.glassfish.admin.port}"
+      asinstalldir="${glassfish.home}"
+    />
+    
+    <propertycopy  name="deployment.glassfish.domain.create.jvm.options" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.create.jvm.options"/>
+    <sun-appserv-admin
+      command='create-jvm-options --target server ${deployment.glassfish.domain.create.jvm.options}'
       user="${deployment.glassfish.server.username}"
       passwordfile="${deploy.glassfish.password.file.path}"
       host="${deployment.glassfish.server}"
