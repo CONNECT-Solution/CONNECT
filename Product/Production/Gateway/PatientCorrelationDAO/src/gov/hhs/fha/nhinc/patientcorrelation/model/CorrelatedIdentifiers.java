@@ -5,6 +5,8 @@
 
 package gov.hhs.fha.nhinc.patientcorrelation.model;
 
+import java.util.Date;
+
 /**
  *
  * @author svalluripalli
@@ -15,6 +17,15 @@ public class CorrelatedIdentifiers {
     private String patientId;
     private String CorrelatedPatientAssigningAuthorityId;
     private String CorrelatedPatientId;
+    private Date correlationExpirationDate;
+
+    public Date getCorrelationExpirationDate() {
+        return correlationExpirationDate;
+    }
+
+    public void setCorrelationExpirationDate(Date correlationExpirationDate) {
+        this.correlationExpirationDate = correlationExpirationDate;
+    }
 
     public String getCorrelatedPatientAssigningAuthorityId() {
         return CorrelatedPatientAssigningAuthorityId;
