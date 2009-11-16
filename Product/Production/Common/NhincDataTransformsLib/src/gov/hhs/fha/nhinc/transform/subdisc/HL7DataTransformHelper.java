@@ -178,6 +178,21 @@ public class HL7DataTransformHelper {
                 EnGiven givenName = (EnGiven) item;
                 firstName = givenName.getRepresentation().value();
             }
+            else if(item instanceof JAXBElement)
+            {
+                JAXBElement newItem = (JAXBElement)item;
+                if (newItem.getValue() instanceof EnExplicitFamily)
+                {
+                    EnExplicitFamily familyName = (EnExplicitFamily) newItem.getValue();
+                    lastName = familyName.getContent();
+                }
+                else if( newItem.getValue() instanceof EnExplicitGiven)
+                {
+                    EnExplicitGiven givenName = (EnExplicitGiven) newItem.getValue();
+                    firstName = givenName.getContent();
+                }
+            }
+            
         }
 
         return CreatePNExplicit(firstName, lastName);

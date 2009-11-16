@@ -106,7 +106,7 @@ public class HL7QueryParamsTransforms {
     }
 
     public static PRPAMT201306UV02LivingSubjectName createName(List<PNExplicit> patientNames) {
-        if (patientNames.size() == 0) {
+        if (patientNames == null || patientNames.size() == 0) {
             return null;
         }
         
@@ -141,7 +141,7 @@ public class HL7QueryParamsTransforms {
         CE genderCode = new CE();
 
         if (gender != null &&
-                gender.length() > 0) {
+                gender.length() > 0) {            
             genderCode.setCode(gender);
             adminGender.getValue().add(genderCode);
             
@@ -154,26 +154,38 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02PatientAddress createAddress(List<ADExplicit> patientAddress)
     {
-        PRPAMT201306UV02PatientAddress subjectAddress = new PRPAMT201306UV02PatientAddress();
+        PRPAMT201306UV02PatientAddress subjectAddress = null;
         ST text = null;
-        for (ADExplicit address : patientAddress) {
-           subjectAddress.getValue().add(address);
-           text = new ST();
-           subjectAddress.setSemanticsText(text);
+
+        if(patientAddress != null)
+        {
+            subjectAddress = new PRPAMT201306UV02PatientAddress();
+            for (ADExplicit address : patientAddress) {
+               subjectAddress.getValue().add(address);
+               text = new ST();
+               subjectAddress.setSemanticsText(text);
+            }
         }
+
         return subjectAddress;
     }
 
     public static PRPAMT201306UV02PatientTelecom createTelecom(List<TELExplicit> patientTelecom)
     {
-        PRPAMT201306UV02PatientTelecom subjectTele = new PRPAMT201306UV02PatientTelecom();
+        PRPAMT201306UV02PatientTelecom subjectTele = null;
         ST text = null;
-        for(TELExplicit tele : patientTelecom)
+
+        if (patientTelecom != null)
         {
-            subjectTele.getValue().add(tele);
-            text = new ST();
-            subjectTele.setSemanticsText(text);
+            subjectTele = new PRPAMT201306UV02PatientTelecom();
+            for(TELExplicit tele : patientTelecom)
+            {
+                subjectTele.getValue().add(tele);
+                text = new ST();
+                subjectTele.setSemanticsText(text);
+            }
         }
+
         return subjectTele;
     }
 }

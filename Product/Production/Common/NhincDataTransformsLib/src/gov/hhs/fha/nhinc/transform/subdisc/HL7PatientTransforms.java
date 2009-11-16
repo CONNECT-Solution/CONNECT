@@ -55,6 +55,10 @@ public class HL7PatientTransforms {
         
         PRPAMT201301UV02Person person = new PRPAMT201301UV02Person();
 
+        if(paramList == null)
+        {
+            return null;
+        }
         // Set the Subject Gender Code
         if(paramList.getLivingSubjectAdministrativeGender() != null &&
                     paramList.getLivingSubjectAdministrativeGender().size() > 0)

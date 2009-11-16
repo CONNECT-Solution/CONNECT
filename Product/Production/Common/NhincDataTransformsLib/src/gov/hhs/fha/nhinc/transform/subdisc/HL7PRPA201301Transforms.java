@@ -215,7 +215,8 @@ public class HL7PRPA201301Transforms
         patient = HL7PatientTransforms.create201301Patient(params.getParameterList());
 
         result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));
-        
+
+
         result = HL7ArrayTransforms.copyNullFlavors(original, result);
         result = copyInformationReceipent(original, result);
         result = HL7ArrayTransforms.copyNullFlavors(original, result);
