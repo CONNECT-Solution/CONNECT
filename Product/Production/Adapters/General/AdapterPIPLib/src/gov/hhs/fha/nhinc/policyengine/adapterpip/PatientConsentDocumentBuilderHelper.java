@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CodedElementType;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -277,13 +277,9 @@ public class PatientConsentDocumentBuilderHelper {
             String sFormattedDate = null;
             if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
             {
-                XMLGregorianCalendar creationDate = oPtPref.getFineGrainedPolicyMetadata().getCreationTime();
-                if(creationDate != null)
-                {
-                    sFormattedDate = xdsFormattedDate(creationDate);
-                }
+                sFormattedDate = oPtPref.getFineGrainedPolicyMetadata().getCreationTime();
             }
-            if (sFormattedDate == null)
+            if (NullChecker.isNullish(sFormattedDate))
             {
                 Date date = new Date();
                 sFormattedDate = xdsDateFormatter.format(date);
@@ -349,9 +345,9 @@ public class PatientConsentDocumentBuilderHelper {
     {
         if((oSlots != null) && (oRimObjectFactory != null))
         {
-            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null) && (oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime() != null))
+            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null) && (NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime())))
             {
-                oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_SERVICE_START_TIME, xdsFormattedDate(oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime())));
+                oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_SERVICE_START_TIME, oPtPref.getFineGrainedPolicyMetadata().getServiceStartTime()));
             }
         }
     }
@@ -360,9 +356,9 @@ public class PatientConsentDocumentBuilderHelper {
     {
         if((oSlots != null) && (oRimObjectFactory != null))
         {
-            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null) && (oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime() != null))
+            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null) && (NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime())))
             {
-                oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, xdsFormattedDate(oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime())));
+                oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, oPtPref.getFineGrainedPolicyMetadata().getServiceStopTime()));
             }
         }
     }
@@ -653,20 +649,20 @@ public class PatientConsentDocumentBuilderHelper {
     {
         if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
         {
-            for(CodedElementType eventCode : oPtPref.getFineGrainedPolicyMetadata().getEventCodes())
+            for(CeType eventCode : oPtPref.getFineGrainedPolicyMetadata().getEventCodes())
             {
                 setEventCode(oExtObj, oRimObjectFactory, sDocUniqueId, eventCode);
             }
         }
     }
 
-    private void setEventCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId, CodedElementType eventCode)
+    private void setEventCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId, CeType eventCode)
     {
         if(eventCode != null)
         {
             String sPracticeSettingCode = eventCode.getCode();
-            String sPracticeSettingCodeScheme = eventCode.getCodingScheme();
-            String sPracticeSettingCodeDisplayName = eventCode.getCodeDisplayName();
+            String sPracticeSettingCodeScheme = eventCode.getCodeSystem();
+            String sPracticeSettingCodeDisplayName = eventCode.getDisplayName();
             if(NullChecker.isNotNullish(sPracticeSettingCode))
             {
                 sPracticeSettingCodeScheme = ((sPracticeSettingCodeScheme != null) ? sPracticeSettingCodeScheme : "");

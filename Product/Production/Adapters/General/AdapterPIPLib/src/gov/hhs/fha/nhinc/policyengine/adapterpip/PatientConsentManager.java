@@ -13,6 +13,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import ihe.iti.xds_b._2007.DocumentRegistryService;
@@ -443,11 +444,12 @@ public class PatientConsentManager
      * retrieves the document from the repository.
      *
      * @param oDocRequest The document identifiers.
-     * @return The XML CPP document.
+     * @param oCPPDocInfo Document object to hold results
+     * @return void.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      *         This is thrown if there are any errors.
      */
-    private String retrieveCPPDoc(DocumentRequest oDocRequest)
+    private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo)
         throws AdapterPIPException
     {
         String sPrefCDA = "";
@@ -460,10 +462,18 @@ public class PatientConsentManager
         RetrieveDocumentSetResponseType oResponse = null;
         oResponse = oDocRepositoryPort.documentRepositoryRetrieveDocumentSet(oRequest);
 
-        sPrefCDA = extractPrefCDA(oResponse);
+        if(oResponse != null)
+        {
+            sPrefCDA = extractPrefCDA(oResponse);
 
-        return sPrefCDA;
+            if (NullChecker.isNotNullish(sPrefCDA))
+            {
+                oCPPDocInfo.sPrefCDA = sPrefCDA;
 
+                POCDMT000040ClinicalDocument oPrefCDA = deserializeConsentCDADoc(sPrefCDA);
+                oCPPDocInfo.oPrefCDA = oPrefCDA;
+            }
+        }
     }
 
     /**
@@ -501,16 +511,7 @@ public class PatientConsentManager
                 oCPPDocInfo.sDocumentUniqueId = oDocRequest.getDocumentUniqueId();
             }
 
-            String sPrefCDA = retrieveCPPDoc(oDocRequest);
-
-            if ((sPrefCDA != null) &&
-                (sPrefCDA.length() > 0))
-            {
-                oCPPDocInfo.sPrefCDA = sPrefCDA;
-
-                POCDMT000040ClinicalDocument oPrefCDA = deserializeConsentCDADoc(sPrefCDA);
-                oCPPDocInfo.oPrefCDA = oPrefCDA;
-            }
+            retrieveCPPDoc(oDocRequest, oCPPDocInfo);
         }
 
         return oCPPDocInfo;
@@ -758,7 +759,6 @@ public class PatientConsentManager
             }   // if ((sConsentXACML != null) &&
         }   // if ((oPrefCDA != null) &&
         
-
         return oPtPref;
     }
 
@@ -892,20 +892,6 @@ public class PatientConsentManager
 
 
     /**
-     * This class is an inner class used to hold the document along with its
-     * set of identifiers.  For internal purposes.
-     */
-    private class CPPDocumentInfo
-    {
-        long lDocumentId = 0;           // note this is only used by our internal document repository service
-        String sHomeCommunityId = "";
-        String sRepositoryId = "";
-        String sDocumentUniqueId = "";
-        String sPrefCDA = "";
-        POCDMT000040ClinicalDocument oPrefCDA = null;
-    }
-
-    /**
      * 
      * @param sPrefCDA
      * @param oPtPref
@@ -996,4 +982,19 @@ public class PatientConsentManager
         }
         return sTargetObject;
     }   
+
+    /**
+     * This class is an inner class used to hold the document along with its
+     * set of identifiers.  For internal purposes.
+     */
+    private class CPPDocumentInfo
+    {
+        long lDocumentId = 0;           // note this is only used by our internal document repository service
+        String sHomeCommunityId = "";
+        String sRepositoryId = "";
+        String sDocumentUniqueId = "";
+        String sPrefCDA = "";
+        POCDMT000040ClinicalDocument oPrefCDA = null;
+   }
+
 }

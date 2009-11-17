@@ -558,7 +558,7 @@ public class PatientConsentDocumentBuilderHelperTest {
     }
 
     private static final String STORE_CONSENT_REQUEST_FULL =
-        "<urn:StorePtConsentRequest  xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\">" +
+        "<urn:StorePtConsentRequest  xmlns:urn=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\" xmlns:urn1=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\">>" +
         " <urn:patientPreferences>" +
         "	<urn:patientId>ADPTPIPTST98769876Z</urn:patientId>" +
         "	<urn:assigningAuthority>1.1</urn:assigningAuthority>" +
@@ -577,7 +577,7 @@ public class PatientConsentDocumentBuilderHelperTest {
         "	   <urn:confidentialityCode>confidentiality_code</urn:confidentialityCode>" +
         "	   <urn:confidentialityCodeScheme>confidentiality_code_scheme</urn:confidentialityCodeScheme>" +
         "	   <urn:confidentialityCodeDisplayName>confidentiality_code_display_name</urn:confidentialityCodeDisplayName>" +
-        "	   <urn:creationTime>2009-09-23T21:14:27Z</urn:creationTime>" +
+        "	   <urn:creationTime>20090923211427</urn:creationTime>" +
         "	   <urn:formatCode>format_code</urn:formatCode>" +
         "	   <urn:formatCodeScheme>format_code_scheme</urn:formatCodeScheme>" +
         "	   <urn:formatCodeDisplayName>format_code_display_name</urn:formatCodeDisplayName>" +
@@ -591,8 +591,8 @@ public class PatientConsentDocumentBuilderHelperTest {
         "	   <urn:practiceSettingCode>practice_setting_code</urn:practiceSettingCode>" +
         "	   <urn:practiceSettingCodeScheme>practice_setting_code_scheme</urn:practiceSettingCodeScheme>" +
         "	   <urn:practiceSettingCodeDisplayName>practice_setting_code_display_name</urn:practiceSettingCodeDisplayName>" +
-        "	   <urn:serviceStartTime>2009-09-23T21:14:27Z</urn:serviceStartTime>" +
-        "	   <urn:serviceStopTime>2009-09-23T21:14:27Z</urn:serviceStopTime>" +
+        "	   <urn:serviceStartTime>20090923211427</urn:serviceStartTime>" +
+        "	   <urn:serviceStopTime>20090923211427</urn:serviceStopTime>" +
         "	   <urn:size>123</urn:size>" +
         "	   <urn:sourcePatientId>source_patient_id</urn:sourcePatientId>" +
         "	   <urn:Pid3>pid3_value</urn:Pid3>" +
@@ -607,14 +607,14 @@ public class PatientConsentDocumentBuilderHelperTest {
         "	   <urn:documentUniqueId>document_unique_id</urn:documentUniqueId>" +
         "	   <urn:documentURI>document_uri</urn:documentURI>" +
         "	   <urn:eventCodes>" +
-        "		  <urn:code>event_code_1</urn:code>" +
-        "		  <urn:codingScheme>event_code_1_scheme</urn:codingScheme>" +
-        "		  <urn:codeDisplayName>event_code_1_display_name</urn:codeDisplayName>" +
+        "		  <urn1:code>event_code_1</urn1:code>" +
+        "		  <urn1:codeSystem>event_code_1_scheme</urn1:codeSystem>" +
+        "		  <urn1:displayName>event_code_1_display_name</urn1:displayName>" +
         "	   </urn:eventCodes>" +
         "	   <urn:eventCodes>" +
-        "		  <urn:code>event_code_2</urn:code>" +
-        "		  <urn:codingScheme>event_code_2_scheme</urn:codingScheme>" +
-        "		  <urn:codeDisplayName>event_code_2_display_name</urn:codeDisplayName>" +
+        "		  <urn1:code>event_code_2</urn1:code>" +
+        "		  <urn1:codeSystem>event_code_2_scheme</urn1:codeSystem>" +
+        "		  <urn1:displayName>event_code_2_display_name</urn1:displayName>" +
         "	   </urn:eventCodes>" +
         "	</urn:fineGrainedPolicyMetadata>" +
         " </urn:patientPreferences>" +
