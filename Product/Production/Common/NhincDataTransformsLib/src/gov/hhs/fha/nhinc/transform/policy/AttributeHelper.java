@@ -107,6 +107,14 @@ public class AttributeHelper {
         return appendAttributeToParent(resource, attributeId, dataType, (Object) strAttributeVal, appendIfValueNull);
     }
 
+    public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType, URI attributeValue, boolean appendIfValueNull) {
+        String strAttributeVal = null;
+        if(attributeValue != null){
+            strAttributeVal = attributeValue.toString();
+        }
+        return appendAttributeToParent(resource, attributeId, dataType, (Object) strAttributeVal, appendIfValueNull);
+    }
+
     public AttributeType appendAttributeToParent(ResourceType resource, String attributeId, String dataType, Object attributeValue, boolean appendIfValueNull) {
         AttributeType attribute = null;
         if (attributeValue != null) {
