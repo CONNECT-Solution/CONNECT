@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.CE;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
@@ -31,6 +32,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201310UV02;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
+import org.hl7.v3.PRPAMT201301UV02Person;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -252,6 +254,17 @@ public class TestHelper {
         assertNotNull(sender.getDevice().getId().get(0));
     }
 
+    public static void assertPatientIdEquals(String patId, String localDeviceId, PRPAMT201301UV02Person person) {
+        assertNotNull(person);
+        assertNotNull(person.getId());
+        if (localDeviceId != null && !localDeviceId.isEmpty()) {
+            assertEquals(localDeviceId, person.getId().get(0).getRoot());
+        }
+        if (patId != null && !patId.isEmpty()) {
+            assertEquals(patId, person.getId().get(0).getExtension());
+        }
+    }
+
     public static void assertPatientIdEquals(String patId, String localDeviceId, PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientNotNull(message.getControlActProcess());
@@ -321,6 +334,23 @@ public class TestHelper {
         }
         if (patientId != null && !patientId.isEmpty()) {
             assertEquals(patientId, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
+        }
+    }
+
+    public static void assertSsnEquals(String ssn, PRPAMT201301UV02Person person) {
+        assertNotNull(person);
+        
+
+        assertNotNull(person.getAsOtherIDs());
+        assertNotNull(person.getAsOtherIDs().get(0));
+        assertNotNull(person.getAsOtherIDs().get(0).getId());
+        assertNotNull(person.getId().get(0));
+        assertNotNull(person.getId().get(0).getRoot());
+        assertNotNull(person.getId().get(0).getExtension());
+
+        assertEquals(HL7Constants.SSN_ID_ROOT, person.getAsOtherIDs().get(0).getId().get(0).getRoot());
+        if (ssn != null && !ssn.isEmpty()) {
+            assertEquals(ssn, person.getAsOtherIDs().get(0).getId().get(0).getExtension());
         }
     }
 
@@ -431,6 +461,16 @@ public class TestHelper {
 
         assertNameEquals(iterSerialObjects, lastName, firstName);
     }
+    public static void assertPatientNameEquals(String firstName, String lastName, PRPAMT201301UV02Person person)
+    {
+        assertNotNull(person);
+
+        PNExplicit pnName = person.getName().get(0);
+        List<Serializable> choice = pnName.getContent();
+        Iterator<Serializable> iterSerialObjects = choice.iterator();
+
+        assertNameEquals(iterSerialObjects, lastName, firstName);
+    }
 
     public static void assertPatientNameNull(PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
@@ -487,9 +527,18 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());
 
-        assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode());
-        assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode().getCode());
-        assertEquals(gender, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode().getCode());
+        assertGenderEquals(gender, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAdministrativeGenderCode());
+    }
+    public static void assertGenderEquals(String gender, PRPAMT201301UV02Person person)
+    {
+        assertNotNull(person);
+        assertGenderEquals(gender,person.getAdministrativeGenderCode());
+    }
+    public static void assertGenderEquals(String gender, CE genderCode)
+    {
+        assertNotNull(genderCode);
+        assertNotNull(genderCode.getCode());
+        assertEquals(gender, genderCode.getCode());
     }
 
     public static void assertGenderNull(PRPAIN201301UV02 message) {
@@ -551,7 +600,12 @@ public class TestHelper {
         assertNotNull(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
         assertEquals(birthTime, message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getBirthTime().getValue());
     }
-
+    public static void assertBirthTimeEquals(String birthTime, PRPAMT201301UV02Person person) {
+        assertNotNull(person);
+        assertNotNull(person.getBirthTime());
+        assertNotNull(person.getBirthTime().getValue());
+        assertEquals(birthTime, person.getBirthTime().getValue());
+    }
     public static void assertBirthTimeNull(PRPAIN201301UV02 message) {
         assertNotNull(message.getControlActProcess());
         assertPatientPersonNotNull(message.getControlActProcess());

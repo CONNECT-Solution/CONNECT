@@ -46,6 +46,9 @@ public class HL7PRPA201306Transforms {
         result.setControlActProcess(createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query, receiverAAID, receiverOID));
 
         return result;
+        
+        
+
     }
 
     public static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createQUQIMT021001UV01ControlActProcess(PRPAMT201301UV02Patient patient, String localDeviceId, PRPAIN201305UV02 query, String aaId, String orgId) {

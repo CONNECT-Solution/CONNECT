@@ -217,7 +217,7 @@ public class HL7PRPA201301Transforms
         
         params = original.getQueryByParameter().getValue();
 
-        patient = HL7PatientTransforms.create201301Patient(params.getParameterList());
+        patient = HL7PatientTransforms.createPRPAMT201301UVPatient(original.getSubject().get(0).getRegistrationEvent().getSubject1().getPatient());
 
         result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));
 
@@ -229,6 +229,67 @@ public class HL7PRPA201301Transforms
         
         return result;
     }
+
+    public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyControlActProcess2(PRPAIN201306UV02MFMIMT700711UV01ControlActProcess original, String localDeviceId)
+    {
+        if(original == null)
+        {
+            return null;
+        }
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
+
+        result.setClassCode(original.getClassCode());
+        result.setCode(original.getCode());
+        result.setEffectiveTime(original.getEffectiveTime());
+        result.setLanguageCode(original.getLanguageCode());
+        result.setMoodCode(original.getMoodCode());
+        result.setText(original.getText());
+        result.setTypeId(original.getTypeId());
+
+        if(original.getAuthorOrPerformer() != null)
+        {
+            for(MFMIMT700711UV01AuthorOrPerformer item : original.getAuthorOrPerformer())
+            {
+                MFMIMT700701UV01AuthorOrPerformer newItem = copyAuthorOrPerformer(item);
+                result.getAuthorOrPerformer().add(newItem);
+            }
+        }
+        if(original.getId() != null)
+        {
+            result.getId().clear();
+            for(II item : original.getId())
+            {
+                result.getId().add(item);
+            }
+        }
+        if(original.getDataEnterer() !=null)
+        {
+            result.getDataEnterer().clear();
+            for(MFMIMT700711UV01DataEnterer item : original.getDataEnterer())
+            {
+                MFMIMT700701UV01DataEnterer newItem = copyDataEnterer(item);
+                result.getDataEnterer().add(newItem);
+            }
+        }
+
+        PRPAMT201301UV02Patient patient;
+        PRPAMT201306UV02QueryByParameter params;
+
+        params = original.getQueryByParameter().getValue();
+
+        patient = HL7PatientTransforms.create201301Patient(params.getParameterList());
+
+        result.getSubject().add(createPRPAIN201301UVMFMIMT700701UV01Subject1(patient, localDeviceId));
+
+
+        result = HL7ArrayTransforms.copyNullFlavors(original, result);
+        result = copyInformationReceipent(original, result);
+        result = HL7ArrayTransforms.copyNullFlavors(original, result);
+
+
+        return result;
+    }
+
     private static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyInformationReceipent(PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to )
     {
         if (from != null & from.getInformationRecipient().size() > 0)

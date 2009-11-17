@@ -23,6 +23,7 @@ import org.hl7.v3.II;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.TELExplicit;
 import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.PRPAMT201310UV02Person;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
@@ -32,6 +33,9 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.XActMoodIntentEvent;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
 
 /**
  *
@@ -210,7 +214,7 @@ public class HL7PRPA201301TransformsTest {
 
     }
     @Test
-    public void testCreate201301from201306ControlActProcess_BirthTime()
+    public void testCreate201301from201306ControlActProcessParams_BirthTime()
     {
         PRPAMT201306UV02LivingSubjectBirthTime subjBirthTime;
 
@@ -228,7 +232,7 @@ public class HL7PRPA201301TransformsTest {
 
         value.setQueryByParameter(new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params));
 
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess(value, "123");
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess2(value, "123");
 
         assertNotNull(result);
 
@@ -262,7 +266,7 @@ public class HL7PRPA201301TransformsTest {
         assertEquals(gender, actualGender);
     }
     @Test
-     public void testCreat201301From201306ControlActProcess_Telcom()
+     public void testCreat201301From201306ControlActProcessParams_Telcom()
     {
         System.out.println("testCreat201301From201306ControlActProcess");
         
@@ -283,7 +287,7 @@ public class HL7PRPA201301TransformsTest {
 
         value.setQueryByParameter(new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params));
 
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess(value, localDeviceId);
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess2(value, localDeviceId);
 
         assertEquals(true, result != null);
 
@@ -293,7 +297,7 @@ public class HL7PRPA201301TransformsTest {
   
     }
     @Test
-    public void testCreate201301from201306ControlActProcess_Name()
+    public void testCreate201301from201306ControlActProcessFromParams_Name()
     {
         System.out.println("testCreate201301from201306ControlActProcess");
         
@@ -310,7 +314,7 @@ public class HL7PRPA201301TransformsTest {
 
         value.setQueryByParameter(new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params));
 
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess(value, "123");
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess result = HL7PRPA201301Transforms.copyControlActProcess2(value, "123");
 
         assertNotNull(result);
         assertEquals(1,result.getSubject().size());
@@ -349,11 +353,12 @@ public class HL7PRPA201301TransformsTest {
         // Create the Sender
         value.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
+
         PRPAIN201301UV02 result = HL7PRPA201301Transforms.createPRPA201301(value,localDeviceId);
         
         assert201301HeaderInfo(result);
         assertPRPAIN201301UV02MFMIMT700701UV01ControlActProcess(result.getControlActProcess());
-        //TestHelper.assertSsnEquals(ssn,result);
+        TestHelper.assertSsnEquals(ssn,result);
         TestHelper.assertPatientIdEquals(patId, localDeviceId, result);
         TestHelper.assertGenderEquals(gender, result);
         TestHelper.assertPatientNameEquals(patientFirstName, patientLastName, result);
@@ -385,10 +390,13 @@ public class HL7PRPA201301TransformsTest {
     private PRPAIN201306UV02MFMIMT700711UV01ControlActProcess create201306ControlActProcess()
     {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess result = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
-
+        PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
-
+        PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent= new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
+        PRPAIN201306UV02MFMIMT700711UV01Subject2 subj2 = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
+        JAXBElement<PRPAMT201310UV02Person> person;
+        
         result.setMoodCode(XActMoodIntentEvent.EVN);
 
 
@@ -408,7 +416,18 @@ public class HL7PRPA201301TransformsTest {
         
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         result.setQueryByParameter(new JAXBElement<PRPAMT201306UV02QueryByParameter>(xmlqname, PRPAMT201306UV02QueryByParameter.class, params));
-      
+
+        person = HL7PatientTransforms.create201310PatientPerson(patientFirstName, patientLastName, gender, birthTime, ssn);
+
+
+        subj2.setPatient(HL7PatientTransforms.create201310Patient(person, HL7DataTransformHelper.IIFactory(localDeviceId, patId)));
+        subj2.getPatient().getTelecom().add(phone);
+        subj2.getPatient().getPatientPerson().getValue().getTelecom().add(phone);
+        regEvent.setSubject1(subj2);
+
+        subj1.setRegistrationEvent(regEvent);
+
+        result.getSubject().add(subj1);
         
         return result;
     }

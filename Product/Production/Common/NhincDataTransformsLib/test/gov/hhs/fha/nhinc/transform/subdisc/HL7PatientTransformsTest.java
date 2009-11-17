@@ -43,7 +43,17 @@ import static org.junit.Assert.*;
  * @author dunnek
  */
 public class HL7PatientTransformsTest {
-
+    private String localDeviceId = "2.16.840.1.113883.3.200.1";
+    private String senderOID = "2.16.840.1.113883.3.200";
+    private String receiverOID = "2.16.840.1.113883.3.184";
+    private String patientFirstName = "Thomas";
+    private String patientLastName = "Kirtland";
+    private String gender = "M";
+    private String birthTime = "19760307";
+    private String ssn = "123456789";
+    private String patId = "1234";
+    private String phoneNumber = "7031231234";
+    
     public HL7PatientTransformsTest() {
     }
 
@@ -151,7 +161,7 @@ public class HL7PatientTransformsTest {
     }
 
     @Test
-    public void testCopy201306To201301_Gender()
+    public void testCopy201306To201301Params_Gender()
     {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         String gender = "MALE";
@@ -159,11 +169,11 @@ public class HL7PatientTransformsTest {
 
         PRPAMT201301UV02Patient result = HL7PatientTransforms.create201301Patient(value);
 
-        assertEquals(gender, result.getPatientPerson().getValue().getAdministrativeGenderCode().getCode());
+        TestHelper.assertGenderEquals(gender, result.getPatientPerson().getValue().getAdministrativeGenderCode());
 
     }
     @Test
-    public void testCopy201306To201301_Telcom()
+    public void testCopy201306To201301Params_Telcom()
     {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         String phoneNumber = "7031231234";
@@ -180,7 +190,7 @@ public class HL7PatientTransformsTest {
 
     }
     @Test
-    public void testCopy201306To201301_addr()
+    public void testCopy201306To201301Params_addr()
     {
         PRPAMT201306UV02ParameterList value = new PRPAMT201306UV02ParameterList();
         PRPAMT201306UV02PatientAddress patAddr = new PRPAMT201306UV02PatientAddress();
@@ -292,7 +302,28 @@ public class HL7PatientTransformsTest {
         assertEquals(birthTime, result.getValue());
     }
 
-    private static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PersonElement(PRPAMT201302UV02PatientPatientPerson person)
+    @Test
+    public void testCreate201301PatFrom201310Pat()
+    {
+        JAXBElement<PRPAMT201310UV02Person> person;
+        JAXBElement<PRPAMT201301UV02Person> result;
+
+
+        person = HL7PatientTransforms.create201310PatientPerson(patientFirstName,patientLastName,gender, birthTime, ssn);
+
+        person.getValue().getId().add(HL7DataTransformHelper.IIFactory(localDeviceId, patId));
+        
+        result = HL7PatientTransforms.create201301PatientPerson(person.getValue());
+
+        TestHelper.assertPatientNameEquals(patientFirstName, patientLastName, result.getValue());
+        TestHelper.assertGenderEquals(gender, result.getValue());
+        TestHelper.assertSsnEquals(ssn, result.getValue());
+        TestHelper.assertPatientIdEquals(patId, localDeviceId, result.getValue());        
+        TestHelper.assertBirthTimeEquals(birthTime, result.getValue());
+         
+    }
+
+ private static JAXBElement<PRPAMT201302UV02PatientPatientPerson> create201302PersonElement(PRPAMT201302UV02PatientPatientPerson person)
     {
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         return new JAXBElement<PRPAMT201302UV02PatientPatientPerson>(xmlqname, PRPAMT201302UV02PatientPatientPerson.class, person);

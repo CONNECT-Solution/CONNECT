@@ -31,7 +31,8 @@ import org.hl7.v3.CS;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.MCCIMT000100UV01Device;
-
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201310UV02Patient;
 
 /**
  *
@@ -443,6 +444,20 @@ public class HL7ArrayTransforms
             for(II id : from.getTemplateId())
             {
                 to.getTemplateId().add(id);
+            }
+        }
+
+        return to;
+    }
+    public static PRPAMT201301UV02Patient copyIIs(PRPAMT201310UV02Patient from, PRPAMT201301UV02Patient to)
+    {
+        if (from != null)
+        {
+            to.getTemplateId().clear();
+
+            for(II id : from.getId())
+            {
+                to.getId().add(id);
             }
         }
 
