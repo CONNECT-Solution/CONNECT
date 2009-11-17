@@ -185,4 +185,10 @@
     </if>
   </target>
 
+  <target name="Redeploy.Configuration">
+    <if test="${target::exists('Personal.Redeploy.Configuration')}">
+      <call target="Personal.Redeploy.Configuration" />
+    </if>
+  </target>
+
 </project>

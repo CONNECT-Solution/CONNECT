@@ -83,7 +83,6 @@
     <call target="GlassFish.Deploy"/>
   </target>
 
-
   <target name="GlassFish.Restore.Domain.Certificates">
     <ant
       target="glassfish.restore.domain.certificates"
@@ -115,6 +114,19 @@
       <environment refid="GlassFish.EnvironmentVariables.RefId"/>
       <args>
         <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name}"/>
+      </args>
+    </ant>
+  </target>
+
+  <target name="GlassFish.Deploy.Configuration">
+    <ant
+      target="deploy.glassfish.nhinc.configuration"
+      buildfile="${GlassFish.Deploy.Script.File.Path}"
+      logfile="${Ant.Log.Directory.Path}\deploy.configuration.log.xml"
+    >
+      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
+      <args>
+        <arg line="-Ddeployment.environment.configuration.dir.name=${GlassFish.Domain1.NHINC.Configuration.Directory.Name} -Ddeployment.dir=${GlassFish.Deploy.Directory.Path}"/>
       </args>
     </ant>
   </target>
@@ -229,4 +241,26 @@
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Application.Zip.File.Path}"/>
   </target>
 
+  <target name="Personal.Redeploy.Configuration">
+    <property name="GlassFish.Deploy.Directory.Path" value="${Common.Directory.Production.Path}\Common\Properties"/>
+    <property name="GlassFish.Deploy.Script.File.Path" value="${Common.Directory.Product.Path}\build.xml" />
+    <property name="GlassFish.Domain1.NHINC.Configuration.Directory.Name" value="Dev" />
+    <property name="GlassFish.Deploy.Ant.Home" value="${Ant.Home}"/>
+
+    <trycatch>
+      <try>
+        <call target="Ant.SetUp"/>
+        <call target="GlassFish.Deploy.Configuration" />
+      </try>
+      <catch property="ExceptionMessage">
+        <echo message="${ExceptionMessage}"/>
+        <property name="Ant.Log.File.Path" value="${Ant.Log.Directory.Path}\deploy.configuration.log.xml"/>
+        <call target="Ant.ShowReport"/>
+        <fail message="Please see the report opened in your browser for more detail.${NewLine}${ExceptionMessage}"/>
+      </catch>
+      <finally>
+        <call target="Ant.TearDown"/>
+      </finally>
+    </trycatch>
+  </target>
 </project>
