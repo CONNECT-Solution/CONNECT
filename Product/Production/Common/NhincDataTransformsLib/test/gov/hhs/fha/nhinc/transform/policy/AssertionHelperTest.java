@@ -261,8 +261,8 @@ public class AssertionHelperTest {
         samlAuthzDecisionStatementAssertion.setIssueInstant(TEST_EV_INSTANCE_VAL);
         samlAuthzDecisionStatementAssertion.setVersion(TEST_EV_VERSION_VAL);
         samlAuthzDecisionStatementAssertion.setIssuer(TEST_EV_ISSUER_VAL);
-//        samlAuthzDecisionStatementAssertion.setAccessConsentPolicy(TEST_EV_ACCESS_CONSENT_VAL);
-//        samlAuthzDecisionStatementAssertion.setInstanceAccessConsentPolicy(TEST_EV_INST_ACCESS_CONSENT_VAL);
+        samlAuthzDecisionStatementAssertion.setAccessConsentPolicy(TEST_EV_ACCESS_CONSENT_VAL);
+        samlAuthzDecisionStatementAssertion.setInstanceAccessConsentPolicy(TEST_EV_INST_ACCESS_CONSENT_VAL);
 
         samlAuthzDecisionStatementAssertion.setConditions(samlAuthzDecisionStatementEvidenceConditions);
         samlAuthzDecisionStatementEvidenceConditions.setNotBefore(TEST_EV_COND_BEFORE_VAL);
@@ -380,9 +380,9 @@ public class AssertionHelperTest {
             "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-version",
             "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer",
             "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before",
-            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after"};
-//            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent",
-//            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent"};
+            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after",
+            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent",
+            "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent"};
         String[] vals = {TEST_DECISION_VAL,
             TEST_RESOURCE_VAL,
             TEST_ACTION_VAL,
@@ -391,9 +391,9 @@ public class AssertionHelperTest {
             TEST_EV_VERSION_VAL,
             TEST_EV_ISSUER_VAL,
             TEST_EV_COND_BEFORE_VAL,
-            TEST_EV_COND_AFTER_VAL};
-//            TEST_EV_ACCESS_CONSENT_VAL,
-//            TEST_EV_INST_ACCESS_CONSENT_VAL};
+            TEST_EV_COND_AFTER_VAL,
+            TEST_EV_ACCESS_CONSENT_VAL,
+            TEST_EV_INST_ACCESS_CONSENT_VAL};
         List matchIdList = new ArrayList();
 
         for (int idx = 0; idx < ids.length; idx++) {
@@ -430,6 +430,13 @@ public class AssertionHelperTest {
                                         expectedAttrVal.getContent().add(xmlDate.toXMLFormat());
                                     } catch (DatatypeConfigurationException ex) {
                                         fail("Expected value of " + attr.getAttributeId() + " should be a valid XML dateTime form");
+                                    }
+                                } else if (attr.getDataType().equals(ANY_URI_DATATYPE)) {
+                                    try {
+                                        URI expectedVal = new URI((String) expectResAttr.get(attr.getAttributeId()));
+                                        expectedAttrVal.getContent().add(expectedVal.toString());
+                                    } catch (URISyntaxException ex) {
+                                        fail("Expected value of " + attr.getAttributeId() + " should be a valid URI form");
                                     }
                                 } else {
                                     fail("Datatype: " + attr.getDataType() + " was not expected as a Resource");
@@ -1193,13 +1200,13 @@ public class AssertionHelperTest {
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions().getNotOnOrAfter();
         executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after", sourceValue, DATE_DATATYPE);
     }
-/*
+
     @Test
     public void AssertionSamlAuthzDecisionStatementEvidenceAssertionAccessConsentFromAssertionToXacml() {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
@@ -1207,7 +1214,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
@@ -1215,7 +1222,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setAccessConsentPolicy(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
@@ -1223,7 +1230,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
         assertFalse(sourceValue.contentEquals(""));
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
@@ -1231,7 +1238,7 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy("");
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
 
     @Test
@@ -1239,7 +1246,6 @@ public class AssertionHelperTest {
         AssertionType assertion = createTestAssertion();
         assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setInstanceAccessConsentPolicy(null);
         String sourceValue = assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getInstanceAccessConsentPolicy();
-        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, STRING_DATATYPE);
+        executeAssertionToXacmlSingleFieldTest(assertion, "Resource", "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent", sourceValue, ANY_URI_DATATYPE);
     }
- * */
 }

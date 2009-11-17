@@ -37,8 +37,8 @@ public class XacmlAttributeId {
     public static final String AuthzDecisionStatementEvidenceAssertionIssuer = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-issuer";
     public static final String AuthzDecisionStatementEvidenceAssertionConditionsNotBefore = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-before";
     public static final String AuthzDecisionStatementEvidenceAssertionConditionsNotOnOrAfter = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-not-on-or-after";
-    public static final String AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access_consent";
-    public static final String AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access_consent";
+    public static final String AuthzDecisionStatementEvidenceAssertionAccessConsentPolicy = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-access-consent";
+    public static final String AuthzDecisionStatementEvidenceAssertionInstanceAccessConsentPolicy = "urn:gov:hhs:fha:nhinc:saml-authz-decision-statement-evidence-assertion-instance-access-consent";
     public static final String SignatureKeyModulus = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-modulus";
     public static final String SignatureKeyExponent = "urn:gov:hhs:fha:nhinc:saml-signature-rsa-key-value-exponent";
     public static final String SignatureValue = "urn:gov:hhs:fha:nhinc:saml-signature-value";

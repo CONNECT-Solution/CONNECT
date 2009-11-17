@@ -89,7 +89,6 @@ public class SamlCallbackHandler implements CallbackHandler {
         UNSPECIFIED_AUTHN_CNTX_CLS};
     private static final List<String> VALID_AUTHN_CNTX_CLS_LIST = Collections.unmodifiableList(Arrays.asList(VALID_AUTHN_CNTX_CLS_ARRAY));
     private static final String AUTHN_SESSION_INDEX = "123456";
-    private static final String EVIDENCE_FORM_TYPE = "application/pdf";
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
     public static final String SV_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:authorization-over-ssl";
     private static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
@@ -854,7 +853,7 @@ public class SamlCallbackHandler implements CallbackHandler {
             log.debug("Setting Evidence Instance Access Consent to: " + tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
             attributeValues2.add(tokenVals.get(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP).toString());
         } else {
-            log.debug("No Access Consent found for Evidence");
+            log.debug("No Instance Access Consent found for Evidence");
         }
 
         attributes.add(factory.createAttribute("InstanceAccessConsentPolicy", NHIN_NS, attributeValues2));
