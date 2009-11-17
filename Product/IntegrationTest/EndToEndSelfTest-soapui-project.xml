@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="3.0.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap11" soapVersion="1_1" anonymous="optional" definition="http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityDocQuery?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityDocQuery?wsdl"><con:part><con:url>http://DVANHIE3.fedsconnect.org:9080/EntityCA-sun-http-binding/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
+<con:soapui-project name="EndToEndSelfTest" resourceRoot="" soapui-version="2.5" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="ProjectSettings@projectRoot">C:\Projects\NHINC\Current\Product\IntegrationTest</con:setting></con:settings><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap11" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap11" soapVersion="1_1" anonymous="optional" definition="http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityDocQuery?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://dvanhie3.fedsconnect.org:9080/NhinConnect/EntityDocQuery?wsdl"><con:part><con:url>http://DVANHIE3.fedsconnect.org:9080/EntityCA-sun-http-binding/META-INF/EntityBPEL/src/_references/_projects/Interfaces/src/schemas/nhinc/common/SubscriptionB2OverrideForDocuments.xsd</con:url><con:content><![CDATA[<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:xdsb="urn:ihe:iti:xds-b:2007" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:addr="http://www.w3.org/2005/08/addressing" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
   <xsd:import schemaLocation="../../ihe/XDS.b_DocumentRepository.xsd" namespace="urn:ihe:iti:xds-b:2007"/>
   <xsd:import schemaLocation="../../ebRS/rim.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"/>
   <xsd:import schemaLocation="../../www.w3.org/2005/08/addressing/ws-addr.xsd" namespace="http://www.w3.org/2005/08/addressing"/>
@@ -71023,6 +71023,7 @@ def localAA = dataSource.getPropertyValue( "LocalAA" );
 def remoteAA = dataSource.getPropertyValue( "RemoteAA" );
 def localPatientID = dataSource.getPropertyValue( "RevokePatientID" );
 def remotePatientID = dataSource.getPropertyValue( "SDPatientID" );
+def endDate = dataSource.getPropertyValue( "sigDate" );
 
 void clearTable(host, port, dbName, user, password, table) {
    
@@ -71032,17 +71033,17 @@ void clearTable(host, port, dbName, user, password, table) {
    def result = sql.execute(sqlExecute);
    }
 
-void runSQL(host, port, dbName, user, password, table, localAA, localPatientID, remoteAA, remotePatientID) {
+void runSQL(host, port, dbName, user, password, table, localAA, localPatientID, remoteAA, remotePatientID, endDate) {
    
    def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
    def sqlExecute = 'insert into ' + dbName + '.' + table + ' values (1, "' + localAA + '", "' + localPatientID + '", "' + remoteAA + '", "' +
-     remotePatientID + '", "")';
+     remotePatientID + '", "2012-12-21 00:00:00")';
    def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
    def result = sql.execute(sqlExecute);
    }
 
 clearTable(host, port, db, user, pass, table);
-runSQL(host, port, db, user, pass, table, localAA, localPatientID, remoteAA, remotePatientID);
+runSQL(host, port, db, user, pass, table, localAA, localPatientID, remoteAA, remotePatientID, endDate);
 
 </script></con:config></con:testStep><con:testStep type="groovy" name="Clear AA Mapping Table &amp; Add Mapping"><con:settings/><con:config><script>import groovy.sql.Sql;
 
