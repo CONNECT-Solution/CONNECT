@@ -15,6 +15,8 @@
             <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
             
             <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
+            <user name="padmanabhanp"           group="developer"         address="parineetha.padmanabhan@agilex.com"/>
+            
             <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
             <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
             <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
@@ -27,6 +29,7 @@
             <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
 
             <user name="scott borst"            group="&ProjectName;"     address="scott.borst@agilex.com"/>
+            <user name="padmanabhan p"           group="&ProjectName;"    address="parineetha.padmanabhan@agilex.com"/>
             <user name="kieran dunne"           group="&ProjectName;"     address="kieran.dunne@agilex.com"/>
             <user name="jason ray"              group="&ProjectName;"     address="jason.ray@agilex.com"/>
             <user name="neil webb"              group="&ProjectName;"     address="neil.webb@agilex.com"/>
@@ -39,6 +42,7 @@
             <user name="visu patlolla"          group="&ProjectName;"     address="visu.patlolla@agilex.com"/>
 
             <user name="scott borst Dev"        group="&ProjectName;Dev"  address="scott.borst@agilex.com"/>
+            <user name="padmanabhan p Dev"      group="&ProjectName;Dev"  address="parineetha.padmanabhan@agilex.com"/>
             <user name="kieran dunne Dev"       group="&ProjectName;Dev"  address="kieran.dunne@agilex.com"/>
             <user name="jason ray Dev"          group="&ProjectName;Dev"  address="jason.ray@agilex.com"/>
             <user name="neil webb Dev"          group="&ProjectName;Dev"  address="neil.webb@agilex.com"/>
