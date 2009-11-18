@@ -42,9 +42,9 @@
 <!ENTITY CCNet.Dashboard.Directory.Path        '&Common.Directory.Build.Path;\dashboard'>
 <!ENTITY CCNet.Dashboard.Url                   'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
-<!ENTITY Klocwork.Server.Remoting.Url           'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY Klocwork.Dashboard.Url                 'http://&Klocwork.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
-
+<!ENTITY Klocwork.Server.Remoting.Url          'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Klocwork.Server.Rest.Url              'http://&Klocwork.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Klocwork.Dashboard.Url                'http://&Klocwork.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
 
 <!ENTITY Tools.NAnt.Bin                        '&Common.Directory.Tools.Path;\nAnt\bin' >
 <!ENTITY Tools.NAnt.Exe                        '&Tools.NAnt.Bin;\nant.exe' >
