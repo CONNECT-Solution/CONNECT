@@ -212,9 +212,10 @@ public class Retriever {
 
         //only non-expired patient correlation records will be returned.
         //expired correlation records will be removed from the datebase.
-        modifiedResult = removeExpiredCorrelations(result);
+//        modifiedResult = removeExpiredCorrelations(result);
 
-        return modifiedResult;
+//        return modifiedResult;
+        return result;
     }
 
     /**
@@ -230,12 +231,17 @@ public class Retriever {
         //loop through list and remove the expired correlations from list then from db
         for (CorrelatedIdentifiers correlatedIdentifiers : result)
         {
-            if (now.before(correlatedIdentifiers.getCorrelationExpirationDate()))
+            //do not delete a record if there isn't an expiration date.
+            log.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
+            if ((correlatedIdentifiers.getCorrelationExpirationDate() == null) ||
+                (now.before(correlatedIdentifiers.getCorrelationExpirationDate())))
             {
+                log.debug("patient correlation record has not expired");
                 modifiedResult.add(correlatedIdentifiers);
             }
             else
             {
+                log.debug("...removing expired patient correlation record...");
                 //remove expired record from database
                 Storer.removePatientCorrelation(correlatedIdentifiers);
             }

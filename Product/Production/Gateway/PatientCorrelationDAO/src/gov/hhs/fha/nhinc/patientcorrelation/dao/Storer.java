@@ -76,8 +76,8 @@ public class Storer {
         String param2 = correlatedIdentifers.getPatientId();
         String param3 = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
         String param4 = correlatedIdentifers.getCorrelatedPatientId();
-        String sql = "delete from correlatedidentifiers where ((PatientAssigningAuthorityId='" + param1 + "' and PatientId='" + param2 + "' and CorrelatedPatientAssigningAuthorityId='" +
-                param3 + "' and CorrelatedPatientId='" + param4 + "') or (PatientAssigningAuthorityId='" + param3 + "' and PatientId='" + param4 + "' and CorrelatedPatientAssigningAuthorityId='" +
+        String sql = "delete from correlatedidentifiers where ((PatientAssigningAuthorityId='" + param1 + "' and PatientId='" + param2 + "' and CorrelatedPatientAssignAuthId='" +
+                param3 + "' and CorrelatedPatientId='" + param4 + "') or (PatientAssigningAuthorityId='" + param3 + "' and PatientId='" + param4 + "' and CorrelatedPatientAssignAuthId='" +
                 param1 + "' and CorrelatedPatientId='" + param2 + "'))";
         try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
