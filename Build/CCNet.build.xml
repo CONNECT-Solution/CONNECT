@@ -129,15 +129,6 @@
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/**/*.*</pattern>
         </pathFilter>
         <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse</pattern>
         </pathFilter>
         <pathFilter>
