@@ -82,13 +82,13 @@
         <description>Begin Main Build</description>
         
         <description>Begin Pre Build Actions</description>
-        <!--<call target="SourceModificationReport.ConsolidateReports" />
-        <call target="TargetProcess.CreateReport" />-->
+        <call target="SourceModificationReport.ConsolidateReports" />
+        <call target="TargetProcess.CreateReport" />
         <description>End Pre Build Actions</description>
         
         <description>Begin Clean Up Actions</description>
-        <!--<call target="SourceControl.GetOf.Common.Directory.ThirdParty.Path" />
-        <call target="SourceControl.GetOf.Common.Directory.Product.Path" />-->
+        <call target="SourceControl.CleanGetOf.Common.Directory.ThirdParty.Path" />
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
         <description>End Clean Up Actions</description>
         
         <description>Begin Compile Actions</description>
