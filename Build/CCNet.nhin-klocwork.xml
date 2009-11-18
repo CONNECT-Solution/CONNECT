@@ -63,15 +63,6 @@
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/**/*.*</pattern>
         </pathFilter>
         <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/Install/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
           <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse</pattern>
         </pathFilter>
         <pathFilter>
@@ -192,8 +183,9 @@
       </sourceControlProvider>
       &SourceControl.ExclusionFilters;
     </sourcecontrol>
-    <labeller type="stateFileLabeller">
+    <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
+      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
     </labeller>
     <tasks>
       <modificationWriter>
