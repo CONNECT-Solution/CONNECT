@@ -194,9 +194,11 @@ public class PatientCorrelationServiceImpl {
 
         //get the expirationUnits from the patientcorrelationproperties.xml file
         //if there isn't a value for the assigning authority, use the global setting.
+        //if there isn't a global setting, return null which means that the record will never expire.
+        
         //temporary until more is known about the way we are getting values from the properties file
-        String expirationUnits = "minutes";
-        int expiration = 10;
+        String expirationUnits = "YEAR";
+        int expiration = 1;
 
         if ("YEAR".equalsIgnoreCase(expirationUnits))
         {
@@ -232,5 +234,6 @@ public class PatientCorrelationServiceImpl {
         Date returnDate = calendar.getTime();
 
         return returnDate;
+//        return null;
     }
 }
