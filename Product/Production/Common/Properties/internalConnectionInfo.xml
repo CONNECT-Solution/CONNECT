@@ -13,7 +13,7 @@
             <service>
                 <name>patientdiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/NhinConnect/PatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>documentquery</name>
@@ -366,7 +366,7 @@
             <service>
                 <name>patientdiscovery</name>
                 <description>patientdiscovery</description>
-                <endpointURL>https://localhost:8181/NhinConnect/PatientDiscovery</endpointURL>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>documentquery</name>
