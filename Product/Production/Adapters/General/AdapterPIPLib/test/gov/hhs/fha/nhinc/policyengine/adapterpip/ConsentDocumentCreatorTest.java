@@ -100,7 +100,7 @@ public class ConsentDocumentCreatorTest
             assertEquals("Class code", ActClassClinicalDocument.DOCCLIN, clinDoc.getClassCode());
 
             // Document title - value from document used
-            assertEquals("Document title", "document_title", clinDoc.getTitle().getTextContent());
+            assertEquals("Document title", "document_title", (String) clinDoc.getTitle().getContent().get(0));
 
         }
         catch(Throwable t)
@@ -153,7 +153,7 @@ public class ConsentDocumentCreatorTest
             assertNotNull("Created doc was null", clinDoc);
 
             // Document title - Default value used
-            assertEquals("Document title", CDAConstants.TITLE, clinDoc.getTitle().getTextContent());
+            assertEquals("Document title", CDAConstants.TITLE, (String) clinDoc.getTitle().getContent().get(0));
 
             // Class code - hard coded value used - override from doc
             assertEquals("Class code", ActClassClinicalDocument.DOCCLIN, clinDoc.getClassCode());

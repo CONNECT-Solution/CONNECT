@@ -28,6 +28,7 @@ import org.w3c.dom.Element;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.EDExplicit;
+import org.hl7.v3.STExplicit;
 
 /**
  *
@@ -134,15 +135,16 @@ public class ConsentDocumentCreator
 
         // Title
         //------
-        Element oTitle = oDOMDocument.createElement(CDAConstants.TITLE_TAG);
+        STExplicit oTitle = new STExplicit();
+        //Element oTitle = oDOMDocument.createElement(CDAConstants.TITLE_TAG);
         oPrefCDA.setTitle(oTitle);
         if(sDocumentTitle != null)
         {
-            oTitle.setTextContent(sDocumentTitle);
+            oTitle.getContent().add(sDocumentTitle);
         }
         else
         {
-            oTitle.setTextContent(CDAConstants.TITLE);
+            oTitle.getContent().add(CDAConstants.TITLE);
         }
 
         // EffectiveTime

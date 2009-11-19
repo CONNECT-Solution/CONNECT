@@ -44,7 +44,7 @@ public class CdaPdfExtractorTest
 "<ClinicalDocument xmlns=\"urn:hl7-org:v3\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" classCode=\"DOCCLIN\" moodCode=\"EVN\" xsi:schemaLocation=\"urn:hl7-org:v3 CDA.xsd\">" +
 "    <typeId extension=\"POCD_HD000040\" root=\"2.16.840.1.113883.1.3\"/>" +
 "    <templateId root=\"1.3.6.1.4.1.19376.1.2.20\"/>" +
-"    <id root=\"1.3.6.4.1.4.1.2835.2.7777\"/>" +
+"    <id root=\"1.1\" extension=\"20.200.1.1\"/>" +
 "    <code code=\"34133-9\" codeSystem=\"2.16.840.1.113883.6.1\" codeSystemName=\"LOINC\" displayName=\"SUMMARIZATION OF EPISODE NOTE\"/>" +
 "    <title>Good Health Clinic Care Record Summary</title>" +
 "    <effectiveTime value=\"20050329224411-0500\"/>" +
@@ -404,6 +404,8 @@ public class CdaPdfExtractorTest
     private void assertValidCriterion1(BinaryDocumentPolicyCriterionType oCriterion)
     {
         assertNotNull("BinaryDocumentPolicyCriterion was null.", oCriterion);
+
+        assertEquals("DocumentUniqueId was incorrect: ", "20.200.1.1", oCriterion.getDocumentUniqueId());
 
         assertNotNull("DocumentTypeCode was null.", oCriterion.getDocumentTypeCode());
         assertValidCE(oCriterion.getDocumentTypeCode(), "34133-9", "SUMMARIZATION OF EPISODE NOTE", "2.16.840.1.113883.6.1", "LOINC");

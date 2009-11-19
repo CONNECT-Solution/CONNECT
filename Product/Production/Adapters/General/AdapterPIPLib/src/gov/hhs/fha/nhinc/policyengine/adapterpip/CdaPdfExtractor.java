@@ -1310,6 +1310,16 @@ public class CdaPdfExtractor
             return null;        // there is nothing to convert so get out of here.
         }
 
+        // Document Unique ID
+        //--------------------
+        if ((oCda.getId() != null) &&
+            (oCda.getId().getExtension() != null) &&
+            (oCda.getId().getExtension().length() > 0))
+        {
+            oCriterion.setDocumentUniqueId(oCda.getId().getExtension());
+            bHaveData = true;
+        }
+
         // Document type
         //--------------
         CeType oDocType = createCe(oCda.getCode());
@@ -1322,9 +1332,12 @@ public class CdaPdfExtractor
         // Title
         //-------
         if ((oCda.getTitle() != null) &&
-            (oCda.getTitle().getTextContent() != null))
+            (oCda.getTitle().getContent() != null) &&
+            (oCda.getTitle().getContent().size() > 0) &&
+            (oCda.getTitle().getContent().get(0) != null) &&
+            (oCda.getTitle().getContent().get(0) instanceof String))
         {
-            oCriterion.setDocumentTitle(oCda.getTitle().getTextContent());
+            oCriterion.setDocumentTitle((String) oCda.getTitle().getContent().get(0));
             bHaveData = true;
         }
 

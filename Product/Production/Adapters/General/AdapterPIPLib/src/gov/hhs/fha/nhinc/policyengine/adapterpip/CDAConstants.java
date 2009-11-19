@@ -8,8 +8,11 @@ package gov.hhs.fha.nhinc.policyengine.adapterpip;
  */
 public class CDAConstants
 {
+    public static final String CDA_CLASS_CODE = "DOCCLIN";
+    public static final String CDA_MOOD_CODE = "EVN";
     public static final String TYPE_ID_EXTENSION_POCD_HD000040 = "POCD_HD000040";
     public static final String TYPE_ID_ROOT = "2.16.840.1.113883.1.3";
+    public static final String TEMPLATE_ID_ROOT_XDS_SD_DOCUMENT = "1.3.6.1.4.1.19376.1.2.20";
     public static final String TEMPLATE_ID_ROOT_MEDICAL_DOCUMENTS = "1.3.6.1.4.1.19376.1.5.3.1.1.1";
     public static final String TEMPLATE_ID_ROOT_CONSENT_TO_SHARE = "1.3.6.1.4.1.19376.1.5.3.1.1.7";
     public static final String TEMPLATE_ID_ROOT_AUTHOR_ORIGINAL = "1.3.6.1.4.1.19376.1.2.20.1";
