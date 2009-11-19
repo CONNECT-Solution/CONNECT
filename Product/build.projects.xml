@@ -163,6 +163,10 @@
         <name>NhincSubjectDiscoveryEJB</name>
         <directory>/Production/Gateway/NhincSubjectDiscoveryEJB</directory>
     </project>
+        <project>
+        <name>NhincPatientDiscoveryEJB</name>
+        <directory>/Production/Gateway/NhincPatientDiscoveryEJB</directory>
+    </project>
     <project>
         <name>EntityAuditLogQueryEJB</name>
         <directory>/Production/Gateway/EntityAuditLogQueryEJB</directory>
@@ -274,6 +278,10 @@
     <project>
         <name>EntitySubjectDiscoveryProxyEJB</name>
         <directory>/Production/Adapters/General/EntitySubjectDiscoveryProxyEJB</directory>
+    </project>
+    <project>
+        <name>EntityPatientDiscoveryEJB</name>
+        <directory>/Production/Gateway/EntityPatientDiscoveryEJB</directory>
     </project>
     <project>
         <name>EntityPatientDiscoveryProxyEJB</name>
