@@ -53,9 +53,72 @@
       <xsd:element name="purposeOfDisclosureCoded" type="tns:CeType" minOccurs="0"/>
       <xsd:element name="claimFormRef" type="xsd:string" minOccurs="0"/>
       <xsd:element name="claimFormRaw" type="xsd:base64Binary" minOccurs="0"/>
+      <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0" />
+      <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0" />
+      <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0" />
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="Assertion" type="tns:AssertionType"/>
+  <xsd:complexType name="SamlAuthnStatementType" >
+      <xsd:sequence>
+          <xsd:element name="authInstant" type="xsd:string" minOccurs="0" />
+          <xsd:element name="sessionIndex" type="xsd:string" minOccurs="0" />
+          <xsd:element name="authContextClassRef" type="xsd:string" minOccurs="0" />
+          <xsd:element name="subjectLocalityAddress" type="xsd:string" minOccurs="0" />
+          <xsd:element name="subjectLocalityDNSName" type="xsd:string" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthnStatement" type="tns:SamlAuthnStatementType" />
+  <xsd:complexType name="SamlAuthzDecisionStatementType" >
+      <xsd:sequence>
+          <xsd:element name="decision" type="xsd:string" minOccurs="0" />
+          <xsd:element name="resource" type="xsd:string" minOccurs="0" />
+          <xsd:element name="action" type="xsd:string" minOccurs="0" />
+          <xsd:element name="evidence" type="tns:SamlAuthzDecisionStatementEvidenceType" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" />
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceType" >
+      <xsd:sequence>
+          <xsd:element name="assertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidence" type="tns:SamlAuthzDecisionStatementEvidenceType" />
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceAssertionType" >
+      <xsd:sequence>
+          <xsd:element name="id" type="xsd:string" minOccurs="0" />
+          <xsd:element name="issueInstant" type="xsd:string" minOccurs="0" />
+          <xsd:element name="version" type="xsd:string" minOccurs="0" />
+          <xsd:element name="issuer" type="xsd:string" minOccurs="0" />
+          <xsd:element name="issuerFormat" type="xsd:string" minOccurs="0" />
+          <xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0" />
+          <xsd:element name="contentReference" type="xsd:string" minOccurs="0" />
+          <xsd:element name="contentType" type="xsd:string" minOccurs="0" />
+          <xsd:element name="content" type="xsd:base64Binary" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType" />
+  <xsd:complexType name="SamlAuthzDecisionStatementEvidenceConditionsType">
+      <xsd:sequence>
+          <xsd:element name="notBefore" type="xsd:string" minOccurs="0" />
+          <xsd:element name="notOnOrAfter" type="xsd:string" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlAuthzDecisionStatementEvidenceConditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" />
+  <xsd:complexType name="SamlSignatureType">
+      <xsd:sequence>
+          <xsd:element name="keyInfo" type="tns:SamlSignatureKeyInfoType" minOccurs="0" />
+          <xsd:element name="signatureValue" type="xsd:base64Binary" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlSignature" type="tns:SamlSignatureType" />
+  <xsd:complexType name="SamlSignatureKeyInfoType">
+      <xsd:sequence>
+          <xsd:element name="rsaKeyValueModulus" type="xsd:base64Binary" minOccurs="0" />
+          <xsd:element name="rsaKeyValueExponent" type="xsd:base64Binary" minOccurs="0" />
+      </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="SamlSignatureKeyInfo" type="tns:SamlSignatureKeyInfoType" />
   <xsd:complexType name="AddressType">
     <xsd:sequence>
       <xsd:element name="addressType" type="tns:CeType"/>
@@ -99,6 +162,7 @@
       <xsd:element name="givenName" type="xsd:string"/>
       <xsd:element name="nameType" type="tns:CeType"/>
       <xsd:element name="secondNameOrInitials" type="xsd:string"/>
+      <xsd:element name="fullName" type="xsd:string" />
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="PersonName" type="tns:PersonNameType"/>
