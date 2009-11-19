@@ -198,13 +198,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II"/>
 			<xs:element name="code" type="CE"/>
-			<xs:element name="title" type="ST" minOccurs="0">
-				<xs:annotation>
-					<xs:appinfo>
-						<jxb:dom/>
-					</xs:appinfo>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="title" type="ST_explicit" minOccurs="0"/>
 			<xs:element name="effectiveTime" type="TS_explicit"/>
 			<xs:element name="confidentialityCode" type="CE"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
@@ -247,7 +241,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:choice>
-				<xs:element name="nonXMLBody" type="POCD_MT000040.NonXMLBody" />
+				<xs:element name="nonXMLBody" type="POCD_MT000040.NonXMLBody"/>
 				<xs:element name="structuredBody" type="POCD_MT000040.StructuredBody"/>
 			</xs:choice>
 		</xs:sequence>
@@ -719,7 +713,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
 			<xs:element name="name" type="EN_explicit" minOccurs="0"/>
-			<xs:element name="lotNumberText" type="ST" minOccurs="0"/>
+			<xs:element name="lotNumberText" type="ST_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassManufacturedMaterial" use="optional" fixed="MMAT"/>
@@ -730,7 +724,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="text" type="ED_explicit" />
+			<xs:element name="text" type="ED_explicit"/>
 			<xs:element name="confidentialityCode" type="CE" minOccurs="0"/>
 			<xs:element name="languageCode" type="CS" minOccurs="0"/>
 		</xs:sequence>
@@ -745,7 +739,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="code" type="CD"/>
-			<xs:element name="derivationExpr" type="ST" minOccurs="0"/>
+			<xs:element name="derivationExpr" type="ST_explicit" minOccurs="0"/>
 			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
 			<xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0"/>
@@ -1213,13 +1207,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="id" type="II" minOccurs="0"/>
 			<xs:element name="code" type="CE" minOccurs="0"/>
-			<xs:element name="title" type="ST" minOccurs="0">
-				<xs:annotation>
-					<xs:appinfo>
-						<jxb:dom/>
-					</xs:appinfo>
-				</xs:annotation>
-			</xs:element>
+			<xs:element name="title" type="ST_explicit" minOccurs="0"/>
 			<xs:element name="text" type="StrucDoc.Text" minOccurs="0">
 				<xs:annotation>
 					<xs:appinfo>
