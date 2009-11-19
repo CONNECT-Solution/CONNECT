@@ -56,7 +56,7 @@
           <exec 
             workingdir="${path::get-directory-name(Subversion.Console.Installer.File.Path)}"
             program="msiexec"
-            commandline='/i ${Subversion.Console.Installer.File.Path} /norestart /q INSTALLDIR="${ProgramFiles.32.Path}\Subversion"'
+            commandline='/i ${Subversion.Console.Installer.File.Path} /norestart /q INSTALLDIR="${ProgramFiles.Current.Processor.Type.Path}\Subversion"'
             verbose="true"
           />
         </then>
