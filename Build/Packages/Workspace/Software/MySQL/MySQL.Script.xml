@@ -31,7 +31,7 @@
               unless="${file::exists(MySQL.Installer.File.Path)}"
           />
           <exec
-            workingdir="${path::get-directory-name(MySQL.Installer.File.Path)"
+            workingdir="${path::get-directory-name(MySQL.Installer.File.Path)}"
             program="msiexec"
             verbose="true">
             <arg value="/i"/>
