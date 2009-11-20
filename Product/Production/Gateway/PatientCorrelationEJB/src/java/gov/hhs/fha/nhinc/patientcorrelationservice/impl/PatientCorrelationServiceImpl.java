@@ -10,6 +10,8 @@ import gov.hhs.fha.nhinc.patientcorrelationservice.ack.AckBuilder;
 import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201301UV.PRPAIN201301UVParser;
 import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201309UV.PRPAIN201309UVParser;
 import gov.hhs.fha.nhinc.patientcorrelationservice.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.patientcorrelationservice.config.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -32,6 +34,7 @@ import org.hl7.v3.*;
 public class PatientCorrelationServiceImpl {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(PatientCorrelationServiceImpl.class);
+
 
     public static RetrievePatientCorrelationsSecuredResponseType retrievePatientCorrelations(RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest) {
         log.info("start PatientCorrelationServiceImpl.retrievePatientCorrelations");
@@ -116,6 +119,7 @@ public class PatientCorrelationServiceImpl {
     }
 
     public static AddPatientCorrelationSecuredResponseType addPatientCorrelation(AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest) {
+        log.info("addPatientCorrelation()");
         PRPAIN201301UV02 IN201301 = addPatientCorrelationRequest.getPRPAIN201301UV02();
 
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser.ParseHL7PatientPersonFrom201301Message(IN201301);
@@ -171,7 +175,7 @@ public class PatientCorrelationServiceImpl {
         }
 
         //calculate the correlation expiration date
-        Date newExpirationDate = calculateCorrelationExpirationDate();
+        Date newExpirationDate = calculateCorrelationExpirationDate(correlatedPatientAssigningAuthId);
 
         CorrelatedIdentifiers correlatedIdentifers = new CorrelatedIdentifiers();
         correlatedIdentifers.setCorrelatedPatientAssigningAuthorityId(correlatedPatientAssigningAuthId);
@@ -188,17 +192,42 @@ public class PatientCorrelationServiceImpl {
         return result;
     }
 
-    private static Date calculateCorrelationExpirationDate() {
-        // get a calendar instance, which defaults to "now"
-        Calendar calendar = Calendar.getInstance();
+    public static Date calculateCorrelationExpirationDate(String assigningAuthority) {
+        ExpirationConfiguration pcConfig;
 
-        //get the expirationUnits from the patientcorrelationproperties.xml file
-        //if there isn't a value for the assigning authority, use the global setting.
-        //if there isn't a global setting, return null which means that the record will never expire.
+        pcConfig = ConfigurationManager.loadExpirationConfiguration();
+        log.debug("assigningAuthorityId = " + assigningAuthority);
+
+        Expiration exp = ConfigurationManager.loadConfiguration(pcConfig, assigningAuthority);
+        return calculateCorrelationExpirationDate(exp);
+
+    }
+    public static Date calculateCorrelationExpirationDate(Expiration config)
+    {
         
-        //temporary until more is known about the way we are getting values from the properties file
-        String expirationUnits = "YEAR";
-        int expiration = 1;
+        Date result = null;
+
+        if(config !=null)
+        {
+            log.debug(" Expiration = " + config.getDuration());
+            try
+            {
+                result = getExpirationDate(config.getUnits(), config.getDuration());
+            }
+            catch(Exception ex)
+            {
+                log.error(ex.getMessage(), ex);
+                result = null;
+            }
+        }
+
+        log.debug("Expiration Date = " + result);
+        return result;
+
+    }
+    private static Date getExpirationDate(String expirationUnits, int expiration) throws Exception
+    {
+        Calendar calendar =  Calendar.getInstance();
 
         if ("YEAR".equalsIgnoreCase(expirationUnits))
         {
@@ -228,12 +257,12 @@ public class PatientCorrelationServiceImpl {
         {
             calendar.add(Calendar.SECOND, expiration);
         }
+        else
+        {
+            throw new Exception("Invalid Expiration Units");
+        }
 
+        return calendar.getTime();
 
-        // get a date to represent the new expiration date
-        Date returnDate = calendar.getTime();
-
-        return returnDate;
-//        return null;
     }
 }

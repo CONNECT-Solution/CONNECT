@@ -150,7 +150,7 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   PatientId varchar(45) NOT NULL,
   CorrelatedPatientAssignAuthId varchar(45) NOT NULL,
   CorrelatedPatientId varchar(45) NOT NULL,
-  CorrelationExpirationDate datetime NOT NULL,
+  CorrelationExpirationDate datetime,
   PRIMARY KEY  (correlationId)
 );
 

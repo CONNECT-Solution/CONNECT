@@ -14,7 +14,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.hl7.v3.*;
 import org.junit.Ignore;
-
+import gov.hhs.fha.nhinc.patientcorrelationservice.config.*;
+import java.util.Date;
 /**
  *
  * @author svalluripalli
@@ -200,5 +201,71 @@ public class PatientCorrelationServiceImplTest {
         }
         assertFalse(isIdInList(resultsIds, corr1));
         assertEquals(1, resultsIds.size());
+    }
+    @Test
+    public void testcalculateCorrelationExpirationDate()
+    {
+        System.out.println("testcalculateCorrelationExpirationDate()");
+        Expiration exp = null;
+        Date result = PatientCorrelationServiceImpl.calculateCorrelationExpirationDate(exp);
+
+        assertNull(result);
+
+    }
+
+    /**
+     * Test of retrievePatientCorrelations method, of class PatientCorrelationServiceImpl.
+     */
+    @Test
+    public void testRetrievePatientCorrelations() {
+        System.out.println("retrievePatientCorrelations");
+        RetrievePatientCorrelationsSecuredRequestType retrievePatientCorrelationsRequest = null;
+        RetrievePatientCorrelationsSecuredResponseType expResult = null;
+        RetrievePatientCorrelationsSecuredResponseType result = PatientCorrelationServiceImpl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addPatientCorrelation method, of class PatientCorrelationServiceImpl.
+     */
+    @Test
+    public void testAddPatientCorrelation() {
+        System.out.println("addPatientCorrelation");
+        AddPatientCorrelationSecuredRequestType addPatientCorrelationRequest = null;
+        AddPatientCorrelationSecuredResponseType expResult = null;
+        AddPatientCorrelationSecuredResponseType result = PatientCorrelationServiceImpl.addPatientCorrelation(addPatientCorrelationRequest);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of calculateCorrelationExpirationDate method, of class PatientCorrelationServiceImpl.
+     */
+    @Test
+    public void testCalculateCorrelationExpirationDate_String() {
+        System.out.println("calculateCorrelationExpirationDate");
+        String assigningAuthority = "";
+        Date expResult = null;
+        Date result = PatientCorrelationServiceImpl.calculateCorrelationExpirationDate(assigningAuthority);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of calculateCorrelationExpirationDate method, of class PatientCorrelationServiceImpl.
+     */
+    @Test
+    public void testCalculateCorrelationExpirationDate_Expiration() {
+        System.out.println("calculateCorrelationExpirationDate");
+        Expiration config = null;
+        Date expResult = null;
+        Date result = PatientCorrelationServiceImpl.calculateCorrelationExpirationDate(config);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 }

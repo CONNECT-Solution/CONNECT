@@ -27,6 +27,7 @@
             <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>reference.NhincLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
+            <included-library>reference.PropAccessorEJB.dist</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -50,6 +51,14 @@
                 <target>jar</target>
                 <clean-target>clean</clean-target>
                 <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PropAccessorEJB</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>dist</target>
+                <clean-target>clean</clean-target>
+                <id>dist</id>
             </reference>
         </references>
     </configuration>

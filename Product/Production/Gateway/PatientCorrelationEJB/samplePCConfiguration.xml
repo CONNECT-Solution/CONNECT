@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Configuration >
+	<expirations defaultDuration='30' defaultUnits='DAY'>
+		<expiration assigningAuthority='1.1' unit='DAY'>30</expiration>
+		<expiration assigningAuthority='2.2' unit='YEAR'>1</expiration>
+	</expirations>
+</Configuration>

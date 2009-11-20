@@ -18,16 +18,26 @@
 --
 -- Table structure for table `correlatedidentifiers`
 --
+CREATE TABLE patientcorrelationdb.correlatedidentifiers (
+  correlationId int(10) unsigned NOT NULL auto_increment,
+  PatientAssigningAuthorityId varchar(45) NOT NULL,
+  PatientId varchar(45) NOT NULL,
+  CorrelatedPatientAssignAuthId varchar(45) NOT NULL,
+  CorrelatedPatientId varchar(45) NOT NULL,
+  CorrelationExpirationDate datetime,
+  PRIMARY KEY  (correlationId)
+);
 
 DROP TABLE IF EXISTS `correlatedidentifiers`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `correlatedidentifiers` (
   `correlationId` int(10) unsigned NOT NULL auto_increment,
-  `PatientAssigningAuthorityId` varchar(45) NOT NULL,
+  `CorrelatedPatientAssignAuthId` varchar(45) NOT NULL,
   `PatientId` varchar(45) NOT NULL,
   `CorrelatedPatientAssigningAuthorityId` varchar(45) NOT NULL,
   `CorrelatedPatientId` varchar(45) NOT NULL,
+  'CorrelationExpirationDate' datetime
   PRIMARY KEY  (`correlationId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
