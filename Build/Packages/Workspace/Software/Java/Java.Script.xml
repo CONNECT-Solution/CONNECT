@@ -3,8 +3,9 @@
 
   <property name="Java.Install.FriendlyName" value="Java SE6 Update 16"/>
   <property name="Java.Install.Path" value="${Java.Home}"/>
-  <property name="Java.Installer.FileName" value="jdk-6u16-windows-i586.exe"/>
-  <property name="Java.Installer.Download.URL" value="${Workspace.Ftp.Url}${Java.Installer.FileName}"/>
+  <property name="Java.Installer.File.Name" value="jdk-6u16-windows-i586.exe"/>
+  <property name="Java.Installer.File.Path" value="C:\Temp\${Java.Installer.File.Name}"/>
+  <property name="Java.Installer.Download.URL" value="${Workspace.Ftp.Url}${Java.Installer.File.Name}"/>
   
 	<target name="Workspace.RequieredSoftware.Java">
     <ifnot test="${directory::exists(Java.Install.Path)}" >
@@ -26,11 +27,12 @@
       <then>
         <get
           src="${Java.Installer.Download.URL}"
-          dest="${environment::get-variable('TEMP')}\${Java.Installer.FileName}"
-          />
+          dest="${Java.Installer.File.Path}"
+          unless="${file::exists(Java.Installer.File.Path)}"
+        />
         <exec 
-          workingdir="${environment::get-variable('TEMP')}" 
-          program="${environment::get-variable('TEMP')}\${Java.Installer.FileName}" 
+          workingdir="${path::get-directory-name(Java.Installer.File.Path)}" 
+          program="${Java.Installer.File.Path}" 
           commandline='/s /v "/qn INSTALLDIR=${Java.Install.Path}"' 
           verbose="true"
         />
