@@ -29,7 +29,7 @@
     <string value="CCTray"/>
     <string value="GlassFish"/>
     <string value="SoapUI"/>
-    <!--<string value="MySQL"/>-->
+    <string value="MySQL"/>
   </strings>
 
   <include buildfile="${Package.Workspace.Directory.Path}\Software\Subversion\Subversion.Script.xml"/>
