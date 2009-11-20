@@ -55,12 +55,12 @@ is divided into following sections:
         <property name="runmain.jvmargs" value=""/>
         <condition property="have.tests">
             <or>
-                <available file="${test.src.dir}"/>
+                <available file="${test.java.dir}"/>
             </or>
         </condition>
         <condition property="have.sources">
             <or>
-                <available file="${src.dir}"/>
+                <available file="${src.java.dir}"/>
             </or>
         </condition>
         <condition property="netbeans.home+have.tests">
@@ -134,8 +134,8 @@ is divided into following sections:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="-pre-init,-init-private,-init-userdir,-init-user,-init-project,-do-init" name="-init-check">
-        <fail unless="src.dir">Must set src.dir</fail>
-        <fail unless="test.src.dir">Must set test.src.dir</fail>
+        <fail unless="src.java.dir">Must set src.java.dir</fail>
+        <fail unless="test.java.dir">Must set test.java.dir</fail>
         <fail unless="build.dir">Must set build.dir</fail>
         <fail unless="build.generated.dir">Must set build.generated.dir</fail>
         <fail unless="dist.dir">Must set dist.dir</fail>
@@ -162,7 +162,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     </target>
     <target name="-init-macrodef-javac">
         <macrodef name="javac" uri="http://www.netbeans.org/ns/j2ee-ejbjarproject/2">
-            <attribute default="${src.dir}" name="srcdir"/>
+            <attribute default="${src.java.dir}" name="srcdir"/>
             <attribute default="${build.classes.dir}" name="destdir"/>
             <attribute default="${javac.classpath}:${j2ee.platform.classpath}" name="classpath"/>
             <attribute default="${includes}" name="includes"/>
@@ -197,7 +197,7 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
             <sequential>
                 <junit dir="${basedir}" errorproperty="tests.failed" failureproperty="tests.failed" fork="true" showoutput="true">
                     <batchtest todir="${build.test.results.dir}">
-                        <fileset dir="${test.src.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
+                        <fileset dir="${test.java.dir}" excludes="@{excludes},${excludes}" includes="@{includes}">
                             <filename name="@{testincludes}"/>
                         </fileset>
                     </batchtest>
@@ -347,8 +347,12 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.spring-sources.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.spring.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jettison-1.0-RC2.jar}" todir="${build.classes.dir}"/>
@@ -361,16 +365,17 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xpp3_min-1.1.4c.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xstream-1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.spring-sources.jar}" manifestproperty="manifest.file.reference.spring-sources.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.spring.jar}" manifestproperty="manifest.file.reference.spring.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.dom4j-1.6.1.jar}" manifestproperty="manifest.file.reference.dom4j-1.6.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jdom-1.0.jar}" manifestproperty="manifest.file.reference.jdom-1.0.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jettison-1.0-RC2.jar}" manifestproperty="manifest.file.reference.jettison-1.0-RC2.jar" todir="${dist.ear.dir}"/>
@@ -383,12 +388,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.xpp3_min-1.1.4c.jar}" manifestproperty="manifest.file.reference.xpp3_min-1.1.4c.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-1.3.jar}" manifestproperty="manifest.file.reference.xstream-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" manifestproperty="manifest.file.reference.xstream-benchmark-1.3.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.spring-sources.jar} ${manifest.file.reference.spring.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.spring-sources.jar} ${manifest.file.reference.spring.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -402,7 +404,7 @@ exists or setup the property manually. For example like this:
     <target depends="init,deps-jar,-pre-pre-compile,-pre-compile,-copy-meta-inf" if="have.sources" name="-do-compile">
         <ejbjarproject2:javac destdir="${classes.dir}" gensrcdir="${build.generated.sources.dir}"/>
         <copy todir="${classes.dir}">
-            <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${src.java.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
     <target name="-post-compile">
@@ -570,7 +572,7 @@ exists or setup the property manually. For example like this:
             <classpath>
                 <path path="${javac.classpath}:${j2ee.platform.classpath}"/>
             </classpath>
-            <fileset dir="${src.dir}" excludes="${excludes}" includes="${includes}">
+            <fileset dir="${src.java.dir}" excludes="${excludes}" includes="${includes}">
                 <filename name="**/*.java"/>
             </fileset>
             <fileset dir="${build.generated.sources.dir}" erroronmissingdir="false">
@@ -593,9 +595,9 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test" if="have.tests" name="-do-compile-test">
-        <ejbjarproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" srcdir="${test.src.dir}"/>
+        <ejbjarproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" srcdir="${test.java.dir}"/>
         <copy todir="${build.test.classes.dir}">
-            <fileset dir="${test.src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+            <fileset dir="${test.java.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
         </copy>
     </target>
     <target name="-post-compile-test">
@@ -609,7 +611,7 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,-pre-pre-compile-test,-pre-compile-test-single" if="have.tests" name="-do-compile-test-single">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
-        <ejbjarproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}" srcdir="${test.src.dir}"/>
+        <ejbjarproject2:javac classpath="${javac.test.classpath}:${j2ee.platform.classpath}" debug="true" destdir="${build.test.classes.dir}" excludes="" includes="${javac.includes}" srcdir="${test.java.dir}"/>
     </target>
     <target name="-post-compile-test-single">
         <!-- Empty placeholder for easier customization. -->

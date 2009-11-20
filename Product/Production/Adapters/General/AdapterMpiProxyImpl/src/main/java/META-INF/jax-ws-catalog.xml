@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl" uri="wsdl/AdapterComponentMpi.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" uri="wsdl/AdapterComponentSecuredMpi.wsdl"/>
+</catalog>
+
