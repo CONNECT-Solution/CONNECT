@@ -122,11 +122,20 @@
     <ejb>
       <name>NhincSubjectDiscoveryEJB</name>
     </ejb>
+    <ejb>
+      <name>NhincPatientDiscoveryEJB</name>
+    </ejb>
    <ejb>
       <name>EntitySubjectDiscoveryEJB</name>
     </ejb>
     <ejb>
       <name>EntitySubjectDiscoveryProxyEJB</name>
+    </ejb>
+    <ejb>
+      <name>EntityPatientDiscoveryEJB</name>
+    </ejb>
+    <ejb>
+      <name>EntityPatientDiscoveryProxyEJB</name>
     </ejb>
     <ejb>
       <name>PatientCorrelationEJB</name>
