@@ -15,7 +15,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.util.StringUtil;
 import ihe.iti.xds_b._2007.DocumentRegistryService;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
@@ -388,10 +387,10 @@ public class PatientConsentManager
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      *         This is thrown if there are any errors.
      */
-    private String extractPrefCDA(RetrieveDocumentSetResponseType oResponse)
+    private String extractPrefDoc(RetrieveDocumentSetResponseType oResponse)
         throws AdapterPIPException
     {
-        String sPrefCDA = "";
+        String sPrefDoc = "";
 
         if ((oResponse != null) &&
             (oResponse.getDocumentResponse() != null) &&
@@ -404,11 +403,11 @@ public class PatientConsentManager
             if ((oDocResponse.getDocument() != null) &&
                 (oDocResponse.getDocument().length > 0))
             {
-                sPrefCDA = new String(oDocResponse.getDocument());
+                sPrefDoc = new String(oDocResponse.getDocument());
             }
         }   // if ((oResponse != null) &&
 
-        return sPrefCDA;
+        return sPrefDoc;
     }
 
     /**
@@ -452,7 +451,7 @@ public class PatientConsentManager
     private void retrieveCPPDoc(DocumentRequest oDocRequest, CPPDocumentInfo oCPPDocInfo)
         throws AdapterPIPException
     {
-        String sPrefCDA = "";
+        String sPrefDoc = "";
 
         DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
 
@@ -464,14 +463,11 @@ public class PatientConsentManager
 
         if(oResponse != null)
         {
-            sPrefCDA = extractPrefCDA(oResponse);
+            sPrefDoc = extractPrefDoc(oResponse);
 
-            if (NullChecker.isNotNullish(sPrefCDA))
+            if (NullChecker.isNotNullish(sPrefDoc))
             {
-                oCPPDocInfo.sPrefCDA = sPrefCDA;
-
-                POCDMT000040ClinicalDocument oPrefCDA = deserializeConsentCDADoc(sPrefCDA);
-                oCPPDocInfo.oPrefCDA = oPrefCDA;
+                oCPPDocInfo.sConsentXACML = sPrefDoc;
             }
         }
     }
@@ -591,14 +587,14 @@ public class PatientConsentManager
 //    }
 
      /**
-     * This method stores the patient preference CDA document to the repository.
+     * This method stores the patient preference document to the repository.
      *
      * @param oPtPref The patient preference information.
-     * @param sPrefCDA The CDA document form of the patient preferences.
+     * @param sPrefDoc The consent document.
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      *         This exception is thrown if there is an error.
      */
-    private void storeCPPToRepositoryUsingXDSb(PatientPreferencesType oPtPref, String sPrefCDA)
+    private void storeCPPToRepositoryUsingXDSb(PatientPreferencesType oPtPref, String sPrefDoc)
         throws AdapterPIPException, PropertyAccessException
     {
         log.info("------ Begin PatientConsentManager.storeCPPToRepositoryUsingXDSb() ------");
@@ -611,7 +607,7 @@ public class PatientConsentManager
             throw new AdapterPIPException(sErrorMessage);
         }
         
-        saveCPPDoc(sPrefCDA, oPtPref);
+        saveCPPDoc(sPrefDoc, oPtPref);
         log.info("------ End PatientConsentManager.storeCPPToRepositoryUsingXDSb() ------");
     }
 
@@ -726,38 +722,21 @@ public class PatientConsentManager
 
         // if we do not have an XML string, then set it to opt out and get out of here.
         //-----------------------------------------------------------------------------
-        if ((oDocInfo == null) ||
-            (oDocInfo.oPrefCDA == null))
+        if ((oDocInfo == null) || (NullChecker.isNullish(oDocInfo.sConsentXACML)))
         {
             oPtPref.setOptIn(false);
             return oPtPref;         // Get out of here...  Nothing more to do
         }
 
-        POCDMT000040ClinicalDocument oPrefCDA = oDocInfo.oPrefCDA;
+        String sConsentXACML = oDocInfo.sConsentXACML;
 
-        if ((oPrefCDA != null) &&
-            (oPrefCDA.getComponent() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent() != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().size() > 0) &&  // Sould only be one, if there is more than one, take the first.
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0) != null) &&
-            (oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0) instanceof  String))
+        XACMLSerializer oSerializer = new XACMLSerializer();
+        PolicyType oConsentXACML = oSerializer.deserializeConsentXACMLDoc(sConsentXACML);
+        if (oConsentXACML != null)
         {
-            String sConsentXACML = StringUtil.unwrapCdata((String) oPrefCDA.getComponent().getNonXMLBody().getText().getContent().get(0));
-
-            if ((sConsentXACML != null) &&
-                (sConsentXACML.trim().length() > 0))
-            {
-                XACMLSerializer oSerializer = new XACMLSerializer();
-                PolicyType oConsentXACML = oSerializer.deserializeConsentXACMLDoc(sConsentXACML);
-                if (oConsentXACML != null)
-                {
-                    XACMLExtractor oExtractor = new XACMLExtractor();
-                    oPtPref = oExtractor.extractPatientPreferences(oConsentXACML);
-                }   // if (oConsentXACML != null)
-            }   // if ((sConsentXACML != null) &&
-        }   // if ((oPrefCDA != null) &&
+            XACMLExtractor oExtractor = new XACMLExtractor();
+            oPtPref = oExtractor.extractPatientPreferences(oConsentXACML);
+        }
         
         return oPtPref;
     }
@@ -799,7 +778,6 @@ public class PatientConsentManager
     public void storePatientConsent(PatientPreferencesType oPtPref)
         throws AdapterPIPException, PropertyAccessException
     {
-        POCDMT000040ClinicalDocument oPrefCDA = null;
         PolicyType oConsentXACML = null;
 
         XACMLCreator oCreator = new XACMLCreator();
@@ -808,13 +786,8 @@ public class PatientConsentManager
         XACMLSerializer oSerializer = new XACMLSerializer();
         String sConsentXACML = oSerializer.serializeConsentXACMLDoc(oConsentXACML);
         
-        oPrefCDA = new ConsentDocumentCreator().createConsentCDADoc(oPtPref, sConsentXACML);
-        String sPrefCDA = serializeConsentCDADoc(oPrefCDA);
-
         //Uses Repository Services
-        storeCPPToRepositoryUsingXDSb(oPtPref, sPrefCDA);
-        //storeCPPToRepository(oPtPref, sPrefCDA);
-
+        storeCPPToRepositoryUsingXDSb(oPtPref, sConsentXACML);
     }
 
     /**
@@ -893,12 +866,12 @@ public class PatientConsentManager
 
     /**
      * 
-     * @param sPrefCDA
+     * @param sPrefDoc
      * @param oPtPref
      * @return boolean
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      */
-    private void saveCPPDoc(String sPrefCDA, PatientPreferencesType oPtPref)
+    private void saveCPPDoc(String sPrefDoc, PatientPreferencesType oPtPref)
             throws AdapterPIPException, PropertyAccessException
     {
        log.info("------ Begin PatientConsentManager.saveCPPDoc ------");
@@ -908,7 +881,7 @@ public class PatientConsentManager
        // Should the document unique id be pulled from the policyOID field?
        String sDocumentUniqueId = oPatConsentDocBuilderHelper.getOidFromProperty("documentuniqueid");
        ProvideAndRegisterDocumentSetRequestType oRequest = new ProvideAndRegisterDocumentSetRequestType();
-       ProvideAndRegisterDocumentSetRequestType.Document oDoc = createDocumentRawData(sPrefCDA, sDocumentUniqueId);
+       ProvideAndRegisterDocumentSetRequestType.Document oDoc = createDocumentRawData(sPrefDoc, sDocumentUniqueId);
        oRequest.getDocument().add(oDoc);
        String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(), oPtPref.getAssigningAuthority());
        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(sTargetObject, sHomeCommunityId, sDocumentUniqueId, oPtPref);
@@ -929,16 +902,16 @@ public class PatientConsentManager
 
     /**
      * This method is used internal by saveCPPDoc creates Document with rawData and document unique id
-     * @param sPrefCDA
+     * @param sPrefDoc
      * @param sDocUniqueId
      * @return ProvideAndRegisterDocumentSetRequestType.Document
      */
-    private ProvideAndRegisterDocumentSetRequestType.Document createDocumentRawData(String sPrefCDA, String sDocUniqueId)
+    private ProvideAndRegisterDocumentSetRequestType.Document createDocumentRawData(String sPrefDoc, String sDocUniqueId)
     {
         log.info("------ Begin PatientConsentManager.createDocumentRawData ------");
         ProvideAndRegisterDocumentSetRequestType.Document oDoc = new ProvideAndRegisterDocumentSetRequestType.Document();
         oDoc.setId(sDocUniqueId);
-        oDoc.setValue(sPrefCDA.getBytes());
+        oDoc.setValue(sPrefDoc.getBytes());
         log.info("------ End PatientConsentManager.createDocumentRawData ------");
         return oDoc;
     }
@@ -993,8 +966,7 @@ public class PatientConsentManager
         String sHomeCommunityId = "";
         String sRepositoryId = "";
         String sDocumentUniqueId = "";
-        String sPrefCDA = "";
-        POCDMT000040ClinicalDocument oPrefCDA = null;
+        String sConsentXACML = "";
    }
 
 }
