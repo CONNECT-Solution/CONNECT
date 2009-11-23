@@ -110,7 +110,10 @@ public class Retriever {
 
         }
 
+        log.debug("Checking Expirations");
+
         log.info("resultQualifiedPatientIdentifiers=" + resultQualifiedPatientIdentifiers.size() + " record(s)");
+
         log.debug("-- End CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
         return resultQualifiedPatientIdentifiers;
     }
@@ -196,7 +199,7 @@ public class Retriever {
                 log.debug("Retrieving by correlatedPatientId=" + correlatedIdentifers.getCorrelatedPatientId());
                 criteria.add(Expression.eq("correlatedPatientId", correlatedIdentifers.getCorrelatedPatientId()));
             }
-            result = criteria.list();
+            result = removeExpiredCorrelations(criteria.list());
 
             log.debug("Found " + result.size() + " record(s)");
         } finally {
@@ -225,25 +228,29 @@ public class Retriever {
      * @return Returns a list of correlationIdentifiers that have not expired
      */
     private static List<CorrelatedIdentifiers> removeExpiredCorrelations(List<CorrelatedIdentifiers> result) {
-        List<CorrelatedIdentifiers> modifiedResult = null;
+        List<CorrelatedIdentifiers> modifiedResult = new ArrayList<CorrelatedIdentifiers>();
         Date now = new Date();
 
-        //loop through list and remove the expired correlations from list then from db
-        for (CorrelatedIdentifiers correlatedIdentifiers : result)
+        if (result != null)
         {
-            //do not delete a record if there isn't an expiration date.
-            log.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
-            if ((correlatedIdentifiers.getCorrelationExpirationDate() == null) ||
-                (now.before(correlatedIdentifiers.getCorrelationExpirationDate())))
+            //loop through list and remove the expired correlations from list then from db
+            for (CorrelatedIdentifiers correlatedIdentifiers : result)
             {
-                log.debug("patient correlation record has not expired");
-                modifiedResult.add(correlatedIdentifiers);
-            }
-            else
-            {
-                log.debug("...removing expired patient correlation record...");
-                //remove expired record from database
-                Storer.removePatientCorrelation(correlatedIdentifiers);
+                //do not delete a record if there isn't an expiration date.
+                log.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
+
+                if ((correlatedIdentifiers.getCorrelationExpirationDate() == null) ||
+                    (now.before(correlatedIdentifiers.getCorrelationExpirationDate())))
+                {
+                    log.debug("patient correlation record has not expired");
+                    modifiedResult.add(correlatedIdentifiers);
+                }
+                else
+                {
+                    log.debug("...removing expired patient correlation record...");
+                    //remove expired record from database
+                    Storer.removePatientCorrelation(correlatedIdentifiers);
+                }
             }
         }
 
