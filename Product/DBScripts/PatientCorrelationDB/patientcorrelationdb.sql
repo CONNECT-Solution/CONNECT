@@ -16,22 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `correlatedidentifiers`
+-- Table structure for table `patientcorrelationdb.correlatedidentifiers`
 --
-CREATE TABLE patientcorrelationdb.correlatedidentifiers (
-  correlationId int(10) unsigned NOT NULL auto_increment,
-  PatientAssigningAuthorityId varchar(45) NOT NULL,
-  PatientId varchar(45) NOT NULL,
-  CorrelatedPatientAssignAuthId varchar(45) NOT NULL,
-  CorrelatedPatientId varchar(45) NOT NULL,
-  CorrelationExpirationDate datetime,
-  PRIMARY KEY  (correlationId)
-);
 
-DROP TABLE IF EXISTS `correlatedidentifiers`;
+DROP TABLE IF EXISTS `patientcorrelationdb.correlatedidentifiers`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `correlatedidentifiers` (
+CREATE TABLE `patientcorrelationdb.correlatedidentifiers` (
   `correlationId` int(10) unsigned NOT NULL auto_increment,
   `CorrelatedPatientAssignAuthId` varchar(45) NOT NULL,
   `PatientId` varchar(45) NOT NULL,
