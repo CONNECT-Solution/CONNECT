@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="build.lib" default="none">
   <property environment="env"/>
-  <property name="ProductDirectory" location='.' id="proddir"/>
   <property name="project.dir" location="." />
   <basename file="${project.dir}" property="project.name" />
 
+  <condition property="ProductDirectory" value="C:/Projects/NHINC/Current/Product">
+    <os family="windows"/>
+  </condition>
+  <condition property="ProductDirectory" value=".">
+    <os family="unix"/>
+  </condition>
+  
   <import file="build.properties.xml"/>
 
   <import file="Properties.build.xml"/>
+  
   <import file="build/checkstyle/checkstyle.targets.xml"/>
   <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
 
