@@ -30720,7 +30720,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000239</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222717</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -30733,7 +30733,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000239"/>
+            <urn:creationTime value="20091123222717"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -30780,7 +30780,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000239"/>
+            <urn:creationTime value="20091123222717"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -30864,7 +30864,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000244</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222726</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -30877,7 +30877,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000244"/>
+            <urn:creationTime value="20091123222726"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -30924,7 +30924,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000244"/>
+            <urn:creationTime value="20091123222726"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31008,7 +31008,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000250</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222733</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -31021,7 +31021,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000250"/>
+            <urn:creationTime value="20091123222733"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -31068,7 +31068,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000250"/>
+            <urn:creationTime value="20091123222733"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31152,7 +31152,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000252</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222736</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -31165,7 +31165,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000252"/>
+            <urn:creationTime value="20091123222736"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -31212,7 +31212,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000252"/>
+            <urn:creationTime value="20091123222736"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31257,7 +31257,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>${SelectedPatientData#LocalAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>${SelectedPatientData#RemoteSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>${SelectedPatientData#RemoteAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:setupScript>
-</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Multiple results" searchProperties="true" id="2ea19a05-affb-4fcc-859c-89eb8c97b68a"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer2</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Multiple results" searchProperties="true" id="2ea19a05-affb-4fcc-859c-89eb8c97b68a"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer2</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
 def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
@@ -31298,7 +31298,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000257</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123402</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222745</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -31311,7 +31311,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000257"/>
+            <urn:creationTime value="20091123222745"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -31358,7 +31358,7 @@ if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scri
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000257"/>
+            <urn:creationTime value="20091123222745"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31442,7 +31442,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value/></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value/></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000005</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000300</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value/></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value/></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000005</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222751</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -31502,7 +31502,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000300"/>
+            <urn:creationTime value="20091123222751"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31585,7 +31585,7 @@ if (selected != "") {
   groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
 }
 
-if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value/></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value/></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091119000305</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value/></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value/></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000001</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222754</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
 //urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
@@ -31598,7 +31598,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
       <urn:AddPatientCorrelationRequest>
          <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
-            <urn:creationTime value="20091119000305"/>
+            <urn:creationTime value="20091123222754"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="R"/>
@@ -31645,7 +31645,7 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
       <urn:RetrievePatientCorrelationsRequest>
          <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
             <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
-            <urn:creationTime value="20091119000305"/>
+            <urn:creationTime value="20091123222754"/>
             <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
             <urn:processingCode code="P"/>
             <urn:processingModeCode code="T"/>
@@ -31687,4 +31687,1150 @@ if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</scrip
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>${SelectedPatientData#RemoteSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>${SelectedPatientData#RemoteAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:RetrievePatientCorrelationsResponse[1]/ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:patientPerson[1]/ns3:name[1]/@nullFlavor</path><content>NA</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:setupScript>
-</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Simple Add - No Expiration" searchProperties="true" id="9da58c0e-12cf-4aba-8ce6-9e55a74061ad"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>IHS50000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>3.3</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222800</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123222800"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="3.3"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="3.3" extension="IHS50000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp == null;</script></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Simple Add - Expiration" searchProperties="true" id="c2bac0f0-db59-4e94-a2c6-dbccd1360d7d"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A1</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222803</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123222803"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="2.2"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp != null;</script></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Retreive - Null Expiration" searchProperties="true" id="81525f2f-9803-4308-82fd-1828183b777d"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A2</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>IHS50000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>3.3</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222812</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123222812"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="3.3"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="3.3" extension="IHS50000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp == null;</script></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Retrieve Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>SubjectIdentifier</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>AssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QueryAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QuerySubjectIdentifier</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@extension</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Retreive"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>RetrievePatientCorrelations</con:operation><con:request name="Retreive"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RetrievePatientCorrelationsRequest>
+         <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
+            <urn:creationTime value="20091123222812"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PIXQuery"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="3.3"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:code code="PRPA_TE201309UV02" codeSystem="2.16.840.1.113883.1.6"/>
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:assignedDevice xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="1.1" extension="D123401"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:patientIdentifier>
+                        <urn:value root="3.3" extension="IHS50000"/>
+                        <urn:semanticsText>Patient.Id</urn:semanticsText>
+                     </urn:patientIdentifier>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201309UV02>
+      </urn:RetrievePatientCorrelationsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path><content>${SelectedPatientData#LocalSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>${SelectedPatientData#LocalAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="LocalPatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path><content>${SelectedPatientData#LocalSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="LocalPatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>${SelectedPatientData#LocalAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>${SelectedPatientData#RemoteSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>${SelectedPatientData#RemoteAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Retreive - Active Correlation" searchProperties="true" id="12fc2e7a-0208-4609-942c-5af5ffd04e19"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A1</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222819</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123222819"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="2.2"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp != null;</script></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Retrieve Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>SubjectIdentifier</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>AssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QueryAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QuerySubjectIdentifier</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retreive</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@extension</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Retreive"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>RetrievePatientCorrelations</con:operation><con:request name="Retreive"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RetrievePatientCorrelationsRequest>
+         <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
+            <urn:creationTime value="20091123222819"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PIXQuery"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="2.2"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:code code="PRPA_TE201309UV02" codeSystem="2.16.840.1.113883.1.6"/>
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:assignedDevice xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="1.1" extension="D123401"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:patientIdentifier>
+                        <urn:value root="2.2" extension="500000000"/>
+                        <urn:semanticsText>Patient.Id</urn:semanticsText>
+                     </urn:patientIdentifier>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201309UV02>
+      </urn:RetrievePatientCorrelationsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path><content>${SelectedPatientData#LocalSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>${SelectedPatientData#LocalAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="LocalPatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@extension</path><content>${SelectedPatientData#LocalSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="LocalPatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</path><content>${SelectedPatientData#LocalAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]//ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>${SelectedPatientData#RemoteSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>${SelectedPatientData#RemoteAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Retreive - Expired Correlation" searchProperties="true" id="d7a7b7bf-1316-49db-879e-e0fcf66a312e"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer2</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Endpoint</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath xsi:nil="true"/></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/Projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A3</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (localSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>E12345</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>4.4</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123222824</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="true"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123222824"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="4.4"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123403"/>
+                           <urn:id root="4.4" extension="E12345"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="datasourceloop" name="DataSource Loop"><con:settings/><con:config><dataSourceStep>Correlations</dataSourceStep><targetStep>FindSelected</targetStep></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Retrieve Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>SubjectIdentifier</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>AssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath/><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:parameterList[1]/urn:patientIdentifier[1]/urn:value[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityIdentifier</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QueryAssigningAuthorityIdentifier</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" ignoreEmpty="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>QuerySubjectIdentifier</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Retrieve</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201309UV02[1]/urn:controlActProcess[1]/urn:queryByParameter[1]/urn:queryId[1]/@extension</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Retrieve"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>RetrievePatientCorrelations</con:operation><con:request name="Retrieve"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RetrievePatientCorrelationsRequest>
+         <urn:PRPA_IN201309UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="2220c1c4-87ef-11dc-b865-3603d6866807"/>
+            <urn:creationTime value="20091123222824"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201309UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PIXQuery"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="4.4"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:code code="PRPA_TE201309UV02" codeSystem="2.16.840.1.113883.1.6"/>
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:assignedDevice xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="1.1" extension="D123401"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:patientIdentifier>
+                        <urn:value root="4.4" extension="E12345"/>
+                        <urn:semanticsText>Patient.Id</urn:semanticsText>
+                     </urn:patientIdentifier>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201309UV02>
+      </urn:RetrievePatientCorrelationsRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match" name="ParamListRemotePatientIDExtension"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@extension</path><content>${SelectedPatientData#RemoteSubjectID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="ParamListRemotePatientIDRoot"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:queryByParameter[1]/ns3:parameterList[1]/ns3:patientIdentifier[1]/ns3:value[1]/@root</path><content>${SelectedPatientData#RemoteAssigningAuthorityID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:RetrievePatientCorrelationsResponse[1]/ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:patientPerson[1]/ns3:name[1]/@nullFlavor</path><content>NA</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="Simple NotContains"><con:configuration><token>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201310UV02[1]/ns3:controlActProcess[1]/ns3:subject[1]/ns3:registrationEvent[1]/ns3:subject1[1]/ns3:patient[1]/ns3:id[1]/@root</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (0)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 0;</script></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Add - Update Expiration" searchProperties="true" id="2027c59b-deea-4d9a-a34c-e089c234bf36"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>C:/projects/nhinc/Current/Product/IntegrationTest/default.properties</con:source><con:properties><con:property><con:name>SUT.PatientCorrelationFacade</con:name><con:value>http://192.168.25.157:9080/PatientCorrelationFacadeService</con:value></con:property><con:property><con:name>SUT.PatientCorrelationHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>SUT.PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>SUT.PatientCorrelationUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>SUT.PatientCorrelationPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>SUT.PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>SUT.PatientCorrelation</con:name><con:value>http://localhost:8080/PatientCorrelationService</con:value></con:property><con:property><con:name>SUT.EntityEndpoint</con:name><con:value>http://localhost:9080/EntityServiceService/EntityServicePort</con:value></con:property><con:property><con:name>SUT.RemoteMPI</con:name><con:value>//dvanhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.LocalMPI</con:name><con:value>//mhsnhie2.fedsconnect.org/glassfish/domains/domain1/config/mpi.xml</con:value></con:property><con:property><con:name>SUT.EntityDocQueryEndpoint</con:name><con:value>http://localhost:8080/NhinConnect/EntityDocQuery</con:value></con:property><con:property><con:name>SUT.EntityDocRetrieveEndpoint</con:name><con:value>http://localhost:9080/NhinConnect/EntityDocRetrieve</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="properties" name="Internal Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>originalExpiration</con:name><con:value>2010-11-23 17:54:46.0</con:value></con:property><con:property><con:name>updatedExpiration</con:name><con:value>2010-11-23 17:39:11.0</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="set patient correlation endpoint URL 1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" disabled="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer1</con:name><con:sourceType>SUT.PatientCorrelation</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Add</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Correlation Table"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+DBFunctions.clearTable(host, port, db, user, pass, table);
+</script></con:config></con:testStep><con:testStep type="groovy" name="ClearLocalData"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", null);
+groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", null);</script></con:config></con:testStep><con:testStep type="groovy" name="get Date"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+sdf = new java.text.SimpleDateFormat("yyyyMMddHHmmss");
+sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+Calendar cal = new GregorianCalendar();
+nowDate = new Date();
+
+cal.setTime(nowDate);
+creationTime = cal.getTime();
+creationTimeStr = sdf.format(creationTime);
+
+groovyUtils.setPropertyValue( "SelectedPatientData", "creationTime", creationTimeStr);
+</script></con:config></con:testStep><con:testStep type="datasource" name="Correlations"><con:settings/><con:config xsi:type="con:DataSourceStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:dataSource type="Excel"><con:configuration><file>C:/projects/NHINC/Current/Product/IntegrationTest/CorrelationTests.xls</file><worksheet>Expirations</worksheet><cell>A1</cell><ignoreEmpty>false</ignoreEmpty></con:configuration></con:dataSource><con:property>RemoteSubjectID</con:property><con:property>RemoteAssigningAuthorityID</con:property><con:property>LocalSubjectID</con:property><con:property>LocalAssigningAuthorityID</con:property><con:property>Select</con:property><con:startRow>1</con:startRow><con:endRow/><con:trimValues>false</con:trimValues><con:entitizeValues>false</con:entitizeValues><con:restartOnRun>true</con:restartOnRun><con:expandProperties>false</con:expandProperties></con:config></con:testStep><con:testStep type="groovy" name="FindSelected"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Correlations" );
+def selected = dataSource.getPropertyValue( "Select" );
+def remoteSubjectID = dataSource.getPropertyValue( "RemoteSubjectID" );
+def remoteAssigningAuthorityID = dataSource.getPropertyValue( "RemoteAssigningAuthorityID" );
+def localSubjectID = dataSource.getPropertyValue( "LocalSubjectID" );
+def localAssigningAuthorityID = dataSource.getPropertyValue( "LocalAssigningAuthorityID" );
+
+if (selected != "") {
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteSubjectID", remoteSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "RemoteAssigningAuthorityID", remoteAssigningAuthorityID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalSubjectID", localSubjectID);
+  groovyUtils.setPropertyValue( "SelectedPatientData", "LocalAssigningAuthorityID", localAssigningAuthorityID);
+}
+
+if (remoteSubjectID == "") testRunner.gotoStepByName( "DataSource Loop" );</script></con:config></con:testStep><con:testStep type="properties" name="SelectedPatientData"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:properties><con:property><con:name>LocalSubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>LocalAssigningAuthorityID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>RemoteSubjectID</con:name><con:value>500000000</con:value></con:property><con:property><con:name>RemoteAssigningAuthorityID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>creationTime</con:name><con:value>20091123225446</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="request" name="Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123225446"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="2.2"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def dataSource2 = testRunner.testCase.getTestStepByName( "Internal Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp != null;
+
+// assign single property
+dataSource2.setPropertyValue( "originalExpiration", exp.toString());
+</script></con:config></con:testStep><con:testStep type="transfer" name="Spreadsheet->Re-Add Transfer"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false" disabled="false"><con:name>LocalSubjectID</con:name><con:sourceType>LocalSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>LocalAssigningAuthorityID</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false" ignoreEmpty="false" useXQuery="false" transferChildNodes="false"><con:name>RemoteSubjectID</con:name><con:sourceType>RemoteSubjectID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@extension</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:controlActProcess[1]/urn:subject[1]/urn:registrationEvent[1]/urn:subject1[1]/urn:patient[1]/urn:id[2]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" entitize="false" transferToAll="false" ignoreEmpty="false" transferChildNodes="false" useXQuery="false"><con:name>CreationTime</con:name><con:sourceType>creationTime</con:sourceType><con:sourceStep>SelectedPatientData</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:creationTime[1]/@value</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>LocalAssigningAuthorityID2</con:name><con:sourceType>LocalAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:receiver[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>RemoteAssigningAuthorityID2</con:name><con:sourceType>RemoteAssigningAuthorityID</con:sourceType><con:sourceStep>Correlations</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>Request</con:targetType><con:targetStep>Add</con:targetStep><con:targetPath>declare namespace urn='urn:hl7-org:v3';
+//urn:PRPA_IN201301UV02[1]/urn:sender[1]/urn:device[1]/urn:id[1]/@root</con:targetPath></con:transfers></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>2500</delay></con:config></con:testStep><con:testStep type="request" name="Re-Add"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>PatientCorrelationBinding</con:interface><con:operation>AddPatientCorrelation</con:operation><con:request name="Re-Add"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/PatientCorrelationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:hl7-org:v3">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AddPatientCorrelationRequest>
+         <urn:PRPA_IN201301UV02 nullFlavor="?" ITSVersion="XML_1.0">
+            <urn:id root="22a0f9e0-4454-11dc-a6be-3603d6866807"/>
+            <urn:creationTime value="20091123194441"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201301UV02"/>
+            <urn:processingCode code="P"/>
+            <urn:processingModeCode code="R"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.1"/>
+                  <urn:telecom value="https://example.org/PatientFeed"/>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="2.2"/>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:subject typeCode="SUBJ">
+                  <urn:registrationEvent classCode="REG" moodCode="EVN">
+                     <urn:id nullFlavor="NA"/>
+                     <urn:statusCode code="active"/>
+                     <urn:subject1 typeCode="SBJ">
+                        <urn:patient classCode="PAT">
+                           <urn:id root="1.1" extension="D123401"/>
+                           <urn:id root="2.2" extension="500000000"/>
+                           <urn:statusCode code="active"/>
+                        </urn:patient>
+                     </urn:subject1>
+                  </urn:registrationEvent>
+               </urn:subject>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201301UV02>
+      <urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV><urn:PRPA_IN201301UV><urn:controlActProcess/></urn:PRPA_IN201301UV></urn:AddPatientCorrelationRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Re-Count Correlations (1)"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+int countRows(host, port, dbName, user, password, table) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def count = 0;
+   sql.eachRow("select count(*) from " + table) { row ->
+	count = row[0];
+   }
+   return count;
+}
+
+def count = countRows(host, port, db, user, pass, table);
+assert count == 1;</script></con:config></con:testStep><con:testStep type="groovy" name="Re-Check Expiration"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def dataSource2 = testRunner.testCase.getTestStepByName( "Internal Properties" );
+def host = dataSource.getPropertyValue( "SUT.PatientCorrelationHost" );
+def port = dataSource.getPropertyValue( "SUT.PatientCorrelationPort" );
+def db = dataSource.getPropertyValue( "SUT.PatientCorrelationDB" );
+def user = dataSource.getPropertyValue( "SUT.PatientCorrelationUser" );
+def pass = dataSource.getPropertyValue( "SUT.PatientCorrelationPass" );
+def table = dataSource.getPropertyValue( "SUT.PatientCorrelationTable" );
+
+
+Date retreiveExpiration(host, port, db, user, pass, table){
+	def expDate = null;
+	def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + db;
+   	def sql = Sql.newInstance(sqlConnect, user, pass, "com.mysql.jdbc.Driver");
+
+  	def correlationSet = sql.dataSet(table);
+
+	def result = [];
+	correlationSet.each { 
+		result &lt;&lt; it.CorrelationExpirationDate 
+	} 
+	assert 1 == result.size();
+	expDate = result[0];
+
+
+   //}${it.CorrelationExpirationDate} 
+	return expDate;
+}
+
+def exp = retreiveExpiration(host, port, db, user, pass, table);
+assert exp != null;
+
+
+//assert that the expiraiton date has been updated, and is after the previous expiration date. 
+def Date origDate;
+def df1 = new java.text.SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+origDate = df1.parse(dataSource2.getPropertyValue("originalExpiration"));
+
+assert exp.after(origDate);
+</script></con:config></con:testStep><con:setupScript>
+</con:setupScript><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
