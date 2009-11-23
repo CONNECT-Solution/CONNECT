@@ -29,11 +29,52 @@ public class Storer {
         log.info("patient correlation add requested");
         if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {
             localAddPatientCorrelation(correlatedIdentifers);
-        } else {
+        } else if(correlatedIdentifers.getCorrelationExpirationDate() != null)
+        {
+            log.info("updating expiration date");
+            localUpdatePatientCorrelation(correlatedIdentifers);
+        }
+        else{
             log.info("Correlation already exists, no store needed");
         }
     }
 
+    private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers)
+    {
+        log.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
+        Session sess = null;
+        Transaction trans = null;
+        CorrelatedIdentifiers singleRecord = Retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
+
+        singleRecord.setCorrelationExpirationDate(correlatedIdentifers.getCorrelationExpirationDate());
+
+        try {
+            SessionFactory fact = HibernateUtil.getSessionFactory();
+            if (fact != null) {
+                sess = fact.openSession();
+                trans = sess.beginTransaction();
+                sess.saveOrUpdate(singleRecord);
+            } else {
+                log.error("Session factory was null");
+            }
+        } finally {
+            if (trans != null) {
+                try {
+                    trans.commit();
+                } catch (Throwable t) {
+                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                }
+            }
+            if (sess != null) {
+                try {
+                    sess.close();
+                } catch (Throwable t) {
+                    log.error("Failed to close session: " + t.getMessage(), t);
+                }
+            }
+        }
+        log.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
+    }
     private static void localAddPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         log.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
         Session sess = null;

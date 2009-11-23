@@ -104,6 +104,7 @@ public class Retriever {
             resultQualifiedPatientIdentifier = new QualifiedPatientIdentifier();
             resultQualifiedPatientIdentifier.setAssigningAuthority(correlatedIdentifiers.getCorrelatedPatientAssigningAuthorityId());
             resultQualifiedPatientIdentifier.setPatientId(correlatedIdentifiers.getCorrelatedPatientId());
+
             if (!AreSame(qualifiedPatientIdentifier, resultQualifiedPatientIdentifier)) {
                 resultQualifiedPatientIdentifiers.add(resultQualifiedPatientIdentifier);
             }
@@ -163,7 +164,30 @@ public class Retriever {
         log.debug("correlation exists? = " + exists);
         return exists;
     }
+    public static CorrelatedIdentifiers retrieveSinglePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers)
+    {
+        List<CorrelatedIdentifiers> resultSet;
+        CorrelatedIdentifiers result = null;
 
+        resultSet = retrievePatientCorrelation(correlatedIdentifers);
+
+        if(resultSet != null)
+        {
+            if(resultSet.size() == 1)
+            {
+                result = resultSet.get(0);
+            }
+            else if(resultSet.size() > 1)
+            {
+                log.warn("return more than 1 result");
+            }
+        }
+
+        return result;
+
+
+
+    }
     private static List<CorrelatedIdentifiers> retrievePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         SessionFactory fact = null;
         Session sess = null;
