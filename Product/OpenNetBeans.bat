@@ -1,1 +1,2 @@
-..\Build\Tools\nAnt\bin\nant.exe -buildfile:Personal.Build.xml OpenNetBeans
+CALL ..\Build\SetEnv.bat
+nant.exe -buildfile:Personal.Build.xml OpenNetBeans
