@@ -19,10 +19,10 @@
 -- Table structure for table `patientcorrelationdb.correlatedidentifiers`
 --
 
-DROP TABLE IF EXISTS `patientcorrelationdb.correlatedidentifiers`;
+DROP TABLE IF EXISTS `correlatedidentifiers`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-CREATE TABLE `patientcorrelationdb.correlatedidentifiers` (
+CREATE TABLE `correlatedidentifiers` (
   correlationId int(10) unsigned NOT NULL auto_increment,
   PatientAssigningAuthorityId varchar(45) NOT NULL,
   PatientId varchar(45) NOT NULL,
