@@ -51,6 +51,9 @@
       <name>AdapterPatientDiscoveryEJB</name>
     </ejb>
     <ejb>
+      <name>AdapterPatientDiscoveryProxyEJB</name>
+    </ejb>
+    <ejb>
       <name>AdapterPIPEJB</name>
     </ejb>
     <ejb>
