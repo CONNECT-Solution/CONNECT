@@ -81,10 +81,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.javaee5-doc-api.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.activation.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -106,10 +102,6 @@
                 </library>
                 <library>
                     <file>${file.reference.jaxb-xjc.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.jaxws-2_1-api-doc.zip}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -161,14 +153,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.appbase-doc.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.appbase-src.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.appbase.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -190,14 +174,6 @@
                 </library>
                 <library>
                     <file>${file.reference.commons-logging.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.dataprovider-doc.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.dataprovider-src.zip}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -225,14 +201,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.jsfcl-doc.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.jsfcl-src.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.jsfcl.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -242,14 +210,6 @@
                 </library>
                 <library>
                     <file>${file.reference.sqlx.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.webui-jsf-doc.zip}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.webui-jsf-src.zip}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -284,10 +244,12 @@
                 </library>
             </web-module-additional-libraries>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.java.dir"/>
+                <root id="src.resources.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.java.dir"/>
+                <root id="test.resources.dir"/>
             </test-roots>
         </data>
         <libraries xmlns="http://www.netbeans.org/ns/ant-project-libraries/1">
