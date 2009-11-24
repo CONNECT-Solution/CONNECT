@@ -46,6 +46,7 @@ import gov.hhs.fha.nhinc.common.hiemauditlog.LogSubscribeResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.UnsubscribeResponseMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
@@ -56,11 +57,14 @@ import gov.hhs.fha.nhinc.transform.audit.DocumentQueryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.DocumentRetrieveTransforms;
 import gov.hhs.fha.nhinc.transform.audit.FindAuditEventsTransforms;
 import gov.hhs.fha.nhinc.transform.audit.NotifyTransforms;
+import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubjectDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  *
@@ -80,15 +84,93 @@ public class AuditRepositoryLogger {
      */
     public LogEventRequestType logSubjectAdded(SubjectAddedMessageType message, String direction, String _interface) {
         LogEventRequestType auditMsg = null;
-        
+
 
         if (isServiceEnabled()) {
             LogSubjectAddedRequestType logReqMsg = new LogSubjectAddedRequestType();
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
-            
+
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013012AuditMsg(logReqMsg);
+        }
+
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
+     *
+     * @param message The Audit Query Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logNhinPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion, String direction) {
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformNhinPRPAIN201305RequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from a NHIN Patient Discovery Response
+     *
+     * @param message The Audit Query Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logNhinPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion, String direction) {
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        return auditMsg;
+    }
+
+        /**
+     * This method will create the generic Audit Log Message from an Adapter Patient Discovery Request
+     *
+     * @param message The Audit Query Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logAdapterPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion, String direction) {
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformAdapterPRPAIN201305RequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        }
+
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from an Adapter Patient Discovery Response
+     *
+     * @param message The Audit Query Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logAdapterPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion, String direction) {
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         }
 
         return auditMsg;
@@ -110,7 +192,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
-            
+
             auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logReqMsg);
         }
 
@@ -133,7 +215,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
-            
+
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013022AuditMsg(logReqMsg);
         }
 
@@ -178,7 +260,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
-            
+
             auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg);
         }
 
@@ -201,7 +283,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
             logReqMsg.setMessage(message);
-            
+
             auditMsg = DocumentRetrieveTransforms.transformDocRetrieveReq2AuditMsg(logReqMsg);
         }
 
@@ -248,7 +330,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setMessage(message);
             logReqMsg.setDirection(direction);
             logReqMsg.setInterface(_interface);
-            
+
             auditMsg = FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logReqMsg);
         }
 
