@@ -61,6 +61,7 @@ class FileUtils
    
    static MoveFile(sourceDirectory, sourceFileName, destinationDirectory, destinationFileName, context, log) {
       //entries can either be the actual entry or pointer to config item
+      //bad naming convention. Developer should be flogged. :)
       sourceDirectory = context.expand( sourceDirectory )
       sourceFileName = context.expand( sourceFileName )
       destinationDirectory = context.expand( destinationDirectory )
@@ -71,15 +72,18 @@ class FileUtils
 			
 			// Copy test file
 			log.info("copying property file from " + sourceFile + " to " + destinationFile);
+						
+
+
+
 			if(sourceFile.exists())
 			{
-			    destinationFile.withWriter 
-			    { 
-			        file -> sourceFile.eachLine 
-			        { 
-			            line -> file.writeLine(line)  
-			        }
-			    }
+				def reader = sourceFile.newReader();
+				destinationFile.withWriter 
+				{ writer ->       
+					writer << reader;   
+				}   
+				reader.close();
 			} 
 			else {
 			   log.info("unable to find source file " + sourceFile);
@@ -209,4 +213,12 @@ class FileUtils
 		log.info("end CreateOrUpdateConnection");
 	}
 
+		static InitializeNHINCProperties(context, log) {
+
+			File sourceFile = new File("C:\\projects\\nhinc\\Current\\Product\\");  
+			def process = "C:\\projects\\nhinc\\Current\\Product\\Redeploy.Configuration.bat".execute(null, sourceFile);
+			
+			log.info( "Found text ${process.text}");
+		
+		}
 }
