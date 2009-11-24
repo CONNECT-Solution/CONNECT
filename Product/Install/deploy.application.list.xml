@@ -48,6 +48,9 @@
       <name>AdapterMpiProxyEJB</name>
     </ejb>
     <ejb>
+      <name>AdapterPatientDiscoveryEJB</name>
+    </ejb>
+    <ejb>
       <name>AdapterPIPEJB</name>
     </ejb>
     <ejb>
