@@ -7,7 +7,7 @@ package gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransformejb.adapt
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLResponseType;
 import java.io.FileReader;
-import java.io.StringReader;
+import java.io.StringReader; 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
