@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.Oracle.Scripts">
 
-  <property name="MySQL.Installer.File.Name" value="mysql-essential-5.1.40-win32.msi"/>
-  <property name="MySQL.Installer.File.Path" value="C:\Temp\${MySQL.Installer.File.Name}"/>
-  <property name="MySQL.Install.Path" value="${ProgramFiles.32.Path}\MySQL\MySQL Server 5.1"/>
-  <property name="MySQL.Installer.File.Url" value="ftp://mirror.anl.gov/pub/mysql/Downloads/MySQL-5.1/${MySQL.Installer.File.Name}"/>
+  <property name="MySQL.Installer.32.File.Name" value="mysql-essential-5.1.40-win32.msi"/>
+  <property name="MySQL.Installer.File.Path" value="C:\Temp\${MySQL.Installer.32.File.Name}"/>
+  <property name="MySQL.Install.32.Path" value="${ProgramFiles.32.Path}\MySQL\MySQL Server 5.1"/>
+  <property name="MySQL.Install.64.Path" value="${ProgramFiles.64.Path}\MySQL\MySQL Server 5.1"/>
+  <property name="MySQL.Installer.File.Url" value="ftp://mirror.anl.gov/pub/mysql/Downloads/MySQL-5.1/${MySQL.Installer.32.File.Name}"/>
 
   <target name="Workspace.RequieredSoftware.MySQL">
     <call target="Workspace.RequieredSoftware.MySQL.InitialInstall"/>
@@ -12,9 +13,9 @@
   </target>
 
   <target name="Workspace.RequieredSoftware.MySQL.InitialInstall">
-    <ifnot test="${directory::exists(MySQL.Install.Path+'\bin')}" >
+    <ifnot test="${directory::exists(MySQL.Install.32.Path+'\bin') or directory::exists(MySQL.Install.64.Path+'\bin')}" >
       <ask answer="Answer"
-           question="It looks like the MySQL 5.1 is not installed. This software is optional. Do you wish to install the software? Please uninstall all previous versions of MySQL before continue with the installation."
+           question="It looks like the MySQL 5.1 is not installed. This software is optional. Do you wish to install the software? Please uninstall all previous versions of MySQL before you continue with the installation."
            caption="Proceed Without Optional Software?"
            showdialog="true"
            unless="${Workspace.Silent}"
@@ -41,8 +42,8 @@
           </exec>
 
           <exec
-            workingdir="${MySQL.Install.Path}\bin"
-            basedir="${MySQL.Install.Path}\bin"
+            workingdir="${MySQL.Install.32.Path}\bin"
+            basedir="${MySQL.Install.32.Path}\bin"
             program="MySQLInstanceConfig"
             verbose="true">
             <arg value='-i'/>
@@ -50,8 +51,8 @@
             <arg value='-l"C:\mysql_install_log.txt"'/>
             <arg value='-n"MySQL Server 5.1"'/>
             <arg value='-v5.1.40'/>
-            <arg value='-t"${MySQL.Install.Path}\my-template.ini"'/>
-            <arg value='-c"${MySQL.Install.Path}\my.ini"'/>
+            <arg value='-t"${MySQL.Install.32.Path}\my-template.ini"'/>
+            <arg value='-c"${MySQL.Install.32.Path}\my.ini"'/>
             <arg value='ServiceName="MySQL"'/>
             <arg value='AddBinToPath=yes'/>
             <arg value='ServerType=DEVELOPMENT'/>
