@@ -16,10 +16,12 @@
   <target name="Workspace.RequieredSoftware.GlassFish">
     <ifnot test="${directory::exists(GlassFish.Install.Path) and directory::exists(NetBeans.Install.Path)}" >
       <call target="GlassFish.DownloadAndInstall"/>
+
+      <call target="GlassFish.Update" />
+
+      <call target="GlassFish.Configure"/>
     </ifnot>
-    <call target="GlassFish.Update" />
-    
-    <call target="GlassFish.Configure"/>
+
   </target>
 
   <target name="GlassFish.Update">
