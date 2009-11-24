@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.AttributeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;

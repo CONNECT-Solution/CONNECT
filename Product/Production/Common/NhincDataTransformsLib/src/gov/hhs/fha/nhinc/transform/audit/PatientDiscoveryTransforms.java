@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
@@ -71,7 +72,7 @@ public class PatientDiscoveryTransforms {
     * @param message
     * @return
     */
-    private LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion)
+    private LogEventRequestType transformPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oPatientDiscoveryRequestMessage, AssertionType oAssertion, String direction, String _interface)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         
@@ -156,8 +157,9 @@ public class PatientDiscoveryTransforms {
         addLogDebug("Audit record AuditMessageType.getParticipantObjectIdentification().get(0).getParticipantObjectSensitivity(): "
                 + oAuditMessageType.getParticipantObjectIdentification().get(0).getParticipantObjectSensitivity());
 
-
         oReturnLogEventRequestType.setAuditMessage(oAuditMessageType);
+        oReturnLogEventRequestType.setDirection(direction);
+        oReturnLogEventRequestType.setInterface(_interface);
         
         addLogDebug("*********************************************************");
         addLogDebug("Exiting transformPRPAIN201305RequestToAuditMsg() method.");
@@ -179,7 +181,7 @@ public class PatientDiscoveryTransforms {
      * @param oRequest
      * @return
      */
-    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion)
+    protected LogEventRequestType transformPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oPatientDiscoveryResponseMessage, AssertionType oAssertion, String direction, String _interface)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         AuditMessageType oAuditMessageType = null;
@@ -261,6 +263,8 @@ public class PatientDiscoveryTransforms {
         addLogInfo("******************************************************************");
 
         oReturnLogEventRequestType.setAuditMessage(oAuditMessageType);
+        oReturnLogEventRequestType.setDirection(direction);
+        oReturnLogEventRequestType.setInterface(_interface);
 
         return oReturnLogEventRequestType;
     }
@@ -276,7 +280,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformEntityPRPAIN201305RequestToAuditMsg(RespondingGatewayPRPAIN201305UV02RequestType oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformEntityPRPAIN201305RequestToAuditMsg(RespondingGatewayPRPAIN201305UV02RequestType oRequest, AssertionType oAssertion, String direction, String _interface)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
         PRPAIN201305UV02 oPatientDiscoveryRequestMessage = null;
@@ -302,7 +306,7 @@ public class PatientDiscoveryTransforms {
         }
         else
         {
-            oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequestMessage, oAssertion);
+            oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequestMessage, oAssertion, direction, _interface);
         }
 
         if (oReturnLogEventRequestType == null)
@@ -329,11 +333,9 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformNhinPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
-//        PRPAIN201305UV oPatientDiscoveryRequestMessage = null;
-//        AssertionType oAssertion = null;
 
         addLogInfo("************************************************");
         addLogInfo("Entering transformPRPA201305ToAuditMsg() method.");
@@ -351,18 +353,13 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion);
+        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface);
 
 
         if (oReturnLogEventRequestType == null)
         {
             addLogError("There was a problem translating the request into an audit log request object.");
             return null;
-        }
-        else
-        {
-            oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-            oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
         addLogInfo("**************************************************************");
@@ -378,7 +375,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformAdapterPRPAIN201305RequestToAuditMsg(PRPAIN201305UV02 oRequest, AssertionType oAssertion, String direction, String _interface)
     {
         LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -399,18 +396,13 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion);
+        oReturnLogEventRequestType = transformPRPAIN201305RequestToAuditMsg(oRequest, oAssertion, direction, _interface);
 
 
         if (oReturnLogEventRequestType == null)
         {
             addLogError("There was a problem translating the request into an audit log request object.");
             return null;
-        }
-        else
-        {
-            oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-            oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         }
 
         addLogInfo("**************************************************************");
@@ -426,7 +418,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion)
+    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion, String direction, String _interface)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
           PRPAIN201306UV02 oPatientDiscoveryResponseMessage = null;
@@ -458,18 +450,13 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponseMessage, oAssertion);
+              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponseMessage, oAssertion, direction, _interface);
           }
 
           if (oReturnLogEventRequestType == null)
           {
               addLogError("There was a problem translating the response message to an audit log object");
               return null;
-          }
-          else
-          {
-              oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-              oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
           }
          
           addLogInfo("***************************************************************");
@@ -484,7 +471,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion)
+    public LogEventRequestType transformNhinPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -505,7 +492,7 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion);
+              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface);
           }
 
           if (oReturnLogEventRequestType == null)
@@ -531,7 +518,7 @@ public class PatientDiscoveryTransforms {
      * @param message
      * @return
      */
-    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion)
+    public LogEventRequestType transformAdapterPRPAIN201306ResponseToAuditMsg(PRPAIN201306UV02 oResponseMessage, AssertionType oAssertion, String direction, String _interface)
     {
           LogEventRequestType oReturnLogEventRequestType = null;
 
@@ -552,7 +539,7 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion);
+              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oResponseMessage, oAssertion, direction, _interface);
           }
 
           if (oReturnLogEventRequestType == null)
@@ -677,7 +664,7 @@ public class PatientDiscoveryTransforms {
         }
 
         List<PRPAMT201306UV02LivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
-        if (oLivingSubjectId == null)
+        if (NullChecker.isNullish(oLivingSubjectId))
         {
             addLogError("The LivingSubjectId object was missing from the request");
             return null;

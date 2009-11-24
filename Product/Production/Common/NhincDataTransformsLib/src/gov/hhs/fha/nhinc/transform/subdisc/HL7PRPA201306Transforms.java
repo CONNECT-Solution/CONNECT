@@ -57,10 +57,15 @@ public class HL7PRPA201306Transforms {
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
-        log.debug("Add the Subject");
-        controlActProcess.getSubject().add(createSubject(patient, query, localDeviceId, aaId, orgId));
+
+        if (patient != null) {
+            log.debug("Add the Subject");
+           controlActProcess.getSubject().add(createSubject(patient, query, localDeviceId, aaId, orgId));
+        }
+
         log.debug("Add the Query Ack");
         controlActProcess.setQueryAck(createQueryAck(query));
+
         // Add in query parameters
         if (query.getControlActProcess() != null &&
                 query.getControlActProcess().getQueryByParameter() != null &&
