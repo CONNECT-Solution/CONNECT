@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -111,24 +111,32 @@
 	
  	<target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   			<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   			<property name="project.PropAccessorEJB.Absolute" location="${project.PropAccessorEJB}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PropAccessorEJB.Absolute}" antfile="${project.PropAccessorEJB.Absolute}/build.xml" inheritall="false" target="jar"/>
+        
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   			<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+    		<property name="project.PropAccessorEJB.Absolute" location="${project.PropAccessorEJB}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/
+        <ant dir="${project.PropAccessorEJB.Absolute}" antfile="${project.PropAccessorEJB.Absolute}/build.xml" inheritall="false" target="jar"/>>
+
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.PatientCorrelationDAO.Absolute" location="${project.PatientCorrelationDAO}"/>
-   		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+   			<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+    		<property name="project.PropAccessorEJB.Absolute" location="${project.PropAccessorEJB}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PropAccessorEJB.Absolute}" antfile="${project.PropAccessorEJB.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive">
