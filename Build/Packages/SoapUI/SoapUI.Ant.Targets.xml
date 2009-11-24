@@ -26,7 +26,7 @@
           <include name="PatientCorrelation-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
 		  <!-- <include name="DocQueryXDSErrors-soapui-project.xml"/> -->
-		  <include name="Patient Discovery-soapui-project.xml"/>
+		  <include name="PatientDiscovery-soapui-project.xml"/>
         </fileset>
       </path>
 	  <sequential>
