@@ -1,20 +1,43 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AddressType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
+import org.hl7.v3.AdxpExplicitCity;
+import org.hl7.v3.AdxpExplicitCountry;
+import org.hl7.v3.AdxpExplicitPostalCode;
+import org.hl7.v3.AdxpExplicitState;
+import org.hl7.v3.AdxpExplicitStreetAddressLine;
 import org.hl7.v3.CE;
+import org.hl7.v3.CS;
+import org.hl7.v3.EnExplicitFamily;
+import org.hl7.v3.EnExplicitGiven;
+import org.hl7.v3.EnExplicitPrefix;
+import org.hl7.v3.EnExplicitSuffix;
 import org.hl7.v3.II;
+import org.hl7.v3.ObjectFactory;
+import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.hl7.v3.POCDMT000040InfrastructureRootTypeId;
+import org.hl7.v3.POCDMT000040Patient;
+import org.hl7.v3.POCDMT000040PatientRole;
+import org.hl7.v3.POCDMT000040RecordTarget;
 import org.hl7.v3.STExplicit;
+import org.hl7.v3.TSExplicit;
 
 /**
  * This class creates CDA documents from BinaryDocumentPolicyCriteria objects.
@@ -24,6 +47,11 @@ import org.hl7.v3.STExplicit;
 public class CdaPdfCreator
 {
     protected Log log = null;
+
+    private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
+    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
+    private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
+    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
 
     /**
      * Default constructor.
@@ -89,12 +117,12 @@ public class CdaPdfCreator
     }
 
     /**
-     * Creates the ID tag for the CDA document.
+     * This returns the home community ID from the gateway.properties file.
      *
-     * @return The ID tag for the CDA document.
-     * @throws AdapterPIPException This exception is thrown if any error occurs.
+     * @return The home community ID.
+     * @throws AdapterPIPException This exception is thrown if there is an error.
      */
-    private II createId(String sDocumentUniqueId)
+    private String getHomeCommunityId()
         throws AdapterPIPException
     {
         String sHomeCommunityId = null;
@@ -109,6 +137,19 @@ public class CdaPdfCreator
             throw new AdapterPIPException(sErrorMessage, e);
         }
 
+        return sHomeCommunityId;
+    }
+
+    /**
+     * Creates the ID tag for the CDA document.
+     *
+     * @return The ID tag for the CDA document.
+     * @throws AdapterPIPException This exception is thrown if any error occurs.
+     */
+    private II createId(String sDocumentUniqueId)
+        throws AdapterPIPException
+    {
+        String sHomeCommunityId = getHomeCommunityId();
         return createII(sHomeCommunityId, sDocumentUniqueId);
 
     }
@@ -205,6 +246,326 @@ public class CdaPdfCreator
         }
     }
 
+    /**
+     * This method transforms the given XMLDate into an HL7 date.
+     *
+     * @param oXMLDate The XML date.
+     * @return The HL7 date.
+     */
+    private TSExplicit createTS(XMLGregorianCalendar oXMLDate)
+    {
+        TSExplicit oHL7Ts = new TSExplicit();
+        boolean bHaveData = false;
+
+        if ((oXMLDate != null) &&
+            (oXMLDate.toGregorianCalendar() != null) &&
+            (oXMLDate.toGregorianCalendar().getTime() != null))
+        {
+            String sDate = oHL7DateTimeFormatter.format(oXMLDate.toGregorianCalendar().getTime());
+            if ((sDate != null) &&
+                (sDate.length() > 0))
+            {
+                oHL7Ts.setValue(sDate);
+                bHaveData = true;
+            }
+        }
+
+        if (bHaveData)
+        {
+            return oHL7Ts;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+    /**
+     * This method creates a CS using the given code.
+     *
+     * @param sCode The code to put into the CS.
+     * @return The CS object to be returned..
+     */
+    private CS createCS(String sCode)
+    {
+        CS oHL7Cs = new CS();
+        boolean bHaveData = false;
+
+        if (sCode != null)
+        {
+            oHL7Cs.setCode(sCode);
+            bHaveData = true;
+        }
+
+        if (bHaveData)
+        {
+            return oHL7Cs;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    /**
+     * This creates an HL7 address from an AddressType object.
+     *
+     * @param oAddress The address to get the information from.
+     * @return The HL7 address to be returned.
+     */
+    private ADExplicit createAD(AddressType oAddress)
+    {
+        ADExplicit oHL7Ad = new ADExplicit();
+        boolean bHaveData = false;
+        org.hl7.v3.ObjectFactory oObjectFactory = new ObjectFactory();
+
+        if (oAddress != null)
+        {
+            // Street
+            //-------
+            if (oAddress.getStreetAddress() != null)
+            {
+                AdxpExplicitStreetAddressLine oHL7StreetAddressLine = new AdxpExplicitStreetAddressLine();
+                oHL7StreetAddressLine.setContent(oAddress.getStreetAddress());
+                JAXBElement<AdxpExplicitStreetAddressLine> oElement = oObjectFactory.createADExplicitStreetAddressLine(oHL7StreetAddressLine);
+                oHL7Ad.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // City
+            //------
+            if (oAddress.getCity() != null)
+            {
+                AdxpExplicitCity oHL7City = new AdxpExplicitCity();
+                oHL7City.setContent(oAddress.getCity());
+                JAXBElement<AdxpExplicitCity> oElement = oObjectFactory.createADExplicitCity(oHL7City);
+                oHL7Ad.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // State
+            //------
+            if (oAddress.getState() != null)
+            {
+                AdxpExplicitState oHL7State = new AdxpExplicitState();
+                oHL7State.setContent(oAddress.getState());
+                JAXBElement<AdxpExplicitState> oElement = oObjectFactory.createADExplicitState(oHL7State);
+                oHL7Ad.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // Zip Code
+            //----------
+            if (oAddress.getZipCode() != null)
+            {
+                AdxpExplicitPostalCode oHL7Zipcode = new AdxpExplicitPostalCode();
+                oHL7Zipcode.setContent(oAddress.getZipCode());
+                JAXBElement<AdxpExplicitPostalCode> oElement = oObjectFactory.createADExplicitPostalCode(oHL7Zipcode);
+                oHL7Ad.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // Country
+            //--------
+            if (oAddress.getCountry() != null)
+            {
+                AdxpExplicitCountry oHL7Country = new AdxpExplicitCountry();
+                oHL7Country.setContent(oAddress.getCountry());
+                JAXBElement<AdxpExplicitCountry> oElement = oObjectFactory.createADExplicitCountry(oHL7Country);
+                oHL7Ad.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+        }   // if (oAddress != null)
+
+        if (bHaveData)
+        {
+            return oHL7Ad;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+    /**
+     * This creates an HL7 PN from a PersonNameType object.
+     *
+     * @param oName The name to get the information from.
+     * @return The HL7 PN to be returned.
+     */
+    private PNExplicit createPN(PersonNameType oName)
+    {
+        PNExplicit oHL7Pn = new PNExplicit();
+        boolean bHaveData = false;
+        org.hl7.v3.ObjectFactory oObjectFactory = new ObjectFactory();
+
+        if (oName != null)
+        {
+            // Prefix
+            //-------
+            if (oName.getPrefix() != null)
+            {
+                EnExplicitPrefix oHL7Prefix = new EnExplicitPrefix();
+                oHL7Prefix.setContent(oName.getPrefix());
+                JAXBElement<EnExplicitPrefix> oElement = oObjectFactory.createENExplicitPrefix(oHL7Prefix);
+                oHL7Pn.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // Given
+            //------
+            if (oName.getGivenName() != null)
+            {
+                EnExplicitGiven oHL7Given = new EnExplicitGiven();
+                oHL7Given.setContent(oName.getGivenName());
+                JAXBElement<EnExplicitGiven> oElement = oObjectFactory.createENExplicitGiven(oHL7Given);
+                oHL7Pn.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // Family
+            //--------
+            if (oName.getFamilyName() != null)
+            {
+                EnExplicitFamily oHL7Family = new EnExplicitFamily();
+                oHL7Family.setContent(oName.getFamilyName());
+                JAXBElement<EnExplicitFamily> oElement = oObjectFactory.createENExplicitFamily(oHL7Family);
+                oHL7Pn.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+            // Suffix
+            //----------
+            if (oName.getSuffix() != null)
+            {
+                EnExplicitSuffix oHL7Suffix = new EnExplicitSuffix();
+                oHL7Suffix.setContent(oName.getSuffix());
+                JAXBElement<EnExplicitSuffix> oElement = oObjectFactory.createENExplicitSuffix(oHL7Suffix);
+                oHL7Pn.getContent().add(oElement);
+                bHaveData = true;
+            }
+
+        }   // if (oName != null)
+
+        if (bHaveData)
+        {
+            return oHL7Pn;
+        }
+        else
+        {
+            return null;
+        }
+
+    }
+
+
+    /**
+     * This method creates a Record Target from the given data fields.
+     *
+     * @param sAssigningAuthority The assigning authority for the patient ID.
+     * @param sPatientId The patient ID.
+     * @param oPatientInfo The patient information from the criterion object.
+     * @return The RecordTarget object.
+     */
+    private POCDMT000040RecordTarget createRecordTarget(String sAssigningAuthority, String sPatientId,  PolicyPatientInfoType oPatientInfo)
+        throws AdapterPIPException
+    {
+        POCDMT000040RecordTarget oRecordTarget = new POCDMT000040RecordTarget();
+        boolean bHaveData = false;
+
+        POCDMT000040PatientRole oPatientRole = new POCDMT000040PatientRole();
+        oRecordTarget.setPatientRole(oPatientRole);
+
+        // Patient Assigning Authority and ID
+        //------------------------------------
+        II oII = createII(sAssigningAuthority, sPatientId);
+        if (oII != null)
+        {
+            oPatientRole.getId().add(oII);
+            bHaveData = true;
+        }
+
+        if (oPatientInfo != null)
+        {
+            // Patient Address
+            //----------------
+            if ((oPatientInfo.getAddr() != null) &&
+                (oPatientInfo.getAddr().getAddress() != null) &&
+                (oPatientInfo.getAddr().getAddress().size() > 0))
+            {
+                for (AddressType oAddress : oPatientInfo.getAddr().getAddress())
+                {
+                    ADExplicit oHL7Address = createAD(oAddress);
+                    if (oHL7Address != null)
+                    {
+                        oPatientRole.getAddr().add(oHL7Address);
+                        bHaveData = true;
+                    }
+                }   // for (AddressType oAddress : oPatientInfo.getAddr().getAddress())
+            }   // if ((oPatientInfo.getAddr() != null) &&
+
+            // Fill in the patient tag.
+            //-------------------------
+            POCDMT000040Patient oPatientTag = new POCDMT000040Patient();
+            boolean bHavePatientTag = false;
+
+            // Patient Name
+            //-------------
+            if (oPatientInfo.getName() != null)
+            {
+                PNExplicit oHL7Name = createPN(oPatientInfo.getName());
+                if (oHL7Name != null)
+                {
+                    oPatientTag.getName().add(oHL7Name);
+                    bHavePatientTag = true;
+                }
+            }
+
+            // Gender
+            //--------
+            if (oPatientInfo.getGender() != null)
+            {
+                CE oHL7Ce = createCode(oPatientInfo.getGender());
+                if (oHL7Ce != null)
+                {
+                    oPatientTag.setAdministrativeGenderCode(oHL7Ce);
+                    bHavePatientTag = true;
+                }
+            }
+
+            // BirthTime
+            //-----------
+            if (oPatientInfo.getBirthTime() != null)
+            {
+                TSExplicit oHL7BirthTime = createTS(oPatientInfo.getBirthTime());
+                if (oHL7BirthTime != null)
+                {
+                    oPatientTag.setBirthTime(oHL7BirthTime);
+                    bHavePatientTag = true;
+                }
+            }
+
+            if (bHavePatientTag)
+            {
+                oPatientRole.setPatient(oPatientTag);
+                bHaveData = true;
+            }
+        }   // if (oPatientInfo != null)
+
+        if (bHaveData)
+        {
+            return oRecordTarget;
+        }
+        else
+        {
+            return null;
+        }
+
+
+    }
 
 
     /**
@@ -251,6 +612,25 @@ public class CdaPdfCreator
             // Title
             //-------
             oCda.setTitle(createST(oCriterion.getDocumentTitle()));
+
+            // EffectiveTime
+            //---------------
+            oCda.setEffectiveTime(createTS(oCriterion.getEffectiveTime()));
+
+            // ConfidentialityCode
+            //---------------------
+            oCda.setConfidentialityCode(createCode(oCriterion.getConfidentialityCode()));
+
+            // Language Code
+            //--------------
+            oCda.setLanguageCode(createCS(CDAConstants.LANGUAGE_CODE_ENGLISH));
+
+            // Record Target
+            //---------------
+            oCda.getRecordTarget().add(createRecordTarget(oPtPref.getAssigningAuthority(), oPtPref.getPatientId(), oCriterion.getPatientInfo()));
+
+            
+            
             
 
             

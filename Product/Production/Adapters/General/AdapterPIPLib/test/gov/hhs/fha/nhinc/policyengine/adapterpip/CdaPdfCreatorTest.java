@@ -5,10 +5,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
+import java.io.Serializable;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,8 +20,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import org.apache.commons.logging.Log;
+import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
+import org.hl7.v3.AdxpExplicitCity;
+import org.hl7.v3.AdxpExplicitCountry;
+import org.hl7.v3.AdxpExplicitPostalCode;
+import org.hl7.v3.AdxpExplicitState;
+import org.hl7.v3.AdxpExplicitStreetAddressLine;
+import org.hl7.v3.CE;
+import org.hl7.v3.EnExplicitFamily;
+import org.hl7.v3.EnExplicitGiven;
+import org.hl7.v3.EnExplicitPrefix;
+import org.hl7.v3.EnExplicitSuffix;
+import org.hl7.v3.II;
+import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040InfrastructureRootTypeId;
+import org.hl7.v3.POCDMT000040Patient;
+import org.hl7.v3.POCDMT000040PatientRole;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -44,6 +62,7 @@ public class CdaPdfCreatorTest
 "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
 "<PatientPreferences xmlns:ns16=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\" xmlns:ns17=\"http://nhinc.services.com/schema/auditmessage\" xmlns:ns14=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os\" xmlns:ns15=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments\" xmlns:ns9=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns:ns5=\"urn:ihe:iti:xds-b:2007\" xmlns:ns12=\"http://docs.oasis-open.org/wsn/t-1\" xmlns:ns6=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\" xmlns:ns13=\"urn:oasis:names:tc:xacml:2.0:context:schema:os\" xmlns:ns7=\"http://www.w3.org/2005/08/addressing\" xmlns:ns10=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc\" xmlns:ns8=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:ns11=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns4=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\" xmlns:ns3=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\">" +
 "	<patientId>1111</patientId>" +
+"       <assigningAuthority>1.1</assigningAuthority>" +
 "	<optIn>true</optIn>" +
 "	<binaryDocumentPolicyCriteria>" +
 "		<binaryDocumentPolicyCriterion>" +
@@ -199,17 +218,418 @@ public class CdaPdfCreatorTest
     }
 
     /**
-     * Assert the type ID values are right for the first CDA document.
+     * This method verifies that the date and time are the same.
      *
-     * @param oTypeId The type ID that is being asserted.
+     * @param sMessage The message to output with the assert statement.
+     * @param sExpectedDate The expected date and time.
+     * @param sActualDate The actual date and time.
      */
-    private void assertTypeId1(POCDMT000040InfrastructureRootTypeId oTypeId)
+    private void assertHL7DateTime (String sMessage, String sExpectedDate, String sActualDate)
     {
-        assertNotNull("cda.TypeId should not have been null.", oTypeId);
-        assertEquals("cda.typeId.extension incorrect: ", "POCD_HD000040", oTypeId.getExtension());
-        assertEquals("cda.typeId.root", "2.16.840.1.113883.1.3", oTypeId.getRoot());
+        Date dtActualDate = null;
+        Date dtExpectedDate = null;
+        try
+        {
+            dtActualDate = oHL7DateTimeFormatter.parse(sActualDate);
+        }
+        catch (Exception e)
+        {
+            fail("Failed to parse actual date.  Value: " + sActualDate);
+        }
+
+        try
+        {
+            dtExpectedDate = oHL7DateTimeFormatter.parse(sExpectedDate);
+        }
+        catch (Exception e)
+        {
+            fail("Failed to parse expected date.  Value: " + sExpectedDate);
+        }
+        
+        assertEquals(sMessage + "...  Expected Value: " + sExpectedDate + "  Actual Value: " + sActualDate + ". ", dtExpectedDate, dtActualDate);
+
     }
 
+    /**
+     * This method verifies that the date and time are the same.
+     *
+     * @param sMessage The message to output with the assert statement.
+     * @param sExpectedDate The expected date and time.
+     * @param sActualDate The actual date and time.
+     */
+    private void assertHL7DateOnly (String sFieldName, String sExpectedDate, String sActualDate)
+    {
+        // Dates will only be in the first 8 characters.  Ignore everything after that.
+        //-----------------------------------------------------------------------------
+        if ((sExpectedDate == null) &&
+            (sActualDate == null))
+        {
+            return;     // We are good - they are the same.
+        }
+
+        if (((sExpectedDate == null) && (sActualDate != null)) ||
+            ((sExpectedDate != null) && (sActualDate == null)))
+        {
+            fail(sFieldName + " was incorrect. Expected: " + sExpectedDate + "  But was: " + sActualDate);
+        }
+
+        if (sExpectedDate.length() < 8)
+        {
+            fail(sFieldName + " was incorrect. Expected date should have at least 8 characters.  Expected: " + sExpectedDate + "  But was: " + sActualDate);
+        }
+
+        if (sActualDate.length() < 8)
+        {
+            fail(sFieldName + " was incorrect. Actual date should have at least 8 characters.  Expected: " + sExpectedDate + "  But was: " + sActualDate);
+        }
+
+        // Now see if the first 8 characters of the expected are the same as the first 8 characters of the actual.
+        //--------------------------------------------------------------------------------------------------------
+        if (!(sExpectedDate.substring(0, 8).equals(sActualDate.substring(0, 8))))
+        {
+            fail(sFieldName + " (date portion) was incorrect. Expected: " + sExpectedDate + "  But was: " + sActualDate);
+        }
+
+    }
+
+
+    /**
+     * This method asserts the value of an II data type.
+     *
+     * @param oII The II that is being asserted.
+     * @param sFieldName The field name for the message.
+     * @param sExtension The extension value.
+     * @param sRoot The root value.
+     */
+    private void assertII(String sFieldName, II oII, String sRoot, String sExtension)
+    {
+        assertNotNull(sFieldName + " should not have been null.  ", oII);
+        assertEquals(sFieldName + ".extension not correct: ", sExtension, oII.getExtension());
+        assertEquals(sFieldName + ".root not correct: ", sRoot, oII.getRoot());
+    }
+
+    /**
+     * This method asserts the value of an address.
+     *
+     * @param sFieldName The name of the field for the output message.
+     * @param oAddr The address to be asserted.
+     * @param sSreet The value of the street tag.
+     * @param sCity The value of the city tag.
+     * @param sState The value of the state tag.
+     * @param sZipcode The value of the zip code tag.
+     * @param sCountry The value of the country tag.
+     */
+    private void assertAddr(String sFieldName, ADExplicit oAddr, String sStreet, String sCity, String sState, String sZipcode, String sCountry)
+    {
+        // Check for the null or empty case...
+        //------------------------------------
+        if ((sStreet == null) &&
+            (sCity == null) &&
+            (sState == null) &&
+            (sZipcode == null) &&
+            (sCountry == null) &&
+            ((oAddr == null) ||
+             (oAddr.getContent() == null) ||
+             (oAddr.getContent().size() == 0)))
+        {
+            return;     // We expected null and we got null.
+        }
+
+        assertNotNull(sFieldName + " should not have been null.  ", oAddr);
+        assertTrue(sFieldName + ".content.size should have been > 0 but was: " + oAddr.getContent().size(), oAddr.getContent().size() > 0);
+        boolean bFoundStreet = false;
+        boolean bFoundCity = false;
+        boolean bFoundState = false;
+        boolean bFoundZipcode = false;
+        boolean bFoundCountry = false;
+
+        // Loop through and make a note of what we find.
+        //-----------------------------------------------
+        for (Serializable oSerialElement : oAddr.getContent())
+        {
+            if (oSerialElement instanceof JAXBElement)
+            {
+                JAXBElement oJAXBElement = (JAXBElement) oSerialElement;
+
+                if (oJAXBElement.getValue() != null)
+                {
+                    if (oJAXBElement.getValue() instanceof AdxpExplicitStreetAddressLine)
+                    {
+                        AdxpExplicitStreetAddressLine oStreetAddressLine = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".streetAddressLine not correct.  ", sStreet, oStreetAddressLine.getContent());
+                        bFoundStreet = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof AdxpExplicitCity)
+                    {
+                        AdxpExplicitCity oCity = (AdxpExplicitCity) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".city not correct.  ", sCity, oCity.getContent());
+                        bFoundCity = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof AdxpExplicitState)
+                    {
+                        AdxpExplicitState oState = (AdxpExplicitState) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".state not correct.  ", sState, oState.getContent());
+                        bFoundState = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode)
+                    {
+                        AdxpExplicitPostalCode oPostalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".postalCode not correct.  ", sZipcode, oPostalCode.getContent());
+                        bFoundZipcode = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof AdxpExplicitCountry)
+                    {
+                        AdxpExplicitCountry oCountry = (AdxpExplicitCountry) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".country not correct.  ", sCountry, oCountry.getContent());
+                        bFoundCountry = true;
+                    }
+                    else
+                    {
+                        fail(sFieldName + ": found an invalid type: Class was: " + oJAXBElement.getValue().getClass().getName());
+                    }
+                }   // if (oJAXBElement.getValue() != null)
+                else
+                {
+                    fail(sFieldName + ": JAXBElement did not have a value.");
+                }
+            }   // if (oSerialElement instanceof JAXBElement)
+            else
+            {
+                fail(sFieldName + ": Found a serial element that was not a JAXBElement.  Class name was: " + oSerialElement.getClass().getName());
+            }
+        }   // for (Serializable oSerialElement : oAddr.getContent())
+
+        // Now for any of the items we have that were not found - make sure we expected them to be null.
+        //----------------------------------------------------------------------------------------------
+        if ((!bFoundStreet) &&
+            (sStreet != null))
+        {
+            fail(sFieldName + ".streetAddressLine incorrect.  Expcted: " + sStreet + " Actual: null");
+        }
+
+        if ((!bFoundCity) &&
+            (sCity != null))
+        {
+            fail(sFieldName + ".city incorrect.  Expcted: " + sCity + " Actual: null");
+        }
+
+        if ((!bFoundState) &&
+            (sState != null))
+        {
+            fail(sFieldName + ".state incorrect.  Expcted: " + sState + " Actual: null");
+        }
+
+        if ((!bFoundZipcode) &&
+            (sZipcode != null))
+        {
+            fail(sFieldName + ".postalCode incorrect.  Expcted: " + sZipcode + " Actual: null");
+        }
+
+        if ((!bFoundCountry) &&
+            (sCountry != null))
+        {
+            fail(sFieldName + ".country incorrect.  Expcted: " + sCountry + " Actual: null");
+        }
+
+        // If we got here - we are in good shape.
+        //----------------------------------------
+
+
+    }
+
+    /**
+     * Assert the id tag wihtin the cda.RecordTarget.patientRole.
+     *
+     * @param olII The list of IDs to assert.
+     *
+     */
+    private void assertRecordTargetPatientRoleId(List<II> olII)
+    {
+        assertNotNull("cda.recordTarget[0].patientRole.id should not have been null.  ", olII);
+        assertEquals("cda.recordTarget[0].patientRole.id.size not correct: ", 1, olII.size());
+        assertII("cda.recordTarget[0].patientRole.id", olII.get(0), "1.1", "1111");
+    }
+
+    /**
+     * Assert the addr tag wihtin the cda.RecordTarget.patientRole.
+     *
+     * @param olAD The list of addresses to assert.
+     *
+     */
+    private void assertRecordTargetPatientRoleAddr(List<ADExplicit> olAD)
+    {
+        assertNotNull("cda.recordTarget[0].patientRole.addr should not have been null.  ", olAD);
+        assertEquals("cda.recordTarget[0].patientRole.addr.size not correct: ", 1, olAD.size());
+        assertAddr("cda.recordTarget[0].patientRole.addr", olAD.get(0), "17 Daws Rd.", "Blue Bell", "MA", "02368", "USA");
+    }
+
+    /**
+     * This validates the parts of the name field.
+     *
+     * @param sFieldName The name of the field for the messages.
+     * @param oName The name field containing the data.
+     * @param sPrefix The expected prefix of the name.
+     * @param sGiven The expectd given name.
+     * @param sFamily The expected family name.
+     * @param sSuffix The expected suffix.
+     */
+    private void assertName(String sFieldName, PNExplicit oName, String sPrefix, String sGiven, String sFamily, String sSuffix)
+    {
+        // Check for the null or empty case...
+        //------------------------------------
+        if ((sPrefix == null) &&
+            (sGiven == null) &&
+            (sFamily == null) &&
+            (sSuffix == null) &&
+            ((oName == null) ||
+             (oName.getContent() == null) ||
+             (oName.getContent().size() == 0)))
+        {
+            return;     // We expected null and we got null.
+        }
+
+        assertNotNull(sFieldName + " should not have been null.  ", oName);
+        assertTrue(sFieldName + ".content.size should have been > 0 but was: " + oName.getContent().size(), oName.getContent().size() > 0);
+        boolean bFoundPrefix = false;
+        boolean bFoundGiven = false;
+        boolean bFoundFamily = false;
+        boolean bFoundSuffix = false;
+
+        // Loop through and make a note of what we find.
+        //-----------------------------------------------
+        for (Serializable oSerialElement : oName.getContent())
+        {
+            if (oSerialElement instanceof JAXBElement)
+            {
+                JAXBElement oJAXBElement = (JAXBElement) oSerialElement;
+
+                if (oJAXBElement.getValue() != null)
+                {
+                    if (oJAXBElement.getValue() instanceof EnExplicitPrefix)
+                    {
+                        EnExplicitPrefix oPrefix = (EnExplicitPrefix) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".prefix not correct.  ", sPrefix, oPrefix.getContent());
+                        bFoundPrefix = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof EnExplicitGiven)
+                    {
+                        EnExplicitGiven oGiven = (EnExplicitGiven) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".given not correct.  ", sGiven, oGiven.getContent());
+                        bFoundGiven = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof EnExplicitFamily)
+                    {
+                        EnExplicitFamily oFamily = (EnExplicitFamily) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".family not correct.  ", sFamily, oFamily.getContent());
+                        bFoundFamily = true;
+                    }
+                    else if (oJAXBElement.getValue() instanceof EnExplicitSuffix)
+                    {
+                        EnExplicitSuffix oSuffix = (EnExplicitSuffix) oJAXBElement.getValue();
+                        assertEquals(sFieldName + ".suffix not correct.  ", sSuffix, oSuffix.getContent());
+                        bFoundSuffix = true;
+                    }
+                    else
+                    {
+                        fail(sFieldName + ": found an invalid type: Class was: " + oJAXBElement.getValue().getClass().getName());
+                    }
+                }   // if (oJAXBElement.getValue() != null)
+                else
+                {
+                    fail(sFieldName + ": JAXBElement did not have a value.");
+                }
+            }   // if (oSerialElement instanceof JAXBElement)
+            else
+            {
+                fail(sFieldName + ": Found a serial element that was not a JAXBElement.  Class name was: " + oSerialElement.getClass().getName());
+            }
+        }   // for (Serializable oSerialElement : oAddr.getContent())
+
+        // Now for any of the items we have that were not found - make sure we expected them to be null.
+        //----------------------------------------------------------------------------------------------
+        if ((!bFoundPrefix) &&
+            (sPrefix != null))
+        {
+            fail(sFieldName + ".prefix incorrect.  Expcted: " + sPrefix + " Actual: null");
+        }
+
+        if ((!bFoundGiven) &&
+            (sGiven != null))
+        {
+            fail(sFieldName + ".given incorrect.  Expcted: " + sGiven + " Actual: null");
+        }
+
+        if ((!bFoundFamily) &&
+            (sFamily != null))
+        {
+            fail(sFieldName + ".family incorrect.  Expcted: " + sFamily + " Actual: null");
+        }
+
+        if ((!bFoundSuffix) &&
+            (sSuffix != null))
+        {
+            fail(sFieldName + ".suffix incorrect.  Expcted: " + sSuffix + " Actual: null");
+        }
+
+        // If we got here - we are in good shape.
+        //----------------------------------------
+
+    }
+
+    /**
+     * Assert the given code has the correct values.
+     *
+     * @param sFieldName The name of the field being checked.
+     * @param oCE The code to be checked.
+     * @param sCode The expected code.
+     * @param sDisplayName The expected display name.
+     * @param sCodeSystem The expected code system.
+     * @param sCodeSystemName The expected code system name.
+     */
+    private void assertCode(String sFieldName, CE oCE, String sCode, String sDisplayName, String sCodeSystem, String sCodeSystemName)
+    {
+        assertNotNull(sFieldName + " should not have been null. ", oCE);
+        assertEquals(sFieldName + ".code incorrect: ", sCode, oCE.getCode());
+        assertEquals(sFieldName + ".displayName incorect: ", sDisplayName, oCE.getDisplayName());
+        assertEquals(sFieldName + ".codeSystem incorect: ", sCodeSystem, oCE.getCodeSystem());
+        assertEquals(sFieldName + ".codeSystemName incorect: ", sCodeSystemName, oCE.getCodeSystemName());
+
+    }
+
+    /**
+     * Assert the patient tag wihtin the cda.RecordTarget.patientRole.
+     *
+     * @param oPatient The patient information to be checked.
+     *
+     */
+    private void assertRecordTargetPatientRolePatient(POCDMT000040Patient oPatient)
+    {
+        assertNotNull("cda.recordTarget[0].patientRole.patient should not have been null.  ", oPatient);
+        assertNotNull("cda.recordTarget[0].patientRole.patient.name should not have been null.  ", oPatient.getName());
+        assertEquals("cda.recordTarget[0].patientRole.patient.name.size incorrect.  ", 1, oPatient.getName().size());
+        assertName("cda.recordTarget[0].patientRole.patient.name", oPatient.getName().get(0), "Mrs.", "Ellen", "Ross", null);
+
+        assertCode("cda.recordTarget[0].patientRole.patient.administrativeGenderCode", oPatient.getAdministrativeGenderCode(), "F", null, "2.16.840.1.113883.5.1", null);
+
+        assertNotNull("cda.recordTarget[0].patientRole.patient.birthTime should not have been null", oPatient.getBirthTime());
+        assertNotNull("cda.recordTarget[0].patientRole.patient.birthTime.value should not have been null", oPatient.getBirthTime().getValue());
+        assertHL7DateOnly("cda.recordTarget[0].patientRole.patient.birthTime", "19600127000000-0700", oPatient.getBirthTime().getValue());
+
+    }
+
+
+    /**
+     * Assert the patient role tag within the Record target tag.
+     *
+     */
+    private void assertRecordTargetPatientRole(POCDMT000040PatientRole oPatientRole)
+    {
+        assertNotNull("cda.recordTarget[0].patientRole should not have been null.  ", oPatientRole);
+
+        assertRecordTargetPatientRoleId(oPatientRole.getId());
+        assertRecordTargetPatientRoleAddr(oPatientRole.getAddr());
+        assertRecordTargetPatientRolePatient(oPatientRole.getPatient());
+    }
 
     /**
      * This is a helper class that will create the list of clinical documents by calling
@@ -340,5 +760,68 @@ public class CdaPdfCreatorTest
         assertEquals("cda.title.content,size incorrect: ", 1, oCda.getTitle().getContent().size());
         assertEquals("cda.title incorrect: ", "Good Health Clinic Care Record Summary", (String) oCda.getTitle().getContent().get(0));
     }
+
+    /**
+     * Tests the effectiveTime tag.
+     */
+    @Test
+    public void testEffectiveTimeTag()
+    {
+        POCDMT000040ClinicalDocument oCda = createTheCDADocs(oPtPref);
+
+        assertNotNull("cda.effectiveTime should not have been null. ", oCda.getEffectiveTime());
+        assertNotNull("cda.effectiveTime.value should not have been null.  ", oCda.getEffectiveTime().getValue());
+        assertHL7DateTime("cda.effectiveTime.value incorrect", "20050329204411-0700", oCda.getEffectiveTime().getValue());
+    }
+
+    /**
+     * Tests the Confidentiality Code tag to make sure that it has what was expected.
+     *
+     */
+    @Test
+    public void testConfidentialityCodeTag()
+    {
+        POCDMT000040ClinicalDocument oCda = createTheCDADocs(oPtPref);
+
+        assertNotNull("cda.confidentialityCode should not have been null. ", oCda.getConfidentialityCode());
+        assertEquals("cda.confidentialityCode.code incorrect: ", "N", oCda.getConfidentialityCode().getCode());
+        assertEquals("cda.confidentialityCode.codeSystem incorect: ", "2.16.840.1.113883.5.25", oCda.getConfidentialityCode().getCodeSystem());
+        assertNull("cda.confidentialityCode.codeSystemName incorect: ", oCda.getConfidentialityCode().getCodeSystemName());
+        assertNull("cda.confidentialityCode.displayName incorect: ", oCda.getConfidentialityCode().getDisplayName());
+    }
+
+    /**
+     * Tests the language code tag to make sure that it has what was expected.
+     *
+     */
+    @Test
+    public void testLanguageCodeTag()
+    {
+        POCDMT000040ClinicalDocument oCda = createTheCDADocs(oPtPref);
+
+        assertNotNull("cda.languageCode should not have been null. ", oCda.getLanguageCode());
+        assertEquals("cda.languageCode.code incorrect: ", "en-US", oCda.getLanguageCode().getCode());
+        assertNull("cda.languageCode.codeSystem incorect: ", oCda.getLanguageCode().getCodeSystem());
+        assertNull("cda.languageCode.codeSystemName incorect: ", oCda.getLanguageCode().getCodeSystemName());
+        assertNull("cda.languageCode.displayName incorect: ", oCda.getLanguageCode().getDisplayName());
+    }
+
+
+    /**
+     * Tests the record target tag to make sure that it has what was expected.
+     *
+     */
+    @Test
+    public void testRecordTargetTag()
+    {
+        POCDMT000040ClinicalDocument oCda = createTheCDADocs(oPtPref);
+
+        assertNotNull("cda.recordTarget should not have been null. ", oCda.getRecordTarget());
+        assertEquals("cda.recordTarget array size incorrect.  ", 1, oCda.getRecordTarget().size());
+        assertNotNull("cda.recordTarget.get(0) should not have been null. ", oCda.getRecordTarget().get(0));
+        assertRecordTargetPatientRole(oCda.getRecordTarget().get(0).getPatientRole());
+    }
+
+
 
 }
