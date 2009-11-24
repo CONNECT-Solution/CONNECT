@@ -125,8 +125,8 @@
     		<property name="project.PropAccessorEJB.Absolute" location="${project.PropAccessorEJB}"/>
     		
         <ant dir="${project.PatientCorrelationDAO.Absolute}" antfile="${project.PatientCorrelationDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/
-        <ant dir="${project.PropAccessorEJB.Absolute}" antfile="${project.PropAccessorEJB.Absolute}/build.xml" inheritall="false" target="jar"/>>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PropAccessorEJB.Absolute}" antfile="${project.PropAccessorEJB.Absolute}/build.xml" inheritall="false" target="jar"/>
 
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
