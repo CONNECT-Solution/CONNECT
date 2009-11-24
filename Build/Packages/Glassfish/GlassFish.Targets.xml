@@ -194,7 +194,7 @@
         <property name="GlassFish.Deploy.Directory.Path" value="${Common.Directory.Product.Path}"/>
         <property name="GlassFish.Deploy.Script.File.Path" value="${GlassFish.Deploy.Directory.Path}\build.xml" />
         <property name="GlassFish.Deploy.Ant.Home" value="${Ant.Home}"/>
-        <call target="Personal.Package"/>
+        <call target="Ant.CompileSource"/>
       </case>
       <default>
         <fail message="The choice ${GlassFish.Deploy.Source} was unexpected!"/>
@@ -204,7 +204,7 @@
     <trycatch>
       <try>
         <call target="Ant.SetUp"/>
-        <call target="GlassFish.Redeploy" />
+        <call target="GlassFish.Deploy" />
       </try>
       <catch property="ExceptionMessage">
         <echo message="${ExceptionMessage}"/>
