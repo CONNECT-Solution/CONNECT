@@ -132,6 +132,10 @@
         <directory>/Production/Adapters/General/AdapterSubjectDiscoveryEJB</directory>
     </project>
     <project>
+        <name>AdapterPatientDiscoveryEJB</name>
+        <directory>/Production/Adapters/General/AdapterPatientDiscoveryEJB</directory>
+    </project>
+    <project>
         <name>AdapterAuthenticationEJB</name>
         <directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
     </project>
