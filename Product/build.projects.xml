@@ -296,6 +296,10 @@
         <directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
     </project>
     <project>
+        <name>AdapterPatientDiscoveryProxyEJB</name>
+        <directory>/Production/Gateway/AdapterPatientDiscoveryProxyEJB</directory>
+    </project>
+    <project>
         <name>AdapterDocRegistryAndRepositoryEJB</name>
         <directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
     </project>
