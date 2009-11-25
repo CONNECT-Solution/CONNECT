@@ -27,6 +27,7 @@
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
 		  <include name="DocQueryXDSErrors-soapui-project.xml"/>
 		  <include name="PatientDiscovery-soapui-project.xml"/>
+		  <include name="DocQueryRetrieveSelfTest-soapui-project.xml"/>
         </fileset>
       </path>
 	  <sequential>
