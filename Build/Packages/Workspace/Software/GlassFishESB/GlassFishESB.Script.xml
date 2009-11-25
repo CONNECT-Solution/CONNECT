@@ -42,7 +42,7 @@
   <target name="GlassFishESB.Update.MySQL">
     <copy
       todir="${GlassFishESB.LibPath}"
-      file="${ThirdPartyDirectory}\MySQLDB\mysql-connector-java-5.0.8-bin.jar"
+      file="${Common.Directory.ThirdParty.Path}\MySQLDB\mysql-connector-java-5.0.8-bin.jar"
       unless="${file::exists(GlassFishESB.LibPath + '\mysql-connector-java-5.0.8-bin.jar')}"
     />
   </target>
@@ -52,7 +52,7 @@
 
     <ifnot test="${file::exists(GlassFishESB.LibPath + '\' + Hibernate.Tag.FileName)}">
       <copy todir="${GlassFishESB.LibPath}">
-        <fileset basedir="${ThirdPartyDirectory}\HibernateLibraries">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\HibernateLibraries">
           <include name="*.jar"/>
         </fileset>
       </copy>
@@ -63,12 +63,12 @@
   <target name="GlassFishESB.Update.Log4J">
     <copy
       todir="${GlassFishESB.LibPath}"
-      file="${ThirdPartyDirectory}\log4j\log4j-1.2.15.jar"
+      file="${Common.Directory.ThirdParty.Path}\log4j\log4j-1.2.15.jar"
       unless="${file::exists(GlassFishESB.LibPath + '\log4j-1.2.15.jar')}"
     />
     <copy
       todir="${GlassFishESB.LibPath}"
-      file="${ThirdPartyDirectory}\log4j\commons-logging-1.1.1.jar"
+      file="${Common.Directory.ThirdParty.Path}\log4j\commons-logging-1.1.1.jar"
       unless="${file::exists(GlassFishESB.LibPath + '\commons-logging-1.1.1.jar')}"
     />
   </target>
@@ -76,7 +76,7 @@
   <target name="GlassFishESB.Update.C3PO">
     <copy
       todir="${GlassFishESB.LibPath}"
-      file="${ThirdPartyDirectory}\C3PO\c3p0-0.9.1.2.jar"
+      file="${Common.Directory.ThirdParty.Path}\C3PO\c3p0-0.9.1.2.jar"
       unless="${file::exists(GlassFishESB.LibPath + '\c3p0-0.9.1.2.jar')}"
     />
   </target>
@@ -88,7 +88,7 @@
 
     <ifnot test="${file::exists(GlassFishESB.LibPath + '\' + Metro.Tag.FileName)}">
       <copy todir="${GlassFishESB.LibPath}">
-        <fileset basedir="${ThirdPartyDirectory}\Metro">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\Metro">
           <include name="webservices-rt.jar"/>
           <include name="webservices-tools.jar"/>
         </fileset>
@@ -98,7 +98,7 @@
 
     <ifnot test="${file::exists(GlassFishESB.EndorsedPath + '\' + Metro.Tag.FileName)}">
       <copy todir="${GlassFishESB.EndorsedPath}">
-        <fileset basedir="${ThirdPartyDirectory}\Metro">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\Metro">
           <include name="webservices-api.jar"/>
         </fileset>
       </copy>
@@ -107,7 +107,7 @@
 
     <ifnot test="${file::exists(Java.EndorsedPath + '\' + Metro.Tag.FileName)}">
       <copy todir="${Java.EndorsedPath}">
-        <fileset basedir="${ThirdPartyDirectory}\Metro">
+        <fileset basedir="${Common.Directory.ThirdParty.Path}\Metro">
           <include name="webservices-api.jar"/>
         </fileset>
       </copy>
