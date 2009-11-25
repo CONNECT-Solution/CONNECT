@@ -15,8 +15,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import junit.framework.Assert;
@@ -35,7 +35,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.api.Imposteriser;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -104,7 +103,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(null, null);
+        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(null, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -128,7 +127,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(null, null);
+        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(null, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -152,7 +151,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(null, null);
+        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(null, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -178,7 +177,7 @@ public class PatientDiscoveryTransformsTest {
         });
 
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
+        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -204,7 +203,7 @@ public class PatientDiscoveryTransformsTest {
         });
 
         PRPAIN201305UV02 oPatientDiscoveryRequest = new PRPAIN201305UV02();
-        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
+        testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -229,7 +228,7 @@ public class PatientDiscoveryTransformsTest {
         });
 
         PRPAIN201305UV02 oPatientDiscoveryRequest = new PRPAIN201305UV02();
-        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null);
+        testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -260,7 +259,7 @@ public class PatientDiscoveryTransformsTest {
         RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         AssertionType oAssertion = new AssertionType();
 
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion);
+        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         context.assertIsSatisfied();
     }
@@ -301,7 +300,7 @@ public class PatientDiscoveryTransformsTest {
         oUserInfo.setOrg(oHomeCommunityType);
         oAssertion.setUserInfo(oUserInfo);
 
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion);
+        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         context.assertIsSatisfied();
     }
@@ -359,7 +358,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        final LogEventRequestType expected = testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         context.assertIsSatisfied();
 
         Assert.assertNotNull(expected);
@@ -419,7 +418,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        final LogEventRequestType expected = testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformNhinPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         context.assertIsSatisfied();
 
         Assert.assertNotNull(expected);
@@ -478,7 +477,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        final LogEventRequestType expected = testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType);
+        final LogEventRequestType expected = testSubject.transformAdapterPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         context.assertIsSatisfied();
 
         Assert.assertNotNull(expected);
@@ -510,7 +509,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(null, null);
+        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(null, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -573,7 +572,7 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        LogEventRequestType expectedResult = testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponse, oAssertion);
+        LogEventRequestType expectedResult = testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponse, oAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         context.assertIsSatisfied();
 
@@ -633,7 +632,7 @@ public class PatientDiscoveryTransformsTest {
 
         pRPAIN201306UV.setControlActProcess(pRPAIN201306UVMFMIMT700711UV01ControlActProcess);
 
-        LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType);
+        LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         context.assertIsSatisfied();
 
@@ -685,7 +684,7 @@ public class PatientDiscoveryTransformsTest {
 
         final PRPAIN201306UV02 pRPAIN201306UV = new PRPAIN201306UV02();
 
-        LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType);
+        LogEventRequestType expectedResult = testSubject.transformPRPAIN201306ResponseToAuditMsg(pRPAIN201306UV, oAssertionType, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         context.assertIsSatisfied();
 
