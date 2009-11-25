@@ -377,4 +377,32 @@ public class HL7Extractors {
         PRPAMT201302UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
         return patientPerson;
     }
+
+    public static String ExtractHL7ReceiverOID (org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV)
+    {
+        String sReceiverOID = null;
+
+        List<MCCIMT000100UV01Receiver> olMCCIMT000100UV01Receiver = oPRPAIN201305UV.getReceiver();
+        MCCIMT000100UV01Receiver oMCCIMT000100UV01Receiver = olMCCIMT000100UV01Receiver.get(0);
+        MCCIMT000100UV01Device oDevice = oMCCIMT000100UV01Receiver.getDevice();
+        List<II> olII = oDevice.getId();
+        II oII = olII.get(0);
+        sReceiverOID = oII.getRoot();
+        
+        return sReceiverOID;
+    }
+
+    public static String ExtractHL7SenderOID (org.hl7.v3.PRPAIN201305UV02 oPRPAIN201305UV)
+    {
+        String sSenderOID = null;
+
+        MCCIMT000100UV01Sender oMCCIMT000100UV01Sender = oPRPAIN201305UV.getSender();
+        MCCIMT000100UV01Device oDevice = oMCCIMT000100UV01Sender.getDevice();
+        List<II> olII = oDevice.getId();
+        II oII = olII.get(0);
+        sSenderOID = oII.getRoot();
+
+        return sSenderOID;
+    }
+
 }
