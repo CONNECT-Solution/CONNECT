@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="build.lib.properties">
   
-  <property name="netbeans.user" value="C:/Documents and Settings/Admin/.netbeans/6.1"/>
   <property name="no.netbeans.home" value="false"/>
-  <property name="ant.home" value="${caps.netbeans.home}/java2/ant/lib"/>
 
   <property name="caps.netbeans.home" value="${env.IDE_HOME}"/>
   <property name="glassfish.home" value="${env.AS_HOME}"/>
-  <property name="nhin.thirdparty.home" value="${ProductDirectory}/../ThirdParty"/>
+  <property name="nhin.thirdparty.home" value="${env.NHINC_THIRDPARTY_DIR}"/>
   <property name="nhin.project.home" value="${ProductDirectory}"/>
 
   <property name="netbeans.home" value="${caps.netbeans.home}/platform10"/>
@@ -42,7 +40,6 @@
   <property name="jaxbwiz.endorsed.dirs" value="${java.module.install.dir}/ext/jaxws21/api;${java.module.install.dir}/ext/jaxws21;${ide.module.install.dir}/ext/jaxb/api;${ide.module.install.dir}/ext/jaxb"/>
   <property name="libs.junit_4.classpath" value="${nhin.thirdparty.home}/JUnit/junit-4.5.jar"/>
   <property name="libs.jaxb.classpath" value="${ide.module.install.dir}/ext/jaxb/jaxb-xjc.jar;${ide.module.install.dir}/ext/jaxb/activation.jar;${ide.module.install.dir}/ext/jaxb/api/jaxb-api.jar;${ide.module.install.dir}/ext/jaxb/jaxb-impl.jar;${ide.module.install.dir}/ext/jaxb/api/jsr173_api.jar;${nhin.thirdparty.home}/Metro/webservices-tools.jar;${nhin.thirdparty.home}/Metro/webservices-rt.jar;"/>
-
 
   <property name="file.reference.appbase.jar" value="${nhin.thirdparty.home}/UDDIModifierLib/appbase.jar"/>
   <property name="file.reference.commons-fileupload-1.0.jar" value="${nhin.thirdparty.home}/UDDIModifierLib/commons-fileupload-1.0.jar"/>
