@@ -159,7 +159,7 @@ public class TestHelper {
         assertRecDeviceNotNull(message.getReceiver().get(0));
 
         if (receiverOID != null && !receiverOID.isEmpty()) {
-            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getId().get(0).getRoot());
+            assertEquals(receiverOID, message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
@@ -223,7 +223,7 @@ public class TestHelper {
         assertSendDeviceNotNull(message.getSender());
 
         if (senderOID != null && !senderOID.isEmpty()) {
-            assertEquals(senderOID, message.getSender().getDevice().getId().get(0).getRoot());
+            assertEquals(senderOID, message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
         }
     }
 
