@@ -2,7 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.SoapUI.Scripts">
 
   <property name="SoapUI.Install.FriendlyName" value="SoapUI Pro 3.0.1"/>
-  
+
   <property name="SoapUI.Installer.File.Name" value="soapUI-Pro-3.0.1-silent-installer.exe"/>
   <property name="SoapUI.Installer.File.Path" value="C:\Temp\${SoapUI.Installer.File.Name}"/>
   <property name="SoapUI.Installer.Download.URL" value="${Workspace.Ftp.Url}${SoapUI.Installer.File.Name}"/>
@@ -19,24 +19,25 @@
     <ifnot test="${file::exists(SoapUI.Install.Check.File.Path)}">
       <ask answer="Answer"
            question="It looks like the ${SoapUI.Install.FriendlyName} is not installed.  This software is optional.  Do you wish to install the software?"
-           caption="Proceed Without Required Software?">
+           caption="Install ${SoapUI.Install.FriendlyName} Software?">
         <options>
-          <string value="Install"/>
-          <string value="Exit"/>
+          <string value="Yes"/>
+          <string value="No"/>
         </options>
       </ask>
-      
-      <if test="${Answer == 'Install' or bool::parse(Workspace.Silent)}">
-          <get
-              src="${SoapUI.Installer.Download.URL}"
-              dest="${SoapUI.Installer.File.Path}"
-              unless="${file::exists(SoapUI.Installer.File.Path)}"
+
+      <if test="${Answer == 'Yes' or bool::parse(Workspace.Silent)}">
+        <get
+            src="${SoapUI.Installer.Download.URL}"
+            dest="${SoapUI.Installer.File.Path}"
+            unless="${file::exists(SoapUI.Installer.File.Path)}"
           />
-          <exec
-            workingdir="${path::get-directory-name(SoapUI.Installer.File.Path)}"
-            program="${SoapUI.Installer.File.Path}"
-            verbose="true"
+        <exec
+          workingdir="${path::get-directory-name(SoapUI.Installer.File.Path)}"
+          program="${SoapUI.Installer.File.Path}"
+          verbose="true"
           />
+        <call target="Workspace.RequieredSoftware.SoapUI.License"/>
       </if>
     </ifnot>
   </target>
@@ -58,7 +59,7 @@
 
         <property name="SourceControl.CheckOut.File" value="${SoapUI.License.Tracking.File.Path}"/>
         <call target="SourceControl.CheckOut"/>
-        
+
         <xmlpeek
           file="${SoapUI.License.Tracking.File.Path}"
           property="SoapUI.License.File.Name"
@@ -103,12 +104,12 @@
           tofile="${SoapUI.License.File.Path}"
           verbose="True"
         />
-      </ifnot>  
+      </ifnot>
     </ifnot>
   </target>
 
   <target name="Workspace.RequieredSoftware.SoapUI.InitialInstall.Cleanup">
     <delete file="${SoapUI.Installer.File.Path}" if="${file::exists(SoapUI.Installer.File.Path)}"/>
   </target>
-  
+
 </project>
