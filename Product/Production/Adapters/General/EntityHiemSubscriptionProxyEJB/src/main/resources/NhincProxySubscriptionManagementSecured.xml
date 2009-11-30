@@ -72,7 +72,7 @@
    xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"    >
 
   <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
-               location="./wsdl/client/NhincProxySubscriptionManagementSecured/rw-2.wsdl"/>
+               location="./xml-resources/web-service-references/NhincProxySubscriptionManagementSecured/wsdl/rw-2.wsdl"/>
 
   <wsdl:types>
     <xsd:schema>
