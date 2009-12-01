@@ -58,26 +58,16 @@
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
    xmlns:nccommonproxy="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy"
-   name="NhincProxySubscriptionManagementSecured" 
-   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"
-   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-   xmlns:wsp1="http://schemas.xmlsoap.org/ws/2004/09/policy"
-   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
-   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-   xmlns:wsaw="http://www.w3.org/2005/08/addressing"
-   xmlns:ihe="urn:ihe:iti:xds-b:2007" 
-   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
-   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
-   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
-   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"    >
+   name="NhincProxySubscriptionManagement" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement">
 
   <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
-               location="./wsdl/client/NhincProxySubscriptionManagementSecured/rw-2.wsdl"/>
+               location="rw-2.wsdl"/>
 
   <wsdl:types>
     <xsd:schema>
       <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/> 
     </xsd:schema>
     <xsd:schema>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
@@ -152,7 +142,7 @@
                element="wsnt:UnableToDestroySubscriptionFault"/>
   </wsdl:message>
 
-  <wsdl:portType name="NhincProxyNotificationProducerSecuredPortType">
+  <wsdl:portType name="NhincProxyNotificationProducerPortType">
     <wsdl:operation name="Subscribe">
       <wsdl:input name="SubscribeRequest"
                   message="tns:SubscribeRequestMessage"/>
@@ -186,7 +176,7 @@
     </wsdl:operation>
   </wsdl:portType>
   
-  <wsdl:portType name="NhincProxySubscriptionManagerSecuredPortType">
+  <wsdl:portType name="NhincProxySubscriptionManagerPortType">
     <wsdl:operation name="Unsubscribe">
       <wsdl:input name="UnsubscribeRequest" 
                   message="tns:UnsubscribeRequestMessage" />
@@ -200,13 +190,10 @@
     </wsdl:operation>
   </wsdl:portType>
   
-  <wsdl:binding name="NhincProxyNotificationProducerSecureBindingSoap11" 
-                type="tns:NhincProxyNotificationProducerSecuredPortType">
+  <wsdl:binding name="NhincProxyNotificationProducerBindingSoap11" 
+                type="tns:NhincProxyNotificationProducerPortType">
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-                  
-    <wsp1:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>
-                  
     <wsdl:operation name="Subscribe">
       <soap:operation soapAction="urn:Subscribe"/>
       <wsdl:input name="SubscribeRequest" >
@@ -255,11 +242,10 @@
     </wsdl:operation>
   </wsdl:binding>
   
-  <wsdl:binding name="NhincProxySubscriptionManagerSecuredBindingSoap11" 
-                type="tns:NhincProxySubscriptionManagerSecuredPortType">
+  <wsdl:binding name="NhincProxySubscriptionManagerBindingSoap11" 
+                type="tns:NhincProxySubscriptionManagerPortType">
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsp1:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>    
     <wsdl:operation name="Unsubscribe">
       <soap:operation soapAction="urn:Unsubscribe"/>
       <wsdl:input name="UnsubscribeRequest">
@@ -267,7 +253,6 @@
       </wsdl:input>
       <wsdl:output name="UnsubscribeResponse">
         <soap:body use="literal"/>
-        
       </wsdl:output>
       
       <wsdl:fault name="ResourceUnknownFault">
@@ -279,19 +264,19 @@
     </wsdl:operation>
   </wsdl:binding>
   
-  <wsdl:service name="NhincProxyNotificationProducerSecured">
+  <wsdl:service name="NhincProxyNotificationProducer">
     <wsdl:port name="NhincProxyNotificationProducerPortSoap11" 
-               binding="tns:NhincProxyNotificationProducerSecureBindingSoap11">
+               binding="tns:NhincProxyNotificationProducerBindingSoap11">
       <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxyNotificationProducerSecured"/>
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyNotificationProducer"/>
     </wsdl:port>
   </wsdl:service>
   
-  <wsdl:service name="NhincProxySubscriptionManagerSecured">
-    <wsdl:port name="NhincProxySubscriptionManagerSecuredPortSoap11" 
-               binding="tns:NhincProxySubscriptionManagerSecuredBindingSoap11">
+  <wsdl:service name="NhincProxySubscriptionManager">
+    <wsdl:port name="NhincProxySubscriptionManagerPortSoap11" 
+               binding="tns:NhincProxySubscriptionManagerBindingSoap11">
       <soap:address 
-         location="https://localhost:${HttpsDefaultPort}/NhinConnect/NhincProxySubscriptionManagerSecured"/>
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubscriptionManager"/>
     </wsdl:port>
   </wsdl:service>
   
@@ -302,8 +287,8 @@
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxyNotificationProducerSecuredPortTypeRole" 
-               portType="tns:NhincProxyNotificationProducerSecuredPortType"/>
+    <plnk:role name="NhincProxyNotificationProducerPortTypeRole" 
+               portType="tns:NhincProxyNotificationProducerPortType"/>
   </plnk:partnerLinkType>
   
   <plnk:partnerLinkType name="NhincProxySubscriptionManager">
@@ -313,33 +298,8 @@
          Each partner link is associated with a partner link type. A partner link type 
          characterizes the conversational relationship between two services. The 
          partner link type can have one or two roles.-->
-    <plnk:role name="NhincProxySubscriptionManagerSecuredPortTypeRole" 
-               portType="tns:NhincProxySubscriptionManagerSecuredPortType"/>
+    <plnk:role name="NhincProxySubscriptionManagerPortTypeRole" 
+               portType="tns:NhincProxySubscriptionManagerPortType"/>
   </plnk:partnerLinkType>
-  <!-- Just using one policy for both ports
-  <wsp1:Policy wsu:Id="NhincProxyNotificationProducerSecuredPortType_SoapPolicy">
-        <wsp1:ExactlyOne>
-            <wsp1:All>
-                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
-                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
-                </sc1:CallbackHandlerConfiguration>
-            </wsp1:All>
-        </wsp1:ExactlyOne> 
-    </wsp1:Policy>    
-    -->
-  <wsp1:Policy wsu:Id="NhincProxySubscriptionManagerSecuredPortType_SoapPolicy">
-        <wsp1:ExactlyOne>
-            <wsp1:All>
-                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
-                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
-                </sc1:CallbackHandlerConfiguration>
-            </wsp1:All>
-        </wsp1:ExactlyOne>  
-    </wsp1:Policy>    
   
-
 </wsdl:definitions>

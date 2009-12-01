@@ -61,7 +61,6 @@
    name="NhincProxySubscriptionManagementSecured" 
    targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"
    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
-   xmlns:wsp1="http://schemas.xmlsoap.org/ws/2004/09/policy"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
    xmlns:wsaw="http://www.w3.org/2005/08/addressing"
@@ -69,15 +68,15 @@
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
-   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"    >
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"    >
 
   <wsdl:import namespace="http://docs.oasis-open.org/wsrf/rw-2" 
-               location="./wsdl/client/NhincProxySubscriptionManagementSecured/rw-2.wsdl"/>
+               location="rw-2.wsdl"/>
 
   <wsdl:types>
     <xsd:schema>
       <xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" 
-                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/>
+                  schemaLocation="../schemas/docs.oasis-open.org/wsn/b-2.xsd"/> 
     </xsd:schema>
     <xsd:schema>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" 
@@ -87,14 +86,14 @@
 
   <!-- Request/Response Messages -->
   <!-- ========================= -->
-  <wsdl:message name="SubscribeRequestMessage">
-    <wsdl:part name="SubscribeRequest" element="nccommonproxy:SubscribeRequest"/>
+  <wsdl:message name="SubscribeRequestSecuredMessage">
+    <wsdl:part name="SubscribeRequestSecured" element="nccommonproxy:SubscribeRequestSecured"/>
   </wsdl:message>
   <wsdl:message name="SubscribeResponseMessage">
     <wsdl:part name="SubscribeResponse" element="wsnt:SubscribeResponse"/>
   </wsdl:message>
-  <wsdl:message name="UnsubscribeRequestMessage">
-    <wsdl:part name="UnsubscribeRequest" element="nccommonproxy:UnsubscribeRequest"/>
+  <wsdl:message name="UnsubscribeRequestSecuredMessage">
+    <wsdl:part name="UnsubscribeRequestSecured" element="nccommonproxy:UnsubscribeRequestSecured"/>
   </wsdl:message>
   <wsdl:message name="UnsubscribeResponseMessage">
     <wsdl:part name="UnsubscribeResponse" element="wsnt:UnsubscribeResponse"/>
@@ -154,8 +153,8 @@
 
   <wsdl:portType name="NhincProxyNotificationProducerSecuredPortType">
     <wsdl:operation name="Subscribe">
-      <wsdl:input name="SubscribeRequest"
-                  message="tns:SubscribeRequestMessage"/>
+      <wsdl:input name="SubscribeRequestSecured"
+                  message="tns:SubscribeRequestSecuredMessage"/>
       <wsdl:output name="SubscribeResponse"
                    message="tns:SubscribeResponseMessage"/>
       
@@ -188,8 +187,8 @@
   
   <wsdl:portType name="NhincProxySubscriptionManagerSecuredPortType">
     <wsdl:operation name="Unsubscribe">
-      <wsdl:input name="UnsubscribeRequest" 
-                  message="tns:UnsubscribeRequestMessage" />
+      <wsdl:input name="UnsubscribeRequestSecured" 
+                  message="tns:UnsubscribeRequestSecuredMessage" />
       <wsdl:output name="UnsubscribeResponse" 
                    message="tns:UnsubscribeResponseMessage" />
                    
@@ -205,15 +204,17 @@
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
                   
-    <wsp1:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>
+    <wsp:PolicyReference URI="#NhincProxyNotificationProducerSecuredPortType_SoapPolicy"/>                
                   
     <wsdl:operation name="Subscribe">
       <soap:operation soapAction="urn:Subscribe"/>
-      <wsdl:input name="SubscribeRequest" >
+      <wsdl:input name="SubscribeRequestSecured" >
         <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Subscribe_Binding_Soap_Input_Policy"/>
       </wsdl:input>
       <wsdl:output name="SubscribeResponse" >
         <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#Subscribe_Binding_Soap_Output_Policy"/>
       </wsdl:output>
       
       <wsdl:fault name="ResourceUnknownFault">
@@ -259,15 +260,16 @@
                 type="tns:NhincProxySubscriptionManagerSecuredPortType">
     <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsp1:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>    
+    <wsp:PolicyReference URI="#NhincProxySubscriptionManagerSecuredPortType_SoapPolicy"/>    
     <wsdl:operation name="Unsubscribe">
       <soap:operation soapAction="urn:Unsubscribe"/>
-      <wsdl:input name="UnsubscribeRequest">
+      <wsdl:input name="UnsubscribeRequestSecured">
         <soap:body use="literal"/>
+        <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>
       </wsdl:input>
       <wsdl:output name="UnsubscribeResponse">
         <soap:body use="literal"/>
-        
+        <wsp:PolicyReference URI="#UnSubscribe_Binding_Soap_Output_Policy"/>
       </wsdl:output>
       
       <wsdl:fault name="ResourceUnknownFault">
@@ -316,30 +318,138 @@
     <plnk:role name="NhincProxySubscriptionManagerSecuredPortTypeRole" 
                portType="tns:NhincProxySubscriptionManagerSecuredPortType"/>
   </plnk:partnerLinkType>
-  <!-- Just using one policy for both ports
-  <wsp1:Policy wsu:Id="NhincProxyNotificationProducerSecuredPortType_SoapPolicy">
-        <wsp1:ExactlyOne>
-            <wsp1:All>
-                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
-                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
-                </sc1:CallbackHandlerConfiguration>
-            </wsp1:All>
-        </wsp1:ExactlyOne> 
-    </wsp1:Policy>    
-    -->
-  <wsp1:Policy wsu:Id="NhincProxySubscriptionManagerSecuredPortType_SoapPolicy">
-        <wsp1:ExactlyOne>
-            <wsp1:All>
-                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
-                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
-                </sc1:CallbackHandlerConfiguration>
-            </wsp1:All>
-        </wsp1:ExactlyOne>  
-    </wsp1:Policy>    
   
-
+  <wsp:Policy wsu:Id="NhincProxyNotificationProducerSecuredPortType_SoapPolicy">
+   <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+        <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+        <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:RequireClientCertificate/>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens>
+          <wsp:Policy>
+            <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssSamlV20Token11/>
+              </wsp:Policy>
+            </sp:SamlToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier/>
+            <sp:MustSupportRefIssuerSerial/>
+            <sp:RequireSignatureConfirmation/>
+          </wsp:Policy>
+        </sp:Wss11>
+      </wsp:All>
+    </wsp:ExactlyOne>
+    </wsp:Policy>    
+    
+  <wsp:Policy wsu:Id="NhincProxySubscriptionManagerSecuredPortType_SoapPolicy">
+           <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+        <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+        <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+        <sp:TransportBinding>
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken>
+                  <wsp:Policy>
+                    <sp:RequireClientCertificate/>
+                  </wsp:Policy>
+                </sp:HttpsToken>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict/>
+              </wsp:Policy>
+            </sp:Layout>
+            <sp:IncludeTimestamp/>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic128/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <sp:EndorsingSupportingTokens>
+          <wsp:Policy>
+            <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+              <wsp:Policy>
+                <sp:WssSamlV20Token11/>
+              </wsp:Policy>
+            </sp:SamlToken>
+          </wsp:Policy>
+        </sp:EndorsingSupportingTokens>
+        <sp:Wss11>
+          <wsp:Policy>
+            <sp:MustSupportRefKeyIdentifier/>
+            <sp:MustSupportRefIssuerSerial/>
+            <sp:RequireSignatureConfirmation/>
+          </wsp:Policy>
+        </sp:Wss11>
+      </wsp:All>
+    </wsp:ExactlyOne>
+    </wsp:Policy>    
+  
+    <wsp:Policy wsu:Id="Subscribe_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="Subscribe_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>    
+     
+    <wsp:Policy wsu:Id="UnSubscribe_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="UnSubscribe_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>   
 </wsdl:definitions>
