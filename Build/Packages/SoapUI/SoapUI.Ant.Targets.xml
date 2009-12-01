@@ -28,7 +28,7 @@
 		  <include name="DocQueryXDSErrors-soapui-project.xml"/>
 		  <include name="PatientDiscovery-soapui-project.xml"/>
 		  <include name="DocQueryRetrieveSelfTest-soapui-project.xml"/>
-		  <include name="Document Retrieve XDS Error Validation-soapui-project.xml"/>
+		  <include name="DocumentRetrieveXDSErrorValidation-soapui-project.xml"/>
         </fileset>
       </path>
 	  <sequential>
