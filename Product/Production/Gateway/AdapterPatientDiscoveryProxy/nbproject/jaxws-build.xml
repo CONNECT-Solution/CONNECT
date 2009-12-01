@@ -14,7 +14,7 @@
     <target name="wsimport-client-AdapterPatientDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured"/>
         <property name="wsdl-AdapterPatientDiscoverySecured" location="xml-resources/web-service-references/AdapterPatientDiscoverySecured/wsdl/AdapterPatientDiscoverySecured.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured" wsdl="${wsdl-AdapterPatientDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl" xnocompile="true">
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured" wsdl="${wsdl-AdapterPatientDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Gateway/AdapterPatientDiscoveryProxy/src/main/resources/xml-resources/web-service-references/AdapterPatientDiscoverySecured/wsdl/AdapterPatientDiscoverySecured.wsdl" xnocompile="true">
             <depends file="${wsdl-AdapterPatientDiscoverySecured}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured"/>
         </wsimport>
