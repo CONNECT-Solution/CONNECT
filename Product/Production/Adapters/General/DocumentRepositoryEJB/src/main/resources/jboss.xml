@@ -1,0 +1,22 @@
+<jboss>
+    <loader-repository>
+        org.connect.jboss:archive=DocumentRepositoryEJB
+        <loader-repository-config>java2ParentDelegation=true</loader-repository-config>
+    </loader-repository>
+    <enterprise-beans>
+        <session>
+            <ejb-name>DocumentRegistryService</ejb-name>
+            <port-component>
+                <port-component-name>DocumentRegistry_Service</port-component-name>
+                <port-component-uri>/DocumentRegistry_Service</port-component-uri>
+            </port-component>
+        </session>
+        <session>
+            <ejb-name>DocumentRepositoryService</ejb-name>
+            <port-component>
+                <port-component-name>DocumentRepository_Service</port-component-name>
+                <port-component-uri>/DocumentRepository_Service</port-component-uri>
+            </port-component>
+        </session>
+    </enterprise-beans>
+</jboss>
