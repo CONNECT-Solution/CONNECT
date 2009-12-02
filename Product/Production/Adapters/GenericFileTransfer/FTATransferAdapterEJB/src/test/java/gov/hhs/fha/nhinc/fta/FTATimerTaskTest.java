@@ -68,7 +68,7 @@ public class FTATimerTaskTest {
     public void testGetFileContents() {
         System.out.println("getFileContents");
         File aFile = new File("unitTest.txt");
-        String expResult = "unitTest\r\n";
+        String expResult = "unitTest"+System.getProperty("line.separator");
         String result = Util.getFileContents(aFile);
         assertEquals(expResult, result);
     }
