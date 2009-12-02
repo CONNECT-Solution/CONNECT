@@ -190,6 +190,7 @@
                 <include name="uddi/uddi_v3.xsd"/>
                 <include name="www.w3.org/**/*.xsd"/>
                 <include name="xmlsoap.org/**/*.xsd"/>
+                <include name="Endpoint/**/*.xsd"/>
             </schema>
         </xjc>
 
