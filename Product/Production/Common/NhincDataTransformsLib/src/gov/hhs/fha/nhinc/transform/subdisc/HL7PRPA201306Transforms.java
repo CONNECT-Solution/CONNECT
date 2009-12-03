@@ -21,14 +21,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class HL7PRPA201306Transforms {
 
-    private static Log log = null; //LogFactory.getLog(HL7PRPA201306Transforms.class);
+    private static Log log = LogFactory.getLog(HL7PRPA201306Transforms.class);
+    private Log nonStaticLog = null;
 
 
     /**
      * default constructor
      */
     public HL7PRPA201306Transforms() {
-        log = createLogger();
+        nonStaticLog = createLogger();
     }
 
 
@@ -466,7 +467,7 @@ public class HL7PRPA201306Transforms {
      */
     protected Log createLogger()
     {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
+        return ((nonStaticLog != null) ? nonStaticLog : LogFactory.getLog(getClass()));
     }
 
     protected TSExplicit getHL7CreationTime() {
@@ -506,7 +507,7 @@ public class HL7PRPA201306Transforms {
      * @param message
      */
     private void addLogInfo(String message){
-        log.info(message);
+        nonStaticLog.info(message);
     }
 
     /**
@@ -514,7 +515,7 @@ public class HL7PRPA201306Transforms {
      * @param message
      */
     private void addLogDebug(String message){
-        log.debug(message);
+        nonStaticLog.debug(message);
     }
 
     /**
@@ -522,7 +523,7 @@ public class HL7PRPA201306Transforms {
      * @param message
      */
     private void addLogError(String message){
-        log.error(message);
+        nonStaticLog.error(message);
     }
 
     protected boolean areIncommingRequiredPRPAIN201305FieldsNull(PRPAIN201305UV02 oRequest) {
