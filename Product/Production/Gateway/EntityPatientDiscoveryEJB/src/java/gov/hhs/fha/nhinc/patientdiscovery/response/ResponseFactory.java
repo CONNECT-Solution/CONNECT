@@ -18,7 +18,7 @@ public class ResponseFactory {
     private static final int VERIFY_MODE = 0;
     private static final int TRUST_MODE = 1;
     private static final int PASSTHRU_MODE = 2;
-    private static Log log = null;
+    private Log log = null;
 
     public ResponseFactory() {
         log = createLogger();

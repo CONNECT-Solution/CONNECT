@@ -10,7 +10,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLog;
+import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.properties.*;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,7 +25,9 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
  */
 public class NhincProxyPatientDiscoverySecuredImpl {
     private static Log log = LogFactory.getLog(NhincProxyPatientDiscoverySecuredImpl.class);
-    
+
+
+
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context) {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -43,8 +47,12 @@ public class NhincProxyPatientDiscoverySecuredImpl {
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         ack = auditLog.auditProxyResponse(response, assertion);
 
+
+        response = new ResponseFactory().getResponseMode().processResponse(response, context);
+        
         log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         return response;
     }
+
 
 }
