@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+ 
 <project name="nhinc" default="default" basedir="." xmlns:web="http://www.netbeans.org/ns/j2ee-ejbjarproject/1">
 
   <description>Builds nhinc, tests, runs NHINC projects</description>
