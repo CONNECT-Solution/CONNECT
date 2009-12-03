@@ -87,8 +87,8 @@
     <runtarget target="deploy.shared.libs.to.glassfish"/>
     
     <runtarget target="deploy.glassfish.start.server"/>
-    <runtarget target="deploy.ejbs.to.glassfish"/>
     <runtarget target="deploy.wars.to.glassfish"/>
+    <runtarget target="deploy.ejbs.to.glassfish"/>
   </target>
   
   <target name="undeploy.from.production">
