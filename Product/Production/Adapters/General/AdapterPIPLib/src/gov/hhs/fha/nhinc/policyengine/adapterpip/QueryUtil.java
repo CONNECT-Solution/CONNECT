@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -21,8 +22,8 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Neil Webb
  */
-public class QueryUtil
-{
+public class QueryUtil {
+
     private Log log = null;
 
     public QueryUtil()
@@ -45,44 +46,37 @@ public class QueryUtil
      *         This is thrown if any issues occur.
      */
     public String extractPatientId(AdhocQueryResponse oResponse)
-        throws AdapterPIPException
-    {
+            throws AdapterPIPException {
         String sPatientId = "";
 
         // Find the Patient ID in the response...
         //---------------------------------------
         if ((oResponse != null) &&
-            (oResponse.getRegistryObjectList() != null) &&
-            (oResponse.getRegistryObjectList().getIdentifiable() != null) &&
-            (oResponse.getRegistryObjectList().getIdentifiable().size() > 0))
-        {
+                (oResponse.getRegistryObjectList() != null) &&
+                (oResponse.getRegistryObjectList().getIdentifiable() != null) &&
+                (oResponse.getRegistryObjectList().getIdentifiable().size() > 0)) {
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList().getIdentifiable();
 
-            for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
-            {
+            for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
                 if ((oJAXBObj != null) &&
-                    (oJAXBObj.getDeclaredType() != null) &&
-                    (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                    (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
-                    (oJAXBObj.getValue() != null))
-                {
+                        (oJAXBObj.getDeclaredType() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
+                        (oJAXBObj.getValue() != null)) {
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
 
                     // Patient ID
                     //-----------
                     if ((oExtObj.getSlot() != null) &&
-                        (oExtObj.getSlot().size() > 0))
-                    {
+                            (oExtObj.getSlot().size() > 0)) {
                         List<SlotType1> olSlot = oExtObj.getSlot();
-                        for (SlotType1 oSlot : olSlot)
-                        {
+                        for (SlotType1 oSlot : olSlot) {
                             if ((oSlot.getName() != null) &&
-                                (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)) &&
-                                (oSlot.getValueList() != null) &&
-                                (oSlot.getValueList().getValue() != null) &&
-                                (oSlot.getValueList().getValue().size() > 0) &&
-                                (oSlot.getValueList().getValue().get(0).length() > 0))
-                            {
+                                    (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)) &&
+                                    (oSlot.getValueList() != null) &&
+                                    (oSlot.getValueList().getValue() != null) &&
+                                    (oSlot.getValueList().getValue().size() > 0) &&
+                                    (oSlot.getValueList().getValue().get(0).length() > 0)) {
                                 sPatientId = oSlot.getValueList().getValue().get(0).trim();
                                 break;          // Get out of the loop - we found what we want.
                             }
@@ -106,8 +100,7 @@ public class QueryUtil
      *          This is thrown if there is an error.
      */
     public AdhocQueryRequest createPatientIdQuery(String sDocumentUniqueId, String sRepositoryId)
-        throws AdapterPIPException
-    {
+            throws AdapterPIPException {
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
 
         // ResponseOption
@@ -125,21 +118,19 @@ public class QueryUtil
 
         // Document ID
         //------------
-        if (sDocumentUniqueId.length() > 0)
-        {
+        if (sDocumentUniqueId.length() > 0) {
             SlotType1 oSlot = new SlotType1();
             olSlot.add(oSlot);
             oSlot.setName(CDAConstants.SLOT_NAME_DOC_RETRIEVE_DOCUMENT_ID);
             ValueListType oValueList = new ValueListType();
             oSlot.setValueList(oValueList);
-            String sDocId = "('"+sDocumentUniqueId+"')"; //Formatted for NIST XDS.b
+            String sDocId = "('" + sDocumentUniqueId + "')"; //Formatted for NIST XDS.b
             oValueList.getValue().add(sDocId);
         }
 
         // Repository ID
         //--------------
-        if (sRepositoryId.length() > 0)
-        {
+        if (sRepositoryId.length() > 0) {
             SlotType1 oSlot = new SlotType1();
             olSlot.add(oSlot);
             oSlot.setName(CDAConstants.SLOT_NAME_DOC_RETRIEVE_REPOSITORY_UNIQUE_ID);
@@ -161,61 +152,54 @@ public class QueryUtil
     }
 
     /**
-     * This method will create the DocumentRequest (Document IDs) from the
+     * This method will create the DocumentRequests (Document IDs) from the
      * AdhocQueryResponse object.
      *
      * @param oResponse The AdhocQueryResponse that contains the document ids.
-     * @return The DocumentRequest containing the document ids
+     * @return The list of DocumentRequests containing the document ids, note
+     * list may be empty if no DocumentRequests are built
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      *         Any error in the process of conversion.
      */
-    public DocumentRequest createDocumentRequest(AdhocQueryResponse oResponse)
-        throws AdapterPIPException
-    {
-        DocumentRequest oDocRequest = new DocumentRequest();
-
-        String sHomeCommunityId = "";
-        String sRepositoryId = "";
-        String sDocumentId = "";
-        String sHL7PatientId = "";
+    public List<DocumentRequest> createDocumentRequest(AdhocQueryResponse oResponse)
+            throws AdapterPIPException {
+        List<DocumentRequest> olDocReq = new ArrayList<DocumentRequest>();
 
         if ((oResponse != null) &&
-            (oResponse.getRegistryObjectList() != null) &&
-            (oResponse.getRegistryObjectList().getIdentifiable() != null) &&
-            (oResponse.getRegistryObjectList().getIdentifiable().size() > 0))
-        {
+                (oResponse.getRegistryObjectList() != null) &&
+                (oResponse.getRegistryObjectList().getIdentifiable() != null) &&
+                (oResponse.getRegistryObjectList().getIdentifiable().size() > 0)) {
             List<JAXBElement<? extends IdentifiableType>> olRegObjs = oResponse.getRegistryObjectList().getIdentifiable();
 
-            for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
-            {
+            for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs) {
                 if ((oJAXBObj != null) &&
-                    (oJAXBObj.getDeclaredType() != null) &&
-                    (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
-                    (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
-                    (oJAXBObj.getValue() != null))
-                {
+                        (oJAXBObj.getDeclaredType() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName() != null) &&
+                        (oJAXBObj.getDeclaredType().getCanonicalName().equals("oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType")) &&
+                        (oJAXBObj.getValue() != null)) {
                     ExtrinsicObjectType oExtObj = (ExtrinsicObjectType) oJAXBObj.getValue();
+
+                    String sHomeCommunityId = "";
+                    String sRepositoryId = "";
+                    String sDocumentId = "";
+                    String sHL7PatientId = "";
 
                     // Home Community ID
                     //-------------------
                     if ((oExtObj != null) &&
-                        (oExtObj.getHome() != null) &&
-                        (oExtObj.getHome().length() > 0))
-                    {
+                            (oExtObj.getHome() != null) &&
+                            (oExtObj.getHome().length() > 0)) {
                         sHomeCommunityId = oExtObj.getHome().trim();
                     } else if ((oExtObj.getSlot() != null) &&
-                        (oExtObj.getSlot().size() > 0))
-                    {
+                            (oExtObj.getSlot().size() > 0)) {
                         List<SlotType1> olSlot = oExtObj.getSlot();
-                        for (SlotType1 oSlot : olSlot)
-                        {
+                        for (SlotType1 oSlot : olSlot) {
                             if ((oSlot.getName() != null) &&
-                                (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)) &&
-                                (oSlot.getValueList() != null) &&
-                                (oSlot.getValueList().getValue() != null) &&
-                                (oSlot.getValueList().getValue().size() > 0) &&
-                                (oSlot.getValueList().getValue().get(0).length() > 0))
-                            {
+                                    (oSlot.getName().equals(CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID)) &&
+                                    (oSlot.getValueList() != null) &&
+                                    (oSlot.getValueList().getValue() != null) &&
+                                    (oSlot.getValueList().getValue().size() > 0) &&
+                                    (oSlot.getValueList().getValue().get(0).length() > 0)) {
                                 sHL7PatientId = oSlot.getValueList().getValue().get(0).trim();
                                 sHomeCommunityId = PatientIdFormatUtil.parseCommunityId(sHL7PatientId);
                             }
@@ -225,18 +209,15 @@ public class QueryUtil
                     // Repository ID
                     //---------------
                     if ((oExtObj.getSlot() != null) &&
-                        (oExtObj.getSlot().size() > 0))
-                    {
+                            (oExtObj.getSlot().size() > 0)) {
                         List<SlotType1> olSlot = oExtObj.getSlot();
-                        for (SlotType1 oSlot : olSlot)
-                        {
+                        for (SlotType1 oSlot : olSlot) {
                             if ((oSlot.getName() != null) &&
-                                (oSlot.getName().equals(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID)) &&
-                                (oSlot.getValueList() != null) &&
-                                (oSlot.getValueList().getValue() != null) &&
-                                (oSlot.getValueList().getValue().size() > 0) &&
-                                (oSlot.getValueList().getValue().get(0).length() > 0))
-                            {
+                                    (oSlot.getName().equals(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID)) &&
+                                    (oSlot.getValueList() != null) &&
+                                    (oSlot.getValueList().getValue() != null) &&
+                                    (oSlot.getValueList().getValue().size() > 0) &&
+                                    (oSlot.getValueList().getValue().get(0).length() > 0)) {
                                 sRepositoryId = oSlot.getValueList().getValue().get(0).trim();
                             }
                         }   // for (SlotType1 oSlot : olSlot)
@@ -245,31 +226,29 @@ public class QueryUtil
                     // Document Unique ID
                     //-------------------
                     if ((oExtObj.getExternalIdentifier() != null) &&
-                        (oExtObj.getExternalIdentifier().size() > 0))
-                    {
+                            (oExtObj.getExternalIdentifier().size() > 0)) {
                         List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
-                        for (ExternalIdentifierType oExtId : olExtId)
-                        {
+                        for (ExternalIdentifierType oExtId : olExtId) {
                             if ((oExtId.getIdentificationScheme() != null) &&
-                                (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)) &&
-                                (oExtId.getValue() != null) &&
-                                (oExtId.getValue().length() > 0))
-                            {
+                                    (oExtId.getIdentificationScheme().equals(CDAConstants.DOCUMENT_ID_IDENT_SCHEME)) &&
+                                    (oExtId.getValue() != null) &&
+                                    (oExtId.getValue().length() > 0)) {
                                 sDocumentId = oExtId.getValue().trim();
                             }
                         }   // for (ExternalIdentifierType oExtid : olExtId)
                     }   // if ((oExtObj.getExternalIdentifier() != null) &&
+
+                    DocumentRequest oDocRequest = new DocumentRequest();
+                    oDocRequest.setHomeCommunityId(sHomeCommunityId);
+                    oDocRequest.setRepositoryUniqueId(sRepositoryId);
+                    oDocRequest.setDocumentUniqueId(sDocumentId);
+                    olDocReq.add(oDocRequest);
+                    
                 }   // if ((oJAXBObj != null) &&
             }   // for (JAXBElement<? extends IdentifiableType> oJAXBObj : olRegObjs)
-
-            // Now lets create the response...
-            //---------------------------------
-            oDocRequest.setHomeCommunityId(sHomeCommunityId);
-            oDocRequest.setRepositoryUniqueId(sRepositoryId);
-            oDocRequest.setDocumentUniqueId(sDocumentId);
         }
 
-        return oDocRequest;
+        return olDocReq;
     }
 
     /** This method creates the AdhocQueryRequest that is used to retreive
@@ -282,8 +261,7 @@ public class QueryUtil
      *         This exception is thrown if there is an error.
      */
     public AdhocQueryRequest createAdhocQueryRequest(String sPatientId, String sAssigningAuthority)
-        throws AdapterPIPException
-    {
+            throws AdapterPIPException {
         log.debug("In createAdhocQueryRequest");
         
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
@@ -308,18 +286,14 @@ public class QueryUtil
         oSlot.setName(CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_CPP_PATIENT_ID);
         ValueListType oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
-        if(sPatientId != null &&
-                !sPatientId.contains("&ISO"))
-        {
+        if (sPatientId != null &&
+                !sPatientId.contains("&ISO")) {
             sHL7PatId = PatientIdFormatUtil.hl7EncodePatientId(sPatientId, sAssigningAuthority);
-        }
-        else
-        {
-            if(sPatientId != null &&
+        } else {
+            if (sPatientId != null &&
                     !sPatientId.equals("") &&
-                    !sPatientId.startsWith("'"))
-            {
-                sPatientId = "'"+sPatientId+"'";
+                    !sPatientId.startsWith("'")) {
+                sPatientId = "'" + sPatientId + "'";
             }
             sHL7PatId = sPatientId;
         }
@@ -353,5 +327,4 @@ public class QueryUtil
 
         return oRequest;
     }
-
 }
