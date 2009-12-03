@@ -208,7 +208,7 @@ public class PatCorrelationServiceImplTest {
     @Test
     public void testcalculateCorrelationExpirationDate_Negative()
     {
-        System.out.println("testcalculateCorrelationExpirationDate_Day()");
+        System.out.println("testcalculateCorrelationExpirationDate_Negative()");
         Expiration exp = new Expiration("", "DAY", -30);
         Date result = PatientCorrelationServiceImpl.calculateCorrelationExpirationDate(exp);
 
@@ -224,14 +224,5 @@ public class PatCorrelationServiceImplTest {
         now.add(Calendar.DAY_OF_YEAR, -30);
         assertEquals(now.getTime(), expDate.getTime());
     }
-    @Test
-    public void testcalculateCorrelationExpirationDate_Empty()
-    {
-        System.out.println("testcalculateCorrelationExpirationDate_Day()");
-        Expiration exp = new Expiration("", "", 0);
-        Date result = PatientCorrelationServiceImpl.calculateCorrelationExpirationDate(exp);
 
-        assertNull(result);
-
-    }
 }
