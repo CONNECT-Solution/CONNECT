@@ -41,11 +41,20 @@ public class CDAConstants
     public static final String STATUS_APPROVED_QUERY_VALUE = "('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')";
     public static final String STATUS_APPROVED_STORE_VALUE = "urn:oasis:names:tc:ebxml-regrep:StatusType:Approved";
 
-    public static final String METADATA_CLASS_CODE = "Consent";
-    public static final String ADHOC_QUERY_CLASS_CODE = "('Consent')";
-    public static final String METADATA_CLASS_CODE_DISPLAY_NAME = "Consent";
-    public static final String METADATA_FORMAT_CODE = "urn:ihe:iti:bppc:2007";
-    public static final String METADATA_FORMAT_CODE_SYSTEM = "1.3.6.1.4.1.19376.1.2.3";
+    public static final String METADATA_CLASS_CODE = "57017-6"; // Access Consent Policy LOINC Code
+    public static final String ADHOC_QUERY_CLASS_CODE = "('57017-6')";
+    public static final String METADATA_CLASS_CODE_DISPLAY_NAME = "Privacy Policy";
+    public static final String METADATA_FORMAT_CODE_SYSTEM = "2.16.840.1.113883.6.1";
+    public static final String METADATA_FORMAT_CODE_XACML = "urn:nhin:names:acp:XACML";
+//    public static final String METADATA_FORMAT_CODE_XACML_DISPLAY_NAME = "Privacy Policy";
+    public static final String METADATA_FORMAT_CODE_PDF = "urn:ihe:iti:xds-sd:pdf:2008";
+    public static final String METADATA_FORMAT_CODE_SCANNED_TEXT = "urn:ihe:iti:xds-sd:text:2008";
+    public static final String METADATA_NOT_APPLICABLE_CODE = "385432009";
+    public static final String METADATA_NOT_APPLICABLE_CODE_SYSTEM = "2.16.840.1.113883.6.96";
+    public static final String METADATA_NOT_APPLICABLE_DISPLAY_NAME = "Not Applicable";
+    public static final String METADATA_TYPE_CODE = "57017-6"; // Access Consent Policy LOINC Code
+    public static final String METADATA_TYPE_CODE_DISPLAY_NAME = "Privacy Policy";
+
 
     public static final String ADHOC_QUERY_REQUEST_BY_DOCUMENT_ID_UUID = "urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4";
     public static final String ADHOC_QUERY_REQUEST_BY_PATIENT_ID_UUID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
@@ -97,6 +106,7 @@ public class CDAConstants
     public static final String PROVIDE_REGISTER_SLOT_NAME_DOC_SUBMISSION_SET_DOCUMENT_ID = "XDSSubmissionSet.uniqueId";
     public static final String PROVIDE_REGISTER_SLOT_NAME_SUBMISSION_SET_SOURCE_ID = "XDSSubmissionSet.sourceId";
     public static final String PROVIDE_REGISTER_MIME_TYPE = "text/xml";
+    public static final String PROVIDE_REGISTER_STATUS_APPROVED = "Approved";
     public static final String PROVIDE_REGISTER_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     public static final String SLOT_NAME_CREATION_TIME = "creationTime";
     public static final String SLOT_NAME_LANGUAGE_CODE = "languageCode";
@@ -105,6 +115,7 @@ public class CDAConstants
     public static final String SLOT_NAME_SERVICE_START_TIME = "serviceStartTime";
     public static final String SLOT_NAME_SERVICE_STOP_TIME = "serviceStopTime";
     public static final String SLOT_NAME_URI = "URI";
+    public static final String SLOT_NAME_SIZE = "size";
 
 
     public static final String CHARACTER_SET = "UTF-8";
@@ -113,6 +124,7 @@ public class CDAConstants
     public static final String EXTERNAL_IDENTIFICATION_SCHEMA_PATIENTID = "urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446";
     public static final String EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT = "SubmissionSet01";
     public static final String CLASSIFICATION_SCHEMA_IDENTIFIER_CDAR2 = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
+    public static final String CLASSIFICATION_SCHEMA_IDENTIFIER_FORMAT_CODE = "urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d";
     public static final String CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
     public static final String NODE_REPRESENTATION_CDAR2 = "CDAR2/IHE 1.0";
     public static final String CDAR2_VALUE = "Connect-a-thon formatCodes";

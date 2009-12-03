@@ -111,7 +111,7 @@ public class PatientConsentDocumentBuilderHelper {
         ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
         oExtObj.setId(sDocUniqueId); // Should this be the policyOID?
         oExtObj.setHome(sHid);
-        setMimeType(oExtObj, oPtPref);
+        setMimeTypeAndStatus(oExtObj, oPtPref);
         oExtObj.setObjectType(CDAConstants.PROVIDE_REGISTER_OBJECT_TYPE);
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new
                 oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();
@@ -122,16 +122,15 @@ public class PatientConsentDocumentBuilderHelper {
         setSourcePatientId(oSlots, oPtPref, oRimObjectFactory, hl7PatientId);
         setPatientInfo(oSlots, oPtPref, oRimObjectFactory);
         setTitle(oExtObj, oPtPref, oRimObjectFactory);
-        // Format code
-        ClassificationType oClassificationCDAR2 = createCDARClassification(sDocUniqueId,
-                oRimObjectFactory);
-        oExtObj.getClassification().add(oClassificationCDAR2);
+
+//        ClassificationType oClassificationCDAR2 = createCDARClassification(sDocUniqueId,
+//                oRimObjectFactory);
+//        oExtObj.getClassification().add(oClassificationCDAR2);
         setClassCode(oExtObj, oRimObjectFactory, sDocUniqueId);
 
         setConfidentialityCode(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref);
-        setHealthcareFacilityTypeCode(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref);
-        // TODO: Fairly sure this should be removed
-        setPracticeSettingCode(oExtObj, oRimObjectFactory, sDocUniqueId, oPtPref);
+        setHealthcareFacilityTypeCode(oExtObj, oRimObjectFactory, sDocUniqueId);
+        setPracticeSettingCode(oExtObj, oRimObjectFactory, sDocUniqueId);
         setPatientId(oExtObj, oRimObjectFactory, sDocUniqueId, hl7PatientId);
         setDocumentUniqueId(oExtObj, oRimObjectFactory, sDocUniqueId);
         JAXBElement<? extends IdentifiableType> oJAXBExtId = oRimObjectFactory.createExtrinsicObject(oExtObj);
@@ -216,8 +215,10 @@ public class PatientConsentDocumentBuilderHelper {
         setLegalAuthenticator(oSlots, oPtPref, oRimObjectFactory);
         setServiceStartTime(oSlots, oPtPref, oRimObjectFactory);
         setServiceStopTime(oSlots, oPtPref, oRimObjectFactory);
-        setDocumentUri(oSlots, oPtPref, oRimObjectFactory);
+        setSize(oSlots, oPtPref, oRimObjectFactory);
+        setDocumentUri(oSlots, sDocUniqueId, oRimObjectFactory);
         setComments(oExtObj, oPtPref, oRimObjectFactory);
+        setFormatCode(oExtObj, oRimObjectFactory, sDocUniqueId);
         setTypeCode(oExtObj, oRimObjectFactory, sDocUniqueId);
 
         oSubmitObjectRequest.setRegistryObjectList(oRegistryObjectList);
@@ -225,7 +226,7 @@ public class PatientConsentDocumentBuilderHelper {
         return oSubmitObjectRequest;
     }
 
-    private void setMimeType(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref)
+    private void setMimeTypeAndStatus(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref)
     {
         String mimeType = null;
         if((oExtObj != null) && (oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null) && NullChecker.isNotNullish(oPtPref.getFineGrainedPolicyMetadata().getMimeType()))
@@ -237,6 +238,7 @@ public class PatientConsentDocumentBuilderHelper {
             mimeType = CDAConstants.PROVIDE_REGISTER_MIME_TYPE;
         }
         oExtObj.setMimeType(mimeType);
+        oExtObj.setStatus(CDAConstants.PROVIDE_REGISTER_STATUS_APPROVED);
     }
 
     private void setComments(ExtrinsicObjectType oExtObj, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory)
@@ -311,6 +313,22 @@ public class PatientConsentDocumentBuilderHelper {
         }
     }
 
+    private void setSize(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory)
+    {
+        if((oSlots != null) && (oRimObjectFactory != null))
+        {
+            String sSize = null;
+            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
+            {
+                sSize = oPtPref.getFineGrainedPolicyMetadata().getSize();
+                if(NullChecker.isNotNullish(sSize))
+                {
+                    oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_SIZE, sSize));
+                }
+            }
+        }
+    }
+
     private void setLegalAuthenticator(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory)
     {
         if((oSlots != null) && (oRimObjectFactory != null))
@@ -326,17 +344,13 @@ public class PatientConsentDocumentBuilderHelper {
         }
     }
 
-    private void setDocumentUri(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory)
+    private void setDocumentUri(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, String sDocumentURI, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory)
     {
         if((oSlots != null) && (oRimObjectFactory != null))
         {
-            if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
+            if(NullChecker.isNotNullish(sDocumentURI))
             {
-                String sDocumentURI = oPtPref.getFineGrainedPolicyMetadata().getDocumentURI();
-                if(NullChecker.isNotNullish(sDocumentURI))
-                {
-                    oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_URI, sDocumentURI));
-                }
+                oSlots.add(createSlot(oRimObjectFactory,CDAConstants.SLOT_NAME_URI, sDocumentURI));
             }
         }
     }
@@ -414,6 +428,7 @@ public class PatientConsentDocumentBuilderHelper {
             }
             if (NullChecker.isNullish(sPid3))
             {
+                // TODO: What is this about? PID3 required?
                 sPid3 = "pid1^^^domain";
             }
             oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
@@ -445,10 +460,29 @@ public class PatientConsentDocumentBuilderHelper {
                 CDAConstants.METADATA_CLASS_CODE,
                 CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                 CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                "2.16.840.1.113883.6.1",
+                CDAConstants.CODE_SYSTEM_LOINC_OID,
                 CDAConstants.CHARACTER_SET,
                 CDAConstants.LANGUAGE_CODE_ENGLISH,
                 CDAConstants.METADATA_CLASS_CODE_DISPLAY_NAME);
+        oExtObj.getClassification().add(oClassificationClassCode);
+    }
+
+    private void setFormatCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId)
+    {
+        //TODO: Set the code correctly for the document type
+        String sFormatCode = CDAConstants.METADATA_FORMAT_CODE_XACML;
+        
+        ClassificationType oClassificationClassCode = createClassification(oRimObjectFactory,
+                CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_FORMAT_CODE,
+                sDocUniqueId,
+                "",
+                sFormatCode,
+                CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
+                CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
+                CDAConstants.METADATA_FORMAT_CODE_SYSTEM,
+                CDAConstants.CHARACTER_SET,
+                CDAConstants.LANGUAGE_CODE_ENGLISH,
+                "");
         oExtObj.getClassification().add(oClassificationClassCode);
     }
 
@@ -458,13 +492,13 @@ public class PatientConsentDocumentBuilderHelper {
                 CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE,
                 sDocUniqueId,
                 "",
-                "57017-6",
+                CDAConstants.METADATA_TYPE_CODE,
                 CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                 CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                CDAConstants.CODE_SYSTEM_NAME_LOINC,
+                CDAConstants.CODE_SYSTEM_LOINC_OID,
                 CDAConstants.CHARACTER_SET,
                 CDAConstants.LANGUAGE_CODE_ENGLISH,
-                "Privacy Policy");
+                CDAConstants.METADATA_TYPE_CODE_DISPLAY_NAME);
         oExtObj.getClassification().add(oClassificationClassCode);
     }
 
@@ -499,66 +533,35 @@ public class PatientConsentDocumentBuilderHelper {
         oExtObj.getClassification().add(oClassificationConfd);
     }
 
-    private void setHealthcareFacilityTypeCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId, PatientPreferencesType oPtPref)
+    private void setHealthcareFacilityTypeCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId)
     {
-        String sHealthcareFacilityTypeCode = null;
-        String sHealthcareFacilityTypeCodeScheme = null;
-        String sHealthcareFacilityTypeCodeDisplayName = null;
-        if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
-        {
-            sHealthcareFacilityTypeCode = oPtPref.getFineGrainedPolicyMetadata().getHealthcareFacilityCode();
-            sHealthcareFacilityTypeCodeScheme = oPtPref.getFineGrainedPolicyMetadata().getHealthcareFacilityCodeScheme();
-            sHealthcareFacilityTypeCodeDisplayName = oPtPref.getFineGrainedPolicyMetadata().getHealthcareFacilityCodeDisplayName();
-        }
-        if(NullChecker.isNullish(sHealthcareFacilityTypeCode))
-        {
-            sHealthcareFacilityTypeCode = "Outpatient";
-            sHealthcareFacilityTypeCodeScheme = "Connect-a-thon healthcareFacilityTypeCodes";
-            sHealthcareFacilityTypeCodeDisplayName = "Outpatient";
-        }
         ClassificationType oClassificationFacCd = createClassification(oRimObjectFactory,
                 CDAConstants.PROVIDE_REGISTER_FACILITY_TYPE_UUID,
                 sDocUniqueId,
                 "",
-                sHealthcareFacilityTypeCode,
+                CDAConstants.METADATA_NOT_APPLICABLE_CODE,
                 CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                 CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                sHealthcareFacilityTypeCodeScheme,
+                CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM,
                 CDAConstants.CHARACTER_SET,
                 CDAConstants.LANGUAGE_CODE_ENGLISH,
-                sHealthcareFacilityTypeCodeDisplayName);
+                CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
         oExtObj.getClassification().add(oClassificationFacCd);
     }
 
-    private void setPracticeSettingCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId, PatientPreferencesType oPtPref)
+    private void setPracticeSettingCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId)
     {
-        // TODO: Fairly sure this should be removed
-        String sPracticeSettingCode = null;
-        String sPracticeSettingCodeScheme = null;
-        String sPracticeSettingCodeDisplayName = null;
-        if((oPtPref != null) && (oPtPref.getFineGrainedPolicyMetadata() != null))
-        {
-            sPracticeSettingCode = oPtPref.getFineGrainedPolicyMetadata().getPracticeSettingCode();
-            sPracticeSettingCodeScheme = oPtPref.getFineGrainedPolicyMetadata().getPracticeSettingCodeScheme();
-            sPracticeSettingCodeDisplayName = oPtPref.getFineGrainedPolicyMetadata().getPracticeSettingCodeDisplayName();
-        }
-        if(NullChecker.isNullish(sPracticeSettingCode))
-        {
-            sPracticeSettingCode = "394802001";
-            sPracticeSettingCodeScheme = "2.16.840.1.113883.6.96";
-            sPracticeSettingCodeDisplayName = "General Medicine";
-        }
         ClassificationType oClassificationPractCd = createClassification(oRimObjectFactory,
                 CDAConstants.PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID,
                 sDocUniqueId,
                 "",
-                sPracticeSettingCode,
+                CDAConstants.METADATA_NOT_APPLICABLE_CODE,
                 CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                 CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                sPracticeSettingCodeScheme,
+                CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM,
                 CDAConstants.CHARACTER_SET,
                 CDAConstants.LANGUAGE_CODE_ENGLISH,
-                sPracticeSettingCodeDisplayName);
+                CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
         oExtObj.getClassification().add(oClassificationPractCd);
     }
 
@@ -660,26 +663,26 @@ public class PatientConsentDocumentBuilderHelper {
     {
         if(eventCode != null)
         {
-            String sPracticeSettingCode = eventCode.getCode();
-            String sPracticeSettingCodeScheme = eventCode.getCodeSystem();
-            String sPracticeSettingCodeDisplayName = eventCode.getDisplayName();
-            if(NullChecker.isNotNullish(sPracticeSettingCode))
+            String sCode = eventCode.getCode();
+            String sCodeScheme = eventCode.getCodeSystem();
+            String sCodeDisplayName = eventCode.getDisplayName();
+            if(NullChecker.isNotNullish(sCode))
             {
-                sPracticeSettingCodeScheme = ((sPracticeSettingCodeScheme != null) ? sPracticeSettingCodeScheme : "");
-                sPracticeSettingCodeDisplayName = ((sPracticeSettingCodeDisplayName != null) ? sPracticeSettingCodeDisplayName : "");
+                sCodeScheme = ((sCodeScheme != null) ? sCodeScheme : "");
+                sCodeDisplayName = ((sCodeDisplayName != null) ? sCodeDisplayName : "");
 
-                ClassificationType oClassificationPractCd = createClassification(oRimObjectFactory,
+                ClassificationType oClassification = createClassification(oRimObjectFactory,
                         CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION,
                         sDocUniqueId,
                         "",
-                        sPracticeSettingCode,
+                        sCode,
                         CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                         CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                        sPracticeSettingCodeScheme,
+                        sCodeScheme,
                         CDAConstants.CHARACTER_SET,
                         CDAConstants.LANGUAGE_CODE_ENGLISH,
-                        sPracticeSettingCodeDisplayName);
-                oExtObj.getClassification().add(oClassificationPractCd);
+                        sCodeDisplayName);
+                oExtObj.getClassification().add(oClassification);
             }
         }
     }
@@ -691,23 +694,23 @@ public class PatientConsentDocumentBuilderHelper {
      * @param oPatCD
      * @return ClassificationType
      */
-    private ClassificationType createCDARClassification(String sDocId, ObjectFactory oFactory)
-    {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createCDARClassification -------");
-        ClassificationType cClass = createClassification(oFactory,
-                CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_CDAR2,
-                sDocId,
-                "",
-				CDAConstants.NODE_REPRESENTATION_CDAR2,
-				CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
-                CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                CDAConstants.CDAR2_VALUE,
-                CDAConstants.CHARACTER_SET,
-                CDAConstants.LANGUAGE_CODE_ENGLISH,
-                CDAConstants.NODE_REPRESENTATION_CDAR2);
-        log.info("------- End PatientConsentDocumentBuilderHelper.createCDARClassification -------");
-        return cClass;
-    }
+//    private ClassificationType createCDARClassification(String sDocId, ObjectFactory oFactory)
+//    {
+//        log.info("------- Begin PatientConsentDocumentBuilderHelper.createCDARClassification -------");
+//        ClassificationType cClass = createClassification(oFactory,
+//                CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_CDAR2,
+//                sDocId,
+//                "",
+//				CDAConstants.NODE_REPRESENTATION_CDAR2,
+//				CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
+//                CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
+//                CDAConstants.CDAR2_VALUE,
+//                CDAConstants.CHARACTER_SET,
+//                CDAConstants.LANGUAGE_CODE_ENGLISH,
+//                CDAConstants.NODE_REPRESENTATION_CDAR2);
+//        log.info("------- End PatientConsentDocumentBuilderHelper.createCDARClassification -------");
+//        return cClass;
+//    }
     
     /**
      * 

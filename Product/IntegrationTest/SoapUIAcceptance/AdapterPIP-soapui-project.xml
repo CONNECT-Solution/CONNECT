@@ -751,7 +751,7 @@
       <xsd:element name="optIn" type="xsd:boolean"/>
       <xsd:element name="fineGrainedPolicyCriteria" type="tns:FineGrainedPolicyCriteriaType" minOccurs="0"/>
       <xsd:element name="binaryDocumentPolicyCriteria" type="tns:BinaryDocumentPolicyCriteriaType" minOccurs="0"/>
-      <xsd:element name="fineGrainedPolicyMetadata" type="tns:FineGrainedPolicyMetadataType"/>
+      <xsd:element name="fineGrainedPolicyMetadata" type="tns:FineGrainedPolicyMetadataType" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="PatientPreferences" type="tns:PatientPreferencesType"/>
@@ -883,8 +883,6 @@
     <xsd:sequence>
       <xsd:element name="address" type="tns:AddressType"/>
       <xsd:element name="dateOfBirth" type="xsd:string"/>
-      <xsd:element name="dateOfSignature" type="xsd:string"/>
-      <xsd:element name="expirationDate" type="xsd:string"/>
       <xsd:element name="explanationNonClaimantSignature" type="xsd:string"/>
       <xsd:element name="haveSecondWitnessSignature" type="xsd:boolean"/>
       <xsd:element name="haveSignature" type="xsd:boolean"/>
@@ -892,8 +890,6 @@
       <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
       <xsd:element name="personName" type="tns:PersonNameType"/>
       <xsd:element name="phoneNumber" type="tns:PhoneType"/>
-      <!--purposeOfDisclosure deprecated element-->
-      <xsd:element name="purposeOfDisclosure" type="xsd:string"/>
       <xsd:element name="secondWitnessAddress" type="tns:AddressType"/>
       <xsd:element name="secondWitnessName" type="tns:PersonNameType"/>
       <xsd:element name="secondWitnessPhone" type="tns:PhoneType"/>
@@ -905,8 +901,6 @@
       <xsd:element name="userInfo" type="tns:UserType"/>
       <xsd:element name="authorized" type="xsd:boolean"/>
       <xsd:element name="purposeOfDisclosureCoded" type="tns:CeType" minOccurs="0"/>
-      <xsd:element name="claimFormRef" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="claimFormRaw" type="xsd:base64Binary" minOccurs="0"/>
       <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
       <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
       <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
@@ -946,9 +940,8 @@
       <xsd:element name="issuer" type="xsd:string" minOccurs="0"/>
       <xsd:element name="issuerFormat" type="xsd:string" minOccurs="0"/>
       <xsd:element name="conditions" type="tns:SamlAuthzDecisionStatementEvidenceConditionsType" minOccurs="0"/>
-      <xsd:element name="contentReference" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="contentType" type="xsd:string" minOccurs="0"/>
-      <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+      <xsd:element name="accessConsentPolicy" type="xsd:string" minOccurs="0"/>
+      <xsd:element name="instanceAccessConsentPolicy" type="xsd:string" minOccurs="0"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:element name="SamlAuthzDecisionStatementEvidenceAssertion" type="tns:SamlAuthzDecisionStatementEvidenceAssertionType"/>
@@ -1042,8 +1035,6 @@
     <xsd:sequence>
       <xsd:element name="personName" type="tns:PersonNameType"/>
       <xsd:element name="userName" type="xsd:string"/>
-      <!--role deprecated element-->
-      <xsd:element name="role" type="xsd:string"/>
       <xsd:element name="org" type="tns:HomeCommunityType"/>
       <xsd:element name="roleCoded" type="tns:CeType" minOccurs="0"/>
     </xsd:sequence>
@@ -43784,7 +43775,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
       </urn:RetrievePtConsentByPtIdRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>false</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -43887,7 +43878,7 @@ void removeRecord(host, port, dbName, user, password, table, col, val) {
 
 removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - fulldoc" searchProperties="true" id="8e4b91e7-1377-408c-acba-bdda1c301c41"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - full</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - fulldoc" searchProperties="true" id="8e4b91e7-1377-408c-acba-bdda1c301c41"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - full</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -43897,6 +43888,7 @@ def user = dataSource.getPropertyValue( "DBUser" );
 def pass = dataSource.getPropertyValue( "DBPass" );
 def db = dataSource.getPropertyValue( "DocRepositoryDB" );
 def docTable = dataSource.getPropertyValue( "DocumentTable" );
+def eventCodeTable = dataSource.getPropertyValue( "EventCodeTable" );
 
 void removeRecord(host, port, dbName, user, password, table, col, val) {
    
@@ -43908,6 +43900,14 @@ void removeRecord(host, port, dbName, user, password, table, col, val) {
 
 removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
+void removeRecordWithLike(host, port, dbName, user, password, table, col, val) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sqlExecute = "delete from " + table + " where " + col + " like '%" + val + "%'";
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def result = sql.execute(sqlExecute);
+   }
+removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "zptcstfulldoc");
 </script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - full"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - full"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soapenv:Header/>
    <soapenv:Body>
@@ -43960,12 +43960,12 @@ removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769
                <urn:documentUniqueId>document_unique_id</urn:documentUniqueId>
                <urn:documentURI>document_uri</urn:documentURI>
                <urn:eventCodes>
-                  <urn1:code>event_code_1</urn1:code>
+                  <urn1:code>zptcstfulldoc_event_code_1</urn1:code>
                   <urn1:codeSystem>event_code_1_scheme</urn1:codeSystem>
                   <urn1:displayName>event_code_1_display_name</urn1:displayName>
                </urn:eventCodes>
                <urn:eventCodes>
-                  <urn1:code>event_code_2</urn1:code>
+                  <urn1:code>zptcstfulldoc_event_code_2</urn1:code>
                   <urn1:codeSystem>event_code_2_scheme</urn1:codeSystem>
                   <urn1:displayName>event_code_2_display_name</urn1:displayName>
                </urn:eventCodes>
@@ -44026,11 +44026,13 @@ declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d']/ns2:Slot[@name='authorRole']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:authorRole[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d']/ns2:Slot[@name='authorSpecialty']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:authorSpecialty[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d']/ns2:Slot[@name='authorSpecialty']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:authorSpecialty[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:Classification[2]/@nodeRepresentation</path><content>57017-6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Consent</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/@mimeType</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:mimeType[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -44052,29 +44054,59 @@ declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:eventCodes[2]/urn1:displayName[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d']/@nodeRepresentation</path><content>CDAR2/IHE 1.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/@nodeRepresentation</path><content>385432009</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>Connect-a-thon formatCodes</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.96</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>CDAR2/IHE 1.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Not Applicable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/@nodeRepresentation</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:healthcareFacilityCode[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/@nodeRepresentation</path><content>385432009</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:healthcareFacilityCodeScheme[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.96</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:healthcareFacilityCodeDisplayName[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/@nodeRepresentation</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:practiceSettingCode[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:practiceSettingCodeScheme[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:practiceSettingCodeDisplayName[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Not Applicable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 //ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/@nodeRepresentation</path><content>57017-6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>LOINC</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427']/@value</path><content>'ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO'</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:Classification[@classificationScheme='urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d']/@nodeRepresentation</path><content>urn:nhin:names:acp:XACML</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:Classification[@classificationScheme='urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d']/ns3:Slot[@name='codingScheme']/ns3:ValueList[1]/ns3:Value[1]</path><content>2.16.840.1.113883.6.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "DBHost" );
+def port = dataSource.getPropertyValue( "DBPort" );
+def user = dataSource.getPropertyValue( "DBUser" );
+def pass = dataSource.getPropertyValue( "DBPass" );
+def db = dataSource.getPropertyValue( "DocRepositoryDB" );
+def docTable = dataSource.getPropertyValue( "DocumentTable" );
+def eventCodeTable = dataSource.getPropertyValue( "EventCodeTable" );
+
+void removeRecord(host, port, dbName, user, password, table, col, val) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def result = sql.execute(sqlExecute);
+   }
+
+removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
+
+void removeRecordWithLike(host, port, dbName, user, password, table, col, val) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sqlExecute = "delete from " + table + " where " + col + " like '%" + val + "%'";
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def result = sql.execute(sqlExecute);
+   }
+removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "zptcstfulldoc");
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="RetrievePtConsentByPtId - minimaldoc" searchProperties="true" id="906e451c-08ff-481f-8f77-294108064ab4"><con:settings/><con:testStep type="properties" name="Test Case Properties"><con:settings/><con:config xsi:type="con:PropertiesStep" saveFirst="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:source>AdapterPIP.properties</con:source><con:properties><con:property><con:name>Endpoint-AdapterPIP</con:name><con:value>http://localhost:8080/AdapterPIP/AdapterPIPService</con:value></con:property><con:property><con:name>Endpoint-DocRegistry</con:name><con:value>http://localhost:8080/DocumentRegistry_Service</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DocRepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>DocumentTable</con:name><con:value>document</con:value></con:property></con:properties></con:config></con:testStep><con:testStep type="transfer" name="Set Properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>Set Store Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>StorePtConsent - full</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true"><con:name>Set Retrieve Endpoint</con:name><con:sourceType>Endpoint-AdapterPIP</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>RetrievePtConsentByPtId</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" transferToAll="false" entitize="false"><con:name>Set Query Endpoint</con:name><con:sourceType>Endpoint-DocRegistry</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>QueryByPatientId</con:targetStep></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="Clear Docs For Patient"><con:settings/><con:config><script>import groovy.sql.Sql;
 
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
@@ -44095,4 +44127,107 @@ void removeRecord(host, port, dbName, user, password, table, col, val) {
 
 removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:testStep type="request" name="StorePtConsent - full"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>StorePtConsent</con:operation><con:request name="StorePtConsent - full"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:StorePtConsentRequest>
+         <urn:patientPreferences>
+            <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+            <urn:assigningAuthority>1.1</urn:assigningAuthority>
+            <urn:optIn>false</urn:optIn>
+            <urn:fineGrainedPolicyMetadata>
+               <urn:policyOID>policy_oid</urn:policyOID>
+               <urn:authorPerson>author_person</urn:authorPerson>
+            </urn:fineGrainedPolicyMetadata>
+         </urn:patientPreferences>
+      </urn:StorePtConsentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="RetrievePtConsentByPtId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtId</con:operation><con:request name="RetrievePtConsentByPtId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/AdapterPIP/AdapterPIPService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:RetrievePtConsentByPtIdRequest>
+         <urn:patientId>ADPTPIPTST98769876Z</urn:patientId>
+         <urn:assigningAuthority>1.1</urn:assigningAuthority>
+      </urn:RetrievePtConsentByPtIdRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="Schema Compliance"><con:configuration/></con:assertion><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns17:RetrievePtConsentByPtIdResponse[1]/ns17:patientPreferences[1]/ns17:optIn[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:optIn[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:patientId[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
+//ns18:RetrievePtConsentByPtIdResponse[1]/ns18:patientPreferences[1]/ns18:assigningAuthority[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:assigningAuthority[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="QueryByPatientId"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPIPBindingSoap11</con:interface><con:operation>RetrievePtConsentByPtDocId</con:operation><con:request name="QueryByPatientId"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:AdhocQueryRequest id="?" comment="?" federated="false" federation="?" startIndex="0" maxResults="-1">
+         <urn:ResponseOption returnType="LeafClass" returnComposedObjects="true"/>
+         <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
+            <urn1:Slot name="$XDSDocumentEntryPatientId">
+               <urn1:ValueList>
+                  <urn1:Value>ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO</urn1:Value>
+               </urn1:ValueList>
+            </urn1:Slot>
+         </urn1:AdhocQuery>
+      </urn:AdhocQueryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="SOAP Fault Assertion"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Slot[@name='languageCode']/ns2:ValueList[1]/ns2:Value[1]</path><content>en-US</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Slot[@name='sourcePatientId']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:patientId[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Consent to Share Information</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d']/ns2:Slot[@name='authorPerson']/ns2:ValueList[1]/ns2:Value[1]</path><content>${StorePtConsent - full#Request#//urn:StorePtConsentRequest[1]/urn:patientPreferences[1]/urn:fineGrainedPolicyMetadata[1]/urn:authorPerson[1]}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:Classification[2]/@nodeRepresentation</path><content>57017-6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/@mimeType</path><content>text/xml</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f']/@nodeRepresentation</path><content>R</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.5.25</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Restricted</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/@nodeRepresentation</path><content>385432009</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.96</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Not Applicable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/@nodeRepresentation</path><content>385432009</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.96</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Not Applicable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/@nodeRepresentation</path><content>57017-6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Slot[@name='codingScheme']/ns2:ValueList[1]/ns2:Value[1]</path><content>2.16.840.1.113883.6.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns5='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns5:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject[1]/ns2:Classification[@classificationScheme='urn:uuid:f0306f51-975f-434e-a61c-c59651d33983']/ns2:Name[1]/ns2:LocalizedString[1]/@value</path><content>Privacy Policy</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>true</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns2:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427']/@value</path><content>'ADPTPIPTST98769876Z^^^&amp;1.1&amp;ISO'</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="groovy" name="Remove Documents"><con:settings/><con:config><script>import groovy.sql.Sql;
+
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
+def host = dataSource.getPropertyValue( "DBHost" );
+def port = dataSource.getPropertyValue( "DBPort" );
+def user = dataSource.getPropertyValue( "DBUser" );
+def pass = dataSource.getPropertyValue( "DBPass" );
+def db = dataSource.getPropertyValue( "DocRepositoryDB" );
+def docTable = dataSource.getPropertyValue( "DocumentTable" );
+
+void removeRecord(host, port, dbName, user, password, table, col, val) {
+   
+   def sqlConnect = 'jdbc:mysql://' + host + ':' + port + '/' + dbName;
+   def sqlExecute = "delete from " + table + " where " + col + "='" + val + "'";
+   def sql = Sql.newInstance(sqlConnect, user, password, "com.mysql.jdbc.Driver");
+   def result = sql.execute(sqlExecute);
+   }
+
+removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
+
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

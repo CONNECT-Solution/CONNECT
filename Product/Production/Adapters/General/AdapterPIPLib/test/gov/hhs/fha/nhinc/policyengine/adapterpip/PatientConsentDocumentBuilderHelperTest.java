@@ -142,9 +142,9 @@ public class PatientConsentDocumentBuilderHelperTest {
             // Confidentiality code
             validateClassification("Confidentiality code", extObject, CDAConstants.PROVIDE_REGISTER_CONFIDENTIALITY_CODE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "confidentiality_code", "confidentiality_code_scheme", "confidentiality_code_display_name");
             // Healthcare facility type
-            validateClassification("Healthcare facility type code", extObject, CDAConstants.PROVIDE_REGISTER_FACILITY_TYPE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "healthcare_facility_code", "healthcare_facility_code_scheme", "healthcare_facility_code_display_name");
+            validateClassification("Healthcare facility type code", extObject, CDAConstants.PROVIDE_REGISTER_FACILITY_TYPE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_NOT_APPLICABLE_CODE, CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM, CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
             // Practice setting
-            validateClassification("Practice setting", extObject, CDAConstants.PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "practice_setting_code", "practice_setting_code_scheme", "practice_setting_code_display_name");
+            validateClassification("Practice setting", extObject, CDAConstants.PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_NOT_APPLICABLE_CODE, CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM, CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
             // Patient id
             validateExternalIdentifier("Patient id", extObject, CDAConstants.EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME, "ADPTPIPTST98769876Z^^^&1.1&ISO");
             // Document unique id
@@ -168,13 +168,13 @@ public class PatientConsentDocumentBuilderHelperTest {
             // Service stop time
             //validateSlotValue(extObject, CDAConstants.SLOT_NAME_SERVICE_STOP_TIME, "200909266151427");
             // Document URI
-            validateSlotValue(extObject, CDAConstants.SLOT_NAME_URI, "document_uri");
+            validateSlotValue(extObject, CDAConstants.SLOT_NAME_URI, existingDocumentUniqueId);
             // Comments
             assertNotNull("Comments null", extObject.getDescription());
             assertFalse("Comments list empty", extObject.getDescription().getLocalizedString().isEmpty());
             assertEquals("Comments", "le_comments", extObject.getDescription().getLocalizedString().get(0).getValue());
             // Type code
-            validateClassification("Type code", extObject, CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "57017-6", CDAConstants.CODE_SYSTEM_NAME_LOINC, "Privacy Policy");
+            validateClassification("Type code", extObject, CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_TYPE_CODE, CDAConstants.CODE_SYSTEM_LOINC_OID, CDAConstants.METADATA_TYPE_CODE_DISPLAY_NAME);
         }
         catch(Throwable t)
         {
@@ -265,19 +265,21 @@ public class PatientConsentDocumentBuilderHelperTest {
             // Confidentiality code
             validateClassification("Confidentiality code", extObject, CDAConstants.PROVIDE_REGISTER_CONFIDENTIALITY_CODE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "R", "2.16.840.1.113883.5.25", "Restricted");
             // Healthcare facility type
-            validateClassification("Healthcare facility type code", extObject, CDAConstants.PROVIDE_REGISTER_FACILITY_TYPE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "Outpatient", "Connect-a-thon healthcareFacilityTypeCodes", "Outpatient");
+            validateClassification("Healthcare facility type code", extObject, CDAConstants.PROVIDE_REGISTER_FACILITY_TYPE_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_NOT_APPLICABLE_CODE, CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM, CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
             // Practice setting
-            validateClassification("Practice setting", extObject, CDAConstants.PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "394802001", "2.16.840.1.113883.6.96", "General Medicine");
+            validateClassification("Practice setting", extObject, CDAConstants.PROVIDE_REGISTER_PRACTICE_SETTING_CD_UUID, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_NOT_APPLICABLE_CODE, CDAConstants.METADATA_NOT_APPLICABLE_CODE_SYSTEM, CDAConstants.METADATA_NOT_APPLICABLE_DISPLAY_NAME);
             // Patient id
             validateExternalIdentifier("Patient id", extObject, CDAConstants.EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME, "ADPTPIPTST98769876Z^^^&1.1&ISO");
             // Document unique id
             validateExternalIdentifier("Document unique id", extObject, CDAConstants.DOCUMENT_ID_IDENT_SCHEME, existingDocumentUniqueId);
             // Home community id
             validateExternalIdentifier("Home community id", registryObjectList, CDAConstants.PROVIDE_REGISTER_SUBMISSION_SET_SOURCE_ID_UUID, sHomeCommunityId);
+            // Document URI
+            validateSlotValue(extObject, CDAConstants.SLOT_NAME_URI, existingDocumentUniqueId);
             // Comments
             assertTrue("Comments list not null or empty", ((extObject.getDescription() == null) || (extObject.getDescription().getLocalizedString().isEmpty())));
             // Type code
-            validateClassification("Type code", extObject, CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "57017-6", CDAConstants.CODE_SYSTEM_NAME_LOINC, "Privacy Policy");
+            validateClassification("Type code", extObject, CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_TYPE_CODE, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, CDAConstants.METADATA_TYPE_CODE, CDAConstants.CODE_SYSTEM_LOINC_OID, CDAConstants.METADATA_TYPE_CODE_DISPLAY_NAME);
         }
         catch(Throwable t)
         {

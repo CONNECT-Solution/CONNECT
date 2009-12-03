@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import java.io.StringReader;
@@ -424,7 +425,6 @@ public class PatientConsentManager
         throws AdapterPIPException
     {
         QueryUtil queryUtil = new QueryUtil();
-        DocumentRequest oDocRequest = new DocumentRequest();
 
         DocumentRegistryPortType oDocRegistryPort = getDocumentRegistryPort();
 
@@ -433,7 +433,7 @@ public class PatientConsentManager
 
         oResponse = oDocRegistryPort.documentRegistryRegistryStoredQuery(oRequest);
 
-        oDocRequest = queryUtil.createDocumentRequest(oResponse);
+        DocumentRequest oDocRequest = queryUtil.createDocumentRequest(oResponse);
         
         return oDocRequest;
     }
@@ -883,6 +883,15 @@ public class PatientConsentManager
        ProvideAndRegisterDocumentSetRequestType oRequest = new ProvideAndRegisterDocumentSetRequestType();
        ProvideAndRegisterDocumentSetRequestType.Document oDoc = createDocumentRawData(sPrefDoc, sDocumentUniqueId);
        oRequest.getDocument().add(oDoc);
+       if((oDoc != null) && (oDoc.getValue() != null) & (oPtPref != null))
+       {
+           if(oPtPref.getFineGrainedPolicyMetadata() == null)
+           {
+               oPtPref.setFineGrainedPolicyMetadata(new FineGrainedPolicyMetadataType());
+           }
+           oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(oDoc.getValue().length));
+       }
+
        String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(), oPtPref.getAssigningAuthority());
        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(sTargetObject, sHomeCommunityId, sDocumentUniqueId, oPtPref);
        oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
