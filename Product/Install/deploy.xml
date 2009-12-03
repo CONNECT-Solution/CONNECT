@@ -41,7 +41,7 @@
   <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared']" />
   -->
 
-  <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}"/>
+  <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
   <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
   <property name="deploy.exclusion.file.path" value="${script.root.directory}/exclusions.txt"/>
