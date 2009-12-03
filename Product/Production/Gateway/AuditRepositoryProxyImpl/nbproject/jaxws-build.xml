@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-NhincComponentAuditRepository" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepository"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentauditrepository"/>
     </target>
     <target name="wsimport-client-NhincComponentAuditRepositorySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepositorySecured"/>
@@ -43,7 +43,7 @@
     </target>
     <target name="wsimport-client-clean-NhincComponentAuditRepositorySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepositorySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentauditrepository"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincComponentAuditRepository, wsimport-client-NhincComponentAuditRepositorySecured"/>
 </project>

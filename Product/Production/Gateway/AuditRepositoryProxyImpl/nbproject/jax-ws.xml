@@ -5,7 +5,7 @@
     <client name="NhincComponentAuditRepository">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepository.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAuditRepository.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhinccomponentauditrepository</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentauditrepository</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -29,7 +29,7 @@
     <client name="NhincComponentAuditRepositorySecured">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAuditRepositorySecured.wsdl</wsdl-url>
       <local-wsdl-file>NhincComponentAuditRepositorySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhinccomponentauditrepository</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentauditrepository</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
