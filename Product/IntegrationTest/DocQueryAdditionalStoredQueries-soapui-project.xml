@@ -44151,7 +44151,13 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSDocumentEntryPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[2]/@name</path><content>$XDSDocumentEntryStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -45409,7 +45415,13 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:f26abbcb-ac74-4422-8a30-edb644bbc1a9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSSubmissionSetPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[2]/@name</path><content>$XDSSubmissionSetStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -46667,7 +46679,13 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:958f3006-baad-4929-a4de-ff1114824431</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSFolderPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[2]/@name</path><content>$XDSFolderStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -47935,7 +47953,17 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:10b545ea-725c-446d-9b95-8aeb444eddf3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$patientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[2]/@name</path><content>$XDSDocumentEntryStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[3]/@name</path><content>$XDSSubmissionSetStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[4]/@name</path><content>$XDSFolderStatus</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -49188,7 +49216,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:5c4f972b-d56b-40ac-a5fc-c8ca9b40b9d4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSDocumentEntryEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -50441,7 +50473,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:5737b14c-8a1a-4539-b659-e03a34a5e1e4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSFolderEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -51694,7 +51730,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:a7ae438b-4bc2-4642-93e9-be891f7bb155</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$uuid</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -52952,7 +52992,13 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:bab9529a-4a10-40b3-a01f-f68a615d247a</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSFolderEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[2]/@name</path><content>$uuid</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -54205,7 +54251,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:51224314-5390-4169-9b91-b1980040715a</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$uuid</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -55458,7 +55508,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:e8e3cb2c-e39c-46b9-99e4-c12f57260b83</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSSubmissionSetEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -56711,7 +56765,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:b909a503-523d-4517-8acf-8e5834dfc4c7</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSFolderEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -57964,7 +58022,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:10cae35a-c7f9-4cf5-b61e-fc3278ffb578</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$XDSDocumentEntryEntryUUID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -59217,7 +59279,11 @@ assert docCount.toInteger() == 6;
          </ns3:RegistryObjectList>
       </ns2:AdhocQueryResponse>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</S:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/@id</path><content>urn:uuid:d90e5407-b356-4d91-a89f-873917b4b0e6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+//ns4:AdhocQueryRequest[1]/ns3:AdhocQuery[1]/ns3:Slot[1]/@name</path><content>$AssociationTypes</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion></con:config></con:testStep><con:testStep type="groovy" name="resetURL"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
@@ -59226,4 +59292,4 @@ def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentReg
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
