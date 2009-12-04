@@ -19,12 +19,12 @@ public class PassThruMode implements ResponseMode{
         super();
         log = createLogger();
     }
-    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, WebServiceContext context)
+    public PRPAIN201306UV02 processResponse(ResponseParams params)
     {
         //In pass through mode, no additional processing is done by the Entity.
         //201306 is returned directly to the agency. 
         log.debug("begin processResponse");
-        return response;
+        return params.response;
     }
     protected Log createLogger()
     {

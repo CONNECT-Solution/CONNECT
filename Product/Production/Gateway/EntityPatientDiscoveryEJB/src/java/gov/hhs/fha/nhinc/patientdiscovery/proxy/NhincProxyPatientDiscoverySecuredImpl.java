@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLog;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.properties.*;
 import javax.xml.ws.WebServiceContext;
@@ -47,8 +48,12 @@ public class NhincProxyPatientDiscoverySecuredImpl {
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         ack = auditLog.auditProxyResponse(response, assertion);
 
+        ResponseParams params = new ResponseParams();
+        params.context = context;
+        params.origRequest = request;
+        params.response = response;
 
-        response = new ResponseFactory().getResponseMode().processResponse(response, context);
+        response = new ResponseFactory().getResponseMode().processResponse(params);
         
         log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         return response;

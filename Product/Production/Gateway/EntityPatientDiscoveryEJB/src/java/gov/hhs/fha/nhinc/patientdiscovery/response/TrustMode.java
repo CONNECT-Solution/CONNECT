@@ -4,8 +4,12 @@
  */
 
 package gov.hhs.fha.nhinc.patientdiscovery.response;
+import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
@@ -37,12 +41,18 @@ public class TrustMode implements ResponseMode{
         super();
         log = createLogger();
     }
-    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, WebServiceContext context)
+    public PRPAIN201306UV02 processResponse(ResponseParams params)
     {
         log.debug("begin processResponse");
+
+
+         PRPAIN201306UV02 response = params.response;
+         WebServiceContext context = params.context;
+         PRPAIN201305UV02 requestMsg = params.origRequest.getPRPAIN201305UV02();
+
          // Create an assertion class from the contents of the SAML token
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-                
+        PRPAIN201301UV02 requestPatient = null;
 
         AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
         AddPatientCorrelationSecuredResponseType responseType;
@@ -50,18 +60,76 @@ public class TrustMode implements ResponseMode{
 
         url = getPCUrl();
 
-        request.setPRPAIN201301UV02(createPRPA201301(response));
+        //requestPatient.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getPatientPerson().getValue().getAsOtherIDs()
 
-        if(request.getPRPAIN201301UV02().getControlActProcess().getSubject().size() == 0)
+        if(requestHasLivingSubjectId(requestMsg))
         {
-            log.warn("no subjects");
+            try
+            {
+                requestPatient = mergeIds(createPRPA201301(response), getPatientId(requestMsg));
+                request.setPRPAIN201301UV02(requestPatient);
+                PatientCorrelationSecuredPortType port =  getPCPort(url, assertion);
+
+                responseType = port.addPatientCorrelation(request);
+            }
+            catch(Exception ex)
+            {
+                log.error(ex.getMessage(),ex);
+            }
         }
-        PatientCorrelationSecuredPortType port =  getPCPort(url, assertion);
-
-        responseType = port.addPatientCorrelation(request);
-
+        else
+        {
+            log.debug("original request did not have a living subject id");
+        }
         
         return response;
+    }
+    protected boolean requestHasLivingSubjectId(PRPAIN201305UV02 request)
+    {
+        boolean result = false;
+
+        result = (getPatientId(request) != null);
+
+        return result;
+    }
+ 
+    protected II getPatientId(PRPAIN201305UV02 request) {
+        II patId = null;
+        String aaId = null;
+
+        if (request != null &&
+                request.getControlActProcess() != null) {
+            if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+            }
+
+            if (NullChecker.isNotNullish(aaId)) {
+                if (request.getControlActProcess().getQueryByParameter() != null &&
+                        request.getControlActProcess().getQueryByParameter().getValue() != null &&
+                        request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
+                        NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+                    for (PRPAMT201306UV02LivingSubjectId livingSubId:request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                        if (NullChecker.isNotNullish(livingSubId.getValue()) &&
+                                livingSubId.getValue().get(0) != null &&
+                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
+                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
+                                aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
+                            patId = new II();
+                            patId.setRoot(livingSubId.getValue().get(0).getRoot());
+                            patId.setExtension(livingSubId.getValue().get(0).getExtension());
+                        }
+                    }
+                }
+            }
+        }
+
+        return patId;
     }
     protected Log createLogger()
     {
@@ -115,5 +183,33 @@ public class TrustMode implements ResponseMode{
         return url;
     }
 
+    private PRPAIN201301UV02 mergeIds(PRPAIN201301UV02 patient, II localId)
+    {
+        PRPAIN201301UV02 result = patient;
+        
+        II remoteId;
 
+        log.debug("begin MergeIds");
+        try
+        {
+            remoteId = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
+
+            log.debug("Local Id = " + localId.getExtension() + "; remote id = " + remoteId.getExtension());
+
+            //clear Id's
+            result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
+            
+            //add both the local and remote id. 
+            result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(localId);
+            result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().add(remoteId);
+
+        }
+        catch(Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+        }
+        return result;
+    }
 }
+
+
