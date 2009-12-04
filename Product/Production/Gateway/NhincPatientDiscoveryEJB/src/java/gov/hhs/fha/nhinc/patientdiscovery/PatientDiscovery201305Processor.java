@@ -205,6 +205,7 @@ public class PatientDiscovery201305Processor {
                                     NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
                                     NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
                                     aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
+                                patId = new II();
                                 patId.setRoot(livingSubId.getValue().get(0).getRoot());
                                 patId.setExtension(livingSubId.getValue().get(0).getExtension());
                             }
