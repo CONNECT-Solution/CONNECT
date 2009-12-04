@@ -11,6 +11,7 @@ import org.hl7.v3.ADExplicit;
 import org.hl7.v3.II;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectAdministrativeGender;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectBirthTime;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
@@ -163,6 +164,20 @@ public class HL7QueryParamsTransformsTest {
         assertEquals(1, result.getValue().size());
         assertEquals(2, result.getValue().get(0).getContent().size());
         
+    }
+    @Test
+    public void testCreateId()
+    {
+        PRPAMT201306UV02LivingSubjectId result;
+        II id = new II();
+        id.setRoot("1.1");
+        id.setExtension("1234");
+        result = HL7QueryParamsTransforms.createSubjectId(id);
+
+        assertNotNull(result);
+        assertEquals(1, result.getValue().size());
+        assertEquals(id.getRoot(), result.getValue().get(0).getRoot());
+        assertEquals(id.getExtension(), result.getValue().get(0).getExtension());
     }
 
 
