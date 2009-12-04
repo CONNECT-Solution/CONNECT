@@ -426,12 +426,16 @@ public class PatientConsentDocumentBuilderHelper {
                 sPid8 = oPtPref.getFineGrainedPolicyMetadata().getPid8();
                 sPid11 = oPtPref.getFineGrainedPolicyMetadata().getPid11();
             }
-            if (NullChecker.isNullish(sPid3))
+//            if (NullChecker.isNullish(sPid3))
+//            {
+//                // TODO: What is this about? PID3 required?
+//                sPid3 = "pid1^^^domain";
+//            }
+//            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
+            if (NullChecker.isNotNullish(sPid3))
             {
-                // TODO: What is this about? PID3 required?
-                sPid3 = "pid1^^^domain";
+                oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
             }
-            oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|" + sPid3));
             if (NullChecker.isNotNullish(sPid5))
             {
                 oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-5|" + sPid5));
@@ -678,10 +682,10 @@ public class PatientConsentDocumentBuilderHelper {
                         sCode,
                         CDAConstants.CLASSIFICATION_REGISTRY_OBJECT,
                         CDAConstants.CLASSIFICATION_SCHEMA_CDNAME,
-                        sCodeScheme,
+                        CDAConstants.METADATA_EVENT_CODE_SYSTEM,
                         CDAConstants.CHARACTER_SET,
                         CDAConstants.LANGUAGE_CODE_ENGLISH,
-                        sCodeDisplayName);
+                        ""); // Display name is not stored
                 oExtObj.getClassification().add(oClassification);
             }
         }
