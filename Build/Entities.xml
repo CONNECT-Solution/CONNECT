@@ -35,17 +35,29 @@
 
 <!ENTITY CCNet.LabelPrefix                     '2.3.0.'>
 <!ENTITY CCNet.Server.Remoting.Port            '21524'>
-<!ENTITY CCNet.Server.Remoting.Url             'tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY CCNet.Server.Rest.Port                '21525'>
-<!ENTITY CCNet.Server.Rest.Url                 'http://&HostName;:&CCNet.Server.Rest.Port;'>
 <!ENTITY CCNet.Server.Directory.Path           '&Common.Directory.Build.Path;\server'>
 <!ENTITY CCNet.Dashboard.Directory.Path        '&Common.Directory.Build.Path;\dashboard'>
+
+<!ENTITY CCNet.Server.Remoting.Url             'tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY CCNet.Server.Rest.Url                 'http://&HostName;:&CCNet.Server.Rest.Port;'>
 <!ENTITY CCNet.Dashboard.Url                   'http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
 
 <!ENTITY Klocwork.Server.Remoting.Url          'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Klocwork.Server.Rest.Url              'http://&Klocwork.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Klocwork.Dashboard.Url                'http://&Klocwork.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
 
+<!ENTITY Integration.Server.Remoting.Url       'tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Integration.Server.Rest.Url           'http://&Integration.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Integration.Dashboard.Url             'https://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY Staging1.Server.Remoting.Url          'tcp://&Staging1.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Staging1.Server.Rest.Url              'http://&Staging1.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Staging1.Dashboard.Url                'https://&Staging1.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
+<!ENTITY Staging2.Server.Remoting.Url          'tcp://&Staging2.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
+<!ENTITY Staging2.Server.Rest.Url              'http://&Staging2.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
+<!ENTITY Staging2.Dashboard.Url                'https://&Staging2.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
+
 <!ENTITY Tools.NAnt.Bin                        '&Common.Directory.Tools.Path;\nAnt\bin' >
 <!ENTITY Tools.NAnt.Exe                        '&Tools.NAnt.Bin;\nant.exe' >
-

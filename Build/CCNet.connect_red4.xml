@@ -149,18 +149,13 @@
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
-        <trigger
-          type="projectTrigger"
-          serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-          project="&ProjectName;-&ProjectCodeLineName;-Test"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
+        <trigger type="scheduleTrigger" time="04:00" buildCondition="ForceBuild" />
         <projectFilters>
           &ScriptsBuilding;
           &Test;
           &TestFailed;
+          &Deploy;
+          &DeployFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -168,6 +163,8 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
+          &Deploy;
+          &DeployFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -187,7 +184,7 @@
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
     <labeller type="remoteProjectLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Test</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
       <serverUri>tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
     </labeller>
     <tasks>
