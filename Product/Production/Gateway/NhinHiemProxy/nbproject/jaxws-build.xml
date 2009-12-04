@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-NhinSubscription" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhinSubscription"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis-open/docs/wsn/bw-2"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhinSubscription"/>
 </project>

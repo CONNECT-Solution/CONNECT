@@ -42,11 +42,11 @@ import org.hl7.v3.POCDMT000040Author;
 import org.hl7.v3.POCDMT000040Patient;
 import org.hl7.v3.POCDMT000040PatientRole;
 import org.hl7.v3.SCExplicit;
-import org.hl7.v3.TSExplicit;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 
 /**
@@ -54,6 +54,7 @@ import org.junit.runner.RunWith;
  *
  * @author Les Westberg
  */
+@Ignore //Refactor or move this test to Integration test suite
 @RunWith(JMock.class)
 public class CdaPdfCreatorTest
 {

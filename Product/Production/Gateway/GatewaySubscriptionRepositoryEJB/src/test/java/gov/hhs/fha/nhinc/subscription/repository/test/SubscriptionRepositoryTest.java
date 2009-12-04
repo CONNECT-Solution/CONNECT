@@ -19,12 +19,14 @@ import gov.hhs.fha.nhinc.common.subscription.SubscriptionReferenceType;
 import gov.hhs.fha.nhinc.subscription.repository.GatewaySubscriptionRepository;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.subscription.RetrieveBySubscriptionReferenceRequestMessageType;
+import org.junit.Ignore;
 
 /**
  * Unit test for the SubscriptionRepository class
  * 
  * @author Neil Webb
  */
+@Ignore //Refactor or move to Integration  test Suite
 public class SubscriptionRepositoryTest
 {
     private static final String CRITERION1_KEY = "CriterionKey";

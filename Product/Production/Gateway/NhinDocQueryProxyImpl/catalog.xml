@@ -7,3 +7,6 @@
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/rim.xsd" uri="xml-resources/web-service-references/NhinDocQuery/schemas/ebRS/rim.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="xml-resources/web-service-references/NhinDocQuery/schemas/www.w3.org/2001/xml.xsd"/>
 </catalog>
+
+
+
