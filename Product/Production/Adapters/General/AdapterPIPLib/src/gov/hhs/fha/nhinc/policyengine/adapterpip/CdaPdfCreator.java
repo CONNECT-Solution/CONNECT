@@ -275,25 +275,18 @@ public class CdaPdfCreator
     /**
      * This method transforms the given XMLDate into an HL7 date.
      *
-     * @param oXMLDate The XML date.
+     * @param sHL7Date The date in HL7 format.
      * @return The HL7 date.
      */
-    private TSExplicit createTS(XMLGregorianCalendar oXMLDate)
+    private TSExplicit createTS(String sHL7Date)
     {
         TSExplicit oHL7Ts = new TSExplicit();
         boolean bHaveData = false;
 
-        if ((oXMLDate != null) &&
-            (oXMLDate.toGregorianCalendar() != null) &&
-            (oXMLDate.toGregorianCalendar().getTime() != null))
+        if (sHL7Date != null)
         {
-            String sDate = oHL7DateTimeFormatter.format(oXMLDate.toGregorianCalendar().getTime());
-            if ((sDate != null) &&
-                (sDate.length() > 0))
-            {
-                oHL7Ts.setValue(sDate);
-                bHaveData = true;
-            }
+            oHL7Ts.setValue(sHL7Date);
+            bHaveData = true;
         }
 
         if (bHaveData)
@@ -1151,17 +1144,17 @@ public class CdaPdfCreator
     /**
      * Create a time interval based on the given low and high date.
      *
-     * @param oLowDate The lower date of the range.
-     * @param oHighDate The higher date of the range.
+     * @param sLowHL7Date The lower date of the range.
+     * @param sHighHL7Date The higher date of the range.
      * @return The time interval that has been created.
      */
-    private IVLTSExplicit createIVLTS(XMLGregorianCalendar oLowDate, XMLGregorianCalendar oHighDate)
+    private IVLTSExplicit createIVLTS(String sLowHL7Date, String sHighHL7Date)
     {
         IVLTSExplicit oTimeInterval = new IVLTSExplicit();
         boolean bHaveData = false;
         org.hl7.v3.ObjectFactory oFactory = new ObjectFactory();
 
-        TSExplicit oTSLowDate = createTS(oLowDate);
+        TSExplicit oTSLowDate = createTS(sLowHL7Date);
         if ((oTSLowDate != null) &&
             (oTSLowDate.getValue() != null) &&
             (oTSLowDate.getValue().length() > 0))
@@ -1173,7 +1166,7 @@ public class CdaPdfCreator
             bHaveData = true;
         }
 
-        TSExplicit oTSHighDate = createTS(oHighDate);
+        TSExplicit oTSHighDate = createTS(sHighHL7Date);
         if ((oTSHighDate != null) &&
             (oTSHighDate.getValue() != null) &&
             (oTSHighDate.getValue().length() > 0))

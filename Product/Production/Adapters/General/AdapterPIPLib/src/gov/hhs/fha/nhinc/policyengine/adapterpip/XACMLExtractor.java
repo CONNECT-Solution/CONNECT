@@ -6,6 +6,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionTyp
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
@@ -33,6 +35,16 @@ import org.w3c.dom.Element;
 public class XACMLExtractor
 {
     protected Log log = null;
+    private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
+
+    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
+    private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
+    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
+    private static final String XML_DATE_ONLY_FORMAT = "yyyy-MM-dd";
+    private static final SimpleDateFormat oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
+    private static final String XML_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final SimpleDateFormat oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+
 
     /**
      * Default constructor.
@@ -362,6 +374,62 @@ public class XACMLExtractor
         return null;
     }
 
+    /**
+     * This method creates a date formatted according to HL7 from a
+     * date/time in default XML format.
+     *
+     * @param sXMLDateTime The date or date-time in XML format.
+     * @return The date or date-time in HL7 default format.
+     */
+    private String createHL7Date(String sXMLDateTime)
+        throws AdapterPIPException
+    {
+        String sHL7Date = null;
+
+        // Do we have a "date only"?
+        //--------------------------
+        if ((sXMLDateTime != null) &&
+            (sXMLDateTime.length() == 10))
+        {
+            try
+            {
+                Date oXMLDate = oXMLDateOnlyFormatter.parse(sXMLDateTime);
+                sHL7Date = oHL7DateOnlyFormatter.format(oXMLDate);
+            }
+            catch (Exception e)
+            {
+                String sErrorMessage = "Date had invalid XML format: " + sXMLDateTime + ".  Error = " + e.getMessage();
+                throw new AdapterPIPException(sErrorMessage, e);
+            }
+        }
+        // Date + Time
+        //------------
+        else if ((sXMLDateTime != null) &&
+                 (sXMLDateTime.length() > 10))
+        {
+            try
+            {
+                Date oXMLDate = oXMLDateTimeFormatter.parse(sXMLDateTime);
+                sHL7Date = oHL7DateTimeFormatter.format(oXMLDate);
+            }
+            catch (Exception e)
+            {
+                String sErrorMessage = "Date-time had invalid XML format: " + sXMLDateTime + ".  Error = " + e.getMessage();
+                throw new AdapterPIPException(sErrorMessage, e);
+            }
+        }
+        // Do not know format - put it in as is.
+        else
+        {
+            sHL7Date = sXMLDateTime;
+        }
+
+
+        return sHL7Date;
+
+    }
+
+
 
     /**
      * This extracts the information for one instnce of a FineGrainedPolicyCriterion from the
@@ -498,40 +566,8 @@ public class XACMLExtractor
         if ((sRuleStartDate != null) &&
             (sRuleStartDate.length() > 0))
         {
-            try
-            {
-                XMLGregorianCalendar oRuleStartDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(sRuleStartDate);
-
-                // For some reason if we get only a date (with no time) the JAXB serializer drops the
-                // entire field and considers it null.  So we need to fill in the '0' values for the time
-                //----------------------------------------------------------------------------------------
-                if (oRuleStartDate.getHour() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleStartDate.setHour(0);
-                }
-                if (oRuleStartDate.getMinute() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleStartDate.setMinute(0);
-                }
-                if (oRuleStartDate.getSecond() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleStartDate.setSecond(0);
-                }
-                if (oRuleStartDate.getMillisecond() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleStartDate.setMillisecond(0);
-                }
-
-                oCriterion.setRuleStartDate(oRuleStartDate);
-                bHasData = true;
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Rule Start Date was incorrectly formatted - unable to convert to a valid XMLGregorianCalendar.  Value = '" +
-                                       sRuleStartDate + "'.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new AdapterPIPException(sErrorMessage, e);
-            }
+            oCriterion.setRuleStartDate(createHL7Date(sRuleStartDate));
+            bHasData = true;
         }
 
         // Rule End Date
@@ -540,40 +576,8 @@ public class XACMLExtractor
         if ((sRuleEndDate != null) &&
             (sRuleEndDate.length() > 0))
         {
-            try
-            {
-                XMLGregorianCalendar oRuleEndDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(sRuleEndDate);
-
-                // For some reason if we get only a date (with no time) the JAXB serializer drops the
-                // entire field and considers it null.  So we need to fill in the '0' values for the time
-                //----------------------------------------------------------------------------------------
-                if (oRuleEndDate.getHour() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleEndDate.setHour(0);
-                }
-                if (oRuleEndDate.getMinute() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleEndDate.setMinute(0);
-                }
-                if (oRuleEndDate.getSecond() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleEndDate.setSecond(0);
-                }
-                if (oRuleEndDate.getMillisecond() == DatatypeConstants.FIELD_UNDEFINED)
-                {
-                    oRuleEndDate.setMillisecond(0);
-                }
-
-                oCriterion.setRuleEndDate(oRuleEndDate);
-                bHasData = true;
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Rule End Date was incorrectly formatted - unable to convert to a valid XMLGregorianCalendar.  Value = '" +
-                                       sRuleStartDate + "'.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new AdapterPIPException(sErrorMessage, e);
-            }
+            oCriterion.setRuleEndDate(createHL7Date(sRuleEndDate));
+            bHasData = true;
         }
 
         if (bHasData)

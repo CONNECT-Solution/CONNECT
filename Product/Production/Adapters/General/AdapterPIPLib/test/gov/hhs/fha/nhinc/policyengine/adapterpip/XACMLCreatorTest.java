@@ -36,7 +36,62 @@ public class XACMLCreatorTest
 {
     static PatientPreferencesType oPtPref1 = null;
     static PatientPreferencesType oPtPref2 = null;
-    static String PTPREF_EXAMPLE_1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><PatientPreferences xmlns:ns16=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\" xmlns:ns17=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc\" xmlns:ns14=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:ns15=\"http://docs.oasis-open.org/wsn/t-1\" xmlns:ns9=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\" xmlns:ns5=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os\" xmlns:ns12=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:ns6=\"urn:ihe:iti:xds-b:2007\" xmlns:ns13=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments\" xmlns:ns7=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\" xmlns:ns10=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns:ns8=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\" xmlns:ns11=\"http://www.w3.org/2005/08/addressing\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns4=\"urn:oasis:names:tc:xacml:2.0:context:schema:os\" xmlns:ns3=\"http://nhinc.services.com/schema/auditmessage\"><patientId>D123401</patientId><assigningAuthority>1.1</assigningAuthority><optIn>false</optIn><fineGrainedPolicyCriteria><fineGrainedPolicyCriterion><sequentialId>1</sequentialId><permit>true</permit><userRole><ns2:code>112247003</ns2:code></userRole></fineGrainedPolicyCriterion><fineGrainedPolicyCriterion><sequentialId>2</sequentialId><permit>true</permit><userRole><ns2:code>106289002</ns2:code></userRole><confidentialityCode><ns2:code>N</ns2:code></confidentialityCode><organizationId>http://www.happytoothdental.com</organizationId><ruleStartDate>2009-07-01T00:00:00.000</ruleStartDate><ruleEndDate>2009-12-31T00:00:00.000</ruleEndDate></fineGrainedPolicyCriterion><fineGrainedPolicyCriterion><sequentialId>3</sequentialId><permit>true</permit><documentTypeCode><ns2:code>45666666</ns2:code></documentTypeCode><homeCommunityId>1.1</homeCommunityId><userId>john.doe@somewhere.com</userId><userIdFormat>email</userIdFormat></fineGrainedPolicyCriterion><fineGrainedPolicyCriterion><sequentialId>4</sequentialId><permit>true</permit><purposeOfUse><ns2:code>Treatment</ns2:code></purposeOfUse><uniqueDocumentId>1234567</uniqueDocumentId><userId>cn=John Doe, ou=People, o=Somewhere, c=us</userId><userIdFormat>X500</userIdFormat></fineGrainedPolicyCriterion><fineGrainedPolicyCriterion><sequentialId>5</sequentialId><permit>false</permit></fineGrainedPolicyCriterion></fineGrainedPolicyCriteria><fineGrainedPolicyMetadata><policyOID>12345678-1234-1234-1234-123456781234</policyOID></fineGrainedPolicyMetadata></PatientPreferences>";
+    static String PTPREF_EXAMPLE_1 =
+"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
+"<PatientPreferences xmlns:ns16=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\" xmlns:ns17=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc\" xmlns:ns14=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:ns15=\"http://docs.oasis-open.org/wsn/t-1\" xmlns:ns9=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\" xmlns:ns5=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os\" xmlns:ns12=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:ns6=\"urn:ihe:iti:xds-b:2007\" xmlns:ns13=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments\" xmlns:ns7=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\" xmlns:ns10=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns:ns8=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\" xmlns:ns11=\"http://www.w3.org/2005/08/addressing\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns4=\"urn:oasis:names:tc:xacml:2.0:context:schema:os\" xmlns:ns3=\"http://nhinc.services.com/schema/auditmessage\">" +
+"	<patientId>D123401</patientId>" +
+"	<assigningAuthority>1.1</assigningAuthority>" +
+"	<optIn>false</optIn>" +
+"	<fineGrainedPolicyCriteria>" +
+"		<fineGrainedPolicyCriterion>" +
+"			<sequentialId>1</sequentialId>" +
+"			<permit>true</permit>" +
+"			<userRole>" +
+"				<ns2:code>112247003</ns2:code>" +
+"			</userRole>" +
+"		</fineGrainedPolicyCriterion>" +
+"		<fineGrainedPolicyCriterion>" +
+"			<sequentialId>2</sequentialId>" +
+"			<permit>true</permit>" +
+"			<userRole>" +
+"				<ns2:code>106289002</ns2:code>" +
+"			</userRole>" +
+"			<confidentialityCode>" +
+"				<ns2:code>N</ns2:code>" +
+"			</confidentialityCode>" +
+"			<organizationId>http://www.happytoothdental.com</organizationId>" +
+"			<ruleStartDate>20090701</ruleStartDate>" +
+"			<ruleEndDate>20091231</ruleEndDate>" +
+"		</fineGrainedPolicyCriterion>" +
+"		<fineGrainedPolicyCriterion>" +
+"			<sequentialId>3</sequentialId>" +
+"			<permit>true</permit>" +
+"			<documentTypeCode>" +
+"				<ns2:code>45666666</ns2:code>" +
+"			</documentTypeCode>" +
+"			<homeCommunityId>1.1</homeCommunityId>" +
+"			<userId>john.doe@somewhere.com</userId>" +
+"			<userIdFormat>email</userIdFormat>" +
+"		</fineGrainedPolicyCriterion>" +
+"		<fineGrainedPolicyCriterion>" +
+"			<sequentialId>4</sequentialId>" +
+"			<permit>true</permit>" +
+"			<purposeOfUse>" +
+"				<ns2:code>Treatment</ns2:code>" +
+"			</purposeOfUse>" +
+"			<uniqueDocumentId>1234567</uniqueDocumentId>" +
+"			<userId>cn=John Doe, ou=People, o=Somewhere, c=us</userId>" +
+"			<userIdFormat>X500</userIdFormat>" +
+"		</fineGrainedPolicyCriterion>" +
+"		<fineGrainedPolicyCriterion>" +
+"			<sequentialId>5</sequentialId>" +
+"			<permit>false</permit>" +
+"		</fineGrainedPolicyCriterion>" +
+"	</fineGrainedPolicyCriteria>" +
+"	<fineGrainedPolicyMetadata>" +
+"		<policyOID>12345678-1234-1234-1234-123456781234</policyOID>" +
+"	</fineGrainedPolicyMetadata>" +
+"</PatientPreferences>";
 
     static String PTPREF_EXAMPLE_2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><PatientPreferences xmlns:ns16=\"http://www.hhs.gov/healthit/nhin/cdc\" xmlns=\"urn:gov:hhs:fha:nhinc:common:nhinccommonadapter\" xmlns:ns17=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc\" xmlns:ns14=\"http://docs.oasis-open.org/wsrf/bf-2\" xmlns:ns15=\"http://docs.oasis-open.org/wsn/t-1\" xmlns:ns9=\"urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0\" xmlns:ns5=\"urn:oasis:names:tc:xacml:2.0:policy:schema:os\" xmlns:ns12=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:ns6=\"urn:ihe:iti:xds-b:2007\" xmlns:ns13=\"urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments\" xmlns:ns7=\"urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0\" xmlns:ns10=\"urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0\" xmlns:ns8=\"urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0\" xmlns:ns11=\"http://www.w3.org/2005/08/addressing\" xmlns:ns2=\"urn:gov:hhs:fha:nhinc:common:nhinccommon\" xmlns:ns4=\"urn:oasis:names:tc:xacml:2.0:context:schema:os\" xmlns:ns3=\"http://nhinc.services.com/schema/auditmessage\"><patientId>D123401</patientId><assigningAuthority>1.1</assigningAuthority><optIn>false</optIn><fineGrainedPolicyMetadata><policyOID>12345678-1234-1234-1234-123456781234</policyOID></fineGrainedPolicyMetadata></PatientPreferences>";
 
@@ -328,12 +383,12 @@ public class XACMLCreatorTest
                                  "urn:oasis:names:tc:xacml:1.0:function:date-greater-than-or-equal",
                                  "http://www.w3.org/2001/XMLSchema#date",
                                  "http://www.hhs.gov/healthit/nhin#rule-start-date",
-                                 "2009-07-01T00:00:00.000");
+                                 "2009-07-01");
         assertValidStringEnvironment(oRule.getTarget().getEnvironments().getEnvironment().get(1),
                                  "urn:oasis:names:tc:xacml:1.0:function:date-less-than-or-equal",
                                  "http://www.w3.org/2001/XMLSchema#date",
                                  "http://www.hhs.gov/healthit/nhin#rule-end-date",
-                                 "2009-12-31T00:00:00.000");
+                                 "2009-12-31");
 
         assertNull("Rule.Target.Actions", oRule.getTarget().getActions());
 

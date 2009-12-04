@@ -414,8 +414,7 @@ public class CdaPdfExtractorTest
 
         try
         {
-            Date dtEffectiveDate = oHL7DateTimeFormatter.parse("20050329224411-0500");
-            assertEquals("Effective Time incorrect: Compare value should have been 0.", 0, dtEffectiveDate.compareTo(oCriterion.getEffectiveTime().toGregorianCalendar().getTime()));
+            assertEquals("Effective Time incorrect: ", "20050329224411-0500", oCriterion.getEffectiveTime());
             //assertEquals("Effective Time incorrect:", "2005-03-29T224411+0500", oCriterion.getEffectiveTime().toXMLFormat());
         }
         catch (Exception e)
@@ -436,8 +435,8 @@ public class CdaPdfExtractorTest
 
         try
         {
-            Date dtBirthDate = oHL7DateOnlyFormatter.parse("19600127");
-            assertEquals("Birthdate incorrect: Compare value should have been 0.", 0, dtBirthDate.compareTo(oCriterion.getPatientInfo().getBirthTime().toGregorianCalendar().getTime()));
+            //Date dtBirthDate = oHL7DateOnlyFormatter.parse("19600127");
+            assertEquals("Birthdate incorrect: ", "19600127", oCriterion.getPatientInfo().getBirthTime());
             //assertEquals("PatientInfo.BirthTime incorrect:", "1960-01-27", oCriterion.getPatientInfo().getBirthTime().toXMLFormat());
         }
         catch (Exception e)
@@ -448,8 +447,8 @@ public class CdaPdfExtractorTest
         assertNotNull("AuthorOriginal was null:", oCriterion.getAuthorOriginal());
         try
         {
-            Date dtAuthorTime = oHL7DateOnlyFormatter.parse("19990522");
-            assertEquals("AuthorOriginal.AuthorTime incorrect: Compare value should have been 0.", 0, dtAuthorTime.compareTo(oCriterion.getAuthorOriginal().getAuthorTime().toGregorianCalendar().getTime()));
+            //Date dtAuthorTime = oHL7DateOnlyFormatter.parse("19990522");
+            assertEquals("AuthorOriginal.AuthorTime incorrect: ", "19990522", oCriterion.getAuthorOriginal().getAuthorTime());
             // assertEquals("AuthorOriginal.AuthorTime incorrect:", "19990522", oCriterion.getAuthorOriginal().getAuthorTime().toXMLFormat());
         }
         catch (Exception e)
@@ -466,8 +465,7 @@ public class CdaPdfExtractorTest
         assertNotNull("AuthorScanner was null:", oCriterion.getAuthorScanner());
         try
         {
-            Date dtAuthorTime = oHL7DateTimeFormatter.parse("20050329224411-0500");
-            assertEquals("AuthorScanner.AuthorTime incorrect: Compare value should have been 0.", 0, dtAuthorTime.compareTo(oCriterion.getAuthorScanner().getAuthorTime().toGregorianCalendar().getTime()));
+            assertEquals("AuthorScanner.AuthorTime incorrect: ", "20050329224411-0500", oCriterion.getAuthorScanner().getAuthorTime());
             // assertEquals("AuthorScanner.AuthorTime incorrect:", "2005-03-29T224411-0500", oCriterion.getAuthorScanner().getAuthorTime().toXMLFormat());
         }
         catch (Exception e)
@@ -485,8 +483,7 @@ public class CdaPdfExtractorTest
         assertNotNull("DataEnterer was null:", oCriterion.getDataEnterer());
         try
         {
-            Date dtDataEntererTime = oHL7DateTimeFormatter.parse("20050329224411-0500");
-            assertEquals("DataEnterer.DataEntererTime incorrect: Compare value should have been 0.", 0, dtDataEntererTime.compareTo(oCriterion.getDataEnterer().getDataEntererTime().toGregorianCalendar().getTime()));
+            assertEquals("DataEnterer.DataEntererTime incorrect: ", "20050329224411-0500", oCriterion.getDataEnterer().getDataEntererTime());
             // assertEquals("AuthorScanner.AuthorTime incorrect:", "2005-03-29T224411-0500", oCriterion.getAuthorScanner().getAuthorTime().toXMLFormat());
         }
         catch (Exception e)
@@ -506,8 +503,7 @@ public class CdaPdfExtractorTest
         assertNotNull("LegalAuthenticator was null:", oCriterion.getLegalAuthenticator());
         try
         {
-            Date dtAuthenticationTime = oHL7DateOnlyFormatter.parse("19990522");
-            assertEquals("Legal Authenticator.Authentication Time incorrect: Compare value should have been 0.", 0, dtAuthenticationTime.compareTo(oCriterion.getLegalAuthenticator().getAuthenticationTime().toGregorianCalendar().getTime()));
+            assertEquals("Legal Authenticator.Authentication Time incorrect: ", "19990522", oCriterion.getLegalAuthenticator().getAuthenticationTime());
             // assertEquals("LegalAuthenticator.AuthenticationTime incorrect:", "1999-05-22", oCriterion.getLegalAuthenticator().getAuthenticationTime().toXMLFormat());
         }
         catch (Exception e)
@@ -522,7 +518,7 @@ public class CdaPdfExtractorTest
         try
         {
             Date dtStartTime = oHL7DateOnlyFormatter.parse("19800127");
-            assertEquals("Start Time incorrect: Compare value should have been 0.", 0, dtStartTime.compareTo(oCriterion.getStartDate().toGregorianCalendar().getTime()));
+            assertEquals("Start Time incorrect: ", "19800127", oCriterion.getStartDate());
             // assertEquals("StartDate incorrect:", "1980-01-27", oCriterion.getStartDate().toXMLFormat());
         }
         catch (Exception e)
@@ -533,7 +529,7 @@ public class CdaPdfExtractorTest
         try
         {
             Date dtEndTime = oHL7DateOnlyFormatter.parse("19990522");
-            assertEquals("End Time incorrect: Compare value should have been 0.", 0, dtEndTime.compareTo(oCriterion.getEndDate().toGregorianCalendar().getTime()));
+            assertEquals("End Time incorrect: ", "19990522", oCriterion.getEndDate());
             // assertEquals("EndDate incorrect:", "1999-05-22", oCriterion.getEndDate().toXMLFormat());
         }
         catch (Exception e)

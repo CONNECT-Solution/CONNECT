@@ -351,9 +351,9 @@ public class XACMLExtractorTest
         assertNotNull("ConfidentialityCode", oCriterion.getConfidentialityCode());
         assertEquals("ConfidentialityCode.Code", "N", oCriterion.getConfidentialityCode().getCode());
         assertNotNull("RuleStartDate", oCriterion.getRuleStartDate());
-        assertEquals("RuleStartDate", "2009-07-01T00:00:00.000", oCriterion.getRuleStartDate().toXMLFormat());
+        assertEquals("RuleStartDate", "20090701", oCriterion.getRuleStartDate());
         assertNotNull("RuleEndDate", oCriterion.getRuleEndDate());
-        assertEquals("RuleEndDate", "2009-12-31T00:00:00.000", oCriterion.getRuleEndDate().toXMLFormat());
+        assertEquals("RuleEndDate", "20091231", oCriterion.getRuleEndDate());
 
         // That is all that should be in here.  Everything else should be null - make sure that is true.
         //----------------------------------------------------------------------------------------------

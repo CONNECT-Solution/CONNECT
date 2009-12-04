@@ -14,13 +14,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.hl7.v3.CE;
 
@@ -47,8 +42,6 @@ import org.hl7.v3.POCDMT000040DataEnterer;
 import org.hl7.v3.POCDMT000040LegalAuthenticator;
 import org.hl7.v3.POCDMT000040PatientRole;
 import org.hl7.v3.SCExplicit;
-import org.hl7.v3.TS;
-import org.hl7.v3.TSExplicit;
 
 
 
@@ -311,7 +304,7 @@ public class CdaPdfExtractor
                             if ((oPrefix != null) &&
                                 (oPrefix.getContent() != null))
                             {
-                                oPersonName.setPrefix(oPrefix.getContent());;
+                                oPersonName.setPrefix(oPrefix.getContent());
                                 bHaveData = true;
                             }
                         }   // if (oJAXBElement.getValue() instanceof EnExplicitPrefix)
@@ -321,7 +314,7 @@ public class CdaPdfExtractor
                             if ((oGiven != null) &&
                                 (oGiven.getContent() != null))
                             {
-                                oPersonName.setGivenName(oGiven.getContent());;
+                                oPersonName.setGivenName(oGiven.getContent());
                                 bHaveData = true;
                             }
                         }   // if (oJAXBElement.getValue() instanceof EnExplicitGiven)
@@ -331,7 +324,7 @@ public class CdaPdfExtractor
                             if ((oFamily != null) &&
                                 (oFamily.getContent() != null))
                             {
-                                oPersonName.setFamilyName(oFamily.getContent());;
+                                oPersonName.setFamilyName(oFamily.getContent());
                                 bHaveData = true;
                             }
                         }   // if (oJAXBElement.getValue() instanceof EnExplicitFamily)
@@ -341,7 +334,7 @@ public class CdaPdfExtractor
                             if ((oSuffix != null) &&
                                 (oSuffix.getContent() != null))
                             {
-                                oPersonName.setSuffix(oSuffix.getContent());;
+                                oPersonName.setSuffix(oSuffix.getContent());
                                 bHaveData = true;
                             }
                         }   // if (oJAXBElement.getValue() instanceof EnExplicitFamily)
@@ -397,176 +390,6 @@ public class CdaPdfExtractor
         {
             return null;
         }
-    }
-
-    /**
-     * This method creates a XML gregorian date from an HL7 TS data field.
-     *
-     * @param oHL7Ts The HL7 TS data field.
-     * @return The XML gregorian date.
-     */
-    private XMLGregorianCalendar createXMLDate(TSExplicit oHL7Ts)
-        throws AdapterPIPException
-    {
-        XMLGregorianCalendar oTime = null;
-
-        if ((oHL7Ts != null) &&
-            (oHL7Ts.getValue() != null) &&
-            (oHL7Ts.getValue().length() > 0))
-        {
-            // We need to look for dats in one of two formats.  Date only or Date and Time.
-            // We will first try to parse it as a date and time.  If that fails - then we will
-            // parse it as a date only.  If that fails - we will fail.
-            //--------------------------------------------------------------------------------------
-            String sTime = oHL7Ts.getValue();
-
-            Date dtTime = null;
-            try
-            {
-                dtTime = oHL7DateTimeFormatter.parse(sTime);
-            }
-            catch (Exception e)
-            {
-            }
-
-            if (dtTime == null)
-            {
-                try
-                {
-                    dtTime = oHL7DateOnlyFormatter.parse(sTime);
-                }
-                catch (Exception e)
-                {
-                }
-            }
-
-            if (dtTime == null)
-            {
-                String sErrorMessage = "Time was incorrectly formatted - unable to convert to a valid XMLGregorianCalendar.  Value = '" + sTime;
-                log.error(sErrorMessage);
-                throw new AdapterPIPException(sErrorMessage);
-            }
-
-            GregorianCalendar gregTime = new GregorianCalendar();
-            gregTime.setTime(dtTime);
-            try
-            {
-                oTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregTime);
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Failed to create an instance of XMLGregorianCalendar.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new AdapterPIPException(sErrorMessage, e);
-            }
-
-            // For some reason if we get only a date (with no time) the JAXB serializer drops the
-            // entire field and considers it null.  So we need to fill in the '0' values for the time
-            //----------------------------------------------------------------------------------------
-            if (oTime.getHour() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setHour(0);
-            }
-            if (oTime.getMinute() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setMinute(0);
-            }
-            if (oTime.getSecond() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setSecond(0);
-            }
-            if (oTime.getMillisecond() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setMillisecond(0);
-            }
-        }
-
-        return oTime;
-    }
-
-    /**
-     * This method creates a XML gregorian date from an HL7 TS data field.
-     *
-     * @param oHL7Ts The HL7 TS data field.
-     * @return The XML gregorian date.
-     */
-    private XMLGregorianCalendar createXMLDate(TS oHL7Ts)
-        throws AdapterPIPException
-    {
-        XMLGregorianCalendar oTime = null;
-
-        if ((oHL7Ts != null) &&
-            (oHL7Ts.getValue() != null) &&
-            (oHL7Ts.getValue().length() > 0))
-        {
-            // We need to look for dats in one of two formats.  Date only or Date and Time.
-            // We will first try to parse it as a date and time.  If that fails - then we will
-            // parse it as a date only.  If that fails - we will fail.
-            //--------------------------------------------------------------------------------------
-            String sTime = oHL7Ts.getValue();
-
-            Date dtTime = null;
-            try
-            {
-                dtTime = oHL7DateTimeFormatter.parse(sTime);
-            }
-            catch (Exception e)
-            {
-            }
-
-            if (dtTime == null)
-            {
-                try
-                {
-                    dtTime = oHL7DateOnlyFormatter.parse(sTime);
-                }
-                catch (Exception e)
-                {
-                }
-            }
-
-            if (dtTime == null)
-            {
-                String sErrorMessage = "Time was incorrectly formatted - unable to convert to a valid XMLGregorianCalendar.  Value = '" + sTime;
-                log.error(sErrorMessage);
-                throw new AdapterPIPException(sErrorMessage);
-            }
-
-            GregorianCalendar gregTime = new GregorianCalendar();
-            gregTime.setTime(dtTime);
-            try
-            {
-                oTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(gregTime);
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Failed to create an instance of XMLGregorianCalendar.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
-                throw new AdapterPIPException(sErrorMessage, e);
-            }
-
-            // For some reason if we get only a date (with no time) the JAXB serializer drops the
-            // entire field and considers it null.  So we need to fill in the '0' values for the time
-            //----------------------------------------------------------------------------------------
-            if (oTime.getHour() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setHour(0);
-            }
-            if (oTime.getMinute() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setMinute(0);
-            }
-            if (oTime.getSecond() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setSecond(0);
-            }
-            if (oTime.getMillisecond() == DatatypeConstants.FIELD_UNDEFINED)
-            {
-                oTime.setMillisecond(0);
-            }
-        }
-
-        return oTime;
     }
 
     /**
@@ -630,12 +453,8 @@ public class CdaPdfExtractor
            (oHL7PatientRole.getPatient().getBirthTime() != null) &&
            (oHL7PatientRole.getPatient().getBirthTime().getValue() != null))
         {
-            XMLGregorianCalendar oBirthTime = createXMLDate(oHL7PatientRole.getPatient().getBirthTime());
-            if (oBirthTime != null)
-            {
-                oPatientInfo.setBirthTime(oBirthTime);
-                bHaveData = true;
-            }
+            oPatientInfo.setBirthTime(oHL7PatientRole.getPatient().getBirthTime().getValue());
+            bHaveData = true;
         }
 
         if (bHaveData)
@@ -706,14 +525,12 @@ public class CdaPdfExtractor
         {
             // Author time
             //-------------
-            if (oHL7Author.getTime() != null)
+            if ((oHL7Author.getTime() != null) &&
+                (oHL7Author.getTime().getValue() != null) &&
+                (oHL7Author.getTime().getValue().length() > 0))
             {
-                XMLGregorianCalendar oAuthorTime = createXMLDate(oHL7Author.getTime());
-                if (oAuthorTime != null)
-                {
-                    oOriginalAuthor.setAuthorTime(oAuthorTime);
-                    bHaveData = true;
-                }
+                oOriginalAuthor.setAuthorTime(oHL7Author.getTime().getValue());
+                bHaveData = true;
             }
 
             if ((oHL7Author.getAssignedAuthor() != null) &&
@@ -925,14 +742,12 @@ public class CdaPdfExtractor
         {
             // Author time
             //-------------
-            if (oHL7Author.getTime() != null)
+            if ((oHL7Author.getTime() != null) &&
+                (oHL7Author.getTime().getValue() != null) &&
+                (oHL7Author.getTime().getValue().length() > 0))
             {
-                XMLGregorianCalendar oAuthorTime = createXMLDate(oHL7Author.getTime());
-                if (oAuthorTime != null)
-                {
-                    oScannerAuthor.setAuthorTime(oAuthorTime);
-                    bHaveData = true;
-                }
+                oScannerAuthor.setAuthorTime(oHL7Author.getTime().getValue());
+                bHaveData = true;
             }
 
             if ((oHL7Author.getAssignedAuthor() != null) &&
@@ -1071,14 +886,12 @@ public class CdaPdfExtractor
         {
             // Data enterer time
             //------------------
-            if (oHL7DataEnterer.getTime() != null)
+            if ((oHL7DataEnterer.getTime() != null) &&
+                (oHL7DataEnterer.getTime().getValue() != null) &&
+                (oHL7DataEnterer.getTime().getValue().length() > 0))
             {
-                XMLGregorianCalendar oTime = createXMLDate(oHL7DataEnterer.getTime());
-                if (oTime != null)
-                {
-                    oDataEnterer.setDataEntererTime(oTime);
-                    bHaveData = true;
-                }
+                oDataEnterer.setDataEntererTime(oHL7DataEnterer.getTime().getValue());
+                bHaveData = true;
             }
 
             if ((oHL7DataEnterer.getAssignedEntity() != null) &&
@@ -1217,14 +1030,12 @@ public class CdaPdfExtractor
         {
             // Authentication time
             //--------------------------
-            if (oHL7Authenticator.getTime() != null)
+            if ((oHL7Authenticator.getTime() != null) &&
+                (oHL7Authenticator.getTime().getValue() != null) &&
+                (oHL7Authenticator.getTime().getValue().length() > 0))
             {
-                XMLGregorianCalendar oTime = createXMLDate(oHL7Authenticator.getTime());
-                if (oTime != null)
-                {
-                    oAuthenticator.setAuthenticationTime(oTime);
-                    bHaveData = true;
-                }
+                oAuthenticator.setAuthenticationTime(oHL7Authenticator.getTime().getValue());
+                bHaveData = true;
             }
 
             // Signature Code
@@ -1344,14 +1155,11 @@ public class CdaPdfExtractor
         // Effective Time
         //----------------
         if ((oCda.getEffectiveTime() != null) &&
-            (oCda.getEffectiveTime().getValue() != null))
+            (oCda.getEffectiveTime().getValue() != null) &&
+            (oCda.getEffectiveTime().getValue().length() > 0))
         {
-            XMLGregorianCalendar oEffectiveTime = createXMLDate(oCda.getEffectiveTime());
-            if (oEffectiveTime != null)
-            {
-                oCriterion.setEffectiveTime(oEffectiveTime);
-                bHaveData = true;
-            }
+            oCriterion.setEffectiveTime(oCda.getEffectiveTime().getValue());
+            bHaveData = true;
         }
 
         // Confidentiality Code
@@ -1462,16 +1270,11 @@ public class CdaPdfExtractor
                     (oJaxbElement.getValue() instanceof IVXBTSExplicit))
                 {
                     IVXBTSExplicit oHL7LowTime = (IVXBTSExplicit) oJaxbElement.getValue();
-                    if (oHL7LowTime.getValue() != null)
+                    if ((oHL7LowTime.getValue() != null) &&
+                        (oHL7LowTime.getValue().length() > 0))
                     {
-                        TSExplicit oTS = new TSExplicit();
-                        oTS.setValue(oHL7LowTime.getValue());
-                        XMLGregorianCalendar oLowTime = createXMLDate(oTS);
-                        if (oLowTime != null)
-                        {
-                            oCriterion.setStartDate(oLowTime);
-                            bHaveData = true;
-                        }
+                        oCriterion.setStartDate(oHL7LowTime.getValue());
+                        bHaveData = true;
                     }
                 }   // if ((oJaxbElement.getName() != null) &&
                 // End Time
@@ -1483,16 +1286,11 @@ public class CdaPdfExtractor
                     (oJaxbElement.getValue() instanceof IVXBTSExplicit))
                 {
                     IVXBTSExplicit oHL7HighTime = (IVXBTSExplicit) oJaxbElement.getValue();
-                    if (oHL7HighTime.getValue() != null)
+                    if ((oHL7HighTime.getValue() != null) &&
+                        (oHL7HighTime.getValue().length() > 0))
                     {
-                        TSExplicit oTS = new TSExplicit();
-                        oTS.setValue(oHL7HighTime.getValue());
-                        XMLGregorianCalendar oHighTime = createXMLDate(oTS);
-                        if (oHighTime != null)
-                        {
-                            oCriterion.setEndDate(oHighTime);
-                            bHaveData = true;
-                        }
+                        oCriterion.setEndDate(oHL7HighTime.getValue());
+                        bHaveData = true;
                     }
                 }   // else if ((oJaxbElement.getName() != null) &&
             }   // for (JAXBElement oJaxbElement : oCda.getDocumentationOf().get(0).getServiceEvent().getEffectiveTime().getContent())

@@ -3,6 +3,8 @@ package gov.hhs.fha.nhinc.policyengine.adapterpip;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -41,6 +43,15 @@ import org.w3c.dom.Document;
  */
 public class XACMLCreator
 {
+    private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
+    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
+    private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
+    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
+    private static final String XML_DATE_ONLY_FORMAT = "yyyy-MM-dd";
+    private static final SimpleDateFormat oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
+    private static final String XML_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final SimpleDateFormat oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
+
 
     /**
      * This method constructs a Action that will be placed in the XACML target.
@@ -305,6 +316,61 @@ public class XACMLCreator
     }
 
     /**
+     * This method creates an date formatted according to XML default from a
+     * HL7 date/time format.
+     *
+     * @param sHL7DateTime The date or date-time in HL7 format.
+     * @return The date or date-time in XML default format.
+     */
+    private String createXMLDate(String sHL7DateTime)
+        throws AdapterPIPException
+    {
+        String sXMLDate = null;
+
+        // Do we have a "date only"?
+        //--------------------------
+        if ((sHL7DateTime != null) &&
+            (sHL7DateTime.length() == 8))
+        {
+            try
+            {
+                Date oHL7Date = oHL7DateOnlyFormatter.parse(sHL7DateTime);
+                sXMLDate = oXMLDateOnlyFormatter.format(oHL7Date);
+            }
+            catch (Exception e)
+            {
+                String sErrorMessage = "Date had invalid HL7 format: " + sHL7DateTime + ".  Error = " + e.getMessage();
+                throw new AdapterPIPException(sErrorMessage, e);
+            }
+        }
+        // Date + Time
+        //------------
+        else if ((sHL7DateTime != null) &&
+              (sHL7DateTime.length() > 8))
+        {
+            try
+            {
+                Date oHL7Date = oHL7DateTimeFormatter.parse(sHL7DateTime);
+                sXMLDate = oXMLDateTimeFormatter.format(oHL7Date);
+            }
+            catch (Exception e)
+            {
+                String sErrorMessage = "Date-time had invalid HL7 format: " + sHL7DateTime + ".  Error = " + e.getMessage();
+                throw new AdapterPIPException(sErrorMessage, e);
+            }
+        }
+        // Do not know format - put it in as is.
+        else
+        {
+            sXMLDate = sHL7DateTime;
+        }
+
+
+        return sXMLDate;
+
+    }
+
+    /**
      * This method creates the Rule associated with a single instance of a
      * fine grained criterion.
      *
@@ -313,6 +379,7 @@ public class XACMLCreator
      * @return The rule representing a single fine grained policy settings.
      */
     private RuleType createFineGrainedRule(int iRuleId, FineGrainedPolicyCriterionType oCriterion)
+        throws AdapterPIPException
     {
         RuleType oRule = new RuleType();
 
@@ -517,7 +584,7 @@ public class XACMLCreator
             EnvironmentType oRuleEnv = createEnvironment(XACMLConstants.MATCH_ID_DATE_GREATER_OR_EQUAL,
                                                          XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE,
                                                          XACMLConstants.ENVIRONMENT_RULE_START_DATE,
-                                                         oCriterion.getRuleStartDate().toXMLFormat());
+                                                         createXMLDate(oCriterion.getRuleStartDate()));
 
             olEnv.add(oRuleEnv);
             bHaveEnvInfo = true;
@@ -530,7 +597,7 @@ public class XACMLCreator
             EnvironmentType oRuleEnv = createEnvironment(XACMLConstants.MATCH_ID_DATE_LESS_OR_EQUAL,
                                                          XACMLConstants.ATTRIBUTE_VALUE_TYPE_DATE,
                                                          XACMLConstants.ENVIRONMENT_RULE_END_DATE,
-                                                         oCriterion.getRuleEndDate().toXMLFormat());
+                                                         createXMLDate(oCriterion.getRuleEndDate()));
 
             olEnv.add(oRuleEnv);
             bHaveEnvInfo = true;
