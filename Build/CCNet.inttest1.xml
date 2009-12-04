@@ -3,64 +3,38 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
 
   %entities;
+  <!ENTITY webURLi 'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
-            <user name="Jay Flowers"            group="buildmaster"       address="jay.flowers@agilex.com"/>
-            <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
-            <user name="Mark Goldman"           group="buildmaster"       address="mark.goldman@agilex.com"/>
-            
-            <user name="Scott Borst"            group="tester"            address="scott.borst@agilex.com"/>
-            <user name="Padmanabhan p"          group="tester"            address="parineetha.padmanabhan@agilex.com"/>
-            <user name="Aleena Dhar"            group="tester"            address="aleena.dhar@agilex.com"/>
+          <user name="Jay Flowers"            group="buildmaster"    address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"     group="buildmaster"    address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"           group="buildmaster"    address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"           group="buildmaster"    address="kieran.dunne@agilex.com"/>
+          <user name="Brian Mowbray"          group="buildmaster"    address="brian.mowbray@agilex.com"/>
           
-            <user name="flowersj"               group="developer"         address="jay.flowers@agilex.com"/>
-            <user name="vadlamanis"             group="developer"         address="srikanth.vadlamani@agilex.com"/>
-            <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
-            <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
-            <user name="padmanabhanp"           group="developer"         address="parineetha.padmanabhan@agilex.com"/>
-            <user name="dhara"                  group="developer"         address="aleena.dhar@agilex.com"/>
-            <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
-            <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
-            <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
-            <user name="westbergl"              group="developer"         address="les.westberg@agilex.com"/>
-            <user name="valluripallis"          group="developer"         address="svalluripalli@scenpro.com"/>
-            <user name="vvickers"               group="developer"         address="vvickers@harris.com"/>
-            <user name="mflynn02"               group="developer"         address="mflynn02@harris.com"/>
-            <user name="hoppeschj"              group="developer"         address="jhoppesc@harris.com"/>
-            <user name="shawc"                  group="developer"         address="clark.shaw@agilex.com"/>
-            <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
-
-            <user name="kieran dunne"           group="&ProjectName;"     address="kieran.dunne@agilex.com"/>
-            <user name="jason ray"              group="&ProjectName;"     address="jason.ray@agilex.com"/>
-            <user name="neil webb"              group="&ProjectName;"     address="neil.webb@agilex.com"/>
-            <user name="les westberg"           group="&ProjectName;"     address="les.westberg@agilex.com"/>
-            <user name="sai valluripalli"       group="&ProjectName;"     address="svalluripalli@scenpro.com"/>
-            <user name="vicky vickers"          group="&ProjectName;"     address="vvickers@harris.com"/>
-            <user name="martha flynn"           group="&ProjectName;"     address="mflynn02@harris.com"/>
-            <user name="jon hoppesch"           group="&ProjectName;"     address="jhoppesc@harris.com"/>
-            <user name="clark shaw"             group="&ProjectName;"     address="clark.shaw@agilex.com"/>
-            <user name="visu patlolla"          group="&ProjectName;"     address="visu.patlolla@agilex.com"/>
-
-            <user name="kieran dunne Dev"       group="&ProjectName;Dev"  address="kieran.dunne@agilex.com"/>
-            <user name="jason ray Dev"          group="&ProjectName;Dev"  address="jason.ray@agilex.com"/>
-            <user name="neil webb Dev"          group="&ProjectName;Dev"  address="neil.webb@agilex.com"/>
-            <user name="les westberg Dev"       group="&ProjectName;Dev"  address="les.westberg@agilex.com"/>
-            <user name="sai valluripalli Dev"   group="&ProjectName;Dev"  address="svalluripalli@scenpro.com"/>
-            <user name="vicky vickers Dev"      group="&ProjectName;Dev"  address="vvickers@harris.com"/>
-            <user name="martha flynn Dev"       group="&ProjectName;Dev"  address="mflynn02@harris.com"/>
-            <user name="jon hoppesch Dev"       group="&ProjectName;Dev"  address="jhoppesc@harris.com"/>
-            <user name="clark shaw Dev"         group="&ProjectName;Dev"  address="clark.shaw@agilex.com"/>
-            <user name="visu patlolla Dev"      group="&ProjectName;Dev"  address="visu.patlolla@agilex.com"/>
+          <user name="flowersj"               group="developer"      address="jay.flowers@agilex.com"/>
+          <user name="vadlamanis"             group="developer"      address="srikanth.vadlamani@agilex.com"/>
+          <user name="goldmanm"               group="developer"      address="mark.goldman@agilex.com"/>
+          
+          <user name="borsts"                 group="developer"      address="scott.borst@agilex.com"/>
+          <user name="dunnek"                 group="developer"      address="kieran.dunne@agilex.com"/>
+          <user name="rayj"                   group="developer"      address="jason.ray@agilex.com"/>
+          <user name="webbn"                  group="developer"      address="neil.webb@agilex.com"/>
+          <user name="westbergl"              group="developer"      address="les.westberg@agilex.com"/>
+          <user name="valluripallis"          group="developer"      address="svalluripalli@scenpro.com"/>
+          <user name="vvickers"               group="developer"      address="vvickers@harris.com"/>
+          <user name="mflynn02"               group="developer"      address="mflynn02@harris.com"/>
+          <user name="hoppeschj"              group="developer"      address="jhoppesc@harris.com"/>
+          <user name="shawc"                  group="developer"      address="clark.shaw@agilex.com"/>
+          <user name="patlollav"              group="developer"      address="visu.patlolla@agilex.com"/>
         </users>
         <groups>
-          <group name="buildmaster"       notification="always"/>
-          <group name="tester"            notification="always"/>
-          <group name="&ProjectName;"     notification="change"/>
-          <group name="&ProjectName;Dev"  notification="failed"/>
+          <group name="buildmaster" notification="change"/>
         </groups>
       </email>'>
+
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
             <exclusionFilters>
               <activities>
@@ -68,17 +42,8 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY ReleaseBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Release">
-            <exclusionFilters>
-              <activities>
-                <activity>Building</activity>
-              </activities>
-            </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY ReleaseFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <conditions>
@@ -87,7 +52,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Deploy '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
+                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                 project="&ProjectName;-&ProjectCodeLineName;-Deploy">
              <exclusionFilters>
                <activities>
@@ -96,7 +61,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
             <exclusionFilters>
               <conditions>
@@ -105,7 +70,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Test '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
+                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                 project="&ProjectName;-&ProjectCodeLineName;-Test">
              <exclusionFilters>
                <activities>
@@ -114,26 +79,8 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
-            <exclusionFilters>
-              <conditions>
-                <condition>Failure</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY DevBuilding '<projectFilter
-               serverUri="&CCNet.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Dev">
-            <exclusionFilters>
-              <activities>
-                <activity>Building</activity>
-              </activities>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY DevFailed '<projectFilter
-               serverUri="&CCNet.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Dev">
             <exclusionFilters>
               <conditions>
                 <condition>Failure</condition>
@@ -143,9 +90,9 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Integration.Server.Rest.Url;">
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
   <project name="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
@@ -153,7 +100,6 @@
         <projectFilters>
           &Deploy;
           &Test;
-          &ReleaseBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -162,7 +108,6 @@
         <projectFilters>
           &Deploy;
           &Test;
-          &ReleaseBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -193,13 +138,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
+          serverUri="tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
           project="&ProjectName;-&ProjectCodeLineName;-Release"
         >
           <triggerStatus>Success</triggerStatus>
@@ -209,7 +154,6 @@
           &ScriptsBuilding;
           &Test;
           &ReleaseFailed;
-          &ReleaseBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -219,7 +163,6 @@
           &ScriptsBuilding;
           &Test;
           &ReleaseFailed;
-          &ReleaseBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -265,7 +208,25 @@
         </files>
       </merge>
       <xmllogger />
-      &email;
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
+        <users>
+          <user name="Jay Flowers"          group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"   group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"         group="buildmaster"   address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"         group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Jason Ray"            group="buildmaster"   address="jason.ray@agilex.com"/>
+          <user name="Brian Mowbray"        group="buildmaster"   address="brian.mowbray@agilex.com"/>
+
+          <user name="Greg Pfister"         group="managers"      address="greg.pfister@agilex.com"/>
+
+          <user name="borsts"               group="testers"       address="scott.borst@agilex.com"/>
+        </users>
+        <groups>
+          <group name="buildmaster" notification="always"/>
+          <group name="testers" notification="always"/>
+          <group name="managers" notification="success"/>
+        </groups>
+      </email>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
@@ -279,13 +240,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+    <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
+          serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
           project="&ProjectName;-&ProjectCodeLineName;-Deploy"
         >
           <triggerStatus>Success</triggerStatus>
@@ -295,7 +256,6 @@
           &ScriptsBuilding;
           &Deploy;
           &DeployFailed;
-          &ReleaseBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -305,7 +265,6 @@
           &ScriptsBuilding;
           &Deploy;
           &DeployFailed;
-          &ReleaseBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -367,154 +326,22 @@
         </filepairs>
       </xslmerger>
       <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
-    <webURL>&Integration.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger type="intervalTrigger" seconds="5400" />
-        <projectFilters>
-          &ScriptsBuilding;
-          &DevBuilding;
-          &DevFailed;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DevBuilding;
-          &DevFailed;
-        </projectFilters>
-      </projectForceFilter>
-      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="true" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-      <exclusionFilters>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/IntegrationTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/UnitTest/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Product.Name;/FitNesse/**/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;/*.*</pattern>
-        </pathFilter>
-        <pathFilter>
-          <pattern>**/&ProjectCodeLineName;/&Common.Directory.Build.Name;/**/*.*</pattern>
-        </pathFilter>
-      </exclusionFilters>
-    </sourcecontrol>
-    <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Release</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>Release</target>
-        </targetList>
-        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\SimianReport\SimianReport.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\UnitTestReports\*.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\IntegrationTest\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\IntegrationTestReports\*.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Coverage\CoverageReport.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
+      <email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
+        <users>
+          <user name="Jay Flowers"          group="buildmaster"   address="jay.flowers@agilex.com"/>
+          <user name="Srikanth Vadlamani"   group="buildmaster"   address="srikanth.vadlamani@agilex.com"/>
+          <user name="Mark Goldman"         group="buildmaster"   address="mark.goldman@agilex.com"/>
+          <user name="Kieran Dunne"         group="buildmaster"   address="kieran.dunne@agilex.com"/>
+          <user name="Jason Ray"            group="buildmaster"   address="jason.ray@agilex.com"/>
+          <user name="Brian Mowbray"        group="buildmaster"   address="brian.mowbray@agilex.com"/>
+
+          <user name="borsts"               group="testers"       address="scott.borst@agilex.com"/>
+        </users>
+        <groups>
+          <group name="buildmaster" notification="always"/>
+          <group name="testers" notification="always"/>
+        </groups>
+      </email>
       <nant>
         <executable>&Tools.NAnt.Exe;</executable>
         <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
