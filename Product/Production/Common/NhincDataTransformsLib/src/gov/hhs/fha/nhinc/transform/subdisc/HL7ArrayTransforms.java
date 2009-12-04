@@ -306,8 +306,11 @@ public class HL7ArrayTransforms
             newDevice.setSoftwareName(orig.getDevice().getSoftwareName());
             newDevice.setTypeId(orig.getDevice().getTypeId());
 
-            II deviceId = orig.getDevice().getId().get(0);
-            newDevice.getId().add(deviceId);
+            if(orig.getDevice() != null && orig.getDevice().getId().size() >0)
+            {
+                II deviceId = orig.getDevice().getId().get(0);
+                newDevice.getId().add(deviceId);
+            }
             result.setTelecom(orig.getTelecom());
             result.setTypeCode(orig.getTypeCode());
             result.setTypeId(orig.getTypeId());
