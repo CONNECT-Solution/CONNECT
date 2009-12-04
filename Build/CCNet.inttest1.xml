@@ -69,7 +69,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY ReleaseBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <activities>
@@ -78,7 +78,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY ReleaseFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url ;"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <conditions>
@@ -87,7 +87,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Deploy '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url ;"
+                serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Deploy">
              <exclusionFilters>
                <activities>
@@ -96,7 +96,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url ;"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
             <exclusionFilters>
               <conditions>
@@ -105,7 +105,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY Test '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url ;"
+                serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test">
              <exclusionFilters>
                <activities>
@@ -114,7 +114,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url ;"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
