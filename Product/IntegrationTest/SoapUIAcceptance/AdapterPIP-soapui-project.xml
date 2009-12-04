@@ -43930,7 +43930,7 @@ removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "z
                <urn:confidentialityCode>confidentiality_code</urn:confidentialityCode>
                <urn:confidentialityCodeScheme>confidentiality_code_scheme</urn:confidentialityCodeScheme>
                <urn:confidentialityCodeDisplayName>confidentiality_code_display_name</urn:confidentialityCodeDisplayName>
-               <urn:creationTime>2009-09-23T21:14:27Z</urn:creationTime>
+               <urn:creationTime>20090923211427-0600</urn:creationTime>
                <urn:formatCode>format_code</urn:formatCode>
                <urn:formatCodeScheme>format_code_scheme</urn:formatCodeScheme>
                <urn:formatCodeDisplayName>format_code_display_name</urn:formatCodeDisplayName>
@@ -43940,12 +43940,12 @@ removeRecordWithLike(host, port, db, user, pass, eventCodeTable, "EventCode", "z
                <urn:healthcareFacilityCodeDisplayName>healthcare_facility_code_display_name</urn:healthcareFacilityCodeDisplayName>
                <urn:languageCode>language_code</urn:languageCode>
                <urn:legalAuthenticator>legal_authenticator</urn:legalAuthenticator>
-               <urn:mimeType>mime_type</urn:mimeType>
+               <urn:mimeType>text/xml</urn:mimeType>
                <urn:practiceSettingCode>practice_setting_code</urn:practiceSettingCode>
                <urn:practiceSettingCodeScheme>practice_setting_code_scheme</urn:practiceSettingCodeScheme>
                <urn:practiceSettingCodeDisplayName>practice_setting_code_display_name</urn:practiceSettingCodeDisplayName>
-               <urn:serviceStartTime>2009-09-23T21:14:27Z</urn:serviceStartTime>
-               <urn:serviceStopTime>2009-09-23T21:14:27Z</urn:serviceStopTime>
+               <urn:serviceStartTime>20090923211427-0600</urn:serviceStartTime>
+               <urn:serviceStopTime>20090923211427-0600</urn:serviceStopTime>
                <urn:size>123</urn:size>
                <urn:sourcePatientId>source_patient_id</urn:sourcePatientId>
                <urn:Pid3>pid3_value</urn:Pid3>
@@ -44230,4 +44230,4 @@ void removeRecord(host, port, dbName, user, password, table, col, val) {
 
 removeRecord(host, port, db, user, pass, docTable, "PatientId", "ADPTPIPTST98769876Z");
 
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
