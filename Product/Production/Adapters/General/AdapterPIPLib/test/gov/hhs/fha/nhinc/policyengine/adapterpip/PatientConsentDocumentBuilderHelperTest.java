@@ -157,8 +157,8 @@ public class PatientConsentDocumentBuilderHelperTest {
             validateClassification("Author role", extObject, CDAConstants.XDS_AUTHOR, CDAConstants.CLASSIFICATION_SLOT_AUTHOR_ROLE, "Author", "author_role", "Author");
             validateClassification("Author specialty", extObject, CDAConstants.XDS_AUTHOR, CDAConstants.CLASSIFICATION_SLOT_AUTHOR_SPECIALTY, "Author", "author_specialty", "Author");
             // Event Code
-            validateClassification("Event code 1", extObject, CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "event_code_1", "event_code_1_scheme", "event_code_1_display_name");
-            validateClassification("Event code 2", extObject, CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "event_code_2", "event_code_2_scheme", "event_code_2_display_name");
+            validateClassification("Event code 1", extObject, CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "event_code_1", "N/A", "");
+            validateClassification("Event code 2", extObject, CDAConstants.XDS_EVENT_CODE_LIST_CLASSIFICATION, CDAConstants.CLASSIFICATION_SCHEMA_CDNAME, "event_code_2", "N/A", "");
             // Language code
             validateSlotValue(extObject, CDAConstants.SLOT_NAME_LANGUAGE_CODE, "language_code");
             // Legal authenticator
@@ -255,8 +255,6 @@ public class PatientConsentDocumentBuilderHelperTest {
             validateSlotValue(extObject, CDAConstants.SLOT_NAME_LANGUAGE_CODE, CDAConstants.LANGUAGE_CODE_ENGLISH);
             // Source patient id (patient id and home community are used as default)
             validateSlotValue(extObject, CDAConstants.SLOT_NAME_SOURCE_PATIENT_ID, "ADPTPIPTST98769876Z^^^&1.1&ISO");
-            // Source patient info
-            validateSlotValue(extObject, CDAConstants.SLOT_NAME_SOURCE_PATIENT_INFO, "PID-3|pid1^^^domain");
             // Document title
             assertFalse("Document title value list empty", extObject.getName().getLocalizedString().isEmpty());
             assertEquals("Document title", CDAConstants.TITLE, extObject.getName().getLocalizedString().get(0).getValue());
