@@ -323,6 +323,9 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -347,6 +350,9 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
@@ -397,6 +403,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-script-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
@@ -415,8 +422,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-legacy-2.5.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jmock-script-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-script-2.5.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxy.jar}" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhinPatientDiscoveryProxy.jar} ${manifest.reference.NhinPatientDiscoveryProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.reference.AdapterMpiProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhinPatientDiscoveryProxy.jar} ${manifest.reference.NhinPatientDiscoveryProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -700,6 +708,7 @@ exists or setup the property manually. For example like this:
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhinPatientDiscoveryProxy}/build.xml" inheritall="false" target="clean"/>

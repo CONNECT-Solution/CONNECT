@@ -163,6 +163,8 @@
      <!--   <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
         <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/> -->
 		<property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
+		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -175,6 +177,9 @@
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
      <!--   <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/> -->
+        
+        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
 
 	</target>
 	<target depends="compile" name="library-inclusion-in-archive">
@@ -190,6 +195,13 @@
 		<copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
 	<!--	<copy file="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
 		<copy file="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/> -->
+        <copyfiles files="${file.reference.jmock-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-junit3-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-junit4-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.jmock-script-2.5.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
 	<target depends="compile" name="library-inclusion-in-manifest">
 		<basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
@@ -212,13 +224,15 @@
 		<copy file="${reference.NhinPatientDiscoveryProxyImpl.jar}" todir="${dist.ear.dir}"/>
 		<basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
 		<copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
+		        <copyfiles files="${reference.AdapterMpiProxy.jar}" property="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" property="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
 	<!--	<basename file="${reference.PolicyEngineProxy.jar}" property="included.lib.reference.PolicyEngineProxy.jar"/>
 		<copy file="${reference.PolicyEngineProxy.jar}" todir="${dist.ear.dir}"/>
 		<basename file="${reference.PolicyEngineProxyImpl.jar}" property="included.lib.reference.PolicyEngineProxyImpl.jar"/>
 		<copy file="${reference.PolicyEngineProxyImpl.jar}" todir="${dist.ear.dir}"/> -->
 		<manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
 		<!-- Add jar references to those projects commented out above -->
-			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.NhinPatientDiscoveryProxyImpl.jar} ${included.lib.reference.NhinPatientDiscoveryProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}"/>
+			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.NhinPatientDiscoveryProxyImpl.jar} ${included.lib.reference.NhinPatientDiscoveryProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}  ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar}"/>
 		</manifest>
 	</target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
