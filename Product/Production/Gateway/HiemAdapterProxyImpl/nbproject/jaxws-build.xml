@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterNotificationConsumer" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumer"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapternotificationconsumer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumer"/>
     </target>
     <target name="wsimport-client-AdapterSubscriptionManagement" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagement"/>
@@ -43,7 +43,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterSubscriptionManagement" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagement"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptersubscriptionmanagement"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
     </target>
     <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumerSecured"/>
