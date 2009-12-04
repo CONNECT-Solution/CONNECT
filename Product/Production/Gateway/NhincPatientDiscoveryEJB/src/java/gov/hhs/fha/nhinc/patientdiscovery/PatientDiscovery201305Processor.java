@@ -180,36 +180,45 @@ public class PatientDiscovery201305Processor {
         II patId = null;
         String aaId = null;
 
-        if (request != null &&
-                request.getControlActProcess() != null) {
-            if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
-                    request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
-                aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
-            }
+        try
+        {
+            if (request != null &&
+                    request.getControlActProcess() != null) {
+                if (NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer()) &&
+                        request.getControlActProcess().getAuthorOrPerformer().get(0) != null &&
+                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice() != null &&
+                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue() != null &&
+                        NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId()) &&
+                        request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0) != null &&
+                        NullChecker.isNotNullish(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot())) {
+                    aaId = request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getRoot();
+                }
 
-            if (NullChecker.isNotNullish(aaId)) {
-                if (request.getControlActProcess().getQueryByParameter() != null &&
-                        request.getControlActProcess().getQueryByParameter().getValue() != null &&
-                        request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
-                        NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
-                    for (PRPAMT201306UV02LivingSubjectId livingSubId:request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
-                        if (NullChecker.isNotNullish(livingSubId.getValue()) &&
-                                livingSubId.getValue().get(0) != null &&
-                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
-                                NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
-                                aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
-                            patId.setRoot(livingSubId.getValue().get(0).getRoot());
-                            patId.setExtension(livingSubId.getValue().get(0).getExtension());
+                if (NullChecker.isNotNullish(aaId)) {
+                    if (request.getControlActProcess().getQueryByParameter() != null &&
+                            request.getControlActProcess().getQueryByParameter().getValue() != null &&
+                            request.getControlActProcess().getQueryByParameter().getValue().getParameterList() != null &&
+                            NullChecker.isNotNullish(request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId())) {
+                        for (PRPAMT201306UV02LivingSubjectId livingSubId:request.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId()) {
+                            if (NullChecker.isNotNullish(livingSubId.getValue()) &&
+                                    livingSubId.getValue().get(0) != null &&
+                                    NullChecker.isNotNullish(livingSubId.getValue().get(0).getRoot()) &&
+                                    NullChecker.isNotNullish(livingSubId.getValue().get(0).getExtension()) &&
+                                    aaId.contentEquals(livingSubId.getValue().get(0).getRoot())){
+                                patId.setRoot(livingSubId.getValue().get(0).getRoot());
+                                patId.setExtension(livingSubId.getValue().get(0).getExtension());
+                            }
                         }
                     }
                 }
             }
         }
+        catch (Exception ex)
+        {
+            log.error(ex.getMessage(), ex);
+            patId = null;
+        }
+
 
         return patId;
     }
