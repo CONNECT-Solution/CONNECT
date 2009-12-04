@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+	<S:Body>
+		<PatientDemographics_PRPA_MT201303UVResponse xmlns="urn:hl7-org:v3">
+			<subject classCode="PAT">
+				<id extension="8237363"/>
+				<addr use="HP">
+					<streetAddressLine>17 Daws Road</streetAddressLine>
+					<city>Blue Bell</city>
+					<state>MA</state>
+					<postalCode>00000</postalCode>
+					<country>US</country>
+				</addr>
+				<telecom use="HP" value="tel:+1-888-888-8888"/>
+				<effectiveTime value="20090202000000"/>
+				<patientPerson>
+					<name use="P">
+						<family partType="FAM">Ross</family>
+						<given partType="GIV">Josephine</given>
+					</name>
+					<birthTime value="19761212"/>
+					<maritalStatusCode displayName="Married" codeSystemName="MaritalStatusCode" codeSystem="2.16.840.1.113883.5.2" code="M"/>
+					<religiousAffiliationCode displayName="Independent" codeSystemName="ReligiousAffiliation" codeSystem="2.16.840.1.113883.5.1076" code="1022"/>
+					<raceCode codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238" code="1004-1"/>
+					<ethnicGroupCode displayName="Latin American" codeSystemName="CDC Race and Ethnicity" codeSystem="2.16.840.1.113883.6.238" code="2178-2"/>
+					<contactParty classCode="ECON">
+						<code displayName="Step-Daughter" codeSystemName="RoleCode" codeSystem="2.16.840.1.113883.5.111" code="STPDAU"/>
+						<telecom use="HP" value="tel:+1-999-999-9999"/>
+						<contactPerson>
+							<name use="P">
+								<family partType="FAM">Ross</family>
+								<given partType="GIV">Rosa</given>
+							</name>
+						</contactPerson>
+					</contactParty>
+					<languageCommunication>
+						<languageCode code="en-US"/>
+						<preferenceInd value="true"/>
+					</languageCommunication>
+				</patientPerson>
+				<providerOrganization>
+					<id root="2.16.840.1.113883.3.198"/>
+					<name>Department of Defense</name>
+				</providerOrganization>
+			</subject>
+		</PatientDemographics_PRPA_MT201303UVResponse>
+	</S:Body>
+</S:Envelope>
