@@ -78,6 +78,31 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init">
+        <property name="targetLocation-AdapterComponentDocRegistry" location="${meta.inf}/wsdl/AdapterComponentDocRegistry"/>
+        <property name="sourceLocation-AdapterComponentDocRegistry" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/wsdl/"/>
+        <copy todir="${targetLocation-AdapterComponentDocRegistry}">
+            <fileset dir="${sourceLocation-AdapterComponentDocRegistry}"/>
+        </copy>
+        <property name="targetLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterComponentDocRegistry-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRegistry/schemas/"/>
+        <copy todir="${targetLocation-AdapterComponentDocRegistry-schemas}">
+            <fileset dir="${sourceLocation-AdapterComponentDocRegistry-schemas}"/>
+        </copy>
+    </target>
+    <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
+        <property name="targetLocation-AdapterComponentDocRepository" location="${meta.inf}/wsdl/AdapterComponentDocRepository"/>
+        <property name="sourceLocation-AdapterComponentDocRepository" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/wsdl/"/>
+        <copy todir="${targetLocation-AdapterComponentDocRepository}">
+            <fileset dir="${sourceLocation-AdapterComponentDocRepository}"/>
+        </copy>
+        <property name="targetLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/wsdl/schemas"/>
+        <property name="sourceLocation-AdapterComponentDocRepository-schemas" location="${meta.inf}/xml-resources/web-service-references/AdapterComponentDocRepository/schemas/"/>
+        <copy todir="${targetLocation-AdapterComponentDocRepository-schemas}">
+            <fileset dir="${sourceLocation-AdapterComponentDocRepository-schemas}"/>
+        </copy>
+    </target>
+
     <target name="wsimport-service-DocumentManagerService" depends="wsimport-init">
         <property name="targetLocation-DocumentManagerService" location="${meta.inf}/wsdl/DocumentManagerService"/>
         <property name="sourceLocation-DocumentManagerService" location="${meta.inf}/xml-resources/web-services/DocumentManagerService/wsdl/"/>
