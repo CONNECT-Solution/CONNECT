@@ -23,14 +23,14 @@ import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.ONExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.PRPAIN201307UV02QUQIMT021001UV01ControlActProcess;
-import org.hl7.v3.PRPAMT201303UVContactParty;
-import org.hl7.v3.PRPAMT201303UVLanguageCommunication;
-import org.hl7.v3.PRPAMT201303UVPatient;
-import org.hl7.v3.PRPAMT201303UVPerson;
+import org.hl7.v3.PRPAMT201303UV02ContactParty;
+import org.hl7.v3.PRPAMT201303UV02LanguageCommunication;
+import org.hl7.v3.PRPAMT201303UV02Patient;
+import org.hl7.v3.PRPAMT201303UV02Person;
 import org.hl7.v3.PRPAMT201307UVParameterList;
 import org.hl7.v3.PRPAMT201307UVQueryByParameter;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
-import org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType;
+import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 import org.hl7.v3.TSExplicit;
 
 /**
@@ -43,8 +43,8 @@ public class StaticPatientDemographicsQuery {
    private static Log logger = LogFactory.getLog(StaticPatientDemographicsQuery.class);
    private static org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
 
-   public static PatientDemographicsPRPAMT201303UVResponseType createPatientDemographicsResponse(PatientDemographicsPRPAIN201307UV02RequestType request) {
-      PatientDemographicsPRPAMT201303UVResponseType response = new PatientDemographicsPRPAMT201303UVResponseType();
+   public static PatientDemographicsPRPAMT201303UV02ResponseType createPatientDemographicsResponse(PatientDemographicsPRPAIN201307UV02RequestType request) {
+      PatientDemographicsPRPAMT201303UV02ResponseType response = new PatientDemographicsPRPAMT201303UV02ResponseType();
 
       //check for static vs. live data test
       if (AdapterCommonDataLayerConstants.PATIENT_INFO_TEST.equalsIgnoreCase("Y")) {
@@ -70,7 +70,7 @@ public class StaticPatientDemographicsQuery {
 
             DODConnectorPortType port = service.getCommonDataLayerPort();
 
-            PatientDemographicsPRPAMT201303UVResponseType fdmrresponse = port.getPatienInfo(request);
+            PatientDemographicsPRPAMT201303UV02ResponseType fdmrresponse = port.getPatienInfo(request);
 
             if (fdmrresponse != null) {
                response = fdmrresponse;
@@ -85,10 +85,10 @@ public class StaticPatientDemographicsQuery {
       return response;
    }
 
-   private static PRPAMT201303UVPatient createSubject(II subjectId) {
-      PRPAMT201303UVPatient subject = new PRPAMT201303UVPatient();
+   private static PRPAMT201303UV02Patient createSubject(II subjectId) {
+      PRPAMT201303UV02Patient subject = new PRPAMT201303UV02Patient();
 
-      subject.setClassCode("PAT");
+      subject.getClassCode().add("PAT");
       subject.getId().add(subjectId);
 
       IVLTSExplicit effectiveTime = new IVLTSExplicit();
@@ -99,7 +99,7 @@ public class StaticPatientDemographicsQuery {
 
       subject.getTelecom().add(StaticUtil.createTelecom("tel:+1-888-888-8888", "HP"));
 
-      subject.setPatientPerson(factory.createPRPAMT201303UVPatientPatientPerson(createPatientPerson("Josephine", "Ross", subjectId)));
+      subject.setPatientPerson(factory.createPRPAMT201303UV02PatientPatientPerson(createPatientPerson("Josephine", "Ross", subjectId)));
 
       COCTMT150003UV03Organization providerOrg = new COCTMT150003UV03Organization();
       II providerOrgId = new II();
@@ -111,13 +111,13 @@ public class StaticPatientDemographicsQuery {
       providerOrgName.getContent().add("Department of Defense");
       providerOrgNames.add(providerOrgName);
 
-      subject.setProviderOrganization(factory.createPRPAMT201303UVPatientProviderOrganization(providerOrg));
+      subject.setProviderOrganization(factory.createPRPAMT201303UV02PatientProviderOrganization(providerOrg));
 
       return subject;
    }
 
-   private static PRPAMT201303UVPerson createPatientPerson(String firstName, String familyName, II subjectId) {
-      PRPAMT201303UVPerson person = new PRPAMT201303UVPerson();
+   private static PRPAMT201303UV02Person createPatientPerson(String firstName, String familyName, II subjectId) {
+      PRPAMT201303UV02Person person = new PRPAMT201303UV02Person();
 
       person.getName().add(createName(firstName, familyName));
 
@@ -160,9 +160,9 @@ public class StaticPatientDemographicsQuery {
       return person;
    }
 
-   private static PRPAMT201303UVContactParty createContactParty(String firstName, String lastName, String relCode, String relDesc) {
-      PRPAMT201303UVContactParty party = new PRPAMT201303UVContactParty();
-      party.setClassCode("ECON");
+   private static PRPAMT201303UV02ContactParty createContactParty(String firstName, String lastName, String relCode, String relDesc) {
+      PRPAMT201303UV02ContactParty party = new PRPAMT201303UV02ContactParty();
+      party.setClassCode(org.hl7.v3.RoleClassContact.ECON);
 
       CE code = new CE();
       code.setCode(relCode);
@@ -173,7 +173,7 @@ public class StaticPatientDemographicsQuery {
 
       party.getTelecom().add(StaticUtil.createTelecom("tel:+1-999-999-9999", "HP"));
 
-      party.setContactPerson(factory.createPRPAMT201303UVContactPartyContactPerson(createPerson(firstName, lastName)));
+      party.setContactPerson(factory.createPRPAMT201303UV02ContactPartyContactPerson(createPerson(firstName, lastName)));
 
       return party;
    }
@@ -206,8 +206,8 @@ public class StaticPatientDemographicsQuery {
       return name;
    }
 
-   private static PRPAMT201303UVLanguageCommunication createLanguage(String type) {
-      PRPAMT201303UVLanguageCommunication communication = new PRPAMT201303UVLanguageCommunication();
+   private static PRPAMT201303UV02LanguageCommunication createLanguage(String type) {
+      PRPAMT201303UV02LanguageCommunication communication = new PRPAMT201303UV02LanguageCommunication();
 
       II templateId = new II();
       templateId.setRoot("2.16.840.1.113883.3.88.11.83.2");

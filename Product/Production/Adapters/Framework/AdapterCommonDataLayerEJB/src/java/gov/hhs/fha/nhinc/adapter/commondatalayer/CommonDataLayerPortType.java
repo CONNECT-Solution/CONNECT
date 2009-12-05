@@ -11,11 +11,11 @@ import org.hl7.v3.CareRecordQUPCIN043100UV01RequestType;
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
 import org.hl7.v3.FindEncountersPRPAIN900300UV02RequestType;
 import org.hl7.v3.FindEncountersPRPAMT900350UV02ResponseType;
-import org.hl7.v3.FindPatientsPRPAIN201305UVRequestType;
-import org.hl7.v3.FindPatientsPRPAMT201310UVResponseType;
+import org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType;
+import org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType;
 import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
-import org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType;
+import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 
 
 /**
@@ -208,7 +208,7 @@ public interface CommonDataLayerPortType {
      */
     @WebMethod(operationName = "GetPatienInfo", action = "urn:GetPatienInfo")
     @WebResult(name = "PatientDemographics_PRPA_MT201303UVResponse", targetNamespace = "urn:hl7-org:v3", partName = "output")
-    public PatientDemographicsPRPAMT201303UVResponseType getPatienInfo(
+    public PatientDemographicsPRPAMT201303UV02ResponseType getPatienInfo(
         @WebParam(name = "PatientDemographics_PRPA_IN201307UV02Request", targetNamespace = "urn:hl7-org:v3", partName = "param0")
         PatientDemographicsPRPAIN201307UV02RequestType param0);
 
@@ -220,8 +220,8 @@ public interface CommonDataLayerPortType {
      */
     @WebMethod(operationName = "FindPatients", action = "urn:FindPatients")
     @WebResult(name = "FindPatients_PRPA_MT201310UVResponse", targetNamespace = "urn:hl7-org:v3", partName = "output")
-    public FindPatientsPRPAMT201310UVResponseType findPatients(
+    public FindPatientsPRPAMT201310UV02ResponseType findPatients(
         @WebParam(name = "FindPatients_PRPA_IN201305UVRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-        FindPatientsPRPAIN201305UVRequestType param0);
+        FindPatientsPRPAIN201305UV02RequestType param0);
 
 }

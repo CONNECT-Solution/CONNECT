@@ -12,7 +12,7 @@ import nux.xom.pool.XOMUtil;
 import org.hl7.v3.II;
 import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
-import org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType;
+import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -79,11 +79,11 @@ public class PatientDemographicsTest {
       subjectId.setRoot("2.16.840.1.113883.3.198");
       subjectId.setExtension("1234");
 
-      PatientDemographicsPRPAMT201303UVResponseType response = PDResponseHelper.createPatientDemographicsResponse(subjectId);
+      PatientDemographicsPRPAMT201303UV02ResponseType response = PDResponseHelper.createPatientDemographicsResponse(subjectId);
 
       ObjectFactory factory = new ObjectFactory();
-      JAXBElement<PatientDemographicsPRPAMT201303UVResponseType> jaxbResp =
-              factory.createPatientDemographicsPRPAMT201303UVResponse(response);
+      JAXBElement<PatientDemographicsPRPAMT201303UV02ResponseType> jaxbResp =
+              factory.createPatientDemographicsPRPAMT201303UV02Response(response);
 
       // Marshals (serializes) the given JAXB object via the given marshaller into a new XOM Document.
       try {

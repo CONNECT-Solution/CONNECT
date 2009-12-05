@@ -6,7 +6,7 @@ package gov.hhs.fha.nhinc.adapter.commondatalayer;
 
 import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.*;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
-import org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType;
+import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 
 /**
  *
@@ -26,7 +26,7 @@ public class AdapterCommonDataLayerImpl {
       return instance;
    }
 
-   public PatientDemographicsPRPAMT201303UVResponseType getPatienInfo(PatientDemographicsPRPAIN201307UV02RequestType request) {
+   public PatientDemographicsPRPAMT201303UV02ResponseType getPatienInfo(PatientDemographicsPRPAIN201307UV02RequestType request) {
       return StaticPatientDemographicsQuery.createPatientDemographicsResponse(request);
    }
 

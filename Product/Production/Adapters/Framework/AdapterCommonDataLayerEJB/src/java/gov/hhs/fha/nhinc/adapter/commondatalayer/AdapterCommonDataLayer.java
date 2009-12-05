@@ -83,11 +83,11 @@ public class AdapterCommonDataLayer implements CommonDataLayerPortType {
    }
 
    @Override
-   public org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType getPatienInfo(org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType param0) {
+   public org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType getPatienInfo(org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType param0) {
       return AdapterCommonDataLayerImpl.getInstance().getPatienInfo(param0);
    }
 
-   public org.hl7.v3.FindPatientsPRPAMT201310UVResponseType findPatients(org.hl7.v3.FindPatientsPRPAIN201305UVRequestType param0) {
+   public org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType findPatients(org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType param0) {
       //TODO implement this method
       throw new UnsupportedOperationException("Not implemented yet.");
    }
