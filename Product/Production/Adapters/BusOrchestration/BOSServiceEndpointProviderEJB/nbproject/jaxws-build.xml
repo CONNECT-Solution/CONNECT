@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-ServiceEndpointProvider" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider"/>
+        <property name="service-wsdl-ServiceEndpointProvider" location="${meta.inf}/xml-resources/web-services/ServiceEndpointProvider/wsdl/BOSServiceEndpointProvider.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider" destdir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider" wsdl="${service-wsdl-ServiceEndpointProvider}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-ServiceEndpointProvider}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-ServiceEndpointProvider" location="${meta.inf}/wsdl/ServiceEndpointProvider"/>
+        <property name="sourceLocation-ServiceEndpointProvider" location="${meta.inf}/xml-resources/web-services/ServiceEndpointProvider/wsdl/"/>
+        <copy todir="${targetLocation-ServiceEndpointProvider}">
+            <fileset dir="${sourceLocation-ServiceEndpointProvider}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ServiceEndpointProvider" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ServiceEndpointProvider"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/bosserviceenpointprovider"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-ServiceEndpointProvider"/>
+</project>
