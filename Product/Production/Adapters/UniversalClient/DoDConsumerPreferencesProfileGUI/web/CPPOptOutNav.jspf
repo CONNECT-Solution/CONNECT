@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : CPPOptOutNav
+    Created on : Oct 5, 2009, 1:13:48 AM
+    Author     : Duane DeCouteau
+-->
+<div style="height: 400px; width: 860px; -rave-layout: grid" xmlns:f="http://java.sun.com/jsf/core" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
+    <f:subview id="CPPOptOutNav">
+        <webuijsf:tabSet binding="#{CPPOptOutNav.tabSet1}" id="tabSet1" lite="true" mini="true" selected="tab1" style="height: 380px; left: 0px; top: 0px; position: absolute; width: 860px">
+            <webuijsf:tab binding="#{CPPOptOutNav.tab1}" id="tab1" text="Opt-Out &amp; Announce Update">
+                <webuijsf:panelLayout binding="#{CPPOptOutNav.layoutPanel1}" id="layoutPanel1" style="height: 324px; position: relative; width: 100%; -rave-layout: grid">
+                    <webuijsf:label binding="#{CPPOptOutNav.label1}" id="label1" style="left: 24px; top: 24px; position: absolute" text="Click on Opt-Out button to announce update to NHIN gateways."/>
+                    <webuijsf:button actionExpression="#{CPPOptOutNav.optOutBTN_action}" binding="#{CPPOptOutNav.optOutBTN}" id="optOutBTN"
+                        style="height: 19px; left: 23px; top: 48px; position: absolute; width: 120px" text="Opt-Out Consumer"/>
+                    <webuijsf:staticText binding="#{CPPOptOutNav.errorMsgTXT}" id="errorMsgTXT" rendered="false"
+                        style="color: red; font-weight: bold; left: 24px; top: 96px; position: absolute" text="An Error has occured while attempting to update consumer preferences."/>
+                    <webuijsf:button actionExpression="#{CPPOptOutNav.cancelBTN_action}" binding="#{CPPOptOutNav.cancelBTN}" id="cancelBTN"
+                        style="height: 19px; left: 167px; top: 48px; position: absolute; width: 120px" text="Cancel"/>
+                </webuijsf:panelLayout>
+            </webuijsf:tab>
+            <webuijsf:tab binding="#{CPPOptOutNav.tab2}" id="tab2" text="Review Consumer Policy">
+                <webuijsf:panelLayout binding="#{CPPOptOutNav.layoutPanel2}" id="layoutPanel2" style="height: 324px; position: relative; width: 100%; -rave-layout: grid">
+                    <webuijsf:label binding="#{CPPOptOutNav.label2}" id="label2" style="left: 0px; top: 0px; position: absolute" text="XACML Policy Viewer"/>
+                    <webuijsf:textArea binding="#{CPPOptOutNav.xacmlPolicyTXT}" columns="136" id="xacmlPolicyTXT" rows="20" style="left: 0px; top: 24px; position: absolute"/>
+                </webuijsf:panelLayout>
+            </webuijsf:tab>
+        </webuijsf:tabSet>
+    </f:subview>
+</div>

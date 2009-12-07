@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : CPPNavigator
+    Created on : Oct 3, 2009, 7:39:56 PM
+    Author     : Duane DeCouteau
+-->
+<div style="height: 700px; width: 160px; -rave-layout: grid" xmlns:f="http://java.sun.com/jsf/core" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
+    <f:subview id="CPPNavigator">
+        <webuijsf:tree binding="#{CPPNavigator.navTree}" id="navTree" style="background-image: url(&lt;Not Set&gt;); height: 142px; left: 0px; top: 0px; position: absolute">
+            <webuijsf:treeNode actionExpression="#{CPPNavigator.cppNode_action}" binding="#{CPPNavigator.cppNode}" expanded="true" id="cppNode" text="Candidate Selection">
+                <f:facet name="image">
+                    <webuijsf:image icon="TREE_FOLDER" id="image1"/>
+                </f:facet>
+                <webuijsf:treeNode actionExpression="#{CPPNavigator.cppOptInNode_action}" binding="#{CPPNavigator.cppOptInNode}" id="cppOptInNode" text="Opt-In" visible="false">
+                    <f:facet name="image">
+                        <webuijsf:image icon="TREE_DOCUMENT" id="image4"/>
+                    </f:facet>
+                </webuijsf:treeNode>
+                <webuijsf:treeNode actionExpression="#{CPPNavigator.cppOptOutNode_action}" binding="#{CPPNavigator.cppOptOutNode}" id="cppOptOutNode"
+                    text="Opt-Out" visible="false">
+                    <f:facet name="image">
+                        <webuijsf:image icon="TREE_DOCUMENT" id="image5"/>
+                    </f:facet>
+                </webuijsf:treeNode>
+            </webuijsf:treeNode>
+            <webuijsf:treeNode actionExpression="#{CPPNavigator.providerProvisioningNode_action}" binding="#{CPPNavigator.providerProvisioningNode}"
+                id="providerProvisioningNode" text="Provider Provisioning">
+                <f:facet name="image">
+                    <webuijsf:image icon="TREE_DOCUMENT" id="image2"/>
+                </f:facet>
+            </webuijsf:treeNode>
+            <webuijsf:treeNode actionExpression="#{CPPNavigator.auditNode_action}" binding="#{CPPNavigator.auditNode}" id="auditNode" text="Audit Logs">
+                <f:facet name="image">
+                    <webuijsf:image icon="TREE_DOCUMENT" id="image3"/>
+                </f:facet>
+            </webuijsf:treeNode>
+        </webuijsf:tree>
+    </f:subview>
+</div>

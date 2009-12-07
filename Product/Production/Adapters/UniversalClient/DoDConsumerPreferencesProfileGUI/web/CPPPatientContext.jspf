@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : CPPPatientContext
+    Created on : Oct 4, 2009, 11:46:02 AM
+    Author     : Duane DeCouteau
+-->
+<div style="height: 120px; width: 860px; -rave-layout: grid" xmlns:f="http://java.sun.com/jsf/core" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
+    <f:subview id="CPPPatientContext">
+        <webuijsf:panelLayout id="layoutPanel1" style="border: 1px solid gray; background-color: white; height: 120px; left: 0px; top: 0px; position: absolute; width: 860px">
+            <webuijsf:label id="label1"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 24px; top: 10px; position: absolute" text="Lastname:"/>
+            <webuijsf:textField columns="26" id="lastNameFLD" style="left: 86px; top: 10px; position: absolute" text="#{SessionBean1.selectedPatient.lastName}"/>
+            <webuijsf:label id="label2"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 264px; top: 10px; position: absolute" text="Firstname:"/>
+            <webuijsf:textField id="firstNameFLD" style="left: 330px; top: 10px; position: absolute" text="#{SessionBean1.selectedPatient.firstName}"/>
+            <webuijsf:label id="label3"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 480px; top: 10px; position: absolute" text="DoB:"/>
+            <webuijsf:textField columns="15" id="dobFLD" style="left: 518px; top: 10px; position: absolute" text="#{SessionBean1.selectedPatient.dateOfBirth}"/>
+            <webuijsf:label id="label4"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 638px; top: 10px; position: absolute" text="ID:"/>
+            <webuijsf:textField columns="15" id="ssnFLD" style="left: 672px; top: 10px; position: absolute" text="#{CPPPatientContext.patientId}"/>
+            <webuijsf:label id="label5"
+                style="font-family: 'Arial','Helvetica',sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 24px; top: 48px; position: absolute" text="Address:"/>
+            <webuijsf:textField columns="60" id="addressFLD" style="left: 86px; top: 48px; position: absolute" text="#{SessionBean1.selectedPatient.address.street1}"/>
+            <webuijsf:label id="label6"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 24px; top: 82px; position: absolute" text="City:"/>
+            <webuijsf:textField columns="30" id="cityFLD" style="left: 86px; top: 82px; position: absolute" text="#{SessionBean1.selectedPatient.address.city}"/>
+            <webuijsf:label id="label7"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 312px; top: 82px; position: absolute" text="State:"/>
+            <webuijsf:textField columns="7" id="stateFLD" style="left: 360px; top: 82px; position: absolute" text="#{SessionBean1.selectedPatient.address.state}"/>
+            <webuijsf:label id="label8"
+                style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-style: normal; font-weight: bold; left: 432px; top: 82px; position: absolute" text="Phone:"/>
+            <webuijsf:textField id="phoneFLD" style="left: 480px; top: 82px; position: absolute"/>
+            <webuijsf:label id="label9" style="left: 624px; top: 82px; position: absolute" text="Gender:"/>
+            <webuijsf:textField columns="3" id="genderFLD" style="left: 696px; top: 82px; position: absolute" text="#{SessionBean1.selectedPatient.gender}"/>
+            <webuijsf:label id="label10" style="font-family: 'Arial','Helvetica',sans-serif; font-size: 8px; left: 672px; top: 24px; position: absolute" text="Patient Unit Number"/>
+            <webuijsf:textField columns="60" id="address2FLD" style="position: absolute; left: 480px; top: 48px" text="#{SessionBean1.selectedPatient.address.street2}"/>
+        </webuijsf:panelLayout>
+    </f:subview>
+</div>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Document   : CPPOptInNav
+    Created on : Oct 5, 2009, 12:26:04 AM
+    Author     : Duane DeCouteau
+-->
+<div style="height: 400px; width: 860px; -rave-layout: grid" xmlns:f="http://java.sun.com/jsf/core" xmlns:webuijsf="http://www.sun.com/webui/webuijsf">
+    <f:subview id="CPPOptInNav">
+        <webuijsf:tabSet binding="#{CPPOptInNav.tabSet1}" id="tabSet1" lite="true" mini="true" selected="optInTab" style="height: 380px; left: 0px; top: 0px; position: absolute; width: 860px">
+            <webuijsf:tab binding="#{CPPOptInNav.optInTab}" id="optInTab" text="Opt-In &amp; Announce">
+                <webuijsf:panelLayout binding="#{CPPOptInNav.layoutPanel1}" id="layoutPanel1" style="height: 324px; position: relative; width: 827px; -rave-layout: grid">
+                    <webuijsf:staticText binding="#{CPPOptInNav.staticText1}" id="staticText1"
+                        style="font-family: Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; left: 24px; top: 24px; position: absolute" text="Click on the Opt-In button to announce the patient to all NHIN Gateways."/>
+                    <webuijsf:button actionExpression="#{CPPOptInNav.consumerOptInBTN_action}" binding="#{CPPOptInNav.consumerOptInBTN}" id="consumerOptInBTN"
+                        style="height: 19px; left: 24px; top: 48px; position: absolute; width: 120px" text="Consumer Opt-In"/>
+                    <webuijsf:staticText binding="#{CPPOptInNav.errorMsgTXT}" id="errorMsgTXT" rendered="false"
+                        style="color: red; font-weight: bold; left: 24px; top: 96px; position: absolute" text="An Error as occurred while attempting to save the consumers preferences."/>
+                    <webuijsf:button actionExpression="#{CPPOptInNav.cancelBTN_action}" binding="#{CPPOptInNav.cancelBTN}" id="cancelBTN"
+                        style="height: 19px; left: 168px; top: 48px; position: absolute; width: 120px" text="Cancel"/>
+                </webuijsf:panelLayout>
+            </webuijsf:tab>
+            <webuijsf:tab binding="#{CPPOptInNav.policyTab}" id="policyTab" text="Preview Consumer Policy">
+                <webuijsf:panelLayout binding="#{CPPOptInNav.layoutPanel2}" id="layoutPanel2" style="height: 324px; position: relative; width: 827px; -rave-layout: grid">
+                    <webuijsf:label binding="#{CPPOptInNav.label1}" id="label1" style="left: 10px; top: 0px; position: absolute" text="Consumers XACML Policy"/>
+                    <webuijsf:textArea binding="#{CPPOptInNav.policyPreviewTXT}" columns="136" id="policyPreviewTXT" rows="20" style="left: 0px; top: 24px; position: absolute"/>
+                </webuijsf:panelLayout>
+            </webuijsf:tab>
+        </webuijsf:tabSet>
+    </f:subview>
+</div>
