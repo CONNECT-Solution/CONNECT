@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-BOSServiceEndpointProvider" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider"/>
+        <property name="wsdl-BOSServiceEndpointProvider" location="${meta.inf}/xml-resources/web-service-references/BOSServiceEndpointProvider/wsdl/BOSServiceEndpointProvider.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider" destdir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider" wsdl="${wsdl-BOSServiceEndpointProvider}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="../../../../../META-INF/BOSServiceEndpointProvider.xml" xnocompile="true">
+            <depends file="${wsdl-BOSServiceEndpointProvider}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BOSServiceEndpointProvider" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/BOSServiceEndpointProvider"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:bosserviceenpointprovider"/>
+    </target>
+    <target name="wsimport-client-DocumentManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
+        <property name="wsdl-DocumentManager" location="${meta.inf}/xml-resources/web-service-references/DocumentManager/wsdl/DocumentManager.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/DocumentManager" destdir="${build.generated.dir}/jax-wsCache/DocumentManager" wsdl="${wsdl-DocumentManager}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="../../../../META-INF/DocumentManager.xml" xnocompile="true">
+            <depends file="${wsdl-DocumentManager}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/DocumentManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-DocumentManager" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/DocumentManager"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
+    </target>
+    <target name="wsimport-client-DocumentAssembly" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
+        <property name="wsdl-DocumentAssembly" location="${meta.inf}/xml-resources/web-service-references/DocumentAssembly/wsdl/DocumentAssembly.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/DocumentAssembly" destdir="${build.generated.dir}/jax-wsCache/DocumentAssembly" wsdl="${wsdl-DocumentAssembly}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="../../../../../META-INF/DocumentAssembly.xml" xnocompile="true">
+            <depends file="${wsdl-DocumentAssembly}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/DocumentAssembly">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-DocumentAssembly" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:documentassembly"/>
+    </target>
+    <target name="wsimport-service-AdpaterDocumentQueryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService"/>
+        <property name="service-wsdl-AdpaterDocumentQueryService" location="${meta.inf}/xml-resources/web-services/AdpaterDocumentQueryService/wsdl/AdapterDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService" destdir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService" wsdl="${service-wsdl-AdpaterDocumentQueryService}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdpaterDocumentQueryService}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdpaterDocumentQueryService" location="${meta.inf}/wsdl/AdpaterDocumentQueryService"/>
+        <property name="sourceLocation-AdpaterDocumentQueryService" location="${meta.inf}/xml-resources/web-services/AdpaterDocumentQueryService/wsdl/"/>
+        <copy todir="${targetLocation-AdpaterDocumentQueryService}">
+            <fileset dir="${sourceLocation-AdpaterDocumentQueryService}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdpaterDocumentQueryService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdpaterDocumentQueryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquery"/>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
+        <property name="service-wsdl-AdapterDocRetrieve" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/wsdl/AdapterDocRetrieve.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve" wsdl="${service-wsdl-AdapterDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocRetrieve}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdapterDocRetrieve" location="${meta.inf}/wsdl/AdapterDocRetrieve"/>
+        <property name="sourceLocation-AdapterDocRetrieve" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/wsdl/"/>
+        <copy todir="${targetLocation-AdapterDocRetrieve}">
+            <fileset dir="${sourceLocation-AdapterDocRetrieve}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieve" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrieve"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-BOSServiceEndpointProvider, wsimport-client-DocumentManager, wsimport-client-DocumentAssembly"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdpaterDocumentQueryService, wsimport-service-AdapterDocRetrieve"/>
+</project>
