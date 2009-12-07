@@ -73,30 +73,17 @@
 
   <target name="GlassFish.Redeploy">
     <call target="GlassFish.Recreate.Domain"/>
-    <call target="GlassFish.Restore.Domain.Certificates"/>
     <call target="GlassFish.Deploy"/>
   </target>
 
   <target name="GlassFish.Staging.Redeploy">
     <call target="GlassFish.Recreate.Domain"/>
-    <call target="GlassFish.Recreate.Domain.Certificates"/>
     <call target="GlassFish.Deploy"/>
   </target>
 
-  <target name="GlassFish.Restore.Domain.Certificates">
+  <target name="GlassFish.Install.Domain.Certificates">
     <ant
-      target="glassfish.restore.domain.certificates"
-      buildfile="${GlassFish.Deploy.Script.File.Path}"
-      logfile="${Ant.Log.Directory.Path}\restore.glassfish.domain.certificates.log.xml"
-    >
-      <environment refid="GlassFish.EnvironmentVariables.RefId"/>
-      <args/>
-    </ant>
-  </target>
-
-  <target name="GlassFish.Recreate.Domain.Certificates">
-    <ant
-      target="glassfish.recreate.domain.certificates"
+      target="glassfish.install.domain.certificates"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
       logfile="${Ant.Log.Directory.Path}\recreate.glassfish.domain.log.xml"
     >
