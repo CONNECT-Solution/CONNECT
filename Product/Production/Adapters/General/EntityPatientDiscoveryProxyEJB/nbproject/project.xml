@@ -16,6 +16,17 @@
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>reference.NhincSamlTokenLib.jar</included-library>
+            <included-library>file.reference.bsh-core-2.0b4.jar</included-library>
+            <included-library>file.reference.cglib-2.1_3-src.jar</included-library>
+            <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
+            <included-library>file.reference.hamcrest-core-1.1.jar</included-library>
+            <included-library>file.reference.hamcrest-library-1.1.jar</included-library>
+            <included-library>file.reference.jmock-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-junit3-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-junit4-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-legacy-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-script-2.5.1.jar</included-library>
+            <included-library>file.reference.objenesis-1.0.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>

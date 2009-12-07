@@ -78,9 +78,12 @@
 
     -->
     <target name="wsimport-client-NhincProxyPatientDiscoverySecured" depends="wsimport-init">
-   </target> 
-    
-       <target name="wsimport-service-NhincProxyPatientDiscovery" depends="wsimport-init">      
+    </target> 
+	
+    <target name="wsimport-client-EntityPatientDiscoverySecured" depends="wsimport-init">
+    </target>
+	
+    <target name="wsimport-service-NhincProxyPatientDiscovery" depends="wsimport-init">      
         <property name="targetLocation-NhincProxyPatientDiscovery" location="${meta.inf}/wsdl/NhincProxyPatientDiscovery"/>
         <property name="sourceLocation-NhincProxyPatientDiscovery" location="${meta.inf}/xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/"/>
         <copy todir="${targetLocation-NhincProxyPatientDiscovery}">
@@ -92,6 +95,32 @@
             <fileset dir="${sourceLocation-NhincProxyPatientDiscoverySchemas}"/>
         </copy>
     </target>
+
+    <target name="wsimport-service-EntityPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
+        <property name="service-wsdl-EntityPatientDiscovery" location="${meta.inf}/xml-resources/web-services/EntityPatientDiscovery/wsdl/EntityPatientDiscovery.wsdl"/>
+        <!--<wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery" wsdl="${service-wsdl-EntityPatientDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityPatientDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
+        </wsimport>-->
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-EntityPatientDiscovery" location="${meta.inf}/wsdl/EntityPatientDiscovery"/>
+        <property name="sourceLocation-EntityPatientDiscovery" location="${meta.inf}/xml-resources/web-services/EntityPatientDiscovery/wsdl/"/>
+        <copy todir="${targetLocation-EntityPatientDiscovery}">
+            <fileset dir="${sourceLocation-EntityPatientDiscovery}"/>
+        </copy>
+		
+		 <echo message="copy schemas" />
+        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/EntityPatientDiscovery/schemas/" />
+        </copy>
+
+    </target>
+
     
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
     	<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>

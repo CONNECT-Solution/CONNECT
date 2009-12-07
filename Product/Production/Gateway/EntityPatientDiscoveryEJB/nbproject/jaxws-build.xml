@@ -39,5 +39,27 @@
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxypatientdiscoverysecured"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyPatientDiscoverySecured"/>
+    <target name="wsimport-service-EntityPatientDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured"/>
+        <property name="service-wsdl-EntityPatientDiscoverySecured" location="${meta.inf}/xml-resources/web-services/EntityPatientDiscoverySecured/wsdl/EntityPatientDiscoverySecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured" wsdl="${service-wsdl-EntityPatientDiscoverySecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-EntityPatientDiscoverySecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-EntityPatientDiscoverySecured" location="${meta.inf}/wsdl/EntityPatientDiscoverySecured"/>
+        <property name="sourceLocation-EntityPatientDiscoverySecured" location="${meta.inf}/xml-resources/web-services/EntityPatientDiscoverySecured/wsdl/"/>
+        <copy todir="${targetLocation-EntityPatientDiscoverySecured}">
+            <fileset dir="${sourceLocation-EntityPatientDiscoverySecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityPatientDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitypatientdiscoverysecured"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-NhincProxyPatientDiscoverySecured, wsimport-service-EntityPatientDiscoverySecured"/>
 </project>

@@ -28,7 +28,6 @@ public class NhincProxyPatientDiscoverySecuredImpl {
     private static Log log = LogFactory.getLog(NhincProxyPatientDiscoverySecuredImpl.class);
 
 
-
     public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, WebServiceContext context) {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -36,28 +35,30 @@ public class NhincProxyPatientDiscoverySecuredImpl {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLog auditLog = new PatientDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.auditProxyRequest(request);
 
-        NhinPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryProxyObjectFactory();
-        NhinPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryProxy();
-
-        response = proxy.respondingGatewayPRPAIN201305UV02(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetSystem());
-
-        // Audit the Patient Discovery Response Message received on the Nhin Interface
-        ack = auditLog.auditProxyResponse(response, assertion);
-
-        ResponseParams params = new ResponseParams();
-        params.context = context;
-        params.origRequest = request;
-        params.response = response;
-
-        response = new ResponseFactory().getResponseMode().processResponse(params);
+        response = proxyPRPAIN201305UV(request, assertion);
         
         log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV...");
         return response;
     }
 
 
+    public PRPAIN201306UV02 proxyPRPAIN201305UV(ProxyPRPAIN201305UVProxySecuredRequestType request, AssertionType assertion)
+    {
+        log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
+        // Audit the Patient Discovery Request Message sent on the Nhin Interface
+        PatientDiscoveryAuditLog auditLog = new PatientDiscoveryAuditLog();
+//        AcknowledgementType ack = auditLog.auditProxyRequest(request);
+
+        NhinPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryProxyObjectFactory();
+        NhinPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryProxy();
+
+        PRPAIN201306UV02 response = proxy.respondingGatewayPRPAIN201305UV02(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetSystem());
+
+        // Audit the Patient Discovery Response Message received on the Nhin Interface
+//        ack = auditLog.auditProxyResponse(response, assertion);
+
+        log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
+        return response;
+    }
 }

@@ -26,6 +26,8 @@
             <included-library>file.reference.jmock-legacy-2.5.1.jar</included-library>
             <included-library>file.reference.jmock-script-2.5.1.jar</included-library>
             <included-library>reference.AdapterMpiProxy.jar</included-library>
+            <included-library>reference.PolicyEngineProxy.jar</included-library>
+            <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
             <included-library>reference.AdapterMpiProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
@@ -45,6 +47,14 @@
             </reference>
             <reference>
                 <foreign-project>AdapterMpiProxyImpl</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>AssigningAuthoritiesToHomeCommunityMappingDAO</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
@@ -101,6 +111,22 @@
             </reference>
             <reference>
                 <foreign-project>NhincSamlTokenLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

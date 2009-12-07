@@ -6,4 +6,6 @@
  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="mainclientconfig" 
  >
     <import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
+    <import location="EntityPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
+
 </definitions>
