@@ -17,8 +17,6 @@
 		<isPatientCentric>false</isPatientCentric>
 	</topicConfiguration>
 
-
-
 	<!-- topics used for test scripts listed below -->
 	<topicConfiguration>
 		<topic><![CDATA[  <wsnt:Topic xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple" >SomeOtherTopic1</wsnt:Topic>  ]]></topic>
@@ -70,4 +68,42 @@
 		<isPatientCentric>false</isPatientCentric>
 		<isPatientRequired>false</isPatientRequired>
 	</topicConfiguration>
+
+	<!-- GIPSE topics listed below -->
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData</wsnt:TopicExpression>  ]]></topic>
+		<description>DeidentifiedPopulationHealthData</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData/Biosurveillance</wsnt:TopicExpression>  ]]></topic>
+		<description>Biosurveillance</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData/Biosurveillance/InfluenzaLikeIllness</wsnt:TopicExpression>  ]]></topic>
+		<description>InfluenzaLikeIllness</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData/Biosurveillance/Influenza</wsnt:TopicExpression>  ]]></topic>
+		<description>Influenza</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[  <wsnt:TopicExpression xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:nhin="http://www.hhs.gov/healthit/nhin" Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Concrete">nhin:DeidentifiedPopulationHealthData/Biosurveillance/Pneumonia</wsnt:TopicExpression>  ]]></topic>
+		<description>Pneumonia</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+		<isPatientRequired>false</isPatientRequired>
+	</topicConfiguration>
+
 </topicConfigurations>
