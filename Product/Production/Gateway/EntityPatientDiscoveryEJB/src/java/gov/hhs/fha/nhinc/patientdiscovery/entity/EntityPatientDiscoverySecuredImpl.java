@@ -105,7 +105,7 @@ public class EntityPatientDiscoverySecuredImpl {
 
     private RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, WebServiceContext context) {
         log.debug("Entering EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;//new RespondingGatewayPRPAIN201306UV02ResponseType();
+        RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
         NhincProxyPatientDiscoverySecuredImpl proxy = new NhincProxyPatientDiscoverySecuredImpl();
 
@@ -129,25 +129,33 @@ public class EntityPatientDiscoverySecuredImpl {
                 oProxyPRPAIN201305UVProxySecuredRequestType.setNhinTargetSystem(oTargetSystemType);
 
                 PRPAIN201306UV02 resultFromNhin = proxy.proxyPRPAIN201305UV(oProxyPRPAIN201305UVProxySecuredRequestType, assertion);
-    
+
                 //process the response
                 ResponseParams params = new ResponseParams();
                 params.context = context;
                 params.origRequest = oProxyPRPAIN201305UVProxySecuredRequestType;
                 params.response = resultFromNhin;
 
-                resultFromNhin = new ResponseFactory().getResponseMode().processResponse(params);
+                try
+                {
+                    resultFromNhin = new ResponseFactory().getResponseMode().processResponse(params);
+                }
+                catch(Exception ex)
+                {
+                    log.error(ex.getMessage(), ex);
+                    resultFromNhin = new PRPAIN201306UV02();
+                }
 
                 communityResponse.setNhinTargetCommunity(oTargetCommunity);
                 communityResponse.setPRPAIN201306UV02(resultFromNhin);
 
-                //for now just reformat 1 result to match return type
+                log.debug("Adding Community Response to response object");
                 response.getCommunityResponse().add(communityResponse);
             } //if (bIsPolicyOk)
              else
             {
                 log.error("The policy engine evaluated the request and denied the request.");
-                return null;
+                
             } //else policy enging did not return a permit response
             
         } //for (NhinTargetCommunityType oTargetCommunity : request.getNhinTargetCommunities().getNhinTargetCommunity())
