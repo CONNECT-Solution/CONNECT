@@ -1,3 +1,4 @@
+
 package gov.hhs.fha.nhinc.adapter.busorchestration.bos;
 
 import org.netbeans.xml.schema.endpoint.EPR;
@@ -11,13 +12,16 @@ import org.xmlsoap.schemas.ws._2004._08.addressing.AttributedURI;
  *
  * @author Jerry Goodnough
  */
-public class ServiceEndpointProviderImpl {
+public class ServiceEndpointProviderImpl
+{
 
     private static ServiceEndpointProviderImpl singlton = null;
     private static Log log =
-            LogFactory.getLog(ServiceEndpointProviderImpl.class);
+                       LogFactory.getLog(ServiceEndpointProviderImpl.class);
 
-    static {
+
+    static
+    {
         singlton = new ServiceEndpointProviderImpl();
     }
 
@@ -25,7 +29,8 @@ public class ServiceEndpointProviderImpl {
      * Provides access to the singleton
      * @return A ServiceEndpointProvider Singlton
      */
-    public static ServiceEndpointProviderImpl getInstance() {
+    public static ServiceEndpointProviderImpl getInstance()
+    {
         return singlton;
     }
 
@@ -36,12 +41,12 @@ public class ServiceEndpointProviderImpl {
      * @return CreateEPRResponse - If the entry is not found the EPR element will be null.
      */
     public org.netbeans.xml.schema.endpoint.CreateEPRResponse findEndpoint(
-            org.netbeans.xml.schema.endpoint.CreateEPRRequest bosFindEndPointRequest) {
+            org.netbeans.xml.schema.endpoint.CreateEPRRequest bosFindEndPointRequest)
+    {
         org.netbeans.xml.schema.endpoint.CreateEPRResponse out = null;
 
         if (bosFindEndPointRequest != null) {
             out = new org.netbeans.xml.schema.endpoint.CreateEPRResponse();
-
             String serviceName = bosFindEndPointRequest.getServiceName();
             String endpointURL = bosFindEndPointRequest.getEndpointURL();
 
@@ -106,45 +111,53 @@ public class ServiceEndpointProviderImpl {
         return out;
     }
 
-    private void dumpRequest(org.netbeans.xml.schema.endpoint.CreateEPRRequest request) {
-        log.warn("Raw Request = " + request.toString());
+    private void dumpRequest(org.netbeans.xml.schema.endpoint.CreateEPRRequest request)
+    {
+        log.warn("Raw Request = "+request.toString());
         StringBuffer buf = new StringBuffer();
-        buf.append("EndPointURL = " + request.getEndpointURL() + "\n");
-        buf.append("NamespacePrefix = " + request.getNamespacePrefix() + "\n");
-        buf.append("NamespaceURI = " + request.getNamespaceURI() + "\n");
-        buf.append("PortName = " + request.getPortName() + "\n");
-        buf.append("ServiceName = " + request.getServiceName());
-
+        buf.append("EndPointURL = "+request.getEndpointURL()+"\n");
+        buf.append("NamespacePrefix = "+request.getNamespacePrefix()+"\n");
+        buf.append("NamespaceURI = "+request.getNamespaceURI()+"\n");
+        buf.append("PortName = "+request.getPortName()+"\n");
+        buf.append("ServiceName = "+request.getServiceName());
+        
         log.warn(buf.toString());
     }
-
     /**
      * Internal helper to find the EPR associated with a Service nane
      * @param serviceName The Service Name to search for
      * @return The EPR or null of not associated
      */
-    private EPR findEndpointbyServiceName(String serviceName) {
+
+    private EPR findEndpointbyServiceName(String serviceName)
+    {
         EPR out = null;
-        try {
+        try
+        {
             out = ServiceEndpointCache.findEndpointByServiceName(serviceName);
-        } catch (Exception exp) {
+        }
+        catch (Exception exp)
+        {
             log.error("Exception looking up endpoint by Name: " + serviceName,
-                    exp);
+                      exp);
         }
         return out;
 
     }
-
     /**
      * Internal helper to get a EPR using the URL. Delegates most work to the ServiceEndpointCache
      * @param url The Url to search for
      * @return The EPR that was found or Null
      */
-    private EPR findEndpointbyURL(String url) {
+    private EPR findEndpointbyURL(String url)
+    {
         EPR out = null;
-        try {
+        try
+        {
             out = ServiceEndpointCache.findEndpointByServiceURL(url);
-        } catch (Exception exp) {
+        }
+        catch (Exception exp)
+        {
             log.error("Exception looking up endpoint by URL: " + url, exp);
         }
         return out;

@@ -250,7 +250,7 @@ public class ServiceEndpointCache
         EPR eprOut = null;
         //Refreach Cache if we need to
         checkLoaded();
-System.out.println(m_hServiceByURL);
+
         ServiceMapping smOut = m_hServiceByURL.get(url);
 
         if (smOut != null)

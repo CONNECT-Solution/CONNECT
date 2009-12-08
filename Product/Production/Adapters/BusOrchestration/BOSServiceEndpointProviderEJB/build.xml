@@ -112,12 +112,12 @@
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive">
-        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-manifest">
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${file.reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
+        <copy file="${file.reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} "/>
         </manifest>
