@@ -29,10 +29,10 @@ public class PatientDiscoveryAdapterSender {
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
         RespondingGatewayPRPAIN201306UV02ResponseType adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq);
-
-        if (adapterResp.getPRPAIN201306UV02() != null) {
-            response = adapterResp.getPRPAIN201306UV02();
-        }
+        
+//        if (adapterResp.getPRPAIN201306UV02() != null) {
+//            response = adapterResp.getPRPAIN201306UV02();
+//        }
         return response;
     }
 
