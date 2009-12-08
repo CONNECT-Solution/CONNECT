@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import junit.framework.Assert;
 import org.apache.commons.logging.Log;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000300UV01Sender;
@@ -509,7 +510,9 @@ public class PatientDiscoveryTransformsTest {
             }
         });
 
-        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(null, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        RespondingGatewayPRPAIN201306UV02ResponseType requestType = null;
+
+        testSubject.transformEntityPRPAIN201306ResponseToAuditMsg(requestType, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         context.assertIsSatisfied();
     }
 
@@ -519,6 +522,7 @@ public class PatientDiscoveryTransformsTest {
 
         RespondingGatewayPRPAIN201306UV02ResponseType oPatientDiscoveryResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
         AssertionType oAssertion = new AssertionType();
+        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
 
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
         II typeId = new II();
@@ -533,7 +537,8 @@ public class PatientDiscoveryTransformsTest {
         UserType userInfo = getTestUserType();
         oAssertion.setUserInfo(userInfo);
 
-        oPatientDiscoveryResponse.setPRPAIN201306UV02(message);
+        communityResponse.setPRPAIN201306UV02(message);
+        oPatientDiscoveryResponse.getCommunityResponse().add(communityResponse);
 
         final List<II> mockListII = new ArrayList<II>();
         final II mockII = new II();
