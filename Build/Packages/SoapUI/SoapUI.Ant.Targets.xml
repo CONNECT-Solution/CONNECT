@@ -30,6 +30,7 @@
           <include name="DocQueryRetrieveSelfTest-soapui-project.xml"/>
 		  <include name="DocumentRetrieveXDSErrorValidation-soapui-project.xml"/>
 		  <include name="DocQueryAdditionalStoredQueries-soapui-project.xml"/>
+		  <include name="AdapterPIP-soapui-project.xml"/>
         </fileset>
       </path>
       <sequential>
