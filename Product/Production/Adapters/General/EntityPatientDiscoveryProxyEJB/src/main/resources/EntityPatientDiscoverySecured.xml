@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"
+   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:hl7="urn:hl7-org:v3"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   name="EntityPatientDiscoverySecured"
+   targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured">
+    <wsdl:documentation>
+     WSDL for Entity interface of Patient Discovery
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+        </xsd:schema>  
+    </wsdl:types>
+    
+    <wsdl:message name="RespondingGateway_PRPA_IN201305UV02RequestMessage">
+        <wsdl:part name="RespondingGateway_PRPA_IN201305UV02Request"
+               element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+    </wsdl:message>
+    <wsdl:message name="RespondingGateway_PRPA_IN201306UV02ResponseMessage">
+        <wsdl:part name="RespondingGateway_PRPA_IN201306UV02Response"
+               element="hl7:RespondingGateway_PRPA_IN201306UV02Response"/>
+    </wsdl:message>
+
+    <wsdl:portType name="EntityPatientDiscoverySecuredPortType">
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request"
+                  message="tns:RespondingGateway_PRPA_IN201305UV02RequestMessage"
+                  wsaw:Action="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+            <wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response"
+                   message="tns:RespondingGateway_PRPA_IN201306UV02ResponseMessage"
+                   wsaw:Action="hl7:RespondingGateway_PRPA_IN201306UV02Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="EntityPatientDiscoverySecuredBindingSoap11"
+                type="tns:EntityPatientDiscoverySecuredPortType">
+        <wsoap11:binding style="document"
+                     transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#Entity_PatientDiscovery_SoapPolicy"/>
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <wsoap11:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
+            <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request" >
+                <wsoap11:body use="literal"/>
+                <wsp:PolicyReference URI="#Entity_PatientDiscovery_Binding_Soap_Input_Policy"/>
+            </wsdl:input>
+            <wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response" >
+                <wsoap11:body use="literal"/>
+                <wsp:PolicyReference URI="#Entity_PatientDiscovery_Binding_Soap_Output_Policy"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="EntityPatientDiscoverySecured">
+        <wsdl:port name="EntityPatientDiscoverySecuredPortSoap11"
+               binding="tns:EntityPatientDiscoverySecuredBindingSoap11">
+            <wsoap11:address
+          location="https://localhost:${HttpsDefaultPort}/NhinConnect/EntityPatientDiscoverySecured"/>
+        </wsdl:port>
+    </wsdl:service>
+
+    <!--<wsp:Policy wsu:Id="Entity_PatientDiscovery_SoapPolicy">-->
+        <!--<wsp:ExactlyOne>
+            <wsp:All>
+                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy> -->
+    <wsp:Policy wsu:Id="Entity_PatientDiscovery_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="Entity_PatientDiscovery_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+    <wsp:Policy wsu:Id="Entity_PatientDiscovery_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+  
+</wsdl:definitions>
