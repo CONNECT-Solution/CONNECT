@@ -38,6 +38,7 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -119,6 +120,8 @@ public class EntityPatientDiscoverySecuredImpl {
                 NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
                 oTargetSystemType.setHomeCommunity(oTargetCommunity.getHomeCommunity());
 
+                CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+
                 //format request for nhincProxyPatientDiscoveryImpl call
                 ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType =
                         new ProxyPRPAIN201305UVProxySecuredRequestType();
@@ -135,8 +138,11 @@ public class EntityPatientDiscoverySecuredImpl {
 
                 resultFromNhin = new ResponseFactory().getResponseMode().processResponse(params);
 
+                communityResponse.setNhinTargetCommunity(oTargetCommunity);
+                communityResponse.setPRPAIN201306UV02(resultFromNhin);
+
                 //for now just reformat 1 result to match return type
-                response.setPRPAIN201306UV02(resultFromNhin);
+                response.getCommunityResponse().add(communityResponse);
             } //if (bIsPolicyOk)
              else
             {

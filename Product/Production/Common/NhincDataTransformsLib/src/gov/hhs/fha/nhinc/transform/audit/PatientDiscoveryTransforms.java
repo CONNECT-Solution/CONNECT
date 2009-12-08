@@ -25,6 +25,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201305UV02QUQIMT021001UV01ControlActProcess;
@@ -413,6 +414,19 @@ public class PatientDiscoveryTransforms {
 
     }
 
+    public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(List<CommunityPRPAIN201306UV02ResponseType> oRequest, AssertionType oAssertion, String direction, String _interface)
+    {
+
+        LogEventRequestType oReturnLogEventRequestType = null;
+
+        for(CommunityPRPAIN201306UV02ResponseType response : oRequest)
+        {
+            oReturnLogEventRequestType = transformNhinPRPAIN201306ResponseToAuditMsg(response.getPRPAIN201306UV02(), oAssertion, direction, _interface);
+            
+        }
+
+        return oReturnLogEventRequestType;
+    }
     /**
      * this method tranforms a patient discovery response for an outbound Entity into an audit log message.
      * @param message
@@ -420,8 +434,8 @@ public class PatientDiscoveryTransforms {
      */
     public LogEventRequestType transformEntityPRPAIN201306ResponseToAuditMsg(RespondingGatewayPRPAIN201306UV02ResponseType oRequest, AssertionType oAssertion, String direction, String _interface)
     {
-          LogEventRequestType oReturnLogEventRequestType = null;
-          PRPAIN201306UV02 oPatientDiscoveryResponseMessage = null;
+          LogEventRequestType oReturnLogEventRequestType = null;          
+          List<CommunityPRPAIN201306UV02ResponseType> communityResponses = null;
 
           addLogInfo("****************************************************************");
           addLogInfo("Entering transformEntityPRPAIN201306ResponseToAuditMsg() method.");
@@ -434,10 +448,10 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oPatientDiscoveryResponseMessage = oRequest.getPRPAIN201306UV02();
+            communityResponses = oRequest.getCommunityResponse();
           }
 
-          if (oPatientDiscoveryResponseMessage == null)
+          if (communityResponses.size() == 0)
           {
                 addLogError("The PRPAIN201306UV object from the request was null.");
                 return null;
@@ -450,7 +464,7 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType = transformPRPAIN201306ResponseToAuditMsg(oPatientDiscoveryResponseMessage, oAssertion, direction, _interface);
+              oReturnLogEventRequestType = transformEntityPRPAIN201306ResponseToAuditMsg(communityResponses, oAssertion, direction, _interface);
           }
 
           if (oReturnLogEventRequestType == null)
