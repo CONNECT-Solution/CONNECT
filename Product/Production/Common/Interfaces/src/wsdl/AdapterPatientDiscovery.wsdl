@@ -17,6 +17,7 @@
         <xsd:schema elementFormDefault="qualified" 
                 targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
             <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
         </xsd:schema>
     </wsdl:types>
     
@@ -26,9 +27,9 @@
     </wsdl:message>
     <wsdl:message name="RespondingGateway_PRPA_IN201306UV02ResponseMessage">
         <wsdl:part name="RespondingGateway_PRPA_IN201306UV02Response"
-               element="hl7:RespondingGateway_PRPA_IN201306UV02Response"/>
+               element="hl7:PRPA_IN201306UV02"/>
     </wsdl:message>
-    
+
     <wsdl:portType name="AdapterPatientDiscoveryPortType">
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
             <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request"
@@ -37,10 +38,10 @@
                    message="tns:RespondingGateway_PRPA_IN201306UV02ResponseMessage" />
         </wsdl:operation>
     </wsdl:portType>
-    
+
     <wsdl:binding name="AdapterPatientDiscoveryBindingSoap11"
                 type="tns:AdapterPatientDiscoveryPortType">
-        <wsoap11:binding style="document" 
+        <wsoap11:binding style="document"
                      transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
             <wsoap11:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
@@ -52,23 +53,24 @@
             </wsdl:output>
         </wsdl:operation>
     </wsdl:binding>
-    
+
     <wsdl:service name="AdapterPatientDiscovery">
         <wsdl:port name="AdapterPatientDiscoveryPortSoap11"
                binding="tns:AdapterPatientDiscoveryBindingSoap11">
-            <wsoap11:address 
+            <wsoap11:address
          location="https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery"/>
         </wsdl:port>
     </wsdl:service>
-  
+
     <plnk:partnerLinkType name="AdapterPatientDiscovery">
-    <!-- A partner link type is automatically generated when a new port type is added. 
-         Partner link types are used by BPEL processes. In a BPEL process, a partner 
-         link represents the interaction between the BPEL process and a partner service. 
-         Each partner link is associated with a partner link type. A partner link type 
-         characterizes the conversational relationship between two services. The 
+    <!-- A partner link type is automatically generated when a new port type is added.
+         Partner link types are used by BPEL processes. In a BPEL process, a partner
+         link represents the interaction between the BPEL process and a partner service.
+         Each partner link is associated with a partner link type. A partner link type
+         characterizes the conversational relationship between two services. The
          partner link type can have one or two roles.-->
         <plnk:role name="AdapterPatientDiscoveryPortTypeRole"
                portType="tns:AdapterPatientDiscoveryPortType"/>
     </plnk:partnerLinkType>
 </wsdl:definitions>
+
