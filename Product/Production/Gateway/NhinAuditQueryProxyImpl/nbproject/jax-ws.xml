@@ -5,7 +5,7 @@
     <client name="NhinAuditLogQuery">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
-      <package-name>com.nhin.services.wsdl.auditlogquery</package-name>
+      <package-name>com.nhin.services</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

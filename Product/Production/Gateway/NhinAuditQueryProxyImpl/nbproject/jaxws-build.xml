@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-NhinAuditLogQuery" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/com/nhin/services/wsdl/auditlogquery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/nhin/services"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery"/>
 </project>

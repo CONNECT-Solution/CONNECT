@@ -2,7 +2,7 @@
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-   xmlns:tns="http://services.nhin.com/wsdl/auditlogquery" 
+   xmlns:tns="http://services.nhin.com" 
    xmlns:ns="http://nhinc.services.com/schema/auditmessage" 
    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
    xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
@@ -15,9 +15,9 @@
    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
    name="auditlogquery" 
-   targetNamespace="http://services.nhin.com/wsdl/auditlogquery" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
+   targetNamespace="http://services.nhin.com" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client">
     <wsdl:types>
-        <xsd:schema targetNamespace="http://services.nhin.com/wsdl/auditlogquery">
+        <xsd:schema targetNamespace="http://services.nhin.com">
             <xsd:import namespace="http://nhinc.services.com/schema/auditmessage"
                   schemaLocation="../schemas/ihe/auditmessage.xsd"/>
             <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
@@ -33,16 +33,16 @@
     <portType name="AuditLogQuery">
         <operation name="FindAuditEvents">
             <input name="FindAuditEventsRequest" message="tns:FindAuditEventsRequestMessage"
-             wsaw:Action="http://services.nhin.com/wsdl/auditlogquery:findAuditEventsRequest"/>
+             wsaw:Action="http://services.nhin.com:findAuditEventsRequest"/>
             <output name="FindAuditEventsResponse" message="tns:FindAuditEventsResponseMessage"
-              wsaw:Action="http://services.nhin.com/wsdl/auditlogquery:findAuditEventsResponse"/>
+              wsaw:Action="http://services.nhin.com:findAuditEventsResponse"/>
         </operation>
     </portType>
     <binding name="AuditLogQuerySoapBinding" type="tns:AuditLogQuery">
         <wsp1:PolicyReference URI="#AuditLogQuerySoapBindingPolicy"/>
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="FindAuditEvents">
-            <soap12:operation soapAction="http://services.nhin.com/wsdl/auditlogquery:findAuditEvents"/>
+            <soap12:operation soapAction="http://services.nhin.com:findAuditEvents"/>
             <input name="FindAuditEventsRequest">
                 <soap12:body use="literal"/>
             </input>

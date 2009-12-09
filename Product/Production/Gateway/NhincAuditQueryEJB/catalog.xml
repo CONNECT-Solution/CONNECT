@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="src/conf/xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/conf/xml-resources/web-services/AuditQuery/schemas/nhinc/gateway/SamlTokenData.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" uri="src/conf/xml-resources/web-service-references/NhincAuditLogQuery/wsdl/NhincAuditLogQuery.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" uri="src/conf/xml-resources/web-service-references/NhincComponentInternalPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/PolicyEngineDte.xsd" uri="src/conf/xml-resources/web-service-references/NhincComponentInternalPolicyEngineFacade/schemas/nhinc/common/PolicyEngineDte.xsd"/>
@@ -63,7 +61,6 @@
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT710000UV01.xsd" uri="src/conf/xml-resources/web-service-references/NhincComponentAuditRepository/schemas/HL7V3/multicacheschemas/COCT_MT710000UV01.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/HL7V3/multicacheschemas/COCT_MT090303UV01.xsd" uri="src/conf/xml-resources/web-service-references/NhincComponentAuditRepository/schemas/HL7V3/multicacheschemas/COCT_MT090303UV01.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/wsdl/AdapterAuditLogQuery.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/ihe/auditmessage.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommonAdapter.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/nhinc/common/NhincCommonAdapter.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/NhincCommon.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/nhinc/common/NhincCommon.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ebRS/query.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/ebRS/query.xsd"/>
@@ -82,4 +79,7 @@
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/common/Cdc.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/nhinc/common/Cdc.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/oasis/xacml/access_control-xacml-2.0-policy-schema-os.xsd"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/www.w3.org/2001/xml.xsd" uri="src/conf/xml-resources/web-service-references/AdapterAuditLogQuery/schemas/www.w3.org/2001/xml.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" uri="src/main/resources/xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/ihe/auditmessage.xsd" uri="src/main/resources/xml-resources/web-services/AuditQuery/schemas/ihe/auditmessage.xsd"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/AuditQuery/schemas/nhinc/gateway/SamlTokenData.xsd"/>
 </catalog>

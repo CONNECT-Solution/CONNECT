@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.auditquery;
 
-import com.nhin.services.wsdl.auditlogquery.AuditLogQuery;
+import com.nhin.services.AuditLogQuery;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;

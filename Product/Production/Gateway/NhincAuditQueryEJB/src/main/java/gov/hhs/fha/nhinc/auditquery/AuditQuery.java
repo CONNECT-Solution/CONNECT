@@ -4,7 +4,7 @@
  */
 package gov.hhs.fha.nhinc.auditquery;
 
-import com.nhin.services.wsdl.auditlogquery.AuditLogQuery;
+import com.nhin.services.AuditLogQuery;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -20,7 +20,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author jhoppesc
  */
-@WebService(serviceName = "findAuditEvents", portName = "AuditLogQuery", endpointInterface = "com.nhin.services.wsdl.auditlogquery.AuditLogQuery", targetNamespace = "http://services.nhin.com/wsdl/auditlogquery", wsdlLocation = "META-INF/wsdl/AuditQuery/NhinAuditLogQuery.wsdl")
+@WebService(serviceName = "findAuditEvents", portName = "AuditLogQuery", endpointInterface = "com.nhin.services.AuditLogQuery", targetNamespace = "http://services.nhin.com", wsdlLocation = "META-INF/wsdl/AuditQuery/NhinAuditLogQuery.wsdl")
 @Stateless
 @BindingType(value = "http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
 public class AuditQuery implements AuditLogQuery {

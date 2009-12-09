@@ -4,8 +4,8 @@
  */
 package gov.hhs.fha.nhinc.nhinauditquery.proxy;
 
-import com.nhin.services.wsdl.auditlogquery.AuditLogQuery;
-import com.nhin.services.wsdl.auditlogquery.FindAuditEvents;
+import com.nhin.services.AuditLogQuery;
+import com.nhin.services.FindAuditEvents;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
