@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.adaptercomponentmpi.hl7parsers;
 
 import gov.hhs.fha.nhinc.mpilib.*;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
@@ -467,9 +468,13 @@ public class HL7Parser201306 {
         receiver.setTypeCode(CommunicationFunctionType.RCV);
 
         if (querySender.getDevice() != null &&
-                querySender.getDevice().getId() != null &&
-                querySender.getDevice().getId().size() > 0 &&
-                querySender.getDevice().getId().get(0) != null) {
+                querySender.getDevice().getAsAgent() != null &&
+                querySender.getDevice().getAsAgent().getValue() != null &&
+                querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid = querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
         }
 
@@ -511,9 +516,13 @@ public class HL7Parser201306 {
         device.setDeterminerCode("INSTANCE");
 
         if (queryReceiver.getDevice() != null &&
-                queryReceiver.getDevice().getId() != null &&
-                queryReceiver.getDevice().getId().size() > 0 &&
-                queryReceiver.getDevice().getId().get(0) != null) {
+                queryReceiver.getDevice().getAsAgent() != null &&
+                queryReceiver.getDevice().getAsAgent().getValue() != null &&
+                queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid = queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
         }
 
