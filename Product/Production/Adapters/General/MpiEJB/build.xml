@@ -127,28 +127,35 @@
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 		    
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>    
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 		<property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
+		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 		    
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.MpiLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
 
@@ -156,8 +163,10 @@
         <copy file="${reference.MpiLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${reference.NhincDataTransformsLib.jar}" property="included.lib.reference.NhincDataTransformsLib.jar"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.MpiLib.jar} ${included.lib.reference.NhincLib.jar} "/>
+            <attribute name="Class-Path" value="${included.lib.reference.MpiLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar}"/>
         </manifest>
     </target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

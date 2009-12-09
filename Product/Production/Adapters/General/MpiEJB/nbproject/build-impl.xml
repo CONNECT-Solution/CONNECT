@@ -330,12 +330,18 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.MpiLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <ant antfile="${project.MpiLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
@@ -358,6 +364,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.MpiLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${libs.junit_4.classpath}" manifestproperty="manifest.libs.junit_4.classpath" todir="${dist.ear.dir}"/>
@@ -366,8 +373,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.MpiLib.jar}" manifestproperty="manifest.reference.MpiLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.MpiLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.libs.junit_4.classpath} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.MpiLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -656,6 +664,7 @@ exists or setup the property manually. For example like this:
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <ant antfile="${project.MpiLib}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="-do-clean">
