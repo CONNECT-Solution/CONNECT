@@ -92,12 +92,12 @@ public class HL7SenderTransforms {
         II id = HL7DataTransformHelper.IIFactory(OID);
         org.getId().add(id);
 
-        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "organization");
+        javax.xml.namespace.QName xmlqnameorg = new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem = new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
-        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "agent");
+        javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem = new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);

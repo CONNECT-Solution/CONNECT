@@ -10,6 +10,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveResultEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
@@ -26,6 +27,10 @@ public class PolicyEngineTransformer {
 
     public CheckPolicyRequestType transformSubjectAddedToCheckPolicy(SubjectAddedEventType transformSubjectAddedToCheckPolicyRequest) {
         return SubjectAddedTransformHelper.transformSubjectAddedToCheckPolicy(transformSubjectAddedToCheckPolicyRequest);
+    }
+
+    public CheckPolicyRequestType transformPatDiscReqToCheckPolicy(PatDiscReqEventType transformPatDiscReqToCheckPolicyRequest) {
+        return new PatientDiscoveryPolicyTransformHelper().transformPatientDiscoveryNhincToCheckPolicy(transformPatDiscReqToCheckPolicyRequest);
     }
 
     public CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest) {

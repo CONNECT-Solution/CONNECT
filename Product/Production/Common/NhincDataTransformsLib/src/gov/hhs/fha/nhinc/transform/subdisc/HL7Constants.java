@@ -31,6 +31,6 @@ public class HL7Constants {
     public static final String DETECTEDISSUEMANAGEMENT_CODE_RESPONDER_BUSY = "ResponderBusy";
     public static final String DETECTEDISSUEMANAGEMENT_CODESYSTEM = "1.3.6.1.4.1.19376.1.2.27.3";
 
-    public static final String AGENT_CLASS_CODE="AGENT";
+    public static final String AGENT_CLASS_CODE="AGNT";
     public static final String ORG_CLASS_CODE="ORG";
 }

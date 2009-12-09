@@ -35,7 +35,6 @@ public class SubjectAddedTransformHelper {
         PRPAIN201301UV02 subjectAdded = event.getMessage().getPRPAIN201301UV02();
         RequestType request = new RequestType();
         request.setAction(ActionHelper.actionFactory(ActionValue));
-
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
         log.debug("transformSubjectAddedInToCheckPolicy - adding subject");

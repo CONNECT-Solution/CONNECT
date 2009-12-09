@@ -4,8 +4,11 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
+import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.util.List;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
@@ -20,6 +23,7 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import javax.xml.bind.JAXBElement;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
 
 /**
@@ -41,17 +45,47 @@ public class PatientDiscoveryPolicyTransformHelper {
         log = createLogger();
     }
 
-    public CheckPolicyRequestType transformPatientDiscoveryNhincToCheckPolicy(RespondingGatewayPRPAIN201305UV02RequestType event) {
+    /**
+     * Transform method to create a CheckPolicyRequest object from a 201306 message
+     * @param request
+     * @return CheckPolicyRequestType
+     */
+    public CheckPolicyRequestType transformPatientDiscoveryNhincToCheckPolicy(PatDiscReqEventType event) {
         addDebugLog("Begin -- PatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy()");
         CheckPolicyRequestType checkPolicyRequest = null;
+
         if (event == null) {
             addErrorLog("Request is null.");
             return checkPolicyRequest;
         } else {
             checkPolicyRequest = new CheckPolicyRequestType();
         }
-        RequestType request = getRequestType(event);
-        request.setAction(ActionHelper.actionFactory(ActionOutValue));
+
+        PRPAIN201306UV02 patDiscReq = event.getPRPAIN201306UV02();
+        RequestType request = getRequestType(patDiscReq, event.getAssertion());
+
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getAssertion());
+        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding subject");
+        request.getSubject().add(subject);
+
+        II ii = extractPatientIdentifier(patDiscReq);
+        if (ii != null) {
+            ResourceType resource = new ResourceType();
+            AttributeHelper attrHelper = new AttributeHelper();
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
+            String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
+            log.debug("transformPatientDiscoveryNhincToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            request.getResource().add(resource);
+        }
+
+        log.debug("transformPatientDiscoveryNhincToCheckPolicy - adding assertion data");
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getAssertion());
+
+        request.setAction(ActionHelper.actionFactory(ActionInValue));
+
         checkPolicyRequest.setRequest(request);
         checkPolicyRequest.setAssertion(event.getAssertion());
         addDebugLog("End -- PatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy()");
@@ -73,7 +107,7 @@ public class PatientDiscoveryPolicyTransformHelper {
             checkPolicyRequest = new CheckPolicyRequestType();
         }
         RequestType request = getRequestType(event);
-        request.setAction(ActionHelper.actionFactory(ActionInValue));
+        request.setAction(ActionHelper.actionFactory(ActionOutValue));
         checkPolicyRequest.setRequest(request);
         checkPolicyRequest.setAssertion(event.getAssertion());
         addDebugLog("End -- PatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy()");
@@ -89,6 +123,25 @@ public class PatientDiscoveryPolicyTransformHelper {
         final II get = id.get(0);
         final String root = get.getRoot();
         senderHomeCommunity.setHomeCommunityId(root);
+        return senderHomeCommunity;
+    }
+
+    protected HomeCommunityType getHomeCommunityFrom201306(PRPAIN201306UV02 event) {
+        HomeCommunityType senderHomeCommunity = new HomeCommunityType();
+
+        if (event != null &&
+                event.getSender() != null &&
+                event.getSender().getDevice() != null &&
+                event.getSender().getDevice().getAsAgent() != null &&
+                event.getSender().getDevice().getAsAgent().getValue() != null &&
+                event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            senderHomeCommunity.setHomeCommunityId(event.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+        }
+
         return senderHomeCommunity;
     }
 
@@ -112,9 +165,37 @@ public class PatientDiscoveryPolicyTransformHelper {
         return request;
     }
 
+    protected RequestType getRequestType(PRPAIN201306UV02 event, AssertionType assertion) {
+        addDebugLog("Begin -- PatientDiscoveryPolicyTransformHelper.getRequestType()");
+        RequestType request = new RequestType();
+
+        setSubjectToRequestType(event, request, assertion);
+
+        ResourceType resource = null;
+        AttributeHelper attrHelper = new AttributeHelper();
+        II ii = extractPatientIdentifier(event);
+        if (ii != null) {
+            resource = new ResourceType();
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, ii.getRoot()));
+            String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(ii.getExtension());
+            log.debug("transformSubjectAddedInToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            resource.getAttribute().add(attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+            request.getResource().add(resource);
+        }
+        request.getResource().add(resource);
+        addDebugLog("End -- PatientDiscoveryPolicyTransformHelper.getRequestType()");
+        return request;
+    }
+
     protected void setSubjectToRequestType(RespondingGatewayPRPAIN201305UV02RequestType event, RequestType request) {
         HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201305(event);
         SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, event.getAssertion());
+        request.getSubject().add(subject);
+    }
+
+    protected void setSubjectToRequestType(PRPAIN201306UV02 event, RequestType request, AssertionType assertion) {
+        HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201306(event);
+        SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, assertion);
         request.getSubject().add(subject);
     }
 
@@ -165,6 +246,23 @@ public class PatientDiscoveryPolicyTransformHelper {
                     }
                 }
             }
+        }
+        return ii;
+    }
+
+    private static II extractPatientIdentifier(PRPAIN201306UV02 message) {
+        II ii = null;
+
+        if (message != null &&
+                message.getControlActProcess() != null &&
+                NullChecker.isNotNullish(message.getControlActProcess().getSubject()) &&
+                message.getControlActProcess().getSubject().get(0) != null &&
+                message.getControlActProcess().getSubject().get(0).getRegistrationEvent() != null &&
+                message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1() != null &&
+                message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient() != null &&
+                NullChecker.isNotNullish(message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId()) &&
+                message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0) != null) {
+            ii = message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
         }
         return ii;
     }
