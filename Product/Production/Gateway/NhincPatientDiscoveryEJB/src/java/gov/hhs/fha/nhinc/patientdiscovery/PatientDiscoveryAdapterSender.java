@@ -20,7 +20,6 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class PatientDiscoveryAdapterSender {
 
     public PRPAIN201306UV02 send201301ToAgency(PRPAIN201305UV02 request, AssertionType assertion) {
-        PRPAIN201306UV02 response = new PRPAIN201306UV02();
         RespondingGatewayPRPAIN201305UV02RequestType adapterReq = new RespondingGatewayPRPAIN201305UV02RequestType();
 
         AdapterPatientDiscoveryProxyObjectFactory factory = new AdapterPatientDiscoveryProxyObjectFactory();
@@ -28,12 +27,9 @@ public class PatientDiscoveryAdapterSender {
 
         adapterReq.setAssertion(assertion);
         adapterReq.setPRPAIN201305UV02(request);
-        RespondingGatewayPRPAIN201306UV02ResponseType adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq);
-        
-//        if (adapterResp.getPRPAIN201306UV02() != null) {
-//            response = adapterResp.getPRPAIN201306UV02();
-//        }
-        return response;
+        PRPAIN201306UV02 adapterResp = proxy.respondingGatewayPRPAIN201305UV02(adapterReq);
+
+        return adapterResp;
     }
 
 }

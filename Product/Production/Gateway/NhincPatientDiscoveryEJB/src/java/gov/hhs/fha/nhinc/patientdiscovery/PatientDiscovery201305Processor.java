@@ -64,7 +64,7 @@ public class PatientDiscovery201305Processor {
 
             // Check to make sure the policy is valid
             PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
-            if (policyChecker.check201305Policy(request, patIdOverride)) {
+            if (policyChecker.check201305Policy(response, patIdOverride, assertion)) {
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
                     // Create a patient correlation
