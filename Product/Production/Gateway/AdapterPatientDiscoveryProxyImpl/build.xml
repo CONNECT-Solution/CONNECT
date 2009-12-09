@@ -96,6 +96,7 @@
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    <target name="wsimport-client-AdapterPatientDiscoverySecured" depends="wsimport-init">
+    
+   <target name="wsimport-client-AdapterPatientDiscoverySecured" depends="wsimport-init">
     </target>
 </project>

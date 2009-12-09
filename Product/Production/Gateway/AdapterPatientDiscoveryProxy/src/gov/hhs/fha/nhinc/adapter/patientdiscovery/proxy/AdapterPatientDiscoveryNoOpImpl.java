@@ -5,8 +5,8 @@
 
 package gov.hhs.fha.nhinc.adapter.patientdiscovery.proxy;
 
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  *
@@ -14,7 +14,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  */
 public class AdapterPatientDiscoveryNoOpImpl implements AdapterPatientDiscoveryProxy {
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        return new RespondingGatewayPRPAIN201306UV02ResponseType();
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        return new PRPAIN201306UV02();
     }
 }
