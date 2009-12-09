@@ -611,7 +611,6 @@ public class DocumentRepositoryHelper
                         String typeCodeDisplayName = extractClassificationMetadata(classifications, XDS_TYPE_CODE_CLASSIFICATION, XDS_NAME);
                         log.debug("typeCodeDisplayName: " + typeCodeDisplayName);
                         doc.setTypeCodeDisplayName(typeCodeDisplayName);
-
                         //extract eventCodes
                         extractEventCodes(classifications, doc);
 
@@ -635,10 +634,11 @@ public class DocumentRepositoryHelper
                         DocumentService docService = getDocumentService();
 
                         //set the NHINC repository documentId value
+                        //log.debug("requestHasReplacementAssociation is " + requestHasReplacementAssociation + " for document: " + doc.getDocumentUniqueId());
                         if (requestHasReplacementAssociation)
                         {
                             //query for the documentId using the documentUniqueId
-                            long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getClassCode(), doc.getStatus(), docService);
+                            long documentid = queryRepositoryByPatientId(doc.getPatientId(), doc.getDocumentUniqueId(), doc.getClassCode(), doc.getStatus(), docService);
                             doc.setDocumentid(documentid);
                         }
                         //call the DocumentService.save method
@@ -747,7 +747,7 @@ public class DocumentRepositoryHelper
         return replacementAssociationExists;
     }
 
-    private long queryRepositoryByPatientId(String sPatId, String sClassCode, String sStatus, DocumentService docService)
+    private long queryRepositoryByPatientId(String sPatId, String sDocId, String sClassCode, String sStatus, DocumentService docService)
     {
         long nhincDocRepositoryDocId = 0;
 
@@ -764,8 +764,14 @@ public class DocumentRepositoryHelper
         List<Document> documents = docService.documentQuery(params);
         if (NullChecker.isNotNullish(documents))
         {
-            //the returned list should only have one document because the documentUniqueId should be unique in the repository.
-            nhincDocRepositoryDocId = documents.get(0).getDocumentid();
+            log.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
+            for(Document doc : documents){
+                log.debug("Found matching docId: " + doc.getDocumentUniqueId() + " with repository doc id: "+ doc.getDocumentid());
+                if(sDocId.equals(doc.getDocumentUniqueId())){
+                    nhincDocRepositoryDocId = doc.getDocumentid();
+                    break;
+                }
+            }
         }
         
         return nhincDocRepositoryDocId;

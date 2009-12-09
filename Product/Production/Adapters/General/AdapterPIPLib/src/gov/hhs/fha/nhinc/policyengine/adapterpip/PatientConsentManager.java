@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
+import gov.hhs.fha.nhinc.callback.Base64Coder;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
@@ -190,7 +191,6 @@ public class PatientConsentManager {
                         if (oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.ADD) == 0 ||
                                 oBinPolicyCriterion.getStoreAction().compareTo(BinaryDocumentStoreActionType.UPDATE) == 0) {
                             log.info(oBinPolicyCriterion.getStoreAction() + " requested for document: " + oBinPolicyCriterion.getDocumentUniqueId());
-                            // TODO - should this be policyOID ?
                             olDocIds2Store.add(oBinPolicyCriterion.getDocumentUniqueId());
                         }
                         //TODO how do we handle the delete request ?
@@ -206,7 +206,6 @@ public class PatientConsentManager {
                             if (oCda != null && oCda.getId() != null &&
                                     oCda.getId().getExtension() != null &&
                                     !oCda.getId().getExtension().isEmpty()) {
-                                //TODO - is this right? I don't see a handling of the policyOID
                                 // The CDA ID will reflect the document unique id in the extension part of the II
                                 // This can be used to determine which documents to store
                                 String sDocUniqueID = oCda.getId().getExtension();
@@ -274,10 +273,8 @@ public class PatientConsentManager {
         log.info("Raw document created with ID: " + sUniqueDocumentId);
         oRequest.getDocument().add(oDoc);
 
-        if((oDoc != null) && (oDoc.getValue() != null) & (oPtPref != null))
-        {
-            if(oPtPref.getFineGrainedPolicyMetadata() == null)
-            {
+        if ((oDoc != null) && (oDoc.getValue() != null) & (oPtPref != null)) {
+            if (oPtPref.getFineGrainedPolicyMetadata() == null) {
                 oPtPref.setFineGrainedPolicyMetadata(new FineGrainedPolicyMetadataType());
             }
             oPtPref.getFineGrainedPolicyMetadata().setSize(String.valueOf(oDoc.getValue().length));
@@ -287,7 +284,7 @@ public class PatientConsentManager {
         String sTargetObject = checkCPPMetaFromRepositoryUsingXDSb(oPtPref.getPatientId(), oPtPref.getAssigningAuthority(), sUniqueDocumentId, sMimeType);
         String sHomeCommunityId = PropertyAccessor.getProperty("gateway", "localHomeCommunityId");
         PatientConsentDocumentBuilderHelper oPatConsentDocBuilderHelper = new PatientConsentDocumentBuilderHelper();
-        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(sTargetObject, sHomeCommunityId, sUniqueDocumentId, oPtPref);
+        SubmitObjectsRequest oSubmitObjectRequest = oPatConsentDocBuilderHelper.createSubmitObjectRequest(sTargetObject, sHomeCommunityId, sUniqueDocumentId, sMimeType, oPtPref);
         oRequest.setSubmitObjectsRequest(oSubmitObjectRequest);
         DocumentRepositoryPortType oDocRepositoryPort = getDocumentRepositoryPort();
         RegistryResponseType oRegistryResponse = oDocRepositoryPort.documentRepositoryProvideAndRegisterDocumentSetB(oRequest);
@@ -589,12 +586,12 @@ public class PatientConsentManager {
                 oDocRepositoryPort.documentRepositoryRetrieveDocumentSet(oRequest);
 
         if (oResponse != null) {
-            sPrefDoc = extractFineGrainedPrefDoc(oResponse);
+            sPrefDoc = extractFineGrainedPrefDoc(oDocRequest, oResponse);
             if (NullChecker.isNotNullish(sPrefDoc)) {
                 oCPPDocInfo.sConsentXACML = sPrefDoc;
             }
 
-            List<String> olBinPrefDoc = extractBinPrefDoc(oResponse);
+            List<String> olBinPrefDoc = extractBinPrefDoc(oDocRequest, oResponse);
             if (olBinPrefDoc != null && !olBinPrefDoc.isEmpty()) {
                 oCPPDocInfo.olConsentPdf = olBinPrefDoc;
             }
@@ -611,7 +608,7 @@ public class PatientConsentManager {
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      *         This is thrown if there are any errors.
      */
-    private String extractFineGrainedPrefDoc(RetrieveDocumentSetResponseType oResponse)
+    private String extractFineGrainedPrefDoc(DocumentRequest oDocRequest, RetrieveDocumentSetResponseType oResponse)
             throws AdapterPIPException {
         String sPrefDoc = "";
 
@@ -620,16 +617,17 @@ public class PatientConsentManager {
                 (oResponse.getDocumentResponse().size() > 0)) {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
             for (DocumentResponse oDocResponse : olDocResponse) {
+                log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
+                if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
+                    if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
+                        if ((oDocResponse.getDocument() != null) &&
+                                (oDocResponse.getDocument().length > 0)) {
+                            log.info("Matching XACML document found");
+                            sPrefDoc = new String(oDocResponse.getDocument());
+                            break;
 
-                if (XACML_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                    if ((oDocResponse.getDocument() != null) &&
-                            (oDocResponse.getDocument().length > 0)) {
-                        sPrefDoc = new String(oDocResponse.getDocument());
-                        break;
-
+                        }
                     }
-
-
                 }
             }
         }   // if ((oResponse != null) &&
@@ -637,7 +635,7 @@ public class PatientConsentManager {
         return sPrefDoc;
     }
 
-    private List<String> extractBinPrefDoc(RetrieveDocumentSetResponseType oResponse) {
+    private List<String> extractBinPrefDoc(DocumentRequest oDocRequest, RetrieveDocumentSetResponseType oResponse) {
 
         log.info("--------------- Begin extractBinPrefDoc ---------------");
         List<String> olBinPrefDoc = new ArrayList<String>();
@@ -648,12 +646,15 @@ public class PatientConsentManager {
             List<DocumentResponse> olDocResponse = oResponse.getDocumentResponse();
             log.info(olDocResponse.size() + " documents have been found");
             for (DocumentResponse oDocResponse : olDocResponse) {
-                log.info("Mime type: " + oDocResponse.getMimeType());
-                if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
-                    if ((oDocResponse.getDocument() != null) &&
-                            (oDocResponse.getDocument().length > 0)) {
-                        String sPrefDoc = new String(oDocResponse.getDocument());
-                        olBinPrefDoc.add(sPrefDoc);
+                log.info("Doc: " + oDocResponse.getDocumentUniqueId() + " Mime type: " + oDocResponse.getMimeType());
+                if (oDocRequest.getDocumentUniqueId().equals(oDocResponse.getDocumentUniqueId())) {
+                    if (PDF_MIME_TYPE.equals(oDocResponse.getMimeType())) {
+                        if ((oDocResponse.getDocument() != null) &&
+                                (oDocResponse.getDocument().length > 0)) {
+                            String sPrefDoc = new String(oDocResponse.getDocument());
+                            log.info("Matching PDF document found: " + sPrefDoc);
+                            olBinPrefDoc.add(sPrefDoc);
+                        }
                     }
                 }
             }
@@ -697,20 +698,24 @@ public class PatientConsentManager {
         }
         // patient is required to have a fine-grained policy to continue with binary document
         if (bHasFineGrained && oPtPref != null) {
-
+            log.info("Begin extraction for Binary documents");
             BinaryDocumentPolicyCriteriaType oBinDocPolicyCriteriaType = new BinaryDocumentPolicyCriteriaType();
             List<BinaryDocumentPolicyCriterionType> olBinDocPolicyCriteria = oBinDocPolicyCriteriaType.getBinaryDocumentPolicyCriterion();
 
             //Add Binary extraction for each document that contains a pdf
             for (CPPDocumentInfo oDocInfo : olDocInfo) {
+                log.info(oDocInfo.lDocumentId + " has " + oDocInfo.olConsentPdf.size() + " pdf");
                 if (oDocInfo != null && oDocInfo.olConsentPdf != null && !oDocInfo.olConsentPdf.isEmpty()) {
                     List<String> olConsentPdf = oDocInfo.olConsentPdf;
                     for (String sConsentPdf : olConsentPdf) {
                         CdaPdfSerializer oSerializer = new CdaPdfSerializer();
+                        log.info("Deserialize: " + sConsentPdf);
                         POCDMT000040ClinicalDocument oCda = oSerializer.deserialize(sConsentPdf);
+                        log.info("Returned CDA: " + oCda);
                         if (oCda != null) {
                             CdaPdfExtractor oExtractor = new CdaPdfExtractor();
                             BinaryDocumentPolicyCriterionType oBinDocPolicyCriterion = oExtractor.extractBinaryDocumentPolicyCriterion(oCda);
+                            log.info("Returned Binary Criterion: " + oCda);
                             if (oBinDocPolicyCriterion != null) {
                                 olBinDocPolicyCriteria.add(oBinDocPolicyCriterion);
                                 log.info("Extracted Binary document has id: " + oBinDocPolicyCriterion.getDocumentUniqueId());
@@ -721,9 +726,11 @@ public class PatientConsentManager {
             }
             if (olBinDocPolicyCriteria != null && !olBinDocPolicyCriteria.isEmpty()) {
                 oPtPref.setBinaryDocumentPolicyCriteria(oBinDocPolicyCriteriaType);
-            }
         } else {
             log.info("No Binary documents are processed");
+        }
+        } else {
+            log.info("Fine Grained Policy Criterion is not present.");
         }
 
         log.info("--------------- End populateConsentInfo ---------------");

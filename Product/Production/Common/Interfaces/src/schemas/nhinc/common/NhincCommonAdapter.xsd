@@ -533,7 +533,7 @@
 	<xsd:complexType name="FineGrainedPolicyCriterionType">
 		<xsd:sequence>
 			<xsd:element name="sequentialId" type="xsd:string"/>
-			<xsd:element name="policyOID" type="xsd:string"/>
+			<xsd:element name="policyOID" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="permit" type="xsd:boolean"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="userRole" type="nccommon:CeType" minOccurs="0"/>
@@ -633,7 +633,7 @@
         the Policy Engine PIP (Policy Information Point) -->
 	<xsd:complexType name="BinaryDocumentPolicyCriterionType">
 		<xsd:sequence>
-			<xsd:element name="policyOID" type="xsd:string"/>
+			<xsd:element name="policyOID" type="xsd:string"  minOccurs="0"/>
 			<xsd:element name="documentUniqueId" type="xsd:string"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="documentTitle" type="xsd:string"/>

@@ -90,9 +90,10 @@ public class PatientConsentDocumentBuilderHelper {
         return propertiesFilePath;
     }
 
-    public SubmitObjectsRequest createSubmitObjectRequest(String sTargetObject, String sHid, String sDocUniqueId, PatientPreferencesType oPtPref) throws PropertyAccessException
+    public SubmitObjectsRequest createSubmitObjectRequest(String sTargetObject, String sHid, String sDocUniqueId, String sMimeType, PatientPreferencesType oPtPref) throws PropertyAccessException
     {
         log.info("------- Begin PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
+        log.info("Document: " + sDocUniqueId + " of type: " + sMimeType);
         String hl7PatientId = "";
         SubmitObjectsRequest oSubmitObjectRequest = new SubmitObjectsRequest();
         RegistryObjectListType oRegistryObjectList = new RegistryObjectListType();
@@ -109,9 +110,13 @@ public class PatientConsentDocumentBuilderHelper {
         }
         List<JAXBElement<? extends IdentifiableType>> oRegistryObjList = oRegistryObjectList.getIdentifiable();
         ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
-        oExtObj.setId(sDocUniqueId); // Should this be the policyOID?
+        oExtObj.setId(sDocUniqueId); 
         oExtObj.setHome(sHid);
-        setMimeTypeAndStatus(oExtObj, oPtPref);
+        if (sMimeType != null) {
+            oExtObj.setMimeType(sMimeType);
+        } else {
+            setMimeTypeAndStatus(oExtObj, oPtPref);
+        }
         oExtObj.setObjectType(CDAConstants.PROVIDE_REGISTER_OBJECT_TYPE);
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new
                 oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();

@@ -122,7 +122,7 @@ CREATE TABLE docrepository.document (
   TypeCodeScheme varchar(64) default NULL,
   TypeCodeDisplayName varchar(64) default NULL,
   DocumentUri varchar(128) default NULL COMMENT 'May derive this value',
-  RawData blob,
+  RawData longblob,
   Persistent int(11) NOT NULL,
   PRIMARY KEY  (documentid)
 );

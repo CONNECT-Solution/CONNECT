@@ -109,7 +109,7 @@ public class PatientConsentDocumentBuilderHelperTest {
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x encoded
             String existingDocumentUniqueId = "123abc";
             PatientPreferencesType patientPreferences = loadPatientPreferences(STORE_CONSENT_REQUEST_FULL);
-            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, patientPreferences);
+            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, null, patientPreferences);
 
             assertNotNull("Generated request was null", request);
             RegistryObjectListType registryObjectList = request.getRegistryObjectList();
@@ -236,7 +236,7 @@ public class PatientConsentDocumentBuilderHelperTest {
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x encoded
             String existingDocumentUniqueId = "123abc";
             PatientPreferencesType patientPreferences = loadPatientPreferences(STORE_CONSENT_REQUEST_MINIMAL);
-            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, patientPreferences);
+            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, null, patientPreferences);
 
             assertNotNull("Generated request was null", request);
             RegistryObjectListType registryObjectList = request.getRegistryObjectList();
@@ -339,7 +339,7 @@ public class PatientConsentDocumentBuilderHelperTest {
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x encoded
             String existingDocumentUniqueId = "123abc";
             PatientPreferencesType patientPreferences = loadPatientPreferences(STORE_CONSENT_REQUEST_NO_METADATA);
-            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, patientPreferences);
+            SubmitObjectsRequest request = builder.createSubmitObjectRequest(targetObject, sHomeCommunityId, existingDocumentUniqueId, null, patientPreferences);
 
             assertNotNull("Generated request was null", request);
             RegistryObjectListType registryObjectList = request.getRegistryObjectList();

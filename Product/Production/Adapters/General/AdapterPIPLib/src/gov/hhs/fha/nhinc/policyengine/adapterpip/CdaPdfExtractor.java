@@ -6,6 +6,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentStoreActionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyCustodianInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyDataEntererInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyLegalAuthenticatorType;
@@ -1121,6 +1122,10 @@ public class CdaPdfExtractor
             return null;        // there is nothing to convert so get out of here.
         }
 
+        // Set required lement storeAction to none by default
+        //---------------------------------------------------
+        oCriterion.setStoreAction(BinaryDocumentStoreActionType.NONE);
+        
         // Document Unique ID
         //--------------------
         if ((oCda.getId() != null) &&

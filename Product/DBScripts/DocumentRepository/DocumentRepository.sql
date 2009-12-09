@@ -56,7 +56,7 @@ CREATE TABLE document (
 	TypeCodeScheme VARCHAR(64),
 	TypeCodeDisplayName VARCHAR(64),
 	DocumentUri VARCHAR(128) COMMENT 'May derive this value',
-	RawData BLOB,
+	RawData LONGBLOB,
 	Persistent Integer NOT NULL
 );
 
