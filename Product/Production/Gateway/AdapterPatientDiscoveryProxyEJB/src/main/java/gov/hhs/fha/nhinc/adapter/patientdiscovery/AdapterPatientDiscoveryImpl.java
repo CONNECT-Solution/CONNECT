@@ -13,8 +13,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  *
@@ -25,8 +25,8 @@ public class AdapterPatientDiscoveryImpl {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdapterPatientDiscoveryImpl.class);
     private static AdapterPatientDiscoverySecured service = new AdapterPatientDiscoverySecured();
 
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         try
         {
