@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectReidentificationEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType;
@@ -32,6 +33,18 @@ public class PolicyEngineChecker {
     public CheckPolicyRequestType checkPolicySubjectAdded(SubjectAddedEventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformSubjectAddedToCheckPolicy(request);
+    }
+
+    /**
+     * This method will create the generic Policy Check Request Message from
+     * a subject discovery announce request
+     *
+     * @param request Policy check request message for the subject discovery announce
+     * @return A generic policy check request message that can be passed to the Policy Engine
+     */
+    public CheckPolicyRequestType checkPolicyPatDiscRequest(PatDiscReqEventType request) {
+        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
+        return policyTransformer.transformPatDiscReqToCheckPolicy(request);
     }
 
     /**
