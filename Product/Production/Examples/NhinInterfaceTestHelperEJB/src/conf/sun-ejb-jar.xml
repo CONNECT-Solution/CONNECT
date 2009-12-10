@@ -8,8 +8,8 @@
         <port-component-name>SubjectDiscovery</port-component-name>
         <endpoint-address-uri>/PIXConsumer_Service/SubjectDiscoveryTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -20,8 +20,8 @@
         <port-component-name>AuditQuery</port-component-name>
         <endpoint-address-uri>/findAuditEvents/AuditQueryTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -32,8 +32,8 @@
         <port-component-name>DocQuery</port-component-name>
         <endpoint-address-uri>/RespondingGateway_Query_Service/DocQueryTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -44,8 +44,8 @@
         <port-component-name>DocRetrieve</port-component-name>
         <endpoint-address-uri>/RespondingGateway_Retrieve_Service/DocRetrieveTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -56,8 +56,8 @@
         <port-component-name>HiemNotify</port-component-name>
         <endpoint-address-uri>/NotificationConsumerService/HiemNotifyTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -68,8 +68,8 @@
         <port-component-name>HiemSubscription</port-component-name>
         <endpoint-address-uri>/NotificationProducerService/HiemSubscriptionTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>
@@ -80,8 +80,20 @@
         <port-component-name>HiemUnsubscribe</port-component-name>
         <endpoint-address-uri>/SubscriptionManagerService/HiemUnsubscribeTestHelper</endpoint-address-uri>
         <login-config>
-            <auth-method>CLIENT-CERT</auth-method>
-            <realm>certificate</realm>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
+        </login-config>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+      </webservice-endpoint>
+    </ejb>
+    <ejb>
+      <ejb-name>NhinPatientDiscovery</ejb-name>
+      <webservice-endpoint>
+        <port-component-name>NhinPatientDiscovery</port-component-name>
+        <endpoint-address-uri>/NhinTestHelper/NhinPatientDiscovery</endpoint-address-uri>
+        <login-config>
+          <auth-method>CLIENT-CERT</auth-method>
+          <realm>certificate</realm>
         </login-config>
         <transport-guarantee>CONFIDENTIAL</transport-guarantee>
       </webservice-endpoint>

@@ -221,6 +221,28 @@
         <delete dir="${build.generated.dir}/jax-wsCache/service/HiemSubscription"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
     </target>
+    <target name="wsimport-service-NhinPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        <property name="service-wsdl-NhinPatientDiscovery" location="${meta.inf}/xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" wsdl="${service-wsdl-NhinPatientDiscovery}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-NhinPatientDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-NhinPatientDiscovery" location="${meta.inf}/wsdl/NhinPatientDiscovery"/>
+        <property name="sourceLocation-NhinPatientDiscovery" location="${meta.inf}/xml-resources/web-services/NhinPatientDiscovery/wsdl/"/>
+        <copy todir="${targetLocation-NhinPatientDiscovery}">
+            <fileset dir="${sourceLocation-NhinPatientDiscovery}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinPatientDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincSubjectDiscovery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhincAuditLogQuery, wsimport-client-NhincSubscription"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscovery, wsimport-service-AuditQuery, wsimport-service-HiemUnsubscribe, wsimport-service-HiemNotify, wsimport-service-DocRetrieve, wsimport-service-DocQuery, wsimport-service-HiemSubscription"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscovery, wsimport-service-AuditQuery, wsimport-service-HiemUnsubscribe, wsimport-service-HiemNotify, wsimport-service-DocRetrieve, wsimport-service-DocQuery, wsimport-service-HiemSubscription, wsimport-service-NhinPatientDiscovery"/>
 </project>
