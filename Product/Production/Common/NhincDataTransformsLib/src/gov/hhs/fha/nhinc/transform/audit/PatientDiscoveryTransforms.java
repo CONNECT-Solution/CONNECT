@@ -317,8 +317,8 @@ public class PatientDiscoveryTransforms {
         }
         else
         {
-            oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-            oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE); 
+            oReturnLogEventRequestType.setDirection(direction);
+            oReturnLogEventRequestType.setInterface(_interface);
         }
 
         addLogInfo("**************************************************************");
@@ -516,8 +516,8 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-              oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+              oReturnLogEventRequestType.setDirection(direction);
+              oReturnLogEventRequestType.setInterface(_interface);
           }
 
           addLogInfo("***************************************************************");
@@ -563,8 +563,8 @@ public class PatientDiscoveryTransforms {
           }
           else
           {
-              oReturnLogEventRequestType.setDirection(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-              oReturnLogEventRequestType.setInterface(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+              oReturnLogEventRequestType.setDirection(direction);
+              oReturnLogEventRequestType.setInterface(_interface);
           }
 
           addLogInfo("***************************************************************");
@@ -648,11 +648,14 @@ public class PatientDiscoveryTransforms {
 
     protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
     {
+        II oII = null;
+
         if (oPatientDiscoveryRequestMessage == null)
         {
             addLogError("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
             return null;
         }
+
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess oControlActProcess =
                     oPatientDiscoveryRequestMessage.getControlActProcess();
         if (oControlActProcess == null)
@@ -668,35 +671,12 @@ public class PatientDiscoveryTransforms {
             addLogError("The QueryByParameter object was missing from the request");
             return null;
         }
-
-        PRPAMT201306UV02ParameterList oParamList =
-                oQueryByParameter.getValue().getParameterList();
-        if (oParamList == null)
-        {
-            addLogError("The ParameterList object was missing from the request");
-            return null;
-        }
-
-        List<PRPAMT201306UV02LivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
-        if (NullChecker.isNullish(oLivingSubjectId))
-        {
-            addLogError("The LivingSubjectId object was missing from the request");
-            return null;
-        }
-
-        if ((oLivingSubjectId.get(0) != null) &&
-            (oLivingSubjectId.get(0).getValue() != null) &&
-            (!oLivingSubjectId.get(0).getValue().isEmpty()) &&
-            (oLivingSubjectId.get(0).getValue().get(0) != null))
-        {
-            return oLivingSubjectId.get(0).getValue().get(0);
-        }
         else
         {
-            addLogError("Unable to extract the HL7 Identifiers (II) object containing the patient id and community id needed for the audit request message");
-            return null;
+            oII = getHL7Identifiers(oQueryByParameter);
         }
-        
+
+        return oII;
     }
 
     private void addLogInfo(String message){
@@ -851,6 +831,8 @@ public class PatientDiscoveryTransforms {
 
     protected II getHL7IdentitiersFromResponse(PRPAIN201306UV02 oPatientDiscoveryResponseMessage)
     {
+        II oII = null;
+
         if (oPatientDiscoveryResponseMessage == null)
         {
             addLogError("Unable to extract patient identifiers from the response message due to a null value.");
@@ -864,6 +846,17 @@ public class PatientDiscoveryTransforms {
             addLogError("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
             return null;
         } //else continue
+
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oControlActProcess.getQueryByParameter();
+        if (oQueryByParameter == null)
+        {
+            addLogError("The QueryByParameter object was missing from the response");
+            return null;
+        }
+//        else
+//        {
+//            oII = getHL7Identifiers(oQueryByParameter);
+//        }
 
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> oSubject1 = oControlActProcess.getSubject();
 
@@ -905,8 +898,79 @@ public class PatientDiscoveryTransforms {
             return null;
         } //else continue
 
-        II oII = olII.get(0);
+        oII = olII.get(0);
 
+        return oII;
+    }
+
+    protected II getHL7Identifiers(JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter) {
+
+        addLogDebug("Entering PatientDiscoveryTransforms.getHL7Identifiers method...");
+
+        II oII = null;
+
+        if (oQueryByParameter == null)
+        {
+            addLogError("The QueryByParameter object was null");
+            return null;
+        }
+
+        if (oQueryByParameter.getValue() == null)
+        {
+            addLogError("The QueryByParameter value object was null");
+            return null;
+        }
+
+        if (oQueryByParameter.getValue().getParameterList() == null)
+        {
+            addLogError("The ParameterList object was null");
+            return null;
+        }
+
+        PRPAMT201306UV02ParameterList oParamList =
+                oQueryByParameter.getValue().getParameterList();
+
+        if (oParamList.getLivingSubjectId() == null)
+        {
+            addLogError("The LivingSubjectId list object was null");
+            return null;
+        }
+
+        List<PRPAMT201306UV02LivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
+        if (NullChecker.isNullish(oLivingSubjectId))
+        {
+            addLogError("The LivingSubjectId object was null");
+            return null;
+        }
+
+        if (oLivingSubjectId.get(0) == null)
+        {
+            addLogError("oLivingSubjectId.get(0) == null");
+            return null;
+        }
+
+        if (oLivingSubjectId.get(0).getValue() == null)
+        {
+            addLogError("oLivingSubjectId.get(0).getValue() == null");
+            return null;
+        }
+
+        if (oLivingSubjectId.get(0).getValue().isEmpty())
+        {
+            addLogError("oLivingSubjectId.get(0).getValue().isEmpty()");
+            return null;
+        }
+
+        if (oLivingSubjectId.get(0).getValue().get(0) == null)
+        {
+            addLogError("oLivingSubjectId.get(0).getValue().get(0) == null");
+            return null;
+        }
+
+        //all required fields have been checked, get the value.
+        oII = oLivingSubjectId.get(0).getValue().get(0);
+
+        addLogDebug("Exiting PatientDiscoveryTransforms.getHL7Identifiers method...");
         return oII;
     }
 

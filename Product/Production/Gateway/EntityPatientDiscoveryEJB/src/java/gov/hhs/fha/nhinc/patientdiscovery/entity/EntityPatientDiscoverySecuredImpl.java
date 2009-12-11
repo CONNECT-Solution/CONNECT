@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.transform.policy.PatientDiscoveryPolicyTransformHelper;
 import java.util.ArrayList;
 import java.util.List;
+//import javax.xml.bind.JAXB;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,9 +68,11 @@ public class EntityPatientDiscoverySecuredImpl {
             return null;
         }
 
+//        JAXB.marshal(request, System.out) ;
+
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
         PatientDiscoveryAuditLog auditLog = new PatientDiscoveryAuditLog();
-//        AcknowledgementType ack = auditLog.auditEntityRequest(request);
+        AcknowledgementType ack = auditLog.auditEntityRequest(request);
 
 
         if (request.getNhinTargetCommunities() == null)
@@ -92,12 +95,14 @@ public class EntityPatientDiscoverySecuredImpl {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
+        //TODO check the policy engine for the initial request - make sure to print log statements
+        //to help with the acceptance criteria verification
         response = getResponseFromCommunities(request, assertion, context);
         
         
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-//        ack = auditLog.auditEntityResponse(response, assertion);
+        ack = auditLog.auditEntityResponse(response, assertion);
 
         log.debug("Exiting EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
         return response;
@@ -188,7 +193,7 @@ public class EntityPatientDiscoverySecuredImpl {
 //
 //        //return true if 'permit' returned, false otherwise
 //        return bPolicyOk;
-        //temp
+        //temp solution
         return true;
 
     }
@@ -218,8 +223,8 @@ public class EntityPatientDiscoverySecuredImpl {
         //loop thru and pull out HCID 2.2 for now...
         for (CMHomeCommunity h : communities) {
             //don't query our own gateway
-            if ((!h.getHomeCommunityId().equals(localHomeCommunity)) &&
-            (h.getHomeCommunityId().equals("2.2")))
+            if ((!h.getHomeCommunityId().equals(localHomeCommunity)))// &&
+//            (h.getHomeCommunityId().equals("2.2")))
             {
                 log.debug(h.getHomeCommunityId() + " != " + localHomeCommunity);
                 HomeCommunityType homeCommunity = new HomeCommunityType();

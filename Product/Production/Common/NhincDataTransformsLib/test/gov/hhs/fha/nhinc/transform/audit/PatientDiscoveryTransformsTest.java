@@ -19,6 +19,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+//import javax.xml.bind.JAXB;
+import javax.xml.bind.JAXBElement;
 import junit.framework.Assert;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
@@ -31,6 +33,9 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject2;
+import org.hl7.v3.PRPAMT201306UV02LivingSubjectId;
+import org.hl7.v3.PRPAMT201306UV02ParameterList;
+import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -948,7 +953,7 @@ public class PatientDiscoveryTransformsTest {
     }
 
     @Test
-    public void testGetHL7IdentitiersFromResponseMethod()
+    public void testGetHL7IdentitiersFromResponseMethodWillFailForNullResponseRequest()
     {
         final Log mockLogger = context.mock(Log.class);
 
@@ -964,120 +969,274 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("Unable to extract patient identifiers from the response message due to a null value.");
             }
         };
         context.checking(oExpectation);
 
-        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
-        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
-        final PRPAIN201306UV02MFMIMT700711UV01Subject1 oPRPAIN201306UVMFMIMT700711UV01Subject1 = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
-        final PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
-        final PRPAIN201306UV02MFMIMT700711UV01Subject2 oPRPAIN201306UVMFMIMT700711UV01Subject2 = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
-        final PRPAMT201310UV02Patient oPRPAMT201310UVPatient = new PRPAMT201310UV02Patient();
-        final II oII = new II();
-        oPRPAMT201310UVPatient.getId().add(oII);
-        oPRPAIN201306UVMFMIMT700711UV01Subject2.setPatient(oPRPAMT201310UVPatient);
-        oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent.setSubject1(oPRPAIN201306UVMFMIMT700711UV01Subject2);
-        oPRPAIN201306UVMFMIMT700711UV01Subject1.setRegistrationEvent(oPRPAIN201306UVMFMIMT700711UV01RegistrationEvent);
-        oPRPAIN201306UVMFMIMT700711UV01ControlActProcess.getSubject().add(oPRPAIN201306UVMFMIMT700711UV01Subject1);
-        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(null);
 
-        //test that all requirements are met
-        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-
-        context.assertIsSatisfied();
-        Assert.assertNotNull(oExpectedResult);
-
-        //test with null or empty List<II>
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
-            }
-        };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
         context.assertIsSatisfied();
         Assert.assertNull(oExpectedResult);
-        //test with null or empty List<II>
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
-            }
-        };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().clear();
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        context.assertIsSatisfied();
-        Assert.assertNull(oExpectedResult);
+    }
 
-        //test with null patient object
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's Patient object due to a null value.");
-            }
-        };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().setPatient(null);
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        context.assertIsSatisfied();
-        Assert.assertNull(oExpectedResult);
+    @Test
+    public void testGetHL7IdentitiersFromResponseMethodWillFailForNullControlActProcess()
+    {
+        final Log mockLogger = context.mock(Log.class);
 
-        //test with null subject2 object
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's Subject2 object due to a null value.");
-            }
-        };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).getRegistrationEvent().setSubject1(null);
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        context.assertIsSatisfied();
-        Assert.assertNull(oExpectedResult);
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
 
-        //test with null registration object
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's RegistrationEvent object due to a null value.");
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
             }
-        };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().get(0).setRegistrationEvent(null);
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        context.assertIsSatisfied();
-        Assert.assertNull(oExpectedResult);
 
-        //test with null subject1 object
-        oExpectation = new Expectations() {
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's Subject1 object due to a null or empty value.");
-            }
         };
-        context.checking(oExpectation);
-        oPRPAIN201306UV.getControlActProcess().getSubject().clear();
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        context.assertIsSatisfied();
-        Assert.assertNull(oExpectedResult);
 
-        //test with null subject1 object
-        oExpectation = new Expectations() {
+        Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
                 one(mockLogger).error("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
             }
         };
         context.checking(oExpectation);
-        oPRPAIN201306UV.setControlActProcess(null);
-        oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+
         context.assertIsSatisfied();
         Assert.assertNull(oExpectedResult);
+    }
 
+    @Test
+    public void testGetHL7IdentitiersFromResponseMethodWillFailForNullQueryByParameter()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The QueryByParameter object was missing from the response");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
+
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+    }
+
+    @Test
+    public void testGetHL7IdentifiersWillFailForNullQueryByParameter()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The QueryByParameter object was null");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oJaxbObjectFactory.createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessQueryByParameter(null);
+        oPRPAIN201306UVMFMIMT700711UV01ControlActProcess.setQueryByParameter(oQueryByParameter);
+         oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7Identifiers(null);
+
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+    }
+
+    @Test
+    public void testGetHL7IdentifiersWillFailOnNullQueryByParameterGetValue()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The QueryByParameter value object was null");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oJaxbObjectFactory.createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessQueryByParameter(null);
+        oQueryByParameter.setValue(null);
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7Identifiers(oQueryByParameter);
+
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+    }
+
+    @Test
+    public void testGetHL7IdentifiersWillFailOnNullParameterList()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+                one(mockLogger).error("The ParameterList object was null");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oJaxbObjectFactory.createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessQueryByParameter(null);
+        PRPAMT201306UV02QueryByParameter oParamList = new PRPAMT201306UV02QueryByParameter();
+        oQueryByParameter.setValue(oParamList);
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7Identifiers(oQueryByParameter);
+
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+    }
+
+    @Test
+    public void testGetHL7IdentifiersWillFailForEmptyLivingSubjectId()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+//                one(mockLogger).error("Unable to extract the HL7 Identifiers (II) object containing the patient id and community id needed for the audit request message");
+                one(mockLogger).error("oLivingSubjectId.get(0) == null");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oJaxbObjectFactory.createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessQueryByParameter(null);
+        PRPAMT201306UV02QueryByParameter oParamList = new PRPAMT201306UV02QueryByParameter();
+        PRPAMT201306UV02ParameterList oPRPAMT201306UV02ParameterList = new PRPAMT201306UV02ParameterList();
+        oPRPAMT201306UV02ParameterList.getLivingSubjectId().add(null);
+        oParamList.setParameterList(oPRPAMT201306UV02ParameterList);
+
+        oQueryByParameter.setValue(oParamList);
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7Identifiers(oQueryByParameter);
+
+        context.assertIsSatisfied();
+        Assert.assertNull(oExpectedResult);
+    }
+
+    @Test
+    public void testGetHL7IdentifiersWillPass()
+    {
+        final Log mockLogger = context.mock(Log.class);
+
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+
+        };
+
+        Expectations oExpectation = new Expectations() {
+            {
+                allowing(mockLogger).debug(with(any(String.class)));
+//                one(mockLogger).error("Unable to extract the HL7 Identifiers (II) object containing the patient id and community id needed for the audit request message");
+            }
+        };
+        context.checking(oExpectation);
+
+        final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
+        final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oJaxbObjectFactory.createPRPAIN201305UV02QUQIMT021001UV01ControlActProcessQueryByParameter(null);
+        PRPAMT201306UV02QueryByParameter oParamList = new PRPAMT201306UV02QueryByParameter();
+//        List<PRPAMT201306UV02LivingSubjectId> olLivingSubjectId = new ArrayList<PRPAMT201306UV02LivingSubjectId>();
+        PRPAMT201306UV02ParameterList oPRPAMT201306UV02ParameterList = new PRPAMT201306UV02ParameterList();
+        PRPAMT201306UV02LivingSubjectId oLivingSubject = new PRPAMT201306UV02LivingSubjectId();
+        final String root = "1.1";
+        final String extension = "1.234.567.8902";
+        II oII = new II();
+        oII.setRoot(root);
+        oII.setExtension(extension);
+        oLivingSubject.getValue().add(oII);
+        oPRPAMT201306UV02ParameterList.getLivingSubjectId().add(oLivingSubject);
+        oParamList.setParameterList(oPRPAMT201306UV02ParameterList);
+
+        oQueryByParameter.setValue(oParamList);
+
+        oPRPAIN201306UV.setControlActProcess(oPRPAIN201306UVMFMIMT700711UV01ControlActProcess);
+
+        II oExpectedResult = testSubject.getHL7Identifiers(oQueryByParameter);
+
+        context.assertIsSatisfied();
+        Assert.assertNotNull(oExpectedResult);
+        Assert.assertEquals(oExpectedResult.getRoot(), root);
+        Assert.assertEquals(oExpectedResult.getExtension(), extension);
     }
 
     @Test
