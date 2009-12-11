@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Document Assembly WSDL
+  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="urn:gov:hhs:fha:nhinc:documentassembly" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" name="DocumentAssembly" targetNamespace="urn:gov:hhs:fha:nhinc:documentassembly">
+	<documentation>Adapter Document Assembly</documentation>
+	<types>
+		<xsd:schema>
+			<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../schemas/ebRS/query.xsd"/>
+			<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+			<xsd:import namespace="urn:ihe:iti:xds-b:2007" schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+		</xsd:schema>
+	</types>
+	<message name="DynamicAssembly_QueryRequestMessage">
+		<part name="DynamicAssembly_QueryRequest" element="nccommonadapter:RespondingGateway_CrossGatewayQueryRequest"/>
+	</message>
+	<message name="AdapterDocProvideAndRegisterOperationRequest">
+		<part name="body" element="nccommonadapter:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestRequest"/>
+	</message>
+	<portType name="DocumentAssemblyPortType">
+		<operation name="DynamicAssembly_Query">
+			<input name="DynamicAssembly_QueryRequest" message="tns:DynamicAssembly_QueryRequestMessage"/>
+			<output name="AdapterDocProvideAndRegisterOperationRequest" message="tns:AdapterDocProvideAndRegisterOperationRequest"/>
+		</operation>
+	</portType>
+	<binding name="DocumentAssemblyBindingSoap" type="tns:DocumentAssemblyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="DynamicAssembly_Query">
+			<soap:operation soapAction="urn:DynamicAssembly_Query"/>
+			<input name="DynamicAssembly_QueryRequestMessage">
+				<soap:body use="literal"/>
+			</input>
+			<output name="AdapterDocProvideAndRegisterOperationRequest">
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="DocumentAssembly">
+		<port name="DocumentAssemblyPortSoap" binding="tns:DocumentAssemblyBindingSoap">
+			<soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/DocumentAssembly"/>
+		</port>
+	</service>
+	<plnk:partnerLinkType name="DocumentAssembly">
+		<!-- A partner link type is automatically generated when a new port type is added.
+         Partner link types are used by BPEL processes. In a BPEL process, a partner
+         link represents the interaction between the BPEL process and a partner service.
+         Each partner link is associated with a partner link type. A partner link type
+         characterizes the conversational relationship between two services. The
+         partner link type can have one or two roles.-->
+		<plnk:role name="DocumentAssemblyPortTypeRole" portType="tns:DocumentAssemblyPortType"/>
+	</plnk:partnerLinkType>
+</definitions>
