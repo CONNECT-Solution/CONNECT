@@ -713,8 +713,8 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="code" type="CD" minOccurs="0"/>
 			<xs:element name="text" type="ED_explicit" minOccurs="0"/>
 			<xs:element name="statusCode" type="CS" minOccurs="0"/>
-			<!--<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/> -->
-			<xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="effectiveTime" type="SXCM_TS_explicit" minOccurs="0" maxOccurs="unbounded"/>
+			<!--<xs:element name="effectiveTime" type="TS" minOccurs="0" maxOccurs="unbounded"/>-->
 			<xs:element name="availabilityTime" type="TS_explicit" minOccurs="0"/>
 			<xs:element name="priorityCode" type="CE" minOccurs="0"/>
 			<xs:element name="confidentialityCode" type="CE" minOccurs="0" maxOccurs="unbounded"/>
@@ -762,7 +762,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="repeatNumber" type="IVL_INT" minOccurs="0"/>
 			<xs:element name="independentInd" type="BL" minOccurs="0"/>
 			<xs:element name="languageCode" type="CE" minOccurs="0"/>
-			<xs:element name="quantity" type="PQ" minOccurs="0"/>
+			<xs:element name="quantity" type="PQ_explicit" minOccurs="0"/>
 			<xs:element name="expectedUseTime" type="IVL_TS_explicit" minOccurs="0"/>
 			<xs:element name="subject" type="REPC_MT000100UV01.Subject4" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 			<!--<xs:element name="product" type="REPC_MT000100UV01.Product2" maxOccurs="unbounded"/>-->

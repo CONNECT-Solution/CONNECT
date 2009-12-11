@@ -711,7 +711,7 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="code" type="CE" minOccurs="0"/>
+			<xs:element name="code" type="CE_explicit" minOccurs="0"/>
 			<xs:element name="name" type="EN_explicit" minOccurs="0"/>
 			<xs:element name="lotNumberText" type="ST_explicit" minOccurs="0"/>
 		</xs:sequence>
@@ -1021,10 +1021,10 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<xs:element name="realmCode" type="CS" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="typeId" type="POCD_MT000040.InfrastructureRoot.typeId" minOccurs="0"/>
 			<xs:element name="templateId" type="II" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="code" type="CE" minOccurs="0"/>
+			<xs:element name="code" type="CE_explicit" minOccurs="0"/>
 			<xs:element name="quantity" type="PQ_explicit" minOccurs="0" maxOccurs="unbounded"/>
 			<xs:element name="name" type="PN_explicit" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:element name="desc" type="ED_explicit" minOccurs="0"/>
+			<xs:element name="desc" type="ST_explicit" minOccurs="0"/>
 		</xs:sequence>
 		<xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
 		<xs:attribute name="classCode" type="EntityClassRoot" use="optional" default="ENT"/>
