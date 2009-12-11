@@ -140,7 +140,23 @@
   <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
     <webURL>&webURLi;</webURL>
     <state type="state" />
-    <triggers/>
+    <triggers>
+      <projectTriggerFilter name="Project">
+        <trigger
+          type="projectTrigger"
+          serverUri="tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+          project="&ProjectName;-&ProjectCodeLineName;-Release"
+        >
+          <triggerStatus>Success</triggerStatus>
+          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
+        </trigger>
+        <projectFilters>
+          &ScriptsBuilding;
+          &Test;
+          &ReleaseFailed;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
     <forceFilters>
       <projectForceFilter name="Force">
         <projectFilters>
