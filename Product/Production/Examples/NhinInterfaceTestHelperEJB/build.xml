@@ -204,6 +204,22 @@
             <fileset dir="${sourceLocation-NhinPatientDiscovery}"/>
         </copy>
     </target>    
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        <property name="service-wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdapterMpiSecured" location="${meta.inf}/wsdl/AdapterMpiSecured"/>
+        <property name="sourceLocation-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterMpiSecured}">
+            <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
+        </copy>
+    </target>
+    
      <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
 		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>

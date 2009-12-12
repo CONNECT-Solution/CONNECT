@@ -243,6 +243,28 @@
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xcpd/_2009"/>
     </target>
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        <property name="service-wsdl-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" wsdl="${service-wsdl-AdapterMpiSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterMpiSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdapterMpiSecured" location="${meta.inf}/wsdl/AdapterMpiSecured"/>
+        <property name="sourceLocation-AdapterMpiSecured" location="${meta.inf}/xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterMpiSecured}">
+            <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterMpiSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptermpi"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-NhincSubjectDiscovery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhincAuditLogQuery, wsimport-client-NhincSubscription"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscovery, wsimport-service-AuditQuery, wsimport-service-HiemUnsubscribe, wsimport-service-HiemNotify, wsimport-service-DocRetrieve, wsimport-service-DocQuery, wsimport-service-HiemSubscription, wsimport-service-NhinPatientDiscovery"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-SubjectDiscovery, wsimport-service-AuditQuery, wsimport-service-HiemUnsubscribe, wsimport-service-HiemNotify, wsimport-service-DocRetrieve, wsimport-service-DocQuery, wsimport-service-HiemSubscription, wsimport-service-NhinPatientDiscovery, wsimport-service-AdapterMpiSecured"/>
 </project>
