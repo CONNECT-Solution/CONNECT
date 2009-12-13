@@ -1,9 +1,13 @@
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveEventType;
+import gov.hhs.fha.nhinc.common.eventcommon.DocRetrieveMessageType;
 import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayRetrieveSecuredRequestType;
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveAuditLog;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocRetrieveRequestType;
@@ -11,6 +15,10 @@ import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocRetrieveResponseType
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocRetrieveAggregator;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
+import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
+import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -24,33 +32,24 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
  *
  * @author Neil Webb
  */
-public class EntityDocRetrieveSecuredImpl
-{
+public class EntityDocRetrieveSecuredImpl {
+
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(EntityDocRetrieveSecuredImpl.class);
     private static final long SLEEP_MS = 1000;
     private static final long AGGREGATOR_TIMEOUT_MS = 40000;
 
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context)
-    {
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body, WebServiceContext context) {
         log.debug("Begin EntityDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve");
         RetrieveDocumentSetResponseType response = null;
         DocRetrieveAuditLog auditLog = new DocRetrieveAuditLog();
         DocRetrieveAggregator aggregator = new DocRetrieveAggregator();
-
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
-
         auditLog.auditDocRetrieveRequest(body, assertion);
-
-        try
-        {
+        try {
             String transactionId = startTransaction(aggregator, body);
-
             sendRetrieveMessages(transactionId, body, assertion);
-
             response = retrieveDocRetrieveResults(aggregator, transactionId);
-        }
-        catch(Throwable t)
-        {
+        } catch (Throwable t) {
             log.error("Error occured processing doc retrieve on entity interface: " + t.getMessage(), t);
             response = createErrorResponse("Fault encountered processing internal document retrieve");
         }
@@ -62,28 +61,28 @@ public class EntityDocRetrieveSecuredImpl
         return response;
     }
 
-    private void sendRetrieveMessages(String transactionId, RetrieveDocumentSetRequestType body, AssertionType assertion)
-    {
+    private void sendRetrieveMessages(String transactionId, RetrieveDocumentSetRequestType body, AssertionType assertion) {
         log.debug("Begin sendRetrieveMessages");
-        for(DocumentRequest docRequest : body.getDocumentRequest())
-        {
+     
+        for (DocumentRequest docRequest : body.getDocumentRequest()) {
             RespondingGatewayCrossGatewayRetrieveSecuredRequestType nhinDocRetrieveMsg = new RespondingGatewayCrossGatewayRetrieveSecuredRequestType();
-
             // Set document request
             RetrieveDocumentSetRequestType nhinDocRequest = new RetrieveDocumentSetRequestType();
             nhinDocRetrieveMsg.setRetrieveDocumentSetRequest(nhinDocRequest);
             nhinDocRequest.getDocumentRequest().add(docRequest);
             nhinDocRetrieveMsg.setNhinTargetSystem(buildHomeCommunity(docRequest.getHomeCommunityId()));
-
-            // Create and start doc retrieve sender thread
-            DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
-            docRetrieveSender.start();
+            if (isPolicyValid(nhinDocRequest, assertion)) {
+                // Create and start doc retrieve sender thread
+                DocRetrieveSender docRetrieveSender = new DocRetrieveSender(transactionId, nhinDocRetrieveMsg, assertion);
+                docRetrieveSender.sendMessage();
+            } else {
+                log.error("Fault encountered processing Policy Check");
+            }
         }
         log.debug("End sendRetrieveMessages");
     }
 
-    private RetrieveDocumentSetResponseType retrieveDocRetrieveResults(DocRetrieveAggregator aggregator, String transactionId)
-    {
+    private RetrieveDocumentSetResponseType retrieveDocRetrieveResults(DocRetrieveAggregator aggregator, String transactionId) {
         log.debug("Begin retrieveDocRetrieveResults");
         RetrieveDocumentSetResponseType response = null;
         boolean retrieveTimedOut = false;
@@ -95,43 +94,30 @@ public class EntityDocRetrieveSecuredImpl
 
         // Loop until responses are received
         long startTime = System.currentTimeMillis();
-        while(response == null)
-        {
+        while (response == null) {
             GetAggResultsDocRetrieveResponseType aggResultsResponse = aggregator.getAggResults(aggResultsRequest);
             String retrieveStatus = aggResultsResponse.getStatus();
-            if(DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus))
-            {
+            if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus)) {
                 response = aggResultsResponse.getRetrieveDocumentSetResponse();
-            }
-            else if(DocumentConstants.FAIL_TEXT.equals(retrieveStatus))
-            {
+            } else if (DocumentConstants.FAIL_TEXT.equals(retrieveStatus)) {
                 log.error("Document retrieve aggregator reports failurt - returning error");
                 response = createErrorResponse("Processing internal document retrieve");
-            }
-            else
-            {
+            } else {
                 retrieveTimedOut = retrieveTimedOut(startTime);
-                if(retrieveTimedOut)
-                {
+                if (retrieveTimedOut) {
                     aggResultsRequest.setTimedOut(retrieveTimedOut);
                     aggResultsResponse = aggregator.getAggResults(aggResultsRequest);
-                    if(DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus))
-                    {
+                    if (DocumentConstants.COMPLETE_TEXT.equals(retrieveStatus)) {
                         response = aggResultsResponse.getRetrieveDocumentSetResponse();
-                    }
-                    else
-                    {
+                    } else {
                         log.warn("Document retrieve aggregation timeout - returning error.");
                         response = createErrorResponse("Processing internal document retrieve - failure in timeout");
                     }
-                }
-                else
-                {
-                    try
-                    {
+                } else {
+                    try {
                         Thread.sleep(SLEEP_MS);
+                    } catch (Throwable t) {
                     }
-                    catch(Throwable t){}
                 }
             }
         }
@@ -139,14 +125,12 @@ public class EntityDocRetrieveSecuredImpl
         return response;
     }
 
-    private boolean retrieveTimedOut(long startTime)
-    {
+    private boolean retrieveTimedOut(long startTime) {
         long timeout = startTime + AGGREGATOR_TIMEOUT_MS;
         return (timeout < System.currentTimeMillis());
     }
 
-    private String startTransaction(DocRetrieveAggregator aggregator, RetrieveDocumentSetRequestType body)
-    {
+    private String startTransaction(DocRetrieveAggregator aggregator, RetrieveDocumentSetRequestType body) {
         StartTransactionDocRetrieveRequestType docRetrieveStartTransaction = new StartTransactionDocRetrieveRequestType();
         docRetrieveStartTransaction.setRetrieveDocumentSetRequest(body);
         log.debug("Starting doc retrieve transaction");
@@ -155,18 +139,15 @@ public class EntityDocRetrieveSecuredImpl
         return transactionId;
     }
 
-    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId)
-    {
+    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(homeCommunityId);
-//        homeCommunity.setHomeCommunityId("urn:oid:" + homeCommunityId);
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         return nhinTargetSystem;
     }
-    
-    private RetrieveDocumentSetResponseType createErrorResponse(String codeContext)
-    {
+
+    private RetrieveDocumentSetResponseType createErrorResponse(String codeContext) {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         RegistryResponseType responseType = new RegistryResponseType();
         response.setRegistryResponse(responseType);
@@ -181,4 +162,31 @@ public class EntityDocRetrieveSecuredImpl
         return response;
     }
 
+    /**
+     * Policy Engine check
+     * @param body
+     * @param assertion
+     * @return boolean
+     */
+    private boolean isPolicyValid(RetrieveDocumentSetRequestType oEachNhinRequest, AssertionType oAssertion) {
+        boolean isValid = false;
+        DocRetrieveEventType checkPolicy = new DocRetrieveEventType();
+        DocRetrieveMessageType checkPolicyMessage = new DocRetrieveMessageType();
+        checkPolicyMessage.setRetrieveDocumentSetRequest(oEachNhinRequest);
+        checkPolicyMessage.setAssertion(oAssertion);
+        checkPolicy.setMessage(checkPolicyMessage);
+        checkPolicy.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
+        CheckPolicyRequestType policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);
+        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
+        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(policyReq);
+        /* if response='permit' */
+        if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {
+            isValid = true;
+        }
+        return isValid;
+    }
 }
+

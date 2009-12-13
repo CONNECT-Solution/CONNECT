@@ -13,7 +13,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
  *
  * @author Neil Webb
  */
-public class DocRetrieveSender extends Thread
+public class DocRetrieveSender
 {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(DocRetrieveSender.class);
 
@@ -28,8 +28,7 @@ public class DocRetrieveSender extends Thread
         this.assertion = assertion;
     }
 
-    @Override
-    public void run()
+    public void sendMessage()
     {
         log.debug("Begin DocRetrieveSender.run");
         try

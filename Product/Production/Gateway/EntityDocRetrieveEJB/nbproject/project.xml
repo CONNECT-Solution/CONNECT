@@ -21,6 +21,8 @@
             <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
             <included-library>reference.AggregatorLib.jar</included-library>
             <included-library>reference.NhincDataTransformsLib.jar</included-library>
+            <included-library>reference.PolicyEngineProxy.jar</included-library>
+            <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
@@ -89,6 +91,22 @@
             </reference>
             <reference>
                 <foreign-project>NhincSamlTokenLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

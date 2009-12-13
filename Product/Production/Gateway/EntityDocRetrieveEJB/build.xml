@@ -119,6 +119,8 @@
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -127,6 +129,8 @@
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
@@ -137,6 +141,8 @@
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -145,6 +151,8 @@
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
@@ -155,6 +163,8 @@
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxy.Absolute}" antfile="${project.AuditRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AuditRepositoryProxyImpl.Absolute}" antfile="${project.AuditRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -163,6 +173,8 @@
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
@@ -173,6 +185,8 @@
         <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.AggregatorLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
@@ -183,6 +197,8 @@
         <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AggregatorLib.jar}" manifestproperty="manifest.reference.AggregatorLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinDocRetrieveProxy.jar} ${manifest.reference.NhinDocRetrieveProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.AggregatorLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
