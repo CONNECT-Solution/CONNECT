@@ -306,7 +306,7 @@
           <target>Test</target>
         </targetList>
 
-        <buildTimeoutSeconds>2700</buildTimeoutSeconds>
+        <buildTimeoutSeconds>5400</buildTimeoutSeconds>
       </nant>
     </tasks>
     <publishers>
@@ -334,7 +334,8 @@
           <user name="Kieran Dunne"         group="buildmaster"   address="kieran.dunne@agilex.com"/>
           <user name="Jason Ray"            group="buildmaster"   address="jason.ray@agilex.com"/>
           <user name="Brian Mowbray"        group="buildmaster"   address="brian.mowbray@agilex.com"/>
-
+          
+          <user name="Les Westberg"         group="testers"       address="les.westberg@agilex.com"/>
           <user name="borsts"               group="testers"       address="scott.borst@agilex.com"/>
         </users>
         <groups>
