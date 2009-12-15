@@ -121,7 +121,9 @@
         <property name="project.NhinDocQueryProxyImpl.Absolute" location="${project.NhinDocQueryProxyImpl}"/>
         <property name="project.NhinDocQueryProxy.Absolute" location="${project.NhinDocQueryProxy}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-		
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -132,6 +134,9 @@
         <ant dir="${project.NhinDocQueryProxyImpl.Absolute}" antfile="${project.NhinDocQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhinDocQueryProxy.Absolute}" antfile="${project.NhinDocQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
@@ -144,7 +149,9 @@
         <property name="project.NhinDocQueryProxyImpl.Absolute" location="${project.NhinDocQueryProxyImpl}"/>
         <property name="project.NhinDocQueryProxy.Absolute" location="${project.NhinDocQueryProxy}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-		
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -155,6 +162,9 @@
         <ant dir="${project.NhinDocQueryProxyImpl.Absolute}" antfile="${project.NhinDocQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhinDocQueryProxy.Absolute}" antfile="${project.NhinDocQueryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
@@ -168,7 +178,9 @@
         <property name="project.NhinDocQueryProxyImpl.Absolute" location="${project.NhinDocQueryProxyImpl}"/>
         <property name="project.NhinDocQueryProxy.Absolute" location="${project.NhinDocQueryProxy}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-		
+        <property name="project.AggregatorLib.Absolute" location="${project.AggregatorLib}"/>
+        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
+        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxyImpl}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -179,6 +191,9 @@
         <ant dir="${project.NhinDocQueryProxyImpl.Absolute}" antfile="${project.NhinDocQueryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhinDocQueryProxy.Absolute}" antfile="${project.NhinDocQueryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
+	<ant dir="${project.AggregatorLib.Absolute}" antfile="${project.AggregatorLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
@@ -191,6 +206,9 @@
         <copy file="${reference.NhinDocQueryProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.NhinDocQueryProxy.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.AggregatorLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
@@ -213,8 +231,11 @@
         <copy file="${reference.NhinDocQueryProxy.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" property="included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar"/>
         <copy file="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.AggregatorLib.jar}" manifestproperty="manifest.reference.AggregatorLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.PatientCorrelationFacade.jar} ${included.lib.reference.PatientCorrelationFacadeProxy.jar}  ${included.lib.reference.NhinDocQueryProxyImpl.jar} ${included.lib.reference.NhinDocQueryProxy.jar} ${included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}"/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.PatientCorrelationFacade.jar} ${included.lib.reference.PatientCorrelationFacadeProxy.jar}  ${included.lib.reference.NhinDocQueryProxyImpl.jar} ${included.lib.reference.NhinDocQueryProxy.jar} ${included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.AggregatorLib.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} "/>
         </manifest>
     </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

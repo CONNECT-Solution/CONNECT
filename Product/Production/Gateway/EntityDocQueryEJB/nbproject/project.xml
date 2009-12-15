@@ -23,6 +23,20 @@
             <included-library>reference.NhincSamlTokenLib.jar</included-library>
             <included-library>reference.NhincDataTransformsLib.jar</included-library>
             <included-library>reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar</included-library>
+            <included-library>reference.AggregatorLib.jar</included-library>
+            <included-library>file.reference.bsh-core-2.0b4.jar</included-library>
+            <included-library>file.reference.cglib-2.1_3-src.jar</included-library>
+            <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
+            <included-library>file.reference.hamcrest-core-1.1.jar</included-library>
+            <included-library>file.reference.hamcrest-library-1.1.jar</included-library>
+            <included-library>file.reference.jmock-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-junit3-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-junit4-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-legacy-2.5.1.jar</included-library>
+            <included-library>file.reference.jmock-script-2.5.1.jar</included-library>
+            <included-library>file.reference.objenesis-1.0.jar</included-library>
+            <included-library>reference.PolicyEngineProxy.jar</included-library>
+            <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
@@ -31,6 +45,14 @@
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
+            <reference>
+                <foreign-project>AggregatorLib</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
             <reference>
                 <foreign-project>AssigningAuthoritiesToHomeCommunityMappingDAO</foreign-project>
                 <artifact-type>jar</artifact-type>
@@ -105,6 +127,22 @@
             </reference>
             <reference>
                 <foreign-project>PatientCorrelationFacadeProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxy</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
+            </reference>
+            <reference>
+                <foreign-project>PolicyEngineProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
