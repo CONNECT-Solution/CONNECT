@@ -1,5 +1,5 @@
 <!ENTITY HostName                              'build.nhiegateway.org' >
-<!ENTITY Integration.Server.Host.Name          'inttest1.nhiegateway.org' >
+<!ENTITY Integration.Server.Host.Name          'inttest1.agilexhealth.com' >
 <!ENTITY Staging1.Server.Host.Name             'connect_blue4.fedsconnect.org' >
 <!ENTITY Staging2.Server.Host.Name             'connect_red4.fedsconnect.org' >
 <!ENTITY Klocwork.Server.Host.Name             '192.168.25.146' >
