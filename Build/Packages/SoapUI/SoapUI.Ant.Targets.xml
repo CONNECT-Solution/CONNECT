@@ -23,14 +23,14 @@
           <include name="InternalSelfTest-soapui-project.xml"/>
           <include name="EndToEndSelfTest-soapui-project.xml"/>
           <include name="ValidateServices-soapui-project.xml"/>
-          <include name="aabPatientCorrelation-soapui-project.xml"/>
+	  <include name="AdapterPIP-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
-          <include name="DocQueryXDSErrors-soapui-project.xml"/>
-          <include name="aaaPatientDiscovery-soapui-project.xml"/>
           <include name="DocQueryRetrieveSelfTest-soapui-project.xml"/>
-		  <include name="DocumentRetrieveXDSErrorValidation-soapui-project.xml"/>
-		  <include name="DocQueryAdditionalStoredQueries-soapui-project.xml"/>
-		  <include name="AdapterPIP-soapui-project.xml"/>
+	  <include name="DocumentRetrieveXDSErrorValidation-soapui-project.xml"/>
+	  <include name="DocQueryAdditionalStoredQueries-soapui-project.xml"/>
+          <include name="DocQueryXDSErrors-soapui-project.xml"/>
+          <include name="PatientCorrelation-soapui-project.xml"/>
+          <include name="PatientDiscovery-soapui-project.xml"/>
         </fileset>
       </path>
       <sequential>
