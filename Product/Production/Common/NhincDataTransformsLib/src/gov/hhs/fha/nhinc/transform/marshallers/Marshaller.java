@@ -31,7 +31,8 @@ public class Marshaller {
         } else {
             try {
                 log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
-                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 log.debug("get instance of marshaller");
                 javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
                 StringWriter stringWriter = new StringWriter();
@@ -75,7 +76,8 @@ public class Marshaller {
                 String serializedElement = XmlUtility.serializeElement(element);
                 log.debug("serializedElement=[" + serializedElement + "]");
                 log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
-                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 log.debug("get instance of unmarshaller");
                 javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
                 log.debug("init stringReader");

@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveResultRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 /**
  *
@@ -89,7 +90,8 @@ public class DocumentRetrieveTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("ihe.iti.xds_b._2007");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
@@ -97,6 +99,7 @@ public class DocumentRetrieveTransforms {
             JAXBElement oJaxbElement = factory.createRetrieveDocumentSetRequest(message.getMessage().getRetrieveDocumentSetRequest());
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
+            log.debug("Done marshalling the message.");
 
             partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -176,13 +179,15 @@ public class DocumentRetrieveTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("ihe.iti.xds_b._2007");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
             JAXBElement oJaxbElement = factory.createRetrieveDocumentSetResponse(message.getMessage().getRetrieveDocumentSetResponse());
             marshaller.marshal(oJaxbElement, baOutStrm);
+            log.debug("Done marshalling the message.");
 
             partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {

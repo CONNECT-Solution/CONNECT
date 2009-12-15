@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.hiem.dte;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -31,7 +32,8 @@ public class MarshallerHelper {
         } else {
             try {
                 log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
-                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 log.debug("get instance of marshaller");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter stringWriter = new StringWriter();
@@ -65,7 +67,8 @@ public class MarshallerHelper {
                 String serializedElement = XmlUtility.serializeElement(element);
                 log.debug("serializedElement=[" + serializedElement + "]");
                 log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
-                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 log.debug("get instance of unmarshaller");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 log.debug("init stringReader");

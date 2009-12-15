@@ -18,7 +18,6 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 //import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
 import java.io.StringWriter;
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import javax.xml.parsers.DocumentBuilderFactory;

@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -84,7 +85,8 @@ public class UnsubscribeTransforms
         // Fill in the message field with the contents of the event message
         try
         {
-            JAXBContext jc = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.subscription");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.subscription");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
@@ -92,6 +94,8 @@ public class UnsubscribeTransforms
             JAXBElement oJaxbElement = factory.createUnsubscribe(message.getMessage().getUnsubscribe());
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
+            log.debug("Done marshalling the message.");
+
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e)
@@ -173,12 +177,15 @@ public class UnsubscribeTransforms
         // Fill in the message field with the contents of the event message
         try
         { //org.oasis_open.docs.wsn.b_2
-            JAXBContext jc = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.subscription");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.subscription");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.subscription.ObjectFactory factory = new gov.hhs.fha.nhinc.common.subscription.ObjectFactory();
             marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
+            log.debug("Done marshalling the message.");
+
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e)

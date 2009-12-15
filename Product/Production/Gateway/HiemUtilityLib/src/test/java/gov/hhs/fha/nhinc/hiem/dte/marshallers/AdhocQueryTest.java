@@ -5,6 +5,7 @@
 package gov.hhs.fha.nhinc.hiem.dte.marshallers;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
 import java.io.ByteArrayInputStream;
@@ -81,7 +82,8 @@ public class AdhocQueryTest {
 
             log.info("FX: responseNode = " + XmlUtility.serializeElement(responseElement));
             log.info("response element namespace " + responseElement.getNamespaceURI());
-            JAXBContext jaxbContext = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.rim._3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jaxbContext = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.rim._3");
             //JAXBContext.newInstance(AdhocQueryResponse.class);
             javax.xml.bind.Unmarshaller u = jaxbContext.createUnmarshaller();
             //result = (AdhocQueryResponse) u.unmarshal(responseNode);

@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformConstants;
 import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -108,11 +109,14 @@ public class SubscribeTransforms {
         // Fill in the message field with the contents of the event message
         try
         {
-            JAXBContext jc = JAXBContext.newInstance(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getSubscribe(), baOutStrm);
+            log.debug("Done marshalling the message.");
+
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e)
@@ -192,11 +196,13 @@ public class SubscribeTransforms {
         // Fill in the message field with the contents of the event message
         try
         {
-            JAXBContext jc = JAXBContext.newInstance("org.oasis_open.docs.wsn.b_2");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("org.oasis_open.docs.wsn.b_2");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getSubscribeResponse(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e)

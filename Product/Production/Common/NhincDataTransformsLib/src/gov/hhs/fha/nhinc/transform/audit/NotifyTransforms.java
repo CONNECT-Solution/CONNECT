@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityNotifyResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinNotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -87,11 +88,14 @@ public class NotifyTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, ihe.iti.xds_b._2007.ObjectFactory.class);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class, ihe.iti.xds_b._2007.ObjectFactory.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
+            log.debug("Done marshalling the message.");
+
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {

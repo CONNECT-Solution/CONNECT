@@ -26,6 +26,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 /**
  *
@@ -34,6 +35,8 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 public class SubjectDiscoveryTransforms {
 
     private static Log log = LogFactory.getLog(SubjectDiscoveryTransforms.class);
+    private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
+
 
     public static LogEventRequestType transformPRPA2013012AuditMsg(LogSubjectAddedRequestType message) {
         AuditMessageType auditMsg = new AuditMessageType();
@@ -98,11 +101,13 @@ public class SubjectDiscoveryTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getPRPAIN201301UV02(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -184,11 +189,13 @@ public class SubjectDiscoveryTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getPRPAIN201302UV02(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -271,11 +278,13 @@ public class SubjectDiscoveryTransforms {
 
         // Put the contents of the actual message into the Audit Log Message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getPIXConsumerMCCIIN000002UV01Request().getMCCIIN000002UV01(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -370,11 +379,13 @@ public class SubjectDiscoveryTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getPRPAIN201309UV02(), baOutStrm);
+            log.debug("Done marshallaing HL7 message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -455,11 +466,13 @@ public class SubjectDiscoveryTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(JAXB_HL7_CONTEXT_NAME);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getPRPAIN201310UV02(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {

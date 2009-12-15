@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
 import java.io.StringWriter;
@@ -125,10 +126,12 @@ public class DocumentQueryTransform
         log.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- Begin");
         try
         {
-            JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
             Marshaller marshaller = jc.createMarshaller();
             StringWriter oXML = new StringWriter();
             marshaller.marshal(oAdhocQueryRequest, oXML);
+            log.debug("Done marshalling the message.");
 
             log.debug("");
             log.debug(oXML);

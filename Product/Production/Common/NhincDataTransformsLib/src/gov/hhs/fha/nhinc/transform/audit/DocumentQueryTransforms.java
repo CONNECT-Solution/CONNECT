@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryResultRequestType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 
 /**
@@ -109,11 +110,13 @@ public class DocumentQueryTransforms {
 
         // Fill in the message field with the contents of the event message
         try {
-            JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getAdhocQueryRequest(), baOutStrm);
+            log.debug("Done marshalling the message.");
 
             partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -227,11 +230,13 @@ public class DocumentQueryTransforms {
 
             // Fill in the message field with the contents of the event message
             try {
-                JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Marshaller marshaller = jc.createMarshaller();
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 baOutStrm.reset();
                 marshaller.marshal(message.getMessage().getAdhocQueryResponse(), baOutStrm);
+                log.debug("Done marshalling the message.");
 
                 partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
             } catch (Exception e) {

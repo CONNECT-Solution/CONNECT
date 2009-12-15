@@ -25,6 +25,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogFindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 public class FindAuditEventsTransforms {
 
@@ -111,7 +112,8 @@ public class FindAuditEventsTransforms {
 
             // Fill in the message field with the contents of the event message
             try {
-                JAXBContext jc = JAXBContext.newInstance("com.services.nhinc.schema.auditmessage");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
                 Marshaller marshaller = jc.createMarshaller();
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 baOutStrm.reset();
@@ -120,6 +122,7 @@ public class FindAuditEventsTransforms {
                 JAXBElement oJaxbElement = factory.createFindAuditEvents(message.getMessage().getFindAuditEvents());
                 baOutStrm.close();
                 marshaller.marshal(oJaxbElement, baOutStrm);
+                log.debug("Done marshalling the message.");
 
                 partObject.setParticipantObjectQuery(baOutStrm.toByteArray());
             } catch (Exception e) {

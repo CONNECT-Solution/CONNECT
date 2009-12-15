@@ -25,6 +25,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -636,10 +637,12 @@ public class PatientDiscoveryTransforms {
     protected void marshalPatientDiscoveryMessage(ByteArrayOutputStream baOutStrm, Object oPatientDiscoveryMessage) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
         try {
-            JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("org.hl7.v3");
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
             marshaller.marshal(oPatientDiscoveryMessage, baOutStrm);
+            log.debug("Done marshalling the message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();

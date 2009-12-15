@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.io.StringReader;
@@ -147,7 +148,8 @@ public class SubscribeTransformHelper {
                 String serializedElement = XmlUtility.serializeElement(adhocQueryElement);
                 log.debug("serializedElement=[" + serializedElement + "]");
                 log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
-                JAXBContext jc = JAXBContext.newInstance(contextPath);
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 log.debug("get instance of unmarshaller");
                 javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
                 log.debug("init stringReader");
