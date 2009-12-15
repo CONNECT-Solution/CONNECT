@@ -8,7 +8,7 @@
     <call target="Common.FindBuild"/>
     <regex input="${build}" pattern="log(?'BuildArchiveFolderName'\d+)Lbuild\.${CCNetLabel}\.xml$"/>
 
-    <property name="Release.Application.Zip.File.Name" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
+    <property name="Release.Application.Zip.File.Name" value="${ProjectFullName}_Binaries_${CCNetLabel}.zip"/>
     <property name="Release.Application.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Application.Zip.File.Name}"/>
         
     <get
@@ -19,7 +19,7 @@
       <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}"/>
     </get>
 
-    <property name="Release.Domains.Configuration.Zip.File.Name" value="${ProjectName}-Release-Installer-Domains-Configuration-${CCNetLabel}.zip"/>
+    <property name="Release.Domains.Configuration.Zip.File.Name" value="${ProjectFullName}_Domains_Configuration_${CCNetLabel}.zip"/>
     <property name="Release.Domains.Configuration.Zip.File.Path" value="${Common.Project.TempDirectory}\${Release.Domains.Configuration.Zip.File.Name}"/>
     
     <get
