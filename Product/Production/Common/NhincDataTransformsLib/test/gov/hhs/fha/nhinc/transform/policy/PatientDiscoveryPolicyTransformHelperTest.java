@@ -7,10 +7,13 @@ package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import javax.xml.bind.JAXBElement;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
+import org.hl7.v3.MCCIMT000100UV01Agent;
 import org.hl7.v3.MCCIMT000100UV01Device;
+import org.hl7.v3.MCCIMT000100UV01Organization;
 import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -144,7 +147,19 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
         II e = new II();
         e.setRoot("1.1");
-        device.getId().add(e);
+
+        MCCIMT000100UV01Agent agentVal = new MCCIMT000100UV01Agent();
+
+        MCCIMT000100UV01Organization repOrgVal = new MCCIMT000100UV01Organization();
+        repOrgVal.getId().add(e);
+
+        org.hl7.v3.ObjectFactory oJaxbObjectFactory = new org.hl7.v3.ObjectFactory();
+        JAXBElement<MCCIMT000100UV01Organization> repOrg = oJaxbObjectFactory.createMCCIMT000100UV01AgentRepresentedOrganization(repOrgVal);
+        repOrg.setValue(repOrgVal);
+        agentVal.setRepresentedOrganization(repOrg);
+
+        JAXBElement<MCCIMT000100UV01Agent> agent = oJaxbObjectFactory.createMCCIMT000100UV01DeviceAsAgent(agentVal);
+        device.setAsAgent(agent);
         sender.setDevice(device);
         request201305.setSender(sender);
         event.setPRPAIN201305UV02(request201305);

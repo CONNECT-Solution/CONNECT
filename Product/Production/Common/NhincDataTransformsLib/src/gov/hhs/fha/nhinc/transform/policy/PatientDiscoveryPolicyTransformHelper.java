@@ -116,13 +116,21 @@ public class PatientDiscoveryPolicyTransformHelper {
 
     protected HomeCommunityType getHomeCommunityFrom201305(RespondingGatewayPRPAIN201305UV02RequestType event) {
         HomeCommunityType senderHomeCommunity = new HomeCommunityType();
-        final PRPAIN201305UV02 pRPAIN201305UV = event.getPRPAIN201305UV02();
-        final MCCIMT000100UV01Sender sender = pRPAIN201305UV.getSender();
-        final MCCIMT000100UV01Device device = sender.getDevice();
-        final List<II> id = device.getId();
-        final II get = id.get(0);
-        final String root = get.getRoot();
-        senderHomeCommunity.setHomeCommunityId(root);
+
+        if (event != null &&
+                event.getPRPAIN201305UV02().getSender() != null &&
+                event.getPRPAIN201305UV02().getSender().getDevice() != null &&
+                event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent() != null &&
+                event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue() != null &&
+                event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot()))
+        {
+            senderHomeCommunity.setHomeCommunityId(event.getPRPAIN201305UV02().getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot());
+        }
+
         return senderHomeCommunity;
     }
 
@@ -188,8 +196,9 @@ public class PatientDiscoveryPolicyTransformHelper {
     }
 
     protected void setSubjectToRequestType(RespondingGatewayPRPAIN201305UV02RequestType event, RequestType request) {
-        HomeCommunityType senderHomeCommunity = getHomeCommunityFrom201305(event);
-        SubjectType subject = new SubjectHelper().subjectFactory(senderHomeCommunity, event.getAssertion());
+        //change to get the info from the receiver node
+        HomeCommunityType receiverHomeCommunity = getReceiverHomeCommunityFrom201305(event);
+        SubjectType subject = new SubjectHelper().subjectFactory(receiverHomeCommunity, event.getAssertion());
         request.getSubject().add(subject);
     }
 
@@ -265,5 +274,25 @@ public class PatientDiscoveryPolicyTransformHelper {
             ii = message.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId().get(0);
         }
         return ii;
+    }
+
+    private HomeCommunityType getReceiverHomeCommunityFrom201305(RespondingGatewayPRPAIN201305UV02RequestType event)
+    {
+        HomeCommunityType receiverHomeCommunity = new HomeCommunityType();
+
+        if (event != null &&
+            event.getPRPAIN201305UV02().getReceiver() != null &&
+            !event.getPRPAIN201305UV02().getReceiver().isEmpty() &&
+            event.getPRPAIN201305UV02().getReceiver().get(0) != null &&
+            event.getPRPAIN201305UV02().getReceiver().get(0).getDevice() != null &&
+            event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId() != null &&
+            event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null &&
+            NullChecker.isNotNullish(event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot()))
+        {
+            receiverHomeCommunity.setHomeCommunityId(event.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).getRoot());
+        }
+
+        return receiverHomeCommunity;
+
     }
 }

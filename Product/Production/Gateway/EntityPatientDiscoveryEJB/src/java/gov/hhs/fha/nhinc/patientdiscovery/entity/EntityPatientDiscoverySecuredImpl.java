@@ -12,21 +12,16 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxy;
-import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLog;
 import gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecuredImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
-import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -37,9 +32,13 @@ import java.util.ArrayList;
 import java.util.List;
 //import javax.xml.bind.JAXB;
 import javax.xml.ws.WebServiceContext;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIMT000100UV01Device;
+import org.hl7.v3.MCCIMT000100UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -84,8 +83,7 @@ public class EntityPatientDiscoverySecuredImpl {
         if (NullChecker.isNullish(request.getNhinTargetCommunities().getNhinTargetCommunity()))
         {
             log.error("The list of incomming NhinTargetCommunities was null. sending out to community.");
-            //TODO populate list of target communities from connectionmanager cache - see entitySubjectDiscoveryImpl.java for an example
-            //temp solution
+            //populate list of target communities from connectionmanager cache
             List<NhinTargetCommunityType> oNhinTargetCommunities = getDefaultTargetCommunities();
             NhinTargetCommunitiesType oNhinTargetCommunitiesType =  new NhinTargetCommunitiesType();
             oNhinTargetCommunitiesType.getNhinTargetCommunity().addAll(oNhinTargetCommunities);
@@ -95,11 +93,7 @@ public class EntityPatientDiscoverySecuredImpl {
         // Create an assertion class from the contents of the SAML token
         AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        //TODO check the policy engine for the initial request - make sure to print log statements
-        //to help with the acceptance criteria verification
         response = getResponseFromCommunities(request, assertion, context);
-        
-        
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
         ack = auditLog.auditEntityResponse(response, assertion);
@@ -115,22 +109,25 @@ public class EntityPatientDiscoverySecuredImpl {
         NhincProxyPatientDiscoverySecuredImpl proxy = new NhincProxyPatientDiscoverySecuredImpl();
 
         //loop through the communities and send request
+        log.debug("Number of potential target communities to forward request to: " + request.getNhinTargetCommunities().getNhinTargetCommunity().size());
         for (NhinTargetCommunityType oTargetCommunity : request.getNhinTargetCommunities().getNhinTargetCommunity())
         {
-            //look for a policy engine call that use the community id
-            //place holder...
-            boolean bIsPolicyOk = isPolicyOk(request);
+            //create a new request to send out to each target community
+            RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, oTargetCommunity);
+
+            //check the policy for the outgoing request to the target community
+            boolean bIsPolicyOk = isPolicyOk(newRequest);
             if (bIsPolicyOk)
             {
+                CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
+
                 NhinTargetSystemType oTargetSystemType = new NhinTargetSystemType();
                 oTargetSystemType.setHomeCommunity(oTargetCommunity.getHomeCommunity());
-
-                CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
 
                 //format request for nhincProxyPatientDiscoveryImpl call
                 ProxyPRPAIN201305UVProxySecuredRequestType oProxyPRPAIN201305UVProxySecuredRequestType =
                         new ProxyPRPAIN201305UVProxySecuredRequestType();
-                oProxyPRPAIN201305UVProxySecuredRequestType.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
+                oProxyPRPAIN201305UVProxySecuredRequestType.setPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
                 oProxyPRPAIN201305UVProxySecuredRequestType.setNhinTargetSystem(oTargetSystemType);
 
                 PRPAIN201306UV02 resultFromNhin = proxy.proxyPRPAIN201305UV(oProxyPRPAIN201305UVProxySecuredRequestType, assertion);
@@ -169,32 +166,35 @@ public class EntityPatientDiscoverySecuredImpl {
         return response;
     }
 
-    protected boolean isPolicyOk(RespondingGatewayPRPAIN201305UV02RequestType request) {
-//        boolean bPolicyOk = false;
+    protected boolean isPolicyOk(RespondingGatewayPRPAIN201305UV02RequestType newRequest) {
+        boolean bPolicyOk = false;
 
-        //TODO Based on the communities specified in the incoming Patient Discovery
-        //Request message on the Entity I/F call the Policy Engine for each request
-        //and if the PE returns Permit create  proxy request message and pass the
-        //contents Proxy class which will send it out on the Nhin I/F
-//        PatientDiscoveryPolicyTransformHelper oPatientDiscoveryPolicyTransformHelper = new PatientDiscoveryPolicyTransformHelper();
-//        CheckPolicyRequestType oEntityCheckPolicyRequest = oPatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy(request);
-//
-//        /* invoke check policy */
-////        PolicyEngineChecker policyChecker = new PolicyEngineChecker();
-//        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
-//        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
-//        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(oEntityCheckPolicyRequest);
-//
-//        /* if response='permit' */
-//        if (policyResp.getResponse().getResult().get(0).getDecision().value().equals(NhincConstants.POLICY_PERMIT)) {
-//            log.debug("Policy engine check returned permit.");
-//            bPolicyOk = true;
-//        }
-//
-//        //return true if 'permit' returned, false otherwise
-//        return bPolicyOk;
-        //temp solution
-        return true;
+        log.debug("checking the policy engine for the new request to a target community");
+
+        PatientDiscoveryPolicyTransformHelper oPatientDiscoveryPolicyTransformHelper = new PatientDiscoveryPolicyTransformHelper();
+        CheckPolicyRequestType oEntityCheckPolicyRequest = oPatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy(newRequest);
+
+        /* invoke check policy */
+        PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
+        PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
+        CheckPolicyResponseType policyResp = policyProxy.checkPolicy(oEntityCheckPolicyRequest);
+
+        /* if response='permit' */
+        if (policyResp.getResponse() != null &&
+                NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
+                policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
+        {
+            log.debug("Policy engine check returned permit.");
+            bPolicyOk = true;
+        }
+        else
+        {
+            log.debug("Policy engine check returned deny.");
+            bPolicyOk = false;
+        }
+
+        //return true if 'permit' returned, false otherwise
+        return bPolicyOk;
 
     }
 
@@ -221,10 +221,10 @@ public class EntityPatientDiscoverySecuredImpl {
         log.debug("EntityPatientDiscoveryImpl.getDefaultTargetCommunities -- number communities : " + communities.size());
 
         //loop thru and pull out HCID 2.2 for now...
-        for (CMHomeCommunity h : communities) {
+        for (CMHomeCommunity h : communities)
+        {
             //don't query our own gateway
-            if ((!h.getHomeCommunityId().equals(localHomeCommunity)))// &&
-//            (h.getHomeCommunityId().equals("2.2")))
+            if (!h.getHomeCommunityId().equals(localHomeCommunity))
             {
                 log.debug(h.getHomeCommunityId() + " != " + localHomeCommunity);
                 HomeCommunityType homeCommunity = new HomeCommunityType();
@@ -244,5 +244,64 @@ public class EntityPatientDiscoverySecuredImpl {
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    private MCCIMT000100UV01Receiver createNewReceiver(HomeCommunityType homeCommunity) {
+        MCCIMT000100UV01Receiver oNewReceiver = new MCCIMT000100UV01Receiver();
+
+        MCCIMT000100UV01Device oNewDevice = new MCCIMT000100UV01Device();
+        II oII = new II();
+        if (homeCommunity == null)
+        {
+            log.error("Unable to create a receiver object in order to forward " +
+                    "the patient discovery request on to a target community. Target" +
+                    " home community object was null");
+            return null;
+        }
+
+        if (homeCommunity.getHomeCommunityId() == null)
+        {
+            log.error("Unable to create a receiver object in order to forward " +
+                    "the patient discovery request on to a target community. Target" +
+                    " homeCommunity.getHomeCommunityId() == null");
+            return null;
+        }
+
+        log.debug("Setting the new request's receiverId to: " + homeCommunity.getHomeCommunityId());
+        oII.setRoot(homeCommunity.getHomeCommunityId());
+
+        if (homeCommunity.getName() == null)
+        {
+            log.info("The target homeCommunity name was null. The policy engine will still be called and the request will still be forwarded, however.");
+        }
+        else
+        {
+            oII.setAssigningAuthorityName(homeCommunity.getName());
+        }
+
+        oNewDevice.getId().add(oII);
+        oNewReceiver.setDevice(oNewDevice);
+
+        return oNewReceiver;
+    }
+
+    private RespondingGatewayPRPAIN201305UV02RequestType createNewRequest(RespondingGatewayPRPAIN201305UV02RequestType request, NhinTargetCommunityType targetCommunity)
+    {
+        RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
+        newRequest.setPRPAIN201305UV02(request.getPRPAIN201305UV02());
+        newRequest.setAssertion(request.getAssertion());
+
+        //restrict the list of target communities to the one we are forwarding the request to
+        NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
+        targetCommunities.getNhinTargetCommunity().add(targetCommunity);
+        newRequest.setNhinTargetCommunities(targetCommunities);
+
+        //the new request will have the target community as the only receiver
+        newRequest.getPRPAIN201305UV02().getReceiver().clear();
+        MCCIMT000100UV01Receiver oNewReceiver = createNewReceiver(targetCommunity.getHomeCommunity());
+        newRequest.getPRPAIN201305UV02().getReceiver().add(oNewReceiver);
+        log.debug("Created a new request for target communityId: " + targetCommunity.getHomeCommunity().getHomeCommunityId());
+
+        return newRequest;
     }
 }
