@@ -533,7 +533,7 @@
 	<xsd:complexType name="FineGrainedPolicyCriterionType">
 		<xsd:sequence>
 			<xsd:element name="sequentialId" type="xsd:string"/>
-			<xsd:element name="policyOID" type="xsd:string"/>
+			<xsd:element name="policyOID" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="permit" type="xsd:boolean"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="userRole" type="nccommon:CeType" minOccurs="0"/>
@@ -543,8 +543,8 @@
 			<xsd:element name="organizationId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="homeCommunityId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="uniqueDocumentId" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="ruleStartDate" type="xsd:dateTime" minOccurs="0"/>
-			<xsd:element name="ruleEndDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ruleStartDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ruleEndDate" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="userId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="userIdFormat" type="tns:UserIdFormatType" minOccurs="0"/>
 		</xsd:sequence>
@@ -569,13 +569,13 @@
 			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0"/>
 			<xsd:element name="addr" type="nccommon:AddressesType" minOccurs="0"/>
 			<xsd:element name="gender" type="nccommon:CeType" minOccurs="0"/>
-			<xsd:element name="birthTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="birthTime" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyPatientInfo" type="tns:PolicyPatientInfoType"/>
 	<xsd:complexType name="PolicyOriginalAuthorInfoType">
 		<xsd:sequence>
-			<xsd:element name="authorTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authorTime" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authorId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0"/>
@@ -587,7 +587,7 @@
 	<xsd:element name="PolicyOriginalAuthorInfo" type="tns:PolicyOriginalAuthorInfoType"/>
 	<xsd:complexType name="PolicyScannerAuthorInfoType">
 		<xsd:sequence>
-			<xsd:element name="authorTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authorTime" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authorId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authoringDevice" type="nccommon:CeType" minOccurs="0"/>
@@ -601,10 +601,10 @@
 	<xsd:element name="PolicyScannerAuthorInfo" type="tns:PolicyScannerAuthorInfoType"/>
 	<xsd:complexType name="PolicyDataEntererInfoType">
 		<xsd:sequence>
-			<xsd:element name="dataEntererTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="dataEntererTime" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="dataEntererIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="dataEntererId" type="xsd:string" minOccurs="0"/>
-			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0" />
+			<xsd:element name="name" type="nccommon:PersonNameType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PolicyDataEntererInfo" type="tns:PolicyDataEntererInfoType"/>
@@ -619,7 +619,7 @@
 	<xsd:element name="PolicyCustodianInfo" type="tns:PolicyCustodianInfoType"/>
 	<xsd:complexType name="PolicyLegalAuthenticatorType">
 		<xsd:sequence>
-			<xsd:element name="authenticationTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="authenticationTime" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authenticatorIdAssigningAuthority" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="authenticatorId" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="signatureCode" type="nccommon:CeType" minOccurs="0"/>
@@ -633,20 +633,20 @@
         the Policy Engine PIP (Policy Information Point) -->
 	<xsd:complexType name="BinaryDocumentPolicyCriterionType">
 		<xsd:sequence>
-			<xsd:element name="policyOID" type="xsd:string"/>
+			<xsd:element name="policyOID" type="xsd:string"  minOccurs="0"/>
 			<xsd:element name="documentUniqueId" type="xsd:string"/>
 			<xsd:element name="documentTypeCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="documentTitle" type="xsd:string"/>
-			<xsd:element name="effectiveTime" type="xsd:dateTime"/>
+			<xsd:element name="effectiveTime" type="xsd:string"/>
 			<xsd:element name="confidentialityCode" type="nccommon:CeType" minOccurs="0"/>
 			<xsd:element name="patientInfo" type="tns:PolicyPatientInfoType" minOccurs="0"/>
 			<xsd:element name="authorOriginal" type="tns:PolicyOriginalAuthorInfoType" minOccurs="0"/>
 			<xsd:element name="authorScanner" type="tns:PolicyScannerAuthorInfoType" minOccurs="0"/>
 			<xsd:element name="dataEnterer" type="tns:PolicyDataEntererInfoType" minOccurs="0"/>
 			<xsd:element name="custodian" type="tns:PolicyCustodianInfoType" minOccurs="0"/>
-			<xsd:element name="legalAuthenticator" type="tns:PolicyLegalAuthenticatorType" minOccurs="0" />
-			<xsd:element name="startDate" type="xsd:dateTime" minOccurs="0"/>
-			<xsd:element name="endDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="legalAuthenticator" type="tns:PolicyLegalAuthenticatorType" minOccurs="0"/>
+			<xsd:element name="startDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="endDate" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="mimeType" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="binaryDocument" type="xsd:base64Binary"/>
 			<xsd:element name="healthcareFacilityTypeCode" type="nccommon:CeType" minOccurs="0"/>
@@ -669,7 +669,7 @@
 			<xsd:element name="optIn" type="xsd:boolean"/>
 			<xsd:element name="fineGrainedPolicyCriteria" type="tns:FineGrainedPolicyCriteriaType" minOccurs="0"/>
 			<xsd:element name="binaryDocumentPolicyCriteria" type="tns:BinaryDocumentPolicyCriteriaType" minOccurs="0"/>
-		    <xsd:element name="fineGrainedPolicyMetadata" type="tns:FineGrainedPolicyMetadataType" minOccurs="0"></xsd:element>
+			<xsd:element name="fineGrainedPolicyMetadata" type="tns:FineGrainedPolicyMetadataType" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="PatientPreferences" type="tns:PatientPreferencesType"/>
@@ -729,58 +729,51 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="AuthenticateUserResponse" type="tns:AuthenticateUserResponseType"/>
-    <xsd:complexType name="FineGrainedPolicyMetadataType">
-        <xsd:sequence>
-            <xsd:element name="policyOID" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="authorPerson" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="authorInstitution" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="authorRole" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="authorSpecialty" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="availabilityStatus" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="classCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="classCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="classCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="comments" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="confidentialityCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="confidentialityCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="confidentialityCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="creationTime" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="formatCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="formatCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="formatCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="hash" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="healthcareFacilityCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="healthcareFacilityCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="healthcareFacilityCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="languageCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="legalAuthenticator" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="mimeType" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSettingCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSettingCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="practiceSettingCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="serviceStartTime" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="serviceStopTime" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="size" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="sourcePatientId" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="Pid3" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="Pid5" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="Pid7" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="Pid8" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="Pid11" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="documentTitle" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="typeCode" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="typeCodeScheme" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="typeCodeDisplayName" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="documentUniqueId" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="documentURI" type="xsd:string" minOccurs="0"></xsd:element>
-            <xsd:element name="eventCodes" type="nccommon:CeType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:sequence>
-    </xsd:complexType>
+	<xsd:complexType name="FineGrainedPolicyMetadataType">
+		<xsd:sequence>
+			<xsd:element name="policyOID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorPerson" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorInstitution" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorRole" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="authorSpecialty" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="availabilityStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="classCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="classCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="classCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="comments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="confidentialityCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="confidentialityCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="confidentialityCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="creationTime" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="formatCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="formatCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="formatCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="hash" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="healthcareFacilityCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="healthcareFacilityCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="healthcareFacilityCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="languageCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="legalAuthenticator" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="mimeType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="practiceSettingCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="practiceSettingCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="practiceSettingCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="serviceStartTime" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="serviceStopTime" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="size" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="sourcePatientId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Pid3" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Pid5" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Pid7" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Pid8" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Pid11" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentTitle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="typeCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="typeCodeScheme" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="typeCodeDisplayName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentUniqueId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentURI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="eventCodes" type="nccommon:CeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
 </xsd:schema>
-
-
-
-
-
-
-
