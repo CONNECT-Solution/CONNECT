@@ -4,7 +4,6 @@
 	<target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
     <call target="Build.PublishZip.Release.Domains.Configuration"/>
-    <call target="Build.PublishZip.Release.Interfaces"/>
   </target>
 
   <target name="Build.PublishZip.Release.Installer">
@@ -14,12 +13,14 @@
       <property name="CCNetBuildTime"/>
     </saveproperties>
     
-    <property name="Installer.Zip.FileName" value="${ProjectName}-Release-Installer-${CCNetLabel}.zip"/>
+    <property name="Installer.Zip.FileName" value="${ProjectFullName}_Binaries_${CCNetLabel}.zip"/>
     <property name="Installer.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Installer.Zip.FileName}"/>
 
     <zip zipfile="${Installer.Zip.FilePath}">
       <fileset basedir="${GlassFish.Deploy.Directory.Path}">
         <include name="**\*"/>
+      </fileset>
+      <fileset basedir="${Common.Project.TempDirectory}">
         <include name="ReleaseInfo.txt"/>
       </fileset>
       <fileset basedir="${Common.Directory.Install.Path}">
@@ -34,7 +35,7 @@
   </target>
 
   <target name="Build.PublishZip.Release.Domains.Configuration">
-    <property name="Domains.Configuration.Zip.FileName" value="${ProjectName}-Release-Installer-Domains-Configuration-${CCNetLabel}.zip"/>
+    <property name="Domains.Configuration.Zip.FileName" value="${ProjectFullName}_Domains_Configuration_${CCNetLabel}.zip"/>
     <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
 
     <zip zipfile="${Domains.Configuration.Zip.FilePath}">
@@ -48,27 +49,52 @@
     <property name="Publish.Web.File.Name" value="${Domains.Configuration.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
     
-    <echo message="Commented out -- call target=Publish.Link"/>>
-    
     <call target="Publish.Link" />
-  </target>
+    <!-- Dev -->
+    <property name="Domains.Configuration.Zip.FileName" value="${ProjectFullName}_Properties_${CCNetLabel}.zip"/>
+    <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
 
-  <target name="Build.PublishZip.Release.Interfaces">
-    <property name="Interfaces.Zip.FileName" value="${ProjectName}-Release-Installer-Interfaces-${CCNetLabel}.zip"/>
-    <property name="Interfaces.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Interfaces.Zip.FileName}"/>
-
-    <zip zipfile="${Interfaces.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Common\Interfaces\**" />
+    <zip zipfile="${Domains.Configuration.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev">
+        <include name="**/*"/>
       </fileset>
     </zip>
 
-    <property name="Publish.Web.File.Name" value="${Interfaces.Zip.FileName}"/>
+    <property name="Publish.Web.File.Name" value="${Domains.Configuration.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
+    <!-- Red4 -->
+    <property name="Domains.Configuration.Zip.FileName" value="${ProjectFullName}_Properties_Red4_${CCNetLabel}.zip"/>
+    <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
+
+    <zip zipfile="${Domains.Configuration.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Red4">
+        <include name="**/*"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Domains.Configuration.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+    <!-- Blue4 -->
+    <property name="Domains.Configuration.Zip.FileName" value="${ProjectFullName}_Properties_Blue4_${CCNetLabel}.zip"/>
+    <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
+
+    <zip zipfile="${Domains.Configuration.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Blue4">
+        <include name="**/*"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Domains.Configuration.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+    
   </target>
-  
+
   <target name="Common.FindBuild">
     <strings id="builds"/>
 

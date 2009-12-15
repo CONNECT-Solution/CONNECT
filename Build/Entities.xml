@@ -7,6 +7,7 @@
 
 <!ENTITY ProjectName                           'NHINC' >
 <!ENTITY ProjectCodeLineName                   'Current' >
+<!ENTITY ProjectFullName                       'NHIN_CONNECT' >
 
 <!ENTITY Common.Directory.Product.Name         'Product'>
 <!ENTITY Common.Directory.ThirdParty.Name      'ThirdParty' >

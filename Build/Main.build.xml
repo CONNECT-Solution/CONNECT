@@ -187,9 +187,10 @@
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
         
+        <call target="Checkstyle.Main"/>
+        
         <call target="Ant.CompileSource" />
 
-        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
