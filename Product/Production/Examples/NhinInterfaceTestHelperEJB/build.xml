@@ -203,6 +203,9 @@
         <copy todir="${targetLocation-NhinPatientDiscovery}">
             <fileset dir="${sourceLocation-NhinPatientDiscovery}"/>
         </copy>
+        <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/NhinPatientDiscovery/schemas/" />
+        </copy>
     </target>    
     <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
@@ -218,6 +221,10 @@
         <copy todir="${targetLocation-AdapterMpiSecured}">
             <fileset dir="${sourceLocation-AdapterMpiSecured}"/>
         </copy>
+         <copy todir="${basedir}/${meta.inf}/wsdl/schemas/">
+            <fileset dir="${basedir}/${meta.inf}/xml-resources/web-services/AdapterMpiSecured/schemas/" />
+        </copy>
+        
     </target>
     
      <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
