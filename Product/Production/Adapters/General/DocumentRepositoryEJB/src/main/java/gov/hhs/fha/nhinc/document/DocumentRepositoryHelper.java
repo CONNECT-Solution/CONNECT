@@ -617,10 +617,18 @@ public class DocumentRepositoryHelper
                         //get the document byte array from the hashmap populated earlier
                         doc.setRawData((byte[])docMap.get(extrinsicObject.getId()));
 
+                        String availabilityStatus = extrinsicObject.getStatus();
+                        log.debug("Availability status received in message: " + availabilityStatus);
+                        // Use default if no value was provided
+                        if(NullChecker.isNullish(availabilityStatus))
+                        {
+                            availabilityStatus = XDS_AVAILABLILTY_STATUS_APPROVED;
+                        }
+                        doc.setAvailablityStatus(availabilityStatus);
+
                         //default value for new documents
                         //TODO implement logic for the replacement of a document - it means changing the status of the referenced document in the submission set association element
                         doc.setStatus(XDS_STATUS);
-                        doc.setAvailablityStatus(XDS_AVAILABLILTY_STATUS_APPROVED);
                         //parent document id and relationship values deal with document replacements
 //                        doc.setParentDocumentId(getChildElementStringValue(documentElement, "parentDocumentId"));
 //                        doc.setParentDocumentRelationship(getChildElementStringValue(documentElement, "parentDocumentRelationship"));

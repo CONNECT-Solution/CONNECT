@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -113,11 +114,20 @@ public class PatientConsentDocumentBuilderHelper {
         ExtrinsicObjectType oExtObj = new ExtrinsicObjectType();
         oExtObj.setId(sDocUniqueId); 
         oExtObj.setHome(sHid);
-        if (sMimeType != null) {
+        if (sMimeType != null)
+        {
+            if(oPtPref == null)
+            {
+                oPtPref = new PatientPreferencesType();
+            }
+            if(oPtPref.getFineGrainedPolicyMetadata() == null)
+            {
+                oPtPref.setFineGrainedPolicyCriteria(new FineGrainedPolicyCriteriaType());
+            }
+            oPtPref.getFineGrainedPolicyMetadata().setMimeType(sMimeType);
             oExtObj.setMimeType(sMimeType);
-        } else {
-            setMimeTypeAndStatus(oExtObj, oPtPref);
         }
+        setMimeTypeAndStatus(oExtObj, oPtPref);
         oExtObj.setObjectType(CDAConstants.PROVIDE_REGISTER_OBJECT_TYPE);
         oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = new
                 oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory();

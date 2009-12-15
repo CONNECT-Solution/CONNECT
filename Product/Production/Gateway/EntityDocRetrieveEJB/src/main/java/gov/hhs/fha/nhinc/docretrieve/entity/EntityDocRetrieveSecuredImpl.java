@@ -157,7 +157,7 @@ public class EntityDocRetrieveSecuredImpl {
         RegistryError regErr = new RegistryError();
         regErrList.getRegistryError().add(regErr);
         regErr.setCodeContext(codeContext);
-        regErr.setErrorCode("XDSRepositoryError");
+        regErr.setErrorCode("XDSRegistryError");
         regErr.setSeverity("Error");
         return response;
     }
