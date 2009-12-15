@@ -44,6 +44,7 @@ public class PatientConsentDocumentBuilderHelper {
     private static final String PROP_DIR = "NHINC_PROPERTIES_DIR";
     private static final String FILE_NAME = "XDSUniqueIds.properties";
     private static String sPropertyFile = null;
+    private static final String PDF_MIME_TYPE = "application/pdf";
     private Format xdsDateFormatter = null;
 
     public PatientConsentDocumentBuilderHelper()
@@ -53,7 +54,7 @@ public class PatientConsentDocumentBuilderHelper {
         {
             sPropertyFile = getPropertiesFilePath();
         }
-        xdsDateFormatter = new SimpleDateFormat("yyyyMMDDHHmmss");
+        xdsDateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
     }
 
     protected Log createLogger()
@@ -478,8 +479,10 @@ public class PatientConsentDocumentBuilderHelper {
 
     private void setFormatCode(ExtrinsicObjectType oExtObj, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sDocUniqueId)
     {
-        //TODO: Set the code correctly for the document type
         String sFormatCode = CDAConstants.METADATA_FORMAT_CODE_XACML;
+        if(PDF_MIME_TYPE.equals(oExtObj.getMimeType())){
+            sFormatCode = CDAConstants.METADATA_FORMAT_CODE_PDF;
+        }
         
         ClassificationType oClassificationClassCode = createClassification(oRimObjectFactory,
                 CDAConstants.CLASSIFICATION_SCHEMA_IDENTIFIER_FORMAT_CODE,

@@ -1,6 +1,5 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
-import gov.hhs.fha.nhinc.callback.Base64Coder;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriteriaType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
