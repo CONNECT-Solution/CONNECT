@@ -7,6 +7,15 @@
     <lib>
       <name>NhincSAMLCallbackLib</name>
     </lib>
+    <lib>
+      <name>NhincLib</name>
+    </lib>
+    <lib>
+      <name>NhincDataTransformsLib</name>
+    </lib>
+    <lib>
+      <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
+    </lib>
   </shared>
   <wars>
     <war>

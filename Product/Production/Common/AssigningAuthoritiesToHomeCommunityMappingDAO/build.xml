@@ -9,6 +9,10 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="AssigningAuthoritiesToHomeCommunityMappingDAO" default="default" basedir=".">
     <description>Builds, tests, and runs the project AssigningAuthoritiesToHomeCommunityMappingDAO.</description>
+
+    <property name="deploy.type" value="shared"/>
+    <property name="deploy.isDeployable" value="true"/>
+
     <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
 

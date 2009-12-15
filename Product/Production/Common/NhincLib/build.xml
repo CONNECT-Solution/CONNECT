@@ -19,8 +19,8 @@
     <target name="clean-test" depends="clean-build,test" />
     <target name="build-test" depends="build,test" />
 
-    <property name="deploy.type" value="" />
-    <property name="deploy.isDeployable" value="false"/>
+    <property name="deploy.type" value="shared" />
+    <property name="deploy.isDeployable" value="true"/>
 
 
     <!--

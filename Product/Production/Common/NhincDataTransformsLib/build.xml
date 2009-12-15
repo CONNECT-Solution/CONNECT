@@ -7,8 +7,8 @@
     <import file="../../../build.lib.xml" />
     <import file="nbproject/build-impl.xml"/>
 
-    <property name="deploy.type" value="" description="options:['war', 'ejb', 'shared', 'ca']"/>
-    <property name="deploy.isDeployable" value="false"/>
+    <property name="deploy.type" value="shared" />
+    <property name="deploy.isDeployable" value="true"/>
 				
     <target name="build">
         <property name="target-to-call" value="jar" />
