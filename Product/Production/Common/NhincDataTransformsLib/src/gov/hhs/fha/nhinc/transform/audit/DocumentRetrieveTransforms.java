@@ -54,9 +54,13 @@ public class DocumentRetrieveTransforms {
 
         // Create Event Identification Section
         // TODO: Determine what to do with Event Code and Event Code System (either auto-generate or map in AdhocQueryRequest
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE);
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_REQUEST, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
+
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
+
+        eventIdentification.getEventTypeCode().add(eventTypeCode);
 
         // Create Active Participant Section
         if (userInfo != null) {
@@ -65,14 +69,16 @@ public class DocumentRetrieveTransforms {
         }
 
         // Create Audit Source Identification Section
+        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        auditMsg.getAuditSourceIdentification().add(auditSrcId);
+
+        // Create Audit Source Identification Section
         String communityId = null;
            if (message.getMessage() != null &&
                 message.getMessage().getRetrieveDocumentSetRequest() != null &&
                 message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest() != null &&
                 message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().size() > 0) {
             communityId = message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().get(0).getHomeCommunityId();
-            AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
-            auditMsg.getAuditSourceIdentification().add(auditSrcId);
         }
 
         /**
@@ -137,15 +143,23 @@ public class DocumentRetrieveTransforms {
 
         // Create Event Identification Section
         // TODO: Determine what to do with Event Code and Event Code System (either auto-generate or map in AdhocQueryRequest
-        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE);
-        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
+        CodedValueType eventId = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_DOCRETRIEVE_RESPONSE, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC, AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_RESPONSE);
+        CodedValueType eventTypeCode = AuditDataTransformHelper.createCodeValueType(AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE, AuditDataTransformConstants.EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME, AuditDataTransformConstants.EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME);
+
+        EventIdentificationType eventIdentification = AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ, AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventId);
         auditMsg.setEventIdentification(eventIdentification);
+
+        eventIdentification.getEventTypeCode().add(eventTypeCode);
 
         // Create Active Participant Section
         if (userInfo != null) {
             AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
+
+        // Create Audit Source Identification Section
+        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentificationFromUser(userInfo);
+        auditMsg.getAuditSourceIdentification().add(auditSrcId);
 
         // Create Audit Source Identification Section
         String communityId = null;
@@ -155,8 +169,6 @@ public class DocumentRetrieveTransforms {
                 message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().size() > 0) {
             communityId = message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().get(0).getHomeCommunityId();
         }
-        AuditSourceIdentificationType auditSrcId = AuditDataTransformHelper.createAuditSourceIdentification(communityId, "");
-        auditMsg.getAuditSourceIdentification().add(auditSrcId);
       
         /**
          * TODO: Patient ID in Doc Retrieve -- Not sure where this is. Currently extracting

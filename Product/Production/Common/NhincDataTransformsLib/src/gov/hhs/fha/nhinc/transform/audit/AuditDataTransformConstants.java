@@ -40,7 +40,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; //Patient Discovery Request - EventID from spec: EV(110112, DCM, “Query”)
     public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, “Query”)
     public static final String EVENT_ID_DISPLAY_NAME_DOCQUERY = "Query";
-    public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE = "Retrieve";
+    public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST = "Import";
+    public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_RESPONSE = "Export";
     public static final String EVENT_ID_DISPLAY_NAME_SDNEW = "Subject Discovery New";
     public static final String EVENT_ID_DISPLAY_NAME_SDREV = "Subject Discovery Revised";
     public static final String EVENT_ID_DISPLAY_NAME_SDDEL = "Subject Discovery Revoke";
@@ -57,5 +58,16 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_NOTIFY = "Notify";
     public static final String EBXML_RESPONSE_PATIENTID_IDENTIFICATION_SCHEME = "urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446";
     public static final String EBXML_RESPONSE_PATIENTID_NAME = "XDSDocumentEntry.patientId";
+    public static final String EVENT_ID_CODE_DOCQUERY = "110112";
+    public static final String EVENT_TYPE_CODE_DOCQUERY = "ITI-18";
+    public static final String EVENT_TYPE_CODE_SYS_NAME_DOCQUERY = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_SYS_NAME_DOCQUERY_DISPNAME = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_DOCQUERY_DISPNAME = "Registry Stored Query";
+    public static final String EVENT_ID_CODE_DOCRETRIEVE_REQUEST = "110107";
+    public static final String EVENT_ID_CODE_DOCRETRIEVE_RESPONSE = "110106";
+    public static final String EVENT_TYPE_CODE_DOCRETRIEVE = "ITI-17";
+    public static final String EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME = "IHE Transactions";
+    public static final String EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME = "Retrieve Document";
 
 }

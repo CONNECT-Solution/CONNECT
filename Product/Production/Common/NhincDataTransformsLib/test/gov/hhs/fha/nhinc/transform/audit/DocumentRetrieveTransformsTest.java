@@ -108,7 +108,7 @@ public class DocumentRetrieveTransformsTest {
         partObjId.setParticipantObjectID(auditData.getReceiverPatientId() + "^^^&" + home.getHomeCommunityId() + "&ISO");
         expResult.getParticipantObjectIdentification().add(partObjId);
         EventIdentificationType eventId = new EventIdentificationType();
-        eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC);
+        eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ACTION_CODE_READ);
         expResult.setEventIdentification(eventId);
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
@@ -116,7 +116,7 @@ public class DocumentRetrieveTransformsTest {
         
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
 //        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(), result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventID().getCode());
+        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
         
         log.debug("Begin - testTransformDocRetrieveReq2AuditMsg");
     }
@@ -170,7 +170,7 @@ public class DocumentRetrieveTransformsTest {
         partObjId.setParticipantObjectID(auditData.getReceiverPatientId() + "^^^&" + home.getHomeCommunityId() + "&ISO");
         expResult.getParticipantObjectIdentification().add(partObjId);
         EventIdentificationType eventId = new EventIdentificationType();
-        eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_DOC);
+        eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ACTION_CODE_READ);
         expResult.setEventIdentification(eventId);
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
@@ -179,7 +179,7 @@ public class DocumentRetrieveTransformsTest {
         
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage().getActiveParticipant().get(0).getUserName());
 //        assertEquals(expected.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID(), result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
-        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventID().getCode());
+        assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage().getEventIdentification().getEventActionCode());
         
         log.debug("End - testTransformDocRetrieveResp2AuditMsg");
     }

@@ -84,6 +84,24 @@ public class AuditDataTransformHelper {
         return eventId;
     }
 
+    public static CodedValueType createCodeValueType(String code, String codeSys, String codeSysName, String dispName) {
+        CodedValueType codeValueType = new CodedValueType();
+
+        // Set the Event Id Code
+        codeValueType.setCode(code);
+
+        // Set the Event Id Codesystem
+        codeValueType.setCodeSystem(codeSys);
+
+        // Set the Event Id Codesystem Name
+        codeValueType.setCodeSystemName(codeSysName);
+
+        // Set the Event Id Display Name
+        codeValueType.setDisplayName(dispName);
+
+        return codeValueType;
+    }
+
     public static AuditMessageType.ActiveParticipant createActiveParticipantFromUser(UserType userInfo, Boolean userIsReq) {
         AuditMessageType.ActiveParticipant participant = new AuditMessageType.ActiveParticipant();
         String ipAddr = null;
