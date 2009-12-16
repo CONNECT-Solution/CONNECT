@@ -175,7 +175,7 @@ public class EntityDocRetrieveSecuredImpl {
         checkPolicyMessage.setRetrieveDocumentSetRequest(oEachNhinRequest);
         checkPolicyMessage.setAssertion(oAssertion);
         checkPolicy.setMessage(checkPolicyMessage);
-        checkPolicy.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyDocRetrieve(checkPolicy);

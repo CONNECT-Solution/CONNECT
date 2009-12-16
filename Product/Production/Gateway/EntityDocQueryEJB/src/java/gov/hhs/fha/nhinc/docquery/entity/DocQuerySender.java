@@ -153,7 +153,7 @@ public class DocQuerySender {
         checkPolicyMessage.setAdhocQueryRequest(queryRequest);
         checkPolicyMessage.setAssertion(assertion);
         checkPolicy.setMessage(checkPolicyMessage);
-        checkPolicy.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyAdhocQuery(checkPolicy);

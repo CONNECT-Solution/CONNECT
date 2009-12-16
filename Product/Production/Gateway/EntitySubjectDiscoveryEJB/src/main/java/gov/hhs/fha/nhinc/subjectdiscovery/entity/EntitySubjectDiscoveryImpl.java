@@ -196,7 +196,7 @@ public class EntitySubjectDiscoveryImpl {
         checkPolicyMessage.setAssertion(request.getAssertion());
         checkPolicyMessage.setNhinTargetCommunities(request.getNhinTargetCommunities());
         checkPolicy.setMessage(checkPolicyMessage);
-        checkPolicy.setDirection(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        checkPolicy.setDirection(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         checkPolicy.setInterface(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         /* invoke check policy */

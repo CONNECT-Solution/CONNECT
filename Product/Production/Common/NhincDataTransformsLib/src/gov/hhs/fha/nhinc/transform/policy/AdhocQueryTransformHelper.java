@@ -22,7 +22,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 public class AdhocQueryTransformHelper {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(AdhocQueryTransformHelper.class);
-    private static final String ActionValue = "DocumentQueryIn";
+    private static final String ACTIONVALUEIN = "DocumentQueryIn";
+    private static final String ACTIONVALUEOUT = "DocumentQueryOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
@@ -54,7 +55,13 @@ public class AdhocQueryTransformHelper {
 
         RequestType request = new RequestType();
 
-        request.setAction(ActionHelper.actionFactory(ActionValue));
+        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
+        }
+        
+        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
+        }
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();

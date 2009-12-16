@@ -20,14 +20,23 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
  * @author svalluripalli
  */
 public class DocRetrieveTransformHelper {
-    private static final String ActionValue = "DocumentRetrieveIn";
-        
+    private static final String ActionInValue = "DocumentRetrieveIn";
+    private static final String ActionOutValue = "DocumentRetrieveOut";
+    
     public static CheckPolicyRequestType transformDocRetrieveToCheckPolicy(DocRetrieveEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         //TODO: Need to handle DocumentSet
         //DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
-        request.setAction(ActionHelper.actionFactory(ActionValue));
+
+        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionInValue));
+        }
+        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+        }
+
+
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity() ,  event.getMessage().getAssertion());
         request.getSubject().add(subject);
