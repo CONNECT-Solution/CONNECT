@@ -21,6 +21,10 @@
         <directory>/Production/Common/NhincDataTransformsLib</directory>
     </project>
     <project>
+        <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
+        <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
+    </project>
+    <project>
         <name>HiemProcessorLib</name>
         <directory>/Production/Gateway/HiemProcessorLib</directory>
     </project>
