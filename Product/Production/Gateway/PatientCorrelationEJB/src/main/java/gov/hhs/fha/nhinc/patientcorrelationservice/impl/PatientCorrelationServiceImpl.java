@@ -195,10 +195,10 @@ public class PatientCorrelationServiceImpl {
     public static Date calculateCorrelationExpirationDate(String assigningAuthority) {
         ExpirationConfiguration pcConfig;
 
-        pcConfig = ConfigurationManager.loadExpirationConfiguration();
+        pcConfig = new ConfigurationManager().loadExpirationConfiguration();
         log.debug("assigningAuthorityId = " + assigningAuthority);
 
-        Expiration exp = ConfigurationManager.loadConfiguration(pcConfig, assigningAuthority);
+        Expiration exp = new ConfigurationManager().loadConfiguration(pcConfig, assigningAuthority);
         return calculateCorrelationExpirationDate(exp);
 
     }

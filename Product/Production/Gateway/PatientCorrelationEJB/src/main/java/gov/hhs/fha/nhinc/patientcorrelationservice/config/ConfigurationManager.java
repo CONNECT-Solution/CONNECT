@@ -22,9 +22,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ConfigurationManager {
     public static final String FTA_CONFIG_FILE = "PCConfiguration.xml";
-    private static Log log = LogFactory.getLog(ConfigurationManager.class);
+    private Log log = null; //LogFactory.getLog(ConfigurationManager.class);
 
-     public static ExpirationConfiguration loadExpirationConfiguration()
+    public ConfigurationManager()
+    {
+        log = createLogger();
+    }
+     public ExpirationConfiguration loadExpirationConfiguration()
      {
          ExpirationConfiguration result = null;
         log.debug("begin loadExpirationConfiguration()");
@@ -35,7 +39,7 @@ public class ConfigurationManager {
 
         return result;
      }
-     public static ExpirationConfiguration loadExpirationConfiguration(String dir, String fileName)
+     public ExpirationConfiguration loadExpirationConfiguration(String dir, String fileName)
      {
         ExpirationConfiguration result = null;
         log.debug("loadExpirationConfiguration");
@@ -51,7 +55,7 @@ public class ConfigurationManager {
         }
         return result;
      }
-     public static ExpirationConfiguration loadExpirationConfiguration(String fileName)
+     public ExpirationConfiguration loadExpirationConfiguration(String fileName)
      {
         ExpirationConfiguration result = null;
         log.debug("loadExpirationConfiguration");
@@ -67,7 +71,7 @@ public class ConfigurationManager {
         }
         return result;
      }
-     public static ExpirationConfiguration loadExpirationConfiguration(File file)
+     public ExpirationConfiguration loadExpirationConfiguration(File file)
      {
          log.debug("loadExpirationConfiguration(File)");
             ExpirationConfiguration result = null;
@@ -123,7 +127,7 @@ public class ConfigurationManager {
             return result;
      }
 
-     public static Expiration loadConfiguration(ExpirationConfiguration config, String assigningAuthority)
+     public Expiration loadConfiguration(ExpirationConfiguration config, String assigningAuthority)
      {
          Expiration result = null;
 
@@ -149,4 +153,8 @@ public class ConfigurationManager {
 
          return result;
      }
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
 }
