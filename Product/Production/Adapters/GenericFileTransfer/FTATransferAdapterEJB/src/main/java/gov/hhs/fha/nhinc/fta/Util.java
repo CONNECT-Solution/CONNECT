@@ -23,6 +23,7 @@ import java.util.List;
 import org.xml.sax.InputSource;
 import java.io.StringReader;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.TopicMarshaller;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import javax.xml.datatype.DatatypeFactory;
@@ -43,7 +44,8 @@ public class Util {
         String result = "";
 
         try {
-            JAXBContext jc = JAXBContext.newInstance(Payload.class);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(Payload.class);
             Unmarshaller um = jc.createUnmarshaller();
 
             payload = (Payload) um.unmarshal(element);
@@ -60,7 +62,8 @@ public class Util {
         org.w3c.dom.Document doc = null;
 
         try {
-            JAXBContext jc = JAXBContext.newInstance(Payload.class);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(Payload.class);
             Marshaller marshaller = jc.createMarshaller();
             Payload payload = new Payload();
             javax.xml.parsers.DocumentBuilderFactory dbf;
@@ -105,7 +108,8 @@ public class Util {
         org.w3c.dom.Document doc = null;
         TopicExpressionType topic = null;
         try {
-            JAXBContext jc = JAXBContext.newInstance(TopicExpressionType.class);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(TopicExpressionType.class);
             Unmarshaller um = jc.createUnmarshaller();
             javax.xml.parsers.DocumentBuilderFactory dbf;
 

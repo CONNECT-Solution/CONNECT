@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.document;
 
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -105,7 +106,8 @@ public class DocumentRepositoryHelperProvideAndRegisterTest
 
         try
         {
-            JAXBContext jc = JAXBContext.newInstance(contextPath);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
             javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
             StringReader stringReader = new StringReader(serializedDoc);
             unmarshalledObject = unmarshaller.unmarshal(stringReader);

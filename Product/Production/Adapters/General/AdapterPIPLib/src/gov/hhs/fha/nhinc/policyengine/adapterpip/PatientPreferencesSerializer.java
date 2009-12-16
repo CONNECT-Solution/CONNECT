@@ -1,6 +1,7 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -20,9 +21,6 @@ import org.apache.commons.logging.LogFactory;
 public class PatientPreferencesSerializer
 {
     private Log log = null;
-    private static JAXBContext oJaxbContext = null;
-    private static Marshaller oMarshaller = null;
-    private static Unmarshaller oUnmarshaller = null;
 
     /**
      * Default constructor.
@@ -57,17 +55,9 @@ public class PatientPreferencesSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContext == null)
-            {
-                oJaxbContext = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.nhinccommonadapter");
-            }
-
-            if (oMarshaller == null)
-            {
-                oMarshaller = oJaxbContext.createMarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonadapter");
+            Marshaller oMarshaller = oJaxbContext.createMarshaller();
 
             StringWriter swXML = new StringWriter();
 
@@ -104,17 +94,9 @@ public class PatientPreferencesSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContext == null)
-            {
-                oJaxbContext = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.nhinccommonadapter");
-            }
-
-            if (oUnmarshaller == null)
-            {
-                oUnmarshaller = oJaxbContext.createUnmarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonadapter");
+            Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
             StringReader srXML = new StringReader(sPtPref);
 

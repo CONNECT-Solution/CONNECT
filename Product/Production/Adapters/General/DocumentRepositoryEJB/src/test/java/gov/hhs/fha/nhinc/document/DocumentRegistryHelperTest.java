@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.document;
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,7 +112,8 @@ public class DocumentRegistryHelperTest
 
         try
         {
-            JAXBContext jc = JAXBContext.newInstance(contextPath);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
             javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
             StringReader stringReader = new StringReader(message);
             unmarshalledObject = unmarshaller.unmarshal(stringReader);

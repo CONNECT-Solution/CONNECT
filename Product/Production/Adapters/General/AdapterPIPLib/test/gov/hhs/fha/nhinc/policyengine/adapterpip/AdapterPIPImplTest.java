@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
@@ -294,7 +295,8 @@ public class AdapterPIPImplTest {
         String contextPath = "gov.hhs.fha.nhinc.common.nhinccommonadapter";
 
         try {
-            JAXBContext jc = JAXBContext.newInstance(contextPath);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
             javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
             StringReader stringReader = new StringReader(message);
             unmarshalledObject = unmarshaller.unmarshal(stringReader);

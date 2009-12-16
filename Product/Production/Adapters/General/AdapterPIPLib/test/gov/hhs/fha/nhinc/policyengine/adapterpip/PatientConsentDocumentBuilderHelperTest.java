@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.policyengine.adapterpip;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -529,7 +530,8 @@ public class PatientConsentDocumentBuilderHelperTest {
         Object unmarshalledObject = null;
         try
         {
-            JAXBContext jc = JAXBContext.newInstance(contextPath);
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
             javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
             StringReader stringReader = new StringReader(serializedDoc);
             unmarshalledObject = unmarshaller.unmarshal(stringReader);

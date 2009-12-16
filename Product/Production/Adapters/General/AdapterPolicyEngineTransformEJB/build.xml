@@ -96,12 +96,38 @@
             <fileset dir="${sourceLocation-AdapterPolicyEngineTransformSchemas}"/>
         </copy>
     </target>
+
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
+
+        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
+
+    <target depends="compile" name="library-inclusion-in-archive">
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+    </target>
+    <target depends="compile" name="library-inclusion-in-manifest">
+        <basename file="${reference.NhincDataTransformsLib.jar}" property="included.lib.reference.NhincDataTransformsLib.jar"/>
+        <copy file="${reference.NhincDataTransformsLib.jar}" todir="${dist.ear.dir}"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Class-Path" value="${included.lib.reference.NhincDataTransformsLib.jar} "/>
+        </manifest>
+    </target>
+
     
-    <target depends="compile" name="library-inclusion-in-archive"/>
-
-    <target depends="compile" name="library-inclusion-in-manifest"/>
-
-	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>        
     

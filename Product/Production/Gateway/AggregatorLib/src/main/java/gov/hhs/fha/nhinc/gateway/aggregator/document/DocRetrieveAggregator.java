@@ -11,6 +11,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.model.AggMessageResult;
 import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
 import gov.hhs.fha.nhinc.gateway.aggregator.model.DocRetrieveMessageKey;
 import gov.hhs.fha.nhinc.gateway.aggregator.persistence.GarbageCollectorMgr;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,7 +68,8 @@ public class DocRetrieveAggregator
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("ihe.iti.xds_b._2007");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 ihe.iti.xds_b._2007.ObjectFactory ObjectFactory = new ihe.iti.xds_b._2007.ObjectFactory();
@@ -98,7 +100,8 @@ public class DocRetrieveAggregator
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("ihe.iti.xds_b._2007");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 StringReader srRetrieveDocumentSetResponseXML = new StringReader(sRetrieveDocumentSetResponseXML);
                 JAXBElement oElement = (JAXBElement) unmarshaller.unmarshal(srRetrieveDocumentSetResponseXML);

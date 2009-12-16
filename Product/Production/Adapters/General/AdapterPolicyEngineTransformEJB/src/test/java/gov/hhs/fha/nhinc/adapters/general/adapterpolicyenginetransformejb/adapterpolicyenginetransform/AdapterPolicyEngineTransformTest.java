@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.adapters.general.adapterpolicyenginetransformejb.adapt
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.TransformPatientIdAQRToCppXACMLResponseType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.FileReader;
 import java.io.StringReader; 
 import javax.xml.bind.JAXBContext;
@@ -111,7 +112,8 @@ public class AdapterPolicyEngineTransformTest
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 StringReader srAdhocQueryResponseXML = new StringReader(sAdhocQueryResponseXML);
                 oAdhocQueryResponse = (AdhocQueryResponse)unmarshaller.unmarshal(srAdhocQueryResponseXML);

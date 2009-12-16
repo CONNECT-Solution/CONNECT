@@ -24,6 +24,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.SetResponseMsgDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.dao.AggMessageResultDao;
 import gov.hhs.fha.nhinc.gateway.aggregator.persistence.GarbageCollectorMgr;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Set;
@@ -72,7 +73,8 @@ public class DocQueryAggregator
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 marshaller.marshal(oAdhocQueryResponse, swXML);
@@ -101,7 +103,8 @@ public class DocQueryAggregator
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("oasis.names.tc.ebxml_regrep.xsd.query._3");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
                 StringReader srAdhocQueryResponseXML = new StringReader(sAdhocQueryResponseXML);
                 oAdhocQueryResponse = (AdhocQueryResponse)unmarshaller.unmarshal(srAdhocQueryResponseXML);

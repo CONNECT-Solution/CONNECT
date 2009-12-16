@@ -20,7 +20,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
+import javax.xml.bind.JAXBContext;
+
 /**
  *
  * @author dunnek
@@ -178,8 +181,10 @@ public class HL7ParserTest {
         
     private org.hl7.v3.PRPAIN201305UV02 jaxbUnmarshalFromString0(String str) throws javax.xml.bind.JAXBException {
         org.hl7.v3.PRPAIN201305UV02 ret = null;
-        javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(org.hl7.v3.PRPAIN201305UV02.class.getPackage().getName());
-        javax.xml.bind.Unmarshaller unmarshaller = jaxbCtx.createUnmarshaller();
+        JAXBContextHandler oHandler = new JAXBContextHandler();
+        JAXBContext jc = oHandler.getJAXBContext(org.hl7.v3.PRPAIN201305UV02.class);
+        //javax.xml.bind.JAXBContext jaxbCtx = javax.xml.bind.JAXBContext.newInstance(org.hl7.v3.PRPAIN201305UV02.class.getPackage().getName());
+        javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
         ret = (org.hl7.v3.PRPAIN201305UV02) unmarshaller.unmarshal(new java.io.StringReader(str));
         //NOI18N
         return ret;

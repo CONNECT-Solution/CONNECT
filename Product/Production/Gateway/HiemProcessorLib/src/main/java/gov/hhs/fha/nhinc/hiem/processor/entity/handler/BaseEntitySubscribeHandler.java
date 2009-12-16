@@ -47,6 +47,7 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
 import javax.xml.xpath.XPathExpressionException;
@@ -291,7 +292,8 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
             try
             {
                 gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory ncCommonObjFact = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
-                JAXBContext jc = JAXBContext.newInstance("gov.hhs.fha.nhinc.common.nhinccommon");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 log.debug("Calling marshal");
@@ -315,7 +317,8 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
             try
             {
                 org.w3._2005._08.addressing.ObjectFactory wsaObjFact = new org.w3._2005._08.addressing.ObjectFactory();
-                JAXBContext jc = JAXBContext.newInstance("org.w3._2005._08.addressing");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("org.w3._2005._08.addressing");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 log.debug("Calling marshal");
@@ -338,7 +341,8 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
         {
             try
             {
-                JAXBContext jc = JAXBContext.newInstance("javax.xml.ws.wsaddressing");
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("javax.xml.ws.wsaddressing");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
                 log.debug("Calling marshal");

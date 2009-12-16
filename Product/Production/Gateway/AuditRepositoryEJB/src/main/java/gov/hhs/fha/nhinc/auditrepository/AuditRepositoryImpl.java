@@ -38,6 +38,7 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant
 import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import javax.xml.ws.WebServiceContext;
 
 /**
@@ -149,8 +150,9 @@ public class AuditRepositoryImpl {
     private Blob getBlobFromAuditMessage(com.services.nhinc.schema.auditmessage.AuditMessageType mess) {
         Blob eventMessage = null; //Not Implemented
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance("com.services.nhinc.schema.auditmessage");
-            Marshaller marshaller = jaxbContext.createMarshaller();
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
+            Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             com.services.nhinc.schema.auditmessage.ObjectFactory factory = new com.services.nhinc.schema.auditmessage.ObjectFactory();
@@ -261,8 +263,9 @@ public class AuditRepositoryImpl {
         try {
             if (auditBlob != null && ((int) auditBlob.length()) > 0) {
                 InputStream in = auditBlob.getBinaryStream();
-                JAXBContext jaxbContext = JAXBContext.newInstance("com.services.nhinc.schema.auditmessage");
-                Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+                JAXBContextHandler oHandler = new JAXBContextHandler();
+                JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
+                Unmarshaller unmarshaller = jc.createUnmarshaller();
                 JAXBElement jaxEle = (JAXBElement) unmarshaller.unmarshal(in);
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }

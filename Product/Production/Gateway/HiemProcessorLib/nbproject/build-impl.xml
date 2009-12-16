@@ -350,6 +350,7 @@ is divided into following sections:
         <ant antfile="${project.HiemSubscriptionRepository}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="jar"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar"/>
@@ -717,6 +718,7 @@ is divided into following sections:
         <ant antfile="${project.HiemSubscriptionRepository}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="clean"/>

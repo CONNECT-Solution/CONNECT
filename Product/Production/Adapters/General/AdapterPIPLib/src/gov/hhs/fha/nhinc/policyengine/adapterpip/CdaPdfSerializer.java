@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -20,9 +21,6 @@ import org.apache.commons.logging.LogFactory;
 public class CdaPdfSerializer
 {
     private Log log = null;
-    private static JAXBContext oJaxbContext = null;
-    private static Marshaller oMarshaller = null;
-    private static Unmarshaller oUnmarshaller = null;
 
     /**
      * Default constructor.
@@ -57,17 +55,9 @@ public class CdaPdfSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContext == null)
-            {
-                oJaxbContext = JAXBContext.newInstance("org.hl7.v3");
-            }
-
-            if (oMarshaller == null)
-            {
-                oMarshaller = oJaxbContext.createMarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("org.hl7.v3");
+            Marshaller oMarshaller = oJaxbContext.createMarshaller();
 
             StringWriter swXML = new StringWriter();
 
@@ -104,17 +94,9 @@ public class CdaPdfSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContext == null)
-            {
-                oJaxbContext = JAXBContext.newInstance("org.hl7.v3");
-            }
-
-            if (oUnmarshaller == null)
-            {
-                oUnmarshaller = oJaxbContext.createUnmarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("org.hl7.v3");
+            Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
             StringReader srXML = new StringReader(sCda);
 

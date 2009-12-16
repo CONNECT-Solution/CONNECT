@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.policyengine.adapterpip;
 
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -20,9 +21,9 @@ import org.apache.commons.logging.LogFactory;
 public class XACMLSerializer
 {
     private Log log = null;
-    private static JAXBContext oJaxbContextXACML = null;
-    private static Marshaller oXACMLMarshaller = null;
-    private static Unmarshaller oXACMLUnmarshaller = null;
+//    private static JAXBContext oJaxbContextXACML = null;
+//    private static Marshaller oXACMLMarshaller = null;
+//    private static Unmarshaller oXACMLUnmarshaller = null;
 
     /**
      * Default constructor.
@@ -58,24 +59,16 @@ public class XACMLSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContextXACML == null)
-            {
-                oJaxbContextXACML = JAXBContext.newInstance("oasis.names.tc.xacml._2_0.policy.schema.os");
-            }
-
-            if (oXACMLMarshaller == null)
-            {
-                oXACMLMarshaller = oJaxbContextXACML.createMarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("oasis.names.tc.xacml._2_0.policy.schema.os");
+            Marshaller oMarshaller = oJaxbContext.createMarshaller();
 
             StringWriter swXML = new StringWriter();
 
             oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory oXACMLObjectFactory = new oasis.names.tc.xacml._2_0.policy.schema.os.ObjectFactory();
             JAXBElement oJaxbElement = oXACMLObjectFactory.createPolicy(oConsentXACML);
 
-            oXACMLMarshaller.marshal(oJaxbElement, swXML);
+            oMarshaller.marshal(oJaxbElement, swXML);
             sConsentXACML = swXML.toString();
         }
         catch (Exception e)
@@ -105,21 +98,13 @@ public class XACMLSerializer
 
         try
         {
-            // If the JAXBContext or Marshaller was not created - try to create it now.
-            //-------------------------------------------------------------------------
-            if (oJaxbContextXACML == null)
-            {
-                oJaxbContextXACML = JAXBContext.newInstance("oasis.names.tc.xacml._2_0.policy.schema.os");
-            }
-
-            if (oXACMLUnmarshaller == null)
-            {
-                oXACMLUnmarshaller = oJaxbContextXACML.createUnmarshaller();
-            }
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext oJaxbContext = oHandler.getJAXBContext("oasis.names.tc.xacml._2_0.policy.schema.os");
+            Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
             StringReader srXML = new StringReader(sConsentXACML);
 
-            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oXACMLUnmarshaller.unmarshal(srXML);
+            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oUnmarshaller.unmarshal(srXML);
             if (oJAXBElementConsentXACML.getValue() instanceof PolicyType)
             {
                 oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
