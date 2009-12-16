@@ -252,6 +252,7 @@
         <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
 
         <call target="TargetProcess.Get.Release.Report"/>
+        <call target="GlassFish.StopServer"/>
         <call target="GlassFish.StartServer"/>
         <call target="SoapUI.RunTests"/>
       </try>
