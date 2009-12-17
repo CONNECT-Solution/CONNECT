@@ -72,16 +72,20 @@ public class PatientDiscovery201305Processor {
                 }
             } else {
                 log.error("Policy Check Failed");
-                response = HL7PRPA201306Transforms.createPRPA201306(null, senderOID, null, receiverOID, null, request);
+                response = createEmpty201306 (senderOID, receiverOID, request);
             }
         } else {
             log.warn("Patient Not Found");
-            response = HL7PRPA201306Transforms.createPRPA201306(null, senderOID, null, receiverOID, null, request);
+            response = createEmpty201306 (senderOID, receiverOID, request);
         }
         return response;
     }
 
-    private void storeMapping(PRPAIN201305UV02 request) {
+    protected PRPAIN201306UV02 createEmpty201306 (String senderOID, String receiverOID, PRPAIN201305UV02 request) {
+        return HL7PRPA201306Transforms.createPRPA201306(null, senderOID, null, receiverOID, null, request);
+    }
+
+    protected void storeMapping(PRPAIN201305UV02 request) {
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
         String hcid = null;
         String assigningAuthority = null;
@@ -120,7 +124,7 @@ public class PatientDiscovery201305Processor {
         }
     }
 
-    private PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
+    protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) {
         PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
 
         if (query != null) {
