@@ -10,7 +10,7 @@
   <property name="Java.Jdk"   value="jdk1.6.0_16"/>
   <property name="Java.Home"  value="C:\Java\${Java.Jdk}" />
   <property name="Java.Exe"   value="${Java.Home}\bin\javaw.exe"/>
-  <property name="IDE.Home"   value="C:\Program Files\NetBeans 6.7.1"/>
+  <property name="IDE.Home"   value="C:\PROGRA~1\NETBEA~1.1"/>
   <property name="GlassFish.Home.Directory.Path" value="C:\Sun\AppServer"/>
 
   <property name="Corbertura.Bin" value="${Common.Directory.Packages.Path}\Corbertura\bin"/>
