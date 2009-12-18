@@ -1,5 +1,6 @@
 package gov.hhs.fha.nhinc.util.format;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,7 +15,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UTCDateUtil
 {
-    private static final String DATE_FORMAT_FULL = "yyyyMMddhhmmssZ";
+    private static final String DATE_FORMAT_UTC = "yyyyMMddHHmmss";
+    private static final String DATE_FORMAT_FULL = DATE_FORMAT_UTC + "Z";
     private static final String TIME_ZONE_UTC = "UTC";
 
     private Log log = null;
@@ -42,6 +44,17 @@ public class UTCDateUtil
     }
 
     /**
+     * Format a date using a UTC format.
+     *
+     * @param sourceDate Date to
+     * @return
+     */
+    public String formatUTCDate(Date sourceDate)
+    {
+        return formatDate(sourceDate, DATE_FORMAT_UTC);
+    }
+
+    /**
      * Parses a string and returns a Date object having the given date format.
      *
      * @param dateString String to be parsed containing a date
@@ -63,8 +76,7 @@ public class UTCDateUtil
             try
             {
                 String formatString = prepareDateFormatString(dateFormat, dateString);
-                DateFormat formatter = new SimpleDateFormat(formatString);
-                formatter.setTimeZone(timeZone);
+                DateFormat formatter = createDateFormatter(formatString, timeZone);
                 parsed = formatter.parse(dateString);
                 if(parsed != null)
                 {
@@ -77,6 +89,28 @@ public class UTCDateUtil
             }
         }
         return parsed;
+    }
+
+    /**
+     * Create a date formatter.
+     *
+     * @param formatString Date format string
+     * @param timeZone Optional time zone. Not used if null.
+     * @return Prepared date formatter
+     */
+    private DateFormat createDateFormatter(String formatString, TimeZone timeZone)
+    {
+        // Candidate to move to a super class for other format types
+        if(NullChecker.isNullish(formatString))
+        {
+            throw new IllegalArgumentException("Date format string is required to create a date formatter");
+        }
+        DateFormat formatter = new SimpleDateFormat(formatString);
+        if(timeZone != null)
+        {
+            formatter.setTimeZone(timeZone);
+        }
+        return formatter;
     }
 
     /**
@@ -101,5 +135,24 @@ public class UTCDateUtil
             }
         }
         return formatString;
+    }
+
+    private String formatDate(Date sourceDate, String formatString)
+    {
+        // Candidate to move to a super class for other format types
+        String formatted = "";
+        if (sourceDate != null)
+        {
+            try
+            {
+                DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
+                formatted = dateFormatter.format(sourceDate);
+            }
+            catch (Throwable t)
+            {
+                log.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString()) + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
+            }
+        }
+        return formatted;
     }
 }

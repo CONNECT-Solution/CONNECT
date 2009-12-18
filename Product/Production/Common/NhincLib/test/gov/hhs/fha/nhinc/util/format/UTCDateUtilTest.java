@@ -260,6 +260,82 @@ public class UTCDateUtilTest
         }
     }
 
+    @Test
+    public void testFormatUTCDateAM()
+    {
+        try
+        {
+            // Create mock objects
+            final Log mockLog = context.mock(Log.class);
+
+            // Create SUT instance
+            UTCDateUtil utcDateUtil = new UTCDateUtil()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+            };
+
+            // Set Expectations
+            context.checking(new Expectations(){{
+                allowing (mockLog).debug(with(any(String.class)));
+                allowing (mockLog).isDebugEnabled();
+            }});
+
+            // Exercise test
+            Date sourceDate = createUTCDate(1984, 3, 5, 2, 5, 59);
+            String expectedFormatStr = "19840305020559";
+            String resultFormatStr = utcDateUtil.formatUTCDate(sourceDate);
+            assertNotNull("Format string was null", resultFormatStr);
+            assertEquals("Format date not as expected", expectedFormatStr, resultFormatStr);
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace();
+            fail(t.getMessage());
+        }
+    }
+
+    @Test
+    public void testFormatUTCDatePM()
+    {
+        try
+        {
+            // Create mock objects
+            final Log mockLog = context.mock(Log.class);
+
+            // Create SUT instance
+            UTCDateUtil utcDateUtil = new UTCDateUtil()
+            {
+                @Override
+                protected Log createLogger()
+                {
+                    return mockLog;
+                }
+            };
+
+            // Set Expectations
+            context.checking(new Expectations(){{
+                allowing (mockLog).debug(with(any(String.class)));
+                allowing (mockLog).isDebugEnabled();
+            }});
+
+            // Exercise test
+            Date sourceDate = createUTCDate(1984, 3, 5, 21, 5, 59);
+            String expectedFormatStr = "19840305210559";
+            String resultFormatStr = utcDateUtil.formatUTCDate(sourceDate);
+            assertNotNull("Format string was null", resultFormatStr);
+            assertEquals("Format date not as expected", expectedFormatStr, resultFormatStr);
+        }
+        catch(Throwable t)
+        {
+            t.printStackTrace();
+            fail(t.getMessage());
+        }
+    }
+
     private Date createUTCDate(int year, int month, int day, int hour, int minute, int second)
     {
         Date createdDate = null;
