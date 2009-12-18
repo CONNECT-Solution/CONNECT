@@ -6,8 +6,8 @@
   <import file="../../../Product/Install/deploy.xml"/>
   
   <property name="IntegrationTest.Dir" value="../../../Product/IntegrationTest"/>
-  <property name="IntegrationTest.Results.Dir" value="${IntegrationTest.Dir}/results"/>
-  <property name="SoapUI.Dir" value="C:/Program Files/eviware/soapUI-Pro-3.0.1/bin"/>
+  <property name="IntegrationTest.Results.Dir" value="${IntegrationTest.Dir}/Product/IntegrationTest/results"/>
+  <property name="SoapUI.Dir" value="C:/PROGRA~1/EVIWARE/SOAPUI~1.1/bin"/>
 
   <target name="soapui.run" depends="run-tests,build-report" />
 
@@ -41,14 +41,14 @@
         <echo message="${counter}"/>
         
         <exec dir="${SoapUI.Dir}" executable="cmd.exe">
-          <arg line="/c testrunner.bat -j -a -f${IntegrationTest.Results.Dir}/test_${counter} @{file}"/>
+          <arg line='/c testrunner.bat -j -a -f"${IntegrationTest.Results.Dir}/test_${counter}" "@{file}"'/>
         </exec>
 
         <!-- 
           JUnit Report task requires that the input.xml files be unique. 
           The SoapUI executable outputs each test's report summary as report.xml need to rename each report.xml file. 
 				-->
-        <move file="${IntegrationTest.Results.Dir}/test_${counter}/report.xml" tofile="${IntegrationTest.Results.Dir}\test_${counter}\report${counter}.xml"/>
+        <move file="${IntegrationTest.Results.Dir}/test_${counter}/report.xml" tofile="${IntegrationTest.Results.Dir}/test_${counter}/report${counter}.xml"/>
         <math result="counter" operand1="${counter}" operation="+" operand2="1" datatype="int"/>
 
         <if>
