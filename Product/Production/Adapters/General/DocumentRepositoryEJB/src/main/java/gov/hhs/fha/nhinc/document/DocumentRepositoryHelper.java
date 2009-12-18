@@ -461,8 +461,17 @@ public class DocumentRepositoryHelper
                         String intendedRecipientValue = extractMetadataFromSlots(documentSlots, XDS_INTENDED_RECIPIENT_SLOT, 0);
                         if (intendedRecipientValue != null)
                         {
-                            String intendedRecipientPerson = intendedRecipientValue.substring(intendedRecipientValue.indexOf("|") + 1);
-                            String intendedRecipientOrganization = intendedRecipientValue.substring(0,intendedRecipientValue.indexOf("|"));
+                            String intendedRecipientPerson = "";
+                            String intendedRecipientOrganization = "";
+                            if(intendedRecipientValue.indexOf("|")!= -1)
+                            {
+                                intendedRecipientValue.substring(intendedRecipientValue.indexOf("|") + 1);
+                                intendedRecipientOrganization = intendedRecipientValue.substring(0,intendedRecipientValue.indexOf("|"));
+                            } 
+                            else
+                            {
+                                intendedRecipientOrganization = intendedRecipientValue;
+                            }
                             log.debug("Document intendedRecipientPerson for ExtrinsicObject " + i + ": " + intendedRecipientPerson);
                             log.debug("Document intendedRecipientOrganization for ExtrinsicObject " + i + ": " + intendedRecipientOrganization);
                             doc.setIntendedRecipientPerson(intendedRecipientPerson);
@@ -953,7 +962,14 @@ public class DocumentRepositoryHelper
                 }
                 else
                 {
-                    slotValue = slot.getValueList().getValue().get(valueIndex);
+                    if(slot.getValueList()!= null
+                            && slot.getValueList().getValue() != null
+                            && slot.getValueList().getValue().size() > 0)
+                    {
+                        slotValue = slot.getValueList().getValue().get(valueIndex);
+                    } else {
+                        slotValue = "";
+                    }
                 }
                 break; //found desired slot, have values, exit loop
             } //if (slotName.equals(slot.getName()))

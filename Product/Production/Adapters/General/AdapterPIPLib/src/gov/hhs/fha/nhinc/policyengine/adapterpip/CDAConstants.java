@@ -117,6 +117,7 @@ public class CDAConstants
     public static final String SLOT_NAME_SERVICE_STOP_TIME = "serviceStopTime";
     public static final String SLOT_NAME_URI = "URI";
     public static final String SLOT_NAME_SIZE = "size";
+    public static final String SLOT_NAME_INTENDED_RECIPIENT = "intendedRecipient";
 
 
     public static final String CHARACTER_SET = "UTF-8";
