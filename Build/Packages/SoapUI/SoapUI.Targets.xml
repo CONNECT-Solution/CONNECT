@@ -16,9 +16,7 @@
           logfile="${Ant.Log.Directory.Path}\soapui_log.xml"
         >
           <environment refid="SoapUI.EnvironmentVariables.RefId"/>
-          <args>
-            <arg value="-DIntegrationTest.Results.Dir=${SoapUI.Intermediate.Report.Directory.Path}"/>
-          </args>
+          <args/>
         </ant>
         <property name="Ant.Failure" value="False"/>
 		  </try>

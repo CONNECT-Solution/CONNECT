@@ -61,7 +61,7 @@
 		<pathelement location="${enterprise.module.install.dir}/ext/jsr88javax.jar" />
 	</path>
 
-	<taskdef name="sun-appserv-deploy" classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.DeployTask" classpath="C:/Sun/AppServer/lib/sun-appserv-ant.jar" />
+	<taskdef name="sun-appserv-deploy" classname="org.apache.tools.ant.taskdefs.optional.sun.appserv.DeployTask" classpath="C:\\glassfishesb\\glassfish/lib/sun-appserv-ant.jar" />
 
 	<taskdef name="jbi-build-service-assembly" classname="org.netbeans.modules.compapp.projects.jbi.anttasks.BuildServiceAssembly">
 		<classpath refid="ant.task.classpath" />

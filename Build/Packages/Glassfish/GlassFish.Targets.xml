@@ -6,16 +6,11 @@
   </stringadd>
 
   <stringadd refid="Personal.UpdateSource.After.Target.List">
-    <string value="GlassFish.StartServerIfWasPreviousRunning"/>
+    <string value="GlassFish.RestartServer"/>
   </stringadd>
 
-  <target name="GlassFish.StartServerIfWasPreviousRunning">
-    <call target="GlassFish.StartServer" if="${GlassFish.Status=='Started'}"/>
-  </target>
-
   <target name="GlassFish.RestartServer">
-    <call target="GlassFish.StopServer"/>
-    <call target="GlassFish.StartServer"/>
+    <call target="GlassFish.StartServer" if="${GlassFish.Status=='Started'}"/>
   </target>
 
   <target name="GlassFish.StartServer">
