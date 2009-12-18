@@ -118,10 +118,13 @@ public class PatientDiscoveryTransforms {
         String sPatientId = "";
         
         II oII = getHL7IdentifiersFromRequest(oPatientDiscoveryRequestMessage); //null values checked from the earlier call to areRequired201305fieldsNull() method
-        sPatientId = oII.getExtension();
-        sCommunityId = oII.getRoot();
+        if (oII != null)
+        {
+            sPatientId = oII.getExtension();
+            sCommunityId = oII.getRoot();
+            sPatientId = getCompositePatientId(sCommunityId, sPatientId);
+        }
 
-        sPatientId = getCompositePatientId(sCommunityId, sPatientId);
         addLogDebug("PatientId: " + sPatientId);
 
         /* Assign ParticipationObjectIdentification */
@@ -220,11 +223,13 @@ public class PatientDiscoveryTransforms {
         String sCommunityId = "";
         String sCommunityName = "";
         String sPatientId = "";
-        //get the patient id from the response
+        //get the patient id from the response if present
         II oII = getHL7IdentitiersFromResponse(oPatientDiscoveryResponseMessage);
-        sPatientId = oII.getExtension();
-        sCommunityId = oII.getRoot();
-
+        if (oII != null)
+        {
+            sPatientId = oII.getExtension();
+            sCommunityId = oII.getRoot();
+        }
         sPatientId = getCompositePatientId(sCommunityId, sPatientId);
         addLogDebug("PatientId: " + sPatientId);
 
@@ -649,13 +654,14 @@ public class PatientDiscoveryTransforms {
         }
     }
 
+    //since it is not required to have a patient id to persist an audit log record this method is not required
     protected II getHL7IdentifiersFromRequest(PRPAIN201305UV02 oPatientDiscoveryRequestMessage)
     {
         II oII = null;
 
         if (oPatientDiscoveryRequestMessage == null)
         {
-            addLogError("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
+            addLogInfo("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
             return null;
         }
 
@@ -663,7 +669,7 @@ public class PatientDiscoveryTransforms {
                     oPatientDiscoveryRequestMessage.getControlActProcess();
         if (oControlActProcess == null)
         {
-            addLogError("The ControlActProcess object was missing from the request");
+            addLogInfo("The ControlActProcess object was missing from the request");
             return null;
         }
 
@@ -671,7 +677,7 @@ public class PatientDiscoveryTransforms {
                 oControlActProcess.getQueryByParameter();
         if (oQueryByParameter == null)
         {
-            addLogError("The QueryByParameter object was missing from the request");
+            addLogInfo("The QueryByParameter object was missing from the request");
             return null;
         }
         else
@@ -725,12 +731,12 @@ public class PatientDiscoveryTransforms {
 
         // Create Active Participant Section - comes from the UserType/UserInfo object which is checked earlier
 
-        /* Assign AuditSourceIdentification */
-        II oII = getHL7IdentifiersFromRequest(oPatientDiscoveryRequestMessage);
-        if (oII == null)
-        {
-            return true; //error log messages are created from the method above so no need to duplicate here
-        }
+        // Assign AuditSourceIdentification - patient id may be blank
+//        II oII = getHL7IdentifiersFromRequest(oPatientDiscoveryRequestMessage);
+//        if (oII == null)
+//        {
+//            return true; //error log messages are created from the method above so no need to duplicate here
+//        }
 
         //AuditSourceIdentification - comes from the UserType/UserInfo object which is checked earlier
 
@@ -758,7 +764,7 @@ public class PatientDiscoveryTransforms {
         II oII = getHL7IdentitiersFromResponse(oPatientDiscoveryResponseMessage);
         if (oII == null)
         {
-            addLogError("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
+            addLogInfo("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
             return true;
         }
 
@@ -766,13 +772,13 @@ public class PatientDiscoveryTransforms {
         String sCommunityId = oII.getRoot();
         if (sPatientId == null)
         {
-            addLogError("The patient id from the II.getExtension method from the response message's II object was null.");
+            addLogInfo("The patient id from the II.getExtension method from the response message's II object was null.");
             return true;
         } //else continue
 
         if (sCommunityId == null)
         {
-            addLogError("The patient's assigning authority or community id from the response message's II object was null.");
+            addLogInfo("The patient's assigning authority or community id from the response message's II object was null.");
             return true;
         }
 
@@ -838,7 +844,7 @@ public class PatientDiscoveryTransforms {
 
         if (oPatientDiscoveryResponseMessage == null)
         {
-            addLogError("Unable to extract patient identifiers from the response message due to a null value.");
+            addLogInfo("Unable to extract patient identifiers from the response message due to a null value.");
             return null;
         } //else continue
 
@@ -846,14 +852,14 @@ public class PatientDiscoveryTransforms {
 
         if (oControlActProcess == null)
         {
-            addLogError("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
             return null;
         } //else continue
 
         JAXBElement<PRPAMT201306UV02QueryByParameter> oQueryByParameter = oControlActProcess.getQueryByParameter();
         if (oQueryByParameter == null)
         {
-            addLogError("The QueryByParameter object was missing from the response");
+            addLogInfo("The QueryByParameter object was missing from the response");
             return null;
         }
 //        else
@@ -865,7 +871,7 @@ public class PatientDiscoveryTransforms {
 
         if ((oSubject1 == null) || (oSubject1.size() < 1))
         {
-            addLogError("Unable to extract patient identifiers from the response message's Subject1 object due to a null or empty value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's Subject1 object due to a null or empty value.");
             return null;
         } //else continue
 
@@ -873,7 +879,7 @@ public class PatientDiscoveryTransforms {
 
         if (oRegistrationEvent == null)
         {
-            addLogError("Unable to extract patient identifiers from the response message's RegistrationEvent object due to a null value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's RegistrationEvent object due to a null value.");
             return null;
         } //else continue
 
@@ -881,7 +887,7 @@ public class PatientDiscoveryTransforms {
 
         if (oSubject2 == null)
         {
-            addLogError("Unable to extract patient identifiers from the response message's Subject2 object due to a null value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's Subject2 object due to a null value.");
             return null;
         } //else continue
 
@@ -889,7 +895,7 @@ public class PatientDiscoveryTransforms {
 
         if (oPatient == null)
         {
-            addLogError("Unable to extract patient identifiers from the response message's Patient object due to a null value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's Patient object due to a null value.");
             return null;
         } //else continue
 
@@ -897,7 +903,7 @@ public class PatientDiscoveryTransforms {
 
         if ((olII == null) || (olII.isEmpty()) || (olII.size() < 1))
         {
-            addLogError("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
+            addLogInfo("Unable to extract patient identifiers from the response message's II List object due to a null or empty value.");
             return null;
         } //else continue
 
@@ -914,19 +920,19 @@ public class PatientDiscoveryTransforms {
 
         if (oQueryByParameter == null)
         {
-            addLogError("The QueryByParameter object was null");
+            addLogInfo("The QueryByParameter object was null");
             return null;
         }
 
         if (oQueryByParameter.getValue() == null)
         {
-            addLogError("The QueryByParameter value object was null");
+            addLogInfo("The QueryByParameter value object was null");
             return null;
         }
 
         if (oQueryByParameter.getValue().getParameterList() == null)
         {
-            addLogError("The ParameterList object was null");
+            addLogInfo("The ParameterList object was null");
             return null;
         }
 
@@ -935,38 +941,38 @@ public class PatientDiscoveryTransforms {
 
         if (oParamList.getLivingSubjectId() == null)
         {
-            addLogError("The LivingSubjectId list object was null");
+            addLogInfo("The LivingSubjectId list object was null");
             return null;
         }
 
         List<PRPAMT201306UV02LivingSubjectId> oLivingSubjectId = oParamList.getLivingSubjectId();
         if (NullChecker.isNullish(oLivingSubjectId))
         {
-            addLogError("The LivingSubjectId object was null");
+            addLogInfo("The LivingSubjectId object was null");
             return null;
         }
 
         if (oLivingSubjectId.get(0) == null)
         {
-            addLogError("oLivingSubjectId.get(0) == null");
+            addLogInfo("oLivingSubjectId.get(0) == null");
             return null;
         }
 
         if (oLivingSubjectId.get(0).getValue() == null)
         {
-            addLogError("oLivingSubjectId.get(0).getValue() == null");
+            addLogInfo("oLivingSubjectId.get(0).getValue() == null");
             return null;
         }
 
         if (oLivingSubjectId.get(0).getValue().isEmpty())
         {
-            addLogError("oLivingSubjectId.get(0).getValue().isEmpty()");
+            addLogInfo("oLivingSubjectId.get(0).getValue().isEmpty()");
             return null;
         }
 
         if (oLivingSubjectId.get(0).getValue().get(0) == null)
         {
-            addLogError("oLivingSubjectId.get(0).getValue().get(0) == null");
+            addLogInfo("oLivingSubjectId.get(0).getValue().get(0) == null");
             return null;
         }
 

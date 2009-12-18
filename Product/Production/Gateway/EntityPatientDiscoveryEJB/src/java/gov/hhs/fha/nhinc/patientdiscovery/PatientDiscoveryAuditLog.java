@@ -35,45 +35,92 @@ public class PatientDiscoveryAuditLog {
     }
 
     public AcknowledgementType auditProxyRequest(ProxyPRPAIN201305UVProxySecuredRequestType request, AssertionType assertion) {
-        PatientDiscoveryTransforms oPatientDiscoveryTransforms = new PatientDiscoveryTransforms();
-        LogEventRequestType message = oPatientDiscoveryTransforms.transformNhinPRPAIN201305RequestToAuditMsg(request.getPRPAIN201305UV02(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        AcknowledgementType ack = logPatientDiscoveryRequest(message, assertion);//logPatientDiscoveryRequest(message, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
+         AcknowledgementType ack = new AcknowledgementType();
+        if (request == null)
+        {
+            addLogError("Unable to create an audit log record for the proxy. The incomming request was null.");
+        }
+        else if (assertion == null)
+        {
+            addLogError("Unable to create an audit log record for the proxy. The incomming request assertion was null.");
+        }
+        else
+        {
+//            PatientDiscoveryTransforms oPatientDiscoveryTransforms = new PatientDiscoveryTransforms();
+            LogEventRequestType message = getLogEventRequestTypeForProxyRequestMessage( request,assertion);
+            ack = logPatientDiscoveryRequest(message, assertion);
+        }
         return ack;
     }
 
-    public AcknowledgementType auditProxyResponse(PRPAIN201306UV02 request, AssertionType assertion) {
-        LogEventRequestType message = new PatientDiscoveryTransforms().transformNhinPRPAIN201306ResponseToAuditMsg(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        AcknowledgementType ack = logPatientDiscoveryResponse(message, assertion);//logPatientDiscoveryResponse(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-
+    public AcknowledgementType auditProxyResponse(PRPAIN201306UV02 response, AssertionType assertion) {
+        AcknowledgementType ack = new AcknowledgementType();
+        if (response == null)
+        {
+            addLogError("Unable to create an audit log record for the proxy. The incomming response was null.");
+        }
+        else if (assertion == null)
+        {
+            addLogError("Unable to create an audit log record for the proxy. The incomming response assertion was null.");
+        }
+        else
+        {
+            LogEventRequestType message = getLogEventRequestTypeForProxyResponseMessage(response, assertion);
+            ack = logPatientDiscoveryResponse(message, assertion);
+        }
         return ack;
     }
 
     public AcknowledgementType auditEntityRequest(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        LogEventRequestType message = new PatientDiscoveryTransforms().transformEntityPRPAIN201305RequestToAuditMsg(request, request.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-        AcknowledgementType ack = logPatientDiscoveryRequest(message, request.getAssertion());//, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        AcknowledgementType ack = new AcknowledgementType();
+        if (request == null)
+        {
+            addLogError("Unable to create an audit log record for the entity. The incomming request was null.");
+        }
+        else
+        {
+            LogEventRequestType message = getLogEventRequestTypeForEntityRequestMessage(request);
+            ack = logPatientDiscoveryRequest(message, request.getAssertion());
+        }
 
         return ack;
     }
 
     public AcknowledgementType auditEntityResponse(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
-        LogEventRequestType message = new PatientDiscoveryTransforms().transformEntityPRPAIN201306ResponseToAuditMsg(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        AcknowledgementType ack = logPatientDiscoveryResponse(message, assertion);
-
+        AcknowledgementType ack = new AcknowledgementType();
+        if (response == null)
+        {
+            addLogError("Unable to create an audit log record for the entity. The incomming response was null.");
+        }
+        else if (assertion == null)
+        {
+            addLogError("Unable to create an audit log record for the entity. The incomming response assertion was null.");
+        }
+        else
+        {
+            LogEventRequestType message = getLogEventRequestTypeForEntityResponseMessage(response, assertion);
+            ack = logPatientDiscoveryResponse(message, assertion);
+        }
+        
         return ack;
     }
     
     public AcknowledgementType logPatientDiscoveryRequest (LogEventRequestType auditLogRequest, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
 
-        if (auditLogRequest != null) {
-            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            ack = proxy.auditLog(auditLogRequest, assertion);
+        if (auditLogRequest == null)
+        {
+            addLogError("There was a problem creating an audit log for the request (LogEventRequestType parameter was null). The audit record was not created.");
+        }
+        else if(assertion == null)
+        {
+            addLogError("There was a problem creating an audit log for the request (AssertionType parameter was null). The audit record was not created.");
         }
         else
         {
-            addLogError("There was a problem creating and audit log for the request. The audit record was not created.");
+            AuditRepositoryProxyObjectFactory auditRepoFactory = getAuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = getAuditRepositoryProxy(auditRepoFactory);
+            ack = getAuditLogProxyResponse(proxy, auditLogRequest, assertion);
         }
 
         return ack;
@@ -81,14 +128,20 @@ public class PatientDiscoveryAuditLog {
     public AcknowledgementType logPatientDiscoveryResponse (LogEventRequestType auditLogRequest, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
 
-        if (auditLogRequest != null) {
-            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            ack = proxy.auditLog(auditLogRequest, assertion);
+        if (auditLogRequest == null)
+        {
+            addLogError("There was a problem creating an audit log for the response (LogEventRequestType parameter was null). The audit record was not created.");
+        }
+        else if (assertion == null)
+        {
+            addLogError("There was a problem creating an audit log for the response (AssertionType parameter was null). The audit record was not created.");
         }
         else
         {
-            addLogError("There was a problem creating and audit log for the response. The audit record was not created.");
+            AuditRepositoryProxyObjectFactory auditRepoFactory = getAuditRepositoryProxyObjectFactory();
+            AuditRepositoryProxy proxy = getAuditRepositoryProxy(auditRepoFactory);
+            addLogDebug("Calling the audit log proxy to create the audit log.");
+            ack = getAuditLogProxyResponse(proxy, auditLogRequest, assertion);
         }
 
         return ack;
@@ -101,6 +154,44 @@ public class PatientDiscoveryAuditLog {
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected AcknowledgementType getAuditLogProxyResponse(AuditRepositoryProxy proxy, LogEventRequestType auditLogRequest, AssertionType assertion) {
+        AcknowledgementType ack;
+        ack = proxy.auditLog(auditLogRequest, assertion);
+        return ack;
+    }
+
+    protected AuditRepositoryProxy getAuditRepositoryProxy(AuditRepositoryProxyObjectFactory auditRepoFactory) {
+        AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+        return proxy;
+    }
+
+    protected AuditRepositoryProxyObjectFactory getAuditRepositoryProxyObjectFactory() {
+        AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+        return auditRepoFactory;
+    }
+
+    protected LogEventRequestType getLogEventRequestTypeForEntityRequestMessage(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        LogEventRequestType message = new PatientDiscoveryTransforms().transformEntityPRPAIN201305RequestToAuditMsg(request, request.getAssertion(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        return message;
+    }
+
+    protected LogEventRequestType getLogEventRequestTypeForEntityResponseMessage(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
+//        LogEventRequestType message = new PatientDiscoveryTransforms().transformEntityPRPAIN201306ResponseToAuditMsg(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        LogEventRequestType message = new PatientDiscoveryTransforms().transformEntityPRPAIN201306ResponseToAuditMsg(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        return message;
+    }
+
+    protected LogEventRequestType getLogEventRequestTypeForProxyRequestMessage(ProxyPRPAIN201305UVProxySecuredRequestType request, AssertionType assertion) {
+//            PatientDiscoveryTransforms oPatientDiscoveryTransforms = new PatientDiscoveryTransforms();
+        LogEventRequestType message = new PatientDiscoveryTransforms().transformNhinPRPAIN201305RequestToAuditMsg(request.getPRPAIN201305UV02(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        return message;
+    }
+
+    protected LogEventRequestType getLogEventRequestTypeForProxyResponseMessage(PRPAIN201306UV02 response, AssertionType assertion) {
+        LogEventRequestType message = new PatientDiscoveryTransforms().transformNhinPRPAIN201306ResponseToAuditMsg(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        return message;
     }
 
     private void addLogInfo(String message){

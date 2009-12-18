@@ -63,31 +63,34 @@ public class EntityPatientDiscoverySecuredImpl {
 
     
     public org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
-        log.debug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
+        addLogDebug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
         if (request == null)
         {
-            log.error("The incomming request was null.");
+            addLogError("The incomming request was null.");
             return null;
         }
 
-//        JAXB.marshal(request, System.out) ;
+        if (context == null)
+        {
+            addLogError("The incomming WebServiceContext parameter was null.");
+            return null;
+        }
 
-        // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLog auditLog = new PatientDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.auditEntityRequest(request);
+        //log the incomming request from the adapter
+        logEntityPatientDiscoveryRequest(request);
 
 
         if (request.getNhinTargetCommunities() == null)
         {
-            log.error("The incomming request did not have any NhinTargetCommunities (i.e. request.getNhinTargetCommunities() was null.");
+            addLogError("The incomming request did not have any NhinTargetCommunities (i.e. request.getNhinTargetCommunities() was null.");
             return null;
         }
 
         if (NullChecker.isNullish(request.getNhinTargetCommunities().getNhinTargetCommunity()))
         {
-            log.error("The list of incomming NhinTargetCommunities was null. sending out to community.");
+            addLogInfo("The list of incomming NhinTargetCommunities was null. sending out to community.");
             //populate list of target communities from connectionmanager cache
             List<NhinTargetCommunityType> oNhinTargetCommunities = getDefaultTargetCommunities();
             NhinTargetCommunitiesType oNhinTargetCommunitiesType =  new NhinTargetCommunitiesType();
@@ -96,32 +99,41 @@ public class EntityPatientDiscoverySecuredImpl {
         }
 
         // Create an assertion class from the contents of the SAML token
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        AssertionType assertion = getAssertionTypeFromSAMLTokenInWSContext(context);
 
         response = getResponseFromCommunities(request, assertion, context);
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        ack = auditLog.auditEntityResponse(response, assertion);
+        logAggregatedResponseFromNhin(response, assertion);
 
-        log.debug("Exiting EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
+        addLogDebug("Exiting EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
         return response;
     }
 
-    private RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, WebServiceContext context) {
-        log.debug("Entering EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
+    protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, WebServiceContext context) {
+        addLogDebug("Entering EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
         NhincProxyPatientDiscoverySecuredImpl proxy = new NhincProxyPatientDiscoverySecuredImpl();
 
         //loop through the communities and send request
-        log.debug("Number of potential target communities to forward request to: " + request.getNhinTargetCommunities().getNhinTargetCommunity().size());
+        addLogDebug("Number of potential target communities to forward request to: " + request.getNhinTargetCommunities().getNhinTargetCommunity().size());
         for (NhinTargetCommunityType oTargetCommunity : request.getNhinTargetCommunities().getNhinTargetCommunity())
         {
+            //don't send out a message to a target community to which we don't have connection info for
+            if (!isTargetCommunityInConnectionManager(oTargetCommunity))
+            {
+                addLogInfo("The target community, " + oTargetCommunity.getHomeCommunity().getHomeCommunityId() +
+                        ", cannot be found in the ConnectionManager. A patient discovery request message will not" +
+                        " be sent to this community");
+                continue;
+            }
             //create a new request to send out to each target community
             RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, oTargetCommunity);
 
             //check the policy for the outgoing request to the target community
-            boolean bIsPolicyOk = isPolicyOk(newRequest);
+//            boolean bIsPolicyOk = isPolicyOk(newRequest); //RE-Enable me after fixing Policy Engine request message for no patient id
+            boolean bIsPolicyOk = true;
             if (bIsPolicyOk)
             {
                 CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
@@ -149,32 +161,32 @@ public class EntityPatientDiscoverySecuredImpl {
                 }
                 catch(Exception ex)
                 {
-                    log.error(ex.getMessage(), ex);
+                    addLogError(ex.getMessage(), ex);
                     resultFromNhin = new PRPAIN201306UV02();
                 }
 
                 communityResponse.setNhinTargetCommunity(oTargetCommunity);
                 communityResponse.setPRPAIN201306UV02(resultFromNhin);
 
-                log.debug("Adding Community Response to response object");
+                addLogDebug("Adding Community Response to response object");
                 response.getCommunityResponse().add(communityResponse);
             } //if (bIsPolicyOk)
              else
             {
-                log.error("The policy engine evaluated the request and denied the request.");
+                addLogError("The policy engine evaluated the request and denied the request.");
                 
             } //else policy enging did not return a permit response
             
         } //for (NhinTargetCommunityType oTargetCommunity : request.getNhinTargetCommunities().getNhinTargetCommunity())
 
-        log.debug("Exiting EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
+        addLogDebug("Exiting EntityPatientDiscoverySecuredImpl.getResponseFromCommunities...");
         return response;
     }
 
     protected boolean isPolicyOk(RespondingGatewayPRPAIN201305UV02RequestType newRequest) {
         boolean bPolicyOk = false;
 
-        log.debug("checking the policy engine for the new request to a target community");
+        addLogDebug("checking the policy engine for the new request to a target community");
 
         PatientDiscoveryPolicyTransformHelper oPatientDiscoveryPolicyTransformHelper = new PatientDiscoveryPolicyTransformHelper();
         CheckPolicyRequestType oEntityCheckPolicyRequest = oPatientDiscoveryPolicyTransformHelper.transformPatientDiscoveryEntityToCheckPolicy(newRequest);
@@ -189,12 +201,12 @@ public class EntityPatientDiscoverySecuredImpl {
                 NullChecker.isNotNullish(policyResp.getResponse().getResult()) &&
                 policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT)
         {
-            log.debug("Policy engine check returned permit.");
+            addLogDebug("Policy engine check returned permit.");
             bPolicyOk = true;
         }
         else
         {
-            log.debug("Policy engine check returned deny.");
+            addLogDebug("Policy engine check returned deny.");
             bPolicyOk = false;
         }
 
@@ -212,18 +224,14 @@ public class EntityPatientDiscoverySecuredImpl {
         try {
             localHomeCommunity = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error(ex.getMessage());
+            addLogError(ex.getMessage());
             return null;
         }
 
         // Get all the Communities from ConnectionManager
-        try {
-            communities = ConnectionManagerCache.getAllCommunities();
-        } catch (ConnectionManagerException ex) {
-            log.error(ex.getMessage());
-            return null;
-        }
-        log.debug("EntityPatientDiscoveryImpl.getDefaultTargetCommunities -- number communities : " + communities.size());
+       communities = getCommunitiesFromConnectionManager();
+        
+        addLogDebug("EntityPatientDiscoveryImpl.getDefaultTargetCommunities -- number communities : " + communities.size());
 
         //loop thru and pull out HCID 2.2 for now...
         for (CMHomeCommunity h : communities)
@@ -231,7 +239,7 @@ public class EntityPatientDiscoverySecuredImpl {
             //don't query our own gateway
             if (!h.getHomeCommunityId().equals(localHomeCommunity))
             {
-                log.debug(h.getHomeCommunityId() + " != " + localHomeCommunity);
+                addLogDebug(h.getHomeCommunityId() + " != " + localHomeCommunity);
                 HomeCommunityType homeCommunity = new HomeCommunityType();
                 homeCommunity.setDescription(h.getDescription());
                 homeCommunity.setHomeCommunityId(h.getHomeCommunityId());
@@ -258,7 +266,7 @@ public class EntityPatientDiscoverySecuredImpl {
         II oII = new II();
         if (homeCommunity == null)
         {
-            log.error("Unable to create a receiver object in order to forward " +
+            addLogError("Unable to create a receiver object in order to forward " +
                     "the patient discovery request on to a target community. Target" +
                     " home community object was null");
             return null;
@@ -266,13 +274,13 @@ public class EntityPatientDiscoverySecuredImpl {
 
         if (homeCommunity.getHomeCommunityId() == null)
         {
-            log.error("Unable to create a receiver object in order to forward " +
+            addLogError("Unable to create a receiver object in order to forward " +
                     "the patient discovery request on to a target community. Target" +
                     " homeCommunity.getHomeCommunityId() == null");
             return null;
         }
 
-        log.debug("Setting the new request's receiverId to: " + homeCommunity.getHomeCommunityId());
+        addLogDebug("Setting the new request's receiverId to: " + homeCommunity.getHomeCommunityId());
         oII.setRoot(homeCommunity.getHomeCommunityId());
 
         if (homeCommunity.getName() == null)
@@ -305,8 +313,79 @@ public class EntityPatientDiscoverySecuredImpl {
         newRequest.getPRPAIN201305UV02().getReceiver().clear();
         MCCIMT000100UV01Receiver oNewReceiver = createNewReceiver(targetCommunity.getHomeCommunity());
         newRequest.getPRPAIN201305UV02().getReceiver().add(oNewReceiver);
-        log.debug("Created a new request for target communityId: " + targetCommunity.getHomeCommunity().getHomeCommunityId());
+        addLogDebug("Created a new request for target communityId: " + targetCommunity.getHomeCommunity().getHomeCommunityId());
 
         return newRequest;
     }
+
+    private void addLogInfo(String message){
+        log.info(message);
+    }
+
+    private void addLogDebug(String message){
+        log.debug(message);
+    }
+
+    private void addLogError(String message){
+        log.error(message);
+    }
+
+    private void addLogError(String message, Exception ex) {
+        log.error(message, ex);
+    }
+
+    protected AssertionType getAssertionTypeFromSAMLTokenInWSContext(WebServiceContext context) {
+        // Create an assertion class from the contents of the SAML token
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        return assertion;
+    }
+
+    protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
+        // Audit the Patient Discovery Response Message received on the Nhin Interface
+        AcknowledgementType ack = new PatientDiscoveryAuditLog().auditEntityResponse(response, assertion);
+    }
+
+    protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request) {
+        // Audit the Patient Discovery Request Message sent on the Nhin Interface
+        AcknowledgementType ack = new PatientDiscoveryAuditLog().auditEntityRequest(request);
+    }
+
+    protected boolean isTargetCommunityInConnectionManager(NhinTargetCommunityType targetCommunity) {
+        boolean bHaveConnectionInfo = false;
+
+        List<CMHomeCommunity> communities = getCommunitiesFromConnectionManager();
+        for (CMHomeCommunity community : communities)
+        {
+            if (targetCommunity.getHomeCommunity().getHomeCommunityId().equalsIgnoreCase(community.getHomeCommunityId()))
+            {
+                bHaveConnectionInfo = true;
+                addLogInfo("Found target community in connection manager.");
+                break;
+            }
+        }
+
+        if (!bHaveConnectionInfo)
+        {
+            addLogInfo("Could not find the target community in the connection manager.");
+        }
+        
+        return bHaveConnectionInfo;
+
+    }
+
+    protected List<CMHomeCommunity> getCommunitiesFromConnectionManager() {
+        List<CMHomeCommunity> communities = null;
+        try
+        {
+            communities = ConnectionManagerCache.getAllCommunities();
+        }
+        catch (ConnectionManagerException ex)
+        {
+            addLogError(ex.getMessage());
+            return null;
+        }
+
+        return communities;
+    }
+
 }

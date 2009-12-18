@@ -19,7 +19,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-//import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBElement;
 import junit.framework.Assert;
 import org.apache.commons.logging.Log;
@@ -177,7 +176,6 @@ public class PatientDiscoveryTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockLogger).error("The Patient Discovery request did not have a PRPAIN201305UV object or an AssertionType object.");
-//                oneOf(mockLogger).error("There was a problem translating the request into an audit log request object.");
                 will(returnValue(null));
             }
         });
@@ -203,7 +201,6 @@ public class PatientDiscoveryTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 oneOf(mockLogger).error("The AssertionType object was null.");
-//                oneOf(mockLogger).error("There was a problem translating the request into an audit log request object.");
                 will(returnValue(null));
             }
         });
@@ -266,47 +263,6 @@ public class PatientDiscoveryTransformsTest {
         AssertionType oAssertion = new AssertionType();
 
         testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-
-        context.assertIsSatisfied();
-    }
-
-    /**
-     * This method tests the transformPRPAIN201305RequestToAuditMsg private method
-     * using the transformEntityPRPAIN201305RequestToAuditMsg method as an entry point.
-     */
-    @Test
-    public void testTransformPRPAIN201305RequestToAuditMsgWillFailForLackOfRequiredPatientIdFields() {
-        final Log mockLogger = context.mock(Log.class);
-        PatientDiscoveryTransforms testSubject = getNewPatientDiscoveryTransformsObject(mockLogger);
-
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-
-                //TODO create additional expectations centered around why we are getting a null return value
-                one(mockLogger).error("The request parameter object for the getHL7IdentifiersFromRequest() method is null.");
-                one(mockLogger).error("One or more of the required fields needed to transform to an audit message request were null.");
-                one(mockLogger).error("There was a problem translating the request into an audit log request object.");
-                will(returnValue(null));
-            }
-        });
-
-        RespondingGatewayPRPAIN201305UV02RequestType oPatientDiscoveryRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
-        AssertionType oAssertion = new AssertionType();
-        UserType oUserInfo = new UserType();
-        String sUserName = "Test Name";
-        String sHomeCommunityId = "Test Home Community Id";
-        String sHomeCommunityName = "Test Home Community Name";
-        oUserInfo.setUserName(sUserName);
-        HomeCommunityType oHomeCommunityType = new HomeCommunityType();
-        oHomeCommunityType.setHomeCommunityId(sHomeCommunityId);
-        oHomeCommunityType.setName(sHomeCommunityName);
-        oUserInfo.setOrg(oHomeCommunityType);
-        oAssertion.setUserInfo(oUserInfo);
-
-        testSubject.transformEntityPRPAIN201305RequestToAuditMsg(oPatientDiscoveryRequest, oAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
         context.assertIsSatisfied();
     }
@@ -511,7 +467,6 @@ public class PatientDiscoveryTransformsTest {
                 allowing(mockLogger).info(with(any(String.class)));
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error("The Patient Discovery response message was null.");
-                //will(returnValue(with(any(LogEventRequestType.class))));
             }
         });
 
@@ -652,10 +607,6 @@ public class PatientDiscoveryTransformsTest {
         Assert.assertTrue(expectedResult.getAuditMessage().getParticipantObjectIdentification().size() == 1);
         Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification());
         Assert.assertNotNull(expectedResult.getAuditMessage().getEventIdentification().getEventID());
-//        Assert.assertTrue(expectedResult.getAuditMessage().getEventIdentification().getEventID().getCode().equalsIgnoreCase(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_PRQ));
-//        Assert.assertTrue(expectedResult.getAuditMessage().getEventIdentification().getEventID().getCodeSystem().equalsIgnoreCase(AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_PDREQ));
-        /*AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_PRQ,
-                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_PDREQ*/
 
     }
 
@@ -760,8 +711,8 @@ public class PatientDiscoveryTransformsTest {
 
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
-                one(mockLogger).error("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
+                one(mockLogger).info("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+                one(mockLogger).info("The response message's II object required for translating to the audit request messasge's AuditSourceIdentification object was null.");
             }
         });
 
@@ -805,7 +756,7 @@ public class PatientDiscoveryTransformsTest {
 
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The patient id from the II.getExtension method from the response message's II object was null.");
+                one(mockLogger).info("The patient id from the II.getExtension method from the response message's II object was null.");
             }
         });
 
@@ -849,7 +800,7 @@ public class PatientDiscoveryTransformsTest {
 
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The patient's assigning authority or community id from the response message's II object was null.");
+                one(mockLogger).info("The patient's assigning authority or community id from the response message's II object was null.");
             }
         });
 
@@ -969,7 +920,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message due to a null value.");
+                one(mockLogger).info("Unable to extract patient identifiers from the response message due to a null value.");
             }
         };
         context.checking(oExpectation);
@@ -997,7 +948,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
+                one(mockLogger).info("Unable to extract patient identifiers from the response message's ControlActProcess object due to a null value.");
             }
         };
         context.checking(oExpectation);
@@ -1026,7 +977,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The QueryByParameter object was missing from the response");
+                one(mockLogger).info("The QueryByParameter object was missing from the response");
             }
         };
         context.checking(oExpectation);
@@ -1058,7 +1009,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The QueryByParameter object was null");
+                one(mockLogger).info("The QueryByParameter object was null");
             }
         };
         context.checking(oExpectation);
@@ -1093,7 +1044,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The QueryByParameter value object was null");
+                one(mockLogger).info("The QueryByParameter value object was null");
             }
         };
         context.checking(oExpectation);
@@ -1128,7 +1079,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The ParameterList object was null");
+                one(mockLogger).info("The ParameterList object was null");
             }
         };
         context.checking(oExpectation);
@@ -1164,8 +1115,7 @@ public class PatientDiscoveryTransformsTest {
         Expectations oExpectation = new Expectations() {
             {
                 allowing(mockLogger).debug(with(any(String.class)));
-//                one(mockLogger).error("Unable to extract the HL7 Identifiers (II) object containing the patient id and community id needed for the audit request message");
-                one(mockLogger).error("oLivingSubjectId.get(0) == null");
+                one(mockLogger).info("oLivingSubjectId.get(0) == null");
             }
         };
         context.checking(oExpectation);
