@@ -52,11 +52,12 @@
         <math result="counter" operand1="${counter}" operation="+" operand2="1" datatype="int"/>
 
         <if>
-          <equals arg1="${counter}" arg2="6" />
+          <equals arg1="${counter}" arg2="7" />
           <then>
             <echo message="${counter}" />
             <runtarget target="deploy.glassfish.stop.server"/>
             <runtarget target="deploy.glassfish.start.server"/>
+            <sleep minutes="5"/>
           </then>
           <else>
             <echo message="${counter}" />
