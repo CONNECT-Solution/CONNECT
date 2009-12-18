@@ -57,6 +57,7 @@ public class AuditRepositorySecuredWebServiceProxy implements AuditRepositoryPro
     }
 
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
+        log.debug("Entering AuditRepositorySecuredWebServiceProxy.auditLog(...)");
         String url = null;
         AcknowledgementType result = new AcknowledgementType();
         LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
@@ -72,6 +73,8 @@ public class AuditRepositorySecuredWebServiceProxy implements AuditRepositoryPro
             log.error(ex.getMessage());
         }
 
+        log.debug("In AuditRepositorySecuredWebServiceProxy.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
+
         if (NullChecker.isNotNullish(url)) {
             AuditRepositoryManagerSecuredPortType port = getPort(url);
 
@@ -80,8 +83,11 @@ public class AuditRepositorySecuredWebServiceProxy implements AuditRepositoryPro
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
+            log.debug("In AuditRepositorySecuredWebServiceProxy.auditLog(...) - calling AuditRepositoryManagerSecuredPortType.logEvent(...).");
             result = port.logEvent(secureRequest);
+            log.debug("In AuditRepositorySecuredWebServiceProxy.auditLog(...) - returned from calling AuditRepositoryManagerSecuredPortType.logEvent(...).");
         }
+        log.debug("Exiting AuditRepositorySecuredWebServiceProxy.auditLog(...)");
 
         return result;
     }

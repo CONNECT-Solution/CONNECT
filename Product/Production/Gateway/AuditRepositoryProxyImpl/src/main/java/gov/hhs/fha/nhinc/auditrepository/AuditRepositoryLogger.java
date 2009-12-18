@@ -83,6 +83,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubjectAdded(SubjectAddedMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logSubjectAdded(...)");
         LogEventRequestType auditMsg = null;
 
 
@@ -94,6 +95,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013012AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logSubjectAdded(...)");
 
         return auditMsg;
     }
@@ -107,6 +109,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
 
 
@@ -115,6 +118,7 @@ public class AuditRepositoryLogger {
             auditMsg = auditTransformer.transformNhinPRPAIN201305RequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
+        log.debug("Exiting AuditRepositoryLogger.logNhinPatientDiscReq(...)");
         return auditMsg;
     }
 
@@ -127,6 +131,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -134,6 +139,7 @@ public class AuditRepositoryLogger {
             auditMsg = auditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
+        log.debug("Exiting AuditRepositoryLogger.logNhinPatientDiscResp(...)");
         return auditMsg;
     }
 
@@ -146,6 +152,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdapterPatientDiscReq(PRPAIN201305UV02 message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logAdapterPatientDiscReq(...)");
         LogEventRequestType auditMsg = null;
 
 
@@ -154,6 +161,7 @@ public class AuditRepositoryLogger {
             auditMsg = auditTransformer.transformAdapterPRPAIN201305RequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         }
 
+        log.debug("Exiting AuditRepositoryLogger.logAdapterPatientDiscReq(...)");
         return auditMsg;
     }
 
@@ -166,12 +174,14 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdapterPatientDiscResp(PRPAIN201306UV02 message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logAdapterPatientDiscResp(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
             PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
             auditMsg = auditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         }
+        log.debug("Exiting AuditRepositoryLogger.logAdapterPatientDiscResp(...)");
 
         return auditMsg;
     }
@@ -185,6 +195,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQuery(AdhocQueryMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logAdhocQuery(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -195,6 +206,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = new DocumentQueryTransforms().transformDocQueryReq2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logAdhocQuery(...)");
 
         return auditMsg;
     }
@@ -208,6 +220,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubjectRevised(SubjectRevisedMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logSubjectRevised(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -218,6 +231,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013022AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logSubjectRevised(...)");
 
         return auditMsg;
     }
@@ -231,6 +245,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinSubjectDiscoveryAck(NhinSubjectDiscoveryAckMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logNhinSubjectDiscoveryAck(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -240,6 +255,7 @@ public class AuditRepositoryLogger {
             logReqMsg.setMessage(message);
             auditMsg = SubjectDiscoveryTransforms.transformAck2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logNhinSubjectDiscoveryAck(...)");
 
         return auditMsg;
     }
@@ -253,6 +269,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logAdhocQueryResult(AdhocQueryResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logAdhocQueryResult(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -263,6 +280,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = new DocumentQueryTransforms().transformDocQueryResp2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logAdhocQueryResult(...)");
 
         return auditMsg;
     }
@@ -276,6 +294,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logDocRetrieve(DocRetrieveMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logDocRetrieve(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -286,6 +305,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = DocumentRetrieveTransforms.transformDocRetrieveReq2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logDocRetrieve(...)");
 
         return auditMsg;
     }
@@ -299,6 +319,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logDocRetrieveResult(DocRetrieveResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logDocRetrieveResult(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -309,6 +330,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = DocumentRetrieveTransforms.transformDocRetrieveResp2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logDocRetrieveResult(...)");
 
         return auditMsg;
     }
@@ -322,6 +344,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEvents(FindAuditEventsMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logFindAuditEvents(...)");
         LogEventRequestType auditMsg = null;
 
 
@@ -333,6 +356,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = FindAuditEventsTransforms.transformFindAuditEventsReq2AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logFindAuditEvents(...)");
 
         return auditMsg;
     }
@@ -346,6 +370,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logFindAuditEventsResult(FindAuditEventsResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logFindAuditEventsResult(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -356,6 +381,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logFindAuditEventsResult method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logFindAuditEventsResult(...)");
 
         return auditMsg;
     }
@@ -369,6 +395,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubjectReident(SubjectReidentificationRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logSubjectReident(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -379,6 +406,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013092AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logSubjectReident(...)");
 
         return auditMsg;
     }
@@ -392,6 +420,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubjectReidentResult(SubjectReidentificationResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logSubjectReidentResult(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -402,6 +431,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = SubjectDiscoveryTransforms.transformPRPA2013102AuditMsg(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logSubjectReidentResult(...)");
 
         return auditMsg;
     }
@@ -415,6 +445,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinSubscribeRequest(SubscribeRequestType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logNhinSubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -426,6 +457,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = transformLib.transformNhinSubscribeRequestToAuditMessage(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logNhinSubscribeRequest(...)");
 
         return auditMsg;
     }
@@ -439,6 +471,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinNotifyRequest(NotifyRequestType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logNhinNotifyRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -450,6 +483,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = transformLib.transformNhinNotifyRequestToAuditMessage(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logNhinNotifyRequest(...)");
 
         return auditMsg;
     }
@@ -463,6 +497,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logNhinUnsubscribeRequest(UnsubscribeRequestType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logNhinUnsubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -474,6 +509,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = transformLib.transformNhinUnsubscribeRequestToAuditMessage(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logNhinUnsubscribeRequest(...)");
 
         return auditMsg;
     }
@@ -487,6 +523,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logUnsubscribeResponse(UnsubscribeResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logUnsubscribeResponse(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -499,6 +536,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = transformLib.transformUnsubscribeResponseToGenericAudit(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logUnsubscribeResponse(...)");
 
         return auditMsg;
     }
@@ -512,6 +550,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logSubscribeResponse(SubscribeResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logSubscribeResponse(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -524,6 +563,7 @@ public class AuditRepositoryLogger {
 
             auditMsg = transformLib.transformSubscribeResponseToAuditMessage(logReqMsg);
         }
+        log.debug("Exiting AuditRepositoryLogger.logSubscribeResponse(...)");
 
         return auditMsg;
     }
@@ -537,6 +577,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityDocSubscribeRequest(EntityDocumentSubscribeRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityDocSubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -547,6 +588,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityDocSubscribeRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityDocSubscribeRequest(...)");
 
         return auditMsg;
     }
@@ -560,6 +602,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityCdcSubscribeRequest(EntityCdcSubscribeRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityCdcSubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -570,6 +613,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityCdcSubscribeRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityCdcSubscribeRequest(...)");
 
         return auditMsg;
     }
@@ -583,6 +627,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityDocNotifyRequest(EntityDocumentNotifyRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityDocNotifyRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -593,6 +638,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityDocNotifyRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityDocNotifyRequest(...)");
 
         return auditMsg;
     }
@@ -606,6 +652,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityCdcNotifyRequest(EntityCdcNotifyRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityCdcNotifyRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -616,6 +663,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityCdcNotifyRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityCdcNotifyRequest(...)");
 
         return auditMsg;
     }
@@ -629,6 +677,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityNotifyResponse(EntityNotifyResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityNotifyResponse(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -639,6 +688,7 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityNotifyRespRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityNotifyResponse(...)");
 
         return auditMsg;
     }
@@ -652,6 +702,7 @@ public class AuditRepositoryLogger {
      * @return A generic audit log message that can be passed to the Audit Repository
      */
     public LogEventRequestType logEntityUnsubscribeRequest(EntityUnsubscribeRequestMessageType message, String direction, String _interface) {
+        log.debug("Entering AuditRepositoryLogger.logEntityUnsubscribeRequest(...)");
         LogEventRequestType auditMsg = null;
 
         if (isServiceEnabled()) {
@@ -662,11 +713,13 @@ public class AuditRepositoryLogger {
 
             log.warn("logEntityUnsubscribeRequest method is not implemented");
         }
+        log.debug("Exiting AuditRepositoryLogger.logEntityUnsubscribeRequest(...)");
 
         return auditMsg;
     }
 
     private boolean isServiceEnabled() {
+        log.debug("Entering AuditRepositoryLogger.isServiceEnabled(...)");
         boolean serviceEnabled = false;
         try {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
@@ -674,6 +727,7 @@ public class AuditRepositoryLogger {
             log.error("Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             log.error(ex.getMessage());
         }
+        log.debug("Exiting AuditRepositoryLogger.isServiceEnabled(...) with value of: " + serviceEnabled);
         return serviceEnabled;
     }
 }

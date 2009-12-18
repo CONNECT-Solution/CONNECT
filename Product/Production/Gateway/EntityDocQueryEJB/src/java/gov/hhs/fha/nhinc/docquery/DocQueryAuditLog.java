@@ -94,15 +94,21 @@ public class DocQueryAuditLog {
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
     private AcknowledgementType logDocQuery(AdhocQueryMessageType message, String direction, String _interface) {
+        log.debug("Entering DocQueryAuditLog.logDocQuery(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message, direction, _interface);
 
         if (auditLogMsg != null) {
+            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - calling AuditRepositoryProxy.auditLog(...)");
             ack = proxy.auditLog(auditLogMsg, message.getAssertion());
+            log.debug("Inside: DocQueryAuditLog.logDocQuery(...) - returned from calling AuditRepositoryProxy.auditLog(...)");
         }
+        log.debug("Exiting DocQueryAuditLog.logDocQuery(...)...");
         return ack;
     }
 
@@ -115,16 +121,23 @@ public class DocQueryAuditLog {
      * @return An acknowledgement of whether or not the message was successfully logged.
      */
     public AcknowledgementType auditResponse(AdhocQueryResponseMessageType message, String direction, String _interface) {
+        log.debug("Entering DocQueryAuditLog.auditResponse(...)...");
         AcknowledgementType ack = new AcknowledgementType();
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, _interface);
 
         if (auditLogMsg != null) {
+            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - Creating AuditRepositoryProxyObjectFactory object.");
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - calling AuditRepositoryProxyObjectFactory.getAuditRepositoryProxy(...)");
             AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - calling AuditRepositoryProxy.auditLog(...)");
             ack = proxy.auditLog(auditLogMsg, message.getAssertion());
+            log.debug("Inside: DocQueryAuditLog.auditResponse(...) - returned from calling AuditRepositoryProxy.auditLog(...)");
+
         }
 
+        log.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
         return ack;
     }
 }

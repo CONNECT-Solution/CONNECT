@@ -32,9 +32,12 @@ public class AuditRepositoryHelper {
     
     public static AcknowledgementType logEvent(LogEventSecureRequestType logEventRequest, WebServiceContext context)
     {
+        log.debug("Entering AuditRepositoryHelper.logEvent method. ");
         AcknowledgementType acknowledgement = new AcknowledgementType();
         
         acknowledgement = new AuditRepositoryImpl().logAudit(logEventRequest, context);
+
+        log.debug("Exiting AuditRepositoryHelper.logEvent method. ");
         
         return acknowledgement;
     }

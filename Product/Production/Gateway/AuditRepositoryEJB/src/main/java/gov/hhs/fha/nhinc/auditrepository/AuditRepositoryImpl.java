@@ -135,7 +135,9 @@ public class AuditRepositoryImpl {
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList();
         auditRecList.add(auditRec);
+        log.debug("AuditLogManagerImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
+        log.debug("AuditLogManagerImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
         response = new AcknowledgementType();
         if (result == true) {
