@@ -29,6 +29,12 @@
             <included-library>reference.PolicyEngineProxy.jar</included-library>
             <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
             <included-library>reference.AdapterMpiProxyImpl.jar</included-library>
+            <included-library>file.reference.bsh-core-2.0b4.jar</included-library>
+            <included-library>file.reference.cglib-2.1_3-src.jar</included-library>
+            <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
+            <included-library>file.reference.hamcrest-core-1.1.jar</included-library>
+            <included-library>file.reference.hamcrest-library-1.1.jar</included-library>
+            <included-library>file.reference.objenesis-1.0.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>
