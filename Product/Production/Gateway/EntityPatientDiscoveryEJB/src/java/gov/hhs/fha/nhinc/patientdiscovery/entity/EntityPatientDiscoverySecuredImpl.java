@@ -89,7 +89,10 @@ public class EntityPatientDiscoverySecuredImpl {
         {
             log.error("The list of incomming NhinTargetCommunities was null. sending out to community.");
             //populate list of target communities from connectionmanager cache
-						return null;
+            List<NhinTargetCommunityType> oNhinTargetCommunities = getDefaultTargetCommunities();
+            NhinTargetCommunitiesType oNhinTargetCommunitiesType =  new NhinTargetCommunitiesType();
+            oNhinTargetCommunitiesType.getNhinTargetCommunity().addAll(oNhinTargetCommunities);
+            request.setNhinTargetCommunities(oNhinTargetCommunitiesType);
         }
 
         // Create an assertion class from the contents of the SAML token
