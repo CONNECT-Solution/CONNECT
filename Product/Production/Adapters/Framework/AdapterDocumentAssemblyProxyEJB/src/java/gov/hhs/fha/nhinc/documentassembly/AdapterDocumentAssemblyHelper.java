@@ -86,7 +86,8 @@ public class AdapterDocumentAssemblyHelper {
             // save ClinicalDocument.id
             String savedDocId = assembledDoc.getId().getExtension();
             assembledDoc.getId().setExtension("");
-            //log.info("C32-REMOVED ID=" +XMLUtil.toCanonicalXMLString(assembledDoc));
+            //log.info("C32-REMOVED ID=" + XMLUtil.toCanonicalXMLString(assembledDoc));
+            log.info("C32 - savedDocId =" + savedDocId);
 
             // generate clinical unique hash for document (without date and id)
             byte[] xmlBytes = XMLUtil.toCanonicalXMLBytes(assembledDoc);
@@ -98,12 +99,19 @@ public class AdapterDocumentAssemblyHelper {
             effectiveTime.setValue(DateUtil.convertToCDATime(Calendar.getInstance().getTime()));
             assembledDoc.setEffectiveTime(effectiveTime);
 
+            // Author.time
+            if (assembledDoc.getAuthor().size() > 0) {
+               TSExplicit authorTime = new TSExplicit();
+               authorTime.setValue(effectiveTime.getValue());
+               assembledDoc.getAuthor().get(0).setTime(authorTime);
+            }
+
             // put back ClinicalDocument.id
             //documentId = DocumentIdGenerator.generateDocumentId();
             assembledDoc.getId().setExtension(savedDocId);
-            //log.info("C32-ADDED BACK ID=" +XMLUtil.toCanonicalXMLString(assembledDoc));
+            log.info("C32- ADDED savedDocId =" + XMLUtil.toCanonicalXMLString(assembledDoc));
 
-            // generate unique fash for document (with date and id)
+            // generate unique hash for document (with date and id)
             xmlBytes = XMLUtil.toCanonicalXMLBytes(assembledDoc);
             String uniqueHash = HashCodeUtil.calculateHashCode(xmlBytes);
 
@@ -111,12 +119,12 @@ public class AdapterDocumentAssemblyHelper {
             documentId = savedDocId;
             document.setId("urn:uuid:" + documentId);
             document.setValue(xmlBytes);
-
-            ProvideAndRegisterDocumentSetRequestType documentSetRequest =
+            log.info("Set documentId to =" + document.getId());
+            
+            ProvideAndRegisterDocumentSetRequestType documentSetRequest = 
                     ebxmlBuilder.createDocumentSetRequest();
 
             // build metadata
-            log.info("Set documentId to =" + document.getId());
             ExtrinsicObjectType metadata =
                     ebxmlBuilder.createMetadata(queryParser.getISOFormatPatientId(),
                                    documentId,
@@ -158,7 +166,7 @@ public class AdapterDocumentAssemblyHelper {
    }
 
    private static SubmitObjectsRequest createSubmitObjectsRequest(
-      ExtrinsicObjectType metadata, RegistryPackageType registryPkg,
+      ExtrinsicObjectType metadata, RegistryPackageType registryPkg, 
       AssociationType1 association, ClassificationType classification) {
 
       oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory factory =

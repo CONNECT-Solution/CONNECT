@@ -97,7 +97,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
       if ((slotValues != null) && (!slotValues.isEmpty())) {
          formattedPatientId = slotValues.get(0);
       }
-
+      
       return formattedPatientId;
    }
 

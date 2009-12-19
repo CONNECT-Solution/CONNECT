@@ -49,9 +49,9 @@ import org.hl7.v3.TSExplicit;
 public class EBXMLRequestBuilder {
 
    private static Log log = LogFactory.getLog(EBXMLRequestBuilder.class);
-
+   
    ProvideAndRegisterDocumentSetRequestType documentSetRequest = null;
-
+   
    public EBXMLRequestBuilder() {
    }
 
