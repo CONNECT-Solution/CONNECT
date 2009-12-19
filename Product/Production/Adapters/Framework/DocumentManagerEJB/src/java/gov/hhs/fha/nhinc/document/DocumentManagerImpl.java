@@ -179,13 +179,15 @@ public class DocumentManagerImpl {
             e.printStackTrace();
             result = new RegistryResponseType();
             result.setStatus(XDS_FAILED_STATUS);
+            RegistryErrorList errorList = new RegistryErrorList();
             RegistryError error = new RegistryError();
             error.setValue(e.getMessage());
             error.setErrorCode(XDS_ERROR_CODE);
             error.setSeverity(XDS_ERROR_SEVERITY);
             error.setCodeContext("Could not archive document.");
             error.setLocation("DocumentManagerImpl.archiveDynamicDocument");
-            result.getRegistryErrorList().getRegistryError().add(error);
+            errorList.getRegistryError().add(error);
+            result.setRegistryErrorList(errorList);
             return result;
         }
 
