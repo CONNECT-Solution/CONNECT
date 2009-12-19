@@ -53,20 +53,24 @@ public class AdapterPEPImpl {
     private static final String DEFAULT_PURPOSE_TEXT = "Purpose for Use code not provided";
     private static final String VALID_PURPOSE = "PUBLICHEALTH";
     private static final String VALID_USER_ROLE_CODE = "307969004";
-    private static final String XSPA_SUBJECT_ID = "urn:oasis:names:tc:xacml:2.0:subject:subject-id";
-    private static final String XSPA_SUBJECT_LOCALITY = "urn:oasis:names:tc:xacml:2.0:subject:locality";
-    private static final String XSPA_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
-    private static final String XSPA_SUBJECT_PURPOSE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
-    private static final String XSPA_RESOURCE_ID = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    private static final String XSPA_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id"; 
+    private static final String XSPA_SUBJECT_ORG = "urn:oasis:names:tc:xspa:1.0:subject:organization";
+    private static final String XSPA_SUBJECT_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    private static final String XSPA_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role"; 
+    private static final String XSPA_SUBJECT_PURPOSE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse"; 
+    private static final String XSPA_RESOURCE_ID = "urn:oasis:names:tc:xacml:1.0:resource:resource-id"; 
+    private static final String XSPA_ENVIRONMENT_LOCALITY = "urn:oasis:names:tc:xspa:1.0:environment:locality";
     private static final String XSPA_PATIENT_OPT_IN = "urn:gov:hhs:fha:nhinc:patient-opt-in";
     private static final String XSPA_ASSIGNING_AUTH = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
     private static final String XSPA_SERVICE_TYPE = "urn:gov:hhs:fha:nhinc:service-type";
-    private static final String XSPA_ACTION = "urn:oasis:names:tc:xacml:1.0:action:action-id";
+    private static final String XSPA_ACTION = "urn:oasis:names:tc:xacml:1.0:action:action-id"; 
     private static final String XACML_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
-    private static final String XACML_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
+    private static final String XACML_SUBJECT_ID = "urn:oasis:names:tc:xacml:1.0:subject:subject-id"; 
+    private static final String XACML_SUBJECT_ORG = "urn:gov:hhs:fha:nhinc:user-organization-name";
+    private static final String XACML_SUBJECT_ORG_ID = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";
+    private static final String XACML_SUBJECT_ROLE = "urn:oasis:names:tc:xacml:2.0:subject:role";
+    private static final String XACML_SUBJECT_PURPOSE = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     private static final String XACML_HOME_COMMUNITY = "urn:gov:hhs:fha:nhinc:home-community-id";
-    private static final String XACML_SUBJECT_ROLE = "urn:gov:hhs:fha:nhinc:user-role-code";
-    private static final String XACML_SUBJECT_PURPOSE = "urn:gov:hhs:fha:nhinc:purpose-for-use";
     private static final String XACML_RESOURCE_ID = "urn:oasis:names:tc:xacml:1.0:resource:resource-id";
     private static final String XACML_ASSIGING_AUTH = "urn:gov:hhs:fha:nhinc:assigning-authority-id";
     private static final String XACML_DOCUMENT_ID = "urn:gov:hhs:fha:nhinc:document-id";
@@ -76,10 +80,8 @@ public class AdapterPEPImpl {
     private static final String XACML_ACTION = "urn:oasis:names:tc:xacml:1.0:action:action-id";
     // These define the possible xacml definitions of our services
     // There must be a one-to-one correspondance with the xspa action definitions
-    private static final String[] xacmlActionDef = {"SubjectDiscoveryIn",
-        "SubjectDiscoveryOut",
-        "SubjectDiscoveryRevokeIn",
-        "SubjectDiscoveryRevokeOut",
+    private static final String[] xacmlActionDef = {"PatientDiscoveryIn",
+        "PatientDiscoveryOut",
         "DocumentQueryIn",
         "DocumentQueryOut",
         "DocumentRetrieveIn",
@@ -94,13 +96,10 @@ public class AdapterPEPImpl {
         "HIEMNotifyOut",
         "SubjectDiscoveryReidentificationIn",
         "SubjectDiscoveryReidentificationOut"};
-
     // These define the xspa actions corresponding to the xacml definitions
     // Correlation is order driven
     private static final String[] xspaActionDef = {"create",
         "create",
-        "delete",
-        "delete",
         "read",
         "read",
         "read",
@@ -115,10 +114,8 @@ public class AdapterPEPImpl {
         "update",
         "read",
         "read"};
-
     // Mapping of the NHIN actions to the cooresponding XSPA action
     private static Map<String, String> actionMap = new HashMap<String, String>();
-
 
     static {
         int numActions = xacmlActionDef.length;
@@ -137,8 +134,9 @@ public class AdapterPEPImpl {
         CheckPolicyResponseType checkPolicyResp = new CheckPolicyResponseType();
 
         if (checkPolicyRequest != null) {
+            Request pdpRequest = null;
             try {
-                Request pdpRequest = createPdpRequest(checkPolicyRequest);
+                pdpRequest = createPdpRequest(checkPolicyRequest);
                 String pdpSelection = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_PDP_ENTITY);
                 String pdpEntity = pdpSelection.trim() + "PdpEntity";
                 String pepEntity = OPENSSO_PEP_NAME;
@@ -167,6 +165,13 @@ public class AdapterPEPImpl {
                 log.error("PropertyAccessException thrown from XACMLRequestProcessor: " + pex.getMessage());
             } catch (XACMLException xex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
+                try {
+                    if (pdpRequest != null) {
+                        log.error("Unable to process PDP request: " + pdpRequest.toXMLString());
+                    }
+                } catch (XACMLException ex) {
+                    //already in handling
+                }
                 log.error("XACMLException thrown from XACMLRequestProcessor: " + xex.getMessage());
             } catch (SAML2Exception samlex) {
                 checkPolicyResp = createResponse(DecisionType.DENY);
@@ -200,14 +205,15 @@ public class AdapterPEPImpl {
      * @param checkPolicyRequest The xacml request to check defined policy
      * @return The PDP compatible request document
      */
-    private Request createPdpRequest(CheckPolicyRequestType checkPolicyRequest) {
+    public Request createPdpRequest(CheckPolicyRequestType checkPolicyRequest) {
 
         Request request = ContextFactory.getInstance().createRequest();
 
         try {
             /*
              * Create Subject
-             * has a subject id, home community id, an optional user role, and a purpose of use
+             * has a subject id, subject organization, subject organization id,
+             * home community id, an optional user role, and a purpose of use
              */
             Subject subject = ContextFactory.getInstance().createSubject();
             List subjAttrList = new ArrayList();
@@ -219,18 +225,32 @@ public class AdapterPEPImpl {
             }
             subjAttrList.addAll(subjIdList);
 
-            // Home community id must be present
-            // In inbound messages it is extracted from the Subject of the request
-            // In outbound messages it is looked up in our gateway properties
-            List<Attribute> subjHomeCommunityList = createSubjAttrs(checkPolicyRequest, XACML_HOME_COMMUNITY, XSPA_SUBJECT_LOCALITY, null);
-            if (subjHomeCommunityList.isEmpty()) {
-                log.debug("Sender community is assumed to be this gateway");
-                subjHomeCommunityList.addAll(createSubjLocAttrs());
+            // Subject organization must be present it is extracted from the Subject of the request
+            List<Attribute> subjOrgList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG, XSPA_SUBJECT_ORG, null);
+            if (subjOrgList.isEmpty()) {
+                log.debug(XSPA_SUBJECT_ORG + " Attribute is empty");
             }
-            if (subjHomeCommunityList.isEmpty()) {
-                log.debug(XSPA_SUBJECT_LOCALITY + " Attribute is empty");
+            subjAttrList.addAll(subjOrgList);
+
+            // Subject organization id must be present it is extracted from the Subject of the request
+            List<Attribute> subjOrgIdList = createSubjAttrs(checkPolicyRequest, XACML_SUBJECT_ORG_ID, XSPA_SUBJECT_ORG_ID, null);
+            if (subjOrgIdList.isEmpty()) {
+                log.debug(XSPA_SUBJECT_ID + " Attribute is empty");
             }
-            subjAttrList.addAll(subjHomeCommunityList);
+            subjAttrList.addAll(subjOrgIdList);
+
+//            // Home community id must be present
+//            // In inbound messages it is extracted from the Subject of the request
+//            // In outbound messages it is looked up in our gateway properties
+//            List<Attribute> subjHomeCommunityList = createSubjAttrs(checkPolicyRequest, XACML_HOME_COMMUNITY, XSPA_ENVIRONMENT_LOCALITY, null);
+//            if (subjHomeCommunityList.isEmpty()) {
+//                log.debug("Sender community is assumed to be this gateway");
+//                subjHomeCommunityList.addAll(createSubjLocAttrs());
+//            }
+//            if (subjHomeCommunityList.isEmpty()) {
+//                log.debug(XSPA_ENVIRONMENT_LOCALITY + " Attribute is empty");
+//            }
+//            subjAttrList.addAll(subjHomeCommunityList);
 
             // User role is optional
             List<String> extractedUserRoles = new ArrayList<String>();
@@ -393,6 +413,27 @@ public class AdapterPEPImpl {
 
             //Environnment, required but not used
             Environment environment = ContextFactory.getInstance().createEnvironment();
+            List envAttrList = new ArrayList();
+
+            // Home community id must be present
+            // In inbound messages it is extracted from the Subject of the request
+            // In outbound messages it is looked up in our gateway properties
+            List<Attribute> envHomeCommunityList = createSubjAttrs(checkPolicyRequest, XACML_HOME_COMMUNITY, XSPA_ENVIRONMENT_LOCALITY, null);
+            if (envHomeCommunityList.isEmpty()) {
+                log.debug("Sender community is assumed to be this gateway");
+                envHomeCommunityList.addAll(createEnvLocAttrs());
+            } else {
+                for(Attribute attr: envHomeCommunityList) {
+                    log.debug("Environment attr: " + attr.toXMLString());
+                }
+            }
+            if (envHomeCommunityList.isEmpty()) {
+                log.debug(XSPA_ENVIRONMENT_LOCALITY + " Attribute is empty");
+            }
+            envAttrList.addAll(envHomeCommunityList);
+
+            // Add the Environment into the PDP request
+            environment.setAttributes(envAttrList);
             request.setEnvironment(environment);
 
             log.debug("AdapterPEPImpl.createPdpRequest with PDP request: \n" + request.toXMLString());
@@ -534,7 +575,6 @@ public class AdapterPEPImpl {
                         for (Object values : attrVal.getContent()) {
                             extractedContent.add(values.toString().trim());
                         }
-
                     }
                     if (extractedContent.isEmpty()) {
                         log.debug("The attribute in the check policy request has no values for " + xacmlId);
@@ -572,21 +612,21 @@ public class AdapterPEPImpl {
     }
 
     /**
-     * Creates the XSPA Attributes for the subject locality based upon a lookup
+     * Creates the XSPA Attributes for the environment locality based upon a lookup
      * of the gateway property for home community
      * @return The XSPA Attributes containing the determined home community
      */
-    private List<Attribute> createSubjLocAttrs() {
+    private List<Attribute> createEnvLocAttrs() {
         List<Attribute> xspaAttrs = new ArrayList<Attribute>();
 
         try {
             Attribute xspaAttr = ContextFactory.getInstance().createAttribute();
-            xspaAttr.setAttributeId(new URI(XSPA_SUBJECT_LOCALITY));
+            xspaAttr.setAttributeId(new URI(XSPA_ENVIRONMENT_LOCALITY));
             xspaAttr.setDataType(new URI(XACML_DATATYPE));
 
             List<String> homeCommunityVals = new ArrayList<String>();
             String homeCommunityId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-            log.debug("Adding attribute value: " + homeCommunityId + " for " + XSPA_SUBJECT_LOCALITY);
+            log.debug("Adding attribute value: " + homeCommunityId + " for " + XSPA_ENVIRONMENT_LOCALITY);
             homeCommunityVals.add(homeCommunityId);
 
             xspaAttr.setAttributeStringValues(homeCommunityVals);
@@ -709,7 +749,7 @@ public class AdapterPEPImpl {
      * @param repositoryIds The listing of repository ids used to determine opt-in status
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
      */
-    private List<String> determineDocumentOptStatus(List<String> documentIds, List<String> communityIds, List<String> repositoryIds) {
+    protected List<String> determineDocumentOptStatus(List<String> documentIds, List<String> communityIds, List<String> repositoryIds) {
         List<String> optStatus = new ArrayList<String>();
         int numDocIdAttr = documentIds.size();
         int numCommunityIdAttr = communityIds.size();
@@ -781,7 +821,7 @@ public class AdapterPEPImpl {
      * @param assigningAuths The listing of matching assigning authorities
      * @return The listing of matching consent status (Yes - optIn, No -optOut)
      */
-    private List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths) {
+    protected List<String> determinePatientOptStatus(List<String> resourceIds, List<String> assigningAuths) {
         List<String> optStatus = new ArrayList<String>();
         int numIdAttr = resourceIds.size();
         int numAuthAttr = assigningAuths.size();

@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class AdapterPEPProxyObjectFactory
 {
-    private static final String SPRING_CONFIG_FILE = "ComponentProxyConfig.xml";
+    private static final String SPRING_CONFIG_FILE = "AdapterPEPConfig.xml";
     private static final String BEAN_NAME_ADAPTER_PEP = "adapterpep";
 
     private static ApplicationContext context = null;

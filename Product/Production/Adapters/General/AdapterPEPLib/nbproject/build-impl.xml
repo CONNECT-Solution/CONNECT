@@ -340,6 +340,7 @@ is divided into following sections:
                 ===================
             -->
     <target depends="init" name="deps-jar" unless="no.deps">
+        <ant antfile="${project.AdapterPIPLib}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterPIPProxy}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.AdapterPIPProxyImpl}/build.xml" inheritall="false" target="jar"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar"/>
@@ -699,6 +700,7 @@ is divided into following sections:
                 ===============
             -->
     <target depends="init" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.AdapterPIPLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterPIPProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterPIPProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
