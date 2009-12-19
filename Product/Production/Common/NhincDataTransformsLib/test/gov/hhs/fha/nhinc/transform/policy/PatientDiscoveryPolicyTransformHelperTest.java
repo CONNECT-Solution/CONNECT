@@ -25,6 +25,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -86,6 +87,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
     //                Create Subject and Add to RequestType
     //                ResourceType add to RequestType
 
+    @Ignore
     @Test
     public void testTransformPatientDiscoveryEntityToCheckPolicyWillPass() {
         final Log mockLogger = context.mock(Log.class);

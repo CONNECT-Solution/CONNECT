@@ -132,8 +132,8 @@ public class EntityPatientDiscoverySecuredImpl {
             RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, oTargetCommunity);
 
             //check the policy for the outgoing request to the target community
-//            boolean bIsPolicyOk = isPolicyOk(newRequest); //RE-Enable me after fixing Policy Engine request message for no patient id
-            boolean bIsPolicyOk = true;
+            boolean bIsPolicyOk = isPolicyOk(newRequest); 
+            
             if (bIsPolicyOk)
             {
                 CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
