@@ -34,6 +34,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 
 /**
@@ -366,7 +367,7 @@ public class AdapterDocumentQueryServiceImpl
                             metadata);
 
                         //The output was updated by the search so we really don't need to do anything
-                        log.info("Request fullfilled by exsiting document");
+                        log.info("Request fullfilled by existing document");
                     }
                 }
             }
@@ -379,8 +380,18 @@ public class AdapterDocumentQueryServiceImpl
         {
             log.error("Exception for dynamic document query - Details above",
                 ex);
-            throw new WebServiceException("Exception During Document Query",
-                ex);
+
+            //build registry error
+            out.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            RegistryErrorList _regerrorlist = new RegistryErrorList();
+            RegistryError _regerror = new RegistryError();
+            _regerror.setCodeContext("Internal Document Query Processing");
+            _regerror.setErrorCode("XDSRegistryError");
+            _regerror.setSeverity("Error");
+            _regerrorlist.getRegistryError().add(_regerror);
+
+            out.setRegistryErrorList(_regerrorlist);
+
         }
 
         return out;
@@ -819,10 +830,6 @@ public class AdapterDocumentQueryServiceImpl
 
         //rolOut.getIdentifiable().add(e);
         out.setRegistryObjectList(rolOut);
-
-        //Build out the registry error list
-        RegistryErrorList re = new RegistryErrorList();
-        out.setRegistryErrorList(re);
 
         return out;
 
