@@ -129,7 +129,7 @@ public class StaticProblemsQuery {
       // -------- DOMAIN CONTENT ------------------------------------
       REPCMT004000UV01PertinentInformation5 p3 = new REPCMT004000UV01PertinentInformation5();
       p3.getTypeCode().add("SUBJ");
-      p3.setContextControlCode("true");
+      p3.setContextControlCode("OP");
       BigInteger seqValue = new BigInteger("1");
       org.hl7.v3.INT seq = new INT();
       seq.setValue(seqValue);
@@ -154,9 +154,11 @@ public class StaticProblemsQuery {
       observation.setMoodCode(XClinicalStatementObservationMood.EVN);
 
       II obsTemplateID = new II();
-      obsTemplateID.setRoot("1.3.6.1.4.1.19376.1.5.3.1.4.5.2");
+      obsTemplateID.setRoot("2.16.840.1.113883.10.20.1.28");
       observation.getTemplateId().add(obsTemplateID);
 
+      // encounter identifier
+      
       //--Adverse Event Type --
       observation.setCode(createObservationCode());
 
@@ -168,19 +170,27 @@ public class StaticProblemsQuery {
 
       // TODO :: text
       EDExplicit text = new EDExplicit();
-      text.getContent().add("Migraine");
+      text.getContent().add("Immunologic disorder");
       //TELExplicit reference = new TELExplicit();
       //reference.setValue("#problem #1");
       //text.getContent().add(factory.createEDExplicitReference(reference));
       observation.setText(text);
 
-      // value
+      // value in SNOMED
       CD val = new CD();
-      val.setCode("37796009");
-      val.setDisplayName("Migraine");
+      val.setCode("12345");
+      val.setDisplayName("Immunologic disorder");
       val.setCodeSystem("2.16.840.1.113883.96");
       val.setCodeSystemName("SNOMED CT");
       observation.setValue(val);
+
+      // value in ICD9
+      CD val2 = new CD();
+      val2.setCode("279.9");
+      val2.setDisplayName("Migraine");
+      val2.setCodeSystem("2.16.840.1.113883.11.15931");
+      val2.setCodeSystemName("ICD9");
+      observation.setValue(val2);      
 
       // Treating Provider
       REPCMT000100UV01Performer3 tp = new REPCMT000100UV01Performer3();

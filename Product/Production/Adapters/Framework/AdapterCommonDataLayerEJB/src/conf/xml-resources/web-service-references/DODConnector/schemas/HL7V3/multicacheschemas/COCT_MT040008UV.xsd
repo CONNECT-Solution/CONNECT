@@ -4,7 +4,7 @@
            targetNamespace="urn:hl7-org:v3"
            elementFormDefault="qualified"><!--
 *****************************************************************************************************************
-* XML schema for message type COCT_MT090001UV01.
+* XML schema for message type COCT_MT040008UV.
 * Source information:
 *     Rendered by: Visio to MIF transform
 *     Rendered on: 
@@ -45,14 +45,36 @@
 StaticMifToXsd.xsl version 2.0</xs:documentation>
    </xs:annotation>
    <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
-   <xs:complexType name="COCT_MT090001UV01.AssignedEntity">
+   <xs:include schemaLocation="COCT_MT150007UV.xsd"/>
+   <xs:include schemaLocation="COCT_MT030207UV.xsd"/>
+   <xs:include schemaLocation="COCT_MT140007UV.xsd"/>
+   <xs:complexType name="COCT_MT040008UV.Responsible">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
          <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="effectiveTime" type="IVL_TS_explicit" minOccurs="0" maxOccurs="1"/>
+         <xs:choice>
+            <xs:element name="agentOrganization" type="COCT_MT150007UV.Organization" nillable="true"
+                        minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="agentPerson" type="COCT_MT030207UV.Person" nillable="true" minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="agentDevice" type="COCT_MT140007UV.Device" nillable="true" minOccurs="0"
+                        maxOccurs="1"/>
+         </xs:choice>
+         <xs:choice>
+            <xs:element name="representedOrganization" type="COCT_MT150007UV.Organization"
+                        nillable="true"
+                        minOccurs="0"
+                        maxOccurs="1"/>
+            <xs:element name="representedPerson" type="COCT_MT030207UV.Person" nillable="true"
+                        minOccurs="0"
+                        maxOccurs="1"/>
+         </xs:choice>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
-      <xs:attribute name="classCode" type="RoleClassAssignedEntity" use="required"/>
+      <xs:attribute name="classCode" type="RoleClassAgent" use="optional" default="AGNT"/>
    </xs:complexType>
 </xs:schema>

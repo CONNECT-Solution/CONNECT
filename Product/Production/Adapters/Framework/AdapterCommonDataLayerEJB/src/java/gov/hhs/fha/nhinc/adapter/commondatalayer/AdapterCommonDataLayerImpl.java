@@ -41,7 +41,12 @@ public class AdapterCommonDataLayerImpl {
    public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getAllergies(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
       return StaticAllergiesQuery.createAllergiesResponse(param0);
    }
- public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getProblems(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
-          return StaticProblemsQuery.createProblemsResponse(param0);
-       }
+
+   public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getProblems(org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
+      return StaticProblemsQuery.createProblemsResponse(param0);
+   }
+
+   public org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType findPatients(org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType param0) {
+      return StaticFindPatientsQuery.createFindPatientsResponse(param0);
+   }
 }

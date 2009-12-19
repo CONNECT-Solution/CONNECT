@@ -4,7 +4,7 @@
            targetNamespace="urn:hl7-org:v3"
            elementFormDefault="qualified"><!--
 *****************************************************************************************************************
-* XML schema for message type COCT_MT090001UV01.
+* XML schema for message type COCT_MT140007UV.
 * Source information:
 *     Rendered by: Visio to MIF transform
 *     Rendered on: 
@@ -45,14 +45,17 @@
 StaticMifToXsd.xsl version 2.0</xs:documentation>
    </xs:annotation>
    <xs:include schemaLocation="../coreschemas/infrastructureRoot.xsd"/>
-   <xs:complexType name="COCT_MT090001UV01.AssignedEntity">
+   <xs:complexType name="COCT_MT140007UV.Device">
       <xs:sequence>
          <xs:group ref="InfrastructureRootElements"/>
-         <xs:element name="id" type="II" minOccurs="1" maxOccurs="unbounded"/>
+         <xs:element name="id" type="II" minOccurs="0" maxOccurs="unbounded"/>
          <xs:element name="code" type="CE" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="manufacturerModelName" type="SC" minOccurs="0" maxOccurs="1"/>
+         <xs:element name="softwareName" type="SC" minOccurs="0" maxOccurs="1"/>
       </xs:sequence>
       <xs:attributeGroup ref="InfrastructureRootAttributes"/>
       <xs:attribute name="nullFlavor" type="NullFlavor" use="optional"/>
-      <xs:attribute name="classCode" type="RoleClassAssignedEntity" use="required"/>
+      <xs:attribute name="classCode" type="EntityClassDevice" use="required"/>
+      <xs:attribute name="determinerCode" type="EntityDeterminer" use="required" fixed="INSTANCE"/>
    </xs:complexType>
 </xs:schema>

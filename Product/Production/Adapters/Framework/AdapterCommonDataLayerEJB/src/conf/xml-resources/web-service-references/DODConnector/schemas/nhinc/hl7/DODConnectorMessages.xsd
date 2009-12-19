@@ -15,11 +15,11 @@
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/QUPC_IN043200UV01.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/QUPC_IN043100UV01.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201307UV02.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201305UV.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN201305UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/REPC_MT000400UV01.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/REPC_MT004000UV01.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_MT201303UV.xsd"/>
-	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_MT201310UV.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_MT201303UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_MT201310UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_IN900300UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/multicacheschemas/PRPA_MT900350UV02.xsd"/>
 	<!-- ====================================================================
@@ -46,9 +46,9 @@
 			<xsd:element name="query" type="PRPA_IN201307UV02.MCCI_MT000100UV01.Message"/>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:complexType name="PatientDemographics_PRPA_MT201303UVResponseType">
+	<xsd:complexType name="PatientDemographics_PRPA_MT201303UV02ResponseType">
 		<xsd:sequence>
-			<xsd:element name="subject" type="PRPA_MT201303UV.Patient"/>
+			<xsd:element name="subject" type="PRPA_MT201303UV02.Patient"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="FindEncounters_PRPA_IN900300UV02RequestType">
@@ -69,12 +69,12 @@
 			<xsd:element name="localDeviceId" type="xsd:string"/>
 			<xsd:element name="senderOID" type="xsd:string"/>
 			<xsd:element name="receiverOID" type="xsd:string"/>
-			<xsd:element name="query" type="PRPA_IN201305UV.MCCI_MT000100UV01.Message"/>
+			<xsd:element name="query" type="PRPA_IN201305UV02.MCCI_MT000100UV01.Message"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="FindPatients_PRPA_MT201310UVResponseType">
 		<xsd:sequence>
-			<xsd:element name="subject" type="PRPA_MT201310UV.Patient" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="subject" type="PRPA_MT201310UV02.Patient" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
 	<!-- requests -->
@@ -97,6 +97,6 @@
 	<!-- responses -->
 	<xsd:element name="CareRecord_QUPC_IN043200UV01Response" type="CareRecord_QUPC_IN043200UV01ResponseType"/>
 	<xsd:element name="FindEncounters_PRPA_MT900350UV02Response" type="FindEncounters_PRPA_MT900350UV02ResponseType"/>
-	<xsd:element name="PatientDemographics_PRPA_MT201303UVResponse" type="PatientDemographics_PRPA_MT201303UVResponseType"/>
+	<xsd:element name="PatientDemographics_PRPA_MT201303UV02Response" type="PatientDemographics_PRPA_MT201303UV02ResponseType"/>
 	<xsd:element name="FindPatients_PRPA_MT201310UVResponse" type="FindPatients_PRPA_MT201310UVResponseType"/>
 </xsd:schema>

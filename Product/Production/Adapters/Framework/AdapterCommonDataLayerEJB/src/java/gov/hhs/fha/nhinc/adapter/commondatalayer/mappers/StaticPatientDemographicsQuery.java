@@ -91,6 +91,11 @@ public class StaticPatientDemographicsQuery {
       subject.getClassCode().add("PAT");
       subject.getId().add(subjectId);
 
+      II secondId = new II();
+      secondId.setExtension("159875364");
+      secondId.setRoot("2.16.840.1.113883.4.1");
+      subject.getId().add(secondId);
+
       IVLTSExplicit effectiveTime = new IVLTSExplicit();
       effectiveTime.setValue("20090202000000");
       subject.setEffectiveTime(effectiveTime);
@@ -191,14 +196,12 @@ public class StaticPatientDemographicsQuery {
       List namelist = name.getContent();
       if (lastName != null && lastName.length() > 0) {
          EnExplicitFamily familyName = new EnExplicitFamily();
-         familyName.setPartType("FAM");
          familyName.setContent(lastName);
          namelist.add(factory.createENExplicitFamily(familyName));
       }
 
       if (firstName != null && firstName.length() > 0) {
          EnExplicitGiven givenName = new EnExplicitGiven();
-         givenName.setPartType("GIV");
          givenName.setContent(firstName);
          namelist.add(factory.createENExplicitGiven(givenName));
       }

@@ -151,7 +151,7 @@ public class StaticMedicationsQuery {
       // -------- DOMAIN CONTENT ------------------------------------
       REPCMT004000UV01PertinentInformation5 p3 = new REPCMT004000UV01PertinentInformation5();
       p3.getTypeCode().add("SUBJ");
-      p3.setContextControlCode("true");
+      p3.setContextControlCode("OP");
       BigInteger seqValue = new BigInteger("1");
       org.hl7.v3.INT seq = new INT();
       seq.setValue(seqValue);

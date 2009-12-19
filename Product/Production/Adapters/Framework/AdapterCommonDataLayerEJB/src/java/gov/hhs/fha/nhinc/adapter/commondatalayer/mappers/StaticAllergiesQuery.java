@@ -130,7 +130,7 @@ public class StaticAllergiesQuery {
       // -------- DOMAIN CONTENT ------------------------------------
       REPCMT004000UV01PertinentInformation5 p3 = new REPCMT004000UV01PertinentInformation5();
       p3.getTypeCode().add("SUBJ");
-      p3.setContextControlCode("true");
+      p3.setContextControlCode("OP");
       BigInteger seqValue = new BigInteger("1");
       org.hl7.v3.INT seq = new INT();
       seq.setValue(seqValue);
@@ -243,11 +243,19 @@ public class StaticAllergiesQuery {
 
       severityObs.setCode(severityCode);
 
+      //EDExplicit text = new EDExplicit();
+      //TELExplicit reference = new TELExplicit();
+      //reference.setValue("#severity-1");
+      //text.getContent().add(factory.createEDExplicitReference(reference));
+      //severityObs.setText(text);
+
       EDExplicit text = new EDExplicit();
-      TELExplicit reference = new TELExplicit();
-      reference.setValue("#severity-1");
-      text.getContent().add(factory.createEDExplicitReference(reference));
+      text.getContent().add("Very Severe");
+      //TELExplicit; reference = new TELExplicit();
+      //reference.setValue("#reaction-1");
+      //text.getContent().add(factory.createEDExplicitReference(reference));
       severityObs.setText(text);
+
 
       CS statusCode = new CS();
       statusCode.setCode("completed");

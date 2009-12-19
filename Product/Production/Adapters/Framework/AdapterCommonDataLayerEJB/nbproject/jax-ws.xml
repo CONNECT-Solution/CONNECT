@@ -28,7 +28,7 @@
   </services>
   <clients>
     <client name="DODConnector">
-      <wsdl-url>file:/C:/projects/DODConnector/src/java/DODConnector.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/DoDConnector/src/conf/wsdl/NewWebServiceFromWSDL/DODConnector.wsdl</wsdl-url>
       <local-wsdl-file>DODConnector.wsdl</local-wsdl-file>
       <package-name>gov.hhs.fha.nhinc.adapter.commondatalayer</package-name>
       <catalog-file>catalog.xml</catalog-file>
