@@ -15,7 +15,10 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hl7.v3.II;
 import org.hl7.v3.ObjectFactory;
+import org.hl7.v3.POCDMT000040Organization;
+import org.hl7.v3.ONExplicit;
 
 /**
  *
@@ -33,7 +36,7 @@ public abstract class DocumentBuilder {
    protected String patientId = null;
    protected List<CdaTemplate> templates = null;   // templates for section
    protected DocumentType documentType = null;
-
+   
    public DocumentBuilder() {
       initialize();
    }
@@ -73,6 +76,12 @@ public abstract class DocumentBuilder {
       return DocumentIdGenerator.generateDocumentId();
    }
 
+   protected II getOrganization() {
+      II id = new II();
+      id.setRoot(orgOID);
+      return id;
+   }
+
    public void setDocumentType(String docType) {
       try {
          documentType = DocumentTypeDAO.getInstance().getDocumentType(docType);
@@ -86,4 +95,14 @@ public abstract class DocumentBuilder {
       return documentType;
    }
 
+   protected POCDMT000040Organization getRepresentedOrganization() {
+      POCDMT000040Organization org = new POCDMT000040Organization();
+
+      org.getId().add(getOrganization());
+
+      ONExplicit onName = objectFactory.createONExplicit();
+      onName.getContent().add(orgName);
+
+      return org;
+   }
 }

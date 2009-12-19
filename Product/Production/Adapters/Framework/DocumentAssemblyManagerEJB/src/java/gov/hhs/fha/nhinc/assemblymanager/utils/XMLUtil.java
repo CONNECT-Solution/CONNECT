@@ -6,20 +6,22 @@ package gov.hhs.fha.nhinc.assemblymanager.utils;
 
 import java.util.List;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import nux.xom.pool.XOMUtil;
-import org.hl7.v3.ADExplicit;
-import org.hl7.v3.AdxpExplicitCity;
-import org.hl7.v3.AdxpExplicitCountry;
-import org.hl7.v3.AdxpExplicitPostalCode;
-import org.hl7.v3.AdxpExplicitState;
-import org.hl7.v3.AdxpExplicitStreetAddressLine;
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
+import org.hl7.v3.ENExplicit;
+import org.hl7.v3.EnExplicitFamily;
+import org.hl7.v3.EnExplicitGiven;
+import org.hl7.v3.EnExplicitPrefix;
+import org.hl7.v3.EnExplicitSuffix;
 import org.hl7.v3.ObjectFactory;
+import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
+import org.hl7.v3.POCDMT000040Person;
 import org.w3c.dom.Element;
 
 /**
@@ -81,5 +83,35 @@ public class XMLUtil {
       Element oElement = oDOMDocument.createElement(tag);
 
       return oElement;
+   }
+
+   public static void setName(List<ENExplicit> names, POCDMT000040Person person) {
+      org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
+      PNExplicit personName = factory.createPNExplicit();
+
+      if (names.size() > 0) {
+         ENExplicit name = names.get(0);
+         for (int i = 0; i < name.getContent().size(); i++) {
+            JAXBElement o = (JAXBElement) name.getContent().get(i);
+            if (o != null && o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitFamily")) {
+               EnExplicitFamily ob = (EnExplicitFamily) o.getValue();
+               personName.getContent().add(ob.getContent());
+            } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitGiven")) {
+               EnExplicitGiven ob = (EnExplicitGiven) o.getValue();
+               personName.getContent().add(ob.getContent());
+            } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitPrefix")) {
+               EnExplicitPrefix ob = (EnExplicitPrefix) o.getValue();
+               personName.getContent().add(ob.getContent());
+            } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitSuffix")) {
+               EnExplicitSuffix ob = (EnExplicitSuffix) o.getValue();
+               personName.getContent().add(ob.getContent());
+            } else if (o.getValue().getClass().getName().equalsIgnoreCase("java.lang.String")) {
+               String ob = (String) o.getValue();
+               personName.getContent().add(ob);
+            }
+         }
+      }
+
+      person.getName().add(personName);
    }
 }

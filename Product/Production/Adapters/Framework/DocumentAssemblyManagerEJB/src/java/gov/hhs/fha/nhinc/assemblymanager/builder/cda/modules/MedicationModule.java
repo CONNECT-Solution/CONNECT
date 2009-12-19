@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
 import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
+import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
 import gov.hhs.fha.nhinc.template.TemplateConstants;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.io.Serializable;
@@ -120,10 +121,10 @@ public class MedicationModule extends ModuleImpl {
             // unique id for this module entry
             if (medEventSubsAdmin.getId().size() > 0) {
                subsAdmin.getId().add(medEventSubsAdmin.getId().get(0));
-            } else {
-               II id = new II();
-               id.setExtension(DocumentIdGenerator.generateDocumentId());
-               subsAdmin.getId().add(id);
+            //} else {
+            //   II id = new II();
+            //   id.setExtension(DocumentIdGenerator.generateDocumentId());
+            //   subsAdmin.getId().add(id);
             }
 
             // status code
@@ -136,8 +137,8 @@ public class MedicationModule extends ModuleImpl {
                subsAdmin.setStatusCode(statusCode);
             }
 
-            List<SXCMTSExplicit> effectiveTimes = medEventSubsAdmin.getEffectiveTime();
-            for (SXCMTSExplicit effectiveTime : effectiveTimes) {
+            List<TS> effectiveTimes = medEventSubsAdmin.getEffectiveTime();
+            for (TS effectiveTime : effectiveTimes) {
                subsAdmin.getEffectiveTime().add(effectiveTime);
             }
 
@@ -321,7 +322,7 @@ public class MedicationModule extends ModuleImpl {
             if (rxOrderAuthor.getAssignedPerson() != null) {
                COCTMT090000UV01Person rxOrderAuthorName = rxOrderAuthor.getAssignedPerson().getValue();
                POCDMT000040Person provider = new POCDMT000040Person();
-               setName(rxOrderAuthorName.getName(), provider);
+               XMLUtil.setName(rxOrderAuthorName.getName(), provider);
                orderingProv.setAssignedPerson(provider);
             }
 

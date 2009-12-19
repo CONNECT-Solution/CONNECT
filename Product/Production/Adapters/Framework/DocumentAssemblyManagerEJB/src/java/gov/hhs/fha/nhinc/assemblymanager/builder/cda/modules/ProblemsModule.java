@@ -4,8 +4,9 @@
  */
 package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 
+import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
-import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
+import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
 import gov.hhs.fha.nhinc.template.TemplateConstants;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.util.ArrayList;
@@ -26,11 +27,16 @@ import org.hl7.v3.POCDMT000040Act;
 import org.hl7.v3.XActClassDocumentEntryAct;
 import org.hl7.v3.XDocumentActMood;
 import org.hl7.v3.CD;
-import org.hl7.v3.EDExplicit;
+import org.hl7.v3.COCTMT090000UV01AssignedEntity;
+import org.hl7.v3.COCTMT090000UV01Person;
 import org.hl7.v3.IVLTSExplicit;
 import org.hl7.v3.IVXBTSExplicit;
-import org.hl7.v3.PNExplicit;
+import org.hl7.v3.POCDMT000040AssignedEntity;
 import org.hl7.v3.POCDMT000040EntryRelationship;
+import org.hl7.v3.POCDMT000040Performer2;
+import org.hl7.v3.POCDMT000040Person;
+import org.hl7.v3.ParticipationPhysicalPerformer;
+import org.hl7.v3.REPCMT000100UV01Performer3;
 import org.hl7.v3.XActRelationshipEntryRelationship;
 import org.hl7.v3.SXCMTSExplicit;
 import org.hl7.v3.XActRelationshipEntry;
@@ -64,9 +70,9 @@ public class ProblemsModule extends ModuleImpl {
          entries.add(buildProblems(problemEvent));
       }
 
-      System.out.println("Entries:");
+      log.info("Entries:");
       for (int i = 0; i < entries.size(); i++) {
-         System.out.println(entries.get(i));
+         log.info(entries.get(i));
       }
 
       // problems
@@ -113,10 +119,10 @@ public class ProblemsModule extends ModuleImpl {
       // unique id for this module entry
       if (problemObservation.getId().size() > 0) {
          act.getId().add(problemObservation.getId().get(0));
-      } else {
-         II id = new II();
-         id.setExtension(DocumentIdGenerator.generateDocumentId());
-         act.getId().add(id);
+      //} else {
+      //   II id = new II();
+      //   id.setExtension(DocumentIdGenerator.generateDocumentId());
+      //   act.getId().add(id);
       }
 
       // status code
@@ -146,8 +152,19 @@ public class ProblemsModule extends ModuleImpl {
       //Problem Code
       actEntryRelationshipObs.getValue().add(problemObservation.getValue());
 
-      //Treating Provider
-      //pre.setAssignedEntity(problemObservation.getPerformer());
+      // Treating Provider
+      if (problemObservation.getPerformer().size() > 0) {
+         POCDMT000040Act problemAct = new POCDMT000040Act();
+         II actTemplateId = new II();
+         actTemplateId.setRoot(CDAConstants.PROBLEM_ACT_TEMPLATE_ID);
+         problemAct.getTemplateId().add(actTemplateId);
+
+         for (REPCMT000100UV01Performer3 performer: problemObservation.getPerformer()) {
+            POCDMT000040Performer2 treatingProvider = getTreatingProvider(performer);
+            if (treatingProvider != null)
+               problemAct.getPerformer().add(treatingProvider);
+         }
+      }
 
       actEntryRelationship.setObservation(actEntryRelationshipObs);
 
@@ -156,5 +173,33 @@ public class ProblemsModule extends ModuleImpl {
       problemEntry.setAct(act);
 
       return problemEntry;
+   }
+
+   private POCDMT000040Performer2 getTreatingProvider(REPCMT000100UV01Performer3 performer) {
+      POCDMT000040Performer2 treatingProvider = null;
+
+      if (performer != null) {
+         treatingProvider = new POCDMT000040Performer2();
+         treatingProvider.setTypeCode(ParticipationPhysicalPerformer.PRF);
+
+         POCDMT000040AssignedEntity assignedEntity = new POCDMT000040AssignedEntity();
+         if (performer.getAssignedEntity1() != null) {
+            COCTMT090000UV01AssignedEntity performerAssignedEntity = performer.getAssignedEntity1().getValue();
+            for (II id: performerAssignedEntity.getId()) {
+               assignedEntity.getId().add(id);
+            }
+
+            if (performerAssignedEntity.getAssignedPerson() != null) {
+               COCTMT090000UV01Person performerAssignedPerson = performerAssignedEntity.getAssignedPerson().getValue();
+               POCDMT000040Person treatingProviderPerson = new POCDMT000040Person();
+               XMLUtil.setName(performerAssignedPerson.getName(), treatingProviderPerson);
+               assignedEntity.setAssignedPerson(treatingProviderPerson);
+            }
+         }
+         
+         treatingProvider.setAssignedEntity(assignedEntity);
+      }
+
+      return treatingProvider;
    }
 }

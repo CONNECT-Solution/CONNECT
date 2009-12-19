@@ -35,4 +35,9 @@ public class CDAConstants {
    public final static String ACT_CODE_SEVERITY_LABEL = "Severity";
    public final static String ACT_CODE_SYSTEM = "ActCode";
    public final static String ACT_CODE_SYSTEM_OID = "2.16.840.1.113883.5.4";
+   public static final String ICD9_CODE_SYSTEM = "2.16.840.1.113883.6.42";
+   public static final String ICD9_CODE_SYSTEM_DISPLAY_NAME = "ICD9";
+   public static final String NDC_CODE_SYSTEM = "2.16.840.1.113883.6.69";
+   public static final String NDC_CODE_SYSTEM_DISPLAY_NAME = "NDC";
+   public static final String PROBLEM_ACT_TEMPLATE_ID = "2.16.840.1.113883.10.20.1.27";
 }

@@ -21,7 +21,7 @@ public class DateUtil {
 
   private static DateFormat dfYYYYMMDD = null;
   private static DateFormat cdaDateFormat = null;
-
+  
 
   static {
     dfYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
@@ -53,18 +53,18 @@ public class DateUtil {
 
   /**
    * convert T-format date to CDA format date.
-   *
+   * 
    * @param tDate
    * @return
    */
   public static String convertTFormatToCDATime(String tDate) throws Exception {
      if (tDate == null || tDate.length() < 0)
         return null;
-
+     
      // today date
      if (tDate.equalsIgnoreCase("T"))
         convertToCDATime(Calendar.getInstance().getTime());
 
      throw new Exception("Need to be implemented!");
-  }
+  }  
 }

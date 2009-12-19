@@ -67,7 +67,7 @@ public class AllergiesModule extends ModuleImpl {
 
       List<REPCMT004000UV01PertinentInformation5> allergyEvents = careProvisionEvent.getPertinentInformation3();
 
-      System.out.println("*******************  # of Allergy EVENTS: " + allergyEvents.size());
+      log.info("*******************  # of Allergy EVENTS: " + allergyEvents.size());
 
       for (REPCMT004000UV01PertinentInformation5 allergyEvent : allergyEvents) {
          entries.add(buildAllergy(allergyEvent));
@@ -160,73 +160,20 @@ public class AllergiesModule extends ModuleImpl {
 
                   REPCMT000100UV01AdministerableMaterial calAdministerableMaterial = calConsumable.getAdministerableMaterial();
                   if (calAdministerableMaterial != null) {
-                     REPCMT000100UV01Material calMaterial = calAdministerableMaterial.getAdministerableMaterial();
-                     POCDMT000040ParticipantRole CDAparticipantRole = new POCDMT000040ParticipantRole();
-                     CDAparticipantRole.getClassCode().add(CDAConstants.CLASS_CODE_MANU);
-
-                     if (calMaterial != null) {
-                        POCDMT000040PlayingEntity cdaPlayingEntity = new POCDMT000040PlayingEntity();
-                        cdaPlayingEntity.getClassCode().add(CDAConstants.CLASS_CODE_MMAT);
-
-                        // Product Coded
-                        if (calMaterial.getCode() != null) {
-
-                           cdaPlayingEntity.setCode(calMaterial.getCode());
-                        }
-
-                        // Product Free-Text
-                        if (calMaterial.getDesc() != null) {
-                           STExplicit productDesc = calMaterial.getDesc();
-                           if (productDesc.getContent().size() > 0) {
-                              PNExplicit productFreeText = new PNExplicit();
-                              productFreeText.getContent().add(productDesc.getContent().get(0));
-                              cdaPlayingEntity.getName().add(productFreeText);
-                              cdaPlayingEntity.setDesc(calMaterial.getDesc());
-                           }
-                        }
-
-                        CDAparticipantRole.setPlayingEntity(cdaPlayingEntity);
-                     }
-
-                     CDAParticipant2.setParticipantRole(CDAparticipantRole);
+                     actEntryRelationshipObs.getParticipant().add(getProduct(calConsumable.getAdministerableMaterial()));
                   }
-                  actEntryRelationshipObs.getParticipant().add(CDAParticipant2);
                }
             } // ------------------  Reaction  ------------------
             else if (thisAllergySourceOf3.getObservation() != null) {
                log.debug("***********  ALLERGY REACTION OBSERVATION  ***********");
 
-               REPCMT000100UV01Observation entryAllergyObs = thisAllergySourceOf3.getObservation().getValue();
+               REPCMT000100UV01Observation calAllergyObs = thisAllergySourceOf3.getObservation().getValue();
 
-               POCDMT000040EntryRelationship reactionEntryRelationship = new POCDMT000040EntryRelationship();
-               reactionEntryRelationship.setTypeCode(XActRelationshipEntryRelationship.MFST);
-               reactionEntryRelationship.setInversionInd(true);
-
-               POCDMT000040Observation entryObs = new POCDMT000040Observation();
-
-               // reaction observation template id
-               II reactionTemplate = new II();
-               reactionTemplate.setRoot(TemplateConstants.ccdReactionObservationTemplateId);
-               reactionTemplate.setAssigningAuthorityName("CCD");
-               entryObs.getTemplateId().add(reactionTemplate);
-
-               // status code
-               CS statusCode = new CS();
-               statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
-               entryObs.setStatusCode(statusCode);
-
-               // Reaction Coded
-               if (entryAllergyObs.getValue() != null) {
-                  entryObs.getValue().add(entryAllergyObs.getValue());
+               if (calAllergyObs != null) {
+                  POCDMT000040EntryRelationship reaction = getReaction(calAllergyObs);
+                  if (reaction != null)
+                     actEntryRelationshipObs.getEntryRelationship().add(reaction);
                }
-
-               // Reaction Free-Text
-               if (entryAllergyObs.getText() != null) {
-                  entryObs.setText(entryAllergyObs.getText());
-               }
-
-               reactionEntryRelationship.setObservation(entryObs);
-               actEntryRelationshipObs.getEntryRelationship().add(reactionEntryRelationship);
             } else {
                log.error("Unknown allergy information with typeCode=" + typeCode);
             }
@@ -237,41 +184,11 @@ public class AllergiesModule extends ModuleImpl {
 
                REPCMT000100UV01Observation calSeverityObs = thisAllergySourceOf3.getObservation().getValue();
 
-               POCDMT000040EntryRelationship severityEntryRelationship = new POCDMT000040EntryRelationship();
-               severityEntryRelationship.setTypeCode(XActRelationshipEntryRelationship.SUBJ);
-
-               POCDMT000040Observation cdaSeverityObs = new POCDMT000040Observation();
-
-               // severity observation template id
-               II severityTemplate = new II();
-               severityTemplate.setRoot(TemplateConstants.ccdSeverityObservationTemplateId);
-               severityTemplate.setAssigningAuthorityName("CCD");
-               cdaSeverityObs.getTemplateId().add(severityTemplate);
-
-               // status code
-               CS statusCode = new CS();
-               statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
-               cdaSeverityObs.setStatusCode(statusCode);
-
-               // severity code
-               CD severityCode = new CD();
-               severityCode.setCode(CDAConstants.ACT_CODE_SEVERITY);
-               severityCode.setDisplayName(CDAConstants.ACT_CODE_SEVERITY_LABEL);
-               severityCode.setCodeSystem(CDAConstants.ACT_CODE_SYSTEM_OID);
-               severityCode.setCodeSystemName(CDAConstants.ACT_CODE_SYSTEM);
-
-               // Severity Coded
-               if (calSeverityObs.getValue() != null) {
-                  cdaSeverityObs.getValue().add(calSeverityObs.getValue());
+               if (calSeverityObs != null) {
+                  POCDMT000040EntryRelationship severity = getSeverity(calSeverityObs);
+                  if (severity != null)
+                     actEntryRelationshipObs.getEntryRelationship().add(severity);
                }
-
-               // Severity Free-Text
-               if (calSeverityObs.getText() != null) {
-                  cdaSeverityObs.setText(calSeverityObs.getText());
-               }
-
-               severityEntryRelationship.setObservation(cdaSeverityObs);
-               actEntryRelationshipObs.getEntryRelationship().add(severityEntryRelationship);
             }
          } else {
             log.error("Unknown allergy information with typeCode=" + typeCode);
@@ -284,5 +201,121 @@ public class AllergiesModule extends ModuleImpl {
       allergyEntry.setAct(act);
 
       return allergyEntry;
+   }
+
+   private POCDMT000040Participant2 getProduct(REPCMT000100UV01AdministerableMaterial administerableMaterial) {
+      POCDMT000040Participant2 product = new POCDMT000040Participant2();
+      if (administerableMaterial != null) {
+         product.getTypeCode().add(CDAConstants.TYPE_CODE_CSM);
+
+         REPCMT000100UV01Material calMaterial = administerableMaterial.getAdministerableMaterial();
+         if (calMaterial != null) {
+            POCDMT000040ParticipantRole productDetail = new POCDMT000040ParticipantRole();
+            productDetail.getClassCode().add(CDAConstants.CLASS_CODE_MANU);
+
+            POCDMT000040PlayingEntity productDetailPlayingEntity = new POCDMT000040PlayingEntity();
+            productDetailPlayingEntity.getClassCode().add(CDAConstants.CLASS_CODE_MMAT);
+
+            // Product Coded
+            if (calMaterial.getCode() != null) {
+               productDetailPlayingEntity.setCode(calMaterial.getCode());
+            }
+
+            // Product Free-Text
+            if (calMaterial.getDesc() != null) {
+               STExplicit productDesc = calMaterial.getDesc();
+               if (productDesc.getContent().size() > 0) {
+                  PNExplicit productFreeText = new PNExplicit();
+                  productFreeText.getContent().add(productDesc.getContent().get(0));
+                  productDetailPlayingEntity.getName().add(productFreeText);
+               }
+            }
+
+            productDetail.setPlayingEntity(productDetailPlayingEntity);
+            product.setParticipantRole(productDetail);
+         }
+      }
+
+      return product;
+   }
+
+   private POCDMT000040EntryRelationship getReaction(REPCMT000100UV01Observation obs) {
+      POCDMT000040EntryRelationship reactionEntryRelationship = null;
+
+      if (obs != null) {
+         reactionEntryRelationship = new POCDMT000040EntryRelationship();
+         POCDMT000040Observation entryObs = new POCDMT000040Observation();
+
+         reactionEntryRelationship.setTypeCode(XActRelationshipEntryRelationship.MFST);
+         reactionEntryRelationship.setInversionInd(true);
+
+         // reaction observation template id
+         II reactionTemplate = new II();
+         reactionTemplate.setRoot(TemplateConstants.ccdReactionObservationTemplateId);
+         reactionTemplate.setAssigningAuthorityName("CCD");
+         entryObs.getTemplateId().add(reactionTemplate);
+
+         // status code
+         CS statusCode = new CS();
+         statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
+         entryObs.setStatusCode(statusCode);
+
+         // Reaction Coded
+         if (obs.getValue() != null) {
+            entryObs.getValue().add(obs.getValue());
+         }
+
+         // Reaction Free-Text
+         if (obs.getText() != null) {
+            entryObs.setText(obs.getText());
+         }
+
+         reactionEntryRelationship.setObservation(entryObs);
+      }
+
+      return reactionEntryRelationship;
+   }
+
+   private POCDMT000040EntryRelationship getSeverity(REPCMT000100UV01Observation obs) {
+      POCDMT000040EntryRelationship severityEntryRelationship = null;
+
+      if (obs != null) {
+         severityEntryRelationship = new POCDMT000040EntryRelationship();
+         severityEntryRelationship.setTypeCode(XActRelationshipEntryRelationship.SUBJ);
+
+         POCDMT000040Observation cdaSeverityObs = new POCDMT000040Observation();
+
+         // severity observation template id
+         II severityTemplate = new II();
+         severityTemplate.setRoot(TemplateConstants.ccdSeverityObservationTemplateId);
+         severityTemplate.setAssigningAuthorityName("CCD");
+         cdaSeverityObs.getTemplateId().add(severityTemplate);
+
+         // status code
+         CS statusCode = new CS();
+         statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
+         cdaSeverityObs.setStatusCode(statusCode);
+
+         // severity code
+         CD severityCode = new CD();
+         severityCode.setCode(CDAConstants.ACT_CODE_SEVERITY);
+         severityCode.setDisplayName(CDAConstants.ACT_CODE_SEVERITY_LABEL);
+         severityCode.setCodeSystem(CDAConstants.ACT_CODE_SYSTEM_OID);
+         severityCode.setCodeSystemName(CDAConstants.ACT_CODE_SYSTEM);
+
+         // Severity Coded
+         if (obs.getValue() != null) {
+            cdaSeverityObs.getValue().add(obs.getValue());
+         }
+
+         // Severity Free-Text
+         if (obs.getText() != null) {
+            cdaSeverityObs.setText(obs.getText());
+         }
+
+         severityEntryRelationship.setObservation(cdaSeverityObs);
+      }
+
+      return severityEntryRelationship;
    }
 }

@@ -7,7 +7,6 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.section;
 import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
 import gov.hhs.fha.nhinc.assemblymanager.builder.ModuleFactoryBuilder;
-import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.util.List;
 import org.hl7.v3.CE;
@@ -15,13 +14,13 @@ import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040Component3;
 import org.hl7.v3.POCDMT000040Entry;
 import org.hl7.v3.POCDMT000040Section;
-import org.w3c.dom.Element;
 import org.hl7.v3.STExplicit;
+
 
 /**
  * This class performs the necessary mappings from CareRecordQUPCIN043200UV01ResponseType
  * to POCDMT000040Component3.
- *
+ * 
  * @author kim
  */
 public class MedicationsSectionImpl extends SectionImpl {
@@ -50,10 +49,10 @@ public class MedicationsSectionImpl extends SectionImpl {
       // REQUIRED! Set title for display
 //      try {
 //         Element title = XMLUtil.createElement(TITLE_TAG);
-       STExplicit title = new STExplicit();
-       title.getContent().add(CDAConstants.MED_SECTION_TITLE);
 //         title.setTextContent(CDAConstants.MED_SECTION_TITLE);
-       rxSection.setTitle(title);
+          STExplicit title = new STExplicit();
+          title.getContent().add(CDAConstants.ALLERGIES_SECTION_TITLE);
+         rxSection.setTitle(title);
 //      } catch (Exception e) {
 //         log.error("Failed to set POCDMT000040Section.title", e);
 //      }

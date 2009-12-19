@@ -6,6 +6,8 @@ package gov.hhs.fha.nhinc.assemblymanager.builder;
 
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
+import gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.Author;
+import gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.InformationSource;
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules.RecordTargetModule;
 import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
@@ -115,11 +117,31 @@ public class CDADocumentBuilder extends DocumentBuilder {
       // patient
       II subjectId = new II();
       subjectId.setExtension(patientId);
-      subjectId.setRoot(this.orgOID);
+      subjectId.setRoot(orgOID);
 
       // recordTarget: The recordTarget represents the medical record that this document belongs to.
       RecordTargetModule rtModule = new RecordTargetModule(subjectId);
-      cdaDocument.getRecordTarget().add(rtModule.build());
+      try {
+         cdaDocument.getRecordTarget().add(rtModule.build());
+      } catch (DocumentBuilderException dbe) {
+         log.error("Unable to build a RECORD TARGET MODULE", dbe);
+      }
+
+      // author: information about the author or creator of the information
+      Author author = new Author();
+      try {
+         cdaDocument.getAuthor().add(author.build());
+      } catch (DocumentBuilderException dbe) {
+         log.error("Unable to build an AUTHOR MODULE", dbe);
+      }
+
+      // informant: This module contains information about the original author
+      InformationSource informant = new InformationSource();
+      try {
+         cdaDocument.getInformant().add(informant.build());
+      } catch (DocumentBuilderException dbe) {
+         log.error("Unable to build an INFORMATION SOURCE MODULE", dbe);
+      }
 
       // now build the applicable clinical domain section(s)
       POCDMT000040Component2 clinicalComponent = new POCDMT000040Component2();
@@ -129,10 +151,15 @@ public class CDADocumentBuilder extends DocumentBuilder {
          CdaTemplate template = null;
          for (int i = 0; i < this.templates.size(); i++) {
             template = templates.get(i);
-            log.debug("Build section(POCDMT000040Component3) according to template:" + template);
-            POCDMT000040Component3 section =
+            log.info("Build section(POCDMT000040Component3) - template:" + template);
+            try {
+               POCDMT000040Component3 section =
                     StructureComponentFactoryBuilder.createHITSPComponent(subjectId, template);
-            structBody.getComponent().add(section);
+               structBody.getComponent().add(section);
+            }
+            catch(Exception e) {
+               log.error("Failed to build (section) template:" + template);
+            }
          }
       }
 

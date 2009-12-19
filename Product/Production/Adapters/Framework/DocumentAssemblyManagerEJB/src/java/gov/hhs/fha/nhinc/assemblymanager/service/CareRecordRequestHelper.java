@@ -54,7 +54,7 @@ public class CareRecordRequestHelper {
       msg.setLocalDeviceId(homeOID);
       msg.setReceiverOID(homeOID);
       msg.setSenderOID("1.1");
-
+      
       msg.setQuery(build043100(subjectId, careProvisionCode, null, null));
 
       return msg;
@@ -77,7 +77,7 @@ public class CareRecordRequestHelper {
    }
 
   private static QUPCIN043100UV01MCCIMT000100UV01Message build043100(II subjectId, String careProvisionCode, String dataStartDate, String dataEndDate) {
-
+     
       QUPCIN043100UV01MCCIMT000100UV01Message query = new QUPCIN043100UV01MCCIMT000100UV01Message();
 
       II id = new II();

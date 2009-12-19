@@ -4,6 +4,9 @@
  */
 package gov.hhs.fha.nhinc.assemblymanager.service;
 
+import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
+import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
+import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -34,9 +37,9 @@ public class PatientInfoRequestHelper {
    public static PatientDemographicsPRPAIN201307UV02RequestType createPatientDemographicsRequest(II subjectId) {
       PatientDemographicsPRPAIN201307UV02RequestType msg = new PatientDemographicsPRPAIN201307UV02RequestType();
 
-      msg.setLocalDeviceId("1.1");
-      msg.setReceiverOID("1.1");
-      msg.setSenderOID("1.1");
+      msg.setLocalDeviceId(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
+      msg.setReceiverOID(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
+      msg.setSenderOID(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
       msg.setQuery(build201307(subjectId));
 
       return msg;
@@ -46,8 +49,8 @@ public class PatientInfoRequestHelper {
       PRPAIN201307UV02MCCIMT000100UV01Message query = new PRPAIN201307UV02MCCIMT000100UV01Message();
 
       II id = new II();
-      id.setRoot("1.1");
-      id.setExtension("20090920011010.005");
+      id.setRoot(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
+      id.setExtension(DocumentIdGenerator.generateDocumentId());
       query.setId(id);
 
       TSExplicit creationTime = new TSExplicit();

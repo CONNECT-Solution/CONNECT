@@ -38,7 +38,7 @@ public class AssemblyConstants {
 
    public static boolean usePre25Templates() {
       pre25TemplatesSupport = AssemblyManager.getProperty(AssemblyConstants.TEMPLATES_PRE25_YN);
-
+      
       // default to HITSP 2.5 templates
       if (pre25TemplatesSupport == null || pre25TemplatesSupport.length() == 0) {
          return false;

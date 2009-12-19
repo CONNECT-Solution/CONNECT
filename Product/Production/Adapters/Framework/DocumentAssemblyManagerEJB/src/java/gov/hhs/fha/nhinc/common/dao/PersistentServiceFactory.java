@@ -21,7 +21,7 @@ public class PersistentServiceFactory {
 
    //@PersistenceUnit(unitName = "docassemblyPU")
    protected EntityManagerFactory emf;
-
+   
    private String puName = null;
    private static Map instances = new HashMap();
 

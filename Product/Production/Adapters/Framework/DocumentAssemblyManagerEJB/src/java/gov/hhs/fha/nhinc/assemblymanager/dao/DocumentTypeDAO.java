@@ -60,7 +60,7 @@ public class DocumentTypeDAO extends QueryDAO {
       List<DocumentType> docTypeList = null;
       EntityManager em = null;
       PersistentServiceFactory psf = null;
-
+      
       try {
          psf = PersistentServiceFactory.getInstance(AssemblyConstants.DAS_PU_VALUE);
          em = psf.getEntityManager();

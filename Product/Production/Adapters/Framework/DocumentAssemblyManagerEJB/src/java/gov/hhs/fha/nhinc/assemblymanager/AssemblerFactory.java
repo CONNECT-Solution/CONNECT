@@ -20,16 +20,16 @@ import org.apache.commons.logging.LogFactory;
 public class AssemblerFactory {
 
    private static Log log = LogFactory.getLog(AssemblerFactory.class);
-
+  
    public static CDADocumentBuilder cdaBuilder(String docType) {
       List<CdaTemplate> templates;
       CDADocumentBuilder builder = null;
       try {
          templates = TemplateManagerDAO.getInstance().getSectionTemplatesForDocument(docType, true);
          log.debug(templates.size() + " templates for document type " + docType);
-
+         
          builder = new CDADocumentBuilder(templates);
-      } catch (Exception ex) {
+      } catch (Exception ex) {                  
          log.error("No templates located - error: " + ex.getMessage());
          builder = new CDADocumentBuilder();
       }

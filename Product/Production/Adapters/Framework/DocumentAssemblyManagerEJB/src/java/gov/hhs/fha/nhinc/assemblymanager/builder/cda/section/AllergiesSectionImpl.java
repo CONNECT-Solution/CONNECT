@@ -15,7 +15,6 @@ import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040Component3;
 import org.hl7.v3.POCDMT000040Entry;
 import org.hl7.v3.POCDMT000040Section;
-import org.w3c.dom.Element;
 import org.hl7.v3.STExplicit;
 
 /**
@@ -51,9 +50,9 @@ public class AllergiesSectionImpl extends SectionImpl {
 //      try {
 //         Element title = XMLUtil.createElement(TITLE_TAG);
 //         title.setTextContent(CDAConstants.ALLERGIES_SECTION_TITLE);
-//         allergySection.setTitle(title);
           STExplicit title = new STExplicit();
           title.getContent().add(CDAConstants.ALLERGIES_SECTION_TITLE);
+          allergySection.setTitle(title);
 //      } catch (Exception e) {
 //         log.error("Failed to set POCDMT000040Section.title", e);
 //      }

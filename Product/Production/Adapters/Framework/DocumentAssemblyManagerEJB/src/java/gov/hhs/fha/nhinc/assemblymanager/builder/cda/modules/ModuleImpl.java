@@ -31,7 +31,7 @@ public abstract class ModuleImpl implements CDAModule {
 
    public ModuleImpl(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse) {
       this.template = template;
-      this.careRecordResponse = careRecordResponse;
+      this.careRecordResponse = careRecordResponse;     
       if (objectFactory == null) {
          objectFactory = new ObjectFactory();
       }
