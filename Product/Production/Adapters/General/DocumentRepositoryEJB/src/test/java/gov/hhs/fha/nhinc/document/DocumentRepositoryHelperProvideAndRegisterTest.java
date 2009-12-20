@@ -2,10 +2,7 @@ package gov.hhs.fha.nhinc.document;
 
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.jmock.Expectations;
@@ -37,36 +34,13 @@ public class DocumentRepositoryHelperProvideAndRegisterTest
         }
     };
 
-    public DocumentRepositoryHelperProvideAndRegisterTest()
-    {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
-    }
-
     @Test
     public void testDocumentRepositoryProvideAndRegisterDocumentSet()
     {
         // Create mock objects
         final Log mockLog = context.mock(Log.class);
         final DocumentService docService = context.mock(DocumentService.class);
+        final UTCDateUtil mockDateUtil = context.mock(UTCDateUtil.class);
 
         DocumentRepositoryHelper helper = new DocumentRepositoryHelper()
         {
@@ -81,12 +55,19 @@ public class DocumentRepositoryHelperProvideAndRegisterTest
             {
                 return docService;
             }
+
+            @Override
+            protected UTCDateUtil createDateUtil()
+            {
+                return mockDateUtil;
+            }
         };
 
         // Set expectations
         context.checking(new Expectations(){{
             allowing (mockLog).isDebugEnabled();
             allowing (mockLog).debug(with(any(String.class)));
+            allowing (mockDateUtil).parseUTCDateOptionalTimeZone(with(any(String.class)));
             oneOf (docService).saveDocument(with(aNonNull(gov.hhs.fha.nhinc.repository.model.Document.class)));
         }});
 

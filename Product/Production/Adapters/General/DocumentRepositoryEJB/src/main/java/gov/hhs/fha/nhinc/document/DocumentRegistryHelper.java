@@ -2,16 +2,12 @@ package gov.hhs.fha.nhinc.document;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,19 +17,17 @@ import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
 import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
-import gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
     
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.InternationalStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
@@ -46,6 +40,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 public class DocumentRegistryHelper
 {
     private Log log = null;
+    private UTCDateUtil utcDateUtil = null;
     
     /*
      * The following constants are the parameters defined by IHE for FindDocuments in
@@ -122,10 +117,6 @@ public class DocumentRegistryHelper
     private static final String XDS_QUERY_RESPONSE_OPTION_RETURN_TYPE_LEAF_CLASS = "LeafClass";
     private static final String XDS_QUERY_RESPONSE_EXTRINSIC_OBJCECT_OBJECT_TYPE = "urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1";
     
-    private static final String DATE_FORMAT_FULL = "yyyyMMddhhmmssZ";
-    private static final String DATE_FORMAT_CREATION = DATE_FORMAT_FULL;
-    private static final String DATE_FORMAT_SERVICE = "yyyyMMdd";
-
     private static final String REPOSITORY_UNIQUE_ID = "1";
     
     // Properties file keys
@@ -135,11 +126,17 @@ public class DocumentRegistryHelper
     public DocumentRegistryHelper()
     {
         log = createLogger();
+        utcDateUtil = createDateUtil();
     }
 
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected UTCDateUtil createDateUtil()
+    {
+        return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse documentRegistryRegistryStoredQuery(oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest body)
@@ -291,7 +288,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_FROM);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            creationTimeFrom = parseCreationDate(slotValues.get(0));
+            creationTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return creationTimeFrom;
     }
@@ -302,7 +299,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_CREATION_TIME_TO);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            creationTimeTo = parseCreationDate(slotValues.get(0));
+            creationTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return creationTimeTo;
     }
@@ -313,7 +310,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_FROM);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            serviceStartTimeFrom = parseCreationDate(slotValues.get(0));
+            serviceStartTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStartTimeFrom;
     }
@@ -324,7 +321,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_START_TIME_TO);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            serviceStartTimeTo = parseCreationDate(slotValues.get(0));
+            serviceStartTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStartTimeTo;
     }
@@ -335,7 +332,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_FROM);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            serviceStopTimeFrom = parseCreationDate(slotValues.get(0));
+            serviceStopTimeFrom = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStopTimeFrom;
     }
@@ -346,7 +343,7 @@ public class DocumentRegistryHelper
         List<String> slotValues = extractSlotValues(slots, EBXML_DOCENTRY_SERVICE_STOP_TIME_TO);
         if((slotValues != null) && (!slotValues.isEmpty()))
         {
-            serviceStopTimeTo = parseCreationDate(slotValues.get(0));
+            serviceStopTimeTo = utcDateUtil.parseUTCDateOptionalTimeZone(slotValues.get(0));
         }
         return serviceStopTimeTo;
     }
@@ -595,7 +592,7 @@ public class DocumentRegistryHelper
                 if(doc.getCreationTime() != null)
                 {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_CREATIONTIME_SLOTNAME,
-                        formatCreationDate(doc.getCreationTime()));
+                        utcDateUtil.formatUTCDate(doc.getCreationTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -729,7 +726,7 @@ public class DocumentRegistryHelper
                 if(doc.getServiceStartTime() != null)
                 {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTARTTIME_SLOTNAME,
-                        formatServiceDate(doc.getServiceStartTime()));
+                        utcDateUtil.formatUTCDate(doc.getServiceStartTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -739,7 +736,7 @@ public class DocumentRegistryHelper
                 if(doc.getServiceStopTime() != null)
                 {
                     SlotType1 oSlot = CreateSingleValueSlot(EBXML_RESPONSE_SERVICESTOPTIME_SLOTNAME,
-                        formatServiceDate(doc.getServiceStopTime()));
+                        utcDateUtil.formatUTCDate(doc.getServiceStopTime()));
                     olSlot.add(oSlot);
                     bHaveData = true;
                 }
@@ -1054,61 +1051,6 @@ public class DocumentRegistryHelper
         }
     }
 
-    protected Date parseCreationDate(String dateString)
-    {
-        return parseDate(dateString, DATE_FORMAT_FULL);
-    }
-
-    protected Date parseServiceDate(String dateString)
-    {
-        return parseDate(dateString, DATE_FORMAT_FULL);
-    }
-
-    private Date parseDate(String dateString, String dateFormat)
-    {
-        Date parsed = null;
-        if ((dateString != null) && (dateFormat != null))
-        {
-            try
-            {
-                String formatString = DocumentLoadUtil.prepareDateFormatString(dateFormat, dateString);
-                parsed = new SimpleDateFormat(formatString).parse(dateString);
-            }
-            catch (Throwable t)
-            {
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
-            }
-        }
-        return parsed;
-    }
-
-    protected String formatCreationDate(Date sourceDate)
-    {
-        return formatDate(sourceDate, DATE_FORMAT_CREATION);
-    }
-
-    protected String formatServiceDate(Date sourceDate)
-    {
-        return formatDate(sourceDate, DATE_FORMAT_SERVICE);
-    }
-
-    private String formatDate(Date sourceDate, String formatString)
-    {
-        String formatted = "";
-        if ((sourceDate != null) && (formatString != null))
-        {
-            try
-            {
-                formatted = new SimpleDateFormat(formatString).format(sourceDate);
-            }
-            catch (Throwable t)
-            {
-                log.warn("Failed to format a date (" + sourceDate.toString() + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
-            }
-        }
-        return formatted;
-    }
-    
     /**
      * This method creates a Slot containing a single value.
      * 

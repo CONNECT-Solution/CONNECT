@@ -5,19 +5,16 @@ import gov.hhs.fha.nhinc.repository.model.Document;
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.repository.model.EventCode;
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
-import gov.hhs.fha.nhinc.repository.util.DocumentLoadUtil;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import java.text.SimpleDateFormat;
 
 import javax.xml.bind.JAXBElement;
 
@@ -96,16 +93,18 @@ public class DocumentRepositoryHelper
     public static final String XDS_ERROR_SEVERITY_ERROR = "ERROR";
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
 
-    private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
+//    private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
 
     private Log log = null;
+    private UTCDateUtil utcDateUtil = null;
 
     private static final String REPOSITORY_UNIQUE_ID = "1";
 
     public DocumentRepositoryHelper()
     {
         log = createLogger();
+        utcDateUtil = createDateUtil();
     }
 
     protected Log createLogger()
@@ -116,6 +115,11 @@ public class DocumentRepositoryHelper
     protected DocumentService getDocumentService()
     {
         return new DocumentService();
+    }
+
+    protected UTCDateUtil createDateUtil()
+    {
+        return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
     /**
@@ -490,15 +494,15 @@ public class DocumentRepositoryHelper
                         String creationTime = extractMetadataFromSlots(documentSlots, XDS_CREATION_TIME_SLOT, 0);
                         log.debug("Document creationTime for ExtrinsicObject " + i + ": " + creationTime);
                         //TODO add an error code for invalid date format
-                        doc.setCreationTime(parseDate(creationTime,DATE_FORMAT_STRING));
+                        doc.setCreationTime(utcDateUtil.parseUTCDateOptionalTimeZone(creationTime));
 
                         String startTime = extractMetadataFromSlots(documentSlots, XDS_START_TIME_SLOT, 0);
                         log.debug("Document startTime for ExtrinsicObject " + i + ": " + startTime);
-                        doc.setServiceStartTime(parseDate(startTime,DATE_FORMAT_STRING));
+                        doc.setServiceStartTime(utcDateUtil.parseUTCDateOptionalTimeZone(startTime));
 
                         String stopTime = extractMetadataFromSlots(documentSlots, XDS_STOP_TIME_SLOT, 0);
                         log.debug("Document stopTime for ExtrinsicObject " + i + ": " + stopTime);
-                        doc.setServiceStopTime(parseDate(stopTime,DATE_FORMAT_STRING));
+                        doc.setServiceStopTime(utcDateUtil.parseUTCDateOptionalTimeZone(stopTime));
 
                         //extract sourcePatientInfo metadata
                         String sourcePatientId = extractMetadataFromSlots(documentSlots, XDS_SOURCE_PATIENT_ID_SLOT, 0);
@@ -1013,30 +1017,6 @@ public class DocumentRepositoryHelper
         } //for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots)
 
         return slotValue;
-    }
-
-    /**
-     * Parses a string and returns a Date object having the given dateformat
-     * @param dateString String to be parsed containing a date
-     * @param dateFormat Format of the date to be parsed
-     * @return Returns the Date object for the given string and format.
-     */
-    private Date parseDate(String dateString, String dateFormat)
-    {
-        Date parsed = null;
-        if ((dateString != null) && (dateFormat != null))
-        {
-            try
-            {
-                String formatString = DocumentLoadUtil.prepareDateFormatString(dateFormat, dateString);
-                parsed = new SimpleDateFormat(formatString).parse(dateString);
-            }
-            catch (Throwable t)
-            {
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
-            }
-        }
-        return parsed;
     }
 
     /**

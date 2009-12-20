@@ -1,18 +1,12 @@
 package gov.hhs.fha.nhinc.document;
 
 import gov.hhs.fha.nhinc.repository.model.DocumentQueryParams;
-import gov.hhs.fha.nhinc.repository.model.EventCodeParam;
 import gov.hhs.fha.nhinc.repository.service.DocumentService;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
@@ -35,37 +29,13 @@ public class DocumentRegistryHelperTest
         setImposteriser(ClassImposteriser.INSTANCE);
     }};
 
-
-    public DocumentRegistryHelperTest()
-    {
-    }
-
-    @BeforeClass
-    public static void setUpClass() throws Exception
-    {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception
-    {
-    }
-
-    @Before
-    public void setUp()
-    {
-    }
-
-    @After
-    public void tearDown()
-    {
-    }
-
     @Test
     public void testDocumentRegistryRegistryStoredQuery()
     {
         // Create mock objects
         final Log mockLog = context.mock(Log.class);
         final DocumentService docService = context.mock(DocumentService.class);
+        final UTCDateUtil mockDateUtil = context.mock(UTCDateUtil.class);
 
         DocumentRegistryHelper registryHelper = new DocumentRegistryHelper()
         {
@@ -80,6 +50,12 @@ public class DocumentRegistryHelperTest
             protected DocumentService getDocumentService()
             {
                 return docService;
+            }
+
+            @Override
+            protected UTCDateUtil createDateUtil()
+            {
+                return mockDateUtil;
             }
         };
 
