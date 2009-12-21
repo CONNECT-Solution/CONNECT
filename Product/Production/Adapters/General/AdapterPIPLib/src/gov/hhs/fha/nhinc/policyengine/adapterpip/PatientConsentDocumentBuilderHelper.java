@@ -53,7 +53,6 @@ public class PatientConsentDocumentBuilderHelper {
     private static String sPropertyFile = null;
     private static final String PDF_MIME_TYPE = "application/pdf";
     private Format xdsDateFormatter = null;
-    private static final String PID_3 = "pid1^^^domain";
 
     public PatientConsentDocumentBuilderHelper() {
         log = createLogger();
@@ -452,7 +451,7 @@ public class PatientConsentDocumentBuilderHelper {
                 if (PDF_MIME_TYPE.equals(sMimeType) && oPtPref.getBinaryDocumentPolicyCriteria() != null && oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion() != null && !oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion().isEmpty()) {
                     for (BinaryDocumentPolicyCriterionType eachBinaryDocumentPolicyCriteria : oPtPref.getBinaryDocumentPolicyCriteria().getBinaryDocumentPolicyCriterion()) {
                         if (sDocUniqueId.equals(eachBinaryDocumentPolicyCriteria.getDocumentUniqueId()) && eachBinaryDocumentPolicyCriteria.getPatientInfo() != null) {
-                            sPid3 = PID_3;
+                            sPid3 = oPtPref.getPatientId();
                             sPid5 = extractPatientName(eachBinaryDocumentPolicyCriteria.getPatientInfo().getName());
                             sPid7 = eachBinaryDocumentPolicyCriteria.getPatientInfo().getBirthTime();
                             sPid8 = extractCeTypeForCode(eachBinaryDocumentPolicyCriteria.getPatientInfo().getGender());
@@ -1008,7 +1007,7 @@ public class PatientConsentDocumentBuilderHelper {
         StringBuffer authorName = new StringBuffer();
         if (oPersonName != null) {
             authorName.append(oPersonName.getPrefix());
-            authorName.append(". ");
+            authorName.append("");
             authorName.append(oPersonName.getGivenName());
             authorName.append(", ");
             authorName.append(oPersonName.getFamilyName());
