@@ -19,6 +19,8 @@
     <target name="clean-build" depends="clean,build" />
     <target name="clean-test" depends="clean-build,test" />
     <target name="build-test" depends="build,test" />
+    <property name="deploy.type" value="" />
+    <property name="deploy.isDeployable" value="false"/>
 
     <!--
 

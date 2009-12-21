@@ -60,7 +60,10 @@
         <name>AdapterPIPLib</name>
         <directory>/Production/Adapters/General/AdapterPIPLib</directory>
     </project>
-    
+        <project>
+        <name>AdapterPEPLib</name>
+        <directory>/Production/Adapters/General/AdapterPEPLib</directory>
+    </project>
 <!--
     <project>
         <name>HiemSubscriptionRepository</name>
