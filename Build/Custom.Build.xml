@@ -4,6 +4,8 @@
 	<target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
     <call target="Build.PublishZip.Release.Domains.Configuration"/>
+    <call target="Build.PublishZip.Release.DBScripts"/>
+    <call target="Build.PublishZip.Release.Interfaces"/>
   </target>
 
   <target name="Build.PublishZip.Release.Installer">
@@ -34,6 +36,38 @@
     <call target="Publish.Link" />
   </target>
 
+  <target name="Build.PublishZip.Release.Interfaces">
+    <property name="Interfaces.Zip.FileName" value="${ProjectFullName}_Interfaces_${CCNetLabel}.zip"/>
+    <property name="Interfaces.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Interfaces.Zip.FileName}"/>
+
+    <zip zipfile="${Interfaces.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\" >
+        <include name="Common\Interfaces\**" />
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Interfaces.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+  </target>
+  
+  <target name="Build.PublishZip.Release.DBScripts">
+    <property name="DBScripts.Zip.FileName" value="${ProjectFullName}_DBScripts_${CCNetLabel}.zip"/>
+    <property name="DBScripts.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${DBScripts.Zip.FileName}"/>
+
+    <zip zipfile="${DBScripts.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Product.Path}\" >
+        <include name="DBScripts\**" />
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${DBScripts.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+  </target>
+  
   <target name="Build.PublishZip.Release.Domains.Configuration">
     <property name="Domains.Configuration.Zip.FileName" value="${ProjectFullName}_Domains_Configuration_${CCNetLabel}.zip"/>
     <property name="Domains.Configuration.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Domains.Configuration.Zip.FileName}"/>
