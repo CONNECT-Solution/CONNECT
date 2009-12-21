@@ -116,11 +116,13 @@ public class VerifyMode implements ResponseMode{
         //query.getControlActProcess().setQueryByParameter(response.getControlActProcess().getQueryByParameter());
 
         PRPAIN201305UV02 mpiQuery;
-        
+        List<PRPAMT201306UV02LivingSubjectId> mpiIds;
+        List<PRPAMT201306UV02LivingSubjectId> requestIds;
+
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         
         mpiQuery =convert201306to201305(response);
-
+        requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
         mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
         PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
@@ -128,13 +130,10 @@ public class VerifyMode implements ResponseMode{
         {
             try
             {
-                List<PRPAMT201306UV02LivingSubjectId> localIds;
-                List<PRPAMT201306UV02LivingSubjectId> remoteIds;
+                mpiIds = mpiResult.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
 
-                localIds = mpiResult.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
-                remoteIds = response.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
-
-                result = compareId(localIds, remoteIds);
+                
+                result = compareId(mpiIds, requestIds);
 
             }
             catch(Exception ex)
