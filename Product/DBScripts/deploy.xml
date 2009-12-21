@@ -27,12 +27,12 @@
     		database.create
     		database.recreate
     		database.populateWithTestData
-    		database.recreateTestdatabase
+    		database.recreateTestDatabase
     	</echo>
     </target>
     
     <target name="database.populate.test.data">
-
+      <execsql file="${basedir}/nhincdb/populateTestData.sql"/>
     </target>
 
     <target name="database.alter">
@@ -50,6 +50,11 @@
     <target name="database.recreate">
     	<runtarget target="database.drop"/>
     	<runtarget target="database.create"/>
+    </target>
+    
+    <target name="database.recreateTestDatabase">
+    	<runtarget target="database.recreate"/>
+      <runtarget target="database.populate.test.data"/>
     </target>
     
     <macrodef name="execsql">
