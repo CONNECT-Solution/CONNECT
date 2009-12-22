@@ -8,7 +8,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 
 /**
  *
@@ -16,11 +15,11 @@ import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
  */
 public class SubjectHelper {
 
-    private static final String SubjectCategory = "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
+    public static final String SubjectCategory = "urn:oasis:names:tc:xacml:1.0:subject-category:access-subject";
 //    private static final String UserAttributeId = "urn:oasis:names:tc:xacml:1.0:subject:subject-id";
-    private static final String UserRoleAttributeId = "urn:gov:hhs:fha:nhinc:user-role-code";
-    private static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-for-use";
-    private static final String UserHomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
+    public static final String UserRoleAttributeId = "urn:gov:hhs:fha:nhinc:user-role-code";
+    public static final String PurposeAttributeId = "urn:gov:hhs:fha:nhinc:purpose-for-use";
+    public static final String UserHomeCommunityAttributeId = "urn:gov:hhs:fha:nhinc:home-community-id";
 
     public SubjectType subjectFactory(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         SubjectType subject = new SubjectType();
@@ -42,7 +41,7 @@ public class SubjectHelper {
         return subject;
     }
 
-    private String determineSendingHomeCommunityId(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
+    public String determineSendingHomeCommunityId(HomeCommunityType sendingHomeCommunity, AssertionType assertion) {
         String homeCommunityId = null;
 
         if (sendingHomeCommunity != null) {
