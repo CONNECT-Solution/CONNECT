@@ -31,7 +31,7 @@
           <include name="DocQueryAdditionalStoredQueries-soapui-project.xml"/>
           <include name="DocQueryXDSErrors-soapui-project.xml"/>
           <include name="PatientCorrelation-soapui-project.xml"/>
-          <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
+          <include name="PatientDiscovery-soapui-project.xml"/>
           <include name="AuditLogsforDocQandDocR-soapui-project.xml"/>
         </fileset>
       </path>
