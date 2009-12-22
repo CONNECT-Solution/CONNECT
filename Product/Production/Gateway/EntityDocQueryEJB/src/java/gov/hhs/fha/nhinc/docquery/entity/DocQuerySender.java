@@ -115,7 +115,19 @@ public class DocQuerySender {
         docQuery.setAdhocQueryRequest(adhocQueryRequest);
         AdhocQueryResponse queryResults = null;
         if (isValidPolicy(adhocQueryRequest, oAssertion)) {
-            queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery, oAssertion);
+            try {
+                queryResults = nhincDocQueryProxy.respondingGatewayCrossGatewayQuery(docQuery, oAssertion);
+            } catch (Throwable t) {
+                queryResults = new AdhocQueryResponse();
+                RegistryErrorList regErrList = new RegistryErrorList();
+                RegistryError regErr = new RegistryError();
+                regErrList.getRegistryError().add(regErr);
+                regErr.setCodeContext("Fault encountered processing internal document query for community "+sTargetHomeCommunityId);
+                regErr.setErrorCode("XDSRegistryNotAvailable");
+                regErr.setSeverity("Error");
+                queryResults.setRegistryErrorList(regErrList);
+                queryResults.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            }
         } else {
             queryResults = new AdhocQueryResponse();
             RegistryErrorList regErrList = new RegistryErrorList();
