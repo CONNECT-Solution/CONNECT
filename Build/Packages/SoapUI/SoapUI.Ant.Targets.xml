@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="nhinc-integrationtests" default="soapui.run" basedir=".">
-
+  <import file="../../../Product/Install/deploy.xml"/>
+  
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
   <property name="IntegrationTest.Dir" value="C:/Projects/NHINC/Current/Product/IntegrationTest"/>
@@ -44,12 +45,12 @@
 
 
         <if>
-          <equals arg1="${counter}" arg2="6"/>
+          <equals arg1="${counter}" arg2="10"/>
           <then>
             <echo message="${counter}"/>
-            <!--<runtarget target="deploy.glassfish.stop.server"/>
+            <runtarget target="deploy.glassfish.stop.server"/>
             <runtarget target="deploy.glassfish.start.server"/>
-            <sleep minutes="5"/>-->
+            <sleep minutes="10"/>
           </then>
         </if>
         
