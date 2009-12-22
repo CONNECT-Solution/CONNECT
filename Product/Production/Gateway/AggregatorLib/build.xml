@@ -88,10 +88,12 @@
     <target depends="init" name="deps-jar" unless="no.deps">
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}" antfile="build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib}" antfile="build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincDataTransformsLib}" antfile="build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" name="deps-clean" unless="no.deps">
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}" antfile="build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib}" antfile="build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincDataTransformsLib}" antfile="build.xml" inheritall="false" target="clean"/>
     </target>
     
 </project>
