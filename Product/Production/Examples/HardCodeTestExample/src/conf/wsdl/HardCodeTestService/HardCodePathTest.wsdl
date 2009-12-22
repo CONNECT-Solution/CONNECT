@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+						 xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+						 xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+						 xmlns:tns="urn:gov:hhs:fha:nhinc:hardcodepathtest"
+						 xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+						 xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+                                                 xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+						 name="HardCodePathTest"
+						 targetNamespace="urn:gov:hhs:fha:nhinc:hardcodepathtest">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+                        schemaLocation="../schemas/nhinc/common/NhincCommon.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <message name="Test1RequestMessage">
+        <part name="Test1Request"
+              element="nccommon:PersonName"/>
+    </message>
+    <message name="Test1ResponseMessage">
+        <part name="Test1Response"
+              element="nccommon:PersonName"/>
+    </message>
+    <portType name="HardCodeTestPortType">
+        <operation name="Test1">
+            <input name="Test1Request"
+                   message="tns:Test1RequestMessage"/>
+            <output name="Test1Response"
+                    message="tns:Test1ResponseMessage"/>
+        </operation>
+    </portType>
+    <binding name="HardCodeTestBindingSoap11"
+             type="tns:HardCodeTestPortType">
+        <soap:binding style="document" 
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="Test1">
+            <soap:operation soapAction="urn:Test1"/>
+            <input name="Test1Request">
+                <soap:body use="literal"/>
+            </input>
+            <output name="Test1Response">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="HardCodeTest">
+        <port name="HardCodeTestPortSoap11"
+              binding="tns:HardCodeTestBindingSoap11">
+            <soap:address 
+              location="http://localhost:${NhincHttpPort}/NhinConnect/HardCodeTest"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="HardCodeTest">
+		<!-- A partner link type is automatically generated when a new port 
+             type is added. Partner link types are used by BPEL processes. 
+             In a BPEL process, a partner link represents the interaction 
+             between the BPEL process and a partner service. Each partner 
+             link is associated with a partner link type.  A partner link 
+             type characterizes the conversational relationship between 
+             two services. The partner link type can have one or two roles.-->
+        <plnk:role name="HardCodeTestPortTypeRole"
+                   portType="tns:HardCodeTestPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
