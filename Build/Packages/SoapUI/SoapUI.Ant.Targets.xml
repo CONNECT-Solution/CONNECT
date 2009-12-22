@@ -42,15 +42,14 @@
         <exec dir="${SoapUI.Dir}" executable="cmd.exe">
           <arg line="/c testrunner.bat -j -a -f${IntegrationTest.Results.Dir}/test_${counter} @{file}"/>
         </exec>
-
-
+        
         <if>
-          <equals arg1="${counter}" arg2="10"/>
+          <equals arg1="${counter}" arg2="6"/>
           <then>
             <echo message="${counter}"/>
-            <runtarget target="deploy.glassfish.stop.server"/>
-            <runtarget target="deploy.glassfish.start.server"/>
-            <sleep minutes="10"/>
+            <antcall target="deploy.glassfish.stop.server" inheritAll="true"/>
+            <antcall target="deploy.glassfish.start.server" inheritAll="true"/>
+            <sleep minutes="4"/>
           </then>
         </if>
         
