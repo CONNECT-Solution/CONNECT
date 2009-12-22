@@ -11,10 +11,10 @@
             <name>AdapterMpiProxyImpl</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <source-roots>
-                <root id="src.resources.dir"/>
                 <root id="src.java.dir"/>
             </source-roots>
             <test-roots>
+                <root id="test.resources.dir"/>
                 <root id="test.java.dir"/>
             </test-roots>
         </data>

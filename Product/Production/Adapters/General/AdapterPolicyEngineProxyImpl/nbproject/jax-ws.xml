@@ -5,7 +5,7 @@
     <client name="AdapterPolicyEngine">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngine.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpolicyengine</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpolicyengine</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

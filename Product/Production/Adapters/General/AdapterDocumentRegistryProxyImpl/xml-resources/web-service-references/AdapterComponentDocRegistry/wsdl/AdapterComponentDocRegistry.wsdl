@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Registry Actor 
+     It can be used 'as is' to support Document Registry Transactions
+     using Synchronous Web Services.  
+     The wsdl file can also be used to support the Asynchronous 
+     Web Services Exchange option.  To do this, you will need to 
+     'uncomment' all the comment sections below that are labeled 
+     'SECTION FOR WEB SERVICES EXCHANGE OPTION'                  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" 
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+        xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+	xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" 
+        xmlns:hl7="urn:hl7-org:v3"
+	xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" 
+        targetNamespace="urn:ihe:iti:xds-b:2007"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" 
+        name="DocumentRegistry">
+	<documentation>IHE XDS.b Document Registry</documentation>
+	<types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
+			xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+			<xsd:include
+				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201301UV02.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
+			xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+			<xsd:include
+				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201302UV02.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
+			xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+			<xsd:include
+				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201304UV02.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3"
+			xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+			<xsd:include
+				schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified"
+			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+			xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../schemas/ebRS/query.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified"
+			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+			xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+		</xsd:schema>
+		<xsd:schema elementFormDefault="qualified"
+			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
+			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+		</xsd:schema>
+		<!-- While no elements are directly used from this schema in the WSDL, it needs to be present here in order for
+		code generating toolkits to work properly -->
+		<xsd:schema elementFormDefault="qualified"
+			targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+			xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+		</xsd:schema>
+
+	</types>
+	<message name="RegistryStoredQuery_Message">
+		<documentation>Registry Stored Query</documentation>
+		<part name="body" element="query:AdhocQueryRequest"/>
+	</message>
+	<message name="RegistryStoredQueryResponse_Message">
+		<documentation>Registry Stored Query Response</documentation>
+		<part name="body" element="query:AdhocQueryResponse"/>
+	</message>
+	<message name="RegisterDocumentSet-b_Message">
+		<documentation>Register Document Set - b</documentation>
+		<part name="body" element="lcm:SubmitObjectsRequest"/>
+	</message>
+	<message name="RegisterDocumentSet-bResponse_Message">
+		<documentation>Register Document Set - b Response</documentation>
+		<part name="body" element="rs:RegistryResponse"/>
+	</message>
+	<message name="PRPA_IN201301UV02_Message">
+		<part name="body" element="hl7:PRPA_IN201301UV02"/>
+	</message>
+	<message name="PRPA_IN201302UV02_Message">
+		<part name="body" element="hl7:PRPA_IN201302UV02"/>
+	</message>
+	<message name="PRPA_IN201304UV02_Message">
+		<part name="body" element="hl7:PRPA_IN201304UV02"/>
+	</message>
+	<message name="MCCI_IN000002UV01_Message">
+		<part name="body" element="hl7:MCCI_IN000002UV01"/>
+	</message>
+	<portType name="DocumentRegistry_PortType">
+		<operation name="DocumentRegistry_RegisterDocumentSet-b">
+			<input message="ihe:RegisterDocumentSet-b_Message"
+				wsaw:Action="urn:ihe:iti:2007:RegisterDocumentSet-b"/>
+			<output message="ihe:RegisterDocumentSet-bResponse_Message"
+				wsaw:Action="urn:ihe:iti:2007:RegisterDocumentSet-bResponse"/>
+		</operation>
+		<operation name="DocumentRegistry_RegistryStoredQuery">
+			<input message="ihe:RegistryStoredQuery_Message"
+				wsaw:Action="urn:ihe:iti:2007:RegistryStoredQuery"/>
+			<output message="ihe:RegistryStoredQueryResponse_Message"
+				wsaw:Action="urn:ihe:iti:2007:RegistryStoredQueryResponse"/>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201301UV02">
+			<input message="ihe:PRPA_IN201301UV02_Message"
+				wsaw:Action="urn:hl7-org:v3:PRPA_IN201301UV02"/>
+			<output message="ihe:MCCI_IN000002UV01_Message"
+				wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201302UV02">
+			<input message="ihe:PRPA_IN201302UV02_Message"
+				wsaw:Action="urn:hl7-org:v3:PRPA_IN201302UV02"/>
+			<output message="ihe:MCCI_IN000002UV01_Message"
+				wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201304UV02">
+			<input message="ihe:PRPA_IN201304UV02_Message"
+				wsaw:Action="urn:hl7-org:v3:PRPA_IN201304UV02"/>
+			<output message="ihe:MCCI_IN000002UV01_Message"
+				wsaw:Action="urn:hl7-org:v3:MCCI_IN000002UV01"/>
+		</operation>
+		<!-- SECTION FOR WEB SERVICES EXCHANGE OPTION                  
+    <operation name="DocumentRegistry_RegisterDocumentSet-bAsync">
+      <input message="ihe:RegisterDocumentSet-b_Message" 
+             wsaw:Action="urn:ihe:iti:2008:RegisterDocumentSet-bAsync"/>
+    </operation>
+    <operation name="DocumentRegistry_RegistryStoredQueryAsync">
+      <input message="ihe:RegistryStoredQuery_Message" 
+             wsaw:Action="urn:ihe:iti:2008:RegistryStoredQueryAsync"/>
+    </operation>
+    -->
+	</portType>
+	<binding name="DocumentRegistry_Binding_Soap" 
+             type="ihe:DocumentRegistry_PortType">
+		<soap:binding style="document" 
+                        transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="DocumentRegistry_RegisterDocumentSet-b">
+			<soap:operation soapAction="urn:ihe:iti:2007:RegisterDocumentSet-b"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentRegistry_RegistryStoredQuery">
+			<soap:operation soapAction="urn:ihe:iti:2007:RegistryStoredQuery"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201301UV02">
+			<soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201301UV02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201302UV02">
+			<soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201302UV02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="DocumentRegistry_PRPA_IN201304UV02">
+			<soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201304UV02"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<!-- SECTION FOR WEB SERVICES EXCHANGE OPTION                  
+    <operation name="DocumentRegistry_RegisterDocumentSet-bAsync">
+      <soap:operation soapAction="urn:ihe:iti:2008:RegisterDocumentSet-bAsync"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+    <operation name="DocumentRegistry_RegistryStoredQueryAsync">
+      <soap:operation soapAction="urn:ihe:iti:2008:RegistryStoredQueryAsync"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+    </operation>
+    -->
+	</binding>
+	<service name="DocumentRegistry_Service">
+		<port name="DocumentRegistry_Port_Soap" 
+              binding="ihe:DocumentRegistry_Binding_Soap">
+			<soap:address 
+               location="http://localhost:${NhincHttpPort}/DocumentRegistry_Service"/>
+		</port>
+	</service>
+</definitions>

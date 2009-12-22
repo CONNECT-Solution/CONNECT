@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPolicyEngineOrchestrator" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngineOrchestrator"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpolicyengineorchestrator"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyengineorchestrator"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterPolicyEngineOrchestrator"/>
 </project>

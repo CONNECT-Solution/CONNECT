@@ -5,7 +5,7 @@
     <client name="AdapterPEP">
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPEP.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpep</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpep</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
