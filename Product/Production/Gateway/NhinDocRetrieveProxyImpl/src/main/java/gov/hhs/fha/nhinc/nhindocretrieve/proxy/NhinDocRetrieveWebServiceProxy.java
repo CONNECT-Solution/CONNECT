@@ -51,25 +51,17 @@ public class NhinDocRetrieveWebServiceProxy implements NhinDocRetrieveProxy
             {
                 log.info("URL for NHIN Proxy call: " + url);
             }
-            try
-            {
-                log.debug("Setting assertion");
-                AssertionType assertIn = request.getAssertion();
-                SamlTokenCreator tokenCreator = new SamlTokenCreator();
-                Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_RETRIEVE_ACTION);
+            log.debug("Setting assertion");
+            AssertionType assertIn = request.getAssertion();
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertIn, url, NhincConstants.DOC_RETRIEVE_ACTION);
 
-                log.debug("Creating port");
-                RespondingGatewayRetrievePortType port = getPort(url);
-                ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            log.debug("Creating port");
+            RespondingGatewayRetrievePortType port = getPort(url);
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
-                log.debug("Calling NHIN doc retrieve service");
-                response = port.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest());
-            }
-            catch (Exception ex)
-            {
-                log.error("Error calling NHIN doc retrieve service: " + ex.getMessage(), ex);
-            }
-
+            log.debug("Calling NHIN doc retrieve service");
+            response = port.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest());
         }
         else
         {
