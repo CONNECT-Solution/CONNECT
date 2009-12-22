@@ -12,19 +12,16 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.XMLGregorianCalendar;
 import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
@@ -48,22 +45,27 @@ import org.apache.commons.logging.LogFactory;
 public class PatientConsentDocumentBuilderHelper {
 
     private Log log = null;
+    private UTCDateUtil utcDateUtil = null;
     private static final String PROP_DIR = "NHINC_PROPERTIES_DIR";
     private static final String FILE_NAME = "XDSUniqueIds.properties";
     private static String sPropertyFile = null;
     private static final String PDF_MIME_TYPE = "application/pdf";
-    private Format xdsDateFormatter = null;
 
     public PatientConsentDocumentBuilderHelper() {
         log = createLogger();
         if (sPropertyFile == null) {
             sPropertyFile = getPropertiesFilePath();
         }
-        xdsDateFormatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        utcDateUtil = createUTCDateUtil();
     }
 
     protected Log createLogger() {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
+
+    protected UTCDateUtil createUTCDateUtil()
+    {
+        return ((utcDateUtil != null) ? utcDateUtil : new UTCDateUtil());
     }
 
     protected String getPropertiesFilePath() {
@@ -254,17 +256,6 @@ public class PatientConsentDocumentBuilderHelper {
         }
     }
 
-    private String xdsFormattedDate(XMLGregorianCalendar sourceDate) {
-        String formattedDate = null;
-        if (sourceDate != null) {
-            Calendar workingDate = sourceDate.toGregorianCalendar();
-            if (workingDate != null) {
-                formattedDate = xdsDateFormatter.format(workingDate.getTime());
-            }
-        }
-        return formattedDate;
-    }
-
     private void setCreationDate(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sMimeType, String sDocUniqueId) {
         if ((oSlots != null) && (oRimObjectFactory != null)) {
             String sFormattedDate = null;
@@ -281,7 +272,7 @@ public class PatientConsentDocumentBuilderHelper {
             }
             if (NullChecker.isNullish(sFormattedDate)) {
                 Date date = new Date();
-                sFormattedDate = xdsDateFormatter.format(date);
+                sFormattedDate = utcDateUtil.formatUTCDate(date);
             }
             oSlots.add(createSlot(oRimObjectFactory, CDAConstants.SLOT_NAME_CREATION_TIME, sFormattedDate));
         }
@@ -289,7 +280,7 @@ public class PatientConsentDocumentBuilderHelper {
 
     private void setSubmissionDate(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlotsReg, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory) {
         Date date = new Date();
-        oSlotsReg.add(createSlot(oRimObjectFactory, CDAConstants.XDS_REGISTRY_SLOT_NAME_SUBMISSION_TIME, xdsDateFormatter.format(date)));
+        oSlotsReg.add(createSlot(oRimObjectFactory, CDAConstants.XDS_REGISTRY_SLOT_NAME_SUBMISSION_TIME, utcDateUtil.formatUTCDate(date)));
     }
 
     private void setLanguageCode(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> oSlots, PatientPreferencesType oPtPref, oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory, String sMimeType) {
