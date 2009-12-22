@@ -32,6 +32,9 @@
           <include name="DocQueryXDSErrors-soapui-project.xml"/>
           <include name="PatientCorrelation-soapui-project.xml"/>
           <include name="AuditLogsforDocQandDocR-soapui-project.xml"/>
+          <include name="DocRegistryAndRepository-soapui-project.xml"/>
+          <include name="EntityDocQuery-soapui-project.xml"/>
+          <include name="EntityDocRetrieve-soapui-project.xml"/>
         </fileset>
       </path>
       <sequential>
