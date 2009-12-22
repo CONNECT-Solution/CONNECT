@@ -70,12 +70,14 @@ public class VerifyModeTest {
     {
         System.out.println("testCompareId_LivingSubjectId_True");
 
-        VerifyMode instance = getVerifyMode(null);
-        TestHelper helper = new TestHelper();
 
+
+        TestHelper helper = new TestHelper();
         II localId = helper.createII(CONST_ROOT,CONST_EXTENSION);
         II remoteId = helper.createII(CONST_ROOT,CONST_EXTENSION);
 
+        VerifyMode instance = getVerifyMode(localId);
+        
         PRPAMT201306UV02LivingSubjectId localLivingSubjectId = helper.createSubjectId(localId);
         PRPAMT201306UV02LivingSubjectId remoteLivingSubjectId = helper.createSubjectId(remoteId);
 
@@ -130,17 +132,17 @@ public class VerifyModeTest {
         System.out.println("testPatientExistsLocally_NoIdMatch");
 
         TestHelper helper = new TestHelper();
-        II localId = helper.createII(CONST_ROOT,"9999");
-        II remoteId = helper.createII(CONST_ROOT,CONST_EXTENSION);
+        II unknownId = helper.createII(CONST_ROOT,"9999");
+        II knownId = helper.createII(CONST_ROOT,CONST_EXTENSION);
 
-        VerifyMode instance = getVerifyMode(localId);
+        VerifyMode instance = getVerifyMode(knownId);
 
         PRPAIN201305UV02 query = null;
         AssertionType assertion = null;
 
-        query = helper.build201305(CONST_FIRST_NAME, CONST_LAST_NAME,CONST_GENDER, CONST_BIRTH_TIME, localId);
+        query = helper.build201305(CONST_FIRST_NAME, CONST_LAST_NAME,CONST_GENDER, CONST_BIRTH_TIME, unknownId);
 
-        PRPAIN201306UV02 response = helper.build201306(CONST_FIRST_NAME, CONST_LAST_NAME,CONST_GENDER, CONST_BIRTH_TIME, remoteId);
+        PRPAIN201306UV02 response = helper.build201306(CONST_FIRST_NAME, CONST_LAST_NAME,CONST_GENDER, CONST_BIRTH_TIME, unknownId);
 
         boolean expResult = false;
         boolean result = instance.patientExistsLocally(query, assertion, response);
@@ -155,7 +157,7 @@ public class VerifyModeTest {
         II localId = helper.createII(CONST_ROOT,"9999");
         II remoteId = helper.createII(CONST_ROOT,CONST_EXTENSION);
 
-        VerifyMode instance = getVerifyMode(localId);
+        VerifyMode instance = getVerifyMode();
 
         PRPAIN201305UV02 query = null;
         AssertionType assertion = null;
@@ -195,7 +197,49 @@ public class VerifyModeTest {
             }
 
         };
+        context.checking(new Expectations() {
 
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                never(mockLogger).error("Error");
+                will(returnValue(null));
+            }
+        });
+        return result;
+    }
+    private VerifyMode getVerifyMode()
+    {
+        final Log mockLogger = context.mock(Log.class);
+        TestHelper helper = new TestHelper();
+        
+        VerifyMode result = new VerifyMode() {
+
+            @Override
+            protected Log createLogger() {
+                return mockLogger;
+            }
+            @Override
+            protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion)
+            {
+                return null;
+            }
+            @Override
+            protected String getLocalHomeCommunityId()
+            {
+                return CONST_ROOT;
+            }
+
+        };
+        context.checking(new Expectations() {
+
+            {
+                allowing(mockLogger).info(with(any(String.class)));
+                allowing(mockLogger).debug(with(any(String.class)));
+                never(mockLogger).error("Error");
+                will(returnValue(null));
+            }
+        });
         return result;
     }
  

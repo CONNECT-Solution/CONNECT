@@ -157,7 +157,7 @@ public class TrustMode implements ResponseMode{
         }
         return result;
     }
-    private PatientCorrelationSecuredPortType getPCPort(String url,  AssertionType assertion) {
+    protected PatientCorrelationSecuredPortType getPCPort(String url,  AssertionType assertion) {
         PatientCorrelationSecuredPortType port = service.getPatientCorrelationSecuredPort();
 
         log.info("Setting endpoint address to Nhin Patient Corrleation Service to " + url);

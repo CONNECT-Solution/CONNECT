@@ -129,24 +129,24 @@ public class TestHelper {
 
 
         org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1;
-        subj1 = createSubject(firstName, lastName, gender, "1");
+        subj1 = createSubject(firstName, lastName, gender, "1", subjectId);
         
         controlActProcess.getSubject().add(subj1);
         
-        controlActProcess.setQueryByParameter(createQueryParams(firstName, lastName, gender, birthTime, subjectId));
+       // controlActProcess.setQueryByParameter(createQueryParams(firstName, lastName, gender, birthTime, subjectId));
 
         return controlActProcess;
     }
-    private PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(String firstName, String lastName, String gender, String orgId) {
+    private PRPAIN201306UV02MFMIMT700711UV01Subject1 createSubject(String firstName, String lastName, String gender, String orgId, II subjId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject1 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject1();
 
         subject.getTypeCode().add("SUBJ");
 
-        subject.setRegistrationEvent(createRegEvent(firstName, lastName, gender, orgId));
+        subject.setRegistrationEvent(createRegEvent(firstName, lastName, gender, orgId, subjId));
 
         return subject;
     }
-      private  PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(String firstName, String lastName, String gender, String orgId) {
+      private  PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(String firstName, String lastName, String gender, String orgId, II subjId) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent = new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
 
         II id = new II();
@@ -159,12 +159,12 @@ public class TestHelper {
         regEvent.setStatusCode(statusCode);
 
 
-        regEvent.setSubject1(createSubject2(firstName, lastName, gender, orgId));
+        regEvent.setSubject1(createSubject2(firstName, lastName, gender, orgId, subjId));
 
 
         return regEvent;
     }
-    public  PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject2(String firstName, String lastName, String gender, String orgId) {
+    public  PRPAIN201306UV02MFMIMT700711UV01Subject2 createSubject2(String firstName, String lastName, String gender, String orgId, II subjId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
 
         PRPAMT201310UV02Patient pat310 = new PRPAMT201310UV02Patient();
@@ -178,7 +178,8 @@ public class TestHelper {
 
         pat310.setPatientPerson( create201310PatientPerson(CreatePNExplicit(firstName, lastName),genderCode));
 
-
+        
+        pat310.getId().add(subjId);
         subject.setPatient(pat310);
 
         return subject;

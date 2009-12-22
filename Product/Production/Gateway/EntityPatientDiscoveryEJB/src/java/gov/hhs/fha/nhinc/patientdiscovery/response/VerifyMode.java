@@ -116,13 +116,16 @@ public class VerifyMode implements ResponseMode{
         //query.getControlActProcess().setQueryByParameter(response.getControlActProcess().getQueryByParameter());
 
         PRPAIN201305UV02 mpiQuery;
-        List<PRPAMT201306UV02LivingSubjectId> mpiIds;
+        List<II> mpiIds;
         List<PRPAMT201306UV02LivingSubjectId> requestIds;
 
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = new PRPAIN201305UV02QUQIMT021001UV01ControlActProcess();
         
         mpiQuery =convert201306to201305(response);
         requestIds = query.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+
+        log.debug("original Request Ids " + requestIds.size());
+        
         mpiQuery.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId().clear();
         PRPAIN201306UV02 mpiResult = queryMpi(mpiQuery, assertion);
 
@@ -130,10 +133,13 @@ public class VerifyMode implements ResponseMode{
         {
             try
             {
-                mpiIds = mpiResult.getControlActProcess().getQueryByParameter().getValue().getParameterList().getLivingSubjectId();
+                log.debug("Received result from mpi.");
+                mpiIds = mpiResult.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient().getId();
 
-                
-                result = compareId(mpiIds, requestIds);
+                log.debug("MPI Ids: " + mpiIds.size());
+                log.debug("Request Ids: " + requestIds.size());
+                result = compareId(mpiIds.get(0), requestIds.get(0).getValue().get(0));
+                //result = compareId(mpiIds, requestIds);
 
             }
             catch(Exception ex)
@@ -196,7 +202,8 @@ public class VerifyMode implements ResponseMode{
         {
             String localExt = localId.getExtension();
             String localRoot = localId.getRoot();
-
+            log.debug("Comparing Root: " + localRoot + " to " + remoteId.getRoot());
+            log.debug("Comparing Ext: " + localExt + " to " + remoteId.getExtension());
             if(remoteId.getExtension().equalsIgnoreCase(localExt) &&
                       remoteId.getRoot().equalsIgnoreCase(localRoot))
             {
