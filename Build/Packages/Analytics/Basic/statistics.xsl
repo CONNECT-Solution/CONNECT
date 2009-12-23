@@ -355,7 +355,7 @@ if(!document.getElementById)
         <xsl:with-param name="statName" select="'Total Test Count'"/>
         <xsl:with-param name="countName" select="'unitest'"/>
         <xsl:with-param name="ignore-initial-value" select="$false"/>
-        <xsl:with-param name="debug" select="$false"/>
+        <xsl:with-param name="debug" select="$true"/>
         <xsl:with-param name="day" select="$day"/>
         <xsl:with-param name="month" select="$month"/>
         <xsl:with-param name="year" select="$year"/>
