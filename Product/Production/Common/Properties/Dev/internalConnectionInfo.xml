@@ -196,14 +196,14 @@
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
 <!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
             <service>
@@ -351,7 +351,8 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
-        </services>
+                
+      </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
         <homeCommunityId>2.2</homeCommunityId>
@@ -539,14 +540,14 @@
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
 <!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
                 <endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL>
-<!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
             <service>
