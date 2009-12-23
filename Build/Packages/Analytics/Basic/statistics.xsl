@@ -94,6 +94,8 @@
   <xsl:variable name="true" select="boolean(/)"/>
   <xsl:variable name="false" select="not($true)"/>
   
+  <xsl:param name="CCNetServer"/>
+  
   <xsl:output method="html"/>
 
   <xsl:template match="/statistics">
@@ -283,11 +285,72 @@ if(!document.getElementById)
 
     <hr/>
 
-    <xsl:if test="integration[1]/statistic[@name='ProjectName']='&ProjectName;-&ProjectCodeLineName;-Dev'">
+    
     <p>
       <xsl:variable name="Submitters" select="/statistics/integration/statistic[@name='mainsubmitter' and boolean(text()) and not(text()=preceding::statistic[@name='mainsubmitter']/text())]"/>
       
+      <xsl:variable name="trashmembercolspan" select="NumVar:Add('membercolspan', 1)"/>
+      
+      <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+        <xsl:variable name="trash" select="NumVar:Add('membercolspan', 2)"/>
+
+        <xsl:call-template name="GetStatCounts">
+          <xsl:with-param name="doc" select="$DevelopmentIterationSuiteFitNesseDoc"/>
+          <xsl:with-param name="statName" select="'Correct Validation Count'"/>
+          <xsl:with-param name="countName" select="'fitcorrectValidation'"/>
+          <xsl:with-param name="ignore-initial-value" select="$false"/>
+          <xsl:with-param name="debug" select="$false"/>
+          <xsl:with-param name="day" select="$day"/>
+          <xsl:with-param name="month" select="$month"/>
+          <xsl:with-param name="year" select="$year"/>
+          <xsl:with-param name="dayofyear" select="$dayofyear"/>
+          <xsl:with-param name="iteration" select="$iteration"/>
+        </xsl:call-template>
+        
       <xsl:call-template name="GetStatCounts">
+          <xsl:with-param name="doc" select="$DevelopmentIterationSuiteFitNesseDoc"/>
+          <xsl:with-param name="statName" select="'Validation Count'"/>
+          <xsl:with-param name="countName" select="'fitValidation'"/>
+          <xsl:with-param name="ignore-initial-value" select="$false"/>
+          <xsl:with-param name="debug" select="$false"/>
+          <xsl:with-param name="day" select="$day"/>
+          <xsl:with-param name="month" select="$month"/>
+          <xsl:with-param name="year" select="$year"/>
+          <xsl:with-param name="dayofyear" select="$dayofyear"/>
+          <xsl:with-param name="iteration" select="$iteration"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="GetStatCounts">
+          <xsl:with-param name="doc" select="$RegressionSuiteFitNesseDoc"/>
+          <xsl:with-param name="statName" select="'Correct Validation Count'"/>
+          <xsl:with-param name="countName" select="'fitcorrectValidation'"/>
+          <xsl:with-param name="ignore-initial-value" select="$false"/>
+          <xsl:with-param name="debug" select="$false"/>
+          <xsl:with-param name="day" select="$day"/>
+          <xsl:with-param name="month" select="$month"/>
+          <xsl:with-param name="year" select="$year"/>
+          <xsl:with-param name="dayofyear" select="$dayofyear"/>
+          <xsl:with-param name="iteration" select="$iteration"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="GetStatCounts">
+          <xsl:with-param name="doc" select="$RegressionSuiteFitNesseDoc"/>
+          <xsl:with-param name="statName" select="'Validation Count'"/>
+          <xsl:with-param name="countName" select="'fitValidation'"/>
+          <xsl:with-param name="ignore-initial-value" select="$false"/>
+          <xsl:with-param name="debug" select="$false"/>
+          <xsl:with-param name="day" select="$day"/>
+          <xsl:with-param name="month" select="$month"/>
+          <xsl:with-param name="year" select="$year"/>
+          <xsl:with-param name="dayofyear" select="$dayofyear"/>
+          <xsl:with-param name="iteration" select="$iteration"/>
+        </xsl:call-template>
+      </xsl:if>
+
+      <xsl:if test="$unittestfileExists">
+        <xsl:variable name="trash" select="NumVar:Add('membercolspan', 1)"/>
+        
+        <xsl:call-template name="GetSuccessStatCounts">
         <xsl:with-param name="doc" select="$unittestdoc"/>
         <xsl:with-param name="statName" select="'Total Test Count'"/>
         <xsl:with-param name="countName" select="'unitest'"/>
@@ -299,8 +362,12 @@ if(!document.getElementById)
         <xsl:with-param name="dayofyear" select="$dayofyear"/>
         <xsl:with-param name="iteration" select="$iteration"/>
       </xsl:call-template>
+      </xsl:if>
+      
+      <xsl:if test="$simianfileExists">
+        <xsl:variable name="trash" select="NumVar:Add('membercolspan', 1)"/>
 
-      <xsl:call-template name="GetStatCounts">
+        <xsl:call-template name="GetSuccessStatCounts">
         <xsl:with-param name="doc" select="$simiandoc"/>
         <xsl:with-param name="statName" select="'totalSignificantLineCount'"/>
         <xsl:with-param name="countName" select="'line'"/>
@@ -312,8 +379,12 @@ if(!document.getElementById)
         <xsl:with-param name="dayofyear" select="$dayofyear"/>
         <xsl:with-param name="iteration" select="$iteration"/>
       </xsl:call-template>
+      </xsl:if>
 
-      <xsl:call-template name="GetStatCounts">
+      <xsl:if test="$coveragefileExists">
+        <xsl:variable name="trash" select="NumVar:Add('membercolspan', 1)"/>
+
+        <xsl:call-template name="GetSuccessStatCounts">
         <xsl:with-param name="doc" select="$coveragedoc"/>
         <xsl:with-param name="statName" select="'linecoverage'"/>
         <xsl:with-param name="countName" select="'linecoverage'"/>
@@ -325,9 +396,10 @@ if(!document.getElementById)
         <xsl:with-param name="dayofyear" select="$dayofyear"/>
         <xsl:with-param name="iteration" select="$iteration"/>
       </xsl:call-template>
+      </xsl:if>
 
       <p>
-        This is only a best guess.  When multiple developers commit to a build, a single build or committing to a failing build, 
+        This is only a best guess.  When multiple team members commit to a build, a single build or committing to a failing build, 
         this can cause some issue with determining who gets credit for a statistic.
       </p>
       <br/>
@@ -352,46 +424,104 @@ if(!document.getElementById)
       <table class="section-table" cellpadding="2" cellspacing="0" border="1">
         <tr class="sectionheader">
           <th></th>
-          <th colspan="4">For Today</th>
-          <th colspan="4">For Last 7 Days</th>
-          <th colspan="4">
+          <th>
+            <xsl:attribute name="colspan">
+              <xsl:value-of select="NumVar:Value('membercolspan')"/>
+            </xsl:attribute>
+            For Today
+          </th>
+          <th>
+            <xsl:attribute name="colspan">
+              <xsl:value-of select="NumVar:Value('membercolspan')"/>
+            </xsl:attribute>
+            For Last 7 Days
+          </th>
+          <th>
+            <xsl:attribute name="colspan">
+              <xsl:value-of select="NumVar:Value('membercolspan')"/>
+            </xsl:attribute>
             <xsl:value-of select="$iteration"/>
           </th>
-          <th colspan="4">Overall</th>
+          <th>
+            <xsl:attribute name="colspan">
+              <xsl:value-of select="NumVar:Value('membercolspan')"/>
+            </xsl:attribute>
+            Overall
+          </th>
         </tr>
         <tr>
-          <th>Developer</th>
+          <th>Team Member</th>
           <th>Builds</th>
+          <xsl:if test="$unittestfileExists">
           <th>Unit Test Count</th>
+          </xsl:if>
+          <xsl:if test="$coveragefileExists">
           <th>Line Coverage Percentage</th>
+          </xsl:if>
+          <xsl:if test="$simianfileExists">
           <th>Line Count</th>
+          </xsl:if>
+          <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+            <th>Fit Validation Count</th>
+            <th>Fit Correct Validation Count</th>
+          </xsl:if>
           <th>Builds</th>
+          <xsl:if test="$unittestfileExists">
           <th>Unit Test Count</th>
+          </xsl:if>
+          <xsl:if test="$coveragefileExists">
           <th>Line Coverage Percentage</th>
+          </xsl:if>
+          <xsl:if test="$simianfileExists">
           <th>Line Count</th>
+          </xsl:if>
+          <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+            <th>Fit Validation Count</th>
+            <th>Fit Correct Validation Count</th>
+          </xsl:if>
           <th>Builds</th>
+          <xsl:if test="$unittestfileExists">
           <th>Unit Test Count</th>
+          </xsl:if>
+          <xsl:if test="$coveragefileExists">
           <th>Line Coverage Percentage</th>
+          </xsl:if>
+          <xsl:if test="$simianfileExists">
           <th>Line Count</th>
+          </xsl:if>
+          <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+            <th>Fit Validation Count</th>
+            <th>Fit Correct Validation Count</th>
+          </xsl:if>
           <th>Builds</th>
+          <xsl:if test="$unittestfileExists">
           <th>Unit Test Count</th>
+          </xsl:if>
+          <xsl:if test="$coveragefileExists">
           <th>Line Coverage Percentage</th>
+          </xsl:if>
+          <xsl:if test="$simianfileExists">
           <th>Line Count</th>
+          </xsl:if>
+          <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+            <th>Fit Validation Count</th>
+            <th>Fit Correct Validation Count</th>
+          </xsl:if>
         </tr>
           <xsl:for-each select="$Submitters">
             <xsl:variable name="current.submitter" select="text()"/>
             <xsl:choose>
               <xsl:when test="text()='build'"></xsl:when>
               <xsl:when test="text()='flowersj'"></xsl:when>
-              <xsl:when test="text()='dev'"></xsl:when>
-              <xsl:when test="text()='jay'"></xsl:when>
-              <xsl:when test="text()='IUSR_ATHC-GFAS'"></xsl:when>
               <xsl:otherwise>
                 <tr>
                   <td>
                     <xsl:value-of select="text()"/>
                   </td>
                   <td>
+                    <xsl:attribute name="title">
+                      <xsl:value-of select="$current.submitter"/>
+                    </xsl:attribute>
                     <xsl:variable name="submitterTotalCountForTheDay"      select="count(/statistics/integration[@day=$day and @month=$month and @year=$year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterSuccessCountForTheDay"    select="count(/statistics/integration[@status='Success' and @day=$day and @month=$month and @year=$year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterExceptionCountForTheDay"  select="count(/statistics/integration[@status='Exception' and @day=$day and @month=$month and @year=$year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
@@ -411,22 +541,58 @@ if(!document.getElementById)
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="$submitterExceptionCountForTheDay"/>
                   </td>
+                  <xsl:if test="$unittestfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.today.unitest.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.today.unitest.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$coveragefileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.today.linecoverage.count')), '#.00')"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.today.linecoverage.negative.count')), '#.00')"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$simianfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.today.line.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.today.line.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.today.fitValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.today.fitValidation.negative.count'))"/>
+                    </td>
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.today.fitcorrectValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.today.fitcorrectValidation.negative.count'))"/>
+                    </td>
+                  </xsl:if>
                   <td>
+                    <xsl:attribute name="title">
+                      <xsl:value-of select="$current.submitter"/>
+                    </xsl:attribute>
                     <xsl:variable name="submitterTotalCountForTheLast7Day"      select="count(/statistics/integration[@dayofyear > $dayofyear - 7 and @year = $year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterSuccessCountForTheLast7Day"    select="count(/statistics/integration[@status='Success' and @dayofyear > $dayofyear - 7 and @year = $year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterExceptionCountForTheLast7Day"  select="count(/statistics/integration[@status='Exception' and @dayofyear > $dayofyear - 7 and @year = $year and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
@@ -446,22 +612,58 @@ if(!document.getElementById)
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="$submitterExceptionCountForTheLast7Day"/>
                   </td>
+                  <xsl:if test="$unittestfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.unitest.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.unitest.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$coveragefileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.sevendays.linecoverage.count')), '#.00')"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.sevendays.linecoverage.negative.count')), '#.00')"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$simianfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.line.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.line.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.fitValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.fitValidation.negative.count'))"/>
+                    </td>
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.fitcorrectValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.sevendays.fitcorrectValidation.negative.count'))"/>
+                    </td>
+                  </xsl:if>
                   <td>
+                    <xsl:attribute name="title">
+                      <xsl:value-of select="$current.submitter"/>
+                    </xsl:attribute>
                     <xsl:variable name="submitterTotalCountForTheIteration"      select="count(/statistics/integration[statistic[@name='IterationName' and text() = $iteration] and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterSuccessCountForTheIteration"    select="count(/statistics/integration[@status='Success' and statistic[@name='IterationName' and text() = $iteration] and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterExceptionCountForTheIteration"  select="count(/statistics/integration[@status='Exception' and statistic[@name='IterationName' and text() = $iteration] and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
@@ -481,22 +683,58 @@ if(!document.getElementById)
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="$submitterExceptionCountForTheIteration"/>
                   </td>
+                  <xsl:if test="$unittestfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.unitest.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.unitest.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$coveragefileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.iteration.linecoverage.count')), '#.00')"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.iteration.linecoverage.negative.count')), '#.00')"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$simianfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.line.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.line.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.fitValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.fitValidation.negative.count'))"/>
+                    </td>
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.fitcorrectValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.iteration.fitcorrectValidation.negative.count'))"/>
+                    </td>
+                  </xsl:if>
                   <td>
+                    <xsl:attribute name="title">
+                      <xsl:value-of select="$current.submitter"/>
+                    </xsl:attribute>
                     <xsl:variable name="submitterTotalCount"      select="count(/statistics/integration[statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterSuccessCount"    select="count(/statistics/integration[@status='Success' and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
                     <xsl:variable name="submitterExceptionCount"  select="count(/statistics/integration[@status='Exception' and statistic[@name='mainsubmitter' and text()=$current.submitter]])"/>
@@ -516,21 +754,54 @@ if(!document.getElementById)
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="$submitterExceptionCount"/>
                   </td>
+                  <xsl:if test="$unittestfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.overall.unitest.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.overall.unitest.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$coveragefileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.overall.linecoverage.count')), '#.00')"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="format-number(NumVar:Value(concat(text(), '.overall.linecoverage.negative.count')), '#.00')"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$simianfileExists">
                   <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.overall.line.count'))"/>
                     <xsl:text>/</xsl:text>
                     <xsl:value-of select="NumVar:Value(concat(text(), '.overall.line.negative.count'))"/>
                   </td>
+                  </xsl:if>
+                  <xsl:if test="$DevelopmentIterationSuiteFitNesseFileExists">
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.overall.fitValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.overall.fitValidation.negative.count'))"/>
+                    </td>
+                    <td>
+                      <xsl:attribute name="title">
+                        <xsl:value-of select="$current.submitter"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.overall.fitcorrectValidation.count'))"/>
+                      <xsl:text>/</xsl:text>
+                      <xsl:value-of select="NumVar:Value(concat(text(), '.overall.fitcorrectValidation.negative.count'))"/>
+                    </td>
+                  </xsl:if>
                 </tr>
               </xsl:otherwise>
             </xsl:choose>
@@ -539,7 +810,6 @@ if(!document.getElementById)
     </p>
     
     <hr/>
-    </xsl:if>
 
     <xsl:variable name="BaseChartUrl" select="concat('/&ProjectName;-&ProjectCodeLineName;/&Common.Directory.Packages.Name;/Analytics/charts.swf?library_path=/&ProjectName;-&ProjectCodeLineName;/&Common.Directory.Packages.Name;/Analytics/charts_library&amp;xml_source=/&ProjectName;-&ProjectCodeLineName;/&Common.Directory.ArtifactRoot.Name;/', $ArtifactFolderName)"/>
 
@@ -758,10 +1028,10 @@ if(!document.getElementById)
         <xsl:variable name="BuildUrl">
           <xsl:choose>
             <xsl:when test="./@status = 'Success'">
-              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, 'Lbuild.', @build-label, '.xml')"/>
+              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=', $CCNetServer, '&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, 'Lbuild.', @build-label, '.xml')"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=&ProjectName;-&ProjectCodeLineName;&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, '.xml')"/>
+              <xsl:value-of select="concat('http://&HostName;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewBuildReport=true&amp;server=', $CCNetServer, '&amp;project=', $ProjectName, '&amp;build=log', $BuildTimeStamp, '.xml')"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
@@ -883,7 +1153,8 @@ if(!document.getElementById)
     </table>
   </xsl:template>
 
-  <xsl:template name="GetStatCounts">
+
+  <xsl:template name="GetStatCount">
     <xsl:param name="doc"/>
     <xsl:param name="statName"/>
     <xsl:param name="countName"/>
@@ -895,7 +1166,6 @@ if(!document.getElementById)
     <xsl:param name="debug"/>
     <xsl:param name="ignore-initial-value"/>
 
-    <xsl:for-each select="($doc)/Builds/integration[@status='Success' and statistic[@name=$statName and boolean(text()) and not(text()=preceding::integration[@status='Success']/statistic[@name=$statName]/text())]]">
       <xsl:variable name="trash1" select="StringVar:Set('submitter.name', '')"/>
       <xsl:call-template name="GetSubmitter">
         <xsl:with-param name="integration" select="."/>
@@ -953,6 +1223,61 @@ if(!document.getElementById)
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="GetSuccessStatCounts">
+    <xsl:param name="doc"/>
+    <xsl:param name="statName"/>
+    <xsl:param name="countName"/>
+    <xsl:param name="day"/>
+    <xsl:param name="month"/>
+    <xsl:param name="year"/>
+    <xsl:param name="dayofyear"/>
+    <xsl:param name="iteration"/>
+    <xsl:param name="debug"/>
+    <xsl:param name="ignore-initial-value"/>
+
+    <xsl:for-each select="($doc)/Builds/integration[@status='Success' and statistic[@name=$statName and boolean(text()) and not(text()=preceding::integration[@status='Success']/statistic[@name=$statName]/text())]]">
+      <xsl:call-template name="GetStatCount">
+        <xsl:with-param name="doc"                  select="$doc"                  />
+        <xsl:with-param name="statName"             select="$statName"             />
+        <xsl:with-param name="countName"            select="$countName"            />
+        <xsl:with-param name="day"                  select="$day"                  />
+        <xsl:with-param name="month"                select="$month"                />
+        <xsl:with-param name="year"                 select="$year"                 />
+        <xsl:with-param name="dayofyear"            select="$dayofyear"            />
+        <xsl:with-param name="iteration"            select="$iteration"            />
+        <xsl:with-param name="debug"                select="$debug"                />
+        <xsl:with-param name="ignore-initial-value" select="$ignore-initial-value" />
+      </xsl:call-template>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="GetStatCounts">
+    <xsl:param name="doc"/>
+    <xsl:param name="statName"/>
+    <xsl:param name="countName"/>
+    <xsl:param name="day"/>
+    <xsl:param name="month"/>
+    <xsl:param name="year"/>
+    <xsl:param name="dayofyear"/>
+    <xsl:param name="iteration"/>
+    <xsl:param name="debug"/>
+    <xsl:param name="ignore-initial-value"/>
+
+    <xsl:for-each select="($doc)/Builds/integration[statistic[@name=$statName and boolean(text())]]">
+      <xsl:call-template name="GetStatCount">
+        <xsl:with-param name="doc"                  select="$doc"                  />
+        <xsl:with-param name="statName"             select="$statName"             />
+        <xsl:with-param name="countName"            select="$countName"            />
+        <xsl:with-param name="day"                  select="$day"                  />
+        <xsl:with-param name="month"                select="$month"                />
+        <xsl:with-param name="year"                 select="$year"                 />
+        <xsl:with-param name="dayofyear"            select="$dayofyear"            />
+        <xsl:with-param name="iteration"            select="$iteration"            />
+        <xsl:with-param name="debug"                select="$debug"                />
+        <xsl:with-param name="ignore-initial-value" select="$ignore-initial-value" />
+      </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
 
