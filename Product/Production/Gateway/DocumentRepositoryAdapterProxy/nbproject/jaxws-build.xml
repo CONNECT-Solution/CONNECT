@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterDocRetrieve" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieve"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocretrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrieve"/>
     </target>
     <target name="wsimport-client-AdapterDocQuery" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterDocQuery"/>
@@ -43,7 +43,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterDocQuery" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocQuery"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocquery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquery"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocRetrieve, wsimport-client-AdapterDocQuery"/>
 </project>

@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPatientDiscoverySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpatientdiscoverysecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterPatientDiscoverySecured"/>
 </project>

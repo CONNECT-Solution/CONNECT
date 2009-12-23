@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterDocRetrieveSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievesecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocRetrieveSecured"/>
 </project>
