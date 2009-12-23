@@ -10,18 +10,20 @@
   <property name="GlassFish.Installer.StateFilePath" value="${Common.Directory.Packages.Path}\Workspace\Software\GlassFish\InstallState.xml"/>
   <property name="GlassFish.LibPath" value="${GlassFish.Install.Path}\lib"/>
   <property name="NetBeans.Ant.Install.Path" value="${ProgramFiles.Current.Processor.Type.Path}\NetBeans 6.7.1\java2\ant\lib"/>
-  <property name="GlassFish.Application.domain.Path" value="${GlassFish.Install.Path}\domains\domain1\config"/>
-  <property name="GlassFish.Application.config.Path" value="${GlassFish.Application.domain.Path}\nhin"/>
+  <property name="GlassFish.Application.Domain.Path" value="${GlassFish.Install.Path}\domains\domain1\config"/>
+  <property name="GlassFish.Config.Domain.FilePath" value="${GlassFish.Application.Domain.Path}\domain.xml"/>
+  <property name="GlassFish.Application.Config.Path" value="${GlassFish.Application.Domain.Path}\nhin"/>
 
   <target name="Workspace.RequieredSoftware.GlassFish">
     <ifnot test="${directory::exists(GlassFish.Install.Path) and directory::exists(NetBeans.Install.Path)}" >
       <call target="GlassFish.DownloadAndInstall"/>
 
       <call target="GlassFish.Update" />
-
+      
       <call target="GlassFish.Configure"/>
     </ifnot>
-
+    
+    <call target="GlassFish.Configure.MemoryOptions"/>
   </target>
 
   <target name="GlassFish.Update">
@@ -43,30 +45,30 @@
   <target name="GlassFish.Update.log4.properties">
     <property name="Lo4j.properties.Tag.FileName" value="1.lo4j.properties.tag"/>
 
-    <ifnot test="${file::exists(GlassFish.Application.domain.Path + '\' + Lo4j.properties.Tag.FileName)}">
-      <copy todir="${GlassFish.Application.domain.Path}">
+    <ifnot test="${file::exists(GlassFish.Application.Domain.Path + '\' + Lo4j.properties.Tag.FileName)}">
+      <copy todir="${GlassFish.Application.Domain.Path}">
         <fileset basedir="${Common.Directory.Production.Path}\Common\Properties">
           <include name="log4j.properties"/>
         </fileset>
       </copy>
-      <echo message="" file="${GlassFish.Application.domain.Path}\${Lo4j.properties.Tag.FileName}"/>
+      <echo message="" file="${GlassFish.Application.Domain.Path}\${Lo4j.properties.Tag.FileName}"/>
     </ifnot>
   </target>
 
   <target name="GlassFish.Update.NHIN.properties">
     <property name="NHIN.properties.Tag.FileName" value="1.1.NHIN.properties.tag"/>
     
-    <ifnot test="${file::exists(GlassFish.Application.config.Path)}" >
-      <mkdir dir="${GlassFish.Application.domain.Path}\nhin"/>
+    <ifnot test="${file::exists(GlassFish.Application.Config.Path)}" >
+      <mkdir dir="${GlassFish.Application.Domain.Path}\nhin"/>
     </ifnot>
     
-    <ifnot test="${file::exists(GlassFish.Application.config.Path + '\' + NHIN.properties.Tag.FileName)}">
-      <copy todir="${GlassFish.Application.config.Path}">
+    <ifnot test="${file::exists(GlassFish.Application.Config.Path + '\' + NHIN.properties.Tag.FileName)}">
+      <copy todir="${GlassFish.Application.Config.Path}">
         <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev">
           <include name="**/*"/>
         </fileset>
       </copy>
-      <echo message="" file="${GlassFish.Application.config.Path}\${NHIN.properties.Tag.FileName}"/>
+      <echo message="" file="${GlassFish.Application.Config.Path}\${NHIN.properties.Tag.FileName}"/>
     </ifnot>
   </target>
   
@@ -216,9 +218,15 @@
     </ifnot>
   </target>
 
+  <target name="GlassFish.Configure.MemoryOptions">
+    <property name="Domain.Xml.Tag" value="${GlassFish.Install.Path}\domains\domain1\config\12-22-2009.domain.memory.xml.tag "/>
+    <ifnot test="${file::exists(Domain.Xml.Tag)}">
+      <call target="GlassFish.Config.Domain.MemoryOptions"/>
+      <echo message="" file="${Domain.Xml.Tag}"/>
+    </ifnot>
+  </target>
+  
   <target name="GlassFish.Config.Domain">
-    <property name="GlassFish.Config.Domain.FilePath" value="${GlassFish.Install.Path}\domains\domain1\config\domain.xml"/>
-    
     <largeproperty name="GlassFish.Config.Domain.XmlValue">
       <value expand="false" xml="true">
         <jvm-options>-Dcom.sun.xml.ws.transport.http.HttpAdapter.dump=true</jvm-options>
@@ -245,8 +253,7 @@
     <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Djavax.enterprise.resource.xml.webservices.security.level=')]"/>
     <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Djavax.enterprise.resource.xml.webservices.security.level=FINE']"/>
     <call target="GlassFish.Edit.Config.Domain"/>
-    
-    
+
     <largeproperty name="GlassFish.Config.Domain.XmlValue">
       <value expand="false" xml="true">
         <jvm-options>-Djavax.enterprise.resource.webservices.jaxws=FINE</jvm-options>
@@ -321,33 +328,6 @@
 
     <largeproperty name="GlassFish.Config.Domain.XmlValue">
       <value expand="false" xml="true">
-        <jvm-options>-Xmx1024m</jvm-options>
-      </value>
-    </largeproperty>
-    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Xmx')]"/>
-    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Xmx1024m']"/>
-    <call target="GlassFish.Edit.Config.Domain"/>
-
-    <largeproperty name="GlassFish.Config.Domain.XmlValue">
-      <value expand="false" xml="true">
-        <jvm-options>-XX:MaxPermSize=256m</jvm-options>
-      </value>
-    </largeproperty>
-    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:MaxPermSize=')]"/>
-    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:MaxPermSize=256m']"/>
-    <call target="GlassFish.Edit.Config.Domain"/>
-
-    <largeproperty name="GlassFish.Config.Domain.XmlValue">
-      <value expand="false" xml="true">
-        <jvm-options>-XX:PermSize=256m</jvm-options>
-      </value>
-    </largeproperty>
-    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:PermSize=')]"/>
-    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:PermSize=256m']"/>
-    <call target="GlassFish.Edit.Config.Domain"/>
-
-    <largeproperty name="GlassFish.Config.Domain.XmlValue">
-      <value expand="false" xml="true">
         <jvm-options>-Dlog4j.configuration=file:${'$'}{com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
       </value>
     </largeproperty>
@@ -357,6 +337,53 @@
 
   </target>
 
+  <target name="GlassFish.Config.Domain.MemoryOptions">
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Dsun.rmi.dgc.server.gcInterval=1200000</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Dsun.rmi.dgc.server.gcInterval=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Dsun.rmi.dgc.server.gcInterval=1200000']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Dsun.rmi.dgc.client.gcInterval=1200000</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Dsun.rmi.dgc.client.gcInterval=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Dsun.rmi.dgc.client.gcInterval=1200000']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-Xmx1400m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-Xmx')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-Xmx1400m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-XX:MaxPermSize=132m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:MaxPermSize=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:MaxPermSize=132m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+
+    <largeproperty name="GlassFish.Config.Domain.XmlValue">
+      <value expand="false" xml="true">
+        <jvm-options>-XX:PermSize=132m</jvm-options>
+      </value>
+    </largeproperty>
+    <property name="GlassFish.Config.Domain.XPathUpdate" value="/domain/configs/config/java-config/jvm-options[starts-with(text(), '-XX:PermSize=')]"/>
+    <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:PermSize=132m']"/>
+    <call target="GlassFish.Edit.Config.Domain"/>
+  </target>
+  
   <target name="GlassFish.Edit.Config.Domain">
     <xmlpeek
       file="${GlassFish.Config.Domain.FilePath}"
