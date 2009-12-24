@@ -38,7 +38,7 @@
   </loadpackages>
 
   <target name="test">
-    <call target="Workspace.RequieredSoftware.SoapUI"/>
+    <call target="rebuild-setups"/>
 
 </target>
 
