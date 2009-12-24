@@ -106,16 +106,18 @@ if ($#ARGV != 0) {
    
     foreach $file(@files) {
       #my $fullfile="$dir/$file";
-      my $fullfile = catfile($dir, $file);
-      #print "Search file $fullfile \n";
-      if (-f $fullfile) {
-        find_replace_indicator($fullfile);
-        find_replace_netbeans($fullfile);
-      } else {
-        if (-d $fullfile) {
-          searchdir("$fullfile");
-        }
-      }
+	   if ($dir !~ /.svn/){
+			my $fullfile = catfile($dir, $file);
+			#print "Search file $fullfile \n";
+			if (-f $fullfile) {
+			   find_replace_indicator($fullfile);
+			   find_replace_netbeans($fullfile);
+			} else {
+			   if (-d $fullfile) {
+				 searchdir("$fullfile");
+			   }
+			}
+	   }
     }
   }
 
