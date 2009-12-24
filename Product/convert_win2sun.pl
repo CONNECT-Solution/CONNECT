@@ -29,8 +29,8 @@ if ($#ARGV != 0) {
         if(m/C:\\/) {
           print "$target contains path indicators \n";
 
-          print "Replace C:\\ with $ARGV[0] in this file? \"y\" or \"n\" \n";
-          $decision=<STDIN>;
+          #print "Replace C:\\ with $ARGV[0] in this file? \"y\" or \"n\" \n";
+          $decision="y";
           chomp $decision;
           last;
         }
@@ -70,8 +70,8 @@ if ($#ARGV != 0) {
         if(m/netbeans/i) {
           if(! m/netbeans/) {
             print "$target contains mixed case Netbeans\n";
-            print "Replace occurances with \"netbeans\" in this file? \"y\" or \"n\" \n";
-            $decision=<STDIN>;
+            #print "Replace occurances with \"netbeans\" in this file? \"y\" or \"n\" \n";
+            $decision="y";
             chomp $decision;
             last;
           }
