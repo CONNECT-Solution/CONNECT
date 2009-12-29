@@ -54,7 +54,7 @@
       <name>AdapterMpiEJB</name>
     </ejb>
     <ejb>
-      <name>AdapterMpiProxyEJB</name>
+      <name>AdapterMPIProxyEJB</name>
     </ejb>
     <ejb>
       <name>AdapterPatientDiscoveryEJB</name>
