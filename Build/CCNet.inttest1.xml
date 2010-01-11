@@ -279,7 +279,7 @@
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
-      <projectTriggerFilter name="Project">
+      <projectTriggerFilter>
         <trigger
           type="projectTrigger"
           serverUri="&Integration.Server.Remoting.Url;"
@@ -297,7 +297,7 @@
       </projectTriggerFilter>
     </triggers>
     <forceFilters>
-      <projectForceFilter name="Force">
+      <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
           &TestBuilding;
@@ -382,7 +382,7 @@
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
-      <projectTriggerFilter name="Project">
+      <projectTriggerFilter>
         <trigger
           type="projectTrigger"
           serverUri="&Integration.Server.Remoting.Url;"
@@ -400,7 +400,7 @@
       </projectTriggerFilter>
     </triggers>
     <forceFilters>
-      <projectForceFilter name="Force">
+      <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
           &ReleaseBuilding;
