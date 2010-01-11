@@ -157,7 +157,6 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &DevBuilding;
-          &ReleaseBuilding;
           &HeavyBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -166,7 +165,6 @@
       <projectForceFilter>
         <projectFilters>
           &DevBuilding;
-          &ReleaseBuilding;
           &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -206,7 +204,6 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
           &HeavyBuilding;
         </projectFilters>
       </projectTriggerFilter>
@@ -215,7 +212,6 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
           &HeavyBuilding;
         </projectFilters>
       </projectForceFilter>
@@ -314,7 +310,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &DevBuilding;
-          &ReleaseBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -323,7 +318,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &DevBuilding;
-          &ReleaseBuilding;
         </projectFilters>
       </projectForceFilter>
       <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
