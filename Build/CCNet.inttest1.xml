@@ -3,7 +3,6 @@
   <!ENTITY % entities SYSTEM "Entities.xml">
 
   %entities;
-  <!ENTITY webURLi 'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true'>
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName; Test">
         <users>
           <user name="Jay Flowers"            group="buildmaster"    address="jay.flowers@agilex.com"/>
@@ -34,7 +33,7 @@
       </email>'>
 
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
             <exclusionFilters>
               <activities>
@@ -42,8 +41,26 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY ReleaseFailed '<projectFilter
+  <!ENTITY DevFailed '<projectFilter
                serverUri="&CCNet.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Dev">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY ReleaseBuilding '<projectFilter
+               serverUri="&Integration.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Release">
+            <exclusionFilters>
+              <activities>
+                <activity>Building</activity>
+              </activities>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY ReleaseFailed '<projectFilter
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Release">
             <exclusionFilters>
               <conditions>
@@ -51,8 +68,8 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY Deploy '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+  <!ENTITY DeployBuilding '<projectFilter
+                serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Deploy">
              <exclusionFilters>
                <activities>
@@ -61,7 +78,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY DeployFailed '<projectFilter
-               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
             <exclusionFilters>
               <conditions>
@@ -69,8 +86,8 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY Test '<projectFilter
-                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+  <!ENTITY TestBuilding '<projectFilter
+                serverUri="&Integration.Server.Remoting.Url;"
                 project="&ProjectName;-&ProjectCodeLineName;-Test">
              <exclusionFilters>
                <activities>
@@ -79,7 +96,7 @@
              </exclusionFilters>
           </projectFilter>'>
   <!ENTITY TestFailed '<projectFilter
-               serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+               serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
@@ -90,24 +107,26 @@
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Integration.Server.Rest.Url;">
   <project name="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
-    <webURL>&webURLi;</webURL>
+    <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &Deploy;
-          &Test;
+          &ReleaseBuilding;
+          &DeployBuilding;
+          &TestBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &Deploy;
-          &Test;
+          &ReleaseBuilding;
+          &DeployBuilding;
+          &TestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -118,7 +137,7 @@
         </allowed>
       </triggeredIntegrationFilter>
     </integrationFilter>
-    <sourcecontrol  type="svn" tagOnSuccess="false" autoGetSource="true" >
+    <sourcecontrol type="svn" tagOnSuccess="false" autoGetSource="true" >
       <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;/&Common.Directory.Build.Name;</trunkUrl>
       <workingDirectory>&Common.Directory.Build.Path;</workingDirectory>
       <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
@@ -137,14 +156,133 @@
       &email;
     </publishers>
   </project>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
+    <webURL>&Integration.Dashboard.Url;</webURL>
+    <state type="state" />
+    <triggers>
+      <projectTriggerFilter>
+        <trigger
+          type="projectTrigger"
+          serverUri="&CCNet.Server.Remoting.Url;"
+          project="&ProjectName;-&ProjectCodeLineName;-Dev"
+        >
+          <triggerStatus>Success</triggerStatus>
+          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
+        </trigger>
+        <projectFilters>
+          &ScriptsBuilding;
+          &DeployBuilding;
+          &TestBuilding;
+          &DevFailed;
+        </projectFilters>
+      </projectTriggerFilter>
+    </triggers>
+    <forceFilters>
+      <projectForceFilter>
+        <projectFilters>
+          &ScriptsBuilding;
+          &DeployBuilding;
+          &TestBuilding;
+          &DevFailed;
+        </projectFilters>
+      </projectForceFilter>
+      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
+    </forceFilters>
+    <integrationFilter>
+      <triggeredIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="true" />
+        </allowed>
+      </triggeredIntegrationFilter>
+      <forcedIntegrationFilter>
+        <allowed>
+          <modificationsRequired condition="false" />
+        </allowed>
+        <blocked>
+        </blocked>
+      </forcedIntegrationFilter>
+    </integrationFilter>
+    <sourcecontrol type="filtered">
+      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
+        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
+        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
+        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
+        <webUrlBuilder type="websvn">
+          <url>&Subversion.Repo.Url;{0}</url>
+        </webUrlBuilder>
+      </sourceControlProvider>
+    </sourcecontrol>
+    <labeller type="remoteProjectLabeller">
+      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
+      <serverUri>&CCNet.Server.Remoting.Url;</serverUri>
+    </labeller>
+    <tasks>
+      <modificationWriter>
+        <filename>SourceModificationReport.xml</filename>
+        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Release</path>
+      </modificationWriter>
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Main.build.xml</buildFile>
+        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
+        <targetList>
+          <target>Release</target>
+        </targetList>
+        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
+      </nant>
+    </tasks>
+    <publishers>
+      <merge>
+        <files>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\AntLogs\*.xml</file>
+        </files>
+      </merge>
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
+        <filepairs>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\SimianReport\SimianReport.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\UnitTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\IntegrationTest\JUnitSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\IntegrationTestReports\*.xml</xmlfile>
+          </filepair>
+          <filepair>
+            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Coverage\CoverageReport.xml</xmlfile>
+          </filepair>
+        </filepairs>
+      </xslmerger>
+      <xmllogger />
+      &email;
+      <nant>
+        <executable>&Tools.NAnt.Exe;</executable>
+        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
+        <logger>NAnt.Core.XmlLogger </logger>
+        <buildFile>Post.Shim.xml</buildFile>
+        <targetList>
+          <target>PostBuildWrapper</target>
+        </targetList>
+        <buildTimeoutSeconds>300</buildTimeoutSeconds>
+      </nant>
+    </publishers>
+  </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
-    <webURL>&webURLi;</webURL>
+    <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+          serverUri="&Integration.Server.Remoting.Url;"
           project="&ProjectName;-&ProjectCodeLineName;-Release"
         >
           <triggerStatus>Success</triggerStatus>
@@ -152,7 +290,8 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &Test;
+          &TestBuilding;
+          &ReleaseBuilding;
           &ReleaseFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -161,7 +300,8 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &Test;
+          &TestBuilding;
+          &ReleaseBuilding;
           &ReleaseFailed;
         </projectFilters>
       </projectForceFilter>
@@ -181,9 +321,8 @@
       </forcedIntegrationFilter>
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
-    <labeller type="remoteProjectLabeller">
+    <labeller type="stateFileLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
-      <serverUri>tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem</serverUri>
     </labeller>
     <tasks>
       <nant>
@@ -240,13 +379,13 @@
     </publishers>
   </project>
   <project name="&ProjectName;-&ProjectCodeLineName;-Test">
-    <webURL>&webURLi;</webURL>
+    <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter name="Project">
         <trigger
           type="projectTrigger"
-          serverUri="tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
+          serverUri="&Integration.Server.Remoting.Url;"
           project="&ProjectName;-&ProjectCodeLineName;-Deploy"
         >
           <triggerStatus>Success</triggerStatus>
@@ -254,7 +393,8 @@
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &Deploy;
+          &ReleaseBuilding;
+          &DeployBuilding;
           &DeployFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -263,7 +403,8 @@
       <projectForceFilter name="Force">
         <projectFilters>
           &ScriptsBuilding;
-          &Deploy;
+          &ReleaseBuilding;
+          &DeployBuilding;
           &DeployFailed;
         </projectFilters>
       </projectForceFilter>
@@ -334,7 +475,7 @@
           <user name="Kieran Dunne"         group="buildmaster"   address="kieran.dunne@agilex.com"/>
           <user name="Jason Ray"            group="buildmaster"   address="jason.ray@agilex.com"/>
           <user name="Brian Mowbray"        group="buildmaster"   address="brian.mowbray@agilex.com"/>
-          
+
           <user name="Les Westberg"         group="testers"       address="les.westberg@agilex.com"/>
           <user name="borsts"               group="testers"       address="scott.borst@agilex.com"/>
         </users>
