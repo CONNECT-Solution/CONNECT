@@ -16,11 +16,14 @@
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
+            <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.java.dir"/>
+                <root id="src.resources.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.java.dir"/>
+                <root id="test.resources.dir"/>
             </test-roots>
         </data>
     </configuration>
