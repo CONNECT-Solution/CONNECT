@@ -1,0 +1,52 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<SOAP-ENV:Body>
+		<m:CareRecord_QUPC_IN043100UV01MedicationsRequest xmlns:m="urn:hl7-org:v3">
+			<m:localDeviceId>1.1</m:localDeviceId>
+			<m:senderOID>1.1</m:senderOID>
+			<m:receiverOID>2.16.840.1.113883.3.198</m:receiverOID>
+			<m:query>
+				<m:id extension="20090920011010.005"/>
+				<m:creationTime value="20090920011010.005"/>
+				<m:interactionId extension="QUPC_IN043100UV" root="2.16.840.1.113883.5"/>
+				<m:processingCode/>
+				<m:processingModeCode/>
+				<m:acceptAckCode/>
+				<!-- Receiving Application and Receiving Facility. i.e. application = Adapter Assembly Service, Facility = OID -->
+				<m:receiver typeCode="RCV">
+					<m:device classCode="DEV" determinerCode="INSTANCE">
+						<m:id extension="Common Data Layer Service"/>
+					</m:device>
+				</m:receiver>
+				<!-- Sending Application and Sending Facility. i.e. application = Adapter Assembly Service, Facility = OID -->
+				<m:sender typeCode="SND">
+					<m:device classCode="DEV" determinerCode="INSTANCE">
+						<m:id extension="Adapter Assembly Service"/>
+					</m:device>
+				</m:sender>
+				<m:controlActProcess classCode="CACT" moodCode="EVN">
+					<m:code code="QUPC_TE043100UV01"/>
+					<m:priorityCode code="R"/>
+					<m:queryByParameter>
+						<m:queryId extension="20090920010010"/>
+						<m:statusCode code="new"/>
+						<m:responsePriorityCode code="I"/>
+						<m:parameterList>
+							<m:careProvisionCode>
+								<m:value code="RXCAT" codeSystem="1.3.5.1.4.1.19376.1.5.3.2" codeSystemName="IHEActCode"/>
+							</m:careProvisionCode>
+							<m:careRecordTimePeriod>
+								<m:value>
+									<m:low value="20090101"/>
+									<m:high value="20090630"/>
+								</m:value>
+							</m:careRecordTimePeriod>
+							<m:patientId>
+								<m:value root="2.16.840.1.113883.3.198" extension="8237363"/>
+							</m:patientId>
+						</m:parameterList>
+					</m:queryByParameter>
+				</m:controlActProcess>
+			</m:query>
+		</m:CareRecord_QUPC_IN043100UV01MedicationsRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
