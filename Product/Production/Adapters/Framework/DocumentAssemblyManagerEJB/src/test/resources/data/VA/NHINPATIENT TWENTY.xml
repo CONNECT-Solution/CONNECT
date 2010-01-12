@@ -1,0 +1,1968 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-stylesheet type="text/xsl" href="CCD.xsl"?>
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 http://xreg2.nist.gov:8080/hitspValidation/schema/cdar2c32/infrastructure/cda/C32_CDA.xsd">
+	<!-- 
+    ********************************************************
+    CDA Header
+    ********************************************************
+    -->
+	<!-- Following template is HL7 CDA Release 2 -->
+	<!-- POCD_HD000040 is for Lab.Report.Clinical.Document -->
+	<typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+	<!-- Following template is the CCD v1.0 Templates Root -->
+	<templateId root="2.16.840.1.113883.10.20.1"/>
+	<!-- Following template is the HITSP/C32 Registration and Medication Template -->
+	<templateId root="2.16.840.1.113883.3.88.11.32.1"/>
+	<!-- CDA Document Identifer, id=VA OID, extension=system-generated -->
+	<id extension="7e899727-907c-484a-ae65-ec6631f44660" root="2.16.840.1.113883.4.349"/>
+	<!-- CDA Document Code -->
+	<code code="34133-9" codeSystem="2.16.840.1.113883.6.1" displayName="Summarization of Episode Note"/>
+	<!-- CDA Document Title -->
+	<title>Department of Veterans Affairs Summarization of Episode Note</title>
+	<!-- 1.01 DOCUMENT TIMESTAMP, REQUIRED -->
+	<effectiveTime value="20090727034805-0400"/>
+	<!-- CDA Confiedntiality Code -->
+	<confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+	<!-- CDA DOCUMENT LANGUAGE -->
+	<languageCode code="en-US"/>
+	<!-- PERSON INFORMATION CONTENT MODULE, REQUIRED -->
+	<recordTarget>
+		<patientRole>
+			<!-- 1.02 PERSON ID, REQUIRED, id=VA OID, extension=GUID -->
+			<id extension="1011230230" root="2.16.840.1.113883.4.349"/>
+			<!--  1.03 PERSON ADDRESS-HOME PERMANENT, REQUIRED -->
+			<addr use="HP">
+				<streetAddressLine>4533 LINE ST</streetAddressLine><streetAddressLine>APT 7</streetAddressLine>
+				<city>CINCINNATI</city>
+				<state>OH</state>
+				<postalCode>45201</postalCode>
+			</addr>
+			<!-- 1.04 PERSON PHONE/EMAIL/URL, REQUIRED -->
+			<telecom use="HP" value="tel:+(513)323-4444"/>
+			<patient>
+				<!--  1.05 PERSON NAME LEGAL, REQUIRED -->
+				<name use="L">
+					
+					<given>TWENTY</given><given>V</given>
+					<family>NHINPATIENT</family>
+					
+				</name>
+				<!-- 1.06 GENDER, REQUIRED -->
+				<!-- 1.06 GENDER as originalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+                <administrativeGenderCode nullFlavor="UNK">
+                     <originalText>M</originalText>
+                </administrativeGenderCode> 
+				<!-- 1.07 PERSON DATE OF BIRTH, REQUIRED -->
+				<birthTime value="19670215"/>
+				<!--  1.08 MARITAL STATUS, Optional-R2 -->
+				<!-- 1.08 MARITAL STATUS as originalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+				<maritalStatusCode nullFlavor="UNK">
+					<originalText>S</originalText>
+				</maritalStatusCode>
+				<!--  1.09 RELIGIOUS AFFILIATION, Optional, Removed b/c data not yet available via VA VIstA RPCs-->
+				<!--  1.10 RACE, Optional -->
+				<!--  1.10 RACE as originalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+				<raceCode nullFlavor="UNK">
+					
+				</raceCode>
+				<!-- 1.11 ETHNICITY, Optional -->
+				<!-- 1.11 ETHNICITY as originalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+				<ethnicGroupCode nullFlavor="UNK">
+					
+				</ethnicGroupCode>
+				<!-- LANGUAGE SPOKEN CONTENT MODULE-->
+				<languageCommunication>
+					<templateId root="2.16.840.1.113883.3.88.11.32.2"/>
+					<!--  2.01 LANGUAGE, REQUIRED, languageCode as nullFlavor b/c data not yet available via VA VistA RPCs -->
+					<languageCode nullFlavor="UNK"/>
+				</languageCommunication>
+			</patient>
+		</patientRole>
+	</recordTarget>
+	<!--  INFORMATION SOURCE CONTENT MODULE, REQUIRED -->
+	<!-- AUTHOR SECTION (REQUIRED) OF INFORMATION SOURCE CONTENT MODULE -->
+	<author>
+		<!-- 10.01 AUTHOR TIME (=Document Creation Date), REQUIRED -->
+		<time value="20090727034805-0400"/>
+		<!-- 10.02 AUTHOR NAME AS AN AUTHORING DEVICE, REQUIRED -->
+		<assignedAuthor>
+			<!-- 10.02 AUTHOR ID (VA OID) (authorOID), REQUIIRED -->
+			<id root="2.16.840.1.113883.4.349"/>
+			<assignedAuthoringDevice>
+				<!-- 10.02 AUTHORING DEVICE NAME (deviceName), REQUIIRED -->
+				<softwareName>Department of Veterans Affairs</softwareName>
+			</assignedAuthoringDevice>
+			<representedOrganization>
+				<!-- 10.02 AUTHORING DEVICE ORGANIZATION OID (VA OID) (deviceOrgOID), REQUIIRED -->
+				<id root="2.16.840.1.113883.4.349"/>
+				<!-- 10.02 AUTHORING DEVICE ORGANIZATION NAME (deviceOrgName), REQUIIRED -->
+				<name>Department of Veterans Affairs</name>
+			</representedOrganization>
+		</assignedAuthor>
+	</author>
+	<!-- INFORMATION SOURCE SECTION (OPTIONAL)OF INFORMATION SOURCE CONTENT MODULE -->
+	<!-- 10.06 INFORMATION SOURCE AS AN ORGANIZATION, REQUIRED -->
+	<informant>
+		<assignedEntity>
+			<id nullFlavor="NI"/>
+			<representedOrganization>
+				<!-- 10.06 INFORMATION SOURCE ORGANIZATION OID (VA OID) (sourceOrgOID), REQUIRED -->
+				<id root="2.16.840.1.113883.4.349"/>
+				<!-- 10.06 INFORMATION SOURCE ORGANIZATION NAME (sourceOrgName), REQUIRED -->
+				<name>Department of Veterans Affairs</name>
+			</representedOrganization>
+		</assignedEntity>
+	</informant>
+	<!-- CCD CDA R2 CUSTODIAN AS AN ORGANIZATION, REQUIRED -->
+	<custodian>
+		<assignedCustodian>
+			<representedCustodianOrganization>
+				<!-- CCD CDA R2 CUSTODIAN OID (VA) (custodianOID) -->
+				<id root="2.16.840.1.113883.4.349"/>
+				<!-- CCD CDA R2 CUSTODIAN NAME (custodianName) -->
+				<name>Department of Veterans Affairs</name>
+			</representedCustodianOrganization>
+		</assignedCustodian>
+	</custodian>
+	<!-- CCD CDA R2 LEGAL AUTHENTICATOR AS AN ORGANIZATION, REQUIRED -->
+	<legalAuthenticator>
+		<!-- CCD CDA R2 TIME OF AUTHENTICATION -->
+		<time value="20090727034805-0400"/>
+		<signatureCode code="S"/>
+		<assignedEntity>
+			<id nullFlavor="NI"/>
+			<representedOrganization>
+				<!-- CCD CDA R2 LEGAL AUTHENTICATOR OID (VA)  -->
+				<id root="2.16.840.1.113883.4.349"/>
+				<!-- CCD CDA R2 LEGAL AUTHENTICATOR NAME (authenticatorName) -->
+				<name>Department of Veterans Affairs</name>
+			</representedOrganization>
+		</assignedEntity>
+	</legalAuthenticator>
+	<!--  SUPPORT CONTENT MODULE, REQUIRED -->
+	<participant typeCode="IND">
+		<templateId root="2.16.840.1.113883.3.88.11.32.3"/>
+		<!--  3.01 DATE, REQUIRED -->
+		<!--  3.01 DATE date as nullFlavor b/c data not yet available via VA VistA RPCs -->
+		<time nullFlavor="UNK"/>
+		<!--  3.02 CONTACT TYPE, REQUIRED -->
+		<associatedEntity classCode="NOK">
+			<!--  3.03 CONTACT RELATIONSHIP as originalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+			<code nullFlavor="UNK">
+				<originalText>sister</originalText>
+			</code>
+			<!--  3.04 CONTACT Addresss, Home Permanent, Optional-R2 -->
+			<addr use="HP">
+				<streetAddressLine>333 sally sue blvd</streetAddressLine>
+				<city>bahama city</city>
+				<state>ALASKA</state>
+				<postalCode>33322</postalCode>
+			</addr>
+			<!--  3.05 CONTACT PHONE/EMAIL/URL, Optional-R2,  Removed b/c data not yet available via VA VistA RPCs -->
+            <associatedPerson>
+				<!-- 3.06 CONTACT NAME, REQUIRED -->
+				<name>
+					
+					<given>NOKTESTNOK</given>
+					<family>NHINPATIENT</family>
+					
+				</name>
+			</associatedPerson>
+		</associatedEntity>
+	</participant>
+	<!-- CCD CDA R2 DOCUMENTATION OF MODULE - QUERY META DATA, Optional -->
+	<documentationOf>
+		<serviceEvent classCode="PCPR">
+			<effectiveTime>
+				<!-- QUERY META DATA, SERVICE START TIME, Optional -->
+				<low value="20080427034804-0400"/>
+				<!-- QUERY META DATA, SERVICE STOP TIME, Optional -->
+				<high value="20090727034804-0400"/>
+			</effectiveTime>
+			    <!-- HEALTHCARE PROVIDER MODULE, OPTIONAL  -->
+                <performer typeCode="PRF">
+                    <!-- Provider Template Id  -->
+                    <templateId root="2.16.840.1.113883.3.88.11.32.4"/>
+                    <!-- 4.02-PROVIDER ROLE CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+                    <!-- 4.03-PROVIDER ROLE FREE TEXT, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+                    <!-- 4.01-DATE RANGE, Required, nullFlavor b/c data not yet available via VA VistA RPCs -->
+                    <time>
+                         <high nullFlavor="UNK"/>
+                    </time>
+				    <assignedEntity>
+				        <!-- Provider ID from Problems Module (7.05Treating Provider ID) -->
+				        <id assigningAuthorityName="ONLOES,SONJA" extension="provider1" root="2.16.840.1.113883.4.349"/><id assigningAuthorityName="ONLOES,SONJA" extension="provider2" root="2.16.840.1.113883.4.349"/><id assigningAuthorityName="ONLOES,SONJA" extension="provider3" root="2.16.840.1.113883.4.349"/>
+				    </assignedEntity>
+				</performer>
+		</serviceEvent>
+	</documentationOf>
+	<!-- CDA Body -->
+	<component>
+		<structuredBody>
+			<component>
+				<!-- ALLERGY/DRUG SECTION -->
+				<section>
+					<!-- CCD Alert Section Template-->
+					<templateId root="2.16.840.1.113883.10.20.1.2"/>
+					<code code="48765-2" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Allergies</title>
+					<!--  ALLERGIES NARRATIVE BLOCK -->
+					<text>Allergies/Drug Sensitivites Narrative Block. Coded data provided only in tagged xml format.</text>
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090527042300-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>CODINE</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG, FOOD</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090526023300-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>EGGS</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090527042200-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>BACTRIM</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090527042500-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>SULFA</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>FOOD</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090618124900-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>FISH</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090519104100-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>WARFARIN</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>OTHER</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090528100900-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>MOLD</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>OTHER</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090528100900-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>POLLEN</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<!-- CCD Allergy Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!-- INFORMATION SOURCE FOR ALLERGIES/DRUG, Optional -->
+							<author>
+								<!--  ADD TIME TO INFORMATION SOURCE FOR ALLERGIES/DRUG -->
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE, REQUIRED, SNOMED CT -->
+									<!--  6.02 ADVERSE EVENT TYPE as orginalText per NHIN Core Content Specification b/c VA code translation not yet available -->
+									<code nullFlavor="UNK">
+										<originalText>DRUG</originalText>
+									</code>
+                                                      <!--  6.02.1 ALERT TYPE CODE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  ADD STATUSCODE TO OBSERVATION -->
+									<statusCode code="completed"/>
+									<!-- 6.01 ADVERSE EVENT DATE, Optional-R2 -->
+									<effectiveTime>
+										<low value="20090618105100-0400"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--  6.04 PRODUCT CODED, Optional-R2, Removed b/c data not yet available via VA VistA RPCs -->
+												<!--  problem Template requires a code entry, code as nullFlavor b/c data not yet available via VA VistA RPCs  -->
+                                                                        <code nullFlavor="UNK"/>
+												<!-- 6.03 PRODUCT FREE TEXT, REQUIRED-->
+												<name>ERYTHROMYCIN/MACROLIDES</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--  REMOVE REACTION ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+									<!--  REMOVE SEVERITY ENTRY RELATIONSHIP BLOCK, data not yet available via VA Vista RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<component>
+				<!-- PROBLEMS SECTION -->
+				<section>
+					<!-- CCD Problem Section Template -->
+					<templateId root="2.16.840.1.113883.10.20.1.11"/>
+					<code code="11450-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="Problems"/>
+					<title>Problems/Conditions</title>
+					<!--  7.03 PROBLEM NAME as a Reference tag -->
+					<text>
+						<paragraph ID="prob1">Incision and Drainage of Deep Supralevator, Pelvirectal, or Retrorectal Abscess</paragraph><paragraph ID="prob2">Incision and Drainage of Ischiorectal and/or Perirectal Abscess</paragraph><paragraph ID="prob3">Cutaneous schistosomiasis</paragraph>
+					</text>
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<!-- CCD Problem Act Template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+							<!-- CCD Problem Act ID as nullFlavor  -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!--  7.01 PROBLEM DATE (cda:low), Optional R2 -->
+							<effectiveTime>
+								<low value="20090518"/>
+								<high nullFlavor="UNK"/>
+							</effectiveTime>
+                            <!-- 7.05 TREATING PROVIDER id link to HealthCare Provider Entry--> 
+                            <performer typeCode="PRF">
+                                     <assignedEntity>
+                                         <id extension="provider1" root="2.16.840.1.113883.4.349"/>
+                                      </assignedEntity>
+                            </performer>
+							<!-- INFORMATION SOURCE FOR PROBLEM, Optional -->
+							<author>
+								<time/>	
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<!-- CCD Problem observation - Required -->
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<!-- CCD Problem Obs ID as nullFlavor  -->
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2, SNOMED CT  -->
+									<!-- 7.02 PROBLEM TYPE as nullFalvor b/c data not yet available via VA VistA RPCs -->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, REQUIRED -->
+									<text>
+										<reference value="#prob1"/>
+									</text>
+									<statusCode code="completed"/>
+									<!--  7.04 PROBLEM CODE, Optional, SNOMED CT, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  7.04.1 PROBLEM STATUS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<!-- CCD Problem Act Template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+							<!-- CCD Problem Act ID as nullFlavor  -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!--  7.01 PROBLEM DATE (cda:low), Optional R2 -->
+							<effectiveTime>
+								<low value="20090519"/>
+								<high nullFlavor="UNK"/>
+							</effectiveTime>
+                            <!-- 7.05 TREATING PROVIDER id link to HealthCare Provider Entry--> 
+                            <performer typeCode="PRF">
+                                     <assignedEntity>
+                                         <id extension="provider2" root="2.16.840.1.113883.4.349"/>
+                                      </assignedEntity>
+                            </performer>
+							<!-- INFORMATION SOURCE FOR PROBLEM, Optional -->
+							<author>
+								<time/>	
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<!-- CCD Problem observation - Required -->
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<!-- CCD Problem Obs ID as nullFlavor  -->
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2, SNOMED CT  -->
+									<!-- 7.02 PROBLEM TYPE as nullFalvor b/c data not yet available via VA VistA RPCs -->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, REQUIRED -->
+									<text>
+										<reference value="#prob2"/>
+									</text>
+									<statusCode code="completed"/>
+									<!--  7.04 PROBLEM CODE, Optional, SNOMED CT, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  7.04.1 PROBLEM STATUS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry><entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<!-- CCD Problem Act Template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+							<!-- CCD Problem Act ID as nullFlavor  -->
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<!--  7.01 PROBLEM DATE (cda:low), Optional R2 -->
+							<effectiveTime>
+								<low value="20090514"/>
+								<high nullFlavor="UNK"/>
+							</effectiveTime>
+                            <!-- 7.05 TREATING PROVIDER id link to HealthCare Provider Entry--> 
+                            <performer typeCode="PRF">
+                                     <assignedEntity>
+                                         <id extension="provider3" root="2.16.840.1.113883.4.349"/>
+                                      </assignedEntity>
+                            </performer>
+							<!-- INFORMATION SOURCE FOR PROBLEM, Optional -->
+							<author>
+								<time/>	
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FOR FACILITY ID=VA OID, EXT= VAMC TREATING FACILITY NBR -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="SUBJ">
+								<!-- CCD Problem observation - Required -->
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<!-- CCD Problem Obs ID as nullFlavor  -->
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2, SNOMED CT  -->
+									<!-- 7.02 PROBLEM TYPE as nullFalvor b/c data not yet available via VA VistA RPCs -->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, REQUIRED -->
+									<text>
+										<reference value="#prob3"/>
+									</text>
+									<statusCode code="completed"/>
+									<!--  7.04 PROBLEM CODE, Optional, SNOMED CT, Removed b/c data not yet available via VA VistA RPCs -->
+									<!--  7.04.1 PROBLEM STATUS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<component>
+				<!-- MEDICATIONS SECTION -->
+				<section>
+					<!-- CCD Medication Template Id-->
+					<templateId root="2.16.840.1.113883.10.20.1.8"/>
+					<code code="10160-0" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Medications - Prescription and Non-Prescription</title>
+					<!--  MEDICATIONS NARRATIVE BLOCK -->
+					<text>
+						<!--  8.01-Free Text Sig Reference Tags in Narrative Block -->
+						<list listType="unordered">
+							<item>
+								<content ID="sig1">TAKE ONE-HALF TABLET BY MOUTH EVERY DAY</content>
+							</item><item>
+								<content ID="sig2">INSERT ONE SUPPOSITORY IN RECTUM DAILY</content>
+							</item><item>
+								<content ID="sig3">TAKE ONE TEASPOONFUL BY MOUTH EVERY DAY FOR 7 DAYS</content>
+							</item><item>
+								<content ID="sig4">TAKE 400 MILLIGRAMS BY MOUTH THREE TIMES A DAY WITH FOOD FOR 7 DAYS</content>
+							</item><item>
+								<content ID="sig5">TAKE ONE TABLET BY MOUTH DAILY</content>
+							</item><item>
+								<content ID="sig6">TAKE ONE TABLET BY MOUTH AND 1 AT BEDTIME</content>
+							</item><item>
+								<content ID="sig7">TAKE ONE-HALF TABLET BY MOUTH DAILY</content>
+							</item><item>
+								<content ID="sig8">TAKE ONE TABLET BY MOUTH EVERY EVENING</content>
+							</item><item>
+								<content ID="sig9">TAKE ONE TABLET BY MOUTH DAILY</content>
+							</item><item>
+								<content ID="sig10">TAKE ONE TABLET BY MOUTH DAILY</content>
+							</item><item>
+								<content ID="sig11">TAKE ONE TABLET BY MOUTH 4 TIMES A DAY</content>
+							</item>
+						</list>
+					</text>
+					<entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig1"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>AMLODIPINE BESYLATE 5MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>ACTIVE</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20100604" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="30"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>INLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="762887" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090603"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig2"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>GLYCERIN (ADULT) RTL SUPP</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>ACTIVE</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20100530" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="24"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>INLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="762886" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090529"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig3"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>SERTRALINE HCL 100MG/5ML SOLN</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>ACTIVE</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20100527" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="120"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>INLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="1401067" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090526"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig4"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>IBUPROFEN 100MG/5ML SUSP</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="983" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>CHYSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>ACTIVE</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20100527" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="120"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>INLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="1401068" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090526"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig5"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>CLOPIDOGREL BISULFATE 75MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>EXPIRED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090719" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="30"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>HASHEMZADEH,DARIOUSH</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718177A" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090619"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig6"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>ACETAMINOPHEN 325MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>EXPIRED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090529" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="90"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718188" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090528"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig7"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>WARFARIN (COUMADIN) NA 2.5MG GREEN TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>DISCONTINUED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090528" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="45"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718189" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090528"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig8"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>WARFARIN (COUMADIN) NA 3MG TAN TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>EXPIRED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090627" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="30"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718190" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090528"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig9"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>CLONIDINE HCL 0.1MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>DISCONTINUED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090619" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="30"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718176" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090520"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig10"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>CLOPIDOGREL BISULFATE 75MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>DISCONTINUED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090619" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="30"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718177" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090520"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry><entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<!-- CCD Medication Act Template Id -->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<!-- CCD Medication Act ID as nullflavor -->
+							<id nullFlavor="UNK"/>
+							<!--   8.01 FREE TEXT SIG REFERENCE, Optional -->
+							<id assigningAuthorityName="Department of Veterans Affairs" extension="nullFlavor" root="2.16.840.1.113883.4.349"/>
+							<text>
+								<reference value="#sig11"/>
+							</text>
+							<statusCode code="complete"/>
+							<!-- 8.02 INDICATE MEDICATION STOPPPED, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.03 ADMINISTRATION TIMING, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.04 FREQUENCY, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.05 INTERVAL, Optional,Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.06 DURATION, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.07 ROUTE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- 8.08 DOSE, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+							<consumable>
+								<manufacturedProduct>
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<!--  Added medications template -->
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial>
+										<!--  8.13 CODED PRODUCT NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.15 FREE TEXT PRODUCT NAME, REQUIRED -->
+										<code nullFlavor="UNK">
+											<originalText>MEDROXYPROGESTERONE ACETATE 5MG TAB</originalText>
+										</code>
+										<!-- 8.14 CODED BRAND NAME, Optional-R2, UNII, RXNorm, NDF-RT, NDC, Removed b/c data not yet available via VA VistA RPCs -->
+										<!-- 8.16 FREE TEXT BRAND NAME, Optional R2, Removed b/c data not yet available via VA VistA RPCs -->
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<!-- INFORMATION SOURCE FOR MEDICATIONS, Optional -->
+							<author>
+								<time nullFlavor="UNK"/>
+								<assignedAuthor>
+									<id nullFlavor="NI"/>
+									<representedOrganization>
+										<!-- INFORMATION SOURCE FACILITY OID (ID = VA OID, EXT = TREATING FACILITY NBR) -->
+										<id extension="984" root="2.16.840.1.113883.4.349"/>
+										<!-- INFORMATION SOURCE FACILITY NAME (facilityName) -->
+										<name>DAYTSHR TEST LAB</name>
+									</representedOrganization>
+								</assignedAuthor>
+							</author>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="EVN">
+									<code code="33999-4" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<statusCode code="completed"/>
+									<!-- 8.20 STATUS OF MEDICATION, Optional-R2, SNOMED CT -->
+									<!--  8.20 STATUS OF MEDICATION as originalText per NHIN Core Content Specifications b/c VA code translation not yet available -->
+									<value nullFlavor="UNK" xsi:type="CE">
+										<originalText>EXPIRED</originalText>
+									</value>
+								</observation>
+							</entryRelationship>
+							<!-- 8.22 PATIENT INSTRUCTIONS, Optional ,  Removed b/c data not yet available via VA VistA RPCs -->
+							<!-- ORDER INFORMATION -->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<templateId root="2.16.840.1.113883.3.88.1.11.32.11"/>
+									<!-- 8.29 ORDER EXPIRATION DATE/TIME, Optional-R2 -->
+									<effectiveTime value="20090619" xsi:type="SXCM_TS"/>
+									<!-- 8.26 ORDER NUMBER, Optional-R2 , Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.27 FILLS, Optional, Removed b/c data not yet available via VA VistA RPCs -->
+									<!-- 8.28 QUANTITY ORDERED, Optional-R2 -->
+									<!--  8.28 QUANTITY ORDERED:  Quantity only, Unit not yet available via VA VistA RPCs -->
+									<quantity value="120"/>
+									<!--  8.31 ORDERING PROVIDER as author/assignedAuthor-->
+									<author>
+										<!--  8.30 ORDER DATE/TIME, author time as nullFlavor-->
+										<time nullFlavor="UNK"/>
+										<assignedAuthor>
+											<id nullFlavor="UNK"/>
+											<assignedPerson>
+												<!--  8.31 ORDERING PROVIDER, Optional -->
+												<name>ONLOES,SONJA</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<!-- FULFILLMENT HISTORY INFORMATION -->
+							<entryRelationship typeCode="REFR">
+									<supply classCode="SPLY" moodCode="EVN">
+										<templateId root="2.16.840.1.113883.10.20.1.34"/>										
+										<!-- 8.34 PRESCRIPTION NUMBER, Optional-R2 -->
+										<id extension="2718178" root="2.16.840.1.113883.4.349"/>
+										<!-- 8.37 DISPENSE DATE, Optional-R2 -->
+										<effectiveTime value="20090520"/>										
+									</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>

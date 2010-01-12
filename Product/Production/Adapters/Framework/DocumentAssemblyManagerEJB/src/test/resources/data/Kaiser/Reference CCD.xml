@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by Joseph Columna (KAISER PERMANENTE PARSONS) -->
+<?xml-stylesheet type="text/xsl" href="CCD.xsl"?>
+<!-- Generated using Kaiser	CDA	Chart service (experimental) -->
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hl7-org:v3 http://xreg2.nist.gov:8080/hitspValidation/schema/cdar2c32/infrastructure/cda/C32_CDA.xsd">
+	<!--
+	********************************************************
+	CDA	Header
+	********************************************************
+	-->
+	<typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+	<templateId root="2.16.840.1.113883.10.20.1"/>
+	<!-- CCD v1.0 Templates	Root -->
+	<templateId root="2.16.840.1.113883.3.88.11.32.1"/>
+	<!-- HITSP/C32 Registration	and	Medication Template	-->
+	<!-- CDA Document Identifer, id=KP OID + serialized #, extension=system-generated doc ID #-->
+	<id root="1.3.6.1.4.1.26580.666001" extension="SC010"/>
+	<code code="34133-9" codeSystem="2.16.840.1.113883.6.1" displayName="Summarization of episode note"/>
+	<!--Kaiser document title -->
+	<title>Kaiser Permanente Patient Health Summary</title>
+	<!-- 1.01 DOCUMENT TIMESTAMP, REQUIRED -->
+	<effectiveTime value="20090928112023-0400"/>
+	<confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+	<languageCode code="en-US"/>
+	<recordTarget>
+		<patientRole>
+			<!-- KP Root OID: http://www.oid-info.com/get/1.3.6.1.4.1.26580 -->
+			<!-- 1.02 PERSON ID, REQUIRED, id=KP OID, extension=MRN -->
+			<id root="1.3.6.1.4.1.26580" extension="000011845170"/>
+			<!--  1.03 PERSON ADDRESS-HOME PERMANENT, REQUIRED -->
+			<addr use="H">
+				<streetAddressLine>1234 Howard St</streetAddressLine>
+				<city>La Jolla</city>
+				<state>CA</state>
+				<postalCode>92038</postalCode>
+				<country>US</country>
+			</addr>
+			<!-- 1.04 PERSON PHONE/EMAIL/URL, REQUIRED -->
+			<telecom value="tel:+1-760-222-5555" use="HP"/>
+			<telecom value="tel:+1-555-222-5500" use="MC"/>
+			<telecom value="tel:+1-760-222-5556" use="HV"/>
+			<telecom value="tel:+1-555-222-5501" use="WP"/>
+			<patient>
+				<!--  1.05 PERSON NAME LEGAL, REQUIRED -->
+				<name use="L">
+					<prefix/>
+					<given>Chdrone</given>
+					<given/>
+					<family>Chdrzzztestpatient</family>
+					<suffix/>
+				</name>
+				<!-- 1.06 GENDER, REQUIRED -->
+				<!--administrativeGenderCode code="M" displayName="Male" codeSystem="2.16.840.1.113883.5.1"/-->
+				<administrativeGenderCode nullFlavor="UNK">
+					<!--originalText>$Gender</originalText-->
+					<originalText>Male</originalText>
+				</administrativeGenderCode>
+				<!-- 1.07 PERSON DATE OF BIRTH, REQUIRED -->
+				<birthTime value="19600303"/>
+				<!-- jhc Commented out -->
+				<!--  1.08 MARITAL STATUS, Optional-R2 -->
+				<!-- maritalStatusCode code="M"	displayName="NI"
+								   codeSystem="2.16.840.1.113883.5.2"
+								   codeSystemName="MaritalStatusCode"/ -->
+				<maritalStatusCode nullFlavor="UNK">
+					<originalText>Unknown</originalText>
+				</maritalStatusCode>
+				<!--  1.09 RELIGIOUS AFFILIATION, Optional-->
+				<!--  1.10 RACE, Optional -->
+				<raceCode nullFlavor="UNK"/>
+				<!-- 1.11 ETHNICITY, Optional -->
+				<ethnicGroupCode nullFlavor="UNK"/>
+				<!-- LANGUAGE SPOKEN CONTENT MODULE-->
+				<languageCommunication>
+					<languageCode code="en-US"/>
+				</languageCommunication>
+			</patient>
+			<providerOrganization>
+				<!-- OID: Hardcoded	to KP -	http://www.oid-info.com/get/1.3.6.1.4.1.26580 -->
+				<id root="1.3.6.1.4.1.26580"/>
+				<name>Kaiser Permanente</name>
+			</providerOrganization>
+		</patientRole>
+	</recordTarget>
+	<author>
+		<time value="20080601170000+0500"/>
+		<assignedAuthor>
+			<!-- OID - Using Kaiser OID	 -->
+			<!-- 10.02 AUTHORING DEVICE ORGANIZATION OID (KP OID) (deviceOrgOID), REQUIIRED -->
+			<id root="1.3.6.1.4.1.26580"/>
+			<assignedAuthoringDevice>
+				<softwareName>Kaiser Permanente	RIMBAA V1.0</softwareName>
+			</assignedAuthoringDevice>
+			<representedOrganization>
+				<id root="1.3.6.1.4.1.26580"/>
+				<name>Kaiser Permanente</name>
+			</representedOrganization>
+		</assignedAuthor>
+	</author>
+	<informant>
+		<assignedEntity>
+			<!-- Using Kaiser OID: Should be a person OID -->
+			<id root="1.3.6.1.4.1.26580"/>
+			<representedOrganization>
+				<!-- 10.06 INFORMATION SOURCE ORGANIZATION OID (KP OID) REQUIRED -->
+				<!-- OID: Hardcoded	to KP -	http://www.oid-info.com/get/1.3.6.1.4.1.26580 -->
+				<id root="1.3.6.1.4.1.26580"/>
+				<name>Kaiser Permanente</name>
+			</representedOrganization>
+		</assignedEntity>
+	</informant>
+	<!-- CCD CDA R2 CUSTODIAN AS AN ORGANIZATION, REQUIRED -->
+	<custodian>
+		<assignedCustodian>
+			<representedCustodianOrganization>
+				<!-- CCD CDA R2 CUSTODIAN OID (VA) (custodianOID) -->
+				<!-- OID: Hardcoded	to KP -	http://www.oid-info.com/get/1.3.6.1.4.1.26580 -->
+				<id root="1.3.6.1.4.1.26580"/>
+				<!-- CCD CDA R2 CUSTODIAN NAME (custodianName) -->
+				<name>Kaiser Permanente</name>
+			</representedCustodianOrganization>
+		</assignedCustodian>
+	</custodian>
+	<!-- CCD CDA R2 LEGAL AUTHENTICATOR AS AN ORGANIZATION, REQUIRED -->
+	<legalAuthenticator>
+		<!-- CCD CDA R2 TIME OF AUTHENTICATION -->
+		<time value="20090928112023-0400"/>
+		<signatureCode code="S"/>
+		<assignedEntity>
+			<id nullFlavor="NI"/>
+			<representedOrganization>
+				<!-- CCD CDA R2 LEGAL AUTHENTICATOR OID (VA)  -->
+				<!-- OID: Hardcoded	to KP -	http://www.oid-info.com/get/1.3.6.1.4.1.26580 -->
+				<id root="1.3.6.1.4.1.26580"/>
+				<!-- CCD CDA R2 LEGAL AUTHENTICATOR NAME (authenticatorName) -->
+				<name>Kaiser Permanente</name>
+			</representedOrganization>
+		</assignedEntity>
+	</legalAuthenticator>
+	<!--  SUPPORT CONTENT MODULE, REQUIRED -->
+	<participant typeCode="IND">
+		<templateId root="2.16.840.1.113883.3.88.11.32.3"/>
+		<!--  3.01 DATE, REQUIRED -->
+		<time value="200908130800"/>
+		<!--  3.02 CONTACT TYPE, REQUIRED -->
+		<associatedEntity classCode="NOK">
+			<!--  3.03 CONTACT RELATIONSHIP-->
+			<!--code code="FAMMEMB" displayName="FAMMEMB" codeSystem="2.16.840.1.113883.5.111" codeSystemName="RoleCode"/-->
+			<code nullFlavor="UNK">
+				<!-- $contactRelationship -->
+				<originalText>Next-of-kin</originalText>
+			</code>
+			<!--  3.04 CONTACT Addresss, Home Permanent, Optional-R2 -->
+			<addr use="H">
+				<streetAddressLine>100 Peanut Lane</streetAddressLine>
+				<city>Athens</city>
+				<state>GA</state>
+				<postalCode>30606</postalCode>
+				<country>US</country>
+			</addr>
+			<!--  3.05 CONTACT PHONE/EMAIL/URL, Optional-R2-->
+			<telecom value="tel:+1-828-555-3388" use="WP"/>
+			<telecom value="tel:+1-828-555-9877" use="HV"/>
+			<telecom value="tel:+1-828-555-3389" use="MC"/>
+			<telecom value="tel:+1-828-555-9878" use="HP"/>
+			<associatedPerson>
+				<!-- 3.06 CONTACT NAME, REQUIRED -->
+				<name>
+					<prefix>Mrs.</prefix>
+					<given>Aloitious</given>
+					<given/>
+					<family>Kphc</family>
+					<suffix/>
+				</name>
+			</associatedPerson>
+		</associatedEntity>
+	</participant>
+	<!-- CCD CDA R2 DOCUMENTATION OF MODULE - QUERY META DATA, 	Optional -->
+	<documentationOf>
+		<serviceEvent classCode="PCPR">
+			<effectiveTime>
+				<!-- SERVICE START TIME, Optional -->
+				<low value="200908130800"/>
+				<!-- SERVICE STOP TIME, Optional -->
+				<high value="200908130800"/>
+			</effectiveTime>
+			<performer typeCode="PRF">
+				<functionCode code="PP" codeSystem="2.16.840.1.113883.12.443" displayName="Primary Care	Provider"/>
+				<time>
+					<low nullFlavor="UNK"/>
+				</time>
+				<assignedEntity>
+					<!-- Provider ID from Problems Module (7.05Treating Provider ID) -->
+					<!-- OID is	Dr.	Sydney's NPI -->
+					<id root="2.16.840.1.113883.4.6.1013905751"/>
+					<assignedPerson>
+						<name>
+							<prefix/>
+							<given/>
+							<given/>
+							<family/>
+						</name>
+					</assignedPerson>
+					<representedOrganization>
+						<!-- OID: http://www.oid-info.com/get/1.3.6.1.4.1.26580	-->
+						<id root="1.3.6.1.4.1.26580"/>
+						<name>Kaiser Permanente</name>
+					</representedOrganization>
+				</assignedEntity>
+			</performer>
+		</serviceEvent>
+	</documentationOf>
+	<!-- Pick a	required field for each	module and counte how many times it	occurs in the input	-->
+	<!-- TOOL DEBUG: allergy entry count: 3,
+					 problem entry count: 0,
+			         meds    entry count: 4
+	  -->
+	<!-- CDA Body -->
+	<component>
+		<structuredBody>
+			<!-- Problems section -->
+			<component>
+				<section>
+					<!-- Problem section template -->
+					<templateId root="2.16.840.1.113883.10.20.1.11"/>
+					<code code="11450-4" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Problems</title>
+					<text>
+						<paragraph ID="prob1">Hypertension</paragraph>
+						<paragraph ID="prob2">DM 2, Controlled</paragraph>
+						<paragraph ID="prob3">DM2 W Diabetic Peripheral Neuropathy</paragraph>
+						<paragraph ID="prob4">DM2 W Diabetic Hyperlipidemia, mixed</paragraph>
+						<paragraph ID="prob5">Multi Infarct Dementia</paragraph>
+						<paragraph ID="prob6">Snoring</paragraph>
+						<paragraph ID="prob7">Obstructive Sleep Apnea</paragraph>
+					</text>
+					<!-- Problem Entry # 1 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20090819010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob1"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 2 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20090712010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<!--code nullFlavor="UNK"/-->
+									<code code="111222"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob2"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 3 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20070501010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob3"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 4 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20080601010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob4"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 5 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20030101010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob5"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 6 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20040401010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob6"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Problem Entry # 7 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.7" assigningAuthorityName="HITSP/C32"/>
+							<!-- Problem act template -->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<effectiveTime>
+								<low value="20010911010845-0500"/>
+							</effectiveTime>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Problem observation template -->
+									<templateId root="2.16.840.1.113883.10.20.1.28"/>
+									<id nullFlavor="UNK"/>
+									<!-- 7.02 PROBLEM TYPE, R2-->
+									<code nullFlavor="UNK"/>
+									<!-- 7.03 PROBLEM NAME, R -->
+									<text>
+										<reference value="#prob7"/>
+									</text>
+									<statusCode code="completed"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<!-- Alerts	section	-->
+			<component>
+				<section>
+					<!-- Alerts	section	template -->
+					<templateId root="2.16.840.1.113883.10.20.1.2"/>
+					<code code="48765-2" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Allergies/Intolerances</title>
+					<text>
+						<table>
+							<thead>
+								<tr>
+									<th>Allergen</th>
+									<th>Reaction</th>
+									<th>Date Noted</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td/>
+									<td/>
+									<td/>
+								</tr>
+							</tbody>
+						</table>
+						<!--reaction = $reaction -->
+						<content ID="reaction1">Skin Rash and/or Hives</content>
+						<content ID="severity1">Really bad</content>
+						<content ID="reaction2">Wretching Vomit</content>
+						<content ID="severity2"/>
+					</text>
+					<!-- Allergy Entry # 1 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.10.20.1.27" assigningAuthorityName="CCD"/>
+							<templateId root="2.16.840.1.113883.3.88.11.32.6" assigningAuthorityName="HITSP/C32"/>
+							<!-- Alert activity template	-->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template	-->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE CODE, R (SNOMED CT) -->
+									<!--code code="$data.AttrVal("6.02",$entryIndex)"
+										  codeSystem="2.16.840.1.113883.6.96"
+    							     displayName="$data.AttrVal("6.025",$entryIndex)"/-->
+									<code nullFlavor="UNK">
+										<!-- ADVERSE SUBSTANCE/FOOD/DRUG CLASS NAME O-->
+										<!--originalText>$allergen</originalText-->
+										<originalText>AMOXICILLIN</originalText>
+									</code>
+									<!--statusCode	code="$status"/-->
+									<statusCode code="completed"/>
+									<!--6.01 ADVERSE EVENT DATE = $dateNoted, R2 -->
+									<effectiveTime>
+										<low value="200908120800"/>
+										<high nullFlavor="UNK"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--code code="$AllergySubsCode" displayname="$AllergySubsDispName" 
+													codeSystem="$AllergyCodeSystem template ID"
+														codeSystemName="$AllergyCodeSystemName/-->
+												<code nullFlavor="UNK"/>
+												<!--6.03 PRODUCT FREE-TEXT (Allergy Substance Name) = $allergen R-->
+												<name>AMOXICILLIN</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--entryRelationship node-->
+									<entryRelationship typeCode="MFST" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<!--Reaction observation template -->
+											<templateId root="2.16.840.1.113883.10.20.1.54"/>
+											<!--6.06 REACTION CODED R2 -->
+											<!--value xsi:type="CD" code="$ReactionCode" codeSystem="$ReactionCodeSystem" displayName="$ReactionName"/-->
+											<code nullFlavor="UNK"/>
+											<!--6.05 REACTION DESCRIPTION FREE-TEXT R2 -->
+											<text>
+												<reference value="#reaction1"/>
+											</text>
+											<statusCode code="completed"/>
+											<!--/observation-->
+											<!--/entryRelationship-->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+													<!--Severity observation template -->
+													<templateId root="2.16.840.1.113883.10.20.1.55"/>
+													<code code="SEV" displayName="Severity" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode"/>
+													<!--6.07 SEVERITY DESCRIPTION FREE-TEXT R2 -->
+													<text>
+														<reference value="#severity1"/>
+													</text>
+													<statusCode code="completed"/>
+													<!--6.08 SEVERITY LEVEL CODED R2 -->
+													<value xsi:type="CD" nullFlavor="UNK"/>
+													<!--value xsi:type="CD" code="$ReactionCode"
+														codeSystem="$ReactionCodeSystem" displayName="$ReactionName"/-->
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+					<!-- Allergy Entry # 2 -->
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.10.20.1.27" assigningAuthorityName="CCD"/>
+							<templateId root="2.16.840.1.113883.3.88.11.32.6" assigningAuthorityName="HITSP/C32"/>
+							<!-- Alert activity template	-->
+							<templateId root="2.16.840.1.113883.10.20.1.27"/>
+							<id nullFlavor="UNK"/>
+							<code nullFlavor="NA"/>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<!-- Alert observation template	-->
+									<templateId root="2.16.840.1.113883.10.20.1.18"/>
+									<!-- 6.02 ADVERSE EVENT TYPE CODE, R (SNOMED CT) -->
+									<!--code code="$data.AttrVal("6.02",$entryIndex)"
+										  codeSystem="2.16.840.1.113883.6.96"
+    							     displayName="$data.AttrVal("6.025",$entryIndex)"/-->
+									<code nullFlavor="UNK">
+										<!-- ADVERSE SUBSTANCE/FOOD/DRUG CLASS NAME O-->
+										<!--originalText>$allergen</originalText-->
+										<originalText>WHEAT BRAN</originalText>
+									</code>
+									<!--statusCode	code="$status"/-->
+									<statusCode code="completed"/>
+									<!--6.01 ADVERSE EVENT DATE = $dateNoted, R2 -->
+									<effectiveTime>
+										<low value="200908120800"/>
+										<high nullFlavor="UNK"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<!--code code="$AllergySubsCode" displayname="$AllergySubsDispName" 
+													codeSystem="$AllergyCodeSystem template ID"
+														codeSystemName="$AllergyCodeSystemName/-->
+												<code nullFlavor="UNK"/>
+												<!--6.03 PRODUCT FREE-TEXT (Allergy Substance Name) = $allergen R-->
+												<name>WHEAT BRAN</name>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<!--entryRelationship node-->
+									<entryRelationship typeCode="MFST" inversionInd="true">
+										<observation classCode="OBS" moodCode="EVN">
+											<!--Reaction observation template -->
+											<templateId root="2.16.840.1.113883.10.20.1.54"/>
+											<!--6.06 REACTION CODED R2 -->
+											<!--value xsi:type="CD" code="$ReactionCode" codeSystem="$ReactionCodeSystem" displayName="$ReactionName"/-->
+											<code nullFlavor="UNK"/>
+											<!--6.05 REACTION DESCRIPTION FREE-TEXT R2 -->
+											<text>
+												<reference value="#reaction2"/>
+											</text>
+											<statusCode code="completed"/>
+											<!--/observation-->
+											<!--/entryRelationship-->
+											<entryRelationship typeCode="SUBJ" inversionInd="true">
+												<observation classCode="OBS" moodCode="EVN">
+													<!--Severity observation template -->
+													<templateId root="2.16.840.1.113883.10.20.1.55"/>
+													<code code="SEV" displayName="Severity" codeSystem="2.16.840.1.113883.5.4" codeSystemName="ActCode"/>
+													<!--6.07 SEVERITY DESCRIPTION FREE-TEXT R2 -->
+													<text>
+														<reference value="#severity2"/>
+													</text>
+													<statusCode code="completed"/>
+													<!--6.08 SEVERITY LEVEL CODED R2 -->
+													<value xsi:type="CD" nullFlavor="UNK"/>
+													<!--value xsi:type="CD" code="$ReactionCode"
+														codeSystem="$ReactionCodeSystem" displayName="$ReactionName"/-->
+												</observation>
+											</entryRelationship>
+										</observation>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<!-- Medications section -->
+			<component>
+				<section>
+					<!-- Medications section template -->
+					<templateId root="2.16.840.1.113883.10.20.1.8"/>
+					<code code="10160-0" codeSystem="2.16.840.1.113883.6.1"/>
+					<title>Medications</title>
+					<text>
+						<table>
+							<thead>
+								<tr>
+									<th>Medication</th>
+									<th>Date</th>
+									<th>Dose</th>
+									<th>Instructions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td/>
+									<td/>
+									<td/>
+									<td/>
+								</tr>
+							</tbody>
+						</table>
+						<list listType="unordered">
+							<item>
+								<!--Free text sig N/A from Epic, use $instructions from data service-->
+								<!--content ID="sig1"/>$instructions</content></item-->
+								<content ID="sig1">3 X Daily</content>
+							</item>
+							<item>
+								<!--Free text sig N/A from Epic, use $instructions from data service-->
+								<!--content ID="sig1"/>$instructions<content></item-->
+								<content ID="sig2">1 X Daily</content>
+							</item>
+							<item>
+								<!--Free text sig N/A from Epic, use $instructions from data service-->
+								<!--content ID="sig1"/>$instructions<content></item-->
+								<content ID="sig3">As needed for cough</content>
+							</item>
+							<!--patientinstr = $instructions-->
+							<item>
+								<content ID="patientinstr1">3 X Daily</content>
+							</item>
+							<item>
+								<content ID="patientinstr2">1 X Daily</content>
+							</item>
+							<item>
+								<content ID="patientinstr3">As needed for cough</content>
+							</item>
+						</list>
+					</text>
+					<!-- Medication	Entry #	1	-->
+					<entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.8" assigningAuthorityName="HITSP/C32"/>
+							<!-- Medication	activity template ID-->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<!-- Medication	activity ID-->
+							<id nullFlavor="UNK"/>
+							<!--8.01 FREE TEXT Sig, N/A from Epic at this time, so use $instructions from data service-->
+							<text>
+								<reference value="#sig1"/>
+							</text>
+							<!--8.03 ADMINISTRATION TIMING O -->
+							<!--effectiveTime xsi:type="IVL_TS"-->
+							<!--low value="200908130800"/-->
+							<!--high value="200908130800"/-->
+							<!--/effectiveTime-->
+							<!--8.04 FREQUENCY (PERIOD/UNIT) O-->
+							<!--8.05 INTERVAL (PERIOD/UNIT) O-->
+							<!--effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A"-->
+							<!--period value="2" unit="h"/-->
+							<!--/effectiveTime-->
+							<!--8.07 ROUTE O-->
+							<!--routeCode code="$routeCode" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="RouteOfAdministration" displayName="$routeNamel"/-->
+							<!--routeCode nullFlavor="UNK" This fails NIST Validation/-->
+							<!--routeCode nullFlavor="UNK"-->
+							<!--originalText>Unknown</originalText-->
+							<!--/routeCode-->
+							<!--8.08 DOSE  O-->
+							<!--doseQuantity value="$num" unit="$dosageForm"/-->
+							<!--dosageForm e.g. tablet, capsule, drops-->
+							<!--doseQuantity value="$dosageStrength" unit="$dosageStrengthUnit"/-->
+							<!--dosageStrength e.g.350, dosageStrengthUnit e.g. mg-->
+							<!--NIST Validator requires value if specified-->
+							<doseQuantity value="10" unit="mg"/>
+							<!--MEDICATION Information -->
+							<consumable>
+								<manufacturedProduct classCode="MANU">
+									<!-- Product template -->
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+										<!-- 8.13 CODED PRODUCT (GENERIC) NAME R2 -->
+										<!--code code="$medCode" displayName="$medName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"/-->
+										<code nullFlavor="UNK">
+											<!--8.15 FREE TEXT GENERIC PRODUCT NAME=$medicationName, R-->
+											<!--originalText>$medicationName</originalText-->
+											<originalText>Generic FLUOXETINE  10 mg Oral Cap</originalText>
+											<!-- 8.14 CODED BRAND NAME R2 -->
+											<!--translation code="$medCode" displayName="$brandmedName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"/-->
+											<translation nullFlavor="UNK"/>
+										</code>
+										<!--8.16 FREE TEXT BRAND NAME=$medicationName, R2-->
+										<!--name>$medicationName</name-->
+										<name>Brand FLUOXETINE  10 mg Oral Cap</name>
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="INT">
+									<code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<!--8.20 STATUS OF MEDICATION R2-->
+									<statusCode code="completed"/>
+									<!--Assumed "Active" Meds from KP data service-->
+									<value xsi:type="CE" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+								</observation>
+							</entryRelationship>
+							<!--8.22 PATIENT INSTRUCTIONS O, $instructions-->
+							<entryRelationship typeCode="SUBJ" inversionInd="true">
+								<act classCode="ACT" moodCode="INT">
+									<templateId root="2.16.840.1.113883.10.20.1.49"/>
+									<code nullFlavor="UNK"/>
+									<text>
+										<reference value="#patientinstr1"/>
+									</text>
+								</act>
+							</entryRelationship>
+							<!--ORDER Informaton-->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<!--8.34 PRESCRIPTION NUMBER=extension, Root is Kaiser OID, R2-->
+									<id root="1.3.6.1.4.1.26580" extension="$prescriptionNumber"/>
+									<!--8.27 FILLS (number of refills) O-->
+									<!--repeatNumber = "$numberOfRefills"-->
+									<!--repeatNumber value="0"/-->
+									<!--repeatNumber nullFlavor="UNK"/-->
+									<!--8.28 QUANTITY ORDERED R2-->
+									<!--quantity value="$num" unit="$Form"/-->
+									<!--Form e.g. tablet, capsule, drops, l (liter)-->
+									<!--e.g. for no quantity:  quantity nullFlavor="UNK"/-->
+									<!--quantity value="9"/-->
+									<author>
+										<!--8.30 ORDER DATE/TIME = $prescriptionDate O-->
+										<!-- e.g. for no time:  time nullFlavor="UNK"/-->
+										<time value="200908130800"/>
+										<!--8.31 ORDERING PROVIDER, Kaiser OID, Provider MRN, Name O-->
+										<assignedAuthor>
+											<id root="1.3.6.1.4.1.26580" extension="$providerMRN"/>
+											<assignedPerson>
+												<!--name>$prescribingPhysician</name-->
+												<name>WILLIAM EDWIN BOWMAN MD</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry>
+					<!-- Medication	Entry #	2	-->
+					<entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.8" assigningAuthorityName="HITSP/C32"/>
+							<!-- Medication	activity template ID-->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<!-- Medication	activity ID-->
+							<id nullFlavor="UNK"/>
+							<!--8.01 FREE TEXT Sig, N/A from Epic at this time, so use $instructions from data service-->
+							<text>
+								<reference value="#sig2"/>
+							</text>
+							<!--8.03 ADMINISTRATION TIMING O -->
+							<!--effectiveTime xsi:type="IVL_TS"-->
+							<!--low value="200908130800"/-->
+							<!--high value="200908130800"/-->
+							<!--/effectiveTime-->
+							<!--8.04 FREQUENCY (PERIOD/UNIT) O-->
+							<!--8.05 INTERVAL (PERIOD/UNIT) O-->
+							<!--effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A"-->
+							<!--period value="2" unit="h"/-->
+							<!--/effectiveTime-->
+							<!--8.07 ROUTE O-->
+							<!--routeCode code="$routeCode" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="RouteOfAdministration"
+									displayName="$routeNamel"/-->
+							<!--routeCode nullFlavor="UNK" This fails NIST Validation/-->
+							<!--routeCode nullFlavor="UNK"-->
+							<!--originalText>Unknown</originalText-->
+							<!--/routeCode-->
+							<!--8.08 DOSE  O-->
+							<!--doseQuantity value="$num" unit="$dosageForm"/-->
+							<!--dosageForm e.g. tablet, capsule, drops-->
+							<!--doseQuantity value="$dosageStrength" unit="$dosageStrengthUnit"/-->
+							<!--dosageStrength e.g.350, dosageStrengthUnit e.g. mg-->
+							<!--NIST Validator requires value if specified-->
+							<doseQuantity value="500" unit="mg"/>
+							<!--MEDICATION Information -->
+							<consumable>
+								<manufacturedProduct classCode="MANU">
+									<!-- Product template -->
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+										<!-- 8.13 CODED PRODUCT (GENERIC) NAME R2 -->
+										<!--code code="$medCode" displayName="$medName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"-->
+										<code nullFlavor="UNK">
+											<!--8.15 FREE TEXT GENERIC PRODUCT NAME=$medicationName, R-->
+											<!--originalText>$medicationName</originalText-->
+											<originalText>ASCORBIC ACID 500 mg Oral Tab</originalText>
+											<!-- 8.14 CODED BRAND NAME R2 -->
+											<!--translation code="$medCode" displayName="$brandmedName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"/-->
+											<translation nullFlavor="UNK"/>
+										</code>
+										<!--8.16 FREE TEXT BRAND NAME=$medicationName, R2-->
+										<!--name>$medicationName</name-->
+										<name>ASCORBIC ACID 500 mg Oral Tab</name>
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="INT">
+									<code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<!--8.20 STATUS OF MEDICATION R2-->
+									<statusCode code="completed"/>
+									<!--Assumed "Active" Meds from KP data service-->
+									<value xsi:type="CE" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+								</observation>
+							</entryRelationship>
+							<!--8.22 PATIENT INSTRUCTIONS O, $instructions-->
+							<entryRelationship typeCode="SUBJ" inversionInd="true">
+								<act classCode="ACT" moodCode="INT">
+									<templateId root="2.16.840.1.113883.10.20.1.49"/>
+									<code nullFlavor="UNK"/>
+									<text>
+										<reference value="#patientinstr2"/>
+									</text>
+								</act>
+							</entryRelationship>
+							<!--ORDER Informaton-->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<!--8.34 PRESCRIPTION NUMBER=extension, Root is Kaiser OID, R2-->
+									<!--id root="1.3.6.1.4.1.26580" extensionnullFlavor="UNK"/-->
+									<!--8.27 FILLS (number of refills) O-->
+									<!--repeatNumber = "$numberOfRefills"-->
+									<!--repeatNumber value="0"/-->
+									<!--repeatNumber nullFlavor="UNK"/-->
+									<!--8.28 QUANTITY ORDERED R2-->
+									<!--quantity value="$num" unit="$Form"/-->
+									<!--Form e.g. tablet, capsule, drops, l (liter)-->
+									<!--e.g. for no quantity:  quantity nullFlavor="UNK"/-->
+									<!--quantity value ="9"/-->
+									<author>
+										<!--8.30 ORDER DATE/TIME = $prescriptionDate O-->
+										<!-- e.g. for no time:  time nullFlavor="UNK"/-->
+										<time value="200908200800"/>
+										<!--8.31 ORDERING PROVIDER, Kaiser OID, Provider MRN, Name O-->
+										<assignedAuthor>
+											<id root="1.3.6.1.4.1.26580" extension="$providerMRN"/>
+											<assignedPerson>
+												<!--name>$prescribingPhysician</name-->
+												<name>WILLIAM EDWIN BOWMAN MD</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry>
+					<!-- Medication	Entry #	3	-->
+					<entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<templateId root="2.16.840.1.113883.3.88.11.32.8" assigningAuthorityName="HITSP/C32"/>
+							<!-- Medication	activity template ID-->
+							<templateId root="2.16.840.1.113883.10.20.1.24"/>
+							<!-- Medication	activity ID-->
+							<id nullFlavor="UNK"/>
+							<!--8.01 FREE TEXT Sig, N/A from Epic at this time, so use $instructions from data service-->
+							<text>
+								<reference value="#sig3"/>
+							</text>
+							<!--8.03 ADMINISTRATION TIMING O -->
+							<!--effectiveTime xsi:type="IVL_TS"-->
+							<!--low value="200908130800"/-->
+							<!--high value="200908130800"/-->
+							<!--/effectiveTime-->
+							<!--8.04 FREQUENCY (PERIOD/UNIT) O-->
+							<!--8.05 INTERVAL (PERIOD/UNIT) O-->
+							<!--effectiveTime xsi:type="PIVL_TS" institutionSpecified="true" operator="A"-->
+							<!--period value="2" unit="h"/-->
+							<!--/effectiveTime-->
+							<!--8.07 ROUTE O-->
+							<!--routeCode code="$routeCode" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="RouteOfAdministration"
+									displayName="$routeNamel"/-->
+							<!--routeCode nullFlavor="UNK" This fails NIST Validation/-->
+							<!--routeCode nullFlavor="UNK"-->
+							<!--originalText>Unknown</originalText-->
+							<!--/routeCode-->
+							<!--8.08 DOSE  O-->
+							<!--doseQuantity value="$num" unit="$dosageForm"/-->
+							<!--dosageForm e.g. tablet, capsule, drops-->
+							<!--doseQuantity value="$dosageStrength" unit="$dosageStrengthUnit"/-->
+							<!--dosageStrength e.g.350, dosageStrengthUnit e.g. mg-->
+							<!--NIST Validator requires value if specified-->
+							<!--doseQuantity value="500" unit="mg"/-->
+							<!--MEDICATION Information -->
+							<consumable>
+								<manufacturedProduct classCode="MANU">
+									<!-- Product template -->
+									<templateId root="2.16.840.1.113883.10.20.1.53"/>
+									<templateId root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+										<!-- 8.13 CODED PRODUCT (GENERIC) NAME R2 -->
+										<!--code code="$medCode" displayName="$medName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"-->
+										<code nullFlavor="UNK">
+											<!--8.15 FREE TEXT GENERIC PRODUCT NAME=$medicationName, R-->
+											<!--originalText>$medicationName</originalText-->
+											<originalText>HALLS COUGH DROPS</originalText>
+											<!-- 8.14 CODED BRAND NAME R2 -->
+											<!--translation code="$medCode" displayName="$brandmedName" codeSystem="$medCodeSystem" codeSystemName="$medCodeSystemName"/-->
+											<translation nullFlavor="UNK"/>
+										</code>
+										<!--8.16 FREE TEXT BRAND NAME=$medicationName, R2-->
+										<!--name>$medicationName</name-->
+										<name>HALLS COUGH DROPS</name>
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<entryRelationship typeCode="REFR">
+								<observation classCode="OBS" moodCode="INT">
+									<code code="33999-4" displayName="Status" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC"/>
+									<!--8.20 STATUS OF MEDICATION R2-->
+									<statusCode code="completed"/>
+									<!--Assumed "Active" Meds from KP data service-->
+									<value xsi:type="CE" code="55561003" displayName="Active" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT"/>
+								</observation>
+							</entryRelationship>
+							<!--8.22 PATIENT INSTRUCTIONS O, $instructions-->
+							<entryRelationship typeCode="SUBJ" inversionInd="true">
+								<act classCode="ACT" moodCode="INT">
+									<templateId root="2.16.840.1.113883.10.20.1.49"/>
+									<code nullFlavor="UNK"/>
+									<text>
+										<reference value="#patientinstr3"/>
+									</text>
+								</act>
+							</entryRelationship>
+							<!--ORDER Informaton-->
+							<entryRelationship typeCode="REFR">
+								<supply classCode="SPLY" moodCode="INT">
+									<!--8.34 PRESCRIPTION NUMBER=extension, Root is Kaiser OID, R2-->
+									<!--id root="1.3.6.1.4.1.26580" extension="$prescriptionNumber"/-->
+									<!--8.27 FILLS (number of refills) O-->
+									<!--repeatNumber = "$numberOfRefills"-->
+									<!--repeatNumber value="0"/-->
+									<!--repeatNumber nullFlavor="UNK"/-->
+									<!--8.28 QUANTITY ORDERED R2-->
+									<!--quantity value="$num" unit="$Form"/-->
+									<!--Form e.g. tablet, capsule, drops, l (liter)-->
+									<!--e.g. for no quantity:  quantity nullFlavor="UNK"/-->
+									<!--quantity value="9"/-->
+									<author>
+										<!--8.30 ORDER DATE/TIME = $prescriptionDate O-->
+										<!-- e.g. for no time:  time nullFlavor="UNK"/-->
+										<time value="200908200800"/>
+										<!--8.31 ORDERING PROVIDER, Kaiser OID, Provider MRN, Name O-->
+										<assignedAuthor>
+											<id root="1.3.6.1.4.1.26580" extension="$providerMRN"/>
+											<assignedPerson>
+												<!--name>$prescribingPhysician</name-->
+												<name>WILLIAM EDWIN BOWMAN MD</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>

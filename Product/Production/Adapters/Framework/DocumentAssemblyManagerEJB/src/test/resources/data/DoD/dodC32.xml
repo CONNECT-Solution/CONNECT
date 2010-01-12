@@ -1,0 +1,230 @@
+<ClinicalDocument xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" classCode="DOCCLIN">
+	<typeId extension="POCD_HD000040" root="2.16.840.1.113883.1.3"/>
+	<templateId root="2.16.840.1.113883.10.20.1"/>
+	<templateId root="2.16.840.1.113883.3.88.11.32.1"/>
+	<id extension="18b5d401-291f-4d96-83a0-ba8ad391c97b"/>
+	<code code="34133-9" codeSystem="2.16.840.1.113883.6.1" codeSystemName="LOINC" displayName="SUMMARIZATION OF EPISODE NOTE"/>
+	<effectiveTime value="20091119023952-0800"/>
+	<confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25" displayName="Normal"/>
+	<languageCode code="EN-US"/>
+	<recordTarget>
+		<patientRole>
+			<id extension="st3498702" root="2.16.840.1.113883.3.198"/>
+			<addr use="HP">
+				<streetAddressLine>17 Daws Road</streetAddressLine>
+				<city>Blue Bell</city>
+				<state>MA</state>
+				<postalCode>00000</postalCode>
+				<country>US</country>
+			</addr>
+			<telecom use="HP" value="tel:+1-888-888-8888"/>
+			<patient>
+				<name use="P">
+					<family partType="FAM">Ross</family>
+					<given partType="GIV">Josephine</given>
+				</name>
+				<birthTime value="19761212"/>
+				<maritalStatusCode code="M" codeSystem="2.16.840.1.113883.5.2" codeSystemName="MaritalStatusCode" displayName="Married"/>
+				<raceCode code="1004-1" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race and Ethnicity"/>
+				<ethnicGroupCode code="2178-2" codeSystem="2.16.840.1.113883.6.238" codeSystemName="CDC Race and Ethnicity" displayName="Latin American"/>
+				<languageCommunication>
+					<languageCode code="en-US"/>
+				</languageCommunication>
+			</patient>
+			<providerOrganization>
+				<id root="2.16.840.1.113883.3.198"/>
+				<name>Department of Defense</name>
+			</providerOrganization>
+		</patientRole>
+	</recordTarget>
+	<component>
+		<structuredBody>
+			<component>
+				<section>
+					<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.2"/>
+					<code code="48765-2" codeSystem="2.16.840.1.113883.6.1"/>
+					<title xmlns="" xmlns:ns3="urn:hl7-org:v3">Allergies</title>
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.6"/>
+							<templateId assigningAuthorityName="CCD" extension="2.16.840.1.113883.10.20.1.27"/>
+							<code nullFlavor="NA"/>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.18"/>
+									<templateId assigningAuthorityName="IHE" root="1.3.6.1.4.1.19376.1.5.3.1.4.5"/>
+									<code code="416098002" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="drug allergy"/>
+									<effectiveTime>
+										<low value="20090119"/>
+									</effectiveTime>
+									<participant typeCode="CSM">
+										<participantRole classCode="MANU">
+											<playingEntity classCode="MMAT">
+												<code code="70618" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm" displayName="Penicillin">
+													<originalText>PENICILLIN VK 500 MG</originalText>
+												</code>
+												<name>Penicillin</name>
+												<desc xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ST_explicit">Penicillin</desc>
+											</playingEntity>
+										</participantRole>
+									</participant>
+									<entryRelationship inversionInd="true" typeCode="MFST">
+										<observation>
+											<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.54"/>
+											<text>Hives</text>
+											<statusCode code="completed"/>
+											<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" code="247472004" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Hives" xsi:type="CD"/>
+										</observation>
+									</entryRelationship>
+									<entryRelationship typeCode="SUBJ">
+										<observation>
+											<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.55"/>
+											<text>
+												<reference value="#severity-1"/>
+											</text>
+											<statusCode code="completed"/>
+											<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" code="24484000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="24484000" xsi:type="CD"/>
+										</observation>
+									</entryRelationship>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<component>
+				<section>
+					<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.11"/>
+					<code code="11450-4" codeSystem="2.16.840.1.113883.6.1"/>
+					<title xmlns="" xmlns:ns3="urn:hl7-org:v3">Problems</title>
+					<entry typeCode="DRIV">
+						<act classCode="ACT" moodCode="EVN">
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.7"/>
+							<templateId assigningAuthorityName="CCD" extension="2.16.840.1.113883.10.20.1.27"/>
+							<id extension="a802fc4f-50cd-4fab-be1a-c6b76736b949"/>
+							<code nullFlavor="NA"/>
+							<entryRelationship typeCode="SUBJ">
+								<observation classCode="OBS" moodCode="EVN">
+									<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.28"/>
+									<code code="404684003" codeSystemName="SNOMED CT" codeSystemVersion="2.16.840.1.113883.6.96" displayName="Finding"/>
+									<text>Migraine</text>
+									<statusCode code="completed"/>
+									<effectiveTime>
+										<low value="20090119"/>
+									</effectiveTime>
+									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" code="37796009" codeSystem="2.16.840.1.113883.96" codeSystemName="SNOMED CT" displayName="Migraine" xsi:type="CD"/>
+								</observation>
+							</entryRelationship>
+						</act>
+					</entry>
+				</section>
+			</component>
+			<component>
+				<section>
+					<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.8"/>
+					<code code="10160-0" codeSystem="2.16.840.1.113883.6.1"/>
+					<title xmlns="" xmlns:ns3="urn:hl7-org:v3">Medications</title>
+					<entry typeCode="DRIV">
+						<substanceAdministration classCode="SBADM" moodCode="EVN">
+							<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.8"/>
+							<templateId assigningAuthorityName="CCD" extension="2.16.840.1.113883.10.20.1.24"/>
+							<id extension="cdbd5b05-6cde-11db-9fe1-0800200c9a66"/>
+							<statusCode code="active"/>
+							<effectiveTime xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="IVL_TS">
+								<low value="20090104"/>
+								<high value="20090314"/>
+							</effectiveTime>
+							<effectiveTime xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" institutionSpecified="true" operator="A" xsi:type="PIVL_TS">
+								<period unit="h" value="12"/>
+							</effectiveTime>
+							<routeCode code="C38288" codeSystem="2.16.840.1.113883.3.26.1.1" codeSystemName="RouteOfAdministration" displayName="Oral"/>
+							<doseQuantity unit="{TABLET}" value="1"/>
+							<consumable typeCode="CSM">
+								<manufacturedProduct classCode="MANU">
+									<templateId assigningAuthorityName="CCD" root="2.16.840.1.113883.10.20.1.53"/>
+									<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.11.32.9"/>
+									<manufacturedMaterial classCode="MMAT" determinerCode="KIND">
+										<code code="197806" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm" displayName="IBUPROFEN, 600MG, TABLET, ORAL">
+											<originalText>IBUPROFEN (MOTRIN)--PO 600MG TAB</originalText>
+											<translation code="201152" codeSystem="2.16.840.1.113883.6.88" codeSystemName="RxNorm" displayName="Ibuprofen 600mg, (Motrin), Tablet, Oral"/>
+										</code>
+										<name>MOTRIN 600MG ORAL TAB</name>
+									</manufacturedMaterial>
+								</manufacturedProduct>
+							</consumable>
+							<entryRelationship>
+								<observation classCode="OBS" moodCode="EVN">
+									<templateId assigningAuthorityName="HITSP/C32" extension="2.16.840.1.113883.3.88.11.32.10"/>
+									<code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+									<statusCode code="completed"/>
+									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+								</observation>
+							</entryRelationship>
+							<entryRelationship typeCode="REFR">
+								<templateId assigningAuthorityName="HITSP/C32" root="2.16.840.1.113883.3.88.1.11.32.11"/>
+								<supply classCode="SPLY" moodCode="INT">
+									<id extension="prescription12" root="2.16.840.1.113883.3.198"/>
+									<repeatNumber value="1"/>
+									<quantity value="30"/>
+									<author>
+										<time value="20090102"/>
+										<assignedAuthor>
+											<id extension="PROV2"/>
+											<assignedPerson>
+												<name>Jonathan Smith MD</name>
+											</assignedPerson>
+										</assignedAuthor>
+									</author>
+								</supply>
+							</entryRelationship>
+							<entryRelationship>
+								<supply classCode="SPLY" moodCode="EVN">
+									<templateId root="2.16.840.1.113883.10.20.1.34"/>
+									<id extension="14ED7742-1" root="2.16.840.1.113883.3.198"/>
+									<effectiveTime value="20090104"/>
+									<quantity unit="{TABLET}" value="30"/>
+									<performer>
+										<assignedEntity>
+											<addr use="HP">
+												<streetAddressLine>21 Dawn Road</streetAddressLine>
+												<city>Blue Bell</city>
+												<state>MA</state>
+												<postalCode>00000</postalCode>
+												<country>US</country>
+											</addr>
+											<assignedPerson>
+												<name>Blue Bell Pharmacy</name>
+											</assignedPerson>
+										</assignedEntity>
+									</performer>
+								</supply>
+							</entryRelationship>
+							<entryRelationship>
+								<supply classCode="SPLY" moodCode="EVN">
+									<templateId root="2.16.840.1.113883.10.20.1.34"/>
+									<id extension="14ED7742-2" root="2.16.840.1.113883.3.198"/>
+									<effectiveTime value="20090204"/>
+									<quantity unit="{TABLET}" value="30"/>
+									<performer>
+										<assignedEntity>
+											<addr use="HP">
+												<streetAddressLine>21 Dawn Road</streetAddressLine>
+												<city>Blue Bell</city>
+												<state>MA</state>
+												<postalCode>00000</postalCode>
+												<country>US</country>
+											</addr>
+											<assignedPerson>
+												<name>Blue Bell Pharmacy</name>
+											</assignedPerson>
+										</assignedEntity>
+									</performer>
+								</supply>
+							</entryRelationship>
+						</substanceAdministration>
+					</entry>
+				</section>
+			</component>
+		</structuredBody>
+	</component>
+</ClinicalDocument>
