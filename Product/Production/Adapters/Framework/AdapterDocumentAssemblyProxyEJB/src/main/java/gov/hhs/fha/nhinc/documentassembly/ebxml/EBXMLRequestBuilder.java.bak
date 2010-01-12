@@ -10,6 +10,9 @@ import gov.hhs.fha.nhinc.assemblymanager.AssemblyManager;
 import gov.hhs.fha.nhinc.assemblymanager.dao.model.DocumentType;
 import gov.hhs.fha.nhinc.assemblymanager.utils.DateUtil;
 import gov.hhs.fha.nhinc.common.docmgr.DocumentManagerClient;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Date;
 import java.util.List;
@@ -49,15 +52,15 @@ import org.hl7.v3.TSExplicit;
 public class EBXMLRequestBuilder {
 
    private static Log log = LogFactory.getLog(EBXMLRequestBuilder.class);
-   
    ProvideAndRegisterDocumentSetRequestType documentSetRequest = null;
-   
+
    public EBXMLRequestBuilder() {
    }
 
    public ProvideAndRegisterDocumentSetRequestType createDocumentSetRequest() {
-      if (documentSetRequest == null)
+      if (documentSetRequest == null) {
          documentSetRequest = new ProvideAndRegisterDocumentSetRequestType();
+      }
 
       return documentSetRequest;
    }
@@ -73,6 +76,21 @@ public class EBXMLRequestBuilder {
       extrinsic.setId(rimId);
       extrinsic.setMimeType("text/xml");    //KIM: Based on Documentform
       extrinsic.setObjectType("urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1");    //TODO: Verify that this is invariant
+
+      // set home community id
+      String sHomeCommunityId = null;
+
+      try {
+         sHomeCommunityId = PropertyAccessor.getProperty(
+                 NhincConstants.GATEWAY_PROPERTY_FILE,
+                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+         extrinsic.setHome(rimId);
+      } catch (PropertyAccessException e) {
+         log.error("Failed to read " +
+                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY +
+                 " property from the " + NhincConstants.GATEWAY_PROPERTY_FILE +
+                 ".properties  file.  Error: " + e.getMessage(), e);
+      }
 
       // creation time - current time
       SlotType1 slot = new SlotType1();
@@ -195,10 +213,10 @@ public class EBXMLRequestBuilder {
                  "authorRole",
                  "authorSpecialty",}, //slot names
               new String[][]{
-                  new String[]{AssemblyManager.getProperty(AssemblyConstants.ORGANIZATION_SYSTEM)},
-                  new String[]{AssemblyManager.getProperty(AssemblyConstants.ORGANIZATION_NAME)},
-                  new String[]{""},
-                  new String[]{""},} //slot values
+                 new String[]{AssemblyManager.getProperty(AssemblyConstants.ORGANIZATION_SYSTEM)},
+                 new String[]{AssemblyManager.getProperty(AssemblyConstants.ORGANIZATION_NAME)},
+                 new String[]{""},
+                 new String[]{""},} //slot values
               );
 
       // Create classCode classification/Type

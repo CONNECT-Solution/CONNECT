@@ -1,0 +1,43 @@
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:a="http://www.w3.org/2005/08/addressing">
+	<SOAP-ENV:Body>
+		<tns:RespondingGateway_CrossGatewayQueryRequest xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+			<query:AdhocQueryRequest>
+				<query:ResponseOption/>
+				<rim:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+					<rim:Slot name="$XDSDocumentEntryPatientId">
+						<rim:ValueList>
+							<rim:Value>'st3498702^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO'</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+					<rim:Slot name="$XDSDocumentEntryClassCode">
+						<rim:ValueList>
+							<rim:Value>'34133-9'</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+					<rim:Slot name="$XDSDocumentEntryClassCodeScheme">
+						<rim:ValueList>
+							<rim:Value>'LOINC'</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+					<rim:Slot name="$XDSDocumentEntryStatus">
+						<rim:ValueList>
+							<rim:Value>'urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Approved'</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+					<rim:Slot name="$XDSDocumentEntryEventCodeList">
+						<rim:ValueList>
+							<rim:Value>(44950' '44955' '44960' '44970' '44979')</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+					<rim:Slot name="$uuid">
+						<rim:ValueList>
+							<rim:Value>('urn:uuid:b2632772-1de7-480d-94b1-c2074d79c871')</rim:Value>
+						</rim:ValueList>
+					</rim:Slot>
+				</rim:AdhocQuery>
+			</query:AdhocQueryRequest>
+			<tns:assertion>
+			</tns:assertion>
+		</tns:RespondingGateway_CrossGatewayQueryRequest>
+	</SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
