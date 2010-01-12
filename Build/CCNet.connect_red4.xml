@@ -35,7 +35,7 @@
 
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="tcp://localhost:&CCNet.Server.Remoting.Port;/CruiseManager.rem"
-               project="&ProjectName;-&ProjectCodeLineName; CONNECT-RED4 Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName; CONNECT-RED4-Build-Scripts">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -100,7 +100,7 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="http://localhost:&CCNet.Server.Rest.Port;">
-  <project name="&ProjectName;-&ProjectCodeLineName; CONNECT-RED4 Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; CONNECT-RED4-Build-Scripts">
     <webURL>&webURLi;</webURL>
     <state type="state" />
     <triggers>

@@ -5,38 +5,68 @@
   <property name="CCTray.ExeFilePath" value="${CCTray.Install.Path}\cctray.exe"/>
 
   <target name="Workspace.Configuration.CCTray">
-    <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\CCNET.build.xml' id='CCNetProjects' />
-    <property name='CCTray.NeedRecycle' value='false'/>
+    <xmlpeek
+      file='${CCTray.ConfigFilePath}'
+      property='CCTray.Config.IsOld'
+      xpath='boolean(/Configuration/Projects/Project[@serverUrl = "${CCNet.Server.Remoting.Url}" and @projectName = "NHINC-Current-Release"])'
+    />
 
-    <loopthrough property='CCNetProjectName'>
+    <if test='${CCTray.Config.IsOld}'>
+      <xmlpoke
+        file='${CCTray.ConfigFilePath}'
+        pokemode='ReplaceOuter'
+        value=''
+        xpath='/Configuration/Projects/Project'
+      />
+    </if>
+
+    <loopthrough property="CCNet.Project.File.Name">
       <items>
-        <xmlquery refid='CCNetProjects'/>
+        <strings refid="CCNet.Project.Files"/>
       </items>
       <do>
-        <trycatch>
-          <try>
-            <xmlpeek
-              file='${CCTray.ConfigFilePath}'
-              property='trash'
-              xpath='/Configuration/Projects/Project[@serverUrl = "${CCNet.Server.Remoting.Url}" and @projectName = "${CCNetProjectName}"]'
+        <echo message="CCNet.Project.File.Name=${CCNet.Project.File.Name}"/>
+        <xmlquery query='/cruisecontrol/project/@name' file='${Common.Directory.Build.Path}\${CCNet.Project.File.Name}' id='CCNetProjects' />
+        <property name='CCTray.NeedRecycle' value='false'/>
+
+        <xmlpeek
+          file='${Common.Directory.Build.Path}\${CCNet.Project.File.Name}'
+          property='Remoting.Url'
+          nodeindex='0'
+          xpath='/cruisecontrol/project/triggers/projectTriggerFilter/projectFilters/projectFilter[contains(@project,"${ProjectName}-${ProjectCodeLineName}-Build-Scripts")]/@serverUri'
+        />
+
+        <loopthrough property='CCNetProjectName'>
+          <items>
+            <xmlquery refid='CCNetProjects'/>
+          </items>
+          <do>
+            <trycatch>
+              <try>
+                <xmlpeek
+                  file='${CCTray.ConfigFilePath}'
+                  property='trash'
+                  xpath='/Configuration/Projects/Project[@serverUrl = "${Remoting.Url}" and @projectName = "${CCNetProjectName}"]'
+                />
+              </try>
+              <catch property='exception'>
+                <echo message='${exception}'/>
+                <property name='CCTray.NeedRecycle' value='true'/>
+                <largeproperty name="CCTrayProject">
+                  <value expand="true" xml="true">
+                    <Project serverUrl="${Remoting.Url}" projectName="${CCNetProjectName}" />
+                  </value>
+                </largeproperty>
+                <xmlpoke
+                  file='${CCTray.ConfigFilePath}'
+                  xpath='/Configuration/Projects'
+                  pokemode='Add'
+                  value='${CCTrayProject}'
             />
-          </try>
-          <catch property='exception'>
-            <echo message='${exception}'/>
-            <property name='CCTray.NeedRecycle' value='true'/>
-            <largeproperty name="CCTrayProject">
-              <value expand="true" xml="true">
-                <Project serverUrl="${CCNet.Server.Remoting.Url}" projectName="${CCNetProjectName}" />
-              </value>
-            </largeproperty>
-            <xmlpoke
-              file='${CCTray.ConfigFilePath}'
-              xpath='/Configuration/Projects'
-              pokemode='Add'
-              value='${CCTrayProject}'
-            />
-          </catch>
-        </trycatch>
+              </catch>
+            </trycatch>
+          </do>
+        </loopthrough>
       </do>
     </loopthrough>
 
@@ -74,5 +104,4 @@
       />
     </if>
   </target>
-
 </project>

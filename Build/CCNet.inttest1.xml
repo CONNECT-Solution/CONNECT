@@ -34,7 +34,7 @@
 
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -108,7 +108,7 @@
 ]>
 
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Integration.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName; Test Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
     <webURL>&Integration.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>

@@ -35,7 +35,7 @@
           </projectFilter>'>
   <!ENTITY KlocworkScriptsBuilding '<projectFilter
                serverUri="&Klocwork.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName; Klocwork Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName; Klocwork-Build-Scripts">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -92,7 +92,7 @@
       </exclusionFilters>'>
 ]>
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Klocwork.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName; Klocwork Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName; Klocwork-Build-Scripts">
     <webURL>&Klocwork.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>

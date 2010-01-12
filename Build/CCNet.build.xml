@@ -92,7 +92,7 @@
           </projectFilter>'>
   <!ENTITY ScriptsBuilding '<projectFilter
                serverUri="&CCNet.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+               project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
             <exclusionFilters>
               <activities>
                 <activity>Building</activity>
@@ -149,7 +149,7 @@
       </exclusionFilters>'>
 ]>
 <cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&CCNet.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName; Build Scripts">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
     <webURL>&CCNet.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
