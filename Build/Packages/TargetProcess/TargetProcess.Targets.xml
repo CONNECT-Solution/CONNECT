@@ -2,13 +2,13 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="TargetProcess">
 
   <target name="TargetProcess.Get.Release.Report">
-    <property name="CCNetRemotingUrl" value="tcp://${BuildServerHostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
+    <property name="CCNetRemotingUrl" value="tcp://${Integration.Server.Host.Name}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
     <property name="ReleaseProjectName" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
     <property name="ReleaseArchiveFolderName" value="${ccnet::get-project-last-build-date(CCNetRemotingUrl, ReleaseProjectName)}"/>
 
     <get
       dest="${Common.Project.ReportDirectory}\${ProjectName}TargetProcesss.xml"
-      src="http://${BuildServerHostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${ReleaseArchiveFolderName}/${ProjectName}TargetProcesss.xml"
+      src="http://${Integration.Server.Host.Name}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${ReleaseArchiveFolderName}/${ProjectName}TargetProcesss.xml"
     >
       <credentials username="${Web.Credentials.UserName}" password="${Web.Credentials.Password}" unless="${Web.Credentials.UserName == '' or Web.Credentials.Password == ''}"/>
     </get>
