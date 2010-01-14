@@ -47,7 +47,7 @@
         <mkdir dir="${build.generated.dir}/wsimport/client"/>
         <mkdir dir="${build.generated.dir}/wsimport/binaries"/>
         <mkdir dir="../../../lib" />
-        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+        <taskdef name="wsimportConnect" classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect">
             <classpath path="${libs.jaxws21.classpath}"/>
         </taskdef>
         <typedef classname="com.sun.tools.xjc.XJCTask" name="xjc" xmlns:s="http://xml.netbeans.org/schema/JAXBWizConfig">
@@ -57,48 +57,6 @@
 
 	<!-- Generate and compile classes from WSDL and schema files -->
     <target name="-pre-compile" depends="build-init">
-        <echo message="Generating Code from WSDL..." />
-        <echo message="----------------------------" />
-		<for param="file">
-			<path>
-				<fileset dir="../Interfaces/src/wsdl">
-					<include name="*.wsdl" />
-					<exclude name="NhinUddiSubrV3PortType.wsdl" />
-					<exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
-					<exclude name="rw-2.wsdl" />
-					<exclude name="uddi_api_v3_binding.wsdl" />
-					<exclude name="uddi_api_v3_portType.wsdl" />
-					<exclude name="uddi_custody_v3_binding.wsdl" />
-					<exclude name="uddi_custody_v3_portType.wsdl" />
-					<exclude name="uddi_repl_v3_binding.wsdl" />
-					<exclude name="uddi_repl_v3_portType.wsdl" />
-					<exclude name="uddi_sub_v3_binding.wsdl" />
-					<exclude name="uddi_sub_v3_portType.wsdl" />
-					<exclude name="uddi_subr_v3_binding.wsdl" />
-					<exclude name="uddi_subr_v3_portType.wsdl" />
-					<exclude name="uddi_vs_v3_binding.wsdl" />
-					<exclude name="uddi_vs_v3_portType.wsdl" />
-					<exclude name="uddi_vscache_v3_binding.wsdl" />
-					<exclude name="uddi_vscache_v3_portType.wsdl" />
-					<!-- TODO: This one needs to be added - failing on some schema files that are referenced -->
-<!--					<exclude name="uddi_v3_service.wsdl" /> -->
-				</fileset>
-			</path>
-			<sequential>
-				<antcall target="processWsdl">
-					<param name="wsdl.file" value="@{file}" />
-				</antcall>
-			</sequential>
-		</for>
-
-		<!--
-		#
-		# The wsimport call above generates source files for all message types refernced from the WSDL files.
-		# Some of the types generated from wsimport are incorrect. The types generated from JAXB below overwrite
-		# the incorrect versions that were generated from wsimport so JAXB generation MUST follow wsimport. Do not
-		# change the order of these two steps.
-		#
-		-->
         <echo message="Generating JAXB Classes from Schemas..." />
         <echo message="---------------------------------------" />
         <xjc destdir="${build.generated.dir}/wsimport/client" >
@@ -115,11 +73,49 @@
                 <include name="nhin/**/*.xsd"/>
                 <include name="oasis/**/*.xsd"/>
                 <include name="uddi/uddi_v3.xsd"/>
+                <include name="uddi/uddi_v3custody.xsd"/>
+                <include name="uddi/uddi_v3policy_instanceParms.xsd"/>
+                <include name="uddi/uddi_v3subscriptionListener.xsd"/>
+                <include name="uddi/uddi_v3subscription.xsd"/>
                 <include name="www.w3.org/**/*.xsd"/>
                 <include name="xmlsoap.org/**/*.xsd"/>
                 <include name="Endpoint/**/*.xsd"/>
             </schema>
         </xjc>
+
+        <echo message="Generating Code from WSDL..." />
+        <echo message="----------------------------" />
+				<for param="file">
+					<path>
+						<fileset dir="../Interfaces/src/wsdl">
+							<include name="*.wsdl" />
+							<exclude name="NhinUddiSubrV3PortType.wsdl" />
+							<exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
+							<exclude name="rw-2.wsdl" />
+							<exclude name="uddi_api_v3_binding.wsdl" />
+							<exclude name="uddi_api_v3_portType.wsdl" />
+							<exclude name="uddi_custody_v3_binding.wsdl" />
+							<exclude name="uddi_custody_v3_portType.wsdl" />
+							<exclude name="uddi_repl_v3_binding.wsdl" />
+							<exclude name="uddi_repl_v3_portType.wsdl" />
+							<exclude name="uddi_sub_v3_binding.wsdl" />
+							<exclude name="uddi_sub_v3_portType.wsdl" />
+							<exclude name="uddi_subr_v3_binding.wsdl" />
+							<exclude name="uddi_subr_v3_portType.wsdl" />
+							<exclude name="uddi_vs_v3_binding.wsdl" />
+							<exclude name="uddi_vs_v3_portType.wsdl" />
+							<exclude name="uddi_vscache_v3_binding.wsdl" />
+							<exclude name="uddi_vscache_v3_portType.wsdl" />
+							<!-- TODO: This one needs to be added - failing on some schema files that are referenced -->
+		<!--					<exclude name="uddi_v3_service.wsdl" /> -->
+						</fileset>
+					</path>
+					<sequential>
+						<antcall target="processWsdl">
+							<param name="wsdl.file" value="@{file}" />
+						</antcall>
+					</sequential>
+				</for>
 
         <echo message="Compiling Generated Code..." />
         <echo message="---------------------------" />
@@ -146,7 +142,7 @@
     <!-- Common wsimport target -->
     <target name="processWsdl">
         <echo message="Performing wsimport for: ${wsdl.file}" />
-        <wsimport xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
+        <wsimportConnect xendorsed="true" sourcedestdir="${build.generated.dir}/wsimport/client" extension="true"
                   destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl.file}" verbose="true"
                   wsdlLocation="file:${wsdl.file}" xnocompile="true" />
     </target>
