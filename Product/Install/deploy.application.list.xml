@@ -28,7 +28,7 @@
       <lib>
          <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
       </lib>
-   </shared>
+   </shared> 
    <ejbs>
       <ejb>
          <name>NhinInterfaceTestHelperEJB</name>
