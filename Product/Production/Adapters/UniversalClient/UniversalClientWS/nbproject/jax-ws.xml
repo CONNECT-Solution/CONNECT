@@ -3,7 +3,7 @@
   <services>
     <service name="DocViewerRequestServices">
       <implementation-class>gov.hhs.fha.nhinc.universalclient.ws.DocViewerRequestServices</implementation-class>
-      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Adapters/General/UniversalClientWS/src/conf/wsdl/DocViewerRequestServicesService/DocViewerRequestServicesService.wsdl</wsdl-url>
+      <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/DocViewerRequestServicesService.wsdl</wsdl-url>
       <local-wsdl-file>DocViewerRequestServicesService.wsdl</local-wsdl-file>
       <service-name>DocViewerRequestServicesService</service-name>
       <port-name>DocViewerRequestServicesPort</port-name>

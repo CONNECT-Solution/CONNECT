@@ -16,10 +16,12 @@ import gov.hhs.fha.nhinc.common.docmgr.GenerateUniqueIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQuery;
 import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -30,8 +32,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.xml.bind.JAXBElement;
 import javax.xml.ws.WebServiceFeature;
@@ -67,9 +67,11 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
     private AdhocQueryResponse nhinResults = null;
     private AdhocQueryResponse localResults = null;
     private static Log log = LogFactory.getLog(DocViewerRequestServices.class);
-    private String NHINDOCQUERY_SERVICE_NAME = "http://localhost:9080/NhinConnect/EntityDocQuery";
-    private String NHINDOCRETRIEVE_SERVICE_NAME = "http://localhost:9080/NhinConnect/EntityDocRetrieve";
-    private String DOCUMENTMANAGER_SERVICE_NAME = "http://localhost:8080/DocumentManager_Service/DocumentManagerService";
+    private static final String GATEWAY_PROPERTY_FILE = "gateway";
+    private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
+    private String SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE = "entitydocumentquery";
+    private String SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE = "entitydocumentretrieve";
+    private String SERVICE_NAME_DOCUMENT_MANAGER_SERVICE = "documentmanager";
     private String patientId;
     private String homeCommunityId;
     private AdhocQueryRequest origAdhocQuery;
@@ -133,10 +135,47 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         wsfeatures.add(new MTOMFeature(0));
         WebServiceFeature[] wsfeaturearray = wsfeatures.toArray(new WebServiceFeature[0]);
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the entity doc query service
+            //------------------------------------------
             EntityDocQuery service = new EntityDocQuery();
             EntityDocQueryPortType port =  service.getEntityDocQueryPortSoap11(wsfeaturearray);
 
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, NHINDOCQUERY_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 9080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocQuery");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_QUERY_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:9080/NhinConnect/EntityDocQuery'");
+            }
 
             RespondingGatewayCrossGatewayQueryRequestType gateway = new RespondingGatewayCrossGatewayQueryRequestType();
             gateway.setAdhocQueryRequest(origAdhocQuery);
@@ -262,9 +301,46 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         log.debug("Entering DocRequestRequestService.queryLocalRespository");
         AdhocQueryResponse res = null;
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the document manager service
+            //------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DOCUMENTMANAGER_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 8080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+            }
 
             res = port.documentManagerQueryInboundRepository(request);
         }
@@ -283,9 +359,46 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         WebServiceFeature[] wsfeaturearray = wsfeatures.toArray(new WebServiceFeature[0]);
         RetrieveDocumentSetResponseType response = null;
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the entity doc query service
+            //------------------------------------------
             EntityDocRetrieve service = new EntityDocRetrieve();
             EntityDocRetrievePortType port = service.getEntityDocRetrievePortSoap11(wsfeaturearray);
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, NHINDOCRETRIEVE_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 9080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:9080/NhinConnect/EntityDocRetrieve");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_ENTITY_DOC_RETRIEVE_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:9080/NhinConnect/EntityDocRetrieve'");
+            }
 
             RespondingGatewayCrossGatewayRetrieveRequestType gateway = new RespondingGatewayCrossGatewayRetrieveRequestType();
             gateway.setAssertion(origAssertion);
@@ -308,9 +421,46 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
                                                                    AssociationType1 assocType, RegistryPackageType regPackageType) {
         RegistryResponseType response = null;
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the document manager service
+            //------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DOCUMENTMANAGER_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 8080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+            }
 
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType req = new ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType();
 
@@ -718,7 +868,7 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         try {
             date = inputFormatter.parse(dateString);
         } catch (ParseException ex) {
-            Logger.getLogger(DocViewerRequestServices.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
         }
 
         return outputFormatter.format(date);
@@ -842,9 +992,47 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
 
     private void refreshLocalRespositoryQuery() {
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the document manager service
+            //------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DOCUMENTMANAGER_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 8080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+            }
+
             AdhocQueryResponse res = port.documentManagerQueryInboundRepository(origAdhocQuery);  //patientid and community should be same so just use the original query
 
              List<JAXBElement<? extends IdentifiableType>> objectList = res.getRegistryObjectList().getIdentifiable();
@@ -929,9 +1117,46 @@ public class DocViewerRequestServices implements DocViewerRequestServicesPortTyp
         GenerateUniqueIdResponseType res = null;
         GenerateUniqueIdRequestType request = new GenerateUniqueIdRequestType();
         try {
+            // Get the Home community ID for this box...
+            //------------------------------------------
+            String sHomeCommunityId = "";
+            String sEndpointURL = "";
+            try {
+               sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+            }
+            catch (Exception e) {
+                log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                          " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                          e.getMessage(), e);
+            }
+
+            // Get the endpoint URL for the document manager service
+            //------------------------------------------
             ihe.iti.xds_b._2007.DocumentManagerService service = new ihe.iti.xds_b._2007.DocumentManagerService();
             ihe.iti.xds_b._2007.DocumentManagerPortType port = service.getDocumentManagerPortSoap();
-            ((javax.xml.ws.BindingProvider)port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, DOCUMENTMANAGER_SERVICE_NAME);
+            if ((sHomeCommunityId != null) && (sHomeCommunityId.length() > 0)) {
+                try {
+                    sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, SERVICE_NAME_DOCUMENT_MANAGER_SERVICE);
+                }
+                catch (Exception e) {
+                    log.error("Failed to retrieve endpoint URL for service:" + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE +
+                              " from connection manager.  Error: " + e.getMessage(), e);
+                }
+            }
+
+            if ((sEndpointURL != null) &&
+                (sEndpointURL.length() > 0)) {
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, sEndpointURL);
+            }
+            else {
+                // Just a way to cover ourselves for the time being...  - assume port 8080
+                //-------------------------------------------------------------------------
+                ((javax.xml.ws.BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/DocumentManager_Service/DocumentManagerService");
+
+                log.warn("Did not find endpoint URL for service: " + SERVICE_NAME_DOCUMENT_MANAGER_SERVICE + " and " +
+                         "Home Community: " + sHomeCommunityId + ".  Using default URL: " +
+                         "'http://localhost:8080/DocumentManager_Service/DocumentManagerService'");
+            }
 
             res = port.generateUniqueId(request);
         }

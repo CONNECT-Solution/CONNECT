@@ -13,6 +13,10 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.db4o-7.4.106.13438-java5.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -21,20 +25,22 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.db4o-7.4.106.13438-java5.jar}</file>
+                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
+                    <file>${file.reference.NhincLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.java.dir"/>
+                <root id="src.resources.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.java.dir"/>
+                <root id="test.resources.dir"/>
             </test-roots>
         </data>
     </configuration>
