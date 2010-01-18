@@ -5,11 +5,11 @@
   <basename file="${project.dir}" property="project.name" />
 
   <property name="ProductDirectory" location='.' id="proddir"/>
-  
+
   <import file="build.properties.xml"/>
 
   <import file="Properties.build.xml"/>
-  
+
   <import file="build/checkstyle/checkstyle.targets.xml"/>
   <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
 
@@ -61,21 +61,62 @@
     </sequential>
   </macrodef>
 
-  <target name="deploy">
-    <property file="${project.dir}/nbproject/project.properties"/>
-    <switch value="${deploy.type}">
-      <case value="war">
-        <property name="dist.file" value="${project.dir}/${dist.war}"/>
-      </case>
-      <default>
-        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-          <isset property="sedeployment.jar" />
-        </condition>
-      </default>
-    </switch>
-    
-    <echo message="${dist.file}"/>
-    <call target="deploy.to.development" if="${deploy.isDeployable}"/>
+  <target name="create.deploy.list.xml">
+    <xmltask dest="${deploy.application.list.file.path}" outputter="simple:3"> 
+      <insert path="/"> 
+        <![CDATA[ 
+			  <applications>
+			  <wars/>
+			  <shared/>
+			  <ejbs/>
+			  </applications>
+			  ]]>
+      </insert>  
+    </xmltask> 
+  </target>
+
+  <target name="addentry.deploy.list.xml">
+    <if>
+      <equals arg1="${deploy.isDeployable}" arg2="true"/>
+      <then>
+        <echo message="Attempting to add entry ${project.name} to Install/deploy.application.list.xml." />
+        <switch value="${deploy.type}">
+          <case value="war">
+            <xmltask source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
+              <insert path="/applications/wars"> 
+                <![CDATA[ 
+                <war> 
+                 <name>${project.name}</name> 
+                </war>  
+                ]]> 
+              </insert>  
+            </xmltask> 
+          </case>
+          <case value="shared">
+            <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
+              <insert path="/applications/shared"> 
+                <![CDATA[ 
+                <lib> 
+                 <name>${project.name}</name> 
+                </lib> 
+                ]]>
+              </insert>  
+            </xmltask>         
+          </case>
+          <default>
+            <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
+              <insert path="/applications/ejbs"> 
+                <![CDATA[ 
+                <ejb> 
+                 <name>${project.name}</name> 
+                </ejb> 
+                ]]>
+              </insert>  
+            </xmltask>         
+          </default>
+        </switch>
+      </then>
+    </if>    
   </target>
 
   <target name="copy.deployable.artifacts">
@@ -92,7 +133,14 @@
     </switch>
 
     <echo message="${dist.file}"/>
+    <call target="addentry.deploy.list.xml"/>
     <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
+  </target>
+
+  <target name="deploy">
+    <antcall target="create.deploy.list.xml"/>
+    <call target="copy.deployable.artifacts" />    
+    <call target="deploy.to.production"/> 
   </target>
 
   <target name="undeploy">
@@ -107,14 +155,14 @@
         </condition>
       </default>
     </switch>
-    
+
     <call target="undeploy.from.development" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="checkstyle">
     <call target="checkstyle.style"/>
   </target>
-  
+
   <!-- 
   ***** Properties used as params to this target *****
   <property name="target-to-call" value=""/>
@@ -128,7 +176,7 @@
     <property file="${project-to-build}/nbproject/project.properties" />
     <antcall target="build-project-if-out-of-date" />
   </target>
-  
+
   <target name="clean-gen" if="is-gen-outofdate">
     <echo message="Cleaning generated code..."/>
     <delete dir="${build.generated.dir}"/>
@@ -147,7 +195,7 @@
     <echo message="${current-project}/${source.root}/**/*.xsd"/>
     <echo message="against:"/>
     <echo message="${current-project}/${dist.file}"/>
-    
+
     <outofdate verbose="true" property="is-gen-outofdate">
       <sourcefiles>
         <fileset dir="${current-project}" casesensitive="no">
@@ -194,7 +242,7 @@
               <then>
               </then>
               <else>
-                
+
                 <available property="@{jar.file}.exists" file="@{jar.file}"/>
 
                 <if>
@@ -247,11 +295,11 @@
         <echo message="Building ${project-to-build}"/>
         <echo message="Calling target ${target-to-call}"/>
         <ant
-          dir="${project-to-build}"
-          target="${target-to-call}"
-          inheritall="false"
-          antfile="${project-to-build}/build.xml"
-        />
+            dir="${project-to-build}"
+            target="${target-to-call}"
+            inheritall="false"
+            antfile="${project-to-build}/build.xml"
+            />
       </then>
       <else>
         <echo message="No need to build the following project, it is already uptodate: ${project-to-build}"/>
