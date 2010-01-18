@@ -20,10 +20,12 @@
             <included-library>file.reference.TemplateManager.jar</included-library>
             <included-library>file.reference.DocumentAssemblyManagerEJB.jar</included-library>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.java.dir"/>
+                <root id="src.resources.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.java.dir"/>
+                <root id="test.resources.dir"/>
             </test-roots>
         </data>
     </configuration>
