@@ -36,8 +36,8 @@
           <include name="DocRegistryAndRepository-soapui-project.xml"/>
           <include name="EntityDocQuery-soapui-project.xml"/>
           <include name="EntityDocRetrieve-soapui-project.xml"/>
-          <include name="AuditQueryTestHelper-soapui-project.xml"/>
-	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
+          <!-- <include name="AuditQueryTestHelper-soapui-project.xml"/>
+	  <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
       </path>
       <sequential>
