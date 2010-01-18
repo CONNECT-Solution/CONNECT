@@ -19,10 +19,12 @@
             <included-library>file.reference.jdbc2_0-stdext.jar</included-library>
             <included-library>file.reference.jta.jar</included-library>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.java.dir"/>
+                <root id="src.resources.dir"/>
             </source-roots>
             <test-roots>
-                <root id="test.src.dir"/>
+                <root id="test.java.dir"/>
+                <root id="test.resources.dir"/>
             </test-roots>
         </data>
     </configuration>
