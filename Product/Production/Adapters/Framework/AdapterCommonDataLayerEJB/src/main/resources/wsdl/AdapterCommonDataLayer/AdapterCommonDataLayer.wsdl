@@ -96,13 +96,13 @@
 		<wsdl:part name="param0" element="hl7:PatientDemographics_PRPA_IN201307UV02Request"/>
 	</wsdl:message>
 	<wsdl:message name="GetPatienInfoResponse">
-		<wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UVResponse"/>
+		<wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UV02Response"/>
 	</wsdl:message>
 	<wsdl:message name="FindPatientsRequest">
-		<wsdl:part name="param0" element="hl7:FindPatients_PRPA_IN201305UVRequest"/>
+		<wsdl:part name="param0" element="hl7:FindPatients_PRPA_IN201305UV02Request"/>
 	</wsdl:message>	
 	<wsdl:message name="FindPatientsResponse">
-		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UVResponse"/>
+		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UV02Response"/>
 	</wsdl:message>	
 	<wsdl:portType name="CommonDataLayerPortType">
 		<wsdl:operation name="GetEncounters">

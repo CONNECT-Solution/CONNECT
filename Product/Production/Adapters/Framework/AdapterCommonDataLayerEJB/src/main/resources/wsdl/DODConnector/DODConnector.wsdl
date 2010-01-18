@@ -5,9 +5,15 @@
   </wsdl:documentation>
 	<wsdl:types>
 		<xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapter:commondatalayer">
-			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/DoDConnectorMessages.xsd"/>
+			<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7CommonDataLayerMessages.xsd"/>
 		</xsd:schema>
 	</wsdl:types>
+    <wsdl:message name="GetProviderInfoResponse">
+        <wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UV02Response"/>
+    </wsdl:message>
+    <wsdl:message name="GetProviderInfoRequest">
+        <wsdl:part name="param0" element="hl7:PatientDemographics_PRPA_IN201307UV02Request"/>
+    </wsdl:message>
 	<wsdl:message name="GetEncountersRequest">
 		<wsdl:part name="param0" element="hl7:FindEncounters_PRPA_IN900300UV02Request"/>
 	</wsdl:message>
@@ -99,12 +105,16 @@
 		<wsdl:part name="output" element="hl7:PatientDemographics_PRPA_MT201303UV02Response"/>
 	</wsdl:message>
 	<wsdl:message name="FindPatientsRequest">
-		<wsdl:part name="param0" element="hl7:FindPatients_PRPA_IN201305UVRequest"/>
+		<wsdl:part name="param0" element="hl7:FindPatients_PRPA_IN201305UV02Request"/>
 	</wsdl:message>
 	<wsdl:message name="FindPatientsResponse">
-		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UVResponse"/>
-	</wsdl:message>	
+		<wsdl:part name="output" element="hl7:FindPatients_PRPA_MT201310UV02Response"/>
+	</wsdl:message>
 	<wsdl:portType name="DODConnectorPortType">
+         <wsdl:operation name="GetProviderInfo">
+			<wsdl:input message="tns:GetPatienInfoRequest"/>
+			<wsdl:output message="tns:GetPatienInfoResponse"/>
+		</wsdl:operation>
 		<wsdl:operation name="GetEncounters">
 			<wsdl:input message="tns:GetEncountersRequest"/>
 			<wsdl:output message="tns:GetEncountersResponse"/>
@@ -170,7 +180,7 @@
 			<wsdl:output message="tns:FindPatientsResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
-	<wsdl:binding name="DoDConnectorPortTypeBinding" type="tns:DoDConnectorPortType">
+	<wsdl:binding name="DODConnectorPortTypeBinding" type="tns:DODConnectorPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsdl:operation name="GetEncounters">
 			<soap:operation soapAction="urn:GetEncounters" style="document"/>
@@ -315,11 +325,20 @@
 			<wsdl:output>
 				<soap:body use="literal"/>
 			</wsdl:output>
-		</wsdl:operation>		
+		</wsdl:operation>
+        <wsdl:operation name="GetProviderInfo">
+			<soap:operation soapAction="urn:GetProviderInfo" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
 	</wsdl:binding>
-	<wsdl:service name="DoDConnectorService">
-		<wsdl:port name="CommonDataLayerPort" binding="tns:DoDConnectorPortTypeBinding">
-			<soap:address location="http://localhost:${HttpDefaultPort}/DoDConnector/DoDConnectorService"/>
+	<wsdl:service name="DODConnectorService">
+		<wsdl:port name="CommonDataLayerPort" binding="tns:DODConnectorPortTypeBinding">
+			<soap:address location="http://localhost:${HttpDefaultPort}/DODConnector/DODConnectorService"/>
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>

@@ -49,7 +49,7 @@ public class DODConnectorService
     /**
      * 
      * @return
-     *     returns DODConnectorPortType
+     *     returns DoDConnectorPortType
      */
     @WebEndpoint(name = "CommonDataLayerPort")
     public DODConnectorPortType getCommonDataLayerPort() {
@@ -61,7 +61,7 @@ public class DODConnectorService
      * @param features
      *     A list of {@link javax.xml.ws.WebServiceFeature} to configure on the proxy.  Supported features not in the <code>features</code> parameter will have their default values.
      * @return
-     *     returns DODConnectorPortType
+     *     returns DoDConnectorPortType
      */
     @WebEndpoint(name = "CommonDataLayerPort")
     public DODConnectorPortType getCommonDataLayerPort(WebServiceFeature... features) {
