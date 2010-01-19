@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import gov.hhs.fha.nhinc.common.eventcommon.PatDiscReqEventType;
@@ -31,10 +30,35 @@ public class PatientDiscoveryPolicyChecker {
     private static Log log = LogFactory.getLog(PatientDiscoveryPolicyChecker.class);
 
     public boolean check201305Policy(PRPAIN201306UV02 message, II patIdOverride, AssertionType assertion) {
-        boolean policyIsValid = false;
+        String roid = null;
+        String soid = null;
 
-        String roid = message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
-        String soid = message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        if (message != null &&
+                NullChecker.isNotNullish(message.getReceiver()) &&
+                message.getReceiver().get(0) != null &&
+                message.getReceiver().get(0).getDevice() != null &&
+                message.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                message.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            roid = message.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
+
+        if (message != null &&
+                message.getSender() != null &&
+                message.getSender().getDevice() != null &&
+                message.getSender().getDevice().getAsAgent() != null &&
+                message.getSender().getDevice().getAsAgent().getValue() != null &&
+                message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            soid = message.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        }
 
         PatDiscReqEventType policyCheckReq = new PatDiscReqEventType();
         policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
@@ -47,6 +71,12 @@ public class PatientDiscoveryPolicyChecker {
         HomeCommunityType receiverHC = new HomeCommunityType();
         receiverHC.setHomeCommunityId(roid);
         policyCheckReq.setReceivingHomeCommunity(receiverHC);
+
+        return invokePolicyEngine(policyCheckReq);
+    }
+
+    protected boolean invokePolicyEngine(PatDiscReqEventType policyCheckReq) {
+        boolean policyIsValid = false;
 
         PolicyEngineChecker policyChecker = new PolicyEngineChecker();
         CheckPolicyRequestType policyReq = policyChecker.checkPolicyPatDiscRequest(policyCheckReq);
@@ -62,5 +92,4 @@ public class PatientDiscoveryPolicyChecker {
 
         return policyIsValid;
     }
-
 }

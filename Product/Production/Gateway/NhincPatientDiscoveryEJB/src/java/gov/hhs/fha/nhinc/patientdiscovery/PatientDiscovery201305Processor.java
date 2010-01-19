@@ -63,8 +63,8 @@ public class PatientDiscovery201305Processor {
             }
 
             // Check to make sure the policy is valid
-            PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
-            if (policyChecker.check201305Policy(response, patIdOverride, assertion)) {
+            
+            if (checkPolicy(response, patIdOverride, assertion)) {
                 II requestPatId = providedPatientId(request);
                 if (requestPatId != null) {
                     // Create a patient correlation
@@ -79,6 +79,12 @@ public class PatientDiscovery201305Processor {
             response = createEmpty201306 (senderOID, receiverOID, request);
         }
         return response;
+    }
+
+    protected boolean checkPolicy (PRPAIN201306UV02 response, II patIdOverride, AssertionType assertion) {
+        PatientDiscoveryPolicyChecker policyChecker = new PatientDiscoveryPolicyChecker();
+
+        return policyChecker.check201305Policy(response, patIdOverride, assertion);
     }
 
     protected PRPAIN201306UV02 createEmpty201306 (String senderOID, String receiverOID, PRPAIN201305UV02 request) {
