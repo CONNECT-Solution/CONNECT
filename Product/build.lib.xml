@@ -138,9 +138,9 @@
   </target>
 
   <target name="deploy">
-    <antcall target="create.deploy.list.xml"/>
-    <call target="copy.deployable.artifacts" />    
-    <call target="deploy.to.production"/> 
+    <runtarget target="create.deploy.list.xml"/>
+    <runtarget target="copy.deployable.artifacts" />
+    <runtarget target="deploy.to.production"/> 
   </target>
 
   <target name="undeploy">

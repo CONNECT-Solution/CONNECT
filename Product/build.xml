@@ -74,16 +74,16 @@
   </target>
 
   <target name="deploy">
-    <antcall target="create.deploy.list.xml"/>
-    <property name="do-to-target" value="copy.deployable.artifacts"/>   
-    <antcall target="do-to-projects" />
-    <call target="deploy.to.production"/> 
+    <call target="copy.deployable.artifacts"/>
+    <call target="deploy.to.production"/>
   </target>
 
   <target name="copy.deployable.artifacts">
     <echo message="Attempting to remove existing jar from ${deployment.binaries.dir}." />
     <delete dir="${deployment.binaries.dir}" />
     <mkdir dir="${deployment.binaries.dir}" />
+
+    <runtarget target="create.deploy.list.xml"/>
 
     <var name="do-to-target" value="copy.deployable.artifacts" />
     <antcall target="do-to-projects" />
