@@ -8,7 +8,7 @@
   <if>
     <isset property="project.name" />
     <then>
-      <property name="script.root.directory" value="${root.project.directory.path}/Install"/>
+      <property name="script.root.directory" value="${env.NHINC_SOURCE_DIR}/Product/Install"/>
     </then>
     <else>
       <property name="script.root.directory" value="${basedir}"/>
