@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Workspace.CCTray.Scripts">
 
+  <property name="CCTray.Version" value="1.1.0.47"/>
   <property name="CCTray.Install.FriendlyName" value="CCTray"/>
   <property name="CCTray.Install.Path" value="${ProgramFiles.Default.Path}\CCTray"/>
   <property name="CCTray.Installer.FileName" value="CCTraySetup.exe"/>
@@ -8,11 +9,27 @@
   <property name="CCTray.Installer.Download.URL" value="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/default.aspx?_action_CCTrayDownload=true"/>
 
   <target name="Workspace.RequieredSoftware.CCTray">
+    <call target="Workspace.RequieredSoftware.CCTray.CheckUpgradeNeeded"/>
+    <if test="${bool::parse(CCTray.IsUpgradeNeeded)}">
+      <exec program="taskkill" commandline="/IM cctray.exe /F /T" verbose="true" failonerror="false"/>
+      <delete dir="${CCTray.Install.Path}"/>
+    </if>
     <ifnot test="${directory::exists(CCTray.Install.Path)}" >
       <call target="CCTray.DownloadAndInstall"/>
     </ifnot>
   </target>
 
+  <target name="Workspace.RequieredSoftware.CCTray.CheckUpgradeNeeded">
+    <property name="CCTray.IsUpgradeNeeded" value="False"/>
+    <if test="${directory::exists(CCTray.Install.Path)}" >
+      <echo message="Installed version of CCTray:"/>
+      <echo message="${fileversioninfo::get-product-version(fileversioninfo::get-version-info(CCTray.Install.Path + '\CCTray.exe'))}"/>
+      <if test="${version::compare(fileversioninfo::get-product-version(fileversioninfo::get-version-info(CCTray.Install.Path + '\CCTray.exe')), version::parse(CCTray.Version)) &lt; 0}">
+        <property name="CCTray.IsUpgradeNeeded" value="True"/>
+      </if>
+    </if>
+  </target>
+  
   <target name="CCTray.DownloadAndInstall">
     <ask answer="Answer"
            question="It looks like ${CCTray.Install.FriendlyName} is not installed.  This software is required.  Do you wish to install the software?"
