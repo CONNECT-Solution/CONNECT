@@ -317,15 +317,7 @@
     <delete file="${glassfish.home}/lib/${deployment.glassfish.shared.lib.file.name}" />
   </target>
 
-  <target name="unlock.glassfish.domain">
-    <exec executable="\Program Files\Unlocker\Unlocker.exe">
-      <arg value="${deployment.glassfish.domain.home}"/>
-      <arg value="-S"/>
-    </exec>
-  </target>
-
   <target name="delete.glassfish.domain">
-    <runtarget target="unlock.glassfish.domain"/>
     <runtarget target="deploy.glassfish.stop.server"/>
     <sun-appserv-admin 
         explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
