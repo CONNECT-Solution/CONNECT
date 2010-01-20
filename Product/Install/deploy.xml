@@ -17,6 +17,8 @@
 
   <import file="settings.xml" />
 
+  <import file="exclusions.${deployment.environment.configuration.dir.name}.xml" />
+  
   <taskdef resource="com/sun/tools/appserver/antlib.xml">
     <classpath>
       <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
@@ -44,22 +46,6 @@
   <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
   <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
-  <property name="deploy.exclusion.file.path" value="${script.root.directory}/exclusions.${deployment.environment.configuration.dir.name}.txt"/>
-
-  <available file="${deploy.exclusion.file.path}" property="${deploy.exclusion.file.path}.exist" /> 
-
-  <if>
-    <isset property="${deploy.exclusion.file.path}.exist"/>
-    <then>
-      <loadfile property="deploy.exclusion.list" srcFile="${deploy.exclusion.file.path}"/>
-      <for list="${deploy.exclusion.list}" delimiter="${line.separator}" param="exclusion">
-        <sequential>
-          <property name="deploy.exclude.@{exclusion}" value="true"/>
-          <echo message="Files excluded from deploy - @{exclusion}"/> 
-        </sequential>
-      </for>
-    </then>
-  </if>
 
   <target name="deploy">
         <antcall target="deploy.to.production" />
@@ -126,7 +112,7 @@
         <actions>
           <if>
             <not>
-              <isset property="deploy.exclude.@{ejb.name}"/>
+              <isset property="deploy.exclude.ejb.@{ejb.name}"/>
             </not>
             <then>
               <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/@{ejb.name}.jar"/>
@@ -156,7 +142,7 @@
         <actions>
           <if>
             <not>
-              <isset property="deploy.exclude.@{war.name}"/>
+              <isset property="deploy.exclude.war.@{war.name}"/>
             </not>
             <then>
               <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/@{war.name}.war"/>
@@ -186,7 +172,7 @@
         <actions>
           <if>
             <not>
-              <isset property="deploy.exclude.@{shared.name}"/>
+              <isset property="deploy.exclude.lib.@{shared.name}"/>
             </not>
             <then>
               <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/@{shared.name}.jar"/>

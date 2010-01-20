@@ -1,5 +1,0 @@
-ConsumerPreferencesProfileGUI
-UniversalClientGUI
-UDDIModifierGUI
-FTATransferAdapterEJB
-
