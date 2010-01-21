@@ -28,31 +28,9 @@
           <user name="shawc"                  group="developer"         address="clark.shaw@agilex.com"/>
           <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
 
-          <user name="scott borst"            group="&ProjectName;"     address="scott.borst@agilex.com"/>
-          <user name="padmanabhan p"          group="&ProjectName;"     address="parineetha.padmanabhan@agilex.com"/>
-          <user name="kieran dunne"           group="&ProjectName;"     address="kieran.dunne@agilex.com"/>
-          <user name="jason ray"              group="&ProjectName;"     address="jason.ray@agilex.com"/>
-          <user name="neil webb"              group="&ProjectName;"     address="neil.webb@agilex.com"/>
-          <user name="les westberg"           group="&ProjectName;"     address="les.westberg@agilex.com"/>
-          <user name="sai valluripalli"       group="&ProjectName;"     address="svalluripalli@scenpro.com"/>
-          <user name="vicky vickers"          group="&ProjectName;"     address="vvickers@harris.com"/>
-          <user name="martha flynn"           group="&ProjectName;"     address="mflynn02@harris.com"/>
-          <user name="jon hoppesch"           group="&ProjectName;"     address="jhoppesc@harris.com"/>
-          <user name="clark shaw"             group="&ProjectName;"     address="clark.shaw@agilex.com"/>
-          <user name="visu patlolla"          group="&ProjectName;"     address="visu.patlolla@agilex.com"/>
+          <user name="Build Notification"     group="&ProjectName;"     address="NHINBuildNotification@agilex.com"/>
 
-          <user name="scott borst Dev"        group="&ProjectName;Dev"  address="scott.borst@agilex.com"/>
-          <user name="padmanabhan p Dev"      group="&ProjectName;Dev"  address="parineetha.padmanabhan@agilex.com"/>
-          <user name="kieran dunne Dev"       group="&ProjectName;Dev"  address="kieran.dunne@agilex.com"/>
-          <user name="jason ray Dev"          group="&ProjectName;Dev"  address="jason.ray@agilex.com"/>
-          <user name="neil webb Dev"          group="&ProjectName;Dev"  address="neil.webb@agilex.com"/>
-          <user name="les westberg Dev"       group="&ProjectName;Dev"  address="les.westberg@agilex.com"/>
-          <user name="sai valluripalli Dev"   group="&ProjectName;Dev"  address="svalluripalli@scenpro.com"/>
-          <user name="vicky vickers Dev"      group="&ProjectName;Dev"  address="vvickers@harris.com"/>
-          <user name="martha flynn Dev"       group="&ProjectName;Dev"  address="mflynn02@harris.com"/>
-          <user name="jon hoppesch Dev"       group="&ProjectName;Dev"  address="jhoppesc@harris.com"/>
-          <user name="clark shaw Dev"         group="&ProjectName;Dev"  address="clark.shaw@agilex.com"/>
-          <user name="visu patlolla Dev"      group="&ProjectName;Dev"  address="visu.patlolla@agilex.com"/>
+          <user name="Notification Dev"       group="&ProjectName;Dev"  address="NHINBuildNotification@agilex.com"/>
         </users>
         <groups>
           <group name="buildmaster"       notification="always"/>
