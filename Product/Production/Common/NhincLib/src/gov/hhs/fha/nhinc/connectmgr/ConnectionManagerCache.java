@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBindingDescriptions;
 import java.util.HashMap;
@@ -45,9 +47,7 @@ import java.io.File;
 public class ConnectionManagerCache {
 
     private static Log log = LogFactory.getLog(ConnectionManagerCache.class);
-
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
-
     private static final String CRLF = System.getProperty("line.separator");
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
@@ -57,13 +57,11 @@ public class ConnectionManagerCache {
     private static HashMap<String, CMBusinessEntity> m_hUDDIConnectInfo = new HashMap<String, CMBusinessEntity>();       // Array of connection information
     private static boolean m_bUDDILoaded = false;      // TRUE if the properties have been loaded
     private static long m_lUDDIFileLastModified = 0;
-
     // Hash maps for the Internal connection information.  This hash map is keyed by home community ID.
     //--------------------------------------------------------------------------------------------------
     private static HashMap<String, CMInternalConnectionInfo> m_hInternalConnectInfo = new HashMap<String, CMInternalConnectionInfo>();       // Array of connection information
     private static boolean m_bInternalLoaded = false;      // TRUE if the properties have been loaded
     private static long m_lInternalFileLastModified = 0;
-
     // Variables for managing the location of the XML files.
     //-------------------------------------------------------
     private static String m_sPropertyFileDir = "";
@@ -72,7 +70,6 @@ public class ConnectionManagerCache {
     private static String m_sFileSeparator = System.getProperty("file.separator");
     private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
     private static boolean m_bFailedToLoadEnvVar = false;
-
 
     static {
         String sValue = System.getenv(NHINC_PROPERTIES_DIR);
@@ -904,8 +901,7 @@ public class ConnectionManagerCache {
                 (oEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim().length() > 0)) {
             sEndpointURL = oEntity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim();
         }
-        if(log.isInfoEnabled())
-        {
+        if (log.isInfoEnabled()) {
             log.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name (" + sUniformServiceName + ") returned endpoint address: " + sEndpointURL);
         }
 
@@ -995,11 +991,162 @@ public class ConnectionManagerCache {
         return sEndpointURL;
     }
 
-    private static String cleanHomeCommunityId(String homeCommunityId)
-    {
+    /**
+     * This method retrieves a set of unique URLs from the contents of the NhinTargetCommunities type.  For each
+     * NhinTargetCommunity type it will first check if a Home Community Id is specified.  If so then it will add the
+     * URL for the specified service for that home community to the List of URLs.  Next it will check if a region
+     * (state) is specified.  If so it will obtain a list of URLs for that that service for all communities in the
+     * specified state.  Next it will check if a list is specified (this feature is not implemented).  If there are
+     * no NhinTargetCommunities specified it will return the list of URLs for the entire NHIN for that service.
+     *
+     * @param targets List of targets to get URLs for.
+     * @param serviceName The name of the service to locate who URL is being requested.
+     * @return The set of URLs for the requested service and targets.
+     * @throws ConnectionManagerException
+     */
+    public static List<String> getEndpontURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
+            throws ConnectionManagerException {
+        List<String> endpointUrlList = null;
+
+        if (targets != null &&
+                NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
+            for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
+                if (target.getHomeCommunity() != null &&
+                        NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
+                    endpointUrlList.add(ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(), serviceName));
+                } else if (target.getRegion() != null) {
+                    filterByRegion(endpointUrlList, target.getRegion(), serviceName);
+                } else if (target.getList() != null) {
+                    log.warn("The List target feature has not been implemented yet");
+                }
+            }
+        } else {
+            // This is the broadcast scenario so retrieve the entire list of URLs for the specified service
+            CMBusinessEntities entities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(serviceName);
+
+            if (entities != null &&
+                    NullChecker.isNotNullish(entities.getBusinessEntity())) {
+                endpointUrlList = getUrlsFromBusinessEntities(entities.getBusinessEntity());
+            }
+        }
+
+        if (endpointUrlList != null) {
+            createUniqueList(endpointUrlList);
+            printURLList(endpointUrlList);
+        }
+
+        return endpointUrlList;
+    }
+
+    /**
+     * This method retrieves a set of  URLs for that that service for all communities in the
+     * specified region or state.
+     *
+     * @param urlList List of URLs to add state URL information to
+     * @param region Region or State name to filter on.
+     * @param serviceName The name of the service to locate who URL is being requested.
+     * @return void.
+     * @throws ConnectionManagerException
+     */
+    private static void filterByRegion(List<String> urlList, String region, String serviceName)
+            throws ConnectionManagerException {
+        CMBusinessEntities entities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(serviceName);
+
+        if ((entities != null) &&
+                NullChecker.isNotNullish(entities.getBusinessEntity())) {
+            for (CMBusinessEntity entity : entities.getBusinessEntity()) {
+                /* TODO:  Add filtering mechanism based on region */
+
+                String url = null;
+                url = getUrl(entity);
+
+                if (NullChecker.isNotNullish(url)) {
+                    urlList.add(getUrl(entity));
+                }
+            }
+        }
+
+        return;
+    }
+
+    private static List<String> getUrlsFromBusinessEntities (List<CMBusinessEntity> businessEntityList) {
+        List<String> urlList = null;
+
+        if (NullChecker.isNotNullish(businessEntityList)) {
+            for (CMBusinessEntity entity : businessEntityList) {
+                String url = null;
+                url = getUrl(entity);
+
+                if (NullChecker.isNotNullish(url)) {
+                    urlList.add(url);
+                }
+            }
+        }
+
+        return urlList;
+    }
+
+    private static String getUrl(CMBusinessEntity entity) {
+        if (entity != null &&
+                (entity.getBusinessServices().getBusinessService() != null) &&
+                (entity.getBusinessServices().getBusinessService().size() > 0) &&
+                (entity.getBusinessServices().getBusinessService().get(0) != null) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates() != null) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate() != null) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().size() > 0) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0) != null) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL() != null) &&
+                (entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim().length() > 0)) {
+            return entity.getBusinessServices().getBusinessService().get(0).getBindingTemplates().getBindingTemplate().get(0).getEndpointURL().trim();
+        }
+
+        return null;
+    }
+
+    /**
+     * This method will remove duplicate URLs from a URL list.
+     *
+     * @param urlList List of URLs to remove duplicates from.
+     * @return The set of unique URLs.
+     */
+    private static void createUniqueList(List<String> urlList) {
+        List<String> tempList = null;
+
+        for (String entry : urlList) {
+            if (NullChecker.isNotNullish(tempList)) {
+                for (String temp : tempList) {
+                    if (temp.equalsIgnoreCase(entry)) {
+                        urlList.remove(entry);
+                        break;
+                    }
+                }
+            } else {
+                tempList.add(entry);
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * This method will print out the contents of a URL list.
+     *
+     * @param urlList List of URLs.
+     * @return void.
+     */
+    private static void printURLList(List<String> urlList) {
+        int idx = 0;
+
+        log.debug("Connection Management URL List:");
+        for (String url : urlList) {
+            log.debug("   URL #" + idx + ": " + url);
+            idx++;
+        }
+    }
+
+    private static String cleanHomeCommunityId(String homeCommunityId) {
         String cleaned = homeCommunityId;
-        if((homeCommunityId != null) && (homeCommunityId.startsWith(HOME_COMMUNITY_PREFIX)))
-        {
+        if ((homeCommunityId != null) && (homeCommunityId.startsWith(HOME_COMMUNITY_PREFIX))) {
             cleaned = homeCommunityId.substring(HOME_COMMUNITY_PREFIX.length());
         }
         return cleaned;
