@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 sp1 (http://www.altova.com) by Neil Webb (HARRIS CORPORATION) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="Documents" type="DocumentsType"></xs:element>
+	<xs:element name="Document" type="DocumentType"/>
+	<xs:complexType name="DocumentType">
+		<xs:sequence>
+		 <xs:element name="documentId" type="xs:string" minOccurs="0"/>
+		 <xs:element name="documentUniqueId" type="xs:string"/>
+		 <xs:element name="documentTitle" type="xs:string" minOccurs="0"/>
+		 <xs:element name="authorPerson" type="xs:string" minOccurs="0"/>
+		 <xs:element name="authorInstitution" type="xs:string" minOccurs="0"/>
+		 <xs:element name="authorRole" type="xs:string" minOccurs="0"/>
+		 <xs:element name="authorSpecialty" type="xs:string" minOccurs="0"/>
+		 <xs:element name="availablityStatus" type="xs:string" minOccurs="0"/>
+		 <xs:element name="classCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="classCodeScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="classCodeDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="confidentialityCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="confidentialityCodeScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="confidentialityCodeDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="creationTime" type="xs:string" minOccurs="0"/>
+		 <xs:element name="formatCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="formatCodeScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="formatCodeDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="patientId" type="xs:string" minOccurs="0"/>
+		 <xs:element name="serviceStartTime" type="xs:string" minOccurs="0"/>
+		 <xs:element name="serviceStopTime" type="xs:string" minOccurs="0"></xs:element>
+		 <xs:element name="status" type="xs:string" minOccurs="0"/>
+		 <xs:element name="comments" type="xs:string" minOccurs="0"/>
+		 <xs:element name="hash" type="xs:string" minOccurs="0"/>
+		 <xs:element name="facilityCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="facilityCodeScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="facilityCodeDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="intendedRecipientPerson" type="xs:string" minOccurs="0"/>
+		 <xs:element name="intendedRecipientOrganization" type="xs:string" minOccurs="0"/>
+		 <xs:element name="languageCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="legalAuthenticator" type="xs:string" minOccurs="0"/>
+		 <xs:element name="mimeType" type="xs:string" minOccurs="0"/>
+		 <xs:element name="parentDocumentId" type="xs:string" minOccurs="0"/>
+		 <xs:element name="parentDocumentRelationship" type="xs:string" minOccurs="0"/>
+		 <xs:element name="practiceSetting" type="xs:string" minOccurs="0"/>
+		 <xs:element name="practiceSettingScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="practiceSettingDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="size" type="xs:integer" minOccurs="0"/>
+		 <xs:element name="sourcePatientId" type="xs:string" minOccurs="0"/>
+		 <xs:element name="pid3" type="xs:string" minOccurs="0"/>
+		 <xs:element name="pid5" type="xs:string" minOccurs="0"/>
+		 <xs:element name="pid8" type="xs:string" minOccurs="0"/>
+		 <xs:element name="pid7" type="xs:string" minOccurs="0"/>
+		 <xs:element name="pid11" type="xs:string" minOccurs="0"/>
+		 <xs:element name="typeCode" type="xs:string" minOccurs="0"/>
+		 <xs:element name="typeCodeScheme" type="xs:string" minOccurs="0"/>
+		 <xs:element name="typeCodeDisplayName" type="xs:string" minOccurs="0"/>
+		 <xs:element name="documentUri" type="xs:string" minOccurs="0"/>
+		 <xs:element name="rawData" type="xs:anyType" minOccurs="0"/>
+		 <xs:element name="eventCode" type="EventCodeType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="EventCode" type="EventCodeType"/>
+	<xs:complexType name="EventCodeType">
+		<xs:sequence>
+			<xs:element name="codeId" type="xs:long" minOccurs="0"/>
+			<xs:element name="code" type="xs:string" minOccurs="0"/>
+			<xs:element name="codeSchema" type="xs:string" minOccurs="0"/>
+			<xs:element name="codeDisplayName" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+    <xs:complexType name="DocumentsType">
+        <xs:sequence>
+            <xs:element name="Document" type="DocumentType" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
