@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:ejbjarproject2="http://www.netbeans.org/ns/j2ee-ejbjarproject/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${classes.dir}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${j2ee.platform.wsimport.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+        <property name="service-wsdl-DocumentRegistryService" location="${meta.inf}/xml-resources/web-services/DocumentRegistryService/wsdl/AdapterComponentDocRegistry.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" wsdl="${service-wsdl-DocumentRegistryService}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-DocumentRegistryService" location="${meta.inf}/wsdl/DocumentRegistryService"/>
+        <property name="sourceLocation-DocumentRegistryService" location="${meta.inf}/xml-resources/web-services/DocumentRegistryService/wsdl/"/>
+        <copy todir="${targetLocation-DocumentRegistryService}">
+            <fileset dir="${sourceLocation-DocumentRegistryService}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocumentRegistryService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+    </target>
+    <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+        <property name="service-wsdl-DocumentRepositoryService" location="${meta.inf}/xml-resources/web-services/DocumentRepositoryService/wsdl/AdapterComponentDocRepository.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" wsdl="${service-wsdl-DocumentRepositoryService}" catalog="catalog.xml"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-DocumentRepositoryService" location="${meta.inf}/wsdl/DocumentRepositoryService"/>
+        <property name="sourceLocation-DocumentRepositoryService" location="${meta.inf}/xml-resources/web-services/DocumentRepositoryService/wsdl/"/>
+        <copy todir="${targetLocation-DocumentRepositoryService}">
+            <fileset dir="${sourceLocation-DocumentRepositoryService}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocumentRepositoryService" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService"/>
+</project>
