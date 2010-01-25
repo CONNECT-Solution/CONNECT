@@ -24,7 +24,10 @@
         <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
         <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
     </project>
-
+    <project>
+        <name>NhincSamlTokenLib</name>
+        <directory>/Production/Gateway/NhincSamlTokenLib</directory>
+    </project>
     <project>
         <name>HiemUtilityLib</name>
         <directory>/Production/Gateway/HiemUtilityLib</directory>
@@ -37,10 +40,7 @@
         <name>HiemProcessorLib</name>
         <directory>/Production/Gateway/HiemProcessorLib</directory>
     </project>	
-    <project>
-        <name>NhincSamlTokenLib</name>
-        <directory>/Production/Gateway/NhincSamlTokenLib</directory>
-    </project>
+
     <project>
         <name>DocumentRepository</name>
         <directory>/Production/Adapters/General/DocumentRepository</directory>
