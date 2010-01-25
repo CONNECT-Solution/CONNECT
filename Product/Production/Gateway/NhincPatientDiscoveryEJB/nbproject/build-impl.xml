@@ -326,12 +326,6 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant antfile="${project.AdapterPatientDiscoveryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPatientDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -368,12 +362,6 @@ exists or setup the property manually. For example like this:
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPatientDiscoveryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPatientDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
@@ -432,8 +420,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AdapterPatientDiscoveryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AdapterPatientDiscoveryProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.AdapterServiceProxy.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
@@ -451,10 +438,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterPatientDiscoveryProxy.jar}" manifestproperty="manifest.reference.AdapterPatientDiscoveryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterPatientDiscoveryProxyImpl.jar}" manifestproperty="manifest.reference.AdapterPatientDiscoveryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterServiceProxy.jar}" manifestproperty="manifest.file.reference.AdapterServiceProxy.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AdapterPatientDiscoveryProxy.jar} ${manifest.reference.AdapterPatientDiscoveryProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.AdapterServiceProxy.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -739,8 +725,6 @@ exists or setup the property manually. For example like this:
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterPatientDiscoveryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterPatientDiscoveryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>

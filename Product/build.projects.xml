@@ -24,18 +24,19 @@
         <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
         <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
     </project>
-    <project>
-        <name>HiemProcessorLib</name>
-        <directory>/Production/Gateway/HiemProcessorLib</directory>
-    </project>
+
     <project>
         <name>HiemUtilityLib</name>
         <directory>/Production/Gateway/HiemUtilityLib</directory>
     </project>
-    <project>
-        <name>HiemAdapterProxyImpl</name>
-        <directory>/Production/Gateway/HiemAdapterProxyImpl</directory>
+	<project>
+        <name>AdapterServiceProxy</name>
+        <directory>/Production/Gateway/AdapterServiceProxy</directory>
     </project>
+    <project>
+        <name>HiemProcessorLib</name>
+        <directory>/Production/Gateway/HiemProcessorLib</directory>
+    </project>	
     <project>
         <name>NhincSamlTokenLib</name>
         <directory>/Production/Gateway/NhincSamlTokenLib</directory>
@@ -314,4 +315,6 @@
         <name>UDDIModifierGUI</name>
         <directory>/Production/Common/UDDIModifierGUI</directory>
     </project>
+	
+	
 </projects>

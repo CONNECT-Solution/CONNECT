@@ -88,8 +88,6 @@
         <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
-        <property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
         <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
         <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
@@ -99,8 +97,6 @@
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.HiemAdapterProxy.Absolute}" antfile="${project.HiemAdapterProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.HiemAdapterProxyImpl.Absolute}" antfile="${project.HiemAdapterProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -111,8 +107,6 @@
         <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.HiemAdapterProxy.Absolute" location="${project.HiemAdapterProxy}"/>
-        <property name="project.HiemAdapterProxyImpl.Absolute" location="${project.HiemAdapterProxyImpl}"/>
         <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
         <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
@@ -122,8 +116,6 @@
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.HiemAdapterProxy.Absolute}" antfile="${project.HiemAdapterProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.HiemAdapterProxyImpl.Absolute}" antfile="${project.HiemAdapterProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>

@@ -28,7 +28,7 @@
       <lib>
          <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
       </lib>
-   </shared> 
+   </shared>
    <ejbs>
       <ejb>
          <name>NhinInterfaceTestHelperEJB</name>
@@ -47,9 +47,6 @@
       </ejb>
       <ejb>
          <name>HiemSubscriptionRepositoryUtilEJB</name>
-      </ejb>
-      <ejb>
-         <name>FTATransferAdapterEJB</name>
       </ejb>
       <ejb>
          <name>AdapterPolicyEngineEJB</name>

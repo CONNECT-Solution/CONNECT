@@ -29,14 +29,13 @@
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>reference.HiemProcessorLib.jar</included-library>
             <included-library>file.reference.resolver.jar</included-library>
-            <included-library>reference.HiemUtilityLib.jar</included-library>
             <included-library>file.reference.serializer.jar</included-library>
+            <included-library>file.reference.HiemUtilityLib.jar</included-library>
             <included-library>file.reference.xercesImpl.jar</included-library>
             <included-library>file.reference.xml-apis.jar</included-library>
             <included-library>reference.NhincSamlTokenLib.jar</included-library>
-            <included-library>reference.HiemAdapterProxyImpl.jar</included-library>
-            <included-library>reference.HiemAdapterProxy.jar</included-library>
             <included-library>reference.HiemSubscriptionRepository.jar</included-library>
+            <included-library>file.reference.AdapterServiceProxy.jar</included-library>
             <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
             <included-library>reference.AuditRepositoryProxy.jar</included-library>
             <included-library>reference.NhincDataTransformsLib.jar</included-library>
@@ -70,22 +69,6 @@
                 <id>jar</id>
             </reference>
             <reference>
-                <foreign-project>HiemAdapterProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>HiemAdapterProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
                 <foreign-project>HiemProcessorLib</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
@@ -95,14 +78,6 @@
             </reference>
             <reference>
                 <foreign-project>HiemSubscriptionRepository</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>HiemUtilityLib</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

@@ -327,12 +327,6 @@ exists or setup the property manually. For example like this:
                 COMPILATION SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AdapterDocRetrieveProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocRetrieveProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -356,12 +350,6 @@ exists or setup the property manually. For example like this:
         </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AdapterDocRetrieveProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocRetrieveProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -407,9 +395,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.wstx-asl-3.2.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xml-writer-0.2.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xom-1.1.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AdapterDocRetrieveProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AdapterDocRetrieveProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xpp3_min-1.1.4c.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.AdapterServiceProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xstream-1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
@@ -434,9 +421,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.wstx-asl-3.2.3.jar}" manifestproperty="manifest.file.reference.wstx-asl-3.2.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-writer-0.2.jar}" manifestproperty="manifest.file.reference.xml-writer-0.2.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xom-1.1.jar}" manifestproperty="manifest.file.reference.xom-1.1.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocRetrieveProxy.jar}" manifestproperty="manifest.reference.AdapterDocRetrieveProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocRetrieveProxyImpl.jar}" manifestproperty="manifest.reference.AdapterDocRetrieveProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xpp3_min-1.1.4c.jar}" manifestproperty="manifest.file.reference.xpp3_min-1.1.4c.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterServiceProxy.jar}" manifestproperty="manifest.file.reference.AdapterServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-1.3.jar}" manifestproperty="manifest.file.reference.xstream-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xstream-benchmark-1.3.jar}" manifestproperty="manifest.file.reference.xstream-benchmark-1.3.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
@@ -447,7 +433,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.reference.AdapterDocRetrieveProxy.jar} ${manifest.reference.AdapterDocRetrieveProxyImpl.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.jdom-1.0.jar} ${manifest.file.reference.jettison-1.0-RC2.jar} ${manifest.file.reference.joda-time-1.5.1.jar} ${manifest.file.reference.stax-1.2.0.jar} ${manifest.file.reference.stax-api-1.0.1.jar} ${manifest.file.reference.wstx-asl-3.2.3.jar} ${manifest.file.reference.xml-writer-0.2.jar} ${manifest.file.reference.xom-1.1.jar} ${manifest.file.reference.xpp3_min-1.1.4c.jar} ${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.xstream-1.3.jar} ${manifest.file.reference.xstream-benchmark-1.3.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -735,8 +721,6 @@ exists or setup the property manually. For example like this:
                 CLEANUP SECTION
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AdapterDocRetrieveProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterDocRetrieveProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>

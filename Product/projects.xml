@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <projects>
-  <!--<project>
-    <name>TriServSecurity</name>
-    <directory>Production/TriServSecurity</directory>
+  <project>
+    <name>NhincCommonTypesLib</name>
+    <directory>Production/Common/NhincCommonTypesLib</directory>
     <dist.type>jar</dist.type>
-  </project>-->
+  </project>
+  
+  <project>
+    <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
+    <directory>Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
+    <dist.type>jar</dist.type>
+  </project>
 </projects>
