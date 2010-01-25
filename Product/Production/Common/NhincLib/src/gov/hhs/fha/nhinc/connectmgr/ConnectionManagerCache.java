@@ -1006,14 +1006,18 @@ public class ConnectionManagerCache {
      */
     public static List<String> getEndpontURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
             throws ConnectionManagerException {
-        List<String> endpointUrlList = null;
+        List<String> endpointUrlList = new ArrayList<String>();;
 
         if (targets != null &&
                 NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null &&
                         NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
-                    endpointUrlList.add(ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(), serviceName));
+                    String endpt = ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(), serviceName);
+
+                    if (NullChecker.isNotNullish(endpt)) {
+                        endpointUrlList.add(endpt);
+                    }
                 } else if (target.getRegion() != null) {
                     filterByRegion(endpointUrlList, target.getRegion(), serviceName);
                 } else if (target.getList() != null) {
@@ -1070,7 +1074,7 @@ public class ConnectionManagerCache {
     }
 
     private static List<String> getUrlsFromBusinessEntities (List<CMBusinessEntity> businessEntityList) {
-        List<String> urlList = null;
+        List<String> urlList = new ArrayList<String>();
 
         if (NullChecker.isNotNullish(businessEntityList)) {
             for (CMBusinessEntity entity : businessEntityList) {
@@ -1110,7 +1114,7 @@ public class ConnectionManagerCache {
      * @return The set of unique URLs.
      */
     private static void createUniqueList(List<String> urlList) {
-        List<String> tempList = null;
+        List<String> tempList = new ArrayList<String>();
 
         for (String entry : urlList) {
             if (NullChecker.isNotNullish(tempList)) {

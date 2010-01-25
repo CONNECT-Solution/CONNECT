@@ -89,7 +89,7 @@
             <description>BindingDescription.1.1.1</description>
             <description>BindingDescription.1.1.2</description>
           </descriptions>
-          <uniformServiceName>ServiceName.1.1</uniformServiceName>
+          <uniformServiceName>Service 1 Name</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
@@ -217,7 +217,7 @@
             <description>BindingDescription.2.1.1</description>
             <description>BindingDescription.2.1.2</description>
           </descriptions>
-          <uniformServiceName>ServiceName.2.1</uniformServiceName>
+          <uniformServiceName>Service 1 Name</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
@@ -240,7 +240,7 @@
             <description>BindingDescription.2.2.1</description>
             <description>BindingDescription.2.2.2</description>
           </descriptions>
-          <uniformServiceName>ServiceName.2.2</uniformServiceName>
+          <uniformServiceName>Service 2 Name</uniformServiceName>
           <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>

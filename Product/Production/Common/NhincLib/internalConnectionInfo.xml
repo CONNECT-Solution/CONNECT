@@ -24,8 +24,8 @@
     <description>Home2 Description</description>
     <services>
       <service>
-        <name>Service 3 Name</name>
-        <description>Service 3 Description</description>
+        <name>Service 1 Name</name>
+        <description>Service 1 Description</description>
         <endpointURL>http://www.service3.com</endpointURL>
         <externalService>true</externalService>
       </service>

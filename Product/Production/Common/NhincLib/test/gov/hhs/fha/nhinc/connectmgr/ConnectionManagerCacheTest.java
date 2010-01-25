@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.connectmgr;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
@@ -278,13 +280,13 @@ public class ConnectionManagerCacheTest {
         boolean bMatchedService = false;            // Used when we are looking just for one service.
         for (CMBusinessService oService : oEntity.getBusinessServices().getBusinessService())
         {
-            if (oService.getUniformServiceName().equals("Service 3 Name"))
+            if (oService.getUniformServiceName().equals("Service 1 Name"))
             {
                 baFoundService[0] = true;
                 assertNotNull(oService.getDescriptions());
                 assertNotNull(oService.getDescriptions().getDescription());
                 assertEquals(1, oService.getDescriptions().getDescription().size());
-                assertEquals("Service 3 Description", oService.getDescriptions().getDescription().get(0));
+                assertEquals("Service 1 Description", oService.getDescriptions().getDescription().get(0));
 
                 assertEquals(false, oService.isInternalWebService());
 
@@ -539,7 +541,7 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.2.1.1", oService.getDescriptions().getDescription().get(0));
                 assertEquals("BindingDescription.2.1.2", oService.getDescriptions().getDescription().get(1));
                 
-                assertEquals("ServiceName.2.1", oService.getUniformServiceName());
+                assertEquals("Service 1 Name", oService.getUniformServiceName());
                 assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
@@ -571,7 +573,7 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.2.2.1", oService.getDescriptions().getDescription().get(0));
                 assertEquals("BindingDescription.2.2.2", oService.getDescriptions().getDescription().get(1));
                 
-                assertEquals("ServiceName.2.2", oService.getUniformServiceName());
+                assertEquals("Service 2 Name", oService.getUniformServiceName());
                 assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
@@ -796,7 +798,7 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.1.1.1", oService.getDescriptions().getDescription().get(0));
                 assertEquals("BindingDescription.1.1.2", oService.getDescriptions().getDescription().get(1));
                 
-                assertEquals("ServiceName.1.1", oService.getUniformServiceName());
+                assertEquals("Service 1 Name", oService.getUniformServiceName());
                 assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
@@ -1031,9 +1033,9 @@ public class ConnectionManagerCacheTest {
             assertNotNull(oEntity);
             validateEntity_1111_1111_1111_1111__1(oEntity, "ServiceName.1.2");
             
-            oEntity = ConnectionManagerCache.getBusinessEntityByServiceName("2222.2222.2222.2222", "Service 3 Name");
+            oEntity = ConnectionManagerCache.getBusinessEntityByServiceName("2222.2222.2222.2222", "Service 1 Name");
             assertNotNull(oEntity);
-            validateEntity_2222_2222_2222_2222(oEntity, "Service 3 Name");
+            validateEntity_2222_2222_2222_2222(oEntity, "Service 1 Name");
 
             oEntity = ConnectionManagerCache.getBusinessEntityByServiceName("1111.1111.1111.1111..2", "Service 6 Name");
             assertNotNull(oEntity);
@@ -1060,7 +1062,7 @@ public class ConnectionManagerCacheTest {
             sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName("1111.1111.1111.1111..1", "ServiceName.1.2");
             assertEquals("EndpointURL.1.2.1", sEndpointURL);
             
-            sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName("2222.2222.2222.2222", "Service 3 Name");
+            sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName("2222.2222.2222.2222", "Service 1 Name");
             assertEquals("http://www.service3.com", sEndpointURL);
 
             sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName("1111.1111.1111.1111..2", "Service 6 Name");
@@ -1091,11 +1093,11 @@ public class ConnectionManagerCacheTest {
             saHomeCommunityId.add("1111.1111.1111.1111..2");
             saHomeCommunityId.add("1111.1111.1111.1111..1");
             
-            oEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, "Service 3 Name");
+            oEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, "Service 4 Name");
             assertNotNull(oEntities);
             assertNotNull(oEntities.getBusinessEntity());
             assertEquals(1, oEntities.getBusinessEntity().size());
-            validateEntity_2222_2222_2222_2222(oEntities.getBusinessEntity().get(0), "Service 3 Name");
+            validateEntity_2222_2222_2222_2222(oEntities.getBusinessEntity().get(0), "Service 4 Name");
 
             oEntities = ConnectionManagerCache.getBusinessEntitySetByServiceName(saHomeCommunityId, "ServiceName.1.2");
             assertNotNull(oEntities);
@@ -1121,11 +1123,11 @@ public class ConnectionManagerCacheTest {
         try
         {
             CMBusinessEntities oEntities = null;
-            oEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName("Service 3 Name");
+            oEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName("Service 4 Name");
             assertNotNull(oEntities);
             assertNotNull(oEntities.getBusinessEntity());
             assertEquals(1, oEntities.getBusinessEntity().size());
-            validateEntity_2222_2222_2222_2222(oEntities.getBusinessEntity().get(0), "Service 3 Name");
+            validateEntity_2222_2222_2222_2222(oEntities.getBusinessEntity().get(0), "Service 4 Name");
 
             oEntities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName("ServiceName.1.2");
             assertNotNull(oEntities);
@@ -1138,6 +1140,274 @@ public class ConnectionManagerCacheTest {
         {
             fail("An unexpected exception occurred: " + e.getMessage());
         }
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Community Not Found for a valid service
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesCommunityNotFound() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesCommunityNotFound");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("1.1", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertEquals(true, urlList.isEmpty());
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Invalid Community id for a valid service
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesInvalidCommunity() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesInvalidCommunity");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("A.B.C", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertEquals(true, urlList.isEmpty());
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test valid Community id for a invalid service
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesInvalidService() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesInvalidService");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 3 Name");
+
+        assertEquals(true, urlList.isEmpty());
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test valid Community and null service
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesNullService() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesNullService");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, null);
+
+        assertEquals(true, urlList.isEmpty());
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test null Community and null service
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesNullCommunityAndService() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesNullCommunityAndService");
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(null, null);
+
+        assertEquals(true, urlList.isEmpty());
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Single Community from internal connections
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesSingleCommunityIntConnections() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesSingleCommunityIntConnections");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(1, urlList.size());
+        assertEquals("http://www.service1.com", urlList.get(0));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Single Community from UDDI
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesSingleCommunityUDDI() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesSingleCommunityUDDI");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity("1111.1111.1111.1111..1", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(1, urlList.size());
+        assertEquals("EndpointURL.1.1.1", urlList.get(0));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Two Communities, both from internal connections
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesTwoCommsBothIntConnections() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesTwoCommsBothIntConnections");
+
+        NhinTargetCommunityType community1 = TestHelper.createTargetCommunity("2222.2222.2222.2222", null, null);
+        NhinTargetCommunityType community2 = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community1);
+        communities.getNhinTargetCommunity().add(community2);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(2, urlList.size());
+        assertEquals("http://www.service3.com", urlList.get(0));
+        assertEquals("http://www.service1.com", urlList.get(1));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Two Communities, one from UDDI, one from internal connections
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesTwoCommsOneEach() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesTwoCommsBothIntConnections");
+
+        NhinTargetCommunityType community1 = TestHelper.createTargetCommunity("1111.1111.1111.1111..1", null, null);
+        NhinTargetCommunityType community2 = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community1);
+        communities.getNhinTargetCommunity().add(community2);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(2, urlList.size());
+        assertEquals("EndpointURL.1.1.1", urlList.get(0));
+        assertEquals("http://www.service1.com", urlList.get(1));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test Three Communities
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesThreeCommunities() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesThreeCommunities");
+
+        NhinTargetCommunityType community1 = TestHelper.createTargetCommunity("1111.1111.1111.1111..1", null, null);
+        NhinTargetCommunityType community2 = TestHelper.createTargetCommunity("1111.1111.1111.1111", null, null);
+        NhinTargetCommunityType community3 = TestHelper.createTargetCommunity("2222.2222.2222.2222", null, null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community1);
+        communities.getNhinTargetCommunity().add(community2);
+        communities.getNhinTargetCommunity().add(community3);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(3, urlList.size());
+        assertEquals("EndpointURL.1.1.1", urlList.get(0));
+        assertEquals("http://www.service1.com", urlList.get(1));
+        assertEquals("http://www.service3.com", urlList.get(2));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test All Communities for Service 1
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesAllCommunitiesService1() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesAllCommunities");
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(null, "Service 1 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(4, urlList.size());
+        assertEquals("EndpointURL.2.1.1", urlList.get(0));
+        assertEquals("EndpointURL.1.1.1", urlList.get(1));
+        assertEquals("http://www.service3.com", urlList.get(2));
+        assertEquals("http://www.service1.com", urlList.get(3));
+    }
+
+        /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test All Communities for Service 3
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesAllCommunitiesService5() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesAllCommunities");
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(null, "Service 5 Name");
+
+        assertNotNull(urlList);
+        assertEquals(false, urlList.isEmpty());
+        assertEquals(1, urlList.size());
+        assertEquals("http://www.service5.com", urlList.get(0));
+    }
+
+    /**
+     * Test of getEndpontURLFromNhinTargetCommunities method, of class ConnectionManagerCache.
+     *    Test List, since this is not implemented yet it should return null
+     */
+    @Test
+    public void testGetEndpontURLFromNhinTargetCommunitiesList() throws Exception
+    {
+        System.out.println("testGetEndpontURLFromNhinTargetCommunitiesList");
+
+        NhinTargetCommunityType community = TestHelper.createTargetCommunity(null, "list", null);
+        NhinTargetCommunitiesType communities = new NhinTargetCommunitiesType();
+
+        communities.getNhinTargetCommunity().add(community);
+
+        List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(communities, "Service 1 Name");
+
+        assertEquals(true, urlList.isEmpty());
     }
     
 }
