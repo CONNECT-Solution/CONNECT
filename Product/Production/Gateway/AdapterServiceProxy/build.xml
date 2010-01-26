@@ -9,6 +9,7 @@
       <property name="target-to-call" value="jar" />
       <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
+	
     <target name="clean-build" depends="clean,build" />
     <target name="clean-test" depends="clean-build,test" />
     <target name="build-test" depends="build,test" />

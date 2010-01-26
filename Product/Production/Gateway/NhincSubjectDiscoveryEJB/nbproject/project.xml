@@ -13,7 +13,8 @@
             <included-library>libs.junit_4.classpath</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
-            <included-library>reference.NhincLib.jar</included-library>
+            <included-library>file.reference.NhincLib.jar</included-library>
+            <included-library>file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar</included-library>
             <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
             <included-library>file.reference.dom4j-1.6.1.jar</included-library>
             <included-library>file.reference.jdom-1.0.jar</included-library>
@@ -27,23 +28,21 @@
             <included-library>file.reference.xpp3_min-1.1.4c.jar</included-library>
             <included-library>file.reference.xstream-1.3.jar</included-library>
             <included-library>file.reference.xstream-benchmark-1.3.jar</included-library>
-            <included-library>reference.NhincSamlTokenLib.jar</included-library>
-            <included-library>reference.AuditRepositoryProxy.jar</included-library>
-            <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
-            <included-library>reference.PolicyEngineProxy.jar</included-library>
-            <included-library>reference.PolicyEngineProxyImpl.jar</included-library>
-            <included-library>reference.NhincDataTransformsLib.jar</included-library>
-            <included-library>reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar</included-library>
-            <included-library>reference.AdapterMpiProxy.jar</included-library>
-            <included-library>reference.AdapterMpiProxyImpl.jar</included-library>
-            <included-library>reference.PatientCorrelationFacade.jar</included-library>
-            <included-library>reference.PatientCorrelationFacadeProxy.jar</included-library>
-            <included-library>reference.NhinSubjectDiscoveryProxy.jar</included-library>
-            <included-library>reference.NhinSubjectDiscoveryProxyImpl.jar</included-library>
+            <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
-            <included-library>reference.AdapterReidentificationProxy.jar</included-library>
-            <included-library>reference.AdapterReidentificationProxyImpl.jar</included-library>
             <included-library>file.reference.AdapterServiceProxy.jar</included-library>
+            <included-library>file.reference.NhinServiceProxy.jar</included-library>
+            <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
+            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
+            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
+            <included-library>file.reference.PolicyEngineProxy.jar</included-library>
+            <included-library>file.reference.PolicyEngineProxyImpl.jar</included-library>
+            <included-library>file.reference.AdapterMpiProxy.jar</included-library>
+            <included-library>file.reference.AdapterMpiProxyImpl.jar</included-library>
+            <included-library>file.reference.PatientCorrelationFacade.jar</included-library>
+            <included-library>file.reference.PatientCorrelationFacadeProxy.jar</included-library>
+            <included-library>file.reference.AdapterReidentificationProxy.jar</included-library>
+            <included-library>file.reference.AdapterReidentificationProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
@@ -53,135 +52,6 @@
                 <root id="test.resources.dir"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>AdapterMpiProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AdapterMpiProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AdapterReidentificationProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AdapterReidentificationProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AssigningAuthoritiesToHomeCommunityMappingDAO</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AuditRepositoryProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AuditRepositoryProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhinSubjectDiscoveryProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhinSubjectDiscoveryProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincDataTransformsLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincSamlTokenLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>PatientCorrelationFacade</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>PatientCorrelationFacadeProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>PolicyEngineProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>PolicyEngineProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-        </references>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
     </configuration>
 </project>

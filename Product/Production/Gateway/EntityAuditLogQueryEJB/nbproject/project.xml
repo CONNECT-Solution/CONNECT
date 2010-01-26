@@ -10,16 +10,15 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>EntityAuditLogQueryEJB</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
-            <included-library>reference.NhincLib.jar</included-library>
+            <included-library>file.reference.NhincLib.jar</included-library>
+            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
+            <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
-            <included-library>reference.NhincSamlTokenLib.jar</included-library>
-            <included-library>reference.AuditRepositoryProxy.jar</included-library>
-            <included-library>reference.NhincDataTransformsLib.jar</included-library>
-            <included-library>reference.AuditRepositoryProxyImpl.jar</included-library>
-            <included-library>reference.NhinAuditQueryProxy.jar</included-library>
-            <included-library>reference.NhinAuditQueryProxyImpl.jar</included-library>
-            <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
+            <included-library>file.reference.NhinServiceProxy.jar</included-library>
+            <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
+            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
+            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
@@ -29,63 +28,6 @@
                 <root id="test.resources.dir"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>AuditRepositoryProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>AuditRepositoryProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhinAuditQueryProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhinAuditQueryProxyImpl</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincDataTransformsLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincSamlTokenLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-        </references>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
     </configuration>
 </project>

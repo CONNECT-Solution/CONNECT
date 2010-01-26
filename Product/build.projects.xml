@@ -40,7 +40,10 @@
         <name>HiemProcessorLib</name>
         <directory>/Production/Gateway/HiemProcessorLib</directory>
     </project>	
-
+	<project>
+        <name>NhinServiceProxy</name>
+        <directory>/Production/Gateway/NhinServiceProxy</directory>
+    </project>
     <project>
         <name>DocumentRepository</name>
         <directory>/Production/Adapters/General/DocumentRepository</directory>
@@ -65,12 +68,7 @@
         <name>AdapterPEPLib</name>
         <directory>/Production/Adapters/General/AdapterPEPLib</directory>
     </project>
-<!--
-    <project>
-        <name>HiemSubscriptionRepository</name>
-        <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
-    </project>
--->
+
 <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
 <!-- BEGIN DEPLOYABLE PROJECTS -->
@@ -171,11 +169,19 @@
         <name>NhincDocRetrieveEJB</name>
         <directory>/Production/Gateway/NhincDocRetrieveEJB</directory>
     </project>
+	<project>
+        <name>AdapterReidentificationProxy</name>
+        <directory>/Production/Adapters/General/AdapterReidentificationProxy</directory>
+    </project>
     <project>
+        <name>AdapterReidentificationProxyImpl</name>
+        <directory>/Production/Adapters/General/AdapterReidentificationProxyImpl</directory>
+    </project>
+	<project>
         <name>NhincSubjectDiscoveryEJB</name>
         <directory>/Production/Gateway/NhincSubjectDiscoveryEJB</directory>
     </project>
-        <project>
+    <project>
         <name>NhincPatientDiscoveryEJB</name>
         <directory>/Production/Gateway/NhincPatientDiscoveryEJB</directory>
     </project>

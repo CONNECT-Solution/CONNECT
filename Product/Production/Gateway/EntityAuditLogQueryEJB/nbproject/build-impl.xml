@@ -326,52 +326,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinAuditQueryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinAuditQueryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinAuditQueryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinAuditQueryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps"/>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -382,30 +338,28 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhinAuditQueryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhinAuditQueryProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" manifestproperty="manifest.file.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhinAuditQueryProxy.jar}" manifestproperty="manifest.reference.NhinAuditQueryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhinAuditQueryProxyImpl.jar}" manifestproperty="manifest.reference.NhinAuditQueryProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhinServiceProxy.jar}" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.file.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.file.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhinAuditQueryProxy.jar} ${manifest.reference.NhinAuditQueryProxyImpl.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.AuditRepositoryProxy.jar} ${manifest.file.reference.AuditRepositoryProxyImpl.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -692,15 +646,7 @@ exists or setup the property manually. For example like this:
     <!--
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhinAuditQueryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhinAuditQueryProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>

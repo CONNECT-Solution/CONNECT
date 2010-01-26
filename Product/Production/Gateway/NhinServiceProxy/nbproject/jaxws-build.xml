@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-NhinAuditLogQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
+        <property name="wsdl-NhinAuditLogQuery" location="xml-resources/web-service-references/NhinAuditLogQuery/wsdl/NhinAuditLogQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery" wsdl="${wsdl-NhinAuditLogQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhinAuditLogQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhinAuditLogQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinAuditLogQuery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/nhin/services"/>
+    </target>
+    <target name="wsimport-client-NhincDocQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
+        <property name="wsdl-NhincDocQuery" location="xml-resources/web-service-references/NhincDocQuery/wsdl/NhincDocQuery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" destdir="${build.generated.dir}/jax-wsCache/NhincDocQuery" wsdl="${wsdl-NhincDocQuery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincDocQuery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincDocQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincDocQuery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincDocQuery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincdocquery"/>
+    </target>
+    <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve"/>
+        <property name="wsdl-NhincDocRetrieve" location="xml-resources/web-service-references/NhincDocRetrieve/wsdl/NhincDocRetrieve.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve" wsdl="${wsdl-NhincDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincDocRetrieve}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincDocRetrieve" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincDocRetrieve"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincdocretrieve"/>
+    </target>
+    <target name="wsimport-client-NhinPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery"/>
+        <property name="wsdl-NhinPatientDiscovery" location="xml-resources/web-service-references/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery" wsdl="${wsdl-NhinPatientDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhinPatientDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhinPatientDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinPatientDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xcpd:2009"/>
+    </target>
+    <target name="wsimport-client-NhinSubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
+        <property name="wsdl-NhinSubjectDiscovery" location="xml-resources/web-service-references/NhinSubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery" wsdl="${wsdl-NhinSubjectDiscovery}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhinSubjectDiscovery}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhinSubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:pixv3:2007"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhinPatientDiscovery, wsimport-client-NhinSubjectDiscovery"/>
+</project>
