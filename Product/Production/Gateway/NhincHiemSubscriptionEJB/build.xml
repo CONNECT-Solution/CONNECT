@@ -66,7 +66,6 @@
         <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
         <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
@@ -74,7 +73,6 @@
         <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxy}"/>
 		
         <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -86,9 +84,7 @@
         <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
         <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.AdapterServiceProxy.Absolute" location="${project.AdapterServiceProxy}"/>
         <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
@@ -97,7 +93,6 @@
         <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterServiceProxy.Absolute}" antfile="${project.AdapterServiceProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -105,21 +100,17 @@
     </target>
 
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-                <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
+        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
         <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
         <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.AdapterServiceProxy.Absolute" location="${project.AdapterServiceProxy}"/>
         <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
         <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
         <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
         <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxy}"/>
 
         <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterServiceProxy.Absolute}" antfile="${project.HiemAdapterProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -129,7 +120,7 @@
 
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${reference.HiemProcessorLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.AdapterServiceProxy.jar}" todir="${build.classes.dir}"/>
@@ -147,8 +138,8 @@
     <target depends="compile" name="library-inclusion-in-manifest">
         <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
         <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${file.reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
+        <copy file="${file.reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${reference.HiemProcessorLib.jar}" property="included.lib.reference.HiemProcessorLib.jar"/>
         <copy file="${reference.HiemProcessorLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${file.reference.AdapterServiceProxy.jar}" property="manifest.reference.AdapterServiceProxy.jar"/>

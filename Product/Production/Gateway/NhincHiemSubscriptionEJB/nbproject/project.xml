@@ -11,8 +11,8 @@
         <data xmlns="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
             <name>NhincHiemSubscriptionEJB</name>
             <minimum-ant-version>1.6</minimum-ant-version>
-            <included-library>reference.NhincLib.jar</included-library>
             <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>
+            <included-library>file.reference.NhincLib.jar</included-library>
             <included-library>file.reference.dom4j-1.6.1.jar</included-library>
             <included-library>file.reference.jdom-1.0.jar</included-library>
             <included-library>file.reference.jettison-1.0-RC2.jar</included-library>
@@ -86,14 +86,6 @@
             </reference>
             <reference>
                 <foreign-project>NhincDataTransformsLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>NhincLib</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>
