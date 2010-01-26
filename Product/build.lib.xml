@@ -76,47 +76,33 @@
   </target>
 
   <target name="addentry.deploy.list.xml">
-    <if>
-      <equals arg1="${deploy.isDeployable}" arg2="true"/>
-      <then>
-        <echo message="Attempting to add entry ${project.name} to Install/deploy.application.list.xml." />
-        <switch value="${deploy.type}">
-          <case value="war">
-            <xmltask source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
-              <insert path="/applications/wars"> 
-                <![CDATA[ 
-                <war> 
-                 <name>${project.name}</name> 
-                </war>  
-                ]]> 
-              </insert>  
-            </xmltask> 
-          </case>
-          <case value="shared">
-            <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
-              <insert path="/applications/shared"> 
-                <![CDATA[ 
-                <lib> 
-                 <name>${project.name}</name> 
-                </lib> 
-                ]]>
-              </insert>  
-            </xmltask>         
-          </case>
-          <default>
-            <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3"> 
-              <insert path="/applications/ejbs"> 
-                <![CDATA[ 
-                <ejb> 
-                 <name>${project.name}</name> 
-                </ejb> 
-                ]]>
-              </insert>  
-            </xmltask>         
-          </default>
-        </switch>
-      </then>
-    </if>    
+    <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}." />
+    <switch value="${deploy.type}">
+      <case value="war">
+        <var name="deploy.list.entry.xpath" value="/applications/wars"/>
+        <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
+        <runtarget target="insert.entry.to.deploy.app.list"/>
+      </case>
+      <case value="shared">
+        <var name="deploy.list.entry.xpath" value="/applications/shared"/>
+        <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
+        <runtarget target="insert.entry.to.deploy.app.list"/>       
+      </case>
+      <case value="ejb">
+        <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
+        <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
+        <runtarget target="insert.entry.to.deploy.app.list"/>
+      </case>
+      <default>
+        <fail message="Deploy type ${deploy.type} is not supported."/>
+      </default>
+    </switch>
+  </target>
+  
+  <target name="insert.entry.to.deploy.app.list">
+    <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
+      <insert path="${deploy.list.entry.xpath}" xml="${deploy.list.entry}"/>
+    </xmltask>
   </target>
 
   <target name="copy.deployable.artifacts">
@@ -133,14 +119,14 @@
     </switch>
 
     <echo message="${dist.file}"/>
-    <call target="addentry.deploy.list.xml"/>
+    <call target="addentry.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="deploy">
     <antcall target="create.deploy.list.xml"/>
-    <call target="copy.deployable.artifacts" />    
-    <call target="deploy.to.production"/> 
+    <call target="copy.deployable.artifacts" />
+    <call target="deploy.to.production"/>
   </target>
 
   <target name="undeploy">
