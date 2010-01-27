@@ -9,6 +9,9 @@
          <name>UniversalClientGUI</name>
       </war>
       <war>
+         <name>AdapterWeb</name>
+      </war>
+      <war>
          <name>UDDIModifierGUI</name>
       </war>
    </wars>
@@ -136,9 +139,6 @@
          <name>MpiEJB</name>
       </ejb>
       <ejb>
-         <name>DocumentRepositoryEJB</name>
-      </ejb>
-      <ejb>
          <name>MpiManagerEJB</name>
       </ejb>
       <ejb>
@@ -185,9 +185,6 @@
       </ejb>
       <ejb>
          <name>AdapterPatientDiscoveryProxyEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterDocRegistryAndRepositoryEJB</name>
       </ejb>
    </ejbs>
 </applications>
