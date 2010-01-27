@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterMpi" targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" 
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:hl7="urn:hl7-org:v3"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    >
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
+            <xsd:import namespace="urn:hl7-org:v3" 
+                        schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:import schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"
+                        namespace="urn:hl7-org:v3"/>
+        </xsd:schema>
+    </types>
+    <message name="FindCandidatesRequest">
+        <part name="FindCandidatesRequest" 
+              element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+    </message>
+    <message name="FindCandidatesResponse">
+        <part name="FindCandidatesResponse" 
+              element="hl7:PRPA_IN201306UV02"/>
+    </message>
+    <portType name="AdapterMpiPortType">
+        <operation name="FindCandidates">
+            <input name="FindCandidatesRequest" 
+                   message="tns:FindCandidatesRequest"/>
+            <output name="FindCandidatesResponse" 
+                    message="tns:FindCandidatesResponse"/>
+        </operation>
+    </portType>
+    <binding name="AdapterMpiPortTypeBinding" 
+             type="tns:AdapterMpiPortType">
+        <soap:binding style="document" 
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="FindCandidates">
+            <soap:operation soapAction="FindCandidates"/>
+            <input name="FindCandidatesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="FindCandidatesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AdapterMpiService">
+        <port name="AdapterMpiPort" 
+              binding="tns:AdapterMpiPortTypeBinding">
+            <soap:address 
+               location="http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="AdapterMpiService">
+        <!-- A partner link type is automatically generated when a new port 
+             type is added. Partner link types are used by BPEL processes. 
+             In a BPEL process, a partner link represents the interaction 
+             between the BPEL process and a partner service. Each partner 
+             link is associated with a partner link type.  A partner link 
+             type characterizes the conversational relationship between two 
+             services. The partner link type can have one or two roles.-->
+        <plnk:role name="AdapterMpiPortTypeRole" 
+                   portType="tns:AdapterMpiPortType"/>
+    </plnk:partnerLinkType>
+</definitions>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterAuditLogQuerySaml" targetNamespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml"
+    xmlns:iheaudit="http://nhinc.services.com/schema/auditmessage"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+    xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+    xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adapterauditlogquerysaml">
+            <xsd:import namespace="http://nhinc.services.com/schema/auditmessage"
+                schemaLocation="../schemas/ihe/auditmessage.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="FindAuditEventsRequestMessage">
+        <part name="FindAuditEventsRequest" element="iheaudit:FindAuditEvents"/>
+    </message>
+    <message name="FindAuditEventsResponseMessage">
+        <part name="FindAuditEventsResponse" element="iheaudit:FindAuditEventsResponse"/>
+    </message>
+    <portType name="AdapterAuditLogQuerySamlPortType">
+        <operation name="findAuditEvents">
+            <input name="input1" message="tns:FindAuditEventsRequestMessage"
+             wsaw:Action="http://services.nhin.com/wsdl/auditlogquery:findAuditEventsRequest" />
+            <output name="output1" message="tns:FindAuditEventsResponseMessage"
+             wsaw:Action="http://services.nhin.com/wsdl/auditlogquery:findAuditEventsResponse"/>
+        </operation>
+    </portType>
+    <binding name="AdapterAuditLogQuerySamlPortTypeBinding" type="tns:AdapterAuditLogQuerySamlPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#AuditLogQuerySoapBindingPolicy"/>
+        <operation name="findAuditEvents">
+            <soap:operation soapAction="urn:findAuditEvents"/>
+            <input name="input1">
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#AuditLogQuerySoapBinding_input1_Policy"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#AuditLogQuerySoapBinding_output1_Policy"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AdapterAuditLogQuerySamlService">
+        <port name="AdapterAuditLogQuerySamlPortTypeBindingPort" binding="tns:AdapterAuditLogQuerySamlPortTypeBinding">
+            <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterAuditLogQuerySaml"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="AdapterAuditLogQuerySaml">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="AdapterAuditLogQuerySamlPortTypeRole" portType="tns:AdapterAuditLogQuerySamlPortType"/>
+    </plnk:partnerLinkType>
+      <!-- Define action property on each receiving message -->
+  <vprop:property name="action" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:action"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>action</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define resource property on each receiving message -->
+  <vprop:property name="resource" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:resource"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>resource</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseRoleCode property on each receiving message -->
+  <vprop:property name="purposeForUseRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseRoleCode"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseCodeSystem property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystem"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseCodeSystemName property on each receiving message -->
+  <vprop:property name="purposeForUseCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseCodeSystemName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define purposeForUseDisplayName property on each receiving message -->
+  <vprop:property name="purposeForUseDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:purposeForUseDisplayName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>purposeForUseDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userFirstName property on each receiving message -->
+  <vprop:property name="userFirstName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userFirstName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userFirstName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userMiddleName property on each receiving message -->
+  <vprop:property name="userMiddleName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userMiddleName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userMiddleName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userLastName property on each receiving message -->
+  <vprop:property name="userLastName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userLastName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userLastName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userName property on each receiving message -->
+  <vprop:property name="userName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userOrganization property on each receiving message -->
+  <vprop:property name="userOrganization" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userOrganization"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userOrganization</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCode property on each receiving message -->
+  <vprop:property name="userRoleCode" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCode"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCode</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeSystem property on each receiving message -->
+  <vprop:property name="userRoleCodeSystem" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeSystem"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeSystem</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeSystemName property on each receiving message -->
+  <vprop:property name="userRoleCodeSystemName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeSystemName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeSystemName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define userRoleCodeDisplayName property on each receiving message -->
+  <vprop:property name="userRoleCodeDisplayName" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:userRoleCodeDisplayName"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>userRoleCodeDisplayName</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define expirationDate property on each receiving message -->
+  <vprop:property name="expirationDate" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:expirationDate"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>expirationDate</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define signDate property on each receiving message -->
+  <vprop:property name="signDate" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:signDate"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>signDate</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define contentReference property on each receiving message -->
+  <vprop:property name="contentReference" type="xsd:string"/>
+  <vprop:propertyAlias propertyName="tns:contentReference"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>contentReference</vprop:query>
+  </vprop:propertyAlias>
+  <!-- Define content property on each receiving message -->
+  <vprop:property name="content" type="xsd:base64Binary"/>
+  <vprop:propertyAlias propertyName="tns:content"
+     messageType="tns:FindAuditEventsRequestMessage" part="FindAuditEventsRequest"
+     sxnmp:nmProperty="org.glassfish.openesb.outbound.custom.properties">
+        <vprop:query>content</vprop:query>
+  </vprop:propertyAlias>
+    <wsp:Policy wsu:Id="AuditLogQuerySoapBindingPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <sc:KeyStore wspp:visibility="private"
+                     aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
+                     callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc:TrustStore wspp:visibility="private"
+                       callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
+                sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AuditLogQuerySoapBinding_input1_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="AuditLogQuerySoapBinding_output1_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

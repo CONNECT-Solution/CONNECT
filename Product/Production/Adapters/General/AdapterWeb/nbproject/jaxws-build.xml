@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityAuditLogQuerySecured/wsdl/EntityAuditLogQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EntityAuditLogQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityAuditLogQuerySecured"/>
+    </target>
+    <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyAuditLogQuerySecured/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincProxyAuditLogQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyAuditLogQuerySecured"/>
+    </target>
+    <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/AdapterComponentDocRegistry.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/AdapterComponentDocRegistry.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRegistryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocumentRegistryService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
+    </target>
+    <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/wsdl/AdapterComponentDocRepository.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/wsdl/AdapterComponentDocRepository.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRepositoryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-DocumentRepositoryService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
+    </target>
+    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquerysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
+    </target>
+    <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+    </target>
+    <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/wsdl/AdapterAuthentication.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/wsdl/AdapterAuthentication.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterAuthenticationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterAuthenticationService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterauthentication"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/AdapterPolicyEngineSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/AdapterPolicyEngineSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPolicyEngineSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyenginesecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured"/>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineOrchestrator" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/wsdl/AdapterPolicyEngineOrchestrator.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/wsdl/AdapterPolicyEngineOrchestrator.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineOrchestrator">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPolicyEngineOrchestrator" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyengineorchestrator"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator"/>
+    </target>
+    <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/AdapterPolicyEngineTransform.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineTransform">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPolicyEngineTransform" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyenginetransform"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
+    </target>
+    <target name="wsimport-service-AdapterPEPService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/wsdl/AdapterPEP.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/wsdl/AdapterPEP.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPEPService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPEPService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpep"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
+    </target>
+    <target name="wsimport-service-AdapterPIPService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/wsdl/AdapterPIP.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/wsdl/AdapterPIP.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPIPService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPIPService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpip"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
+    </target>
+    <target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/AdapterDocProvideAndRegister.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/AdapterDocProvideAndRegister.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocProvideAndRegisterservice">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocProvideAndRegisterservice" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/org/netbeans/j2ee/wsdl/interfaces/adapterdocprovideandregister"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
+    </target>
+    <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSecuredAuditLogQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterSecuredAuditLogQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterauditlogquerysaml"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
+    </target>
+    <target name="wsimport-service-AdapterReidentification" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" destdir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterReidentification">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterReidentification" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterreidentification"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
+    </target>
+    <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpiSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterMpiSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptermpi"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
+    </target>
+    <target name="wsimport-service-AdapterMpi" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterMpi" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpi">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterMpi" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptermpi"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
+    </target>
+    <target name="wsimport-service-AdapterComponentMpi" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpi">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterComponentMpi" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptercomponentmpi"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi"/>
+    </target>
+    <target name="wsimport-service-AdapterComponentMpiSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/wsdl/AdapterComponentSecuredMpi.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/wsdl/AdapterComponentSecuredMpi.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpiSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterComponentMpiSecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptercomponentmpi"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
+    </target>
+    <target name="wsimport-service-AdapterPatientDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/wsdl/AdapterPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/wsdl/AdapterPatientDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPatientDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPatientDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpatientdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured"/>
+    </target>
+    <target name="wsimport-service-AdapterSubjectDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/AdapterSubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/AdapterSubjectDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSubjectDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterSubjectDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubjectdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured"/>
+    </target>
+    <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/wsdl/EntityAuditLogQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/wsdl/EntityAuditLogQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityAuditQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityAuditQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entityauditlogquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
+    </target>
+    <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/wsdl/NhincProxyAuditLogQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/wsdl/NhincProxyAuditLogQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyAuditQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyAuditQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxyauditlogquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
+    </target>
+    <target name="wsimport-service-EntityDocQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/wsdl/EntityDocQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitydocquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/wsdl/NhincProxyDocQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
+    </target>
+    <target name="wsimport-service-EntityDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/wsdl/EntityDocRetrieve.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocRetrieve" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitydocretrieve"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocRetrieve" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/wsdl/NhincProxyDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/wsdl/NhincProxyDocRetrieve.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocRetrieve" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocretrieve"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
+    </target>
+    <target name="wsimport-service-EntityNotifyService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" destdir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/wsdl/EntityNotificationConsumer.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityNotifyService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityNotifyService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitynotificationconsumer"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
+    </target>
+    <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubscribeService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntitySubscribeService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
+    </target>
+    <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" destdir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/wsdl/EntitySubscriptionManagement.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityUnsubscribeService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityUnsubscribeService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
+    </target>
+    <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/wsdl/NhincProxyNotificationConsumer.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemNotify">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyHiemNotify" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxynotificationconsumer"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
+    </target>
+    <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemSubscribe">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyHiemSubscribe" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
+    </target>
+    <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" destdir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/NhincProxySubscriptionManagement.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemUnsubscribe">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProxyHiemUnsubscribe" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubscriptionmanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
+    </target>
+    <target name="wsimport-service-EntityPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/wsdl/EntityPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/wsdl/EntityPatientDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityPatientDiscovery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitypatientdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
+    </target>
+    <target name="wsimport-service-NhincProxyPatientDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/NhincProxyPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/NhincProxyPatientDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyPatientDiscovery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxypatientdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery"/>
+    </target>
+    <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/wsdl/EntitySubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/wsdl/EntitySubjectDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntitySubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitysubjectdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
+    </target>
+    <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/NhincProxySubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/NhincProxySubjectDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxySubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxySubjectDiscovery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxysubjectdiscovery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
+    </target>
+    <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService" destdir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/wsdl/NhincComponentPatientCorrelation.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/PatientCorrelationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-PatientCorrelationService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentpatientcorrelation"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService, wsimport-service-AdapterDocQuerySecured, wsimport-service-AdapterDocRetrieveSecured, wsimport-service-AdapterAuthenticationService, wsimport-service-AdapterPolicyEngineSecured, wsimport-service-AdapterPolicyEngineOrchestrator, wsimport-service-AdapterPolicyEngineTransform, wsimport-service-AdapterPEPService, wsimport-service-AdapterPIPService, wsimport-service-AdapterDocProvideAndRegisterservice, wsimport-service-AdapterSecuredAuditLogQuery, wsimport-service-AdapterReidentification, wsimport-service-AdapterMpiSecured, wsimport-service-AdapterMpi, wsimport-service-AdapterComponentMpi, wsimport-service-AdapterComponentMpiSecured, wsimport-service-AdapterPatientDiscoverySecured, wsimport-service-AdapterSubjectDiscoverySecured, wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery, wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery, wsimport-service-EntityDocRetrieve, wsimport-service-NhincProxyDocRetrieve, wsimport-service-EntityNotifyService, wsimport-service-EntitySubscribeService, wsimport-service-EntityUnsubscribeService, wsimport-service-ProxyHiemNotify, wsimport-service-ProxyHiemSubscribe, wsimport-service-ProxyHiemUnsubscribe, wsimport-service-EntityPatientDiscovery, wsimport-service-NhincProxyPatientDiscovery, wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery, wsimport-service-PatientCorrelationService"/>
+</project>

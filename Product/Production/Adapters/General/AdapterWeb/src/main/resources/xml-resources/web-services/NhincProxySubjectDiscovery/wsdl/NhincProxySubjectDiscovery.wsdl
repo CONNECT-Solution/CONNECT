@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery" 
+   xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/" 
+   xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xmlns:hl7="urn:hl7-org:v3" 
+   xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+   name="NhincProxySubjectDiscovery" 
+   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscovery">
+  <wsdl:documentation>
+     WSDL for NHINC Proxy interface of Subject Discovery
+  </wsdl:documentation>
+  <wsdl:types>
+     
+    <xsd:schema elementFormDefault="qualified" 
+                targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+      <xsd:include schemaLocation="../schemas/nhinc/hl7/HL7ProxyPatientDiscoveryMessages.xsd"/>
+      <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+      <xsd:include schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="PIXConsumer_PRPA_IN201301UVProxyRequestMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201301UVProxyRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201301UVProxyRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PIXConsumer_PRPA_IN201301UVProxyResponseMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201301UVProxyResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+  </wsdl:message>
+
+  <wsdl:message name="PIXConsumer_PRPA_IN201302UVProxyRequestMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201302UVProxyRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201302UVProxyRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PIXConsumer_PRPA_IN201302UVProxyResponseMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201302UVProxyResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+  </wsdl:message>
+
+   <wsdl:message name="PIXConsumer_PRPA_IN201304UVProxyRequestMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201304UVProxyRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201304UVProxyRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PIXConsumer_PRPA_IN201304UVProxyResponseMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201304UVProxyResponse" 
+               element="hl7:MCCI_IN000002UV01"/>
+  </wsdl:message>
+  
+  <wsdl:message name="PIXConsumer_PRPA_IN201309UVProxyRequestMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyRequest" 
+               element="hl7:PIXConsumer_PRPA_IN201309UVProxyRequest"/>
+  </wsdl:message>
+  <wsdl:message name="PIXConsumer_PRPA_IN201309UVProxyResponseMessage">
+    <wsdl:part name="PIXConsumer_PRPA_IN201309UVProxyResponse" 
+               element="hl7:PRPA_IN201310UV02"/>
+  </wsdl:message>
+  
+  <wsdl:portType name="NhincProxySubjectDiscoveryPortType">
+    <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+      <wsdl:input name="PIXConsumer_PRPA_IN201301UVProxyRequest" 
+                  message="tns:PIXConsumer_PRPA_IN201301UVProxyRequestMessage" />
+      <wsdl:output name="PIXConsumer_PRPA_IN201301UVProxyResponse" 
+                   message="tns:PIXConsumer_PRPA_IN201301UVProxyResponseMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+      <wsdl:input name="PIXConsumer_PRPA_IN201302UVProxyRequest" 
+                  message="tns:PIXConsumer_PRPA_IN201302UVProxyRequestMessage"/>
+      <wsdl:output name="PIXConsumer_PRPA_IN201302UVProxyResponse"  
+                   message="tns:PIXConsumer_PRPA_IN201302UVProxyResponseMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+      <wsdl:input name="PIXConsumer_PRPA_IN201304UVProxyRequest"
+                  message="tns:PIXConsumer_PRPA_IN201304UVProxyRequestMessage" />
+      <wsdl:output name="PIXConsumer_PRPA_IN201304UVProxyResponse"
+                   message="tns:PIXConsumer_PRPA_IN201304UVProxyResponseMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+      <wsdl:input name="PIXConsumer_PRPA_IN201309UVProxyRequest"
+                  message="tns:PIXConsumer_PRPA_IN201309UVProxyRequestMessage" />
+      <wsdl:output name="PIXConsumer_PRPA_IN201309UVProxyResponse"
+                   message="tns:PIXConsumer_PRPA_IN201309UVProxyResponseMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NhincProxySubjectDiscoveryBindingSoap11" 
+                type="tns:NhincProxySubjectDiscoveryPortType">
+    <wsoap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+      <wsdl:input name="PIXConsumer_PRPA_IN201301UVProxyRequest" >
+        <wsoap11:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PIXConsumer_PRPA_IN201301UVProxyResponse" >
+        <wsoap11:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+      <wsdl:input name="PIXConsumer_PRPA_IN201302UVProxyRequest" >
+        <wsoap11:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PIXConsumer_PRPA_IN201302UVProxyResponse" >
+        <wsoap11:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+     <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+      <wsdl:input name="PIXConsumer_PRPA_IN201304UVProxyRequest" >
+        <wsoap11:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PIXConsumer_PRPA_IN201304UVProxyResponse" >
+        <wsoap11:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+      <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+      <wsdl:input name="PIXConsumer_PRPA_IN201309UVProxyRequest" >
+        <wsoap11:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PIXConsumer_PRPA_IN201309UVProxyResponse" >
+        <wsoap11:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NhincProxySubjectDiscovery">
+    <wsdl:port name="NhincProxySubjectDiscoveryPortSoap11" 
+               binding="tns:NhincProxySubjectDiscoveryBindingSoap11">
+      <wsoap11:address 
+         location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxySubjectDiscovery"/>
+    </wsdl:port>
+  </wsdl:service>
+  <plnk:partnerLinkType name="NhincProxySubjectDiscovery">
+    <!-- A partner link type is automatically generated when a new port type is added. 
+         Partner link types are used by BPEL processes. In a BPEL process, a partner 
+         link represents the interaction between the BPEL process and a partner service. 
+         Each partner link is associated with a partner link type. A partner link type 
+         characterizes the conversational relationship between two services. The 
+         partner link type can have one or two roles.-->
+    <plnk:role name="NhincProxySubjectDiscoveryPortTypeRole" 
+               portType="tns:NhincProxySubjectDiscoveryPortType"/>
+  </plnk:partnerLinkType>
+  
+</wsdl:definitions>

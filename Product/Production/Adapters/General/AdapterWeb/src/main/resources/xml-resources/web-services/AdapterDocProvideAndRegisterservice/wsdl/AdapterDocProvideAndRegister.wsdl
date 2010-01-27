@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AdapterDocProvideAndRegister" targetNamespace="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+    xmlns:ns0="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="http://j2ee.netbeans.org/wsdl/Interfaces/AdapterDocProvideAndRegister">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="AdapterDocProvideAndRegisterOperationRequest">
+        <part name="part1" element="ns0:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestRequest"/>
+    </message>
+    <message name="AdapterDocProvideAndRegisterOperationResponse">
+        <part name="part1" element="ns0:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestResponse"/>
+    </message>
+    <portType name="AdapterDocProvideAndRegisterPortType">
+        <operation name="AdapterDocProvideAndRegisterOperation">
+            <input name="AdapterDocProvideAndRegisterRequestRequest" message="tns:AdapterDocProvideAndRegisterOperationRequest"/>
+            <output name="AdapterDocProvideAndRegisterRequestResponse" message="tns:AdapterDocProvideAndRegisterOperationResponse"/>
+        </operation>
+    </portType>
+    <binding name="AdapterDocProvideAndRegisterPortTypeBindingSoap11" type="tns:AdapterDocProvideAndRegisterPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#AdapterDocProvideAndRegisterPolicy"/>
+        <operation name="AdapterDocProvideAndRegisterOperation">
+            <soap:operation/>
+            <input name="AdapterDocProvideAndRegisterRequestRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="AdapterDocProvideAndRegisterRequestResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AdapterDocProvideAndRegisterService">
+        <port name="AdapterDocProvideAndRegisterPortTypeBindingPortSoap11"
+            binding="tns:AdapterDocProvideAndRegisterPortTypeBindingSoap11">
+            <soap:address
+            location="http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocProvideAndRegisterService"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="AdapterDocProvideAndRegister">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="AdapterDocProvideAndRegisterPortTypeRole"
+               portType="tns:AdapterDocProvideAndRegisterPortType"/>
+    </plnk:partnerLinkType>
+    
+    <wsp:Policy wsu:Id="AdapterDocProvideAndRegisterPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>
