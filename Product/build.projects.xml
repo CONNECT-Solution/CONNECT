@@ -153,6 +153,10 @@
         <name>UniversalClientGUI</name>
         <directory>/Production/Adapters/General/UniversalClientGUI</directory>
     </project>
+	<project>
+        <name>AdapterWeb</name>
+        <directory>/Production/Adapters/General/AdapterWeb</directory>
+    </project>
     <project>
         <name>NhincAuditQueryEJB</name>
         <directory>/Production/Gateway/NhincAuditQueryEJB</directory>
