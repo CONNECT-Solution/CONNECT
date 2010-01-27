@@ -387,40 +387,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AdapterDocumentRegistryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRegistryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AdapterDocumentRegistryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRegistryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar,wsimport-service-generate,wsimport-client-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -558,22 +526,22 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterDocumentRegistryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterDocumentRegistryProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterDocumentRegistryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRegistryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterDocumentRegistryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRegistryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterDocumentRepositoryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterDocumentRepositoryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.DocumentRepository.jar} ${manifest.reference.AdapterDocumentRegistryProxy.jar} ${manifest.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.reference.AdapterDocumentRepositoryProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterDocumentRegistryProxy.jar} ${manifest.file.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxyImpl.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterDocumentRegistryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterDocumentRegistryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
@@ -871,13 +839,7 @@ exists or setup the property manually. For example like this:
                 
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AdapterDocumentRegistryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterDocumentRegistryProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterDocumentRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterDocumentRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">
             <isset property="dist.ear.dir"/>
