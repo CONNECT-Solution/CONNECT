@@ -29,7 +29,7 @@
     <client name="NhincDocQuery">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl</wsdl-url>
       <local-wsdl-file>NhincDocQuery.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhincdocquery</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhincdocquery</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -53,7 +53,7 @@
     <client name="NhincDocRetrieve">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl</wsdl-url>
       <local-wsdl-file>NhincDocRetrieve.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:nhincdocretrieve</package-name>
+      <package-name>gov.hhs.fha.nhinc.nhincdocretrieve</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -77,7 +77,7 @@
     <client name="NhinPatientDiscovery">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinPatientDiscovery.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:xcpd:2009</package-name>
+      <package-name>ihe.iti.xcpd._2009</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -101,7 +101,7 @@
     <client name="NhinSubjectDiscovery">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl</wsdl-url>
       <local-wsdl-file>NhinSubjectDiscovery.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:pixv3:2007</package-name>
+      <package-name>ihe.iti.pixv3._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

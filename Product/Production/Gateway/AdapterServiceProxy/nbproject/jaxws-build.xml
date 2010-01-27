@@ -26,7 +26,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterDocQuerySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocQuerySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocquerysecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquerysecured"/>
     </target>
     <target name="wsimport-client-AdapterDocRetrieveSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
@@ -43,7 +43,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterDocRetrieveSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterDocRetrieveSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievesecured"/>
     </target>
     <target name="wsimport-client-AdapterPatientDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured"/>
@@ -60,7 +60,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPatientDiscoverySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPatientDiscoverySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpatientdiscoverysecured"/>
     </target>
     <target name="wsimport-client-AdapterSubjectDiscoverySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured"/>
@@ -77,7 +77,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterSubjectDiscoverySecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubjectDiscoverySecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubjectdiscoverysecured"/>
     </target>
     <target name="wsimport-client-AdapterNotificationConsumer" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumer"/>
@@ -94,7 +94,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterNotificationConsumer" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumer"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapternotificationconsumer"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumer"/>
     </target>
     <target name="wsimport-client-AdapterSubscriptionManagement" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagement"/>
@@ -111,7 +111,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterSubscriptionManagement" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagement"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptersubscriptionmanagement"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubscriptionmanagement"/>
     </target>
     <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumerSecured"/>
@@ -128,7 +128,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterNotificationConsumerSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterNotificationConsumerSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapternotificationconsumersecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumersecured"/>
     </target>
     <target name="wsimport-client-AdapterSubscriptionManagementSecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagementSecured"/>
@@ -145,7 +145,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterSubscriptionManagementSecured" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagementSecured"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocQuerySecured, wsimport-client-AdapterDocRetrieveSecured, wsimport-client-AdapterPatientDiscoverySecured, wsimport-client-AdapterSubjectDiscoverySecured, wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured"/>
 </project>

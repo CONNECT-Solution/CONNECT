@@ -5,7 +5,7 @@
     <client name="AdapterDocQuerySecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuerySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocQuerySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterdocquerysecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquerysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -29,7 +29,7 @@
     <client name="AdapterDocRetrieveSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieveSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterDocRetrieveSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterdocretrievesecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocretrievesecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -53,7 +53,7 @@
     <client name="AdapterPatientDiscoverySecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPatientDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPatientDiscoverySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpatientdiscoverysecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpatientdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -77,7 +77,7 @@
     <client name="AdapterSubjectDiscoverySecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubjectDiscoverySecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubjectDiscoverySecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptersubjectdiscoverysecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubjectdiscoverysecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -101,7 +101,7 @@
     <client name="AdapterNotificationConsumer">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumer.wsdl</wsdl-url>
       <local-wsdl-file>AdapterNotificationConsumer.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapternotificationconsumer</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapternotificationconsumer</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -125,7 +125,7 @@
     <client name="AdapterSubscriptionManagement">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagement.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagement.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptersubscriptionmanagement</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagement</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -149,7 +149,7 @@
     <client name="AdapterNotificationConsumerSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterNotificationConsumerSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterNotificationConsumerSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapternotificationconsumersecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapternotificationconsumersecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -173,7 +173,7 @@
     <client name="AdapterSubscriptionManagementSecured">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
       <local-wsdl-file>AdapterSubscriptionManagementSecured.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adaptersubscriptionmanagementsecured</package-name>
+      <package-name>gov.hhs.fha.nhinc.adaptersubscriptionmanagementsecured</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
