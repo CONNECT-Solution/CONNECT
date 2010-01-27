@@ -52,6 +52,11 @@ public class CMInternalConnectionInfosXMLTest
         oConnInfo.setDescription("Home1 Description");
         oConnInfo.setHomeCommunityId("1111.1111.1111.1111");
         oConnInfo.setName("Home1");
+        CMInternalConnectionInfoStates oStates = new CMInternalConnectionInfoStates();
+        oConnInfo.setStates(oStates);
+        CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
+        oStates.getStates().add(state);
+        state.setName("FL");
         CMInternalConnInfoServices oServices = new CMInternalConnInfoServices();
         oConnInfo.setServices(oServices);
         CMInternalConnInfoService oService = new CMInternalConnInfoService();
@@ -72,6 +77,11 @@ public class CMInternalConnectionInfosXMLTest
         oConnInfo.setDescription("Home2 Description");
         oConnInfo.setHomeCommunityId("2222.2222.2222.2222");
         oConnInfo.setName("Home2");
+        oStates = new CMInternalConnectionInfoStates();
+        oConnInfo.setStates(oStates);
+        state = new CMInternalConnectionInfoState();
+        oStates.getStates().add(state);
+        state.setName("AL");
         oServices = new CMInternalConnInfoServices();
         oConnInfo.setServices(oServices);
         oService = new CMInternalConnInfoService();
@@ -105,6 +115,12 @@ public class CMInternalConnectionInfosXMLTest
                 baFoundConn[0] = true;
                 assertEquals("Home1 Description", oResultConnInfo.getDescription());
                 assertEquals("1111.1111.1111.1111", oResultConnInfo.getHomeCommunityId());
+
+                assertEquals(1, oResultConnInfo.getStates().getStates().size());
+                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getStates()) {
+                    assertEquals("FL", oState.getName());
+                }
+                
                 assertNotNull(oResultConnInfo.getServices());
                 assertNotNull(oResultConnInfo.getServices().getService());
                 assertEquals(2, oResultConnInfo.getServices().getService().size());
@@ -138,6 +154,12 @@ public class CMInternalConnectionInfosXMLTest
                 baFoundConn[1] = true;
                 assertEquals("Home2 Description", oResultConnInfo.getDescription());
                 assertEquals("2222.2222.2222.2222", oResultConnInfo.getHomeCommunityId());
+
+                assertEquals(1, oResultConnInfo.getStates().getStates().size());
+                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getStates()) {
+                    assertEquals("AL", oState.getName());
+                }
+                
                 assertNotNull(oResultConnInfo.getServices());
                 assertNotNull(oResultConnInfo.getServices().getService());
                 assertEquals(2, oResultConnInfo.getServices().getService().size());
@@ -180,18 +202,4 @@ public class CMInternalConnectionInfosXMLTest
         
     }
 
-    /**
-     * Test of deserialize method, of class CMInternalConnectionInfosXML.
-     */
-//    @Test
-//    public void testDeserialize()
-//    {
-//        System.out.println("deserialize");
-//        String sXML = "";
-//        CMInternalConnectionInfos expResult = null;
-//        CMInternalConnectionInfos result = CMInternalConnectionInfosXML.deserialize(sXML);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
 }

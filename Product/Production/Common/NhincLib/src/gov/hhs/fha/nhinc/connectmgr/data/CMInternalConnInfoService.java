@@ -40,9 +40,9 @@ public class CMInternalConnInfoService
      */
     public boolean equals(CMInternalConnInfoService oCompare)
     {
-        if ((!this.name.equals(oCompare.name)) ||
-            (!this.description.equals(oCompare.description)) ||
-            (!this.endpointURL.equals(oCompare.endpointURL)) ||
+        if ((!this.name.equalsIgnoreCase(oCompare.name)) ||
+            (!this.description.equalsIgnoreCase(oCompare.description)) ||
+            (!this.endpointURL.equalsIgnoreCase(oCompare.endpointURL)) ||
             (this.externalService != oCompare.externalService))
         {
             return false;

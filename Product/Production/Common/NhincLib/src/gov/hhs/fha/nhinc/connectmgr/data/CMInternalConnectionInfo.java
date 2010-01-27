@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.connectmgr.data;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 /**
  * @author Les Westberg
  */
@@ -9,6 +11,7 @@ public class CMInternalConnectionInfo
     private String name;
     private String description;
     private CMInternalConnInfoServices services;
+    private CMInternalConnectionInfoStates states;
 
     /**
      * Default Constructor.
@@ -27,6 +30,7 @@ public class CMInternalConnectionInfo
         name = "";
         description = "";
         services = null;
+        states = null;
     }
     
     /**
@@ -38,17 +42,92 @@ public class CMInternalConnectionInfo
      */
     public boolean equals(CMInternalConnectionInfo oCompare)
     {
-        if ((!this.homeCommunityId.equals(oCompare.homeCommunityId)) ||
-            (!this.name.equals(oCompare.name)) ||
-            (!this.description.equals(oCompare.description)) ||
-            (!this.services.equals(oCompare.services)))
-        {
-            return false;
+        boolean descMatch = false;
+        boolean nameMatch = false;
+        boolean hcidMatch = false;
+        boolean serviceMatch = false;
+        boolean stateMatch = false;
+        boolean result = false;
+
+        // Compare the names
+        if (NullChecker.isNullish(oCompare.name) &&
+                NullChecker.isNullish(this.name)) {
+            nameMatch = true;
         }
-        
-        // If we got here then everything is the same...
-        //----------------------------------------------
-        return true;
+        else if (NullChecker.isNullish(oCompare.name) ||
+                NullChecker.isNullish(this.name)) {
+            nameMatch = false;
+        }
+        else {
+            if (this.name.equalsIgnoreCase(oCompare.name)) {
+                nameMatch = true;
+            }
+        }
+
+        // Compare the description
+        if (NullChecker.isNullish(oCompare.description) &&
+                NullChecker.isNullish(this.description)) {
+            descMatch = true;
+        }
+        else if (NullChecker.isNullish(oCompare.description) ||
+                NullChecker.isNullish(this.description)) {
+            descMatch = false;
+        }
+        else {
+            if (this.description.equalsIgnoreCase(oCompare.description)) {
+                descMatch = true;
+            }
+        }
+
+        // Compare the home community id
+        if (NullChecker.isNullish(oCompare.homeCommunityId) &&
+                NullChecker.isNullish(this.homeCommunityId)) {
+            hcidMatch = true;
+        }
+        else if (NullChecker.isNullish(oCompare.homeCommunityId) ||
+                NullChecker.isNullish(this.homeCommunityId)) {
+            hcidMatch = false;
+        }
+        else {
+            if (this.homeCommunityId.equalsIgnoreCase(oCompare.homeCommunityId)) {
+                hcidMatch = true;
+            }
+        }
+
+        // Compare the services
+        if (oCompare.services == null && this.services == null) {
+            serviceMatch = true;
+        }
+        else if (oCompare.services == null || this.services == null) {
+            serviceMatch = false;
+        }
+        else {
+            if (this.services.equals(oCompare.services)) {
+                serviceMatch = true;
+            }
+        }
+
+        // Compare the states
+        if (oCompare.states == null && this.states == null) {
+            stateMatch = true;
+        }
+        else if (oCompare.states == null || this.states == null) {
+            stateMatch = false;
+        }
+        else {
+            if (this.states.equals(oCompare.states)) {
+                stateMatch = true;
+            }
+        }
+
+        if (descMatch == true && nameMatch == true && hcidMatch == true && serviceMatch == true && stateMatch == true) {
+            result = true;
+        }
+        else {
+            result = false;
+        }
+
+        return result;
     }
     
     
@@ -131,6 +210,26 @@ public class CMInternalConnectionInfo
     public void setServices(CMInternalConnInfoServices services)
     {
         this.services = services;
+    }
+
+    /**
+     * Return the states associated with this home community.
+     *
+     * @return The states associated with this home community.
+     */
+    public CMInternalConnectionInfoStates getStates()
+    {
+        return states;
+    }
+
+    /**
+     * Sets the states associated with this home community.
+     *
+     * @param states The states associated with this home community.
+     */
+    public void setStates(CMInternalConnectionInfoStates states)
+    {
+        this.states = states;
     }
 
 }
