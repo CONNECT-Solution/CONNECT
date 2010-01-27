@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/TestPEP/src/java/TestPEPService.wsdl" uri="src/conf/xml-resources/web-services/TestPEPService/wsdl/TestPEPService.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/TestPEP/src/java/TestPEPSchema.xsd" uri="src/conf/xml-resources/web-services/TestPEPService/wsdl/TestPEPSchema.xsd"/>
-</catalog>

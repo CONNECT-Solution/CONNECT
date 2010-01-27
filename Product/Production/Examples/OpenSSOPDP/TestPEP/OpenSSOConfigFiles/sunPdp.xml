@@ -1,8 +1,0 @@
-<EntityDescriptor
-    xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
-    entityID="sunPdpEntity">
-    <XACMLPDPDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
-         <XACMLAuthzService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://sunidm.gotdns.org:8080/opensso/saml2query/metaAlias/SunXSPA-PDP"/>
-    </XACMLPDPDescriptor>
-</EntityDescriptor>
-

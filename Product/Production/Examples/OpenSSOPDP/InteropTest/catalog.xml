@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/InteropTest/src/java/InteropTestService.wsdl" uri="src/conf/xml-resources/web-services/InteropTestService/wsdl/InteropTestService.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/InteropTest/src/java/InteropTestSchema.xsd" uri="src/conf/xml-resources/web-services/InteropTestService/wsdl/InteropTestSchema.xsd"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/TestPEP/src/java/TestPEPService.wsdl" uri="src/conf/xml-resources/web-service-references/TestPEPService/wsdl/TestPEPService.wsdl"/>
-    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Examples/OpenSSOPDP/TestPEP/src/java/TestPEPSchema.xsd" uri="src/conf/xml-resources/web-service-references/TestPEPService/wsdl/TestPEPSchema.xsd"/>
-    <system systemId="http://localhost:8080/TestPEP/TestPEPServiceService?wsdl" uri="src/conf/xml-resources/web-service-references/TestPEPServiceService/wsdl/localhost_8080/TestPEP/TestPEPServiceService.wsdl"/>
-    <system systemId="http://localhost:8080/TestPEP/TestPEPServiceService?xsd=1" uri="src/conf/xml-resources/web-service-references/TestPEPServiceService/wsdl/localhost_8080/TestPEP/TestPEPServiceService.xsd_1.xsd"/>
-</catalog>

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-workspace name="JAXBBindingTest" soapui-version="2.0.3" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
-  <con:project status="CLOSED" name="JAXBBindingEJB">C:/projects/NHINC/Current/Product/Production/Examples/JAXBBindingExample/UnitTest/JAXBBindingEJB-soapui-project.xml</con:project>
-</con:soapui-workspace>
