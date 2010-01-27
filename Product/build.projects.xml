@@ -250,10 +250,6 @@
         <directory>/Production/Adapters/General/MpiEJB</directory>
     </project>
     <project>
-        <name>DocumentRepositoryEJB</name>
-        <directory>/Production/Adapters/General/DocumentRepositoryEJB</directory>
-    </project>
-    <project>
         <name>MpiManagerEJB</name>
         <directory>/Production/Adapters/General/MpiManagerEJB</directory>
     </project>
@@ -316,10 +312,6 @@
     <project>
         <name>AdapterPatientDiscoveryProxyEJB</name>
         <directory>/Production/Gateway/AdapterPatientDiscoveryProxyEJB</directory>
-    </project>
-    <project>
-        <name>AdapterDocRegistryAndRepositoryEJB</name>
-        <directory>/Production/Adapters/General/AdapterDocRegistryAndRepositoryEJB</directory>
     </project>
 	<project>
         <name>UDDIModifierGUI</name>

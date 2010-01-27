@@ -85,7 +85,7 @@
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -105,7 +105,7 @@
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
@@ -180,14 +180,14 @@
             <service>
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://<Adapter-IP>:8080/DocumentRegistry_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRegistry_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
@@ -408,7 +408,7 @@
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -428,7 +428,7 @@
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
@@ -503,14 +503,14 @@
             <service>
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://<Adapter-IP>:8080/DocumentRegistry_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRegistry_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>

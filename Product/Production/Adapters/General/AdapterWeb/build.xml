@@ -530,6 +530,44 @@
     </target>
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
+
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
+        <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
+        <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
+        <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
+        <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
+        <property name="project.AdapterDocumentRegistryProxy.Absolute" location="${project.AdapterDocumentRegistryProxy}"/>
+        <property name="project.AdapterDocumentRegistryProxyImpl.Absolute" location="${project.AdapterDocumentRegistryProxyImpl}"/>
+        <property name="project.AdapterDocumentRepositoryProxy.Absolute" location="${project.AdapterDocumentRepositoryProxy}"/>
+        <property name="project.AdapterDocumentRepositoryProxyImpl.Absolute" location="${project.AdapterDocumentRepositoryProxyImpl}"/>
+        <ant dir="${project.AdapterDocumentRegistryProxy.Absolute}" antfile="${project.AdapterDocumentRegistryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocumentRegistryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRegistryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxy.Absolute}" antfile="${project.AdapterDocumentRepositoryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.AdapterDocumentRepositoryProxyImpl.Absolute}" antfile="${project.AdapterDocumentRepositoryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
+
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
