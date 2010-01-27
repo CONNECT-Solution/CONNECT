@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubjectDiscovery.wsdl" uri="wsdl/NhincSubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocQuery.wsdl" uri="wsdl/NhincDocQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" uri="wsdl/NhincDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincAuditLogQuery.wsdl" uri="wsdl/NhincAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" uri="wsdl/NhincSubscription.wsdl"/>
+</catalog>
+
+

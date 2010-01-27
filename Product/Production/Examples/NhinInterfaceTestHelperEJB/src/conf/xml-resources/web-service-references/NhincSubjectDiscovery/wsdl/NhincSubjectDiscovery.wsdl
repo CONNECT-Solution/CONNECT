@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="NhincSubjectDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery" 
+    xmlns:hl7="urn:hl7-org:v3" 
+    xmlns:wsoap11="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincsubjectdiscovery">
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/MCCI_IN000002UV01.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201310UV02.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="PIXConsumer_PRPA_IN201301UVRequestMessage">
+        <part name="PIX201301Request" element="hl7:PIXConsumer_PRPA_IN201301UVRequest"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201301UVResponseMessage">
+        <part name="PIX201301Response" element="hl7:MCCI_IN000002UV01"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201302UVRequestMessage">
+        <part name="PIX201302Request" element="hl7:PIXConsumer_PRPA_IN201302UVRequest"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201302UVResponseMessage">
+        <part name="PIX201302Response" element="hl7:MCCI_IN000002UV01"/>
+    </message>
+ <!--   <message name="PIXConsumer_PRPA_IN201303UVRequestMessage">
+        <part name="PIX201303Request" element="hl7:PIXConsumer_PRPA_IN201303UVRequest"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201303UVResponseMessage">
+        <part name="PIX201303Response" element="hl7:MCCI_IN000002UV01"/>
+    </message>-->
+    <message name="PIXConsumer_PRPA_IN201304UVRequestMessage">
+        <part name="PIX201304Request" element="hl7:PIXConsumer_PRPA_IN201304UVRequest"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201304UVResponseMessage">
+        <part name="PIX201304Response" element="hl7:MCCI_IN000002UV01"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201309UVRequestMessage">
+        <part name="PIX201309Request" element="hl7:PIXConsumer_PRPA_IN201309UVRequest"/>
+    </message>
+    <message name="PIXConsumer_PRPA_IN201309UVResponseMessage">
+        <part name="PIX201309Response" element="hl7:PIXConsumer_PRPA_IN201309UVResponse"/>
+    </message>
+    <portType name="NhincSubjectDiscoveryPortType">
+        <operation name="PIXConsumer_PRPA_IN201301UV">
+            <input name="PIX201301Request" message="tns:PIXConsumer_PRPA_IN201301UVRequestMessage"/>
+            <output name="PIX201301Response" message="tns:PIXConsumer_PRPA_IN201301UVResponseMessage"/>
+        </operation>
+        <operation name="PIXConsumer_PRPA_IN201302UV">
+            <input name="PIX201302Request" message="tns:PIXConsumer_PRPA_IN201302UVRequestMessage"/>
+            <output name="PIX201302Response" message="tns:PIXConsumer_PRPA_IN201302UVResponseMessage"/>
+        </operation>
+<!--        <operation name="PIXConsumer_PRPA_IN201303UV">
+            <input name="PIX201303Request" message="tns:PIXConsumer_PRPA_IN201303UVRequestMessage"/>
+            <output name="PIX201303Response" message="tns:PIXConsumer_PRPA_IN201303UVResponseMessage"/>
+        </operation>-->
+        <operation name="PIXConsumer_PRPA_IN201304UV">
+            <input name="PIX201304Request" message="tns:PIXConsumer_PRPA_IN201304UVRequestMessage"/>
+            <output name="PIX201304Response" message="tns:PIXConsumer_PRPA_IN201304UVResponseMessage"/>
+        </operation>
+        <operation name="PIXConsumer_PRPA_IN201309UV">
+            <input name="PIX201309Request" message="tns:PIXConsumer_PRPA_IN201309UVRequestMessage"/>
+            <output name="PIX201309Response" message="tns:PIXConsumer_PRPA_IN201309UVResponseMessage"/>
+        </operation>
+    </portType>
+    <wsdl:binding name="NhincSubjectDiscoveryBinding_Soap11" type="tns:NhincSubjectDiscoveryPortType">
+        <wsoap11:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201301UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201301UV"/>
+            <wsdl:input name="PIX201301Request">
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIX201301Response">
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201302UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201302UV"/>
+            <wsdl:input name="PIX201302Request">
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIX201302Response">
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+ <!--       <wsdl:operation name="PIXConsumer_PRPA_IN201303UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201303UV"/>
+            <wsdl:input name="PIX201303Request">
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIX201303Response">
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>-->
+        <wsdl:operation name="PIXConsumer_PRPA_IN201304UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201304UV"/>
+            <wsdl:input name="PIX201304Request">
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIX201304Response">
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PIXConsumer_PRPA_IN201309UV">
+            <wsoap11:operation soapAction="urn:PIXConsumer_PRPA_IN201309UV"/>
+            <wsdl:input name="PIX201309Request">
+                <wsoap11:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="PIX201309Response">
+                <wsoap11:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="NhincSubjectDiscoveryService">
+    <wsdl:port name="NhincSubjectDiscovery_Port_Soap11" binding="tns:NhincSubjectDiscoveryBinding_Soap11">
+      <wsoap11:address location="http://localhost:${HttpDefaultPort}/NhinConnect/NhincSubjectDiscovery"/>
+    </wsdl:port>
+  </wsdl:service>
+    <plnk:partnerLinkType name="NhincSubjectDiscovery">
+        <!-- A partner link type is automatically generated when a new port type is added. Partner link types are used by BPEL processes. 
+In a BPEL process, a partner link represents the interaction between the BPEL process and a partner service. Each partner link is associated with a partner link type.
+A partner link type characterizes the conversational relationship between two services. The partner link type can have one or two roles.-->
+        <plnk:role name="NhincSubjectDiscoveryPortTypeRole" portType="tns:NhincSubjectDiscoveryPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
