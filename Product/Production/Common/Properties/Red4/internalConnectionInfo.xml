@@ -18,7 +18,7 @@
             <service>
                 <name>documentquery</name>
                 <description>documentquery</description>
-                <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
                 <name>documentretrieve</name>
