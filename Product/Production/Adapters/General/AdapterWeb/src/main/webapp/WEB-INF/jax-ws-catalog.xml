@@ -17,7 +17,7 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuerySaml.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/AdapterAuditLogQuerySaml.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/schemas/nhinc/gateway/SamlTokenData.xsd" uri="src/main/resources/xml-resources/web-services/AdapterSecuredAuditLogQuery/schemas/nhinc/gateway/SamlTokenData.xsd"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterReidentification.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterReidentification/wsdl/AdapterReidentification.wsdl"/>
-    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterMpiSecured/wsdl/AdapterMpiSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpiSecured.wsdl" uri="wsdl/AdapterMpiSecured.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterMpi.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterMpi/wsdl/AdapterMpi.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentMpi.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterComponentMpi/wsdl/AdapterComponentMpi.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentSecuredMpi.wsdl" uri="src/main/resources/xml-resources/web-services/AdapterComponentMpiSecured/wsdl/AdapterComponentSecuredMpi.wsdl"/>
@@ -124,6 +124,7 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl" uri="wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
 	<system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelation.wsdl" uri="wsdl/PatientCorrelationService/NhincComponentPatientCorrelation.wsdl"/>
 </catalog>
+
 
 
 

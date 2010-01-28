@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions 
+    name="AdapterComponentMpiSecured" 
+    targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" 
+    xmlns:hl7="urn:hl7-org:v3" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   	xmlns:wsaw="http://www.w3.org/2005/08/addressing"
+   	xmlns:ihe="urn:ihe:iti:xds-b:2007" 
+   	xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+   	xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   	xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+    >
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi">
+            <xsd:import namespace="urn:hl7-org:v3"
+                        schemaLocation="../schemas/nhinc/hl7/HL7PatientDiscoveryMessages.xsd" />
+            <xsd:import namespace="urn:hl7-org:v3"
+                        schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+            <xsd:import namespace="urn:hl7-org:v3"
+                        schemaLocation="../schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="FindCandidatesRequest">
+        <part name="FindCandidatesRequest"
+              element="hl7:PRPA_IN201305UV02"/>
+    </message>
+    <message name="FindCandidatesResponse">
+        <part name="FindCandidatesResponse"
+              element="hl7:PRPA_IN201306UV02"/>
+    </message>
+    <portType name="AdapterComponentMpiSecuredPortType">
+        <operation name="FindCandidates">
+            <input name="FindCandidatesRequest"
+                   message="tns:FindCandidatesRequest"/>
+            <output name="FindCandidatesResponse"
+                    message="tns:FindCandidatesResponse"/>
+        </operation>
+    </portType>
+    <binding name="AdapterComponentMpiSecuredPortTypeBinding"
+             type="tns:AdapterComponentMpiSecuredPortType">
+        <wsp1:PolicyReference URI="#AdapterComponentMpiSecuredPortTypeBindingPolicy"/>
+        <soap:binding style="document"
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="FindCandidates">
+            <soap:operation soapAction="FindCandidates"/>
+            <input name="FindCandidatesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="FindCandidatesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="AdapterComponentMpiSecuredService">
+        <port name="AdapterComponentMpiSecuredPort"
+              binding="tns:AdapterComponentMpiSecuredPortTypeBinding">
+            <soap:address
+                location="https://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiSecuredService"/>
+        </port>
+    </service>
+    <plnk:partnerLinkType name="AdapterComponentMpi">
+        <!-- A partner link type is automatically generated when a new port
+             type is added. Partner link types are used by BPEL processes.
+             In a BPEL process, a partner link represents the interaction
+             between the BPEL process and a partner service. Each partner
+             link is associated with a partner link type.  A partner link
+             type characterizes the conversational relationship between two
+             services. The partner link type can have one or two roles.-->
+        <plnk:role name="MpiPortTypeRole"
+                   portType="tns:AdapterComponentMpiPortType"/>
+    </plnk:partnerLinkType>
+    <wsp1:Policy wsu:Id="AdapterComponentMpiSecuredPortTypeBindingPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private"
+                    aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector"
+                    callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private"
+                certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector"
+                callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+</definitions>

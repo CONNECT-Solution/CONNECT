@@ -40,9 +40,6 @@
          <name>EntityHiemSubscriptionProxyEJB</name>
       </ejb>
       <ejb>
-         <name>AdapterMPIProxyEJB</name>
-      </ejb>
-      <ejb>
          <name>NhincHiemSubscriptionEJB</name>
       </ejb>
       <ejb>
@@ -59,21 +56,6 @@
       </ejb>
       <ejb>
          <name>AdapterPolicyEngineOrchestratorEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterPIPEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterPEPEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterAuditQueryEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterPatientDiscoveryEJB</name>
-      </ejb>
-      <ejb>
-         <name>AdapterAuthenticationEJB</name>
       </ejb>
       <ejb>
          <name>NhincAuditQueryEJB</name>
@@ -131,9 +113,6 @@
       </ejb>
       <ejb>
          <name>PatientCorrelationFacadeDteEjb</name>
-      </ejb>
-      <ejb>
-         <name>AdapterMpiEJB</name>
       </ejb>
       <ejb>
          <name>MpiEJB</name>

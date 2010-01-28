@@ -115,17 +115,17 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
@@ -194,12 +194,12 @@
             <service>
                 <name>adapterpip</name>
                 <description>adapterpip</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterPIP/AdapterPIPService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPIP</endpointURL>
             </service>
             <service>
                 <name>adapterpep</name>
                 <description>adapterpep</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterPEP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPEP</endpointURL>
             </service>
             <service>
                 <name>adapterpolicyengineorchestrator</name>
@@ -279,7 +279,7 @@
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuthentication</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterAuthentication</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
@@ -438,17 +438,17 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
@@ -517,12 +517,12 @@
             <service>
                 <name>adapterpip</name>
                 <description>adapterpip</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterPIP/AdapterPIPService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPIP</endpointURL>
             </service>
             <service>
                 <name>adapterpep</name>
                 <description>adapterpep</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterPEP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPEP</endpointURL>
             </service>
             <service>
                 <name>adapterpolicyengineorchestrator</name>
@@ -602,7 +602,7 @@
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterAuthentication</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterAuthentication</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
@@ -781,7 +781,7 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>

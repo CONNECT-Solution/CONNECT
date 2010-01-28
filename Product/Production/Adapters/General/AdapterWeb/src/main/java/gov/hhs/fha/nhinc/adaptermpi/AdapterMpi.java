@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class AdapterMpi {
 
     public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType findCandidatesRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new AdapterMpiProxyImpl().query(findCandidatesRequest);
     }
 
 }

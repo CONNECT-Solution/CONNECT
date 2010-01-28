@@ -45,6 +45,10 @@
     <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
   <project>
+    <name>NhinHiemProxy</name>
+    <directory>/Production/Gateway/NhinHiemProxy</directory>
+  </project>
+  <project>
     <name>DocumentRepository</name>
     <directory>/Production/Adapters/General/DocumentRepository</directory>
   </project>
@@ -61,12 +65,40 @@
     <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
   </project>
   <project>
+    <name>AuditRepositoryProxy</name>
+    <directory>/Production/Gateway/AuditRepositoryProxy</directory>
+  </project>
+  <project>
+    <name>AuditRepositoryProxyImpl</name>
+    <directory>/Production/Gateway/AuditRepositoryProxyImpl</directory>
+  </project>
+  <project>
     <name>AdapterPIPLib</name>
     <directory>/Production/Adapters/General/AdapterPIPLib</directory>
   </project>
   <project>
+    <name>AdapterPIPProxy</name>
+    <directory>/Production/Adapters/General/AdapterPIPProxy</directory>
+  </project>
+  <project>
+    <name>AdapterPIPProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterPIPProxyImpl</directory>
+  </project>
+  <project>
     <name>AdapterPEPLib</name>
     <directory>/Production/Adapters/General/AdapterPEPLib</directory>
+  </project>
+  <project>
+    <name>AdapterPEPProxy</name>
+    <directory>/Production/Adapters/General/AdapterPEPProxy</directory>
+  </project>
+  <project>
+    <name>AdapterPEPProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterPEPProxyImpl</directory>
+  </project>
+  <project>
+    <name>AdapterAuthenticationLib</name>
+    <directory>/Production/Adapters/General/AdapterAuthenticationLib</directory>
   </project>
   <project>
     <name>AdapterDocumentRegistryProxy</name>
@@ -84,6 +116,14 @@
     <name>AdapterDocumentRepositoryProxyImpl</name>
     <directory>/Production/Adapters/General/AdapterDocumentRepositoryProxyImpl</directory>
   </project>
+  <project>
+    <name>AdapterAuditQueryProxy</name>
+    <directory>/Production/Adapters/General/AdapterAuditQueryProxy</directory>
+  </project>
+  <project>
+    <name>AdapterAuditQueryProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterAuditQueryProxyImpl</directory>
+  </project>
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
@@ -95,11 +135,6 @@
     <name>EntityHiemSubscriptionProxyEJB</name>
     <directory>/Production/Adapters/General/EntityHiemSubscriptionProxyEJB</directory>
   </project>
-  <project>
-    <name>AdapterMPIProxyEJB</name>
-    <directory>/Production/Adapters/General/AdapterMPIProxyEJB</directory>
-  </project>
-
   <project>
     <name>NhincHiemSubscriptionEJB</name>
     <directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
@@ -133,32 +168,12 @@
     <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorEJB</directory>
   </project>
   <project>
-    <name>AdapterPIPEJB</name>
-    <directory>/Production/Adapters/General/AdapterPIPEJB</directory>
-  </project>
-  <project>
-    <name>AdapterPEPEJB</name>
-    <directory>/Production/Adapters/General/AdapterPEPEJB</directory>
-  </project>
-  <project>
     <name>AdapterPDPOpenSSO</name>
     <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
   </project>
   <project>
-    <name>AdapterAuditQueryEJB</name>
-    <directory>/Production/Adapters/General/AdapterAuditQueryEJB</directory>
-  </project>
-  <project>
     <name>AdapterSubjectDiscoveryEJB</name>
     <directory>/Production/Adapters/General/AdapterSubjectDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>AdapterPatientDiscoveryEJB</name>
-    <directory>/Production/Adapters/General/AdapterPatientDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>AdapterAuthenticationEJB</name>
-    <directory>/Production/Adapters/General/AdapterAuthenticationEJB</directory>
   </project>
   <project>
     <name>ConsumerPreferencesProfileGUI</name>
@@ -257,10 +272,6 @@
     <directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
   </project>
   <project>
-    <name>AdapterMpiEJB</name>
-    <directory>/Production/Adapters/General/AdapterMpiEJB</directory>
-  </project>
-  <project>
     <name>MpiEJB</name>
     <directory>/Production/Adapters/General/MpiEJB</directory>
   </project>
@@ -332,6 +343,5 @@
     <name>UDDIModifierGUI</name>
     <directory>/Production/Common/UDDIModifierGUI</directory>
   </project>
-
 
 </projects>

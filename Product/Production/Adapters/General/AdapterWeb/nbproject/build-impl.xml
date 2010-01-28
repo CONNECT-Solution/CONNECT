@@ -531,9 +531,22 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.AdapterDocumentRegistryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRegistryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterDocumentRepositoryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRepositoryProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterDocumentRepositoryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocumentRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterAuditQueryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuditQueryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterAuditQueryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuditQueryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPEPLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPEPLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPEPProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPEPProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPEPProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPEPProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPIPLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPIPProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterPIPProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterDocumentRegistryProxy.jar} ${manifest.file.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterDocumentRegistryProxy.jar} ${manifest.file.reference.AdapterDocumentRegistryProxyImpl.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxy.jar} ${manifest.file.reference.AdapterDocumentRepositoryProxyImpl.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.AuditRepositoryProxy.jar} ${manifest.file.reference.AuditRepositoryProxyImpl.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.AdapterPEPLib.jar} ${manifest.file.reference.AdapterPEPProxy.jar} ${manifest.file.reference.AdapterPEPProxyImpl.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.AdapterPIPProxy.jar} ${manifest.file.reference.AdapterPIPProxyImpl.jar} ${manifest.file.reference.NhinHiemProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -542,6 +555,19 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.AdapterDocumentRegistryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterDocumentRepositoryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterDocumentRepositoryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterAuditQueryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterAuditQueryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPEPLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPEPProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPEPProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPIPLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPIPProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterPIPProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
