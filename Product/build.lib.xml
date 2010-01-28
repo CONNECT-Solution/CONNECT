@@ -1,49 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="build.lib" default="none">
   <property environment="env"/>
-  <property name="project.dir" location="." />
-  <basename file="${project.dir}" property="project.name" />
-
-  <property name="ProductDirectory" location='.' id="proddir"/>
-
+  <property name="project.dir" location="."/>
+  <basename file="${project.dir}" property="project.name"/>
+  
+  <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar"/>
+  
   <import file="build.properties.xml"/>
 
-  <import file="Properties.build.xml"/>
-
-  <import file="build/checkstyle/checkstyle.targets.xml"/>
-  <property name="libs.CopyLibs.classpath" value="${ant.home}/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
-
   <import file="Install/deploy.xml"/>
-
-  <path id="ant.contrib.task.classpath">
-    <pathelement location="${ant.home}/lib/ant-contrib-1.0b3.jar"/>
-    <pathelement location="${ant.home}/lib/ivy-2.1.0-rc1.jar"/>
-    <pathelement location="${ant.home}/lib/bcel-5.1.jar"/>
-    <pathelement location="${ant.home}/lib/commons-httpclient-3.0.1.jar"/>
-    <pathelement location="${ant.home}/lib/commons-logging-1.0.4.jar"/>
-  </path>
-
-  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask">
-    <classpath refid="ant.contrib.task.classpath"/>
-  </taskdef>
-
-  <taskdef name="if" classname="net.sf.antcontrib.logic.IfTask">
-    <classpath refid="ant.contrib.task.classpath"/>
-  </taskdef>
-
-  <taskdef name="var" classname="net.sf.antcontrib.property.Variable">
-    <classpath refid="ant.contrib.task.classpath"/>
-  </taskdef>
-
-  <taskdef name="outofdate" classname="net.sf.antcontrib.logic.OutOfDate">
-    <classpath refid="ant.contrib.task.classpath"/>
-  </taskdef>
-
-  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask">
-    <classpath>
-      <pathelement location="${ant.home}/lib/xmltask-v1.15.1.jar"/>
-    </classpath>
-  </taskdef>
+  
+  <import file="build/checkstyle/checkstyle.targets.xml"/>
 
   <macrodef name="call">
     <attribute name="target"/>
@@ -51,8 +18,8 @@
     <sequential>
       <if>
         <and>
-          <istrue value="@{if}" />
-          <isfalse value="@{unless}" />
+          <istrue value="@{if}"/>
+          <isfalse value="@{unless}"/>
         </and>
         <then>
           <runtarget target="@{target}"/>
@@ -76,7 +43,7 @@
   </target>
 
   <target name="addentry.deploy.list.xml">
-    <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}." />
+    <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}."/>
     <switch value="${deploy.type}">
       <case value="war">
         <var name="deploy.list.entry.xpath" value="/applications/wars"/>
@@ -113,7 +80,7 @@
       </case>
       <default>
         <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-          <isset property="sedeployment.jar" />
+          <isset property="sedeployment.jar"/>
         </condition>
       </default>
     </switch>
@@ -124,25 +91,15 @@
   </target>
 
   <target name="deploy">
-    <antcall target="create.deploy.list.xml"/>
-    <call target="copy.deployable.artifacts" />
-    <call target="deploy.to.production"/>
+    <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
+    <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
+    <call target="deploy.to.production" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="undeploy">
-    <property file="${project.dir}/nbproject/project.properties"/>
-    <switch value="${deploy.type}">
-      <case value="war">
-        <property name="dist.file" value="${project.dir}/${dist.war}"/>
-      </case>
-      <default>
-        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
-          <isset property="sedeployment.jar" />
-        </condition>
-      </default>
-    </switch>
-
-    <call target="undeploy.from.development" if="${deploy.isDeployable}"/>
+    <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
+    <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
+    <call target="undeploy.from.production" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="checkstyle">
@@ -154,49 +111,13 @@
   <property name="target-to-call" value=""/>
   -->
   <target name="call-target-in-isolation-if-out-of-date">
-    <property location="." name="project-to-build" />
+    <property location="." name="project-to-build"/>
     <echo message="project-to-build=${project-to-build}"/>
-    <property name="target-to-call" value="dist" />
-    <property name="base" value="${project-to-build}/lib" />
-    <property file="${project-to-build}/lib/nblibraries.properties" />
-    <property file="${project-to-build}/nbproject/project.properties" />
-    <antcall target="build-project-if-out-of-date" />
-  </target>
-
-  <target name="clean-gen" if="is-gen-outofdate">
-    <echo message="Cleaning generated code..."/>
-    <delete dir="${build.generated.dir}"/>
-  </target>
-
-  <target name="clean-gen-if-out-of-date">
-    <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
-      <isset property="sedeployment.jar" />
-    </condition>
-
-    <property name="current-project" location="."/>
-
-    <echo message="Looking to see if ${current-project} generated code should be rebuilt."/>
-    <echo message="Checking:"/>
-    <echo message="${current-project}/${source.root}/**/*.wsdl"/>
-    <echo message="${current-project}/${source.root}/**/*.xsd"/>
-    <echo message="against:"/>
-    <echo message="${current-project}/${dist.file}"/>
-
-    <outofdate verbose="true" property="is-gen-outofdate">
-      <sourcefiles>
-        <fileset dir="${current-project}" casesensitive="no">
-          <patternset>
-            <include name="${source.root}/**/*.wsdl"/>
-            <include name="${source.root}/**/*.xsd"/>
-          </patternset>
-        </fileset>
-      </sourcefiles>
-      <targetfiles path="${current-project}/${dist.file}"/>
-    </outofdate>
-
-    <echo message="It is ${is-gen-outofdate} that the generated code for the following is outofdate '${current-project}'."/>
-
-    <antcall target="clean-gen"/>
+    <property name="target-to-call" value="dist"/>
+    <property name="base" value="${project-to-build}/lib"/>
+    <property file="${project-to-build}/lib/nblibraries.properties"/>
+    <property file="${project-to-build}/nbproject/project.properties"/>
+    <antcall target="build-project-if-out-of-date"/>
   </target>
 
   <!-- 
@@ -206,7 +127,7 @@
   -->
   <target name="build-project-if-out-of-date" >
     <condition property="dist.file" value="${sedeployment.jar}" else="${dist.jar}">
-      <isset property="sedeployment.jar" />
+      <isset property="sedeployment.jar"/>
     </condition>
 
     <echo message="Looking to see if ${project-to-build} should be built."/>
@@ -217,14 +138,14 @@
     <echo message="${javac.classpath}"/>
 
     <if>
-      <isset property="javac.classpath" />
+      <isset property="javac.classpath"/>
       <then>
 
         <var name="javac.classpath.exists" value="true"/>
         <for delimiter=":;"  list="${javac.classpath}" param="jar.file">
           <sequential>
             <if>
-              <length string="@{jar.file}" trim="true" length="1" />
+              <length string="@{jar.file}" trim="true" length="1"/>
               <then>
               </then>
               <else>
@@ -232,7 +153,7 @@
                 <available property="@{jar.file}.exists" file="@{jar.file}"/>
 
                 <if>
-                  <isset property="@{jar.file}.exists" />
+                  <isset property="@{jar.file}.exists"/>
                   <then>
                     <echo message="It is true that this file exists: @{jar.file}."/>
                   </then>
@@ -256,7 +177,7 @@
     </if>
 
     <if>
-      <equals arg1="${javac.classpath.exists}" arg2="true" />
+      <equals arg1="${javac.classpath.exists}" arg2="true"/>
       <then>
         <outofdate verbose="true" force="${outofdate.force}" property="need.build">
           <sourcefiles>
@@ -276,7 +197,7 @@
     </if>
 
     <if>
-      <equals arg1="${need.build}" arg2="true" />
+      <equals arg1="${need.build}" arg2="true"/>
       <then>
         <echo message="Building ${project-to-build}"/>
         <echo message="Calling target ${target-to-call}"/>
@@ -285,7 +206,7 @@
             target="${target-to-call}"
             inheritall="false"
             antfile="${project-to-build}/build.xml"
-            />
+        />
       </then>
       <else>
         <echo message="No need to build the following project, it is already uptodate: ${project-to-build}"/>

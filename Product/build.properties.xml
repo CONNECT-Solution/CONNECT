@@ -5,8 +5,9 @@
 
   <property name="caps.netbeans.home" value="${env.IDE_HOME}"/>
   <property name="glassfish.home" value="${env.AS_HOME}"/>
+  <property name="root.project.directory.path" value="${env.NHINC_SOURCE_DIR}/Product"/>
   <property name="nhin.thirdparty.home" value="${env.NHINC_THIRDPARTY_DIR}"/>
-  <property name="nhin.project.home" value="${ProductDirectory}"/>
+  <property name="nhin.project.home" value="${root.project.directory.path}"/><!--remove it and replace with ${root.project.directory.path}-->
 
   <property name="netbeans.home" value="${caps.netbeans.home}/platform10"/>
   <property name="caps.netbeans.user" value="."/>

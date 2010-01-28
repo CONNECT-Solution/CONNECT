@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." name="nhinc.deployment" default="deploy">
 
-  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
-  <taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
-
+  
   <if>
     <isset property="project.name" />
     <then>
@@ -48,19 +48,11 @@
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
 
   <target name="deploy">
-        <antcall target="deploy.to.production" />
+    <antcall target="deploy.to.production" />
   </target>
 
   <target name="undeploy">
-    <if>
-      <isset property="project.name" />
-      <then>
-        <antcall target="undeploy.from.development" />
-      </then>
-      <else>
-        <antcall target="undeploy.from.production" />
-      </else>
-    </if>
+    <antcall target="undeploy.from.production" />
   </target>
 
   <target name="deploy.to.production">
@@ -184,70 +176,9 @@
     </xmltask>
   </target>
 
-  <target name="deploy.to.development">
-    <echo message="Attempting to deploy package for project ${project.name}." />
-
-    <mkdir dir="${deployment.binaries.dir}" />
-    <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>
-
-    <switch value="${deploy.type}">
-      <case value="ejb">
-        <var unset="true" name="deployment.glassfish.ejb.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.ejb.name" suffix=".jar" />
-        <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ejb.name}.jar" />
-        <runtarget target="deploy.ejb.to.glassfish" />
-      </case>
-      <case value="war">
-        <var unset="true" name="deployment.glassfish.war.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.war.name" suffix=".war" />
-        <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
-        <runtarget target="deploy.war.to.glassfish" />
-      </case>
-      <case value="shared">
-        <var unset="true" name="deployment.glassfish.shared.lib.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.shared.lib.name" suffix=".jar" />
-        <var name="deployment.glassfish.shared.lib.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.shared.lib.name}.jar" />
-        <runtarget target="deploy.glassfish.stop.server"/>
-        <runtarget target="deploy.shared.lib.to.glassfish" />
-        <runtarget target="deploy.glassfish.start.server"/>
-      </case>
-      <default>
-        <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
-      </default>
-    </switch>
-  </target>
-
   <target name="copy.artifacts.to.development">
-    <echo message="Attempting to copy package for project ${project.name}." />
-
     <mkdir dir="${deployment.binaries.dir}" />
-
     <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>    
-  </target>
-
-  <target name="undeploy.from.development">
-    <echo message="Attempting to undeploy package for project ${project.name}." />
-
-    <switch value="${deploy.type}">
-      <case value="ejb">
-        <var unset="true" name="deployment.glassfish.ejb.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.ejb.name" suffix=".jar" />
-        <var name="deployment.glassfish.ejb.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.ejb.name}.jar" />
-        <runtarget target="undeploy.ejb.from.glassfish" />
-      </case>
-      <case value="war">
-        <var unset="true" name="deployment.glassfish.war.name" />
-        <basename file="${dist.file}" property="deployment.glassfish.war.name" suffix=".war" />
-        <var name="deployment.glassfish.war.file.path" value="${deployment.binaries.dir}/${deployment.glassfish.war.name}.war" />
-        <runtarget target="undeploy.war.from.glassfish" />
-      </case>
-      <case value="shared">
-        <echo message="A shared J2EE libraries or optional package cannot be undeployed until all applications that reference the library or package are first undeployed. If no applications reference an application or package you can safely remove it."/>
-      </case>
-      <default>
-        <fail message="Tag your it! Deploying ${dist.type}s has not yet been implemented, you can write it..." />
-      </default>
-    </switch>
   </target>
 
   <target name="deploy.ejb.to.glassfish">
