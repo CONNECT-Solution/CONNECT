@@ -10,8 +10,8 @@ import javax.jws.WebService;
 public class AdapterReidentification {
 
     public org.hl7.v3.PIXConsumerPRPAIN201310UVRequestType getRealIdentifier(org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType getRealIdentifierRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        AdapterReidentificationImpl impl = new AdapterReidentificationImpl();
+        return impl.getRealIdentifier(getRealIdentifierRequest);
     }
 
 }

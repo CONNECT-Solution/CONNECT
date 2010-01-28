@@ -145,6 +145,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>MpiManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adaptermpimanager.MpiManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MpiManager</servlet-name>
+        <url-pattern>/AdapterMpiManagerService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AdapterComponentMpiSecured</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiSecured</servlet-class>
     </servlet>

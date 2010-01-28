@@ -43,7 +43,7 @@
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
-                <endpointURL>http://<Gateway-IP>:8080/PatientCorrelationService</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/PatientCorrelationService</endpointURL>
             </service>
 			
             <service>
@@ -75,7 +75,7 @@
             <service>
                 <name>policyengineservicesecured</name>
                 <description>Policy Engine Service Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -95,7 +95,7 @@
             <service>
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -130,17 +130,17 @@
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterReidentification</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterReidentification</endpointURL>
             </service>
             <service>
                 <name>adapternotificationproducersecured</name>
@@ -204,7 +204,7 @@
             <service>
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPolicyEngineOrchestrator</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>
@@ -366,7 +366,7 @@
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
-                <endpointURL>http://<Gateway-IP>:8080/PatientCorrelationService</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/PatientCorrelationService</endpointURL>
             </service>
 			
             <service>
@@ -398,7 +398,7 @@
             <service>
                 <name>policyengineservicesecured</name>
                 <description>Policy Engine Service Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -418,7 +418,7 @@
             <service>
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -453,17 +453,17 @@
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://<Adapter-IP>:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterReidentification</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterReidentification</endpointURL>
             </service>
             <service>
                 <name>adapternotificationproducersecured</name>
@@ -527,7 +527,7 @@
             <service>
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
-                <endpointURL>http://<Adapter-IP>:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPolicyEngineOrchestrator</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>

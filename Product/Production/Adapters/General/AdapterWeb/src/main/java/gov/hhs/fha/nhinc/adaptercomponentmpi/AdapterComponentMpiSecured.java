@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class AdapterComponentMpiSecured {
 
     public org.hl7.v3.PRPAIN201306UV02 findCandidates(org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return PatientChecker.FindPatient(findCandidatesRequest);
     }
 
 }

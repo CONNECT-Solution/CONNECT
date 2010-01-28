@@ -10,13 +10,14 @@ import javax.jws.WebService;
 public class PatientCorrelationService {
 
     public org.hl7.v3.RetrievePatientCorrelationsResponseType retrievePatientCorrelations(org.hl7.v3.RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        PatientCorrelationImpl impl = new PatientCorrelationImpl();
+
+        return impl.retrievePatientCorrelations(retrievePatientCorrelationsRequest);
     }
 
     public org.hl7.v3.AddPatientCorrelationResponseType addPatientCorrelation(org.hl7.v3.AddPatientCorrelationRequestType addPatientCorrelationRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        PatientCorrelationImpl impl = new PatientCorrelationImpl();
+        return impl.addPatientCorrelation(addPatientCorrelationRequest);
     }
 
 }

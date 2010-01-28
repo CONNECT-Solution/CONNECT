@@ -1,6 +1,8 @@
 package gov.hhs.nhinc.policyengine.adapterpolicyengine;
 
+import javax.annotation.Resource;
 import javax.jws.WebService;
+import javax.xml.ws.WebServiceContext;
 //import javax.xml.ws.WebServiceRef;
 
 /**
@@ -9,10 +11,12 @@ import javax.jws.WebService;
  */
 @WebService(serviceName = "AdapterPolicyEngineSecured", portName = "AdapterPolicyEngineSecuredPortSoap11", endpointInterface = "gov.hhs.fha.nhinc.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapterpolicyenginesecured", wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl")
 public class AdapterPolicyEngineSecured {
-    //@WebServiceRef(wsdlLocation = "WEB-INF/wsdl/AdapterPolicyEngineSecured/AdapterPolicyEngineSecured.wsdl")
+
+    @Resource
+    private WebServiceContext context;
+    
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType checkPolicy(gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new AdapterPolicyEngineSecuredImpl().checkPolicy(body, context);
     }
 
 }

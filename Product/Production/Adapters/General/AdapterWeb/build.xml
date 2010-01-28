@@ -528,9 +528,24 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/schemas/"/>
         </copy>
     </target>
+    <target name="wsimport-service-MpiManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/MpiManager"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/MpiManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/MpiManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/schemas/"/>
+        </copy>
+    </target>
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

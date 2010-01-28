@@ -97,6 +97,30 @@
     <directory>/Production/Adapters/General/AdapterAuthenticationLib</directory>
   </project>
   <project>
+    <name>AdapterPolicyEngineLib</name>
+    <directory>/Production/Adapters/General/AdapterPolicyEngineLib</directory>
+  </project>
+  <project>
+    <name>AdapterPolicyEngineOrchestratorLib</name>
+    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorLib</directory>
+  </project>
+  <project>
+    <name>AdapterReidentificationLib</name>
+    <directory>/Production/Adapters/General/AdapterReidentificationLib</directory>
+  </project>
+  <project>
+    <name>MpiLib</name>
+    <directory>/Production/Adapters/General/MpiLib</directory>
+  </project>
+  <project>
+    <name>AdapterPolicyEngineOrchestratorProxy</name>
+    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorProxy</directory>
+  </project>
+  <project>
+    <name>AdapterPolicyEngineOrchestratorProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorProxyImpl</directory>
+  </project>
+  <project>
     <name>AdapterDocumentRegistryProxy</name>
     <directory>/Production/Adapters/General/AdapterDocumentRegistryProxy</directory>
   </project>
@@ -164,25 +188,13 @@
     <directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
   </project>
   <project>
-    <name>AdapterPolicyEngineEJB</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineEJB</directory>
-  </project>
-  <project>
     <name>AdapterPolicyEngineProxyEJB</name>
     <directory>/Production/Gateway/AdapterPolicyEngineProxyEJB</directory>
   </project>
   <project>
-    <name>AdapterPolicyEngineOrchestratorEJB</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorEJB</directory>
-  </project>
-  <project>
     <name>AdapterPDPOpenSSO</name>
     <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
-  </project>
-  <project>
-    <name>AdapterSubjectDiscoveryEJB</name>
-    <directory>/Production/Adapters/General/AdapterSubjectDiscoveryEJB</directory>
-  </project>
+  </project>  
   <project>
     <name>ConsumerPreferencesProfileGUI</name>
     <directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
@@ -276,28 +288,8 @@
     <directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
   </project>
   <project>
-    <name>MpiEJB</name>
-    <directory>/Production/Adapters/General/MpiEJB</directory>
-  </project>
-  <project>
-    <name>MpiManagerEJB</name>
-    <directory>/Production/Adapters/General/MpiManagerEJB</directory>
-  </project>
-  <project>
-    <name>AdapterPolicyEngineTransformEJB</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineTransformEJB</directory>
-  </project>
-  <project>
-    <name>AdapterReidentificationEJB</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationEJB</directory>
-  </project>
-  <project>
     <name>EntityDocQueryProxyEJB</name>
     <directory>/Production/Adapters/General/EntityDocQueryProxyEJB</directory>
-  </project>
-  <project>
-    <name>PatientCorrelationProxy</name>
-    <directory>/Production/Adapters/General/PatientCorrelationProxy</directory>
   </project>
   <project>
     <name>AdapterDocQueryProxyEJB</name>
