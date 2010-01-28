@@ -132,6 +132,10 @@
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
   <project>
+    <name>GatewayWeb</name>
+    <directory>/Production/Gateway/GatewayWeb</directory>
+  </project>
+  <project>
     <name>NhinInterfaceTestHelperEJB</name>
     <directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
   </project>
@@ -198,10 +202,6 @@
   <project>
     <name>EntityDocQueryEJB</name>
     <directory>/Production/Gateway/EntityDocQueryEJB</directory>
-  </project>
-  <project>
-    <name>NhincDocQueryEJB</name>
-    <directory>/Production/Gateway/NhincDocQueryEJB</directory>
   </project>
   <project>
     <name>NhincDocRetrieveEJB</name>

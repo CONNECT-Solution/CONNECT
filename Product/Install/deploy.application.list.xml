@@ -3,6 +3,9 @@
 <applications>
    <wars>
       <war>
+         <name>GatewayWeb</name>
+      </war>
+      <war>
          <name>ConsumerPreferencesProfileGUI</name>
       </war>
       <war>
@@ -62,9 +65,6 @@
       </ejb>
       <ejb>
          <name>EntityDocQueryEJB</name>
-      </ejb>
-      <ejb>
-         <name>NhincDocQueryEJB</name>
       </ejb>
       <ejb>
          <name>NhincDocRetrieveEJB</name>
