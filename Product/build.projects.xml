@@ -137,7 +137,7 @@
   </project>
   <project>
     <name>NhinInterfaceTestHelperEJB</name>
-    <directory>/Production/Examples/NhinInterfaceTestHelperEJB</directory>
+    <directory>/Production/Gateway/NhinInterfaceTestHelperEJB</directory>
   </project>
   <project>
     <name>EntityHiemSubscriptionProxyEJB</name>
