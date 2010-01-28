@@ -33,11 +33,8 @@
             <included-library>file.reference.AdapterServiceProxy.jar</included-library>
             <included-library>file.reference.NhinServiceProxy.jar</included-library>
             <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxy.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxyImpl.jar</included-library>
             <included-library>file.reference.AdapterMpiProxy.jar</included-library>
+            <included-library>file.reference.GatewayInternalComponentProxy.jar</included-library>
             <included-library>file.reference.AdapterMpiProxyImpl.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacade.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacadeProxy.jar</included-library>

@@ -14,12 +14,9 @@
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacadeProxy.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxyImpl.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxy.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
             <included-library>file.reference.PatientCorrelationDAO.jar</included-library>
+            <included-library>file.reference.GatewayInternalComponentProxy.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacade.jar</included-library>
             <included-library>file.reference.NhinServiceProxy.jar</included-library>
             <included-library>file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar</included-library>

@@ -18,7 +18,7 @@
     </target>
     <target name="clean-build" depends="clean,build" />
     <target name="clean-test" depends="clean-build,test" />
-    <target name="build-test" depends="build,test" />
+    <target name="build-test" depends="build" />
 
     <!--
 

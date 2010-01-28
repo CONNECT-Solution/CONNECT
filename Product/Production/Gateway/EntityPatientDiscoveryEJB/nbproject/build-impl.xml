@@ -341,10 +341,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-junit3-2.5.1.jar}" todir="${build.classes.dir}"/>
@@ -352,9 +350,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-script-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.AdapterMpiProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.bsh-core-2.0b4.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.cglib-2.1_3-src.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" todir="${build.classes.dir}"/>
@@ -368,10 +365,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.file.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincLib.jar}" manifestproperty="manifest.file.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.file.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jmock-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-2.5.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jmock-junit3-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-junit3-2.5.1.jar" todir="${dist.ear.dir}"/>
@@ -379,9 +374,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jmock-legacy-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-legacy-2.5.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jmock-script-2.5.1.jar}" manifestproperty="manifest.file.reference.jmock-script-2.5.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterMpiProxy.jar}" manifestproperty="manifest.file.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxy.jar}" manifestproperty="manifest.file.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.file.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" manifestproperty="manifest.file.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.bsh-core-2.0b4.jar}" manifestproperty="manifest.file.reference.bsh-core-2.0b4.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-2.1_3-src.jar}" manifestproperty="manifest.file.reference.cglib-2.1_3-src.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.cglib-nodep-2.1_3.jar}" manifestproperty="manifest.file.reference.cglib-nodep-2.1_3.jar" todir="${dist.ear.dir}"/>
@@ -391,7 +385,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" manifestproperty="manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.AuditRepositoryProxy.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.AuditRepositoryProxyImpl.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.file.reference.AdapterMpiProxy.jar} ${manifest.file.reference.PolicyEngineProxy.jar} ${manifest.file.reference.PolicyEngineProxyImpl.jar} ${manifest.file.reference.AdapterMpiProxyImpl.jar} ${manifest.file.reference.bsh-core-2.0b4.jar} ${manifest.file.reference.cglib-2.1_3-src.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.hamcrest-core-1.1.jar} ${manifest.file.reference.hamcrest-library-1.1.jar} ${manifest.file.reference.objenesis-1.0.jar} ${manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.file.reference.NhinServiceProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.jmock-2.5.1.jar} ${manifest.file.reference.jmock-junit3-2.5.1.jar} ${manifest.file.reference.jmock-junit4-2.5.1.jar} ${manifest.file.reference.jmock-legacy-2.5.1.jar} ${manifest.file.reference.jmock-script-2.5.1.jar} ${manifest.file.reference.AdapterMpiProxy.jar} ${manifest.file.reference.AdapterMpiProxyImpl.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.bsh-core-2.0b4.jar} ${manifest.file.reference.cglib-2.1_3-src.jar} ${manifest.file.reference.cglib-nodep-2.1_3.jar} ${manifest.file.reference.hamcrest-core-1.1.jar} ${manifest.file.reference.hamcrest-library-1.1.jar} ${manifest.file.reference.objenesis-1.0.jar} ${manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.file.reference.NhinServiceProxy.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">

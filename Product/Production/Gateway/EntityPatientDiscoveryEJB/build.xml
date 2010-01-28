@@ -57,15 +57,9 @@
     </target>
 
     <target depends="compile" name="library-inclusion-in-archive">
-        <copy file="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.NhinServiceProxy.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-junit3-2.5.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.jmock-junit4-2.5.1.jar}" todir="${build.classes.dir}"/>
@@ -75,29 +69,17 @@
         <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" todir="${build.classes.dir}"/>
     </target>
 	<target depends="compile" name="library-inclusion-in-manifest">
-		<basename file="${file.reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-		<copy file="${file.reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.NhincDataTransformsLib.jar}" property="included.lib.reference.NhincDataTransformsLib.jar"/>
-		<copy file="${file.reference.NhincDataTransformsLib.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.AuditRepositoryProxy.jar}" property="included.lib.reference.AuditRepositoryProxy.jar"/>
-		<copy file="${file.reference.AuditRepositoryProxy.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.AuditRepositoryProxyImpl.jar}" property="included.lib.reference.AuditRepositoryProxyImpl.jar"/>
-		<copy file="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" property="included.lib.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar"/>
-		<copy file="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.NhinServiceProxy.jar}" property="included.lib.reference.NhinPatientDiscoveryProxy.jar"/>
+		<basename file="${file.reference.NhinServiceProxy.jar}" property="included.lib.reference.NhinServiceProxy.jar"/>
 		<copy file="${file.reference.NhinServiceProxy.jar}" todir="${dist.ear.dir}"/>
 		<basename file="${file.reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
 		<copy file="${file.reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
                 <copyfiles files="${file.reference.AdapterMpiProxy.jar}" property="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
                 <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" property="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.PolicyEngineProxy.jar}" property="included.lib.reference.PolicyEngineProxy.jar"/>
-		<copy file="${file.reference.PolicyEngineProxy.jar}" todir="${dist.ear.dir}"/>
-		<basename file="${file.reference.PolicyEngineProxyImpl.jar}" property="included.lib.reference.PolicyEngineProxyImpl.jar"/>
-		<copy file="${file.reference.PolicyEngineProxyImpl.jar}" todir="${dist.ear.dir}"/>
+		<basename file="${file.reference.GatewayInternalComponentProxy.jar}" property="included.lib.reference.GatewayInternalComponentProxy.jar"/>
+		<copy file="${file.reference.GatewayInternalComponentProxy.jar}" todir="${dist.ear.dir}"/>
 		<manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
 		<!-- Add jar references to those projects commented out above -->
-			<attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} ${included.lib.reference.NhincDataTransformsLib.jar} ${included.lib.reference.AuditRepositoryProxyImpl.jar} ${included.lib.reference.AuditRepositoryProxy.jar} ${included.lib.reference.NhinPatientDiscoveryProxyImpl.jar} ${included.lib.reference.NhinPatientDiscoveryProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}  ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar}"/>
+			<attribute name="Class-Path" value="${included.lib.reference.GatewayInternalComponentProxy.jar} ${included.lib.reference.NhinServiceProxy.jar} ${included.lib.reference.NhincSamlTokenLib.jar}  ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar}"/>
 		</manifest>
 	</target>
 	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

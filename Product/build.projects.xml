@@ -29,6 +29,10 @@
     <directory>/Production/Gateway/NhincSamlTokenLib</directory>
   </project>
   <project>
+	<name>GatewayInternalComponentProxy</name>
+	<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
+  </project>	  
+  <project>
     <name>HiemUtilityLib</name>
     <directory>/Production/Gateway/HiemUtilityLib</directory>
   </project>
@@ -63,14 +67,6 @@
   <project>
     <name>DocumentRepositoryAdapterProxy</name>
     <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
-  </project>
-  <project>
-    <name>AuditRepositoryProxy</name>
-    <directory>/Production/Gateway/AuditRepositoryProxy</directory>
-  </project>
-  <project>
-    <name>AuditRepositoryProxyImpl</name>
-    <directory>/Production/Gateway/AuditRepositoryProxyImpl</directory>
   </project>
   <project>
     <name>AdapterPIPLib</name>
@@ -117,13 +113,21 @@
     <directory>/Production/Adapters/General/AdapterDocumentRepositoryProxyImpl</directory>
   </project>
   <project>
+	<name>PatientCorrelationFacadeProxy</name>
+	<directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
+  </project>
+  <project>
+	<name>PatientCorrelationFacade</name>
+	<directory>/Production/Gateway/PatientCorrelationFacade</directory>
+  </project>
+  <project>
     <name>AdapterAuditQueryProxy</name>
     <directory>/Production/Adapters/General/AdapterAuditQueryProxy</directory>
-  </project>
+  </project>  
   <project>
     <name>AdapterAuditQueryProxyImpl</name>
     <directory>/Production/Adapters/General/AdapterAuditQueryProxyImpl</directory>
-  </project>
+  </project>   
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->

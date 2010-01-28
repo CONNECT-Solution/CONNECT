@@ -36,14 +36,6 @@
                 <clean-target>clean</clean-target>
                 <id>jar</id>
             </reference>
-            <reference>
-                <foreign-project>PatientCorrelationFacadeProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
         </references>
         <spring-data xmlns="http://www.netbeans.org/ns/spring-data/1">
             <config-files/>

@@ -326,100 +326,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.DocumentRepositoryAdapterProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemProcessorLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemSubscriptionRepository}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.DocumentRepositoryAdapterProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemProcessorLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemSubscriptionRepository}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps"/>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -430,50 +338,44 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
-        <copyfiles files="${reference.HiemProcessorLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhinHiemProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.DocumentRepositoryAdapterProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.DocumentRepositoryAdapterProxy.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.HiemSubscriptionRepository.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacade.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.HiemProcessorLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhinHiemProxy.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.HiemSubscriptionRepository.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.HiemProcessorLib.jar}" manifestproperty="manifest.reference.HiemProcessorLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhinHiemProxy.jar}" manifestproperty="manifest.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.DocumentRepositoryAdapterProxy.jar}" manifestproperty="manifest.reference.DocumentRepositoryAdapterProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.HiemUtilityLib.jar}" manifestproperty="manifest.file.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.DocumentRepositoryAdapterProxy.jar}" manifestproperty="manifest.file.reference.DocumentRepositoryAdapterProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.HiemSubscriptionRepository.jar}" manifestproperty="manifest.reference.HiemSubscriptionRepository.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacade.jar}" manifestproperty="manifest.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" manifestproperty="manifest.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" manifestproperty="manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" manifestproperty="manifest.file.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" manifestproperty="manifest.file.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" manifestproperty="manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" manifestproperty="manifest.file.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.HiemProcessorLib.jar}" manifestproperty="manifest.file.reference.HiemProcessorLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhinHiemProxy.jar}" manifestproperty="manifest.file.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.HiemSubscriptionRepository.jar}" manifestproperty="manifest.file.reference.HiemSubscriptionRepository.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.HiemProcessorLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.DocumentRepositoryAdapterProxy.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.reference.HiemSubscriptionRepository.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.HiemUtilityLib.jar} ${manifest.file.reference.DocumentRepositoryAdapterProxy.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.HiemProcessorLib.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.HiemSubscriptionRepository.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -760,23 +662,7 @@ exists or setup the property manually. For example like this:
     <!--
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AuditRepositoryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AuditRepositoryProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.DocumentRepositoryAdapterProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.HiemProcessorLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.HiemSubscriptionRepository}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PolicyEngineProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PolicyEngineProxyImpl}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>

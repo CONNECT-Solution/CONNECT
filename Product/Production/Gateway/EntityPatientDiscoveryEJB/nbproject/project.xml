@@ -13,10 +13,8 @@
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
             <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
             <included-library>file.reference.NhincLib.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
             <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
             <included-library>file.reference.jmock-2.5.1.jar</included-library>
             <included-library>file.reference.jmock-junit3-2.5.1.jar</included-library>
@@ -24,9 +22,8 @@
             <included-library>file.reference.jmock-legacy-2.5.1.jar</included-library>
             <included-library>file.reference.jmock-script-2.5.1.jar</included-library>
             <included-library>file.reference.AdapterMpiProxy.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxy.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxyImpl.jar</included-library>
             <included-library>file.reference.AdapterMpiProxyImpl.jar</included-library>
+            <included-library>file.reference.GatewayInternalComponentProxy.jar</included-library>
             <included-library>file.reference.bsh-core-2.0b4.jar</included-library>
             <included-library>file.reference.cglib-2.1_3-src.jar</included-library>
             <included-library>file.reference.cglib-nodep-2.1_3.jar</included-library>

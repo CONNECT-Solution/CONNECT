@@ -51,27 +51,17 @@
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.AggregatorLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhinServiceProxy.jar}" manifestproperty="manifest.reference.NhinDocRetrieveProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhinServiceProxy.jar}" manifestproperty="manifest.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AggregatorLib.jar}" manifestproperty="manifest.reference.AggregatorLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" manifestproperty="manifest.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.NhinDocRetrieveProxy.jar} ${manifest.reference.NhinDocRetrieveProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.AggregatorLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.NhincSamlTokenLib.jar} ${manifest.reference.NhinServiceProxy.jar} ${manifest.reference.GatewayInternalComponentProxy.jar} ${manifest.reference.AggregatorLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

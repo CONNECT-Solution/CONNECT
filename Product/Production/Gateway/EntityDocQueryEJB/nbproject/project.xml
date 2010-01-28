@@ -17,9 +17,8 @@
             <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
             <included-library>file.reference.NhincLib.jar</included-library>
             <included-library>file.reference.NhinServiceProxy.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxy.jar</included-library>
-            <included-library>file.reference.AuditRepositoryProxyImpl.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacade.jar</included-library>
+            <included-library>file.reference.GatewayInternalComponentProxy.jar</included-library>
             <included-library>file.reference.PatientCorrelationFacadeProxy.jar</included-library>
             <included-library>file.reference.NhincSamlTokenLib.jar</included-library>
             <included-library>file.reference.AggregatorLib.jar</included-library>
@@ -34,8 +33,6 @@
             <included-library>file.reference.jmock-legacy-2.5.1.jar</included-library>
             <included-library>file.reference.jmock-script-2.5.1.jar</included-library>
             <included-library>file.reference.objenesis-1.0.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxy.jar</included-library>
-            <included-library>file.reference.PolicyEngineProxyImpl.jar</included-library>
             <source-roots>
                 <root id="src.dir"/>
             </source-roots>

@@ -62,86 +62,23 @@
         </copy>
     </target>
 
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-        <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
-        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxy}"/>
-		
-        <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-        <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
-        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxy}"/>
-
-        <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <property name="project.AuditRepositoryProxy.Absolute" location="${project.AuditRepositoryProxy}"/>
-        <property name="project.AuditRepositoryProxyImpl.Absolute" location="${project.AuditRepositoryProxyImpl}"/>
-        <property name="project.HiemProcessorLib.Absolute" location="${project.HiemProcessorLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <property name="project.HiemSubscriptionRepository.Absolute" location="${project.HiemSubscriptionRepository}"/>
-        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-        <property name="project.PolicyEngineProxy.Absolute" location="${project.PolicyEngineProxy}"/>
-        <property name="project.PolicyEngineProxyImpl.Absolute" location="${project.PolicyEngineProxy}"/>
-
-        <ant dir="${project.HiemProcessorLib.Absolute}" antfile="${project.HiemProcessorLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.HiemSubscriptionRepository.Absolute}" antfile="${project.HiemSubscriptionRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.PolicyEngineProxy.Absolute}" antfile="${project.PolicyEngineProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.PolicyEngineProxyImpl.Absolute}" antfile="${project.PolicyEngineProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
-    
-
     <target depends="compile" name="library-inclusion-in-archive">
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.HiemProcessorLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.HiemProcessorLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.AdapterServiceProxy.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.resolver.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.serializer.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.xercesImpl.jar}" todir="${build.classes.dir}"/>
         <copy file="${file.reference.xml-apis.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.HiemSubscriptionRepository.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxy.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" todir="${build.classes.dir}"/>
+        <copy file="${file.reference.HiemSubscriptionRepository.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${file.reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${file.reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-        <basename file="${reference.HiemProcessorLib.jar}" property="included.lib.reference.HiemProcessorLib.jar"/>
-        <copy file="${reference.HiemProcessorLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${file.reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
+        <copy file="${file.reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
+        <basename file="${file.reference.HiemProcessorLib.jar}" property="included.lib.reference.HiemProcessorLib.jar"/>
+        <copy file="${file.reference.HiemProcessorLib.jar}" todir="${dist.ear.dir}"/>
         <basename file="${file.reference.AdapterServiceProxy.jar}" property="manifest.reference.AdapterServiceProxy.jar"/>
         <copy file="${file.reference.AdapterServiceProxy.jar}" manifestproperty="" todir="${dist.ear.dir}"/>
         <basename file="${file.reference.HiemUtilityLib.jar}" property="included.lib.reference.HiemUtilityLib.jar"/>
@@ -150,15 +87,18 @@
         <copy file="${file.reference.serializer.jar}" manifestproperty="manifest.file.reference.serializer.jar" todir="${dist.ear.dir}"/>
         <copy file="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copy file="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
-        <basename file="${reference.HiemSubscriptionRepository.jar}" property="included.lib.reference.HiemSubscriptionRepository.jar"/>
-        <copy file="${reference.HiemSubscriptionRepository.jar}" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxyImpl.jar}" manifestproperty="manifest.reference.AuditRepositoryProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AuditRepositoryProxy.jar}" manifestproperty="manifest.reference.AuditRepositoryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxy.jar}" manifestproperty="manifest.reference.PolicyEngineProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PolicyEngineProxyImpl.jar}" manifestproperty="manifest.reference.PolicyEngineProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <basename file="${file.reference.HiemSubscriptionRepository.jar}" property="included.lib.reference.HiemSubscriptionRepository.jar"/>
+        <copy file="${file.reference.HiemSubscriptionRepository.jar}" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" manifestproperty="manifest.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} ${included.lib.reference.NhincLib.jar} ${included.lib.reference.HiemProcessorLib.jar} ${included.lib.reference.HiemAdapterProxy.jar} ${included.lib.reference.HiemAdapterProxyImpl.jar} ${manifest.reference.HiemUtilityLib.jar} ${reference.HiemSubscriptionRepository.jar} ${manifest.reference.AuditRepositoryProxyImpl.jar} ${manifest.reference.AuditRepositoryProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.PolicyEngineProxy.jar} ${manifest.reference.PolicyEngineProxyImpl.jar} "/>
+            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} 
+                                                ${included.lib.reference.AdapterServiceProxy.jar}
+                                                ${included.lib.reference.HiemProcessorLib.jar}
+                                                ${included.lib.reference.HiemAdapterProxy.jar}
+                                                ${included.lib.reference.HiemAdapterProxyImpl.jar}
+                                                ${included.lib.reference.HiemUtilityLib.jar}
+                                                ${included.lib.reference.HiemSubscriptionRepository.jar}
+                                                ${manifest.reference.GatewayInternalComponentProxy.jar}"/>
         </manifest>
     </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">

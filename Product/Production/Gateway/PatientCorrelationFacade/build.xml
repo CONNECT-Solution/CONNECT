@@ -80,40 +80,29 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
-	   <copy todir="${nhin.project.home}\UnitTestResults">
-		  <fileset dir="$\{build.test.results.dir\}"/>    
-	   </copy>
-	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
-	</target>
+
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+       <copy todir="${nhin.project.home}\UnitTestResults">
+              <fileset dir="${build.test.results.dir}"/>
+       </copy>
+       <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>
 	
     <target depends="init" name="deps-jar" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-				<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
-				<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" name="deps-clean" unless="no.deps">
-				<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-				<property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-				<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
+        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
 
-				<ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-    <target name="wsimport-client-NhincComponentPatientCorrelationFacadeDte" depends="wsimport-init">
-<!--
-        <property name="wsdl-NhincComponentPatientCorrelationFacadeDte" location="xml-resources/web-service-references/NhincComponentPatientCorrelationFacadeDte/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-NhincComponentPatientCorrelationFacadeDte}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacadeDte.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/gov:hhs:fha:nhinc:componentpatientcorrelationfacadedte" includes="NhincComponentPatientCorrelationFacadeDte.java" casesensitive="no"/>
-        </wsimport>
--->
-    </target>
-
+    <target name="wsimport-client-NhincComponentPatientCorrelationFacadeDte" depends="wsimport-init"/>
     <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init"/>    
 
