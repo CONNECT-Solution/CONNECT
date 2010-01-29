@@ -212,10 +212,6 @@
     <directory>/Production/Gateway/NhincAuditQueryEJB</directory>
   </project>
   <project>
-    <name>EntityDocQueryEJB</name>
-    <directory>/Production/Gateway/EntityDocQueryEJB</directory>
-  </project>
-  <project>
     <name>NhincDocRetrieveEJB</name>
     <directory>/Production/Gateway/NhincDocRetrieveEJB</directory>
   </project>

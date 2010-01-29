@@ -12,6 +12,9 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                </library>
+                <library>
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
@@ -78,15 +81,64 @@
                     <file>${file.reference.xml-apis.jar}</file>
                 </library>
                 <library>
-                    <file>${reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.bsh-core-2.0b4.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.cglib-2.1_3-src.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.cglib-nodep-2.1_3.jar-1}</file>
+                </library>
+                <library>
+                    <file>${file.reference.hamcrest-core-1.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.hamcrest-library-1.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-junit3-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-junit4-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-legacy-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.jmock-script-2.5.1.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.objenesis-1.0.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.AdapterServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
+                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
                     <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.PatientCorrelationFacade.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.PatientCorrelationFacadeProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.AggregatorLib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.NhinServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
@@ -100,15 +152,6 @@
                 <root id="test.resources.dir"/>
             </test-roots>
         </data>
-        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
-            <reference>
-                <foreign-project>NhincSamlTokenLib</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-        </references>
+        <references xmlns="http://www.netbeans.org/ns/ant-project-references/1"/>
     </configuration>
 </project>

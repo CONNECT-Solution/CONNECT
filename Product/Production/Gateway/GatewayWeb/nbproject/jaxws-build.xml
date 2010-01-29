@@ -33,5 +33,43 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/DocQuery"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery"/>
+    <target name="wsimport-service-EntityDocQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-EntityDocQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/entitydocquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+    </target>
+    <target name="wsimport-service-NhincProxyDocQuerySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincProxyDocQuerySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincproxydocquerysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-EntityDocQuerySecured, wsimport-service-NhincProxyDocQuerySecured"/>
 </project>

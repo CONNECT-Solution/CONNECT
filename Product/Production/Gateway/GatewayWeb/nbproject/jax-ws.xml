@@ -25,6 +25,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityDocQuerySecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.entity.EntityDocQuerySecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocQuerySecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocQuerySecured</service-name>
+      <port-name>EntityDocQuerySecuredPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocquery</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincProxyDocQuerySecured">
+      <implementation-class>gov.hhs.fha.nhinc.docquery.proxy.NhincProxyDocQuerySecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocQuerySecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocQuerySecured</service-name>
+      <port-name>NhincProxyDocQuerySecuredPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocquerysecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

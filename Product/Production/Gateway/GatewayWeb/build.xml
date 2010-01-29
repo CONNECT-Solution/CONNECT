@@ -80,25 +80,6 @@
     nbproject/build-impl.xml file. 
 
     -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-		<property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
 
     <target name="wsimport-service-DocQuery" depends="wsimport-init">
 <!--
@@ -118,6 +99,48 @@
         </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocQuery/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityDocQuerySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/EntityDocQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuerySecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyDocQuerySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/NhincProxyDocQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuerySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocQuerySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/schemas/"/>
         </copy>
     </target>
 
