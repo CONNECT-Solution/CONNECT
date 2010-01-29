@@ -50,9 +50,6 @@
   </target>
 
   <target name="deploy" depends="copy.deployable.artifacts">
-    <antcall target="do-to-projects">
-      <param name="do-to-target" value="copy.deployable.artifacts"/>
-    </antcall>
     <runtarget target="deploy.to.production"/> 
   </target>
 
@@ -69,7 +66,10 @@
 
   <target name="redeploy" depends="undeploy,deploy"/>
   
-  <target name="undeploy" depends="copy.deployable.artifacts">
+  <target name="undeploy">
+    <runtarget target="create.deploy.list.xml"/>
+    <var name="do-to-target" value="addentry.deploy.list.xml"/>
+    <runtarget target="do-to-projects"/>
     <runtarget target="undeploy.from.production"/>
   </target>
 

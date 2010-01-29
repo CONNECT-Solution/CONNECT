@@ -43,27 +43,32 @@
   </target>
 
   <target name="addentry.deploy.list.xml">
-    <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}."/>
-    <switch value="${deploy.type}">
-      <case value="war">
-        <var name="deploy.list.entry.xpath" value="/applications/wars"/>
-        <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
-        <runtarget target="insert.entry.to.deploy.app.list"/>
-      </case>
-      <case value="shared">
-        <var name="deploy.list.entry.xpath" value="/applications/shared"/>
-        <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
-        <runtarget target="insert.entry.to.deploy.app.list"/>       
-      </case>
-      <case value="ejb">
-        <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
-        <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
-        <runtarget target="insert.entry.to.deploy.app.list"/>
-      </case>
-      <default>
-        <fail message="Deploy type ${deploy.type} is not supported."/>
-      </default>
-    </switch>
+    <if>
+      <equals arg1="${deploy.isDeployable}" arg2="true" />
+    <then>
+      <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}."/>
+      <switch value="${deploy.type}">
+        <case value="war">
+          <var name="deploy.list.entry.xpath" value="/applications/wars"/>
+          <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
+        <case value="shared">
+          <var name="deploy.list.entry.xpath" value="/applications/shared"/>
+          <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>       
+        </case>
+        <case value="ejb">
+          <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
+          <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
+        <default>
+          <fail message="Deploy type ${deploy.type} is not supported."/>
+        </default>
+      </switch>
+    </then>
+    </if>
   </target>
   
   <target name="insert.entry.to.deploy.app.list">
