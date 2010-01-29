@@ -13,6 +13,9 @@
     <import file="nbproject/build-impl.xml"/>
     <import file="../../../../build.lib.xml" />
 		
+    <property name="deploy.type" value="ejb" />
+    <property name="deploy.isDeployable" value="true"/>
+    
 	<target name="build">
 		<property name="target-to-call" value="dist" />
 		<antcall target="call-target-in-isolation-if-out-of-date" />

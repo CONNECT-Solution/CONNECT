@@ -72,77 +72,36 @@
     <name>AdapterPIPLib</name>
     <directory>/Production/Adapters/General/AdapterPIPLib</directory>
   </project>
-  <project>
-    <name>AdapterPIPProxy</name>
-    <directory>/Production/Adapters/General/AdapterPIPProxy</directory>
-  </project>
-  <project>
-    <name>AdapterPIPProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterPIPProxyImpl</directory>
-  </project>
-  <project>
-    <name>AdapterPEPLib</name>
-    <directory>/Production/Adapters/General/AdapterPEPLib</directory>
-  </project>
-  <project>
-    <name>AdapterPEPProxy</name>
-    <directory>/Production/Adapters/General/AdapterPEPProxy</directory>
-  </project>
-  <project>
-    <name>AdapterPEPProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterPEPProxyImpl</directory>
-  </project>
+
   <project>
     <name>AdapterAuthenticationLib</name>
     <directory>/Production/Adapters/General/AdapterAuthenticationLib</directory>
   </project>
-  <project>
-    <name>AdapterPolicyEngineLib</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineLib</directory>
-  </project>
-  <project>
-    <name>AdapterPolicyEngineOrchestratorLib</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorLib</directory>
-  </project>
+
+
   <project>
     <name>AdapterReidentificationLib</name>
     <directory>/Production/Adapters/General/AdapterReidentificationLib</directory>
   </project>
+    <project>
+    <name>AdapterInternalComponentProxy</name>
+    <directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
+  </project>
+  <project>
+    <name>AdapterPolicyEngineLib</name>
+    <directory>/Production/Adapters/General/AdapterPolicyEngineLib</directory>
+  </project>  
   <project>
     <name>MpiLib</name>
     <directory>/Production/Adapters/General/MpiLib</directory>
   </project>
   <project>
-    <name>AdapterPolicyEngineOrchestratorProxy</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorProxy</directory>
+    <name>PatientCorrelationFacadeProxy</name>
+    <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
   </project>
   <project>
-    <name>AdapterPolicyEngineOrchestratorProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineOrchestratorProxyImpl</directory>
-  </project>
-  <project>
-    <name>AdapterDocumentRegistryProxy</name>
-    <directory>/Production/Adapters/General/AdapterDocumentRegistryProxy</directory>
-  </project>
-  <project>
-    <name>AdapterDocumentRegistryProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterDocumentRegistryProxyImpl</directory>
-  </project>
-  <project>
-    <name>AdapterDocumentRepositoryProxy</name>
-    <directory>/Production/Adapters/General/AdapterDocumentRepositoryProxy</directory>
-  </project>
-  <project>
-    <name>AdapterDocumentRepositoryProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterDocumentRepositoryProxyImpl</directory>
-  </project>
-  <project>
-	<name>PatientCorrelationFacadeProxy</name>
-	<directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
-  </project>
-  <project>
-	<name>PatientCorrelationFacade</name>
-	<directory>/Production/Gateway/PatientCorrelationFacade</directory>
+    <name>PatientCorrelationFacade</name>
+    <directory>/Production/Gateway/PatientCorrelationFacade</directory>
   </project>
   <project>
     <name>AdapterAuditQueryProxy</name>

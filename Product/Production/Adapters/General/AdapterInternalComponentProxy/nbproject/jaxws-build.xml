@@ -43,7 +43,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterComponentDocRegistry" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRegistry"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository"/>
@@ -60,7 +60,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterComponentDocRepository" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterComponentDocRepository"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/ihe:iti:xds-b:2007"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
     </target>
     <target name="wsimport-client-AdapterPEP" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPEP"/>
@@ -77,7 +77,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPEP" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPEP"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpep"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpep"/>
     </target>
     <target name="wsimport-client-AdapterPIP" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPIP"/>
@@ -94,7 +94,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPIP" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPIP"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpip"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpip"/>
     </target>
     <target name="wsimport-client-AdapterPolicyEngineOrchestrator" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngineOrchestrator"/>
@@ -111,7 +111,7 @@
     </target>
     <target name="wsimport-client-clean-AdapterPolicyEngineOrchestrator" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterPolicyEngineOrchestrator"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterpolicyengineorchestrator"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyengineorchestrator"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-AdapterAuthentication, wsimport-client-AdapterComponentDocRegistry, wsimport-client-AdapterComponentDocRepository, wsimport-client-AdapterPEP, wsimport-client-AdapterPIP, wsimport-client-AdapterPolicyEngineOrchestrator"/>
 </project>

@@ -29,7 +29,7 @@
     <client name="AdapterComponentDocRegistry">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRegistry.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:xds-b:2007</package-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -53,7 +53,7 @@
     <client name="AdapterComponentDocRepository">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl</wsdl-url>
       <local-wsdl-file>AdapterComponentDocRepository.wsdl</local-wsdl-file>
-      <package-name>ihe:iti:xds-b:2007</package-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -77,7 +77,7 @@
     <client name="AdapterPEP">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPEP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPEP.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpep</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpep</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -101,7 +101,7 @@
     <client name="AdapterPIP">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPIP.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPIP.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpip</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpip</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -125,7 +125,7 @@
     <client name="AdapterPolicyEngineOrchestrator">
       <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngineOrchestrator.wsdl</wsdl-url>
       <local-wsdl-file>AdapterPolicyEngineOrchestrator.wsdl</local-wsdl-file>
-      <package-name>gov:hhs:fha:nhinc:adapterpolicyengineorchestrator</package-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpolicyengineorchestrator</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>

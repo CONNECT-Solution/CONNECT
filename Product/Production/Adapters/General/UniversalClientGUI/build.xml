@@ -23,82 +23,19 @@
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
     <target name="build-test" depends="dist" />
-    <!--
-
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
-
-      -pre-init:                 called before initialization of project properties 
-      -post-init:                called after initialization of project properties 
-      -pre-compile:              called before javac compilation 
-      -post-compile:             called after javac compilation 
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
-      -pre-compile-test-single:  called before javac compilation of single JUnit test
-      -post-compile-test-single: called after javac compilation of single JUunit test
-      -pre-dist:                 called before archive building 
-      -post-dist:                called after archive building 
-      -post-clean:               called after cleaning build products 
-      -pre-run-deploy:           called before deploying
-      -post-run-deploy:          called after deploying
-
-    Example of pluging an obfuscator after the compilation could look like 
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Other way how to customize the build is by overriding existing main targets.
-    The target of interest are: 
-
-      init-macrodef-javac:    defines macro for javac compilation
-      init-macrodef-junit:   defines macro for junit execution
-      init-macrodef-debug:    defines macro for class debugging
-      do-dist:                archive building
-      run:                    execution of project 
-      javadoc-build:          javadoc generation 
-
-    Example of overriding the target for project execution could look like 
-
-        <target name="run" depends="<PROJNAME>-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that overridden target depends on jar target and not only on 
-    compile target as regular run target does. Again, for list of available 
-    properties which you can use check the target you are overriding in 
-    nbproject/build-impl.xml file. 
-
-    -->
+   
     <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
+        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-		<property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
+	<property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
         <property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -106,15 +43,11 @@
         <ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
 		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
@@ -122,13 +55,9 @@
         <property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
@@ -136,16 +65,12 @@
         <ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
 
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
 		<property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
@@ -153,13 +78,9 @@
         <property name="project.EntitySubjectDiscoveryProxy.Absolute" location="${project.EntitySubjectDiscoveryProxy}"/>
         <property name="project.EntitySubjectDiscoveryProxyImpl.Absolute" location="${project.EntitySubjectDiscoveryProxyImpl}"/>
         <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
         <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
@@ -167,41 +88,9 @@
         <ant dir="${project.EntitySubjectDiscoveryProxy.Absolute}" antfile="${project.EntitySubjectDiscoveryProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.EntitySubjectDiscoveryProxyImpl.Absolute}" antfile="${project.EntitySubjectDiscoveryProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
-
-<!-- 
-    <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <basename file="${reference.AdapterAuthenticationLib.jar}" property="included.lib.reference.AdapterAuthenticationLib.jar"/>
-        <copy file="${reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
-        <basename file="${reference.AdapterAuthenticationProxy.jar}" property="included.lib.reference.AdapterAuthenticationProxy.jar"/>
-        <copy file="${reference.AdapterAuthenticationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxy.jar" todir="${dist.ear.dir}"/>
-        <basename file="${file.reference.NhincCommonTypesLib.jar}" property="included.lib.file.reference.NhincCommonTypesLib.jar"/>
-        <copy file="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <basename file="${reference.AdapterAuthenticationProxyImpl.jar}" property="included.lib.reference.AdapterAuthenticationProxyImpl.jar"/>
-        <copy file="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <basename file="${file.reference.openssoclientsdk.jar}" property="included.lib.file.reference.openssoclientsdk.jar"/>
-        <copy file="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
-        <mkdir dir="${build.web.dir}/META-INF"/>
-        <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.libs.jsf12-support.classpath} ${manifest.libs.woodstock-components.classpath} ${manifest.libs.woodstock-theme-default.classpath} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
-        </manifest>
-    </target>
-
-    <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copy file="${reference.AdapterAuthenticationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copy file="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-    </target>
-    -->
-    
+   
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

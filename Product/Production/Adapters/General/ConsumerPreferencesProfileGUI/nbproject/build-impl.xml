@@ -412,12 +412,6 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -425,12 +419,6 @@ exists or setup the property manually. For example like this:
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AdapterPIPLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPIPProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPIPProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar">
@@ -453,12 +441,6 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -466,12 +448,6 @@ exists or setup the property manually. For example like this:
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AdapterPIPLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPIPProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterPIPProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="jar">
@@ -630,7 +606,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.MpiLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.MpiLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterPIPProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterPIPProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jstl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.jstl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.standard.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.standard.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.javaee.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.javaee.jar" todir="${dist.ear.dir}"/>
@@ -638,7 +613,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterPIPProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterPIPProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AdapterPIPLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterPIPLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
@@ -680,20 +654,18 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-suntheme.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-tld.zip" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.MpiLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.reference.AdapterPIPProxy.jar} ${manifest.file.reference.jstl.jar} ${manifest.file.reference.standard.jar} ${manifest.file.reference.javaee.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AdapterPIPProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.activation.jar} ${manifest.file.reference.FastInfoset.jar} ${manifest.file.reference.http.jar} ${manifest.file.reference.jaxb-api.jar} ${manifest.file.reference.jaxb-impl.jar} ${manifest.file.reference.jaxb-xjc.jar} ${manifest.file.reference.jaxws-api.jar} ${manifest.file.reference.jaxws-rt.jar} ${manifest.file.reference.jaxws-tools.jar} ${manifest.file.reference.jsr173_api.jar} ${manifest.file.reference.jsr181-api.jar} ${manifest.file.reference.jsr250-api.jar} ${manifest.file.reference.mimepull.jar} ${manifest.file.reference.saaj-api.jar} ${manifest.file.reference.saaj-impl.jar} ${manifest.file.reference.sjsxp.jar} ${manifest.file.reference.stax-ex.jar} ${manifest.file.reference.streambuffer.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.reference.AdapterAuthenticationProxy.jar} ${manifest.reference.AdapterAuthenticationProxyImpl.jar} ${manifest.file.reference.openssoclientsdk.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.MpiLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.jstl.jar} ${manifest.file.reference.standard.jar} ${manifest.file.reference.javaee.jar} ${manifest.reference.NhincLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.AdapterPIPLib.jar} ${manifest.reference.DocumentRepository.jar} ${manifest.reference.NhinHiemProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.activation.jar} ${manifest.file.reference.FastInfoset.jar} ${manifest.file.reference.http.jar} ${manifest.file.reference.jaxb-api.jar} ${manifest.file.reference.jaxb-impl.jar} ${manifest.file.reference.jaxb-xjc.jar} ${manifest.file.reference.jaxws-api.jar} ${manifest.file.reference.jaxws-rt.jar} ${manifest.file.reference.jaxws-tools.jar} ${manifest.file.reference.jsr173_api.jar} ${manifest.file.reference.jsr181-api.jar} ${manifest.file.reference.jsr250-api.jar} ${manifest.file.reference.mimepull.jar} ${manifest.file.reference.saaj-api.jar} ${manifest.file.reference.saaj-impl.jar} ${manifest.file.reference.sjsxp.jar} ${manifest.file.reference.stax-ex.jar} ${manifest.file.reference.streambuffer.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${reference.MpiLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterPIPProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.jstl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.standard.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.javaee.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -701,7 +673,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterPIPProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AdapterPIPLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -743,9 +714,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
@@ -1046,13 +1016,9 @@ exists or setup the property manually. For example like this:
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterAuthenticationProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterAuthenticationProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterPIPLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterPIPProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterPIPProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.DocumentRepository}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.MpiLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhinHiemProxy}/build.xml" inheritall="false" target="clean"/>

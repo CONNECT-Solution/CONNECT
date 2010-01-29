@@ -23,101 +23,19 @@
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
     <target name="build-test" depends="dist" />
-    <!--
-
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
-
-      -pre-init:                 called before initialization of project properties 
-      -post-init:                called after initialization of project properties 
-      -pre-compile:              called before javac compilation 
-      -post-compile:             called after javac compilation 
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
-      -pre-compile-test-single:  called before javac compilation of single JUnit test
-      -post-compile-test-single: called after javac compilation of single JUunit test
-      -pre-dist:                 called before archive building 
-      -post-dist:                called after archive building 
-      -post-clean:               called after cleaning build products 
-      -pre-run-deploy:           called before deploying
-      -post-run-deploy:          called after deploying
-
-    Example of pluging an obfuscator after the compilation could look like 
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Other way how to customize the build is by overriding existing main targets.
-    The target of interest are: 
-
-      init-macrodef-javac:    defines macro for javac compilation
-      init-macrodef-junit:   defines macro for junit execution
-      init-macrodef-debug:    defines macro for class debugging
-      do-dist:                archive building
-      run:                    execution of project 
-      javadoc-build:          javadoc generation 
-
-    Example of overriding the target for project execution could look like 
-
-        <target name="run" depends="<PROJNAME>-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that overridden target depends on jar target and not only on 
-    compile target as regular run target does. Again, for list of available 
-    properties which you can use check the target you are overriding in 
-    nbproject/build-impl.xml file. 
-
-    -->
-    <target name="wsimport-client-identityservices" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/identityservices"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/identityservices" destdir="${build.generated.dir}/jax-wsCache/identityservices" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/opensso/identityservices?wsdl" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/identityservices/wsdl/localhost_8080/opensso/identityservices.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/identityservices"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/identityservices">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
-    </target>
+    
+    <target name="wsimport-client-identityservices" depends="wsimport-init"/>
 
     <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
         <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
-        <property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
-        <property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
         <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
         <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
         <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar">
@@ -129,12 +47,6 @@
         <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -142,24 +54,14 @@
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
         <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
-        <property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
-        <property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
         <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
         <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
         <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
@@ -167,12 +69,6 @@
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar">
@@ -184,12 +80,6 @@
         <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -197,44 +87,26 @@
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
     </target>
     
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterAuthenticationProxy.Absolute" location="${project.AdapterAuthenticationProxy}"/>
-        <property name="project.AdapterAuthenticationProxyImpl.Absolute" location="${project.AdapterAuthenticationProxyImpl}"/>
         <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
         <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
         <property name="project.AdapterPIPLib.Absolute" location="${project.AdapterPIPLib}"/>
-        <property name="project.AdapterPIPProxy.Absolute" location="${project.AdapterPIPProxy}"/>
-        <property name="project.AdapterPIPProxyImpl.Absolute" location="${project.AdapterPIPProxyImpl}"/>
         <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
         <property name="project.MpiLib.Absolute" location="${project.MpiLib}"/>
         <property name="project.NhinHiemProxy.Absolute" location="${project.NhinHiemProxy}"/>
-        <property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 
         <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterAuthenticationProxy.Absolute}" antfile="${project.AdapterAuthenticationProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterAuthenticationProxyImpl.Absolute}" antfile="${project.AdapterAuthenticationProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.AdapterPIPLib.Absolute}" antfile="${project.AdapterPIPLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterPIPProxy.Absolute}" antfile="${project.AdapterPIPProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterPIPProxyImpl.Absolute}" antfile="${project.AdapterPIPProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.MpiLib.Absolute}" antfile="${project.MpiLib.Absolute}/build.xml" inheritall="false" target="clean"/>
         <ant dir="${project.NhinHiemProxy.Absolute}" antfile="${project.NhinHiemProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
 
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
