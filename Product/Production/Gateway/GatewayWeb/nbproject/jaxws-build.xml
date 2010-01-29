@@ -166,5 +166,81 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xds_b/_2007"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-EntityDocQuerySecured, wsimport-service-NhincProxyDocQuerySecured, wsimport-service-AdapterDocQueryService, wsimport-service-AdapterDocRetrieveService, wsimport-service-EntityDocRetrieveSecured, wsimport-service-NhincProxyDocRetrieveSecured, wsimport-service-DocRetrieve"/>
+    <target name="wsimport-service-AdapterPolicyEngine" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngine">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterPolicyEngine" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterpolicyengine"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine"/>
+    </target>
+    <target name="wsimport-service-NhincComponentAggregator" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentAggregator">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincComponentAggregator" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentaggregator"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator"/>
+    </target>
+    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" destdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" wsdl="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/GatewayPolicyEngineFacade">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-GatewayPolicyEngineFacade" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentinternalpolicyenginefacade"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+    </target>
+    <target name="wsimport-service-PolicyEngineTransformationService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService" destdir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/PolicyEngineTransformationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-PolicyEngineTransformationService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhincinternalcomponentpolicyenginetransform"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocQuery, wsimport-service-EntityDocQuerySecured, wsimport-service-NhincProxyDocQuerySecured, wsimport-service-AdapterDocQueryService, wsimport-service-AdapterDocRetrieveService, wsimport-service-EntityDocRetrieveSecured, wsimport-service-NhincProxyDocRetrieveSecured, wsimport-service-DocRetrieve, wsimport-service-AdapterPolicyEngine, wsimport-service-NhincComponentAggregator, wsimport-service-GatewayPolicyEngineFacade, wsimport-service-PolicyEngineTransformationService"/>
 </project>

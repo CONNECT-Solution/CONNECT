@@ -75,7 +75,7 @@
             <service>
                 <name>policyengineservice</name>
                 <description>Policy Engine Service</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
             </service>
             <service>
                 <name>policyengineservicesecured</name>
@@ -175,12 +175,12 @@
             <service>
                 <name>policyenginedte</name>
                 <description>policyenginedte</description>
-                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineGatewayTransformationService</endpointURL>
             </service>
             <service>
                 <name>policyenginefacade</name>
                 <description>policyenginefacade</description>
-                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineFacadeService</endpointURL>
             </service>
             <service>
                 <name>auditlog</name>
@@ -429,7 +429,7 @@
             <service>
                 <name>policyengineservice</name>
                 <description>Policy Engine Service</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
             </service>
             <service>
                 <name>policyengineservicesecured</name>
@@ -519,12 +519,12 @@
             <service>
                 <name>policyenginedte</name>
                 <description>policyenginedte</description>
-                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineGatewayTransformationService</endpointURL>
             </service>
             <service>
                 <name>policyenginefacade</name>
                 <description>policyenginefacade</description>
-                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/GatewayInternalService/PolicyEngineFacadeService</endpointURL>
             </service>
             <service>
                 <name>auditlog</name>

@@ -134,7 +134,7 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>policyengineservice</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
 		   </service>
 		   <service>
 				<name>adapternotificationproducerpassthrough</name>
@@ -322,7 +322,7 @@
 			<service>
 				<name>policyengineservice</name>
 				<description>policyengineservice</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterPolicyEngine</endpointURL>
 		   </service>
 		   		   <service>
 				<name>adapternotificationproducerpassthrough</name>

@@ -193,6 +193,102 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterPolicyEngine">
+      <implementation-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterPolicyEngine.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterPolicyEngine.wsdl</local-wsdl-file>
+      <service-name>AdapterPolicyEngine</service-name>
+      <port-name>AdapterPolicyEnginePortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterpolicyengine</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincComponentAggregator">
+      <implementation-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentAggregator.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentAggregator.wsdl</local-wsdl-file>
+      <service-name>NhincComponentAggregator</service-name>
+      <port-name>NhincComponentAggregatorPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentaggregator</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="GatewayPolicyEngineFacade">
+      <implementation-class>gov.hhs.fha.nhinc.policy.GatewayPolicyEngineFacade</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentInternalPolicyEngineFacade.wsdl</local-wsdl-file>
+      <service-name>NhincComponentInternalPolicyEngineFacadeService</service-name>
+      <port-name>NhincComponentInternalPolicyEngineFacadePort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhinccomponentinternalpolicyenginefacade</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="PolicyEngineTransformationService">
+      <implementation-class>gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl</wsdl-url>
+      <local-wsdl-file>NhincComponentInternalPolicyEngineTransform.wsdl</local-wsdl-file>
+      <service-name>NhincComponentInternalPolicyEngineTransformService</service-name>
+      <port-name>NhincInternalComponentPolicyEngineTransformPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincinternalcomponentpolicyenginetransform</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

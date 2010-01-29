@@ -188,10 +188,6 @@
     <directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
   </project>
   <project>
-    <name>AdapterPolicyEngineProxyEJB</name>
-    <directory>/Production/Gateway/AdapterPolicyEngineProxyEJB</directory>
-  </project>
-  <project>
     <name>AdapterPDPOpenSSO</name>
     <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
   </project>  
@@ -236,24 +232,12 @@
     <directory>/Production/Adapters/General/EntityAuditQueryProxyEJB</directory>
   </project>
   <project>
-    <name>GatewayPolicyEngineFacadeEJB</name>
-    <directory>/Production/Gateway/GatewayPolicyEngineFacadeEJB</directory>
-  </project>
-  <project>
-    <name>AggregatorEJB</name>
-    <directory>/Production/Gateway/AggregatorEJB</directory>
-  </project>
-  <project>
     <name>AuditRepositoryEJB</name>
     <directory>/Production/Gateway/AuditRepositoryEJB</directory>
   </project>
   <project>
     <name>PatientCorrelationEJB</name>
     <directory>/Production/Gateway/PatientCorrelationEJB</directory>
-  </project>
-  <project>
-    <name>GatewayPolicyEngineTransformationEjb</name>
-    <directory>/Production/Gateway/GatewayPolicyEngineTransformationEjb</directory>
   </project>
   <project>
     <name>GatewaySubscriptionRepositoryEJB</name>

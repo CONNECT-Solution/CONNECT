@@ -249,6 +249,91 @@
         </copy>
     </target>
     
+    <target name="wsimport-service-AdapterPolicyEngine" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/AdapterPolicyEngine.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngine">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngine">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngine/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincComponentAggregator" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/NhincComponentAggregator.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentAggregator">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentAggregator">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentAggregator/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-GatewayPolicyEngineFacade" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" destdir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade" wsdl="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/NhincComponentInternalPolicyEngineFacade.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GatewayPolicyEngineFacade">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/GatewayPolicyEngineFacade">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/GatewayPolicyEngineFacade/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-PolicyEngineTransformationService" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService" destdir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PolicyEngineTransformationService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/PolicyEngineTransformationService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PolicyEngineTransformationService/schemas/"/>
+        </copy>
+    </target>
+    
+    
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

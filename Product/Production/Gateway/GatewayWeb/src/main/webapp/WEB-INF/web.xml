@@ -33,7 +33,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AdapterDocQueryService</servlet-name>
-        <url-pattern>/AdapterProxyService/AdapterDocQueryService</url-pattern>
+        <url-pattern>/AdapterProxyService/AdapterDocQuery</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -72,6 +72,42 @@
         <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterPolicyEngine</servlet-name>
+        <servlet-class>gov.hhs.nhinc.policyengine.adapterpolicyengine.AdapterPolicyEngine</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPolicyEngine</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincComponentAggregator</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.gateway.aggregator.NhincComponentAggregator</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincComponentAggregator</servlet-name>
+        <url-pattern>/GatewayInternalService/NhincComponentAggregator</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GatewayPolicyEngineFacade</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.policy.GatewayPolicyEngineFacade</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GatewayPolicyEngineFacade</servlet-name>
+        <url-pattern>/GatewayInternalService/PolicyEngineFacadeService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PolicyEngineTransformationService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.gateway.policyenginetransformation.PolicyEngineTransformationService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PolicyEngineTransformationService</servlet-name>
+        <url-pattern>/GatewayInternalService/PolicyEngineGatewayTransformationService</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
@@ -84,14 +120,6 @@
         <web-resource-collection>
             <web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterDocQueryService</web-resource-name>
-            <url-pattern>/AdapterProxyService/AdapterDocQueryService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterDocRetrieveService</web-resource-name>
-            <url-pattern>/AdapterProxyService/AdapterDocRetrieve</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>EntityDocRetrieveSecured</web-resource-name>
@@ -109,7 +137,33 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+<!--
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveService</web-resource-name>
+            <url-pattern>/AdapterProxyService/AdapterDocRetrieve</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryService</web-resource-name>
+            <url-pattern>/AdapterProxyService/AdapterDocQuery</url-pattern>
+        </web-resource-collection>
 
+        <web-resource-collection>
+            <web-resource-name>NhincComponentAggregator</web-resource-name>
+            <url-pattern>/GatewayInternalService/NhincComponentAggregator</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterPolicyEngine</web-resource-name>
+            <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>GatewayPolicyEngineFacade</web-resource-name>
+            <url-pattern>/GatewayInternalService/PolicyEngineFacadeService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>PolicyEngineTransformationService</web-resource-name>
+            <url-pattern>/GatewayInternalService/PolicyEngineGatewayTransformationService</url-pattern>
+        </web-resource-collection>
+-->
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
         <realm-name>certificate</realm-name>
