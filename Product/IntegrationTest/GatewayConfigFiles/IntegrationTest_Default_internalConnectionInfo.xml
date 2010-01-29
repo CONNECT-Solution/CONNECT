@@ -33,7 +33,7 @@
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -69,17 +69,17 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				 <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL> 
+				 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL> 
 			</service>
 			<service>
 				<name>adapterdocquerypassthrough</name>
 				<description>Adapter Document Query PassThrough</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:9080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
 			</service>
 						<service>
 				<name>adapterdocretrievepassthrough</name>
@@ -222,7 +222,7 @@
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -262,17 +262,17 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				 <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL> 
+				 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL> 
 			</service>
 			<service>
 				<name>adapterdocquerypassthrough</name>
 				<description>Adapter Document Query PassThrough</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:9080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adaptersubdiscovery</name>

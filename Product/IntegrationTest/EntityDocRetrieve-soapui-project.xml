@@ -3473,11 +3473,11 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def Host2 = dataSource.getPropertyValue("Host2");
 def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 def Host3 = dataSource.getPropertyValue("Host3");
 def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );
-def docRetrieveURL2 = "https://" + Host3 + ":8181/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL2 = "https://" + Host3 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "documentretrieve", docRetrieveURL1, context, log)
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "documentretrieve", docRetrieveURL2, context, log)
@@ -3796,7 +3796,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def Host2 = dataSource.getPropertyValue("Host2");
 def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
-def docRetrieveURL1 = "https://" + Host2 + ":8181/RespondingGateway_Retrieve_Service/DocRetrieve";
+def docRetrieveURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve";
 
 def Host3 = dataSource.getPropertyValue("Host3");
 def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );

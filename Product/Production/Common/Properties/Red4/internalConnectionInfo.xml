@@ -23,7 +23,7 @@
             <service>
                 <name>documentretrieve</name>
                 <description>documentretrieve</description>
-                <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
@@ -85,12 +85,12 @@
             <service>
                 <name>adapterdocretrieve</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/AdapterProxyService/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -115,7 +115,7 @@
             <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
             </service>
             <service>
                 <name>adapterdocquerysecured</name>
@@ -319,7 +319,7 @@
             <service>
                 <name>entitydocretrievesecured</name>
                 <description>Entity Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrieve</name>
@@ -329,7 +329,7 @@
             <service>
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>entityauditqueryproxy</name>
@@ -377,7 +377,7 @@
             <service>
                 <name>documentretrieve</name>
                 <description>documentretrieve</description>
-                <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
             <service>
                 <name>auditquery</name>
@@ -439,12 +439,12 @@
             <service>
                 <name>adapterdocretrieve</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/AdapterProxyService/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -459,7 +459,7 @@
             <service>
                 <name>adapterdocquery</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
             </service>
             <service>
                 <name>adapterdocquerysecured</name>
@@ -648,7 +648,7 @@
             <service>
                 <name>entitydocretrievesecured</name>
                 <description>Entity Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrieve</name>
@@ -658,7 +658,7 @@
             <service>
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>entityauditqueryproxy</name>
@@ -745,7 +745,7 @@
             <service>
                 <name>entitydocretrievesecured</name>
                 <description>Entity Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrieve</name>
@@ -755,7 +755,7 @@
             <service>
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
@@ -812,7 +812,7 @@
             <service>
                 <name>entitydocretrievesecured</name>
                 <description>Entity Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrieve</name>
@@ -822,7 +822,7 @@
             <service>
                 <name>nhincproxydocretrievesecured</name>
                 <description>NHINC Proxy Document Retrieve Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>

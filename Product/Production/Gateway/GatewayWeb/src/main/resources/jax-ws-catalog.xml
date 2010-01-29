@@ -6,4 +6,14 @@
             uri="wsdl/EntityDocQuerySecured/EntityDocQuerySecured.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocQuerySecured.wsdl"
             uri="wsdl/NhincProxyDocQuerySecured/NhincProxyDocQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl"
+            uri="wsdl/AdapterDocQueryService/AdapterDocQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl"
+            uri="wsdl/AdapterDocRetrieveService/AdapterDocRetrieve.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl"
+            uri="wsdl/EntityDocRetrieveSecured/EntityDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl"
+            uri="wsdl/NhincProxyDocRetrieveSecured/NhincProxyDocRetrieveSecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl"
+            uri="wsdl/DocRetrieve/NhinDocRetrieve.wsdl"/>
 </catalog>

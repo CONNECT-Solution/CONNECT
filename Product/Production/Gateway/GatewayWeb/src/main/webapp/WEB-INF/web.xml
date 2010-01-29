@@ -27,6 +27,51 @@
         <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterDocQueryService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocQueryService</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterDocQueryService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterDocRetrieveService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRetrieveService</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterDocRetrieve</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityDocRetrieveSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityDocRetrieveSecured</servlet-name>
+        <url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyDocRetrieveSecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DocRetrieve</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocRetrieve</servlet-name>
+        <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
@@ -39,6 +84,26 @@
         <web-resource-collection>
             <web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
             <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocQueryService</web-resource-name>
+            <url-pattern>/AdapterProxyService/AdapterDocQueryService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterDocRetrieveService</web-resource-name>
+            <url-pattern>/AdapterProxyService/AdapterDocRetrieve</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityDocRetrieveSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityDocRetrieveSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>DocRetrieve</web-resource-name>
+            <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>

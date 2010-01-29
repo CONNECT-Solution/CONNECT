@@ -73,6 +73,126 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterDocQueryService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterdocquery.AdapterDocQueryService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocQuery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocQuery.wsdl</local-wsdl-file>
+      <service-name>AdapterDocQuery</service-name>
+      <port-name>AdapterDocQueryPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocquery</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterDocRetrieveService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrieveService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterDocRetrieve.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterDocRetrieve.wsdl</local-wsdl-file>
+      <service-name>AdapterDocRetrieve</service-name>
+      <port-name>AdapterDocRetrievePortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterdocretrieve</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityDocRetrieveSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.entity.EntityDocRetrieveSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityDocRetrieveSecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityDocRetrieveSecured.wsdl</local-wsdl-file>
+      <service-name>EntityDocRetrieveSecured</service-name>
+      <port-name>EntityDocRetrieveSecuredPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.entitydocretrievesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincProxyDocRetrieveSecured">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.proxy.NhincProxyDocRetrieveSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyDocRetrieveSecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyDocRetrieveSecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyDocRetrieveSecured</service-name>
+      <port-name>NhincProxyDocRetrieveSecuredPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxydocretrievesecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="DocRetrieve">
+      <implementation-class>gov.hhs.fha.nhinc.docretrieve.DocRetrieve</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinDocRetrieve.wsdl</wsdl-url>
+      <local-wsdl-file>NhinDocRetrieve.wsdl</local-wsdl-file>
+      <service-name>RespondingGateway_Retrieve_Service</service-name>
+      <port-name>RespondingGateway_Retrieve_Port_Soap</port-name>
+      <package-name>ihe.iti.xds_b._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

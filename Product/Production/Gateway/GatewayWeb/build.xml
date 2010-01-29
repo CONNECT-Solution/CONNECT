@@ -143,7 +143,112 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuerySecured/schemas/"/>
         </copy>
     </target>
+    
+    <target name="wsimport-service-AdapterDocQueryService" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQueryService/wsdl/AdapterDocQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQueryService/wsdl/AdapterDocQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQueryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocQueryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQueryService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQueryService/schemas/"/>
+        </copy>
+    </target>
 
+    <target name="wsimport-service-AdapterDocRetrieveService" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveService/wsdl/AdapterDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveService/wsdl/AdapterDocRetrieve.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveService/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityDocRetrieveSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieveSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieveSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieveSecured/wsdl/EntityDocRetrieveSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieveSecured/wsdl/EntityDocRetrieveSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocRetrieveSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieveSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieveSecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyDocRetrieveSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/NhincProxyDocRetrieveSecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieveSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieveSecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-DocRetrieve" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/DocRetrieve" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/NhinDocRetrieve.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocRetrieve">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/DocRetrieve">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocRetrieve/schemas/"/>
+        </copy>
+    </target>
+    
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

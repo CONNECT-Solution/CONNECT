@@ -63,17 +63,17 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				 <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL> 
+				 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL> 
 			</service>
 			<service>
 				<name>adapterdocquerypassthrough</name>
 				<description>Adapter Document Query PassThrough</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:9080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
 			</service>
 						<service>
 				<name>adapterdocretrievepassthrough</name>
@@ -231,17 +231,17 @@
 			<service>
 				<name>adapterdocquery</name>
 				<description>Adapter Document Query</description>
-				 <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL> 
+				 <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL> 
 			</service>
 			<service>
 				<name>adapterdocquerypassthrough</name>
 				<description>Adapter Document Query PassThrough</description>
-				<endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterDocQuery</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocretrieve</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:9080/NhinConnect/AdapterDocRetrieve</endpointURL>
+				<endpointURL>http://localhost:9080/CONNECTGateway/AdapterProxyService/AdapterDocRetrieve</endpointURL>
 			</service>
 			<service>
 				<name>adaptersubdiscovery</name>

@@ -8,4 +8,6 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocquerysecured"/>
     <import location="NhinDocQuery.xml" namespace="urn:ihe:iti:xds-b:2007"/>
+    <import location="AdapterDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterdocretrievesecured"/>
+    <import location="NhinDocRetrieve.xml" namespace="urn:ihe:iti:xds-b:2007"/>
 </definitions>
