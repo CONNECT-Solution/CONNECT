@@ -29,7 +29,7 @@ public class TestHelper {
                NullChecker.isNotNullish(connInfo.getHomeCommunityId()) ||
                NullChecker.isNotNullish(connInfo.getName()) ||
                NullChecker.isNotNullish(connInfo.getServices().getService()) ||
-               NullChecker.isNotNullish(connInfo.getStates().getStates())) {
+               NullChecker.isNotNullish(connInfo.getStates().getState())) {
            return true;
        }
        return false;
@@ -50,7 +50,7 @@ public class TestHelper {
 
         CMInternalConnectionInfoStates states = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
-        states.getStates().add(state);
+        states.getState().add(state);
         state.setName(stateName);
 
         CMInternalConnectionInfo instance = new CMInternalConnectionInfo();

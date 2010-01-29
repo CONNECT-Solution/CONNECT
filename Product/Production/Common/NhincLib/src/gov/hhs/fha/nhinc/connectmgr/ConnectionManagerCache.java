@@ -29,6 +29,8 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUDDIConnectionInfoXML;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 
+import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfoState;
+import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -492,6 +494,20 @@ public class ConnectionManagerCache {
                     }   // if (oService.getEndpointURL() != null)
                 }   // for (CMInternalConnInfoService oService : oConnInfo.getServices().getService())
             }   // if ((oConnInfo.getServices() != null) &&
+
+            // States
+            //----------
+            if (oConnInfo.getStates() != null &&
+                    NullChecker.isNotNullish(oConnInfo.getStates().getState())) {
+                CMStates states = new CMStates();
+                oEntity.setStates(states);
+
+                for (CMInternalConnectionInfoState state : oConnInfo.getStates().getState()) {
+                    if (NullChecker.isNotNullish(state.getName())) {
+                        states.getState().add(state.getName());
+                    }
+                }
+            } // if (oConnInfo.getStates() != null &&
         }   // if (oConnInfo != null)
 
         return oEntity;
@@ -1013,14 +1029,21 @@ public class ConnectionManagerCache {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null &&
                         NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
+                    log.info("Looking up URL by home community id");
                     String endpt = ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(), serviceName);
 
                     if (NullChecker.isNotNullish(endpt)) {
                         endpointUrlList.add(endpt);
                     }
-                } else if (target.getRegion() != null) {
+                } 
+                
+                if (target.getRegion() != null) {
+                    log.info("Looking up URL by region");
                     filterByRegion(endpointUrlList, target.getRegion(), serviceName);
-                } else if (target.getList() != null) {
+                } 
+                
+                if (target.getList() != null) {
+                    log.info("Looking up URL by list");
                     log.warn("The List target feature has not been implemented yet");
                 }
             }
@@ -1059,13 +1082,18 @@ public class ConnectionManagerCache {
         if ((entities != null) &&
                 NullChecker.isNotNullish(entities.getBusinessEntity())) {
             for (CMBusinessEntity entity : entities.getBusinessEntity()) {
-                /* TODO:  Add filtering mechanism based on region */
+                if (entity.getStates() != null &&
+                        NullChecker.isNotNullish(entity.getStates().getState())) {
+                    for (String state : entity.getStates().getState()) {
+                        if (state.equalsIgnoreCase(region)) {
+                            String url = null;
+                            url = getUrl(entity);
 
-                String url = null;
-                url = getUrl(entity);
-
-                if (NullChecker.isNotNullish(url)) {
-                    urlList.add(getUrl(entity));
+                            if (NullChecker.isNotNullish(url)) {
+                                urlList.add(getUrl(entity));
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1115,18 +1143,24 @@ public class ConnectionManagerCache {
      */
     private static void createUniqueList(List<String> urlList) {
         List<String> tempList = new ArrayList<String>();
+        List<Integer> removeList = new ArrayList<Integer>();
 
         for (String entry : urlList) {
             if (NullChecker.isNotNullish(tempList)) {
                 for (String temp : tempList) {
                     if (temp.equalsIgnoreCase(entry)) {
-                        urlList.remove(entry);
+                        removeList.add(urlList.lastIndexOf(entry));
                         break;
                     }
                 }
             } else {
                 tempList.add(entry);
             }
+        }
+
+        // Remove the duplicates
+        for (Integer index : removeList) {
+            urlList.remove(index.intValue());
         }
 
         return;

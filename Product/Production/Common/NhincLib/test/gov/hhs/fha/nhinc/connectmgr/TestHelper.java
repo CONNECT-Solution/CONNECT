@@ -22,13 +22,16 @@ public class TestHelper {
             community.setHomeCommunityId(hcid);
             target.setHomeCommunity(community);
         }
-        else if (NullChecker.isNotNullish(region)) {
+
+        if (NullChecker.isNotNullish(region)) {
             target.setRegion(region);
         }
-        else if (NullChecker.isNotNullish(list)) {
+
+        if (NullChecker.isNotNullish(list)) {
             target.setList(list);
         }
-        else {
+
+        if (NullChecker.isNullish(hcid) && NullChecker.isNullish(region) && NullChecker.isNullish(list)) {
             target = null;
         }
         

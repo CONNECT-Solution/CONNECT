@@ -26,6 +26,8 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("internalConnectionInfo", CMInternalConnectionInfo.class);
         oXStream.addImplicitCollection(CMInternalConnInfoServices.class, "serviceList");
         oXStream.alias("service", CMInternalConnInfoService.class);
+        oXStream.addImplicitCollection(CMInternalConnectionInfoStates.class, "stateList");
+        oXStream.alias("state", CMInternalConnectionInfoState.class);
         oXStream.processAnnotations(CMInternalConnectionInfos.class);
         sXML = oXStream.toXML(oInternalConnectionInfos);
         
@@ -49,6 +51,8 @@ public class CMInternalConnectionInfosXML
         oXStream.alias("internalConnectionInfo", CMInternalConnectionInfo.class);
         oXStream.addImplicitCollection(CMInternalConnInfoServices.class, "serviceList");
         oXStream.alias("service", CMInternalConnInfoService.class);
+        oXStream.addImplicitCollection(CMInternalConnectionInfoStates.class, "stateList");
+        oXStream.alias("state", CMInternalConnectionInfoState.class);
         oXStream.processAnnotations(CMInternalConnectionInfos.class);
         Object oObject = oXStream.fromXML(sXML);
         if (oObject instanceof CMInternalConnectionInfos)

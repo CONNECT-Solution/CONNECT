@@ -17,6 +17,11 @@
         <externalService>false</externalService>
       </service>
     </services>
+    <states>
+      <state>
+         <name>FL</name>
+      </state>
+    </states>
   </internalConnectionInfo>
   <internalConnectionInfo>
     <homeCommunityId>2222.2222.2222.2222</homeCommunityId>
@@ -36,6 +41,33 @@
         <externalService>false</externalService>
       </service>
     </services>
+    <states>
+       <state>
+          <name>VA</name>
+       </state>
+       <state>
+    	  <name>AZ</name>
+       </state>
+    </states>
+  </internalConnectionInfo>
+  <internalConnectionInfo>
+      <homeCommunityId>3333.3333.3333.3333</homeCommunityId>
+      <name>Home3</name>
+      <description>Home3 Description</description>
+      <services>
+        <service>
+          <name>Service 7 Name</name>
+          <description>Service 7 Description</description>
+          <endpointURL>http://www.service7.com</endpointURL>
+          <externalService>true</externalService>
+        </service>
+        <service>
+          <name>Service 8 Name</name>
+          <description>Service 8 Description</description>
+          <endpointURL>http://www.service8.com</endpointURL>
+          <externalService>false</externalService>
+        </service>
+      </services>
   </internalConnectionInfo>
   <internalConnectionInfo>
     <homeCommunityId>1111.1111.1111.1111..2</homeCommunityId>

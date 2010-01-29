@@ -379,12 +379,12 @@ public class CMInternalConnectionInfoTest {
     }
 
     /**
-     * Test of getStates method, of class CMInternalConnectionInfo.
+     * Test of getState method, of class CMInternalConnectionInfo.
      *   Test setting/getting a null state
      */
     @Test
-    public void testSetGetStatesNull() {
-        System.out.println("testSetGetStatesNull");
+    public void testSetGetStateNull() {
+        System.out.println("testSetGetStateNull");
 
         CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
         CMInternalConnectionInfoStates expResult = null;
@@ -406,7 +406,7 @@ public class CMInternalConnectionInfoTest {
         CMInternalConnectionInfo instance = new CMInternalConnectionInfo();
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
         state.setName("FL");
-        states.getStates().add(state);
+        states.getState().add(state);
         instance.setStates(states);
         
         CMInternalConnectionInfoStates result = instance.getStates();

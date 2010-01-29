@@ -51,14 +51,14 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
         state.setName("IL");
-        instance.getStates().add(state);
+        instance.getState().add(state);
 
-        assertEquals(1, instance.getStates().size());
-        assertEquals("IL", instance.getStates().get(0).getName());
+        assertEquals(1, instance.getState().size());
+        assertEquals("IL", instance.getState().get(0).getName());
 
         instance.clear();
 
-        assertEquals(true, instance.getStates().isEmpty());
+        assertEquals(true, instance.getState().isEmpty());
     }
 
     /**
@@ -76,18 +76,18 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("VA");
-        instance.getStates().add(state1);
-        instance.getStates().add(state2);
-        instance.getStates().add(state3);
+        instance.getState().add(state1);
+        instance.getState().add(state2);
+        instance.getState().add(state3);
 
-        assertEquals(3, instance.getStates().size());
-        assertEquals("IL", instance.getStates().get(0).getName());
-        assertEquals("FL", instance.getStates().get(1).getName());
-        assertEquals("VA", instance.getStates().get(2).getName());
+        assertEquals(3, instance.getState().size());
+        assertEquals("IL", instance.getState().get(0).getName());
+        assertEquals("FL", instance.getState().get(1).getName());
+        assertEquals("VA", instance.getState().get(2).getName());
 
         instance.clear();
 
-        assertEquals(true, instance.getStates().isEmpty());
+        assertEquals(true, instance.getState().isEmpty());
     }
 
     /**
@@ -102,7 +102,7 @@ public class CMInternalConnectionInfoStatesTest {
 
         instance.clear();
 
-        assertEquals(true, instance.getStates().isEmpty());
+        assertEquals(true, instance.getState().isEmpty());
     }
 
     /**
@@ -132,12 +132,12 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates oCompare = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state1 = new CMInternalConnectionInfoState();
         state1.setName("IL");
-        oCompare.getStates().add(state1);
+        oCompare.getState().add(state1);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state2 = new CMInternalConnectionInfoState();
         state2.setName("IL");
-        instance.getStates().add(state2);
+        instance.getState().add(state2);
 
         boolean result = instance.equals(oCompare);
 
@@ -159,9 +159,9 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("VA");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
@@ -170,9 +170,9 @@ public class CMInternalConnectionInfoStatesTest {
         state5.setName("FL");
         CMInternalConnectionInfoState state6 = new CMInternalConnectionInfoState();
         state6.setName("VA");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
-        instance.getStates().add(state6);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
+        instance.getState().add(state6);
 
         boolean result = instance.equals(oCompare);
 
@@ -194,9 +194,9 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("Fl");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("Va");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
@@ -205,9 +205,9 @@ public class CMInternalConnectionInfoStatesTest {
         state5.setName("FL");
         CMInternalConnectionInfoState state6 = new CMInternalConnectionInfoState();
         state6.setName("vA");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
-        instance.getStates().add(state6);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
+        instance.getState().add(state6);
 
         boolean result = instance.equals(oCompare);
 
@@ -225,12 +225,12 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates oCompare = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state1 = new CMInternalConnectionInfoState();
         state1.setName("IL");
-        oCompare.getStates().add(state1);
+        oCompare.getState().add(state1);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state2 = new CMInternalConnectionInfoState();
         state2.setName("FL");
-        instance.getStates().add(state2);
+        instance.getState().add(state2);
 
         boolean result = instance.equals(oCompare);
 
@@ -252,9 +252,9 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("GA");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
@@ -263,9 +263,9 @@ public class CMInternalConnectionInfoStatesTest {
         state5.setName("FL");
         CMInternalConnectionInfoState state6 = new CMInternalConnectionInfoState();
         state6.setName("VA");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
-        instance.getStates().add(state6);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
+        instance.getState().add(state6);
 
         boolean result = instance.equals(oCompare);
 
@@ -287,9 +287,9 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("GA");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
@@ -298,9 +298,9 @@ public class CMInternalConnectionInfoStatesTest {
         state5.setName("FL");
         CMInternalConnectionInfoState state6 = new CMInternalConnectionInfoState();
         state6.setName("VA");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
-        instance.getStates().add(state6);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
+        instance.getState().add(state6);
 
         boolean result = instance.equals(oCompare);
 
@@ -322,9 +322,9 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("NY");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("GA");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
@@ -333,9 +333,9 @@ public class CMInternalConnectionInfoStatesTest {
         state5.setName("FL");
         CMInternalConnectionInfoState state6 = new CMInternalConnectionInfoState();
         state6.setName("VA");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
-        instance.getStates().add(state6);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
+        instance.getState().add(state6);
 
         boolean result = instance.equals(oCompare);
 
@@ -357,17 +357,17 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("GA");
-        oCompare.getStates().add(state1);
-        oCompare.getStates().add(state2);
-        oCompare.getStates().add(state3);
+        oCompare.getState().add(state1);
+        oCompare.getState().add(state2);
+        oCompare.getState().add(state3);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state4 = new CMInternalConnectionInfoState();
         state4.setName("IL");
         CMInternalConnectionInfoState state5 = new CMInternalConnectionInfoState();
         state5.setName("FL");
-        instance.getStates().add(state4);
-        instance.getStates().add(state5);
+        instance.getState().add(state4);
+        instance.getState().add(state5);
 
         boolean result = instance.equals(oCompare);
 
@@ -385,7 +385,7 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates oCompare = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state1 = new CMInternalConnectionInfoState();
         state1.setName("IL");
-        oCompare.getStates().add(state1);
+        oCompare.getState().add(state1);
 
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
 
@@ -406,7 +406,7 @@ public class CMInternalConnectionInfoStatesTest {
 
         List expResult = new ArrayList<CMInternalConnectionInfoState>();
 
-        List result = instance.getStates();
+        List result = instance.getState();
 
         assertEquals(expResult, result);
         assertEquals(true, result.isEmpty());
@@ -423,9 +423,9 @@ public class CMInternalConnectionInfoStatesTest {
         CMInternalConnectionInfoStates instance = new CMInternalConnectionInfoStates();
         CMInternalConnectionInfoState state1 = new CMInternalConnectionInfoState();
         state1.setName("IL");
-        instance.getStates().add(state1);
+        instance.getState().add(state1);
 
-        List<CMInternalConnectionInfoState> result = instance.getStates();
+        List<CMInternalConnectionInfoState> result = instance.getState();
 
         assertEquals("IL", result.get(0).getName());
     }
@@ -445,11 +445,11 @@ public class CMInternalConnectionInfoStatesTest {
         state2.setName("FL");
         CMInternalConnectionInfoState state3 = new CMInternalConnectionInfoState();
         state3.setName("VA");
-        instance.getStates().add(state1);
-        instance.getStates().add(state2);
-        instance.getStates().add(state3);
+        instance.getState().add(state1);
+        instance.getState().add(state2);
+        instance.getState().add(state3);
 
-        List<CMInternalConnectionInfoState> result = instance.getStates();
+        List<CMInternalConnectionInfoState> result = instance.getState();
 
         assertEquals("IL", result.get(0).getName());
         assertEquals("FL", result.get(1).getName());

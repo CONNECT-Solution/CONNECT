@@ -62,7 +62,7 @@ public class CMInternalConnectionInfoStates {
      *
      * @return The list of states associated with this home community.
      */
-    public List<CMInternalConnectionInfoState> getStates()
+    public List<CMInternalConnectionInfoState> getState()
     {
         return stateList;
     }

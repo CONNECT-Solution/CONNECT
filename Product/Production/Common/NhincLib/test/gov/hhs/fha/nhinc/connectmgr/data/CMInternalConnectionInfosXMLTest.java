@@ -55,7 +55,7 @@ public class CMInternalConnectionInfosXMLTest
         CMInternalConnectionInfoStates oStates = new CMInternalConnectionInfoStates();
         oConnInfo.setStates(oStates);
         CMInternalConnectionInfoState state = new CMInternalConnectionInfoState();
-        oStates.getStates().add(state);
+        oStates.getState().add(state);
         state.setName("FL");
         CMInternalConnInfoServices oServices = new CMInternalConnInfoServices();
         oConnInfo.setServices(oServices);
@@ -80,7 +80,7 @@ public class CMInternalConnectionInfosXMLTest
         oStates = new CMInternalConnectionInfoStates();
         oConnInfo.setStates(oStates);
         state = new CMInternalConnectionInfoState();
-        oStates.getStates().add(state);
+        oStates.getState().add(state);
         state.setName("AL");
         oServices = new CMInternalConnInfoServices();
         oConnInfo.setServices(oServices);
@@ -116,8 +116,8 @@ public class CMInternalConnectionInfosXMLTest
                 assertEquals("Home1 Description", oResultConnInfo.getDescription());
                 assertEquals("1111.1111.1111.1111", oResultConnInfo.getHomeCommunityId());
 
-                assertEquals(1, oResultConnInfo.getStates().getStates().size());
-                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getStates()) {
+                assertEquals(1, oResultConnInfo.getStates().getState().size());
+                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getState()) {
                     assertEquals("FL", oState.getName());
                 }
                 
@@ -155,8 +155,8 @@ public class CMInternalConnectionInfosXMLTest
                 assertEquals("Home2 Description", oResultConnInfo.getDescription());
                 assertEquals("2222.2222.2222.2222", oResultConnInfo.getHomeCommunityId());
 
-                assertEquals(1, oResultConnInfo.getStates().getStates().size());
-                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getStates()) {
+                assertEquals(1, oResultConnInfo.getStates().getState().size());
+                for (CMInternalConnectionInfoState oState : oResultConnInfo.getStates().getState()) {
                     assertEquals("AL", oState.getName());
                 }
                 
