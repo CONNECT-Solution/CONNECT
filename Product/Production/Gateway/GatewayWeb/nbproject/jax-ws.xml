@@ -289,6 +289,102 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterAuditQueryService">
+      <implementation-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterAuditLogQuery.wsdl</local-wsdl-file>
+      <service-name>AdapterAuditLogQuery</service-name>
+      <port-name>AdapterAuditLogQueryPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.adapterauditlogquery</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityAuditLogQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>EntityAuditLogQuerySecured.wsdl</local-wsdl-file>
+      <service-name>EntityAuditLogQuerySamlService</service-name>
+      <port-name>EntityAuditLogQuerySamlPortTypeBindingPort</port-name>
+      <package-name>gov.hhs.fha.nhinc.entityauditlogquerysaml</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhincAuditQueryProxy">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl</wsdl-url>
+      <local-wsdl-file>NhincProxyAuditLogQuerySecured.wsdl</local-wsdl-file>
+      <service-name>NhincProxyAuditLogQuerySecured</service-name>
+      <port-name>NhincProxyAuditLogQuerySecuredPortSoap11</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincproxyauditlogquerysecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AuditQuery">
+      <implementation-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl</wsdl-url>
+      <local-wsdl-file>NhinAuditLogQuery.wsdl</local-wsdl-file>
+      <service-name>findAuditEvents</service-name>
+      <port-name>AuditLogQuery</port-name>
+      <package-name>com.nhin.services</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

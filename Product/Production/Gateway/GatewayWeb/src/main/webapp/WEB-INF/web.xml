@@ -108,6 +108,42 @@
         <url-pattern>/GatewayInternalService/PolicyEngineGatewayTransformationService</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterAuditQueryService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterauditquery.AdapterAuditQueryService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterAuditQueryService</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterAuditQuery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityAuditLogQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.entity.EntityAuditLogQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityAuditLogQuery</servlet-name>
+        <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincAuditQueryProxy</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.proxy.NhincAuditQueryProxy</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincAuditQueryProxy</servlet-name>
+        <url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AuditQuery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditquery.AuditQuery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuditQuery</servlet-name>
+        <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
@@ -133,37 +169,23 @@
             <web-resource-name>DocRetrieve</web-resource-name>
             <url-pattern>/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</url-pattern>
         </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityAuditLogQuery</web-resource-name>
+            <url-pattern>/EntityService/EntityAuditLogQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhincAuditQueryProxy</web-resource-name>
+            <url-pattern>/EntityService/NhincProxyAuditLogQuerySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AuditQuery</web-resource-name>
+            <url-pattern>/NhinService/findAuditEvents/AuditQuery</url-pattern>
+        </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-<!--
-        <web-resource-collection>
-            <web-resource-name>AdapterDocRetrieveService</web-resource-name>
-            <url-pattern>/AdapterProxyService/AdapterDocRetrieve</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterDocQueryService</web-resource-name>
-            <url-pattern>/AdapterProxyService/AdapterDocQuery</url-pattern>
-        </web-resource-collection>
 
-        <web-resource-collection>
-            <web-resource-name>NhincComponentAggregator</web-resource-name>
-            <url-pattern>/GatewayInternalService/NhincComponentAggregator</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>AdapterPolicyEngine</web-resource-name>
-            <url-pattern>/AdapterProxyService/AdapterPolicyEngine</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>GatewayPolicyEngineFacade</web-resource-name>
-            <url-pattern>/GatewayInternalService/PolicyEngineFacadeService</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>PolicyEngineTransformationService</web-resource-name>
-            <url-pattern>/GatewayInternalService/PolicyEngineGatewayTransformationService</url-pattern>
-        </web-resource-collection>
--->
     <login-config>
         <auth-method>CLIENT-CERT</auth-method>
         <realm-name>certificate</realm-name>

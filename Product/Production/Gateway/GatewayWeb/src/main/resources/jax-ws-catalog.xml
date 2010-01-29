@@ -26,4 +26,12 @@
             uri="wsdl/GatewayPolicyEngineFacade/NhincComponentInternalPolicyEngineFacade.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentInternalPolicyEngineTransform.wsdl"
             uri="wsdl/PolicyEngineTransformationService/NhincComponentInternalPolicyEngineTransform.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterAuditLogQuery.wsdl"
+            uri="wsdl/AdapterAuditQueryService/AdapterAuditLogQuery.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityAuditLogQuerySecured.wsdl"
+            uri="wsdl/EntityAuditLogQuery/EntityAuditLogQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyAuditLogQuerySecured.wsdl"
+            uri="wsdl/NhincAuditQueryProxy/NhincProxyAuditLogQuerySecured.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinAuditLogQuery.wsdl"
+            uri="wsdl/AuditQuery/NhinAuditLogQuery.wsdl"/>
 </catalog>

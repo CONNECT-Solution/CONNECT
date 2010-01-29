@@ -333,6 +333,89 @@
         </copy>
     </target>
     
+    <target name="wsimport-service-AdapterAuditQueryService" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService" destdir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuditQueryService/wsdl/AdapterAuditLogQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuditQueryService/wsdl/AdapterAuditLogQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterAuditQueryService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterAuditQueryService">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuditQueryService/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuditQueryService/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityAuditLogQuery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityAuditLogQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityAuditLogQuery" destdir="${build.generated.dir}/jax-wsCache/service/EntityAuditLogQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditLogQuery/wsdl/EntityAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditLogQuery/wsdl/EntityAuditLogQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityAuditLogQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityAuditLogQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityAuditLogQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditLogQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditLogQuery/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincAuditQueryProxy" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy" destdir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincAuditQueryProxy/wsdl/NhincProxyAuditLogQuerySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincAuditQueryProxy/wsdl/NhincProxyAuditLogQuerySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincAuditQueryProxy">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincAuditQueryProxy">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincAuditQueryProxy/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincAuditQueryProxy/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-AuditQuery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AuditQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AuditQuery" destdir="${build.generated.dir}/jax-wsCache/service/AuditQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/NhinAuditLogQuery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AuditQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AuditQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AuditQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AuditQuery/schemas/"/>
+        </copy>
+    </target>
     
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>

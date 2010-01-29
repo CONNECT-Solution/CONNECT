@@ -163,10 +163,6 @@
     <directory>/Production/Adapters/General/AdapterWeb</directory>
   </project>
   <project>
-    <name>NhincAuditQueryEJB</name>
-    <directory>/Production/Gateway/NhincAuditQueryEJB</directory>
-  </project>
-  <project>
     <name>AdapterReidentificationProxy</name>
     <directory>/Production/Adapters/General/AdapterReidentificationProxy</directory>
   </project>
@@ -181,10 +177,6 @@
   <project>
     <name>NhincPatientDiscoveryEJB</name>
     <directory>/Production/Gateway/NhincPatientDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>EntityAuditLogQueryEJB</name>
-    <directory>/Production/Gateway/EntityAuditLogQueryEJB</directory>
   </project>
   <project>
     <name>EntityAuditQueryProxyEJB</name>

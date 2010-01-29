@@ -15546,7 +15546,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockaudit
 def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
-def auditQueryURL = "https://" + NHINGatewayHost + ":8181/findAuditEvents/AuditQuery";
+def auditQueryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, "2.2", "auditquery", auditQueryURL, context, log)

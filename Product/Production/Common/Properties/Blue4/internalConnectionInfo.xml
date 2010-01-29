@@ -28,7 +28,7 @@
             <service>
                 <name>auditquery</name>
                 <description>auditquery</description>
-                <endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
             </service>
             <service>
                 <name>notificationproducer</name>
@@ -125,7 +125,7 @@
             <service>
                 <name>adapterauditquery</name>
                 <description>adapterauditquery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterAuditQuery</endpointURL>
             </service>
             <service>
                 <name>adapterauditquerysecured</name>
@@ -339,7 +339,7 @@
             <service>
                 <name>entityauditquerysecured</name>
                 <description>Entity Audit Query Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityAuditLogQuerySecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquery</name>
@@ -349,7 +349,7 @@
             <service>
                 <name>nhincproxyauditquerysecured</name>
                 <description>NHINC ProxyAudit Query Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
                 
       </services>
@@ -382,7 +382,7 @@
             <service>
                 <name>auditquery</name>
                 <description>auditquery</description>
-                <endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
             </service>
             <service>
                 <name>notificationproducer</name>
@@ -469,7 +469,7 @@
             <service>
                 <name>adapterauditquery</name>
                 <description>adapterauditquery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterAuditQuery</endpointURL>
             </service>
             <service>
                 <name>adapterauditquerysecured</name>
@@ -668,7 +668,7 @@
             <service>
                 <name>entityauditquerysecured</name>
                 <description>Entity Audit Query Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityAuditLogQuerySecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquery</name>
@@ -678,7 +678,7 @@
             <service>
                 <name>nhincproxyauditquerysecured</name>
                 <description>NHINC ProxyAudit Query Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
             <service>
                 <name>entitypatientdiscoverysecured</name>
@@ -827,7 +827,7 @@
             <service>
                 <name>adapterauditquery</name>
                 <description>adapterauditquery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTGateway/AdapterProxyService/AdapterAuditQuery</endpointURL>
             </service>
             <service>
                 <name>adapterauditquerysecured</name>

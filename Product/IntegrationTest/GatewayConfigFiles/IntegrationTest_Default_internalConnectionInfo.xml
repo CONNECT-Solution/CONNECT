@@ -18,7 +18,7 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL> 
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL> 
 			</service>
 			<service>
 				<name>documentquery</name>
@@ -207,7 +207,7 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/findAuditEvents/AuditQuery</endpointURL>
 			</service>
 			<service>
 				<name>documentquery</name>
