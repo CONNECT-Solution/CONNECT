@@ -304,7 +304,7 @@
             <service>
                 <name>entityauditqueryproxy</name>
                 <description>Entity Audit Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entityauditquerysecured</name>
@@ -314,7 +314,7 @@
             <service>
                 <name>nhincproxyauditquery</name>
                 <description>NHINC Proxy Audit Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -627,7 +627,7 @@
             <service>
                 <name>entityauditqueryproxy</name>
                 <description>Entity Audit Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entityauditquerysecured</name>
@@ -637,7 +637,7 @@
             <service>
                 <name>nhincproxyauditquery</name>
                 <description>NHINC Proxy Audit Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
