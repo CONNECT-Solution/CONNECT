@@ -197,7 +197,7 @@
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://localhost:8080/AdapterService/DocumentRepository_Service</endpointURL>
             <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://localhost:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
@@ -244,7 +244,7 @@
             <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterService/NhincProxyPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecured</name>
@@ -541,7 +541,7 @@
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://localhost:8080/AdapterService/DocumentRepository_Service</endpointURL>
             <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://localhost:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
@@ -688,7 +688,7 @@
             <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterService/NhincProxyPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscoverysecured</name>

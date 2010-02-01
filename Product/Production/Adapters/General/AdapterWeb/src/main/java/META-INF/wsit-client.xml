@@ -17,4 +17,6 @@
     <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>
     <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
     <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
+	<import location="NhincProxyPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
+    <import location="EntityPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
 </definitions>

@@ -182,7 +182,7 @@
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
@@ -505,7 +505,7 @@
                 <description>Adapter Document Retrieve</description>
                 <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://<Adapter-IP>:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>

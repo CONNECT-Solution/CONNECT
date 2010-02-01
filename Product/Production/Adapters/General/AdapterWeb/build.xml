@@ -552,6 +552,8 @@
     <target name="wsimport-client-NhincProxyDocRetrieveSecured" depends="wsimport-init"/>
     <target name="wsimport-client-EntitySubjectDiscoverySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityPatientDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyPatientDiscoverySecured" depends="wsimport-init"/>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

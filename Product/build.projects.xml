@@ -76,18 +76,19 @@
     <name>AdapterPIPLib</name>
     <directory>/Production/Adapters/General/AdapterPIPLib</directory>
   </project>
-
   <project>
     <name>AdapterAuthenticationLib</name>
     <directory>/Production/Adapters/General/AdapterAuthenticationLib</directory>
   </project>
-
-
   <project>
     <name>AdapterReidentificationLib</name>
     <directory>/Production/Adapters/General/AdapterReidentificationLib</directory>
   </project>
-    <project>
+   <project>
+    <name>AdapterDocRepository2Soap12Lib</name>
+    <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Lib</directory>
+  </project>
+ <project>
     <name>AdapterInternalComponentProxy</name>
     <directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
   </project>
@@ -215,20 +216,12 @@
     <directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
   </project>
   <project>
-    <name>AdapterDocRepository2Soap12EJB</name>
-    <directory>/Production/Adapters/General/AdapterDocRepository2Soap12EJB</directory>
-  </project>
-  <project>
     <name>EntitySubjectDiscoveryEJB</name>
     <directory>/Production/Gateway/EntitySubjectDiscoveryEJB</directory>
   </project>
   <project>
     <name>EntityPatientDiscoveryEJB</name>
     <directory>/Production/Gateway/EntityPatientDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>EntityPatientDiscoveryProxyEJB</name>
-    <directory>/Production/Adapters/General/EntityPatientDiscoveryProxyEJB</directory>
   </project>
   <project>
     <name>AdapterSubjectDiscoveryProxyEJB</name>

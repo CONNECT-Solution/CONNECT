@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class EntityPatientDiscovery {
 
     public org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new EntityPatientDiscoveryImpl().respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request);
     }
 
 }

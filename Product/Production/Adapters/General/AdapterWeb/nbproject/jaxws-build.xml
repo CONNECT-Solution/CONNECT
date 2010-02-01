@@ -175,6 +175,38 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
         <delete dir="${build.generated.dir}/jax-wsCache/NhincProxySubjectDiscoverySecured"/>
     </target>
+    <target name="wsimport-client-EntityPatientDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/EntityPatientDiscoverySecured/wsdl/EntityPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityPatientDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/EntityPatientDiscoverySecured/wsdl/EntityPatientDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EntityPatientDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/EntityPatientDiscoverySecured"/>
+    </target>
+    <target name="wsimport-client-NhincProxyPatientDiscoverySecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyPatientDiscoverySecured/wsdl/NhincProxyPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyPatientDiscoverySecured.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhincProxyPatientDiscoverySecured/wsdl/NhincProxyPatientDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincProxyPatientDiscoverySecured" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincproxypatientdiscoverysecured"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincProxyPatientDiscoverySecured"/>
+    </target>
     <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
         <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" destdir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService" wsdl="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/AdapterComponentDocRegistry.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
@@ -878,6 +910,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptermpimanager"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/MpiManager"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured, wsimport-client-AdapterMpiSecured, wsimport-client-NhincComponentPatientCorrelationSecured, wsimport-client-EntityDocQuerySecured, wsimport-client-NhincProxyDocQuerySecured, wsimport-client-EntityDocRetrieveSecured, wsimport-client-NhincProxyDocRetrieveSecured, wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-NhincProxySubjectDiscoverySecured"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-EntityAuditLogQuerySecured, wsimport-client-NhincProxyAuditLogQuerySecured, wsimport-client-AdapterMpiSecured, wsimport-client-NhincComponentPatientCorrelationSecured, wsimport-client-EntityDocQuerySecured, wsimport-client-NhincProxyDocQuerySecured, wsimport-client-EntityDocRetrieveSecured, wsimport-client-NhincProxyDocRetrieveSecured, wsimport-client-EntitySubjectDiscoverySecured, wsimport-client-NhincProxySubjectDiscoverySecured, wsimport-client-EntityPatientDiscoverySecured, wsimport-client-NhincProxyPatientDiscoverySecured"/>
     <target name="wsimport-service-generate" depends="wsimport-service-DocumentRegistryService, wsimport-service-DocumentRepositoryService, wsimport-service-AdapterDocQuerySecured, wsimport-service-AdapterDocRetrieveSecured, wsimport-service-AdapterAuthenticationService, wsimport-service-AdapterPolicyEngineSecured, wsimport-service-AdapterPolicyEngineOrchestrator, wsimport-service-AdapterPolicyEngineTransform, wsimport-service-AdapterPEPService, wsimport-service-AdapterPIPService, wsimport-service-AdapterDocProvideAndRegisterservice, wsimport-service-AdapterSecuredAuditLogQuery, wsimport-service-AdapterReidentification, wsimport-service-AdapterMpiSecured, wsimport-service-AdapterMpi, wsimport-service-AdapterComponentMpi, wsimport-service-AdapterComponentMpiSecured, wsimport-service-AdapterPatientDiscoverySecured, wsimport-service-AdapterSubjectDiscoverySecured, wsimport-service-EntityAuditQuery, wsimport-service-ProxyAuditQuery, wsimport-service-EntityDocQuery, wsimport-service-NhincProxyDocQuery, wsimport-service-EntityDocRetrieve, wsimport-service-NhincProxyDocRetrieve, wsimport-service-EntityNotifyService, wsimport-service-EntitySubscribeService, wsimport-service-EntityUnsubscribeService, wsimport-service-ProxyHiemNotify, wsimport-service-ProxyHiemSubscribe, wsimport-service-ProxyHiemUnsubscribe, wsimport-service-EntityPatientDiscovery, wsimport-service-NhincProxyPatientDiscovery, wsimport-service-EntitySubjectDiscovery, wsimport-service-NhincProxySubjectDiscovery, wsimport-service-PatientCorrelationService, wsimport-service-MpiManager"/>
 </project>

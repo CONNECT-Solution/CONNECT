@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class NhincProxyPatientDiscovery {
 
     public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType proxyPRPAIN201305UVProxyRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new NhincProxyPatientDiscoveryImpl().proxyPRPAIN201305UV(proxyPRPAIN201305UVProxyRequest);
     }
 
 }

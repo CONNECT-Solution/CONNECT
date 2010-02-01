@@ -324,7 +324,7 @@
         <url-pattern>/NhincProxySubjectDiscovery</url-pattern>
     </servlet-mapping>
     
-	<servlet>
+    <servlet>
         <servlet-name>PatientCorrelationService</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationService</servlet-class>
     </servlet>
@@ -332,7 +332,16 @@
         <servlet-name>PatientCorrelationService</servlet-name>
         <url-pattern>/PatientCorrelationService</url-pattern>
     </servlet-mapping>
-	
+
+        <servlet>
+        <servlet-name>AdapterDocRepository2Soap12Service</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapterdocumentrepository.soap12.AdapterDocRepository2Soap12Service</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterDocRepository2Soap12Service</servlet-name>
+        <url-pattern>/AdapterDocRepository2Soap12Service</url-pattern>
+    </servlet-mapping>
+    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
