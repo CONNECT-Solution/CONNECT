@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class EntityAuditQuery {
 
     public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType findAuditEventsRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new EntityAuditQueryImpl().findAuditEvents(findAuditEventsRequest);
     }
 
 }

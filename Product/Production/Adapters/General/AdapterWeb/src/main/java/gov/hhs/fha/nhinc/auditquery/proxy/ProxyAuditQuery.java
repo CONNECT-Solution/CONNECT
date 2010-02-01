@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class ProxyAuditQuery {
 
     public com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType findAuditEvents(gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType findAuditEventsRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new ProxyAuditQueryImpl().findAuditEvents(findAuditEventsRequest);
     }
 
 }
