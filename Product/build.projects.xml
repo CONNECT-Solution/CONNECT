@@ -183,10 +183,6 @@
     <directory>/Production/Gateway/NhincPatientDiscoveryEJB</directory>
   </project>
   <project>
-    <name>EntityAuditQueryProxyEJB</name>
-    <directory>/Production/Adapters/General/EntityAuditQueryProxyEJB</directory>
-  </project>
-  <project>
     <name>AuditRepositoryEJB</name>
     <directory>/Production/Gateway/AuditRepositoryEJB</directory>
   </project>
