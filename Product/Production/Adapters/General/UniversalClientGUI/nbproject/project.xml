@@ -149,15 +149,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${reference.EntitySubjectDiscoveryProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${reference.EntitySubjectDiscoveryProxyImpl.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.EntityServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -216,22 +212,6 @@
             </reference>
             <reference>
                 <foreign-project>AssigningAuthoritiesToHomeCommunityMappingDAO</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>EntitySubjectDiscoveryProxy</foreign-project>
-                <artifact-type>jar</artifact-type>
-                <script>build.xml</script>
-                <target>jar</target>
-                <clean-target>clean</clean-target>
-                <id>jar</id>
-            </reference>
-            <reference>
-                <foreign-project>EntitySubjectDiscoveryProxyImpl</foreign-project>
                 <artifact-type>jar</artifact-type>
                 <script>build.xml</script>
                 <target>jar</target>

@@ -420,12 +420,6 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
-        <ant antfile="${project.EntitySubjectDiscoveryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.EntitySubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
@@ -453,12 +447,6 @@ exists or setup the property manually. For example like this:
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.EntitySubjectDiscoveryProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.EntitySubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="jar">
             <property name="deploy.on.save" value="false"/>
         </ant>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
@@ -643,14 +631,13 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.EntitySubjectDiscoveryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.EntitySubjectDiscoveryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.EntitySubjectDiscoveryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.EntitySubjectDiscoveryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.EntityServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.EntityServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.EntitySubjectDiscoveryProxy.jar} ${manifest.reference.EntitySubjectDiscoveryProxyImpl.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.file.reference.EntityServiceProxy.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -683,9 +670,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.EntitySubjectDiscoveryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.EntitySubjectDiscoveryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.EntityServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
@@ -990,8 +976,6 @@ exists or setup the property manually. For example like this:
         <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.EntitySubjectDiscoveryProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.EntitySubjectDiscoveryProxyImpl}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
         <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>

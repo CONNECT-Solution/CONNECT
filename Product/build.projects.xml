@@ -53,6 +53,10 @@
     <directory>/Production/Gateway/NhinHiemProxy</directory>
   </project>
   <project>
+    <name>EntityServiceProxy</name>
+    <directory>/Production/Adapters/General/EntityServiceProxy</directory>
+  </project>
+  <project>
     <name>DocumentRepository</name>
     <directory>/Production/Adapters/General/DocumentRepository</directory>
   </project>
