@@ -43,10 +43,15 @@
   <property name="deploy.type" value="ejb" description="options:['war', 'ejb', 'shared']" />
   -->
 
-  <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
-  <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
   <property name="deploy.application.list.file.path" value="${script.root.directory}/deploy.application.list.xml"/>
-
+  
+  <target name="deploy.create.glassfish.password.file" unless="deploy.glassfish.password.file.path">
+    <echo message="in deploy.create.glassfish.password.file"/>
+    <tempfile prefix="glassfish" property="deploy.glassfish.password.file.path" destdir="${java.io.tmpdir}" deleteonexit="true"/>
+    <echo message="AS_ADMIN_PASSWORD=${deployment.glassfish.server.admin.password}" file="${deploy.glassfish.password.file.path}"/>
+    <echo message="deploy.glassfish.password.file.path: ${deploy.glassfish.password.file.path}"/>
+  </target>
+  
   <target name="deploy">
     <antcall target="deploy.to.production" />
   </target>
@@ -57,6 +62,7 @@
 
   <target name="deploy.to.production">
     <runtarget target="deploy.glassfish.stop.server"/>
+    <runtarget target="deploy.nhinc.configuration.to.glassfish"/>
     <runtarget target="deploy.shared.libs.to.glassfish"/>
 
     <runtarget target="deploy.glassfish.start.server"/>
@@ -181,7 +187,7 @@
     <copy todir="${deployment.binaries.dir}" file="${dist.file}" overwrite="true"/>    
   </target>
 
-  <target name="deploy.ejb.to.glassfish">
+  <target name="deploy.ejb.to.glassfish" depends="deploy.create.glassfish.password.file">
     <sun-appserv-deploy
         user="${deployment.glassfish.server.username}"
         passwordfile="${deploy.glassfish.password.file.path}"
@@ -192,7 +198,7 @@
         />
   </target>
 
-  <target name="undeploy.ejb.from.glassfish">
+  <target name="undeploy.ejb.from.glassfish" depends="deploy.create.glassfish.password.file">
     <sun-appserv-undeploy
         user="${deployment.glassfish.server.username}"
         passwordfile="${deploy.glassfish.password.file.path}"
@@ -203,7 +209,7 @@
         />
   </target>
 
-  <target name="deploy.war.to.glassfish">
+  <target name="deploy.war.to.glassfish" depends="deploy.create.glassfish.password.file">
     <sun-appserv-deploy
         user="${deployment.glassfish.server.username}"
         passwordfile="${deploy.glassfish.password.file.path}"
@@ -214,7 +220,7 @@
         />
   </target>
 
-  <target name="undeploy.war.from.glassfish">
+  <target name="undeploy.war.from.glassfish" depends="deploy.create.glassfish.password.file">
     <sun-appserv-undeploy
         user="${deployment.glassfish.server.username}"
         passwordfile="${deploy.glassfish.password.file.path}"
@@ -235,21 +241,31 @@
   </target>
 
   <target name="delete.glassfish.domain">
-    <runtarget target="deploy.glassfish.stop.server"/>
-    <sun-appserv-admin 
-        explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
-        asinstalldir="${glassfish.home}"
-        />
+    <trycatch property="error">
+      <try>
+        <runtarget target="deploy.glassfish.stop.server"/>
+        <sun-appserv-admin 
+          explicitcommand="delete-domain ${deployment.glassfish.domain.name}"
+          asinstalldir="${glassfish.home}"
+          />
+      </try>
+      <catch>
+        <echo message="${error}"/>
+        <!-- if delete-domain or stop-domain command failed, try to delete domain directory -->
+        <!-- workaround for locked domain1/conf/.domain-registry.system file on Windows -->
+        <delete dir="${deployment.glassfish.domain.home}" verbose="true"/>
+      </catch>
+    </trycatch>
   </target>
 
-  <target name="create.glassfish.domain">
+  <target name="create.glassfish.domain" depends="deploy.create.glassfish.password.file">
     <sun-appserv-admin 
         explicitcommand='create-domain --profile developer --user ${deployment.glassfish.server.username} --adminport ${deployment.glassfish.admin.port} --passwordfile "${deploy.glassfish.password.file.path}" --savemasterpassword=true ${deployment.glassfish.domain.name}'
         asinstalldir="${glassfish.home}"
         />
   </target>
 
-  <target name="configure.glassfish.domain">
+  <target name="configure.glassfish.domain" depends="deploy.create.glassfish.password.file">
     <runtarget target="deploy.glassfish.start.server"/>
 
     <propertycopy  name="deployment.glassfish.domain.delete.jvm.options" from="deployment.glassfish.${deployment.environment.configuration.dir.name}.domain.delete.jvm.options"/>
@@ -290,13 +306,10 @@
         <file name="cacerts.jks"/>
       </filelist>
     </copy>
-    <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-      <fileset dir="${deployment.glassfish.domain.config.home}/nhin"/>
-    </copy>
   </target>
 
   <target name="restore.glassfish.domain">
-    <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
+    <copy todir="${deployment.glassfish.domain.config.home}" verbose="true" overwrite="true">
       <filelist dir="${deployment.dir}/backup">
         <file name="log4j.properties"/>
         <file name="mpi.xml"/>
@@ -304,18 +317,9 @@
     </copy>
   </target>
 
-  <target name="deploy.glassfish.nhinc.configuration">
+  <target name="deploy.nhinc.configuration.to.glassfish">
     <copy todir="${deployment.glassfish.domain.config.home}/nhin" verbose="true" overwrite="true">
       <fileset dir="${deployment.dir}/${deployment.environment.configuration.dir.name}"/>
-    </copy>
-  </target>
-
-  <target name="glassfish.restore.domain.certificates">
-    <copy todir="${deployment.glassfish.domain.config.home}"  verbose="true" overwrite="true">
-      <filelist dir="${deployment.certificate.home}">
-        <file name="keystore.jks"/>
-        <file name="cacerts.jks"/>
-      </filelist>
     </copy>
   </target>
 
@@ -338,7 +342,6 @@
     <runtarget target="create.glassfish.domain"/>
     <runtarget target="restore.glassfish.domain"/>
     <runtarget target="configure.glassfish.domain"/>
-    <runtarget target="deploy.glassfish.nhinc.configuration"/>
   </target>
 
 </project>

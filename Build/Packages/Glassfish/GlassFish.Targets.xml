@@ -107,7 +107,7 @@
 
   <target name="GlassFish.Deploy.Configuration">
     <ant
-      target="deploy.glassfish.nhinc.configuration"
+      target="deploy.nhinc.configuration.to.glassfish"
       buildfile="${GlassFish.Deploy.Script.File.Path}"
       logfile="${Ant.Log.Directory.Path}\deploy.configuration.log.xml"
     >

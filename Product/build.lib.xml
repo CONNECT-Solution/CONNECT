@@ -46,7 +46,6 @@
     <if>
       <equals arg1="${deploy.isDeployable}" arg2="true" />
     <then>
-      <echo message="Attempting to add entry ${project.name} to ${deploy.application.list.file.path}."/>
       <switch value="${deploy.type}">
         <case value="war">
           <var name="deploy.list.entry.xpath" value="/applications/wars"/>
@@ -90,7 +89,6 @@
       </default>
     </switch>
 
-    <echo message="${dist.file}"/>
     <call target="addentry.deploy.list.xml" if="${deploy.isDeployable}"/>
     <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
   </target>

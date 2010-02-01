@@ -59,6 +59,10 @@
 
     <runtarget target="create.deploy.list.xml"/>
 
+    <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
+      <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
+    </copy>
+    
     <antcall target="do-to-projects">
       <param name="do-to-target" value="copy.deployable.artifacts"/>
     </antcall>
@@ -121,7 +125,7 @@
   </target>
 
   <target name="debug" description="Debugging Build Process">
-  
+
   </target>
 
   <target name="echo_vars" description="Echo variables target." >
