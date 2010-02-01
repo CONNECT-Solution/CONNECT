@@ -215,10 +215,6 @@
     <directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
   </project>
   <project>
-    <name>EntityDocRetrieveProxyEJB</name>
-    <directory>/Production/Adapters/General/EntityDocRetrieveProxyEJB</directory>
-  </project>
-  <project>
     <name>AdapterDocRepository2Soap12EJB</name>
     <directory>/Production/Adapters/General/AdapterDocRepository2Soap12EJB</directory>
   </project>
