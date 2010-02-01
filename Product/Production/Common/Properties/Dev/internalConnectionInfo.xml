@@ -229,7 +229,7 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterService/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubjectdiscoverysecured</name>
@@ -573,7 +573,7 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/AdapterService/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubjectdiscoverysecured</name>

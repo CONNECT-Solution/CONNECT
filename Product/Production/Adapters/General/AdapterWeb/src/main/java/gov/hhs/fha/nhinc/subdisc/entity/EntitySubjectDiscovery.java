@@ -25,8 +25,7 @@ public class EntitySubjectDiscovery {
     }
 
     public org.hl7.v3.PIXConsumerPRPAIN201309UVResponseType pixConsumerPRPAIN201309UV(org.hl7.v3.PIXConsumerPRPAIN201309UVRequestType pixConsumerPRPAIN201309UVRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new EntitySubjectDiscoveryImpl().pixConsumerPRPAIN201309UV(pixConsumerPRPAIN201309UVRequest);
     }
 
 }

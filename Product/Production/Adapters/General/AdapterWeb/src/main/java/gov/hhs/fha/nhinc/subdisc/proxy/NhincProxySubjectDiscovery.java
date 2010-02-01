@@ -25,8 +25,7 @@ public class NhincProxySubjectDiscovery {
     }
 
     public org.hl7.v3.PRPAIN201310UV02 pixConsumerPRPAIN201309UV(org.hl7.v3.PIXConsumerPRPAIN201309UVProxyRequestType pixConsumerPRPAIN201309UVProxyRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new NhincProxySubjectDiscoveryImpl().pixConsumerPRPAIN201309UV(pixConsumerPRPAIN201309UVProxyRequest);
     }
 
 }

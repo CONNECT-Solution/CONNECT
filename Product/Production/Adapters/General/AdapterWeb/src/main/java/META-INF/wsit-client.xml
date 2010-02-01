@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
- <definitions 
+<definitions 
  xmlns="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
@@ -8,11 +8,13 @@
     <import location="NhincComponentAuditRepositorySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository"/>
     <import location="AdapterComponentSecuredMpi.xml" namespace="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"/>
     <import location="AdapterMpiSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adaptermpi"/>
-	<import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
-	<import location="EntityAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
-    <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>	
-	<import location="EntityDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocquery"/>
-    <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>	
-	<import location="NhincProxyDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
-    <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>	
+    <import location="NhincComponentPatientCorrelationSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
+    <import location="EntityAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entityauditlogquerysaml"/>
+    <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>
+    <import location="EntityDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocquery"/>
+    <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>
+    <import location="NhincProxyDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
+    <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>
+    <import location="EntitySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubjectdiscoverysecured"/>
+    <import location="NhincProxySubjectDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubjectdiscoverysecured"/>
 </definitions>
