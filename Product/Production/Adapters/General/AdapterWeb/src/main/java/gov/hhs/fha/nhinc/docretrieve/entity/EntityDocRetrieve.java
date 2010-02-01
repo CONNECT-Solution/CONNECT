@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class EntityDocRetrieve {
 
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new EntityDocRetrieveImpl().respondingGatewayCrossGatewayRetrieve(respondingGatewayCrossGatewayRetrieveRequest);
     }
 
 }

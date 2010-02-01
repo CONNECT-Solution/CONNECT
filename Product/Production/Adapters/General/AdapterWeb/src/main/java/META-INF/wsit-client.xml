@@ -13,4 +13,6 @@
     <import location="NhincProxyAuditLogQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquerysecured"/>	
 	<import location="EntityDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocquery"/>
     <import location="NhincProxyDocQuerySecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocquerysecured"/>	
+	<import location="NhincProxyDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured"/>
+    <import location="EntityDocRetrieveSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitydocretrievesecured"/>	
 </definitions>

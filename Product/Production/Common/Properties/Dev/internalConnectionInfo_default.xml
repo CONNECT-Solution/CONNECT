@@ -284,7 +284,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -294,7 +294,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -607,7 +607,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -617,7 +617,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -689,7 +689,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -699,7 +699,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -756,7 +756,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -766,7 +766,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
