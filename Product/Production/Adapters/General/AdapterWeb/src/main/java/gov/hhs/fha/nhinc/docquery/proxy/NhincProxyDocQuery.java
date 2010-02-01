@@ -10,8 +10,7 @@ import javax.jws.WebService;
 public class NhincProxyDocQuery {
 
     public oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse respondingGatewayCrossGatewayQuery(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayCrossGatewayQueryRequestType respondingGatewayCrossGatewayQueryRequest) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new NhincProxyDocQueryImpl().respondingGatewayCrossGatewayQuery(respondingGatewayCrossGatewayQueryRequest);
     }
 
 }

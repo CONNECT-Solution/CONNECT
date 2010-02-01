@@ -259,7 +259,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -269,7 +269,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -582,7 +582,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -592,7 +592,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -669,7 +669,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -679,7 +679,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -736,7 +736,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -746,7 +746,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
