@@ -177,113 +177,119 @@
     <message name="GetConnectionInfoEndpontFromNhinTargetResponseMessage">
         <part name="GetConnectionInfoEndpontFromNhinTargetResponse" element="nccommon:EPR"/>
     </message>
+    <message name="GetUrlSetFromNhinTargetCommunitiesRequestMessage">
+        <part name="GetUrlSetFromNhinTargetCommunitiesRequest" element="conninfo:GetUrlSetByServiceName"/>
+    </message>
+    <message name="GetUrlSetFromNhinTargetCommunitiesResponseMessage">
+        <part name="GetUrlSetFromNhinTargetCommunitiesResponse" element="nccommon:UrlSet"/>
+    </message>
     <portType name="NhincComponentConnectionManagerPortType">
         <operation name="GetAllCommunities">
-            <input name="GetAllCommunitiesRequest" 
+            <input name="GetAllCommunitiesRequest"
                    message="tns:GetAllCommunitiesRequestMessage"/>
-            <output name="GetAllCommunitiesResponse" 
+            <output name="GetAllCommunitiesResponse"
                     message="tns:GetAllCommunitiesResponseMessage"/>
         </operation>
         <operation name="GetAllBusinessEntities">
-            <input name="GetAllBusinessEntitiesRequest" 
+            <input name="GetAllBusinessEntitiesRequest"
                    message="tns:GetAllBusinessEntitiesRequestMessage"/>
-            <output name="GetAllBusinessEntitiesResponse" 
+            <output name="GetAllBusinessEntitiesResponse"
                     message="tns:GetAllBusinessEntitiesResponseMessage"/>
         </operation>
         <operation name="GetBusinessEntity">
-            <input name="GetBusinessEntityRequest" 
+            <input name="GetBusinessEntityRequest"
                    message="tns:GetBusinessEntityRequestMessage"/>
-            <output name="GetBusinessEntityResponse" 
+            <output name="GetBusinessEntityResponse"
                     message="tns:GetBusinessEntityResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoSet">
-            <input name="GetConnectionInfoSetRequest" 
+            <input name="GetConnectionInfoSetRequest"
                    message="tns:GetConnectionInfoSetRequestMessage"/>
-            <output name="GetConnectionInfoSetResponse" 
+            <output name="GetConnectionInfoSetResponse"
                     message="tns:GetConnectionInfoSetResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoEndpointSet">
-            <input name="GetConnectionInfoEndpointSetRequest" 
+            <input name="GetConnectionInfoEndpointSetRequest"
                    message="tns:GetConnectionInfoEndpointSetRequestMessage"/>
-            <output name="GetConnectionInfoEndpointSetResponse" 
+            <output name="GetConnectionInfoEndpointSetResponse"
                     message="tns:GetConnectionInfoEndpointSetResponseMessage"/>
         </operation>
         <operation name="GetBusinessEntitySet">
-            <input name="GetBusinessEntitySetRequest" 
+            <input name="GetBusinessEntitySetRequest"
                    message="tns:GetBusinessEntitySetRequestMessage"/>
-            <output name="GetBusinessEntitySetResponse" 
+            <output name="GetBusinessEntitySetResponse"
                     message="tns:GetBusinessEntitySetResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoSetByServiceName">
-            <input name="GetConnectionInfoSetByServiceNameRequest" 
+            <input name="GetConnectionInfoSetByServiceNameRequest"
                    message="tns:GetConnectionInfoSetByServiceNameRequestMessage"/>
-            <output name="GetConnectionInfoSetByServiceNameResponse" 
+            <output name="GetConnectionInfoSetByServiceNameResponse"
                     message="tns:GetConnectionInfoSetByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoEndpointSetByServiceName">
-            <input name="GetConnectionInfoEndpointSetByServiceNameRequest" 
+            <input name="GetConnectionInfoEndpointSetByServiceNameRequest"
                    message="tns:GetConnectionInfoEndpointSetByServiceNameRequestMessage"/>
-            <output name="GetConnectionInfoEndpointSetByServiceNameResponse" 
+            <output name="GetConnectionInfoEndpointSetByServiceNameResponse"
                     message="tns:GetConnectionInfoEndpointSetByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetBusinessEntitySetByServiceName">
-            <input name="GetBusinessEntitySetByServiceNameRequest" 
+            <input name="GetBusinessEntitySetByServiceNameRequest"
                    message="tns:GetBusinessEntitySetByServiceNameRequestMessage"/>
-            <output name="GetBusinessEntitySetByServiceNameResponse" 
+            <output name="GetBusinessEntitySetByServiceNameResponse"
                     message="tns:GetBusinessEntitySetByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoByServiceName">
-            <input name="GetConnectionInfoByServiceNameRequest" 
+            <input name="GetConnectionInfoByServiceNameRequest"
                    message="tns:GetConnectionInfoByServiceNameRequestMessage"/>
-            <output name="GetConnectionInfoByServiceNameResponse" 
+            <output name="GetConnectionInfoByServiceNameResponse"
                     message="tns:GetConnectionInfoByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetConnectionInfoEndpointByServiceName">
-            <input name="GetConnectionInfoEndpointByServiceNameRequest" 
+            <input name="GetConnectionInfoEndpointByServiceNameRequest"
                    message="tns:GetConnectionInfoEndpointByServiceNameRequestMessage"/>
-            <output name="GetConnectionInfoEndpointByServiceNameResponse" 
+            <output name="GetConnectionInfoEndpointByServiceNameResponse"
                     message="tns:GetConnectionInfoEndpointByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetBusinessEntityByServiceName">
-            <input name="GetBusinessEntityByServiceNameRequest" 
+            <input name="GetBusinessEntityByServiceNameRequest"
                    message="tns:GetBusinessEntityByServiceNameRequestMessage"/>
-            <output name="GetBusinessEntityByServiceNameResponse" 
+            <output name="GetBusinessEntityByServiceNameResponse"
                     message="tns:GetBusinessEntityByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetAllConnectionInfoSetByServiceName">
-            <input name="GetAllConnectionInfoSetByServiceNameRequest" 
+            <input name="GetAllConnectionInfoSetByServiceNameRequest"
                    message="tns:GetAllConnectionInfoSetByServiceNameRequestMessage"/>
-            <output name="GetAllConnectionInfoSetByServiceNameResponse" 
+            <output name="GetAllConnectionInfoSetByServiceNameResponse"
                     message="tns:GetAllConnectionInfoSetByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetAllConnectionInfoEndpointSetByServiceName">
-            <input name="GetAllConnectionInfoEndpointSetByServiceNameRequest" 
+            <input name="GetAllConnectionInfoEndpointSetByServiceNameRequest"
                    message="tns:GetAllConnectionInfoEndpointSetByServiceNameRequestMessage"/>
-            <output name="GetAllConnectionInfoEndpointSetByServiceNameResponse" 
+            <output name="GetAllConnectionInfoEndpointSetByServiceNameResponse"
                     message="tns:GetAllConnectionInfoEndpointSetByServiceNameResponseMessage"/>
         </operation>
         <operation name="GetAllBusinessEntitySetByServiceName">
-            <input name="GetAllBusinessEntitySetByServiceNameRequest" 
+            <input name="GetAllBusinessEntitySetByServiceNameRequest"
                    message="tns:GetAllBusinessEntitySetByServiceNameRequestMessage"/>
-            <output name="GetAllBusinessEntitySetByServiceNameResponse" 
+            <output name="GetAllBusinessEntitySetByServiceNameResponse"
                     message="tns:GetAllBusinessEntitySetByServiceNameResponseMessage"/>
         </operation>
         <operation name="ForceRefreshUDDICache">
-            <input name="ForceRefreshUDDICacheRequest" 
+            <input name="ForceRefreshUDDICacheRequest"
                    message="tns:ForceRefreshUDDICacheRequestMessage"/>
-            <output name="ForceRefreshUDDICacheResponse" 
+            <output name="ForceRefreshUDDICacheResponse"
                     message="tns:ForceRefreshUDDICacheResponseMessage"/>
         </operation>
         <operation name="ForceRefreshInternalConnectCache">
-            <input name="ForceRefreshInternalConnectCacheRequest" 
+            <input name="ForceRefreshInternalConnectCacheRequest"
                    message="tns:ForceRefreshInternalConnectCacheRequestMessage"/>
-            <output name="ForceRefreshInternalConnectCacheResponse" 
+            <output name="ForceRefreshInternalConnectCacheResponse"
                     message="tns:ForceRefreshInternalConnectCacheResponseMessage"/>
         </operation>
         <operation name="StoreAssigningAuthorityToHomeCommunityMapping">
-            <input name="StoreAssigningAuthorityToHomeCommunityMappingRequest" 
+            <input name="StoreAssigningAuthorityToHomeCommunityMappingRequest"
             message="tns:StoreAssigningAuthorityToHomeCommunityMappingRequestMessage"/>
-            <output name="StoreAssigningAuthorityToHomeCommunityMappingResponse" 
+            <output name="StoreAssigningAuthorityToHomeCommunityMappingResponse"
             message="tns:StoreAssigningAuthorityToHomeCommunityMappingResponseMessage"/>
         </operation>
         <operation name="GetAssigningAuthoritiesByHomeCommunity">
@@ -298,10 +304,14 @@
             <input name="GetConnectionInfoEndpontFromNhinTargetRequest" message="tns:GetConnectionInfoEndpontFromNhinTargetRequestMessage"/>
             <output name="GetConnectionInfoEndpontFromNhinTargetResponse" message="tns:GetConnectionInfoEndpontFromNhinTargetResponseMessage"/>
         </operation>
+        <operation name="GetUrlSetFromNhinTargetCommunities">
+            <input name="GetUrlSetFromNhinTargetCommunitiesRequest" message="tns:GetUrlSetFromNhinTargetCommunitiesRequestMessage"/>
+            <output name="GetUrlSetFromNhinTargetCommunitiesResponse" message="tns:GetUrlSetFromNhinTargetCommunitiesResponseMessage"/>
+        </operation>
     </portType>
-    <binding name="NhincComponentConnectionManagerBindingSoap11" 
+    <binding name="NhincComponentConnectionManagerBindingSoap11"
              type="tns:NhincComponentConnectionManagerPortType">
-        <soap:binding style="document" 
+        <soap:binding style="document"
                       transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="StoreAssigningAuthorityToHomeCommunityMapping">
             <soap:operation soapAction="urn:StoreAssigningAuthorityToHomeCommunityMapping"/>
@@ -492,23 +502,36 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="GetUrlSetFromNhinTargetCommunities">
+            <soap:operation soapAction="GetUrlSetFromNhinTargetCommunities"/>
+            <input name="GetUrlSetFromNhinTargetCommunitiesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetUrlSetFromNhinTargetCommunitiesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
     </binding>
     <service name="NhincComponentConnectionManager">
-        <port name="NhincComponentConnectionManagerPortSoap11" 
+        <port name="NhincComponentConnectionManagerPortSoap11"
               binding="tns:NhincComponentConnectionManagerBindingSoap11">
-            <soap:address 
+            <soap:address
               location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager"/>
         </port>
     </service>
     <plnk:partnerLinkType name="NhincComponentConnectionManager">
-		<!-- A partner link type is automatically generated when a new port 
-             type is added. Partner link types are used by BPEL processes. 
-             In a BPEL process, a partner link represents the interaction 
-             between the BPEL process and a partner service. Each partner 
-             link is associated with a partner link type.  A partner link 
-             type characterizes the conversational relationship between 
+		<!-- A partner link type is automatically generated when a new port
+             type is added. Partner link types are used by BPEL processes.
+             In a BPEL process, a partner link represents the interaction
+             between the BPEL process and a partner service. Each partner
+             link is associated with a partner link type.  A partner link
+             type characterizes the conversational relationship between
              two services. The partner link type can have one or two roles.-->
-        <plnk:role name="NhincComponentConnectionManagerPortTypeRole" 
+        <plnk:role name="NhincComponentConnectionManagerPortTypeRole"
                    portType="tns:NhincComponentConnectionManagerPortType"/>
     </plnk:partnerLinkType>
 </definitions>
+
+
+
+

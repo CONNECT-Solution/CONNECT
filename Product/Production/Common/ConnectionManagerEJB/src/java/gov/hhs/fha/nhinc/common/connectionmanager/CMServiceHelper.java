@@ -41,14 +41,15 @@ import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetHomeCommunityByAssignin
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetHomeCommunityByAssigningAuthorityResponseType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.StoreAssigningAuthorityToHomeCommunityMappingRequestType;
 import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpontFromNhinTargetType;
+import gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetUrlSetByServiceNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssigningAuthoritiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssigningAuthorityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.EPRType;
-import gov.hhs.fha.nhinc.connectmgr.CMEprUtil;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlSetType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
-import gov.hhs.fha.nhinc.connectmgr.data.CMEprInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
@@ -960,5 +961,20 @@ public class CMServiceHelper {
         }
 
         return endPtRef;
+    }
+
+    public static UrlSetType getUrlSetFromNhinTargetCommunities(GetUrlSetByServiceNameType getConnectionInfoEndpontFromNhinTargetRequest) {
+        UrlSetType urlSet = new UrlSetType();
+        log.info("In getUrlSetFromNhinTargetCommunities...");
+
+        try {
+            List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
+            urlSet.getUrl().addAll(urlList);
+        } catch (ConnectionManagerException ex) {
+            log.error("Failed to retrieve URL Set from Nhin Target Community");
+            return null;
+        }
+
+        return urlSet;
     }
 }

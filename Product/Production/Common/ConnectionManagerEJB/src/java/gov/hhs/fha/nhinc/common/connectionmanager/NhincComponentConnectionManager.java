@@ -146,4 +146,8 @@ public class NhincComponentConnectionManager implements NhincComponentConnection
     public gov.hhs.fha.nhinc.common.nhinccommon.EPRType getConnectionInfoEndpontFromNhinTarget(gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetConnectionInfoEndpontFromNhinTargetType getConnectionInfoEndpontFromNhinTargetRequest) {
         return CMServiceHelper.getConnectionInfoEndpontFromNhinTarget(getConnectionInfoEndpontFromNhinTargetRequest);
     }
+
+    public gov.hhs.fha.nhinc.common.nhinccommon.UrlSetType getUrlSetFromNhinTargetCommunities(gov.hhs.fha.nhinc.common.connectionmanagerinfo.GetUrlSetByServiceNameType getConnectionInfoEndpontFromNhinTargetRequest) {
+        return CMServiceHelper.getUrlSetFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest);
+    }
 }
