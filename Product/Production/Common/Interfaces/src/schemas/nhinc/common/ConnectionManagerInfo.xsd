@@ -452,5 +452,12 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="GetConnectionInfoEndpontFromNhinTargetRequest" type="tns:GetConnectionInfoEndpontFromNhinTargetType"/>
+    <xsd:complexType name="GetUrlSetByServiceNameType">
+            <xsd:sequence>
+                <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"></xsd:element>
+                <xsd:element name="service" type="xsd:string"></xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    <xsd:element name="GetUrlSetByServiceName" type="tns:GetUrlSetByServiceNameType"/>
 </xsd:schema>
 
