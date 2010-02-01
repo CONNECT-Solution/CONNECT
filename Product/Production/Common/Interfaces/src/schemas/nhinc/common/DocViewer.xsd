@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xml.netbeans.org/schema/docviewer" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nhin="urn:gov:hhs:fha:nhinc:common:nhinccommon" targetNamespace="http://xml.netbeans.org/schema/docviewer" elementFormDefault="qualified">
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
-	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
+	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../../nhinc/common/NhincCommon.xsd"/>
 	<xsd:element name="DocViewerRequestType">
 		<xsd:complexType>
 			<xsd:sequence>
@@ -51,6 +51,9 @@
 			<xsd:element name="requestingUser" type="xsd:string" minOccurs="0"/>
 			<xsd:element name="selected" type="xsd:boolean"/>
 			<xsd:element name="uniqueDocumentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origDocumentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origRespositoryId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origHomeCommunityId" type="xsd:string" minOccurs="0"/>
 		</xsd:sequence>
 	</xsd:complexType>
 </xsd:schema>
