@@ -4,4 +4,5 @@
 	<property name="deploy.exclude.war.UniversalClientGUI" value="true"/>
 	<property name="deploy.exclude.war.UDDIModifierGUI" value="true"/>
 	<property name="deploy.exclude.ejb.FTATransferAdapterEJB" value="true"/>
+  <property name="deploy.exclude.ejb.UDDIUpdateManagerEJB" value="true"/>
 </project>
