@@ -176,6 +176,10 @@
     <directory>/Production/Common/ConnectionManagerEJB</directory>
   </project>
   <project>
+    <name>PropAccessorEJB</name>
+    <directory>/Production/Common/PropAccessorEJB</directory>
+  </project>
+  <project>
     <name>DocumentTransformEJB</name>
     <directory>/Production/Common/DocumentTransformEJB</directory>
   </project>
