@@ -136,6 +136,14 @@
     <name>AdapterReidentificationProxyImpl</name>
     <directory>/Production/Adapters/General/AdapterReidentificationProxyImpl</directory>
   </project>
+  <project>
+    <name>AdapterMpiProxy</name>
+    <directory>/Production/Adapters/General/AdapterMpiProxy</directory>
+  </project>
+  <project>
+    <name>AdapterMpiProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterMpiProxyImpl</directory>
+  </project>
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
