@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="PropertyAccessorService" 
+             targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor" 
+             xmlns:propacc="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" 
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <types>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhinccomponentpropaccessor">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:propertyaccess" 
+                        schemaLocation="../schemas/nhinc/common/PropertyAccess.xsd"/>
+        </xsd:schema>
+    </types>
+    
+    <message name="GetPropertyRequestMessage">
+        <part name="GetPropertyRequest" 
+              element="propacc:GetPropertyRequest"/>
+    </message>
+    <message name="GetPropertyResponseMessage">
+        <part name="GetPropertyResponse" 
+              element="propacc:GetPropertyResponse"/>
+    </message>
+    <message name="GetPropertyBooleanRequestMessage">
+        <part name="GetPropertyBooleanRequest" 
+              element="propacc:GetPropertyBooleanRequest"/>
+    </message>
+    <message name="GetPropertyBooleanResponseMessage">
+        <part name="GetPropertyBooleanResponse" 
+              element="propacc:GetPropertyBooleanResponse"/>
+    </message>
+    <message name="GetPropertyNamesRequestMessage">
+        <part name="GetPropertyNamesRequest" 
+              element="propacc:GetPropertyNamesRequest"/>
+    </message>
+    <message name="GetPropertyNamesResponseMessage">
+        <part name="GetPropertyNamesResponse" 
+              element="propacc:GetPropertyNamesResponse"/>
+    </message>
+    <message name="GetPropertiesRequestMessage">
+        <part name="GetPropertiesRequest" 
+              element="propacc:GetPropertiesRequest"/>
+    </message>
+    <message name="GetPropertiesResponseMessage">
+        <part name="GetPropertiesResponse" 
+              element="propacc:GetPropertiesResponse"/>
+    </message>
+    <message name="GetRefreshDurationRequestMessage">
+        <part name="GetRefreshDurationRequest" 
+              element="propacc:GetRefreshDurationRequest"/>
+    </message>
+    <message name="GetRefreshDurationResponseMessage">
+        <part name="GetRefreshDurationResponse" 
+              element="propacc:GetRefreshDurationResponse"/>
+    </message>
+    <message name="GetDurationBeforeNextRefreshRequestMessage">
+        <part name="GetDurationBeforeNextRefreshRequest" 
+              element="propacc:GetDurationBeforeNextRefreshRequest"/>
+    </message>
+    <message name="GetDurationBeforeNextRefreshResponseMessage">
+        <part name="GetDurationBeforeNextRefreshResponse" 
+              element="propacc:GetDurationBeforeNextRefreshResponse"/>
+    </message>
+    <message name="ForceRefreshRequestMessage">
+        <part name="ForceRefreshRequest" 
+              element="propacc:ForceRefreshRequest"/>
+    </message>
+    <message name="ForceRefreshResponseMessage">
+        <part name="ForceRefreshResponse" 
+              element="propacc:ForceRefreshResponse"/>
+    </message>
+    <message name="GetPropertyFileLocationRequestMessage">
+        <part name="GetPropertyFileLocationRequest" 
+              element="propacc:GetPropertyFileLocationRequest"/>
+    </message>
+    <message name="GetPropertyFileLocationResponseMessage">
+        <part name="GetPropertyFileLocationResponse" 
+              element="propacc:GetPropertyFileLocationResponse"/>
+    </message>
+    <message name="DumpPropsToLogRequestMessage">
+        <part name="DumpPropsToLogRequest" 
+              element="propacc:DumpPropsToLogRequest"/>
+    </message>
+    <message name="DumpPropsToLogResponseMessage">
+        <part name="DumpPropsToLogResponse" 
+              element="propacc:DumpPropsToLogResponse"/>
+    </message>
+    <message name="WritePropertyFileRequestMessage">
+        <part name="WritePropertyFileRequest" 
+              element="propacc:WritePropertyFileRequest"/>
+    </message>
+    <message name="WritePropertyFileResponseMessage">
+        <part name="WritePropertyFileResponse" 
+              element="propacc:WritePropertyFileResponse"/>
+    </message>
+    <message name="DeletePropertyFileRequestMessage">
+        <part name="DeletePropertyFileRequest" 
+              element="propacc:DeletePropertyFileRequest"/>
+    </message>
+    <message name="DeletePropertyFileResponseMessage">
+        <part name="DeletePropertyFileResponse" 
+              element="propacc:DeletePropertyFileResponse"/>
+    </message>
+    
+    <portType name="NhincComponentPropAccessorPortType">
+        <operation name="GetProperty">
+            <input name="GetPropertyRequest" 
+                   message="tns:GetPropertyRequestMessage"/>
+            <output name="GetPropertyResponse" 
+                    message="tns:GetPropertyResponseMessage"/>
+        </operation>
+        <operation name="GetPropertyBoolean">
+            <input name="GetPropertyBooleanRequest" 
+                   message="tns:GetPropertyBooleanRequestMessage"/>
+            <output name="GetPropertyBooleanResponse" 
+                    message="tns:GetPropertyBooleanResponseMessage"/>
+        </operation>
+        <operation name="GetPropertyNames">
+            <input name="GetPropertyNamesRequest" 
+                   message="tns:GetPropertyNamesRequestMessage"/>
+            <output name="GetPropertyNamesResponse" 
+                    message="tns:GetPropertyNamesResponseMessage"/>
+        </operation>
+        <operation name="GetProperties">
+            <input name="GetPropertiesRequest" 
+                   message="tns:GetPropertiesRequestMessage"/>
+            <output name="GetPropertiesResponse" 
+                    message="tns:GetPropertiesResponseMessage"/>
+        </operation>
+        <operation name="GetRefreshDuration">
+            <input name="GetRefreshDurationRequest" 
+                   message="tns:GetRefreshDurationRequestMessage"/>
+            <output name="GetRefreshDurationResponse" 
+                    message="tns:GetRefreshDurationResponseMessage"/>
+        </operation>
+        <operation name="GetDurationBeforeNextRefresh">
+            <input name="GetDurationBeforeNextRefreshRequest" 
+                   message="tns:GetDurationBeforeNextRefreshRequestMessage"/>
+            <output name="GetDurationBeforeNextRefreshResponse" 
+                    message="tns:GetDurationBeforeNextRefreshResponseMessage"/>
+        </operation>
+        <operation name="ForceRefresh">
+            <input name="ForceRefreshRequest" 
+                   message="tns:ForceRefreshRequestMessage"/>
+            <output name="ForceRefreshResponse" 
+                    message="tns:ForceRefreshResponseMessage"/>
+        </operation>
+        <operation name="GetPropertyFileLocation">
+            <input name="GetPropertyFileLocationRequest" 
+                   message="tns:GetPropertyFileLocationRequestMessage"/>
+            <output name="GetPropertyFileLocationResponse" 
+                    message="tns:GetPropertyFileLocationResponseMessage"/>
+        </operation>
+        <operation name="DumpPropsToLog">
+            <input name="DumpPropsToLogRequest" 
+                   message="tns:DumpPropsToLogRequestMessage"/>
+            <output name="DumpPropsToLogResponse" 
+                    message="tns:DumpPropsToLogResponseMessage"/>
+        </operation>
+        <operation name="WritePropertyFile">
+            <input name="WritePropertyFileRequest" 
+                   message="tns:WritePropertyFileRequestMessage"/>
+            <output name="WritePropertyFileResponse" 
+                    message="tns:WritePropertyFileResponseMessage"/>
+        </operation>
+        <operation name="DeletePropertyFile">
+            <input name="DeletePropertyFileRequest" 
+                   message="tns:DeletePropertyFileRequestMessage"/>
+            <output name="DeletePropertyFileResponse" 
+                    message="tns:DeletePropertyFileResponseMessage"/>
+        </operation>
+    </portType>
+    
+    <binding name="NhincComponentPropAccessorBindingSoap11" 
+             type="tns:NhincComponentPropAccessorPortType">
+        <soap:binding style="document" 
+                      transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="GetProperty">
+            <soap:operation soapAction="urn:GetProperty"/>
+            <input name="GetPropertyRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetPropertyResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetPropertyBoolean">
+            <soap:operation soapAction="urn:GetPropertyBoolean"/>
+            <input name="GetPropertyBooleanRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetPropertyBooleanResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetPropertyNames">
+            <soap:operation soapAction="urn:GetPropertyNames"/>
+            <input name="GetPropertyNamesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetPropertyNamesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetProperties">
+            <soap:operation soapAction="urn:GetProperties"/>
+            <input name="GetPropertiesRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetPropertiesResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetRefreshDuration">
+            <soap:operation soapAction="urn:GetRefreshDuration"/>
+            <input name="GetRefreshDurationRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetRefreshDurationResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetDurationBeforeNextRefresh">
+            <soap:operation soapAction="urn:GetDurationBeforeNextRefresh"/>
+            <input name="GetDurationBeforeNextRefreshRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetDurationBeforeNextRefreshResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="ForceRefresh">
+            <soap:operation soapAction="urn:ForceRefresh"/>
+            <input name="ForceRefreshRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="ForceRefreshResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="GetPropertyFileLocation">
+            <soap:operation soapAction="urn:GetPropertyFileLocation"/>
+            <input name="GetPropertyFileLocationRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="GetPropertyFileLocationResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="DumpPropsToLog">
+            <soap:operation soapAction="urn:DumpPropsToLog"/>
+            <input name="DumpPropsToLogRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="DumpPropsToLogResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="WritePropertyFile">
+            <soap:operation soapAction="urn:WritePropertyFile"/>
+            <input name="WritePropertyFileRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="WritePropertyFileResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="DeletePropertyFile">
+            <soap:operation soapAction="urn:DeletePropertyFile"/>
+            <input name="DeletePropertyFileRequest">
+                <soap:body use="literal"/>
+            </input>
+            <output name="DeletePropertyFileResponse">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    
+    <service name="NhincComponentPropAccessor">
+        <port name="NhincComponentPropAccessorPort" 
+              binding="tns:NhincComponentPropAccessorBindingSoap11">
+            <soap:address 
+               location="http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentPropAccessor"/>
+        </port>
+    </service>
+    
+    <plnk:partnerLinkType name="NhincComponentPropAccessor">
+        <!-- A partner link type is automatically generated when a new port type 
+             is added. Partner link types are used by BPEL processes. In a BPEL 
+             process, a partner link represents the interaction between the BPEL 
+             process and a partner service. Each partner link is associated with 
+             a partner link type.  A partner link type characterizes the 
+             conversational relationship between two services. The partner link 
+             type can have one or two roles.-->
+        <plnk:role name="NhincComponentPropAccessorPortTypeRole" 
+                   portType="tns:NhincComponentPropAccessorPortType"/>
+    </plnk:partnerLinkType>
+</definitions>
