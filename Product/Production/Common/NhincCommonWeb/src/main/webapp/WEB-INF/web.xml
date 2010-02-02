@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <servlet>
+        <servlet-name>DocumentTransform</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.transform.document.DocumentTransform</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DocumentTransform</servlet-name>
+        <url-pattern>/NhincComponentDocumentTransform</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincComponentPropAccessor</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.common.propaccessor.NhincComponentPropAccessor</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincComponentPropAccessor</servlet-name>
+        <url-pattern>/NhincComponentPropAccessor</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

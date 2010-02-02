@@ -128,6 +128,10 @@
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
   <project>
+    <name>NhincCommonWeb</name>
+    <directory>/Production/Common/NhincCommonWeb</directory>
+  </project>
+  <project>
     <name>GatewayWeb</name>
     <directory>/Production/Gateway/GatewayWeb</directory>
   </project>
