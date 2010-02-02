@@ -52,4 +52,7 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentPropAccessor/schemas/"/>
         </copy>
     </target>
+	<target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>
