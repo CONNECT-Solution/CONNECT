@@ -43,7 +43,7 @@ import java.io.File;
  * both internal connection settings and UDDI connection settings.  If there is
  * a collision for a connection between the UDDI and the Internal settings, the
  * internal one will be used.
- * 
+ *
  * @author Les Westberg
  */
 public class ConnectionManagerCache {
@@ -93,9 +93,9 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This class is used for testing purposes so that the file locations can be overridden 
+     * This class is used for testing purposes so that the file locations can be overridden
      * to point to a controlled location available for unit tests.
-     * 
+     *
      * @param sUDDIFileName The path and file name for the UDDI XML file.
      * @param sInternalConnFileName The path and file name for the Internal Connectil File Name.
      */
@@ -105,7 +105,7 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method is used to load the UDDI Connection Infomration form the 
+     * This method is used to load the UDDI Connection Infomration form the
      * uddiConnectionInfo.xml file.
      */
     private static void loadUDDIConnectionInfo()
@@ -161,7 +161,7 @@ public class ConnectionManagerCache {
 
     /**
      * This returns true if the set of services contains a service for the given service name.
-     * 
+     *
      * @param oServices The set of services to search.
      * @param sUniformServiceName The name of the service to search for.
      * @return True if the service is found.
@@ -192,7 +192,7 @@ public class ConnectionManagerCache {
      * as the ones from the external conenctions.   The internal information always
      * overrides the external.  When it comes to services, it does not do a piece wise compare
      * of the services.  If a service is defined internally, it will use the entire service.
-     * 
+     *
      * @param oInternalEntity The internal business entitie
      * @param oUDDIEntity The UDDI entity
      * @return The combined information to be sent out.
@@ -253,9 +253,9 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method simply checks to see if the cache is loaded.  If it is not, then 
+     * This method simply checks to see if the cache is loaded.  If it is not, then
      * it is loaded as a byproduct of calling this method.
-     * 
+     *
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
     private static void checkLoaded()
@@ -274,7 +274,7 @@ public class ConnectionManagerCache {
     }
 
     /**
-     * This method is used to load the UDDI Connection Infomration form the 
+     * This method is used to load the UDDI Connection Infomration form the
      * uddiConnectionInfo.xml file.
      */
     private static void loadInternalConnectionInfo()
@@ -331,7 +331,7 @@ public class ConnectionManagerCache {
     /**
      * This method will cause the ConnectionManagerCache to refresh the UDDI connection data
      * by replacing the cached UDDI information with the information in the uddiConnectionInfo.xml file.
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public static void forceRefreshUDDICache()
             throws ConnectionManagerException {
@@ -340,9 +340,9 @@ public class ConnectionManagerCache {
 
     /**
      * This method will cause the ConnectionManagerCache to refresh the internal connection data
-     * by replacing the cached internal connection information with the information in 
+     * by replacing the cached internal connection information with the information in
      * the internalConnectionInfo.xml file.
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public static void forceRefreshInternalConnectCache()
             throws ConnectionManagerException {
@@ -351,7 +351,7 @@ public class ConnectionManagerCache {
 
     /**
      * This method checks to see if either cache has expired and forces a refresh if it has.
-     * 
+     *
      */
     private static void refreshIfExpired()
             throws ConnectionManagerException {
@@ -393,7 +393,7 @@ public class ConnectionManagerCache {
     /**
      * This method extracts the home community information from the CMInternalConnectionInfo object
      * and places it into a new CMHomeCommunity object and returns it.
-     * 
+     *
      * @param oConnInfo The connection information to be transformed.
      * @return The HomeCommunity information.
      */
@@ -419,8 +419,8 @@ public class ConnectionManagerCache {
 
     /**
      * This method extracts the fields from the CMInternalConnectionInfo object and creats a
-     * CMBusinessEntity object with the data. 
-     * 
+     * CMBusinessEntity object with the data.
+     *
      * @param oConnInfo The connection information to be transformed.
      * @return The CMBusinessEntity object from the information.
      */
@@ -516,7 +516,7 @@ public class ConnectionManagerCache {
     /**
      * This method extracts the home community information from the CMBusinessEntity object
      * and places it into a new CMHomeCommunity object and returns it.
-     * 
+     *
      * @param oConnInfo The connection information to be transformed.
      * @return The HomeCommunity information.
      */
@@ -551,9 +551,9 @@ public class ConnectionManagerCache {
     /**
      * This method will return a list of all home commuinities that are known by the
      * connection manager.
-     * 
+     *
      * @return The list of all home communities known by the connection manager.
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public static List<CMHomeCommunity> getAllCommunities()
             throws ConnectionManagerException {
@@ -594,7 +594,7 @@ public class ConnectionManagerCache {
 
     /**
      * This method looks for the entity with the given home community ID and returns it.
-     * 
+     *
      * @param oEntities The entities to be searched.
      * @param sHomeCommunityId The home community ID to search for.
      * @return The business entity for that home community.
@@ -622,7 +622,7 @@ public class ConnectionManagerCache {
      * This method searches for the business entity in the list that has the same
      * home community Id.  If it finds it, it replaces it with this one.  If it
      * does not find it, then it adds this one to the list.
-     * 
+     *
      * @param oEntities The entities to search.
      * @param oEntity The entity to replace...
      */
@@ -658,9 +658,9 @@ public class ConnectionManagerCache {
     /**
      * This method will return a list of all business entities that are known by the
      * connection manager.
-     * 
+     *
      * @return The list of all business entities known by the connection manager.
-     * @throws ConnectionManagerException 
+     * @throws ConnectionManagerException
      */
     public static CMBusinessEntities getAllBusinessEntities()
             throws ConnectionManagerException {
@@ -680,7 +680,7 @@ public class ConnectionManagerCache {
             }
         }
 
-        // Next get the information from the UDDI connections - 
+        // Next get the information from the UDDI connections -
         // If it is in the list, then merge the services.  If not, then
         // add it as is.
         //-----------------------------------------------------------------------------------
@@ -711,7 +711,7 @@ public class ConnectionManagerCache {
     /**
      * This class returns the business entity information associated with
      * the specified home community ID.
-     * 
+     *
      * @param sHomeCommunityId The home commuinity ID that is being searched for.
      * @return the business entity information for the specified home community.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
@@ -752,7 +752,7 @@ public class ConnectionManagerCache {
     /**
      * This method returns the business entity information for the set of home
      * communities.
-     * 
+     *
      * @param saHomeCommunityId The set of home communities to be retrieved.
      * @return The business entities found.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
@@ -791,11 +791,11 @@ public class ConnectionManagerCache {
      * versions of the same serviec, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
      * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  (This means that if the internal cache contains the 
-     * given business entity, but it does not contain the requested service, it will 
-     * behave as if the service does not exist - regardless of whether it is in the 
+     * look in the UDDI cache.  (This means that if the internal cache contains the
+     * given business entity, but it does not contain the requested service, it will
+     * behave as if the service does not exist - regardless of whether it is in the
      * UDDI cache or not.
-     * 
+     *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service.  if the
@@ -886,11 +886,11 @@ public class ConnectionManagerCache {
      * versions of the same service, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
      * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  This means that if the internal cache contains the 
-     * given business entity, but it does not contain the requested service, it will 
-     * behave as if the service does not exist - regardless of whether it is in the 
+     * look in the UDDI cache.  This means that if the internal cache contains the
+     * given business entity, but it does not contain the requested service, it will
+     * behave as if the service does not exist - regardless of whether it is in the
      * UDDI cache or not.
-     * 
+     *
      * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The URL for only the requested service at the specified home community.
@@ -1035,13 +1035,13 @@ public class ConnectionManagerCache {
                     if (NullChecker.isNotNullish(endpt)) {
                         endpointUrlList.add(endpt);
                     }
-                } 
-                
+                }
+
                 if (target.getRegion() != null) {
                     log.info("Looking up URL by region");
                     filterByRegion(endpointUrlList, target.getRegion(), serviceName);
-                } 
-                
+                }
+
                 if (target.getList() != null) {
                     log.info("Looking up URL by list");
                     log.warn("The List target feature has not been implemented yet");
@@ -1149,7 +1149,7 @@ public class ConnectionManagerCache {
             if (NullChecker.isNotNullish(tempList)) {
                 for (String temp : tempList) {
                     if (temp.equalsIgnoreCase(entry)) {
-                        removeList.add(urlList.lastIndexOf(entry));
+                        removeList.add(urlList.indexOf(entry));
                         break;
                     }
                 }
@@ -1160,7 +1160,9 @@ public class ConnectionManagerCache {
 
         // Remove the duplicates
         for (Integer index : removeList) {
-            urlList.remove(index.intValue());
+            if (urlList.isEmpty() == false) {
+			     urlList.remove(index.intValue());
+            }
         }
 
         return;
@@ -1198,11 +1200,11 @@ public class ConnectionManagerCache {
      * versions of the same service, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
      * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  (This means that if the internal cache contains the 
-     * given business entity, but it does not contain the requested service, it will 
-     * behave as if the service does not exist - regardless of whether it is in the 
+     * look in the UDDI cache.  (This means that if the internal cache contains the
+     * given business entity, but it does not contain the requested service, it will
+     * behave as if the service does not exist - regardless of whether it is in the
      * UDDI cache or not.
-     * 
+     *
      * @param saHomeCommunityId The home community IDs of the gateways that is being looked up.
      * @param sUniformServiceName The name of the service to locate.
      * @return The Business Entity information along with only the requested service.  If the
@@ -1237,17 +1239,17 @@ public class ConnectionManagerCache {
 
     /**
      * This method retrieves the business entity information and service information
-     * for the set of home communities that contains a service by that service name.  
-     * Note:   This will only return the information for the specified service.  It will 
-     * not return all services. Also note: This currently does not deal with version.  If 
+     * for the set of home communities that contains a service by that service name.
+     * Note:   This will only return the information for the specified service.  It will
+     * not return all services. Also note: This currently does not deal with version.  If
      * there are multiple versions of the same service, this will return the first one it sees in the list
      * of services.  As always, it will always first look in the InternalConnectionInfo
      * cache for the business entity.  If it finds the business entity there, it will not
-     * look in the UDDI cache.  (This means that if the internal cache contains the 
-     * given business entity, but it does not contain the requested service, it will 
-     * behave as if the service does not exist - regardless of whether it is in the 
+     * look in the UDDI cache.  (This means that if the internal cache contains the
+     * given business entity, but it does not contain the requested service, it will
+     * behave as if the service does not exist - regardless of whether it is in the
      * UDDI cache or not.
-     * 
+     *
      * @param sUniformServiceName The name of the service being searched for.
      * @return The business entities that have this service defined.
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
