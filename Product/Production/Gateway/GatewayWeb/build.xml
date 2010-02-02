@@ -669,6 +669,174 @@
         </copy>
     </target>
 
+    <target name="wsimport-service-AdapterPatientDiscovery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscovery/wsdl/AdapterPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscovery/wsdl/AdapterPatientDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscovery/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-AdapterSubjectDiscovery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscovery/wsdl/AdapterSubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscovery/wsdl/AdapterSubjectDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscovery/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityPatientDiscoverySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscoverySecured/wsdl/EntityPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscoverySecured/wsdl/EntityPatientDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityPatientDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyPatientDiscoverySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscoverySecured/wsdl/NhincProxyPatientDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscoverySecured/wsdl/NhincProxyPatientDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyPatientDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntitySubjectDiscoverySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscoverySecured/wsdl/EntitySubjectDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubjectDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincSubjectDiscoverySecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincSubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincSubjectDiscoverySecured/wsdl/NhincProxySubjectDiscoverySecured.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincSubjectDiscoverySecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincSubjectDiscoverySecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincSubjectDiscoverySecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincSubjectDiscoverySecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhinPatientDiscovery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/NhinPatientDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinPatientDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinPatientDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinPatientDiscovery/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/SubjectDiscovery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/schemas/"/>
+        </copy>
+    </target>
+
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

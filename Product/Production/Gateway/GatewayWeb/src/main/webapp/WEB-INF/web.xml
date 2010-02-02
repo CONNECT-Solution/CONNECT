@@ -252,6 +252,78 @@
         <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.patientdiscovery.AdapterPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterPatientDiscovery</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdapterSubjectDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.adapter.subjectdiscovery.AdapterSubjectDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterSubjectDiscovery</servlet-name>
+        <url-pattern>/AdapterProxyService/AdapterSubjectDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntityPatientDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityPatientDiscoverySecured</servlet-name>
+        <url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyPatientDiscoverySecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EntitySubjectDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.entity.EntitySubjectDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntitySubjectDiscoverySecured</servlet-name>
+        <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincSubjectDiscoverySecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.proxy.NhincSubjectDiscoverySecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincSubjectDiscoverySecured</servlet-name>
+        <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhinPatientDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinPatientDiscovery</servlet-name>
+        <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SubjectDiscovery</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.subjectdiscovery.SubjectDiscovery</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SubjectDiscovery</servlet-name>
+        <url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>DocQuery</web-resource-name>
@@ -324,6 +396,30 @@
         <web-resource-collection>
             <web-resource-name>HiemUnsubscribe</web-resource-name>
             <url-pattern>/NhinService/SubscriptionManagerService/HiemUnsubscribe</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityPatientDiscoverySecured</web-resource-name>
+            <url-pattern>/EntityService/EntityPatientDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhincProxyPatientDiscoverySecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxyPatientDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntitySubjectDiscoverySecured</web-resource-name>
+            <url-pattern>/EntityService/EntitySubjectDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhincSubjectDiscoverySecured</web-resource-name>
+            <url-pattern>/EntityService/NhincProxySubjectDiscoverySecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinPatientDiscovery</web-resource-name>
+            <url-pattern>/NhinService/NhinPatientDiscovery</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>SubjectDiscovery</web-resource-name>
+            <url-pattern>/NhinService/NhinSubjectDiscovery</url-pattern>
         </web-resource-collection>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>

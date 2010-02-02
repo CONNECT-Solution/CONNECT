@@ -541,9 +541,14 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.HiemSubscriptionRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.HiemSubscriptionRepository.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.SubscriptionRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.SubscriptionRepository.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationDAO.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterReidentificationProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterReidentificationProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterReidentificationProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterReidentificationProxyImpl.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.AggregatorLib.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.HiemUtilityLib.jar} ${manifest.file.reference.DocumentRepositoryAdapterProxy.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.HiemProcessorLib.jar} ${manifest.file.reference.HiemSubscriptionRepository.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.SubscriptionRepository.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.AggregatorLib.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.HiemUtilityLib.jar} ${manifest.file.reference.DocumentRepositoryAdapterProxy.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.HiemProcessorLib.jar} ${manifest.file.reference.HiemSubscriptionRepository.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.SubscriptionRepository.jar} ${manifest.file.reference.PatientCorrelationDAO.jar} ${manifest.file.reference.AdapterMpiProxy.jar} ${manifest.file.reference.AdapterMpiProxyImpl.jar} ${manifest.file.reference.AdapterReidentificationProxy.jar} ${manifest.file.reference.AdapterReidentificationProxyImpl.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -562,6 +567,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.HiemSubscriptionRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.SubscriptionRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.PatientCorrelationDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterReidentificationProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterReidentificationProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

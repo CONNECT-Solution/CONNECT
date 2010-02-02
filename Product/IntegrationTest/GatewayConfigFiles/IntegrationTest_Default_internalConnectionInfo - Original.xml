@@ -8,7 +8,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>
@@ -197,7 +197,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>

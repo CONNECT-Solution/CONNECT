@@ -124,27 +124,21 @@
     <name>SubscriptionRepository</name>
     <directory>/Production/Gateway/SubscriptionRepository</directory>
   </project>
+  <project>
+    <name>PatientCorrelationDAO</name>
+    <directory>/Production/Gateway/PatientCorrelationDAO</directory>
+  </project>
+  <project>
+    <name>AdapterReidentificationProxy</name>
+    <directory>/Production/Adapters/General/AdapterReidentificationProxy</directory>
+  </project>
+  <project>
+    <name>AdapterReidentificationProxyImpl</name>
+    <directory>/Production/Adapters/General/AdapterReidentificationProxyImpl</directory>
+  </project>
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
-<!--
-  <project>
-    <name>EntityHiemSubscriptionEJB</name>
-    <directory>/Production/Gateway/EntityHiemSubscriptionEJB</directory>
-  </project>
-  <project>
-    <name>GatewaySubscriptionRepositoryEJB</name>
-    <directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
-  </project>
-  <project>
-    <name>HiemSubscriptionRepositoryUtilEJB</name>
-    <directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
-  </project>
-  <project>
-    <name>NhincHiemSubscriptionEJB</name>
-    <directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
-  </project>
--->
   <project>
     <name>GatewayWeb</name>
     <directory>/Production/Gateway/GatewayWeb</directory>
@@ -178,22 +172,6 @@
     <directory>/Production/Adapters/General/UniversalClientGUI</directory>
   </project>
   <project>
-    <name>AdapterReidentificationProxy</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationProxy</directory>
-  </project>
-  <project>
-    <name>AdapterReidentificationProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationProxyImpl</directory>
-  </project>
-  <project>
-    <name>NhincSubjectDiscoveryEJB</name>
-    <directory>/Production/Gateway/NhincSubjectDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>NhincPatientDiscoveryEJB</name>
-    <directory>/Production/Gateway/NhincPatientDiscoveryEJB</directory>
-  </project>
-  <project>
     <name>AuditRepositoryEJB</name>
     <directory>/Production/Gateway/AuditRepositoryEJB</directory>
   </project>
@@ -220,22 +198,6 @@
   <project>
     <name>PatientCorrelationFacadeDteEjb</name>
     <directory>/Production/Gateway/PatientCorrelationFacadeDteEjb</directory>
-  </project>
-  <project>
-    <name>EntitySubjectDiscoveryEJB</name>
-    <directory>/Production/Gateway/EntitySubjectDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>EntityPatientDiscoveryEJB</name>
-    <directory>/Production/Gateway/EntityPatientDiscoveryEJB</directory>
-  </project>
-  <project>
-    <name>AdapterSubjectDiscoveryProxyEJB</name>
-    <directory>/Production/Gateway/AdapterSubjectDiscoveryProxyEJB</directory>
-  </project>
-  <project>
-    <name>AdapterPatientDiscoveryProxyEJB</name>
-    <directory>/Production/Gateway/AdapterPatientDiscoveryProxyEJB</directory>
   </project>
   <project>
     <name>UDDIModifierGUI</name>
