@@ -14,6 +14,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
@@ -24,6 +25,7 @@ import static org.junit.Assert.*;
  *
  * @author rayj
  */
+@Ignore
 public class RootTopicExtractorTest {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorTest.class);

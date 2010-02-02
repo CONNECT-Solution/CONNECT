@@ -75262,7 +75262,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
-               <wsa:Address>https://172.16.50.47:8181/NotificationConsumerService/HiemNotify</wsa:Address>
+               <wsa:Address>https://172.16.50.47:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</wsa:Address>
             </wsnt:ConsumerReference>
             <wsnt:Filter>
                <wsnt:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple" xmlns:nhin="http://www.hhs.gov/healthit/nhin">SomeTopic</wsnt:TopicExpression>
@@ -75616,7 +75616,7 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
-               <wsa:Address>https://172.16.50.47:8181/NotificationConsumerService/HiemNotify</wsa:Address>
+               <wsa:Address>https://172.16.50.47:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</wsa:Address>
             </wsnt:ConsumerReference>
             <wsnt:Filter>
                <wsnt:TopicExpression Dialect="http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple" xmlns:nhin="http://www.hhs.gov/healthit/nhin">SomeTopic</wsnt:TopicExpression>
@@ -75900,7 +75900,7 @@ declare namespace urn4='urn:gov:hhs:fha:nhinc:common:nhinccommon';
          <b:Notify>
             <b:NotificationMessage>
                <b:SubscriptionReference xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
-                  <wsa:Address>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>
+                  <wsa:Address>https://localhost:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>
                   <wsa:ReferenceParameters>
                      <nhin:SubscriptionId xmlns:nhin="http://www.hhs.gov/healthit/nhin">516e7bed-57d2-450b-a5e6-7160bcee9209</nhin:SubscriptionId>
                   </wsa:ReferenceParameters>

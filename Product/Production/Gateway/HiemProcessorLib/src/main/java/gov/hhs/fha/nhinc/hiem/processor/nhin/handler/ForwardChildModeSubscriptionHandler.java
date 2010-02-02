@@ -9,7 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxy;
 import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxyObjectFactory;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -49,7 +49,7 @@ class ForwardChildModeSubscriptionHandler extends BaseSubscriptionHandler {
 
         // Build subscription item
         log.debug("Calling createSubscriptionItem");
-        SubscriptionItem subscription = createSubscriptionItem(subscribe, "gateway", "nhin");
+        HiemSubscriptionItem subscription = createSubscriptionItem(subscribe, "gateway", "nhin");
 
         // Store subscription
         log.debug("Calling storeSubscriptionItem");

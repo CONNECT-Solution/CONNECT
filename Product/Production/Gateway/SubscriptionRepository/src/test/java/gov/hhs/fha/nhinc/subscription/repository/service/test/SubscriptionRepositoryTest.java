@@ -8,12 +8,14 @@ import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryF
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.subscription.repository.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.subscription.repository.data.*;
+import org.junit.Ignore;
 
 /**
  * Unit test for the SubscriptionRepository
  * 
  * @author Neil Webb
  */
+@Ignore
 public class SubscriptionRepositoryTest
 {
     private SubscriptionRepositoryService repositoryService = null;

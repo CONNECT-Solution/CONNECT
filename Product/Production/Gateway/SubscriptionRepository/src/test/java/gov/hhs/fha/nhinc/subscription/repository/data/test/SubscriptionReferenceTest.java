@@ -4,12 +4,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.subscription.repository.data.ReferenceParameter;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionReference;
+import org.junit.Ignore;
 
 /**
  * Unit test for the SubscriptionReference class
  * 
  * @author webbn
  */
+@Ignore
 public class SubscriptionReferenceTest
 {
     @Test

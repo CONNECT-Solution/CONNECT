@@ -4,12 +4,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.subscription.repository.data.Community;
 import gov.hhs.fha.nhinc.subscription.repository.data.Patient;
+import org.junit.Ignore;
 
 /**
  * Unit test for the patient class
  * 
  * @author Neil Webb
  */
+@Ignore
 public class PatientTest
 {
     @Test

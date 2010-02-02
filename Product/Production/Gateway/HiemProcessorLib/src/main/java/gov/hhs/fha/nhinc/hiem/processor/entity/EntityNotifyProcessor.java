@@ -8,9 +8,9 @@ import gov.hhs.fha.nhinc.hiem.dte.NotifyBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxyObjectFactory;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
+import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
 import java.io.ByteArrayInputStream;
@@ -70,14 +70,14 @@ public class EntityNotifyProcessor {
             if (notificationMessageNode instanceof Element) {
                 Element notificationMessageElement = (Element) notificationMessageNode;
 //                NotificationMessageHolderType notifyMessage = buildNotificationMessageHolder(notificationMessageElement);
-                SubscriptionRepositoryService service = new SubscriptionRepositoryService();
+                HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
                 try {
                     // TODO: Switch producer to "adapter" when NHIN Subscribe supports forwarding subscription to an adapter
-                    List<SubscriptionItem> subscriptions = service.RetrieveByNotificationMessage(notificationMessageElement, "gateway");
+                    List<HiemSubscriptionItem> subscriptions = service.RetrieveByNotificationMessage(notificationMessageElement, "gateway");
                     if (subscriptions != null) {
                         log.info("found " + subscriptions.size() + " matching subscriptions");
 
-                        for (SubscriptionItem subscription : subscriptions) {
+                        for (HiemSubscriptionItem subscription : subscriptions) {
                             log.info("processing subscription.  SubscriptionReference=[" + subscription.getSubscriptionReferenceXML() + "]");
                             if (subscription.getParentSubscriptionReferenceXML() != null) {
                                 log.info("has parent - retrieving [" + subscription.getParentSubscriptionReferenceXML() + "]");
@@ -119,7 +119,7 @@ public class EntityNotifyProcessor {
         }
     }
 
-    private String findNotifyEndpoint(SubscriptionItem subscription) {
+    private String findNotifyEndpoint(HiemSubscriptionItem subscription) {
         log.debug("Begin findNotifyEndpoint");
         String endpoint = "";
         if (subscription != null) {

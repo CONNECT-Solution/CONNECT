@@ -9,16 +9,16 @@ import java.util.List;
 
 /**
  * Test class for SubscriptionStorageItemService.
- * 
+ *
  * @author Neil Webb
  */
-public class SubscriptionStorageItemServiceTest 
+public class SubscriptionStorageItemServiceTest
 {
     private static final String SUBSCRIPTION_ID = "402880c120d3ac0d0120d3ac00010001";
     static final String SUBSCRIBE_XML = "subscribe xml";
     static final String SUBSCRIPTION_REFERENCE_XML =
 "<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-"  <wsa:Address>https://158.147.185.174:8181/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 "  <wsa:ReferenceParameters>" +
 "	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">" + SUBSCRIPTION_ID + "</nhin:SubscriptionId>" +
 "  </wsa:ReferenceParameters>" +
@@ -73,7 +73,7 @@ public class SubscriptionStorageItemServiceTest
         }
         System.out.println("End testEmptyDatabase");
     }
-    
+
     @Test
     public void testStorage()
     {
@@ -89,15 +89,15 @@ public class SubscriptionStorageItemServiceTest
 
             SubscriptionStorageItem subscriptionItem = createBaseSubscriptionItem();
             service.save(subscriptionItem);
-            
+
             // Validate identifier
             recordId = subscriptionItem.getRecordId();
             assertNotNull("Record id was null", recordId);
-            
+
             // Retrieval
             subscriptionItem = service.findById(recordId);
             assertNotNull("Retrieved subscription was null", subscriptionItem);
-            
+
             assertEquals("Subscription id",SUBSCRIPTION_ID, subscriptionItem.getSubscriptionId());
             assertEquals("Subscribe xml",SUBSCRIBE_XML,subscriptionItem.getSubscribeXML());
             assertEquals("Subscription reference xml",SUBSCRIPTION_REFERENCE_XML ,subscriptionItem.getSubscriptionReferenceXML());
@@ -119,7 +119,7 @@ public class SubscriptionStorageItemServiceTest
             // Retrieve by subscriptionReference
 //            String subRefXml =
 //"<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-//"  <wsa:Address>https://158.147.185.174:8181/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+//"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 //"  <wsa:ReferenceParameters>" +
 //"	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">" + SUBSCRIPTION_ID + "</nhin:SubscriptionId>" +
 //"  </wsa:ReferenceParameters>" +
@@ -134,11 +134,11 @@ public class SubscriptionStorageItemServiceTest
 
             // Delete
             service.delete(subscriptionItem);
-            
+
             // Find by id to verify delete
             subscriptionItem = service.findById(recordId);
             assertNull("Subscription was not null after delete", subscriptionItem);
-            
+
         }
         catch(Throwable t)
         {
@@ -148,7 +148,7 @@ public class SubscriptionStorageItemServiceTest
         }
         System.out.println("End testStorage");
     }
-    
+
     //@Test
     public void testParseSubscriptionId()
     {
@@ -157,7 +157,7 @@ public class SubscriptionStorageItemServiceTest
         {
             String subRefXml =
 "<b:SubscriptionReference xmlns:wsnt=\"http://docs.oasis-open.org/wsn/b-2\" xmlns:wsa=\"http://www.w3.org/2005/08/addressing\" xmlns:b=\"http://docs.oasis-open.org/wsn/b-2\">" +
-"  <wsa:Address>https://158.147.185.174:8181/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
+"  <wsa:Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</wsa:Address>" +
 "  <wsa:ReferenceParameters>" +
 "	 <nhin:SubscriptionId xmlns:nhin=\"http://www.hhs.gov/healthit/nhin\">50b564b2:11ff766dd39:-7fb5</nhin:SubscriptionId>" +
 "  </wsa:ReferenceParameters>" +
@@ -183,7 +183,7 @@ public class SubscriptionStorageItemServiceTest
         {
             String subRefXml =
 "<SubscriptionReference>" +
-"  <Address>https://158.147.185.174:8181/SubscriptionManagerService/HiemUnsubscribe</Address>" +
+"  <Address>https://158.147.185.174:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</Address>" +
 "  <ReferenceParameters>" +
 "	 <SubscriptionId>50b564b2:11ff766dd39:-7fb5</SubscriptionId>" +
 "  </ReferenceParameters>" +

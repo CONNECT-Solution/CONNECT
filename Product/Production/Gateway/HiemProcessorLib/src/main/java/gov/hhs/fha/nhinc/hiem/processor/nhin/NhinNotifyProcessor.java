@@ -18,9 +18,9 @@ import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.hiem.dte.Namespaces;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotifyMarshaller;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
+import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import java.util.List;
 
 /**
@@ -89,7 +89,7 @@ public class NhinNotifyProcessor {
         performPatientValidation(nhinNotify);
 
         // Read subscription from notify message
-        SubscriptionRepositoryService repositoryService = new SubscriptionRepositoryService();
+        HiemSubscriptionRepositoryService repositoryService = new HiemSubscriptionRepositoryService();
 
         List<NotificationMessageHolderType> notificationMessageList = nhinNotify.getNotificationMessage();
         if (notificationMessageList != null) {
@@ -101,10 +101,10 @@ public class NhinNotifyProcessor {
                 if (log.isDebugEnabled()) {
                     log.debug("Notification message: " + XmlUtility.serializeElementIgnoreFaults(notificationMessageElement));
                 }
-                List<SubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(notificationMessageElement, HiemProcessorConstants.PRODUCER_NHIN);
+                List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(notificationMessageElement, HiemProcessorConstants.PRODUCER_NHIN);
                 if (subscriptionItems != null) {
                     log.debug("Subscription item list count: " + subscriptionItems.size());
-                    for (SubscriptionItem subscriptionItem : subscriptionItems) {
+                    for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
                         log.debug("extracting reference parameters from subscribe consumer reference");
                         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
                         ReferenceParametersElements referenceParametersElements = referenceParametersHelper.createReferenceParameterElementsFromSubscriptionReference(subscriptionItem.getSubscribeXML());
@@ -133,7 +133,7 @@ public class NhinNotifyProcessor {
         }
     }
 
-    private Notify createAdapterNotify(NotificationMessageHolderType notificationMessage, AssertionType assertion, SubscriptionItem subscriptionItem) {
+    private Notify createAdapterNotify(NotificationMessageHolderType notificationMessage, AssertionType assertion, HiemSubscriptionItem subscriptionItem) {
         // Create notify from inbound notification message
         Notify adapterNotify = new Notify();
         adapterNotify.getNotificationMessage().add(notificationMessage);

@@ -25,7 +25,7 @@ public class ConnectSubscriptionReferenceHelper {
 
     public static final String REFERENCE_PARAMETER_SUBSCRIPTION_ID_NAMESPACE = "http://www.hhs.gov/healthit/nhin";
     public static final String REFERENCE_PARAMETER_SUBSCRIPTION_ID_ELEMENT_NAME = "SubscriptionId";
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SubscriptionRepositoryService.class);
+    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(HiemSubscriptionRepositoryService.class);
 
     public EndpointReferenceType createSubscriptionReference(String subscriptionId) {
         String url = getSubscriptionManagerEndpointAddress();

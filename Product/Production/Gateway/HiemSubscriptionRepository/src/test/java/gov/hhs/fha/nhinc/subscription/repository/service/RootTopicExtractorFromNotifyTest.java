@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExt
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.w3c.dom.*;
@@ -20,6 +21,7 @@ import org.w3c.dom.ls.LSParser;
  *
  * @author rayj
  */
+@Ignore
 public class RootTopicExtractorFromNotifyTest {
 
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(RootTopicExtractorFromNotifyTest.class);

@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.subscription.repository.roottopicextractor;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -13,6 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author rayj
  */
+@Ignore
 public class removeNamespaceHelperTest {
 
     public removeNamespaceHelperTest() {

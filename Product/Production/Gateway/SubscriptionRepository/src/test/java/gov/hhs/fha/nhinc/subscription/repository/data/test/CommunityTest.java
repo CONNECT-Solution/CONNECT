@@ -3,12 +3,14 @@ package gov.hhs.fha.nhinc.subscription.repository.data.test;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.subscription.repository.data.Community;
+import org.junit.Ignore;
 
 /**
  * Unit test for the Community data class
  * 
  * @author Neil Webb
  */
+@Ignore
 public class CommunityTest
 {
     @Test

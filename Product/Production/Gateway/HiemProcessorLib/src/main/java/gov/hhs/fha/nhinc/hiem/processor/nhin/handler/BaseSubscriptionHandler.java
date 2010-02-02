@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.apache.commons.logging.Log;
@@ -35,12 +35,12 @@ abstract class BaseSubscriptionHandler implements SubscriptionHandler {
 
     abstract public SubscribeResponse handleSubscribe(Element subscribe ) throws SubscribeCreationFailedFault;
 
-    protected EndpointReferenceType storeSubscriptionItem(SubscriptionItem subscriptionItem) {
+    protected EndpointReferenceType storeSubscriptionItem(HiemSubscriptionItem subscriptionItem) {
         log.debug("In storeSubscriptionItem");
         return subscriptionStorage.storeSubscriptionItem(subscriptionItem);
     }
 
-    protected SubscriptionItem createSubscriptionItem(Element subscribe, String producer, String consumer) throws  SubscribeCreationFailedFault {
+    protected HiemSubscriptionItem createSubscriptionItem(Element subscribe, String producer, String consumer) throws  SubscribeCreationFailedFault {
         
         String rawSubscribe;
         try {
@@ -49,10 +49,10 @@ abstract class BaseSubscriptionHandler implements SubscriptionHandler {
             throw new SoapFaultFactory().getMalformedSubscribe("Unable to serialize subscribe element", ex) ;
         }
 
-        SubscriptionItem subscription = null;
+        HiemSubscriptionItem subscription = null;
         if (subscribe != null) {
             log.debug("Creating subscription item");
-            subscription = new SubscriptionItem();
+            subscription = new HiemSubscriptionItem();
 
             subscription.setSubscribeXML(rawSubscribe);
             // TODO: finish

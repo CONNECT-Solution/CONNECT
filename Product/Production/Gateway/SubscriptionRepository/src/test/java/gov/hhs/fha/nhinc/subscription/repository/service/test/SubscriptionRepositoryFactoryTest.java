@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.subscription.repository.service.test;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryFactory;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.subscription.repository.SubscriptionRepositoryException;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,6 +12,7 @@ import static org.junit.Assert.*;
  * 
  * @author Neil Webb
  */
+@Ignore
 public class SubscriptionRepositoryFactoryTest
 {
     /**

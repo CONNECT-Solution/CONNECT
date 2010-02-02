@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.hiem.processor.common;
 
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 
 /**
@@ -21,12 +21,12 @@ public class SubscriptionItemUtil
      * @param targets Optional NHIN targets if this is a targeted entity subscribe
      * @return Subscription item
      */
-    public SubscriptionItem createSubscriptionItem(Subscribe subscribe, String rawSubscribeXml, String parentSubscriptionReferenceXML, String consumer, String producer, String targets)
+    public HiemSubscriptionItem createSubscriptionItem(Subscribe subscribe, String rawSubscribeXml, String parentSubscriptionReferenceXML, String consumer, String producer, String targets)
     {
-        SubscriptionItem subscriptionItem = null;
+        HiemSubscriptionItem subscriptionItem = null;
         if(subscribe != null)
         {
-            subscriptionItem = new SubscriptionItem();
+            subscriptionItem = new HiemSubscriptionItem();
 
             if(rawSubscribeXml != null)
             {

@@ -116,12 +116,42 @@
     <name>AdapterAuditQueryProxyImpl</name>
     <directory>/Production/Adapters/General/AdapterAuditQueryProxyImpl</directory>
   </project>   
+  <project>
+    <name>HiemSubscriptionRepository</name>
+    <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
+  </project>
+  <project>
+    <name>SubscriptionRepository</name>
+    <directory>/Production/Gateway/SubscriptionRepository</directory>
+  </project>
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
+<!--
+  <project>
+    <name>EntityHiemSubscriptionEJB</name>
+    <directory>/Production/Gateway/EntityHiemSubscriptionEJB</directory>
+  </project>
+  <project>
+    <name>GatewaySubscriptionRepositoryEJB</name>
+    <directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
+  </project>
+  <project>
+    <name>HiemSubscriptionRepositoryUtilEJB</name>
+    <directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
+  </project>
+  <project>
+    <name>NhincHiemSubscriptionEJB</name>
+    <directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
+  </project>
+-->
   <project>
     <name>GatewayWeb</name>
     <directory>/Production/Gateway/GatewayWeb</directory>
+  </project>
+  <project>
+    <name>AdapterWeb</name>
+    <directory>/Production/Adapters/General/AdapterWeb</directory>
   </project>
   <project>
     <name>NhinInterfaceTestHelperEJB</name>
@@ -130,18 +160,6 @@
   <project>
     <name>EntityHiemSubscriptionProxyEJB</name>
     <directory>/Production/Adapters/General/EntityHiemSubscriptionProxyEJB</directory>
-  </project>
-  <project>
-    <name>NhincHiemSubscriptionEJB</name>
-    <directory>/Production/Gateway/NhincHiemSubscriptionEJB</directory>
-  </project>
-  <project>
-    <name>EntityHiemSubscriptionEJB</name>
-    <directory>/Production/Gateway/EntityHiemSubscriptionEJB</directory>
-  </project>
-  <project>
-    <name>HiemSubscriptionRepositoryUtilEJB</name>
-    <directory>/Production/Gateway/HiemSubscriptionRepositoryUtilEJB</directory>
   </project>
   <project>
     <name>FTATransferAdapterEJB</name>
@@ -162,10 +180,6 @@
   <project>
     <name>UniversalClientGUI</name>
     <directory>/Production/Adapters/General/UniversalClientGUI</directory>
-  </project>
-  <project>
-    <name>AdapterWeb</name>
-    <directory>/Production/Adapters/General/AdapterWeb</directory>
   </project>
   <project>
     <name>AdapterReidentificationProxy</name>
@@ -190,10 +204,6 @@
   <project>
     <name>PatientCorrelationEJB</name>
     <directory>/Production/Gateway/PatientCorrelationEJB</directory>
-  </project>
-  <project>
-    <name>GatewaySubscriptionRepositoryEJB</name>
-    <directory>/Production/Gateway/GatewaySubscriptionRepositoryEJB</directory>
   </project>
   <project>
     <name>ConnectionManagerEJB</name>

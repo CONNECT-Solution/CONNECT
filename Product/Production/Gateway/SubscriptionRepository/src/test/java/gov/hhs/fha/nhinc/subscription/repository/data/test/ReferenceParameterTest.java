@@ -3,12 +3,14 @@ package gov.hhs.fha.nhinc.subscription.repository.data.test;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.subscription.repository.data.ReferenceParameter;
+import org.junit.Ignore;
 
 /**
  * Unit test for the ReferenceParameter class
  * 
  * @author Neil Webb
  */
+@Ignore
 public class ReferenceParameterTest
 {
     @Test

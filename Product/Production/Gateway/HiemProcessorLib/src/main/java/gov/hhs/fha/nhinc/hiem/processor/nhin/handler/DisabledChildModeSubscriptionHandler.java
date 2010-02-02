@@ -1,6 +1,6 @@
 package gov.hhs.fha.nhinc.hiem.processor.nhin.handler;
 
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -31,7 +31,7 @@ class DisabledChildModeSubscriptionHandler extends BaseSubscriptionHandler
 
         // Build subscription item
         log.debug("Calling createSubscriptionItem");
-        SubscriptionItem subscription = createSubscriptionItem(subscribe,  "gateway", "nhin");
+        HiemSubscriptionItem subscription = createSubscriptionItem(subscribe,  "gateway", "nhin");
 
         // Store subscription
         log.debug("Calling storeSubscriptionItem");

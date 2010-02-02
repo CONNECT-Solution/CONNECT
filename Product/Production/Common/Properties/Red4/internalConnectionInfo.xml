@@ -33,17 +33,17 @@
             <service>
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
             </service>
             <service>
                 <name>notificationconsumer</name>
                 <description>HIEM Notify</description>
-                <endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
             </service>
             <service>
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -259,32 +259,32 @@
             <service>
                 <name>entitynotificationconsumersecured</name>
                 <description>Entity Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationconsumersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubscriptionmanagersecured</name>
                 <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
                 <description>Entity Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntitySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocqueryproxy</name>
@@ -387,17 +387,17 @@
             <service>
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationProducerService/HiemSubscription</endpointURL>
             </service>
             <service>
                 <name>notificationconsumer</name>
                 <description>HIEM Notify</description>
-                <endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NotificationConsumerService/HiemNotify</endpointURL>
             </service>
             <service>
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>patientcorrelation</name>
@@ -588,32 +588,32 @@
             <service>
                 <name>entitynotificationconsumersecured</name>
                 <description>Entity Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationconsumersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationConsumerSecured</endpointURL>
             </service>
             <service>
                 <name>entitynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxynotificationproducersecured</name>
                 <description>NHINC Proxy Notify Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyNotificationProducerSecured</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubscriptionmanagersecured</name>
                 <description>NHINC Proxy Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitysubscriptionmanagersecured</name>
                 <description>Entity Subscription Manager Secured</description>
-                <endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntitySubscriptionManagerSecured</endpointURL>
             </service>
             <service>
                 <name>entitydocqueryproxy</name>
@@ -710,7 +710,7 @@
             <service>
                 <name>subscriptionmanager</name>
                 <description>HIEM Unsubscribe</description>
-                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>

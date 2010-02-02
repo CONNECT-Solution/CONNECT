@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -121,7 +121,7 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
 
     protected void storeChildSubscription(String subscribeXml, String subscriptionReference, String parentSubscriptionReference)
     {
-        SubscriptionItem subscriptionItem = new SubscriptionItem();
+        HiemSubscriptionItem subscriptionItem = new HiemSubscriptionItem();
         subscriptionItem.setSubscriptionReferenceXML(subscriptionReference);
         subscriptionItem.setParentSubscriptionReferenceXML(parentSubscriptionReference);
         subscriptionItem.setConsumer(HiemProcessorConstants.CONSUMER_GATEWAY);
@@ -278,7 +278,7 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
 
         SubscriptionItemUtil subscriptionItemUtil = new SubscriptionItemUtil();
         String subscribeXml = XmlUtility.serializeElementIgnoreFaults(subscribeElement);
-        SubscriptionItem subscriptionItem = subscriptionItemUtil.createSubscriptionItem(subscribe, subscribeXml, null, HiemProcessorConstants.CONSUMER_ADAPTER, HiemProcessorConstants.PRODUCER_GATEWAY, targetCommunititesXml);
+        HiemSubscriptionItem subscriptionItem = subscriptionItemUtil.createSubscriptionItem(subscribe, subscribeXml, null, HiemProcessorConstants.CONSUMER_ADAPTER, HiemProcessorConstants.PRODUCER_GATEWAY, targetCommunititesXml);
         SubscriptionStorage storage = new SubscriptionStorage();
         subscriptionReference = storage.storeSubscriptionItem(subscriptionItem);
         return subscriptionReference;

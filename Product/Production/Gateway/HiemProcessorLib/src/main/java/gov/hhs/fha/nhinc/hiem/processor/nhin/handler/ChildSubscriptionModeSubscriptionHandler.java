@@ -18,8 +18,8 @@ import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxy;
 import gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe.HiemSubscribeAdapterProxyObjectFactory;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
+import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
+import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,7 +45,7 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
     @Override
     public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault {
         ConfigurationManager config = new ConfigurationManager();
-        SubscriptionRepositoryService service = new SubscriptionRepositoryService();
+        HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
 
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
@@ -56,7 +56,7 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
         // Build subscription item
         log.debug("create nhin->adapter subscription");
         //serialize childSubscribe to rawChildSubscribe
-        SubscriptionItem parentSubscriptionItem = createSubscriptionItem(subscribe, "gateway", "nhin");
+        HiemSubscriptionItem parentSubscriptionItem = createSubscriptionItem(subscribe, "gateway", "nhin");
 
         // Store subscription
         log.debug("Calling storeSubscriptionItem");
@@ -87,7 +87,7 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
             // Build subscription item
             log.debug("create gateway->adapter subscription");
             //serialize childSubscribe to rawChildSubscribe
-            SubscriptionItem childSubscriptionItem = new SubscriptionItem();
+            HiemSubscriptionItem childSubscriptionItem = new HiemSubscriptionItem();
             childSubscriptionItem.setSubscribeXML(XmlUtility.serializeElement(childSubscribe));
             childSubscriptionItem.setSubscriptionReferenceXML(XmlUtility.serializeElement(subscribeResponseElementFromAdapter));
             childSubscriptionItem.setRootTopic(null);  //gets filled in by repository
