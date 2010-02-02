@@ -117,17 +117,17 @@
         </copy>
     </target>
 
-    <target name="wsimport-service-AdpaterDocumentQueryService" depends="wsimport-init">
-        <property name="targetLocation-AdpaterDocumentQueryService" location="${meta.inf}/wsdl/AdpaterDocumentQueryService"/>
-        <property name="sourceLocation-AdpaterDocumentQueryService" location="${meta.inf}/xml-resources/web-services/AdpaterDocumentQueryService/wsdl/"/>
-        <copy todir="${targetLocation-AdpaterDocumentQueryService}">
-            <fileset dir="${sourceLocation-AdpaterDocumentQueryService}"/>
+    <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
+        <property name="targetLocation-AdapterDocQuerySecured" location="${meta.inf}/wsdl/AdapterDocQuerySecured"/>
+        <property name="sourceLocation-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterDocQuerySecured}">
+            <fileset dir="${sourceLocation-AdapterDocQuerySecured}"/>
         </copy>
         <echo message="copy schemas" />
-        <property name="targetLocation-AdpaterDocumentQueryServiceSchemas" location="${meta.inf}/wsdl/schemas/"/>
-        <property name="sourceLocation-AdpaterDocumentQueryServiceSchemas" location="${meta.inf}/xml-resources/web-services/AdpaterDocumentQueryService/schemas/"/>
-        <copy todir="${targetLocation-AdpaterDocumentQueryServiceSchemas}">
-            <fileset dir="${sourceLocation-AdpaterDocumentQueryServiceSchemas}" />
+        <property name="targetLocation-AdapterDocQuerySecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterDocQuerySecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocQuerySecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocQuerySecuredSchemas}" />
         </copy>
 
     </target>
@@ -147,21 +147,28 @@
 
     <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
     		
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
     </target>
 
     <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-archive">
         <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
     </target>
     
     <target depends="compile" name="library-inclusion-in-manifest">
@@ -169,6 +176,11 @@
         <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
             <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} "/>
+        </manifest>
+        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
+        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
+        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
