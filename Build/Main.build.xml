@@ -50,9 +50,16 @@
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
 
+        <asyncexec taskname="Checkstyle" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Checkstyle.Directory.Path}\Checkstyle.Runner.xml" />
+          <arg line='@"${Common.PropertiesFile}"' />
+          <arg line="Checkstyle.Run"/>
+          <arg line="-logger:NAnt.Core.XmlLogger"/>
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
+        </asyncexec>
+        
         <call target="Ant.CompileSource" />
 
-        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
 
         <description>Begin Varification Actions</description>
@@ -64,6 +71,7 @@
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
+            <string value="Checkstyle"/>
           </tasknames>
         </waitforexit>
         <description>End Post Build Actions</description>
@@ -131,10 +139,17 @@
           <arg line="-logger:NAnt.Core.XmlLogger"/>
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
-        
+
+        <asyncexec taskname="Checkstyle" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Checkstyle.Directory.Path}\Checkstyle.Runner.xml" />
+          <arg line='@"${Common.PropertiesFile}"' />
+          <arg line="Checkstyle.Run"/>
+          <arg line="-logger:NAnt.Core.XmlLogger"/>
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
+        </asyncexec>
+
         <call target="Ant.CompileSource" />
 
-        <call target="Checkstyle.Main"/>
         <description>End Compile Actions</description>
         
         <description>Begin Varification Actions</description>
@@ -151,6 +166,7 @@
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
+            <string value="Checkstyle"/>
           </tasknames>
         </waitforexit>
         <description>End Post Build Actions</description>
@@ -186,8 +202,14 @@
           <arg line="-logger:NAnt.Core.XmlLogger"/>
           <arg line='-logfile:"${Common.Project.ReportDirectory}\Simian.xml"'/>
         </asyncexec>
-        
-        <call target="Checkstyle.Main"/>
+
+        <asyncexec taskname="Checkstyle" program="${Tools.NAnt.Exe}" failonerror="False">
+          <arg line="-buildfile:${Package.Checkstyle.Directory.Path}\Checkstyle.Runner.xml" />
+          <arg line='@"${Common.PropertiesFile}"' />
+          <arg line="Checkstyle.Run"/>
+          <arg line="-logger:NAnt.Core.XmlLogger"/>
+          <arg line='-logfile:"${Common.Project.ReportDirectory}\Checkstyle.xml"'/>
+        </asyncexec>
         
         <call target="Ant.CompileSource" />
 
@@ -210,6 +232,7 @@
         <waitforexit>
           <tasknames>
             <string value="Simian"/>
+            <string value="Checkstyle"/>
           </tasknames>
         </waitforexit>
         <description>End Post Build Actions</description>

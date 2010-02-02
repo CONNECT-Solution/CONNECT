@@ -113,6 +113,7 @@
       <property name="CCNetBuildTime"/>
       <property name="CCNetArtifactDirectory"/>
       <property name="CCNetWorkingDirectory"/>
+      <property name="CCNetListenerFile"/>
       <property name="BuildServerHostName"/>
       <property name="EmailHost"/>
       <property name="ProjectName"/>

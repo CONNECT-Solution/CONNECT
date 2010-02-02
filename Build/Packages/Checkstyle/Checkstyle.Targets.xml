@@ -2,26 +2,15 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Checkstyle">
 
   <target name="Checkstyle.Run">
-    <ant.async
+    <ant
           target="checkstyle"
           buildfile="${Ant.Build.File.Path}"
           logfile="${Ant.Log.Directory.Path}\checkstyle_log.xml"
-          taskname="Checkstyle.Run"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args/>
-    </ant.async>
+    </ant>
 
-    <waitforexit>
-      <tasknames>
-        <string value='Checkstyle.Run'/>
-      </tasknames>
-    </waitforexit>
-
-    <echo message="${Common.Directory.Artifact.Path}\CheckstyleReport"/>
-    <echo message="${Common.Directory.Product.Path}\CheckstyleReport"/>
-    <echo message="${Checkstyle.XML.Report.File.Name}"/>
-    <echo message="${Checkstyle.HTML.Report.File.Name}"/>
     <copy todir="${Common.Directory.Artifact.Path}\CheckstyleReport" if="${Checkstyle.PublishReport}" failonerror="True" verbose="True">
       <fileset basedir="${Common.Directory.Product.Path}\CheckstyleReport">
         <include name="*.xml"/>
