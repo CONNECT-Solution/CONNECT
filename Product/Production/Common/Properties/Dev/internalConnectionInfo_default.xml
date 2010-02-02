@@ -224,7 +224,7 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
@@ -547,7 +547,7 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://<Gateway-IP>:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>

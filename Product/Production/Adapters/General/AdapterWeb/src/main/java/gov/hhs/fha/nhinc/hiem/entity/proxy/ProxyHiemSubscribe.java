@@ -22,8 +22,7 @@ import javax.jws.WebService;
 public class ProxyHiemSubscribe {
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(gov.hhs.fha.nhinc.common.nhinccommonproxy.SubscribeRequestType subscribeRequest) throws ResourceUnknownFault, InvalidTopicExpressionFault, UnacceptableInitialTerminationTimeFault, NotifyMessageNotSupportedFault, UnrecognizedPolicyRequestFault, InvalidProducerPropertiesExpressionFault, SubscribeCreationFailedFault, UnsupportedPolicyRequestFault, InvalidFilterFault, InvalidMessageContentExpressionFault, TopicNotSupportedFault, TopicExpressionDialectUnknownFault {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new ProxyHiemSubscribeImpl().subscribe(subscribeRequest);
     }
 
 }

@@ -554,6 +554,10 @@
     <target name="wsimport-client-NhincProxySubjectDiscoverySecured" depends="wsimport-init"/>
     <target name="wsimport-client-EntityPatientDiscoverySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyPatientDiscoverySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-EntitySubscriptionManagementSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyNotificationConsumerSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init"/>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

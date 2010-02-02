@@ -158,10 +158,6 @@
     <directory>/Production/Gateway/NhinInterfaceTestHelperEJB</directory>
   </project>
   <project>
-    <name>EntityHiemSubscriptionProxyEJB</name>
-    <directory>/Production/Adapters/General/EntityHiemSubscriptionProxyEJB</directory>
-  </project>
-  <project>
     <name>FTATransferAdapterEJB</name>
     <directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
   </project>

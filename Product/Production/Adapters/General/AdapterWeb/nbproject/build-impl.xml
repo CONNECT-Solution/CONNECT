@@ -539,9 +539,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.MpiLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.MpiLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterDocRepository2Soap12Lib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterDocRepository2Soap12Lib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.HiemUtilityLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.AdapterPolicyEngineLib.jar} ${manifest.file.reference.AdapterReidentificationLib.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.AdapterDocRepository2Soap12Lib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.AdapterPolicyEngineLib.jar} ${manifest.file.reference.AdapterReidentificationLib.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.AdapterDocRepository2Soap12Lib.jar} ${manifest.file.reference.HiemUtilityLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -558,6 +559,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.MpiLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterDocRepository2Soap12Lib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.HiemUtilityLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
