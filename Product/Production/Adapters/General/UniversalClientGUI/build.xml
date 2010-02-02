@@ -24,61 +24,6 @@
     <target name="clean-test" depends="clean,dist" />
     <target name="build-test" depends="dist" />
    
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
-        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-        <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
-        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
-        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-        <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
-        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <property name="project.AdapterAuthenticationLib.Absolute" location="${project.AdapterAuthenticationLib}"/>
-        <property name="project.AdapterMpiProxy.Absolute" location="${project.AdapterMpiProxy}"/>
-        <property name="project.AdapterMpiProxyImpl.Absolute" location="${project.AdapterMpiProxyImpl}"/>
-        <property name="project.PatientCorrelationFacadeProxy.Absolute" location="${project.PatientCorrelationFacadeProxy}"/>
-        <property name="project.PatientCorrelationFacade.Absolute" location="${project.PatientCorrelationFacade}"/>
-        <property name="project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute" location="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-
-        <ant dir="${project.AdapterAuthenticationLib.Absolute}" antfile="${project.AdapterAuthenticationLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterMpiProxy.Absolute}" antfile="${project.AdapterMpiProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AdapterMpiProxyImpl.Absolute}" antfile="${project.AdapterMpiProxyImpl.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.PatientCorrelationFacadeProxy.Absolute}" antfile="${project.PatientCorrelationFacadeProxy.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.PatientCorrelationFacade.Absolute}" antfile="${project.PatientCorrelationFacade.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}" antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
-   
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

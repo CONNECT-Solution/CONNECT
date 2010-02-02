@@ -35,15 +35,11 @@
                     <file>${file.reference.spring.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.AdapterAuditQueryProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.AdapterAuditQueryProxyImpl.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.NhincSamlTokenLib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.CommonServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

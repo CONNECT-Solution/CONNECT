@@ -527,9 +527,8 @@ exists or setup the property manually. For example like this:
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterAuditQueryProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuditQueryProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterAuditQueryProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuditQueryProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterPIPLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPLib.jar" todir="${dist.ear.dir}"/>
@@ -542,14 +541,13 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.HiemUtilityLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.AdapterAuditQueryProxy.jar} ${manifest.file.reference.AdapterAuditQueryProxyImpl.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.AdapterPolicyEngineLib.jar} ${manifest.file.reference.AdapterReidentificationLib.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.AdapterDocRepository2Soap12Lib.jar} ${manifest.file.reference.HiemUtilityLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.AdapterPolicyEngineLib.jar} ${manifest.file.reference.AdapterReidentificationLib.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.AdapterDocRepository2Soap12Lib.jar} ${manifest.file.reference.HiemUtilityLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${file.reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterAuditQueryProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterAuditQueryProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterPIPLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>

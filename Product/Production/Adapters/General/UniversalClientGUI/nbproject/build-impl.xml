@@ -407,64 +407,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -602,7 +546,6 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
-        <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.appbase.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.appbase.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-beanutils.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-beanutils.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-collections.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-collections.jar" todir="${dist.ear.dir}"/>
@@ -621,27 +564,22 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-suntheme.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf-tld.zip" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AdapterMpiProxyImpl.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.EntityServiceProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.AdapterAuthenticationLib.jar} ${manifest.reference.AdapterMpiProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.reference.AdapterMpiProxyImpl.jar} ${manifest.reference.PatientCorrelationFacadeProxy.jar} ${manifest.reference.PatientCorrelationFacade.jar} ${manifest.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} ${manifest.file.reference.EntityServiceProxy.jar} ${manifest.reference.NhincSamlTokenLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.EntityServiceProxy.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
-        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.appbase.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-beanutils.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-collections.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -660,19 +598,15 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf-suntheme.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf-tld.zip}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AdapterMpiProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
@@ -971,17 +905,7 @@ exists or setup the property manually. For example like this:
                 
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.AdapterAuthenticationLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterMpiProxy}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AdapterMpiProxyImpl}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.AssigningAuthoritiesToHomeCommunityMappingDAO}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PatientCorrelationFacade}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.PatientCorrelationFacadeProxy}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">
             <isset property="dist.ear.dir"/>

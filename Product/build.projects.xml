@@ -107,15 +107,7 @@
   <project>
     <name>PatientCorrelationFacade</name>
     <directory>/Production/Gateway/PatientCorrelationFacade</directory>
-  </project>
-  <project>
-    <name>AdapterAuditQueryProxy</name>
-    <directory>/Production/Adapters/General/AdapterAuditQueryProxy</directory>
   </project>  
-  <project>
-    <name>AdapterAuditQueryProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterAuditQueryProxyImpl</directory>
-  </project>   
   <project>
     <name>HiemSubscriptionRepository</name>
     <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
@@ -129,20 +121,8 @@
     <directory>/Production/Gateway/PatientCorrelationDAO</directory>
   </project>
   <project>
-    <name>AdapterReidentificationProxy</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationProxy</directory>
-  </project>
-  <project>
-    <name>AdapterReidentificationProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationProxyImpl</directory>
-  </project>
-  <project>
-    <name>AdapterMpiProxy</name>
-    <directory>/Production/Adapters/General/AdapterMpiProxy</directory>
-  </project>
-  <project>
-    <name>AdapterMpiProxyImpl</name>
-    <directory>/Production/Adapters/General/AdapterMpiProxyImpl</directory>
+    <name>CommonServiceProxy</name>
+    <directory>/Production/Common/CommonServiceProxy</directory>
   </project>
   <!-- END CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
 
