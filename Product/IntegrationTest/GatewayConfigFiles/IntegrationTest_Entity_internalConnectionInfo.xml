@@ -54,7 +54,7 @@
             <service>
                 <name>patientcorrelationsecured</name>
                 <description>Patient Correlation Secured Service</description>
-                <endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayInternal/GatewayService/PatientCorrelationServiceSecured</endpointURL>
             </service>
 						
             <service>
@@ -65,7 +65,7 @@
             <service>
                 <name>auditrepositorysecured</name>
                 <description>Audit Repository Secured Service</description>
-                <endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayInternal/GatewayService/AuditRepositoryManagerSecuredService</endpointURL>
             </service>
             <service>
                 <name>auditrepositorymanager</name>
@@ -523,7 +523,7 @@
             <service>
                 <name>patientcorrelationsecured</name>
                 <description>Patient Correlation Secured Service</description>
-                <endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayInternal/GatewayService/PatientCorrelationServiceSecured</endpointURL>
             </service>
 						
             <service>
@@ -534,7 +534,7 @@
             <service>
                 <name>auditrepositorysecured</name>
                 <description>Audit Repository Secured Service</description>
-                <endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayInternal/GatewayService/AuditRepositoryManagerSecuredService</endpointURL>
             </service>
             <service>
                 <name>auditrepositorymanager</name>

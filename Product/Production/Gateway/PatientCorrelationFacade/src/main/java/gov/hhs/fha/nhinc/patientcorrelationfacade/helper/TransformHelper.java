@@ -16,7 +16,7 @@ public class TransformHelper
 {
     private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(TransformHelper.class);
 
-    private static final String ENDPOINT_ADDRESS_TRANSFORM = "http://localhost:8080/PatientCorrelationFacadeDteService";
+    private static final String ENDPOINT_ADDRESS_TRANSFORM = "http://localhost:8080/CONNECTGatewayInternal/GatewayService/PatientCorrelationFacadeDteService";
 
     /**
      * Cached web service object. Cached to prevent port creation delay after

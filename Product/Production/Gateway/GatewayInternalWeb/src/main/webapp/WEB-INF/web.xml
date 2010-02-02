@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+    <servlet>
+        <servlet-name>AuditRepository</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.auditrepository.AuditRepository</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuditRepository</servlet-name>
+        <url-pattern>/GatewayService/AuditRepositoryManagerSecuredService</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PatientCorrelationServiceSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.patientcorrelationservice.PatientCorrelationServiceSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientCorrelationServiceSecured</servlet-name>
+        <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PatientCorrelationFacadeDteService</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.common.patientcorrelationfacade.dte.PatientCorrelationFacadeDteService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientCorrelationFacadeDteService</servlet-name>
+        <url-pattern>/GatewayService/PatientCorrelationFacadeDteService</url-pattern>
+    </servlet-mapping>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>AuditRepository</web-resource-name>
+            <url-pattern>/GatewayService/AuditRepositoryManagerSecuredService</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>PatientCorrelationServiceSecured</web-resource-name>
+            <url-pattern>/GatewayService/PatientCorrelationServiceSecured</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+
+    <login-config>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>certificate</realm-name>
+    </login-config>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        </welcome-file-list>
+    </web-app>
