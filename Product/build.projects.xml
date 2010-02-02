@@ -180,10 +180,6 @@
     <directory>/Production/Common/PropAccessorEJB</directory>
   </project>
   <project>
-    <name>DocumentTransformEJB</name>
-    <directory>/Production/Common/DocumentTransformEJB</directory>
-  </project>
-  <project>
     <name>UDDIUpdateManagerEJB</name>
     <directory>/Production/Common/UDDIUpdateManagerEJB</directory>
   </project>
