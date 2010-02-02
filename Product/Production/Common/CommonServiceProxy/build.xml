@@ -14,12 +14,12 @@
     <import file="../../../build.lib.xml"/>
 
     <target name="build">
-        <property name="target-to-call" value="dist" />
+        <property name="target-to-call" value="jar" />
         <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
     <target name="clean-build" depends="clean,jar" />
     <target name="clean-test" depends="clean,jar" />
-    <target name="build-test" depends="jar" />
+    <target name="build-test" depends="build,test" />
     
     <target name="wsimport-client-AdapterAuditLogQuery" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterComponentMpi" depends="wsimport-init"/>
