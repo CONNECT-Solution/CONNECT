@@ -44162,7 +44162,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -45426,7 +45426,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -46690,7 +46690,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -47968,7 +47968,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -49225,7 +49225,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -50482,7 +50482,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -51739,7 +51739,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -53003,7 +53003,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -54260,7 +54260,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -55517,7 +55517,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -56774,7 +56774,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -58031,7 +58031,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
@@ -59288,8 +59288,8 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/DocumentRegistry_Service";
+def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":8080/AdapterService/DocumentRegistry_Service";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 
 FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "adapterxdsbdocregistry", adapterxdsbdocregistryURL, context, log)
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
