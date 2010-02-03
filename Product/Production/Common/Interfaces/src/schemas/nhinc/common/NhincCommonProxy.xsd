@@ -53,7 +53,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="FindAuditEventsRequest" type="tns:FindAuditEventsRequestType"/>
-	
 	<xsd:complexType name="FindAuditEventsSecuredRequestType">
 		<xsd:sequence>
 			<xsd:element ref="iheaudit:FindAuditEvents"/>
@@ -72,7 +71,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SubscribeRequest" type="tns:SubscribeRequestType"/>
-	
 	<xsd:complexType name="SubscribeRequestSecuredType">
 		<xsd:sequence>
 			<xsd:element ref="wsnt:Subscribe"/>
@@ -80,7 +78,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="SubscribeRequestSecured" type="tns:SubscribeRequestSecuredType"/>
-	
 	<xsd:complexType name="UnsubscribeRequestType">
 		<xsd:sequence>
 			<xsd:element ref="wsnt:Unsubscribe"/>
@@ -89,7 +86,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="UnsubscribeRequest" type="tns:UnsubscribeRequestType"/>
-	
 	<xsd:complexType name="UnsubscribeRequestSecuredType">
 		<xsd:sequence>
 			<xsd:element ref="wsnt:Unsubscribe"/>
@@ -97,7 +93,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="UnsubscribeRequestSecured" type="tns:UnsubscribeRequestSecuredType"/>
-	
 	<!-- ====================================================================
          Notification Schemas.
          ==================================================================== -->
@@ -116,4 +111,25 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:element name="NotifyRequestSecured" type="tns:NotifyRequestSecuredType"/>
+	<!-- ====================================================================
+         XDR Schemas.
+         ==================================================================== -->	
+	<xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetRequestType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
+	
+	<xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType">
+		<xsd:sequence>
+			<xsd:element name="nhinTargetSystem" type="nccommon:NhinTargetSystemType"/>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequestType"/>
 </xsd:schema>
