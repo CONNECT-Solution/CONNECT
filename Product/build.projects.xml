@@ -144,6 +144,10 @@
     <directory>/Production/Gateway/GatewayInternalWeb</directory>
   </project>
   <project>
+    <name>NhinInterfaceTestWeb</name>
+    <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
+  </project>
+  <project>
     <name>FTATransferAdapterEJB</name>
     <directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
   </project>
@@ -179,9 +183,4 @@
     <name>UDDIModifierGUI</name>
     <directory>/Production/Common/UDDIModifierGUI</directory>
   </project>
-  <project>
-    <name>NhinInterfaceTestHelperEJB</name>
-    <directory>/Production/Gateway/NhinInterfaceTestHelperEJB</directory>
-  </project>
-
 </projects>

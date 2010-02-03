@@ -15344,7 +15344,7 @@ def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" )
 def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def NHINGatewayHost = dataSource.getPropertyValue("NHINGatewayHost");
 def mockHost = dataSource.getPropertyValue("mockHost");
-def auditQueryURL = "https://" + NHINGatewayHost + ":8181/findAuditEvents/AuditQueryTestHelper";
+def auditQueryURL = "https://" + NHINGatewayHost + ":8181/CONNECTGatewayTest/AuditQueryTestHelper";
 def mockAuditQueryURL = "http://" + mockHost + ":18088/mockNhincAuditLogQuery";
 def LocalHCID = dataSource.getPropertyValue( "LocalHCID" );
 

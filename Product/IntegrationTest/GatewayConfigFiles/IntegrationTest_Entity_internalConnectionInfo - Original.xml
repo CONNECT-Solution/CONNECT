@@ -8,7 +8,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscoveryTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/SubjectDiscoveryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>
@@ -18,7 +18,7 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQueryTestHelper</endpointURL> 
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/AuditQueryTestHelper</endpointURL> 
 			</service>
 			<service>
 				<name>documentquery</name>
@@ -28,7 +28,7 @@
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieveTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/DocRetrieveTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -38,12 +38,12 @@
 			<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
-				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemSubscriptionTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>notificationconsumer</name>
 				<description>HIEM Notify</description>
-				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemNotifyTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincnotificationconsumer</name>
@@ -53,7 +53,7 @@
 			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
-				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribeTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemUnsubscribeTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubscriptionmanager</name>
@@ -186,7 +186,7 @@
 			<service>
 				<name>subjectdiscovery</name>
 				<description>subjectdiscovery</description>
-				<endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscoveryTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/SubjectDiscoveryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincsubjectdiscovery</name>
@@ -196,7 +196,7 @@
 			<service>
 				<name>auditquery</name>
 				<description>auditquery</description>
-				<endpointURL>https://localhost:8181/findAuditEvents/AuditQueryTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/AuditQueryTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>documentquery</name>
@@ -206,7 +206,7 @@
 			<service>
 				<name>documentretrieve</name>
 				<description>documentretrieve</description>
-				<endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieveTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/DocRetrieveTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>nhincdocumentretrieve</name>
@@ -216,17 +216,17 @@
 		<service>
 				<name>notificationproducer</name>
 				<description>notificationproducer</description>
-				<endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemSubscriptionTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>notificationconsumer</name>
 				<description>HIEM Notify</description>
-				<endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotifyTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemNotifyTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>subscriptionmanager</name>
 				<description>HIEM Unsubscribe</description>
-				<endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribeTestHelper</endpointURL>
+				<endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemUnsubscribeTestHelper</endpointURL>
 			</service>
 			<service>
 				<name>adapterdocquery</name>

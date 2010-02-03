@@ -724,7 +724,7 @@
             <service>
                 <name>notificationproducer</name>
                 <description>notificationproducer</description>
-                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
+                <endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemSubscriptionTestHelper</endpointURL>
             </service>
 			<service>
 				        <name>adapternotificationconsumerpassthrough</name>

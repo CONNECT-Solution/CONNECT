@@ -258,7 +258,7 @@
 			      <service>
 				        <name>auditquery</name>
 				        <description>auditquery</description>
-				        <endpointURL>https://192.168.25.157:8181/findAuditEvents/AuditQueryTestHelper</endpointURL>
+				        <endpointURL>https://192.168.25.157:8181/CONNECTGatewayTest/AuditQueryTestHelper</endpointURL>
 			      </service>
 			      <service>
 				        <name>notificationproducer</name>
@@ -423,7 +423,7 @@
 			      <service>
 				        <name>notificationproducer</name>
 				        <description>notificationproducer</description>
-				        <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
+				        <endpointURL>https://localhost:8181/CONNECTGatewayTest/HiemSubscriptionTestHelper</endpointURL>
 			      </service>
 			      <service>
 				        <name>adapternotificationconsumerpassthrough</name>

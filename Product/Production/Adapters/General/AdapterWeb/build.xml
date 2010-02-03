@@ -25,12 +25,6 @@
     <target name="build-test" depends="dist" />
 
     <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRegistryService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRegistryService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRegistryService/wsdl/"/>
         </copy>
@@ -39,12 +33,6 @@
         </copy>
     </target>
     <target name="wsimport-service-DocumentRepositoryService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/DocumentRepositoryService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRepositoryService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/DocumentRepositoryService/wsdl/"/>
         </copy>
@@ -53,12 +41,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocQuerySecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocQuerySecured/wsdl/"/>
         </copy>
@@ -67,12 +49,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocRetrieveSecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
         </copy>
@@ -81,12 +57,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterAuthenticationService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterAuthenticationService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterAuthenticationService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterAuthenticationService/wsdl/"/>
         </copy>
@@ -95,12 +65,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPolicyEngineSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineSecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineSecured/wsdl/"/>
         </copy>
@@ -109,12 +73,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPolicyEngineOrchestrator" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineOrchestrator">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineOrchestrator">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineOrchestrator/wsdl/"/>
         </copy>
@@ -123,12 +81,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPolicyEngineTransform" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPolicyEngineTransform">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPolicyEngineTransform">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPolicyEngineTransform/wsdl/"/>
         </copy>
@@ -137,12 +89,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPEPService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPEPService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPEPService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPEPService/wsdl/"/>
         </copy>
@@ -151,12 +97,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPIPService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPIPService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPIPService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPIPService/wsdl/"/>
         </copy>
@@ -165,12 +105,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterDocProvideAndRegisterservice" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocProvideAndRegisterservice">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterDocProvideAndRegisterservice">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterDocProvideAndRegisterservice/wsdl/"/>
         </copy>
@@ -179,12 +113,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterSecuredAuditLogQuery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSecuredAuditLogQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSecuredAuditLogQuery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSecuredAuditLogQuery/wsdl/"/>
         </copy>
@@ -193,12 +121,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterReidentification" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterReidentification">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterReidentification">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterReidentification/wsdl/"/>
         </copy>
@@ -207,12 +129,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterMpiSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpiSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpiSecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpiSecured/wsdl/"/>
         </copy>
@@ -221,12 +137,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterMpi" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterMpi">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterMpi">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterMpi/wsdl/"/>
         </copy>
@@ -235,12 +145,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterComponentMpi" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpi">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpi">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpi/wsdl/"/>
         </copy>
@@ -249,12 +153,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterComponentMpiSecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterComponentMpiSecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentMpiSecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentMpiSecured/wsdl/"/>
         </copy>
@@ -263,12 +161,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterPatientDiscoverySecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterPatientDiscoverySecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterPatientDiscoverySecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterPatientDiscoverySecured/wsdl/"/>
         </copy>
@@ -277,12 +169,6 @@
         </copy>
     </target>
     <target name="wsimport-service-AdapterSubjectDiscoverySecured" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterSubjectDiscoverySecured">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterSubjectDiscoverySecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterSubjectDiscoverySecured/wsdl/"/>
         </copy>
@@ -291,12 +177,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityAuditQuery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityAuditQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityAuditQuery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityAuditQuery/wsdl/"/>
         </copy>
@@ -305,12 +185,6 @@
         </copy>
     </target>
     <target name="wsimport-service-ProxyAuditQuery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyAuditQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyAuditQuery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyAuditQuery/wsdl/"/>
         </copy>
@@ -319,12 +193,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityDocQuery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocQuery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocQuery/wsdl/"/>
         </copy>
@@ -333,12 +201,6 @@
         </copy>
     </target>
     <target name="wsimport-service-NhincProxyDocQuery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocQuery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocQuery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocQuery/wsdl/"/>
         </copy>
@@ -347,12 +209,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityDocRetrieve" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityDocRetrieve">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityDocRetrieve">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityDocRetrieve/wsdl/"/>
         </copy>
@@ -361,12 +217,6 @@
         </copy>
     </target>
     <target name="wsimport-service-NhincProxyDocRetrieve" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyDocRetrieve">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyDocRetrieve">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyDocRetrieve/wsdl/"/>
         </copy>
@@ -375,12 +225,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityNotifyService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityNotifyService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityNotifyService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityNotifyService/wsdl/"/>
         </copy>
@@ -389,12 +233,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntitySubscribeService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubscribeService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubscribeService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubscribeService/wsdl/"/>
         </copy>
@@ -403,12 +241,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityUnsubscribeService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityUnsubscribeService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityUnsubscribeService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityUnsubscribeService/wsdl/"/>
         </copy>
@@ -417,12 +249,6 @@
         </copy>
     </target>
     <target name="wsimport-service-ProxyHiemNotify" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemNotify">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemNotify">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemNotify/wsdl/"/>
         </copy>
@@ -431,12 +257,6 @@
         </copy>
     </target>
     <target name="wsimport-service-ProxyHiemSubscribe" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemSubscribe">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemSubscribe">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemSubscribe/wsdl/"/>
         </copy>
@@ -445,12 +265,6 @@
         </copy>
     </target>
     <target name="wsimport-service-ProxyHiemUnsubscribe" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProxyHiemUnsubscribe">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyHiemUnsubscribe">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyHiemUnsubscribe/wsdl/"/>
         </copy>
@@ -459,12 +273,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntityPatientDiscovery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityPatientDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityPatientDiscovery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityPatientDiscovery/wsdl/"/>
         </copy>
@@ -473,12 +281,6 @@
         </copy>
     </target>
     <target name="wsimport-service-NhincProxyPatientDiscovery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyPatientDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyPatientDiscovery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyPatientDiscovery/wsdl/"/>
         </copy>
@@ -487,12 +289,6 @@
         </copy>
     </target>
     <target name="wsimport-service-EntitySubjectDiscovery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntitySubjectDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntitySubjectDiscovery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntitySubjectDiscovery/wsdl/"/>
         </copy>
@@ -501,12 +297,6 @@
         </copy>
     </target>
     <target name="wsimport-service-NhincProxySubjectDiscovery" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxySubjectDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxySubjectDiscovery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxySubjectDiscovery/wsdl/"/>
         </copy>
@@ -515,12 +305,6 @@
         </copy>
     </target>
     <target name="wsimport-service-PatientCorrelationService" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/PatientCorrelationService">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/PatientCorrelationService">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PatientCorrelationService/wsdl/"/>
         </copy>
@@ -529,12 +313,6 @@
         </copy>
     </target>
     <target name="wsimport-service-MpiManager" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/MpiManager"/>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/MpiManager">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
         <copy todir="${build.web.dir}/WEB-INF/wsdl/MpiManager">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/wsdl/"/>
         </copy>

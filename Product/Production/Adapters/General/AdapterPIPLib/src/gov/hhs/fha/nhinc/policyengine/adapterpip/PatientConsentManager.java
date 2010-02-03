@@ -112,6 +112,7 @@ public class PatientConsentManager {
                 oDocRepService = new DocumentRepositoryService();
             }
 
+//            oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
             oDocRepositoryPort = oDocRepService.getDocumentRepositoryPortSoap();
 
             // Get the real endpoint URL for this service.
