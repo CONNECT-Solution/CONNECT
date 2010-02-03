@@ -188,6 +188,34 @@ public class ConnectionManagerCache {
     }
 
     /**
+     * This returns true if the set of states contains a state for the given state name.
+     *
+     * @param oStates The set of states to search.
+     * @param state The name of the state to search for.
+     * @return True if the service is found.
+     */
+    private static boolean containsState(CMStates oStates, String state) {
+        boolean bFound = false;
+
+        if ((oStates != null) &&
+                (oStates.getState() != null) &&
+                (oStates.getState().size() > 0) &&
+                (state != null) &&
+                (state.length() > 0)) {
+            for (String stateName : oStates.getState()) {
+                if ((state != null) &&
+                        (stateName.equalsIgnoreCase(state))) {
+                    bFound = true;
+                }
+
+            }
+        }
+
+        return bFound;
+
+    }
+
+    /**
      * This method merges the information from the internal connection information as well
      * as the ones from the external conenctions.   The internal information always
      * overrides the external.  When it comes to services, it does not do a piece wise compare
@@ -228,6 +256,25 @@ public class ConnectionManagerCache {
         oCombinedEntity.setPublicKey(oUDDIEntity.getPublicKey());
         oCombinedEntity.setPublicKeyURI(oUDDIEntity.getPublicKeyURI());
         oCombinedEntity.setStates(oUDDIEntity.getStates());
+
+        // Put in all of the states from the InternalConnection one next - they are the king...
+        //----------------------------------------------------------------------------------------
+        oCombinedEntity.setStates(oInternalEntity.getStates());
+        if (oCombinedEntity.getStates() == null) {
+            oCombinedEntity.setStates(new CMStates());
+        }
+
+        // Now only add in the states from the UDDI that we do not have
+        //-------------------------------------------------------------
+        if ((oUDDIEntity.getStates() != null) &&
+                (oUDDIEntity.getStates().getState() != null) &&
+                (oUDDIEntity.getStates().getState().size() > 0)) {
+            for (String oState : oUDDIEntity.getStates().getState()) {
+                if (!containsState(oCombinedEntity.getStates(), oState)) {
+                    oCombinedEntity.getStates().getState().add(oState);
+                }
+            }
+        }
 
         // Put in all of the services from the InternalConnection one next - they are the king...
         //----------------------------------------------------------------------------------------
@@ -1143,15 +1190,19 @@ public class ConnectionManagerCache {
      */
     private static void createUniqueList(List<String> urlList) {
         List<String> tempList = new ArrayList<String>();
-        List<Integer> removeList = new ArrayList<Integer>();
+        boolean foundDup = false;
 
         for (String entry : urlList) {
             if (NullChecker.isNotNullish(tempList)) {
+                foundDup = false;
                 for (String temp : tempList) {
                     if (temp.equalsIgnoreCase(entry)) {
-                        removeList.add(urlList.indexOf(entry));
+                        foundDup = true;
                         break;
                     }
+                }
+                if (foundDup == false) {
+                    tempList.add(entry);
                 }
             } else {
                 tempList.add(entry);
@@ -1159,10 +1210,9 @@ public class ConnectionManagerCache {
         }
 
         // Remove the duplicates
-        for (Integer index : removeList) {
-            if (urlList.isEmpty() == false) {
-			     urlList.remove(index.intValue());
-            }
+        urlList.clear();
+        for (String temp : tempList) {
+            urlList.add(temp);
         }
 
         return;
