@@ -172,10 +172,6 @@
     <directory>/Production/Common/ConnectionManagerEJB</directory>
   </project>
   <project>
-    <name>UDDIUpdateManagerEJB</name>
-    <directory>/Production/Common/UDDIUpdateManagerEJB</directory>
-  </project>
-  <project>
     <name>UDDIModifierGUI</name>
     <directory>/Production/Common/UDDIModifierGUI</directory>
   </project>

@@ -7,12 +7,29 @@
             -->
     <target name="wsimport-init" depends="init">
         <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
         <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
             <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
         </taskdef>
         <condition property="conf-dir" value="${conf.dir}/" else="">
             <isset property="conf.dir"/>
         </condition>
+    </target>
+    <target name="wsimport-client-uddi_v3_service" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/uddi_v3_service" destdir="${build.generated.dir}/jax-wsCache/uddi_v3_service" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_v3_service.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/uddi_v3_service">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-uddi_v3_service" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/uddi-org:v3_service"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
     </target>
     <target name="wsimport-service-DocumentTransform" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentTransform"/>
@@ -52,5 +69,25 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentpropaccessor"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincComponentPropAccessor"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform, wsimport-service-NhincComponentPropAccessor"/>
+    <target name="wsimport-service-UDDIUpdateManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager" destdir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager" wsdl="${basedir}/${conf-dir}xml-resources/web-services/UDDIUpdateManager/wsdl/NhincComponentUDDIUpdateManager.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/UDDIUpdateManager/wsdl/NhincComponentUDDIUpdateManager.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/UDDIUpdateManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/UDDIUpdateManager/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-UDDIUpdateManager" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentuddiupdatemanager"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-uddi_v3_service"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform, wsimport-service-NhincComponentPropAccessor, wsimport-service-UDDIUpdateManager"/>
 </project>
