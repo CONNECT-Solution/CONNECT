@@ -88,6 +88,7 @@
     nbproject/build-impl.xml file. 
 
     -->
+<!--
     <target depends="init" name="deps-jar" unless="no.deps">
         <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
 
@@ -98,4 +99,5 @@
 
         <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
     </target>
+-->
 </project>

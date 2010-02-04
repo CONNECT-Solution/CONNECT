@@ -6,23 +6,23 @@
     <directory>/Production/Common/NhincCommonTypesLib</directory>
   </project>
   <project>
-    <name>NhincSAMLCallbackLib</name>
-    <directory>/Production/Gateway/NhincSAMLCallbackLib</directory>
+    <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
+    <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
   </project>
-  <!-- END CORE PROJECTS INCLUDED FOR REFERENCE -->
-
-  <!-- BEGIN CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
   <project>
     <name>NhincLib</name>
     <directory>/Production/Common/NhincLib</directory>
   </project>
   <project>
+    <name>NhincSAMLCallbackLib</name>
+    <directory>/Production/Common/NhincSAMLCallbackLib</directory>
+  </project>
+  <!-- END CORE PROJECTS INCLUDED FOR REFERENCE -->
+
+  <!-- BEGIN CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
+  <project>
     <name>NhincDataTransformsLib</name>
     <directory>/Production/Common/NhincDataTransformsLib</directory>
-  </project>
-  <project>
-    <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
-    <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
   </project>
   <project>
     <name>NhincSamlTokenLib</name>
