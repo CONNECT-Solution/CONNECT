@@ -529,15 +529,17 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.NhincLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
         <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>

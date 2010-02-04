@@ -88,6 +88,25 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentuddiupdatemanager"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/UDDIUpdateManager"/>
     </target>
+    <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" destdir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/wsdl/NhincComponentConnectionManager.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentConnectionManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhincComponentConnectionManager" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentconnectionmanager"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-uddi_v3_service"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform, wsimport-service-NhincComponentPropAccessor, wsimport-service-UDDIUpdateManager"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform, wsimport-service-NhincComponentPropAccessor, wsimport-service-UDDIUpdateManager, wsimport-service-NhincComponentConnectionManager"/>
 </project>

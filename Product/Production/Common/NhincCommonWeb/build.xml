@@ -67,6 +67,20 @@
         </copy>
     </target>
     <target name="wsimport-client-uddi_v3_service" depends="wsimport-init"/>
+    <target name="wsimport-service-NhincComponentConnectionManager" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincComponentConnectionManager">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincComponentConnectionManager/schemas/"/>
+        </copy>
+    </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

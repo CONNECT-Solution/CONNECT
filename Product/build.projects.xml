@@ -168,10 +168,6 @@
     <directory>/Production/Adapters/General/UniversalClientGUI</directory>
   </project>
   <project>
-    <name>ConnectionManagerEJB</name>
-    <directory>/Production/Common/ConnectionManagerEJB</directory>
-  </project>
-  <project>
     <name>UDDIModifierGUI</name>
     <directory>/Production/Common/UDDIModifierGUI</directory>
   </project>

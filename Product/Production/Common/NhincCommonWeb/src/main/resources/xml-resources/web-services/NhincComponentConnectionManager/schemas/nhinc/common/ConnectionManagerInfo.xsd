@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+    xmlns:tns="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+    targetNamespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
+    elementFormDefault="qualified">
+        
+    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+                schemaLocation="NhincCommon.xsd"/>
+
+    <xsd:complexType name="ConnectionInfosType">
+        <xsd:sequence>
+            <xsd:element name="connectionInfo" type="tns:ConnectionInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ConnectionInfos" type="tns:ConnectionInfosType"/>
+    <xsd:complexType name="ConnectionInfoType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType"/>
+            <xsd:element name="serviceConnectionInfos" type="tns:ServiceConnectionInfosType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ConnectionInfo" type="tns:ConnectionInfoType"/>
+    <xsd:complexType name="ServiceConnectionInfosType">
+        <xsd:sequence>
+            <xsd:element name="serviceConnectionInfo" type="tns:ServiceConnectionInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ServiceConnectionInfos" type="tns:ServiceConnectionInfosType"/>
+    <xsd:complexType name="ServiceConnectionInfoType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string"/>
+            <xsd:element name="url" type="xsd:string"/>
+            <xsd:element name="file" type="xsd:string"/>
+            <xsd:element name="host" type="xsd:string"/>
+            <xsd:element name="path" type="xsd:string"/>
+            <xsd:element name="port" type="xsd:string"/>
+            <xsd:element name="protocol" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ServiceConnectionInfo" type="tns:ServiceConnectionInfoType"/>
+    <xsd:complexType name="ConnectionInfoEndpointsType">
+        <xsd:sequence>
+            <xsd:element name="connectionInfoEndpoint" type="tns:ConnectionInfoEndpointType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ConnectionInfoEndpoints" type="tns:ConnectionInfoEndpointsType"/>
+    <xsd:complexType name="ConnectionInfoEndpointType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType"/>
+            <xsd:element name="serviceConnectionInfoEndpoints" type="tns:ServiceConnectionInfoEndpointsType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ConnectionInfoEndpoint" type="tns:ConnectionInfoEndpointType"/>
+    <xsd:complexType name="ServiceConnectionInfoEndpointsType">
+        <xsd:sequence>
+            <xsd:element name="serviceConnectionInfoEndpoint" type="tns:ServiceConnectionInfoEndpointType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ServiceConnectionInfoEndpoints" type="tns:ServiceConnectionInfoEndpointsType"/>
+    <xsd:complexType name="ServiceConnectionInfoEndpointType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string"/>
+            <xsd:element ref="nccommon:EPR" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ServiceConnectionInfoEndpoint" type="tns:ServiceConnectionInfoEndpointType"/>
+    <xsd:complexType name="UniformServiceNameType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UniformServiceName" type="tns:UniformServiceNameType"/>
+    <xsd:complexType name="HomeCommunityWithServiceNameType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0"/>
+            <xsd:element name="serviceName" type="xsd:string"/>
+            <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="HomeCommunityWithServiceName" type="tns:HomeCommunityWithServiceNameType"/>
+    <xsd:complexType name="HomeCommunitiesWithServiceNameType">
+        <xsd:sequence>
+            <xsd:element name="HomeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0"/>
+            <xsd:element name="serviceName" type="xsd:string"/>
+            <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="HomeCommunitiesWithServiceName" type="tns:HomeCommunitiesWithServiceNameType"/>
+	<!-- ====================================================================================
+         This type defines the root level of the UDDI connection cache XML file. 
+         ==================================================================================== -->
+    <xsd:complexType name="UDDIConnectionInfoType">
+        <xsd:sequence>
+            <xsd:element name="businessEntities" type="tns:BusinessEntitiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UDDIConnectionInfo" type="tns:UDDIConnectionInfoType"/>
+    <xsd:complexType name="BusinessEntitiesType">
+        <xsd:sequence>
+            <xsd:element name="businessEntity" type="tns:BusinessEntityType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BusinessEntities" type="tns:BusinessEntitiesType"/>
+    <xsd:complexType name="BusinessEntityType">
+        <xsd:sequence>
+            <xsd:element name="discoveryURLs" type="tns:DiscoveryURLsType" minOccurs="0"/>
+            <xsd:element name="names" type="tns:BusinessNamesType" minOccurs="0"/>
+            <xsd:element name="descriptions" type="tns:BusinessDescriptionsType" minOccurs="0"/>
+            <xsd:element name="contacts" type="tns:ContactsType" minOccurs="0"/>
+            <xsd:element name="homeCommunityId" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="states" type="tns:StatesType" minOccurs="0"/>
+            <xsd:element name="federalHIE" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="publicKeyURI" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="publicKey" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="businessServices" type="tns:BusinessServicesType" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="businessKey" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:element name="BusinessEntity" type="tns:BusinessEntityType"/>
+    <xsd:complexType name="DiscoveryURLsType">
+        <xsd:sequence>
+            <xsd:element name="discoveryURL" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DiscoveryURLs" type="tns:DiscoveryURLsType"/>
+    <xsd:complexType name="BusinessNamesType">
+        <xsd:sequence>
+            <xsd:element name="businessName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BusinessNames" type="tns:BusinessNamesType"/>
+    <xsd:complexType name="BusinessDescriptionsType">
+        <xsd:sequence>
+            <xsd:element name="businessDescription" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BusinessDescriptions" type="tns:BusinessDescriptionsType"/>
+    <xsd:complexType name="ContactsType">
+        <xsd:sequence>
+            <xsd:element name="contact" type="tns:ContactType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Contacts" type="tns:ContactsType"/>
+    <xsd:complexType name="ContactType">
+        <xsd:sequence>
+            <xsd:element name="descriptions" type="tns:ContactDescriptionsType" minOccurs="0"/>
+            <xsd:element name="personNames" type="tns:PersonNamesType" minOccurs="0"/>
+            <xsd:element name="phones" type="tns:PhonesType" minOccurs="0"/>
+            <xsd:element name="emails" type="tns:EmailsType" minOccurs="0"/>
+            <xsd:element name="addresses" type="tns:AddressesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Contact" type="tns:ContactType"/>
+    <xsd:complexType name="ContactDescriptionsType">
+        <xsd:sequence>
+            <xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ContactDescriptions" type="tns:ContactDescriptionsType"/>
+    <xsd:complexType name="PersonNamesType">
+        <xsd:sequence>
+            <xsd:element name="personName" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="PersonNames" type="tns:PersonNamesType"/>
+    <xsd:complexType name="PhonesType">
+        <xsd:sequence>
+            <xsd:element name="phone" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Phones" type="tns:PhonesType"/>
+    <xsd:complexType name="EmailsType">
+        <xsd:sequence>
+            <xsd:element name="email" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Emails" type="tns:EmailsType"/>
+    <xsd:complexType name="AddressesType">
+        <xsd:sequence>
+            <xsd:element name="address" type="tns:AddressType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Addresses" type="tns:AddressesType"/>
+    <xsd:complexType name="AddressType">
+        <xsd:sequence>
+            <xsd:element name="addressLine" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="Address" type="tns:AddressType"/>
+    <xsd:complexType name="StatesType">
+        <xsd:sequence>
+            <xsd:element name="state" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="States" type="tns:StatesType"/>
+    <xsd:complexType name="BusinessServicesType">
+        <xsd:sequence>
+            <xsd:element name="businessService" type="tns:BusinessServiceType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BusinessServices" type="tns:BusinessServicesType"/>
+    <xsd:complexType name="BusinessServiceType">
+        <xsd:sequence>
+            <xsd:element name="names" type="tns:BindingNamesType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="descriptions" type="tns:BindingDescriptionsType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="uniformServiceName" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="serviceVersion" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="internalWebService" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="bindingTemplates" type="tns:BindingTemplatesType" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="serviceKey" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:element name="BusinessService" type="tns:BusinessServiceType"/>
+    <xsd:complexType name="BindingNamesType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BindingNames" type="tns:BindingNamesType"/>
+    <xsd:complexType name="BindingDescriptionsType">
+        <xsd:sequence>
+            <xsd:element name="description" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BindingDescriptions" type="tns:BindingDescriptionsType"/>
+    <xsd:complexType name="BindingTemplatesType">
+        <xsd:sequence>
+            <xsd:element name="bindingTemplate" type="tns:BindingTemplateType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="BindingTemplates" type="tns:BindingTemplatesType"/>
+    <xsd:complexType name="BindingTemplateType">
+        <xsd:sequence>
+            <xsd:element name="endpointURL" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="wsdlURL" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+        <xsd:attribute name="bindingKey" type="xsd:string"/>
+    </xsd:complexType>
+    <xsd:element name="BindingTemplate" type="tns:BindingTemplateType"/>
+    <xsd:complexType name="GetAllCommunitiesRequestType">
+        <xsd:sequence>
+            <xsd:element name="emptyParam" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAllCommunitiesRequest" type="tns:GetAllCommunitiesRequestType"/>
+    <xsd:complexType name="GetAllBusinessEntitiesRequestType">
+        <xsd:sequence>
+            <xsd:element name="emptyParam" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAllBusinessEntitiesRequest" type="tns:GetAllBusinessEntitiesRequestType"/>
+    <xsd:complexType name="GetBusinessEntityRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0"  maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetBusinessEntityRequest" type="tns:GetBusinessEntityRequestType"/>
+    <xsd:complexType name="GetConnectionInfoEndpointSetRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0"/>
+            <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetConnectionInfoEndpointSetRequest" type="tns:GetConnectionInfoEndpointSetRequestType"/>
+    <xsd:complexType name="GetBusinessEntitySetRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"  maxOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetBusinessEntitySetRequest" type="tns:GetBusinessEntitySetRequestType"/>
+    <xsd:complexType name="GetConnectionInfoEndpointSetByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunitiesWithServiceName" type="tns:HomeCommunitiesWithServiceNameType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetConnectionInfoEndpointSetByServiceNameRequest" type="tns:GetConnectionInfoEndpointSetByServiceNameRequestType"/>
+    <xsd:complexType name="GetBusinessEntitySetByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunitiesWithServiceName" type="tns:HomeCommunitiesWithServiceNameType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetBusinessEntitySetByServiceNameRequest" type="tns:GetBusinessEntitySetByServiceNameRequestType"/>
+    <xsd:complexType name="GetConnectionInfoEndpointByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunityWithServiceName" type="tns:HomeCommunityWithServiceNameType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetConnectionInfoEndpointByServiceNameRequest" type="tns:GetConnectionInfoEndpointByServiceNameRequestType"/>
+    <xsd:complexType name="GetBusinessEntityByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunityWithServiceName" type="tns:HomeCommunityWithServiceNameType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetBusinessEntityByServiceNameRequest" type="tns:GetBusinessEntityByServiceNameRequestType"/>
+    <xsd:complexType name="GetAllConnectionInfoSetByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAllConnectionInfoSetByServiceNameRequest" type="tns:GetAllConnectionInfoSetByServiceNameRequestType"/>
+    <xsd:complexType name="GetAllConnectionInfoEndpointSetByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAllConnectionInfoEndpointSetByServiceNameRequest" type="tns:GetAllConnectionInfoEndpointSetByServiceNameRequestType"/>
+    <xsd:complexType name="GetAllBusinessEntitySetByServiceNameRequestType">
+        <xsd:sequence>
+            <xsd:element name="serviceName" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAllBusinessEntitySetByServiceNameRequest" type="tns:GetAllBusinessEntitySetByServiceNameRequestType"/>
+    <xsd:complexType name="ForceRefreshUDDICacheRequestType">
+        <xsd:sequence>
+            <xsd:element name="emptyParam" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ForceRefreshUDDICacheRequest" type="tns:ForceRefreshUDDICacheRequestType"/>
+    <xsd:complexType name="ForceRefreshInternalConnectCacheRequestType">
+        <xsd:sequence>
+            <xsd:element name="emptyParam" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ForceRefreshInternalConnectCacheRequest" type="tns:ForceRefreshInternalConnectCacheRequestType"/>
+    <xsd:complexType name="SuccessOrFailType">
+        <xsd:sequence>
+            <xsd:element name="success" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="SuccessOrFail" type="tns:SuccessOrFailType"/>
+	<!-- ====================================================================================
+         This type defines the root level of the Internal connection XML file. 
+         ==================================================================================== -->
+    <xsd:complexType name="InternalConnectionInfosType">
+        <xsd:sequence>
+            <xsd:element name="internalConnectionInfo" type="tns:InternalConnectionInfoType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnectionInfos" type="tns:InternalConnectionInfosType"/>
+    <xsd:complexType name="InternalConnectionInfoType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunityId" type="xsd:string"/>
+            <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="services" type="tns:InternalConnInfoServicesType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnectionInfo" type="tns:InternalConnectionInfoType"/>
+    <xsd:complexType name="InternalConnInfoServicesType">
+        <xsd:sequence>
+            <xsd:element name="service" type="tns:InternalConnInfoServiceType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnInfoServices" type="tns:InternalConnInfoServicesType"/>
+    <xsd:complexType name="InternalConnInfoServiceType">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="description" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="endpointURL" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="externalService" type="xsd:boolean" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnInfoService" type="tns:InternalConnInfoServiceType"/>
+    
+    <!--  The following schema is used in the UDDIUpdateManager wsdl.  -->
+    
+    <!-- Currently there are no real operations on the WSDL.  A WSDL is needed so that this can 
+         be loaded into Glassfish as an ESB service.  But right now it will only have a timer
+         trigger.  Down the road there will be notification messages it will handle from UDDI. -->
+    <xsd:complexType name="UDDIUpdateManagerNoopRequestType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UDDIUpdateManagerNoopRequest" type="tns:UDDIUpdateManagerNoopRequestType" />
+    <xsd:complexType name="UDDIUpdateManagerNoopResponseType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UDDIUpdateManagerNoopResponse" type="tns:UDDIUpdateManagerNoopResponseType" />
+    <xsd:complexType name="UDDIUpdateManagerForceRefreshRequestType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UDDIUpdateManagerForceRefreshRequest" type="tns:UDDIUpdateManagerForceRefreshRequestType" />
+    <xsd:complexType name="UDDIUpdateManagerForceRefreshResponseType" >
+        <xsd:sequence>
+            <xsd:element name="successOrFail" type="tns:SuccessOrFailType" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UDDIUpdateManagerForceRefreshResponse" type="tns:UDDIUpdateManagerForceRefreshResponseType" />
+
+    <!--  The following schema is used in the InternalConnectionUpdateManager wsdl.  -->
+    
+    <!-- Currently there are no real operations on the WSDL.  A WSDL is needed so that this can 
+         be loaded into Glassfish as an ESB service.  But right now it will only have a timer
+         trigger.  Down the road there will be notification messages it will handle from UDDI. -->
+    <xsd:complexType name="InternalConnectionUpdateManagerNoopRequestType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnectionUpdateManagerNoopRequest" type="tns:InternalConnectionUpdateManagerNoopRequestType" />
+    <xsd:complexType name="InternalConnectionUpdateManagerNoopResponseType" >
+        <xsd:sequence>
+            <xsd:element name="empty" type="xsd:string" />
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InternalConnectionUpdateManagerNoopResponse" type="tns:InternalConnectionUpdateManagerNoopResponseType" />
+    <xsd:complexType name="StoreAssigningAuthorityToHomeCommunityMappingRequestType">
+        <xsd:sequence>
+            <xsd:element name="AssigningAuthority" type="nccommon:AssigningAuthorityType"></xsd:element>
+            <xsd:element name="HomeCommunity" type="nccommon:HomeCommunityType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="StoreAssigningAuthorityToHomeCommunityRequest" type="tns:StoreAssigningAuthorityToHomeCommunityMappingRequestType"/>
+    
+    <xsd:complexType name="GetAssigningAuthoritiesByHomeCommunityRequestType">
+        <xsd:sequence>
+            <xsd:element name="HomeCommunity" type="nccommon:HomeCommunityType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAssigningAuthoritiesByHomeCommunityRequest" type="tns:GetAssigningAuthoritiesByHomeCommunityRequestType"/>
+    
+    <xsd:complexType name="GetHomeCommunityByAssigningAuthorityRequestType">
+        <xsd:sequence>
+            <xsd:element name="AssigningAuthorities" type="nccommon:AssigningAuthorityType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetHomeCommunityByAssigningAuthorityRequest" type="tns:GetHomeCommunityByAssigningAuthorityRequestType"/>
+    <xsd:complexType name="GetAssigningAuthoritiesByHomeCommunityResponseType">
+        <xsd:sequence>
+            <xsd:element name="assigningAuthoritiesId" type="nccommon:AssigningAuthoritiesType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetAssigningAuthoritiesByHomeCommunityResponse" type="tns:GetAssigningAuthoritiesByHomeCommunityResponseType"/>
+    <xsd:complexType name="GetHomeCommunityByAssigningAuthorityResponseType">
+        <xsd:sequence>
+            <xsd:element name="HomeCommunity" type="nccommon:HomeCommunityType"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetHomeCommunityByAssigningAuthorityResponse" type="tns:GetHomeCommunityByAssigningAuthorityResponseType"/>
+    <xsd:complexType name="GetConnectionInfoEndpontFromNhinTargetType">
+        <xsd:sequence>
+            <xsd:element name="NhinTargetSystem" type="nccommon:NhinTargetSystemType"></xsd:element>
+            <xsd:element name="serviceName" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="GetConnectionInfoEndpontFromNhinTargetRequest" type="tns:GetConnectionInfoEndpontFromNhinTargetType"/>
+    <xsd:complexType name="GetUrlSetByServiceNameType">
+            <xsd:sequence>
+                <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"></xsd:element>
+                <xsd:element name="service" type="xsd:string"></xsd:element>
+            </xsd:sequence>
+        </xsd:complexType>
+    <xsd:element name="GetUrlSetByServiceName" type="tns:GetUrlSetByServiceNameType"/>
+</xsd:schema>
+

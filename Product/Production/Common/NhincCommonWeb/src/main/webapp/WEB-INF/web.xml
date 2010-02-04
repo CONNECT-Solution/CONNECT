@@ -16,6 +16,22 @@
         <servlet-name>NhincComponentPropAccessor</servlet-name>
         <url-pattern>/NhincComponentPropAccessor</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>NhincComponentConnectionManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.common.connectionmanager.NhincComponentConnectionManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincComponentConnectionManager</servlet-name>
+        <url-pattern>/NhincComponentConnectionManager</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UDDIUpdateManager</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UDDIUpdateManager</servlet-name>
+        <url-pattern>/NhincComponentUDDIUpdateManager</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
