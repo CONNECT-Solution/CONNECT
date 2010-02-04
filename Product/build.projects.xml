@@ -172,10 +172,6 @@
     <directory>/Production/Common/ConnectionManagerEJB</directory>
   </project>
   <project>
-    <name>PropAccessorEJB</name>
-    <directory>/Production/Common/PropAccessorEJB</directory>
-  </project>
-  <project>
     <name>UDDIUpdateManagerEJB</name>
     <directory>/Production/Common/UDDIUpdateManagerEJB</directory>
   </project>
