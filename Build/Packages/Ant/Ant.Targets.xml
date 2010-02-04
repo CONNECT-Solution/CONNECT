@@ -41,6 +41,7 @@
   </target>
 
   <target name="Ant.Copy.Deployable.Artifacts">
+    <delete dir="${GlassFish.Deploy.Directory.Path}" if="${directory::exists(GlassFish.Deploy.Directory.Path)}"/>
     <ant
       target="copy.deployable.artifacts"
       buildfile="${Ant.Build.File.Path}"
