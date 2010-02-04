@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor
+     It can be used 'as is' to support Document Repository Transactions
+     using Synchronous Web Services.
+     The wsdl file can also be used to support the Asynchronous
+     Web Services Exchange option.  To do this, you will need to
+     'uncomment' all the comment sections below that are labeled
+     'SECTION FOR WEB SERVICES EXCHANGE OPTION'                  -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  name="NhincProxyXDR"
+  targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr"
+  xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdr"
+  xmlns:ihe="urn:ihe:iti:xds-b:2007"
+  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns0="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns1="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy">
+    <documentation>IHE XDS.b Document Repository</documentation>
+    <types>
+        <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:ihe:iti:xds-b:2007"
+      xmlns:ihe="urn:ihe:iti:xds-b:2007">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
+        </xsd:schema>
+        <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+      xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/ebRS/rs.xsd"/>
+        </xsd:schema>
+    <!-- While no elements are directly used from these schema in the WSDL,
+      they need to be present here in order for
+      code generating toolkits to work properly -->
+        <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0"
+      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/ebRS/lcm.xsd"/>
+        </xsd:schema>
+        <xsd:schema elementFormDefault="qualified"
+      targetNamespace="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0"
+      xmlns:lcm="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+      <!-- Include the message schema -->
+            <xsd:include schemaLocation="../schemas/ebRS/rim.xsd"/>
+        </xsd:schema>
+
+    <!--	Importing all schemas within one seems to confuse some parsers
+      and code-generation tools (and may be invalid)
+    <xsd:schema elementFormDefault="qualified">
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        schemaLocation="../schema/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>
+    -->
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdr">
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" schemaLocation="../schemas/nhinc/common/NhincCommonProxy.xsd"/>
+        </xsd:schema>
+    </types>
+
+    <message name="Proxy_ProvideAndRegisterDocumentSet-b_Message">
+        <documentation>Provide and Register Document Set</documentation>
+        <part name="body" type="ns1:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
+    </message>
+    <message name="Proxy_ProvideAndRegisterDocumentSet-bResponse_Message">
+        <documentation>Provide And Register Document Set Response</documentation>
+        <part name="body" element="rs:RegistryResponse"/>
+    </message>
+  <!-- SECTION FOR WEB SERVICES EXCHANGE OPTION
+  <message name="RegisterDocumentSet-bResponse_Message">
+    <documentation>Register Document Set Response</documentation>
+    <part name="body" element="ihe:RegisterDocumentSet-bResponse"/>
+  </message>
+  -->
+    <portType name="ProxyXDR_PortType">
+        <operation name="Proxy_ProvideAndRegisterDocumentSet-b">
+            <input message="tns:Proxy_ProvideAndRegisterDocumentSet-b_Message"
+        wsaw:Action="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/>
+            <output message="tns:Proxy_ProvideAndRegisterDocumentSet-bResponse_Message"
+        wsaw:Action="Proxy_ProvideAndRegisterDocumentSet-bResponse_Message"/>
+        </operation>
+    </portType>
+    <binding name="ProxyXDR_Binding"
+           type="tns:ProxyXDR_PortType">
+        <soap:binding style="document"
+                    transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="Proxy_ProvideAndRegisterDocumentSet-b">
+            <soap:operation soapAction="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+
+    <service name="ProxyXDR_Service">
+        <port name="ProxyXDR_PortType"
+          binding="tns:ProxyXDR_Binding">
+            <soap:address
+         location="http://localhost:${NhincHttpPort}/NhincConnect/NhincProxyXDR"/>
+        </port>
+
+    </service>
+
+</definitions>
+
+
+

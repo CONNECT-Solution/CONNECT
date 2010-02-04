@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="EntityXDR"
+    targetNamespace="urn:gov:hhs:fha:nhinc:entityxdr"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2"
+    xmlns:ihe="urn:ihe:iti:xds-b:2007"
+    xmlns:hl7="urn:hl7-org:v3"
+    xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    xmlns:wsrf-rw="http://docs.oasis-open.org/wsrf/rw-2"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:entityxdr"
+    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+   >
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                        schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                        schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import schemaLocation="../schemas/ebRS/rs.xsd"
+                        namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="RespondingGateway_ProvideAndRegisterDocumentSet-bRequest_Message">
+        <part name="body" type="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
+    </message>
+    <message name="RespondingGateway_ProvideAndRegisterDocumentSet-bResponse_Message">
+        <part name="body" type="rs:RegistryResponseType"/>
+    </message>
+    <portType name="EntityXDRPortType">
+        <operation name="RespondingGateway_ProvideAndRegisterDocumentSet-b">
+            <input name="input1" message="tns:RespondingGateway_ProvideAndRegisterDocumentSet-bRequest_Message"/>
+            <output name="output1" message="tns:RespondingGateway_ProvideAndRegisterDocumentSet-bResponse_Message"/>
+        </operation>
+    </portType>
+    <binding name="EntityXDRBindingSoap11"
+             type="tns:EntityXDRPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="RespondingGateway_ProvideAndRegisterDocumentSet-b">
+            <soap:operation soapAction="urn:RespondingGateway_ProvideAndRegisterDocumentSet"/>
+            <input name="input1">
+                <soap:body use="literal"/>
+            </input>
+            <output name="output1">
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="EntityXDR">
+        <port name="EntityXDRPortSoap11"
+          binding="tns:EntityXDRBindingSoap11">
+            <soap:address
+               location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR"/>
+        </port>
+    </service>
+
+</definitions>
+
+
+
+
+
