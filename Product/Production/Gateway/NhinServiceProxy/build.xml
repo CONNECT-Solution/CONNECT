@@ -26,4 +26,5 @@
     <target name="wsimport-client-NhincDocRetrieve" depends="wsimport-init"/>
     <target name="wsimport-client-NhinPatientDiscovery" depends="wsimport-init"/>
     <target name="wsimport-client-NhinSubjectDiscovery" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincSubscription" depends="wsimport-init"/>
 </project>

@@ -35,10 +35,6 @@
     <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
   </project>  
   <project>
-    <name>NhinHiemProxy</name>
-    <directory>/Production/Gateway/NhinHiemProxy</directory>
-  </project>
-  <project>
     <name>PatientCorrelationFacadeProxy</name>
     <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
   </project>

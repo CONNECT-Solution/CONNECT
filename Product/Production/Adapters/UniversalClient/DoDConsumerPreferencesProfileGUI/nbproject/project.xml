@@ -65,11 +65,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhinHiemProxy.jar}</file>
+                    <file>${file.reference.MpiLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.MpiLib.jar}</file>
+                    <file>${file.reference.NhinServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

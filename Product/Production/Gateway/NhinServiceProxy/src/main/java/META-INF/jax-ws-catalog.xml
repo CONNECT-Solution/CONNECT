@@ -5,7 +5,10 @@
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincDocRetrieve.wsdl" uri="wsdl/NhincDocRetrieve.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinPatientDiscovery.wsdl" uri="wsdl/NhinPatientDiscovery.wsdl"/>
     <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubjectDiscovery.wsdl" uri="wsdl/NhinSubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" uri="wsdl/NhincSubscription.wsdl"/>
+    <system systemId="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/rw-2.wsdl" uri="wsdl/rw-2.wsdl"/>
 </catalog>
+
 
 
 
