@@ -42,15 +42,15 @@
     <name>PatientCorrelationFacade</name>
     <directory>/Production/Gateway/PatientCorrelationFacade</directory>
   </project>  
-  <project>
-    <name>HiemProcessorLib</name>
-    <directory>/Production/Gateway/HiemProcessorLib</directory>
-  </project>
+
   <project>
     <name>NhinServiceProxy</name>
     <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
-
+  <project>
+    <name>HiemProcessorLib</name>
+    <directory>/Production/Gateway/HiemProcessorLib</directory>
+  </project>
   <project>
     <name>EntityServiceProxy</name>
     <directory>/Production/Adapters/General/EntityServiceProxy</directory>
