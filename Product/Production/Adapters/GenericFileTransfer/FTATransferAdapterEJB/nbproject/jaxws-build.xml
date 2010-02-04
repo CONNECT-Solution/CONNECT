@@ -155,5 +155,5 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapternotificationconsumer"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-EntityNotificationConsumer, wsimport-client-EntityNotificationConsumerSecured"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterFTAService, wsimport-service-AdapterSubcriptionManagement, wsimport-init, wsimport-service-AdapterSubscriptionManagementSecured, wsimport-service-AdapterFTAServiceSecured"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterFTAService, wsimport-service-AdapterSubcriptionManagement, wsimport-service-AdapterSubscriptionManagementSecured, wsimport-service-AdapterFTAServiceSecured, wsimport-init"/>
 </project>

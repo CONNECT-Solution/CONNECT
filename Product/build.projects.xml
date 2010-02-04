@@ -10,36 +10,42 @@
     <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
   </project>
   <project>
-    <name>NhincLib</name>
-    <directory>/Production/Common/NhincLib</directory>
+    <name>NhincCommonLib</name>
+    <directory>/Production/Common/NhincCommonLib</directory>
   </project>
   <project>
     <name>NhincSAMLCallbackLib</name>
     <directory>/Production/Common/NhincSAMLCallbackLib</directory>
   </project>
+
   <!-- END CORE PROJECTS INCLUDED FOR REFERENCE -->
 
   <!-- BEGIN CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
+
   <project>
-    <name>NhincDataTransformsLib</name>
-    <directory>/Production/Common/NhincDataTransformsLib</directory>
-  </project>
-  <project>
-    <name>NhincSamlTokenLib</name>
-    <directory>/Production/Gateway/NhincSamlTokenLib</directory>
-  </project>
-  <project>
-	<name>GatewayInternalComponentProxy</name>
-	<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
+    <name>GatewayInternalComponentProxy</name>
+    <directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
   </project>	  
-  <project>
-    <name>HiemUtilityLib</name>
-    <directory>/Production/Gateway/HiemUtilityLib</directory>
-  </project>
   <project>
     <name>AdapterServiceProxy</name>
     <directory>/Production/Gateway/AdapterServiceProxy</directory>
   </project>
+  <project>
+    <name>HiemSubscriptionRepository</name>
+    <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
+  </project>  
+  <project>
+    <name>NhinHiemProxy</name>
+    <directory>/Production/Gateway/NhinHiemProxy</directory>
+  </project>
+  <project>
+    <name>PatientCorrelationFacadeProxy</name>
+    <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
+  </project>
+  <project>
+    <name>PatientCorrelationFacade</name>
+    <directory>/Production/Gateway/PatientCorrelationFacade</directory>
+  </project>  
   <project>
     <name>HiemProcessorLib</name>
     <directory>/Production/Gateway/HiemProcessorLib</directory>
@@ -48,10 +54,7 @@
     <name>NhinServiceProxy</name>
     <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
-  <project>
-    <name>NhinHiemProxy</name>
-    <directory>/Production/Gateway/NhinHiemProxy</directory>
-  </project>
+
   <project>
     <name>EntityServiceProxy</name>
     <directory>/Production/Adapters/General/EntityServiceProxy</directory>
@@ -69,10 +72,6 @@
     <directory>/Production/Gateway/AuditRepositoryDAO</directory>
   </project>
   <project>
-    <name>DocumentRepositoryAdapterProxy</name>
-    <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
-  </project>
-  <project>
     <name>AdapterPIPLib</name>
     <directory>/Production/Adapters/General/AdapterPIPLib</directory>
   </project>
@@ -84,11 +83,11 @@
     <name>AdapterReidentificationLib</name>
     <directory>/Production/Adapters/General/AdapterReidentificationLib</directory>
   </project>
-   <project>
+  <project>
     <name>AdapterDocRepository2Soap12Lib</name>
     <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Lib</directory>
   </project>
- <project>
+  <project>
     <name>AdapterInternalComponentProxy</name>
     <directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
   </project>
@@ -100,18 +99,9 @@
     <name>MpiLib</name>
     <directory>/Production/Adapters/General/MpiLib</directory>
   </project>
-  <project>
-    <name>PatientCorrelationFacadeProxy</name>
-    <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
-  </project>
-  <project>
-    <name>PatientCorrelationFacade</name>
-    <directory>/Production/Gateway/PatientCorrelationFacade</directory>
-  </project>  
-  <project>
-    <name>HiemSubscriptionRepository</name>
-    <directory>/Production/Gateway/HiemSubscriptionRepository</directory>
-  </project>
+
+
+
   <project>
     <name>SubscriptionRepository</name>
     <directory>/Production/Gateway/SubscriptionRepository</directory>
@@ -128,10 +118,6 @@
 
   <!-- BEGIN DEPLOYABLE PROJECTS -->
   <project>
-    <name>NhincCommonWeb</name>
-    <directory>/Production/Common/NhincCommonWeb</directory>
-  </project>
-  <project>
     <name>GatewayWeb</name>
     <directory>/Production/Gateway/GatewayWeb</directory>
   </project>
@@ -146,6 +132,10 @@
   <project>
     <name>NhinInterfaceTestWeb</name>
     <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
+  </project>
+  <project>
+    <name>FTAConfigManager</name>
+    <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
   </project>
   <project>
     <name>FTATransferAdapterEJB</name>

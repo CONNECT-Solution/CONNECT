@@ -15,13 +15,11 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincDataTransformsLib.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                </library>
+                <library>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
@@ -64,10 +62,6 @@
                 </library>
                 <library>
                     <file>${file.reference.mysql-connector-java-5.1.8-bin.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.AuditRepositoryDAO.jar}</file>

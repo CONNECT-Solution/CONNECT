@@ -149,14 +149,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincDataTransformsLib.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincLib.jar}</file>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries>

@@ -16,12 +16,6 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincLib.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincDataTransformsLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                 </library>
                 <library>
@@ -33,10 +27,6 @@
                 </library>
                 <library>
                     <file>${file.reference.spring.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.CommonServiceProxy.jar}</file>
@@ -118,8 +108,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.HiemUtilityLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
