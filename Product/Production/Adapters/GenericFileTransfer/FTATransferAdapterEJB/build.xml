@@ -25,7 +25,42 @@
 	<target name="clean-test" depends="clean,dist" />
 	<target name="build-test" depends="dist, test" />
 
-    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init"/>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="dist"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="dist-ear">
+            <property location="${build.dir}" name="dist.ear.dir"/>
+        </ant>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
+		<property name="project.FTAConfigManager.Absolute" location="${project.FTAConfigManager}"/>
+		<property name="project.HiemUtilityLib.Absolute" location="${project.HiemUtilityLib}"/>
+		    
+        <ant dir="${project.FTAConfigManager.Absolute}" antfile="${project.FTAConfigManager.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+        <ant dir="${project.HiemUtilityLib.Absolute}" antfile="${project.HiemUtilityLib.Absolute}/build.xml" inheritall="false" target="clean"/>
+    </target>
+
+    <target name="wsimport-client-EntityNotificationConsumer" depends="wsimport-init">
+<!--
+        <property name="wsdl-EntityNotificationConsumer" location="${meta.inf}/xml-resources/web-service-references/EntityNotificationConsumer/wsdl/EntityNotificationConsumer.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/binaries" wsdl="${wsdl-EntityNotificationConsumer}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" xnocompile="true"/>
+-->
+    </target>
 
     <target name="wsimport-service-AdapterFTAService" depends="wsimport-init">
 <!--

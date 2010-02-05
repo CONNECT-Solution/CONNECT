@@ -325,8 +325,16 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps"/>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
+    </target>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -337,16 +345,16 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
+        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
+        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincCommonLib.jar}" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" manifestproperty="manifest.file.reference.commons-collections-2.1.1.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} "/>
+            <attribute name="Class-Path" value="${manifest.reference.NhincLib.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -633,7 +641,9 @@ exists or setup the property manually. For example like this:
     <!--
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
+    </target>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>

@@ -49,6 +49,9 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="FTAService">
+      <implementation-class>gov.hhs.fha.nhinc.fta.FTAService</implementation-class>
+    </service>
     <service name="AdapterSubscriptionManagementSecured">
       <implementation-class>gov.hhs.fha.nhinc.fta.AdapterSubscriptionManagementSecured</implementation-class>
       <wsdl-url>file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterSubscriptionManagementSecured.wsdl</wsdl-url>
@@ -96,9 +99,6 @@
           <wsimport-option-value>true</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
-    </service>
-    <service name="FTAService">
-      <implementation-class>gov.hhs.fha.nhinc.fta.FTAService</implementation-class>
     </service>
   </services>
   <clients>

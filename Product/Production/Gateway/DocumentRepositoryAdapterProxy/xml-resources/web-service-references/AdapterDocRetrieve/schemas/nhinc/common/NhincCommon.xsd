@@ -252,11 +252,4 @@
 	</xsd:complexType>
 	<xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
 	<xsd:element name="NhinTargetCommunity" type="tns:NhinTargetCommunityType"/>
-    <xsd:complexType name="UrlSetType">
-        <xsd:sequence>
-            <xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="unbounded"></xsd:element>
-        </xsd:sequence>
-    </xsd:complexType>
-    <xsd:element name="UrlSet" type="tns:UrlSetType"/>
 </xsd:schema>
-

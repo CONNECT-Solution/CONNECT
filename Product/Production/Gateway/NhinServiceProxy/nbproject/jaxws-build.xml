@@ -96,22 +96,5 @@
         <delete dir="${build.generated.dir}/jax-wsCache/NhinSubjectDiscovery"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/pixv3/_2007"/>
     </target>
-    <target name="wsimport-client-NhincSubscription" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
-        <property name="wsdl-NhincSubscription" location="xml-resources/web-service-references/NhincSubscription/wsdl/NhincSubscription.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincSubscription" destdir="${build.generated.dir}/jax-wsCache/NhincSubscription" wsdl="${wsdl-NhincSubscription}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincSubscription.wsdl" xnocompile="true">
-            <depends file="${wsdl-NhincSubscription}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/NhincSubscription">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="wsimport-client-clean-NhincSubscription" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/NhincSubscription"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhincsubscription"/>
-    </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhinPatientDiscovery, wsimport-client-NhinSubjectDiscovery, wsimport-client-NhincSubscription"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhinAuditLogQuery, wsimport-client-NhincDocQuery, wsimport-client-NhincDocRetrieve, wsimport-client-NhinPatientDiscovery, wsimport-client-NhinSubjectDiscovery"/>
 </project>
