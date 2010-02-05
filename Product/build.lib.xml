@@ -44,7 +44,7 @@
 
   <target name="addentry.deploy.list.xml">
     <if>
-      <equals arg1="${deploy.isDeployable}" arg2="true" />
+      <istrue value="${deploy.isDeployable}"/>
     <then>
       <switch value="${deploy.type}">
         <case value="war">
@@ -115,7 +115,6 @@
   -->
   <target name="call-target-in-isolation-if-out-of-date">
     <property location="." name="project-to-build"/>
-    <echo message="project-to-build=${project-to-build}"/>
     <property name="target-to-call" value="dist"/>
     <property name="base" value="${project-to-build}/lib"/>
     <property file="${project-to-build}/lib/nblibraries.properties"/>
@@ -133,35 +132,23 @@
       <isset property="sedeployment.jar"/>
     </condition>
 
-    <echo message="Looking to see if ${project-to-build} should be built."/>
-    <echo message="Checking:"/>
-    <echo message="${project-to-build}/${source.root}/**/*"/>
-    <echo message="against:"/>
-    <echo message="${project-to-build}/${dist.file}"/>
-    <echo message="${javac.classpath}"/>
-
+    <var name="javac.classpath.exists" value="true"/>
     <if>
       <isset property="javac.classpath"/>
       <then>
-
-        <var name="javac.classpath.exists" value="true"/>
-        <for delimiter=":;"  list="${javac.classpath}" param="jar.file">
+        <for delimiter=":;" list="${javac.classpath}" param="jar.file">
           <sequential>
             <if>
               <length string="@{jar.file}" trim="true" length="1"/>
               <then>
               </then>
               <else>
-
                 <available property="@{jar.file}.exists" file="@{jar.file}"/>
-
                 <if>
                   <isset property="@{jar.file}.exists"/>
-                  <then>
-                    <echo message="It is true that this file exists: @{jar.file}."/>
-                  </then>
                   <else>
-                    <echo message="It is false that this file exists: @{jar.file}."/>
+                    <echo message="${project-to-build} missing dependency:" level="error"/>
+                    <echo message="Failed to resolve artifact: @{jar.file}" level="error"/>
                     <var name="javac.classpath.exists" value="false"/>
                   </else>
                 </if>
@@ -169,18 +156,14 @@
             </if>
           </sequential>
         </for>
-
-        <echo message="All the files in javac.classpath exist: ${javac.classpath.exists}."/>
       </then>
       <else>
         <property name="javac.classpath" value=""/>
-        <var name="javac.classpath.exists" value="true"/>
-        <echo message="javac.classpath was not set, setting it to ''."/>
       </else>
     </if>
 
     <if>
-      <equals arg1="${javac.classpath.exists}" arg2="true"/>
+      <istrue value="${javac.classpath.exists}"/>
       <then>
         <outofdate verbose="true" force="${outofdate.force}" property="need.build">
           <sourcefiles>
@@ -200,10 +183,8 @@
     </if>
 
     <if>
-      <equals arg1="${need.build}" arg2="true"/>
+      <istrue value="${need.build}"/>
       <then>
-        <echo message="Building ${project-to-build}"/>
-        <echo message="Calling target ${target-to-call}"/>
         <ant
             dir="${project-to-build}"
             target="${target-to-call}"
@@ -211,9 +192,6 @@
             antfile="${project-to-build}/build.xml"
         />
       </then>
-      <else>
-        <echo message="No need to build the following project, it is already uptodate: ${project-to-build}"/>
-      </else>
     </if>
   </target>
 </project>
