@@ -2,6 +2,7 @@
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DocumentRepositoryXDR"
   targetNamespace="urn:ihe:iti:xdr:2007"
+  xmlns:tns="urn:ihe:iti:xdr:2007"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"

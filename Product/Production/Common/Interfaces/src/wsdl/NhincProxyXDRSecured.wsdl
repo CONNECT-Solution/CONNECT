@@ -9,6 +9,7 @@
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
   name="NhincProxyXDRSecured"
   targetNamespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"
+  xmlns:tns="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
@@ -26,7 +27,7 @@
    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
   >
-    <documentation>IHE XDS.b Document Repository</documentation>
+    <documentation>IHE XDR Document Repository</documentation>
     <types>
         <xsd:schema elementFormDefault="qualified"
       targetNamespace="urn:ihe:iti:xds-b:2007"
