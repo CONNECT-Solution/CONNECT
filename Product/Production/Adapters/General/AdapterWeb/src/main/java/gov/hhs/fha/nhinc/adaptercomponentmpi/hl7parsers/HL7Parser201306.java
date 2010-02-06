@@ -119,6 +119,27 @@ public class HL7Parser201306 {
         }
         
         controlActProcess.setQueryAck(createQueryAck(query));
+
+        MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
+        authorOrPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
+
+        COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
+        II id = new II();
+        try {
+           id.setRoot(PropertyAccessor.getProperty(PROPERTY_FILE, PROPERTY_NAME));
+        }
+        catch (Exception e) {
+            id.setRoot(DEFAULT_AA_OID);
+        }
+
+        assignedDevice.getId().add(id);
+
+        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
+
+        authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
+
+        controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
         
         return controlActProcess;
     }
