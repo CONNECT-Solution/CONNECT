@@ -118,7 +118,7 @@ public class EntityDocQuerySecuredImpl {
 
             // Obtain all the URLs for the targets being sent to
             try {
-                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.DOC_QUERY_SERVICE_NAME);
             } catch (ConnectionManagerException ex) {
                 log.error("Failed to obtain target URLs");
                 return null;
