@@ -11,17 +11,17 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
             </service>
             <service>
-                <name>patientdiscovery</name>
+                <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
-                <name>documentquery</name>
+                <name>QueryForDocument</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
-                <name>documentretrieve</name>
+                <name>RetrieveDocument</name>
                 <description>documentretrieve</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
@@ -365,17 +365,17 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinSubjectDiscovery</endpointURL>
             </service>
             <service>
-                <name>patientdiscovery</name>
+                <name>PatientDiscovery</name>
                 <description>patientdiscovery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/NhinPatientDiscovery</endpointURL>
             </service>
             <service>
-                <name>documentquery</name>
+                <name>QueryForDocument</name>
                 <description>documentquery</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery</endpointURL>
             </service>
             <service>
-                <name>documentretrieve</name>
+                <name>RetrieveDocument</name>
                 <description>documentretrieve</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
             </service>
