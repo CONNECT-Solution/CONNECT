@@ -6,7 +6,6 @@ import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifiersType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
@@ -27,6 +26,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryRequestType;
 import gov.hhs.fha.nhinc.gateway.aggregator.GetAggResultsDocQueryResponseType;
 import gov.hhs.fha.nhinc.gateway.aggregator.StartTransactionDocQueryRequestType;
@@ -104,6 +107,7 @@ public class EntityDocQuerySecuredImpl {
         log.debug("Entering EntityDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery...");
 
         AdhocQueryResponse response = null;
+        CMUrlInfos urlInfoList = null;
 
         DocQueryAuditLog auditLog = createAuditLog();
         auditDocQueryResquest(request, assertion, auditLog);
@@ -111,12 +115,19 @@ public class EntityDocQuerySecuredImpl {
         try {
             DocQueryAggregator aggregator = createDocQueryAggregator();
 
-            List<NhinTargetCommunityType> targets = null;
-
-            // Determine if this is a targeted Document Query request or not.
-            if (request.getNhinTargetCommunities() != null &&
-                    NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())) {
-                targets = request.getNhinTargetCommunities().getNhinTargetCommunity();
+//            List<NhinTargetCommunityType> targets = null;
+//
+//            // Determine if this is a targeted Document Query request or not.
+//            if (request.getNhinTargetCommunities() != null &&
+//                    NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())) {
+//                targets = request.getNhinTargetCommunities().getNhinTargetCommunity();
+//            }
+            // Obtain all the URLs for the targets being sent to
+            try {
+                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+            } catch (ConnectionManagerException ex) {
+                log.error("Failed to obtain target URLs");
+                return null;
             }
 
             // Validate that the message is not null
@@ -125,7 +136,7 @@ public class EntityDocQuerySecuredImpl {
                     NullChecker.isNotNullish(request.getAdhocQueryRequest().getAdhocQuery().getSlot())) {
                 List<SlotType1> slotList = request.getAdhocQueryRequest().getAdhocQuery().getSlot();
 
-                RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, targets, assertion);
+                RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, urlInfoList, assertion);
 
                 // Make sure the valid results back
                 if (correlationsResult != null &&
@@ -230,7 +241,7 @@ public class EntityDocQuerySecuredImpl {
         }
     }
 
-    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, List<NhinTargetCommunityType> targets, AssertionType assertion) {
+    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion) {
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
@@ -254,13 +265,13 @@ public class EntityDocQuerySecuredImpl {
                 }
 
                 // Save off the target home community ids to use in the patient correlation query
-                if (NullChecker.isNotNullish(targets)) {
-                    for (NhinTargetCommunityType target : targets) {
-                        if (target.getHomeCommunity() != null &&
-                                NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
-                            patientCorrelationReq.getTargetHomeCommunity().add(target.getHomeCommunity().getHomeCommunityId());
+                if (urlInfoList != null &&
+                        NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+                    for (CMUrlInfo target : urlInfoList.getUrlInfo()) {
+                        if (NullChecker.isNotNullish(target.getHcid())) {
+                            patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid());
 
-                            if (target.getHomeCommunity().getHomeCommunityId().equals(localHomeCommunity)) {
+                            if (target.getHcid().equals(localHomeCommunity)) {
                                 querySelf = true;
                             }
                         }
