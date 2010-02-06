@@ -115,13 +115,7 @@ public class EntityDocQuerySecuredImpl {
         try {
             DocQueryAggregator aggregator = createDocQueryAggregator();
 
-//            List<NhinTargetCommunityType> targets = null;
-//
-//            // Determine if this is a targeted Document Query request or not.
-//            if (request.getNhinTargetCommunities() != null &&
-//                    NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())) {
-//                targets = request.getNhinTargetCommunities().getNhinTargetCommunity();
-//            }
+
             // Obtain all the URLs for the targets being sent to
             try {
                 urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
