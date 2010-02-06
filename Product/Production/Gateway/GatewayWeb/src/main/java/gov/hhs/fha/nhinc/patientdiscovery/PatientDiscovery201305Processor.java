@@ -100,10 +100,14 @@ public class PatientDiscovery201305Processor {
         if (request != null) {
             if (request.getSender() != null &&
                     request.getSender().getDevice() != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getId()) &&
-                    request.getSender().getDevice().getId().get(0) != null &&
-                    NullChecker.isNotNullish(request.getSender().getDevice().getId().get(0).getRoot())) {
-                hcid = request.getSender().getDevice().getId().get(0).getRoot();
+                    request.getSender().getDevice().getAsAgent() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                    request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                    NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+                hcid = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
             }
 
             if (request.getControlActProcess() != null &&
