@@ -10,12 +10,12 @@
   <property name="Integration.Server.Host.Name"  value="&Integration.Server.Host.Name;"/>
   <property name="EmailHost"                     value="&EmailHost;"/>
 
-  <property name="Web.Credentials.UserName"   value=""/>
-  <property name="Web.Credentials.Password"   value=""/>
+  <property name="Web.Credentials.UserName"      value=""/>
+  <property name="Web.Credentials.Password"      value=""/>
 
-  <property name="ProjectName"                value="&ProjectName;" />
-  <property name="ProjectCodeLineName"        value="&ProjectCodeLineName;" />
-  <property name="ProjectFullName"            value="&ProjectFullName;" />
+  <property name="ProjectName"                   value="&ProjectName;" />
+  <property name="ProjectCodeLineName"           value="&ProjectCodeLineName;" />
+  <property name="ProjectFullName"               value="&ProjectFullName;" />
 
   <propertystructure>
     <CCNet>
@@ -92,6 +92,10 @@
           <Name value="&Common.Directory.Install.Name;"/>
           <Path value="${Common.Directory.Product.Path}\${Common.Directory.Install.Name}"/>
         </Install>
+        <DBScripts>
+          <Name value="&Common.Directory.DBScripts.Name;"/>
+          <Path value="${Common.Directory.Product.Path}\${Common.Directory.DBScripts.Name}"/>
+        </DBScripts>
         <UnitTest>
           <Name value="&Common.Directory.UnitTest.Name;"/>
           <Path value="${Common.Directory.Product.Path}\${Common.Directory.UnitTest.Name}"/>

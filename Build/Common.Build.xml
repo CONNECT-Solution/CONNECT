@@ -136,6 +136,7 @@
       <property name="Common.Directory.Packages.Name"/>
       <property name="Common.Directory.UnitTest.Name"/>
       <property name="Common.Directory.Install.Name"/>
+      <property name="Common.Directory.DBScripts.Name"/>
       <property name="Common.Directory.Transient.Path"/>
       <property name="Common.Directory.Tools.Path"/>
 
@@ -155,7 +156,8 @@
       <property name="Common.Project.Common.Directory.Transient.Path"/>
       <property name="Common.Directory.UnitTest.Path"/>
       <property name="Common.Directory.Install.Path"/>
-
+      <property name="Common.Directory.DBScripts.Path"/>
+      
       <property name="Today"/>
       <property name="Time"/>
       <property name="Now"/>
@@ -199,6 +201,7 @@ SET Common.Directory.ArtifactRoot.Name=${Common.Directory.ArtifactRoot.Name}
 SET Common.Directory.Packages.Name=${Common.Directory.Packages.Name}
 SET Common.Directory.UnitTest.Name=${Common.Directory.UnitTest.Name}
 SET Common.Directory.Install.Name=${Common.Directory.Install.Name}
+SET Common.Directory.DBScripts.Name=${Common.Directory.DBScripts.Name}
 SET Common.Directory.Transient.Name=${Common.Directory.Transient.Name}
 SET Common.Directory.Tools.Name=${Common.Directory.Tools.Name}
 
@@ -212,6 +215,7 @@ SET Common.Directory.ArtifactRoot.Path=${Common.Directory.ArtifactRoot.Path}
 SET Common.Directory.Packages.Path=${Common.Directory.Packages.Path}
 SET Common.Directory.UnitTest.Path=${Common.Directory.UnitTest.Path}
 SET Common.Directory.Install.Path=${Common.Directory.Install.Path}
+SET Common.Directory.DBScripts.Path=${Common.Directory.DBScripts.Path}
 SET Common.Directory.Transient.Path=${Common.Directory.Transient.Path}
 SET Common.Directory.Tools.Path=${Common.Directory.Tools.Path}
 

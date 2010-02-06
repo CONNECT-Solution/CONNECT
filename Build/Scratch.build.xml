@@ -12,8 +12,8 @@
   <property name="CCNetProject" value="NHINC" />
   <property name="CCNetLogFilePath" value="C:\Temp\junk.xml" />
   <property name="CCNetListenerFile" value="C:\Temp\AntListener.txt" />
-  <property name="Web.Credentials.UserName" value="vadlamanis" />
-  <property name="Web.Credentials.Password" value="srikanth99$" />
+  <property name="Web.Credentials.UserName" value="" />
+  <property name="Web.Credentials.Password" value="" />
   <property name="GlassFish.Domain1.NHINC.Configuration.Directory.Name" value="Dev" />
   
   <include buildfile="Properties.Build.xml" />
@@ -38,9 +38,8 @@
   </loadpackages>
 
   <target name="test">
-    <call target="rebuild-setups"/>
 
-</target>
+  </target>
 
   <target name="rebuild-setups">
     <call target="Common.WriteSetEnvBatchFile" />

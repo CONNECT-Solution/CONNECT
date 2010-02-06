@@ -18,6 +18,7 @@
 <!ENTITY Common.Directory.Packages.Name        'Packages' >
 <!ENTITY Common.Directory.UnitTest.Name        'UnitTest' >
 <!ENTITY Common.Directory.Install.Name         'Install' >
+<!ENTITY Common.Directory.DBScripts.Name       'DBScripts' >
 <!ENTITY Common.Directory.Transient.Name       'Transient'>
 
 <!ENTITY Common.Directory.ProjectsRoot.Path    'c:\Projects' >
@@ -31,6 +32,7 @@
 <!ENTITY Common.Directory.Packages.Path        '&Common.Directory.Build.Path;\&Common.Directory.Packages.Name;' >
 <!ENTITY Common.Directory.UnitTest.Path        '&Common.Directory.Product.Path;\&Common.Directory.UnitTest.Name;' >
 <!ENTITY Common.Directory.Install.Path         '&Common.Directory.Product.Path;\&Common.Directory.Install.Name;' >
+<!ENTITY Common.Directory.DBScripts.Path       '&Common.Directory.Product.Path;\&Common.Directory.DBScripts.Name;' >
 <!ENTITY Common.Directory.Transient.Path       '&Common.Directory.Build.Path;\&Common.Directory.Transient.Name;' >
 <!ENTITY Common.Directory.Tools.Path           '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
 

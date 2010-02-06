@@ -11,6 +11,7 @@ SET Common.Directory.ArtifactRoot.Name=Artifacts
 SET Common.Directory.Packages.Name=Packages
 SET Common.Directory.UnitTest.Name=UnitTest
 SET Common.Directory.Install.Name=Install
+SET Common.Directory.DBScripts.Name=DBScripts
 SET Common.Directory.Transient.Name=Transient
 SET Common.Directory.Tools.Name=Tools
 
@@ -24,6 +25,7 @@ SET Common.Directory.ArtifactRoot.Path=c:\Projects\NHINC\Current\Build\Artifacts
 SET Common.Directory.Packages.Path=c:\Projects\NHINC\Current\Build\Packages
 SET Common.Directory.UnitTest.Path=c:\Projects\NHINC\Current\Product\UnitTest
 SET Common.Directory.Install.Path=c:\Projects\NHINC\Current\Product\Install
+SET Common.Directory.DBScripts.Path=c:\Projects\NHINC\Current\Product\DBScripts
 SET Common.Directory.Transient.Path=c:\Projects\NHINC\Current\Build\Transient
 SET Common.Directory.Tools.Path=c:\Projects\NHINC\Current\Build\Tools
 
@@ -67,6 +69,8 @@ SET IDE_HOME=C:\PROGRA~1\NETBEA~1.1
 SET NHINC_PROPERTIES_DIR=%AS_HOME%\domains\domain1\config\nhin
 
 SET NHINC_THIRDPARTY_DIR=c:\Projects\NHINC\Current\ThirdParty
+
+SET NHINC_SOURCE_DIR=c:\Projects\NHINC\Current
 
 SET PATH=C:\Java\jdk1.6.0_16\bin;C:\Java\jdk1.6.0_16;c:\Projects\NHINC\Current\Build\Packages\Ant\Ant\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;c:\Projects\NHINC\Current\Build\Tools\Sysinternals;c:\Projects\NHINC\Current\Build\Tools\Sysinternals;c:\Projects\NHINC\Current\Build\Tools\maven\bin;c:\Projects\NHINC\Current\Build\Tools\nxslt;c:\Projects\NHINC\Current\Build\Tools\curl;c:\Projects\NHINC\Current\Build\Tools\nAnt\bin;c:\Projects\NHINC\Current\Build\Tools\Sysinternals;c:\Projects\NHINC\Current\Build\Tools\7-Zip;C:\Program Files\Subversion\bin;C:\Sun\AppServer\bin;c:\Projects\NHINC\Current\ThirdParty\OpenSSO\ssoAdminTools\opensso\bin;C:\Program Files\Klocwork\Klocwork 8.2 Server\bin;
         
