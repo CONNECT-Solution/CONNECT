@@ -51,6 +51,8 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntities;
 import gov.hhs.fha.nhinc.connectmgr.data.CMBusinessEntity;
 import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 
@@ -968,8 +970,14 @@ public class CMServiceHelper {
         log.info("In getUrlSetFromNhinTargetCommunities...");
 
         try {
-            List<String> urlList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
-            urlSet.getUrl().addAll(urlList);
+            CMUrlInfos urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(getConnectionInfoEndpontFromNhinTargetRequest.getNhinTargetCommunities(), getConnectionInfoEndpontFromNhinTargetRequest.getService());
+
+            if (urlInfoList != null &&
+                    urlInfoList.getUrlInfo() != null) {
+                for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
+                    urlSet.getUrl().add(entry.getUrl());
+                }
+            }
         } catch (ConnectionManagerException ex) {
             log.error("Failed to retrieve URL Set from Nhin Target Community");
             return null;
