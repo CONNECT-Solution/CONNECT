@@ -3578,8 +3578,8 @@ def Host3 = dataSource.getPropertyValue("Host3");
 def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host3 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "documentquery", docQueryURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "documentquery", docQueryURL2, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)
 </script></con:config></con:testStep><con:testStep type="transfer" name="set doc query properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocQuery</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Query</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>fullPatientID</con:name><con:sourceType>FullPatientID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -4020,8 +4020,8 @@ def Host3 = dataSource.getPropertyValue("Host3");
 def HCID3 = dataSource.getPropertyValue( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/DocQuer";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "documentquery", docQueryURL1, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "documentquery", docQueryURL2, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID3, "QueryForDocument", docQueryURL2, context, log)
 </script></con:config></con:testStep><con:testStep type="transfer" name="set doc query properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocQuery</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Query</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>fullPatientID</con:name><con:sourceType>FullPatientID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -4454,7 +4454,7 @@ def Host2 = dataSource.getPropertyValue("Host2");
 def HCID2 = dataSource.getPropertyValue( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/CONNECTGateway/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "documentquery", docQueryURL1, context, log)
+FileUtils.CreateOrUpdateConnection(destConfigFileLocation, HCID2, "QueryForDocument", docQueryURL1, context, log)
 </script></con:config></con:testStep><con:testStep type="transfer" name="set doc query properties"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>endpointTransfer</con:name><con:sourceType>Endpoint-DocQuery</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Endpoint</con:targetType><con:targetStep>Document Query</con:targetStep></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" useXQuery="false" entitize="false" transferChildNodes="false"><con:name>fullPatientID</con:name><con:sourceType>FullPatientID</con:sourceType><con:sourceStep>Test Case Properties</con:sourceStep><con:targetType>Request</con:targetType><con:targetStep>Document Query</con:targetStep><con:targetPath>declare namespace urn2='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace urn1='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace urn='urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
@@ -4737,4 +4737,4 @@ if(myFile.exists())
     }
     myFile.delete();
 }
-</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</script></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
