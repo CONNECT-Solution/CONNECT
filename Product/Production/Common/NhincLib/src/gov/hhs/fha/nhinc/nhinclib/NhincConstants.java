@@ -77,7 +77,7 @@ public class NhincConstants {
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
-    
+
 
     // Audit Logging Constants
     public static final String AUDIT_REPO_SERVICE_NAME = "auditrepository";
@@ -128,7 +128,7 @@ public class NhincConstants {
     public static final String HIEM_SUBSCRIBE_PROXY_SERVICE_NAME_SECURED = "nhincproxynotificationproducersecured";
     public static final String HIEM_UNSUBSCRIBE_PROXY_SERVICE_NAME_SECURED = "nhincproxysubscriptionmanagersecured";
     public static final String HIEM_NOTIFY_PROXY_SERVICE_NAME_SECURED = "nhincproxynotificationconsumersecured";
-    
+
     // HIEM - adapter interface
     public static final String HIEM_SUBSCRIBE_ADAPTER_SERVICE_NAME = "adapternotificationproducer";
     public static final String HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME = "adaptersubscriptionmanager";
@@ -176,7 +176,7 @@ public class NhincConstants {
     public static final String NHINC_DOCUMENT_QUERY_SERVICE_NAME = "serviceDocumentQuery";
     public static final String DOC_QUERY_SELF_PROPERTY_NAME = "documentQueryQuerySelf";
     public static final String NHINC_DOCUMENT_QUERY_SERVICE_PASSTHRU_PROPERTY = "documentQueryPassthrough";
-    public static final String DOC_QUERY_SERVICE_NAME = "documentquery";
+    public static final String DOC_QUERY_SERVICE_NAME = "QueryForDocument";
     public static final String ENTITY_DOC_QUERY_PROXY_SERVICE_NAME = "entitydocqueryproxy";
     public static final String ENTITY_DOC_QUERY_SECURED_SERVICE_NAME = "entitydocquerysecured";
     public static final String NHINC_ADHOC_QUERY_SUCCESS_RESPONSE = "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success";
@@ -193,7 +193,7 @@ public class NhincConstants {
     public static final String ENTITY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "entitydocretrievesecured";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SERVICE_NAME = "nhincproxydocretrieve";
     public static final String NHINC_PROXY_DOC_RETRIEVE_SECURED_SERVICE_NAME = "nhincproxydocretrievesecured";
-    public static final String DOC_RETRIEVE_SERVICE_NAME = "documentretrieve";
+    public static final String DOC_RETRIEVE_SERVICE_NAME = "RetrieveDocument";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_KEY = "serviceDocumentRetrieve";
     public static final String NHINC_DOCUMENT_RETRIEVE_SERVICE_PASSTHRU_PROPERTY = "documentRetrievePassthrough";
 
@@ -216,7 +216,7 @@ public class NhincConstants {
 
     // Patient Discovery Constants
     public static final String NHINC_PATIENT_DISCOVERY_SERVICE_NAME = "servicePatientDiscovery";
-    public static final String PATIENT_DISCOVERY_SERVICE_NAME = "patientdiscovery";
+    public static final String PATIENT_DISCOVERY_SERVICE_NAME = "PatientDiscovery";
     public static final String PATIENT_DISCOVERY_SERVICE_PASSTHRU_PROPERTY = "patientDiscoveryPassthrough";
     public static final String PATIENT_DISCOVERY_DISABLED_ACK_MSG = "Patient Discovery Service is not enabled";
     public static final String PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG = "Policy Check failed for Patient Discovery";
@@ -231,7 +231,7 @@ public class NhincConstants {
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
     public static final String HIBERNATE_PATIENT_CORRELATION = "CorrelatedIdentifers.hibernate.cfg.xml";
     public static final String HIBERNATE_DOCUMENT_REPOSITORY = "docrepo.hibernate.cfg.xml";
-    
+
     private NhincConstants() {
     }
 }

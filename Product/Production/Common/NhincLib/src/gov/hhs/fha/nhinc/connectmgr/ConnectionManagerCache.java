@@ -31,6 +31,8 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMHomeCommunity;
 
 import gov.hhs.fha.nhinc.connectmgr.data.CMInternalConnectionInfoState;
 import gov.hhs.fha.nhinc.connectmgr.data.CMStates;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -1067,9 +1069,9 @@ public class ConnectionManagerCache {
      * @return The set of URLs for the requested service and targets.
      * @throws ConnectionManagerException
      */
-    public static List<String> getEndpontURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
+    public static CMUrlInfos getEndpontURLFromNhinTargetCommunities(NhinTargetCommunitiesType targets, String serviceName)
             throws ConnectionManagerException {
-        List<String> endpointUrlList = new ArrayList<String>();;
+        CMUrlInfos endpointUrlList = new CMUrlInfos();
 
         if (targets != null &&
                 NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
@@ -1080,7 +1082,10 @@ public class ConnectionManagerCache {
                     String endpt = ConnectionManagerCache.getEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(), serviceName);
 
                     if (NullChecker.isNotNullish(endpt)) {
-                        endpointUrlList.add(endpt);
+                        CMUrlInfo entry = new CMUrlInfo();
+                        entry.setHcid(target.getHomeCommunity().getHomeCommunityId());
+                        entry.setUrl(endpt);
+                        endpointUrlList.getUrlInfo().add(entry);
                     }
                 }
 
@@ -1100,7 +1105,7 @@ public class ConnectionManagerCache {
 
             if (entities != null &&
                     NullChecker.isNotNullish(entities.getBusinessEntity())) {
-                endpointUrlList = getUrlsFromBusinessEntities(entities.getBusinessEntity());
+                endpointUrlList = getUrlInfoFromBusinessEntities(entities.getBusinessEntity());
             }
         }
 
@@ -1122,7 +1127,7 @@ public class ConnectionManagerCache {
      * @return void.
      * @throws ConnectionManagerException
      */
-    private static void filterByRegion(List<String> urlList, String region, String serviceName)
+    private static void filterByRegion(CMUrlInfos urlList, String region, String serviceName)
             throws ConnectionManagerException {
         CMBusinessEntities entities = ConnectionManagerCache.getAllBusinessEntitySetByServiceName(serviceName);
 
@@ -1133,11 +1138,15 @@ public class ConnectionManagerCache {
                         NullChecker.isNotNullish(entity.getStates().getState())) {
                     for (String state : entity.getStates().getState()) {
                         if (state.equalsIgnoreCase(region)) {
-                            String url = null;
-                            url = getUrl(entity);
+                            String url = getUrl(entity);
+                            String hcid = getHcid (entity);
 
-                            if (NullChecker.isNotNullish(url)) {
-                                urlList.add(getUrl(entity));
+                            if (NullChecker.isNotNullish(url) &&
+                                    NullChecker.isNotNullish(hcid)) {
+                                CMUrlInfo entry = new CMUrlInfo ();
+                                entry.setHcid(hcid);
+                                entry.setUrl(url);
+                                urlList.getUrlInfo().add(entry);
                             }
                         }
                     }
@@ -1148,16 +1157,20 @@ public class ConnectionManagerCache {
         return;
     }
 
-    private static List<String> getUrlsFromBusinessEntities (List<CMBusinessEntity> businessEntityList) {
-        List<String> urlList = new ArrayList<String>();
+    private static CMUrlInfos getUrlInfoFromBusinessEntities(List<CMBusinessEntity> businessEntityList) {
+        CMUrlInfos urlList = new CMUrlInfos();
 
         if (NullChecker.isNotNullish(businessEntityList)) {
             for (CMBusinessEntity entity : businessEntityList) {
-                String url = null;
-                url = getUrl(entity);
+                String url = getUrl(entity);
+                String hcid = getHcid(entity);
 
-                if (NullChecker.isNotNullish(url)) {
-                    urlList.add(url);
+                if (NullChecker.isNotNullish(url) &&
+                        NullChecker.isNotNullish(hcid)) {
+                    CMUrlInfo entry = new CMUrlInfo();
+                    entry.setUrl(url);
+                    entry.setHcid(hcid);
+                    urlList.getUrlInfo().add(entry);
                 }
             }
         }
@@ -1182,37 +1195,42 @@ public class ConnectionManagerCache {
         return null;
     }
 
+    private static String getHcid(CMBusinessEntity entity) {
+        if (entity != null &&
+                NullChecker.isNotNullish(entity.getHomeCommunityId())) {
+            return entity.getHomeCommunityId().trim();
+        }
+        return null;
+    }
+
     /**
      * This method will remove duplicate URLs from a URL list.
      *
      * @param urlList List of URLs to remove duplicates from.
      * @return The set of unique URLs.
      */
-    private static void createUniqueList(List<String> urlList) {
-        List<String> tempList = new ArrayList<String>();
+    private static void createUniqueList(CMUrlInfos urlList) {
+        CMUrlInfos tempList = new CMUrlInfos();
         boolean foundDup = false;
 
-        for (String entry : urlList) {
-            if (NullChecker.isNotNullish(tempList)) {
-                foundDup = false;
-                for (String temp : tempList) {
-                    if (temp.equalsIgnoreCase(entry)) {
-                        foundDup = true;
-                        break;
-                    }
+        // Find the duplicates
+        for (CMUrlInfo entry : urlList.getUrlInfo()) {
+            foundDup = false;
+            for (CMUrlInfo temp : tempList.getUrlInfo()) {
+                if (temp.equals(entry)) {
+                    foundDup = true;
+                    break;
                 }
-                if (foundDup == false) {
-                    tempList.add(entry);
-                }
-            } else {
-                tempList.add(entry);
+            }
+            if (foundDup == false) {
+                tempList.getUrlInfo().add(entry);
             }
         }
 
         // Remove the duplicates
         urlList.clear();
-        for (String temp : tempList) {
-            urlList.add(temp);
+        for (CMUrlInfo temp : tempList.getUrlInfo()) {
+            urlList.getUrlInfo().add(temp);
         }
 
         return;
@@ -1224,13 +1242,18 @@ public class ConnectionManagerCache {
      * @param urlList List of URLs.
      * @return void.
      */
-    private static void printURLList(List<String> urlList) {
+    private static void printURLList(CMUrlInfos urlList) {
         int idx = 0;
 
-        log.debug("Connection Management URL List:");
-        for (String url : urlList) {
-            log.debug("   URL #" + idx + ": " + url);
-            idx++;
+        if (urlList != null &&
+                urlList.getUrlInfo() != null) {
+            log.debug("Connection Management URL Info List:");
+            for (CMUrlInfo url : urlList.getUrlInfo()) {
+                log.debug("   HCID: " + url.getHcid() + " URL #" + idx + ": " + url.getUrl());
+                idx++;
+            }
+        } else {
+            log.debug("Url List was Empty");
         }
     }
 
