@@ -339,7 +339,6 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-archive">
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.mysql-connector-java-5.1.8-bin.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.antlr-2.7.6.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.asm-attrs.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.asm.jar}" todir="${build.classes.dir}"/>
@@ -354,7 +353,6 @@ exists or setup the property manually. For example like this:
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.mysql-connector-java-5.1.8-bin.jar}" manifestproperty="manifest.file.reference.mysql-connector-java-5.1.8-bin.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.antlr-2.7.6.jar}" manifestproperty="manifest.file.reference.antlr-2.7.6.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.asm-attrs.jar}" manifestproperty="manifest.file.reference.asm-attrs.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.asm.jar}" manifestproperty="manifest.file.reference.asm.jar" todir="${dist.ear.dir}"/>
@@ -366,7 +364,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.jdbc2_0-stdext.jar}" manifestproperty="manifest.file.reference.jdbc2_0-stdext.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.jta.jar}" manifestproperty="manifest.file.reference.jta.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.antlr-2.7.6.jar} ${manifest.file.reference.asm-attrs.jar} ${manifest.file.reference.asm.jar} ${manifest.file.reference.cglib-2.1.3.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.ehcache-1.2.3.jar} ${manifest.file.reference.hibernate3.jar} ${manifest.file.reference.jdbc2_0-stdext.jar} ${manifest.file.reference.jta.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.file.reference.antlr-2.7.6.jar} ${manifest.file.reference.asm-attrs.jar} ${manifest.file.reference.asm.jar} ${manifest.file.reference.cglib-2.1.3.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.dom4j-1.6.1.jar} ${manifest.file.reference.ehcache-1.2.3.jar} ${manifest.file.reference.hibernate3.jar} ${manifest.file.reference.jdbc2_0-stdext.jar} ${manifest.file.reference.jta.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
