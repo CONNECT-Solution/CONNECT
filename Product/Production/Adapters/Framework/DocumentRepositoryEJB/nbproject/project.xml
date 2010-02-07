@@ -11,9 +11,9 @@
             <name>DocumentRepositoryEJB</name>
             <minimum-ant-version>1.6</minimum-ant-version>
             <included-library>reference.NhincLib.jar</included-library>
-            <included-library>reference.DocumentRepository.jar</included-library>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
+            <included-library>reference.DocumentRepository.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>

@@ -127,6 +127,7 @@ public class DocumentRegistryHelper
         
         if(body != null)
         {
+            log.error("MARTHA MARTHA MARTHA");
             AdhocQueryType adhocQuery = body.getAdhocQuery();
             List<SlotType1> slots = adhocQuery.getSlot();
             
