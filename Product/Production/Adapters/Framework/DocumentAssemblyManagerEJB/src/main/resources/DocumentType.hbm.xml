@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.assemblymanager.dao.model">
+  <class name="DocumentType" table="document_type">
+	<id name="typeId" column="TYPE_ID" type="string" length="7">
+		<generator class="native"></generator>
+	</id>
+  	<property name="displayName" column="DISPLAY_NAME" type="string" length="60" not-null="true" />
+  	<property name="active" column="ACTIVE" type="int" not-null="true" />
+  	<property name="version" column="VERSION" type="string" length="5" not-null="false" />
+  	<property name="comments" column="COMMENTS" type="string" length="100" not-null="false" />
+  	<property name="codeSystemOid" column="CODE_SYSTEM_OID" type="string" length="30" not-null="false" />
+  	<property name="codeSystem" column="CODE_SYSTEM" type="string" length="5" not-null="false" />
+    
+  </class>
+</hibernate-mapping>
