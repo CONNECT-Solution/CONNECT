@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.common.docmgr.DocumentManagerClient;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.Date;
 import java.util.List;
@@ -35,10 +36,20 @@ import org.hl7.v3.AdxpExplicitCountry;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
 import org.hl7.v3.AdxpExplicitStreetAddressLine;
+import org.hl7.v3.AdxpCity;
+import org.hl7.v3.AdxpCountry;
+import org.hl7.v3.AdxpPostalCode;
+import org.hl7.v3.AdxpState;
+import org.hl7.v3.AdxpStreetAddressLine;
+import org.hl7.v3.ADXPExplicit;
 import org.hl7.v3.CE;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitSuffix;
+import org.hl7.v3.ENExplicit;
+import org.hl7.v3.EnFamily;
+import org.hl7.v3.EnGiven;
+import org.hl7.v3.EnSuffix;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040Patient;
 import org.hl7.v3.POCDMT000040PatientRole;
@@ -431,17 +442,16 @@ public class EBXMLRequestBuilder {
          String firstName = "";
          String suffix = "";
 
-         for (int i = 0; i < name.getContent().size(); i++) {
-            JAXBElement o = (JAXBElement) name.getContent().get(i);
-            if (o != null && o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitFamily")) {
-               EnExplicitFamily ob = (EnExplicitFamily) o.getValue();
-               lastName = ob.getContent();
-            } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitGiven")) {
-               EnExplicitGiven ob = (EnExplicitGiven) o.getValue();
-               firstName = ob.getContent();
-            } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.EnExplicitSuffix")) {
-               EnExplicitSuffix ob = (EnExplicitSuffix) o.getValue();
-               suffix = ob.getContent();
+         for (Object item : name.getContent()) {
+            if (item instanceof EnFamily) {
+               EnFamily ob = (EnFamily) item;
+               lastName = ob.getRepresentation().value();
+            } else if (item instanceof EnGiven) {
+               EnGiven ob = (EnGiven) item;
+               firstName = ob.getRepresentation().value();
+            } else if (item instanceof EnSuffix) {
+               EnSuffix ob = (EnSuffix) item;
+               suffix = ob.getRepresentation().value();
             }
          }
 
@@ -465,7 +475,7 @@ public class EBXMLRequestBuilder {
          String state = "";
          String postalCode = "";
          String country = "";
-         for (int i = 0; i < address.getContent().size(); i++) {
+/*         for (int i = 0; i < address.getContent().size(); i++) {
             JAXBElement o = (JAXBElement) address.getContent().get(i);
             if (o != null && o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.AdxpExplicitStreetAddressLine")) {
                AdxpExplicitStreetAddressLine ob = (AdxpExplicitStreetAddressLine) o.getValue();
@@ -482,6 +492,25 @@ public class EBXMLRequestBuilder {
             } else if (o.getValue().getClass().getName().equalsIgnoreCase("org.hl7.v3.AdxpExplicitCountry")) {
                AdxpExplicitCountry ob = (AdxpExplicitCountry) o.getValue();
                country = ob.getContent();
+            }
+         }
+ * */
+         for (Object item : address.getContent()) {
+            if (item instanceof AdxpStreetAddressLine) {
+               AdxpStreetAddressLine ob = (AdxpStreetAddressLine) item;
+               streetname = ob.getRepresentation().value();
+            } else if (item instanceof AdxpCity) {
+               AdxpCity ob = (AdxpCity) item;
+               city = ob.getRepresentation().value();
+            } else if (item instanceof AdxpState) {
+               AdxpState ob = (AdxpState) item;
+               state = ob.getRepresentation().value();
+            } else if (item instanceof AdxpPostalCode) {
+               AdxpPostalCode ob = (AdxpPostalCode) item;
+               postalCode = ob.getRepresentation().value();
+            } else if (item instanceof AdxpCountry) {
+               AdxpCountry ob = (AdxpCountry) item;
+               country = ob.getRepresentation().value();
             }
          }
 
