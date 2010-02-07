@@ -3,7 +3,6 @@
   
 	<target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
-    <call target="Build.PublishZip.Release.DBScripts"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
   </target>
 
@@ -35,7 +34,7 @@
     <property name="Publish.Web.File.Name" value="${Installer.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
-    <!--<call target="Publish.Link" />-->
+    <call target="Publish.Link" />
   </target>
 
   <target name="Build.PublishZip.Release.Interfaces">
@@ -50,22 +49,6 @@
 
     <property name="Publish.Web.File.Name" value="${Interfaces.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-  </target>
-  
-  <target name="Build.PublishZip.Release.DBScripts">
-    <property name="DBScripts.Zip.FileName" value="${ProjectFullName}_DBScripts_${CCNetLabel}.zip"/>
-    <property name="DBScripts.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${DBScripts.Zip.FileName}"/>
-
-    <zip zipfile="${DBScripts.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Product.Path}\" >
-        <include name="DBScripts\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${DBScripts.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path" value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
   </target>
