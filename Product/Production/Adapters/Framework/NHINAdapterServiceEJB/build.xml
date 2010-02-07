@@ -131,17 +131,17 @@
         </copy>
 
     </target>
-    <target name="wsimport-service-AdapterDocRetrieve" depends="wsimport-init">
-        <property name="targetLocation-AdapterDocRetrieve" location="${meta.inf}/wsdl/AdapterDocRetrieve"/>
-        <property name="sourceLocation-AdapterDocRetrieve" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/wsdl/"/>
-        <copy todir="${targetLocation-AdapterDocRetrieve}">
-            <fileset dir="${sourceLocation-AdapterDocRetrieve}"/>
+    <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <property name="targetLocation-AdapterDocRetrieveSecured" location="${meta.inf}/wsdl/AdapterDocRetrieveSecured"/>
+        <property name="sourceLocation-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterDocRetrieveSecured}">
+            <fileset dir="${sourceLocation-AdapterDocRetrieveSecured}"/>
         </copy>
         <echo message="copy schemas" />
-        <property name="targetLocation-AdapterDocRetrieveSchemas" location="${meta.inf}/wsdl/schemas/"/>
-        <property name="sourceLocation-AdapterDocRetrieveSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/schemas/"/>
-        <copy todir="${targetLocation-AdapterDocRetrieveSchemas}">
-            <fileset dir="${sourceLocation-AdapterDocRetrieveSchemas}" />
+        <property name="targetLocation-AdapterDocRetrieveSecuredSchemas" location="${meta.inf}/wsdl/schemas/"/>
+        <property name="sourceLocation-AdapterDocRetrieveSecuredSchemas" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/schemas/"/>
+        <copy todir="${targetLocation-AdapterDocRetrieveSecuredSchemas}">
+            <fileset dir="${sourceLocation-AdapterDocRetrieveSecuredSchemas}" />
         </copy>
     </target>
 

@@ -69,28 +69,6 @@
         <delete dir="${build.generated.dir}/jax-wsCache/DocumentAssembly"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:documentassembly"/>
     </target>
-    <target name="wsimport-service-AdapterDocRetrieve" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
-        <property name="service-wsdl-AdapterDocRetrieve" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/wsdl/AdapterDocRetrieve.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve" wsdl="${service-wsdl-AdapterDocRetrieve}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${wsdl-AdapterDocRetrieve}"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
-        <property name="targetLocation-AdapterDocRetrieve" location="${meta.inf}/wsdl/AdapterDocRetrieve"/>
-        <property name="sourceLocation-AdapterDocRetrieve" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieve/wsdl/"/>
-        <copy todir="${targetLocation-AdapterDocRetrieve}">
-            <fileset dir="${sourceLocation-AdapterDocRetrieve}"/>
-        </copy>
-    </target>
-    <target name="wsimport-service-clean-AdapterDocRetrieve" depends="-init-project">
-        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieve"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrieve"/>
-    </target>
     <target name="wsimport-service-AdapterDocQuerySecured" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
         <property name="service-wsdl-AdapterDocQuerySecured" location="${meta.inf}/xml-resources/web-services/AdapterDocQuerySecured/wsdl/AdapterDocQuerySecured.wsdl"/>
@@ -113,6 +91,28 @@
         <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocQuerySecured"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocquerysecured"/>
     </target>
+    <target name="wsimport-service-AdapterDocRetrieveSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        <property name="service-wsdl-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/AdapterDocRetrieveSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" destdir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured" wsdl="${service-wsdl-AdapterDocRetrieveSecured}" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${wsdl-AdapterDocRetrieveSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <property name="targetLocation-AdapterDocRetrieveSecured" location="${meta.inf}/wsdl/AdapterDocRetrieveSecured"/>
+        <property name="sourceLocation-AdapterDocRetrieveSecured" location="${meta.inf}/xml-resources/web-services/AdapterDocRetrieveSecured/wsdl/"/>
+        <copy todir="${targetLocation-AdapterDocRetrieveSecured}">
+            <fileset dir="${sourceLocation-AdapterDocRetrieveSecured}"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-AdapterDocRetrieveSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRetrieveSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adapterdocretrievesecured"/>
+    </target>
     <target name="wsimport-client-generate" depends="wsimport-client-BOSServiceEndpointProvider, wsimport-client-DocumentManager, wsimport-client-DocumentAssembly"/>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterDocRetrieve, wsimport-service-AdapterDocQuerySecured"/>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterDocQuerySecured, wsimport-service-AdapterDocRetrieveSecured"/>
 </project>
