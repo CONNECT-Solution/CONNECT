@@ -26,23 +26,23 @@ public class AdapterCommonDataLayerConstants
     public static final String MEDICATIONS_TEST;
 
         // Added by FHA for successful build
-    public static final String EMULATOR_ALLERGIES_TAG = null;
-    public static final String EMULATOR_MEDS_TAG = null;
-    public static final String EMULATOR_PATIENT_INFO_TAG = null;
-    public static final String EMULATOR_PROBLEMS_TAG = null;
-    public static final String EMULATOR_ALLERGIES_RESPONSE_TYPE = null;
-    public static final String EMULATOR_MEDS_RESPONSE_TYPE = null;
-    public static final String EMULATOR_PATIENT_INFO_RESPONSE_TYPE = null;
-    public static final String EMULATOR_PROBLEMS_RESPONSE_TYPE = null;
-    public static final String EMULATOR_DATA_LOCATION = null;
-    public static final String EMULATOR_FIND_PATIENTS_TAG = null;
-    public static final String EMULATOR_FIND_PATIENTS_RESPONSE_TYPE = null;
-    public static final String EMULATOR_NO_LAST_NAME_LABEL = null;
-    public static final String EMULATOR_NO_FIRST_NAME_LABEL = null;
-    public static final String EMULATOR_NO_GENDER_LABEL = null;
-    public static final String EMULATOR_NO_DOB_LABEL = null;
-    public static final String EMULATOR_NO_PATIENT_ID_LABEL = null;
-    
+    public static final String EMULATOR_ALLERGIES_TAG = "ALLERGIES";
+    public static final String EMULATOR_MEDS_TAG = "MEDS";
+    public static final String EMULATOR_PATIENT_INFO_TAG = "PATIENT_INFO";
+    public static final String EMULATOR_PROBLEMS_TAG = "PROBLEMS";
+    public static final String EMULATOR_ALLERGIES_RESPONSE_TYPE = "CareRecordQUPCIN043200UV01Response";
+    public static final String EMULATOR_MEDS_RESPONSE_TYPE = "CareRecordQUPCIN043200UV01Response";
+    public static final String EMULATOR_PATIENT_INFO_RESPONSE_TYPE = "PatientDemographicsPRPAMT201303UV02Response";
+    public static final String EMULATOR_PROBLEMS_RESPONSE_TYPE = "CareRecordQUPCIN043200UV01Response";
+    public static final String EMULATOR_DATA_LOCATION = "C:\\Sun\\AppServer\\domains\\domain1\\config\\nhin\\CAL_Emulator\\xml\\";
+    public static final String EMULATOR_FIND_PATIENTS_TAG = "FIND_PATIENTS";
+    public static final String EMULATOR_FIND_PATIENTS_RESPONSE_TYPE ="FindPatientsPRPAMT201310UVResponse";
+    public static final String EMULATOR_NO_LAST_NAME_LABEL = "UnknownLastName";
+    public static final String EMULATOR_NO_FIRST_NAME_LABEL = "UnknownFirstName";
+    public static final String EMULATOR_NO_GENDER_LABEL = "UnknowGender";
+    public static final String EMULATOR_NO_DOB_LABEL = "UnknowDOB";
+    public static final String EMULATOR_NO_PATIENT_ID_LABEL = "UnknownPatientID";
+
     static
     {
         String sDOD_CONNECTOR_NAME = null;
