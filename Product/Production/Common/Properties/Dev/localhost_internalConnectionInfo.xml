@@ -69,13 +69,13 @@
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/AdapterService/DocumentRepository_Service</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-			<endpointURL>http://localhost:8080/AdapterService/DocumentRegistry_Service</endpointURL> 
+			<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
 			</service>
 		</services>
@@ -143,13 +143,13 @@
 			<service>
 				<name>adapterxdsbdocrepository</name>
 				<description>Adapter Document Retrieve</description>
-				<endpointURL>http://localhost:8080/AdapterService/DocumentRepository_Service</endpointURL>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->
 			</service>
 			<service>
 				<name>adapterxdsbdocregistry</name>
 				<description>Adapter Document Query</description>
-			<endpointURL>http://localhost:8080/AdapterService/DocumentRegistry_Service</endpointURL> 
+			<endpointURL>http://localhost:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL> 
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->
 			</service>
 		</services>

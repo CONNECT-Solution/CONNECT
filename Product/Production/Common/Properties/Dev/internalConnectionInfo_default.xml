@@ -43,7 +43,7 @@
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/PatientCorrelationService</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/PatientCorrelationService</endpointURL>
             </service>
 			
             <service>
@@ -75,7 +75,7 @@
             <service>
                 <name>policyengineservicesecured</name>
                 <description>Policy Engine Service Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterPolicyEngineSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -85,7 +85,7 @@
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -95,7 +95,7 @@
             <service>
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterSubjectDiscoverySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -105,7 +105,7 @@
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
@@ -115,32 +115,32 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterReidentification</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
             </service>
             <service>
                 <name>adapternotificationproducersecured</name>
@@ -180,31 +180,31 @@
             <service>
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRegistry_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
             <service>
                 <name>adapterpip</name>
                 <description>adapterpip</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPIP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPIP</endpointURL>
             </service>
             <service>
                 <name>adapterpep</name>
                 <description>adapterpep</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPEP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPEP</endpointURL>
             </service>
             <service>
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPolicyEngineOrchestrator</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPolicyEngineOrchestrator</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>
@@ -214,7 +214,7 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubjectdiscoverysecured</name>
@@ -224,7 +224,7 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
@@ -259,7 +259,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -269,7 +269,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -279,12 +279,12 @@
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterAuthentication</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterAuthentication</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -294,7 +294,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -304,7 +304,7 @@
             <service>
                 <name>entityauditqueryproxy</name>
                 <description>Entity Audit Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entityauditquerysecured</name>
@@ -314,7 +314,7 @@
             <service>
                 <name>nhincproxyauditquery</name>
                 <description>NHINC Proxy Audit Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -366,7 +366,7 @@
             <service>
                 <name>patientcorrelation</name>
                 <description>Patient Correlation Service</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/PatientCorrelationService</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/PatientCorrelationService</endpointURL>
             </service>
 			
             <service>
@@ -398,7 +398,7 @@
             <service>
                 <name>policyengineservicesecured</name>
                 <description>Policy Engine Service Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterPolicyEngineSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterPolicyEngineSecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocretrieve</name>
@@ -408,7 +408,7 @@
             <service>
                 <name>adapterdocretrievesecured</name>
                 <description>Adapter Document Retrieve Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocRetrieveSecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterDocRetrieveSecured</endpointURL>
             </service>
             <service>
                 <name>adaptersubjectdiscovery</name>
@@ -418,7 +418,7 @@
             <service>
                 <name>adaptersubjectdiscoverysecured</name>
                 <description>Adapter Subject Discovery Secured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterSubjectDiscoverySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterSubjectDiscoverySecured</endpointURL>
             </service>
             <service>
                 <name>adapterdocquery</name>
@@ -428,7 +428,7 @@
             <service>
                 <name>adapterdocquerysecured</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterDocQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterDocQuerySecured</endpointURL>
             </service>
             <service>
                 <name>adapterauditquery</name>
@@ -438,32 +438,32 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
             </service>
             <service>
                 <name>mpi</name>
                 <description>Master Patient Index</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterMpiService</endpointURL>
             </service>
             <service>
                 <name>mpisecured</name>
                 <description>Master Patient Index</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpiservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterComponentMpiService</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterComponentMpiService</endpointURL>
             </service>
             <service>
                 <name>adaptercomponentmpisecuredservice</name>
                 <description>Master Patient Index Component</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterComponentMpiSecuredService</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterComponentMpiSecuredService</endpointURL>
             </service>
             <service>
                 <name>adapterreidentificationservice</name>
                 <description>adapterreidentificationservice</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterReidentification</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterReidentification</endpointURL>
             </service>
             <service>
                 <name>adapternotificationproducersecured</name>
@@ -503,31 +503,31 @@
             <service>
                 <name>adapterxdsbdocrepository</name>
                 <description>Adapter Document Retrieve</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRepository_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/DocumentRepository_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
-<!--				<endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterDocRepository2Soap12Service</endpointURL>		-->
+<!--				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterDocRepository2Soap12Service</endpointURL>		-->
             </service>
             <service>
                 <name>adapterxdsbdocregistry</name>
                 <description>Adapter Document Query</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/DocumentRegistry_Service</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/DocumentRegistry_Service</endpointURL>
 <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
 <!--				<endpointURL>http://<Adapter-IP>:50967/axis2/services/xdsregistryb</endpointURL>			-->
             </service>
             <service>
                 <name>adapterpip</name>
                 <description>adapterpip</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPIP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPIP</endpointURL>
             </service>
             <service>
                 <name>adapterpep</name>
                 <description>adapterpep</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPEP</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPEP</endpointURL>
             </service>
             <service>
                 <name>adapterpolicyengineorchestrator</name>
                 <description>adapterpolicyengineorchestrator</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterPolicyEngineOrchestrator</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterPolicyEngineOrchestrator</endpointURL>
             </service>
             <service>
                 <name>entitysubjectdiscoverysecured</name>
@@ -537,7 +537,7 @@
             <service>
                 <name>nhincproxysubjectdiscovery</name>
                 <description>NHINC Proxy Subject Discovery</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxySubjectDiscovery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxySubjectDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxysubjectdiscoverysecured</name>
@@ -547,7 +547,7 @@
             <service>
                 <name>entitynotificationconsumer</name>
                 <description>Entity Notify</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyNotificationConsumer</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyNotificationConsumer</endpointURL>
             </service>
             <service>
                 <name>entitynotificationconsumersecured</name>
@@ -582,7 +582,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -592,7 +592,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -602,12 +602,12 @@
             <service>
                 <name>adapterauthentication</name>
                 <description>adapterauthentication</description>
-                <endpointURL>http://<Adapter-IP>:8080/AdapterService/AdapterAuthentication</endpointURL>
+                <endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/AdapterAuthentication</endpointURL>
             </service>
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -617,7 +617,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -627,7 +627,7 @@
             <service>
                 <name>entityauditqueryproxy</name>
                 <description>Entity Audit Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityAuditQuery</endpointURL>
             </service>
             <service>
                 <name>entityauditquerysecured</name>
@@ -637,7 +637,7 @@
             <service>
                 <name>nhincproxyauditquery</name>
                 <description>NHINC Proxy Audit Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyAuditQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyAuditQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxyauditquerysecured</name>
@@ -669,7 +669,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -679,7 +679,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -689,7 +689,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -699,7 +699,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -736,7 +736,7 @@
             <service>
                 <name>entitydocqueryproxy</name>
                 <description>Entity Document Query Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocQuery</endpointURL>
             </service>
             <service>
                 <name>entitydocquerysecured</name>
@@ -746,7 +746,7 @@
             <service>
                 <name>nhincproxydocquery</name>
                 <description>NHINC Proxy Document Query</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocQuery</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocQuery</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocquerysecured</name>
@@ -756,7 +756,7 @@
             <service>
                 <name>entitydocretrieveproxy</name>
                 <description>Entity Document Retrieve Proxy</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/EntityDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/EntityDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>entitydocretrievesecured</name>
@@ -766,7 +766,7 @@
             <service>
                 <name>nhincproxydocretrieve</name>
                 <description>NHINC Proxy Document Retrieve</description>
-                <endpointURL>http://<Gateway-IP>:8080/AdapterService/NhincProxyDocRetrieve</endpointURL>
+                <endpointURL>http://<Gateway-IP>:8080/CONNECTAdapter/NhincProxyDocRetrieve</endpointURL>
             </service>
             <service>
                 <name>nhincproxydocretrievesecured</name>
@@ -781,7 +781,7 @@
             <service>
                 <name>adapterauditquerysecured</name>
                 <description>adapterauditquerysecured</description>
-                <endpointURL>https://<Adapter-IP>:8181/AdapterService/AdapterAuditQuerySecured</endpointURL>
+                <endpointURL>https://<Adapter-IP>:8181/CONNECTAdapter/AdapterAuditQuerySecured</endpointURL>
             </service>
         </services>
     </internalConnectionInfo>
