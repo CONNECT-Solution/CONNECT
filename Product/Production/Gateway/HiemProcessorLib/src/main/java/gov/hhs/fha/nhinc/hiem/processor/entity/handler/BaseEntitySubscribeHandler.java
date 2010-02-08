@@ -3,14 +3,11 @@ package gov.hhs.fha.nhinc.hiem.processor.entity.handler;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
 import gov.hhs.fha.nhinc.hiem.processor.common.SubscriptionItemUtil;
 import gov.hhs.fha.nhinc.hiem.processor.common.SubscriptionStorage;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe.NhinHiemSubscribeProxyObjectFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
@@ -43,7 +40,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeMarshaller;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -132,15 +129,15 @@ public abstract class BaseEntitySubscribeHandler implements EntitySubscribeHandl
         storage.storeExternalSubscriptionItem(subscriptionItem);
     }
 
-    protected SubscribeResponse sendSubscribeRequest(Element subscribeElement, AssertionType assertion, NhinTargetCommunityType community)
+    protected SubscribeResponse sendSubscribeRequest(Element subscribeElement, AssertionType assertion, CMUrlInfo target)
     {
         SubscribeResponse subscribeResponse = null;
         try {
 
             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
-            if(community != null)
+            if(target != null)
             {
-                targetSystem.setHomeCommunity(community.getHomeCommunity());
+                targetSystem.setUrl(target.getUrl());
             }
 
             NhinHiemSubscribeProxy subscribeProxy = new NhinHiemSubscribeProxyObjectFactory().getNhinHiemSubscribeProxy();

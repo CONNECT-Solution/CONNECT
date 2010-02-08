@@ -12,7 +12,6 @@ import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
-import java.util.Iterator;
 import javax.xml.ws.wsaddressing.W3CEndpointReference;
 import gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration.TopicConfigurationEntry;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
@@ -21,7 +20,12 @@ import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelat
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import java.util.List;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeMarshaller;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 /**
@@ -36,6 +40,7 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
     public SubscribeResponse handleSubscribe(TopicConfigurationEntry topicConfig, Subscribe subscribe, Element subscribeElement, AssertionType assertion, NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault, SubscribeCreationFailedFault {
         log.debug("In handleSubscribe - patient id: " + patientIdentifier.getSubjectIdentifier() + ", assigning authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
         SubscribeResponse response = new SubscribeResponse();
+        CMUrlInfos urlInfoList = null;
 
         // Store initial subscription received from agency adapter (the parent subscription)
         EndpointReferenceType parentSubscriptionReference = storeSubscription(subscribe, subscribeElement, assertion, targetCommunitites);
@@ -44,8 +49,16 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             parentSubscriptionReferenceXml = serializeEndpointReferenceType(parentSubscriptionReference);
         }
 
+        // Obtain all the URLs for the targets being sent to
+        try {
+            urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(targetCommunitites, NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Failed to obtain target URLs");
+            return null;
+        }
+
         // Find patient correlations
-        List<QualifiedSubjectIdentifierType> correlations = determineTargets(targetCommunitites);
+        List<QualifiedSubjectIdentifierType> correlations = determineTargets(urlInfoList);
 
         // Common message preparation
 
@@ -54,16 +67,18 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             log.debug("Processing correlation #" + correlationCount++);
             AssigningAuthorityHomeCommunityMappingDAO assigningAuthorityDao = new AssigningAuthorityHomeCommunityMappingDAO();
             for (QualifiedSubjectIdentifierType correlation : correlations) {
-                NhinTargetCommunityType community = new NhinTargetCommunityType();
-                HomeCommunityType homeCommunity = new HomeCommunityType();
+                CMUrlInfo community = new CMUrlInfo();
                 String remoteCommunityId = assigningAuthorityDao.getHomeCommunityId(correlation.getAssigningAuthorityIdentifier());
                 if (log.isDebugEnabled()) {
                     log.debug("Remote assigning authority id: " + correlation.getAssigningAuthorityIdentifier());
                     log.debug("Mapped remote community id: " + remoteCommunityId);
                 }
-                homeCommunity.setHomeCommunityId(remoteCommunityId);
-                community.setHomeCommunity(homeCommunity);
 
+                community = findTarget(remoteCommunityId, urlInfoList);
+
+                if (community == null) {
+                    continue;
+                }
 
                 //      Update Subscribe
                 updateSubscribe(subscribeElement, correlation);
@@ -73,7 +88,6 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
                 //      Policy check - performed in proxy?
                 //      Audit Event - performed in proxy?
                 //      Send Subscribe
-//                SubscribeRequestType subscribeRequest = buildSubscribeRequest(subscribe, assertion, community);
                 Element childSubscribeElement = subscribeElement;
                 SubscribeResponse subscribeResponse = sendSubscribeRequest(childSubscribeElement, assertion, community);
 //
@@ -114,15 +128,14 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
         return response;
     }
 
-    private List<QualifiedSubjectIdentifierType> determineTargets(NhinTargetCommunitiesType targetCommunitites) {
+    private List<QualifiedSubjectIdentifierType> determineTargets(CMUrlInfos targets) {
         List<QualifiedSubjectIdentifierType> correlations = null;
         RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
         request.setQualifiedPatientIdentifier(patientIdentifier);
 
-        if ((targetCommunitites != null) && (targetCommunitites.getNhinTargetCommunity() != null)) {
-            List<NhinTargetCommunityType> sourceTargetList = targetCommunitites.getNhinTargetCommunity();
-            for (NhinTargetCommunityType targetCommunity : sourceTargetList) {
-                request.getTargetHomeCommunity().add(targetCommunity.getHomeCommunity().getHomeCommunityId());
+        if ((targets != null) && (NullChecker.isNotNullish(targets.getUrlInfo()))) {
+            for (CMUrlInfo targetCommunity : targets.getUrlInfo()) {
+                request.getTargetHomeCommunity().add(targetCommunity.getHcid());
             }
         }
 
@@ -137,5 +150,16 @@ class PatientCentricEntitySubscribeHandler extends BaseEntitySubscribeHandler {
             }
         }
         return correlations;
+    }
+
+    private CMUrlInfo findTarget (String hcid, CMUrlInfos urlInfoList) {
+        CMUrlInfo target = null;
+
+        for (CMUrlInfo entry : urlInfoList.getUrlInfo()) {
+            if (entry.getHcid().equalsIgnoreCase(hcid)) {
+                target = entry;
+            }
+        }
+        return target;
     }
 }
