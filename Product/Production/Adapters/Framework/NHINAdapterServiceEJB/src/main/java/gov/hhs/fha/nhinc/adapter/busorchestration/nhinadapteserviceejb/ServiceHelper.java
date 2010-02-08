@@ -7,6 +7,11 @@ package gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb;
 
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.WebServiceException;
+
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -19,9 +24,9 @@ public class ServiceHelper {
    private static Log log = LogFactory.getLog(
             ServiceHelper.class);
 
-   //TODO: Make the following property driven.
+    private static final String GATEWAY_PROPERTY_FILE = "gateway";
+    private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
 
-    private static String BOSEndpoint = "http://localhost:8080/BOSServiceEndpointProvider/ServiceEndpointProvider?WSDL";
     /**
      * Helper Function to get an Endpoint from BOS by Service Name
      * @param srvName Name
@@ -29,58 +34,26 @@ public class ServiceHelper {
      */
     public static String getEndpointFromBOS(String srvName)
     {
-        String endpoint=null;
-        try
-        {
-            log.debug("Create BOSServiceEndpointProvider");
-
-            // Call Web Service Operation
-            gov.hhs.fha.nhinc.bosserviceenpointprovider.BOSServiceEndpointProvider service = new gov.hhs.fha.nhinc.bosserviceenpointprovider.BOSServiceEndpointProvider();
-
-            log.debug("Create BOSServiceEndpointProviderPortType");
-
-            gov.hhs.fha.nhinc.bosserviceenpointprovider.BOSServiceEndpointProviderPortType port = service.getBOSServiceEndpointProviderSoap11();
-
-            //Force the endpoint
-            log.debug("Bind the Endpoint");
-
-            //TODO: In the near futue use a system property to grab the BOS Endpoint
-            ((BindingProvider) port).getRequestContext().put(
-                BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                BOSEndpoint);
-
-            log.debug("Prepare the request");
-
-            org.netbeans.xml.schema.endpoint.CreateEPRRequest findEndPointRequest = new org.netbeans.xml.schema.endpoint.CreateEPRRequest();
-            findEndPointRequest.setServiceName(srvName);
-
-            log.debug("Lookup endpoint for "+srvName);
-
-            org.netbeans.xml.schema.endpoint.CreateEPRResponse result = port.findEndpoint(findEndPointRequest);
-            if (result.getEPR()!= null)
-            {
-                log.debug("Review Results");
-                endpoint = result.getEPR().getEndpointReference().getAddress().getValue();
-                if (endpoint == null)
-                {
-                    log.error("Service "+srvName+" reference Inplace, but no mapping is defined");
-                    throw new WebServiceException("Service "+srvName+" reference Inplace, but no mapping is defined");
-                }
-            }
-            else
-            {
-                //BOS does not have a mapping - Use what ever default the caller wants
-                log.debug("Request for Service "+srvName+" not mapped to and endpoint");
-            }
+        // Get the Home community ID for this box...
+        //------------------------------------------
+        String sHomeCommunityId = "";
+        String sEndpointURL = "";
+        try {
+            sHomeCommunityId = PropertyAccessor.getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
+        } catch (Exception e) {
+            log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
+                    " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                    e.getMessage(), e);
         }
-        catch (Exception ex)
-        {
-            log.error("Exception during dynamic service lookup",ex);
-            throw new WebServiceException("Exception during endpoint lookup ("+srvName+")",ex);
+        try {
+            sEndpointURL = ConnectionManagerCache.getEndpointURLByServiceName(sHomeCommunityId, srvName);
+        } catch (Exception e) {
+            log.error("Failed to retrieve endpoint URL for service:" + srvName+
+                    " from connection manager.  Error: " + e.getMessage(), e);
         }
 
-        log.debug("Returning "+endpoint);
-        return endpoint;
+        return sEndpointURL;
+
 
     }
 
