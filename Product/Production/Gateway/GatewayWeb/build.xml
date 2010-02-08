@@ -817,18 +817,7 @@
     </target>
 
     <target name="wsimport-service-SubjectDiscovery" depends="wsimport-init">
-<!--
-        <mkdir dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" destdir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/NhinSubjectDiscovery.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery"/>
-        </wsimport>
-        <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/service/SubjectDiscovery">
-                <include name="**/*.java"/>
-            </fileset>
-        </copy>
--->
+
         <copy todir="${build.web.dir}/WEB-INF/wsdl/SubjectDiscovery">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/SubjectDiscovery/wsdl/"/>
         </copy>
@@ -849,4 +838,22 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/schemas/"/>
         </copy>        
     </target>
+    <target name="wsimport-service-NhincProxyXDRSecured" depends="wsimport-init">
+        
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRSecured/wsdl/"/>
+        </copy>
+				<copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRSecured/schemas/"/>
+        </copy>                
+    </target>
+<target name="wsimport-service-EntityXDRSecured" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/wsdl/"/>
+        </copy>
+				<copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/schemas/"/>
+        </copy>                        
+    </target>        
 </project>

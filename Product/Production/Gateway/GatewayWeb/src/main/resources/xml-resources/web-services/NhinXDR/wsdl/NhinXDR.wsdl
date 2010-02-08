@@ -75,7 +75,7 @@
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
     <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b"/>
+      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
       <input>
         <soap12:body use="literal"/>
         <wsp:PolicyReference
@@ -88,7 +88,7 @@
       </output>
     </operation>
     <operation name="DocumentRepository_RetrieveDocumentSet">
-      <soap12:operation soapAction="urn:ihe:iti:2007:RetrieveDocumentSet"/>
+      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
       <input>
         <soap12:body use="literal"/>
         <wsp:PolicyReference

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
-<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DocumentRepositoryXDR"
-  targetNamespace="urn:ihe:iti:xdr:2007"
-  xmlns:tns="urn:ihe:iti:xdr:2007"
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="NhincEntityXDRSecured"
+  targetNamespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"
+    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
@@ -29,8 +30,10 @@
                   schemaLocation="../schemas/ebRS/query.xsd"/>
       <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
     </xsd:schema>
-
+   
     <!--	Importing all schemas within one seems to confuse some parsers
       and code-generation tools (and may be invalid)
     <xsd:schema elementFormDefault="qualified">
@@ -41,70 +44,46 @@
     </xsd:schema>
     -->
   </types>
-  <message name="RetrieveDocumentSet_Message">
-    <documentation>Retrieve Document Set</documentation>
-    <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
-  </message>
-  <message name="RetrieveDocumentSetResponse_Message">
-    <documentation>Retrieve Document Set Response</documentation>
-    <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
-  </message>
+
   <message name="ProvideAndRegisterDocumentSet-b_Message">
     <documentation>Provide and Register Document Set</documentation>
-    <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+    <part name="body" element="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest"/>
   </message>
   <message name="ProvideAndRegisterDocumentSet-bResponse_Message">
     <documentation>Provide And Register Document Set Response</documentation>
     <part name="body" element="rs:RegistryResponse"/>
   </message>
-  <portType name="DocumentRepositoryXDR_PortType">
-    <operation name="DocumentRepository_RetrieveDocumentSet">
-      <input message="tns:RetrieveDocumentSet_Message"
-        wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
-      <output message="tns:RetrieveDocumentSetResponse_Message"
-        wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSetResponse"/>
-    </operation>
-    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+  <portType name="EntityXDRSecured_PortType">
+    
+    <operation name="ProvideAndRegisterDocumentSet-b">
       <input message="tns:ProvideAndRegisterDocumentSet-b_Message"
-        wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
       <output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message"
-        wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse"/>
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
     </operation>
   </portType>
-  <binding name="DocumentRepositoryXDR_Binding" type="tns:DocumentRepositoryXDR_PortType">
-    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <binding name="EntityXDRSecured_Binding" type="tns:EntityXDRSecured_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_XDR_Binding_SoapPolicy"/>
-    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+    <operation name="ProvideAndRegisterDocumentSet-b">
+      <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
       <input>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
         <wsp:PolicyReference
              URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
       </input>
       <output>
-        <soap12:body use="literal"/>
+        <soap:body use="literal"/>
         <wsp:PolicyReference
              URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
       </output>
     </operation>
-    <operation name="DocumentRepository_RetrieveDocumentSet">
-      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
-      <input>
-        <soap12:body use="literal"/>
-        <wsp:PolicyReference
-             URI="#RespondingGateway_XDR_Binding_Soap_Input_Policy"/>
-      </input>
-      <output>
-        <soap12:body use="literal"/>
-        <wsp:PolicyReference
-             URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
-      </output>
-    </operation>
+    
   </binding>
-  <service name="DocumentRepositoryXDR_Service">
-    <port name="DocumentRepositoryXDR_Port_Soap12" binding="tns:DocumentRepositoryXDR_Binding">
-      <soap12:address location="https://localhost:${HttpDefaultPort}/XDR_Service"/>
-    </port>  
+  <service name="EntityXDRSecured_Service">
+    <port name="EntityXDRSecured_Port" binding="tns:EntityXDRSecured_Binding">
+      <soap:address location="https://localhost:${HttpDefaultPort}/NhinConnect/EntityXDRSecured"/>
+    </port>
   </service>
 
   <wsp:Policy wsu:Id="RespondingGateway_XDR_Binding_SoapPolicy">
