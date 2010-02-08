@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions name="NhincEntityXDR"
+  targetNamespace="urn:gov:hhs:fha:nhinc:nhincentityxdr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:ihe="urn:ihe:iti:xds-b:2007"
+  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr"
+    xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  >
+  <documentation>IHE XDR Document Repository</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+                  schemaLocation="../schemas/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                  schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import
+                  schemaLocation="../schemas/ebRS/query.xsd" namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+                        schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+    </xsd:schema>
+
+    <!--	Importing all schemas within one seems to confuse some parsers
+      and code-generation tools (and may be invalid)
+    <xsd:schema elementFormDefault="qualified">
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        schemaLocation="../schema/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>
+    -->
+  </types>
+
+  <message name="ProvideAndRegisterDocumentSet-b_Message">
+    <documentation>Provide and Register Document Set</documentation>
+    <part name="body" element="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetRequest"/>
+  </message>
+  <message name="ProvideAndRegisterDocumentSet-bResponse_Message">
+    <documentation>Provide And Register Document Set Response</documentation>
+    <part name="body" element="rs:RegistryResponse"/>
+  </message>
+  <portType name="EntityXDR_PortType">
+
+    <operation name="ProvideAndRegisterDocumentSet-b">
+      <input message="tns:ProvideAndRegisterDocumentSet-b_Message"
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
+      <output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message"
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
+    </operation>
+  </portType>
+  <binding name="EntityXDR_Binding" type="tns:EntityXDR_PortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+    <operation name="ProvideAndRegisterDocumentSet-b">
+      <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+
+  </binding>
+  <service name="EntityXDR_Service">
+    <port name="EntityXDR_Port" binding="tns:EntityXDR_Binding">
+      <soap:address location="http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR"/>
+    </port>
+  </service>
+
+</definitions>

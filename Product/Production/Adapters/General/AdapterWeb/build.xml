@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -320,6 +320,24 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/MpiManager/schemas/"/>
         </copy>
     </target>
+    <target name="wsimport-service-ProxyXDR" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProxyXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProxyXDR/schemas/"/>
+        </copy>        
+    </target>    
+    <target name="wsimport-service-EntityXDR" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDR/schemas/"/>
+        </copy>          
+    </target>    
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>
