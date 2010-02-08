@@ -344,6 +344,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${file.reference.nux.jar}" manifestproperty="manifest.file.reference.nux.jar" todir="${dist.ear.dir}"/>
@@ -352,8 +353,9 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincLib.jar}" manifestproperty="manifest.file.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.nux.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.nux.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.NhincLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
