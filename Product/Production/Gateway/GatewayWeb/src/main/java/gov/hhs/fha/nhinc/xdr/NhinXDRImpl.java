@@ -24,9 +24,13 @@ public class NhinXDRImpl
 {
     public static final String XDR_RESPONSE_SUCCESS = "Success";
     public static final String XDR_RESPONSE_FAILURE = "Failure";
-    private static Log log = LogFactory.getLog(NhinXDRImpl.class);
+    private static Log log = null;
 
-public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context ) {
+    public NhinXDRImpl()
+    {
+        log = createLogger();
+    }
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context ) {
      RegistryResponseType result;
 
      log.debug("Entering NhinXDRImpl.documentRepositoryProvideAndRegisterDocumentSetB");
@@ -35,7 +39,10 @@ public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(Pro
      return result;
 
 }
-
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
+    }
     private RegistryResponseType createPositiveAck()
     {
         RegistryResponseType result= new RegistryResponseType();
