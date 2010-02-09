@@ -17,6 +17,11 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEventsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.FindAuditEventsSecuredRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
+import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import javax.xml.ws.WebServiceContext;
@@ -28,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Jon Hoppesch
  */
 public class EntityAuditLogImpl {
+
     private static Log log = LogFactory.getLog(EntityAuditLogImpl.class);
 
     /**
@@ -64,9 +70,9 @@ public class EntityAuditLogImpl {
 
             // Save off the audit query results
             if (auditResults.getFindAuditEventResponse() != null &&
-                   NullChecker.isNotNullish(auditResults.getFindAuditEventResponse().getFindAuditEventsReturn())) {
+                    NullChecker.isNotNullish(auditResults.getFindAuditEventResponse().getFindAuditEventsReturn())) {
                 for (AuditMessageType auditMsg : auditResults.getFindAuditEventResponse().getFindAuditEventsReturn()) {
-                   resp.getFindAuditEventsReturn().add(auditMsg);
+                    resp.getFindAuditEventsReturn().add(auditMsg);
                 }
             }
 
@@ -81,28 +87,41 @@ public class EntityAuditLogImpl {
                     targets.getNhinTargetCommunity().add(community);
                 }
             }
-        }
-        else {
+        } else {
             targets = findAuditEventsRequest.getNhinTargetCommunities();
         }
 
         // For each Target Community perform an Audit Query and aggregate the results
+        CMUrlInfos urlInfoList = null;
         if (NullChecker.isNotNullish(targets.getNhinTargetCommunity())) {
-            for (NhinTargetCommunityType targetComm : targets.getNhinTargetCommunity()) {
-                ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
+            // Obtain all the URLs for the targets being sent to
+            try {
+                urlInfoList = ConnectionManagerCache.getEndpontURLFromNhinTargetCommunities(request.getNhinTargetCommunities(), NhincConstants.AUDIT_QUERY_SERVICE_NAME);
+            } catch (ConnectionManagerException ex) {
+                log.error("Failed to obtain target URLs");
+                return null;
+            }
 
-                gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType proxyReq = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
-                proxyReq.setAssertion(request.getAssertion());
-                proxyReq.setFindAuditEvents(request.getFindAuditEvents());
-                NhinTargetSystemType targetSys = new NhinTargetSystemType();
-                targetSys.setHomeCommunity(targetComm.getHomeCommunity());
-                proxyReq.setNhinTargetSystem(targetSys);
+            if (urlInfoList != null &&
+                    NullChecker.isNotNullish(urlInfoList.getUrlInfo())) {
+                for (CMUrlInfo targetComm : urlInfoList.getUrlInfo()) {
+                    ProxyAuditLogQueryImpl proxyAuditQuery = new ProxyAuditLogQueryImpl();
 
-                FindAuditEventsResponseType proxyResp = proxyAuditQuery.findAuditEvents(proxyReq);
+                    gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType proxyReq = new gov.hhs.fha.nhinc.common.nhinccommonproxy.FindAuditEventsRequestType();
+                    proxyReq.setAssertion(request.getAssertion());
+                    proxyReq.setFindAuditEvents(request.getFindAuditEvents());
+                    NhinTargetSystemType targetSys = new NhinTargetSystemType();
+                    targetSys.setUrl(targetComm.getUrl());
+                    proxyReq.setNhinTargetSystem(targetSys);
 
-                if (NullChecker.isNotNullish(proxyResp.getFindAuditEventsReturn())) {
-                    for (AuditMessageType auditMsg : proxyResp.getFindAuditEventsReturn()) {
-                        resp.getFindAuditEventsReturn().add(auditMsg);
+                    log.info("Sending Audit Query Request to community: " + targetComm.getHcid());
+
+                    FindAuditEventsResponseType proxyResp = proxyAuditQuery.findAuditEvents(proxyReq);
+
+                    if (NullChecker.isNotNullish(proxyResp.getFindAuditEventsReturn())) {
+                        for (AuditMessageType auditMsg : proxyResp.getFindAuditEventsReturn()) {
+                            resp.getFindAuditEventsReturn().add(auditMsg);
+                        }
                     }
                 }
             }
@@ -111,5 +130,4 @@ public class EntityAuditLogImpl {
         log.debug("Exiting EntityAuditLogImpl.findAuditEvents...");
         return resp;
     }
-
 }
