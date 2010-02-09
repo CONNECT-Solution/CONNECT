@@ -47,7 +47,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON assigningauthoritydb.* to nhincuser;
 -- begin auditrepo
 CREATE DATABASE auditrepo;
 
-CREATE TABLE auditrepo.auditRepository
+CREATE TABLE auditrepo.auditrepository
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	timestamp DATETIME,
