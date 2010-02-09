@@ -16,7 +16,7 @@ public class ProxyXDR {
 
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetB(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
         //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return new ProxyXDRImpl().provideAndRegisterDocumentSetB(body);
     }
 
 }
