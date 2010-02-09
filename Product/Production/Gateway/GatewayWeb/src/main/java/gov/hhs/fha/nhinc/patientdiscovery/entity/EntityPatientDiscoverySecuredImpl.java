@@ -16,7 +16,7 @@ import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfo;
 import gov.hhs.fha.nhinc.connectmgr.data.CMUrlInfos;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLog;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.proxy.NhincProxyPatientDiscoverySecuredImpl;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
@@ -272,12 +272,12 @@ public class EntityPatientDiscoverySecuredImpl {
 
     protected void logAggregatedResponseFromNhin(RespondingGatewayPRPAIN201306UV02ResponseType response, AssertionType assertion) {
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        AcknowledgementType ack = new PatientDiscoveryAuditLog().auditEntityResponse(response, assertion);
+        AcknowledgementType ack = new PatientDiscoveryAuditLogger().auditEntity201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void logEntityPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request) {
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        AcknowledgementType ack = new PatientDiscoveryAuditLog().auditEntityRequest(request);
+        AcknowledgementType ack = new PatientDiscoveryAuditLogger().auditEntity201305(request, request.getAssertion(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     protected void storeMapping(PRPAIN201306UV02 request) {

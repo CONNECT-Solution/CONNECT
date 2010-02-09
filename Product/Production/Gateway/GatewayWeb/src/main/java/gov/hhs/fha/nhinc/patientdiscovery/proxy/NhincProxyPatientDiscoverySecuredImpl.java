@@ -7,13 +7,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.nhinpatientdiscovery.proxy.NhinPatientDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLog;
-import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.properties.*;
 import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,8 +45,8 @@ public class NhincProxyPatientDiscoverySecuredImpl {
     {
         log.debug("Entering NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
         // Audit the Patient Discovery Request Message sent on the Nhin Interface
-        PatientDiscoveryAuditLog auditLog = new PatientDiscoveryAuditLog();
-        AcknowledgementType ack = auditLog.auditProxyRequest(request, assertion);
+        PatientDiscoveryAuditLogger auditLog = new PatientDiscoveryAuditLogger();
+        AcknowledgementType ack = auditLog.auditNhin201305(request.getPRPAIN201305UV02(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
         NhinPatientDiscoveryProxyObjectFactory patientDiscoveryFactory = new NhinPatientDiscoveryProxyObjectFactory();
         NhinPatientDiscoveryProxy proxy = patientDiscoveryFactory.getNhinPatientDiscoveryProxy();
@@ -56,7 +54,7 @@ public class NhincProxyPatientDiscoverySecuredImpl {
         PRPAIN201306UV02 response = proxy.respondingGatewayPRPAIN201305UV02(request.getPRPAIN201305UV02(), assertion, request.getNhinTargetSystem());
 
         // Audit the Patient Discovery Response Message received on the Nhin Interface
-        ack = auditLog.auditProxyResponse(response, assertion);
+        ack = auditLog.auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
         log.debug("Exiting NhincProxyPatientDiscoverySecuredImpl.proxyPRPAIN201305UV(request, assertion) method");
         return response;

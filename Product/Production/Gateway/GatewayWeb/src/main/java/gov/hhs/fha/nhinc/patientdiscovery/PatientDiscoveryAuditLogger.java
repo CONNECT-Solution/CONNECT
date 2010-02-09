@@ -13,6 +13,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  *
@@ -34,6 +36,10 @@ public class PatientDiscoveryAuditLogger {
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logNhinPatientDiscReq(request, assertion, direction);
 
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
         return ack;
     }
 
@@ -43,6 +49,10 @@ public class PatientDiscoveryAuditLogger {
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdapterPatientDiscReq(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
 
         return ack;
     }
@@ -54,6 +64,10 @@ public class PatientDiscoveryAuditLogger {
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logNhinPatientDiscResp(request, assertion, direction);
 
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
         return ack;
     }
     
@@ -64,10 +78,42 @@ public class PatientDiscoveryAuditLogger {
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logAdapterPatientDiscResp(request, assertion, direction);
 
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
         return ack;
     }
 
-        /**
+    public AcknowledgementType auditEntity201305 (RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logEntityPatientDiscReq(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
+        return ack;
+    }
+
+    public AcknowledgementType auditEntity201306 (RespondingGatewayPRPAIN201306UV02ResponseType request, AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logEntityPatientDiscResp(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
+        return ack;
+    }
+
+    /**
      * Creates an audit log for an AdhocQueryRequest or AdhocQueryResponse
      * @param auditLogMsg AdhocQueryRequest or AdhocQueryResponse message to log.
      * @return Returns an AcknowledgementType object indicating whether the audit message was successfully stored.
@@ -78,5 +124,4 @@ public class PatientDiscoveryAuditLogger {
         AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
         return proxy.auditLog(auditLogMsg, assertion);
     }
-
 }
