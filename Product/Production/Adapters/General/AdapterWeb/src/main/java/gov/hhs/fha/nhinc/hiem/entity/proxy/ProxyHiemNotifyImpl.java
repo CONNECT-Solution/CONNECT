@@ -1,32 +1,15 @@
 package gov.hhs.fha.nhinc.hiem.entity.proxy;
 
-import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
-import gov.hhs.fha.nhinc.common.eventcommon.NotifyEventType;
+import gov.hhs.fha.nhinc.hiem.dte.SoapUtil; 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
-import gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured.NhincProxyNotificationConsumerSecured;
-import gov.hhs.fha.nhinc.nhincproxynotificationconsumersecured.NhincProxyNotificationConsumerSecuredPortType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.NotifyRequestSecuredType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxy;
 import gov.hhs.fha.nhinc.nhinhiem.proxy.notify.NhinHiemNotifyProxyObjectFactory;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxy;
-import gov.hhs.fha.nhinc.policyengine.proxy.PolicyEngineProxyObjectFactory;
-import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import javax.xml.ws.WebServiceContext;
-import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import org.w3c.dom.Element;
 
 /**

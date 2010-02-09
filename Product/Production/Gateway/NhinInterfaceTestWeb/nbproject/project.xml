@@ -15,9 +15,6 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
                 </library>
                 <library>
@@ -63,11 +60,7 @@
                     <file>${file.reference.xstream-benchmark-1.3.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.HiemUtilityLib.jar}</file>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

@@ -25,11 +25,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincLib.jar}</file>
+                    <file>${file.reference.webui-jsf-suntheme.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.webui-jsf-suntheme.jar}</file>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

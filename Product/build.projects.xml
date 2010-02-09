@@ -10,8 +10,8 @@
     <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
   </project>
   <project>
-    <name>NhincLib</name>
-    <directory>/Production/Common/NhincLib</directory>
+    <name>NhincCommonLib</name>
+    <directory>/Production/Common/NhincCommonLib</directory>
   </project>
   <project>
     <name>NhincSAMLCallbackLib</name>
@@ -21,25 +21,10 @@
 
   <!-- BEGIN CORE LIBRARIES INCLUDED FOR UNIT TESTS -->
   <project>
-    <name>NhincDataTransformsLib</name>
-    <directory>/Production/Common/NhincDataTransformsLib</directory>
-  </project>
-  <project>
-    <name>NhincSamlTokenLib</name>
-    <directory>/Production/Gateway/NhincSamlTokenLib</directory>
-  </project>
-  <project>
 		<name>GatewayInternalComponentProxy</name>
 		<directory>/Production/Gateway/GatewayInternalComponentProxy</directory>
   </project>	  
-  <project>
-    <name>DocumentRepositoryAdapterProxy</name>
-    <directory>/Production/Gateway/DocumentRepositoryAdapterProxy</directory>
-  </project>
-  <project>
-    <name>HiemUtilityLib</name>
-    <directory>/Production/Gateway/HiemUtilityLib</directory>
-  </project>
+
   <project>
     <name>AdapterServiceProxy</name>
     <directory>/Production/Gateway/AdapterServiceProxy</directory>
@@ -53,16 +38,12 @@
     <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
   </project>
   <project>
-    <name>NhinHiemProxy</name>
-    <directory>/Production/Gateway/NhinHiemProxy</directory>
+    <name>NhinServiceProxy</name>
+    <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
   <project>
     <name>HiemProcessorLib</name>
     <directory>/Production/Gateway/HiemProcessorLib</directory>
-  </project>
-  <project>
-    <name>NhinServiceProxy</name>
-    <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
   <project>
     <name>EntityServiceProxy</name>
@@ -134,6 +115,10 @@
   <project>
     <name>NhinInterfaceTestWeb</name>
     <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
+  </project>
+  <project>
+    <name>FTAConfigManager</name>
+    <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
   </project>
   <project>
     <name>FTATransferAdapterEJB</name>

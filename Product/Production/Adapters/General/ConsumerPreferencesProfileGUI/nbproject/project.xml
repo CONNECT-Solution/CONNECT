@@ -13,6 +13,9 @@
             <minimum-ant-version>1.6</minimum-ant-version>
             <web-module-libraries>
                 <library>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
+                </library>
+                <library>
                     <file>${file.reference.MpiLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -32,12 +35,6 @@
                     <file>${file.reference.javaee.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincLib.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincDataTransformsLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.CommonServiceProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -50,11 +47,11 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhinHiemProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincCommonTypesLib.jar}</file>
+                    <file>${file.reference.NhinServiceProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.AdapterAuthenticationLib.jar}</file>

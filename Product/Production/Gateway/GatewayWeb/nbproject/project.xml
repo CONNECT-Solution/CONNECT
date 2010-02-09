@@ -18,13 +18,8 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.NhincLib.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.NhincDataTransformsLib.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>
@@ -121,10 +116,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.NhincSamlTokenLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -137,11 +128,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.HiemUtilityLib.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.DocumentRepositoryAdapterProxy.jar}</file>
+                    <file>${file.reference.NhincCommonLib.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
@@ -158,10 +145,6 @@
                 </library>
                 <library>
                     <file>${file.reference.NhincGatewayDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhinHiemProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

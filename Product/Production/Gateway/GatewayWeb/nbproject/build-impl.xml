@@ -526,37 +526,33 @@ exists or setup the property manually. For example like this:
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterServiceProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AggregatorLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AggregatorLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.HiemUtilityLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.DocumentRepositoryAdapterProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepositoryAdapterProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.HiemProcessorLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.HiemProcessorLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayDAO.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.AggregatorLib.jar} ${manifest.file.reference.HiemUtilityLib.jar} ${manifest.file.reference.DocumentRepositoryAdapterProxy.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.HiemProcessorLib.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.CommonServiceProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.AggregatorLib.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.HiemProcessorLib.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.CommonServiceProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
+        <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhincSamlTokenLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AggregatorLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.HiemUtilityLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.DocumentRepositoryAdapterProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.HiemProcessorLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" if="do.tmp.war.package" name="do-ear-dist">

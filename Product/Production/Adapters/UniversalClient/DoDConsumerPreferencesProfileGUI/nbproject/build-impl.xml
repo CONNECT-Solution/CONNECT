@@ -380,22 +380,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar,wsimport-client-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -538,22 +524,20 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.log4j-1.2.15.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterPIPProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPProxy.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.jaxws21.classpath}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.libs.jaxws21.classpath" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterPIPProxyImpl.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPProxyImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterPIPLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterPIPLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterMpiProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterMpiProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.DocumentRepository.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.DocumentRepository.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhinHiemProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinHiemProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.MpiLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.MpiLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhinServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.errorhandler.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.errorhandler.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.reference.NhincLib.jar} ${manifest.file.reference.AdapterPIPProxy.jar} ${manifest.reference.NhincDataTransformsLib.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.AdapterPIPProxyImpl.jar} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.AdapterMpiProxy.jar} ${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.NhinHiemProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.errorhandler.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.appbase.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.log4j-1.2.15.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.AdapterPIPLib.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.DocumentRepository.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.MpiLib.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.errorhandler.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -564,16 +548,14 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterPIPProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.jaxws21.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterPIPProxyImpl.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterPIPLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterMpiProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.DocumentRepository.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.NhinHiemProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.MpiLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.errorhandler.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
@@ -869,10 +851,7 @@ exists or setup the property manually. For example like this:
                 
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">
             <isset property="dist.ear.dir"/>

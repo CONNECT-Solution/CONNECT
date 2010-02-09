@@ -326,38 +326,8 @@ exists or setup the property manually. For example like this:
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <ant antfile="${project.FTAConfigManager}/build.xml" inheritall="false" target="dist"/>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <ant antfile="${project.FTAConfigManager}/build.xml" inheritall="false" target="dist-ear">
-            <property location="${build.dir}" name="dist.ear.dir"/>
-        </ant>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="jar">
-            <property name="deploy.on.save" value="false"/>
-        </ant>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps"/>
+    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps"/>
     <target depends="init, -deps-module-jar, -deps-ear-jar" name="deps-jar"/>
     <target depends="init,deps-jar,wsimport-client-generate,wsimport-service-generate" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -368,36 +338,30 @@ exists or setup the property manually. For example like this:
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target depends="compile" name="library-inclusion-in-archive">
-        <copyfiles files="${reference.FTAConfigManager.dist}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.FTAConfigManager.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${libs.jaxws21.classpath}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.HiemUtilityLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.classes.dir}"/>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
-        <copyfiles files="${reference.FTAConfigManager.dist}" manifestproperty="manifest.reference.FTAConfigManager.dist" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.FTAConfigManager.jar}" manifestproperty="manifest.file.reference.FTAConfigManager.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-collections-2.1.1.jar}" manifestproperty="manifest.file.reference.commons-collections-2.1.1.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.commons-logging-1.1.1.jar}" manifestproperty="manifest.file.reference.commons-logging-1.1.1.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincLib.jar}" manifestproperty="manifest.reference.NhincLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.jaxws21.classpath}" manifestproperty="manifest.libs.jaxws21.classpath" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xercesImpl.jar}" manifestproperty="manifest.file.reference.xercesImpl.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xml-apis.jar}" manifestproperty="manifest.file.reference.xml-apis.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.HiemUtilityLib.jar}" manifestproperty="manifest.reference.HiemUtilityLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonTypesLib.jar}" manifestproperty="manifest.file.reference.NhincCommonTypesLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincSamlTokenLib.jar}" manifestproperty="manifest.reference.NhincSamlTokenLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonLib.jar}" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.reference.FTAConfigManager.dist} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.reference.NhincLib.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.reference.HiemUtilityLib.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.reference.NhincSamlTokenLib.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.reference.NhincDataTransformsLib.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.FTAConfigManager.jar} ${manifest.file.reference.commons-collections-2.1.1.jar} ${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.libs.jaxws21.classpath} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.xercesImpl.jar} ${manifest.file.reference.xml-apis.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.file.reference.NhincCommonLib.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
@@ -684,13 +648,7 @@ exists or setup the property manually. For example like this:
     <!--
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <ant antfile="${project.FTAConfigManager}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.HiemUtilityLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincDataTransformsLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincLib}/build.xml" inheritall="false" target="clean"/>
-        <ant antfile="${project.NhincSamlTokenLib}/build.xml" inheritall="false" target="clean"/>
-    </target>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
     <target depends="init" name="-do-clean">
         <delete dir="${build.dir}"/>
         <delete dir="${dist.dir}"/>

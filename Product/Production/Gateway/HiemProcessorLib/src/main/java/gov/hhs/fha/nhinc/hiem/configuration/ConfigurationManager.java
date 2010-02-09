@@ -7,20 +7,12 @@ package gov.hhs.fha.nhinc.hiem.configuration;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
-import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorUtils;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
 
 import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.ws.soap.SOAPFaultException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  *

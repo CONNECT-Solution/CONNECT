@@ -22,101 +22,8 @@
     <property name="deploy.isDeployable" value="false"/>
 
 
-    <!--
-
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
-
-      -pre-init:                 called before initialization of project properties
-      -post-init:                called after initialization of project properties
-      -pre-compile:              called before javac compilation
-      -post-compile:             called after javac compilation
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-compile-test:         called before javac compilation of JUnit tests
-      -post-compile-test:        called after javac compilation of JUnit tests
-      -pre-compile-test-single:  called before javac compilation of single JUnit test
-      -post-compile-test-single: called after javac compilation of single JUunit test
-      -pre-jar:                  called before JAR building
-      -post-jar:                 called after JAR building
-      -post-clean:               called after cleaning build products
-
-    (Targets beginning with '-' are not intended to be called on their own.)
-
-    Example of inserting an obfuscator after compilation could look like this:
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Another way to customize the build is by overriding existing main targets.
-    The targets of interest are: 
-
-      -init-macrodef-javac:     defines macro for javac compilation
-      -init-macrodef-junit:     defines macro for junit execution
-      -init-macrodef-debug:     defines macro for class debugging
-      -init-macrodef-java:      defines macro for class execution
-      -do-jar-with-manifest:    JAR building (if you are using a manifest)
-      -do-jar-without-manifest: JAR building (if you are not using a manifest)
-      run:                      execution of project 
-      -javadoc-build:           Javadoc generation
-      test-report:              JUnit report generation
-
-    An example of overriding the target for project execution could look like this:
-
-        <target name="run" depends="AdapterPIPLib-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that the overridden target depends on the jar target and not only on 
-    the compile target as the regular run target does. Again, for a list of available 
-    properties which you can use, check the target you are overriding in the
-    nbproject/build-impl.xml file. 
-
-    -->
-
-    <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init">
-<!--
-        <property name="wsdl-AdapterComponentDocRegistry" location="xml-resources/web-service-references/AdapterComponentDocRegistry/wsdl/AdapterComponentDocRegistry.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterComponentDocRegistry}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRegistry.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/ihe:iti:xds-b:2007" includes="AdapterComponentDocRegistry.java" casesensitive="no"/>
-        </wsimport>
--->
-        <!-- Delete the artifacts that we do not want -->
-<!--
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/client/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
--->
-        <!-- end of deleting artifacts -->
-
-    </target>
-
-    <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init">
-<!--
-        <property name="wsdl-AdapterComponentDocRepository" location="xml-resources/web-service-references/AdapterComponentDocRepository/wsdl/AdapterComponentDocRepository.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/wsimport/client" destdir="${build.generated.dir}/wsimport/client" wsdl="${wsdl-AdapterComponentDocRepository}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentDocRepository.wsdl" xnocompile="true">
-            <produces dir="${build.generated.dir}/wsimport/client/ihe:iti:xds-b:2007" includes="AdapterComponentDocRepository.java" casesensitive="no"/>
-        </wsimport>
--->
-        <!-- Delete the artifacts that we do not want -->
-<!--
-        <echo message="XXXXXX  Deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
-        <delete dir="${build.generated.dir}/wsimport/client/org/hl7" />
-        <echo message="XXXXXX  Done deleting directory ${build.generated.dir}/wsimport/client/org/hl7" />
--->
-        <!-- end of deleting artifacts -->
-
-    </target>
+    <target name="wsimport-client-AdapterComponentDocRegistry" depends="wsimport-init"/>
+    <target name="wsimport-client-AdapterComponentDocRepository" depends="wsimport-init"/>
 
     <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
        <copy todir="${nhin.project.home}\UnitTestResults">
@@ -124,18 +31,4 @@
        </copy>
        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
-
-
-    <target depends="init" name="deps-jar" unless="no.deps">
-        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
-
-        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" name="deps-clean" unless="no.deps">
-        <property name="project.DocumentRepository.Absolute" location="${project.DocumentRepository}"/>
-
-        <ant dir="${project.DocumentRepository.Absolute}" antfile="${project.DocumentRepository.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
-
 </project>

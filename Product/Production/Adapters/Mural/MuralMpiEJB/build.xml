@@ -19,61 +19,6 @@
 	<target name="clean-test" depends="clean,dist" />
 	<target name="build-test" depends="dist, test" />
     
-    <!--
-
-    There exist several targets which are by default empty and which can be 
-    used for execution of your tasks. These targets are usually executed 
-    before and after some main targets. They are: 
-
-      -pre-init:                 called before initialization of project properties
-      -post-init:                called after initialization of project properties
-      -pre-compile:              called before javac compilation
-      -post-compile:             called after javac compilation
-      -pre-compile-single:       called before javac compilation of single file
-      -post-compile-single:      called after javac compilation of single file
-      -pre-dist:                 called before archive building
-      -post-dist:                called after archive building
-      -post-clean:               called after cleaning build products
-      -pre-run-deploy:           called before deploying
-      -post-run-deploy:          called after deploying
-
-    (Targets beginning with '-' are not intended to be called on their own.)
-
-    Example of pluging an obfuscator after the compilation could look like 
-
-        <target name="-post-compile">
-            <obfuscate>
-                <fileset dir="${build.classes.dir}"/>
-            </obfuscate>
-        </target>
-
-    For list of available properties check the imported 
-    nbproject/build-impl.xml file. 
-
-
-    Other way how to customize the build is by overriding existing main targets.
-    The target of interest are: 
-
-      init-macrodef-javac:    defines macro for javac compilation
-      init-macrodef-debug:    defines macro for class debugging
-      do-dist:                archive building
-      run:                    execution of project 
-      javadoc-build:          javadoc generation 
-
-    Example of overriding the target for project execution could look like 
-
-        <target name="run" depends="<PROJNAME>-impl.jar">
-            <exec dir="bin" executable="launcher.exe">
-                <arg file="${dist.jar}"/>
-            </exec>
-        </target>
-
-    Notice that overridden target depends on jar target and not only on 
-    compile target as regular run target does. Again, for list of available 
-    properties which you can use check the target you are overriding in 
-    nbproject/build-impl.xml file. 
-
-    -->
      <target name="wsimport-service-MuralMPI" depends="wsimport-init">
 <!--
         <property name="service-wsdl-MuralMPI" location="${meta.inf}/xml-resources/web-services/MuralMPI/wsdl/AdapterComponentMpi.wsdl"/>
@@ -93,28 +38,7 @@
     <target name="wsimport-client-PatientEJB" depends="wsimport-init">
     </target>
     
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-    
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-		<property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>    
-    
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincLib.Absolute}"	antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-    
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-		<property name="project.NhincDataTransformsLib.Absolute" location="${project.NhincDataTransformsLib}"/>
-    
-        <ant dir="${project.NhincDataTransformsLib.Absolute}" antfile="${project.NhincDataTransformsLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
+
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>    
