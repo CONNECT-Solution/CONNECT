@@ -65,6 +65,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
  *
@@ -103,7 +105,7 @@ public class AuditRepositoryLogger {
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Request
      *
-     * @param message The Audit Query Request message to be audit logged.
+     * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction  The direction this message is going (Inbound or Outbound)
      * @return A generic audit log message that can be passed to the Audit Repository
@@ -125,7 +127,7 @@ public class AuditRepositoryLogger {
     /**
      * This method will create the generic Audit Log Message from a NHIN Patient Discovery Response
      *
-     * @param message The Audit Query Request message to be audit logged.
+     * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction  The direction this message is going (Inbound or Outbound)
      * @return A generic audit log message that can be passed to the Audit Repository
@@ -143,10 +145,10 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
-        /**
+    /**
      * This method will create the generic Audit Log Message from an Adapter Patient Discovery Request
      *
-     * @param message The Audit Query Request message to be audit logged.
+     * @param message The Patient Discovery Request message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction  The direction this message is going (Inbound or Outbound)
      * @return A generic audit log message that can be passed to the Audit Repository
@@ -168,7 +170,7 @@ public class AuditRepositoryLogger {
     /**
      * This method will create the generic Audit Log Message from an Adapter Patient Discovery Response
      *
-     * @param message The Audit Query Request message to be audit logged.
+     * @param message The Patient Discovery Response message to be audit logged.
      * @param assertion The Assertion Class containing SAML information
      * @param direction  The direction this message is going (Inbound or Outbound)
      * @return A generic audit log message that can be passed to the Audit Repository
@@ -182,6 +184,48 @@ public class AuditRepositoryLogger {
             auditMsg = auditTransformer.transformNhinPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
         }
         log.debug("Exiting AuditRepositoryLogger.logAdapterPatientDiscResp(...)");
+
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Request
+     *
+     * @param message The Patient Discovery Request message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logEntityPatientDiscReq(RespondingGatewayPRPAIN201305UV02RequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscReq(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformEntityPRPAIN201305RequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscReq(...)");
+        return auditMsg;
+    }
+
+    /**
+     * This method will create the generic Audit Log Message from an Entity Patient Discovery Response
+     *
+     * @param message The Patient Discovery Response message to be audit logged.
+     * @param assertion The Assertion Class containing SAML information
+     * @param direction  The direction this message is going (Inbound or Outbound)
+     * @return A generic audit log message that can be passed to the Audit Repository
+     */
+    public LogEventRequestType logEntityPatientDiscResp(RespondingGatewayPRPAIN201306UV02ResponseType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
+            auditMsg = auditTransformer.transformEntityPRPAIN201306ResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+        log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
 
         return auditMsg;
     }
