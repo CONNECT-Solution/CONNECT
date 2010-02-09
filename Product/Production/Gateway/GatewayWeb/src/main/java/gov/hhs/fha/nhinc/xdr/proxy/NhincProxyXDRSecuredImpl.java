@@ -9,6 +9,18 @@ import org.apache.commons.logging.LogFactory;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxyObjectFactory;
+import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxy;
 
 /**
  *
@@ -24,8 +36,23 @@ public class NhincProxyXDRSecuredImpl {
     public RegistryResponseType provideAndRegisterDocumentSetB(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, WebServiceContext context) {
         log.debug("begin provideAndRegisterDocumentSetB()");
+        // Create an assertion class from the contents of the SAML token
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
 
-        return new RegistryResponseType();
+        return provideAndRegisterDocumentSetB(body, assertion);
+    }
+    private RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion)
+    {
+        RegistryResponseType response = null;
+        
+        //TODO: LogRequest
+        NhinXDRProxyObjectFactory factory = new NhinXDRProxyObjectFactory();
+        NhinXDRProxy proxy = factory.getNhinXDRProxy();
+
+        response = proxy.provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
+
+        //TODO: Log Response
+        return response;
     }
     protected Log createLogger()
     {

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DocumentRepositoryXDR"
+  targetNamespace="urn:ihe:iti:xdr:2007"
+  xmlns:tns="urn:ihe:iti:xdr:2007"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:ihe="urn:ihe:iti:xds-b:2007"
+  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+   xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+   xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+   xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+   xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+   xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+   xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"    
+   xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+   xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+   xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <documentation>IHE XDR Document Repository</documentation>
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+                  schemaLocation="../schemas/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                  schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                  schemaLocation="../schemas/ebRS/query.xsd"/>
+      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+    </xsd:schema>
+
+    <!--	Importing all schemas within one seems to confuse some parsers
+      and code-generation tools (and may be invalid)
+    <xsd:schema elementFormDefault="qualified">
+      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+        schemaLocation="../schema/ebRS/rs.xsd"/>
+      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+        schemaLocation="../schema/IHE/XDS.b_DocumentRepository.xsd"/>
+    </xsd:schema>
+    -->
+  </types>
+  <message name="RetrieveDocumentSet_Message">
+    <documentation>Retrieve Document Set</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetRequest"/>
+  </message>
+  <message name="RetrieveDocumentSetResponse_Message">
+    <documentation>Retrieve Document Set Response</documentation>
+    <part name="body" element="ihe:RetrieveDocumentSetResponse"/>
+  </message>
+  <message name="ProvideAndRegisterDocumentSet-b_Message">
+    <documentation>Provide and Register Document Set</documentation>
+    <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+  </message>
+  <message name="ProvideAndRegisterDocumentSet-bResponse_Message">
+    <documentation>Provide And Register Document Set Response</documentation>
+    <part name="body" element="rs:RegistryResponse"/>
+  </message>
+  <portType name="DocumentRepositoryXDR_PortType">
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+      <input message="tns:RetrieveDocumentSet_Message"
+        wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
+      <output message="tns:RetrieveDocumentSetResponse_Message"
+        wsaw:Action="urn:ihe:iti:xdr:2007:RetrieveDocumentSetResponse"/>
+    </operation>
+    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+      <input message="tns:ProvideAndRegisterDocumentSet-b_Message"
+        wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+      <output message="tns:ProvideAndRegisterDocumentSet-bResponse_Message"
+        wsaw:Action="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-bResponse"/>
+    </operation>
+  </portType>
+  <binding name="DocumentRepositoryXDR_Binding" type="tns:DocumentRepositoryXDR_PortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
+    <operation name="DocumentRepository_ProvideAndRegisterDocumentSet-b">
+      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:ProvideAndRegisterDocumentSet-b"/>
+      <input>
+        <soap12:body use="literal"/>
+      </input>
+      <output>
+        <soap12:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="DocumentRepository_RetrieveDocumentSet">
+      <soap12:operation soapAction="urn:ihe:iti:xdr:2007:RetrieveDocumentSet"/>
+      <input>
+        <soap12:body use="literal"/>
+      </input>
+      <output>
+        <soap12:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="DocumentRepositoryXDR_Service">
+    <port name="DocumentRepositoryXDR_Port_Soap12" binding="tns:DocumentRepositoryXDR_Binding">
+      <soap12:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
+    </port>  
+  </service>
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+
+</definitions>
