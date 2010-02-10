@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE cruisecontrol [
   <!ENTITY % entities SYSTEM "Entities.xml">
-
   %entities;
-  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test">
+  <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Green5">
         <users>
           <user name="Jay Flowers"            group="buildmaster"       address="jay.flowers@agilex.com"/>
           <user name="Srikanth Vadlamani"     group="buildmaster"       address="srikanth.vadlamani@agilex.com"/>
@@ -38,7 +37,7 @@
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="&ConnectGreen5.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
             <exclusionFilters>
               <activities>
@@ -46,61 +45,16 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY DevFailed '<projectFilter
-               serverUri="&CCNet.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Dev">
+  <!ENTITY IntegrationBuilding '<projectFilter
+               serverUri="&Integration.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
-                <condition>Failure</condition>
+                <condition>Building</condition>
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY ReleaseBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Release">
-            <exclusionFilters>
-              <activities>
-                <activity>Building</activity>
-              </activities>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY ReleaseFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Release">
-            <exclusionFilters>
-              <conditions>
-                <condition>Failure</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY DeployBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Deploy">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY DeployFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Deploy">
-            <exclusionFilters>
-              <conditions>
-                <condition>Failure</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestBuilding '<projectFilter
-                serverUri="&Integration.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Test">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
-  <!ENTITY TestFailed '<projectFilter
+  <!ENTITY IntegrationFailed '<projectFilter
                serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
@@ -109,18 +63,44 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
+  <!ENTITY DeployBuilding '<projectFilter
+                serverUri="&ConnectGreen5.Server.Remoting.Url;"
+                project="&ProjectName;-&ProjectCodeLineName;-Deploy-Green5">
+             <exclusionFilters>
+               <activities>
+                 <activity>Building</activity>
+               </activities>
+             </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY DeployFailed '<projectFilter
+               serverUri="&ConnectGreen5.Server.Remoting.Url;"
+               project="&ProjectName;-&ProjectCodeLineName;-Deploy-Green5">
+            <exclusionFilters>
+              <conditions>
+                <condition>Failure</condition>
+              </conditions>
+            </exclusionFilters>
+          </projectFilter>'>
+  <!ENTITY TestBuilding '<projectFilter
+                serverUri="&ConnectGreen5.Server.Remoting.Url;"
+                project="&ProjectName;-&ProjectCodeLineName;-Test-Green5">
+             <exclusionFilters>
+               <activities>
+                 <activity>Building</activity>
+               </activities>
+             </exclusionFilters>
+          </projectFilter>'>
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
-<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&Integration.Server.Rest.Url;">
-  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+<cruisecontrol port="&CCNet.Server.Remoting.Port;" restUri="&ConnectGreen5.Server.Rest.Url;">
+  <project name="&ProjectName;-&ProjectCodeLineName;-Build-Scripts-Green5">
+    <webURL>&ConnectGreen5.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
-          &ReleaseBuilding;
           &DeployBuilding;
           &TestBuilding;
         </projectFilters>
@@ -129,7 +109,6 @@
     <forceFilters>
       <projectForceFilter>
         <projectFilters>
-          &ReleaseBuilding;
           &DeployBuilding;
           &TestBuilding;
         </projectFilters>
@@ -161,143 +140,17 @@
       &email;
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Release">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy-Green5">
+    <webURL>&ConnectGreen5.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
-        <trigger
-          type="projectTrigger"
-          serverUri="&CCNet.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Dev"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DeployBuilding;
-          &TestBuilding;
-          &DevFailed;
-        </projectFilters>
-      </projectTriggerFilter>
-    </triggers>
-    <forceFilters>
-      <projectForceFilter>
-        <projectFilters>
-          &ScriptsBuilding;
-          &DeployBuilding;
-          &TestBuilding;
-          &DevFailed;
-        </projectFilters>
-      </projectForceFilter>
-      <userForceFilter dontCheck="true" domainName="localhost" userName="crap" password="junk"/>
-    </forceFilters>
-    <integrationFilter>
-      <triggeredIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="true" />
-        </allowed>
-      </triggeredIntegrationFilter>
-      <forcedIntegrationFilter>
-        <allowed>
-          <modificationsRequired condition="false" />
-        </allowed>
-        <blocked>
-        </blocked>
-      </forcedIntegrationFilter>
-    </integrationFilter>
-    <sourcecontrol type="filtered">
-      <sourceControlProvider  type="svn" tagOnSuccess="false" autoGetSource="false" >
-        <trunkUrl>&Subversion.Repo.Url;/&ProjectCodeLineName;</trunkUrl>
-        <workingDirectory>&Common.Directory.CodeLine.Path;</workingDirectory>
-        <executable>C:\Program Files\Subversion\bin\svn.exe</executable>
-        <webUrlBuilder type="websvn">
-          <url>&Subversion.Repo.Url;{0}</url>
-        </webUrlBuilder>
-      </sourceControlProvider>
-    </sourcecontrol>
-    <labeller type="remoteProjectLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Dev</project>
-      <serverUri>&CCNet.Server.Remoting.Url;</serverUri>
-    </labeller>
-    <tasks>
-      <modificationWriter>
-        <filename>SourceModificationReport.xml</filename>
-        <path>&Common.Directory.Build.Path;\SourceModificationReports\&ProjectName;-&ProjectCodeLineName;-Release</path>
-      </modificationWriter>
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Main.build.xml</buildFile>
-        <buildArgs>-listener:NAnt.Core.AppendListener</buildArgs>
-        <targetList>
-          <target>Release</target>
-        </targetList>
-        <buildTimeoutSeconds>9200</buildTimeoutSeconds>
-      </nant>
-    </tasks>
-    <publishers>
-      <merge>
-        <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\AntLogs\*.xml</file>
-        </files>
-      </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;">
-        <filepairs>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\Simian\SimianSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\SimianReport\SimianReport.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\JUnit\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\UnitTestReports\*.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\IntegrationTest\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\IntegrationTestReports\*.xml</xmlfile>
-          </filepair>
-          <filepair>
-            <xslfile>&Common.Directory.Packages.Path;\Corbertura\CoverageSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Release\Coverage\CoverageReport.xml</xmlfile>
-          </filepair>
-        </filepairs>
-      </xslmerger>
-      <xmllogger />
-      &email;
-      <nant>
-        <executable>&Tools.NAnt.Exe;</executable>
-        <baseDirectory>&Common.Directory.Build.Path;</baseDirectory>
-        <logger>NAnt.Core.XmlLogger </logger>
-        <buildFile>Post.Shim.xml</buildFile>
-        <targetList>
-          <target>PostBuildWrapper</target>
-        </targetList>
-        <buildTimeoutSeconds>300</buildTimeoutSeconds>
-      </nant>
-    </publishers>
-  </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Deploy">
-    <webURL>&Integration.Dashboard.Url;</webURL>
-    <state type="state" />
-    <triggers>
-      <projectTriggerFilter>
-        <trigger
-          type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Release"
-        >
-          <triggerStatus>Success</triggerStatus>
-          <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
-        </trigger>
+        <trigger type="scheduleTrigger" time="7:00" buildCondition="IfModificationExists" />
         <projectFilters>
           &ScriptsBuilding;
           &TestBuilding;
-          &ReleaseBuilding;
-          &ReleaseFailed;
+          &IntegrationBuilding;
+          &IntegrationFailed;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -306,8 +159,6 @@
         <projectFilters>
           &ScriptsBuilding;
           &TestBuilding;
-          &ReleaseBuilding;
-          &ReleaseFailed;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -326,8 +177,9 @@
       </forcedIntegrationFilter>
     </integrationFilter>
     <sourcecontrol type="nullSourceControl" />
-    <labeller type="stateFileLabeller">
+    <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
+      <serverUri>&Integration.Server.Remoting.Url;</serverUri>
     </labeller>
     <tasks>
       <nant>
@@ -337,7 +189,7 @@
         <buildFile>Main.build.xml</buildFile>
         <buildArgs>-D:GlassFish.Domain1.NHINC.Configuration.Directory.Name=Dev -listener:NAnt.Core.AppendListener</buildArgs>
         <targetList>
-          <target>Integration.Deploy</target>
+          <target>Staging.Deploy</target>
         </targetList>
 
         <buildTimeoutSeconds>4200</buildTimeoutSeconds>
@@ -346,9 +198,9 @@
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green5\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green5\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Deploy-Green5\AntLogs\*.xml</file>
         </files>
       </merge>
       <xmllogger />
@@ -365,22 +217,21 @@
       </nant>
     </publishers>
   </project>
-  <project name="&ProjectName;-&ProjectCodeLineName;-Test">
-    <webURL>&Integration.Dashboard.Url;</webURL>
+  <project name="&ProjectName;-&ProjectCodeLineName;-Test-Green5">
+    <webURL>&ConnectGreen5.Dashboard.Url;</webURL>
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
         <trigger
           type="projectTrigger"
-          serverUri="&Integration.Server.Remoting.Url;"
-          project="&ProjectName;-&ProjectCodeLineName;-Deploy"
+          serverUri="&ConnectGreen5.Server.Remoting.Url;"
+          project="&ProjectName;-&ProjectCodeLineName;-Deploy-Green5"
         >
           <triggerStatus>Success</triggerStatus>
           <innerTrigger type="intervalTrigger" seconds="30" buildCondition="ForceBuild"/>
         </trigger>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
         </projectFilters>
@@ -390,7 +241,6 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &ReleaseBuilding;
           &DeployBuilding;
           &DeployFailed;
         </projectFilters>
@@ -421,7 +271,7 @@
       </sourceControlProvider>
     </sourcecontrol>
     <labeller type="stateFileLabeller">
-      <project>&ProjectName;-&ProjectCodeLineName;-Deploy</project>
+      <project>&ProjectName;-&ProjectCodeLineName;-Deploy-Green5</project>
     </labeller>
     <tasks>
       <nant>
@@ -440,16 +290,16 @@
     <publishers>
       <merge>
         <files>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\Reports\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\TargetProcess\*.xml</file>
-          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\AntLogs\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Green5\Reports\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Green5\TargetProcess\*.xml</file>
+          <file>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Green5\AntLogs\*.xml</file>
         </files>
       </merge>
-      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test">
+      <xslmerger dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Test-Green5">
         <filepairs>
           <filepair>
             <xslfile>&Common.Directory.Packages.Path;\SoapUI\JUnitSummary.xsl</xslfile>
-            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test\SoapUITestReports\*.xml</xmlfile>
+            <xmlfile>&Common.Directory.Transient.Path;\&ProjectName;-&ProjectCodeLineName;-Test-Green5\SoapUITestReports\*.xml</xmlfile>
           </filepair>
         </filepairs>
       </xslmerger>
