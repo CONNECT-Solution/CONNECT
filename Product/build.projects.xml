@@ -42,10 +42,6 @@
     <directory>/Production/Gateway/NhinServiceProxy</directory>
   </project>
   <project>
-    <name>HiemProcessorLib</name>
-    <directory>/Production/Gateway/HiemProcessorLib</directory>
-  </project>
-  <project>
     <name>EntityServiceProxy</name>
     <directory>/Production/Adapters/General/EntityServiceProxy</directory>
   </project>
@@ -54,8 +50,8 @@
     <directory>/Production/Adapters/General/DocumentRepository</directory>
   </project>
   <project>
-    <name>AggregatorLib</name>
-    <directory>/Production/Gateway/AggregatorLib</directory>
+    <name>NhincGatewayLib</name>
+    <directory>/Production/Gateway/NhincGatewayLib</directory>
   </project>
   <project>
     <name>AdapterPIPLib</name>
