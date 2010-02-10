@@ -138,7 +138,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                    <file>${file.reference.NhincCommonDAO.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.PatientCorrelationFacadeProxy.jar}</file>

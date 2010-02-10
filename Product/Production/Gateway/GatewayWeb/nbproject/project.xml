@@ -12,14 +12,13 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library>
-                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
-                </library>
-                <library>
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
+                    <file>${file.reference.NhincCommonDAO.jar}</file>
+                </library>
+                <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
                     <file>${file.reference.log4j-1.2.15.jar}</file>

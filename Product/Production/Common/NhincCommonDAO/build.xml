@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="NhincLib" default="default" basedir=".">
-    <description>Builds, tests, and runs the project NhincLib.</description>
+<project name="NhincCommonDAO" default="default" basedir=".">
+    <description>Builds, tests, and runs the project NhincCommonDAO.</description>
     <import file="nbproject/build-impl.xml"/>
     <import file="../../../build.lib.xml" />
     <target name="build">
@@ -21,13 +21,14 @@
 
     <property name="deploy.type" value="shared" />
     <property name="deploy.isDeployable" value="true"/>
-
-    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+	
+	<target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
         <copy todir="${nhin.project.home}\UnitTestResults">
             <fileset dir="${build.test.results.dir}"/>
         </copy>
         <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
     </target>
+
     <target name="-check-netbeans-home">
         <condition property="no.netbeans.home">
             <not>
@@ -35,6 +36,7 @@
             </not>
         </condition>
     </target>
+
     <target name="-init-caps" if="no.netbeans.home">
         <property file="../../build.properties"/>
         <property file="nbproject/private/private.properties"/>
@@ -52,5 +54,4 @@
         <copy file="${glassfish.home}/lib/${distfile.jar}" tofile="${glassfish.home}/lib/${distfile.jar}.bak" verbose="true" failonerror="false" />
         <copy file="${dist.jar}" todir="${glassfish.home}/lib" verbose="true" failonerror="false" />
     </target>
-
 </project>

@@ -15,7 +15,7 @@
                     <file>${file.reference.NhincCommonTypesLib.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
+                    <file>${file.reference.NhincCommonDAO.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.commons-logging-1.1.1.jar}</file>

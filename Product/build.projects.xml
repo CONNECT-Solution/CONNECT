@@ -6,8 +6,8 @@
     <directory>/Production/Common/NhincCommonTypesLib</directory>
   </project>
   <project>
-    <name>AssigningAuthoritiesToHomeCommunityMappingDAO</name>
-    <directory>/Production/Common/AssigningAuthoritiesToHomeCommunityMappingDAO</directory>
+    <name>NhincCommonDAO</name>
+    <directory>/Production/Common/NhincCommonDAO</directory>
   </project>
   <project>
     <name>NhincCommonLib</name>

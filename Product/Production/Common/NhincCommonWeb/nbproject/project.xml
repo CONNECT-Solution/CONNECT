@@ -66,11 +66,10 @@
                     <file>${file.reference.xstream-benchmark-1.3.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.mysql-connector-java-5.1.8-bin.jar}</file>
                 </library>
                 <library>
-                    <file>${file.reference.mysql-connector-java-5.1.8-bin.jar}</file>
+                    <file>${file.reference.NhincCommonDAO.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.c3p0-0.9.1.2.jar}</file>
