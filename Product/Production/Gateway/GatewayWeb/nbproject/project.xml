@@ -127,14 +127,6 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.PatientCorrelationFacade.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.PatientCorrelationFacadeProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
                     <file>${file.reference.NhincGatewayDAO.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>

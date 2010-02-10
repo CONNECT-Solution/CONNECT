@@ -62,5 +62,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentAuditRepositorySecured"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentauditrepository"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterPolicyEngine, wsimport-client-NhincComponentAuditRepository, wsimport-client-NhincComponentAuditRepositorySecured"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade"/>
+        <property name="wsdl-NhincComponentPatientCorrelationFacade" location="xml-resources/web-service-references/NhincComponentPatientCorrelationFacade/wsdl/NhincComponentPatientCorrelationFacade.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade" destdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade" wsdl="${wsdl-NhincComponentPatientCorrelationFacade}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationFacade.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincComponentPatientCorrelationFacade}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincComponentPatientCorrelationFacade" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationFacade"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:componentpatientcorrelationfacade"/>
+    </target>
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
+        <property name="wsdl-NhincComponentPatientCorrelationSecured" location="xml-resources/web-service-references/NhincComponentPatientCorrelationSecured/wsdl/NhincComponentPatientCorrelationSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured" destdir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured" wsdl="${wsdl-NhincComponentPatientCorrelationSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincComponentPatientCorrelationSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-NhincComponentPatientCorrelationSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-NhincComponentPatientCorrelationSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/NhincComponentPatientCorrelationSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterPolicyEngine, wsimport-client-NhincComponentAuditRepository, wsimport-client-NhincComponentAuditRepositorySecured, wsimport-client-NhincComponentPatientCorrelationFacade, wsimport-client-NhincComponentPatientCorrelationSecured"/>
 </project>

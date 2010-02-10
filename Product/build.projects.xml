@@ -33,10 +33,7 @@
     <name>NhincGatewayDAO</name>
     <directory>/Production/Gateway/NhincGatewayDAO</directory>
   </project>
-  <project>
-    <name>PatientCorrelationFacadeProxy</name>
-    <directory>/Production/Gateway/PatientCorrelationFacadeProxy</directory>
-  </project>
+  
   <project>
     <name>NhinServiceProxy</name>
     <directory>/Production/Gateway/NhinServiceProxy</directory>
@@ -81,10 +78,7 @@
     <name>MpiLib</name>
     <directory>/Production/Adapters/General/MpiLib</directory>
   </project>
-  <project>
-    <name>PatientCorrelationFacade</name>
-    <directory>/Production/Gateway/PatientCorrelationFacade</directory>
-  </project>  
+    
   <project>
     <name>CommonServiceProxy</name>
     <directory>/Production/Common/CommonServiceProxy</directory>

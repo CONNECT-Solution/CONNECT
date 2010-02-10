@@ -530,14 +530,12 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhinServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacade.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.PatientCorrelationFacadeProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincGatewayLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincGatewayLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.PatientCorrelationFacade.jar} ${manifest.file.reference.PatientCorrelationFacadeProxy.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincGatewayLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.AdapterServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} ${manifest.file.reference.NhinServiceProxy.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.NhincGatewayDAO.jar} ${manifest.file.reference.NhincGatewayLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -545,8 +543,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhinServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.PatientCorrelationFacade.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.PatientCorrelationFacadeProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincGatewayDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincGatewayLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>

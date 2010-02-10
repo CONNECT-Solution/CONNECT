@@ -134,18 +134,14 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>
-                    <file>${file.reference.PatientCorrelationFacade.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library>
-                    <file>${file.reference.NhincCommonDAO.jar}</file>
-                </library>
-                <library>
-                    <file>${file.reference.PatientCorrelationFacadeProxy.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
+                    <file>${file.reference.AssigningAuthoritiesToHomeCommunityMappingDAO.jar}</file>
                 </library>
                 <library>
                     <file>${file.reference.EntityServiceProxy.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library>
+                    <file>${file.reference.GatewayInternalComponentProxy.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library>

@@ -24,4 +24,6 @@
     <target name="wsimport-client-AdapterPolicyEngine" depends="wsimport-init"/>
     <target name="wsimport-client-NhincComponentAuditRepository" depends="wsimport-init"/>
     <target name="wsimport-client-NhincComponentAuditRepositorySecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationFacade" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincComponentPatientCorrelationSecured" depends="wsimport-init"/>
 </project>
