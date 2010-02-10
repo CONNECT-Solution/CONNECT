@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+	<S:Body>
+		<ns14:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestRequest xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns6="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns7="http://www.w3.org/2005/08/addressing" xmlns:ns8="http://docs.oasis-open.org/wsn/b-2" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns11="http://docs.oasis-open.org/wsn/t-1" xmlns:ns12="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns13="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns15="http://nhinc.services.com/schema/auditmessage" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+			<ns9:ProvideAndRegisterDocumentSetRequest>
+				<ns5:SubmitObjectsRequest>
+					<ns3:RegistryObjectList>
+						<ns3:ExtrinsicObject mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1" id="-38baa2ce:12471df34c8:-7ef9">
+							<ns3:Slot name="creationTime">
+								<ns3:ValueList>
+									<ns3:Value>20091020052004-0700</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="languageCode">
+								<ns3:ValueList>
+									<ns3:Value>EN-US</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="serviceStartTime">
+								<ns3:ValueList>
+									<ns3:Value>200512240800</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="serviceStopTime">
+								<ns3:ValueList>
+									<ns3:Value>200512241l00</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="sourcePatientId">
+								<ns3:ValueList>
+									<ns3:Value>'st3498702^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO'</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="sourcePatientInfo">
+								<ns3:ValueList>
+									<ns3:Value>PID-3|'st3498702^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO'</ns3:Value>
+									<ns3:Value>PID-5|Ross^Josephine^^^</ns3:Value>
+									<ns3:Value>PID-7|19761212</ns3:Value>
+									<ns3:Value>PID-8|</ns3:Value>
+									<ns3:Value>PID-11|17 Daws Road^^Blue Bell^MA^00000^US^</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="urn:gov:hhs:fha:nhinc:xds:clinicalUniqueHash">
+								<ns3:ValueList>
+									<ns3:Value>e7fa430538ac98b635892b7e189c0f7bc0441ba4</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Slot name="urn:gov:hhs:fha:nhinc:xds:hasBeenAccessed">
+								<ns3:ValueList>
+									<ns3:Value>false</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Name>
+								<ns3:LocalizedString value="SUMMARIZATION OF EPISODE NOTE"/>
+							</ns3:Name>
+							<ns3:Classification nodeRepresentation="" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:93606bcf-9494-43ec-9b4e-a7748d1a838d" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_1">
+								<ns3:Slot name="authorPerson">
+									<ns3:ValueList>
+										<ns3:Value>AHLTA</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Slot name="authorInstitution">
+									<ns3:ValueList>
+										<ns3:Value>Department of Defense</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Slot name="authorRole">
+									<ns3:ValueList>
+										<ns3:Value/>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Slot name="authorSpecialty">
+									<ns3:ValueList>
+										<ns3:Value/>
+									</ns3:ValueList>
+								</ns3:Slot>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="34133-9" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:41a5887f-8865-4c09-adf7-e362475b143a" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_3">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>2.16.11840.1.113883.6.1</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="SUMMARIZATION OF EPISODE NOTE"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="34133-9" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:f0306f51-975f-434e-a61c-c59651d33983" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_8">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>2.16.11840.1.113883.6.1</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="SUMMARIZATION OF EPISODE NOTE"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="N" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:f4f85eac-e6cb-4883-b524-f2705394840f" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_4">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>2.16.840.1.113883.5.25</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="Normal"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="2.16.840.1.1.113883.10.20.1" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:a09d5840-386c-46f2-b5ad-9c3699a4309d" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_5">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>ISO</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="CDAR2/IHE 1.0 - HL7 CCD Document"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="2865M2000N" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:f33fb8ac-18af-42cc-ae0e-ed0b0bdb91e1" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_6">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>2.16.840.1.1.113883.5.111</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="Hospitals; Military; Medical Center"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:Classification nodeRepresentation="410001006" classifiedObject="-38baa2ce:12471df34c8:-7ef9" classificationScheme="urn:uuid:cccf5598-8b07-4b77-a05e-ae952c785ead" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="id_7">
+								<ns3:Slot name="codingScheme">
+									<ns3:ValueList>
+										<ns3:Value>2.16.840.1.113883.6.96</ns3:Value>
+									</ns3:ValueList>
+								</ns3:Slot>
+								<ns3:Name>
+									<ns3:LocalizedString value="Military Medicine"/>
+								</ns3:Name>
+							</ns3:Classification>
+							<ns3:ExternalIdentifier value="'st3498702^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO'" identificationScheme="urn:uuid:58a6f841-87b3-4a3e-92fd-a8ffeff98427" registryObject="-38baa2ce:12471df34c8:-7ef9" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier" id="id_9">
+								<ns3:Name>
+									<ns3:LocalizedString value="XDSDocumentEntry.patientId"/>
+								</ns3:Name>
+							</ns3:ExternalIdentifier>
+							<ns3:ExternalIdentifier value="192.168.25.94.101" identificationScheme="urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab" registryObject="-38baa2ce:12471df34c8:-7ef9" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier" id="id_10">
+								<ns3:Name>
+									<ns3:LocalizedString value="XDSDocumentEntry.uniqueId"/>
+								</ns3:Name>
+							</ns3:ExternalIdentifier>
+						</ns3:ExtrinsicObject>
+						<ns3:RegistryPackage objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:RegistryPackage" id="SubmissionSet01">
+							<ns3:Slot name="submissionTime">
+								<ns3:ValueList>
+									<ns3:Value>20091020052005-0700</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+							<ns3:Name>
+								<ns3:LocalizedString value="SUMMARIZATION OF EPISODE NOTE"/>
+							</ns3:Name>
+							<ns3:Description>
+								<ns3:LocalizedString value="Annual physical"/>
+							</ns3:Description>
+							<ns3:ExternalIdentifier value="192.168.25.94.113" identificationScheme="urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8" registryObject="SubmissionSet01" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier" id="id_22">
+								<ns3:Name>
+									<ns3:LocalizedString value="XDSSubmissionSet.uniqueId"/>
+								</ns3:Name>
+							</ns3:ExternalIdentifier>
+							<ns3:ExternalIdentifier value="129.6.58.92.1.1" identificationScheme="urn:uuid:554ac39e-e3fe-47fe-b233-965d2a147832" registryObject="SubmissionSet01" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier" id="id_23">
+								<ns3:Name>
+									<ns3:LocalizedString value="XDSSubmissionSet.sourceId"/>
+								</ns3:Name>
+							</ns3:ExternalIdentifier>
+							<ns3:ExternalIdentifier value="'st3498702^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO'" identificationScheme="urn:uuid:6b5aea1a-874d-4603-a4bc-96a0a7b38446" registryObject="SubmissionSet01" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:ExternalIdentifier" id="id_24">
+								<ns3:Name>
+									<ns3:LocalizedString value="XDSSubmissionSet.patientId"/>
+								</ns3:Name>
+							</ns3:ExternalIdentifier>
+						</ns3:RegistryPackage>
+						<ns3:Association targetObject="-38baa2ce:12471df34c8:-7ef9" sourceObject="SubmissionSet01" associationType="urn:oasis:names:tc:ebxml-regrep:AssociationType:HasMember" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Association" id="ID_25276323_1">
+							<ns3:Slot name="SubmissionSetStatus">
+								<ns3:ValueList>
+									<ns3:Value>Original</ns3:Value>
+								</ns3:ValueList>
+							</ns3:Slot>
+						</ns3:Association>
+						<ns3:Classification classificationNode="urn:uuid:a54d6aa5-d40d-43f9-88c5-b4633d873bdd" classifiedObject="SubmissionSet01" objectType="urn:oasis:names:tc:ebxml-regrep:ObjectType:RegistryObject:Classification" id="ID_25276323_3"/>
+					</ns3:RegistryObjectList>
+				</ns5:SubmitObjectsRequest>
+				<ns9:Document id="-38baa2ce:12471df34c8:-7ef9">PENsaW5pY2FsRG9jdW1lbnQgeG1sbnM9InVybjpobDctb3JnOnYzIj48dHlwZUlkIGV4dGVuc2lvbj0iUE9DRF9IRDAwMDA0MCIgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMuMS4zIj48L3R5cGVJZD48dGVtcGxhdGVJZCByb290PSIyLjE2Ljg0MC4xLjExMzg4My4xMC4yMC4xIj48L3RlbXBsYXRlSWQ+PHRlbXBsYXRlSWQgcm9vdD0iMi4xNi44NDAuMS4xMTM4ODMuMy44OC4xMS4zMi4xIj48L3RlbXBsYXRlSWQ+PGlkIGV4dGVuc2lvbj0iLTM4YmFhMmNlOjEyNDcxZGYzNGM4Oi03ZWZjIj48L2lkPjxjb2RlIGNvZGU9IjM0MTMzLTkiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuMSIgY29kZVN5c3RlbU5hbWU9IkxPSU5DIiBkaXNwbGF5TmFtZT0iU1VNTUFSSVpBVElPTiBPRiBFUElTT0RFIE5PVEUiPjwvY29kZT48Y29uZmlkZW50aWFsaXR5Q29kZSBjb2RlPSJOIiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My41LjI1IiBkaXNwbGF5TmFtZT0iTm9ybWFsIj48L2NvbmZpZGVudGlhbGl0eUNvZGU+PGxhbmd1YWdlQ29kZSBjb2RlPSJFTi1VUyI+PC9sYW5ndWFnZUNvZGU+PHJlY29yZFRhcmdldD48cGF0aWVudFJvbGU+PGlkIGV4dGVuc2lvbj0ic3QzNDk4NzAyIiByb290PSIyLjE2Ljg0MC4xLjExMzg4My4zLjE5OCI+PC9pZD48YWRkciB1c2U9IkhQIj48c3RyZWV0QWRkcmVzc0xpbmU+MTcgRGF3cyBSb2FkPC9zdHJlZXRBZGRyZXNzTGluZT48Y2l0eT5CbHVlIEJlbGw8L2NpdHk+PHN0YXRlPk1BPC9zdGF0ZT48cG9zdGFsQ29kZT4wMDAwMDwvcG9zdGFsQ29kZT48Y291bnRyeT5VUzwvY291bnRyeT48L2FkZHI+PHRlbGVjb20gdXNlPSJIUCIgdmFsdWU9InRlbDorMS04ODgtODg4LTg4ODgiPjwvdGVsZWNvbT48cGF0aWVudD48bmFtZSB1c2U9IlAiPjxmYW1pbHkgcGFydFR5cGU9IkZBTSI+Um9zczwvZmFtaWx5PjxnaXZlbiBwYXJ0VHlwZT0iR0lWIj5Kb3NlcGhpbmU8L2dpdmVuPjwvbmFtZT48YmlydGhUaW1lIHZhbHVlPSIxOTc2MTIxMiI+PC9iaXJ0aFRpbWU+PG1hcml0YWxTdGF0dXNDb2RlIGNvZGU9Ik0iIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjUuMiIgY29kZVN5c3RlbU5hbWU9Ik1hcml0YWxTdGF0dXNDb2RlIiBkaXNwbGF5TmFtZT0iTWFycmllZCI+PC9tYXJpdGFsU3RhdHVzQ29kZT48cmFjZUNvZGUgY29kZT0iMTAwNC0xIiBjb2RlU3lzdGVtPSIyLjE2Ljg0MC4xLjExMzg4My42LjIzOCIgY29kZVN5c3RlbU5hbWU9IkNEQyBSYWNlIGFuZCBFdGhuaWNpdHkiPjwvcmFjZUNvZGU+PGV0aG5pY0dyb3VwQ29kZSBjb2RlPSIyMTc4LTIiIGNvZGVTeXN0ZW09IjIuMTYuODQwLjEuMTEzODgzLjYuMjM4IiBjb2RlU3lzdGVtTmFtZT0iQ0RDIFJhY2UgYW5kIEV0aG5pY2l0eSIgZGlzcGxheU5hbWU9IkxhdGluIEFtZXJpY2FuIj48L2V0aG5pY0dyb3VwQ29kZT48bGFuZ3VhZ2VDb21tdW5pY2F0aW9uPjxsYW5ndWFnZUNvZGUgY29kZT0iZW4tVVMiPjwvbGFuZ3VhZ2VDb2RlPjwvbGFuZ3VhZ2VDb21tdW5pY2F0aW9uPjwvcGF0aWVudD48cHJvdmlkZXJPcmdhbml6YXRpb24+PGlkIHJvb3Q9IjIuMTYuODQwLjEuMTEzODgzLjMuMTk4Ij48L2lkPjxuYW1lPkRlcGFydG1lbnQgb2YgRGVmZW5zZTwvbmFtZT48L3Byb3ZpZGVyT3JnYW5pemF0aW9uPjwvcGF0aWVudFJvbGU+PC9yZWNvcmRUYXJnZXQ+PGNvbXBvbmVudD48c3RydWN0dXJlZEJvZHk+PGNvbXBvbmVudD48c2VjdGlvbj48dGVtcGxhdGVJZCBleHRlbnNpb249IjIuMTYuODQwLjEuMTEzODgzLjMuODguMTEuODMuMTEyIj48L3RlbXBsYXRlSWQ+PHRlbXBsYXRlSWQgZXh0ZW5zaW9uPSIxLjMuNi4xLjQuMS4xOTM3Ni4xLjUuMy4xLjMuMTkiPjwvdGVtcGxhdGVJZD48ZW50cnkgdHlwZUNvZGU9IkRSSVYiPjxzdWJzdGFuY2VBZG1pbmlzdHJhdGlvbiBjbGFzc0NvZGU9IlNCQURNIiBtb29kQ29kZT0iRVZOIj48dGVtcGxhdGVJZCBleHRlbnNpb249IjIuMTYuODQwLjEuMTEzODgzLjMuODguMTEuODMuOCI+PC90ZW1wbGF0ZUlkPjx0ZW1wbGF0ZUlkIGV4dGVuc2lvbj0iMS4zLjYuMS40LjEuMTkzNzYuMS41LjMuMS40LjciPjwvdGVtcGxhdGVJZD48aWQgZXh0ZW5zaW9uPSJjZGJkNWIwNS02Y2RlLTExZGItOWZlMS0wODAwMjAwYzlhNjYiPjwvaWQ+PHN0YXR1c0NvZGUgY29kZT0iY29tcGxldGVkIj48L3N0YXR1c0NvZGU+PGVmZmVjdGl2ZVRpbWUgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeHNpOnR5cGU9IklWTF9UUyI+PGxvdyB2YWx1ZT0iMjAwOTAxMDQiPjwvbG93PjxoaWdoIHZhbHVlPSIyMDA5MDMxNCI+PC9oaWdoPjwvZWZmZWN0aXZlVGltZT48cm91dGVDb2RlIGNvZGU9IkMzODI4OCIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuMy4yNi4xLjEiIGNvZGVTeXN0ZW1OYW1lPSJSb3V0ZU9mQWRtaW5pc3RyYXRpb24iIGRpc3BsYXlOYW1lPSJPcmFsIj48L3JvdXRlQ29kZT48ZG9zZVF1YW50aXR5IHVuaXQ9IntUQUJMRVR9IiB2YWx1ZT0iMSI+PC9kb3NlUXVhbnRpdHk+PGNvbnN1bWFibGUgdHlwZUNvZGU9IkNTTSI+PG1hbnVmYWN0dXJlZFByb2R1Y3Q+PG1hbnVmYWN0dXJlZE1hdGVyaWFsPjxjb2RlIGNvZGU9IjE5NzgwNiIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi44OCIgY29kZVN5c3RlbU5hbWU9IlJ4Tm9ybSIgZGlzcGxheU5hbWU9IklCVVBST0ZFTiwgNjAwTUcsIFRBQkxFVCwgT1JBTCI+PG9yaWdpbmFsVGV4dCBudWxsRmxhdm9yPSJJQlVQUk9GRU4gKE1PVFJJTiktLVBPIDYwME1HIFRBQiI+PC9vcmlnaW5hbFRleHQ+PHRyYW5zbGF0aW9uIGNvZGU9IjIwMTE1MiIgY29kZVN5c3RlbT0iMi4xNi44NDAuMS4xMTM4ODMuNi44OCIgY29kZVN5c3RlbU5hbWU9IlJ4Tm9ybSIgZGlzcGxheU5hbWU9IklidXByb2ZlbiA2MDBtZywgKE1vdHJpbiksIFRhYmxldCwgT3JhbCI+PC90cmFuc2xhdGlvbj48L2NvZGU+PG5hbWUgbnVsbEZsYXZvcj0iTU9UUklOIDYwME1HIE9SQUwgVEFCIj48L25hbWU+PC9tYW51ZmFjdHVyZWRNYXRlcmlhbD48L21hbnVmYWN0dXJlZFByb2R1Y3Q+PC9jb25zdW1hYmxlPjwvc3Vic3RhbmNlQWRtaW5pc3RyYXRpb24+PC9lbnRyeT48L3NlY3Rpb24+PC9jb21wb25lbnQ+PC9zdHJ1Y3R1cmVkQm9keT48L2NvbXBvbmVudD48L0NsaW5pY2FsRG9jdW1lbnQ+</ns9:Document>
+			</ns9:ProvideAndRegisterDocumentSetRequest>
+			<ns14:assertion>
+				<ns16:haveSecondWitnessSignature>false</ns16:haveSecondWitnessSignature>
+				<ns16:haveSignature>false</ns16:haveSignature>
+				<ns16:haveWitnessSignature>false</ns16:haveWitnessSignature>
+				<ns16:authorized>false</ns16:authorized>
+			</ns14:assertion>
+		</ns14:RespondingGateway_CrossGatewayProvideAndRegisterDocumentSetRequestRequest>
+	</S:Body>
+</S:Envelope>
