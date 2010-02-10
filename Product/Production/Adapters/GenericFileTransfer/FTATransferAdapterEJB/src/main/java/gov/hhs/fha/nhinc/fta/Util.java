@@ -1,17 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.fta;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import javax.xml.bind.*;
 import java.io.File;
@@ -130,6 +129,27 @@ public class Util {
 
     public static AssertionType createAssertion() {
         AssertionType result = new AssertionType();
+
+        if(result.getSamlAuthzDecisionStatement() == null)
+        {
+            SamlAuthzDecisionStatementType samlAuthDecisionStatement = new SamlAuthzDecisionStatementType();
+            result.setSamlAuthzDecisionStatement(samlAuthDecisionStatement);
+        }
+        if(result.getSamlAuthzDecisionStatement().getEvidence() == null)
+        {
+            SamlAuthzDecisionStatementEvidenceType samlEvedence = new SamlAuthzDecisionStatementEvidenceType();
+            result.getSamlAuthzDecisionStatement().setEvidence(samlEvedence);
+        }
+        if(result.getSamlAuthzDecisionStatement().getEvidence().getAssertion() == null)
+        {
+            SamlAuthzDecisionStatementEvidenceAssertionType samlAssertionType = new SamlAuthzDecisionStatementEvidenceAssertionType();
+            result.getSamlAuthzDecisionStatement().getEvidence().setAssertion(samlAssertionType);
+        }
+        if(result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() == null)
+        {
+            SamlAuthzDecisionStatementEvidenceConditionsType samlConditions = new SamlAuthzDecisionStatementEvidenceConditionsType();
+            result.getSamlAuthzDecisionStatement().getEvidence().getAssertion().setConditions(samlConditions);
+        }
 
         result.setAuthorized(true);
         result.setDateOfBirth("19800516");

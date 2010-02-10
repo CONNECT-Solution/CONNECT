@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package gov.hhs.fha.nhinc.fta;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -70,7 +65,11 @@ public class NotificationImpl
     private static AcknowledgementType processNotifyMsg(NotificationMessageHolderType msgHolder )
     {
         AcknowledgementType result = new AcknowledgementType();
-        String topic = (String) msgHolder.getTopic().getContent().get(0);
+        String topic = null;
+        if((msgHolder != null) && (msgHolder.getTopic() != null))
+        {
+            topic = (String) msgHolder.getTopic().getContent().get(0);
+        }
 
         FTAConfiguration config = FTAConfigurationHelper.loadFTAConfiguration();
 

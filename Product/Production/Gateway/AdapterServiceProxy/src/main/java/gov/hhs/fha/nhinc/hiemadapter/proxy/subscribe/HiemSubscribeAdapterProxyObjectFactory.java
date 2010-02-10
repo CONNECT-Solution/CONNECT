@@ -1,11 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.hhs.fha.nhinc.hiemadapter.proxy.subscribe;
 
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
  * An object factory that uses the Spring Framework to create service
@@ -34,13 +31,14 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class HiemSubscribeAdapterProxyObjectFactory {
 
-    private static final String SPRING_CONFIG_FILE = "hiemAdapterConfig.xml";
+    private static final String CONFIG_FILE_NAME = "hiemAdapterConfig.xml";
     private static final String BEAN_NAME_HIEM_SUBSCRIBE_ADAPTER = "hiemsubscribeadapter";
     private static ApplicationContext context = null;
 
 
-    static {
-        context = new ClassPathXmlApplicationContext(SPRING_CONFIG_FILE);
+    static
+    {
+        context = new FileSystemXmlApplicationContext(PropertyAccessor.getPropertyFileLocation() + CONFIG_FILE_NAME);
     }
 
     /**
