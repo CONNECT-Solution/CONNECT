@@ -7,9 +7,6 @@
     <class>gov.hhs.fha.nhinc.assemblymanager.dao.model.DasConfig</class>
     <class>gov.hhs.fha.nhinc.assemblymanager.dao.model.DocumentType</class>
     <properties>
-      <!--
-      <property name="toplink.logging.level" value="FINEST"/>
-      -->
     </properties>
   </persistence-unit>
 </persistence>
