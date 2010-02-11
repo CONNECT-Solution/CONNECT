@@ -61,12 +61,15 @@ import gov.hhs.fha.nhinc.transform.audit.PatientDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubjectDiscoveryTransforms;
 import gov.hhs.fha.nhinc.transform.audit.SubscribeTransforms;
 import gov.hhs.fha.nhinc.transform.audit.UnsubscribeTransforms;
+import gov.hhs.fha.nhinc.transform.audit.XDRTransforms;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  *
@@ -737,6 +740,45 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
+    public LogEventRequestType logXDRReq(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();            
+            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+        return auditMsg;
+    }
+    public LogEventRequestType logXDRReq(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+        return auditMsg;
+    }
+    public LogEventRequestType logNhinXDRResponse(RegistryResponseType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, direction, direction);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+        return auditMsg;
+    }
     /**
      * This method will create the generic Audit Log Message from an entity unsubscribe request
      *
