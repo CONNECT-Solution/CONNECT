@@ -45,15 +45,6 @@
               </activities>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY IntegrationBuilding '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
-               project="&ProjectName;-&ProjectCodeLineName;-Test">
-            <exclusionFilters>
-              <conditions>
-                <condition>Building</condition>
-              </conditions>
-            </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY IntegrationFailed '<projectFilter
                serverUri="&Integration.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
@@ -145,11 +136,10 @@
     <state type="state" />
     <triggers>
       <projectTriggerFilter>
-        <trigger type="scheduleTrigger" time="7:00" buildCondition="IfModificationExists" />
+        <trigger type="scheduleTrigger" time="7:00" buildCondition="ForceBuild" />
         <projectFilters>
           &ScriptsBuilding;
           &TestBuilding;
-          &IntegrationBuilding;
           &IntegrationFailed;
         </projectFilters>
       </projectTriggerFilter>
