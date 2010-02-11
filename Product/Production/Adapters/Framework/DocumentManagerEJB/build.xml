@@ -12,7 +12,7 @@
     <import file="nbproject/build-impl.xml"/>
 
     <property name="deploy.type" value="ejb" />
-    <property name="deploy.isDeployable" value="true"/>
+    <property name="deploy.isDeployable" value="false"/>
 
     <import file="../../../../build.lib.xml" />
 
@@ -115,4 +115,8 @@
             <fileset dir="${sourceLocation-DocumentManagerService-schemas}"/>
         </copy>
     </target>
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
+
 </project>
