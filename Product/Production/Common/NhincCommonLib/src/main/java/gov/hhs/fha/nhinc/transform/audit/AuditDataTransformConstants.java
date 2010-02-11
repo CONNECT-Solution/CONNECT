@@ -39,6 +39,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_NOT = "NOT";
     public static final String EVENT_ID_CODE_SYS_NAME_PRQ = "PRQ"; //Patient Discovery Request - EventID from spec: EV(110112, DCM, “Query”)
     public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, “Query”)
+    public static final String EVENT_ID_CODE_SYS_NAME_XDR = "XDR";
+    public static final String EVENT_ID_DISPLAY_NAME_XDR = "XDR";
     public static final String EVENT_ID_DISPLAY_NAME_DOCQUERY = "Query";
     public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST = "Import";
     public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_RESPONSE = "Export";
@@ -52,6 +54,7 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_DOCRETRIEVE = "EntityRetrieve";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_SD = "EntityAnnouncePatient";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_SDDEL = "EntityAnnounceRevoke";
+    public static final String EVENT_ID_DISPLAY_NAME_ENTITY_XDR = "EntityXDR";
     public static final String EVENT_ID_DISPLAY_NAME_ACK = "Acknowledge";
     public static final String EVENT_ID_DISPLAY_NAME_SUBSCRIBE = "Subscribe";
     public static final String EVENT_ID_DISPLAY_NAME_UNSUBSCRIBE = "Unsubscribe";
