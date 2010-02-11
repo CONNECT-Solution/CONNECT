@@ -18,6 +18,8 @@
             <included-library>file.reference.nux.jar</included-library>
             <included-library>file.reference.xom.jar</included-library>
             <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
+            <included-library>file.reference.toplink-essentials-agent.jar</included-library>
+            <included-library>file.reference.toplink-essentials.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
