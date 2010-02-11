@@ -12,9 +12,10 @@ CREATE TABLE auditRepository
 	senderPatientId VARCHAR(100),
 	communityId VARCHAR(255),
 	messageType VARCHAR(100) NOT NULL,
-	message BLOB,
+	message LONGBLOB,
 	PRIMARY KEY (id),
 	UNIQUE UQ_eventlog_id(id)
 ) ;
+
 
 
