@@ -566,15 +566,15 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.webui-jsf.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.openssoclientsdk.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincSAMLCallbackLib.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterAuthenticationLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.CommonServiceProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.AdapterInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.EntityServiceProxy.jar" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.NhincCommonDAO.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.NhincCommonDAO.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" iftldtodir="${build.web.dir}/WEB-INF" manifestproperty="manifest.file.reference.GatewayInternalComponentProxy.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.file.reference.AdapterAuthenticationLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.EntityServiceProxy.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.appbase.jar} ${manifest.file.reference.commons-beanutils.jar} ${manifest.file.reference.commons-collections.jar} ${manifest.file.reference.commons-digester.jar} ${manifest.file.reference.commons-fileupload-1.0.jar} ${manifest.file.reference.commons-logging.jar} ${manifest.file.reference.dataprovider.jar} ${manifest.file.reference.errorhandler.jar} ${manifest.file.reference.jsf-api.jar} ${manifest.file.reference.jsf-extensions-common-0.1.jar} ${manifest.file.reference.jsf-extensions-dynamic-faces-0.1.jar} ${manifest.file.reference.jsf-impl.jar} ${manifest.file.reference.jsfcl.jar} ${manifest.file.reference.json-2.jar} ${manifest.file.reference.sqlx.jar} ${manifest.file.reference.webui-jsf-suntheme.jar} ${manifest.file.reference.webui-jsf-tld.zip} ${manifest.file.reference.webui-jsf.jar} ${manifest.file.reference.openssoclientsdk.jar} ${manifest.file.reference.NhincSAMLCallbackLib.jar} ${manifest.file.reference.CommonServiceProxy.jar} ${manifest.file.reference.AdapterInternalComponentProxy.jar} ${manifest.file.reference.EntityServiceProxy.jar} ${manifest.file.reference.NhincCommonDAO.jar} ${manifest.file.reference.GatewayInternalComponentProxy.jar} "/>
         </manifest>
     </target>
     <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
@@ -598,10 +598,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.webui-jsf.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.openssoclientsdk.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.NhincSAMLCallbackLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.AdapterAuthenticationLib.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.CommonServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.AdapterInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.EntityServiceProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${file.reference.NhincCommonDAO.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.GatewayInternalComponentProxy.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.exceptionhandler-runtime.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
     </target>

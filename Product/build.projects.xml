@@ -50,18 +50,6 @@
     <name>NhincGatewayLib</name>
     <directory>/Production/Gateway/NhincGatewayLib</directory>
   </project>
-  <project>
-    <name>AdapterPIPLib</name>
-    <directory>/Production/Adapters/General/AdapterPIPLib</directory>
-  </project>
-  <project>
-    <name>AdapterAuthenticationLib</name>
-    <directory>/Production/Adapters/General/AdapterAuthenticationLib</directory>
-  </project>
-  <project>
-    <name>AdapterReidentificationLib</name>
-    <directory>/Production/Adapters/General/AdapterReidentificationLib</directory>
-  </project>
    <project>
     <name>AdapterDocRepository2Soap12Lib</name>
     <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Lib</directory>
@@ -70,15 +58,6 @@
     <name>AdapterInternalComponentProxy</name>
     <directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
   </project>
-  <project>
-    <name>AdapterPolicyEngineLib</name>
-    <directory>/Production/Adapters/General/AdapterPolicyEngineLib</directory>
-  </project>  
-  <project>
-    <name>MpiLib</name>
-    <directory>/Production/Adapters/General/MpiLib</directory>
-  </project>
-    
   <project>
     <name>CommonServiceProxy</name>
     <directory>/Production/Common/CommonServiceProxy</directory>
