@@ -49,7 +49,7 @@
 		</saml2:Attribute>
 	</saml2:AttributeStatement>
 	<saml2:AuthzDecisionStatement Decision="Permit" Resource="https://localhost:8181/findAuditEvents/AuditQuery">
-		<saml2:Action Namespace="urn:oasis:names:tc:SAML:1.0:action:rwedc">EXECUTE</saml2:Action>
+		<saml2:Action Namespace="urn:oasis:names:tc:SAML:1.0:action:rwedc">Execute</saml2:Action>
 		<saml2:Evidence>
 			<saml2:Assertion ID="5b0e3336-3c51-4df3-88a3-6622c8c41165" IssueInstant="2009-09-01T16:42:23.445Z" Version="2.0">
 				<saml2:Issuer Format="urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName">CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US</saml2:Issuer>

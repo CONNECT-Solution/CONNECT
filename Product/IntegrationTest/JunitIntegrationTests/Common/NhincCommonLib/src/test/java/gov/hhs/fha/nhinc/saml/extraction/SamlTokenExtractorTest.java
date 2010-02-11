@@ -177,7 +177,7 @@ public class SamlTokenExtractorTest
         assertNotNull("oAssertOut.SamlAuthzDecisionStatement was null.", oAssertOut.getSamlAuthzDecisionStatement());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Decision", "Permit", oAssertOut.getSamlAuthzDecisionStatement().getDecision());
         assertEquals("oAssertOut.SamlAuthzDecisionStatement.Resource", "https://localhost:8181/findAuditEvents/AuditQuery", oAssertOut.getSamlAuthzDecisionStatement().getResource());
-        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Action", "EXECUTE", oAssertOut.getSamlAuthzDecisionStatement().getAction());
+        assertEquals("oAssertOut.SamlAuthzDecisionStatement.Action", "Execute", oAssertOut.getSamlAuthzDecisionStatement().getAction());
 
         // Authorization Decision Statement Evidence
         //-------------------------------------------

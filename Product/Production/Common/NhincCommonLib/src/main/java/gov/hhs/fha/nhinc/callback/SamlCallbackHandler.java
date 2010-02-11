@@ -53,8 +53,8 @@ public class SamlCallbackHandler implements CallbackHandler {
         AUTHZ_DECISION_DENY, AUTHZ_DECISION_INDETERMINATE};
     private static final List<String> VALID_AUTHZ_DECISION_LIST = Collections.unmodifiableList(Arrays.asList(VALID_AUTHZ_DECISION_ARRAY));
     // Authorization Decision Action is always set to EXECUTE
-    private static final String AUTHZ_DECISION_ACTION_EXECUTE = "EXECUTE";
-    private static final String AUTHZ_DECISION_ACTION_NS = "urn:nhin:names:hl7:rbac:4.00:operation";
+    private static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
+    private static final String AUTHZ_DECISION_ACTION_NS = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
     // Valid Name Identification values
     private static final String UNSPECIFIED_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
     private static final String EMAIL_NAME_ID = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
@@ -143,7 +143,7 @@ public class SamlCallbackHandler implements CallbackHandler {
      * @throws javax.security.auth.callback.UnsupportedCallbackException
      */
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        log.debug(" **********************************  Handle SAML Callback Begin**************************");
+        log.debug(" **********************************  Handle SAML Callback Begin   **************************");
         for (int i = 0; i < callbacks.length; i++) {
             if (callbacks[i] instanceof SAMLCallback) {
                 SAMLCallback samlCallback = (SAMLCallback) callbacks[i];
@@ -166,7 +166,7 @@ public class SamlCallbackHandler implements CallbackHandler {
                 throw new UnsupportedCallbackException(null, "Unsupported Callback Type Encountered");
             }
         }
-        log.debug("**********************************  Handle SAML Callback End**************************");
+        log.debug("**********************************  Handle SAML Callback End  **************************");
     }
 
     /**
