@@ -10,6 +10,16 @@
 	        </state>
         </states>
         <services>
+                    <service>
+                <name>serviceXDR</name>
+                <description>NHIN XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyxdrsecured</name>
+                <description>NHINC PROXY XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
+            </service>  
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -368,10 +378,20 @@
 	           <name>US-NY</name>
 	        </state>
 	        <state>
-	           <name>US-VA</name>
+	           <name>US-VA</name> 
 	        </state>
         </states>
         <services>
+                    <service>
+                <name>serviceXDR</name>
+                <description>NHIN XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyxdrsecured</name>
+                <description>NHINC PROXY XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
+            </service>  
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -723,6 +743,16 @@
 	        </state>
         </states>
         <services>
+                    <service>
+                <name>serviceXDR</name>
+                <description>NHIN XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyxdrsecured</name>
+                <description>NHINC PROXY XDR</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
+            </service>  
 	            <service>
 	                <name>subjectdiscovery</name>
 	                <description>subjectdiscovery</description>
