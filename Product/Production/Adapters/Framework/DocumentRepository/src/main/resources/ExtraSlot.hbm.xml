@@ -7,8 +7,8 @@
   	<id name="extraSlotId" column="extraslotid" type="long">
         	<generator class="increment" />
 	</id>
-        <many-to-one 
-  		name="document" 
+        <many-to-one
+  		name="document"
   		column="documentid" 
   		not-null="true"
   		lazy="false" />

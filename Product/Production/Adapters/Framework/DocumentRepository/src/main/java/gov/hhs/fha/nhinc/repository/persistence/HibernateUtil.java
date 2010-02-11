@@ -18,6 +18,7 @@ public class HibernateUtil
 
     private static final SessionFactory sessionFactory;
     private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static final String HIBERNATE_DYNAMIC_DOCUMENT_REPOSITORY = "dyndocrepo.hibernate.cfg.xml";
 
     static
     {
@@ -37,16 +38,16 @@ public class HibernateUtil
     {
         return sessionFactory;
     }
-        private static File getConfigFile(){
+    private static File getConfigFile(){
         File result = null;
 
         try
         {
-            result = HibernateAccessor.getHibernateFile(NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY);
+            result = HibernateAccessor.getHibernateFile(HIBERNATE_DYNAMIC_DOCUMENT_REPOSITORY);
         }
         catch (Exception ex)
         {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex );
+            log.error("Unable to load " + HIBERNATE_DYNAMIC_DOCUMENT_REPOSITORY + " " + ex.getMessage(), ex );
         }
 
 
