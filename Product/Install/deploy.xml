@@ -302,8 +302,7 @@
     </copy>
     <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
       <filelist dir="${deployment.glassfish.domain.config.home}">
-        <file name="keystore.jks"/>
-        <file name="cacerts.jks"/>
+        <file name="*.jks"/>
       </filelist>
     </copy>
   </target>
