@@ -12,7 +12,7 @@
     <import file="nbproject/build-impl.xml"/>
 
     <property name="deploy.type" value="ejb" />
-    <property name="deploy.isDeployable" value="true"/>
+    <property name="deploy.isDeployable" value="false"/>
 
     <import file="../../../../build.lib.xml" />
 
@@ -144,45 +144,7 @@
             <fileset dir="${sourceLocation-AdapterDocRetrieveSecuredSchemas}" />
         </copy>
     </target>
-
-    <target depends="init" if="no.dist.ear.dir" name="-deps-module-jar" unless="no.deps">
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-    		
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-    <target depends="init" if="dist.ear.dir" name="-deps-ear-jar" unless="no.deps">
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="jar"/>
-    </target>
-
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
-        <property name="project.NhincLib.Absolute" location="${project.NhincLib}"/>
-        <property name="project.NhincSamlTokenLib.Absolute" location="${project.NhincSamlTokenLib}"/>
-        <ant dir="${project.NhincLib.Absolute}" antfile="${project.NhincLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-        <ant dir="${project.NhincSamlTokenLib.Absolute}" antfile="${project.NhincSamlTokenLib.Absolute}/build.xml" inheritall="false" target="clean"/>
-    </target>
     
-    <target depends="compile" name="library-inclusion-in-archive">
-        <copy file="${reference.NhincLib.jar}" todir="${build.classes.dir}"/>
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${build.classes.dir}"/>
-    </target>
-    
-    <target depends="compile" name="library-inclusion-in-manifest">
-        <basename file="${reference.NhincLib.jar}" property="included.lib.reference.NhincLib.jar"/>
-        <copy file="${reference.NhincLib.jar}" todir="${dist.ear.dir}"/>
-        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincLib.jar} "/>
-        </manifest>
-        <basename file="${reference.NhincSamlTokenLib.jar}" property="included.lib.reference.NhincSamlTokenLib.jar"/>
-        <copy file="${reference.NhincSamlTokenLib.jar}" todir="${dist.ear.dir}"/>
-        <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.NhincSamlTokenLib.jar} "/>
-        </manifest>
-    </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
