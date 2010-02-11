@@ -41,6 +41,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_CODE_SYS_NAME_PRS = "PRS"; //Patient Discovery Response - EventID from spec: EV(110112, DCM, “Query”)
     public static final String EVENT_ID_CODE_SYS_NAME_XDR = "XDR";
     public static final String EVENT_ID_DISPLAY_NAME_XDR = "XDR";
+    public static final String EVENT_ID_DISPLAY_NAME_XDR_PROXY = "XDRProxy";
+    public static final String EVENT_ID_DISPLAY_NAME_XDR_ENTITY = "XDREntity";
     public static final String EVENT_ID_DISPLAY_NAME_DOCQUERY = "Query";
     public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_REQUEST = "Import";
     public static final String EVENT_ID_DISPLAY_NAME_DOCRETRIEVE_RESPONSE = "Export";
@@ -50,6 +52,7 @@ public class AuditDataTransformConstants {
     public static final String EVENT_ID_DISPLAY_NAME_SDRID = "Subject Discovery Reidentification";
     public static final String EVENT_ID_DISPLAY_NAME_PDREQ = "Patient Discovery Request";
     public static final String EVENT_ID_DISPLAY_NAME_PDRES = "Patient Discovery Response";
+    public static final String EVENT_ID_DISPLAY_NAME_XDRRESPONSE = "XDR Response";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_DOCQUERY = "EntityQuery";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_DOCRETRIEVE = "EntityRetrieve";
     public static final String EVENT_ID_DISPLAY_NAME_ENTITY_SD = "EntityAnnouncePatient";

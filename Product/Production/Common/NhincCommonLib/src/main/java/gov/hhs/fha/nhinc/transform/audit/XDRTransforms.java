@@ -106,13 +106,188 @@ public class XDRTransforms {
 
         return result;
     }
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType oRequest, AssertionType oAssertion, String direction, String _interface)
+    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction, String _interface)
     {
-        return null;
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(request == null)
+        {
+            log.error("Requst Object was null");
+            return null;
+        }
+        if(assertion == null)
+        {
+            log.error("Assertion was null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); //null values checked from the earlier call to areRequired201305fieldsNull() method
+        auditMsg = new AuditMessageType();
+
+
+        // Create EventIdentification
+        CodedValueType eventID = getCodedValueTypeForXDRProxy();
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(patId);
+
+        auditMsg.getActiveParticipant().add(participant);
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalRequestMessage(baOutStrm, request);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+
+        return result;
     }
-    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType oRequest, AssertionType oAssertion, String direction, String _interface)
+    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction, String _interface)
     {
-        return null;
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(request == null)
+        {
+            log.error("Requst Object was null");
+            return null;
+        }
+        if(assertion == null)
+        {
+            log.error("Assertion was null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredXDSfieldsNull(request.getProvideAndRegisterDocumentSetRequest(), assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        String patId = getIdentifiersFromRequest(request.getProvideAndRegisterDocumentSetRequest()); //null values checked from the earlier call to areRequired201305fieldsNull() method
+        auditMsg = new AuditMessageType();
+
+
+        // Create EventIdentification
+        CodedValueType eventID = getCodedValueTypeForXDREntity();
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType(patId);
+
+        auditMsg.getActiveParticipant().add(participant);
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalRequestMessage(baOutStrm, request);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+
+        return result;
+    }
+
+    public LogEventRequestType transformResponseToAuditMsg(RegistryResponseType response, AssertionType assertion, String direction, String _interface)
+    {
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(response == null)
+        {
+            log.error("Requst Object was null");
+            return null;
+        }
+        if(assertion == null)
+        {
+            log.error("Assertion was null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredResponseFieldsNull(response, assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        auditMsg = new AuditMessageType();
+        // Create EventIdentification
+        CodedValueType eventID = getCodedValueTypeForXDRResponse();
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        auditMsg.getActiveParticipant().add(participant);
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalResponseMessage(baOutStrm, response);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+        
+        return result;
+
     }
     protected Log createLogger()
     {
@@ -159,6 +334,37 @@ public class XDRTransforms {
 
         return false;
     }
+    protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion)
+    {
+         if(assertion == null)
+        {
+            log.error("Assertion object is null");
+            return true;
+        }
+        if(response == null)
+        {
+            log.error("ProvideAndRegisterDocumentSetRequestType object is null");
+            return true;
+        }
+        if (areRequiredUserTypeFieldsNull(assertion))
+        {
+            log.error("One of more UserInfo fields from the Assertion object were null.");
+            return true;
+        }
+        if(response.getStatus() == null)
+        {
+            log.error("Response does not contain a status");
+            return true;
+        }
+        if(response.getStatus().isEmpty())
+        {
+            log.error("Response does not contain a status");
+            return true;
+        }
+
+         return false;
+    }
+
     protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion)
     {
         boolean bReturnVal = false;
@@ -292,6 +498,71 @@ public class XDRTransforms {
             throw new RuntimeException();
         }
     }
+     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) throws RuntimeException {
+        // Put the contents of the actual message into the Audit Log Message
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonproxy");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007", "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
+            JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType> element;
+
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class, request);
+
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the message.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) throws RuntimeException {
+        // Put the contents of the actual message into the Audit Log Message
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonproxy");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonentity", "RespondingGatewayProvideAndRegisterDocumentSetSecuredRequest");
+            JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType> element;
+
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class, request);
+
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the message.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+
+    protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response) throws RuntimeException {
+        // Put the contents of the actual message into the Audit Log Message
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.rs._3");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0", "RegistryResponse");
+            JAXBElement<RegistryResponseType> element;
+
+            element = new JAXBElement<RegistryResponseType>(xmlqname, RegistryResponseType.class, response);
+
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the message.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
     private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo)
     {
         AuditSourceIdentificationType result;
@@ -321,6 +592,35 @@ public class XDRTransforms {
                                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR);
         return eventID;
     }
+    private CodedValueType getCodedValueTypeForXDRProxy() {
+        // Create EventIdentification
+        CodedValueType eventID = AuditDataTransformHelper
+                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY,
+                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_PROXY);
+        return eventID;
+    }
+    private CodedValueType getCodedValueTypeForXDREntity() {
+        // Create EventIdentification
+        CodedValueType eventID = AuditDataTransformHelper
+                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY,
+                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY);
+        return eventID;
+    }
+    private CodedValueType getCodedValueTypeForXDRResponse() {
+        // Create EventIdentification
+        CodedValueType eventID = AuditDataTransformHelper
+                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
+                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDR,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
+        return eventID;
+    }
+
+
     private EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
         EventIdentificationType oEventIdentificationType =
                 AuditDataTransformHelper.createEventIdentification(AuditDataTransformConstants.EVENT_ACTION_CODE_READ,
