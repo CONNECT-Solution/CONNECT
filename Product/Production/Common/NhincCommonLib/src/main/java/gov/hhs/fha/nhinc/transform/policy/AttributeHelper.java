@@ -9,7 +9,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
-import gov.hhs.fha.nhinc.callback.Base64Coder;
+import gov.hhs.fha.nhinc.util.Base64Coder;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;

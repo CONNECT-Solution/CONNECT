@@ -20,7 +20,7 @@
 *  &nbsp; New method encode(byte[],int) added.<br>
 *  &nbsp; New method decode(String) added.<br>
 */
-package gov.hhs.fha.nhinc.callback;
+package gov.hhs.fha.nhinc.util;
 
 public class Base64Coder {
 
