@@ -17,6 +17,9 @@
             <included-library>file.reference.hibernate3.jar</included-library>
             <included-library>file.reference.jdbc2_0-stdext.jar</included-library>
             <included-library>file.reference.jta.jar</included-library>
+            <included-library>file.reference.toplink-essentials-agent.jar</included-library>
+            <included-library>file.reference.toplink-essentials.jar</included-library>
+            <included-library>libs.hibernate-support.classpath</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
