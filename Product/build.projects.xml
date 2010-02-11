@@ -50,10 +50,6 @@
     <name>NhincGatewayLib</name>
     <directory>/Production/Gateway/NhincGatewayLib</directory>
   </project>
-   <project>
-    <name>AdapterDocRepository2Soap12Lib</name>
-    <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Lib</directory>
-  </project>
  <project>
     <name>AdapterInternalComponentProxy</name>
     <directory>/Production/Adapters/General/AdapterInternalComponentProxy</directory>
@@ -112,5 +108,9 @@
   <project>
     <name>UDDIModifierGUI</name>
     <directory>/Production/Common/UDDIModifierGUI</directory>
+  </project>
+  <project>
+    <name>AdapterDocRepository2Soap12Web</name>
+    <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
   </project>
 </projects>
