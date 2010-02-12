@@ -29,12 +29,21 @@
   </target>
   
   <target name="SoapUI.RunTests.Log.Backup" override="True">
+    <property name="Log.Backup.Zip.FileName" value="${ProjectFullName}_Binaries_${CCNetLabel}.zip"/>
+    <property name="Log.Backup.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Log.Backup.Zip.FileName}"/>
+    
     <call target="GlassFish.StopServer"/>
-    <copy todir="${Common.Directory.Artifact.Path}" overwrite="True">
+    <zip zipfile="${Log.Backup.Zip.FilePath}">
       <fileset basedir="${GlassFish.Domain.Server.Log.Dir.Path}">
         <include name="${GlassFish.Domain.Server.Log.File.Base.Name}"/>
       </fileset>
-    </copy>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${Log.Backup.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link"/>
+    
     <call target="GlassFish.StartServer"/>
   </target>
   
