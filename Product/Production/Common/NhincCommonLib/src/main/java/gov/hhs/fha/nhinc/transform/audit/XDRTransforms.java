@@ -49,6 +49,7 @@ public class XDRTransforms {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
+        log.debug("Begin transformRequestToAuditMsg() -- NHIN");
         if(request == null)
         {
             log.error("Requst Object was null");
@@ -104,6 +105,7 @@ public class XDRTransforms {
         result.setDirection(direction);
         result.setInterface(_interface);
 
+        log.debug("end transformRequestToAuditMsg() -- NHIN");
         return result;
     }
     public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction, String _interface)
@@ -172,6 +174,8 @@ public class XDRTransforms {
     {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
+
+        log.debug("Begin transformRequestToAuditMsg() -- Entity");
 
         if(request == null)
         {
@@ -295,44 +299,55 @@ public class XDRTransforms {
     }
     protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
     {
-        if(assertion == null)
+        try
         {
-            log.error("Assertion object is null");
-            return true;
-        }
-        if(body == null)
-        {
-            log.error("ProvideAndRegisterDocumentSetRequestType object is null");
-            return true;
-        }
+            
+            if(assertion == null)
+            {
+                log.error("Assertion object is null");
+                return true;
+            }
+            if(body == null)
+            {
+                log.error("ProvideAndRegisterDocumentSetRequestType object is null");
+                return true;
+            }
 
-        if (areRequiredUserTypeFieldsNull(assertion))
-        {
-            log.error("One of more UserInfo fields from the Assertion object were null.");
-            return true;
-        }
-        if(body.getSubmitObjectsRequest() == null)
-        {
-            log.error("No Registry Object");
-            return true;
-        }
-        if(body.getDocument() == null)
-        {
-            log.error("No Document");
-            return true;
-        }
-        if (body.getSubmitObjectsRequest().getId().isEmpty())
-        {
-            log.error("SubmitObjectsRequest has no id");
-            return true;
-        }
-        if(body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty())
-        {
-            log.error("No Registry Objects");
-            return true;
-        }
+            if (areRequiredUserTypeFieldsNull(assertion))
+            {
+                log.error("One of more UserInfo fields from the Assertion object were null.");
+                return true;
+            }
 
-        return false;
+            if(body.getSubmitObjectsRequest() == null)
+            {
+                log.error("No Registry Object");
+                return true;
+            }
+
+
+            if (body.getSubmitObjectsRequest().getId().isEmpty())
+            {
+                log.error("SubmitObjectsRequest has no id");
+                return true;
+            }
+            if(body.getSubmitObjectsRequest().getRegistryObjectList() == null)
+            {
+                log.error("No Registry Objects");
+                return true;
+            }
+            if(body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty())
+            {
+                log.error("No Identifiables on Registry Object");
+                return true;
+            }
+            return false;
+        }
+        catch (Exception ex)
+        {
+            log.error("Encountered Error: " + ex.getMessage());
+            return true;
+        }
     }
     protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion)
     {
@@ -385,7 +400,7 @@ public class XDRTransforms {
 
             if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null)
             {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): " + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             }
             else
             {
@@ -396,7 +411,7 @@ public class XDRTransforms {
 
             if (oAssertion.getUserInfo().getOrg().getName() != null)
             {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: " + oAssertion.getUserInfo().getOrg().getName());
             }
             else
             {
@@ -479,6 +494,7 @@ public class XDRTransforms {
     }
     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, ProvideAndRegisterDocumentSetRequestType request) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
+        log.debug("Begin marshalRequestMessage() -- NHIN Interface");
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
@@ -488,11 +504,14 @@ public class XDRTransforms {
             javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007", "ProvideAndRegisterDocumentSetRequest");
             JAXBElement<ProvideAndRegisterDocumentSetRequestType> element;
             
-            element = new JAXBElement<ProvideAndRegisterDocumentSetRequestType>(xmlqname, ProvideAndRegisterDocumentSetRequestType.class, request);
+//            element = new JAXBElement<ProvideAndRegisterDocumentSetRequestType>(xmlqname, ProvideAndRegisterDocumentSetRequestType.class, request);
+
+            ihe.iti.xds_b._2007.ObjectFactory factory = new ihe.iti.xds_b._2007.ObjectFactory();
+            element = factory.createProvideAndRegisterDocumentSetRequest(request);
 
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            log.debug("Done marshalling the ProvideAndRegisterDocumentSetRequestType  message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
