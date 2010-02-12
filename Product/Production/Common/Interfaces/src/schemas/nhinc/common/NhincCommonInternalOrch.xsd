@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"
             xmlns:tns="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"
@@ -84,7 +84,15 @@
             <xsd:element name="assertion" type="nccommon:AssertionType" />
         </xsd:sequence>
     </xsd:complexType>
-    <xsd:element name="NotifyRequest" type="tns:NotifyRequestType" />
-    
+    <xsd:element name="NotifyRequest" type="tns:NotifyRequestType" />	
+    <xsd:complexType name="RespondingGateway_ProvideAndRegisterDocumentSetRequestType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="ProvideAndRegisterDocumentSetRequest" type="ihe:ProvideAndRegisterDocumentSetRequestType">
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="RespondingGateway_ProvideAndRegisterDocumentSetRequest" type="tns:RespondingGateway_ProvideAndRegisterDocumentSetRequestType"/>
+	
 
 </xsd:schema>
