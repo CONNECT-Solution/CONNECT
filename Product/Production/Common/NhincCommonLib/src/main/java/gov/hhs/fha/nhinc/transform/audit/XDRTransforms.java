@@ -374,7 +374,7 @@ public class XDRTransforms {
         {
             if (oAssertion.getUserInfo().getUserName() != null)
             {
-                log.error("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
+                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: " + oAssertion.getUserInfo().getUserName());
             }
             else
             {
