@@ -23,6 +23,7 @@ import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
 import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxyObjectFactory;
 import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxy;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLog;
+import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 
 /**
  *
@@ -48,16 +49,18 @@ public class NhincProxyXDRSecuredImpl {
         RegistryResponseType response = null;
         
         //TODO: LogRequest
-        XDRAuditLog auditLog = new XDRAuditLog();
-        //AcknowledgementType ack = auditLog.auditProxyRequest(body, assertion);
+        XDRAuditLogger auditLog = new XDRAuditLogger();
+        AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        log.debug("ack: " + ack.getMessage());
 
         NhinXDRProxyObjectFactory factory = new NhinXDRProxyObjectFactory();
         NhinXDRProxy proxy = factory.getNhinXDRProxy();
 
         response = proxy.provideAndRegisterDocumentSetB(body.getProvideAndRegisterDocumentSetRequest(), assertion, body.getNhinTargetSystem());
 
-        //ack = auditLog.auditProxyResponse(response, assertion);
+        ack = auditLog.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
+        log.debug("ack: " + ack.getMessage());
         //TODO: Log Response
         return response;
     }
