@@ -773,7 +773,7 @@ public class AuditRepositoryLogger {
 
         if (isServiceEnabled()) {
             XDRTransforms auditTransformer = new XDRTransforms();
-            auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, direction, direction);
+            auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");

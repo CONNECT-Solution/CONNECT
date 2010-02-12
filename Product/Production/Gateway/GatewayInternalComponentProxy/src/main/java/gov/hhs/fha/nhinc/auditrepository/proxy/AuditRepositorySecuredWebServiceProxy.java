@@ -61,6 +61,10 @@ public class AuditRepositorySecuredWebServiceProxy implements AuditRepositoryPro
         String url = null;
         AcknowledgementType result = new AcknowledgementType();
         LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
+        if(request.getAuditMessage() == null)
+        {
+            log.error("Audit Request is null");
+        }
         secureRequest.setAuditMessage(request.getAuditMessage());
         secureRequest.setAssertion(assertion);
         secureRequest.setDirection(request.getDirection());
