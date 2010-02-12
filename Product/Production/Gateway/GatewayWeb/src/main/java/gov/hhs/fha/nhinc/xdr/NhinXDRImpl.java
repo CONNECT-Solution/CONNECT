@@ -34,11 +34,22 @@ public class NhinXDRImpl
      RegistryResponseType result;
 
      log.debug("Entering NhinXDRImpl.documentRepositoryProvideAndRegisterDocumentSetB");
+
+     AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+     XDRAuditLogger auditLogger = new XDRAuditLogger();
+     AcknowledgementType ack = auditLogger.auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+
+
+     log.debug(ack);
+     
      result = createPositiveAck();
+
+     ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
      return result;
 
-}
+    }
+
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
