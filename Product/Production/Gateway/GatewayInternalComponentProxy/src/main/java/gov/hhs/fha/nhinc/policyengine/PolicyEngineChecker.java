@@ -16,6 +16,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
 import gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
+import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 
 /**
  *
@@ -141,5 +142,9 @@ public class PolicyEngineChecker {
     public CheckPolicyRequestType checkPolicyNotify(NotifyEventType request) {
         PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
         return policyTransformer.transformNotifyToCheckPolicy(request);
+    }
+    public CheckPolicyRequestType checkPolicyXDRRequest(XDREventType request) {
+        PolicyEngineTransformer policyTransformer = new PolicyEngineTransformer();
+        return policyTransformer.transformXDRRequestToCheckPolicy(request);
     }
 }
