@@ -33,7 +33,7 @@ public class XDRAuditLog {
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
-    public AcknowledgementType auditProxyRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
+    public AcknowledgementType auditProxyRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
          AcknowledgementType ack = new AcknowledgementType();
         if (request == null)
         {
@@ -112,9 +112,8 @@ public class XDRAuditLog {
     }
 
     protected LogEventRequestType getLogEventRequestTypeForProxyRequestMessage(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
-//            PatientDiscoveryTransforms oPatientDiscoveryTransforms = new PatientDiscoveryTransforms();
-        //LogEventRequestType message = new PatientDiscoveryTransforms().transformNhinXDRRequestToAuditMsg(request.getProvideAndRegisterDocumentSetRequest(), assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-       LogEventRequestType message = new LogEventRequestType();
+
+        LogEventRequestType message = new LogEventRequestType();
 
         return message;
     }
