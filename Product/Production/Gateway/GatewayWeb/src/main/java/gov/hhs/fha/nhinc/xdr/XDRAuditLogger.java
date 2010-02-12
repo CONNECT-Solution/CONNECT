@@ -12,23 +12,46 @@ import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
  * @author dunnek
  */
 public class XDRAuditLogger {
+    private static Log log = null;
+
+    public XDRAuditLogger()
+    {
+        log= createLogger();
+    }
     public AcknowledgementType auditNhinXDR (ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, String direction) {
         AcknowledgementType ack = new AcknowledgementType ();
 
+        log.debug("begin auditNhinXDR()");
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logXDRReq(request, assertion, direction);
 
         if(auditLogMsg != null)
         {
-            audit(auditLogMsg, assertion);
+            if(auditLogMsg.getAuditMessage() != null)
+            {
+                audit(auditLogMsg, assertion);
+            }
+            else
+            {
+                log.error("auditLogMsg.getAuditMessage() is null");
+            }
         }
+        else
+        {
+            log.error("auditLogMsg is null");
+        }
+
+        log.debug("begin auditNhinXDR()");
+        log.debug("Ack message = " + ack.getMessage());
         return ack;
     }
     public AcknowledgementType auditXDR(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction)
@@ -64,6 +87,10 @@ public class XDRAuditLogger {
             }
         }
         return ack;
+    }
+    protected Log createLogger()
+    {
+        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
     private AcknowledgementType audit(LogEventRequestType auditLogMsg, AssertionType assertion)
     {

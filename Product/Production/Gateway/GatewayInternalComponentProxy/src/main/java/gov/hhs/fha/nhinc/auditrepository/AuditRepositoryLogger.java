@@ -744,6 +744,11 @@ public class AuditRepositoryLogger {
         log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         LogEventRequestType auditMsg = null;
 
+        if(message == null)
+        {
+            log.error("Message is null");
+            return null;
+        }
 
         if (isServiceEnabled()) {
             XDRTransforms auditTransformer = new XDRTransforms();            

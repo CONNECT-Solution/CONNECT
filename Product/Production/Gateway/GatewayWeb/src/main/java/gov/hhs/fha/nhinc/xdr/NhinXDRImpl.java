@@ -37,6 +37,7 @@ public class NhinXDRImpl
 
      AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
      XDRAuditLogger auditLogger = new XDRAuditLogger();
+     log.debug("Request object is nul = " + (body == null));
      AcknowledgementType ack = auditLogger.auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
 
