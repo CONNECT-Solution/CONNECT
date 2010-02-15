@@ -17,7 +17,7 @@
             <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.NhincCommonTypesLib.jar</included-library>
             <included-library>file.reference.NhincDataTransformsLib.jar</included-library>
-            <included-library>file.reference.NhincLib.jar</included-library>
+            <included-library>file.reference.NhincCommonLib.jar</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>

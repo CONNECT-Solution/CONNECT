@@ -112,7 +112,7 @@
     <target depends="compile" name="library-inclusion-in-manifest">
 
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${included.lib.reference.MpiLib.jar} ${included.lib.reference.NhincLib.jar} "/>
+            <attribute name="Class-Path" value="${included.lib.reference.MpiLib.jar} "/>
         </manifest>
     </target>
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
