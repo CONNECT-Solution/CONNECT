@@ -1,0 +1,592 @@
+<CareRecord_QUPC_IN043200UV01Response xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns="urn:hl7-org:v3">
+    <careRecord typeCode="SUBJ">
+        <registrationEvent classCode="REG" moodCode="EVN">
+            <statusCode code="active"/>
+            <custodian typeCode="CST">
+                <assignedEntity classCode="ASSIGNED">
+                    <id extension="AHLTA" root="2.16.840.1.113883.3.198"/>
+                </assignedEntity>
+            </custodian>
+            <subject2 typeCode="SUBJ">
+                <careProvisionEvent classCode="ENC" moodCode="EVN">
+                    <recordTarget typeCode="RCT">
+                        <patient classCode="PAT">
+                            <id extension="D123401"/>
+                            <patientPerson classCode="PSN" determinerCode="INSTANCE"/>
+                        </patient>
+                    </recordTarget>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="1"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Immunologic disorder</text>
+                            <effectiveTime value="20090508"/>
+                            <value code="279.9" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Immunologic disorder" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="2"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Influenza</text>
+                            <effectiveTime value="20090324"/>
+                            <value code="487.1" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Influenza" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="3"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Malignant myopia</text>
+                            <effectiveTime value="20090304"/>
+                            <value code="360.21" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Malignant myopia" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="4"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Central diabetes insipidus</text>
+                            <effectiveTime value="20090210"/>
+                            <value code="253.5" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Central diabetes insipidus" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="5"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>A fever was observed</text>
+                            <effectiveTime value="20090113"/>
+                            <value code="780.60" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="A fever was observed" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="6"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Shoulder sprain</text>
+                            <effectiveTime value="20081030"/>
+                            <value code="840.8" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Shoulder sprain" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="7"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Food poisoning</text>
+                            <effectiveTime value="20081020"/>
+                            <value code="005.9" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Food poisoning" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+						</observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="8"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Mucinous adenocarcinoma of ill-defined site</text>
+                            <effectiveTime value="20081017"/>
+                            <value code="195.8" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Mucinous adenocarcinoma of ill-defined site" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="9"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Sore throat</text>
+                            <effectiveTime value="20081015"/>
+                            <value code="462" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Sore throat" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="10"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Acute urate nephropathy</text>
+                            <effectiveTime value="20080805"/>
+                            <value code="274.10" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Acute urate nephropathy" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="11"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Abdominal pain</text>
+                            <effectiveTime value="20080423"/>
+                            <value code="789.00" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Abdominal pain" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="12"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Migraine headache</text>
+                            <effectiveTime value="20080418"/>
+                            <value code="346.90" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Migraine headache" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="13"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Cluster headache</text>
+                            <effectiveTime value="20080418"/>
+                            <value code="339.00" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Cluster headache" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="14"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Malignant digestive gastrinoma</text>
+                            <effectiveTime value="20080416"/>
+                            <value code="159.9" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Malignant digestive gastrinoma" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MOUSE</family>
+                                            <given>MINNIE</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="15"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Dissociative amnesia</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.12" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Dissociative amnesia" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="16"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Depression with anxiety</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.4" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Depression with anxiety" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="17"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Depersonalization disorder</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.6" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Depersonalization disorder" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="18"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Conversion disorder</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.11" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Conversion disorder" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="19"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Claustrophobia</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.29" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Claustrophobia" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="20"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Bashful kidney</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.23" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Bashful kidney" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="21"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Body dysmorphic disorder</text>
+                            <effectiveTime value="20080414"/>
+                            <value code="300.7" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Body dysmorphic disorder" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="22"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Normal pre-employment screening examination</text>
+                            <effectiveTime value="20080410"/>
+                            <value code="V70.5" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Normal pre-employment screening examination" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="23"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Patient education about a proper diet</text>
+                            <effectiveTime value="20080407"/>
+                            <value code="V65.3" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Patient education about a proper diet" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="24"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Family history of heart disease</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="V17.49" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Family history of heart disease" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="25"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Family history of cancer</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="V16.9" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Family history of cancer" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="26"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Cancer</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="V16.8" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Cancer" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+						</observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="27"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Family history of a goiter</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="V18.19" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Family history of a goiter" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="28"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Family history of Huntington chorea</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="V17.2" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Family history of Huntington chorea" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="29"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Ankle sprain</text>
+                            <effectiveTime value="20080402"/>
+                            <value code="845.00" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Ankle sprain" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="30"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Abnormal head movements</text>
+                            <effectiveTime value="20080325"/>
+                            <value code="781.0" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Abnormal head movements" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="31"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Acquired deformity of the spine</text>
+                            <effectiveTime value="20080325"/>
+                            <value code="738.5" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Acquired deformity of the spine" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="32"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Headache</text>
+                            <effectiveTime value="20080325"/>
+                            <value code="784.0" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Headache" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="33"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Patient education about procreative management</text>
+                            <effectiveTime value="20080304"/>
+                            <value code="V26.49" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Patient education about procreative management" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="34"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Patient education about facilitating pregnancy</text>
+                            <effectiveTime value="20080304"/>
+                            <value code="V26.49" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Patient education about facilitating pregnancy" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="35"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Patient education about timing of peak fertility with body temperature chart given</text>
+                            <effectiveTime value="20080304"/>
+                            <value code="V26.49" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Patient education about timing of peak fertility with body temperature chart given" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="36"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Anxiety</text>
+                            <effectiveTime value="20080303"/>
+                            <value code="300.00" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Anxiety" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+										</name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="37"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Physical examination</text>
+                            <effectiveTime value="20080221"/>
+                            <value code="V72.85" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Physical examination" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="38"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Headache syndromes</text>
+                            <effectiveTime value="20080213"/>
+                            <value code="339.89" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Headache syndromes" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>SHP FOUR</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="39"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Blepharospasm</text>
+                            <effectiveTime value="20080109"/>
+                            <value code="333.81" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Blepharospasm" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="40"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Dermatitis due to cold weather</text>
+                            <effectiveTime value="20070824"/>
+                            <value code="692.89" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Dermatitis due to cold weather" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="41"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Cold stimulus induced headache</text>
+                            <effectiveTime value="20070824"/>
+                            <value code="784.0" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Cold stimulus induced headache" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="42"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Common cold</text>
+                            <effectiveTime value="20070824"/>
+                            <value code="460" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Common cold" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+						</observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="43"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Mechanical complication of internal orthopedic device, implant, and graft</text>
+                            <effectiveTime value="20070822"/>
+                            <value code="996.40" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Mechanical complication of internal orthopedic device, implant, and graft" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="44"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Allergic colitis</text>
+                            <effectiveTime value="20070629"/>
+                            <value code="558.3" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Allergic colitis" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="45"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Normal routine history and physical adult</text>
+                            <effectiveTime value="20070321"/>
+                            <value code="V70.0" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Normal routine history and physical adult" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>ANOTHER</family>
+                                            <given>MIDTIER TW</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                </careProvisionEvent>
+            </subject2>
+        </registrationEvent>
+    </careRecord>
+</CareRecord_QUPC_IN043200UV01Response>

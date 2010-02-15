@@ -1,0 +1,385 @@
+<CareRecord_QUPC_IN043200UV01Response xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns="urn:hl7-org:v3">
+    <careRecord typeCode="SUBJ">
+        <registrationEvent classCode="REG" moodCode="EVN">
+            <statusCode code="active"/>
+            <custodian xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <subject2 typeCode="SUBJ">
+                <careProvisionEvent classCode="ENC" moodCode="EVN">
+                    <recordTarget typeCode="RCT">
+                        <patient classCode="PAT">
+                            <id extension="676404" root="2.16.840.1.113883.3.42"/>
+                            <patientPerson classCode="PSN" determinerCode="INSTANCE"/>
+                        </patient>
+                    </recordTarget>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="1"/>
+                        <substanceAdministration>
+                            <statusCode code="Active"/>
+                            <effectiveTime xsi:type="IVL_TS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <low value="20090514"/>
+                                <high value="20090613"/>
+                            </effectiveTime>
+                            <routeCode code="67610" codeSystemName="3M" displayName="Subcutaneous route"/>
+                            <doseQuantity value="6"/>
+                            <consumable typeCode="CSM">
+                                <administerableMaterial classCode="ADMM">
+                                    <administerableMaterial classCode="MMAT" determinerCode="KIND">
+                                        <code code="00173-0479-00" codeSystem="2.16.840.1.113883.6.69" codeSystemName="NationalDrugCode" displayName="Sumatriptan Succinate (Imitrex Eq.) Kit  Multiple Component 6 mg per 0.5 mL Injection"/>
+                                        <desc>Sumatriptan Succinate (Imitrex Eq.) Kit Multiple Component 6 mg per 0.5 mL Injection</desc>
+                                    </administerableMaterial>
+                                </administerableMaterial>
+                            </consumable>
+                            <sourceOf typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+                                    <statusCode code="completed"/>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="COMP">
+                                <sequenceNumber value="1"/>
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="H10255275" root="2.16.840.1.113883.3.42"/>
+                                    <statusCode code="completed"/>
+                                    <effectiveTime value="20090520"/>
+                                    <quantity value="30"/>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <!--<given>PROVIDER ORDER ENTER</given> -->
+                                                    <given>test</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PROVIDER ORDER ENTER</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                </supply>
+                            </sourceOf>
+                            <sourceOf typeCode="REFR">
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="090514-00003" root="2.16.840.1.113883.3.42"/>
+                                    <quantity value="1"/>
+                                    <expectedUseTime>
+                                        <high value="20090613"/>
+                                    </expectedUseTime>
+                                    <author typeCode="AUT">
+                                        <time value="20090514"/>
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <typeId extension="41246018" root="2.16.840.1.113883.3.42"/>
+                                            <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                                <name>
+                                                    <family>SMILE</family>
+                                                    <given>FOURTEEN</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </author>
+                                </supply>
+                            </sourceOf>
+                        </substanceAdministration>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="2"/>
+                        <substanceAdministration>
+                            <statusCode code="Expired"/>
+                            <effectiveTime xsi:type="IVL_TS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <low value="20080212"/>
+                                <high value="20080313"/>
+                            </effectiveTime>
+                            <routeCode code="67605" codeSystemName="3M" displayName="Oral (PO, Peroral) route"/>
+                            <doseQuantity value="125"/>
+                            <consumable typeCode="CSM">
+                                <administerableMaterial classCode="ADMM">
+                                    <administerableMaterial classCode="MMAT" determinerCode="KIND">
+                                        <code code="00029-6004-39" codeSystem="2.16.840.1.113883.6.69" codeSystemName="NationalDrugCode" displayName="Amoxicillin Trihydrate (Amoxil Eq.) Tablet Chewable 125mg Oral"/>
+                                        <desc>Amoxicillin Trihydrate (Amoxil Eq.) Tablet Chewable 125mg Oral</desc>
+                                    </administerableMaterial>
+                                </administerableMaterial>
+                            </consumable>
+                            <sourceOf typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+                                    <statusCode code="completed"/>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="COMP">
+                                <sequenceNumber value="1"/>
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="P7689300" root="2.16.840.1.113883.3.42"/>
+                                    <statusCode code="completed"/>
+                                    <effectiveTime value="20080528"/>
+                                    <quantity value="30"/>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                </supply>
+                            </sourceOf>
+                            <sourceOf typeCode="REFR">
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="080212-00001" root="2.16.840.1.113883.3.42"/>
+                                    <quantity value="12"/>
+                                    <expectedUseTime>
+                                        <high value="20080313"/>
+                                    </expectedUseTime>
+                                    <author typeCode="AUT">
+                                        <time value="20080212"/>
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <typeId extension="41245976" root="2.16.840.1.113883.3.42"/>
+                                            <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                                <name>
+                                                    <family>MOUSE</family>
+                                                    <given>MINNIE</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </author>
+                                </supply>
+                            </sourceOf>
+                        </substanceAdministration>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="3"/>
+                        <substanceAdministration>
+                            <statusCode code="Expired"/>
+                            <effectiveTime xsi:type="IVL_TS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <low value="20080212"/>
+                                <high value="20080313"/>
+                            </effectiveTime>
+                            <routeCode code="67612" codeSystemName="3M" displayName="Topical (external) route"/>
+                            <doseQuantity value="20"/>
+                            <consumable typeCode="CSM">
+                                <administerableMaterial classCode="ADMM">
+                                    <administerableMaterial classCode="MMAT" determinerCode="KIND">
+                                        <code code="00096-0707-37" codeSystem="2.16.840.1.113883.6.69" codeSystemName="NationalDrugCode" displayName="Aluminum Chloride (Drysol Eq.) Solution 20% Topical"/>
+                                        <desc>Aluminum Chloride (Drysol Eq.) Solution 20% Topical</desc>
+                                    </administerableMaterial>
+                                </administerableMaterial>
+                            </consumable>
+                            <sourceOf typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+                                    <statusCode code="completed"/>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="COMP">
+                                <sequenceNumber value="1"/>
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="P7689301" root="2.16.840.1.113883.3.42"/>
+                                    <statusCode code="completed"/>
+                                    <effectiveTime value="20080528"/>
+                                    <quantity value="30"/>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                </supply>
+                            </sourceOf>
+                            <sourceOf typeCode="REFR">
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="080212-00002" root="2.16.840.1.113883.3.42"/>
+                                    <quantity value="1"/>
+                                    <expectedUseTime>
+                                        <high value="20080313"/>
+                                    </expectedUseTime>
+                                    <author typeCode="AUT">
+                                        <time value="20080212"/>
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <typeId extension="41245976" root="2.16.840.1.113883.3.42"/>
+                                            <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                                <name>
+                                                    <family>MOUSE</family>
+                                                    <given>MINNIE</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </author>
+                                </supply>
+                            </sourceOf>
+                        </substanceAdministration>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="4"/>
+                        <substanceAdministration>
+                            <statusCode code="Active"/>
+                            <effectiveTime xsi:type="IVL_TS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <low value="20070629"/>
+                                <high value="20080628"/>
+                            </effectiveTime>
+                            <routeCode code="67605" codeSystemName="3M" displayName="Oral (PO, Peroral) route"/>
+                            <doseQuantity value="1"/>
+                            <consumable typeCode="CSM">
+                                <administerableMaterial classCode="ADMM">
+                                    <administerableMaterial classCode="MMAT" determinerCode="KIND">
+                                        <code code="00039-0221-10" codeSystem="2.16.840.1.113883.6.69" codeSystemName="NationalDrugCode" displayName="Glimepiride (Amaryl Eq.) Tablet 1mg Oral"/>
+                                        <desc>Glimepiride (Amaryl Eq.) Tablet 1mg Oral</desc>
+                                    </administerableMaterial>
+                                </administerableMaterial>
+                            </consumable>
+                            <sourceOf typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+                                    <statusCode code="completed"/>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="COMP">
+                                <sequenceNumber value="1"/>
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="P7689275" root="2.16.840.1.113883.3.42"/>
+                                    <statusCode code="completed"/>
+                                    <effectiveTime value="20080528"/>
+                                    <quantity value="30"/>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                </supply>
+                            </sourceOf>
+                            <sourceOf typeCode="REFR">
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="070629-00008" root="2.16.840.1.113883.3.42"/>
+                                    <repeatNumber value="3"/>
+                                    <quantity value="30"/>
+                                    <expectedUseTime>
+                                        <high value="20080628"/>
+                                    </expectedUseTime>
+                                    <author typeCode="AUT">
+                                        <time value="20070629"/>
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <typeId extension="41245991" root="2.16.840.1.113883.3.42"/>
+                                            <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                                <name>
+                                                    <family>TWFIELD</family>
+                                                    <given>TEN</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </author>
+                                </supply>
+                            </sourceOf>
+                        </substanceAdministration>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="5"/>
+                        <substanceAdministration>
+                            <statusCode code="Discontinued in AHLTA"/>
+                            <effectiveTime xsi:type="IVL_TS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <low value="20061120"/>
+                                <high value="20061220"/>
+                            </effectiveTime>
+                            <routeCode code="67605" codeSystemName="3M" displayName="Oral (PO, Peroral) route"/>
+                            <doseQuantity value="30"/>
+                            <consumable typeCode="CSM">
+                                <administerableMaterial classCode="ADMM">
+                                    <administerableMaterial classCode="MMAT" determinerCode="KIND">
+                                        <code code="00781-1533-10" codeSystem="2.16.840.1.113883.6.69" codeSystemName="NationalDrugCode" displayName="Pseudoephedrine Hydrochloride (Sudogest Eq.) Tablet 30 mg Oral"/>
+                                        <desc>Pseudoephedrine Hydrochloride (Sudogest Eq.) Tablet 30 mg Oral</desc>
+                                    </administerableMaterial>
+                                </administerableMaterial>
+                            </consumable>
+                            <sourceOf typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <code code="73639000" codeSystem="2.16.840.1.113883.6.96" codeSystemName="SNOMED CT" displayName="Prescription Drug"/>
+                                    <statusCode code="completed"/>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="COMP">
+                                <sequenceNumber value="1"/>
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="P7689190" root="2.16.840.1.113883.3.42"/>
+                                    <statusCode code="completed"/>
+                                    <effectiveTime value="20061129"/>
+                                    <quantity value="30"/>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                    <performer typeCode="DIST">
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <assignedPerson>
+                                                <name>
+                                                    <given>PORTSMOUTH MAIN PHARMACY</given>
+                                                </name>
+                                            </assignedPerson>
+                                        </assignedEntity1>
+                                    </performer>
+                                </supply>
+                            </sourceOf>
+                            <sourceOf typeCode="REFR">
+                                <supply classCode="SPLY" moodCode="INT">
+                                    <id extension="061120-00021" root="2.16.840.1.113883.3.42"/>
+                                    <quantity value="12"/>
+                                    <expectedUseTime>
+                                        <high value="20061220"/>
+                                    </expectedUseTime>
+                                    <author typeCode="AUT">
+                                        <time value="20061120"/>
+                                        <assignedEntity1 classCode="ASSIGNED">
+                                            <typeId extension="0" root="2.16.840.1.113883.3.42"/>
+                                            <assignedPerson classCode="PSN" determinerCode="INSTANCE"/>
+                                        </assignedEntity1>
+                                    </author>
+                                </supply>
+                            </sourceOf>
+                        </substanceAdministration>
+                    </pertinentInformation3>
+                </careProvisionEvent>
+            </subject2>
+        </registrationEvent>
+    </careRecord>
+</CareRecord_QUPC_IN043200UV01Response>

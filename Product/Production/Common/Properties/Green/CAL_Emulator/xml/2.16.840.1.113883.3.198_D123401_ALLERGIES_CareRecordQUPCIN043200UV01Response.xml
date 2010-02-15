@@ -1,0 +1,78 @@
+<CareRecord_QUPC_IN043200UV01Response xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns="urn:hl7-org:v3">
+    <careRecord typeCode="SUBJ">
+        <registrationEvent classCode="REG" moodCode="EVN">
+            <statusCode code="active"/>
+            <custodian typeCode="CST">
+                <assignedEntity classCode="ASSIGNED">
+                    <id extension="AHLTA" root="2.16.840.1.113883.3.198"/>
+                </assignedEntity>
+            </custodian>
+            <subject2 typeCode="SUBJ">
+                <careProvisionEvent classCode="ENC" moodCode="EVN">
+                    <recordTarget typeCode="RCT">
+                        <patient classCode="PAT">
+                            <id extension="D123401" root="2.16.840.1.113883.3.198"/>
+                            <patientPerson classCode="PSN" determinerCode="INSTANCE"/>
+                        </patient>
+                    </recordTarget>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="1"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.3.88.11.83.6"/>
+                            <code displayName="Drug Allergy" xsi:type="CE" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <effectiveTime value="20090324"/>
+                            <sourceOf typeCode="MFST">
+                                <substanceAdministration classCode="SABM" moodCode="EVN">
+                                    <consumable typeCode="CSM">
+                                        <administerableMaterial classCode="ADMM">
+                                            <administerableMaterial classCode="MMAT" determinerCode="INSTANCE">
+                                                <desc>PENICILLIN G (PENICILLIN G PROCAINE)</desc>
+                                            </administerableMaterial>
+                                        </administerableMaterial>
+                                    </consumable>
+                                </substanceAdministration>
+                            </sourceOf>
+                            <sourceOf typeCode="MFST">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.1.54"/>
+                                    <text>Rash</text>
+                                </observation>
+                            </sourceOf>
+                            <sourceOf typeCode="MFST">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.1.54"/>
+                                    <text>Other: Gets a rash on the forehead.</text>
+                                </observation>
+                            </sourceOf>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="true" typeCode="SUBJ">
+                        <sequenceNumber value="2"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.3.88.11.83.6"/>
+                            <code displayName="Drug Allergy" xsi:type="CE" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <effectiveTime value="20090317"/>
+                            <sourceOf typeCode="MFST">
+                                <substanceAdministration classCode="SABM" moodCode="EVN">
+                                    <consumable typeCode="CSM">
+                                        <administerableMaterial classCode="ADMM">
+                                            <administerableMaterial classCode="MMAT" determinerCode="INSTANCE">
+                                                <desc>SULFA-DRUGS {Class}</desc>
+                                            </administerableMaterial>
+                                        </administerableMaterial>
+                                    </consumable>
+                                </substanceAdministration>
+                            </sourceOf>
+                            <sourceOf typeCode="MFST">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.1.54"/>
+                                    <text>Unknown</text>
+                                </observation>
+                            </sourceOf>
+                        </observation>
+                    </pertinentInformation3>
+                </careProvisionEvent>
+            </subject2>
+        </registrationEvent>
+    </careRecord>
+</CareRecord_QUPC_IN043200UV01Response>
