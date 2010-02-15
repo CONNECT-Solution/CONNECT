@@ -113,4 +113,44 @@
     <name>AdapterDocRepository2Soap12Web</name>
     <directory>/Production/Adapters/General/AdapterDocRepository2Soap12Web</directory>
   </project>
+
+  <!-- BEGIN Dynamic Document Generation Projects -->
+    <project>
+	<name>AdapterCommonDataLayerEJB</name>
+	<directory>/Production/Adapters/Framework/AdapterCommonDataLayerEJB</directory>
+    </project>
+    <project>
+	<name>TemplateManager</name>
+	<directory>/Production/Adapters/Framework/TemplateManager</directory>
+    </project>
+    <project>
+	<name>DocumentAssemblyManagerEJB</name>
+	<directory>/Production/Adapters/Framework/DocumentAssemblyManagerEJB</directory>
+    </project>
+    <project>
+	<name>AdapterDocumentAssemblyProxyEJB</name>
+	<directory>/Production/Adapters/Framework/AdapterDocumentAssemblyProxyEJB</directory>
+    </project>
+    <project>
+	<name>AdapterDocumentRepository</name>
+	<directory>/Production/Adapters/Framework/AdapterDocumentRepository</directory>
+    </project>
+    <project>
+	<name>AdapterDocumentRepositoryEJB</name>
+	<directory>/Production/Adapters/Framework/AdapterDocumentRepositoryEJB</directory>
+    </project>
+    <project>
+	<name>DocumentManagerEJB</name>
+	<directory>/Production/Adapters/Framework/DocumentManagerEJB</directory>
+    </project>
+    <project>
+	<name>AdapterMpiEJB</name>
+	<directory>/Production/Adapters/Framework/AdapterMpiEJB</directory>
+    </project>
+    <project>
+	<name>NHINAdapterServiceEJB</name>
+	<directory>/Production/Adapters/Framework/NHINAdapterServiceEJB</directory>
+    </project>
+  <!-- END Dynamic Document Generation Projects -->
+
 </projects>
