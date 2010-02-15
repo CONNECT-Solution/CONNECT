@@ -345,7 +345,6 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.nux.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.xom.jar}" todir="${build.classes.dir}"/>
-        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.toplink-essentials-agent.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${file.reference.toplink-essentials.jar}" todir="${build.classes.dir}"/>
     </target>
@@ -357,11 +356,10 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.nux.jar}" manifestproperty="manifest.file.reference.nux.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.NhincCommonLib.jar}" manifestproperty="manifest.file.reference.NhincCommonLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.xom.jar}" manifestproperty="manifest.file.reference.xom.jar" todir="${dist.ear.dir}"/>
-        <copyfiles files="${file.reference.NhincDataTransformsLib.jar}" manifestproperty="manifest.file.reference.NhincDataTransformsLib.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.toplink-essentials-agent.jar}" manifestproperty="manifest.file.reference.toplink-essentials-agent.jar" todir="${dist.ear.dir}"/>
         <copyfiles files="${file.reference.toplink-essentials.jar}" manifestproperty="manifest.file.reference.toplink-essentials.jar" todir="${dist.ear.dir}"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.TemplateManager.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.file.reference.nux.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.NhincDataTransformsLib.jar} ${manifest.file.reference.toplink-essentials-agent.jar} ${manifest.file.reference.toplink-essentials.jar} "/>
+            <attribute name="Class-Path" value="${manifest.file.reference.commons-logging-1.1.1.jar} ${manifest.file.reference.NhincCommonTypesLib.jar} ${manifest.file.reference.TemplateManager.jar} ${manifest.file.reference.mysql-connector-java-5.1.8-bin.jar} ${manifest.file.reference.nux.jar} ${manifest.file.reference.NhincCommonLib.jar} ${manifest.file.reference.xom.jar} ${manifest.file.reference.toplink-essentials-agent.jar} ${manifest.file.reference.toplink-essentials.jar} "/>
         </manifest>
     </target>
     <target name="-copy-meta-inf">
