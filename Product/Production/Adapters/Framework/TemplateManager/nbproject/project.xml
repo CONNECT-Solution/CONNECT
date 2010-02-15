@@ -6,6 +6,7 @@
             <name>TemplateManager</name>
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <included-library>file.reference.commons-logging-1.1.1.jar</included-library>
+            <included-library>file.reference.log4j-1.2.15.jar</included-library>
             <included-library>file.reference.mysql-connector-java-5.1.8-bin.jar</included-library>
             <included-library>file.reference.antlr-2.7.6.jar</included-library>
             <included-library>file.reference.asm-attrs.jar</included-library>
@@ -19,7 +20,6 @@
             <included-library>file.reference.jta.jar</included-library>
             <included-library>file.reference.toplink-essentials-agent.jar</included-library>
             <included-library>file.reference.toplink-essentials.jar</included-library>
-            <included-library>libs.hibernate-support.classpath</included-library>
             <source-roots>
                 <root id="src.java.dir"/>
                 <root id="src.resources.dir"/>
