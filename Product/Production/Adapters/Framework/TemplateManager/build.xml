@@ -10,6 +10,11 @@
 <project name="TemplateManager" default="default" basedir="." xmlns:ejbjarproject="http://www.netbeans.org/ns/j2ee-ejbjarproject/3">
     <description>Builds, tests, and runs the project TemplateManager.</description>
     <import file="nbproject/build-impl.xml"/>
+    <import file="../../../../build.lib.xml"/>
+    
+    <property name="deploy.type" value="" />
+    <property name="deploy.isDeployable" value="false" />
+
     <target name="build">
         <property name="target-to-call" value="dist" />
         <antcall target="call-target-in-isolation-if-out-of-date" />
@@ -17,6 +22,10 @@
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist,test" />
     <target name="build-test" depends="dist,test" />
+
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 
     <!--
 
