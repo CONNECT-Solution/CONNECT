@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.repository.model">
+  <class name="EventCode" table="eventcode">
+  	<id name="eventCodeId" column="eventcodeid" type="long">
+        	<generator class="increment" />
+	</id>
+        <many-to-one 
+  		name="document"
+  		column="documentid" 
+  		not-null="true"
+  		lazy="false" />
+  	<property name="eventCode" column="EventCode" type="string" length="64" not-null="false" />
+  	<property name="eventCodeScheme" column="EventCodeScheme" type="string" length="64" not-null="false"/>
+  	<property name="eventCodeDisplayName" column="EventCodeDisplayName" type="string" length="64" not-null="false"/>
+  </class>
+</hibernate-mapping>
