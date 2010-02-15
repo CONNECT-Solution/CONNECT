@@ -15,10 +15,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 public class AdapterCommonDataLayerConstants
 {
     public static final String ADAPTER_PROPERTIES_FILENAME = "adapter_common_datalayer";
-    public static final String DOD_CONNECTOR_NAME;
-    public static final String DOD_CONNECTOR_WSDL;
-
-    public static final String CDL_QNAME;
 
     //static data switches
     public static final String ALLERGIES_TEST;
@@ -46,10 +42,6 @@ public class AdapterCommonDataLayerConstants
 
     static
     {
-        String sDOD_CONNECTOR_NAME = null;
-        String sDOD_CONNECTOR_WSDL = null;
-
-        String sCDL_QNAME = null;
 
         String sEMULATOR_DATA_LOCATION = null;
         
@@ -61,9 +53,6 @@ public class AdapterCommonDataLayerConstants
 
         try
         {
-            sDOD_CONNECTOR_NAME = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "dod_connector.name");
-            sDOD_CONNECTOR_WSDL = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,"dod_connector.wsdl");
-            sCDL_QNAME = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,"common_datalayer.qname");
 
             //static data switches
             sALLERGIES_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,"allergies_test");
@@ -78,9 +67,6 @@ public class AdapterCommonDataLayerConstants
             e.printStackTrace();
         }
 
-        DOD_CONNECTOR_NAME = sDOD_CONNECTOR_NAME;
-        DOD_CONNECTOR_WSDL = sDOD_CONNECTOR_WSDL;
-        CDL_QNAME = sCDL_QNAME;
         EMULATOR_DATA_LOCATION = sEMULATOR_DATA_LOCATION;
 
         //static data tests

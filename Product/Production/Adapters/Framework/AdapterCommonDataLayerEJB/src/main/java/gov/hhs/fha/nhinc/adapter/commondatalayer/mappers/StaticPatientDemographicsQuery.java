@@ -4,34 +4,14 @@
  */
 package gov.hhs.fha.nhinc.adapter.commondatalayer.mappers;
 
-import gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorPortType;
-import gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorService;
 import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommonDataLayerConstants;
-import java.net.URL;
-//import java.util.List;
-import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import org.hl7.v3.BL;
-//import org.hl7.v3.CE;
-//import org.hl7.v3.COCTMT030207UVPerson;
-//import org.hl7.v3.COCTMT150003UV03Organization;
-//import org.hl7.v3.EnExplicitFamily;
-//import org.hl7.v3.EnExplicitGiven;
-//import org.hl7.v3.II;
-//import org.hl7.v3.IVLTSExplicit;
-//import org.hl7.v3.ONExplicit;
-//import org.hl7.v3.PNExplicit;
 import org.hl7.v3.PRPAIN201307UV02QUQIMT021001UV01ControlActProcess;
-//import org.hl7.v3.PRPAMT201303UVContactParty;
-//import org.hl7.v3.PRPAMT201303UVLanguageCommunication;
-//import org.hl7.v3.PRPAMT201303UVPatient;
-//import org.hl7.v3.PRPAMT201303UVPerson;
 import org.hl7.v3.PRPAMT201307UVParameterList;
 import org.hl7.v3.PRPAMT201307UVQueryByParameter;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
 import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
-//import org.hl7.v3.TSExplicit;
 import java.io.*;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
@@ -42,7 +22,6 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class StaticPatientDemographicsQuery {
 
-   private static DODConnectorService service;
    private static Log logger = LogFactory.getLog(StaticPatientDemographicsQuery.class);
    private static org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
 
@@ -67,27 +46,11 @@ public class StaticPatientDemographicsQuery {
          //II subjectId = paramList.getPatientIdentifier().get(0).getValue().get(0);
          //response.setSubject(createSubject(subjectId));
       } else {
-         //make call to DODConnector
-         String COMMON_DATA_LAYER_QNAME = AdapterCommonDataLayerConstants.CDL_QNAME;
-         String wsdlUrl = AdapterCommonDataLayerConstants.DOD_CONNECTOR_WSDL;
-
-         try {
-            logger.info("Instantiating DOD Connector Service (" + wsdlUrl + ")...");
-            service = new DODConnectorService(new URL(wsdlUrl), new QName(COMMON_DATA_LAYER_QNAME, AdapterCommonDataLayerConstants.DOD_CONNECTOR_NAME));
-            logger.info("Retrieving the port from the following service: " + service);
-
-            DODConnectorPortType port = service.getCommonDataLayerPort();
-
-            PatientDemographicsPRPAMT201303UV02ResponseType fdmrresponse = port.getPatienInfo(request);
-
-            if (fdmrresponse != null) {
-               response = fdmrresponse;
-               logger.info("Response =" + fdmrresponse.toString());
-            }
-
-         } catch (Exception e) {
-            logger.info("Exception in PatientInfo client: " + e);
-         }
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
       }
 
       return response;

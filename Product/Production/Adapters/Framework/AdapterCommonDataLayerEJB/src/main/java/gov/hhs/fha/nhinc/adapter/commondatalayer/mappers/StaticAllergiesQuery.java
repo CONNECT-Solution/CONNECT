@@ -4,48 +4,16 @@
  */
 package gov.hhs.fha.nhinc.adapter.commondatalayer.mappers;
 
-import gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorPortType;
-import gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorService;
 import gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants.AdapterCommonDataLayerConstants;
-//import java.math.BigInteger;
-import java.net.URL;
 import java.util.List;
-import javax.xml.namespace.QName;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-//import org.hl7.v3.CD;
-//import org.hl7.v3.CEExplicit;
-//import org.hl7.v3.COCTMT030000UV04Person;
-//import org.hl7.v3.COCTMT050000UV01Patient;
-//import org.hl7.v3.COCTMT090003UVAssignedEntity;
-//import org.hl7.v3.CS;
 import org.hl7.v3.CareRecordQUPCIN043100UV01RequestType;
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
-//import org.hl7.v3.EDExplicit;
-//import org.hl7.v3.II;
-//import org.hl7.v3.INT;
-//import org.hl7.v3.MFMIMT700712UV01Custodian;
 import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.QUPCIN043100UV01QUQIMT020001UV01ControlActProcess;
 import org.hl7.v3.QUPCIN043100UV01QUQIMT020001UV01QueryByParameter;
 import org.hl7.v3.QUPCMT040300UV01ParameterList;
-//import org.hl7.v3.QUPCIN043200UV01MFMIMT700712UV01Subject1;
-//import org.hl7.v3.QUPCIN043200UV01MFMIMT700712UV01RegistrationEvent;
-//import org.hl7.v3.QUPCIN043200UV01MFMIMT700712UV01Subject5;
-//import org.hl7.v3.REPCMT000100UV01AdministerableMaterial;
-//import org.hl7.v3.REPCMT000100UV01Consumable;
-//import org.hl7.v3.REPCMT000100UV01Material;
-//import org.hl7.v3.REPCMT000100UV01Observation;
-//import org.hl7.v3.REPCMT000100UV01SourceOf3;
-//import org.hl7.v3.REPCMT000100UV01SubstanceAdministration;
-//import org.hl7.v3.REPCMT004000UV01CareProvisionEvent;
-//import org.hl7.v3.REPCMT004000UV01PertinentInformation5;
-//import org.hl7.v3.REPCMT004000UV01RecordTarget;
-//import org.hl7.v3.STExplicit;
-//import org.hl7.v3.SXCMTSExplicit;
-//import org.hl7.v3.TELExplicit;
-//import org.hl7.v3.XClinicalStatementObservationMood;
-//import org.hl7.v3.XClinicalStatementSubstanceMood;
 import java.io.*;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
@@ -56,7 +24,6 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class StaticAllergiesQuery {
 
-   private static DODConnectorService service;
    private static Log logger = LogFactory.getLog(StaticAllergiesQuery.class);
    private static ObjectFactory factory = new ObjectFactory();
 
@@ -83,27 +50,11 @@ public class StaticAllergiesQuery {
          // 20091221 - Removed Static Data and replaced with Data Files
          //response.setCareRecord(createSubject(reqPatientID));
       } else {
-         //make call to DODConnector
-         String COMMON_DATA_LAYER_QNAME = AdapterCommonDataLayerConstants.CDL_QNAME;
-         String wsdlUrl = AdapterCommonDataLayerConstants.DOD_CONNECTOR_WSDL;
-
-         try {
-            logger.info("Instantiating DOD Connector Service (" + wsdlUrl + ")...");
-            service = new DODConnectorService(new URL(wsdlUrl), new QName(COMMON_DATA_LAYER_QNAME, AdapterCommonDataLayerConstants.DOD_CONNECTOR_NAME));
-            logger.info("Retrieving the port from the following service: " + service);
-
-            DODConnectorPortType port = service.getCommonDataLayerPort();
-
-            CareRecordQUPCIN043200UV01ResponseType fdmrresponse = port.getAllergies(request);
-
-            if (fdmrresponse != null) {
-               response = fdmrresponse;
-               logger.info("Response =" + fdmrresponse.toString());
-            }
-
-         } catch (Exception e) {
-            logger.error("Exception in Allergies client: " + e);
-         }
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug(" Insert Adapter Agency specific dynamic document data accessors here ");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
+          logger.debug("= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =");
       }
 
       return response;
