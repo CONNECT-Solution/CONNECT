@@ -38,14 +38,14 @@ public class FTAConfigurationHelperTest {
     @After
     public void tearDown() {
     }
-/*
+
     @Test
     public void testloadRealConfiguration()
     {
         FTAConfiguration config = FTAConfigurationHelper.loadFTAConfiguration();
         assertEquals(1, config.getInboundChannels().size());
     }
-	*/
+	
     @Test
     public void testgetChannelByTopic()
     {
