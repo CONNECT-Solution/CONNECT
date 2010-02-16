@@ -6,6 +6,8 @@
 package gov.hhs.fha.nhinc.xdr;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -18,6 +20,12 @@ import org.apache.commons.logging.LogFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import gov.hhs.fha.nhinc.nhincadapterxdrsecured.AdapterXDRSecuredPortType;
+import gov.hhs.fha.nhinc.nhincadapterxdrsecured.AdapterXDRSecuredService;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import java.util.Map;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -30,10 +38,12 @@ public class NhinXDRImpl
     public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
     public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
     private static Log log = null;
-
+    private static AdapterXDRSecuredService securedAdapterService = null;
+    
     public NhinXDRImpl()
     {
         log = createLogger();
+        securedAdapterService = createAdapterService();
     }
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context ) {
      RegistryResponseType result;
@@ -56,7 +66,7 @@ public class NhinXDRImpl
      if (isPolicyOk(body, assertion, assertion.getHomeCommunity().getHomeCommunityId(), localHCID))
      {
          log.debug("Policy Check Succeeded");
-         result = createPositiveAck();
+         result = forwardToAgency(body, context);
      }
      else
      {
@@ -71,6 +81,48 @@ public class NhinXDRImpl
 
     }
 
+    private RegistryResponseType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context)
+    {
+        log.debug("begin forwardToAgency()");
+        
+        String url = "";
+        RegistryResponseType response = null;
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        
+        
+        url = getUrl();
+                
+        if (NullChecker.isNotNullish(url)) {
+            AdapterXDRSecuredPortType port = getPort(url);
+
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADAPTER_XDR_ACTION);
+
+            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            response = port.provideAndRegisterDocumentSetb(body);
+
+        } else {
+            log.error("The URL for service: " + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME + " is null");
+        }
+
+        return response;
+    }
+
+    protected String getUrl() {
+        String url = null;
+
+        try {
+            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME);
+        } catch (ConnectionManagerException ex) {
+            log.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME);
+            log.error(ex.getMessage());
+        }
+
+
+        return url;
+    }
+
     protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion, String senderHCID, String receiverHCID) {
         boolean bPolicyOk = false;
 
@@ -81,7 +133,10 @@ public class NhinXDRImpl
         return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID);      
 
     }
-
+    protected AdapterXDRSecuredService createAdapterService()
+    {
+        return new AdapterXDRSecuredService();
+    }
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
@@ -107,5 +162,13 @@ public class NhinXDRImpl
         result.getRegistryErrorList().getRegistryError().add(null);
 
         return result;
+    }
+    private AdapterXDRSecuredPortType getPort(String url) {
+        AdapterXDRSecuredPortType port = securedAdapterService.getAdapterXDRSecuredPort();
+
+        log.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
+        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
+
+        return port;
     }
 }
