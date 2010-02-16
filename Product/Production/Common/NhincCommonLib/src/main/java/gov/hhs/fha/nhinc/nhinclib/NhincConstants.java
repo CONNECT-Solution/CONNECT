@@ -232,7 +232,7 @@ public class NhincConstants {
     public static final String NHINC_PROXY_XDR_SERVICE_NAME = "nhincproxyxdr";
     public static final String NHINC_PROXY_XDR_SECURED_SERVICE_NAME = "nhincproxyxdrsecured";
     public static final String ADAPTER_XDR_SERVICE_NAME = "adapterxdr";
-    public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterpxdrsecured";
+    public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String NHINC_XDR_SERVICE_NAME = "serviceXDR";
 
     // Hibernate Config Files
