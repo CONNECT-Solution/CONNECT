@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project name="nhinc.deployment.exclusion.settings.dev">
+	<property name="deploy.exclude.war.ConsumerPreferencesProfileGUI" value="true"/>
+	<property name="deploy.exclude.war.UniversalClientGUI" value="true"/>
+	<property name="deploy.exclude.war.UDDIModifierGUI" value="true"/>
+	<property name="deploy.exclude.ejb.FTATransferAdapterEJB" value="true"/>
+  <property name="deploy.exclude.ejb.UDDIUpdateManagerEJB" value="true"/>
+	<property name="deploy.exclude.ejb.AdapterMpiEJB" value="true"/>
+	<property name="deploy.exclude.ejb.AdapterCommonDataLayerEJB" value="true"/>
+	<property name="deploy.exclude.ejb.AdapterDocumentAssemblyProxyEJB" value="true"/>
+	<property name="deploy.exclude.ejb.AdapterDocumentRepository" value="true"/>
+	<property name="deploy.exclude.ejb.AdapterDocumentRepositoryEJB" value="true"/>
+	<property name="deploy.exclude.ejb.DocumentAssemblyManagerEJB" value="true"/>
+	<property name="deploy.exclude.ejb.DocumentManagerEJB" value="true"/>
+	<property name="deploy.exclude.ejb.NHINAdapterServiceEJB" value="true"/>
+	<property name="deploy.exclude.ejb.TemplateManager" value="true"/>
+</project>
