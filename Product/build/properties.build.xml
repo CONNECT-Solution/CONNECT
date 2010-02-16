@@ -4,11 +4,23 @@
 	<property environment="env" />
 
 	<property name="root.project.name" value="NHINC" />
-	<property name="root.project.directory.path" value="c:/Projects/NHINC/Current/Product"/>
+	<property name="root.projects.directory.path" value="c:/Projects"/>
+	<property name="codeline.directory.path" value="${root.projects.directory.path}/${root.project.name}/Current"/>
+	<property name="root.project.directory.path" value="${codeline.directory.path}/Product"/>
 
 	<property name="temp.directory.path" value='/Temp' />
 	<property name="debug" value="false" />
 	<property name="ant.build.javac.source" value="1.6" />
 	<property name="ant.build.javac.target" value="1.6" />
+
+	<script language="javascript">
+		<![CDATA[
+	  // import statements
+	  // importPackage(java.io);
+	  importClass(java.io.File);
+	  var codeLinePath = new File(self.getLocation().getFileName()).getParentFile().getParentFile().getParent();
+	  project.setProperty("codeline.directory.path", codeLinePath);
+	 ]]>
+	</script>
 
 </project>

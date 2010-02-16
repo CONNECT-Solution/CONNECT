@@ -19,10 +19,7 @@
 		<if>
 			<istrue value="${unittest.hasTests}" />
 			<then>
-				<junitrun reportfile="${project.dir}/unit-test-reports/UnitTests.xml" testtype="unit" verbose="${debug}">
-					<junitclasspath>
-						<path refid="junitrun.classpath" />
-					</junitclasspath>
+				<junitrun reportfile="${unittest.report.dir}/UnitTests.xml" testtype="unit" verbose="${debug}">
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
@@ -39,9 +36,6 @@
 			<istrue value="${webtest.hasTests}" />
 			<then>
 				<junitrun reportfile="${project.dir}/web-test-reports/WebTests.xml" testtype="web" verbose="${debug}">
-					<junitclasspath>
-						<path refid="junitrun.classpath" />
-					</junitclasspath>
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>
@@ -58,9 +52,6 @@
 			<istrue value="${integrationtest.hasTests}" />
 			<then>
 				<junitrun reportfile="${project.dir}/integration-test-reports/IntegrationTests.xml" testtype="integration" verbose="${debug}">
-					<junitclasspath>
-						<path refid="junitrun.classpath" />
-					</junitclasspath>
 					<tests>
 						<fileset refid="junitrun.tests" />
 					</tests>

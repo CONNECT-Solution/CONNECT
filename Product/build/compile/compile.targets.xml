@@ -8,13 +8,105 @@
 	</target>
 
 	<target name="compile.clean">
-		<delete dir="${build.dir}" failonerror="true" />
+		<delete dir="${build.dir.root}" failonerror="true" />
 	</target>
 
 	<target name="-compile.source">
-		<mkdir dir="${build.classes.dir}" />
 		<echo message="compile.source for ${project.name}" />
 
+		<call target="compile.javac"/>
+		<call target="compile.resources"/>
+	</target>
+	
+	<target name="compile.javac">
+		<mkdir dir="${build.classes.dir}" />
+
+    <path id="source.class.files"/>
+
+    <for param="classpath.item">
+      <path refid="build.classpath" />
+      <sequential>
+        <var name="classpath.item" value="@{classpath.item}"/>
+        <if>
+          <scriptcondition language="javascript" >
+            // import statements
+            // importPackage(java.io);
+            importClass(java.io.File);
+            var thing = new File(project.getProperty("classpath.item"));
+            self.setValue(thing.isDirectory());
+          </scriptcondition>
+          <then>
+            <addfilesettopath refid="source.class.files">
+              <fileset dir="${classpath.item}">
+                <include name="**/*.class"/>
+              </fileset>
+            </addfilesettopath>
+          </then>
+        </if>
+      </sequential>
+    </for>
+
+    <path id="sourcefiles" >
+      <path refid="build.classpath" />
+      <path refid="source.class.files"/>
+    </path>
+
+    <var unset="true" name="sourcefiles"/>
+    <pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
+
+    <path id="targetfiles" >
+      <fileset dir="${build.classes.dir}">
+        <include name="**/*.class" />
+      </fileset>
+    </path>
+
+    <var unset="true" name="targetfiles"/>
+    <pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
+
+    <outofdate verbose="${debug}" >
+      <sourcefiles>
+        <pathelement path="${sourcefiles}"/>
+      </sourcefiles>
+      <targetfiles>
+        <pathelement path="${targetfiles}"/>
+      </targetfiles>
+      <sequential>
+        <echo>Project is out-of-date compared to it's dependencies...</echo>
+        <delete includeemptydirs="true">
+          <fileset dir="${build.classes.dir}">
+            <include name="**/*.class" />
+          </fileset>    
+        </delete>
+        <mkdir dir="${build.classes.dir}" />
+      </sequential>
+    </outofdate>
+			
+		<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
+			<classpath refid="build.classpath" />
+		</javac>
+		
+		<if>
+			<or>
+				<istrue value="${unittest.hasTests}" />
+				<istrue value="${webtest.hasTests}" />
+				<istrue value="${integrationtest.hasTests}" />
+			</or>
+			<then>
+				<mkdir dir="${build.unittest.classes.dir}" />
+				<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}" includes="**/*.java" source="1.6" target="1.6">
+					<classpath>
+						<path refid="build.classpath" />
+						<pathelement path="${build.classes.dir}" />
+						<fileset refid="classpath.test" />
+					</classpath>
+				</javac>
+			</then>
+		</if>
+	</target>
+
+	<target name="compile.resources">
+		<mkdir dir="${build.classes.dir}" />
+		
 		<available file="${source.webcontent.dir}" property="hasWebContent" />
 		<if>
 			<isset property="hasWebContent" />
@@ -30,77 +122,46 @@
 			</else>
 		</if>
 
-		<echo message="check if out of date-> ${source.dir} to ${build.dist.root}" />
+		<path id="sourcefiles" >
+			<fileset dir="${source.resources.dir}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${source.dir}">
+				<include name="**/*" />
+				<exclude name="**/*.java" />
+			</fileset>
+			<path refid="source.webcontent.fileset" />
+		</path>
+    
+    <var unset="true" name="sourcefiles"/>
+		<pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
 
-		<scriptmapper id="compile.source.mapper" language="javascript">
-				if (source.substr(source.length - 4).toLowerCase() != ".jar")
-				{
-					buildClassesDir = project.getProperty("build.dist.root");
-					sourceDir = project.getProperty("source.dir");
-					sourceResourcesDir = project.getProperty("source.resources.dir");
-					sourceWebcontentDir = project.getProperty("source.webcontent.dir");
-					projectDir = project.getProperty("project.dir");
-					shortSourceDir = sourceDir.replace(String(projectDir) + "/", "").replace("/", "\\");
-					shortSourceResourcesDir = sourceResourcesDir.replace(String(projectDir) + "/", "").replace("/", "\\");
-					shortSourceWebcontentDir = sourceWebcontentDir.replace(String(projectDir) + "/", "").replace("/", "\\");
-					
-					if (source.substring(0,String(shortSourceDir).length) == shortSourceDir)
-					{
-						source = source.replace(String(shortSourceDir), String(buildClassesDir));
-					}
-					
-					if (source.substring(0,String(shortSourceResourcesDir).length) == shortSourceResourcesDir)
-					{
-						source = source.replace(String(shortSourceResourcesDir), String(buildClassesDir));
-					}
-				
-					if (source.substring(0,String(shortSourceWebcontentDir).length) == shortSourceWebcontentDir)
-					{
-						source = source.replace(String(shortSourceWebcontentDir), String(buildClassesDir));
-					}
-				
-					if (source.substr(source.length - 5).toLowerCase() == ".java")
-					{
-				  		self.addMappedName(source.replace(/java$/i, "class"));
-					}
-					else
-					{
-						self.addMappedName(source);
-					}
-				}
-			</scriptmapper>
+		<path id="targetfiles" >
+			<fileset dir="${build.dist.root}">
+				<include name="**/*" />
+				<exclude name="**/*.class" />
+			</fileset>
+		</path>
 
-		<outofdate verbose="true" outputtargetspath="build.files.that.need.updating">
+    <var unset="true" name="targetfiles"/>
+		<pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
+    
+		<outofdate verbose="${debug}" >
 			<sourcefiles>
-				<path refid="build.classpath" />
-				<fileset dir="${source.dir}">
-					<include name="**/*" />
-				</fileset>
-				<fileset dir="${source.resources.dir}">
-					<include name="**/*" />
-				</fileset>
-				<path refid="source.webcontent.fileset" />
+				<pathelement path="${sourcefiles}"/>
 			</sourcefiles>
 			<targetfiles>
-				<fileset dir="${build.dist.root}">
-					<include name="**/*" />
-				</fileset>
+				<pathelement path="${targetfiles}"/>
 			</targetfiles>
-			<mapper refid="compile.source.mapper" />
 			<sequential>
-				<delete verbose="true">
-					<path refid="build.files.that.need.updating" />
-				</delete>
-				<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
-					<classpath refid="build.classpath" />
-				</javac>
-				<copy todir="${build.classes.dir}">
-					<fileset dir="${source.dir}" casesensitive="false">
+				<mkdir dir="${build.classes.dir}" />
+				<copy todir="${build.classes.dir}" overwrite="true" verbose="${debug}">
+					<fileset dir="${source.dir}">
 						<include name="**/*" />
 						<exclude name="**/*.java" />
 					</fileset>
 				</copy>
-				<copy todir="${build.classes.dir}">
+				<copy todir="${build.classes.dir}" overwrite="true" verbose="${debug}">
 					<fileset dir="${source.resources.dir}">
 						<include name="**/*" />
 					</fileset>
@@ -108,7 +169,7 @@
 				<if>
 					<equals arg1="${dist.type}" arg2="war" />
 					<then>
-						<copy todir="${build.dist.root}">
+						<copy todir="${build.dist.root}" overwrite="true" verbose="${debug}">
 							<fileset dir="${source.webcontent.dir}">
 								<include name="**/*" />
 							</fileset>
@@ -126,89 +187,46 @@
 			</or>
 			<then>
 				<mkdir dir="${build.unittest.classes.dir}" />
-				<echo message="check if out of date-> ${unittest.source.dir} to ${build.unittest.classes.dir}" />
+                
+				<path id="sourcefiles" >
+					<fileset dir="${unittest.resources.dir}">
+						<include name="**/*" />
+					</fileset>
+					<fileset dir="${unittest.source.dir}">
+						<include name="**/*" />
+						<exclude name="**/*.java" />
+					</fileset>
+				</path>
 
-				<if>
-					<istrue value="${debug}" />
-					<then>
-						<for param="classpath.item">
-							<path>
-								<path refid="build.classpath" />
-								<pathelement path="${build.classes.dir}" />
-								<fileset refid="classpath.test" />
-							</path>
-							<sequential>
-								<echo message="@{classpath.item}" />
-							</sequential>
-						</for>
-					</then>
-				</if>
+        <var unset="true" name="sourcefiles"/>
+				<pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
 
-				<scriptmapper id="compile.unittest.source.mapper" language="javascript">
-						if (source.substr(source.length - 4).toLowerCase() != ".jar")
-						{
-							buildClassesDir = project.getProperty("build.unittest.classes.dir");
-							sourceDir = project.getProperty("unittest.source.dir");
-							sourceResourcesDir = project.getProperty("unittest.resources.dir");
-							projectDir = project.getProperty("project.dir");
-							shortSourceDir = sourceDir.replace(String(projectDir) + "/", "").replace("/", "\\");
-							shortSourceResourcesDir = sourceResourcesDir.replace(String(projectDir) + "/", "").replace("/", "\\");
-							
-							if (source.substring(0,String(shortSourceDir).length) == shortSourceDir)
-							{
-								source = source.replace(String(shortSourceDir), String(buildClassesDir));
-							}
-							
-							if (source.substring(0,String(shortSourceResourcesDir).length) == shortSourceResourcesDir)
-							{
-								source = source.replace(String(shortSourceResourcesDir), String(buildClassesDir));
-							}
-						
-							if (source.substr(source.length - 5).toLowerCase() == ".java")
-							{
-						  		self.addMappedName(source.replace(/java$/i, "class"));
-							}
-							else
-							{
-								self.addMappedName(source);
-							}
-						}
-					</scriptmapper>
+        <path id="targetfiles" >
+					<fileset dir="${build.unittest.classes.dir}">
+						<include name="**/*" />
+						<exclude name="**/*.class" />
+					</fileset>
+				</path>
+        
+        <var unset="true" name="targetfiles"/>
+				<pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
 
-				<outofdate verbose="true" outputtargetspath="build.files.that.need.updating">
+        <outofdate verbose="${debug}" >
 					<sourcefiles>
-						<path refid="build.classpath" />
-						<fileset dir="${unittest.source.dir}">
-							<include name="**/*" />
-						</fileset>
-						<fileset dir="${unittest.resources.dir}">
-							<include name="**/*" />
-						</fileset>
+						<pathelement path="${sourcefiles}"/>
 					</sourcefiles>
 					<targetfiles>
-						<fileset dir="${build.unittest.classes.dir}">
-							<include name="**/*" />
-						</fileset>
+						<pathelement path="${targetfiles}"/>
 					</targetfiles>
-					<mapper refid="compile.unittest.source.mapper" />
+					<mapper type="identity"/>
 					<sequential>
-						<delete verbose="true">
-							<path refid="build.files.that.need.updating" />
-						</delete>
-						<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}" includes="**/*.java" source="1.6" target="1.6">
-							<classpath>
-								<path refid="build.classpath" />
-								<pathelement path="${build.classes.dir}" />
-								<fileset refid="classpath.test" />
-							</classpath>
-						</javac>
-						<copy todir="${build.unittest.classes.dir}" overwrite="true">
-							<fileset dir="${unittest.source.dir}" casesensitive="false">
+						<copy todir="${build.unittest.classes.dir}" overwrite="true" verbose="${debug}">
+							<fileset dir="${unittest.source.dir}">
 								<include name="**/*" />
 								<exclude name="**/*.java" />
 							</fileset>
 						</copy>
-						<copy todir="${build.unittest.classes.dir}" overwrite="true">
+						<copy todir="${build.unittest.classes.dir}" overwrite="true" verbose="${debug}">
 							<fileset dir="${unittest.resources.dir}">
 								<include name="**/*" />
 							</fileset>
@@ -217,7 +235,6 @@
 				</outofdate>
 			</then>
 		</if>
-
 	</target>
 
 

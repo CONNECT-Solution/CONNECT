@@ -16,4 +16,8 @@
 	<fileset id="classpath.test" dir="${lib.dir}/test">
 		<include name="*.jar" />
 	</fileset>
+
+	<fileset id="classpath.earlib" dir="${lib.dir}/earlib">
+		<include name="*.jar" />
+	</fileset>
 </project>

@@ -28,6 +28,7 @@ ivy.clean-cache - will delete the cache.
 		<mkdir dir="${lib.dir}/compile"/>
 		<mkdir dir="${lib.dir}/runtime"/>
 		<mkdir dir="${lib.dir}/test"/>
+		<mkdir dir="${lib.dir}/earlib"/>
 		<echo file="${lib.dir}/ivy.tag" message="resolved" />
 	</target>
 

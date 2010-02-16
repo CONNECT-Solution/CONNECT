@@ -24,16 +24,70 @@
 		<if>
 			<istrue value="${coverage.isneeded}" />
 			<then>
-				<delete dir="${build.instrumented.classes.dir}" />
-				<mkdir dir="${build.instrumented.classes.dir}" />
-				<delete dir="${coverage.report.dir}"/>
-				<mkdir dir="${coverage.report.dir}"/>
-				
-						<cobertura-instrument datafile="${coverage.classes.report.file}" todir="${build.instrumented.classes.dir}">
-							<includeClasses regex=".*${root.project.name}.*" />
+        <mkdir dir="${build.instrumented.classes.dir}" />
 
-							<instrumentationClasspath refid="instrument.classpath" />
-						</cobertura-instrument>
+        <path id="source.class.files"/>
+
+        <for param="classpath.item">
+          <path refid="instrument.classpath" />
+          <sequential>
+            <var name="classpath.item" value="@{classpath.item}"/>
+            <if>
+              <scriptcondition language="javascript" >
+                // import statements
+                // importPackage(java.io);
+                importClass(java.io.File);
+                var thing = new File(project.getProperty("classpath.item"));
+                self.setValue(thing.isDirectory());
+              </scriptcondition>
+              <then>
+                <addfilesettopath refid="source.class.files">
+                  <fileset dir="${classpath.item}">
+                    <include name="**/*.class"/>
+                  </fileset>
+                </addfilesettopath>
+              </then>
+            </if>
+          </sequential>
+        </for>
+
+        <path id="sourcefiles" >
+          <path refid="instrument.classpath" />
+          <path refid="source.class.files"/>
+        </path>
+
+        <var unset="true" name="sourcefiles"/>
+        <pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
+
+        <path id="targetfiles" >
+          <fileset dir="${build.instrumented.classes.dir}">
+            <include name="**/*" />
+          </fileset>
+        </path>
+
+        <var unset="true" name="targetfiles"/>
+        <pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
+
+        <outofdate verbose="${debug}" >
+          <sourcefiles>
+            <pathelement path="${sourcefiles}"/>
+          </sourcefiles>
+          <targetfiles>
+            <pathelement path="${targetfiles}"/>
+          </targetfiles>
+          <sequential>
+            <delete dir="${build.instrumented.classes.dir}" />
+            <mkdir dir="${build.instrumented.classes.dir}" />
+            <delete dir="${coverage.report.dir}"/>
+            <mkdir dir="${coverage.report.dir}"/>
+
+            <cobertura-instrument datafile="${coverage.classes.report.file}" todir="${build.instrumented.classes.dir}">
+              <includeClasses regex=".*hhs.*" />
+
+              <instrumentationClasspath refid="instrument.classpath" />
+            </cobertura-instrument>
+          </sequential>
+        </outofdate>
 			</then>
 		</if>
 	</target>
@@ -70,7 +124,7 @@
 					</targetfiles>
 					<sequential>
 						<cobertura-instrument datafile="${coverage.dist.report.file}" todir="${dist.instrumented.dir}">
-							<includeClasses regex=".*${root.project.name}.*" />
+							<includeClasses regex=".*hhs.*" />
 
 							<instrumentationClasspath>
 								<pathelement location="${dist.file}" />
@@ -140,6 +194,13 @@
 					</and>
 					<then>
 						<echo message="Checking Code Coverage Thresholds..." />
+						
+						<if>
+							<istrue value="${called.from.main.build}"/>
+							<then>
+								<mkdir dir="${root.project.directory.path}/coverage-reports"/>
+							</then>
+						</if>
 						
 						<property name="coverage.check.tag.file" value="${coverage.report.dir}/check.tag" />
 						<echo message="" file="${coverage.check.tag.file}" />
@@ -289,7 +350,7 @@
 						<if>
 							<isset property="coverage.check.failures"/>
 							<then>
-								<echo level="error" message="-${line.separator}Coverage Check:${line.separator}${coverage.check.failures}"/>
+								<echo level="error" message="Coverage Check:${line.separator}${coverage.check.failures}"/>
 								<if>
 									<isfalse value="${called.from.main.build}"/>
 									<then>
@@ -307,12 +368,48 @@
 		</if>
 	</target>
 
+  <target name="-coverage.update.failure.file">
+    <if>
+      <and>
+        <istrue value="${coverage.isneeded}"/>
+        <exists path="${coverage.classes.report.file}" />
+        <exists path="${coverage.report.dir}/coverage.xml" />
+      </and>
+      <then>
+        <if>
+          <istrue value="${called.from.main.build}"/>
+          <then>
+            <mkdir dir="${root.project.directory.path}/coverage-reports"/>
+          </then>
+        </if>
+        
+        <property name="coverage.check.tag.file" value="${coverage.report.dir}/check.tag" />
+        <loadfile property="coverage.check.failures" srcfile="${coverage.check.tag.file}"/>
+        <if>
+          <isset property="coverage.check.failures"/>
+          <then>
+            <echo level="error" message="Coverage Check:${line.separator}${coverage.check.failures}"/>
+            <if>
+              <isfalse value="${called.from.main.build}"/>
+              <then>
+                <fail message="Coverage Check failed, please Coverage Summary Report or Ant Report for details."/>
+              </then>
+              <else>
+                <echo message="${project.name}${line.separator}" file="${root.project.directory.path}/coverage-reports/coverage.check.failure"/>
+              </else>
+            </if>
+          </then>
+        </if>  
+      </then>
+    </if>
+  </target>
+
 	<target name="coverage.prepfortests">
 		<changeid originial="junitrun.classpath" new="junitrun.classpath.old" />
 		<path id="junitrun.classpath">
 			<pathelement path="${build.instrumented.classes.dir}" />
 			<path refid="junitrun.classpath.old" />
-			<fileset dir="C:\Projects\triserv\trunk\Build\Packages\Corbertura\bin">
+			<fileset dir="${codeline.directory.path}/Build/Packages/Corbertura/bin">
 				<include name="cobertura.jar" />
 			</fileset>
 		</path>

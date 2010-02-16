@@ -6,7 +6,30 @@
 	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 	<typedef resource="AgilexAnt.properties" />
 	<taskdef name="for" classname="net.sf.antcontrib.logic.ForTask" />
-	
+
+  <macrodef name="project">
+    <attribute name="name"/>
+    <attribute name="target"/>
+    <attribute name="dir"/>
+    <attribute name="file" default="build.xml"/>
+    <attribute name="order"/>
+    <sequential>
+      <script language="javascript">
+        <![CDATA[
+	        self.log('<name>@{name}</name>');
+          self.log('<order>@{order}</order>');
+	        self.log('<target>@{target}</target>');
+	        self.log('<dir>@{dir}</dir>');
+	        self.log('<file>@{file}</file>');
+	    ]]>
+      </script>
+      <ant dir="@{dir}" antfile="@{file}" inheritAll="false">
+        <target name="@{target}" />
+        <property name="called.from.main.build" value="true" />
+      </ant>
+    </sequential>
+  </macrodef>
+  
 	<macrodef name="call">
 		<attribute name="target"/>
 		<attribute name="if" default="true"/>
@@ -34,6 +57,8 @@
 		</sequential>
 	</macrodef>
 
+  <!--makes sure projects that "i" depend
+  on has been called-->
 	<macrodef name="dependcalls">
 		<attribute name="target"/>
 		<sequential>
@@ -76,6 +101,15 @@
 			fileset.createInclude().setName(attributes.get("include"));
 		]]>
 	</scriptdef>
+  
+  <scriptdef name="addfilesettopath" language="javascript">
+    <attribute name="refid"/>
+    <element name="fileset" type="fileset"/>
+    <![CDATA[
+			path = project.getReference(attributes.get("refid"));
+			path.addFileset(elements.get("fileset").get(0));
+		]]>
+  </scriptdef>
 	
 	<scriptdef name="changeid" language="javascript">
 		<attribute name="originial"/>
@@ -122,6 +156,7 @@
     <attribute name="var" default="line" />
     <element name="body" implicit="true" />
     <sequential>
+      <var unset="true" name="lines4@{file}"/>
       <loadfile property="lines4@{file}" srcfile="@{file}" />
       <for delimiter="${line.separator}" param="@{var}" list="${lines4@{file}}">
         <sequential>

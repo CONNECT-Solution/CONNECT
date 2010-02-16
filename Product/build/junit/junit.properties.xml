@@ -16,6 +16,7 @@
 
 	<fileset id="junitrun.tests" dir="${unittest.source.dir}">
 		<include name="**/**Test.java" />
+		<include name="**/**TestSuite.java" />
 	</fileset>
 	
 	<path id="junitrun.classpath">

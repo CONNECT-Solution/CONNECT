@@ -5,7 +5,10 @@
   <import file="soapui.macros.xml" />
 
   <target name="soapui.help">
-
+    <echo taskname="help">
+      soapui.run - executes all soapui project files found in the project if it has the property soapui.hasTests set to true.  A soapui
+      project file has the format of *-soapui-project.xml.
+    </echo>
   </target>
 
   <target name="soapui.clean">
@@ -35,12 +38,32 @@
         </fileset>
       </path>
       <sequential>
+
+        <var unset="true" name="soapui.project.name" />
       	<basename file="@{soapui.project.file.path}" suffix=".xml" property="soapui.project.name"/>
-      	<echo message='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}"'/>
+      	<script language="javascript">
+			<![CDATA[
+				projectName = project.getProperty("soapui.project.name");
+      			
+      			projectName = projectName.replace("-soapui-project", "");
+      			
+				project.setProperty("soapui.project.name", projectName);
+				]]>
+		</script>
+
         <exec dir="${soapui.install.bin.directory.path}" executable="cmd.exe">
-          <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}"'/>
+          <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
+      	
       	<move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>
+
+		<replace
+			file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"
+			value="">
+			<replacefilter token="&lt;testsuites&gt;"/>
+			<replacefilter token="&lt;/testsuites&gt;"/>
+	    </replace>
+      	
       </sequential>
     </for>
   </target>
@@ -49,14 +72,6 @@
 		<if>
 			<isfalse value="${called.from.main.build}" />
 			<then>
-				<replace dir="${soapui.report.dir}" token="&lt;testsuites&gt;" value="">
-			      <include name="**/*.xml"/>
-			    </replace>
-			    
-			    <replace dir="${soapui.report.dir}" token="&lt;/testsuites&gt;" value="">
-			      <include name="**/*.xml"/>
-			    </replace>
-				
 				<junitreportplus reportfile="${soapui.report.dir}/SoapUITests.xml" testtype="soapui">
 					<xmlreports>
 						<fileset dir="${soapui.report.dir}">
