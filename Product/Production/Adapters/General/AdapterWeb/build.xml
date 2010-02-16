@@ -337,7 +337,26 @@
         <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDR/schemas/"/>
         </copy>          
+    </target>  
+    
+    <target name="wsimport-service-AdapterComponentXDRSecured" depends="wsimport-init">
+
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentXDRSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDRSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDRSecured/schemas/"/>
+        </copy>          
+    </target>      
+    <target name="wsimport-service-AdapterComponentXDR" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/AdapterComponentXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDR/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDR/schemas/"/>
+        </copy>          
     </target>    
+    
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>

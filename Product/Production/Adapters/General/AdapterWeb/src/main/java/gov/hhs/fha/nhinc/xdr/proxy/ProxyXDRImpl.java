@@ -60,10 +60,10 @@ public class ProxyXDRImpl {
         ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType securedRequest = new RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType();
-
+       
         securedRequest.setNhinTargetSystem(body.getNhinTargetSystem());
         securedRequest.setProvideAndRegisterDocumentSetRequest(body.getProvideAndRegisterDocumentSetRequest());
-
+        
         result = port.provideAndRegisterDocumentSetB(securedRequest);
         
         return result;

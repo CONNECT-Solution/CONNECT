@@ -937,6 +937,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="AdapterComponentXDR">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDR</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDR.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentXDR.wsdl</local-wsdl-file>
+      <service-name>AdapterXDR_Service</service-name>
+      <port-name>AdapterXDR_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincadapterxdr</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="AdapterComponentXDRSecured">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.adapter.AdapterComponentXDRSecured</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterComponentXDRSecured.wsdl</wsdl-url>
+      <local-wsdl-file>AdapterComponentXDRSecured.wsdl</local-wsdl-file>
+      <service-name>AdapterXDRSecured_Service</service-name>
+      <port-name>AdapterXDRSecured_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincadapterxdrsecured</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients>
     <client name="EntityAuditLogQuerySecured">
