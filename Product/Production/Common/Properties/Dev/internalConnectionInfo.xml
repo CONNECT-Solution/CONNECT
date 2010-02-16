@@ -9,12 +9,12 @@
 	           <name>US-FL</name>
 	        </state>
         </states>
-        <services>
+        <services>            
              <service>
-                <name>adapterpxdrsecured</name>
+                <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
-            </service>        
+            </service>                
              <service>
                 <name>adapterxdr</name>
                 <description>Adapter Component XDR </description>
