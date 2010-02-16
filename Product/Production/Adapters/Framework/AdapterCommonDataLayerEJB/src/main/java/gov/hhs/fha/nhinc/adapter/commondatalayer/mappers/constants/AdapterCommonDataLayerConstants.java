@@ -7,6 +7,8 @@ package gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.constants;
 
 import java.util.Properties;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -14,6 +16,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class AdapterCommonDataLayerConstants
 {
+    private static Log log = LogFactory.getLog(AdapterCommonDataLayerConstants.class);
+
     public static final String ADAPTER_PROPERTIES_FILENAME = "adapter_common_datalayer";
 
     //static data switches
@@ -60,7 +64,7 @@ public class AdapterCommonDataLayerConstants
             sMEDICATIONS_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,"medications_test");
             sPATIENT_INFO_TEST = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME,"patient_info_test");
 
-            sEMULATOR_DATA_LOCATION = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "emulator_test_directory");
+            sEMULATOR_DATA_LOCATION = PropertyAccessor.getProperty(ADAPTER_PROPERTIES_FILENAME, "emulator_data_location");
         }
         catch (Exception e)
         {
@@ -68,7 +72,7 @@ public class AdapterCommonDataLayerConstants
         }
 
         EMULATOR_DATA_LOCATION = sEMULATOR_DATA_LOCATION;
-
+        log.debug("EMULATOR_DATA_LOCATION " + EMULATOR_DATA_LOCATION);
         //static data tests
         ALLERGIES_TEST = sALLERGIES_TEST;
         PROBLEMS_TEST = sPROBLEMS_TEST;
