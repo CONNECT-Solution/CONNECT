@@ -185,5 +185,24 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/org/oasis_open/docs/wsn/bw_2"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/HiemUnsubscribe"/>
     </target>
-    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe"/>
+    <target name="wsimport-service-NhinXDR" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDR"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDR" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDR" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/wsdl/NhinXDR.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/wsdl/NhinXDR.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDR"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinXDR">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDR">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-NhinXDR" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ihe/iti/xdr/_2007"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/NhinXDR"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-AdapterMpiSecured, wsimport-service-AuditQuery, wsimport-service-DocQuery, wsimport-service-DocRetrieve, wsimport-service-HiemNotify, wsimport-service-NhinPatientDiscovery, wsimport-service-SubjectDiscovery, wsimport-service-HiemSubscription, wsimport-service-HiemUnsubscribe, wsimport-service-NhinXDR"/>
 </project>

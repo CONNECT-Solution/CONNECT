@@ -217,6 +217,30 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinXDR">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.NhinXDR</implementation-class>
+      <wsdl-url>file:/C:/projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDR.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDR.wsdl</local-wsdl-file>
+      <service-name>DocumentRepositoryXDR_Service</service-name>
+      <port-name>DocumentRepositoryXDR_Port_Soap12</port-name>
+      <package-name>ihe.iti.xdr._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>
