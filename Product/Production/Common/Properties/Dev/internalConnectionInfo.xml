@@ -10,7 +10,17 @@
 	        </state>
         </states>
         <services>
-                    <service>
+             <service>
+                <name>adapterpxdrsecured</name>
+                <description>Adapter Component XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
+            </service>        
+             <service>
+                <name>adapterxdr</name>
+                <description>Adapter Component XDR </description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
+            </service>                 
+             <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
@@ -382,7 +392,17 @@
 	        </state>
         </states>
         <services>
-                    <service>
+             <service>
+                <name>adapterpxdrsecured</name>
+                <description>Adapter Component XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
+            </service>        
+             <service>
+                <name>adapterxdr</name>
+                <description>Adapter Component XDR </description>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/AdapterXDR_Service</endpointURL>
+            </service>          
+            <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
