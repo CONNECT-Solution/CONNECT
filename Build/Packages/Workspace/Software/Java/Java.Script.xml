@@ -6,8 +6,8 @@
   <property name="Java.Installer.File.Name" value="jdk-6u16-windows-i586.exe"/>
   <property name="Java.Installer.File.Path" value="C:\Temp\${Java.Installer.File.Name}"/>
   <property name="Java.Installer.Download.URL" value="${Workspace.Ftp.Url}${Java.Installer.File.Name}"/>
-  
-	<target name="Workspace.RequieredSoftware.Java">
+
+  <target name="Workspace.RequieredSoftware.Java">
     <ifnot test="${directory::exists(Java.Install.Path)}" >
       <call target="Java.DownloadAndInstall"/>
     </ifnot>
@@ -30,16 +30,18 @@
           dest="${Java.Installer.File.Path}"
           unless="${file::exists(Java.Installer.File.Path)}"
         />
-        <exec 
-          workingdir="${path::get-directory-name(Java.Installer.File.Path)}" 
-          program="${Java.Installer.File.Path}" 
-          commandline='/s /v "/qn INSTALLDIR=${Java.Install.Path}"' 
+        <exec
+          workingdir="${path::get-directory-name(Java.Installer.File.Path)}"
+          program="${Java.Installer.File.Path}"
+          commandline='/s /v "/qn INSTALLDIR=${Java.Install.Path}"'
           verbose="true"
         />
       </then>
-      <elseif if="${Answer == 'Exit'}">
-        <fail message="Please install ${Java.Install.FriendlyName} to ${Java.Install.Path}!" />
-      </elseif>
+      <elseifs>
+        <elseif test="${Answer == 'Exit'}">
+          <fail message="Please install ${Java.Install.FriendlyName} to ${Java.Install.Path}!" />
+        </elseif>
+      </elseifs>
     </ifthenelse>
   </target>
 

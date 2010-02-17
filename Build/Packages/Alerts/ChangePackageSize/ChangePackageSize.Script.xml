@@ -15,7 +15,7 @@
   <target name="Alerts.ChangePackageSize">
     <call target="Private.Alerts.ChangePackageSize.GetLineCount"/>
     <call target="Private.Alerts.ChangePackageSize.GetFileCount"/>
-    
+
     <property name="Alerts.SendMessage.ToList" value="${Alerts.Developer.Email}" />
     <property name="Alerts.SendMessage.CCList" value="${Alerts.Message.CCList}" />
 
@@ -30,12 +30,14 @@
             <call target="Alerts.SendMessage"/>
           </if>
         </then>
-        <elseif if="${0 > int::parse(Alerts.ChangePackageSize.LineCountDifference)}">
-          <if test="${(int::parse(Alerts.ChangePackageSize.LineCountDifference) * -1) >= int::parse(Alerts.ChangePackageSize.ExceedsNegativeLineCountDifference)}">
-            <call target="Private.Alerts.ChangePackageSize.GenerateThankYou"/>
-            <call target="Alerts.SendMessage"/>
-          </if>
-        </elseif>
+        <elseifs>
+          <elseif test="${0 > int::parse(Alerts.ChangePackageSize.LineCountDifference)}">
+            <if test="${(int::parse(Alerts.ChangePackageSize.LineCountDifference) * -1) >= int::parse(Alerts.ChangePackageSize.ExceedsNegativeLineCountDifference)}">
+              <call target="Private.Alerts.ChangePackageSize.GenerateThankYou"/>
+              <call target="Alerts.SendMessage"/>
+            </if>
+          </elseif>
+        </elseifs>
       </ifthenelse>
     </ifnot>
 
@@ -54,10 +56,10 @@
   <target name="Private.Alerts.ChangePackageSize.GetLineCount">
     <property name="Alerts.ChangePackageSize.LineCount" value="0"/>
 
-    <xmlquery 
-      file="${Alerts.BuildLog}" 
-      query="//code-summaries/code-summary/linecount/@label" 
-      id="LanguageLineCounts" 
+    <xmlquery
+      file="${Alerts.BuildLog}"
+      query="//code-summaries/code-summary/linecount/@label"
+      id="LanguageLineCounts"
     />
 
     <loopthrough property="LanguageLabel">
@@ -65,21 +67,21 @@
         <xmlquery refid="LanguageLineCounts"/>
       </items>
       <do>
-        <xmlpeek 
-          file="${Alerts.BuildLog}" 
-          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@totalLineCount" 
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@totalLineCount"
           property="totalLineCount"
         />
 
-        <xmlpeek 
-          file="${Alerts.BuildLog}" 
-          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@emptyLineCount" 
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@emptyLineCount"
           property="emptyLineCount"
         />
 
-        <xmlpeek 
-          file="${Alerts.BuildLog}" 
-          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@commentLineCount" 
+        <xmlpeek
+          file="${Alerts.BuildLog}"
+          xpath="//code-summaries/code-summary/linecount[@label = '${LanguageLabel}']/@commentLineCount"
           property="commentLineCount"
         />
 
@@ -88,13 +90,13 @@
       </do>
     </loopthrough>
   </target>
-  
+
   <target name="Private.Alerts.ChangePackageSize.GetFileCount">
     <property name="Alerts.ChangePackageSize.FileCount" value="0"/>
 
-    <xmlquery 
-      file="${Alerts.BuildLog}" 
-      query="//modifications/modification/filename" 
+    <xmlquery
+      file="${Alerts.BuildLog}"
+      query="//modifications/modification/filename"
       id="ModificationList"
     />
 

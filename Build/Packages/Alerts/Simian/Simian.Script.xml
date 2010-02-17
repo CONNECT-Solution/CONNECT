@@ -42,19 +42,21 @@
           <property name="Alerts.Simian.Message" value="${int::parse(Alerts.UnitTests.Count) - int::parse(Alerts.UnitTests.Previous.Count)} test(s) have been added!"/>
           <property name="Alerts.Simian.Message" value="Duplication was increased by ${int::parse(Alerts.Simian.DuplicateLineCount) - int::parse(Alerts.Simian.Previous.DuplicateLineCount)} lines!"/>
           <property name="Alerts.Simian.Message.Spin" value="negative" />
-          
+
           <call target="Alerts.Simian.GenerateWarning"/>
           <call target="Alerts.SendMessage"/>
           <call target="Alerts.Simian.WriteToReportAppender"/>
         </then>
-        <elseif if="${int::parse(Alerts.Simian.Previous.DuplicateLineCount) > int::parse(Alerts.Simian.DuplicateLineCount)}">
-          <property name="Alerts.Simian.Message" value="Duplication was reduced by ${int::parse(Alerts.Simian.Previous.DuplicateLineCount) - int::parse(Alerts.Simian.DuplicateLineCount)} lines!"/>
-          <property name="Alerts.Simian.Message.Spin" value="positive" />
-          
-          <call target="Alerts.Simian.GenerateThankYou"/>
-          <call target="Alerts.SendMessage"/>
-          <call target="Alerts.Simian.WriteToReportAppender"/>
-        </elseif>
+        <elseifs>
+          <elseif test="${int::parse(Alerts.Simian.Previous.DuplicateLineCount) > int::parse(Alerts.Simian.DuplicateLineCount)}">
+            <property name="Alerts.Simian.Message" value="Duplication was reduced by ${int::parse(Alerts.Simian.Previous.DuplicateLineCount) - int::parse(Alerts.Simian.DuplicateLineCount)} lines!"/>
+            <property name="Alerts.Simian.Message.Spin" value="positive" />
+
+            <call target="Alerts.Simian.GenerateThankYou"/>
+            <call target="Alerts.SendMessage"/>
+            <call target="Alerts.Simian.WriteToReportAppender"/>
+          </elseif>
+        </elseifs>
       </ifthenelse>
     </if>
 
@@ -109,7 +111,7 @@
       </text>
     </write>
   </target>
-  
+
   <target name="Alerts.Simian.GenerateThankYou">
     <property name="Alerts.SendMessage.Subject" value="${ProjectName} ${ProjectCodeLineName} ${CCNetLabel}: Thanks For Removing Duplication" />
 
@@ -135,7 +137,8 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/>
+              <div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>
@@ -175,7 +178,8 @@
               style="text-decoration: none; color: rgb(64, 63, 141); color:#403F8D; font-size:14px; font-weight:bold;"
               href="${UrlToSimianReport}"
             >
-              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/><div>Simian Report</div>
+              <img style="float: left; border-style: none; height: 25px;" src="http://${BuildServerHostName}/${string::replace(ProjectName, ' ', '%20')}-${ProjectCodeLineName}/Packages/Simian/logo.gif"/>
+              <div>Simian Report</div>
             </a>
             <br/>
             <p>Please note the possibility that some pairs of added and removed items could really be a change.</p>

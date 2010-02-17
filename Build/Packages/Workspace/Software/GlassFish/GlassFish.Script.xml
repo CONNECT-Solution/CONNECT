@@ -19,10 +19,10 @@
       <call target="GlassFish.DownloadAndInstall"/>
 
       <call target="GlassFish.Update" />
-      
+
       <call target="GlassFish.Configure"/>
     </ifnot>
-    
+
     <call target="GlassFish.Configure.MemoryOptions"/>
   </target>
 
@@ -41,7 +41,7 @@
     <call target="GlassFish.Update.Certificates"/>
   </target>
 
-  
+
   <target name="GlassFish.Update.log4.properties">
     <property name="Lo4j.properties.Tag.FileName" value="1.lo4j.properties.tag"/>
 
@@ -57,11 +57,11 @@
 
   <target name="GlassFish.Update.NHIN.properties">
     <property name="NHIN.properties.Tag.FileName" value="1.1.NHIN.properties.tag"/>
-    
+
     <ifnot test="${file::exists(GlassFish.Application.Config.Path)}" >
       <mkdir dir="${GlassFish.Application.Domain.Path}\nhin"/>
     </ifnot>
-    
+
     <ifnot test="${file::exists(GlassFish.Application.Config.Path + '\' + NHIN.properties.Tag.FileName)}">
       <copy todir="${GlassFish.Application.Config.Path}">
         <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev">
@@ -71,8 +71,8 @@
       <echo message="" file="${GlassFish.Application.Config.Path}\${NHIN.properties.Tag.FileName}"/>
     </ifnot>
   </target>
-  
-  
+
+
   <target name="GlassFish.Update.XStream">
     <property name="XStream.Tag.FileName" value="1.3.XStream.tag"/>
 
@@ -175,7 +175,7 @@
 
   <target name="GlassFish.Update.AntLib">
     <property name="AntExLib.Tag.FileName" value="1.7.1.Ant.tag"/>
-  
+
     <ifnot test="${file::exists(NetBeans.Ant.Install.Path + '\' + AntExLib.Tag.FileName)}">
       <copy todir="${NetBeans.Ant.Install.Path}">
         <fileset basedir="${Common.Directory.ThirdParty.Path}\AntExtraLibs">
@@ -185,7 +185,7 @@
       <echo message="" file="${NetBeans.Ant.Install.Path}\${AntExLib.Tag.FileName}"/>
     </ifnot>
   </target>
-  
+
   <target name="GlassFish.Update.Metro">
     <property name="Metro.Tag.FileName" value="WSIT-Tools 1.3 06-08-2008.metro.tag"/>
     <property name="GlassFish.LibPath" value="${GlassFish.Lib.Directory.Path}"/>
@@ -225,7 +225,7 @@
       <echo message="" file="${Domain.Xml.Tag}"/>
     </ifnot>
   </target>
-  
+
   <target name="GlassFish.Config.Domain">
     <largeproperty name="GlassFish.Config.Domain.XmlValue">
       <value expand="false" xml="true">
@@ -383,7 +383,7 @@
     <property name="GlassFish.Config.Domain.XPathExists" value="/domain/configs/config/java-config/jvm-options[text() = '-XX:PermSize=132m']"/>
     <call target="GlassFish.Edit.Config.Domain"/>
   </target>
-  
+
   <target name="GlassFish.Edit.Config.Domain">
     <xmlpeek
       file="${GlassFish.Config.Domain.FilePath}"
@@ -449,9 +449,11 @@
           verbose="true"
         />
       </then>
-      <elseif if="${Answer == 'Exit'}">
-        <fail message="Please install ${GlassFish.Install.FriendlyName}!" />
-      </elseif>
+      <elseifs>
+        <elseif test="${Answer == 'Exit'}">
+          <fail message="Please install ${GlassFish.Install.FriendlyName}!" />
+        </elseif>
+      </elseifs>
     </ifthenelse>
   </target>
 

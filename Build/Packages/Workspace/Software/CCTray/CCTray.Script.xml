@@ -29,7 +29,7 @@
       </if>
     </if>
   </target>
-  
+
   <target name="CCTray.DownloadAndInstall">
     <ask answer="Answer"
            question="It looks like ${CCTray.Install.FriendlyName} is not installed.  This software is required.  Do you wish to install the software?"
@@ -58,9 +58,11 @@
           verbose="true"
         />
       </then>
-      <elseif if="${Answer == 'Exit'}">
-        <fail message="Please install ${CCTray.Install.FriendlyName} to ${CCTray.Install.Path}!" />
-      </elseif>
+      <elseifs>
+        <elseif test="${Answer == 'Exit'}">
+          <fail message="Please install ${CCTray.Install.FriendlyName} to ${CCTray.Install.Path}!" />
+        </elseif>
+      </elseifs>
     </ifthenelse>
   </target>
 
