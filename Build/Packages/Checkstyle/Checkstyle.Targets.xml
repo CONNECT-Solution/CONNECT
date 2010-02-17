@@ -6,6 +6,7 @@
           target="checkstyle"
           buildfile="${Ant.Build.File.Path}"
           logfile="${Ant.Log.Directory.Path}\checkstyle_log.xml"
+          listenerFile="${path::get-directory-name(CCNetListenerFile)}/CheckStyleListener.txt"
     >
       <environment refid="${Common.EnvironmentVariables.RefId}"/>
       <args/>
