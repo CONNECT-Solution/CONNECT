@@ -82,6 +82,7 @@ public class CMUDDIConnectionInfoXMLTest {
         oTemplate.setBindingKey("BindingKey" + sTag);
         oTemplate.setEndpointURL("EndpointURL" + sTag);
         oTemplate.setWsdlURL("WSDLURL" + sTag);
+		oTemplate.setServiceVersion("1.0");
         
         return oTemplate;
     }
@@ -114,7 +115,6 @@ public class CMUDDIConnectionInfoXMLTest {
 
         oService.setInternalWebService(true);
         oService.setServiceKey("ServiceKey" + sTag);
-        oService.setServiceVersion("1.0");
         oService.setUniformServiceName("ServiceName" + sTag);
         oService.setBindingTemplates(createBindingTemplates(sTag));
         oService.setNames(createBindingNames(sTag));
@@ -336,9 +336,7 @@ public class CMUDDIConnectionInfoXMLTest {
         oEntity.setDiscoveryURLs(createDiscoveryURLs(sTag));
         oEntity.setNames(createBusinessNames(sTag));
         oEntity.setStates(createBusinessStates(sTag));
-
-        byte baPublicKey[] = {100, 100, 100, 100, 100, 100};
-        oEntity.setPublicKey(baPublicKey);
+        oEntity.setPublicKey("AA:11:22");
         
         
         return oEntity;

@@ -15,21 +15,21 @@
             <isset property="conf.dir"/>
         </condition>
     </target>
-    <target name="wsimport-client-uddi_v3_service" depends="wsimport-init">
-        <mkdir dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/uddi_v3_service" destdir="${build.generated.dir}/jax-wsCache/uddi_v3_service" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/uddi_v3_service.wsdl" xnocompile="true">
-            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/uddi_v3_service/wsdl/uddi_v3_service.wsdl"/>
-            <produces dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
+    <target name="wsimport-client-NhinUddiAPIV3" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" destdir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/NhinUddiAPIV3/wsdl/NhinUddiAPIV3.wsdl" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinUddiAPIV3.wsdl" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/NhinUddiAPIV3/wsdl/NhinUddiAPIV3.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3"/>
         </wsimport>
         <copy todir="${build.generated.sources.dir}/jax-ws">
-            <fileset dir="${build.generated.dir}/jax-wsCache/uddi_v3_service">
+            <fileset dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3">
                 <include name="**/*.java"/>
             </fileset>
         </copy>
     </target>
-    <target name="wsimport-client-clean-uddi_v3_service" depends="-init-project">
-        <delete dir="${build.generated.sources.dir}/jax-ws/uddi-org:v3_service"/>
-        <delete dir="${build.generated.dir}/jax-wsCache/uddi_v3_service"/>
+    <target name="wsimport-client-clean-NhinUddiAPIV3" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:nhin_uddi_api_v3"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/NhinUddiAPIV3"/>
     </target>
     <target name="wsimport-service-DocumentTransform" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/DocumentTransform"/>
@@ -107,6 +107,6 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/nhinccomponentconnectionmanager"/>
         <delete dir="${build.generated.dir}/jax-wsCache/service/NhincComponentConnectionManager"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-uddi_v3_service"/>
+    <target name="wsimport-client-generate" depends="wsimport-client-NhinUddiAPIV3"/>
     <target name="wsimport-service-generate" depends="wsimport-service-DocumentTransform, wsimport-service-NhincComponentPropAccessor, wsimport-service-UDDIUpdateManager, wsimport-service-NhincComponentConnectionManager"/>
 </project>

@@ -5,38 +5,34 @@ package gov.hhs.fha.nhinc.connectmgr.data;
  * 
  * @author Les Westberg
  */
-public class CMBusinessService
-{
+public class CMBusinessService {
+
     private String serviceKey = "";
     private CMBindingNames names = null;
     private CMBindingDescriptions descriptions = null;
     private String uniformServiceName = "";
-    private String serviceVersion = "";
     private boolean internalWebService = false;
     private CMBindingTemplates bindingTemplates = null;
 
     /**
      * Default constructor.
      */
-    public CMBusinessService()
-    {
+    public CMBusinessService() {
         clear();
     }
 
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         uniformServiceName = "";
-        serviceVersion = "";
         internalWebService = false;
         serviceKey = "";
         names = null;
         descriptions = null;
         bindingTemplates = null;
     }
-    
+
     /**
      * Returns true of the contents of the object are the same as the one
      * passed in.
@@ -44,32 +40,27 @@ public class CMBusinessService
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMBusinessService oCompare)
-    {
+    public boolean equals(CMBusinessService oCompare) {
         if ((!this.uniformServiceName.equals(oCompare.uniformServiceName)) ||
-            (!this.serviceVersion.equals(oCompare.serviceVersion)) ||
-            (this.internalWebService != oCompare.internalWebService) ||
-            (!this.serviceKey.equals(oCompare.serviceKey)) ||
-            (!this.names.equals(oCompare.names)) ||
-            (!this.descriptions.equals(oCompare.descriptions)) ||
-            (!this.bindingTemplates.equals(oCompare.bindingTemplates)))
-        {
+                (this.internalWebService != oCompare.internalWebService) ||
+                (!this.serviceKey.equals(oCompare.serviceKey)) ||
+                (!this.names.equals(oCompare.names)) ||
+                (!this.descriptions.equals(oCompare.descriptions)) ||
+                (!this.bindingTemplates.equals(oCompare.bindingTemplates))) {
             return false;
         }
-        
+
         // If we got here then everything is the same...
         //----------------------------------------------
         return true;
     }
-    
 
     /**
      * Returns the binding information for this service.
      * 
      * @return The binding information for this service.
      */
-    public CMBindingTemplates getBindingTemplates()
-    {
+    public CMBindingTemplates getBindingTemplates() {
         return bindingTemplates;
     }
 
@@ -78,8 +69,7 @@ public class CMBusinessService
      * 
      * @param bindingTemplates The binding information for this service.
      */
-    public void setBindingTemplates(CMBindingTemplates bindingTemplates)
-    {
+    public void setBindingTemplates(CMBindingTemplates bindingTemplates) {
         this.bindingTemplates = bindingTemplates;
     }
 
@@ -88,8 +78,7 @@ public class CMBusinessService
      * 
      * @return The binding description information for this service.
      */
-    public CMBindingDescriptions getDescriptions()
-    {
+    public CMBindingDescriptions getDescriptions() {
         return descriptions;
     }
 
@@ -98,8 +87,7 @@ public class CMBusinessService
      * 
      * @param descriptions The binding description information for this service.
      */
-    public void setDescriptions(CMBindingDescriptions descriptions)
-    {
+    public void setDescriptions(CMBindingDescriptions descriptions) {
         this.descriptions = descriptions;
     }
 
@@ -110,8 +98,7 @@ public class CMBusinessService
      * @return True if this web service is internal to this gateway and false if it
      *         is exposed to the NHIN.
      */
-    public boolean isInternalWebService()
-    {
+    public boolean isInternalWebService() {
         return internalWebService;
     }
 
@@ -122,8 +109,7 @@ public class CMBusinessService
      * @param internalWebService True if this web service is internal to this gateway and false if it
      *         is exposed to the NHIN.
      */
-    public void setInternalWebService(boolean internalWebService)
-    {
+    public void setInternalWebService(boolean internalWebService) {
         this.internalWebService = internalWebService;
     }
 
@@ -132,8 +118,7 @@ public class CMBusinessService
      * 
      * @return The binding names for this service.
      */
-    public CMBindingNames getNames()
-    {
+    public CMBindingNames getNames() {
         return names;
     }
 
@@ -142,8 +127,7 @@ public class CMBusinessService
      * 
      * @return The binding names for this service.
      */
-    public void setNames(CMBindingNames names)
-    {
+    public void setNames(CMBindingNames names) {
         this.names = names;
     }
 
@@ -152,8 +136,7 @@ public class CMBusinessService
      * 
      * @return The service key for this service.
      */
-    public String getServiceKey()
-    {
+    public String getServiceKey() {
         return serviceKey;
     }
 
@@ -162,29 +145,8 @@ public class CMBusinessService
      * 
      * @param serviceKey The service key for this service.
      */
-    public void setServiceKey(String serviceKey)
-    {
+    public void setServiceKey(String serviceKey) {
         this.serviceKey = serviceKey;
-    }
-
-    /**
-     * Returns the version of this service.
-     * 
-     * @return The version of this service.
-     */
-    public String getServiceVersion()
-    {
-        return serviceVersion;
-    }
-
-    /**
-     * Sets the version of this service.
-     * 
-     * @param serviceVersion The version of this service.
-     */
-    public void setServiceVersion(String serviceVersion)
-    {
-        this.serviceVersion = serviceVersion;
     }
 
     /**
@@ -192,8 +154,7 @@ public class CMBusinessService
      * 
      * @return The uniform service name for this service.
      */
-    public String getUniformServiceName()
-    {
+    public String getUniformServiceName() {
         return uniformServiceName;
     }
 
@@ -202,10 +163,7 @@ public class CMBusinessService
      * 
      * @param uniformServiceName The uniform service name for this service.
      */
-    public void setUniformServiceName(String uniformServiceName)
-    {
+    public void setUniformServiceName(String uniformServiceName) {
         this.uniformServiceName = uniformServiceName;
     }
-
-    
 }

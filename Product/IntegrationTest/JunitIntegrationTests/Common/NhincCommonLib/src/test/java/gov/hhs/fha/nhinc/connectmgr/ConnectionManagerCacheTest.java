@@ -583,13 +583,7 @@ public class ConnectionManagerCacheTest {
         assertEquals("http://www.thekey.com.2", oEntity.getPublicKeyURI());
         
         assertNotNull(oEntity.getPublicKey());
-        assertEquals(6, oEntity.getPublicKey().length);
-        assertEquals(100, (int) oEntity.getPublicKey()[0]);
-        assertEquals(100, (int) oEntity.getPublicKey()[1]);
-        assertEquals(100, (int) oEntity.getPublicKey()[2]);
-        assertEquals(100, (int) oEntity.getPublicKey()[3]);
-        assertEquals(100, (int) oEntity.getPublicKey()[4]);
-        assertEquals(100, (int) oEntity.getPublicKey()[5]);
+        assertEquals("ZGRkZGRk", oEntity.getPublicKey());
 
         assertNotNull(oEntity.getBusinessServices());
         assertNotNull(oEntity.getBusinessServices().getBusinessService());
@@ -654,7 +648,6 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.2.1.2", oService.getDescriptions().getDescription().get(1));
                 
                 assertEquals("Service 1 Name", oService.getUniformServiceName());
-                assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
                 assertNotNull(oService.getBindingTemplates());
@@ -664,10 +657,13 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingKey.2.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getBindingKey());
                 assertEquals("EndpointURL.2.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL());
                 assertEquals("WSDLURL.2.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getWsdlURL());
+                assertEquals("1.0", oService.getBindingTemplates().getBindingTemplate().get(0).getServiceVersion());
 
                 assertEquals("BindingKey.2.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getBindingKey());
                 assertEquals("EndpointURL.2.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getEndpointURL());
                 assertEquals("WSDLURL.2.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getWsdlURL());
+				assertEquals("2.0", oService.getBindingTemplates().getBindingTemplate().get(1).getServiceVersion());
+
             }
             else if (oService.getServiceKey().equals("ServiceKey.2.2"))
             {
@@ -686,7 +682,6 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.2.2.2", oService.getDescriptions().getDescription().get(1));
                 
                 assertEquals("Service 2 Name", oService.getUniformServiceName());
-                assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
                 assertNotNull(oService.getBindingTemplates());
@@ -696,10 +691,13 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingKey.2.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getBindingKey());
                 assertEquals("EndpointURL.2.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL());
                 assertEquals("WSDLURL.2.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getWsdlURL());
+				assertEquals("1.0", oService.getBindingTemplates().getBindingTemplate().get(0).getServiceVersion());
 
                 assertEquals("BindingKey.2.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getBindingKey());
                 assertEquals("EndpointURL.2.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getEndpointURL());
                 assertEquals("WSDLURL.2.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getWsdlURL());
+				assertEquals("2.0", oService.getBindingTemplates().getBindingTemplate().get(1).getServiceVersion());
+
             }
             else
             {
@@ -866,13 +864,7 @@ public class ConnectionManagerCacheTest {
         assertEquals("http://www.thekey.com.1", oEntity.getPublicKeyURI());
         
         assertNotNull(oEntity.getPublicKey());
-        assertEquals(6, oEntity.getPublicKey().length);
-        assertEquals(100, (int) oEntity.getPublicKey()[0]);
-        assertEquals(100, (int) oEntity.getPublicKey()[1]);
-        assertEquals(100, (int) oEntity.getPublicKey()[2]);
-        assertEquals(100, (int) oEntity.getPublicKey()[3]);
-        assertEquals(100, (int) oEntity.getPublicKey()[4]);
-        assertEquals(100, (int) oEntity.getPublicKey()[5]);
+        assertEquals("ZGRkZGRk", oEntity.getPublicKey());
 
         // Business Services
         //------------------
@@ -911,7 +903,6 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.1.1.2", oService.getDescriptions().getDescription().get(1));
                 
                 assertEquals("Service 1 Name", oService.getUniformServiceName());
-                assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
                 assertNotNull(oService.getBindingTemplates());
@@ -921,10 +912,13 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingKey.1.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getBindingKey());
                 assertEquals("EndpointURL.1.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL());
                 assertEquals("WSDLURL.1.1.1", oService.getBindingTemplates().getBindingTemplate().get(0).getWsdlURL());
+				assertEquals("1.0", oService.getBindingTemplates().getBindingTemplate().get(0).getServiceVersion());
 
                 assertEquals("BindingKey.1.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getBindingKey());
                 assertEquals("EndpointURL.1.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getEndpointURL());
                 assertEquals("WSDLURL.1.1.2", oService.getBindingTemplates().getBindingTemplate().get(1).getWsdlURL());
+				assertEquals("2.0", oService.getBindingTemplates().getBindingTemplate().get(1).getServiceVersion());
+
             }
             else if (oService.getServiceKey().equals("ServiceKey.1.2"))
             {
@@ -943,7 +937,6 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingDescription.1.2.2", oService.getDescriptions().getDescription().get(1));
                 
                 assertEquals("ServiceName.1.2", oService.getUniformServiceName());
-                assertEquals("1.0", oService.getServiceVersion());
                 assertEquals(true, oService.isInternalWebService());
                 
                 assertNotNull(oService.getBindingTemplates());
@@ -953,10 +946,12 @@ public class ConnectionManagerCacheTest {
                 assertEquals("BindingKey.1.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getBindingKey());
                 assertEquals("EndpointURL.1.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getEndpointURL());
                 assertEquals("WSDLURL.1.2.1", oService.getBindingTemplates().getBindingTemplate().get(0).getWsdlURL());
+				assertEquals("1.0", oService.getBindingTemplates().getBindingTemplate().get(0).getServiceVersion());
 
                 assertEquals("BindingKey.1.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getBindingKey());
                 assertEquals("EndpointURL.1.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getEndpointURL());
                 assertEquals("WSDLURL.1.2.2", oService.getBindingTemplates().getBindingTemplate().get(1).getWsdlURL());
+				assertEquals("2.0", oService.getBindingTemplates().getBindingTemplate().get(1).getServiceVersion());
 
             }
             else

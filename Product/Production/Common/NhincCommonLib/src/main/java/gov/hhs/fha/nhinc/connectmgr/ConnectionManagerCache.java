@@ -611,7 +611,7 @@ public class ConnectionManagerCache {
 
         checkLoaded();
 
-        // First get the infomration from the internal connections.
+        // First get the information from the internal connections.
         //---------------------------------------------------------
         Collection<CMInternalConnectionInfo> colInternConn = m_hInternalConnectInfo.values();
         for (CMInternalConnectionInfo oConnInfo : colInternConn) {
@@ -718,7 +718,7 @@ public class ConnectionManagerCache {
 
         checkLoaded();
 
-        // First get the infomration from the internal connections.
+        // First get the information from the internal connections.
         //---------------------------------------------------------
         Collection<CMInternalConnectionInfo> colInternConn = m_hInternalConnectInfo.values();
         for (CMInternalConnectionInfo oConnInfo : colInternConn) {

@@ -27,6 +27,7 @@
     <servlet>
         <servlet-name>UDDIUpdateManager</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.connectmgr.uddi.UDDIUpdateManager</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>UDDIUpdateManager</servlet-name>

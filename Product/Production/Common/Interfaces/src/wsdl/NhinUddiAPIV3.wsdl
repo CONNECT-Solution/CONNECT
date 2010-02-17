@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NHIN Secured SOAP/HTTP binding for UDDI Inquiry API V3.0 WSDL -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" 
+xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+xmlns:tns="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3"
+xmlns:uddi="urn:uddi-org:api_v3" 
+xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" 
+xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" 
+xmlns:sc="http://schemas.sun.com/2006/03/wss/server" 
+xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy" 
+xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy" 
+targetNamespace="urn:gov:hhs:fha:nhinc:nhin_uddi_api_v3">
+    <documentation>
+		NHIN Secured SOAP/HTTP binding for UDDI API V3.0 
+    </documentation>
+    <types>
+        <xsd:schema targetNamespace="urn:uddi-org:api_v3_portType" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="urn:uddi-org:api_v3" schemaLocation="../schemas/uddi/uddi_v3.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="bindingDetailMessage">
+        <part name="body" element="uddi:bindingDetail"/>
+    </message>
+    <message name="businessDetailMessage">
+        <part name="body" element="uddi:businessDetail"/>
+    </message>
+    <message name="businessListMessage">
+        <part name="body" element="uddi:businessList"/>
+    </message>
+    <message name="dispositionReportFaultMessage">
+        <part name="body" element="uddi:dispositionReport"/>
+    </message>
+    <message name="find_bindingMessage">
+        <part name="body" element="uddi:find_binding"/>
+    </message>
+    <message name="find_businessMessage">
+        <part name="body" element="uddi:find_business"/>
+    </message>
+    <message name="find_relatedBusinessesMessage">
+        <part name="body" element="uddi:find_relatedBusinesses"/>
+    </message>
+    <message name="find_serviceMessage">
+        <part name="body" element="uddi:find_service"/>
+    </message>
+    <message name="find_tModelMessage">
+        <part name="body" element="uddi:find_tModel"/>
+    </message>
+    <message name="get_bindingDetailMessage">
+        <part name="body" element="uddi:get_bindingDetail"/>
+    </message>
+    <message name="get_businessDetailMessage">
+        <part name="body" element="uddi:get_businessDetail"/>
+    </message>
+    <message name="get_operationalInfoMessage">
+        <part name="body" element="uddi:get_operationalInfo"/>
+    </message>
+    <message name="get_serviceDetailMessage">
+        <part name="body" element="uddi:get_serviceDetail"/>
+    </message>
+    <message name="get_tModelDetailMessage">
+        <part name="body" element="uddi:get_tModelDetail"/>
+    </message>
+    <message name="operationalInfosMessage">
+        <part name="body" element="uddi:operationalInfos"/>
+    </message>
+    <message name="relatedBusinessesListMessage">
+        <part name="body" element="uddi:relatedBusinessesList"/>
+    </message>
+    <message name="serviceDetailMessage">
+        <part name="body" element="uddi:serviceDetail"/>
+    </message>
+    <message name="serviceListMessage">
+        <part name="body" element="uddi:serviceList"/>
+    </message>
+    <message name="tModelDetailMessage">
+        <part name="body" element="uddi:tModelDetail"/>
+    </message>
+    <message name="tModelListMessage">
+        <part name="body" element="uddi:tModelList"/>
+    </message>
+    <message name="add_publisherAssertionsMessage">
+        <part name="body" element="uddi:add_publisherAssertions"/>
+    </message>
+    <message name="assertionStatusReportMessage">
+        <part name="body" element="uddi:assertionStatusReport"/>
+    </message>
+    <message name="delete_bindingMessage">
+        <part name="body" element="uddi:delete_binding"/>
+    </message>
+    <message name="delete_businessMessage">
+        <part name="body" element="uddi:delete_business"/>
+    </message>
+    <message name="delete_publisherAssertionsMessage">
+        <part name="body" element="uddi:delete_publisherAssertions"/>
+    </message>
+    <message name="delete_serviceMessage">
+        <part name="body" element="uddi:delete_service"/>
+    </message>
+    <message name="delete_tModelMessage">
+        <part name="body" element="uddi:delete_tModel"/>
+    </message>
+    <message name="successMessage">
+            
+    </message>
+    <message name="get_assertionStatusReportMessage">
+        <part name="body" element="uddi:get_assertionStatusReport"/>
+    </message>
+    <message name="get_publisherAssertionsMessage">
+        <part name="body" element="uddi:get_publisherAssertions"/>
+    </message>
+    <message name="get_registeredInfoMessage">
+        <part name="body" element="uddi:get_registeredInfo"/>
+    </message>
+    <message name="publisherAssertionsMessage">
+        <part name="body" element="uddi:publisherAssertions"/>
+    </message>
+    <message name="registeredInfoMessage">
+        <part name="body" element="uddi:registeredInfo"/>
+    </message>
+    <message name="save_bindingMessage">
+        <part name="body" element="uddi:save_binding"/>
+    </message>
+    <message name="save_businessMessage">
+        <part name="body" element="uddi:save_business"/>
+    </message>
+    <message name="save_serviceMessage">
+        <part name="body" element="uddi:save_service"/>
+    </message>
+    <message name="save_tModelMessage">
+        <part name="body" element="uddi:save_tModel"/>
+    </message>
+    <message name="set_publisherAssertionsMessage">
+        <part name="body" element="uddi:set_publisherAssertions"/>
+    </message>
+    <message name="authTokenMessage">
+        <part name="body" element="uddi:authToken"/>
+    </message>
+    <message name="discard_authTokenMessage">
+        <part name="body" element="uddi:discard_authToken"/>
+    </message>
+    <message name="get_authTokenMessage">
+        <part name="body" element="uddi:get_authToken"/>
+    </message>
+    <portType name="UDDI_Inquiry_PortType">
+        <documentation>This portType defines all of the UDDI inquiry operations.</documentation>
+        <operation name="find_binding">
+            <input message="tns:find_bindingMessage"/>
+            <output message="tns:bindingDetailMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="find_business">
+            <input message="tns:find_businessMessage"/>
+            <output message="tns:businessListMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="find_relatedBusinesses">
+            <input message="tns:find_relatedBusinessesMessage"/>
+            <output message="tns:relatedBusinessesListMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="find_service">
+            <input message="tns:find_serviceMessage"/>
+            <output message="tns:serviceListMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="find_tModel">
+            <input message="tns:find_tModelMessage"/>
+            <output message="tns:tModelListMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="get_bindingDetail">
+            <input message="tns:get_bindingDetailMessage"/>
+            <output message="tns:bindingDetailMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="get_businessDetail">
+            <input message="tns:get_businessDetailMessage"/>
+            <output message="tns:businessDetailMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="get_operationalInfo">
+            <input message="tns:get_operationalInfoMessage"/>
+            <output message="tns:operationalInfosMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="get_serviceDetail">
+            <input message="tns:get_serviceDetailMessage"/>
+            <output message="tns:serviceDetailMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+        <operation name="get_tModelDetail">
+            <input message="tns:get_tModelDetailMessage"/>
+            <output message="tns:tModelDetailMessage"/>
+            <fault name="error" message="tns:dispositionReportFaultMessage"/>
+        </operation>
+    </portType>
+    <binding name="UDDI_Inquiry_SoapBinding" type="tns:UDDI_Inquiry_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#UDDI_API_Binding_SoapPolicy"/>
+        <operation name="find_binding">
+            <soap:operation soapAction="find_binding"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="find_business">
+            <soap:operation soapAction="find_business"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="find_relatedBusinesses">
+            <soap:operation soapAction="find_relatedBusinesses"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="find_service">
+            <soap:operation soapAction="find_service"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="find_tModel">
+            <soap:operation soapAction="find_tModel"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="get_bindingDetail">
+            <soap:operation soapAction="get_bindingDetail"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="get_businessDetail">
+            <soap:operation soapAction="get_businessDetail"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="get_operationalInfo">
+            <soap:operation soapAction="get_operationalInfo"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="get_serviceDetail">
+            <soap:operation soapAction="get_serviceDetail"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+        <operation name="get_tModelDetail">
+            <soap:operation soapAction="get_tModelDetail"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="error">
+                <soap:fault name="error" use="literal"/>
+            </fault>
+        </operation>
+    </binding>
+    <service name="UDDI_Service">
+        <port name="UDDI_Inquiry_Port" binding="tns:UDDI_Inquiry_SoapBinding">
+            <soap:address location="https://localhost/uddi/inquiry/"/>
+        </port>
+    </service>
+    <wsp:Policy wsu:Id="UDDI_API_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</definitions>

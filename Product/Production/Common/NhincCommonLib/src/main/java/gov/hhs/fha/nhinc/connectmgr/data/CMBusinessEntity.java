@@ -8,8 +8,7 @@ import java.util.ArrayList;
  * @version 1.0
  * @created 20-Oct-2008 12:06:50 PM
  */
-public class CMBusinessEntity
-{
+public class CMBusinessEntity {
 
     private String businessKey = "";
     private CMDiscoveryURLs discoveryURLs = null;
@@ -20,26 +19,24 @@ public class CMBusinessEntity
     private CMStates states = null;
     private boolean federalHIE = false;
     private String publicKeyURI = "";
-    private byte[] publicKey = null;
+    private String publicKey = "";
     private CMBusinessServices businessServices = null;
 
     /**
      * Default constructor.
      */
-    public CMBusinessEntity()
-    {
+    public CMBusinessEntity() {
         clear();
     }
-    
+
     /**
      * Clear the contents of this and set it to a default state.
      */
-    public void clear()
-    {
+    public void clear() {
         homeCommunityId = "";
         federalHIE = false;
         publicKeyURI = "";
-        publicKey = null;
+        publicKey = "";
         businessKey = "";
         discoveryURLs = null;
         names = null;
@@ -56,84 +53,62 @@ public class CMBusinessEntity
      * @param oCompare The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMBusinessEntity oCompare)
-    {
-        if (!this.homeCommunityId.equals(oCompare.homeCommunityId))
-        {
+    public boolean equals(CMBusinessEntity oCompare) {
+        if (!this.homeCommunityId.equals(oCompare.homeCommunityId)) {
             return false;
         }
 
-        if (this.federalHIE != oCompare.federalHIE)
-        {
+        if (this.federalHIE != oCompare.federalHIE) {
             return false;
         }
-        
-        if (!this.publicKeyURI.equals(oCompare.publicKeyURI))
-        {
+
+        if (!this.publicKeyURI.equals(oCompare.publicKeyURI)) {
             return false;
         }
-        
-        if (!this.businessKey.equals(oCompare.businessKey))
-        {
+
+        if (!this.businessKey.equals(oCompare.businessKey)) {
             return false;
         }
-        
-        if (!this.discoveryURLs.equals(oCompare.discoveryURLs))
-        {
+
+        if (!this.discoveryURLs.equals(oCompare.discoveryURLs)) {
             return false;
         }
-        
-        if (!this.names.equals(oCompare.names))
-        {
+
+        if (!this.names.equals(oCompare.names)) {
             return false;
         }
-        
-        if (!this.descriptions.equals(oCompare.descriptions))
-        {
+
+        if (!this.descriptions.equals(oCompare.descriptions)) {
             return false;
         }
-        
-        if (!this.contacts.equals(oCompare.contacts))
-        {
+
+        if (!this.contacts.equals(oCompare.contacts)) {
             return false;
         }
-        
-        if (!this.states.equals(oCompare.states))
-        {
+
+        if (!this.states.equals(oCompare.states)) {
             return false;
         }
-        
-        if (!this.businessServices.equals(oCompare.businessServices))
-        {
+
+        if (!this.businessServices.equals(oCompare.businessServices)) {
             return false;
         }
-        
-        if ((this.publicKey.length != oCompare.publicKey.length))
-        {
+
+        if (!this.publicKey.equals(oCompare.publicKey)) {
             return false;
-        }
-        
-        int iCnt = this.publicKey.length;
-        for (int i = 0; i < iCnt; i++)
-        {
-            if (this.publicKey[i] != oCompare.publicKey[i])
-            {
-                return false;
-            }
         }
 
         // If we got here then everything is the same...
         //----------------------------------------------
         return true;
     }
-    
+
     /**
      * Return the business key associated with this entity.
      * 
      * @return The business key associated with this entity.
      */
-    public String getBusinessKey()
-    {
+    public String getBusinessKey() {
         return businessKey;
     }
 
@@ -142,8 +117,7 @@ public class CMBusinessEntity
      * 
      * @param businessKey The business key associated with this entity.
      */
-    public void setBusinessKey(String businessKey)
-    {
+    public void setBusinessKey(String businessKey) {
         this.businessKey = businessKey;
     }
 
@@ -152,8 +126,7 @@ public class CMBusinessEntity
      * 
      * @return The business services associated with this business entity.
      */
-    public CMBusinessServices getBusinessServices()
-    {
+    public CMBusinessServices getBusinessServices() {
         return businessServices;
     }
 
@@ -162,8 +135,7 @@ public class CMBusinessEntity
      * 
      * @param businessServices The business services associated with this business entity.
      */
-    public void setBusinessServices(CMBusinessServices businessServices)
-    {
+    public void setBusinessServices(CMBusinessServices businessServices) {
         this.businessServices = businessServices;
     }
 
@@ -172,8 +144,7 @@ public class CMBusinessEntity
      * 
      * @return The contacts associated with this business entity.
      */
-    public CMContacts getContacts()
-    {
+    public CMContacts getContacts() {
         return contacts;
     }
 
@@ -182,8 +153,7 @@ public class CMBusinessEntity
      * 
      * @param contacts The contacts associated with this business entity.
      */
-    public void setContacts(CMContacts contacts)
-    {
+    public void setContacts(CMContacts contacts) {
         this.contacts = contacts;
     }
 
@@ -192,8 +162,7 @@ public class CMBusinessEntity
      * 
      * @return The description of this business entity.
      */
-    public CMBusinessDescriptions getDescriptions()
-    {
+    public CMBusinessDescriptions getDescriptions() {
         return descriptions;
     }
 
@@ -202,8 +171,7 @@ public class CMBusinessEntity
      * 
      * @return The description of this business entity.
      */
-    public void setDescriptions(CMBusinessDescriptions descriptions)
-    {
+    public void setDescriptions(CMBusinessDescriptions descriptions) {
         this.descriptions = descriptions;
     }
 
@@ -212,8 +180,7 @@ public class CMBusinessEntity
      * 
      * @return The discovery URLs for this business entity.
      */
-    public CMDiscoveryURLs getDiscoveryURLs()
-    {
+    public CMDiscoveryURLs getDiscoveryURLs() {
         return discoveryURLs;
     }
 
@@ -222,8 +189,7 @@ public class CMBusinessEntity
      * 
      * @return The discovery URLs for this business entity.
      */
-    public void setDiscoveryURLs(CMDiscoveryURLs discoveryURLs)
-    {
+    public void setDiscoveryURLs(CMDiscoveryURLs discoveryURLs) {
         this.discoveryURLs = discoveryURLs;
     }
 
@@ -232,8 +198,7 @@ public class CMBusinessEntity
      * 
      * @return True if this business entity represents a federal HIE.
      */
-    public boolean isFederalHIE()
-    {
+    public boolean isFederalHIE() {
         return federalHIE;
     }
 
@@ -242,8 +207,7 @@ public class CMBusinessEntity
      * 
      * @param federalHIE True if this business entity represents a federal HIE.
      */
-    public void setFederalHIE(boolean federalHIE)
-    {
+    public void setFederalHIE(boolean federalHIE) {
         this.federalHIE = federalHIE;
     }
 
@@ -252,8 +216,7 @@ public class CMBusinessEntity
      * 
      * @return The home community ID for this business entity.
      */
-    public String getHomeCommunityId()
-    {
+    public String getHomeCommunityId() {
         return homeCommunityId;
     }
 
@@ -262,8 +225,7 @@ public class CMBusinessEntity
      * 
      * @param homeCommunityId The home community ID for this business entity.
      */
-    public void setHomeCommunityId(String homeCommunityId)
-    {
+    public void setHomeCommunityId(String homeCommunityId) {
         this.homeCommunityId = homeCommunityId;
     }
 
@@ -272,8 +234,7 @@ public class CMBusinessEntity
      * 
      * @return The business names associated with this business entity.
      */
-    public CMBusinessNames getNames()
-    {
+    public CMBusinessNames getNames() {
         return names;
     }
 
@@ -282,8 +243,7 @@ public class CMBusinessEntity
      * 
      * @param names The business names associated with this business entity.
      */
-    public void setNames(CMBusinessNames names)
-    {
+    public void setNames(CMBusinessNames names) {
         this.names = names;
     }
 
@@ -292,8 +252,7 @@ public class CMBusinessEntity
      * 
      * @return The PKI public key for this business entity.
      */
-    public byte[] getPublicKey()
-    {
+    public String getPublicKey() {
         return publicKey;
     }
 
@@ -302,8 +261,7 @@ public class CMBusinessEntity
      * 
      * @param publicKey The PKI public key for this business entity.
      */
-    public void setPublicKey(byte[] publicKey)
-    {
+    public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
     }
 
@@ -312,8 +270,7 @@ public class CMBusinessEntity
      * 
      * @return The URL for the location to retrieve the business entity's PKI public key.
      */
-    public String getPublicKeyURI()
-    {
+    public String getPublicKeyURI() {
         return publicKeyURI;
     }
 
@@ -322,8 +279,7 @@ public class CMBusinessEntity
      * 
      * @param publicKeyURI The URL for the location to retrieve the business entity's PKI public key.
      */
-    public void setPublicKeyURI(String publicKeyURI)
-    {
+    public void setPublicKeyURI(String publicKeyURI) {
         this.publicKeyURI = publicKeyURI;
     }
 
@@ -332,8 +288,7 @@ public class CMBusinessEntity
      * 
      * @return The states associated with this business entity.
      */
-    public CMStates getStates()
-    {
+    public CMStates getStates() {
         return states;
     }
 
@@ -342,9 +297,7 @@ public class CMBusinessEntity
      * 
      * @param states The states associated with this business entity.
      */
-    public void setStates(CMStates states)
-    {
+    public void setStates(CMStates states) {
         this.states = states;
     }
-    
 }

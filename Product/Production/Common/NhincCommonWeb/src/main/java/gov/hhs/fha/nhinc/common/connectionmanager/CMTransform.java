@@ -415,7 +415,7 @@ public class CMTransform
             oBindingTemplate.setBindingKey(oCMBindingTemplate.getBindingKey());
             oBindingTemplate.setEndpointURL(oCMBindingTemplate.getEndpointURL());
             oBindingTemplate.setWsdlURL(oCMBindingTemplate.getWsdlURL());
-            
+            oBindingTemplate.setServiceVersion(oCMBindingTemplate.getServiceVersion());
             oBindingTemplates.getBindingTemplate().add(oBindingTemplate);
         }
 
@@ -586,7 +586,6 @@ public class CMTransform
             oBusinessService.setBindingTemplates(cmBindingTemplatesToBindingTemplatesType(oCMBusinessService.getBindingTemplates()));
             oBusinessService.setInternalWebService(oCMBusinessService.isInternalWebService());
             oBusinessService.setServiceKey(oCMBusinessService.getServiceKey());
-            oBusinessService.setServiceVersion(oCMBusinessService.getServiceVersion());
             oBusinessService.setUniformServiceName(oCMBusinessService.getUniformServiceName());
 
             List<BindingDescriptionsType> oaBindingDescriptions = cmBindingDescriptionsToListBindingDescriptionsType(oCMBusinessService.getDescriptions());

@@ -90,16 +90,17 @@
             <description>BindingDescription.1.1.2</description>
           </descriptions>
           <uniformServiceName>Service 1 Name</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="BindingKey.1.1.1">
               <endpointURL>EndpointURL.1.1.1</endpointURL>
               <wsdlURL>WSDLURL.1.1.1</wsdlURL>
+			  <serviceVersion>1.0</serviceVersion>
             </bindingTemplate>
             <bindingTemplate bindingKey="BindingKey.1.1.2">
               <endpointURL>EndpointURL.1.1.2</endpointURL>
               <wsdlURL>WSDLURL.1.1.2</wsdlURL>
+			  <serviceVersion>2.0</serviceVersion>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
@@ -113,16 +114,17 @@
             <description>BindingDescription.1.2.2</description>
           </descriptions>
           <uniformServiceName>ServiceName.1.2</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="BindingKey.1.2.1">
               <endpointURL>EndpointURL.1.2.1</endpointURL>
               <wsdlURL>WSDLURL.1.2.1</wsdlURL>
+			  <serviceVersion>1.0</serviceVersion>
             </bindingTemplate>
             <bindingTemplate bindingKey="BindingKey.1.2.2">
               <endpointURL>EndpointURL.1.2.2</endpointURL>
               <wsdlURL>WSDLURL.1.2.2</wsdlURL>
+			  <serviceVersion>2.0</serviceVersion>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
@@ -218,16 +220,17 @@
             <description>BindingDescription.2.1.2</description>
           </descriptions>
           <uniformServiceName>Service 1 Name</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="BindingKey.2.1.1">
               <endpointURL>EndpointURL.2.1.1</endpointURL>
               <wsdlURL>WSDLURL.2.1.1</wsdlURL>
+			  <serviceVersion>1.0</serviceVersion>
             </bindingTemplate>
             <bindingTemplate bindingKey="BindingKey.2.1.2">
               <endpointURL>EndpointURL.2.1.2</endpointURL>
               <wsdlURL>WSDLURL.2.1.2</wsdlURL>
+			  <serviceVersion>2.0</serviceVersion>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>
@@ -241,16 +244,17 @@
             <description>BindingDescription.2.2.2</description>
           </descriptions>
           <uniformServiceName>Service 2 Name</uniformServiceName>
-          <serviceVersion>1.0</serviceVersion>
           <internalWebService>true</internalWebService>
           <bindingTemplates>
             <bindingTemplate bindingKey="BindingKey.2.2.1">
               <endpointURL>EndpointURL.2.2.1</endpointURL>
               <wsdlURL>WSDLURL.2.2.1</wsdlURL>
+			  <serviceVersion>1.0</serviceVersion>
             </bindingTemplate>
             <bindingTemplate bindingKey="BindingKey.2.2.2">
               <endpointURL>EndpointURL.2.2.2</endpointURL>
               <wsdlURL>WSDLURL.2.2.2</wsdlURL>
+			  <serviceVersion>2.0</serviceVersion>
             </bindingTemplate>
           </bindingTemplates>
         </businessService>

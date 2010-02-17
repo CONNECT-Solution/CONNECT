@@ -5,7 +5,7 @@
     targetNamespace="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo" 
     elementFormDefault="qualified">
         
-    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon"
                 schemaLocation="NhincCommon.xsd"/>
 
     <xsd:complexType name="ConnectionInfosType">
@@ -112,7 +112,7 @@
             <xsd:element name="states" type="tns:StatesType" minOccurs="0"/>
             <xsd:element name="federalHIE" type="xsd:boolean" minOccurs="0"/>
             <xsd:element name="publicKeyURI" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="publicKey" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="publicKey" type="xsd:string" minOccurs="0"/>
             <xsd:element name="businessServices" type="tns:BusinessServicesType" minOccurs="0"/>
         </xsd:sequence>
         <xsd:attribute name="businessKey" type="xsd:string"/>
@@ -205,7 +205,6 @@
             <xsd:element name="names" type="tns:BindingNamesType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="descriptions" type="tns:BindingDescriptionsType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="uniformServiceName" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="serviceVersion" type="xsd:string" minOccurs="0"/>
             <xsd:element name="internalWebService" type="xsd:boolean" minOccurs="0"/>
             <xsd:element name="bindingTemplates" type="tns:BindingTemplatesType" minOccurs="0"/>
         </xsd:sequence>
@@ -234,6 +233,7 @@
         <xsd:sequence>
             <xsd:element name="endpointURL" type="xsd:string" minOccurs="0"/>
             <xsd:element name="wsdlURL" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="serviceVersion" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
         <xsd:attribute name="bindingKey" type="xsd:string"/>
     </xsd:complexType>
@@ -252,8 +252,8 @@
     <xsd:element name="GetAllBusinessEntitiesRequest" type="tns:GetAllBusinessEntitiesRequestType"/>
     <xsd:complexType name="GetBusinessEntityRequestType">
         <xsd:sequence>
-            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0"  maxOccurs="1"/>
+            <xsd:element name="homeCommunity" type="nccommon:HomeCommunityType" minOccurs="0"/>
+            <xsd:element name="assigningAuthority" type="nccommon:AssigningAuthorityType" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="GetBusinessEntityRequest" type="tns:GetBusinessEntityRequestType"/>
@@ -266,8 +266,8 @@
     <xsd:element name="GetConnectionInfoEndpointSetRequest" type="tns:GetConnectionInfoEndpointSetRequestType"/>
     <xsd:complexType name="GetBusinessEntitySetRequestType">
         <xsd:sequence>
-            <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0" maxOccurs="1"/>
-            <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"  maxOccurs="1"/>
+            <xsd:element name="homeCommunities" type="nccommon:HomeCommunitiesType" minOccurs="0"/>
+            <xsd:element name="assigningAuthorities" type="nccommon:AssigningAuthoritiesType" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="GetBusinessEntitySetRequest" type="tns:GetBusinessEntitySetRequestType"/>
@@ -453,11 +453,11 @@
     </xsd:complexType>
     <xsd:element name="GetConnectionInfoEndpontFromNhinTargetRequest" type="tns:GetConnectionInfoEndpontFromNhinTargetType"/>
     <xsd:complexType name="GetUrlSetByServiceNameType">
-            <xsd:sequence>
-                <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"></xsd:element>
-                <xsd:element name="service" type="xsd:string"></xsd:element>
-            </xsd:sequence>
-        </xsd:complexType>
+        <xsd:sequence>
+            <xsd:element name="NhinTargetCommunities" type="nccommon:NhinTargetCommunitiesType"></xsd:element>
+            <xsd:element name="service" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
     <xsd:element name="GetUrlSetByServiceName" type="tns:GetUrlSetByServiceNameType"/>
 </xsd:schema>
 

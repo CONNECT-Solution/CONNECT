@@ -20,13 +20,13 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author Les Westberg
  */
-public class UDDIUpdateManagerHelper
-{
+public class UDDIUpdateManagerHelper {
+
     private static Log log = LogFactory.getLog(UDDIUpdateManagerHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_KEEP_BACKUPS_PROPERTY = "UDDIRefreshKeepBackups";
     private static final String UDDI_CONNECTION_INFO_FILENAME = "uddiConnectionInfo.xml";
-    
+
     /**
      * This method retrieves the data from the UDDI server and transforms it into
      * and XML string and returns it.
@@ -34,46 +34,39 @@ public class UDDIUpdateManagerHelper
      * @return The XML representation of the data retrieved from UDDI.
      */
     private static String retrieveDataFromUDDI()
-        throws UDDIAccessorException
-    {
+            throws UDDIAccessorException {
         String sXML = "";
-        
+
         UDDIAccessor oUDDIAccessor = new UDDIAccessor();
         CMBusinessEntities oEntities = oUDDIAccessor.retrieveFromUDDIServer();
-        
-        if ((oEntities != null) && 
-            (oEntities.getBusinessEntity() != null) &&
-            (oEntities.getBusinessEntity().size() > 0))
-        {
+
+        if ((oEntities != null) &&
+                (oEntities.getBusinessEntity() != null) &&
+                (oEntities.getBusinessEntity().size() > 0)) {
             CMUDDIConnectionInfo oUDDIConnectionInfo = new CMUDDIConnectionInfo();
             oUDDIConnectionInfo.setBusinessEntities(oEntities);
-            try
-            {
+            try {
                 sXML = CMUDDIConnectionInfoXML.serialize(oUDDIConnectionInfo);
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Failed to serialize information from UDDI into valid XML message.  Error: " + 
-                                       e.getMessage();
+            } catch (Exception e) {
+                String sErrorMessage = "Failed to serialize information from UDDI into valid XML message.  Error: " +
+                        e.getMessage();
                 log.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
         }
-        
+
         return sXML;
     }
-    
+
     /**
      * This method is called to force a refresh of the uddiConnectionInfo.xml file.  
      * It will retrieve the data from the UDDI server and update the local XML file.
      * 
      * @throws UDDIAccessorException 
      */
-    public static void forceRefreshUDDIFile()
-        throws UDDIAccessorException
-    {
-        if (log.isDebugEnabled())
-        {
+    public void forceRefreshUDDIFile()
+            throws UDDIAccessorException {
+        if (log.isDebugEnabled()) {
             log.debug("Start: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
         }
 
@@ -81,29 +74,22 @@ public class UDDIUpdateManagerHelper
         Boolean bCreateBackups = true;
         String sXMLFileLocation = "";
 
-        try
-        {
+        try {
             sXML = retrieveDataFromUDDI();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve data from UDDI.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
-        if ((sXML != null) && (sXML.length() > 0))
-        {
-            try
-            {
+        if ((sXML != null) && (sXML.length() > 0)) {
+            try {
                 bCreateBackups = PropertyAccessor.getPropertyBoolean(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_KEEP_BACKUPS_PROPERTY);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 bCreateBackups = true;
-                String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY + 
-                                       " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. " +
-                                       "Error: " + e.getMessage();
+                String sErrorMessage = "Failed to retrieve property: " + UDDI_REFRESH_KEEP_BACKUPS_PROPERTY +
+                        " from " + GATEWAY_PROPERTY_FILE + ".properties. Defaulting to creating backups. " +
+                        "Error: " + e.getMessage();
                 log.warn(sErrorMessage, e);
             }
 
@@ -115,18 +101,14 @@ public class UDDIUpdateManagerHelper
             String sXMLFileLocationNewName = sXMLFileLocation + "." + oFormat.format(oNow.getTime());
             File fNewFileName = new File(sXMLFileLocationNewName);
 
-            if (fCurrentFile.exists())
-            {
+            if (fCurrentFile.exists()) {
 
-                try
-                {
+                try {
                     fCurrentFile.renameTo(fNewFileName);
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     String sErrorMessage = "Failed to rename the current file: " + sXMLFileLocation +
-                                           " to: " + sXMLFileLocationNewName + ".  Aborting changes to " +
-                                           "uddi connection information.  Error: " + e.getMessage();
+                            " to: " + sXMLFileLocationNewName + ".  Aborting changes to " +
+                            "uddi connection information.  Error: " + e.getMessage();
                     log.error(sErrorMessage, e);
                     throw new UDDIAccessorException(sErrorMessage, e);
                 }
@@ -135,30 +117,21 @@ public class UDDIUpdateManagerHelper
             // Create the file with the new information.
             //-------------------------------------------
             FileWriter fwCurrentFile = null;
-            try
-            {
+            try {
                 fwCurrentFile = new FileWriter(fCurrentFile);
                 fwCurrentFile.write(sXML);
-            }
-            catch (Exception e)
-            {
-                String sErrorMessage = "Failed to write file: " + sXMLFileLocation + 
-                                       ". Error: " + e.getMessage();
+            } catch (Exception e) {
+                String sErrorMessage = "Failed to write file: " + sXMLFileLocation +
+                        ". Error: " + e.getMessage();
                 log.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
-            }
-            finally
-            {
-                if (fwCurrentFile != null)
-                {
-                    try
-                    {
+            } finally {
+                if (fwCurrentFile != null) {
+                    try {
                         fwCurrentFile.close();
-                    }
-                    catch (Exception e)
-                    {
-                        String sErrorMessage = "Failed to close file: " + sXMLFileLocation + 
-                                               ". Error: " + e.getMessage();
+                    } catch (Exception e) {
+                        String sErrorMessage = "Failed to close file: " + sXMLFileLocation +
+                                ". Error: " + e.getMessage();
                         log.error(sErrorMessage, e);
                         throw new UDDIAccessorException(sErrorMessage, e);
                     }
@@ -167,28 +140,23 @@ public class UDDIUpdateManagerHelper
 
             // if we are not creating backups...  Then we need to delete our temproary one.  
             //------------------------------------------------------------------------------
-            if (!bCreateBackups)
-            {
-                try
-                {
+            if (!bCreateBackups) {
+                try {
                     fNewFileName.delete();
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     String sErrorMessage = "Failed to delete the temporary backup file: " + sXMLFileLocationNewName +
-                                           "Error: " + e.getMessage();
+                            "Error: " + e.getMessage();
                     log.error(sErrorMessage, e);
                     throw new UDDIAccessorException(sErrorMessage, e);
                 }
             }
         }   // if ((sXML != null) && (sXML.length() > 0))
 
-        if (log.isDebugEnabled())
-        {
+        if (log.isDebugEnabled()) {
             log.debug("Done: UDDIUpdateManagerHelper.forceRefreshUDDIFile method - loading from UDDI server.");
         }
     }
-    
+
     /**
      * This method forces a refresh of the uddiConnectionInfo.xml file by retrieving the
      * information from the UDDI NHIN server.
@@ -196,50 +164,43 @@ public class UDDIUpdateManagerHelper
      * @param part1 No real data - just a way to keep the document unique.
      * @return True if the file was loaded false if it was not.
      */
-    public static UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(UDDIUpdateManagerForceRefreshRequestType part1)
-    {
+    public UDDIUpdateManagerForceRefreshResponseType forceRefreshFileFromUDDIServer(UDDIUpdateManagerForceRefreshRequestType part1) {
         UDDIUpdateManagerForceRefreshResponseType oResponse = new UDDIUpdateManagerForceRefreshResponseType();
         oResponse.setSuccessOrFail(new SuccessOrFailType());
         oResponse.getSuccessOrFail().setSuccess(false);
-        
-        try
-        {
+
+        try {
             forceRefreshUDDIFile();
             oResponse.getSuccessOrFail().setSuccess(true);      // If we got here - we succeeded.
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             String sErrorMessage = "Failed to refresh the file from the UDDI server.  Error: " + e.getMessage();
             log.error(sErrorMessage, e);
         }
-        
+
         return oResponse;
     }
-    
+
     /**
      * Main method to test this class.   Since this is relys on an external UDDI server,
      * we do not want it part of our unit tests to stop the build if the server is
      * down or not accessible.  This is a main method used for debugging....
      * @param args
      */
-    public static void main (String args[])
-    {
+    public static void main(String args[]) {
         System.out.println("Starting test.");
-        
-        try
-        {
+
+        try {
             UDDIUpdateManagerForceRefreshRequestType part1 = new UDDIUpdateManagerForceRefreshRequestType();
-            UDDIUpdateManagerForceRefreshResponseType oResponse = forceRefreshFileFromUDDIServer(part1);
+            UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
+            UDDIUpdateManagerForceRefreshResponseType oResponse = helper.forceRefreshFileFromUDDIServer(part1);
             System.out.println("Response = " + oResponse.getSuccessOrFail().isSuccess());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("An unexpected error occurred: " + e.getMessage());
             e.printStackTrace();
             System.exit(-1);
         }
-        
+
         System.out.println("Ending test.");
-        
+
     }
 }
