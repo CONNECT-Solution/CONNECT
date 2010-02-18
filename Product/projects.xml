@@ -65,4 +65,29 @@
         <directory>/Production/Common/CommonServiceProxy</directory>
         <dist.type>jar</dist.type>
     </project>
+    <project>
+        <name>NhincCommonWeb</name>
+        <directory>/Production/Common/NhincCommonWeb</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
+        <name>GatewayWeb</name>
+        <directory>/Production/Gateway/GatewayWeb</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
+        <name>AdapterWeb</name>
+        <directory>/Production/Adapters/General/AdapterWeb</directory>
+        <dist.type>war</dist.type>
+    </project>    
+    <project>
+        <name>GatewayInternalWeb</name>
+        <directory>/Production/Gateway/GatewayInternalWeb</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
+        <name>NhinInterfaceTestWeb</name>
+        <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
+        <dist.type>war</dist.type>
+    </project>    
 </projects>
