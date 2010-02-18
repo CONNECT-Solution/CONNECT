@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project basedir="." default="package.create" name="NhincCommonTypesLib">
+
+  <property name="dist.type" value="jar" />
+  <property name="unittest.hasTests" value="false" />
+  <property name="coverage.isneeded" value="false" />
+  
+  <!-- Please make sure that this goes up to the correct directory -->
+  <import file="../../../build/build.targets.xml" />
+
+  <!-- You can add more or less wsld files here... -->
+  <patternset id="schema.list">
+    <include name="nhinc/**/*.xsd"/>
+    <include name="docs.oasis-open.org/**/*.xsd"/>
+    <include name="ebRS/**/*.xsd"/>
+    <include name="ihe/**/*.xsd"/>
+    <include name="nhin/**/*.xsd"/>
+    <include name="oasis/**/*.xsd"/>
+    <include name="uddi/uddi_v3.xsd"/>
+    <include name="uddi/uddi_v3custody.xsd"/>
+    <include name="uddi/uddi_v3policy_instanceParms.xsd"/>
+    <include name="uddi/uddi_v3subscriptionListener.xsd"/>
+    <include name="uddi/uddi_v3subscription.xsd"/>
+    <include name="www.w3.org/**/*.xsd"/>
+    <include name="xmlsoap.org/**/*.xsd"/>
+    <include name="Endpoint/**/*.xsd"/>
+  </patternset>
+
+
+  <path id="wsdl.list">
+    <!-- You can add more or less wsld files here... -->
+    <fileset dir="../Interfaces/src/wsdl">
+      <include name="*.wsdl" />
+      <exclude name="NhinUddiSubrV3PortType.wsdl" />
+      <exclude name="NhincComponentInternalSubDiscovery201309Orch.wsdl" />
+      <exclude name="rw-2.wsdl" />
+      <exclude name="uddi_api_v3_binding.wsdl" />
+      <exclude name="uddi_api_v3_portType.wsdl" />
+      <exclude name="uddi_custody_v3_binding.wsdl" />
+      <exclude name="uddi_custody_v3_portType.wsdl" />
+      <exclude name="uddi_repl_v3_binding.wsdl" />
+      <exclude name="uddi_repl_v3_portType.wsdl" />
+      <exclude name="uddi_sub_v3_binding.wsdl" />
+      <exclude name="uddi_sub_v3_portType.wsdl" />
+      <exclude name="uddi_subr_v3_binding.wsdl" />
+      <exclude name="uddi_subr_v3_portType.wsdl" />
+      <exclude name="uddi_vs_v3_binding.wsdl" />
+      <exclude name="uddi_vs_v3_portType.wsdl" />
+      <exclude name="uddi_vscache_v3_binding.wsdl" />
+      <exclude name="uddi_vscache_v3_portType.wsdl" />
+    </fileset>
+  </path>
+
+  <taskdef name="WsImportConnect" 
+      classname="gov.hhs.fha.nhinc.tools.ws.ant.WsImportConnect" 
+      classpath="${ant.thirdparty.lib.dir}/agilex-ant-tasks.jar" 
+      />
+
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath>
+      <fileset dir="${codeline.directory.path}/ThirdParty/JAXWS2.1">
+        <include name="${ant.thirdparty.lib.dir}/jaxb-xjc.jar"/>
+      </fileset>
+    </classpath>
+  </taskdef>
+
+  <target name="-compile.source">
+    <echo message="compile.source for ${project.name}" />
+
+    <call target="generate.proxies.xjc"/>
+    <call target="generate.proxies.wsdl"/> 
+    <javac srcdir="${build.dir}/generated/client" destdir="${build.classes.dir}"/>
+  </target>
+
+  <target name="generate.proxies.xjc">
+    <mkdir dir="${build.classes.dir}" />
+    <mkdir dir="${build.dir}/generated/client"/>
+    <outofdate verbose="true" force="${force.package}">
+      <sourcefiles >
+        <fileset dir="../Interfaces/src/schemas" >
+          <patternset refid="schema.list"/>
+        </fileset>
+      </sourcefiles>
+      <targetfiles>
+				<fileset dir="${build.classes.dir}">
+					<include name="**/*" />
+				</fileset>
+			</targetfiles>
+
+      <sequential>
+        <xjc destdir="${build.dir}/generated/client" >
+          <arg value="-xmlschema"/>
+          <schema dir="../Interfaces/src/schemas">
+            <patternset refid="schema.list"/>
+          </schema>
+        </xjc>
+      </sequential>
+    </outofdate>
+  </target>
+
+
+  <target name="generate.proxies.wsdl">
+    <outofdate verbose="true" force="${force.package}">
+      <sourcefiles>
+        <path refid="wsdl.list"/>
+      </sourcefiles>
+      <targetfiles>
+				<fileset dir="${build.classes.dir}">
+					<include name="**/*" />
+				</fileset>
+			</targetfiles>
+      <sequential>
+        <for param="wsdl.file.path">
+          <path refid="wsdl.list"/>
+          <sequential>
+            <WsImportConnect 
+                xendorsed="true" 
+                sourcedestdir="${build.dir}/generated/client" 
+                extension="true"
+                destdir="${build.classes.dir}" 
+                wsdl="@{wsdl.file.path}" 
+                verbose="true"
+                wsdlLocation="file:@{wsdl.file.path}" 
+                xnocompile="true">
+            </WsImportConnect>
+          </sequential>
+        </for>  
+      </sequential>
+    </outofdate>
+  </target>
+
+</project>

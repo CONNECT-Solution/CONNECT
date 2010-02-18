@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>newbuild</name>
+	<name>build</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -24,7 +24,12 @@
 		<link>
 			<name>build.xml</name>
 			<type>1</type>
-			<location>C:/Projects/NHINC/Current/Product/build.xml</location>
+			<location>C:/Projects/NHINC/Current/Product/build_new.xml</location>
+		</link>
+		<link>
+			<name>build_new.xml</name>
+			<type>1</type>
+			<location>C:/Projects/NHINC/Current/Product/build_new.xml</location>
 		</link>
 		<link>
 			<name>projects.xml</name>

@@ -7,10 +7,10 @@
 	<property name="source.resources.dir" value="${project.dir}/src/main/resources" />
 	<property name="source.webcontent.dir" value="${project.dir}/WebContent" />
 
-  <property name="build.dir.root" value="${project.dir}/build" />
+	<property name="build.dir.root" value="${project.dir}/build" />
 	<property name="build.dir" value="${build.dir.root}/${build.config}" />
 	<property name="build.dist.root" value="${build.dir}/dist" />
-	
+
 	<if>
 		<equals arg1="${dist.type}" arg2="war" />
 		<then>
@@ -25,5 +25,14 @@
 	<property name="build.dist.manifest.file" value="${build.dist.meta-inf.dir}/MANIFEST.MF" />
 	<property name="build.war.lib.dir" value="${build.dist.root}/WEB-INF/lib" />
 	<property name="build.ear.lib.dir" value="${build.dist.root}/lib" />
-	
+
+	<if>
+		<os family="windows" />
+		<then>
+			<property name="os.family" value="windows" />
+		</then>
+		<else>
+			<property name="os.family" value="unix" />
+		</else>
+	</if>
 </project>

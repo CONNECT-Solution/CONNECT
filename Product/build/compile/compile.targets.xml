@@ -4,7 +4,7 @@
 	<import file="compile.properties.xml" />
 
 	<target name="compile.help">
-			
+
 	</target>
 
 	<target name="compile.clean">
@@ -14,77 +14,80 @@
 	<target name="-compile.source">
 		<echo message="compile.source for ${project.name}" />
 
-		<call target="compile.javac"/>
-		<call target="compile.resources"/>
+		<call target="compile.javac" />
+		<call target="compile.resources" />
 	</target>
-	
+
 	<target name="compile.javac">
 		<mkdir dir="${build.classes.dir}" />
 
-    <path id="source.class.files"/>
+		<path id="source.class.files" />
 
-    <for param="classpath.item">
-      <path refid="build.classpath" />
-      <sequential>
-        <var name="classpath.item" value="@{classpath.item}"/>
-        <if>
-          <scriptcondition language="javascript" >
-            // import statements
-            // importPackage(java.io);
-            importClass(java.io.File);
-            var thing = new File(project.getProperty("classpath.item"));
-            self.setValue(thing.isDirectory());
+		<for param="classpath.item">
+			<path refid="build.classpath" />
+			<sequential>
+				<var name="classpath.item" value="@{classpath.item}" />
+				<if>
+					<scriptcondition language="javascript">
+						// import statements
+						// importPackage(java.io);
+						importClass(java.io.File);
+						var thing = new File(project.getProperty("classpath.item"));
+						self.setValue(thing.isDirectory());
           </scriptcondition>
-          <then>
-            <addfilesettopath refid="source.class.files">
-              <fileset dir="${classpath.item}">
-                <include name="**/*.class"/>
-              </fileset>
-            </addfilesettopath>
-          </then>
-        </if>
-      </sequential>
-    </for>
+					<then>
+						<addfilesettopath refid="source.class.files">
+							<fileset dir="${classpath.item}">
+								<include name="**/*.class" />
+							</fileset>
+						</addfilesettopath>
+					</then>
+				</if>
+			</sequential>
+		</for>
 
-    <path id="sourcefiles" >
-      <path refid="build.classpath" />
-      <path refid="source.class.files"/>
-    </path>
+		<path id="sourcefiles">
+			<path refid="build.classpath" />
+			<path refid="source.class.files" />
+		</path>
 
-    <var unset="true" name="sourcefiles"/>
-    <pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
+		<var unset="true" name="sourcefiles" />
+		<pathconvert targetos="${os.family}" property="sourcefiles"
+			refid="sourcefiles" />
 
-    <path id="targetfiles" >
-      <fileset dir="${build.classes.dir}">
-        <include name="**/*.class" />
-      </fileset>
-    </path>
+		<path id="targetfiles">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class" />
+			</fileset>
+		</path>
 
-    <var unset="true" name="targetfiles"/>
-    <pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
+		<var unset="true" name="targetfiles" />
+		<pathconvert targetos="${os.family}" property="targetfiles"
+			refid="targetfiles" />
 
-    <outofdate verbose="${debug}" >
-      <sourcefiles>
-        <pathelement path="${sourcefiles}"/>
-      </sourcefiles>
-      <targetfiles>
-        <pathelement path="${targetfiles}"/>
-      </targetfiles>
-      <sequential>
-        <echo>Project is out-of-date compared to it's dependencies...</echo>
-        <delete includeemptydirs="true">
-          <fileset dir="${build.classes.dir}">
-            <include name="**/*.class" />
-          </fileset>    
-        </delete>
-        <mkdir dir="${build.classes.dir}" />
-      </sequential>
-    </outofdate>
-			
-		<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
+		<outofdate verbose="${debug}">
+			<sourcefiles>
+				<pathelement path="${sourcefiles}" />
+			</sourcefiles>
+			<targetfiles>
+				<pathelement path="${targetfiles}" />
+			</targetfiles>
+			<sequential>
+				<echo>Project is out-of-date compared to it's dependencies...</echo>
+				<delete includeemptydirs="true">
+					<fileset dir="${build.classes.dir}">
+						<include name="**/*.class" />
+					</fileset>
+				</delete>
+				<mkdir dir="${build.classes.dir}" />
+			</sequential>
+		</outofdate>
+
+		<javac debug="${compile.debug}" debuglevel="lines,vars,source"
+			srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
 			<classpath refid="build.classpath" />
 		</javac>
-		
+
 		<if>
 			<or>
 				<istrue value="${unittest.hasTests}" />
@@ -93,7 +96,9 @@
 			</or>
 			<then>
 				<mkdir dir="${build.unittest.classes.dir}" />
-				<javac debug="${compile.debug}" debuglevel="lines,vars,source" srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}" includes="**/*.java" source="1.6" target="1.6">
+				<javac debug="${compile.debug}" debuglevel="lines,vars,source"
+					srcdir="${unittest.source.dir}" destdir="${build.unittest.classes.dir}"
+					includes="**/*.java" source="1.6" target="1.6">
 					<classpath>
 						<path refid="build.classpath" />
 						<pathelement path="${build.classes.dir}" />
@@ -106,7 +111,7 @@
 
 	<target name="compile.resources">
 		<mkdir dir="${build.classes.dir}" />
-		
+
 		<available file="${source.webcontent.dir}" property="hasWebContent" />
 		<if>
 			<isset property="hasWebContent" />
@@ -122,7 +127,7 @@
 			</else>
 		</if>
 
-		<path id="sourcefiles" >
+		<path id="sourcefiles">
 			<fileset dir="${source.resources.dir}">
 				<include name="**/*" />
 			</fileset>
@@ -132,26 +137,28 @@
 			</fileset>
 			<path refid="source.webcontent.fileset" />
 		</path>
-    
-    <var unset="true" name="sourcefiles"/>
-		<pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
 
-		<path id="targetfiles" >
+		<var unset="true" name="sourcefiles" />
+		<pathconvert targetos="${os.family}" property="sourcefiles"
+			refid="sourcefiles" />
+
+		<path id="targetfiles">
 			<fileset dir="${build.dist.root}">
 				<include name="**/*" />
 				<exclude name="**/*.class" />
 			</fileset>
 		</path>
 
-    <var unset="true" name="targetfiles"/>
-		<pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
-    
-		<outofdate verbose="${debug}" >
+		<var unset="true" name="targetfiles" />
+		<pathconvert targetos="${os.family}" property="targetfiles"
+			refid="targetfiles" />
+
+		<outofdate verbose="${debug}">
 			<sourcefiles>
-				<pathelement path="${sourcefiles}"/>
+				<pathelement path="${sourcefiles}" />
 			</sourcefiles>
 			<targetfiles>
-				<pathelement path="${targetfiles}"/>
+				<pathelement path="${targetfiles}" />
 			</targetfiles>
 			<sequential>
 				<mkdir dir="${build.classes.dir}" />
@@ -187,8 +194,8 @@
 			</or>
 			<then>
 				<mkdir dir="${build.unittest.classes.dir}" />
-                
-				<path id="sourcefiles" >
+
+				<path id="sourcefiles">
 					<fileset dir="${unittest.resources.dir}">
 						<include name="**/*" />
 					</fileset>
@@ -198,35 +205,39 @@
 					</fileset>
 				</path>
 
-        <var unset="true" name="sourcefiles"/>
-				<pathconvert targetos="${os.family}" property="sourcefiles" refid="sourcefiles" />
+				<var unset="true" name="sourcefiles" />
+				<pathconvert targetos="${os.family}" property="sourcefiles"
+					refid="sourcefiles" />
 
-        <path id="targetfiles" >
+				<path id="targetfiles">
 					<fileset dir="${build.unittest.classes.dir}">
 						<include name="**/*" />
 						<exclude name="**/*.class" />
 					</fileset>
 				</path>
-        
-        <var unset="true" name="targetfiles"/>
-				<pathconvert targetos="${os.family}" property="targetfiles" refid="targetfiles" />
 
-        <outofdate verbose="${debug}" >
+				<var unset="true" name="targetfiles" />
+				<pathconvert targetos="${os.family}" property="targetfiles"
+					refid="targetfiles" />
+
+				<outofdate verbose="${debug}">
 					<sourcefiles>
-						<pathelement path="${sourcefiles}"/>
+						<pathelement path="${sourcefiles}" />
 					</sourcefiles>
 					<targetfiles>
-						<pathelement path="${targetfiles}"/>
+						<pathelement path="${targetfiles}" />
 					</targetfiles>
-					<mapper type="identity"/>
+					<mapper type="identity" />
 					<sequential>
-						<copy todir="${build.unittest.classes.dir}" overwrite="true" verbose="${debug}">
+						<copy todir="${build.unittest.classes.dir}" overwrite="true"
+							verbose="${debug}">
 							<fileset dir="${unittest.source.dir}">
 								<include name="**/*" />
 								<exclude name="**/*.java" />
 							</fileset>
 						</copy>
-						<copy todir="${build.unittest.classes.dir}" overwrite="true" verbose="${debug}">
+						<copy todir="${build.unittest.classes.dir}" overwrite="true"
+							verbose="${debug}">
 							<fileset dir="${unittest.resources.dir}">
 								<include name="**/*" />
 							</fileset>

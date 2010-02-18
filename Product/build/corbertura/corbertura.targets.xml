@@ -43,7 +43,7 @@
               <then>
                 <addfilesettopath refid="source.class.files">
                   <fileset dir="${classpath.item}">
-                    <include name="**/*.class"/>
+                    <include name="**/*.class"/>                  	
                   </fileset>
                 </addfilesettopath>
               </then>
