@@ -440,7 +440,7 @@ public class HL7PRPA201306Transforms {
             MCAIMT900001UV01DetectedIssueManagement oDetectedIssueManagement = new MCAIMT900001UV01DetectedIssueManagement();
 
             //<DetectedIssueManagement classCode="ACT" moodCode="RQO">
-            //  <code code="ResponderBusy” codeSystem="1.3.6.1.4.1.19376.1.2.27.3"/>
+            //  <code code="ResponderBusy" codeSystem="1.3.6.1.4.1.19376.1.2.27.3"/>
             //</DetectedIssueManagement>
             CD oDetectedIssuesCode = new CD();
             oDetectedIssuesCode.setCode(sErrorCode);
