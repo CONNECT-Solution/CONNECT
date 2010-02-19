@@ -90,4 +90,34 @@
         <directory>/Production/Gateway/NhinInterfaceTestWeb</directory>
         <dist.type>war</dist.type>
     </project>    
+    <project>
+        <name>FTAConfigManager</name>
+        <directory>/Production/Adapters/GenericFileTransfer/FTAConfigManager</directory>
+        <dist.type>jar</dist.type>
+    </project>    
+    <project>
+        <name>FTATransferAdapterEJB</name>
+        <directory>/Production/Adapters/GenericFileTransfer/FTATransferAdapterEJB</directory>
+        <dist.type>jar</dist.type>
+    </project>    
+    <project>
+        <name>MuralMpiEJB</name>
+        <directory>/Production/Adapters/Mural/MuralMpiEJB</directory>
+        <dist.type>jar</dist.type>
+    </project>
+    <project>
+        <name>AdapterPDPOpenSSO</name>
+        <directory>/Production/Adapters/General/AdapterPDPOpenSSO</directory>
+        <dist.type>jar</dist.type>
+    </project>
+    <project>
+        <name>ConsumerPreferencesProfileGUI</name>
+        <directory>/Production/Adapters/General/ConsumerPreferencesProfileGUI</directory>
+        <dist.type>war</dist.type>
+    </project>
+    <project>
+        <name>UniversalClientGUI</name>
+        <directory>/Production/Adapters/General/UniversalClientGUI</directory>
+        <dist.type>war</dist.type>
+    </project>
 </projects>
