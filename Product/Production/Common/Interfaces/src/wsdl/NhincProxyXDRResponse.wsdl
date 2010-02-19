@@ -33,11 +33,11 @@
     </types>
     <message name="ProvideAndRegisterDocumentSet-bResponse_RequestMessage">
         <documentation>Provide and Register Document Set Response - Request</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
+        <part name="ProvideAndRegisterResponseRequest" element="rs:RegistryResponse"/>
     </message>
     <message name="ProvideAndRegisterDocumentSet-bResponse_ResponseMessage">
         <documentation>Provide And Register Document Set Response - Response</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="ProvideAndRegisterResponseResponse" element="xdr:Acknowledgement"/>
     </message>
     <portType name="ProxyXDRResponse_PortType">
         <operation name="ProvideAndRegisterDocumentSet-bResponse">
@@ -66,4 +66,6 @@
         </port>
     </service>
 </definitions>
+
+
 

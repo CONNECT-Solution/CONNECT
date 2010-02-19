@@ -33,11 +33,11 @@
     </types>
     <message name="ProvideAndRegisterDocumentSet-bRequest_RequestMessage">
         <documentation>Provide and Register Document Set Request - Request</documentation>
-        <part name="body" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetRequest"/>
+        <part name="ProvideAndRegisterRequestRequest" element="nccommonproxy:RespondingGateway_ProvideAndRegisterDocumentSetRequest"/>
     </message>
     <message name="ProvideAndRegisterDocumentSet-bRequest_ResponseMessage">
         <documentation>Provide And Register Document Set Request - Response</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="ProvideAndRegisterRequestResponse" element="xdr:Acknowledgement"/>
     </message>
     <portType name="ProxyXDRRequest_PortType">
         <operation name="ProvideAndRegisterDocumentSet-bRequest">
@@ -66,4 +66,6 @@
         </port>
     </service>
 </definitions>
+
+
 

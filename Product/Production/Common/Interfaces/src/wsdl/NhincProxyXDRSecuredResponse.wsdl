@@ -43,14 +43,14 @@
 
     <message name="ProvideAndRegisterDocumentSet-bResponse_RequestMessage">
         <documentation>Provide and Register Document Set Response - Request</documentation>
-        <part name="body" element="rs:RegistryResponse"/>
+        <part name="ProvideAndRegisterResponseRequest" element="rs:RegistryResponse"/>
     </message>
     <message name="ProvideAndRegisterDocumentSet-bResponse_ResponseMessage">
         <documentation>Provide And Register Document Set Response - Response</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="ProvideAndRegisterResponseResponse" element="xdr:Acknowledgement"/>
     </message>
     <portType name="ProxyXDRSecuredResponse_PortType">
-    
+
         <operation name="ProvideAndRegisterDocumentSet-bResponse">
             <input message="tns:ProvideAndRegisterDocumentSet-bResponse_RequestMessage"
         wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse_Request"/>
@@ -74,7 +74,7 @@
              URI="#RespondingGateway_XDR_Binding_Soap_Output_Policy"/>
             </output>
         </operation>
-    
+
     </binding>
     <service name="ProxyXDRSecuredResponse_Service">
         <port name="ProxyXDRSecuredResponse_Port" binding="tns:ProxyXDRSecuredResponse_Binding">
@@ -152,3 +152,5 @@
         </wsp:ExactlyOne>
     </wsp:Policy>
 </definitions>
+
+

@@ -42,11 +42,11 @@
 
     <message name="ProvideAndRegisterDocumentSet-bRequest_RequestMessage">
         <documentation>Provide and Register Document Set Request - Request</documentation>
-        <part name="body" element="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest"/>
+        <part name="ProvideAndRegisterRequestRequest" element="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest"/>
     </message>
     <message name="ProvideAndRegisterDocumentSet-bRequest_ResponseMessage">
         <documentation>Provide And Register Document Set Request - Response</documentation>
-        <part name="body" element="xdr:Acknowledgement"/>
+        <part name="ProvideAndRegisterRequestResponse" element="xdr:Acknowledgement"/>
     </message>
     <portType name="EntityXDRSecuredRequest_PortType">
 
