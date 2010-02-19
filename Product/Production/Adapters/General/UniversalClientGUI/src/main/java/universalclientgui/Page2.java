@@ -11,14 +11,13 @@ import com.sun.webui.jsf.component.StaticText;
 import com.sun.webui.jsf.component.Tab;
 import com.sun.webui.jsf.component.TabSet;
 import com.sun.webui.jsf.component.TextField;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsRequestType;
 import gov.hhs.fha.nhinc.common.patientcorrelationfacade.RetrievePatientCorrelationsResponseType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCommunityMapping;
-import gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryProxy;
-import gov.hhs.fha.nhinc.entitysubjectdiscovery.proxy.EntitySubjectDiscoveryProxyObjectFactory;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxy;
 import gov.hhs.fha.nhinc.mpi.proxy.AdapterMpiProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacadeProxy;
@@ -26,7 +25,6 @@ import gov.hhs.fha.nhinc.patientcorrelationfacade.proxy.PatientCorrelationFacade
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
-import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -39,25 +37,18 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.bind.JAXBElement;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PIXConsumerPRPAIN201301UVRequestType;
-import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
 import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 
@@ -662,7 +653,7 @@ public class Page2 extends AbstractPageBean {
     }
 
     private void initializeSubjectDiscoveryTab() {
-        this.getSubjectDiscoveryResultsInfo().setText("Subject Discovery Results (Existing Correlations)");
+        this.getSubjectDiscoveryResultsInfo().setText("Patient Discovery Results (Existing Correlations)");
         this.getBroadcastInfo().setText("Click to Discover New Correlations.");
         this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
 
@@ -733,28 +724,34 @@ public class Page2 extends AbstractPageBean {
 
     public String broadcastSubjectDiscoveryButton_action() {
 
-        try {
+//        try {
 
-            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
-            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
-
-            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
-            request.setAssertion(getSessionBean1().getAssertionInfo());
-
-            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
-            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-
+//            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
+//            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
+//
+//            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
+//            request.setAssertion(getSessionBean1().getAssertionInfo());
+//
+//            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
+//            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
+//
             PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
-            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
-            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
-            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
-            request.setPRPAIN201301UV02(prpain201301);
+//            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
+//            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
+//            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
+//            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
+//            request.setPRPAIN201301UV02(prpain201301);
+//
+//            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
+//
+//            if (sdAck != null) {
 
-            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
-            if (sdAck != null) {
+                AssertionType assertion = getSessionBean1().getAssertionInfo();
+                PatientDiscoveryClient patientDiscoveryClient = new PatientDiscoveryClient();
+                patientDiscoveryClient.broadcastPatientDiscovery(assertion, foundPatient);
 
                 performPatientCorrelation();
-                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Subject Discovery Results");
+                this.getSubjectDiscoveryResultsInfo().setText("Broadcast Patient Discovery Results");
 
                 GregorianCalendar cal = new GregorianCalendar();
                 cal.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -762,13 +759,16 @@ public class Page2 extends AbstractPageBean {
 
                 this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
                 this.getBroadcastInfo2().setText("");
-            } else {
-                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
-            }
-            return null;
-        } catch (PropertyAccessException ex) {
-            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+//            } else {
+//                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
+//            }
+
+//              return null;
+//        } catch (PropertyAccessException ex) {
+//            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
 
         return null;
     }

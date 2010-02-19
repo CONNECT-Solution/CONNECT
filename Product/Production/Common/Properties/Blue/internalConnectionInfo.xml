@@ -257,6 +257,11 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscovery</name>
+                <description>Entity Patient Discovery</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -709,6 +714,11 @@
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
             </service>
             <service>
+                <name>entitypatientdiscovery</name>
+                <description>Entity Patient Discovery</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+            </service>
+            <service>
                 <name>nhincproxypatientdiscovery</name>
                 <description>NHINC Proxy Patient Discovery</description>
                 <endpointURL>http://localhost:8080/CONNECTAdapter/NhincProxyPatientDiscovery</endpointURL>
@@ -1059,6 +1069,11 @@
 	                <description>Entity Patient Discovery Secured</description>
 	                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityPatientDiscoverySecured</endpointURL>
 	            </service>
+            <service>
+                <name>entitypatientdiscovery</name>
+                <description>Entity Patient Discovery</description>
+                <endpointURL>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscovery</endpointURL>
+            </service>
 	            <service>
 	                <name>nhincproxypatientdiscovery</name>
 	                <description>NHINC Proxy Patient Discovery</description>

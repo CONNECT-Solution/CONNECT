@@ -226,6 +226,7 @@ public class NhincConstants {
     public static final String ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "entitypatientdiscoverysecured";
     public static final String NHINC_PROXY_PATIENT_DISCOVERY_SERVICE_NAME = "nhincproxypatientdiscovery";
     public static final String NHINC_PROXY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME = "nhincproxypatientdiscoverysecured";
+    public static final String ENTITY_PATIENT_DISCOVERY_SERVICE_NAME = "entitypatientdiscovery";
 
     // XDR Constants
     public static final String ENTITY_XDR_SECURED_SERVICE_NAME = "entityxdrsecured";

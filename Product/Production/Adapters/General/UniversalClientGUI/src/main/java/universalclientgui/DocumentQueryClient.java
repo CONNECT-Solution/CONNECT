@@ -12,13 +12,11 @@ import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.text.ParseException;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -49,7 +47,8 @@ public class DocumentQueryClient {
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
     private static final String CREATION_TIME_FROM_SLOT_NAME = "$XDSDocumentEntryCreationTimeFrom";
     private static final String CREATION_TIME_TO_SLOT_NAME = "$XDSDocumentEntryCreationTimeTo";
-    private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
+    //private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmssZ";
+    private static final String HL7_DATE_FORMAT = "yyyyMMddHHmmss";
     private static final String REGULAR_DATE_FORMAT = "MM/dd/yyyy";
 
     /**
@@ -70,6 +69,13 @@ public class DocumentQueryClient {
         return convertAdhocQueryResponseToDocInfoBO(response);
     }
 
+    /**
+     * 
+     * @param patientSearchData
+     * @param creationFromDate
+     * @param creationToDate
+     * @return
+     */
     private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData, Date creationFromDate, Date creationToDate) {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
@@ -216,7 +222,7 @@ public class DocumentQueryClient {
                         docInfo.setTitle(extractDocumentTitle(extrinsicObject));
                         docInfo.setDocumentType(extractDocumentType(extrinsicObject));
                         String creationTime = extractCreationTime(extrinsicObject);
-                        docInfo.setCreationDate(formatDate(creationTime, HL7_DATE_FORMAT, REGULAR_DATE_FORMAT));
+                        docInfo.setCreationDate(formatDate(creationTime, REGULAR_DATE_FORMAT));
                         docInfo.setInstitution(extractInstitution(extrinsicObject));
                         docInfo.setDocumentID(extractDocumentID(extrinsicObject));
                         docInfo.setRepositoryUniqueID(extractRespositoryUniqueID(extrinsicObject));
@@ -332,17 +338,42 @@ public class DocumentQueryClient {
         return classification;
     }
 
-    private String formatDate(String dateString, String inputFormat, String outputFormat) {
-        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
+    /**
+     * 
+     * @param dateString
+     * @param inputFormat
+     * @param outputFormat
+     * @return
+     */
+    
+//    private String formatDate(String dateString, String inputFormat, String outputFormat) {
+//        SimpleDateFormat inputFormatter = new SimpleDateFormat(inputFormat);
+//        SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
+//
+//        Date date = null;
+//
+//        try {
+//            date = inputFormatter.parse(dateString);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(DocumentQueryClient.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        return outputFormatter.format(date);
+//    }
+
+    /**
+     * Format date in the String format using UTCDateUtil class.
+     *
+     * @param dateString
+     * @param outputFormat
+     * @return
+     */
+    private String formatDate(String dateString, String outputFormat){
+        UTCDateUtil dateUtil = new UTCDateUtil();
+
+        Date date = dateUtil.parseUTCDateOptionalTimeZone(dateString);
+
         SimpleDateFormat outputFormatter = new SimpleDateFormat(outputFormat);
-
-        Date date = null;
-
-        try {
-            date = inputFormatter.parse(dateString);
-        } catch (ParseException ex) {
-            Logger.getLogger(DocumentQueryClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         return outputFormatter.format(date);
     }

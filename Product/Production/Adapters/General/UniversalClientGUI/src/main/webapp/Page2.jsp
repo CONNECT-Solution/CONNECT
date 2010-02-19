@@ -63,11 +63,11 @@
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab actionExpression="#{Page2.subjectDiscoveryTab_action}" binding="#{Page2.subjectDiscoveryTab}" disabled="true"
-                                id="subjectDiscoveryTab" style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Subject Discovery">
+                                id="subjectDiscoveryTab" style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Discovery">
                                 <webuijsf:panelLayout id="subjectDiscoveryLayoutPanel" style="height: 534px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:staticText binding="#{Page2.subjectDiscoveryResultsInfo}" id="subjectDiscoveryResultsInfo" style="color: black; font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 24px; top: 24px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}" id="broadcastSubjectDiscoveryButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Broadcast Subject Discovery"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Broadcast Patient Discovery"/>
                                     <webuijsf:table augmentTitle="false" id="subjectDiscoveryCoorelationTable" paginateButton="true" paginationControls="true"
                                         style="left: 24px; top: 120px; position: absolute; width: 400px" title="Patient Correlations" width="400">
                                         <webuijsf:tableRowGroup id="patientCorrTableRowGoup" rows="10" sourceData="#{Page2.patientCorrelationList}" sourceVar="currentRow">
