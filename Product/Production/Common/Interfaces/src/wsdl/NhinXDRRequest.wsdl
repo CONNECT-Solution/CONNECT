@@ -71,7 +71,7 @@
 
     <service name="XDRRequest_Service">
         <port name="XDRRequest_Port_Soap12" binding="tns:XDRRequest_Binding">
-            <soap12:address location="https://localhost:${HttpsDefaultPort}/CONNECTGateway/NhinService/XDRRequestService"/>
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/NhinService/XDRRequestService"/>
         </port>
     </service>
 
