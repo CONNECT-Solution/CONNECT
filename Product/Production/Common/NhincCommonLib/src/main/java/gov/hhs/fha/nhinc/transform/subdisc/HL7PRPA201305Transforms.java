@@ -45,7 +45,23 @@ public class HL7PRPA201305Transforms {
         controlActProcess.setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201305UV", HL7Constants.INTERACTION_ID_ROOT));
         
         controlActProcess.setQueryByParameter(HL7QueryParamsTransforms.createQueryParams(patient, localDeviceId));
+
+        QUQIMT021001UV01AuthorOrPerformer authorOrPerformer = new QUQIMT021001UV01AuthorOrPerformer();
+        authorOrPerformer.setTypeCode(XParticipationAuthorPerformer.AUT);
         
+        COCTMT090300UV01AssignedDevice assignedDevice = new COCTMT090300UV01AssignedDevice();
+        II id = new II();
+        id.setRoot(localDeviceId);
+        
+        assignedDevice.getId().add(id);
+
+        javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "assignedDevice");
+        JAXBElement<COCTMT090300UV01AssignedDevice> assignedDeviceJAXBElement = new JAXBElement<COCTMT090300UV01AssignedDevice>(xmlqname, COCTMT090300UV01AssignedDevice.class, assignedDevice);
+        
+        authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
+
+        controlActProcess.getAuthorOrPerformer().add(authorOrPerformer);
+
         return controlActProcess;
     }
     
