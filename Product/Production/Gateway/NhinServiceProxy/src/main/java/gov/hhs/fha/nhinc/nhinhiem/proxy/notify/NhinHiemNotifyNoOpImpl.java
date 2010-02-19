@@ -13,5 +13,6 @@ public class NhinHiemNotifyNoOpImpl implements NhinHiemNotifyProxy {
 
    public void notify(Element notifyElement, ReferenceParametersElements referenceParametersElements,AssertionType assertion, NhinTargetSystemType target) {
         // Do nothing
+        
     }
 }

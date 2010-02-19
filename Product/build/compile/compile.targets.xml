@@ -30,11 +30,13 @@
 				<if>
 					<scriptcondition language="javascript">
 						// import statements
-						// importPackage(java.io);
+						//
+						importPackage(java.io);
 						importClass(java.io.File);
-						var thing = new File(project.getProperty("classpath.item"));
+						var thing = new
+						File(project.getProperty("classpath.item"));
 						self.setValue(thing.isDirectory());
-          </scriptcondition>
+                    </scriptcondition>
 					<then>
 						<addfilesettopath refid="source.class.files">
 							<fileset dir="${classpath.item}">
@@ -69,9 +71,7 @@
 			<sourcefiles>
 				<pathelement path="${sourcefiles}" />
 			</sourcefiles>
-			<targetfiles>
-				<pathelement path="${targetfiles}" />
-			</targetfiles>
+			<targetfiles path="${build.dir.root}/compilesource.flag"/>
 			<sequential>
 				<echo>Project is out-of-date compared to it's dependencies...</echo>
 				<delete includeemptydirs="true">
@@ -80,14 +80,16 @@
 					</fileset>
 				</delete>
 				<mkdir dir="${build.classes.dir}" />
+				<echo file="${build.dir.root}/compilesource.flag" append="false"/>
 			</sequential>
 		</outofdate>
 
 		<javac debug="${compile.debug}" debuglevel="lines,vars,source"
 			srcdir="${source.dir}" destdir="${build.classes.dir}" includes="**/*.java">
-			<classpath refid="build.classpath" />
+			<classpath refid="build.classpath" />						
 		</javac>
-
+        
+        
 		<if>
 			<or>
 				<istrue value="${unittest.hasTests}" />
@@ -157,9 +159,7 @@
 			<sourcefiles>
 				<pathelement path="${sourcefiles}" />
 			</sourcefiles>
-			<targetfiles>
-				<pathelement path="${targetfiles}" />
-			</targetfiles>
+			<targetfiles path="${build.dir.root}/copyresource.flag"/>
 			<sequential>
 				<mkdir dir="${build.classes.dir}" />
 				<copy todir="${build.classes.dir}" overwrite="true" verbose="${debug}">
@@ -183,10 +183,11 @@
 						</copy>
 					</then>
 				</if>
+				<echo file="${build.dir.root}/copyresource.flag" append="false"/>
 			</sequential>
 		</outofdate>
-
-		<if>
+        
+        <if>
 			<or>
 				<istrue value="${unittest.hasTests}" />
 				<istrue value="${webtest.hasTests}" />
