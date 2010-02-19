@@ -18,4 +18,8 @@
             uri="wsdl/HiemSubscription/NhinSubscription.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinSubscription.wsdl"
             uri="wsdl/HiemUnsubscribe/NhinSubscription.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl"
+            uri="wsdl/NhinXDRRequest/NhinXDRRequest.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl"
+            uri="wsdl/NhinXDRResponse/NhinXDRResponse.wsdl"/>
 </catalog>

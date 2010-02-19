@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -276,6 +276,49 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/schemas/"/>
         </copy>        
     </target>
+    
+    <target name="wsimport-service-NhinXDRRequest" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/NhinXDRRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinXDRRequest">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRRequest/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhinXDRResponse" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" destdir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/NhinXDRResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhinXDRResponse">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDRResponse/schemas/"/>
+        </copy>
+    </target>
+    
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

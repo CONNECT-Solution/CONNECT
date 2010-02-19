@@ -241,6 +241,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="NhinXDRRequest">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRRequest.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRRequest.wsdl</local-wsdl-file>
+      <service-name>XDRRequest_Service</service-name>
+      <port-name>XDRRequest_Port_Soap12</port-name>
+      <package-name>ihe.iti.xdr.async.request._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="NhinXDRResponse">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhinXDRResponse.wsdl</wsdl-url>
+      <local-wsdl-file>NhinXDRResponse.wsdl</local-wsdl-file>
+      <service-name>XDRResponse_Service</service-name>
+      <port-name>XDRResponse_Port_Soap12</port-name>
+      <package-name>ihe.iti.xdr.async.response._2007</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>
