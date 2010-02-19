@@ -103,7 +103,7 @@
   </binding>
   <service name="DocumentRepositoryXDR_Service">
     <port name="DocumentRepositoryXDR_Port_Soap12" binding="tns:DocumentRepositoryXDR_Binding">
-      <soap12:address location="https://localhost:${HttpDefaultPort}/XDR_Service"/>
+      <soap12:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
     </port>  
   </service>
 
