@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- This wsdl file is for an XDS.b Document Repository Actor -->
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="DocumentRepositoryXDR"
   targetNamespace="urn:ihe:iti:xdr:2007"
@@ -103,7 +103,7 @@
   </binding>
   <service name="DocumentRepositoryXDR_Service">
     <port name="DocumentRepositoryXDR_Port_Soap12" binding="tns:DocumentRepositoryXDR_Binding">
-      <soap12:address location="https://localhost:${HttpDefaultPort}/XDR_Service"/>
+      <soap12:address location="https://localhost:${HttpsDefaultPort}/XDR_Service"/>
     </port>  
   </service>
 
