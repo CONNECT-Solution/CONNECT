@@ -108,6 +108,7 @@ public class EntityDocQuerySecuredImpl {
 
         AdhocQueryResponse response = null;
         CMUrlInfos urlInfoList = null;
+        boolean isTargeted = false;
 
         DocQueryAuditLog auditLog = createAuditLog();
         auditDocQueryResquest(request, assertion, auditLog);
@@ -115,6 +116,10 @@ public class EntityDocQuerySecuredImpl {
         try {
             DocQueryAggregator aggregator = createDocQueryAggregator();
 
+            if (request.getNhinTargetCommunities() != null &&
+                    NullChecker.isNotNullish(request.getNhinTargetCommunities().getNhinTargetCommunity())) {
+                isTargeted = true;
+            }
 
             // Obtain all the URLs for the targets being sent to
             try {
@@ -130,7 +135,7 @@ public class EntityDocQuerySecuredImpl {
                     NullChecker.isNotNullish(request.getAdhocQueryRequest().getAdhocQuery().getSlot())) {
                 List<SlotType1> slotList = request.getAdhocQueryRequest().getAdhocQuery().getSlot();
 
-                RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, urlInfoList, assertion);
+                RetrievePatientCorrelationsResponseType correlationsResult = retreiveCorrelations(slotList, urlInfoList, assertion, isTargeted);
 
                 // Make sure the valid results back
                 if (correlationsResult != null &&
@@ -235,7 +240,7 @@ public class EntityDocQuerySecuredImpl {
         }
     }
 
-    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion) {
+    private RetrievePatientCorrelationsResponseType retreiveCorrelations(List<SlotType1> slotList, CMUrlInfos urlInfoList, AssertionType assertion, boolean isTargeted) {
         RetrievePatientCorrelationsResponseType results = null;
         RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
         QualifiedSubjectIdentifierType qualSubId = new QualifiedSubjectIdentifierType();
@@ -265,7 +270,8 @@ public class EntityDocQuerySecuredImpl {
                         if (NullChecker.isNotNullish(target.getHcid())) {
                             patientCorrelationReq.getTargetHomeCommunity().add(target.getHcid());
 
-                            if (target.getHcid().equals(localHomeCommunity)) {
+                            if (target.getHcid().equals(localHomeCommunity) &&
+                                    isTargeted == true) {
                                 querySelf = true;
                             }
                         }
