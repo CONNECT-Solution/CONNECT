@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <definitions name="XDRRequest"
-  targetNamespace="urn:ihe:iti:xdr:async:2007"
-  xmlns:tns="urn:ihe:iti:xdr:async:2007"
+  targetNamespace="urn:ihe:iti:xdr:async:request:2007"
+  xmlns:tns="urn:ihe:iti:xdr:async:request:2007"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
   xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
@@ -17,118 +17,118 @@
   xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xdr="urn:ihe:iti:xdr:2007">
-  <documentation>IHE XDR Request</documentation>
-  <types>
-    <xsd:schema>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+    <documentation>IHE XDR Request</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
                   schemaLocation="../schemas/ebRS/rs.xsd"/>
-      <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
                   schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
-      <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
                   schemaLocation="../schemas/ebRS/query.xsd"/>
-      <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
                   schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
-      <xsd:import namespace="urn:ihe:iti:xdr:2007"
+            <xsd:import namespace="urn:ihe:iti:xdr:2007"
                   schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
-    </xsd:schema>
-  </types>
-  <message name="ProvideAndRegisterDocumentSet-bRequest_RequestMessage">
-    <documentation>Provide and Register Document Set Request - Request</documentation>
-    <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
-  </message>
-  <message name="ProvideAndRegisterDocumentSet-bRequest_ResponseMessage">
-    <documentation>Provide And Register Document Set Request - Response</documentation>
-    <part name="body" element="xdr:Acknowledgement"/>
-  </message>
+        </xsd:schema>
+    </types>
+    <message name="XDRRequestInputMessage">
+        <documentation>XDR Request Input Message</documentation>
+        <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
+    </message>
+    <message name="XDRRequestAcknowledgementMessage">
+        <documentation>XDR Request Acknowledgement Message</documentation>
+        <part name="body" element="xdr:Acknowledgement"/>
+    </message>
   
-  <portType name="XDRRequest_PortType">
-    <operation name="ProvideAndRegisterDocumentSet-bRequest">
-      <input message="tns:ProvideAndRegisterDocumentSet-bRequest_RequestMessage"
-        wsaw:Action="tns:ProvideAndRegisterDocumentSet-b"/>
-      <output message="tns:ProvideAndRegisterDocumentSet-bRequest_ResponseMessage"
-        wsaw:Action="tns:ProvideAndRegisterDocumentSet-bResponse"/>
-    </operation>
-  </portType>
+    <portType name="XDRRequest_PortType">
+        <operation name="ProvideAndRegisterDocumentSet-b">
+            <input message="tns:XDRRequestInputMessage"
+        wsaw:Action="tns:XDRRequestInput"/>
+            <output message="tns:XDRRequestAcknowledgementMessage"
+        wsaw:Action="tns:XDRRequestAcknowledgement"/>
+        </operation>
+    </portType>
 
-  <binding name="XDRRequest_Binding" type="tns:XDRRequest_PortType">
-    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-    <wsp:PolicyReference URI="#RespondingGateway_XDRRequest_Binding_SoapPolicy"/>
+    <binding name="XDRRequest_Binding" type="tns:XDRRequest_PortType">
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_XDRRequest_Binding_SoapPolicy"/>
 
-    <operation name="ProvideAndRegisterDocumentSet-bRequest">
-      <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
-      <input>
-        <soap12:body use="literal"/>
-        <wsp:PolicyReference
+        <operation name="ProvideAndRegisterDocumentSet-b">
+            <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
+            <input>
+                <soap12:body use="literal"/>
+                <wsp:PolicyReference
              URI="#RespondingGateway_XDRRequest_Binding_Soap_Input_Policy"/>
-      </input>
-      <output>
-        <soap12:body use="literal"/>
-        <wsp:PolicyReference
+            </input>
+            <output>
+                <soap12:body use="literal"/>
+                <wsp:PolicyReference
              URI="#RespondingGateway_XDRRequest_Binding_Soap_Output_Policy"/>
-      </output>
-    </operation>
-  </binding>
+            </output>
+        </operation>
+    </binding>
 
-  <service name="XDRRequest_Service">
-    <port name="XDRRequest_Port_Soap12" binding="tns:XDRRequest_Binding">
-      <soap12:address location="https://localhost:${HttpsDefaultPort}/CONNECTGateway/NhinService/XDRRequestService"/>
-    </port>  
-  </service>
+    <service name="XDRRequest_Service">
+        <port name="XDRRequest_Port_Soap12" binding="tns:XDRRequest_Binding">
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/CONNECTGateway/NhinService/XDRRequestService"/>
+        </port>
+    </service>
 
-  <wsp:Policy wsu:Id="RespondingGateway_XDRRequest_Binding_SoapPolicy">
-    <wsp:ExactlyOne>
-      <wsp:All>
-        <wsoma:OptimizedMimeSerialization/>
-        <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
-        <sc:KeyStore wspp:visibility="private"
+    <wsp:Policy wsu:Id="RespondingGateway_XDRRequest_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+                <wsoma:OptimizedMimeSerialization/>
+                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/>
+                <sc:KeyStore wspp:visibility="private"
                      aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreServerAliasSelector"
                      callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
-        <sc:TrustStore wspp:visibility="private"
+                <sc:TrustStore wspp:visibility="private"
                        callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
-        <sp:TransportBinding>
-          <wsp:Policy>
-            <sp:TransportToken>
-              <wsp:Policy>
-                <sp:HttpsToken>
-                  <wsp:Policy>
-                    <sp:RequireClientCertificate/>
-                  </wsp:Policy>
-                </sp:HttpsToken>
-              </wsp:Policy>
-            </sp:TransportToken>
-            <sp:Layout>
-              <wsp:Policy>
-                <sp:Strict/>
-              </wsp:Policy>
-            </sp:Layout>
-            <sp:IncludeTimestamp/>
-            <sp:AlgorithmSuite>
-              <wsp:Policy>
-                <sp:Basic128/>
-              </wsp:Policy>
-            </sp:AlgorithmSuite>
-          </wsp:Policy>
-        </sp:TransportBinding>
-        <sp:EndorsingSupportingTokens>
-          <wsp:Policy>
-            <sp:SamlToken
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic128/>
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken
                 sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
-              <wsp:Policy>
-                <sp:WssSamlV20Token11/>
-              </wsp:Policy>
-            </sp:SamlToken>
-          </wsp:Policy>
-        </sp:EndorsingSupportingTokens>
-        <sp:Wss11>
-          <wsp:Policy>
-            <sp:MustSupportRefKeyIdentifier/>
-            <sp:MustSupportRefIssuerSerial/>
-            <sp:RequireSignatureConfirmation/>
-          </wsp:Policy>
-        </sp:Wss11>
-      </wsp:All>
-    </wsp:ExactlyOne>
-  </wsp:Policy>
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
 
     <wsp:Policy wsu:Id="RespondingGateway_XDRRequest_Binding_Soap_Input_Policy">
         <wsp:ExactlyOne>
