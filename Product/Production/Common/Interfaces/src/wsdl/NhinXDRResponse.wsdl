@@ -43,7 +43,7 @@
   </message>
 
   <portType name="XDRResponse_PortType">
-    <operation name="ProvideAndRegisterDocumentSet-b">
+    <operation name="ProvideAndRegisterDocumentSet-bResponse">
       <input message="tns:XDRResponseInputMessage"
         wsaw:Action="tns:XDRResponseInput"/>
       <output message="tns:XDRResponseAcknowledgementMessage"
@@ -55,8 +55,8 @@
   <binding name="XDRResponse_Binding" type="tns:XDRResponse_PortType">
     <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_XDRResponse_Binding_SoapPolicy"/>
-    <operation name="ProvideAndRegisterDocumentSet-b">
-      <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
+    <operation name="ProvideAndRegisterDocumentSet-bResponse">
+      <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-bResponse"/>
       <input>
         <soap12:body use="literal"/>
         <wsp:PolicyReference
