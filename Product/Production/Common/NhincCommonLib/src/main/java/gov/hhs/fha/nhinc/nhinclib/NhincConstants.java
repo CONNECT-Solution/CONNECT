@@ -236,6 +236,22 @@ public class NhincConstants {
     public static final String ADAPTER_XDR_SECURED_SERVICE_NAME = "adapterxdrsecured";
     public static final String NHINC_XDR_SERVICE_NAME = "serviceXDR";
 
+    public static final String ENTITY_XDR_REQUEST_SERVICE_NAME = "entityxdrrequest";
+    public static final String ENTITY_XDR_REQUEST_SECURED_SERVICE_NAME = "entityxdrrequestsecured";
+    public static final String NHINC_PROXY_XDR_REQUEST_SERVICE_NAME = "nhincproxyxdrrequest";
+    public static final String NHINC_PROXY_XDR_REQUEST_SECURED_SERVICE_NAME = "nhincproxyxdrrequestsecured";
+    public static final String ADAPTER_XDR_REQUEST_SERVICE_NAME = "adapterxdrrequest";
+    public static final String ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME = "adapterxdrrequestsecured";
+    public static final String NHINC_XDR_REQUEST_SERVICE_NAME = "xdrrequest";
+
+    public static final String ENTITY_XDR_RESPONSE_SERVICE_NAME = "entityxdrresponse";
+    public static final String ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME = "entityxdrresponsesecured";
+    public static final String NHINC_PROXY_XDR_RESPONSE_SERVICE_NAME = "nhincproxyxdrresponse";
+    public static final String NHINC_PROXY_XDR_RESPONSE_SECURED_SERVICE_NAME = "nhincproxyxdrresponsesecured";
+    public static final String ADAPTER_XDR_RESPONSE_SERVICE_NAME = "adapterxdrresponse";
+    public static final String ADAPTER_XDR_RESPONSE_SECURED_SERVICE_NAME = "adapterxdrresponsesecured";
+    public static final String NHINC_XDR_RESPONSE_SERVICE_NAME = "xdrresponse";
+
     // Hibernate Config Files
     public static final String HIBERNATE_AUDIT_REPOSITORY = "auditrepo.hibernate.cfg.xml";
     public static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
