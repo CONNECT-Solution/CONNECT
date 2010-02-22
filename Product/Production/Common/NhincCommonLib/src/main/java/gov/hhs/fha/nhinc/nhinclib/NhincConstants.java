@@ -65,6 +65,9 @@ public class NhincConstants {
     public static final String POLICY_ENGINE_ACTION = "policyengine";
     public static final String PAT_CORR_ACTION = "patientcorrelation";
     public static final String ADAPTER_MPI_ACTION = "mpi";
+    public static final String XDR_ACTION = "xdr";
+    public static final String XDR_REQUEST_ACTION = "xdrrequest";
+    public static final String XDR_RESPONSE_ACTION = "xdrresponse";
     public static final String USERNAME_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:subject-id";
     public static final String USER_ORG_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization";
     public static final String USER_ORG_ID_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:organization-id";

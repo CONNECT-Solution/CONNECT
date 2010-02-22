@@ -47,14 +47,14 @@ public class NhinXDRWebServiceProxy implements NhinXDRProxy{
             DocumentRepositoryXDRPortType port = getPort(url);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.SUBJECT_DISCOVERY_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.XDR_ACTION);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 
             response = port.documentRepositoryProvideAndRegisterDocumentSetB(request);
 
         } else {
-            log.error("The URL for service: " + NhincConstants.SUBJECT_DISCOVERY_SERVICE_NAME + " is null");
+            log.error("The URL for service: " + NhincConstants.NHINC_XDR_SERVICE_NAME + " is null");
         }
 
         return response;
