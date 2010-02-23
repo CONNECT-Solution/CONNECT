@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS auditRepository;
-CREATE TABLE auditRepository
+DROP TABLE IF EXISTS auditrepository;
+CREATE TABLE auditrepository
 (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	timestamp DATETIME,
@@ -15,7 +15,7 @@ CREATE TABLE auditRepository
 	message LONGBLOB,
 	PRIMARY KEY (id),
 	UNIQUE UQ_eventlog_id(id)
-) ;
+);
 
 
 

@@ -1,8 +1,6 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
-
-
 -- begin aggregator creation
 CREATE DATABASE aggregator;
 
@@ -27,8 +25,6 @@ CREATE TABLE aggregator.agg_message_results (
 GRANT SELECT,INSERT,UPDATE,DELETE ON aggregator.* to nhincuser;
 -- end aggregator creation
 
-
-
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
@@ -41,8 +37,6 @@ CREATE TABLE assigningauthoritydb.assigningauthoritytohomecommunitymapping (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON assigningauthoritydb.* to nhincuser;
 -- end assigning authority
-
-
 
 -- begin auditrepo
 CREATE DATABASE auditrepo;
@@ -60,15 +54,13 @@ CREATE TABLE auditrepo.auditrepository
 	senderPatientId VARCHAR(100),
 	communityId VARCHAR(255),
 	messageType VARCHAR(100) NOT NULL,
-	message BLOB,
+	message LONGBLOB,
 	PRIMARY KEY (id),
 	UNIQUE UQ_eventlog_id(id)
-) ;
+);
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON auditrepo.* to nhincuser;
 -- end auditrepo
-
-
 
 -- begin docrepository
 CREATE DATABASE docrepository;
@@ -139,8 +131,6 @@ CREATE TABLE docrepository.eventcode (
 GRANT SELECT,INSERT,UPDATE,DELETE ON docrepository.* to nhincuser;
 -- end docrepository
 
-
-
 -- begin patientcorrelationdb
 CREATE DATABASE patientcorrelationdb;
 
@@ -156,8 +146,6 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientcorrelationdb.* to nhincuser;
 -- end patientcorrelationdb
-
-
 
 -- begin subscription repository creation
 CREATE DATABASE subscriptionrepository;
