@@ -18,6 +18,9 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRPortType;
 import gov.hhs.fha.nhinc.nhincadapterxdr.AdapterXDRService;
 import javax.xml.ws.BindingProvider;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+
 
 /**
  *
@@ -26,6 +29,7 @@ import javax.xml.ws.BindingProvider;
 public class AdapterComponentXDRSecuredImpl {
     private static Log log = null;
     private static AdapterXDRService service = null;
+
 
     public AdapterComponentXDRSecuredImpl()
     {
@@ -39,7 +43,7 @@ public class AdapterComponentXDRSecuredImpl {
         String url = "";
         AdapterXDRPortType port = null;
         RegistryResponseType result = null;
-        
+        XDRHelper helper = new XDRHelper();
 
         url = getUrl();
         port = getPort(url);
@@ -47,16 +51,27 @@ public class AdapterComponentXDRSecuredImpl {
         unsecured.setAssertion(assertion);
         unsecured.setProvideAndRegisterDocumentSetRequest(body);
 
-        result = port.provideAndRegisterDocumentSetb(unsecured);
+        RegistryErrorList errorList = helper.validateDocumentMetaData(body);
 
+        if(errorList.getHighestSeverity().equals("Error"))
+        {
+            result = helper.createErrorResponse(errorList);
+        }
+        else
+        {
+            result = port.provideAndRegisterDocumentSetb(unsecured);
+        }
+        
         log.debug("end provideAndRegisterDocumentSetb()");
 
         return result;
     }
+
     protected Log createLogger()
     {
         return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
+
     protected AdapterXDRService createService()
     {
         return new AdapterXDRService();
