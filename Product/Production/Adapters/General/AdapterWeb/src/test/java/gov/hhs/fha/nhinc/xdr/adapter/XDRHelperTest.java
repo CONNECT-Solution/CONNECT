@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.xdr.adapter;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
@@ -57,38 +58,65 @@ public class XDRHelperTest {
     }
 
     /**
-     * Test of createErrorResponse method, of class XDRHelper.
-     */
-    @Test
-    public void testCreateErrorResponse() {
-        /*
-        System.out.println("createErrorResponse");
-        RegistryErrorList errorList = null;
-        XDRHelper instance = new XDRHelper();
-        RegistryResponseType expResult = null;
-        RegistryResponseType result = instance.createErrorResponse(errorList);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-         * */
-    }
-
-    /**
      * Test of validateDocumentMetaData method, of class XDRHelper.
      */
     @Test
     public void testValidateDocumentMetaData_Null() {
-        System.out.println("validateDocumentMetaData");
+        System.out.println("testValidateDocumentMetaData_Null");
         ProvideAndRegisterDocumentSetRequestType body = null;
         XDRHelper instance = createHelper();
 
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
+    }
+    @Test
+    public void testgetIntendedRecepients_Null() {
+        System.out.println("testgetIntendedRecepients_Null");
+        ProvideAndRegisterDocumentSetRequestType body = null;
+        XDRHelper instance = createHelper();
+
+        List<String> result = instance.getIntendedRecepients(body);
+
+        assertNull(result);
+    }
+    @Test
+    public void testgetIntendedRecepients_NullSubmitObj() {
+        System.out.println("testgetIntendedRecepients_NullSubmitObj");
+        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
+        XDRHelper instance = createHelper();
+
+        body.setSubmitObjectsRequest(null);
+
+        List<String> result = instance.getIntendedRecepients(body);
+
+        assertNull(result);
+    }
+    @Test
+    public void testgetIntendedRecepients_NoRecip() {
+        System.out.println("testgetIntendedRecepients_NoRecip");
+        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
+        XDRHelper instance = createHelper();
+
+        List<String> result = instance.getIntendedRecepients(body);
+
+        assertNull(result);
+    }
+    @Test
+    public void testgetIntendedRecepients_Valid() {
+        System.out.println("testgetIntendedRecepients_Valid");
+        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage("ProvideAndRegisterDocumentSet-IntendedRecpient.xml");
+        XDRHelper instance = createHelper();
+
+        List<String> result = instance.getIntendedRecepients(body);
+
+        assertNotNull(result);
+        assertEquals(4, result.size());
     }
     @Test
     public void testValidateDocumentMetaData_ValidMessage() {
@@ -100,7 +128,7 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(0, result.getRegistryError().size());
-
+        assertEquals("", result.getHighestSeverity());
 
     }
     @Test
@@ -115,7 +143,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSMissingDocument, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
 
@@ -130,7 +159,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSRegistryMetadataError, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
     }
@@ -145,6 +175,7 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(0, result.getRegistryError().size());
+        assertEquals("", result.getHighestSeverity());
     }
     @Test
     public void testValidateDocumentMetaData_PatIdsNoMatch() {
@@ -157,7 +188,8 @@ public class XDRHelperTest {
         RegistryErrorList result = instance.validateDocumentMetaData(body);
         assertNotNull(result);
         assertEquals(1, result.getRegistryError().size());
-        assertEquals(XDRHelper.XDR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getHighestSeverity());
+        assertEquals(XDRHelper.XDS_ERROR_SEVERITY_ERROR, result.getRegistryError().get(0).getSeverity());
         assertEquals(XDRHelper.XDR_EC_XDSPatientIdDoesNotMatch, result.getRegistryError().get(0).getErrorCode());
         assertNotNull(result.getRegistryError().get(0).getCodeContext());
     }

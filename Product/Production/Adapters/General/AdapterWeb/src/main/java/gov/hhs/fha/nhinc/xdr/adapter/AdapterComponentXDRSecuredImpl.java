@@ -53,6 +53,8 @@ public class AdapterComponentXDRSecuredImpl {
 
         RegistryErrorList errorList = helper.validateDocumentMetaData(body);
 
+        
+/*
         if(errorList.getHighestSeverity().equals("Error"))
         {
             result = helper.createErrorResponse(errorList);
@@ -61,7 +63,8 @@ public class AdapterComponentXDRSecuredImpl {
         {
             result = port.provideAndRegisterDocumentSetb(unsecured);
         }
-        
+  */
+         result = port.provideAndRegisterDocumentSetb(unsecured);
         log.debug("end provideAndRegisterDocumentSetb()");
 
         return result;
