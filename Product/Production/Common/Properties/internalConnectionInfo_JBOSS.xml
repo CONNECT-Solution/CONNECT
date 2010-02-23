@@ -4,7 +4,7 @@
         <homeCommunityId>1.1</homeCommunityId>
         <name>DoD</name>
         <description>DoD Description</description>
-        <services>
+        <services>          
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
