@@ -7,22 +7,12 @@ package gov.hhs.fha.nhinc.xdr.proxy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import javax.xml.ws.WebServiceContext;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
-import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxyObjectFactory;
-import gov.hhs.fha.nhinc.xdr.proxy.NhinXDRProxy;
-import gov.hhs.fha.nhinc.xdr.XDRAuditLog;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 
 /**
@@ -44,7 +34,7 @@ public class NhincProxyXDRSecuredImpl {
 
         return provideAndRegisterDocumentSetB(body, assertion);
     }
-    private RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion)
+    public RegistryResponseType provideAndRegisterDocumentSetB(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType body, AssertionType assertion)
     {
         RegistryResponseType response = null;
         

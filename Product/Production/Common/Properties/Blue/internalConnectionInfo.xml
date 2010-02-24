@@ -29,7 +29,12 @@
                 <name>serviceXDR</name>
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-            </service>  
+            </service>
+			<service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>			
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -427,7 +432,7 @@
 	        </state>
         </states>
         <services>
-                     <service>
+            <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
@@ -446,7 +451,12 @@
                 <name>serviceXDR</name>
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-            </service>  
+            </service>
+		    <service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>			
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -833,7 +843,7 @@
 	        </state>
         </states>
         <services>
-                     <service>
+            <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
@@ -852,7 +862,12 @@
                 <name>serviceXDR</name>
                 <description>NHIN XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
-            </service>  
+            </service>
+			<service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>			
 	            <service>
 	                <name>subjectdiscovery</name>
 	                <description>subjectdiscovery</description>

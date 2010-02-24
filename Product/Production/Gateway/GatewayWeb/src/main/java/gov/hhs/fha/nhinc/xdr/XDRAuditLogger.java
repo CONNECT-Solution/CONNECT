@@ -7,6 +7,7 @@ package gov.hhs.fha.nhinc.xdr;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.proxy.AuditRepositoryProxy;
@@ -72,6 +73,22 @@ public class XDRAuditLogger {
         }
         return ack;
     }
+
+    public AcknowledgementType auditEntityXDR(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+        LogEventRequestType auditLogMsg = auditLogger.logEntityXDRReq(request, assertion, direction);
+
+        if (auditLogMsg != null) {
+            ack = audit(auditLogMsg, assertion);
+        }
+
+        return ack;
+    }
+
     public AcknowledgementType auditNhinXDRResponse (RegistryResponseType Response, AssertionType assertion, String direction) {
         AcknowledgementType ack = new AcknowledgementType ();
 
@@ -99,4 +116,5 @@ public class XDRAuditLogger {
         
         return proxy.auditLog(auditLogMsg, assertion);
     }
+
 }

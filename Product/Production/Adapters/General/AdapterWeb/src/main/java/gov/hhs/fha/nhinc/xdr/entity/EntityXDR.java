@@ -14,9 +14,8 @@ import javax.jws.WebService;
 @WebService(serviceName = "EntityXDR_Service", portName = "EntityXDR_Port", endpointInterface = "gov.hhs.fha.nhinc.nhincentityxdr.EntityXDRPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:nhincentityxdr", wsdlLocation = "WEB-INF/wsdl/EntityXDR/EntityXDR.wsdl")
 public class EntityXDR {
 
-    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetB(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType body) {
-        //TODO implement this method
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType provideAndRegisterDocumentSetB(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType respondingGatewayProvideAndRegisterDocumentSetRequest) {
+        return new EntityXDRImpl().provideAndRegisterDocumentSetB(respondingGatewayProvideAndRegisterDocumentSetRequest);
     }
 
 }

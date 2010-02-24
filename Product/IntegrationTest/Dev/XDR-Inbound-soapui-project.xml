@@ -14336,17 +14336,13 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "????????"
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>?</urn1:homeCommunityId>
                <urn1:name>?</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            
          </urn:nhinTargetSystem>
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="?" comment="?">
@@ -14593,17 +14589,13 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "????????"
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>?</urn1:homeCommunityId>
                <urn1:name>?</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            
          </urn:nhinTargetSystem>
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="?" comment="?">
@@ -15553,17 +15545,13 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "????????"
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>?</urn1:homeCommunityId>
                <urn1:name>?</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            
          </urn:nhinTargetSystem>
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="?" comment="?">
@@ -16273,17 +16261,13 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyeng
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>?</urn1:homeCommunityId>
                <urn1:name>?</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            
          </urn:nhinTargetSystem>
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="?" comment="?">
@@ -17896,17 +17880,13 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
          </urn:assertion>
          <urn:nhinTargetSystem>
             <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:epr>
-               <urn1:EndpointReference>
-                  <add:Address>?</add:Address>
-               </urn1:EndpointReference>
-            </urn1:epr>
+            
             <urn1:homeCommunity>
                <urn1:description>?</urn1:description>
                <urn1:homeCommunityId>?</urn1:homeCommunityId>
                <urn1:name>?</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url>?</urn1:url>
+            
          </urn:nhinTargetSystem>
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="?" comment="?">
@@ -18115,4 +18095,4 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation,"1.1","policyengineser
          </urn:ProvideAndRegisterDocumentSetRequest>
       </body>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:wsaConfig mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties/><con:wssContainer/><con:databaseConnectionContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:xmlTemplates/><con:parameters/></con:reporting></con:soapui-project>

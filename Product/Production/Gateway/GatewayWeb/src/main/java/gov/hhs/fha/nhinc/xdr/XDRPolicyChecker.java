@@ -32,13 +32,13 @@ public class XDRPolicyChecker {
         log = createLogger();
     }
 
-    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion, String senderHCID, String receiverHCID) {
+    public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion, String senderHCID, String receiverHCID, String direction) {
 
 
         XDREventType policyCheckReq = new XDREventType();
         XDRMessageType policyMsg = new XDRMessageType();
     
-        policyCheckReq.setDirection(NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+        policyCheckReq.setDirection(direction);
 
         HomeCommunityType senderHC = new HomeCommunityType();
         senderHC.setHomeCommunityId(senderHCID);

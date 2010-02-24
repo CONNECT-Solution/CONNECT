@@ -30,6 +30,11 @@
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
             </service>  
+			<service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -456,6 +461,11 @@
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
             </service>  
+	        <service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -852,7 +862,7 @@
 	        </state>
         </states>
         <services>
-                    <service>
+            <service>
                 <name>serviceXDR</name>
                 <description>NHIN XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/DocumentRepositoryXDR_Service</endpointURL>
@@ -862,6 +872,11 @@
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
             </service>  
+			<service>
+                <name>entityxdrsecured</name>
+                <description>Entity XDR Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
+            </service>
 	            <service>
 	                <name>subjectdiscovery</name>
 	                <description>subjectdiscovery</description>

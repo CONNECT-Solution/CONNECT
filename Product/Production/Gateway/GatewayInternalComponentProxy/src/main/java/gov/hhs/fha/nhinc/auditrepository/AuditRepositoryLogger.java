@@ -47,6 +47,7 @@ import gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.UnsubscribeResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.NotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommoninternalorch.UnsubscribeRequestType;
@@ -230,6 +231,20 @@ public class AuditRepositoryLogger {
         }
         log.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
 
+        return auditMsg;
+    }
+
+
+    public LogEventRequestType logEntityXDRReq(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformRequestToAuditMsg(message.getProvideAndRegisterDocumentSetRequest(), assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logEntityXDRReq(...)");
         return auditMsg;
     }
 

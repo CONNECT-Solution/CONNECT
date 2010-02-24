@@ -130,7 +130,7 @@ public class NhinXDRImpl
 
         //return true if 'permit' returned, false otherwise
         XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-        return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID);      
+        return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
 
     }
     protected AdapterXDRSecuredService createAdapterService()

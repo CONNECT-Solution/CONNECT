@@ -57,7 +57,6 @@ public class EntityPatientDiscoveryImpl {
 //            respondingGatewayPRPAIN201305UV02Request.setAssertion(request.getAssertion());
 //            respondingGatewayPRPAIN201305UV02Request.setNhinTargetCommunities(request.getNhinTargetCommunities());
 
-            
             response = port.respondingGatewayPRPAIN201305UV02(request);
             
         }

@@ -8,6 +8,7 @@ import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.util.List;
@@ -141,5 +142,14 @@ public class XDRPolicyTransformHelper {
 
 
         return result;
+    }
+
+    /**
+     * Transform method to create a CheckPolicyRequest object
+     * @param request
+     * @return CheckPolicyRequestType
+     */
+    public CheckPolicyRequestType transformXDREntityToCheckPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

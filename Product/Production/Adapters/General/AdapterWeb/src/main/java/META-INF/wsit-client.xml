@@ -21,10 +21,11 @@
     <import location="EntityPatientDiscoverySecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured"/>
 	<import location="EntityNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitynotificationconsumersecured"/>
     <import location="NhincProxyNotificationConsumerSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumersecured"/>
-    <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>                                                                   
+    <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>
     <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
     <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
     <import location="NhincProxyXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request"/>
     <import location="NhincProxyXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"/>
+    <import location="EntityXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured"/>
 </definitions>
