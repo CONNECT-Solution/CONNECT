@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.xdr.response.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetResponseRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+import gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response.ProxyXDRSecuredResponseService;
 import gov.hhs.fha.nhinc.nhincproxyxdrsecured.async.response.ProxyXDRSecuredResponsePortType;
 import ihe.iti.xdr._2007.AcknowledgementType;
 import org.apache.commons.logging.Log;
@@ -42,6 +43,7 @@ public class NhincProxyXDRResponseImplTest
     public void testProvideAndRegisterDocumentSetBResponse()
     {
         final Log mockLogger = context.mock(Log.class);
+        final ProxyXDRSecuredResponseService mockService = context.mock(ProxyXDRSecuredResponseService.class);
 
         NhincProxyXDRResponseImpl sut = new NhincProxyXDRResponseImpl()
         {
@@ -75,6 +77,12 @@ public class NhincProxyXDRResponseImplTest
             @Override
             protected void setRequestContext(AssertionType assertion, String url, ProxyXDRSecuredResponsePortType port)
             {
+            }
+
+            @Override
+            protected ProxyXDRSecuredResponseService createService()
+            {
+                return mockService;
             }
 
         };

@@ -3,6 +3,7 @@ package gov.hhs.fha.nhinc.xdr.async.request.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xdr._2007.AcknowledgementType;
+import ihe.iti.xdr.async.request._2007.XDRRequestService;
 import ihe.iti.xdr.async.request._2007.XDRRequestPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import org.junit.Test;
@@ -35,6 +36,7 @@ public class NhinXDRRequestWebServiceProxyTest
     public void testProvideAndRegisterDocumentSetBRequest()
     {
         final Log mockLogger = context.mock(Log.class);
+        final XDRRequestService mockService = context.mock(XDRRequestService.class);
 
         NhinXDRRequestWebServiceProxy proxy = new NhinXDRRequestWebServiceProxy()
         {
@@ -69,6 +71,13 @@ public class NhinXDRRequestWebServiceProxyTest
             protected void setRequestContext(AssertionType assertion, String url, XDRRequestPortType port)
             {
             }
+
+            @Override
+            protected XDRRequestService createService()
+            {
+                return mockService;
+            }
+
 
         };
         

@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import ihe.iti.xdr._2007.AcknowledgementType;
+import ihe.iti.xdr.async.response._2007.XDRResponseService;
 import ihe.iti.xdr.async.response._2007.XDRResponsePortType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -22,9 +23,10 @@ public class NhinXDRResponseWebServiceProxyTest
     private Mockery context;
 
     @Before
-    public void setUp() {
-        context = new Mockery() {
-
+    public void setUp()
+    {
+        context = new Mockery()
+        {
             {
                 setImposteriser(ClassImposteriser.INSTANCE);
             }
@@ -35,6 +37,7 @@ public class NhinXDRResponseWebServiceProxyTest
     public void testProvideAndRegisterDocumentSetBResponse()
     {
         final Log mockLogger = context.mock(Log.class);
+        final XDRResponseService mockService = context.mock(XDRResponseService.class);
 
         NhinXDRResponseWebServiceProxy proxy = new NhinXDRResponseWebServiceProxy()
         {
@@ -68,6 +71,12 @@ public class NhinXDRResponseWebServiceProxyTest
             @Override
             protected void setRequestContext(AssertionType assertion, String url, XDRResponsePortType port)
             {
+            }
+
+            @Override
+            protected XDRResponseService createService()
+            {
+                return mockService;
             }
 
         };

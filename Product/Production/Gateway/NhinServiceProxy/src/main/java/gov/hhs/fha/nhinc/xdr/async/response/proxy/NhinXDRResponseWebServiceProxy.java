@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy
 {
     private static Log log;
-    private XDRResponseService service;
+    private static XDRResponseService service;
 
     public NhinXDRResponseWebServiceProxy()
     {
@@ -77,7 +77,7 @@ public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy
 
     protected XDRResponseService createService()
     {
-        return new XDRResponseService();
+        return ((service != null) ? service : new XDRResponseService());
     }
 
     protected Log createLogger()

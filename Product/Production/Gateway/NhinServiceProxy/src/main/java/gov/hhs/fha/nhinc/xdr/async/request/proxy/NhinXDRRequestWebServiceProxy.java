@@ -23,7 +23,7 @@ import javax.xml.ws.BindingProvider;
 public class NhinXDRRequestWebServiceProxy implements NhinXDRRequestProxy
 {
     private static Log log;
-    private XDRRequestService service;
+    private static XDRRequestService service;
 
     public NhinXDRRequestWebServiceProxy()
     {
@@ -77,7 +77,7 @@ public class NhinXDRRequestWebServiceProxy implements NhinXDRRequestProxy
 
     protected XDRRequestService createService()
     {
-        return new XDRRequestService();
+        return ((service != null) ? service : new XDRRequestService());
     }
 
     protected Log createLogger()
