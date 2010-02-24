@@ -320,6 +320,24 @@
 		<servlet-name>EntityXDRSecured</servlet-name>
 		<url-pattern>/EntityService/EntityXDRSecured</url-pattern>
 	</servlet-mapping>
+    <!-- Start: XDR Request and Response services-->
+    <servlet>
+        <servlet-name>NhinXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.NhinXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinXDRRequest</servlet-name>
+        <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>NhinXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.NhinXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhinXDRResponse</servlet-name>
+        <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+    </servlet-mapping>
+    <!-- End: XDR Request and Response services-->
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>DocQuery</web-resource-name>
@@ -433,6 +451,16 @@
 			<web-resource-name>EntityXDRSecured</web-resource-name>
 			<url-pattern>/EntityService/EntityXDRSecured</url-pattern>
 		</web-resource-collection>
+        <!-- Start: XDR Request and Response services-->
+        <web-resource-collection>
+            <web-resource-name>NhinXDRRequest</web-resource-name>
+            <url-pattern>/NhinService/XDRRequest_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>NhinXDRResponse</web-resource-name>
+            <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+        </web-resource-collection>
+        <!-- End: XDR Request and Response services-->
 		<user-data-constraint>
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>

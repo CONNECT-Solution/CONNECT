@@ -24,4 +24,6 @@
     <import location="AdapterComponentXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincadapterxdrsecured"/>
     <import location="NhinXDRRequest.xml" namespace="urn:ihe:iti:xdr:async:request:2007"/>
     <import location="NhinXDRResponse.xml" namespace="urn:ihe:iti:xdr:async:response:2007"/>
+	<import location="AdapterXDRRequestSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
+	<import location="AdapterXDRResponseSecured.xml" namespace="urn:gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
 </definitions>

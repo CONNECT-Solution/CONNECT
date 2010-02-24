@@ -147,5 +147,39 @@
         <delete dir="${build.generated.dir}/jax-wsCache/AdapterSubscriptionManagementSecured"/>
         <delete dir="${build.generated.sources.dir}/jax-ws/gov/hhs/fha/nhinc/adaptersubscriptionmanagementsecured"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocQuerySecured, wsimport-client-AdapterDocRetrieveSecured, wsimport-client-AdapterPatientDiscoverySecured, wsimport-client-AdapterSubjectDiscoverySecured, wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured"/>
+    <target name="wsimport-client-AdapterXDRRequestSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured"/>
+        <property name="wsdl-AdapterXDRRequestSecured" location="xml-resources/web-service-references/AdapterXDRRequestSecured/wsdl/AdapterXDRRequestSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured" destdir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured" wsdl="${wsdl-AdapterXDRRequestSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRRequestSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterXDRRequestSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdapterXDRRequestSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterXDRRequestSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterxdrrequestsecured"/>
+    </target>
+    <target name="wsimport-client-AdapterXDRResponseSecured" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured"/>
+        <property name="wsdl-AdapterXDRResponseSecured" location="xml-resources/web-service-references/AdapterXDRResponseSecured/wsdl/AdapterXDRResponseSecured.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured" destdir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured" wsdl="${wsdl-AdapterXDRResponseSecured}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterXDRResponseSecured.wsdl" xnocompile="true">
+            <depends file="${wsdl-AdapterXDRResponseSecured}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdapterXDRResponseSecured" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdapterXDRResponseSecured"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/gov:hhs:fha:nhinc:adapterxdrresponsesecured"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-AdapterDocQuerySecured, wsimport-client-AdapterDocRetrieveSecured, wsimport-client-AdapterPatientDiscoverySecured, wsimport-client-AdapterSubjectDiscoverySecured, wsimport-client-AdapterNotificationConsumer, wsimport-client-AdapterSubscriptionManagement, wsimport-client-AdapterNotificationConsumerSecured, wsimport-client-AdapterSubscriptionManagementSecured, wsimport-client-AdapterXDRRequestSecured, wsimport-client-AdapterXDRResponseSecured"/>
 </project>

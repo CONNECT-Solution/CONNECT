@@ -10,7 +10,7 @@
 	        </state>
         </states>
         <services>            
-             <service>
+            <service>
                 <name>adapterxdrsecured</name>
                 <description>Adapter Component XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRSecured_Service</endpointURL>
@@ -29,12 +29,46 @@
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
-            </service>  
+            </service>
+            <!-- Start: XDR Request and Response service definitions-->
+            <!-- XDR Request -->
 			<service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
             </service>
+            <service>
+                <name>adapterxdrrequestsecured</name>
+                <description>Adapter Component XDR Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrrequest</name>
+                <description>Adapter Component XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrrequest</name>
+                <description>NHIN XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+            </service>
+            <!-- XDR Response -->
+            <service>
+                <name>adapterxdrresponsesecured</name>
+                <description>Adapter Component XDR Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrresponse</name>
+                <description>Adapter Component XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrresponse</name>
+                <description>NHIN XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
+            </service>
+            <!--End: XDR Request and Response service definitions -->
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -460,12 +494,46 @@
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
-            </service>  
+            </service>
+            <!-- Start: XDR Request and Response service definitions-->
+            <!-- XDR Request -->
 	        <service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/EntityXDRSecured</endpointURL>
             </service>
+            <service>
+                <name>adapterxdrrequestsecured</name>
+                <description>Adapter Component XDR Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrrequest</name>
+                <description>Adapter Component XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrrequest</name>
+                <description>NHIN XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+            </service>
+            <!-- XDR Response -->
+            <service>
+                <name>adapterxdrresponsesecured</name>
+                <description>Adapter Component XDR Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrresponse</name>
+                <description>Adapter Component XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrresponse</name>
+                <description>NHIN XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
+            </service>
+            <!--End: XDR Request and Response service definitions -->
             <service>
                 <name>subjectdiscovery</name>
                 <description>subjectdiscovery</description>
@@ -871,7 +939,41 @@
                 <name>nhincproxyxdrsecured</name>
                 <description>NHINC PROXY XDR</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/ProxyXDRSecured_Service</endpointURL>
-            </service>  
+            </service>
+            <!-- Start: XDR Request and Response service definitions-->
+            <!-- XDR Request -->
+            <service>
+                <name>adapterxdrrequestsecured</name>
+                <description>Adapter Component XDR Request Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequestSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrrequest</name>
+                <description>Adapter Component XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRRequest_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrrequest</name>
+                <description>NHIN XDR Request</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequest_Service</endpointURL>
+            </service>
+            <!-- XDR Response -->
+            <service>
+                <name>adapterxdrresponsesecured</name>
+                <description>Adapter Component XDR Response Secured</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponseSecured_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdrresponse</name>
+                <description>Adapter Component XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTAdapter/AdapterXDRResponse_Service</endpointURL>
+            </service>
+            <service>
+                <name>xdrresponse</name>
+                <description>NHIN XDR Response</description>
+                <endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponse_Service</endpointURL>
+            </service>
+            <!--End: XDR Request and Response service definitions -->
 			<service>
                 <name>entityxdrsecured</name>
                 <description>Entity XDR Secured</description>

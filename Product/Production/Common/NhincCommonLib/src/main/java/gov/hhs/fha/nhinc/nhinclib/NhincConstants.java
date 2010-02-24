@@ -61,6 +61,8 @@ public class NhincConstants {
     public static final String SUBJECT_DISCOVERY_ACTION = "subjectDiscovery";
     public static final String PATIENT_DISCOVERY_ACTION = "patientDiscovery";
     public static final String ADAPTER_XDR_ACTION = "adapterXDRSecured";
+    public static final String ADAPTER_XDRREQUEST_SECURED_ACTION = "adapterXDRRequestSecured";
+    public static final String ADAPTER_XDRRESPONSE_SECURED_ACTION = "adapterXDRResponseSecured";
     public static final String AUDIT_REPO_ACTION = "auditrepository";
     public static final String POLICY_ENGINE_ACTION = "policyengine";
     public static final String PAT_CORR_ACTION = "patientcorrelation";

@@ -360,6 +360,25 @@
         <url-pattern>/EntityProxyService/NhincProxyXDRResponse</url-pattern>
     </servlet-mapping>
 
+    <!-- Start: XDR Request and Response services-->
+    <servlet>
+        <servlet-name>AdapterXDRRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.request.adapter.AdapterXDRRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRRequestSecured</servlet-name>
+        <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AdapterXDRResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.async.response.adapter.AdapterXDRResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdapterXDRResponseSecured</servlet-name>
+        <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+    </servlet-mapping>
+    <!-- End: XDR Request and Response services-->
+    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>
@@ -393,6 +412,17 @@
             <web-resource-name>AdapterSubjectDiscoverySecured</web-resource-name>
             <url-pattern>/AdapterSubjectDiscoverySecured</url-pattern>
         </web-resource-collection>
+        <!-- Start: XDR Request and Response services-->
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRRequestSecured</web-resource-name>
+            <url-pattern>/AdapterXDRRequestSecured_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>AdapterXDRResponseSecured</web-resource-name>
+            <url-pattern>/AdapterXDRResponseSecured_Service</url-pattern>
+        </web-resource-collection>
+        <!-- End: XDR Request and Response services-->
+
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>

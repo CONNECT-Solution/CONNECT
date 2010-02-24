@@ -274,7 +274,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -786,7 +786,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
             <service>
                 <name>nhincproxypatientdiscovery</name>
@@ -1197,7 +1197,7 @@
             <service>
                 <name>entitypatientdiscovery</name>
                 <description>Entity Patient Discovery</description>
-                <endpointURL>http://localhost:8080/NhinConnect/EntityPatientDiscovery</endpointURL>
+                <endpointURL>http://localhost:8080/CONNECTAdapter/EntityPatientDiscovery</endpointURL>
             </service>
 	            <service>
 	                <name>nhincproxypatientdiscovery</name>
