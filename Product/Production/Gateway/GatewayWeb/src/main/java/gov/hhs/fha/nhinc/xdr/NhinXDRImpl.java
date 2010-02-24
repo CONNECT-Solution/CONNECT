@@ -18,6 +18,7 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import gov.hhs.fha.nhinc.nhincadapterxdrsecured.AdapterXDRSecuredPortType;
@@ -152,6 +153,7 @@ public class NhinXDRImpl
     private RegistryResponseType createFailedPolicyCheckResponse()
     {
         RegistryResponseType result= new RegistryResponseType();
+        result.setRegistryErrorList(new RegistryErrorList());
 
         RegistryError policyError = new RegistryError();
         policyError.setErrorCode(XDR_POLICY_ERROR);
@@ -159,7 +161,7 @@ public class NhinXDRImpl
         policyError.setSeverity("Error");
         
         result.setStatus(XDR_RESPONSE_FAILURE);
-        result.getRegistryErrorList().getRegistryError().add(null);
+        result.getRegistryErrorList().getRegistryError().add(policyError);
 
         return result;
     }
