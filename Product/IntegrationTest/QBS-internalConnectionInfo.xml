@@ -1,0 +1,991 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InternalConnectionInfos>
+    <internalConnectionInfo>
+        <homeCommunityId>1.1</homeCommunityId>
+        <name>DoD</name>
+        <description>DoD Description</description>
+				<states>
+			<state>
+				<name>US-VA</name>
+			</state>
+			<state>
+				<name>US-AZ</name>
+			</state>
+        </states>
+        <services>
+            <service>
+                <name>subjectdiscovery</name>
+                <description>subjectdiscovery</description>
+                <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery1.1</endpointURL>
+            </service>
+            <service>
+                <name>PatientDiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-1.1</endpointURL>
+            </service>
+            <service>
+                <name>documentquery</name>
+                <description>documentquery</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
+            </service>
+            <service>
+                <name>documentretrieve</name>
+                <description>documentretrieve</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve1.1</endpointURL>
+            </service>
+            <service>
+                <name>admin</name>
+                <description>Admin Service</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Admin_Service/NhinAdmin</endpointURL>
+            </service>
+            <service>
+                <name>auditquery</name>
+                <description>auditquery</description>
+                <endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>notificationproducer</name>
+                <description>notificationproducer</description>
+                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
+            </service>
+            <service>
+                <name>notificationconsumer</name>
+                <description>HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
+            </service>
+            <service>
+                <name>subscriptionmanager</name>
+                <description>HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+            </service>
+            <service>
+                <name>patientcorrelation</name>
+                <description>Patient Correlation Service</description>
+                <endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
+            </service>
+			
+            <service>
+                <name>patientcorrelationsecured</name>
+                <description>Patient Correlation Secured Service</description>
+                <endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
+            </service>
+						
+            <service>
+                <name>auditrepository</name>
+                <description>Audit Repository</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+            </service>
+            <service>
+                <name>auditrepositorysecured</name>
+                <description>Audit Repository Secured Service</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>auditrepositorymanager</name>
+                <description>auditrepositorymanager</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+            </service>
+            <service>
+                <name>policyengineservice</name>
+                <description>Policy Engine Service</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+            </service>
+            <service>
+                <name>policyengineservicesecured</name>
+                <description>Policy Engine Service Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocretrieve</name>
+                <description>Adapter Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocretrievesecured</name>
+                <description>Adapter Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapteradminsecured</name>
+                <description>Adapter Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscovery</name>
+                <description>Adapter Subject Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscoverysecured</name>
+                <description>Adapter Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscovery</name>
+                <description>Adapter Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adapterpatientdiscoverysecured</name>
+                <description>Adapter Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquery</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquerysecured</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquery</name>
+                <description>adapterauditquery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquerysecured</name>
+                <description>adapterauditquerysecured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>mpi</name>
+                <description>Master Patient Index</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
+            </service>
+            <service>
+                <name>mpisecured</name>
+                <description>Master Patient Index</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentmpiservice</name>
+                <description>Master Patient Index Component</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentmpisecuredservice</name>
+                <description>Master Patient Index Component</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>adapterreidentificationservice</name>
+                <description>adapterreidentificationservice</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterReidentification</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationproducersecured</name>
+                <description>Adapter HIEM Subscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumersecured</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubscriptionmanagersecured</name>
+                <description>Adapter HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
+            </service>
+            <service>
+                <name>policyenginedte</name>
+                <description>policyenginedte</description>
+                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+            </service>
+            <service>
+                <name>policyenginefacade</name>
+                <description>policyenginefacade</description>
+                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+            </service>
+            <service>
+                <name>auditlog</name>
+                <description>auditlog</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocrepositorysoap12</name>
+                <description>Adapter Document Retrieve Soap12</description>
+                <endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocrepository</name>
+                <description>Adapter Document Retrieve</description>
+                <endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+            </service>
+            <service>
+                <name>adapterxdsbdocregistry</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL>
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
+            </service>
+            <service>
+                <name>adapteradmin</name>
+                <description>Adapter Admin</description>
+                <endpointURL>http://localhost:8080/Admin_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterpip</name>
+                <description>adapterpip</description>
+                <endpointURL>http://localhost:8080/AdapterPIP/AdapterPIPService</endpointURL>
+            </service>
+            <service>
+                <name>adapterpep</name>
+                <description>adapterpep</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPEP</endpointURL>
+            </service>
+            <service>
+                <name>adapterpolicyengineorchestrator</name>
+                <description>adapterpolicyengineorchestrator</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
+            </service>
+            <service>
+                <name>entitysubjectdiscoverysecured</name>
+                <description>Entity Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubjectdiscovery</name>
+                <description>NHINC Proxy Subject Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubjectdiscoverysecured</name>
+                <description>NHINC Proxy Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecured</name>
+                <description>Entity Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscovery</name>
+                <description>NHINC Proxy Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecured</name>
+                <description>NHINC Proxy Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationconsumer</name>
+                <description>Entity Notify</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationconsumersecured</name>
+                <description>Entity Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationconsumersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubscriptionmanagersecured</name>
+                <description>NHINC Proxy Subscription Manager Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitysubscriptionmanagersecured</name>
+                <description>Entity Subscription Manager Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocqueryproxy</name>
+                <description>Entity Document Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerysecured</name>
+                <description>Entity Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquery</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquerysecured</name>
+                <description>NHINC Proxy Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauthentication</name>
+                <description>adapterauthentication</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrieveproxy</name>
+                <description>Entity Document Retrieve Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievesecured</name>
+                <description>Entity Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityadminsecured</name>
+                <description>Entity Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrieve</name>
+                <description>NHINC Proxy Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrievesecured</name>
+                <description>NHINC Proxy Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadmin</name>
+                <description>NHINC Proxy Admin</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAdmin</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadminsecured</name>
+                <description>NHINC Proxy Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityauditqueryproxy</name>
+                <description>Entity Audit Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>entityauditquerysecured</name>
+                <description>Entity Audit Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyauditquery</name>
+                <description>NHINC Proxy Audit Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyauditquerysecured</name>
+                <description>NHINC ProxyAudit Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
+            </service>
+        </services>
+    </internalConnectionInfo>
+    <internalConnectionInfo>
+        <homeCommunityId>2.2</homeCommunityId>
+        <name>DoD</name>
+        <description>DoD Description</description>
+        <services>
+            <service>
+                <name>subjectdiscovery</name>
+                <description>subjectdiscovery</description>
+                <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery2.2</endpointURL>
+            </service>
+            <service>
+                <name>patientdiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>documentquery</name>
+                <description>documentquery</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Query_Service/DocQuery</endpointURL>
+            </service>
+            <service>
+                <name>documentretrieve</name>
+                <description>documentretrieve</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Retrieve_Service/DocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>admin</name>
+                <description>Admin Service</description>
+                <endpointURL>https://localhost:8181/RespondingGateway_Admin_Service/NhinAdmin</endpointURL>
+            </service>
+            <service>
+                <name>auditquery</name>
+                <description>auditquery</description>
+                <endpointURL>https://localhost:8181/findAuditEvents/AuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>notificationproducer</name>
+                <description>notificationproducer</description>
+                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscription</endpointURL>
+            </service>
+            <service>
+                <name>notificationconsumer</name>
+                <description>HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NotificationConsumerService/HiemNotify</endpointURL>
+            </service>
+            <service>
+                <name>subscriptionmanager</name>
+                <description>HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+            </service>
+            <service>
+                <name>patientcorrelation</name>
+                <description>Patient Correlation Service</description>
+                <endpointURL>http://localhost:8080/PatientCorrelationService</endpointURL>
+            </service>
+			
+            <service>
+                <name>patientcorrelationsecured</name>
+                <description>Patient Correlation Secured Service</description>
+                <endpointURL>https://localhost:8181/PatientCorrelationServiceSecured/PatientCorrelationServiceSecured</endpointURL>
+            </service>
+						
+            <service>
+                <name>auditrepository</name>
+                <description>Audit Repository</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+            </service>
+            <service>
+                <name>auditrepositorysecured</name>
+                <description>Audit Repository Secured Service</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AuditRepositoryManagerSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>auditrepositorymanager</name>
+                <description>auditrepositorymanager</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AuditRepositoryManagerService</endpointURL>
+            </service>
+            <service>
+                <name>policyengineservice</name>
+                <description>Policy Engine Service</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngine</endpointURL>
+            </service>
+            <service>
+                <name>policyengineservicesecured</name>
+                <description>Policy Engine Service Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterPolicyEngineSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocretrieve</name>
+                <description>Adapter Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocretrievesecured</name>
+                <description>Adapter Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapteradminsecured</name>
+                <description>Adapter Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscovery</name>
+                <description>Adapter Subject Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterSubjectDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubjectdiscoverysecured</name>
+                <description>Adapter Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquery</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterDocQueryService</endpointURL>
+            </service>
+            <service>
+                <name>adapterdocquerysecured</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquery</name>
+                <description>adapterauditquery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquerysecured</name>
+                <description>adapterauditquerysecured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>mpi</name>
+                <description>Master Patient Index</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterMpiService</endpointURL>
+            </service>
+            <service>
+                <name>mpisecured</name>
+                <description>Master Patient Index</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterMpiSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentmpiservice</name>
+                <description>Master Patient Index Component</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterComponentMpiService</endpointURL>
+            </service>
+            <service>
+                <name>adaptercomponentmpisecuredservice</name>
+                <description>Master Patient Index Component</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterComponentMpiSecuredService</endpointURL>
+            </service>
+            <service>
+                <name>adapterreidentificationservice</name>
+                <description>adapterreidentificationservice</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterReidentification</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationproducersecured</name>
+                <description>Adapter HIEM Subscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationProducer</endpointURL>
+            </service>
+            <service>
+                <name>adapternotificationconsumersecured</name>
+                <description>Adapter HIEM Notify</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>adaptersubscriptionmanagersecured</name>
+                <description>Adapter HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterSubscriptionManager</endpointURL>
+            </service>
+            <service>
+                <name>policyenginedte</name>
+                <description>policyenginedte</description>
+                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineGatewayTransformationService</endpointURL>
+            </service>
+            <service>
+                <name>policyenginefacade</name>
+                <description>policyenginefacade</description>
+                <endpointURL>http://localhost:8080/NhinConnect/PolicyEngineFacadeService</endpointURL>
+            </service>
+            <service>
+                <name>auditlog</name>
+                <description>auditlog</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincComponentInternalAuditRepositoryService</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocrepositorysoap12</name>
+                <description>Adapter Document Retrieve Soap12</description>
+                <endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocrepository</name>
+                <description>Adapter Document Retrieve</description>
+                <endpointURL>http://localhost:8080/DocumentRepository_Service</endpointURL>
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:8080/DocumentRepository_Service/AdapterDocRepository2Soap12Service</endpointURL>		-->
+            </service>
+            <service>
+                <name>adapterxdsbdocregistry</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://localhost:8080/DocumentRegistry_Service</endpointURL>
+            <!--				<endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL> -->			
+<!--				<endpointURL>http://localhost:50967/axis2/services/xdsregistryb</endpointURL>			-->
+            </service>
+            <service>
+                <name>adapteradmin</name>
+                <description>Adapter Admin</description>
+                <endpointURL>http://localhost:8080/Admin_Service</endpointURL>
+            </service>
+            <service>
+                <name>adapterpip</name>
+                <description>adapterpip</description>
+                <endpointURL>http://localhost:8080/AdapterPIP/AdapterPIPService</endpointURL>
+            </service>
+            <service>
+                <name>adapterpep</name>
+                <description>adapterpep</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPEP</endpointURL>
+            </service>
+            <service>
+                <name>adapterpolicyengineorchestrator</name>
+                <description>adapterpolicyengineorchestrator</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterPolicyEngineOrchestrator</endpointURL>
+            </service>
+            <service>
+                <name>entitysubjectdiscoverysecured</name>
+                <description>Entity Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubjectdiscovery</name>
+                <description>NHINC Proxy Subject Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxySubjectDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubjectdiscoverysecured</name>
+                <description>NHINC Proxy Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationconsumer</name>
+                <description>Entity Notify</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyNotificationConsumer</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationconsumersecured</name>
+                <description>Entity Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationconsumersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationConsumerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxynotificationproducersecured</name>
+                <description>NHINC Proxy Notify Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyNotificationProducerSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxysubscriptionmanagersecured</name>
+                <description>NHINC Proxy Subscription Manager Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitysubscriptionmanagersecured</name>
+                <description>Entity Subscription Manager Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubscriptionManagerSecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocqueryproxy</name>
+                <description>Entity Document Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerysecured</name>
+                <description>Entity Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquery</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquerysecured</name>
+                <description>NHINC Proxy Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauthentication</name>
+                <description>adapterauthentication</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuthentication</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrieveproxy</name>
+                <description>Entity Document Retrieve Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievesecured</name>
+                <description>Entity Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityadminsecured</name>
+                <description>Entity Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrieve</name>
+                <description>NHINC Proxy Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrievesecured</name>
+                <description>NHINC Proxy Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadmin</name>
+                <description>NHINC Proxy Admin</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAdmin</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadminsecured</name>
+                <description>NHINC Proxy Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityauditqueryproxy</name>
+                <description>Entity Audit Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>entityauditquerysecured</name>
+                <description>Entity Audit Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAuditLogQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyauditquery</name>
+                <description>NHINC Proxy Audit Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyauditquerysecured</name>
+                <description>NHINC ProxyAudit Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitypatientdiscoverysecured</name>
+                <description>Entity Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityPatientDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscovery</name>
+                <description>NHINC Proxy Patient Discovery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyPatientDiscovery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxypatientdiscoverysecured</name>
+                <description>NHINC Proxy Patient Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyPatientDiscoverySecured</endpointURL>
+            </service>
+        </services>
+    </internalConnectionInfo>
+    <internalConnectionInfo>
+        <homeCommunityId>3.3</homeCommunityId>
+        <name>Interface Test Harness</name>
+        <description>Interface Test Harness</description>
+        <services>
+            <service>
+                <name>notificationproducer</name>
+                <description>notificationproducer</description>
+                <endpointURL>https://localhost:8181/NotificationProducerService/HiemSubscriptionTestHelper</endpointURL>
+            </service>
+            <service>
+                <name>subscriptionmanager</name>
+                <description>HIEM Unsubscribe</description>
+                <endpointURL>https://localhost:8181/SubscriptionManagerService/HiemUnsubscribe</endpointURL>
+            </service>
+            <service>
+                <name>entitysubjectdiscoverysecured</name>
+                <description>Entity Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocqueryproxy</name>
+                <description>Entity Document Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerysecured</name>
+                <description>Entity Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquery</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquerysecured</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrieveproxy</name>
+                <description>Entity Document Retrieve Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievesecured</name>
+                <description>Entity Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityadminsecured</name>
+                <description>Entity Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrieve</name>
+                <description>NHINC Proxy Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrievesecured</name>
+                <description>NHINC Proxy Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadmin</name>
+                <description>NHINC Proxy Admin</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAdmin</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadminsecured</name>
+                <description>NHINC Proxy Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAdminSecured</endpointURL>
+            </service>
+        </services>
+    </internalConnectionInfo>
+    <internalConnectionInfo>
+        <homeCommunityId>1.19.6.24.109.42.1.3</homeCommunityId>
+        <name>NISTXDS</name>
+        <description>NIST XDS Repository</description>
+        <services>
+            <service>
+                <name>adapterxdsbdocrepositorysoap12</name>
+                <description>Adapter Document Retrieve Soap12</description>
+                <endpointURL>http://localhost:50967/axis2/services/xdsrepositoryb</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocrepository</name>
+                <description>Adapter Document Retrieve</description>
+                <endpointURL>http://192.168.25.94:9080/axis2/services/xdsrepositoryb</endpointURL>
+            </service>
+            <service>
+                <name>adapterxdsbdocregistry</name>
+                <description>Adapter Document Query</description>
+                <endpointURL>http://192.168.25.94:9080/axis2/services/xdsregistryb</endpointURL>
+            </service>
+            <service>
+                <name>adapteradmin</name>
+                <description>Adapter Admin</description>
+                <endpointURL>http://localhost:8080/Admin_Service</endpointURL>
+            </service>
+            <service>
+                <name>entitysubjectdiscoverysecured</name>
+                <description>Entity Subject Discovery Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntitySubjectDiscoverySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocqueryproxy</name>
+                <description>Entity Document Query Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>entitydocquerysecured</name>
+                <description>Entity Document Query Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquery</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocQuery</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocquerysecured</name>
+                <description>NHINC Proxy Document Query</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocQuerySecured</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrieveproxy</name>
+                <description>Entity Document Retrieve Proxy</description>
+                <endpointURL>http://localhost:8080/NhinConnect/EntityDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>entitydocretrievesecured</name>
+                <description>Entity Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>entityadminsecured</name>
+                <description>Entity Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/EntityAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrieve</name>
+                <description>NHINC Proxy Document Retrieve</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyDocRetrieve</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxydocretrievesecured</name>
+                <description>NHINC Proxy Document Retrieve Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadmin</name>
+                <description>NHINC Proxy Admin</description>
+                <endpointURL>http://localhost:8080/NhinConnect/NhincProxyAdmin</endpointURL>
+            </service>
+            <service>
+                <name>nhincproxyadminsecured</name>
+                <description>NHINC Proxy Admin Secured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhincProxyAdminSecured</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquery</name>
+                <description>adapterauditquery</description>
+                <endpointURL>http://localhost:8080/NhinConnect/AdapterAuditQuery</endpointURL>
+            </service>
+            <service>
+                <name>adapterauditquerysecured</name>
+                <description>adapterauditquerysecured</description>
+                <endpointURL>https://localhost:8181/NhinConnect/AdapterAuditQuerySecured</endpointURL>
+            </service>
+        </services>
+    </internalConnectionInfo>
+	    <internalConnectionInfo>
+        <homeCommunityId>8.8</homeCommunityId>
+		<states>
+			<state>
+				<name>US-VA</name>
+			</state>
+			<state>
+				<name>US-AZ</name>
+			</state>
+        </states>
+        <name>DoD</name>
+        <description>DoD Description</description>
+        <services>
+            <service>
+                <name>subjectdiscovery</name>
+                <description>subjectdiscovery</description>
+                <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery8.8</endpointURL>
+            </service>
+			<service>
+                <name>PatientDiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-8.8</endpointURL>
+            </service>
+			</services>
+			</internalConnectionInfo>
+		<internalConnectionInfo>
+        <homeCommunityId>4.4</homeCommunityId>
+		<states>
+			<state>
+				<name>US-AZ</name>
+			</state>
+			<state>
+				<name>US-MD</name>
+			</state>
+        </states>
+        <name>DoD</name>
+        <description>DoD Description</description>
+        <services>
+		     <service>
+                <name>subjectdiscovery</name>
+                <description>subjectdiscovery</description>
+                <endpointURL>https://localhost:8181/PIXConsumer_Service/SubjectDiscovery4.4</endpointURL>
+            </service>
+            <service>
+                <name>PatientDiscovery</name>
+                <description>patientdiscovery</description>
+                <endpointURL>https://localhost:8181/NhinConnect/NhinPatientDiscovery-ICI-4.4</endpointURL>
+            </service>
+			</services>
+			</internalConnectionInfo>
+</InternalConnectionInfos>
