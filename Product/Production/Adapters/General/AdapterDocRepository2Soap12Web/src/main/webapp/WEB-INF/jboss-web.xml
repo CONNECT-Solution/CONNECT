@@ -1,0 +1,4 @@
+<jboss-web>
+    <context-root>AdapterDocRepository2Soap12Web</context-root>
+    <class-loading java2ClassLoadingCompliance='true'/>
+</jboss-web>
