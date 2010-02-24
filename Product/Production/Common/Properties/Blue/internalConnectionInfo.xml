@@ -381,6 +381,36 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequestsecured</name>
+				<description>NHIN Proxy XDR Request Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequest</name>
+				<description>NHIN Proxy XDR Request</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponsesecured</name>
+				<description>NHIN Proxy XDR Response Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponse</name>
+				<description>NHIN Proxy XDR Response</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+			</service>
                 
       </services>
     </internalConnectionInfo>
@@ -758,6 +788,36 @@
                 <description>NHINC Proxy Patient Discovery Secured</description>
                 <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
             </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequestsecured</name>
+				<description>NHIN Proxy XDR Request Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequest</name>
+				<description>NHIN Proxy XDR Request</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponsesecured</name>
+				<description>NHIN Proxy XDR Response Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponse</name>
+				<description>NHIN Proxy XDR Response</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -1134,6 +1194,36 @@
 	                <description>NHINC Proxy Patient Discovery Secured</description>
 	                <endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyPatientDiscoverySecured</endpointURL>
 	            </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequestsecured</name>
+				<description>NHIN Proxy XDR Request Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequest</name>
+				<description>NHIN Proxy XDR Request</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponsesecured</name>
+				<description>NHIN Proxy XDR Response Secured</description>
+				<endpointURL>https://localhost:8181/CONNECTGateway/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponse</name>
+				<description>NHIN Proxy XDR Response</description>
+				<endpointURL>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>

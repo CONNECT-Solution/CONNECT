@@ -341,7 +341,25 @@
         <servlet-name>AdapterDocRepository2Soap12Service</servlet-name>
         <url-pattern>/AdapterDocRepository2Soap12Service</url-pattern>
     </servlet-mapping>
-    
+
+    <servlet>
+        <servlet-name>NhincProxyXDRRequest</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.request.proxy.NhincProxyXDRRequest</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyXDRRequest</servlet-name>
+        <url-pattern>/EntityProxyService/NhincProxyXDRRequest</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NhincProxyXDRResponse</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponse</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NhincProxyXDRResponse</servlet-name>
+        <url-pattern>/EntityProxyService/NhincProxyXDRResponse</url-pattern>
+    </servlet-mapping>
+
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>AdapterPolicyEngineSecured</web-resource-name>

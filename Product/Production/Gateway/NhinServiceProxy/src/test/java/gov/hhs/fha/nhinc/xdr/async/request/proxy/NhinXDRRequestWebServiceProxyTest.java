@@ -22,9 +22,10 @@ public class NhinXDRRequestWebServiceProxyTest
     private Mockery context;
 
     @Before
-    public void setUp() {
-        context = new Mockery() {
-
+    public void setUp()
+    {
+        context = new Mockery()
+        {
             {
                 setImposteriser(ClassImposteriser.INSTANCE);
             }

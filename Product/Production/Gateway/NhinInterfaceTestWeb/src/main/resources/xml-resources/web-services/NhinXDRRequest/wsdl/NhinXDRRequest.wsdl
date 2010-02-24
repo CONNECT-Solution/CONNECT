@@ -42,7 +42,7 @@
     </message>
   
     <portType name="XDRRequest_PortType">
-        <operation name="ProvideAndRegisterDocumentSet-b">
+        <operation name="ProvideAndRegisterDocumentSet-bRequest">
             <input message="tns:XDRRequestInputMessage"
         wsaw:Action="tns:XDRRequestInput"/>
             <output message="tns:XDRRequestAcknowledgementMessage"
@@ -54,8 +54,8 @@
         <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_XDRRequest_Binding_SoapPolicy"/>
 
-        <operation name="ProvideAndRegisterDocumentSet-b">
-            <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-b"/>
+        <operation name="ProvideAndRegisterDocumentSet-bRequest">
+            <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
             <input>
                 <soap12:body use="literal"/>
                 <wsp:PolicyReference

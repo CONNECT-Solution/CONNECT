@@ -12,9 +12,9 @@ import javax.xml.ws.BindingType;
 public class NhinXDRRequest
 {
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetB(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body)
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body)
     {
-        return new NhinXDRRequestImpl().provideAndRegisterDocumentSetB(body);
+        return new NhinXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body);
     }
 
 }

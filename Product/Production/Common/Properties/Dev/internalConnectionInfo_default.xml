@@ -321,6 +321,36 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequestsecured</name>
+				<description>NHIN Proxy XDR Request Secured</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequest</name>
+				<description>NHIN Proxy XDR Request</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponsesecured</name>
+				<description>NHIN Proxy XDR Response Secured</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponse</name>
+				<description>NHIN Proxy XDR Response</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -644,6 +674,36 @@
                 <description>NHINC ProxyAudit Query Secured</description>
                 <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyAuditLogQuerySecured</endpointURL>
             </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/NhinService/XDRRequestService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequestsecured</name>
+				<description>NHIN Proxy XDR Request Secured</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/EntityService/NhincProxyXDRRequestSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrrequest</name>
+				<description>NHIN Proxy XDR Request</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/NhinService/XDRResponseService</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponsesecured</name>
+				<description>NHIN Proxy XDR Response Secured</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGateway/EntityService/NhincProxyXDRResponseSecured</endpointURL>
+			</service>
+			<service>
+				<name>nhincproxyxdrresponse</name>
+				<description>NHIN Proxy XDR Response</description>
+				<endpointURL>http://<Adapter-IP>:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>
@@ -706,6 +766,16 @@
                 <description>NHINC Proxy Document Retrieve Secured</description>
                 <endpointURL>https://<Gateway-IP>:8181/NhinConnect/NhincProxyDocRetrieveSecured</endpointURL>
             </service>
+			<service>
+				<name>xdrrequest</name>
+				<description>NHIN XDR Request</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGatewayTest/NhinService/XDRRequestServiceTestHelper</endpointURL>
+			</service>
+			<service>
+				<name>xdrresponse</name>
+				<description>NHIN XDR Response</description>
+				<endpointURL>https://<Gateway-IP>:8181/CONNECTGatewayTest/NhinService/XDRResponseServiceTestHelper</endpointURL>
+			</service>
         </services>
     </internalConnectionInfo>
     <internalConnectionInfo>

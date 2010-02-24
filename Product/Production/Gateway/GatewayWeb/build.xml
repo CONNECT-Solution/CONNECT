@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -769,9 +769,6 @@
         </copy>
     </target>
 
-    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
-        <nbundeploy failOnError="false" startServer="false"/>
-    </target>
     <target name="wsimport-service-NhinXDR" depends="wsimport-init">
 
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhinXDR">
@@ -781,6 +778,7 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhinXDR/schemas/"/>
         </copy>        
     </target>
+
     <target name="wsimport-service-NhincProxyXDRSecured" depends="wsimport-init">
         
         <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRSecured">
@@ -790,7 +788,8 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRSecured/schemas/"/>
         </copy>                
     </target>
-<target name="wsimport-service-EntityXDRSecured" depends="wsimport-init">
+
+    <target name="wsimport-service-EntityXDRSecured" depends="wsimport-init">
 
         <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRSecured">
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/wsdl/"/>
@@ -799,4 +798,50 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRSecured/schemas/"/>
         </copy>                        
     </target>        
+
+    <target name="wsimport-service-NhincProxyXDRRequestSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRRequestSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRRequestSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRRequestSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequestSecured/wsdl/NhincProxyXDRSecuredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequestSecured/wsdl/NhincProxyXDRSecuredRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRRequestSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRRequestSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRRequestSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequestSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequestSecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyXDRResponseSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRResponseSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRResponseSecured" destdir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRResponseSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponseSecured/wsdl/NhincProxyXDRSecuredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponseSecured/wsdl/NhincProxyXDRSecuredResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRResponseSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/NhincProxyXDRResponseSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRResponseSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponseSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponseSecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
+        <nbundeploy failOnError="false" startServer="false"/>
+    </target>
 </project>

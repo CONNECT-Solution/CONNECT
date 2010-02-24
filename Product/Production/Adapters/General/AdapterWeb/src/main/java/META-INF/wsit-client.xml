@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?> 
+<?xml version="1.0" encoding="UTF-8"?> 
 <definitions 
  xmlns="http://schemas.xmlsoap.org/wsdl/" 
  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
@@ -24,6 +24,7 @@
     <import location="NhincProxySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement"/>                                                                   
     <import location="EntitySubscriptionManagementSecured.xml" namespace="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagementsecured"/>
     <import location="NhincProxyXDRSecured.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured"/>
-    
     <import location="NhinSubscription.xml" namespace="http://docs.oasis-open.org/wsn/bw-2"/>
+    <import location="NhincProxyXDRSecuredRequest.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:request"/>
+    <import location="NhincProxyXDRSecuredResponse.xml" namespace="urn:gov:hhs:fha:nhinc:nhincproxyxdrsecured:async:response"/>
 </definitions>

@@ -68,4 +68,8 @@
                 uri="wsdl/EntitySubjectDiscovery/EntitySubjectDiscovery.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxySubjectDiscovery.wsdl"
                 uri="wsdl/NhincProxySubjectDiscovery/NhincProxySubjectDiscovery.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRRequest.wsdl"
+                uri="wsdl/NhincProxyXDRRequest/NhincProxyXDRRequest.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl"
+                uri="wsdl/NhincProxyXDRResponse/NhincProxyXDRResponse.wsdl"/>
 </catalog>

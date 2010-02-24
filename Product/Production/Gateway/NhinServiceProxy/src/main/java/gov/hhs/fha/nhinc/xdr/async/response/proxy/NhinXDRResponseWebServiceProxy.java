@@ -38,15 +38,30 @@ public class NhinXDRResponseWebServiceProxy implements NhinXDRResponseProxy
 
         if (NullChecker.isNotNullish(url))
         {
-            XDRResponsePortType port = getPort(url);
+            try
+            {
+                XDRResponsePortType port = getPort(url);
 
-            setRequestContext(assertion, url, port);
+                setRequestContext(assertion, url, port);
 
-            response = port.provideAndRegisterDocumentSetBResponse(request);
+                // TODO: Audit log
+
+                // TODO: Policy check
+
+                response = port.provideAndRegisterDocumentSetBResponse(request);
+            }
+            catch(Throwable t)
+            {
+                log.error("Error in NHIN client for XDR Response: " + t.getMessage(), t);
+                response = new AcknowledgementType();
+                response.setMessage("Error");
+            }
         }
         else
         {
             log.error("The URL for service: " + NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME + " is null");
+            response = new AcknowledgementType();
+            response.setMessage("Error");
         }
 
         return response;

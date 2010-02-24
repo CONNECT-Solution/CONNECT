@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- You may freely edit this file. See commented blocks below for -->
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
@@ -356,6 +356,24 @@
             <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/AdapterComponentXDR/schemas/"/>
         </copy>          
     </target>    
+
+    <target name="wsimport-service-NhincProxyXDRRequest" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRRequest/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-NhincProxyXDRResponse" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/NhincProxyXDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/NhincProxyXDRResponse/schemas/"/>
+        </copy>
+    </target>
     
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
@@ -375,6 +393,8 @@
     <target name="wsimport-client-NhincProxySubscriptionManagementSecured" depends="wsimport-init"/>
     <target name="wsimport-client-EntityXDRSecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyXDRSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyXDRSecuredRequest" depends="wsimport-init"/>
+    <target name="wsimport-client-NhincProxyXDRSecuredResponse" depends="wsimport-init"/>
     
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>

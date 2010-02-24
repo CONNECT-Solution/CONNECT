@@ -12,9 +12,9 @@ import javax.xml.ws.BindingType;
 public class NhinXDRResponse
 {
 
-    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetB(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body)
+    public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body)
     {
-        return new NhinXDRResponseImpl().provideAndRegisterDocumentSetB(body);
+        return new NhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body);
     }
 
 }

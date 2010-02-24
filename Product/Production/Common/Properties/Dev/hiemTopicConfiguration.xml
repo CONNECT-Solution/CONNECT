@@ -68,6 +68,12 @@
 		<isPatientCentric>false</isPatientCentric>
 		<isPatientRequired>false</isPatientRequired>
 	</topicConfiguration>
+	<topicConfiguration>
+		<topic><![CDATA[<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>]]></topic>
+		<description>nhinc:testTopic</description>
+		<isSupported>true</isSupported>
+		<isPatientCentric>false</isPatientCentric>
+	</topicConfiguration>
 	
 	<!-- GIPSE topics listed below -->
 	<topicConfiguration>
