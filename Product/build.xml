@@ -63,9 +63,15 @@
       <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
     </copy>
     
-    <antcall target="do-to-projects">
+  	<copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
+  	      <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+  	</copy>
+  	
+    
+  	<antcall target="do-to-projects">
       <param name="do-to-target" value="copy.deployable.artifacts"/>
     </antcall>
+  	
   </target>
 
   <target name="redeploy" depends="undeploy,deploy"/>

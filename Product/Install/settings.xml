@@ -13,6 +13,7 @@
   <import file="${deploy.os.settings.file}"/>
 
   <property name="deployment.binaries.dir" value="${deployment.dir}/nhinc"/>
+  <property name="deployment.interfaces.dir" value="${deployment.dir}/Interfaces"/>
   <property name="deployment.glassfish.admin.port" value="4848"/>
   <property name="deployment.glassfish.server" value="localhost"/>
 
