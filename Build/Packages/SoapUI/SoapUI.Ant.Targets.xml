@@ -38,6 +38,7 @@
           <include name="EntityDocRetrieve-soapui-project.xml"/>
 		  <include name="PolicyEngineInteractions-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
+		  <include name="DocQuerytestsforUDDI-soapui-project.xml"/>
 	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
       </path>
