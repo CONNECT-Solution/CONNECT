@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.patientdiscovery;
 
 import org.apache.commons.logging.Log;
@@ -16,23 +15,39 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxyRequestType;
 import gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscovery;
 import gov.hhs.fha.nhinc.nhincproxypatientdiscovery.NhincProxyPatientDiscoveryPortType;
 
-
 /**
  *
  * @author dunnek
  */
 public class NhinPatientDiscoveryImpl {
+
     private static Log log = LogFactory.getLog(NhinPatientDiscoveryImpl.class);
     private static final String SERVICE_NAME = "mockpatientdiscovery";
 
     public org.hl7.v3.PRPAIN201306UV02 proxyPRPAIN201305UV(org.hl7.v3.PRPAIN201305UV02 body, WebServiceContext context) {
-        PRPAIN201306UV02 response =null;
+        PRPAIN201306UV02 response = null;
         ProxyPRPAIN201305UVProxyRequestType request = new ProxyPRPAIN201305UVProxyRequestType();
 
         request.setPRPAIN201305UV02(body);
         request.setAssertion(SamlTokenExtractor.GetAssertion(context));
 
-        String homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
+        String homeCommunityId = null;
+        if (body != null &&
+                NullChecker.isNotNullish(body.getReceiver()) &&
+                body.getReceiver().get(0) != null &&
+                body.getReceiver().get(0).getDevice() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null &&
+                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()) &&
+                body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null &&
+                NullChecker.isNotNullish(body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            homeCommunityId = body.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        } else {
+            homeCommunityId = SamlTokenExtractorHelper.getHomeCommunityId();
+        }
+
         if (NullChecker.isNotNullish(homeCommunityId)) {
             NhincProxyPatientDiscovery service = new NhincProxyPatientDiscovery();
             NhincProxyPatientDiscoveryPortType port = service.getNhincProxyPatientDiscoveryPort();
@@ -40,7 +55,7 @@ public class NhinPatientDiscoveryImpl {
 
             response = port.proxyPRPAIN201305UV(request);
         } else {
-           response = null;
+            response = null;
         }
         return response;
     }
