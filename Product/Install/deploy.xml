@@ -302,9 +302,9 @@
       </filelist>
     </copy>
     <copy todir="${deployment.certificate.home}" verbose="true" overwrite="true">
-      <filelist dir="${deployment.glassfish.domain.config.home}">
-        <file name="*.jks"/>
-      </filelist>
+      <fileset dir="${deployment.glassfish.domain.config.home}">
+        <include name="*.jks"/>
+      </fileset>
     </copy>
   </target>
 
