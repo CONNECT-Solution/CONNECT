@@ -4,7 +4,10 @@
 	<property name="dist.type" value="war" />
 	<property name="webtest.hasTests" value="false" />
 	<property name="unittest.hasTests" value="true" />
-
+  <property name="deploy.isDeployable" value="true"/>
+  <property name="deploy.type" value="war" />
+  <property name="copy.wsdl.to.webinf" value="true" />
+  
 	<!-- Please make sure that this goes up to the correct directory -->
 	<import file="../../../../build/build.targets.xml" />
 
@@ -23,4 +26,10 @@
 		</filelist>
 	</path>
 
+  <path id="war.libs">
+		<filelist dir="${root.project.directory.path}">
+      <file name="${project.NhincCommonLib.dist.file}" />
+      <file name="${project.NhincCommonTypesLib.dist.file}" />
+		</filelist>
+	</path>
 </project>

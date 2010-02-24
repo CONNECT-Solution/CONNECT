@@ -128,26 +128,36 @@
     <antcall target="do-to-projects" />
   </target>
 
-  <target name="deploy" description="Deploy all projects: run ant help for more info...">
-    <var name="do-to-target" value="deploy" />
-    <antcall target="do-to-projects" />
+  <target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
+  	<call target="deploy.to.production"/>
   </target>
 
+  <target name="copy.deployable.artifacts">
+    <delete dir="${deployment.binaries.dir}"/>
+    <mkdir dir="${deployment.binaries.dir}"/>
+
+    <runtarget target="create.deploy.list.xml"/>
+
+    <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
+      <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
+    </copy>
+    
+    <antcall target="do-to-projects">
+      <param name="do-to-target" value="copy.deployable.artifacts"/>
+    </antcall>
+  </target>
+	
   <target name="just.deploy"  description="Deploy all projects, does not call dependent targets...">
-    <var name="do-to-target" value="just.deploy" />
-    <antcall target="do-to-projects" />
+  	<runtarget target="deploy.to.production"/>
   </target>
 
-  <target name="redeploy" description="Redeploy all projects: run ant help for more info...">
-    <var name="do-to-target" value="undeploy" />
-    <antcall target="do-to-projects" />
-    <var name="do-to-target" value="deploy" />
-    <antcall target="do-to-projects" />
-  </target>
+  <target name="redeploy" depends="undeploy,deploy"/>
 
-  <target name="undeploy"  description="Undeploy all projects: run ant help for more info...">
-    <var name="do-to-target" value="undeploy" />
-    <antcall target="do-to-projects" />
+  <target name="undeploy">
+    <runtarget target="create.deploy.list.xml"/>
+    <var name="do-to-target" value="addentry.deploy.list.xml"/>
+    <runtarget target="do-to-projects"/>
+    <runtarget target="undeploy.from.production"/>
   </target>
 
   <target name="coverage.write.report">

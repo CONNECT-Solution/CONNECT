@@ -4,7 +4,10 @@
   <property name="dist.type" value="jar" />
   <property name="webtest.hasTests" value="false" />
   <property name="unittest.hasTests" value="false" />
-
+  <property name="deploy.isDeployable" value="false"/>
+  <property name="deploy.type" value="ejb" />
+  <property name="copy.wsdl.to.webinf" value="true" />
+  
   <!-- Please make sure that this goes up to the correct directory -->
   <import file="../../../../build/build.targets.xml" />
 

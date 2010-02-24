@@ -166,23 +166,33 @@
 					<fileset dir="${source.dir}">
 						<include name="**/*" />
 						<exclude name="**/*.java" />
+                        <exclude name="${source.xml.resources.dir}/*" />
 					</fileset>
 				</copy>
 				<copy todir="${build.classes.dir}" overwrite="true" verbose="${debug}">
-					<fileset dir="${source.resources.dir}">
-						<include name="**/*" />
-					</fileset>
+                	<fileset dir="${source.resources.dir}">
+						<include name="**/*.xml" />
+						<include name="**/*.MF" />
+						<include name="**/*.properties" />
+						<exclude name="**/*xml-resources*" />
+				    </fileset>
 				</copy>
 				<if>
-					<equals arg1="${dist.type}" arg2="war" />
+				    <equals arg1="${dist.type}" arg2="war" />
 					<then>
 						<copy todir="${build.dist.root}" overwrite="true" verbose="${debug}">
 							<fileset dir="${source.webcontent.dir}">
 								<include name="**/*" />
 							</fileset>
-						</copy>
+						</copy>						
 					</then>
 				</if>
+				<if>
+                    <isset property="copy.wsdl.to.webinf"/>
+                    <then>
+                        <runtarget target="copy.wsdl.to.web-inf"/>
+                    </then>
+                </if>
 				<echo file="${build.dir.root}/copyresource.flag" append="false"/>
 			</sequential>
 		</outofdate>
@@ -249,5 +259,39 @@
 		</if>
 	</target>
 
-
+    <target name="copy.wsdl.to.web-inf">
+        <echo message="Copy wsdl and schema files to WEB-INF"/>
+        <for param="wsdl.item">
+            <path>
+			     <dirset dir="${source.wsdl.resources.dir}">
+                     <include name="**/wsdl"/>			         		         
+			     </dirset>
+			</path>
+            <sequential>    
+                <var name="wsdl.item" value="@{wsdl.item}" />
+				<propertyregex property="wsdlfile"
+				              input="${wsdl.item}"
+				              regexp="[^\\]+(?=\\[^\\]+$)"
+				              select="\0"
+				              casesensitive="false"
+				              override="yes" />
+                        
+                <echo message="dir = ${wsdlfile}"/>
+                <mkdir dir="${build.dist.root}/WEB-INF/wsdl/${wsdlfile}"/>
+                <mkdir dir="${build.dist.root}/WEB-INF/wsdl/schemas"/>
+                
+                <copy todir="${build.dist.root}/WEB-INF/wsdl/${wsdlfile}" overwrite="true" verbose="${debug}">
+                     <fileset dir="${source.wsdl.resources.dir}/${wsdlfile}/wsdl">
+                         <include name="**/*.wsdl" />
+                     </fileset>
+                </copy>
+                <copy todir="${build.dist.root}/WEB-INF/wsdl/schemas" overwrite="true" verbose="${debug}">
+                     <fileset dir="${source.wsdl.resources.dir}/${wsdlfile}/schemas">
+                         <include name="**/*" />
+                     </fileset>
+                 </copy>
+            </sequential>
+        </for>
+    </target>
+    
 </project>

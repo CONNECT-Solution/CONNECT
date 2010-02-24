@@ -41,17 +41,85 @@ layer of abstraction
   <import file="corbertura/corbertura.targets.xml"/>
   <import file="../Install/deploy.xml"/>
 
-  <target name="deploy" description="Deploy the project: run ant help for more info...">
-    <call target="package.create" if="${deploy.isDeployable}"/>
-    <call target="just.deploy" />
+  <target name="deploy">
+    <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
+    <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
+    <call target="deploy.to.production" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="just.deploy" description="Deploy the project, does not call dependent targets...">
     <call target="deploy.to.development" if="${deploy.isDeployable}"/>
   </target>
 
-  <target name="undeploy" description="Undeploy the project: run ant help for more info...">
-    <call target="undeploy.to.development" if="${deploy.isDeployable}"/>
+  <target name="undeploy">
+    <call target="create.deploy.list.xml" if="${deploy.isDeployable}"/>
+    <call target="copy.deployable.artifacts" if="${deploy.isDeployable}"/>
+    <call target="undeploy.from.production" if="${deploy.isDeployable}"/>
+  </target>
+  
+  <target name="create.deploy.list.xml">
+    <xmltask dest="${deploy.application.list.file.path}" outputter="simple:3"> 
+      <insert path="/"> 
+        <![CDATA[ 
+              <applications>
+              <wars/>
+              <shared/>
+              <ejbs/>
+              </applications>
+              ]]>
+      </insert>  
+    </xmltask> 
+  </target>
+
+  <target name="addentry.deploy.list.xml">
+    <if>
+      <istrue value="${deploy.isDeployable}"/>
+    <then>
+      <switch value="${deploy.type}">
+        <case value="war">
+          <var name="deploy.list.entry.xpath" value="/applications/wars"/>
+          <var name="deploy.list.entry" value="&lt;war&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/war&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
+        <case value="shared">
+          <var name="deploy.list.entry.xpath" value="/applications/shared"/>
+          <var name="deploy.list.entry" value="&lt;lib&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/lib&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>       
+        </case>
+        <case value="ejb">
+          <var name="deploy.list.entry.xpath" value="/applications/ejbs"/>
+          <var name="deploy.list.entry" value="&lt;ejb&gt;&lt;name&gt;${project.name}&lt;/name&gt;&lt;/ejb&gt;"/>
+          <runtarget target="insert.entry.to.deploy.app.list"/>
+        </case>
+        <default>
+          <fail message="Deploy type ${deploy.type} is not supported."/>
+        </default>
+      </switch>
+    </then>
+    </if>
+  </target>
+  
+  <target name="insert.entry.to.deploy.app.list">
+    <xmltask  source="${deploy.application.list.file.path}" dest="${deploy.application.list.file.path}" outputter="simple:3">
+      <insert path="${deploy.list.entry.xpath}" xml="${deploy.list.entry}"/>
+    </xmltask>
+  </target>
+  
+  <target name="copy.deployable.artifacts">
+    <property file="${project.dir}/nbproject/project.properties"/>
+    <switch value="${deploy.type}">
+      <case value="war">
+        <property name="dist.file" value="${project.dir}/${dist.war}"/>
+      </case>
+      <default>
+        <condition property="dist.file" value="${project.dir}/${sedeployment.jar}" else="${project.dir}/${dist.jar}">
+          <isset property="sedeployment.jar"/>
+        </condition>
+      </default>
+    </switch>
+
+    <call target="addentry.deploy.list.xml" if="${deploy.isDeployable}"/>
+    <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
   </target>
 
   <target name="clean" description="Clean the project: run ant help for more info...">
