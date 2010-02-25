@@ -271,8 +271,8 @@
                 <var name="wsdl.item" value="@{wsdl.item}" />
 				<propertyregex property="wsdlfile"
 				              input="${wsdl.item}"
-				              regexp="[^\\]+(?=\\[^\\]+$)"
-				              select="\0"
+				              regexp="[^\${file.separator}+]+(?=\${file.separator}[^\${file.separator}]+$)"
+                              select="\0"
 				              casesensitive="false"
 				              override="yes" />
                         
