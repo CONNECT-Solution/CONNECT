@@ -42,8 +42,8 @@
     <!-- runtime jars -->
     <dependency org="commons-logging"     name="commons-logging"     rev="1.1.1"               conf="runtime->default" transitive="false" />
     <dependency org="log4j"               name="log4j"               rev="1.2.15"              conf="runtime->default" transitive="false" />
-    <dependency org="nux"                 name="nux"                 rev="1.0"/>
-    <dependency org="nux"                 name="xom"                 rev="1.0"/>
+    <dependency org="Nux"                 name="nux"                 rev="1.0"/>
+    <dependency org="Nux"                 name="xom"                 rev="1.0"/>
     <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="runtime->default" transitive="false" />
     <!-- jars for test only -->
     

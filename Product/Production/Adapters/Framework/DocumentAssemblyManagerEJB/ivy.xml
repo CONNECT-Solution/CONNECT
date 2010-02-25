@@ -44,8 +44,8 @@
     <dependency org="log4j"               name="log4j"               rev="1.2.15"              conf="runtime->default" transitive="false" />
     <dependency org="Toplink"             name="toplink-essentials-agent"           rev="1.0"                   conf="runtime->default" transitive="false" />
     <dependency org="Toplink"             name="toplink-essentials"           rev="1.0"                   conf="runtime->default" transitive="false" />
-    <dependency org="nux"                 name="nux"                 rev="1.0"/>
-    <dependency org="nux"                 name="xom"                 rev="1.0"/>
+    <dependency org="Nux"                 name="nux"                 rev="1.0"/>
+    <dependency org="Nux"                 name="xom"                 rev="1.0"/>
     <dependency org="mysql"               name="mysql-connector-java" rev="5.1.10"/>
     
     <!-- jars for test only -->
