@@ -353,7 +353,7 @@
   </plnk:partnerLinkType>
   
 
-   <wsp:Policy wsu:Id="Adapter_Binding_SoapPolicy">
+   <wsp:Policy wsu:Id="Subscription_Binding_SoapPolicy">
         <wsp:ExactlyOne>
             <wsp:All>
                 <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>

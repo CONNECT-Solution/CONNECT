@@ -107,7 +107,7 @@
                 type="tns:AdapterNotificationConsumerPortSecureType">
         <soap:binding style="document" 
                   transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsp:PolicyReference URI="#EntityNotificationConsumerSecuredPortType_SoapPolicy"/> 
+        <wsp:PolicyReference URI="#AdapterNotificationConsumerSecuredPortType_SoapPolicy"/> 
         
         <wsdl:operation name="NotifySubscribersOfDocument">
             <soap:operation soapAction="urn:NotifySubscribersOfDocument"/>
@@ -125,11 +125,11 @@
             <soap:operation soapAction="urn:Notify"/>
             <wsdl:input name="NotifyRequestSecured">
                 <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#NotifySubscribersOfDocument_Soap_Input_Policy"/>
+                <wsp:PolicyReference URI="#Notify_Binding_Soap_Input_Policy"/>
             </wsdl:input>
             <wsdl:output name="NotifyResponse">
                 <soap:body use="literal"/>
-                <wsp:PolicyReference URI="#NotifySubscribersOfDocument_Soap_Output_Policy"/>
+                <wsp:PolicyReference URI="#Notify_Binding_Soap_Output_Policy"/>
             </wsdl:output>
         </wsdl:operation>
         
@@ -210,7 +210,18 @@
             </wsp:All>
         </wsp:ExactlyOne>
     </wsp:Policy>    
-              
+     <wsp:Policy wsu:Id="NotifySubscribersOfDocument_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="NotifySubscribersOfDocument_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>                
     
     <plnk:partnerLinkType name="AdapterNotificationConsumer">
     <!-- A partner link type is automatically generated when a new port type is added. 
