@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.xdr.adapter;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.nhinc.xdr.routing.RoutingObjectFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
@@ -159,7 +161,7 @@ public class XDRHelper {
                 }
                 String docId= extObj.getId();
                 metaDocIds.add(docId);
-
+                
                 if(isDocIdPresent(body.getDocument(), docId) == false)
                 {
 
@@ -169,7 +171,7 @@ public class XDRHelper {
                 String localPatId = getPatientId(extObj.getSlot());
                 if(localPatId.isEmpty())
                 {
-                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,XDS_ERROR_SEVERITY_ERROR, "Document Id: " + docId + " exists in metadata with no corresponding attached document");
+                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,XDS_ERROR_SEVERITY_ERROR, "Patient id is empty");
                     result.getRegistryError().add(error);
                 }
                 metaPatIds.add(localPatId);
@@ -191,8 +193,9 @@ public class XDRHelper {
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body)
     {
 
-        List<String> result = null;
-        
+        List<String> result = new ArrayList<String>();
+
+        log.debug("begin getIntendedRecepients()");
         if(body == null || body.getDocument() == null)
         {
             return null;
@@ -208,7 +211,10 @@ public class XDRHelper {
                     ExtrinsicObjectType extObj = (ExtrinsicObjectType) regList.getIdentifiable().get(x).getValue();
 
                     SlotType1 recipSlot = getNamedSlotItem(extObj.getSlot(), XDS_INTENDED_RECIPIENT_SLOT);
-                    result = recipSlot.getValueList().getValue();
+                    if(recipSlot != null)
+                    {
+                        result = recipSlot.getValueList().getValue();
+                    }
 
                 }
             
@@ -216,11 +222,44 @@ public class XDRHelper {
         }
         catch (Exception ex)
         {
-            log.error(ex.getMessage());
+            log.error("Unable to pull intended recipients" + ex.getMessage());
         }
 
 
+        log.debug("Found " + result.size() + " recipients");
+        return result;
+    }
+    public List<String> getRoutingBeans(List<String> intendedRecipients)
+    {
+        ArrayList<String> result = new ArrayList<String>();
 
+        ConfigurationManager configMgr = new ConfigurationManager();
+
+        Config config = configMgr.loadConfiguration();
+
+        for(String recipient : intendedRecipients)
+        {
+            //Loop through List of configured beans
+            for(RoutingConfig rc : config.getRoutingInfo())
+            {
+                if(rc.getRecepient().equalsIgnoreCase(recipient))
+                {
+                    if (result.contains(rc.getBean()) == false)
+                    {
+                        result.add(rc.getBean());
+                    }
+                    break;
+                }
+
+            }
+        }
+        
+        if(result.isEmpty())
+        {
+            result.add(RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION);
+        }
+
+        log.debug("Found " + result.size() + " beans");
         return result;
     }
     protected boolean checkIdsMatch()
@@ -302,6 +341,40 @@ public class XDRHelper {
 
         return result;
     }
+    public String getPatientId(ProvideAndRegisterDocumentSetRequestType body)
+    {
+        String result = "";
+
+        RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
+
+        for(int x= 0; x<object.getIdentifiable().size();x++)
+        {
+            System.out.println(object.getIdentifiable().get(x).getName());
+
+            if(object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class))
+            {
+                RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
+
+                System.out.println(registryPackage.getSlot().size());
+
+                for(int y=0; y< registryPackage.getExternalIdentifier().size();y++)
+                {
+                    String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0).getValue();
+                    if(test.equals("XDSSubmissionSet.patientId"))
+                    {
+                        result = registryPackage.getExternalIdentifier().get(y).getValue();
+                    }
+
+
+                }
+
+
+            }
+        }
+
+
+        return result;
+    }
     private String getPatientId(List<SlotType1> slots)
     {
         String result = "";
@@ -325,11 +398,13 @@ public class XDRHelper {
     {
         SlotType1 result = null;
 
+        log.debug("begin getNamedSlotItem()");
         for(SlotType1 slot : slots)
         {
             if(slot.getName().equalsIgnoreCase(name))
             {
                 result = slot;
+                log.info("Slot=" + result.getName());
                 break;
             }
         }

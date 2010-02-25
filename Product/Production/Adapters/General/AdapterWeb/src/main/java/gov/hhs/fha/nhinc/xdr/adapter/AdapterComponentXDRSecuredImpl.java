@@ -51,19 +51,6 @@ public class AdapterComponentXDRSecuredImpl {
         unsecured.setAssertion(assertion);
         unsecured.setProvideAndRegisterDocumentSetRequest(body);
 
-        RegistryErrorList errorList = helper.validateDocumentMetaData(body);
-
-        
-/*
-        if(errorList.getHighestSeverity().equals("Error"))
-        {
-            result = helper.createErrorResponse(errorList);
-        }
-        else
-        {
-            result = port.provideAndRegisterDocumentSetb(unsecured);
-        }
-  */
          result = port.provideAndRegisterDocumentSetb(unsecured);
         log.debug("end provideAndRegisterDocumentSetb()");
 
