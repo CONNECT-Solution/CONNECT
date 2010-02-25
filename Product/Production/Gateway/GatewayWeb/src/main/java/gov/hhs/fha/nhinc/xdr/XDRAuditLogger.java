@@ -89,6 +89,23 @@ public class XDRAuditLogger {
         return ack;
     }
 
+    public AcknowledgementType auditEntityXDRResponse(RegistryResponseType response, AssertionType assertion, String direction) {
+        AcknowledgementType ack = new AcknowledgementType ();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logEntityXDRResponse(response, assertion, direction);
+
+        if(auditLogMsg != null)
+        {
+            if(auditLogMsg.getAuditMessage() != null)
+            {
+                audit(auditLogMsg, assertion);
+            }
+        }
+        return ack;
+    }
+
     public AcknowledgementType auditNhinXDRResponse (RegistryResponseType Response, AssertionType assertion, String direction) {
         AcknowledgementType ack = new AcknowledgementType ();
 

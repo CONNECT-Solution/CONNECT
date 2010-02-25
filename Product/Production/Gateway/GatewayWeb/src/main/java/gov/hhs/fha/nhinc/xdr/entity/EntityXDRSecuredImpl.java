@@ -83,7 +83,7 @@ public class EntityXDRSecuredImpl {
     }
 
     private void logResponseFromNhin(RegistryResponseType response, AssertionType assertion) {
-        AcknowledgementType ack = new XDRAuditLogger().auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        AcknowledgementType ack = new XDRAuditLogger().auditEntityXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected boolean isPolicyOk(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {

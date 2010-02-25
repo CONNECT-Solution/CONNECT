@@ -248,6 +248,19 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
+    public LogEventRequestType logEntityXDRResponse(RegistryResponseType response, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformResponseToAuditMsg(response, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
+        return auditMsg;
+    }
+
     /**
      * This method will create the generic Audit Log Message from a document query request
      *
