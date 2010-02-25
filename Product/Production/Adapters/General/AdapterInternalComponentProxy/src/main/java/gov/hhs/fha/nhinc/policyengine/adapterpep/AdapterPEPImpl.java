@@ -95,7 +95,9 @@ public class AdapterPEPImpl {
         "HIEMNotifyIn",
         "HIEMNotifyOut",
         "SubjectDiscoveryReidentificationIn",
-        "SubjectDiscoveryReidentificationOut"};
+        "SubjectDiscoveryReidentificationOut",
+        "XDRIn",
+        "XDROut"};
     // These define the xspa actions corresponding to the xacml definitions
     // Correlation is order driven
     private static final String[] xspaActionDef = {"create",
@@ -113,7 +115,9 @@ public class AdapterPEPImpl {
         "update",
         "update",
         "read",
-        "read"};
+        "read",
+        "create",
+        "create"};
     // Mapping of the NHIN actions to the cooresponding XSPA action
     private static Map<String, String> actionMap = new HashMap<String, String>();
 

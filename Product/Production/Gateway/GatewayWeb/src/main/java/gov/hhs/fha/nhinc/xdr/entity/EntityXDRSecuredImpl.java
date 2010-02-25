@@ -57,7 +57,17 @@ public class EntityXDRSecuredImpl {
             //send request to targeted community
             response = getResponseFromTarget(request, assertion);
         } else {
-            log.debug("Policy check was Denied");
+            RegistryErrorList regErrList = new RegistryErrorList();
+            regErrList.setHighestSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+            RegistryError regErr = new RegistryError();
+            regErrList.getRegistryError().add(regErr);
+            regErr.setCodeContext("Policy Check Failed");
+            regErr.setErrorCode("CONNECTPolicyCheckFailed");
+            regErr.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
+            response.setRegistryErrorList(regErrList);
+            response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
+            log.error("Sending Policy Check Deny in the Registry Response");
+
         }
 
         //log the response received on the Nhin Interface
@@ -118,11 +128,13 @@ public class EntityXDRSecuredImpl {
             RegistryError regErr = new RegistryError();
             regErrList.getRegistryError().add(regErr);
             regErr.setCodeContext("Fault encountered processing provideAndRegisterDocumentSetB for community " + request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId());
-            regErr.setErrorCode("NhinXDRNotAvail");
-            regErr.setSeverity("Error");
+            regErr.setErrorCode("XDSRegistryBusy");
+            regErr.setSeverity("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error");
             nhinResponse.setRegistryErrorList(regErrList);
             nhinResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
             log.error("Fault encountered processing provideAndRegisterDocumentSetB for community " + request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId());
+            log.error("Nhinc Proxy for XDR throws: " + t.getMessage() + "\n");
+            t.printStackTrace();
         }
         log.debug("Leaving EntityXDRSecuredImpl.getResponseFromTarget");
         return nhinResponse;

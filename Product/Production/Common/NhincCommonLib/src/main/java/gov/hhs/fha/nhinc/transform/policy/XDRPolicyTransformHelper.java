@@ -9,6 +9,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.util.List;
@@ -80,7 +81,11 @@ public class XDRPolicyTransformHelper {
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
-        request.setAction(ActionHelper.actionFactory(ActionInValue));
+        if(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION.equals(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionOutValue));
+        } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(ActionInValue));
+        }
 
         checkPolicyRequest.setRequest(request);
         checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
