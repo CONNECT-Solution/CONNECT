@@ -841,6 +841,48 @@
         </copy>
     </target>
 
+    <target name="wsimport-service-EntityXDRRequestSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityXDRRequestSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityXDRRequestSecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityXDRRequestSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequestSecured/wsdl/EntityXDRSecuredRequest.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequestSecured/wsdl/EntityXDRSecuredRequest.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityXDRRequestSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityXDRRequestSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRRequestSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequestSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequestSecured/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityXDRResponseSecured" depends="wsimport-init">
+<!--
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/EntityXDRResponseSecured"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/EntityXDRResponseSecured" destdir="${build.generated.dir}/jax-wsCache/service/EntityXDRResponseSecured" wsdl="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRResponseSecured/wsdl/EntityXDRSecuredResponse.wsdl" catalog="catalog.xml" extension="true" verbose="true" xnocompile="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRResponseSecured/wsdl/EntityXDRSecuredResponse.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/EntityXDRResponseSecured"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/EntityXDRResponseSecured">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+-->
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRResponseSecured">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRResponseSecured/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRResponseSecured/schemas/"/>
+        </copy>
+    </target>
+
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>

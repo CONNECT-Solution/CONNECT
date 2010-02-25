@@ -3,23 +3,23 @@
   targetNamespace="urn:gov:hhs:fha:nhinc:adapterxdrrequest"
   xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrrequest"
   xmlns="http://schemas.xmlsoap.org/wsdl/"
-  xmlns:nccommonadapter="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
+  xmlns:ihe="urn:ihe:iti:xds-b:2007"
   xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
-  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:xdr="urn:ihe:iti:xdr:2007">
     <documentation>IHE Adapter Component for XDR Request</documentation>
     <types>
         <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                  schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
             <xsd:import namespace="urn:ihe:iti:xdr:2007"
                   schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
-            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter"
-                        schemaLocation="../schemas/nhinc/common/NhincCommonAdapter.xsd"/>
         </xsd:schema>
     </types>
-    <message name="AdapterXDRRequestInputMessage">
+    <message name="XDRRequestInputMessage">
         <documentation>XDR Request Input Message</documentation>
-        <part name="body" element="nccommonadapter:Adapter_ProvideAndRegisterDocumentSetRequest"/>
+        <part name="body" element="ihe:ProvideAndRegisterDocumentSetRequest"/>
     </message>
     <message name="XDRRequestAcknowledgementMessage">
         <documentation>XDR Request Acknowledgement Message</documentation>
@@ -28,7 +28,7 @@
   
     <portType name="AdapterXDRRequest_PortType">
         <operation name="ProvideAndRegisterDocumentSet-bRequest">
-            <input message="tns:AdapterXDRRequestInputMessage"
+            <input message="tns:XDRRequestInputMessage"
         wsaw:Action="tns:XDRRequestInput"/>
             <output message="tns:XDRRequestAcknowledgementMessage"
         wsaw:Action="tns:XDRRequestAcknowledgement"/>
@@ -36,22 +36,22 @@
     </portType>
 
     <binding name="AdapterXDRRequest_Binding" type="tns:AdapterXDRRequest_PortType">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 
         <operation name="ProvideAndRegisterDocumentSet-bRequest">
-            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
+            <soap12:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
             <input>
-                <soap:body use="literal"/>
+                <soap12:body use="literal"/>
             </input>
             <output>
-                <soap:body use="literal"/>
+                <soap12:body use="literal"/>
             </output>
         </operation>
     </binding>
 
     <service name="AdapterXDRRequest_Service">
-        <port name="AdapterXDRRequest_Port_Soap11" binding="tns:AdapterXDRRequest_Binding">
-            <soap:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRRequest"/>
+        <port name="AdapterXDRRequest_Port_Soap12" binding="tns:AdapterXDRRequest_Binding">
+            <soap12:address location="https://localhost:${HttpsDefaultPort}/AdapterXDRRequest"/>
         </port>
     </service>
 

@@ -78,4 +78,8 @@
             uri="wsdl/NhincProxyXDRRequestSecured/NhincProxyXDRSecuredRequest.wsdl"/>
     <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRSecuredResponse.wsdl"
             uri="wsdl/NhincProxyXDRResponseSecured/NhincProxyXDRSecuredResponse.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl"
+            uri="wsdl/EntityXDRRequestSecured/EntityXDRSecuredRequest.wsdl"/>
+    <system systemId="file:/C:/Projects/nhinc/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl"
+            uri="wsdl/EntityXDRResponseSecured/EntityXDRSecuredResponse.wsdl"/>
 </catalog>

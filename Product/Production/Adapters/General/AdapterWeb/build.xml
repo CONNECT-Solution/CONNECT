@@ -375,6 +375,24 @@
         </copy>
     </target>
     
+    <target name="wsimport-service-EntityXDRRequest" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityXDRRequest">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequest/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityXDRRequest/schemas/"/>
+        </copy>
+    </target>
+
+    <target name="wsimport-service-EntityEDRResponse" depends="wsimport-init">
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/EntityEDRResponse">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityEDRResponse/wsdl/"/>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/schemas">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/EntityEDRResponse/schemas/"/>
+        </copy>
+    </target>
+
     <target name="wsimport-client-EntityAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyAuditLogQuerySecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterMpiSecured" depends="wsimport-init"/>
@@ -395,6 +413,8 @@
     <target name="wsimport-client-NhincProxyXDRSecured" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyXDRSecuredRequest" depends="wsimport-init"/>
     <target name="wsimport-client-NhincProxyXDRSecuredResponse" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityXDRSecuredRequest" depends="wsimport-init"/>
+    <target name="wsimport-client-EntityXDRSecuredResponse" depends="wsimport-init"/>
     
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>

@@ -1081,6 +1081,54 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EntityXDRRequestSecured">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredRequest.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRSecuredRequest.wsdl</local-wsdl-file>
+      <service-name>EntityXDRSecuredRequest_Service</service-name>
+      <port-name>EntityXDRSecuredRequest_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.request</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
+    <service name="EntityXDRResponseSecured">
+      <implementation-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</implementation-class>
+      <wsdl-url>file:/C:/Projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRSecuredResponse.wsdl</wsdl-url>
+      <local-wsdl-file>EntityXDRSecuredResponse.wsdl</local-wsdl-file>
+      <service-name>EntityXDRSecuredResponse_Service</service-name>
+      <port-name>EntityXDRSecuredResponse_Port</port-name>
+      <package-name>gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response</package-name>
+      <catalog-file>catalog.xml</catalog-file>
+      <use-provider>false</use-provider>
+      <wsimport-options>
+        <wsimport-option>
+          <wsimport-option-name>extension</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>verbose</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+        <wsimport-option>
+          <wsimport-option-name>xnocompile</wsimport-option-name>
+          <wsimport-option-value>true</wsimport-option-value>
+        </wsimport-option>
+      </wsimport-options>
+    </service>
   </services>
   <clients/>
 </jax-ws>

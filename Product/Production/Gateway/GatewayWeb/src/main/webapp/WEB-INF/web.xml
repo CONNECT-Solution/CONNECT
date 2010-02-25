@@ -337,6 +337,22 @@
         <servlet-name>NhinXDRResponse</servlet-name>
         <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityXDRRequestSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.request.entity.EntityXDRRequestSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityXDRRequestSecured</servlet-name>
+        <url-pattern>/EntityService/EntityXDRRequestSecured</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>EntityXDRResponseSecured</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.xdr.response.entity.EntityXDRResponseSecured</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntityXDRResponseSecured</servlet-name>
+        <url-pattern>/EntityService/EntityXDRResponseSecured</url-pattern>
+    </servlet-mapping>
     <!-- End: XDR Request and Response services-->
 	<security-constraint>
 		<web-resource-collection>
@@ -459,6 +475,14 @@
         <web-resource-collection>
             <web-resource-name>NhinXDRResponse</web-resource-name>
             <url-pattern>/NhinService/XDRResponse_Service</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityXDRRequestSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityXDRRequestSecured</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>EntityXDRResponseSecured</web-resource-name>
+            <url-pattern>/EntityService/EntityXDRResponseSecured</url-pattern>
         </web-resource-collection>
         <!-- End: XDR Request and Response services-->
 		<user-data-constraint>

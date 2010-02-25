@@ -72,4 +72,8 @@
                 uri="wsdl/NhincProxyXDRRequest/NhincProxyXDRRequest.wsdl"/>
     <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/NhincProxyXDRResponse.wsdl"
                 uri="wsdl/NhincProxyXDRResponse/NhincProxyXDRResponse.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl"
+                uri="wsdl/EntityXDRRequest/EntityXDRRequest.wsdl"/>
+    <system systemId="file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl"
+                uri="wsdl/EntityEDRResponse/EntityXDRResponse.wsdl"/>
 </catalog>

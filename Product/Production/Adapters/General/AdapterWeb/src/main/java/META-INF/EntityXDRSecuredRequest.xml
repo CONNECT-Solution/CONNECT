@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This wsdl file is for an XDS.b Document Repository Actor -->
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="NhincEntityXDRSecured"
+  targetNamespace="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request"
+  xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request"
+  xmlns:nccommonentity="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+  xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:ihe="urn:ihe:iti:xds-b:2007"
+  xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+  xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+  xmlns:wsoma="http://schemas.xmlsoap.org/ws/2004/09/policy/optimizedmimeserialization"
+  xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy"
+  xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+  xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+  xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+  xmlns:sxnmp="http://www.sun.com/wsbpel/2.0/process/executable/SUNExtension/NMProperty"
+  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:xdr="urn:ihe:iti:xdr:2007" xmlns:wsp1="http://www.w3.org/ns/ws-policy" xmlns:sc1="http://schemas.sun.com/2006/03/wss/client"
+  >
+    <documentation>IHE XDR Document Repository</documentation>
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="urn:ihe:iti:xdr:2007"
+                  schemaLocation="../schemas/nhinc/common/xdr.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0"
+                  schemaLocation="../schemas/ebRS/rs.xsd"/>
+            <xsd:import namespace="urn:ihe:iti:xds-b:2007"
+                  schemaLocation="../schemas/ihe/XDS.b_DocumentRepository.xsd"/>
+            <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0"
+                  schemaLocation="../schemas/ebRS/query.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:gateway:samltokendata"
+                  schemaLocation="../schemas/nhinc/gateway/SamlTokenData.xsd"/>
+            <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommonentity"
+                  schemaLocation="../schemas/nhinc/common/NhincCommonEntity.xsd"/>
+        </xsd:schema>
+
+    </types>
+
+    <message name="ProvideAndRegisterDocumentSet-bRequest_RequestMessage">
+        <documentation>Provide and Register Document Set Request - Request</documentation>
+        <part name="ProvideAndRegisterRequestRequest" element="nccommonentity:RespondingGateway_ProvideAndRegisterDocumentSetSecuredRequest"/>
+    </message>
+    <message name="ProvideAndRegisterDocumentSet-bRequest_ResponseMessage">
+        <documentation>Provide And Register Document Set Request - Response</documentation>
+        <part name="ProvideAndRegisterRequestResponse" element="xdr:Acknowledgement"/>
+    </message>
+    <portType name="EntityXDRSecuredRequest_PortType">
+
+        <operation name="ProvideAndRegisterDocumentSet-bRequest">
+            <input message="tns:ProvideAndRegisterDocumentSet-bRequest_RequestMessage"
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-bRequest_Request"/>
+            <output message="tns:ProvideAndRegisterDocumentSet-bRequest_ResponseMessage"
+        wsaw:Action="tns:ProvideAndRegisterDocumentSet-bRequest_Response"/>
+        </operation>
+    </portType>
+    <binding name="EntityXDRSecuredRequest_Binding" type="tns:EntityXDRSecuredRequest_PortType">
+        <wsp1:PolicyReference URI="#EntityXDRSecuredRequest_BindingPolicy"/>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="ProvideAndRegisterDocumentSet-bRequest">
+            <soap:operation soapAction="tns:ProvideAndRegisterDocumentSet-bRequest"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+
+    </binding>
+    <service name="EntityXDRSecuredRequest_Service">
+        <port name="EntityXDRSecuredRequest_Port" binding="tns:EntityXDRSecuredRequest_Binding">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/EntityService/EntityXDRSecuredRequest"/>
+        </port>
+    </service>
+    <wsp1:Policy wsu:Id="EntityXDRSecuredRequest_BindingPolicy">
+        <wsp1:ExactlyOne>
+            <wsp1:All>
+                <sc1:KeyStore wspp:visibility="private" aliasSelector="gov.hhs.fha.nhinc.callback.KeyStoreClientAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.KeyStoreCallbackHandler"/>
+                <sc1:TrustStore wspp:visibility="private" certSelector = "gov.hhs.fha.nhinc.callback.TrustStoreAliasSelector" callbackHandler="gov.hhs.fha.nhinc.callback.TrustStoreCallbackHandler"/>
+                <sc1:CallbackHandlerConfiguration wspp:visibility="private">
+                    <sc1:CallbackHandler name="samlHandler" classname="gov.hhs.fha.nhinc.callback.SamlCallbackHandler"/>
+                </sc1:CallbackHandlerConfiguration>
+            </wsp1:All>
+        </wsp1:ExactlyOne>
+    </wsp1:Policy>
+</definitions>
+
