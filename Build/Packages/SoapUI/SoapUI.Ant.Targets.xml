@@ -40,6 +40,7 @@
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
 		  <include name="DocQuerytestsforUDDI-soapui-project.xml"/>
 		  <include name="QueryByState-soapui-project.xml"/>
+		  <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/>
 	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
       </path>
