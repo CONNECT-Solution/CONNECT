@@ -42,6 +42,7 @@
 		  <include name="QueryByState-soapui-project.xml"/>
 		  <include name="HIEM-PatientCentric-UDDItests-soapui-project.xml"/>
 		  <include name="HIEMTestsforUDDI-soapui-project.xml"/>
+		  <include name="XDRInboundTests-soapui-project.xml"/>
 		<!--  <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/> -->
 	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
