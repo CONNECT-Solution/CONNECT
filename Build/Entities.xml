@@ -1,5 +1,5 @@
-<!ENTITY HostName                              'build.nhiegateway.org' >
-<!ENTITY Integration.Server.Host.Name          'inttest1.agilexhealth.com' >
+<!ENTITY HostName                              'build.connectopensource.org' >
+<!ENTITY Integration.Server.Host.Name          'inttest1.connectopensource.org' >
 <!ENTITY ConnectBlue5.Server.Host.Name         'ConnectBlue5.fedsconnect.org' >
 <!ENTITY ConnectRed5.Server.Host.Name          'ConnectRed5.fedsconnect.org' >
 <!ENTITY ConnectOrange5.Server.Host.Name       'ConnectOrange5.fedsconnect.org' >

@@ -2,6 +2,7 @@
 <!DOCTYPE cruisecontrol [
   <!ENTITY % entities SYSTEM "Entities.xml">
   %entities;
+  
   <!ENTITY email '<email from="&ProjectName;-&ProjectCodeLineName;.Build@agilex-hc-5155.com" mailhost="&EmailHost;" includeDetails="true" dashboardServerName="&ProjectName;-&ProjectCodeLineName;-Red5">
         <users>
           <user name="Jay Flowers"            group="buildmaster"       address="jay.flowers@agilex.com"/>
