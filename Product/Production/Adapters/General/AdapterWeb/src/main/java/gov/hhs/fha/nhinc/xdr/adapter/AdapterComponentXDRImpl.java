@@ -37,6 +37,9 @@ public class AdapterComponentXDRImpl {
         }
         else
         {
+            log.info(" Request contained " + body.getProvideAndRegisterDocumentSetRequest().getDocument().size() + " documents.");
+            log.info(" Request Id: " + body.getProvideAndRegisterDocumentSetRequest().getSubmitObjectsRequest().getId());
+
             List<String> recips = helper.getIntendedRecepients(body.getProvideAndRegisterDocumentSetRequest());
 
             if(recips != null)
