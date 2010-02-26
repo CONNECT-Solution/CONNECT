@@ -40,7 +40,7 @@ public class NhincProxyXDRSecuredImpl {
         
         //TODO: LogRequest
         XDRAuditLogger auditLog = new XDRAuditLogger();
-        AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        AcknowledgementType ack = auditLog.auditXDR(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
         log.debug("ack: " + ack.getMessage());
 
         NhinXDRProxyObjectFactory factory = new NhinXDRProxyObjectFactory();
