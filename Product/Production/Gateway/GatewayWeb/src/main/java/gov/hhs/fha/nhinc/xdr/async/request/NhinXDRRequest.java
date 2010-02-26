@@ -6,6 +6,7 @@
 package gov.hhs.fha.nhinc.xdr.async.request;
 
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -31,21 +32,28 @@ public class NhinXDRRequest {
      * @return
      */
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("In NhinXDRRequest");
+        getLogger().debug("Entering NhinXDRRequest");
 
-        return getNhinXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
+        AcknowledgementType ack = getNhinXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
+
+        getLogger().debug("Exiting NhinXDRRequest");
+        
+        return ack;
     }
 
     /**
      * 
      * @return
      */
-    private NhinXDRRequestImpl getNhinXDRRequestImpl(){
+    protected NhinXDRRequestImpl getNhinXDRRequestImpl(){
         return new NhinXDRRequestImpl();
     }
-    
+
+    protected Log getLogger(){
+        return logger;
+    }
+
+
 
 }
 

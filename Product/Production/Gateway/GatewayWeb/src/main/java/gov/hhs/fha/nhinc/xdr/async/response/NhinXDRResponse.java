@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.xdr.async.response;
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -26,10 +27,12 @@ public class NhinXDRResponse {
     private static final Log logger = LogFactory.getLog(NhinXDRResponse.class);
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("In NhinXDRResponse");
-        return this.getNhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
+        getLogger().debug("Entering NhinXDRResponse");
+        
+        AcknowledgementType ack = this.getNhinXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body, context);
+
+        getLogger().debug("Exiting NhinXDRResponse");
+        return ack;
     }
 
     /**
@@ -39,5 +42,10 @@ public class NhinXDRResponse {
     private NhinXDRResponseImpl getNhinXDRResponseImpl(){
         return new NhinXDRResponseImpl();
     }
+
+    protected Log getLogger(){
+        return logger;
+    }
+
 
 }

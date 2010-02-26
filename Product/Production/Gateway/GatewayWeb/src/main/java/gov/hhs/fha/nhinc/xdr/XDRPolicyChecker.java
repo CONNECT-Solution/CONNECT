@@ -10,7 +10,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;

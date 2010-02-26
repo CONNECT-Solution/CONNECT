@@ -8,8 +8,10 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import ihe.iti.xdr._2007.AcknowledgementType;
 import java.util.Map;
 import javax.xml.ws.BindingProvider;
+import org.apache.commons.logging.Log;
 
 /**
  *
@@ -20,34 +22,49 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
 {
     private static org.apache.commons.logging.Log logger = org.apache.commons.logging.LogFactory.getLog(AdapterXDRRequestWebServiceProxy.class);
 
-    private static AdapterXDRRequestSecuredService securedAdapterService = new AdapterXDRRequestSecuredService();
+    private static AdapterXDRRequestSecuredService securedAdapterService = null;
 
+    /**
+     *
+     * @param body
+     * @param assertion
+     * @return
+     */
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion){
-        logger.debug("Entering provideAndRegisterDocumentSetBRequest");
+        
+        getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
-        String url = "";
+        String adapterXDRRequestSecuredEndPointURL = null;
+
         ihe.iti.xdr._2007.AcknowledgementType response = null;
 
-        url = getAdapterXDRRequestSecuredUrl();
+        adapterXDRRequestSecuredEndPointURL = getAdapterXDRRequestSecuredUrl();
 
-        if (NullChecker.isNotNullish(url)) {
-            AdapterXDRRequestSecuredPortType port = getPort(url);
+        if (NullChecker.isNotNullish(adapterXDRRequestSecuredEndPointURL)) {
+            AdapterXDRRequestSecuredPortType port = getAdapterXDRRequestSecuredPort(adapterXDRRequestSecuredEndPointURL);
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADAPTER_XDRREQUEST_SECURED_ACTION);
-
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
+            setRequestContext(assertion, adapterXDRRequestSecuredEndPointURL, port);
 
             response = port.provideAndRegisterDocumentSetBRequest(body);
 
         } else {
-            logger.error("The URL for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME + " is null");
+            getLogger().error("The URL for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME + " is null");
+            response = new AcknowledgementType();
+            response.setMessage("ERROR: AdapterXDRRequestSecured EndPointURL is null");
         }
 
-        logger.debug("Existing provideAndRegisterDocumentSetBRequest");
+        getLogger().debug("Existing provideAndRegisterDocumentSetBRequest");
 
         return response;
 
+    }
+
+    protected void setRequestContext(AssertionType assertion, String adapterXDRRequestSecuredEndPointURL, AdapterXDRRequestSecuredPortType port)
+    {
+            SamlTokenCreator tokenCreator = new SamlTokenCreator();
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, adapterXDRRequestSecuredEndPointURL, NhincConstants.ADAPTER_XDRREQUEST_SECURED_ACTION);
+
+        ((BindingProvider) port).getRequestContext().putAll(requestContext);
     }
 
     /**
@@ -72,8 +89,8 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
      * @param url
      * @return
      */
-    private AdapterXDRRequestSecuredPortType getPort(String url) {
-        AdapterXDRRequestSecuredPortType port = securedAdapterService.getAdapterXDRRequestSecuredPortSoap12();
+    protected AdapterXDRRequestSecuredPortType getAdapterXDRRequestSecuredPort(String url) {
+        AdapterXDRRequestSecuredPortType port = getAdapterXDRRequestSecuredService().getAdapterXDRRequestSecuredPortSoap12();
 
         logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
         ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
@@ -81,5 +98,22 @@ public class AdapterXDRRequestWebServiceProxy implements AdapterXDRRequestProxy
         return port;
     }
 
-    
+    protected Log getLogger(){
+        return logger;
+    }
+
+    /**
+     *
+     * @return
+     */
+    protected AdapterXDRRequestSecuredService getAdapterXDRRequestSecuredService(){
+        if (securedAdapterService == null){
+            return new AdapterXDRRequestSecuredService();
+        }
+        else{
+            return securedAdapterService;
+        }
+
+    }
+
 }

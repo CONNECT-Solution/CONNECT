@@ -4,11 +4,10 @@
  */
 
 package gov.hhs.fha.nhinc.xdr.async.request;
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredService;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxy;
+import gov.hhs.fha.nhinc.adapter.xdr.async.request.proxy.AdapterXDRRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -17,11 +16,8 @@ import javax.xml.ws.WebServiceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
+import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
-import java.util.Map;
-import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -31,11 +27,17 @@ public class NhinXDRRequestImpl
 {
     public static final String XDR_RESPONSE_SUCCESS = "Success";
     public static final String XDR_RESPONSE_FAILURE = "Failure";
-    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
-    public static final String XDR_POLICY_ERROR_CONTEXT = "Policy Check Failed";
-    private static AdapterXDRRequestSecuredService securedAdapterService = new AdapterXDRRequestSecuredService();
+    public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
 
     private static final Log logger = LogFactory.getLog(NhinXDRRequestImpl.class);
+
+    /**
+     * 
+     * @return
+     */
+    protected Log getLogger(){
+        return logger;
+    }
 
     /**
      *
@@ -45,42 +47,69 @@ public class NhinXDRRequestImpl
      */
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,WebServiceContext context ) {
 
-        ihe.iti.xdr._2007.AcknowledgementType result;
+        ihe.iti.xdr._2007.AcknowledgementType result = null;
 
-        logger.debug("Entering NhinXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
+        getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
 
-        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        AssertionType assertion = createAssertion(context);
 
-        //XDRAuditLogger auditLogger = new XDRAuditLogger();
+        AcknowledgementType ack = getXDRAuditLogger().auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 
-        //AcknowledgementType ack = auditLogger.auditNhinXDR(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        getLogger().debug("Audit Log Ack Message:" + ack.getMessage());
 
-        //log.debug("Audit Log Ack Message:" + ack.getMessage());
+        String localHCID = retrieveHomeCommunityID();
 
-        String localHCID = "";
+        getLogger().debug("Local Home Community ID: " + localHCID);
 
-        try {
-            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (PropertyAccessException ex) {
-            logger.error(ex.getMessage());
-        }
-
-         if (isPolicyOk(body, assertion, assertion.getHomeCommunity().getHomeCommunityId(), localHCID))
-         {
-             logger.debug("Policy Check Succeeded");
+        if (isPolicyOk(body, assertion, assertion.getHomeCommunity().getHomeCommunityId(), localHCID))
+        {
+            getLogger().debug("Policy Check Succeeded");
             result = forwardToAgency(body, assertion);
         }
         else
         {
-             logger.error("Failed Policy Check");
+            getLogger().error("Policy Check Failed");
             result = createFailedPolicyCheckResponse();
         }
-     
 
         //ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+     
+        logger.debug("Exiting provideAndRegisterDocumentSetBRequest");
 
      return result;
 
+    }
+
+    /**
+     * 
+     * @param context
+     * @return
+     */
+    protected AssertionType createAssertion(WebServiceContext context){
+        AssertionType assertion = SamlTokenExtractor.GetAssertion(context);
+        return assertion;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    protected String retrieveHomeCommunityID(){
+        String localHCID = null;
+        try {
+            localHCID = PropertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException ex) {
+            logger.error("Exception while retrieving home community ID", ex);
+        }
+
+        return localHCID;
+    }
+    /**
+     * 
+     * @return
+     */
+    protected XDRAuditLogger getXDRAuditLogger(){
+        return new XDRAuditLogger();
     }
 
     /**
@@ -89,47 +118,19 @@ public class NhinXDRRequestImpl
      * @param context
      * @return
      */
-    private ihe.iti.xdr._2007.AcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
+    protected ihe.iti.xdr._2007.AcknowledgementType forwardToAgency(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion)
     {
-        logger.debug("begin forwardToAgency()");
+        getLogger().debug("Entering forwardToAgency");
         
-        String url = "";
-        ihe.iti.xdr._2007.AcknowledgementType response = null;
+        AdapterXDRRequestProxyObjectFactory factory = new AdapterXDRRequestProxyObjectFactory();
         
-        url = getAdapterXDRRequestSecuredUrl();
-                
-        if (NullChecker.isNotNullish(url)) {
-            AdapterXDRRequestSecuredPortType port = getPort(url);
+        AdapterXDRRequestProxy proxy = factory.getAdapterXDRRequestProxy();
 
-            SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADAPTER_XDRREQUEST_SECURED_ACTION);
+        ihe.iti.xdr._2007.AcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
 
-            ((BindingProvider) port).getRequestContext().putAll(requestContext);
-
-            response = port.provideAndRegisterDocumentSetBRequest(body);
-
-        } else {
-            logger.error("The URL for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME + " is null");
-        }
-
+        getLogger().debug("Exiting forwardToAgency");
+        
         return response;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    protected String getAdapterXDRRequestSecuredUrl() {
-        String url = null;
-
-        try {
-            url = ConnectionManagerCache.getLocalEndpointURLByServiceName(NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME);
-
-        } catch (ConnectionManagerException ex) {
-            logger.error("Error: Failed to retrieve url for service: " + NhincConstants.ADAPTER_XDR_REQUEST_SECURED_SERVICE_NAME, ex);
-        }
-
-        return url;
     }
 
     /**
@@ -153,24 +154,14 @@ public class NhinXDRRequestImpl
 
     }
 
+    /**
+     * 
+     * @return
+     */
     private ihe.iti.xdr._2007.AcknowledgementType createFailedPolicyCheckResponse()
     {
         ihe.iti.xdr._2007.AcknowledgementType result= new ihe.iti.xdr._2007.AcknowledgementType();
-
+        result.setMessage(XDR_POLICY_ERROR);
         return result;
-    }
-
-    /**
-     * 
-     * @param url
-     * @return
-     */
-    private AdapterXDRRequestSecuredPortType getPort(String url) {
-        AdapterXDRRequestSecuredPortType port = securedAdapterService.getAdapterXDRRequestSecuredPortSoap12();
-
-        logger.info("Setting endpoint address to Adapter XDR Secured Service to " + url);
-        ((BindingProvider) port).getRequestContext().put(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY, url);
-
-        return port;
     }
 }
