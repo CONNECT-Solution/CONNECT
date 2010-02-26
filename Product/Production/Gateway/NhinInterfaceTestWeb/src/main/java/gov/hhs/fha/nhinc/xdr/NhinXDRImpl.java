@@ -43,6 +43,6 @@ public class NhinXDRImpl {
         } else {
            response = null;
         }
-        return null;
+        return response;
     }
 }
