@@ -45,7 +45,9 @@
 	<dependency org="org.springframework" 		name="spring" 				rev="2.5.6" 			  conf="runtime->default" />
 	<dependency org="com.sun.xml" 				name="jaxb-impl" 			rev="2.0EA3"			  conf="runtime->default" transitive="false" />
     <!-- jars for test only -->
-
+    <dependency org="org.jmock" name="jmock-junit4" rev="2.5.1" conf="test->default" />
+    <dependency org="junit" name="junit" rev="4.7" conf="test->default" />
+    <dependency org="org.jmock" name="jmock-legacy" rev="2.5.1" conf="test->default" />
     <!-- global excludes -->
 
 
