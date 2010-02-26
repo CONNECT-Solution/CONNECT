@@ -10,6 +10,8 @@ import gov.hhs.nhinc.xdr.routing.RoutingObjectFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.ArrayList;
 import java.util.List;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -145,7 +147,7 @@ public class XDRHelper {
 
         ArrayList<String> metaDocIds = new ArrayList<String>();
         ArrayList<String> metaPatIds = new ArrayList<String>();
-        
+
         for(int x = 0; x< regList.getIdentifiable().size(); x++)
         {
             if(regList.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class))
@@ -156,7 +158,7 @@ public class XDRHelper {
                 if(isSupportedMimeType(mimeType) == false)
                 {
 
-                    RegistryError error = createRegistryError(XDR_EC_XDSRegistryMetadataError,XDS_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
+                    RegistryError error = createRegistryError(XDR_EC_XDSMissingDocumentMetadata,XDS_ERROR_SEVERITY_ERROR, "Unsupported Mime Type: " + mimeType);
                     result.getRegistryError().add(error);                    
                 }
                 String docId= extObj.getId();
@@ -169,34 +171,50 @@ public class XDRHelper {
                     result.getRegistryError().add(error);
                 }
                 String localPatId = getPatientId(extObj.getSlot());
+
                 if(localPatId.isEmpty())
                 {
                     RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,XDS_ERROR_SEVERITY_ERROR, "Patient id is empty");
                     result.getRegistryError().add(error);
                 }
                 metaPatIds.add(localPatId);
-                
             }
         }
+
         if(patientIdsMatch(metaPatIds) == false)
         {
             RegistryError error = createRegistryError(XDR_EC_XDSPatientIdDoesNotMatch,XDS_ERROR_SEVERITY_ERROR, "Patient Ids do not match");
             result.getRegistryError().add(error);
         }
-        
+
         return processErrorList(result);
 
 
 
     }
 
+    private String getXDSDocumentEntryPatientId(ExtrinsicObjectType extObj)
+    {
+        String result = "";
+
+        for(ExternalIdentifierType extId : extObj.getExternalIdentifier())
+        {
+            String test = extId.getName().getLocalizedString().get(0).getValue();
+            if(test.equals("XDSDocumentEntry.patientId"))
+            {
+                result = extId.getValue();
+            }
+        }
+
+        return result;
+    }
     public List<String> getIntendedRecepients(ProvideAndRegisterDocumentSetRequestType body)
     {
 
         List<String> result = new ArrayList<String>();
 
         log.debug("begin getIntendedRecepients()");
-        if(body == null || body.getDocument() == null)
+        if(body == null || body.getSubmitObjectsRequest() == null)
         {
             return null;
         }
@@ -341,7 +359,7 @@ public class XDRHelper {
 
         return result;
     }
-    public String getPatientId(ProvideAndRegisterDocumentSetRequestType body)
+    public String getSubmissionSetPatientId(ProvideAndRegisterDocumentSetRequestType body)
     {
         String result = "";
 
@@ -375,6 +393,48 @@ public class XDRHelper {
 
         return result;
     }
+
+    private String getXDSDocEntryPatientId(ProvideAndRegisterDocumentSetRequestType body)
+    {
+        String result = "";
+
+        return result;
+    }
+    public String getSourcePatientId(ProvideAndRegisterDocumentSetRequestType body)
+    {
+        String result = "";
+
+        RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
+
+        for(int x= 0; x<object.getIdentifiable().size();x++)
+        {
+            System.out.println(object.getIdentifiable().get(x).getName());
+
+            if(object.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class))
+            {
+                ExtrinsicObjectType extObj = (ExtrinsicObjectType) object.getIdentifiable().get(x).getValue();
+
+                System.out.println(extObj.getSlot().size());
+
+                SlotType1 slot = getNamedSlotItem(extObj.getSlot(), "sourcePatientId");
+
+                if(slot != null)
+                {
+                    if(slot.getValueList() != null)
+                    {
+                        if(slot.getValueList().getValue().size() == 1)
+                        {
+                            result = slot.getValueList().getValue().get(0);
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        return result;
+    }
+
     private String getPatientId(List<SlotType1> slots)
     {
         String result = "";
@@ -433,6 +493,15 @@ public class XDRHelper {
             }
         }
 
+
+        return result;
+    }
+    private boolean metaDataPatientIdsMatch(ProvideAndRegisterDocumentSetRequestType body, String patId)
+    {
+        boolean result = true;
+
+        String sourcePatId = getSourcePatientId(body);
+        String submissionSetId = getSubmissionSetPatientId(body);
 
         return result;
     }
