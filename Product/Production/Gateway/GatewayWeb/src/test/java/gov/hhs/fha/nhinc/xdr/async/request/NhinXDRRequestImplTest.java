@@ -228,19 +228,6 @@ public class NhinXDRRequestImplTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getAdapterXDRRequestSecuredUrl method, of class NhinXDRRequestImpl.
-     */
-    @Ignore
-    public void testGetAdapterXDRRequestSecuredUrl() {
-        System.out.println("getAdapterXDRRequestSecuredUrl");
-        NhinXDRRequestImpl instance = new NhinXDRRequestImpl();
-        String expResult = "";
-        String result = instance.getAdapterXDRRequestSecuredUrl();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of isPolicyOk method, of class NhinXDRRequestImpl.
