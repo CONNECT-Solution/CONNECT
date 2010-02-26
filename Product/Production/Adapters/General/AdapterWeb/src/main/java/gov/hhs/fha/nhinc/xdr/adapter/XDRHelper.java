@@ -174,7 +174,7 @@ public class XDRHelper {
 
                 if(localPatId.isEmpty())
                 {
-                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,XDS_ERROR_SEVERITY_ERROR, "Patient id is empty");
+                    RegistryError error = createRegistryError(XDR_EC_XDSUnknownPatientId,XDS_ERROR_SEVERITY_ERROR, "Patient ID referenced in metadata is not known to the Receiving NHIE");
                     result.getRegistryError().add(error);
                 }
                 metaPatIds.add(localPatId);
