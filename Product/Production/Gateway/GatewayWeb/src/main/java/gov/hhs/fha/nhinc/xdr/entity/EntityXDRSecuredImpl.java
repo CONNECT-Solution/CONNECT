@@ -121,7 +121,6 @@ public class EntityXDRSecuredImpl {
 
         try {
             nhinResponse = proxy.provideAndRegisterDocumentSetB(proxySecuredRequestType, assertion);
-            nhinResponse.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success");
         } catch (Throwable t) {
             nhinResponse = new RegistryResponseType();
             RegistryErrorList regErrList = new RegistryErrorList();
