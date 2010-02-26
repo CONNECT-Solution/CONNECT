@@ -5,10 +5,10 @@
 	<property name="soapui.report.dir" value="${project.dir}/soapui-test-reports" />
 	<property name="soapui.project.file.pattern" value="*-soapui-project.xml" />
 
-	<condition property="soapui.install.bin.directory.path" value="C:\Program Files\eviware\soapUI-Pro-2.5.1\bin">
+	<condition property="soapui.install.bin.directory.path" value="C:\Program Files\eviware\soapUI-Pro-3.0.1\bin">
 		<os family="windows" />
 	</condition>
-	<condition property="soapui.install.bin.directory.path" value="/nhin/soapUI-Pro-2.5.1/bin">
+	<condition property="soapui.install.bin.directory.path" value="/nhin/soapui-3.0.1/bin">
 		<os family="unix" />
 	</condition>
 
