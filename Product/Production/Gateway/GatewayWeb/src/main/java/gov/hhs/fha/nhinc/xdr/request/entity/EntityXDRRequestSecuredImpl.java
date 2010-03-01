@@ -22,11 +22,29 @@ public class EntityXDRRequestSecuredImpl
 
     private AcknowledgementType provideAndRegisterDocumentSetBRequest(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
     {
-        //TODO Correct business logic
-        NhinXDRRequestObjectFactory factory = new NhinXDRRequestObjectFactory();
-        NhinXDRRequestProxy proxy = factory.getNhinXDRRequestProxy();
+        AcknowledgementType response = null;
+        // TODO: Log input message
 
-        return proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+        if(checkPolicy(provideAndRegisterRequestRequest, assertion))
+        {
+            NhinXDRRequestObjectFactory factory = new NhinXDRRequestObjectFactory();
+            NhinXDRRequestProxy proxy = factory.getNhinXDRRequestProxy();
+
+            response = proxy.provideAndRegisterDocumentSetBRequest(provideAndRegisterRequestRequest.getProvideAndRegisterDocumentSetRequest(), assertion, provideAndRegisterRequestRequest.getNhinTargetSystem());
+        }
+        else
+        {
+            response = new AcknowledgementType();
+            response.setMessage("Policy rejection");
+        }
+        
+        return response;
+    }
+
+    private boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType provideAndRegisterRequestRequest, AssertionType assertion)
+    {
+        // TODO: Policy check
+        return true;
     }
 
 }
