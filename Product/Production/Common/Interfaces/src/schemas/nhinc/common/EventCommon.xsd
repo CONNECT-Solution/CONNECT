@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:hl7="urn:hl7-org:v3" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:auditmessage="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonevent="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" targetNamespace="urn:gov:hhs:fha:nhinc:common:eventcommon" elementFormDefault="qualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:hl7="urn:hl7-org:v3" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:auditmessage="http://nhinc.services.com/schema/auditmessage" xmlns:nccommonevent="urn:gov:hhs:fha:nhinc:common:eventcommon" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" targetNamespace="urn:gov:hhs:fha:nhinc:common:eventcommon" elementFormDefault="qualified" xmlns:rs="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0">
 	<xsd:import namespace="urn:hl7-org:v3" schemaLocation="../hl7/HL7PatientDiscoveryMessages.xsd"/>
 	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
 	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../common/NhincCommon.xsd"/>
@@ -7,7 +7,9 @@
 	<xsd:import namespace="http://nhinc.services.com/schema/auditmessage" schemaLocation="../../ihe/auditmessage.xsd"/>
 	<xsd:import namespace="http://docs.oasis-open.org/wsn/b-2" schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd"/>
         <xsd:import namespace="urn:hl7-org:v3" schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
-	<xsd:simpleType name="interfaceSimpleType">
+        <xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" schemaLocation="../../ebRS/rs.xsd"/>
+
+        <xsd:simpleType name="interfaceSimpleType">
 		<xsd:restriction base="xsd:string"/>
 	</xsd:simpleType>
 	<xsd:element name="interface" type="tns:interfaceSimpleType"/>
@@ -245,6 +247,23 @@
 	<xsd:complexType name="XDREventType">
 		<xsd:sequence>
 			<xsd:element name="message" type="tns:XDRMessageType"/>
+			<xsd:element ref="tns:direction"/>
+			<xsd:element ref="tns:interface"/>
+			<xsd:element name="sendingHomeCommunity" type="nccommon:HomeCommunityType"/>
+			<xsd:element name="receivingHomeCommunity" type="nccommon:HomeCommunityType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- end XDR request -->
+	<!-- begin XDR Response (Async) -->
+	<xsd:complexType name="XDRResponseMessageType">
+		<xsd:sequence>
+			<xsd:element name="assertion" type="nccommon:AssertionType"/>
+			<xsd:element name="RegistryResponse" type="rs:RegistryResponseType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="XDRResponseEventType">
+		<xsd:sequence>
+			<xsd:element name="message" type="tns:XDRResponseMessageType"/>
 			<xsd:element ref="tns:direction"/>
 			<xsd:element ref="tns:interface"/>
 			<xsd:element name="sendingHomeCommunity" type="nccommon:HomeCommunityType"/>

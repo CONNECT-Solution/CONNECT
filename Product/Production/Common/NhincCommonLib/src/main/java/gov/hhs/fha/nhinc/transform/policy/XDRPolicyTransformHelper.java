@@ -5,14 +5,11 @@
 
 package gov.hhs.fha.nhinc.transform.policy;
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.eventcommon.XDRResponseEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -21,7 +18,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
-import org.hl7.v3.II;
 /**
  *
  * @author dunnek
@@ -31,6 +27,8 @@ public class XDRPolicyTransformHelper {
     private static Log log = null;
     private static final String ActionInValue = "XDRIn";
     private static final String ActionOutValue = "XDROut";
+    private static final String XDRRESPONSE_ACTION_IN_VALUE = "XDRResponseIn";
+    private static final String XDRRESPONSE_ACTION_OUT_VALUE = "XDRResponseOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
@@ -157,4 +155,45 @@ public class XDRPolicyTransformHelper {
     public CheckPolicyRequestType transformXDREntityToCheckPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
+
+    /**
+     * 
+     * @param event
+     * @return
+     */
+    public CheckPolicyRequestType transformXDRResponseToCheckPolicy(XDRResponseEventType event) {
+        
+        createLogger().debug("Begin -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
+        CheckPolicyRequestType checkPolicyRequest = null;
+
+        if (event == null) {
+            createLogger().debug("Request is null.");
+            return checkPolicyRequest;
+        } else {
+            checkPolicyRequest = new CheckPolicyRequestType();
+        }
+
+        RequestType request = new RequestType();
+
+        SubjectHelper subjHelp = new SubjectHelper();
+        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage().getAssertion());
+        createLogger().debug("transformXDRResponseToCheckPolicy - adding subject");
+        request.getSubject().add(subject);
+
+        createLogger().debug("transformXDRResponseToCheckPolicy - adding assertion data");
+        AssertionHelper assertHelp = new AssertionHelper();
+        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+
+        if(NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION.equals(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(XDRRESPONSE_ACTION_OUT_VALUE));
+        } else if (NhincConstants.POLICYENGINE_INBOUND_DIRECTION.equals(event.getDirection())) {
+            request.setAction(ActionHelper.actionFactory(XDRRESPONSE_ACTION_IN_VALUE));
+        }
+
+        checkPolicyRequest.setRequest(request);
+        checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        log.debug("End -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
+        return checkPolicyRequest;
+    }
+
 }

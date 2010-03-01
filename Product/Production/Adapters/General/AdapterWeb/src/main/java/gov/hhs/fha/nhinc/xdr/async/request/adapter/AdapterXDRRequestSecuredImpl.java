@@ -22,6 +22,7 @@ public class AdapterXDRRequestSecuredImpl {
         //throw new UnsupportedOperationException("Not implemented yet.");
         logger.debug("in AdapterXDRRequestSecuredImpl");
         ihe.iti.xdr._2007.AcknowledgementType ack = new ihe.iti.xdr._2007.AcknowledgementType();
+        ack.setMessage("SUCCESS");
         return ack;
     }
 

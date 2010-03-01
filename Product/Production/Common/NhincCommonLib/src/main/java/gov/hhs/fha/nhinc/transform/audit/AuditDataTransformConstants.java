@@ -75,5 +75,8 @@ public class AuditDataTransformConstants {
     public static final String EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE = "IHE Transactions";
     public static final String EVENT_TYPE_CODE_SYS_NAME_DOCRETRIEVE_DISPNAME = "IHE Transactions";
     public static final String EVENT_TYPE_CODE_DOCRETRIEVE_DISPNAME = "Retrieve Document";
+    public static final String EVENT_ID_CODE_SYS_NAME_XDRREQUEST = "XDRREQUEST";
+    public static final String EVENT_ID_DISPLAY_NAME_XDRREQUEST = "XDR Request";
+    public static final String EVENT_ID_CODE_SYS_NAME_XDRRESPONSE = "XDRRESPONSE";
 
 }

@@ -22,4 +22,6 @@
     <target name="wsimport-client-AdapterSubscriptionManagement" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterNotificationConsumerSecured" depends="wsimport-init"/>
     <target name="wsimport-client-AdapterSubscriptionManagementSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-AdapterXDRRequestSecured" depends="wsimport-init"/>
+    <target name="wsimport-client-AdapterXDRResponseSecured" depends="wsimport-init"/>
 </project>

@@ -128,6 +128,8 @@ public class NhinXDRRequestImplTest {
                 allowing(mockLogger).debug(with(any(String.class)));
                 one(mockXDRAuditLogger).auditNhinXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
                 will(returnValue(ack));
+                one(mockXDRAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+                will(returnValue(ack));
                 one(mockAssertion).getHomeCommunity();
                 will(returnValue(homeCommunity));
             }
@@ -202,6 +204,8 @@ public class NhinXDRRequestImplTest {
                 allowing(mockLogger).debug(with(any(String.class)));
                 allowing(mockLogger).error(with(any(String.class)));
                 one(mockXDRAuditLogger).auditNhinXDR(with(any(ProvideAndRegisterDocumentSetRequestType.class)), with(any(AssertionType.class)), with(any(String.class)));
+                will(returnValue(ack));
+                one(mockXDRAuditLogger).auditAcknowledgement(with(any(AcknowledgementType.class)), with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
                 will(returnValue(ack));
                 one(mockAssertion).getHomeCommunity();
                 will(returnValue(homeCommunity));

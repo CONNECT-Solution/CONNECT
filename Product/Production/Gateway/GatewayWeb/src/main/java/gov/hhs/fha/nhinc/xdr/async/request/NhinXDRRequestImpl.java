@@ -72,8 +72,10 @@ public class NhinXDRRequestImpl
             result = createFailedPolicyCheckResponse();
         }
 
-        //ack = auditLogger.auditNhinXDRResponse(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-     
+        ack = getXDRAuditLogger().auditAcknowledgement(result, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
+
+        getLogger().debug("Audit Log Ack Message for Outbound Acknowledgement:" + ack.getMessage());
+
         logger.debug("Exiting provideAndRegisterDocumentSetBRequest");
 
      return result;
@@ -141,18 +143,21 @@ public class NhinXDRRequestImpl
      * @param receiverHCID
      * @return
      */
-    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType newRequest, AssertionType assertion, String senderHCID, String receiverHCID) {
+    protected boolean isPolicyOk(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, String senderHCID, String receiverHCID) {
 
-        boolean bPolicyOk = false;
+        boolean isPolicyOk = false;
 
-        logger.debug("checking the policy engine for the new request to a target community");
+        getLogger().debug("Check policy");
 
-        //return true if 'permit' returned, false otherwise
         XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-        //return policyChecker.checkXDRRequestPolicy(newRequest, assertion,senderHCID ,receiverHCID);
-        return true;
+        isPolicyOk = policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID ,receiverHCID, NhincConstants.POLICYENGINE_INBOUND_DIRECTION);
+
+        getLogger().debug("Response from policy engine: " + isPolicyOk);
+
+        return isPolicyOk;
 
     }
+
 
     /**
      * 

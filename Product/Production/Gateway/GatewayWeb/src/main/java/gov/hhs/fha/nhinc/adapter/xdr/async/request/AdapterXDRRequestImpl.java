@@ -21,6 +21,9 @@ public class AdapterXDRRequestImpl {
     public AcknowledgementType provideAndRegisterDocumentSetBRequest(AdapterProvideAndRegisterDocumentSetRequestType body) {
         logger.debug("In AdapterXDRRequestImpl");
         //TODO implement this method
-        return new AcknowledgementType();
+        AcknowledgementType ack = new AcknowledgementType();
+        ack.setMessage("SUCCESS");
+
+        return ack;
     }
 }

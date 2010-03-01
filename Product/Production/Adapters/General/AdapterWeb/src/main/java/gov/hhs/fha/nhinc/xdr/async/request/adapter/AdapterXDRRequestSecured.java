@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.xdr.async.request.adapter;
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -25,15 +26,21 @@ public class AdapterXDRRequestSecured {
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestSecured.class);
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("in AdapterXDRRequestSecured");
+        getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
         
-        return getAdapterXDRRequestSecuredImpl().provideAndRegisterDocumentSetBRequest(body, context);
+        AcknowledgementType ack = getAdapterXDRRequestSecuredImpl().provideAndRegisterDocumentSetBRequest(body, context);
+
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
+
+        return ack;
     }
 
-    private AdapterXDRRequestSecuredImpl getAdapterXDRRequestSecuredImpl(){
+    protected AdapterXDRRequestSecuredImpl getAdapterXDRRequestSecuredImpl(){
         return new AdapterXDRRequestSecuredImpl();
+    }
+
+    protected Log getLogger(){
+        return logger;
     }
 
 }

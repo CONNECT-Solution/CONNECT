@@ -20,6 +20,7 @@ import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 import com.sun.corba.se.spi.ior.Identifiable;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import javax.xml.bind.JAXBElement;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
@@ -349,6 +350,7 @@ public class XDRTransforms {
             return true;
         }
     }
+
     protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion)
     {
          if(assertion == null)
@@ -358,7 +360,7 @@ public class XDRTransforms {
         }
         if(response == null)
         {
-            log.error("ProvideAndRegisterDocumentSetRequestType object is null");
+            log.error("RegistryResponseType object is null");
             return true;
         }
         if (areRequiredUserTypeFieldsNull(assertion))
@@ -582,6 +584,29 @@ public class XDRTransforms {
             throw new RuntimeException();
         }
     }
+
+    protected void marshalAcknowledgement(ByteArrayOutputStream baOutStrm, ihe.iti.xdr._2007.AcknowledgementType acknowledgement) throws RuntimeException {
+        // Put the contents of the actual message into the Audit Log Message
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xdr._2007");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xdr:2007", "Acknowledgement");
+            JAXBElement<ihe.iti.xdr._2007.AcknowledgementType> element;
+
+            element = new JAXBElement<ihe.iti.xdr._2007.AcknowledgementType>(xmlqname, ihe.iti.xdr._2007.AcknowledgementType.class, acknowledgement);
+
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the message.");
+        } catch (Exception e) {
+            log.error("Exception while marshalling Acknowledgement", e);
+            throw new RuntimeException();
+        }
+    }
+
     private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo)
     {
         AuditSourceIdentificationType result;
@@ -629,6 +654,7 @@ public class XDRTransforms {
                                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDR_ENTITY);
         return eventID;
     }
+
     private CodedValueType getCodedValueTypeForXDRResponse() {
         // Create EventIdentification
         CodedValueType eventID = AuditDataTransformHelper
@@ -639,6 +665,25 @@ public class XDRTransforms {
         return eventID;
     }
 
+    private CodedValueType getCodedValueTypeForXDRRequestAcknowledgement() {
+        // Create EventIdentification
+        CodedValueType eventID = AuditDataTransformHelper
+                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST,
+                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRREQUEST,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRREQUEST);
+        return eventID;
+    }
+
+    private CodedValueType getCodedValueTypeForXDRResponseAcknowledgement() {
+        // Create EventIdentification
+        CodedValueType eventID = AuditDataTransformHelper
+                .createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE,
+                               AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_XDRRESPONSE,
+                               AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_XDRRESPONSE);
+        return eventID;
+    }
 
     private EventIdentificationType getEventIdentificationType(CodedValueType eventID) {
         EventIdentificationType oEventIdentificationType =
@@ -647,4 +692,107 @@ public class XDRTransforms {
                                                                    eventID);
         return oEventIdentificationType;
     }
+
+
+    /**
+     * 
+     */
+    public LogEventRequestType transformAcknowledgementToAuditMsg(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String _interface, String action)
+    {
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(acknowledgement == null)
+        {
+            log.error("Acknowledgement is null");
+            return null;
+        }
+        
+        if(assertion == null)
+        {
+            log.error("Assertion is null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredAcknowledgementFieldsNull(acknowledgement, assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        auditMsg = new AuditMessageType();
+        // Create EventIdentification
+        CodedValueType eventID = null;
+
+        if (NhincConstants.XDR_REQUEST_ACTION.equalsIgnoreCase(action)){
+            eventID = getCodedValueTypeForXDRRequestAcknowledgement();
+        }else if (NhincConstants.XDR_RESPONSE_ACTION.equalsIgnoreCase(action)){
+            eventID = getCodedValueTypeForXDRResponseAcknowledgement();
+        }
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        auditMsg.getActiveParticipant().add(participant);
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalAcknowledgement(baOutStrm, acknowledgement);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+
+        return result;
+
+    }
+
+    /**
+     *
+     * @param acknowledgement
+     * @param assertion
+     * @return
+     */
+    protected boolean areRequiredAcknowledgementFieldsNull(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion)
+    {
+        if(assertion == null)
+        {
+            log.error("Assertion object is null");
+            return true;
+        }
+        if(acknowledgement == null)
+        {
+            log.error("Acknowledge object is null");
+            return true;
+        }
+        if (areRequiredUserTypeFieldsNull(assertion))
+        {
+            log.error("One of more UserInfo fields from the Assertion object were null.");
+            return true;
+        }
+        if(acknowledgement.getMessage() == null || "".equalsIgnoreCase(acknowledgement.getMessage()))
+        {
+            log.error("Acknowledgement does not contain a message");
+            return true;
+        }
+
+         return false;
+    }
+
 }

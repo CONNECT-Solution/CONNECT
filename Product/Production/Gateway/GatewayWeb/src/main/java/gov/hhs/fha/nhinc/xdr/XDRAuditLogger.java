@@ -134,4 +134,32 @@ public class XDRAuditLogger {
         return proxy.auditLog(auditLogMsg, assertion);
     }
 
+    /**
+     * This method logs the acknowledgement returned from XDR Request and Response services
+     *
+     * @param acknowledgement
+     * @param assertion
+     * @param direction
+     * @param action
+     * @return
+     */
+    public AcknowledgementType auditAcknowledgement (ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+
+        createLogger().debug("Start auditAcknowledgement for " + action);
+        AcknowledgementType ack = new AcknowledgementType();
+
+        // Set up the audit logging request message
+        AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+        LogEventRequestType auditLogMsg = auditLogger.logAcknowledgement(acknowledgement, assertion, direction, action);
+
+        if(auditLogMsg != null)
+        {
+            if(auditLogMsg.getAuditMessage() != null)
+            {
+                audit(auditLogMsg, assertion);
+            }
+        }
+        return ack;
+    }
+
 }

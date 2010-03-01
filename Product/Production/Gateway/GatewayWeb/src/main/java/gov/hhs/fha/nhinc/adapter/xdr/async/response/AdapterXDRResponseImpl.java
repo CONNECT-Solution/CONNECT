@@ -19,9 +19,10 @@ public class AdapterXDRResponseImpl {
 
     public AcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body) {
         //TODO implement this method
-        logger.debug("In AdapterXDRResponseImpl");
+        AcknowledgementType ack = new AcknowledgementType();
+        ack.setMessage("SUCCESS");
 
-        return new AcknowledgementType();
+        return ack;
     }
 
 }

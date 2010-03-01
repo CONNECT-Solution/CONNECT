@@ -234,7 +234,6 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
-
     public LogEventRequestType logEntityXDRReq(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion, String direction) {
         log.debug("Entering AuditRepositoryLogger.logEntityXDRReq(...)");
         LogEventRequestType auditMsg = null;
@@ -772,20 +771,20 @@ public class AuditRepositoryLogger {
         log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         LogEventRequestType auditMsg = null;
 
-        if(message == null)
-        {
+        if (message == null) {
             log.error("Message is null");
             return null;
         }
 
         if (isServiceEnabled()) {
-            XDRTransforms auditTransformer = new XDRTransforms();            
+            XDRTransforms auditTransformer = new XDRTransforms();
             auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
+
     public LogEventRequestType logXDRReq(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion, String direction) {
         log.debug("Entering AuditRepositoryLogger.logXDRReq(...)");
         LogEventRequestType auditMsg = null;
@@ -799,6 +798,7 @@ public class AuditRepositoryLogger {
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
+
     public LogEventRequestType logNhinXDRResponse(RegistryResponseType message, AssertionType assertion, String direction) {
         log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
         LogEventRequestType auditMsg = null;
@@ -812,6 +812,7 @@ public class AuditRepositoryLogger {
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
+
     /**
      * This method will create the generic Audit Log Message from an entity unsubscribe request
      *
@@ -844,9 +845,35 @@ public class AuditRepositoryLogger {
             serviceEnabled = PropertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.AUDIT_LOG_SERVICE_PROPERTY);
         } catch (PropertyAccessException ex) {
             log.error("Error: Failed to retrieve " + NhincConstants.AUDIT_LOG_SERVICE_PROPERTY + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            log.error(ex.getMessage(), ex);
         }
         log.debug("Exiting AuditRepositoryLogger.isServiceEnabled(...) with value of: " + serviceEnabled);
         return serviceEnabled;
+    }
+
+    /**
+     * 
+     * @param acknowledgement
+     * @param assertion
+     * @param direction
+     * @param action
+     * @return
+     */
+    public LogEventRequestType logAcknowledgement(ihe.iti.xdr._2007.AcknowledgementType acknowledgement, AssertionType assertion, String direction, String action) {
+        getLogger().debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
+
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
+        }
+
+        getLogger().debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        return auditMsg;
+    }
+
+    protected Log getLogger(){
+        return log;
     }
 }
