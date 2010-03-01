@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Custom">
-  
-	<target name="Build.PublishZips">
+
+  <target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
+    <call target="Build.Bundle.ESCs.Installers"/>
     <call target="Build.Bundle.Release.Properties"/>
   </target>
 
@@ -13,7 +14,7 @@
       <property name="CCNetBuildDate"/>
       <property name="CCNetBuildTime"/>
     </saveproperties>
-    
+
     <property name="Installer.Zip.FileName" value="${ProjectFullName}_Binaries_${CCNetLabel}.zip"/>
     <property name="Installer.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Installer.Zip.FileName}"/>
 
@@ -69,7 +70,7 @@
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
-    
+
     <property name="Properties.Properties.Directory" value="Green"/>
     <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
@@ -84,7 +85,7 @@
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
-    
+
     <property name="Properties.Properties.Directory" value="Red"/>
     <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
@@ -94,12 +95,12 @@
         <include name="${Properties.Properties.Directory}\**" />
       </fileset>
     </zip>
-    
+
     <property name="Publish.Web.File.Name" value="${Properties.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
-    
+
     <property name="Properties.Properties.Directory" value="Orange"/>
     <property name="Properties.Zip.FileName" value="${ProjectFullName}_Properties_${Properties.Properties.Directory}_${CCNetLabel}.zip"/>
     <property name="Properties.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Properties.Zip.FileName}"/>
@@ -114,9 +115,59 @@
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />
-    
+
   </target>
-  
+
+  <target name="Build.Bundle.ESCs.Installers">
+    <property name="ESC.Zip.FileName" value="${ProjectFullName}_DynamicDocuments_${CCNetLabel}.zip"/>
+    <property name="ESC.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${ESC.Zip.FileName}"/>
+
+    <zip zipfile="${ESC.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterCommonDataLayerEJB\dist\" prefix="bin" failonempty="true">
+        <include name="AdapterCommonDataLayerEJB.jar"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentAssemblyProxyEJB\dist\" prefix="bin" failonempty="true">
+        <include name="AdapterDocumentAssemblyProxyEJB.jar"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\AdapterDocumentRepositoryEJB\dist\" prefix="bin" failonempty="true">
+        <include name="AdapterDocumentRepositoryEJB.jar"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\DocumentManagerEJB\dist\" prefix="bin" failonempty="true">
+        <include name="DocumentManagerEJB.jar"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Production.Path}\Adapters\Framework\NHINAdapterServiceEJB\dist\" prefix="bin" failonempty="true">
+        <include name="NHINAdapterServiceEJB.jar"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${ESC.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+
+  </target>
+
+  <target name="Build.Bundle.SoapUI">
+    <property name="SoapUI.Zip.FileName" value="${ProjectFullName}_Validation_Tests_${CCNetLabel}.zip"/>
+    <property name="SoapUI.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${SoapUI.Zip.FileName}"/>
+
+    <zip zipfile="${SoapUI.Zip.FilePath}">
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest" failonempty="true">
+        <include name="EndToEndSelfTest-soapui-project.*"/>
+        <include name="InternalSelfTest-soapui-project.*"/>
+        <include name="OutboundSelfTest-soapui-project.*"/>
+        <include name="PatientDiscovery-soapui-project.*"/>
+        <include name="ValidateServices-soapui-project.*"/>
+      </fileset>
+    </zip>
+
+    <property name="Publish.Web.File.Name" value="${SoapUI.Zip.FileName}"/>
+    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
+
+    <call target="Publish.Link" />
+
+  </target>
+
   <target name="Common.FindBuild">
     <strings id="builds"/>
 
