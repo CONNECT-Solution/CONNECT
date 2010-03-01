@@ -20,8 +20,8 @@
 	<property name="dist.instrumented.dir" value="${project.dir}/dist/instrumented" />
 	<property name="dist.instrumented.file" value="${dist.instrumented.dir}/${project.name}.${dist.type}" />
 	<property name="coverage.isneeded" value="${compile.debug}" />
-	<property name="coverage.threshold.linerate" value="80" />
-	<property name="coverage.threshold.branchrate" value="80" />
+	<property name="coverage.threshold.linerate" value="0" />
+	<property name="coverage.threshold.branchrate" value="0" />
 
 
 	<path id="instrument.classpath">
