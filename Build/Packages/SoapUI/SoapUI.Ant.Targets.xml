@@ -45,7 +45,7 @@
 		  <include name="XDRInboundTests-soapui-project.xml"/>
 		  <include name="XDRAdapterTests-soapui-project.xml"/>
 		  <include name="EntityXDRTests-soapui-project.xml"/>
-		<!--  <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/> -->
+		  <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/>
 	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
       </path>
