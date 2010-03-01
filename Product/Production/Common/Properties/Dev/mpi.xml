@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_13" class="java.beans.XMLDecoder"> 
+ <object class="gov.hhs.fha.nhinc.mpilib.Patients"> 
+  <void method="add"> 
+   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
+    <void property="address"> 
+     <void property="city"> 
+      <string>LEESBURG</string> 
+     </void> 
+     <void property="state"> 
+      <string>VA</string> 
+     </void> 
+     <void property="zip"> 
+      <string>20176</string> 
+     </void> 
+    </void> 
+    <void property="dateOfBirth"> 
+     <string>19990627</string> 
+    </void> 
+    <void property="gender"> 
+     <string>M</string> 
+    </void> 
+    <void property="identifiers"> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
+       <void property="id"> 
+        <string>D123401</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.1</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
+       <void property="id"> 
+        <string>500000000</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>2.2</string> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <void property="firstName"> 
+      <string>Gallow</string> 
+     </void> 
+     <void property="lastName"> 
+      <string>Younger</string> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="gov.hhs.fha.nhinc.mpilib.Patient"> 
+    <void property="address"> 
+     <void property="city"> 
+      <string>Orlando</string> 
+     </void> 
+     <void property="state"> 
+      <string>FL</string> 
+     </void> 
+     <void property="zip"> 
+      <string>98765</string> 
+     </void> 
+    </void> 
+    <void property="dateOfBirth"> 
+     <string>19560301</string> 
+    </void> 
+    <void property="gender"> 
+     <string>M</string> 
+    </void> 
+    <void property="identifiers"> 
+     <void method="add"> 
+      <object class="gov.hhs.fha.nhinc.mpilib.Identifier"> 
+       <void property="id"> 
+        <string>1234</string> 
+       </void> 
+       <void property="organizationId"> 
+        <string>1.1.2.16.840.1.113883.3.198</string> 
+       </void> 
+      </object> 
+     </void> 
+    </void> 
+    <void property="name"> 
+     <void property="firstName"> 
+      <string>Joe</string> 
+     </void> 
+     <void property="lastName"> 
+      <string>Smith</string> 
+     </void> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

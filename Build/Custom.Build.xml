@@ -5,6 +5,7 @@
     <call target="Build.PublishZip.Release.Installer"/>
     <call target="Build.PublishZip.Release.Interfaces"/>
     <call target="Build.Bundle.ESCs.Installers"/>
+    <call target="Build.Bundle.SoapUI"/>
     <call target="Build.Bundle.Release.Properties"/>
   </target>
 
@@ -158,6 +159,13 @@
         <include name="OutboundSelfTest-soapui-project.*"/>
         <include name="PatientDiscovery-soapui-project.*"/>
         <include name="ValidateServices-soapui-project.*"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev" >
+        <include name="mpi.xml" />
+        <include name="reidentification.xml" />
+      </fileset>
+      <fileset basedir="${Common.Directory.DBScripts.Path}\nhincdb" prefix="${Common.Directory.DBScripts.Name}">
+        <include name="populateTestData.sql"/>
       </fileset>
     </zip>
 
