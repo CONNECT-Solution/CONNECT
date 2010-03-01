@@ -51,11 +51,17 @@
 				]]>
 		</script>
 
-        <exec dir="${soapui.install.bin.directory.path}" executable="cmd.exe">
+        <exec dir="${soapui.install.bin.directory.path}" osfamily="windows" executable="cmd.exe">
           <arg line='/c testrunner.bat -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
         </exec>
       	
-      	<move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>
+        <exec dir="${soapui.install.bin.directory.path}"  osfamily="unix" executable="bash">        	
+            <arg line='testrunner.sh -j -a -f"${soapui.report.dir}/${soapui.project.name}" "@{soapui.project.file.path}" -Dproject.name="${project.name}"'/>
+        	
+        </exec>
+        
+
+       <move file="${soapui.report.dir}/${soapui.project.name}/report.xml" tofile="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"/>
 
 		<replace
 			file="${soapui.report.dir}/${soapui.project.name}/TEST-${soapui.project.name}.xml"

@@ -14,7 +14,7 @@ layer of abstraction
 -->
 <project name="build.targets">
 
-  <taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+  <taskdef resource="net/sf/antcontrib/antlib.xml" />
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
   <typedef resource="AgilexAnt.properties" />
   <script language="javascript">
