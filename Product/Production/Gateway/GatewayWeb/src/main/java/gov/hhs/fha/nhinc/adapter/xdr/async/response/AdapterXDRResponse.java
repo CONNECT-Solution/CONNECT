@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.adapter.xdr.async.response;
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.jws.WebService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,14 +20,20 @@ public class AdapterXDRResponse {
     private static final Log logger = LogFactory.getLog(AdapterXDRResponse.class);
     
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType body) {
-        //TODO implement this method
-        logger.debug("In AdapterXDRResponse");
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        return this.getAdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body);
+        getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
+        
+        AcknowledgementType ack = getAdapterXDRResponseImpl().provideAndRegisterDocumentSetBResponse(body);
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
+
+        return ack;
     }
 
-    private AdapterXDRResponseImpl getAdapterXDRResponseImpl(){
+    protected AdapterXDRResponseImpl getAdapterXDRResponseImpl(){
         return new AdapterXDRResponseImpl();
+    }
+
+    protected Log getLogger(){
+        return logger;
     }
 
 }

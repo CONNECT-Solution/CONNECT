@@ -19,13 +19,21 @@ public class AdapterXDRResponseSecuredImpl {
     private static final Log logger = LogFactory.getLog(AdapterXDRResponseSecuredImpl.class);
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("in AdapterXDRResponseSecuredImpl");
+        getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
+
+        // Log the Registry Response
+        getLogger().debug("Registry Response " + body);
+
         ihe.iti.xdr._2007.AcknowledgementType ack = new ihe.iti.xdr._2007.AcknowledgementType();
         ack.setMessage("SUCCESS");
+
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
+
         return ack;
     }
 
+    protected Log getLogger(){
+        return logger;
+    }
 
 }

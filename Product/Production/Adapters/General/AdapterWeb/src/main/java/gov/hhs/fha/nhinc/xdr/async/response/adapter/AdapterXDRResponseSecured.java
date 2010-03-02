@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.xdr.async.response.adapter;
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.annotation.Resource;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
@@ -26,15 +27,18 @@ public class AdapterXDRResponseSecured {
 
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType body) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("in AdapterXDRResponseSecured");
-        return this.getAdapterXDRResponseSecuredImpl().provideAndRegisterDocumentSetBResponse(body, context);
+        getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
+        
+        AcknowledgementType ack = getAdapterXDRResponseSecuredImpl().provideAndRegisterDocumentSetBResponse(body, context);
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
+        return ack;
     }
 
-    private AdapterXDRResponseSecuredImpl getAdapterXDRResponseSecuredImpl(){
+    protected AdapterXDRResponseSecuredImpl getAdapterXDRResponseSecuredImpl(){
         return new AdapterXDRResponseSecuredImpl();
     }
 
-
+    protected Log getLogger(){
+        return logger;
+    }
 }

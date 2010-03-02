@@ -5,6 +5,7 @@
 
 package gov.hhs.fha.nhinc.adapter.xdr.async.request;
 
+import ihe.iti.xdr._2007.AcknowledgementType;
 import javax.jws.WebService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,13 +20,21 @@ public class AdapterXDRRequest {
     private static final Log logger = LogFactory.getLog(AdapterXDRRequest.class);
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType body) {
-        //TODO implement this method
-        //throw new UnsupportedOperationException("Not implemented yet.");
-        logger.debug("In AdapterXDRRequest");
-        return this.getAdapterXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body);
+        getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
+        
+        AcknowledgementType ack = getAdapterXDRRequestImpl().provideAndRegisterDocumentSetBRequest(body);
+
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
+
+        return ack;
     }
 
-    private AdapterXDRRequestImpl getAdapterXDRRequestImpl(){
+    protected AdapterXDRRequestImpl getAdapterXDRRequestImpl(){
         return new AdapterXDRRequestImpl();
     }
+
+    protected Log getLogger(){
+        return logger;
+    }
+
 }
