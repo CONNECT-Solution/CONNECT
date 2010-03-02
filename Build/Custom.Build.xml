@@ -153,11 +153,19 @@
     <property name="SoapUI.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${SoapUI.Zip.FileName}"/>
 
     <zip zipfile="${SoapUI.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest" failonempty="true">
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\EndToEndSelfTest" failonempty="true">
         <include name="EndToEndSelfTest-soapui-project.*"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\InternalSelfTest" failonempty="true">
         <include name="InternalSelfTest-soapui-project.*"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\OutboundSelfTest" failonempty="true">
         <include name="OutboundSelfTest-soapui-project.*"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\PatientDiscovery" failonempty="true">
         <include name="PatientDiscovery-soapui-project.*"/>
+      </fileset>
+      <fileset basedir="${Common.Directory.Product.Path}\IntegrationTest\" prefix="SelfTest\ValidateServices" failonempty="true">
         <include name="ValidateServices-soapui-project.*"/>
       </fileset>
       <fileset basedir="${Common.Directory.Production.Path}\Common\Properties\Dev" >
