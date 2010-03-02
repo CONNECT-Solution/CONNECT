@@ -6,6 +6,8 @@ import javax.xml.ws.WebServiceContext;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenExtractor;
+import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
+import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.xdr.XDRAuditLogger;
 import gov.hhs.fha.nhinc.xdr.response.proxy.NhincProxyXDRResponseSecuredImpl;
 import org.apache.commons.logging.Log;
@@ -113,10 +115,29 @@ public class EntityXDRResponseSecuredImpl
         return assertion;
     }
 
-    private boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType provideAndRegisterDocumentSetSecuredResponseRequest, AssertionType assertion)
+    protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion)
     {
         log.debug("Begin checkPolicy");
-        // TODO: Policy check
-        return true;
+        boolean bPolicyOk = false;
+
+        if (request != null && request.getNhinTargetSystem() != null && request.getNhinTargetSystem().getHomeCommunity() != null && request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId() != null)
+        {
+
+            SubjectHelper subjHelp = new SubjectHelper();
+            String senderHCID = subjHelp.determineSendingHomeCommunityId(assertion.getHomeCommunity(), assertion);
+            String receiverHCID = request.getNhinTargetSystem().getHomeCommunity().getHomeCommunityId();
+            String direction = NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION;
+            log.debug("Checking the policy engine for the " + direction + " request from " + senderHCID + " to " + receiverHCID);
+
+            //return true if 'permit' returned, false otherwise
+            XDRPolicyChecker policyChecker = new XDRPolicyChecker();
+            bPolicyOk = policyChecker.checkXDRResponsePolicy(request.getRegistryResponse(), assertion, senderHCID, receiverHCID, direction);
+        }
+        else
+        {
+            log.warn("EntityXDRResponseSecuredImpl check on policy requires a non null receiving home community ID specified in the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
+        }
+        log.debug("EntityXDRResponseSecuredImpl check on policy returns: " + bPolicyOk);
+        return bPolicyOk;
     }
 }

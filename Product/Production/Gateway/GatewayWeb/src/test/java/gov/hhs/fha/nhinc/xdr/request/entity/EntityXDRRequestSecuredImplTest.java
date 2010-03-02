@@ -79,6 +79,12 @@ public class EntityXDRRequestSecuredImplTest
             {
                 return mockAssertion;
             }
+
+            @Override
+            protected boolean checkPolicy(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion)
+            {
+                return true;
+            }
         };
 
         context.checking(new Expectations()

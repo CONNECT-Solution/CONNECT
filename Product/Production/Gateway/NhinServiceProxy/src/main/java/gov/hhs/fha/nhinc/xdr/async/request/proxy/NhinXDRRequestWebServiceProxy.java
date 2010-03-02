@@ -44,10 +44,6 @@ public class NhinXDRRequestWebServiceProxy implements NhinXDRRequestProxy
 
                 setRequestContext(assertion, url, port);
 
-                // TODO: Audit log
-
-                // TODO: Policy check
-
                 response = port.provideAndRegisterDocumentSetBRequest(request);
             }
             catch(Throwable t)
