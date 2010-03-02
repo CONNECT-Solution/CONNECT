@@ -114,7 +114,7 @@ public class XDRHelperTest {
         assertNotNull(result);
         assertEquals(4, result.size());
     }
-    @Test
+    @Ignore
     public void testValidateDocumentMetaData_ValidMessage() {
         System.out.println("testValidateDocumentMetaData_ValidMessage");
         ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
