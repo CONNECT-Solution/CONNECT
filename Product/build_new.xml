@@ -142,9 +142,8 @@
       <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
     </copy>
     
-    <antcall target="do-to-projects">
-      <param name="do-to-target" value="copy.deployable.artifacts"/>
-    </antcall>
+  	<var name="do-to-target" value="copy.deployable.artifacts"/>
+    <antcall target="do-to-projects"/>      
   </target>
 	
   <target name="just.deploy"  description="Deploy all projects, does not call dependent targets...">
