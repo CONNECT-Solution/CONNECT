@@ -56,7 +56,7 @@ public class XDRHelperTest {
     /**
      * Test of validateDocumentMetaData method, of class XDRHelper.
      */
-    @Test
+    @Ignore
     public void testValidateDocumentMetaData_Null() {
         System.out.println("testValidateDocumentMetaData_Null");
         ProvideAndRegisterDocumentSetRequestType body = null;
