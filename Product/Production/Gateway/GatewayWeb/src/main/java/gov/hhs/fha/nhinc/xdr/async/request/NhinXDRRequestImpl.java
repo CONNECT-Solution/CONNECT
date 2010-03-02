@@ -25,8 +25,6 @@ import gov.hhs.fha.nhinc.xdr.XDRPolicyChecker;
  */
 public class NhinXDRRequestImpl
 {
-    public static final String XDR_RESPONSE_SUCCESS = "Success";
-    public static final String XDR_RESPONSE_FAILURE = "Failure";
     public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
 
     private static final Log logger = LogFactory.getLog(NhinXDRRequestImpl.class);
@@ -135,6 +133,7 @@ public class NhinXDRRequestImpl
         return response;
     }
 
+    
     /**
      *
      * @param newRequest

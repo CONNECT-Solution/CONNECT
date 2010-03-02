@@ -19,7 +19,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,20 +45,6 @@ public class NhinXDRResponseImplTest {
 
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getLogger method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testGetLogger() {
-        System.out.println("getLogger");
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        Log expResult = null;
-        Log result = instance.getLogger();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -217,82 +202,4 @@ public class NhinXDRResponseImplTest {
         assertEquals(NhinXDRResponseImpl.XDR_POLICY_ERROR, result.getMessage());
 
    }
-
-    /**
-     * Test of createAssertion method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testCreateAssertion() {
-        System.out.println("createAssertion");
-        WebServiceContext context = null;
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        AssertionType expResult = null;
-        AssertionType result = instance.createAssertion(context);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of retrieveHomeCommunityID method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testRetrieveHomeCommunityID() {
-        System.out.println("retrieveHomeCommunityID");
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        String expResult = "";
-        String result = instance.retrieveHomeCommunityID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getXDRAuditLogger method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testGetXDRAuditLogger() {
-        System.out.println("getXDRAuditLogger");
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        XDRAuditLogger expResult = null;
-        XDRAuditLogger result = instance.getXDRAuditLogger();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of forwardToAgency method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testForwardToAgency() {
-        System.out.println("forwardToAgency");
-        RegistryResponseType body = null;
-        AssertionType assertion = null;
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        AcknowledgementType expResult = null;
-        AcknowledgementType result = instance.forwardToAgency(body, assertion);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of isPolicyOk method, of class NhinXDRResponseImpl.
-     */
-    @Ignore
-    public void testIsPolicyOk() {
-        System.out.println("isPolicyOk");
-        RegistryResponseType newRequest = null;
-        AssertionType assertion = null;
-        String senderHCID = "";
-        String receiverHCID = "";
-        NhinXDRResponseImpl instance = new NhinXDRResponseImpl();
-        boolean expResult = false;
-        boolean result = instance.isPolicyOk(newRequest, assertion, senderHCID, receiverHCID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }

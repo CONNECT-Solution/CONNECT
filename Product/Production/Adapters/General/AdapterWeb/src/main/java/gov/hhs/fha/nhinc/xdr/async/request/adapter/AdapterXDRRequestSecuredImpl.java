@@ -34,6 +34,7 @@ public class AdapterXDRRequestSecuredImpl {
 
     private static final Log logger = LogFactory.getLog(AdapterXDRRequestSecuredImpl.class);
     private static EntityXDRSecuredResponseService entityXDRSecuredResponseService = null;
+    public static String INVALID_ENDPOINT_MESSAGE = "ERROR: entityXDRSecuredResponseEndPointURL is null";
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBRequest(ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBRequest");
@@ -47,8 +48,6 @@ public class AdapterXDRRequestSecuredImpl {
 
         // Call the XDR Response service
         ihe.iti.xdr._2007.AcknowledgementType ack = sendXDRResponse(registryResponse, assertion);
-        //ihe.iti.xdr._2007.AcknowledgementType ack = new AcknowledgementType();
-        //ack.setMessage("SUCCESS");
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBRequest");
 
@@ -58,8 +57,6 @@ public class AdapterXDRRequestSecuredImpl {
     protected AdapterComponentXDRImpl getAdapterComponentXDRImpl(){
         return new AdapterComponentXDRImpl();
     }
-
-    
 
     protected Log getLogger(){
         return logger;
@@ -114,7 +111,7 @@ public class AdapterXDRRequestSecuredImpl {
         } else {
             getLogger().error("The URL for service: " + NhincConstants.ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME + " is null");
             response = new AcknowledgementType();
-            response.setMessage("ERROR: entityXDRSecuredResponseEndPointURL EndPointURL is null");
+            response.setMessage(INVALID_ENDPOINT_MESSAGE);
         }
 
         getLogger().debug("Existing provideAndRegisterDocumentSetBResponse");

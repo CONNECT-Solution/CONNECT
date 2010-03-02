@@ -17,6 +17,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdapterXDRResponseSecuredImpl {
 
     private static final Log logger = LogFactory.getLog(AdapterXDRResponseSecuredImpl.class);
+    private static final String ACK_SUCCESS_MESSAGE = "SUCCESS";
 
     public ihe.iti.xdr._2007.AcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body, WebServiceContext context) {
         getLogger().debug("Entering provideAndRegisterDocumentSetBResponse");
@@ -25,7 +26,8 @@ public class AdapterXDRResponseSecuredImpl {
         getLogger().debug("Registry Response " + body);
 
         ihe.iti.xdr._2007.AcknowledgementType ack = new ihe.iti.xdr._2007.AcknowledgementType();
-        ack.setMessage("SUCCESS");
+
+        ack.setMessage(ACK_SUCCESS_MESSAGE);
 
         getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
 

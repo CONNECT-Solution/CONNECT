@@ -580,7 +580,7 @@ public class XDRTransforms {
             marshaller.marshal(element, baOutStrm);
             log.debug("Done marshalling the message.");
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Exception while marshalling Acknowledgement", e);
             throw new RuntimeException();
         }
     }

@@ -25,9 +25,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class NhinXDRResponseImpl
 {
-    public static final String XDR_RESPONSE_SUCCESS = "Success";
-    public static final String XDR_RESPONSE_FAILURE = "Failure";
-    public static final String XDR_POLICY_ERROR = "CONNECTPolicyCheckFailed ";
+    public static final String XDR_POLICY_ERROR = "CONNECT Policy Check Failed";
     
     private static final Log logger = LogFactory.getLog(NhinXDRResponseImpl.class);
 
@@ -76,7 +74,7 @@ public class NhinXDRResponseImpl
 
         getLogger().debug("Audit Log Ack Message for Outbound Acknowledgement:" + ack.getMessage());
 
-        logger.debug("Exiting provideAndRegisterDocumentSetBResponse");
+        getLogger().debug("Exiting provideAndRegisterDocumentSetBResponse");
 
          return result;
     }

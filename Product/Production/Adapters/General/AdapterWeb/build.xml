@@ -20,9 +20,9 @@
         <property name="target-to-call" value="dist" />
         <antcall target="call-target-in-isolation-if-out-of-date" />
     </target>
-    <target name="clean-build" depends="clean,dist" />
-    <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist" />
+    <target name="clean-build" depends="clean,build" />
+    <target name="clean-test" depends="clean-build,test" />
+    <target name="build-test" depends="build,test" />
 
     <target name="wsimport-service-DocumentRegistryService" depends="wsimport-init">
         <copy todir="${build.web.dir}/WEB-INF/wsdl/DocumentRegistryService">

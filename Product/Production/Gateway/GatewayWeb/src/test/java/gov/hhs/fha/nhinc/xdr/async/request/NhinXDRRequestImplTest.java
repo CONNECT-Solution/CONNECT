@@ -19,7 +19,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,20 +45,6 @@ public class NhinXDRRequestImplTest {
 
     @After
     public void tearDown() {
-    }
-
-    /**
-     * Test of getLogger method, of class NhinXDRRequestImpl.
-     */
-    @Ignore
-    public void testGetLogger() {
-        System.out.println("getLogger");
-        NhinXDRRequestImpl instance = new NhinXDRRequestImpl();
-        Log expResult = null;
-        Log result = instance.getLogger();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -217,38 +202,4 @@ public class NhinXDRRequestImplTest {
         assertEquals(NhinXDRRequestImpl.XDR_POLICY_ERROR, result.getMessage());
 
     }
-
-    /**
-     * Test of getXDRAuditLogger method, of class NhinXDRRequestImpl.
-     */
-    @Ignore
-    public void testGetXDRAuditLogger() {
-        System.out.println("getXDRAuditLogger");
-        NhinXDRRequestImpl instance = new NhinXDRRequestImpl();
-        XDRAuditLogger expResult = null;
-        XDRAuditLogger result = instance.getXDRAuditLogger();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-
-    /**
-     * Test of isPolicyOk method, of class NhinXDRRequestImpl.
-     */
-    @Ignore
-    public void testIsPolicyOk() {
-        System.out.println("isPolicyOk");
-        ProvideAndRegisterDocumentSetRequestType newRequest = null;
-        AssertionType assertion = null;
-        String senderHCID = "";
-        String receiverHCID = "";
-        NhinXDRRequestImpl instance = new NhinXDRRequestImpl();
-        boolean expResult = false;
-        boolean result = instance.isPolicyOk(newRequest, assertion, senderHCID, receiverHCID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
 }
