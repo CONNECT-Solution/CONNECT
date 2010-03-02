@@ -57,6 +57,18 @@ public class XDRHelperTest {
      * Test of validateDocumentMetaData method, of class XDRHelper.
      */
     @Ignore
+    public void testgetSourcePatientId() {
+        System.out.println("testgetSourcePatientId");
+        ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
+        XDRHelper instance = createHelper();
+
+
+        String result = instance.getSourcePatientId(body);
+        assertNotNull(result);
+        assertEquals("ST-1000^^^&1.3.6.1.4.1.21367.2003.3.9&ISO", result);
+
+    }
+    @Test
     public void testValidateDocumentMetaData_Null() {
         System.out.println("testValidateDocumentMetaData_Null");
         ProvideAndRegisterDocumentSetRequestType body = null;
@@ -101,7 +113,8 @@ public class XDRHelperTest {
 
         List<String> result = instance.getIntendedRecepients(body);
 
-        assertNull(result);
+        assertNotNull(result);
+
     }
     @Test
     public void testgetIntendedRecepients_Valid() {
@@ -114,7 +127,7 @@ public class XDRHelperTest {
         assertNotNull(result);
         assertEquals(4, result.size());
     }
-    @Ignore
+    @Test
     public void testValidateDocumentMetaData_ValidMessage() {
         System.out.println("testValidateDocumentMetaData_ValidMessage");
         ProvideAndRegisterDocumentSetRequestType body = new XDRMessageHelper().getSampleMessage();
