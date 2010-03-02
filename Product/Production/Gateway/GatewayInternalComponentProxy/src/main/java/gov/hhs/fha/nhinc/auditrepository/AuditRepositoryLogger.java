@@ -260,6 +260,19 @@ public class AuditRepositoryLogger {
         return auditMsg;
     }
 
+    public LogEventRequestType logEntityXDRResponseRequest(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
+        LogEventRequestType auditMsg = null;
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformRequestToAuditMsg(response, assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
+        return auditMsg;
+    }
+
     /**
      * This method will create the generic Audit Log Message from a document query request
      *
@@ -807,6 +820,20 @@ public class AuditRepositoryLogger {
         if (isServiceEnabled()) {
             XDRTransforms auditTransformer = new XDRTransforms();
             auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        }
+
+        log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+        return auditMsg;
+    }
+
+    public LogEventRequestType logNhinXDRResponseRequest(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message, AssertionType assertion, String direction) {
+        log.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
+        LogEventRequestType auditMsg = null;
+
+
+        if (isServiceEnabled()) {
+            XDRTransforms auditTransformer = new XDRTransforms();
+            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         }
 
         log.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");

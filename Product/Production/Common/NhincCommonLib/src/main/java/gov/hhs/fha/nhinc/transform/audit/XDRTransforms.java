@@ -236,6 +236,122 @@ public class XDRTransforms {
         return result;
     }
 
+    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion, String direction, String _interface)
+    {
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(request == null)
+        {
+            log.error("Requst Object was null");
+            return null;
+        }
+        if(assertion == null)
+        {
+            log.error("Assertion was null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        auditMsg = new AuditMessageType();
+        // Create EventIdentification
+        CodedValueType eventID = getCodedValueTypeForXDRResponse();
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        auditMsg.getActiveParticipant().add(participant);
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalRequestMessage(baOutStrm, request);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+
+        return result;
+    }
+
+    public LogEventRequestType transformRequestToAuditMsg(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion, String direction, String _interface)
+    {
+        LogEventRequestType result = null;
+        AuditMessageType auditMsg = null;
+
+        if(request == null)
+        {
+            log.error("Requst Object was null");
+            return null;
+        }
+        if(assertion == null)
+        {
+            log.error("Assertion was null");
+            return null;
+        }
+
+        //check to see that the required fields are not null
+        boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
+
+        if (missingReqFields)
+        {
+            log.error("One or more required fields was missing");
+            return null;
+        }
+
+        result = new LogEventRequestType();
+
+        auditMsg = new AuditMessageType();
+        // Create EventIdentification
+        CodedValueType eventID = getCodedValueTypeForXDRResponse();
+
+        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
+        auditMsg.setEventIdentification(oEventIdentificationType);
+
+        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
+
+        auditMsg.getActiveParticipant().add(participant);
+        /* Assign ParticipationObjectIdentification */
+        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
+
+        // Put the contents of the actual message into the Audit Log Message
+        ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
+
+        marshalRequestMessage(baOutStrm, request);
+        participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
+        auditMsg.getParticipantObjectIdentification().add(participantObject);
+
+        /* Create the AuditSourceIdentifierType object */
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        auditMsg.getAuditSourceIdentification().add(auditSource);
+
+        result.setAuditMessage(auditMsg);
+        result.setDirection(direction);
+        result.setInterface(_interface);
+
+        return result;
+    }
+
     public LogEventRequestType transformResponseToAuditMsg(RegistryResponseType response, AssertionType assertion, String direction, String _interface)
     {
         LogEventRequestType result = null;
@@ -562,6 +678,55 @@ public class XDRTransforms {
         }
     }
 
+    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) throws RuntimeException
+    {
+        // Put the contents of the actual message into the Audit Log Message
+        try
+        {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonentity");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonentity", "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
+            JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType> element;
+
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class, request);
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
+        } 
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request) throws RuntimeException
+    {
+        // Put the contents of the actual message into the Audit Log Message
+        try
+        {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonproxy");
+            Marshaller marshaller = jc.createMarshaller();
+            baOutStrm.reset();
+
+            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:gov:hhs:fha:nhinc:common:nhinccommonproxy", "RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType");
+            JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType> element;
+
+            element = new JAXBElement<gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType>(xmlqname, gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType.class, request);
+
+            marshaller.marshal(element, baOutStrm);
+            log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
 
     protected void marshalResponseMessage(ByteArrayOutputStream baOutStrm, RegistryResponseType response) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
