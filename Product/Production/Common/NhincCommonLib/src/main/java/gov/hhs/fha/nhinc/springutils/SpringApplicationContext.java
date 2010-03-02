@@ -13,7 +13,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author jeff
  */
 public class SpringApplicationContext extends FileSystemXmlApplicationContext {
-    public SpringApplicationContext(String path) throws java.io.IOException {
+    public SpringApplicationContext(String path) {
         super(path);
     }
     @Override
