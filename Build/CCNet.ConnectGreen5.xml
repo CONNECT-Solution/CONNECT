@@ -12,10 +12,9 @@
           <user name="flowersj"               group="developer"         address="jay.flowers@agilex.com"/>
           <user name="vadlamanis"             group="developer"         address="srikanth.vadlamani@agilex.com"/>
           <user name="goldmanm"               group="developer"         address="mark.goldman@agilex.com"/>
-          
           <user name="borsts"                 group="developer"         address="scott.borst@agilex.com"/>
           <user name="padmanabhanp"           group="developer"         address="parineetha.padmanabhan@agilex.com"/>
-          
+          <user name="dhara"                  group="developer"         address="aleena.dhar@agilex.com"/>
           <user name="dunnek"                 group="developer"         address="kieran.dunne@agilex.com"/>
           <user name="rayj"                   group="developer"         address="jason.ray@agilex.com"/>
           <user name="webbn"                  group="developer"         address="neil.webb@agilex.com"/>
@@ -27,14 +26,14 @@
           <user name="shawc"                  group="developer"         address="clark.shaw@agilex.com"/>
           <user name="patlollav"              group="developer"         address="visu.patlolla@agilex.com"/>
 
-          <user name="Build Notification"     group="&ProjectName;"     address="NHINBuildNotification@agilex.com"/>
+          <user name="Build Notification"     group="change"            address="NHINBuildNotification@agilex.com"/>
 
-          <user name="Notification Dev"       group="&ProjectName;Dev"  address="NHINBuildNotification@agilex.com"/>
+          <user name="Notification Dev"       group="failed"            address="NHINBuildNotification@agilex.com"/>
         </users>
         <groups>
-          <group name="buildmaster"       notification="always"/>
-          <group name="&ProjectName;"     notification="change"/>
-          <group name="&ProjectName;Dev"  notification="failed"/>
+          <group name="buildmaster"           notification="always"/>
+          <group name="change"                notification="change"/>
+          <group name="failed"                notification="failed"/>
         </groups>
       </email>'>
   <!ENTITY ScriptsBuilding '<projectFilter
@@ -47,7 +46,7 @@
             </exclusionFilters>
           </projectFilter>'>
   <!ENTITY IntegrationFailed '<projectFilter
-               serverUri="&Integration.Server.Remoting.Url;"
+               serverUri="&CCNet.Server.Remoting.Url;"
                project="&ProjectName;-&ProjectCodeLineName;-Test">
             <exclusionFilters>
               <conditions>
@@ -73,15 +72,6 @@
               </conditions>
             </exclusionFilters>
           </projectFilter>'>
-  <!ENTITY TestBuilding '<projectFilter
-                serverUri="&ConnectGreen5.Server.Remoting.Url;"
-                project="&ProjectName;-&ProjectCodeLineName;-Test-Green5">
-             <exclusionFilters>
-               <activities>
-                 <activity>Building</activity>
-               </activities>
-             </exclusionFilters>
-          </projectFilter>'>
   <!ENTITY Subversion.Repo.Url 'https://svn.connectopensource.org:8443/svn/Nhin_Public'>
 ]>
 
@@ -94,7 +84,6 @@
         <trigger type="intervalTrigger" seconds="90" />
         <projectFilters>
           &DeployBuilding;
-          &TestBuilding;
         </projectFilters>
       </projectTriggerFilter>
     </triggers>
@@ -102,7 +91,6 @@
       <projectForceFilter>
         <projectFilters>
           &DeployBuilding;
-          &TestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -140,7 +128,6 @@
         <trigger type="scheduleTrigger" time="7:00" buildCondition="ForceBuild" />
         <projectFilters>
           &ScriptsBuilding;
-          &TestBuilding;
           &IntegrationFailed;
         </projectFilters>
       </projectTriggerFilter>
@@ -149,7 +136,6 @@
       <projectForceFilter>
         <projectFilters>
           &ScriptsBuilding;
-          &TestBuilding;
         </projectFilters>
       </projectForceFilter>
     </forceFilters>
@@ -170,7 +156,7 @@
     <sourcecontrol type="nullSourceControl" />
     <labeller type="remoteProjectLabeller">
       <project>&ProjectName;-&ProjectCodeLineName;-Release</project>
-      <serverUri>&Integration.Server.Remoting.Url;</serverUri>
+      <serverUri>&CCNet.Server.Remoting.Url;</serverUri>
     </labeller>
     <tasks>
       <nant>

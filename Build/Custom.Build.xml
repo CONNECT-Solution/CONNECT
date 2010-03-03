@@ -3,7 +3,6 @@
 
   <target name="Build.PublishZips">
     <call target="Build.PublishZip.Release.Installer"/>
-    <call target="Build.PublishZip.Release.Interfaces"/>
     <call target="Build.Bundle.ESCs.Installers"/>
     <call target="Build.Bundle.SoapUI"/>
     <call target="Build.Bundle.Release.Properties"/>
@@ -35,22 +34,6 @@
     </zip>
 
     <property name="Publish.Web.File.Name" value="${Installer.Zip.FileName}"/>
-    <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
-
-    <call target="Publish.Link" />
-  </target>
-
-  <target name="Build.PublishZip.Release.Interfaces">
-    <property name="Interfaces.Zip.FileName" value="${ProjectFullName}_Interfaces_${CCNetLabel}.zip"/>
-    <property name="Interfaces.Zip.FilePath" value="${Common.Directory.Artifact.Path}\${Interfaces.Zip.FileName}"/>
-
-    <zip zipfile="${Interfaces.Zip.FilePath}">
-      <fileset basedir="${Common.Directory.Production.Path}\" >
-        <include name="Common\Interfaces\**" />
-      </fileset>
-    </zip>
-
-    <property name="Publish.Web.File.Name" value="${Interfaces.Zip.FileName}"/>
     <property name="Publish.Web.File.Path"	value="${Publish.WebPathRoot}/${Common.Directory.Artifact.Name}/${Publish.Web.File.Name}" />
 
     <call target="Publish.Link" />

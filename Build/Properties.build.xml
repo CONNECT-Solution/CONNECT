@@ -7,7 +7,6 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Properties">
 
   <property name="BuildServerHostName"           value="&HostName;"/>
-  <property name="Integration.Server.Host.Name"  value="&Integration.Server.Host.Name;"/>
   <property name="EmailHost"                     value="&EmailHost;"/>
 
   <property name="Web.Credentials.UserName"      value=""/>
