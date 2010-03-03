@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,7 +38,8 @@ public class AssigningAuthorityHomeCommunityDAOTest {
     public void tearDown() {
     }
 
-     @Test
+    @Test
+    @Ignore
     public void testStoreMapping() {
         AssigningAuthorityHomeCommunityMappingDAO aDao = new AssigningAuthorityHomeCommunityMappingDAO();
         //assertTrue(aDao.storeMapping("1.2.3.4.55.500", "1.6"));
