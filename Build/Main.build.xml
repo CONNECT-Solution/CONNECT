@@ -283,6 +283,20 @@
     </trycatch>
   </target>
 
+  <target name="PerformanceTest" depends="SetUps" >
+    <trycatch>
+      <try>
+        <call target="SourceControl.CleanGetOf.Common.Directory.Product.Path" />
+
+        <call target="TargetProcess.Get.Release.Report"/>
+        <call target="SoapUI.Performance.Test.Run"/>
+      </try>
+      <finally>
+        <call target="TearDowns" />
+      </finally>
+    </trycatch>
+  </target>
+
   <target name="SetUps">
     <call target="Common.SetUp" />
     <description>Begin SetUps</description>
