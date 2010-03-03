@@ -50,5 +50,4 @@
 	   <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
 	</target>	    
 
-	
 </project>

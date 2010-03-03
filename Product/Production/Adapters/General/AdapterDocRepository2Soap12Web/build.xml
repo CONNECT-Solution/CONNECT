@@ -22,7 +22,7 @@
     </target>
     <target name="clean-build" depends="clean,dist" />
     <target name="clean-test" depends="clean,dist" />
-    <target name="build-test" depends="dist" />
+    <target name="build-test" depends="dist, test" />
     <target name="wsimport-service-AdapterDocRepository2Soap12Service" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/service/AdapterDocRepository2Soap12Service"/>
         
@@ -41,4 +41,10 @@
     <target depends="init" if="netbeans.home" name="undeploy-clean" unless="from.commandline">
         <nbundeploy failOnError="false" startServer="false"/>
     </target>
+    <target depends="init,compile-test,-pre-test-run,-do-test-run" if="have.tests" name="-post-test-run">
+        <copy todir="${nhin.project.home}\UnitTestResults">
+            <fileset dir="${build.test.results.dir}"/>
+        </copy>
+        <fail if="tests.failed" unless="ignore.failing.tests">Some tests failed; see details above.</fail>
+    </target>    
 </project>
