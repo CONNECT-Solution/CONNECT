@@ -28,11 +28,15 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.Ignore;
 
 /**
+ * NOTE: The previous class under test (DocumentRepositoryHelper) is no longer available since it has been moved to a
+ * web application. This test might be appropriate on the AdapterInternalComponentProxy project.
  *
  * @author svalluripalli
  */
+@Ignore
 public class DocumentRepositoryHelperTest {
     private Log log = LogFactory.getLog(DocumentRepositoryHelperTest.class);
     public DocumentRepositoryHelperTest() {
@@ -168,18 +172,18 @@ public class DocumentRepositoryHelperTest {
         oDoc.setId(sDocUniqueId);
         oDoc.setValue("Test Document".getBytes());
         oRequest.getDocument().add(oDoc);
-        RegistryResponseType oResponse = new DocumentRepositoryHelper().documentRepositoryProvideAndRegisterDocumentSet(oRequest);
-        if(oResponse != null &&
-                oResponse.getStatus() != null &&
-                oResponse.getStatus().equals("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"))
-        {
-            log.info("Document Saved Successfully to the repository");
-        }
-        else
-        {
-            log.info("Unable to Save the Document");
-
-        }
+//        RegistryResponseType oResponse = new DocumentRepositoryHelper().documentRepositoryProvideAndRegisterDocumentSet(oRequest);
+//        if(oResponse != null &&
+//                oResponse.getStatus() != null &&
+//                oResponse.getStatus().equals("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success"))
+//        {
+//            log.info("Document Saved Successfully to the repository");
+//        }
+//        else
+//        {
+//            log.info("Unable to Save the Document");
+//
+//        }
      }
      
 /**
