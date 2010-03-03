@@ -305,9 +305,9 @@ public class PatientConsentManagerTest {
      *
      * @throws gov.hhs.fha.nhinc.policyengine.adapterpip.AdapterPIPException
      */
-    @Test
-    public void testRetrievePatientConsentByDocumentId()
-    {
+//    @Test
+//    public void testRetrievePatientConsentByDocumentId()
+//    {
 //        System.out.println("Begin testStoreAndRetrievePatientConsent");
 //        PatientPreferencesType oPtPref = createFineGrainedPolicyData();
 //
@@ -336,17 +336,17 @@ public class PatientConsentManagerTest {
 //        validateFineGrainedPolicyData(oPtPref);
 //
 //        System.out.println("End testStoreAndRetrievePatientConsent");
-    }
+//    }
 
 
-    @Test
-    public void testCheckCPPMetaFromRepositoryUsingXDSb()
-            throws AdapterPIPException
-    {
-        System.out.println("Begin testCheckCPPMetaFromRepositoryUsingXDSb");
-        PatientConsentManager oPatientConsentManager = new PatientConsentManager();
-        assertNotNull(oPatientConsentManager.checkCPPMetaFromRepositoryUsingXDSb("D123401", "1.1"));
-        System.out.println("End testCheckCPPMetaFromRepositoryUsingXDSb");
-    }
+//    @Test
+//    public void testCheckCPPMetaFromRepositoryUsingXDSb()
+//            throws AdapterPIPException
+//    {
+//        System.out.println("Begin testCheckCPPMetaFromRepositoryUsingXDSb");
+//        PatientConsentManager oPatientConsentManager = new PatientConsentManager();
+//        assertNotNull(oPatientConsentManager.checkCPPMetaFromRepositoryUsingXDSb("D123401", "1.1"));
+//        System.out.println("End testCheckCPPMetaFromRepositoryUsingXDSb");
+//    }
 
 }
