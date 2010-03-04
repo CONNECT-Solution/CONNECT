@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="nhinc-integrationtests" default="soapui.run" basedir=".">
   <import file="../../../Product/Install/deploy.xml"/>
-  
+
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
-  <property name="IntegrationTest.Dir" value="C:/Projects/NHINC/Current/Product/IntegrationTest"/>
+  <property name="IntegrationTest.Dir" value="C:/Projects/NHINC/2.4/Product/IntegrationTest"/>
   <property name="IntegrationTest.Results.Dir" value="${IntegrationTest.Dir}/results"/>
   <property name="SoapUI.Dir" value="C:/Program Files/eviware/soapUI-Pro-3.0.1/bin"/>
 
@@ -38,17 +38,17 @@
           <include name="DocRegistryAndRepository-soapui-project.xml"/>
           <include name="EntityDocQuery-soapui-project.xml"/>
           <include name="EntityDocRetrieve-soapui-project.xml"/>
-		  <include name="PolicyEngineInteractions-soapui-project.xml"/>
+          <include name="PolicyEngineInteractions-soapui-project.xml"/>
           <include name="AuditQueryTestHelper-soapui-project.xml"/>
-		  <include name="DocQuerytestsforUDDI-soapui-project.xml"/>
-		  <include name="QueryByState-soapui-project.xml"/>
-		  <include name="HIEM-PatientCentric-UDDItests-soapui-project.xml"/>
-		  <include name="HIEMTestsforUDDI-soapui-project.xml"/>
-		  <include name="XDRInboundTests-soapui-project.xml"/>
-		  <include name="XDRAdapterTests-soapui-project.xml"/>
-		  <include name="EntityXDRTests-soapui-project.xml"/>
-		  <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/>
-	  <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
+          <include name="DocQuerytestsforUDDI-soapui-project.xml"/>
+          <include name="QueryByState-soapui-project.xml"/>
+          <include name="HIEM-PatientCentric-UDDItests-soapui-project.xml"/>
+          <include name="HIEMTestsforUDDI-soapui-project.xml"/>
+          <include name="XDRInboundTests-soapui-project.xml"/>
+          <include name="XDRAdapterTests-soapui-project.xml"/>
+          <include name="EntityXDRTests-soapui-project.xml"/>
+          <include name="AuditLogQueryTestsforUDDI-soapui-project.xml"/>
+          <!-- <include name="PatientDiscovery-soapui-project.xml"/> -->
         </fileset>
       </path>
       <sequential>
@@ -58,7 +58,7 @@
         <exec dir="${SoapUI.Dir}" executable="cmd.exe">
           <arg line="/c testrunner.bat -j -a -f${IntegrationTest.Results.Dir}/test_${counter} @{file}"/>
         </exec>
-        
+
         <!-- 
           JUnit Report task requires that the input.xml files be unique. 
           The SoapUI executable outputs each test's report summary as report.xml need to rename each report.xml file. 
@@ -95,7 +95,7 @@
       </sequential>
     </for>
   </target>
-  
+
   <target name="build-report" >
     <replace dir="${IntegrationTest.Results.Dir}" token="&lt;testsuites&gt;" value="">
       <include name="**/*.xml"/>
