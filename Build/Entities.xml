@@ -1,9 +1,5 @@
 <!ENTITY HostName                              'build.connectopensource.org' >
 <!ENTITY Integration.Server.Host.Name          'inttest1.connectopensource.org' >
-<!ENTITY ConnectBlue5.Server.Host.Name         'ConnectBlue5.fedsconnect.org' >
-<!ENTITY ConnectRed5.Server.Host.Name          'ConnectRed5.fedsconnect.org' >
-<!ENTITY ConnectOrange5.Server.Host.Name       'ConnectOrange5.fedsconnect.org' >
-<!ENTITY ConnectGreen5.Server.Host.Name        'ConnectGreen5.fedsconnect.org' >
 <!ENTITY Klocwork.Server.Host.Name             '192.168.25.146' >
 <!ENTITY EmailHost                             '127.0.0.1'>
 
@@ -38,7 +34,7 @@
 <!ENTITY Common.Directory.Transient.Path       '&Common.Directory.Build.Path;\&Common.Directory.Transient.Name;' >
 <!ENTITY Common.Directory.Tools.Path           '&Common.Directory.Build.Path;\&Common.Directory.Tools.Name;' >
 
-<!ENTITY CCNet.LabelPrefix                     '2.4.0.'>
+<!ENTITY CCNet.LabelPrefix                     '3.0.0.'>
 <!ENTITY CCNet.Server.Remoting.Port            '21524'>
 <!ENTITY CCNet.Server.Remoting.Url             'tcp://&HostName;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY CCNet.Server.Rest.Port                '21525'>
@@ -50,22 +46,6 @@
 <!ENTITY Integration.Server.Remoting.Url       'tcp://&Integration.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Integration.Server.Rest.Url           'http://&Integration.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
 <!ENTITY Integration.Dashboard.Url             'http://&Integration.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
-
-<!ENTITY ConnectBlue5.Server.Remoting.Url      'tcp://&ConnectBlue5.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectBlue5.Server.Rest.Url          'http://&ConnectBlue5.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectBlue5.Dashboard.Url            'http://&ConnectBlue5.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
-
-<!ENTITY ConnectRed5.Server.Remoting.Url       'tcp://&ConnectRed5.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectRed5.Server.Rest.Url           'http://&ConnectRed5.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectRed5.Dashboard.Url             'http://&ConnectRed5.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
-
-<!ENTITY ConnectOrange5.Server.Remoting.Url    'tcp://&ConnectOrange5.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectOrange5.Server.Rest.Url        'http://&ConnectOrange5.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectOrange5.Dashboard.Url          'http://&ConnectOrange5.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
-
-<!ENTITY ConnectGreen5.Server.Remoting.Url     'tcp://&ConnectGreen5.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
-<!ENTITY ConnectGreen5.Server.Rest.Url         'http://&ConnectGreen5.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
-<!ENTITY ConnectGreen5.Dashboard.Url           'http://&ConnectGreen5.Server.Host.Name;/&ProjectName;-&ProjectCodeLineName;/default.aspx?_action_ViewFarmReport=true' >
 
 <!ENTITY Klocwork.Server.Remoting.Url          'tcp://&Klocwork.Server.Host.Name;:&CCNet.Server.Remoting.Port;/CruiseManager.rem'>
 <!ENTITY Klocwork.Server.Rest.Url              'http://&Klocwork.Server.Host.Name;:&CCNet.Server.Rest.Port;'>
