@@ -77,7 +77,7 @@ public class AdapterXDRRequestSecuredImplTest {
             }
 
             @Override
-            protected RegistryResponseType callAdapterComponent(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+            protected RegistryResponseType callAdapterComponentXDR(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
                 return new RegistryResponseType();
             }
 
