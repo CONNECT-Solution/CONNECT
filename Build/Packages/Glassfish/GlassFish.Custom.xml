@@ -2,7 +2,7 @@
 <project xmlns="http://nant.sf.net/schemas/nant.xsd" name="GlassFish.Custom">
 
   <target name="GlassFish.Redeploy.Release.Build.SetUp">
-    <property name="CCNetRemotingUrl" value="tcp://${Integration.Server.Host.Name}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
+    <property name="CCNetRemotingUrl" value="tcp://${HostName}:${CCNet.Server.Remoting.Port}/CruiseManager.rem"/>
     <property name="ProjectNameToPullFrom" value="${ProjectName}-${ProjectCodeLineName}-Release"/>
 
     <call target="Common.FindBuild"/>
@@ -27,7 +27,7 @@
 
     <get
       dest="${Release.Properties.Zip.File.Path}"
-      src="http://${Integration.Server.Host.Name}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Properties.Zip.File.Name}"
+      src="http://${HostName}/${ProjectName}-${ProjectCodeLineName}/Artifacts/${BuildArchiveFolderName}/${Release.Properties.Zip.File.Name}"
       verbose="true"/>
 
     <unzip todir="${GlassFish.Deploy.Directory.Path}" zipfile="${Release.Properties.Zip.File.Path}"/>
